@@ -1,5 +1,7 @@
 2026-10-20 latest owner authorization: IMPLEMENT v0.003, v0.004, v0.005 and v0.006 in sequence, building each on its finished predecessor. Team is root plus exactly two Argon High helpers through Bridge; no GPT/Opus/Muse helpers. This supersedes the earlier team. Collect the supplied Lyria MP3s in Desktop/Brass Tide Music and integrate a reloadable portable music library. Follow BUILD PLAN.txt and briefs/V0.003-V0.006 TEAM CONTRACT.md. Preserve prior releases and owner saves. All tests remain background, no desktop input/focus and never two game instances.
 
+Owner additionally directs physical interchangeable mount points, as in the reference fleet games: hull is a chassis, weapons are fitted modules. Reserve clear deck footprints; use identical position/size/arc/ID for fitting preview, actual boat, aim/projectile origin and combat. Do not overlap cabins/stacks or paint extra decorative working weapons. Preserve stable mount IDs in old saves when updating geometry.
+
 # Brass Tide — Codex team rules
 
 2026-10-20 v0.002 owner steering supersedes earlier limits: use coins in all visible text; WASD camera, default flagship autopilot/commander battles, 300 deployment points/side, paid weapon/engine/armor refits and much better original boats/wakes. Owner explicitly added Argon High, Opus5.5 Medium Google-plan, Muse Wonder Full and another app-native Sol6.1 Max. Read briefs/V0.002 TEAM CONTRACT.md. Preserve old releases. Background-only testing persists.

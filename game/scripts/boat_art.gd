@@ -15,6 +15,7 @@ const FOAM := Color(0.73, 0.87, 0.75, 1.0)
 const WAKE_LIFE := 6.0
 
 static var _station_cache: Dictionary = {}
+static var _audit_geometry: bool = "--qa-geometry" in OS.get_cmdline_user_args()
 
 # --- classification -------------------------------------------------------
 
@@ -104,7 +105,8 @@ static func _outline(stations: Array, y_offset: float = 0.0, shrink: float = 1.0
 		pts.append(Vector2(st.x * x_scale, y_offset - st.y * shrink))
 	for i in range(stations.size() - 1, -1, -1):
 		var st: Vector2 = stations[i]
-		pts.append(Vector2(st.x * x_scale, y_offset + st.y * shrink))
+		var point=Vector2(st.x * x_scale,y_offset+st.y*shrink)
+		if pts.is_empty() or pts[-1].distance_squared_to(point)>0.000001:pts.append(point)
 	return pts
 
 static func palette(spec: Dictionary, accent: Color, enemy: bool) -> Dictionary:
@@ -218,6 +220,8 @@ static func _poly(ctx: Dictionary, locals: Array, h: float, col: Color) -> void:
 	var pts := PackedVector2Array()
 	for l in locals:
 		pts.append(_pt(ctx, l, h))
+	if _audit_geometry and Geometry2D.triangulate_polygon(pts).is_empty():
+		push_error("BAD BOAT POLY angle %.5f height %.2f points %s"%[ctx.angle,h,str(pts)])
 	ctx.canvas.draw_colored_polygon(pts, col)
 	ctx.n = int(ctx.n) + 1
 	ctx.npoly = int(ctx.npoly) + 1
@@ -269,7 +273,7 @@ static func _one_hull(ctx: Dictionary, stations: Array, y_off: float, c: Diction
 		var points=PackedVector2Array([_pt(ctx,contact[i],0.0),_pt(ctx,contact[j],0.0),_pt(ctx,rim[j],6.5+lift),_pt(ctx,rim[i],6.5+lift)])
 		for triangle in [[points[0],points[1],points[2]],[points[0],points[2],points[3]]]:
 			# The two bow-tip stations coincide; omit zero-area faces at every heading.
-			if absf((triangle[1]-triangle[0]).cross(triangle[2]-triangle[0]))<0.01:continue
+			if absf((triangle[1]-triangle[0]).cross(triangle[2]-triangle[0]))<1.0:continue
 			ctx.canvas.draw_colored_polygon(PackedVector2Array(triangle),c.side.lightened(0.06) if i%2==0 else c.side)
 			ctx.n+=1;ctx.npoly+=1
 	_poly(ctx, _outline(stations, y_off, 0.97, 0.99), 6.5 + lift, c.top)
