@@ -85,7 +85,7 @@ def main():
     tests.mkdir(exist_ok=True)
     shutil.copy2(ROOT / f"docs/TEST RESULTS v{VERSION}.md", tests / f"TEST RESULTS v{VERSION}.md")
     shutil.copytree(ROOT / "docs/helper-reports", tests / "helper-reports", dirs_exist_ok=True)
-    (dest / "START HERE.txt").write_text(START.replace("v0.001", "v" + VERSION), encoding="utf-8")
+    (dest / "START HERE.txt").write_text(START.replace("{VERSION}", VERSION), encoding="utf-8")
     (dest / "Stable Rendering.vbs").write_text(STABLE, encoding="utf-8")
     hashes = {p.relative_to(dest).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
               for p in sorted(dest.rglob("*")) if p.is_file()}
@@ -102,13 +102,13 @@ def main():
     print(f"Verified release: {dest}\nArchive: {archive}\nSource: {commit}", flush=True)
 
 
-START = """BRASS TIDE: THE SHATTER COAST — v0.001
+START = """BRASS TIDE: THE SHATTER COAST — v{VERSION}
 
 PLAY
 Double-click Brass Tide.exe. No editor, installer, Node or Python is needed.
 Keep the EXE and matching PCK together. You can move this whole portable folder.
 Your voyage and backup are saved in saves/ beside the EXE after you start playing.
-Existing v0.001 voyages load in v0.002; copy your old saves folder into this new folder
+Existing v0.001 voyages load in this version; copy your old saves folder into this new folder
 while both games are closed. Keep the original folder as a backup.
 
 FIRST VOYAGE

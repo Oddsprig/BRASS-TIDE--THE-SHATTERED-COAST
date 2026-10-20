@@ -4,6 +4,7 @@ Standalone EXE passed menu/campaign/save/battle headless; PCK runtime/exclusion/
 Original Windows icon and PE0.0.2.0 verified; QA saves preserved outside release, v0.001 retained.
 Updated Desktop launcher after exact path grant; read back native target, working directory, icon and matching hash.
 No foreground launch, input control or GPU frame-rate claim. Final source/tag/upload state and archive hashes are in delivery receipts.
+GitHub upload blocked by Windows credential-helper shell0xC0000022; independently verified old main/new tag absent. Local release complete.
 Next0.003: owner play feedback on camera, fitting, fleet readability and measured rendering.
 
 2026-10-20 | v0.002 | integrated candidate | lead Codex + authorized four-model team
