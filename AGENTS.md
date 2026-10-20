@@ -1,0 +1,17 @@
+# Brass Tide — Codex team rules
+
+The owner supplied portable build rules and asked: "rebuild it to fit a chatgpt workflow"; "file location/folder location would fit u and ur tools - but the other rules that are transferable are transfered."
+
+Authoritative source is this Git repository. Scratch, helper worktrees, logs and release checkouts live in the parent task's work/ directory. User-facing releases live in the parent task's outputs/ directory. The requested desktop launcher points at the newest portable release; placing it requires the host's filesystem permission. Never infer a new repository's GitHub destination from an unrelated project.
+
+Read order: maps/PROJECT MAP.txt, HANDOFF.md, CODE MAP.md, maps for the assigned systems, newest DEV LOG.txt entry, then targeted rg. Bootstrap missing maps/records honestly; never claim they exist. Read files over40KB in parts. Split code near60KB. Archive old documentation near80KB, devlogs near40KB; preserve archived text. Keep logs/test output out of Git.
+
+Owner requests: "v 0.001 - each version will advance by that .001 integer"; "godot, and a pc only build"; Android portability useful but not required; "multithreading ect"; "start the rendering as a multithread rendering too"; cheap decorative water; numerical crew with fixed helmsman/gunner details only; one extra Sol6.1 specialist directly in this app, two Argon High helpers through BigBridge. No further helpers. Original assets/map/factions/roster inspired by motorboat combat and fleet economics. Never copy Blood Wake or Starsector assets/code/story/map.
+
+Lead owns plan, taste, balance, integration, user updates, testing and release. Helpers use a written brief and their own Git worktree, with an explicit file allowlist. A brief states goal, maps/inputs to read, names to keep, allowed changes, rules, build/tests, done condition and report. Helpers never delete files. Lead reads complete diffs and independently builds/tests before integration. Preserve helper reports unchanged and add a separate verdict.
+
+Prefer bounded tests under1minute, never over3minutes. Never weaken a test to pass it. Build dev tools that answer a question quickly. Use official Godot documentation for uncertain API behavior. UI stays on the main thread; pure worker tasks own copied state and publish results only after completion. Rendering thread is configured Separate. No animated crew, expensive fluid or per-pixel water simulation.
+
+Per playable version: integer build increments1, displayed as build/1000 to3decimalplaces. Update VERSION MAP.txt, DEV LOG.txt, ROADMAP.md, HANDOFF.md, TO BE TESTED.md, VERSIONS.md, CODE MAP.md, system maps and generated PROJECT MAP.txt. Write CHANGES vX.md at release and preserve it thereafter. Commit explicit named files and tag. Build/export in a separate release worktree. Push main and the version tag to the verified intended GitHub repository when accessible and authorized. Do not mark a push/export/playtest done without evidence.
+
+Keep working through mid-task steering. State mistakes plainly. Ask before deletions, removal of old releases, irreversible actions or genuinely missing permissions. Never kill processes by pattern; use only an owned explicit PID. Never run two game instances. Do not install tools globally or change system settings. Use existing Godot4.7.2, Python3.12 and Node. A portable release must run without an editor or Node/Python installed. Save/load must preserve campaign state. Keep credits, stocks, crew and resources finite and nonnegative.

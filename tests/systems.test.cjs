@@ -1,0 +1,43 @@
+'use strict';
+const assert = require('node:assert/strict');
+const S = require('../dist/systems.js');
+const spec = { id: 'test', name: 'Test Skiff', hp: 140, armor: 2, crewMin: 2, crewOptimal: 5, crewMax: 7, pumps: 0 };
+function run(s, seconds) { for (let t = 0; t < seconds; t += 0.1) S.tickShip(s, 0.1); return s; }
+let s = S.createShip(spec, { crew: 0 });
+S.applyHit(s, { damage: 25, kind: 'torpedo' }, () => 0.9);
+assert(s.breaches.length > 0); run(s, 120); assert(s.sunk, 'unattended torpedo flooding sinks skiff');
+s = S.createShip(spec, { water: 100, breaches: [{ area: 20, section: 'bow' }] });
+S.setPolicy(s, 'fight'); const fight = S.getStatus(s);
+S.setPolicy(s, 'bail'); const bail = S.getStatus(s);
+assert(bail.crewBail > fight.crewBail); assert(bail.crewGuns < fight.crewGuns);
+assert.equal(bail.crewGuns + bail.crewBail + bail.crewRepair, 5);
+assert(bail.bailing > bail.inflow, 'crew can control a light breach');
+const supplies = s.supplies; S.tickShip(s, 1); assert(s.supplies < supplies);
+s = S.createShip(spec, { policy: 'repair', breaches: [{ area: 100, section: 'bow' }] });
+run(s, 10); assert(S.sumAreas(s) > 30, 'large patches require tens of seconds');
+run(s, 15); assert.equal(S.sumAreas(s), 0, 'sufficient repair crew and stores close a large hole');
+s = S.createShip(spec, { policy: 'bail', supplies: 0, breaches: [{ area: 200, section: 'bow' }] });
+run(s, 120); assert(s.sunk, 'torpedo-sized breach overwhelms fully crewed unpatched skiff');
+s = S.createShip(spec, { supplies: 0, policy: 'bail', water: 100 });
+run(s, 5); assert(s.water < 100); assert.equal(s.supplies, 0);
+s = S.createShip(spec, { supplies: 0.1, policy: 'repair', breaches: [{ area: 100, section: 'bow' }] });
+run(s, 15); assert(s.supplies >= 0); assert(S.sumAreas(s) > 90, 'supplies limit patching');
+s = S.createShip(spec, { hp: 70, wounded: 2, supplies: 0, water: 20, breaches: [{ area: 20, section: 'bow' }] });
+const untouched = JSON.stringify(s); const zero = S.repairAtPort(s, 0);
+assert.equal(zero.cost, 0); assert.equal(JSON.stringify(s), untouched);
+let result = S.repairAtPort(s, 37); assert(result.cost > 0 && result.cost <= 37); assert(result.repaired);
+result = S.repairAtPort(s, 10000); assert(result.cost > 0); assert.equal(s.hp, s.maxHp);
+assert.equal(s.wounded, 0); assert.equal(s.supplies, 20); assert.equal(s.water, 0);
+assert.equal(S.repairAtPort(s, 100).cost, 0);
+const snapshot = JSON.stringify(s); S.getStatus(s); assert.equal(JSON.stringify(s), snapshot);
+s = S.createShip(spec); S.applyHit(s, { damage: 10, kind: 'bullet' }, () => 0);
+assert(s.crew >= 4, 'ordinary hit does not annihilate crew'); assert(s.wounded <= 1);
+run(s, 10000);
+for (const key of ['hp', 'crew', 'wounded', 'water', 'fire', 'engine', 'supplies', 'ammo', 'fuel']) {
+  assert(Number.isFinite(s[key]) && s[key] >= 0, key);
+}
+const t = S.getStatus(s); assert(t.crewGuns + t.crewBail + t.crewRepair <= s.crew - s.wounded + 1e-9);
+const a = S.createShip(spec), b = S.createShip(spec);
+S.applyHit(a, { damage: 20, kind: 'shell' }, () => 0.2); S.applyHit(b, { damage: 20, kind: 'shell' }, () => 0.2);
+run(a, 30); run(b, 30); assert.deepEqual(a, b);
+console.log('systems: all deterministic damage, flooding, crew, supplies and port tests passed');

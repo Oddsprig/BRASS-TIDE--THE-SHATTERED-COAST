@@ -1,0 +1,7 @@
+**/.godot/
+toolchain/
+qa/
+*.log
+*.tmp
+.openai/
+releases/
