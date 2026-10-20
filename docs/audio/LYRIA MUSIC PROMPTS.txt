@@ -1,0 +1,56 @@
+BRASS TIDE — LYRIA MUSIC PROMPTS
+20 October 2026 | TEXT PROMPTS ONLY
+
+Paste one complete prompt at a time into the Lyria interface you use. Choose the longest practical cue length available there; aim for an editable 60–120-second game loop when supported. If the interface only makes short clips, request a compact even-bar phrase and create the loop in editing. A prompt cannot guarantee a seamless loop, exact bar count or synchronized stems; audition and trim the result.
+
+These are original directions for a fictional bronze-coin coastal civilization with diesel motorboats. They do not name another game's soundtrack or a living artist to imitate. All six main cues are instrumental and leave space for actual weapon/engine recordings. Do not bake gunshots, explosions, waves, bells, dialogue or other gameplay sound effects into the music.
+
+01 — TITLE THEME: BRASS AND SALT
+USE: title screen and the player's first view of the coast.
+
+PROMPT:
+Compose an original instrumental main-menu theme for Brass Tide, a coastal fleet-combat game about a worn motorboat, working harbors and a captain building a flotilla. 84 BPM, 4/4, D minor with a few hopeful Dorian colors. A memorable restrained four-note motif, warm low brass, bowed cellos, breathy dizi phrases and dark, rounded guzheng plucks. Begin quietly with space around the melody, introduce a slow maritime pulse, then grow into a broad confident statement without becoming a trailer crescendo. The mood is salt, weathered timber, bronze coins, loyalty and danger beyond the harbor. Detailed acoustic texture with a subtle low electronic foundation; no glossy pop lead. Instrumental only, no singing, choir, chants, lyrics or spoken words. No high bell/chime pings, no weapon or sea sound effects. Keep dynamics controlled and the midrange open. Finish on a sustained open harmony that can be edited back to the beginning; no abrupt final hit.
+
+02 — COASTAL TRAVEL: CHANNELS AT FIRST LIGHT
+USE: exploration, trade voyages and calm fleet movement.
+
+PROMPT:
+Create an original instrumental exploration underscore for motorboats moving between distant fishing towns, reed channels, timber islands and industrial harbors. 92 BPM, steady 4/4, D Dorian. A gentle forward-moving bass pulse, muted low strings, warm guzheng patterns, occasional pipa responses and an airy dizi melody, with light brushed or wooden percussion. The arrangement should suggest broad open water and a working coast rather than a pirate tavern or a tourist postcard. Quiet confidence and curiosity, with a small trace of danger. Introduce short melodic fragments, leave breathing room, and vary the texture gradually without sudden breakdowns or huge cymbal crashes. Make a continuous, restrained game underscore that remains pleasant after repeated listening. Instrumental only: no vocals, chanting, speech, gunfire, boat engines, water recordings, bells or sonar-like pings. Keep the opening and closing harmonies compatible for an edited loop. Leave space for the game's real engines, wind and weapon effects.
+
+03 — HARBOR ECONOMY: THE SHIPWRIGHTS' QUAY
+USE: markets, crew hiring, paid repairs and the fitting yard.
+
+PROMPT:
+Write an original instrumental harbor theme for a busy coastal town where shipwrights, carpenters, merchants and sailors earn bronze coins. 76 BPM, relaxed 4/4, warm G major with a lightly modal melody. Use a grounded plucked-string pattern, soft guqin-like bass notes, delicate pipa phrasing, warm chamber strings and a small wooden-percussion groove. The music should feel practical, humane and quietly prosperous: repair bills, shared crew purses, cargo being counted and a boat gradually becoming seaworthy. Give the melody personality without making it a repetitive jingle. Favor rounded attacks and natural space, not bright toy chimes or constant metallic ticking. Maintain a gentle pulse and modest dynamics suitable for reading menus and comparing fittings. Instrumental only, no lyrics, voices, crowd chatter, coin noises, hammering, engines, waves or weapons. End with an easy continuation rather than a theatrical resolution so it can be edited into a long menu loop.
+
+04 — HOSTILE CONTACT: SHAPES THROUGH THE HAZE
+USE: approaching a patrol, a dangerous channel or the pre-battle choice.
+
+PROMPT:
+Compose an original instrumental tension cue for an uncertain fleet contact in coastal haze. 104 BPM, 4/4, D minor. Start with a low cello ostinato and restrained hand-drum pulse, then add muted brass breaths, sparse dark plucked strings and short dizi fragments. Suspense should come from rhythm, register and unresolved harmony rather than continuous risers. This is a captain assessing distance, ammunition and escape routes, not a horror jump scare. Build pressure in small layers while leaving clear gaps for interface decisions and approaching engines. No sudden loud impact, no large climax, and no repeating high-frequency metallic ping. Keep a controlled dynamic range and a steady, editable rhythmic bed. Instrumental only: no choir, chant, speech, gunshots, explosions, alarms, water or engine recordings. Close with the same unresolved harmonic tension as the opening so the cue can continue or crossfade into combat.
+
+05 — FLEET COMBAT: IRON ACROSS THE WATER
+USE: ordinary mixed-fleet battles.
+
+PROMPT:
+Create an original instrumental fleet-battle score with physical weight and forward drive. 124 BPM, 4/4, D minor. Low strings push a clear ostinato beneath forceful but controlled brass phrases, large barrel-drum rhythms, dry low toms and occasional sharp pipa accents. Bring back a simple defiant maritime motif and develop it across contrasting sections instead of looping one pounding bar forever. The feeling is coordinated motorboat attacks, damaged armor, crew discipline and an earned victory. Keep the percussion rhythmically precise, with audible space between attacks and room for real machine guns and cannon transients. Powerful does not mean clipped or constantly at maximum volume. Avoid EDM drops, trailer braaams, piercing chimes and wall-to-wall cymbals. Instrumental only, no vocals or chanting, and absolutely no gunfire, explosions, engines or water effects baked into the track. Use repeatable sections and a compatible ending for an edited combat loop; do not add a victory fanfare at the end.
+
+06 — FINAL BLOCKADE: THE SHATTER LINE
+USE: the final fortified-coast fleet engagement.
+
+PROMPT:
+Compose an original instrumental finale battle cue for a small hard-earned flotilla attacking a powerful coastal blockade. 136 BPM, 4/4, D minor, with a few ascending phrases that suggest resolve rather than easy triumph. A broad low-brass theme, urgent divided strings, deep barrel drums, dark pipa tremolo and brief breathy flute responses. Make the composition feel larger than the ordinary battle theme through counterpoint, register and longer dramatic phrases, not simply louder mastering. Alternate focused attack passages with brief moments of tense space while maintaining momentum. This should carry human stakes: paid sailors, damaged boats and the decision to keep going. Leave the center of the mix and sharp transients available for weapon sounds. No choir, vocals, chants, lyrics or speech. No gunshots, explosions, alarms, engines, waves, high bell pings or sampled combat. End in sustained unresolved motion suitable for looping; the game's separate result cue will announce victory or loss.
+
+OPTIONAL SHORT RESULT CUES
+
+07 — SURVIVORS HOME (VICTORY, roughly 6–8 seconds)
+Create a short original instrumental victory cue: a warm rising low-brass phrase, restrained strings and one grounded drum accent, resolving into relieved open harmony. Earned survival, not a comic jackpot. No voice, choir, bright bell jingle, coin sound or explosion. Leave a short natural tail and then silence.
+
+08 — AN EMPTY BERTH (LOSS/WITHDRAWAL, roughly 6–8 seconds)
+Create a short original instrumental aftermath cue: a low cello phrase, a quiet breathy flute response and a falling harmony that leaves dignity and uncertainty. Restrained sadness after a damaged fleet returns or a boat is lost. No melodramatic choir, jump-scare hit, failure buzzer, bell ping or sound effects. Let the final note decay naturally into silence.
+
+LISTENING / EDIT NOTES
+Reject accidental lyrics, baked-in weapon/sea audio, bright repeating pings, harsh clipping or a grand ending that makes looping awkward. Check the result with actual battle sounds underneath; music must not replace the force of a shot. Keep alternate takes. Do not assume separate generations are phase-matched stems. Save generation date, prompt, model/interface, selected output and the applicable usage terms with the asset before release.
+
+Prompt structure follows Google's official advice to describe style, tempo, instruments and dynamics; the cue text above is original:
+https://deepmind.google/models/lyria/prompt-guide/

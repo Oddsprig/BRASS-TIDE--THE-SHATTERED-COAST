@@ -1,3 +1,5 @@
+2026-10-20 latest owner feedback: reject detached under-hull shadow/reflection copies, weak combat visuals/synthetic pings and clustered map. Requested build/version plan, real recording research, Lyria prompts as text only, better menus/boats, dev tools and full-fleet lab. Read BUILD PLAN.txt, VERSION MAP.txt and maps/development.txt. Planning/tooling does not bump playable BUILD. Existing releases/saves/launcher stay intact. Next runtime milestone is v0.003; do not claim it shipped from documentation alone.
+
 # Brass Tide — Codex team rules
 
 2026-10-20 v0.002 owner steering supersedes earlier limits: use coins in all visible text; WASD camera, default flagship autopilot/commander battles, 300 deployment points/side, paid weapon/engine/armor refits and much better original boats/wakes. Owner explicitly added Argon High, Opus5.5 Medium Google-plan, Muse Wonder Full and another app-native Sol6.1 Max. Read briefs/V0.002 TEAM CONTRACT.md. Preserve old releases. Background-only testing persists.

@@ -1,3 +1,12 @@
+2026-10-20 | next-stage plan/tooling | playable version remains v0.002
+Owner rejected ghost hull/shadow layers, weak combat/SFX and clustered map; requested build/version map, menus/dev tools, fleet lab and Lyria text.
+Source diagnosis: negative-height whole-hull copies; circle effects; generic synthetic gun triggered only by flagship ammo; fixed map bounds/zoom/labels.
+Wrote staged0.003–0.006plan with visible acceptance, save/economy gates, roles and bounded tools; old release notes/binaries/saves preserved.
+Researched real recorded weapon sources and licenses; no purchase/download/audition claim. Six original Lyria cues plus two stingers delivered as text.
+Built serialized silent fleet bench/runner and seven presets; all pass. Full300v300fortyboats6simseconds:1,091ms simulation work, not GPU FPS.
+Generated reproducible larger-territory concept/draft, current world bytes unchanged; draft minimum nearest port800units, routes still need implementation tests.
+Next: implement v0.003 solid hulls/title/Escape/lab/dev flow. No runtime BUILD bump or release tag for planning and dev scripts.
+
 2026-10-20 | v0.002 | native release verified | source 6c0e81b69684b7c1eebaa6430d2eebd190bf7b72
 Clean separate tagged worktree passed all15native suites, then imported/exported Windows x64.
 Standalone EXE passed menu/campaign/save/battle headless; PCK runtime/exclusion/version/currency/Separate audit0failures.

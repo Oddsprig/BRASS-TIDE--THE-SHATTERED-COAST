@@ -1,0 +1,55 @@
+BRASS TIDE — WEAPON SOUND RESEARCH AND IMPLEMENTATION BRIEF
+Checked 20 October 2026 | web research, not an audio audition
+
+DECISION
+Replace the existing pitched synthetic shot with recording-based weapon sound design. First fix the event path: currently only flagship ammo changes trigger a shot sound, so adding a great WAV alone leaves most of a fleet silent. Every relevant firing/hit event needs position, weapon family, source and a unique sequence. Keep music separate.
+
+FIRST SMALL BANK
+Machine guns: a sharp recorded muzzle attack, mechanical texture and short outdoor decay, with multiple non-repeating variations. Cannon: a deeper report and pressure body, mechanical recoil/closure and a short open-air tail. Rocket: launch ignition, flight and separate impact. Torpedo: launch/splash, subdued passage and a heavy water/hull impact. Add short wood/plate impact and missed-shot water layers; avoid recycling the same explosion for every event. Distant weapons should be quieter/darker, not absent or as loud as the flagship. Avoid long indoor reverb on an open coast.
+
+VERIFIED RECORDING SOURCES TO AUDITION
+
+1. Freesound — qubodup, Clean Machine Gun Burst
+https://freesound.org/people/qubodup/sounds/482122/
+The uploader describes a burst taken from public-domain US military footage. The current file page labels it CC0. It is a short mono WAV. The description also refers to profile attribution guidance, so preserve the displayed license/provenance and credit the source voluntarily. Small no-purchase candidate for an initial machine-gun timbre, subject to listening and provenance verification on acquisition. Login may be needed to download. No file downloaded in this task.
+
+2. BOOM Library — Assault Weapons
+https://www.boomlibrary.com/sound-effects/assault-weapons/
+Publisher documents actual firearm recording sessions, including an MG42, with close/distant perspectives and separate mechanics/tails. Candidate for rapid-fire attacks and material design with variation. Commercial product; no purchase made. Treat the public demos as references, not shippable files. Inspect the purchased license before copying any source audio into helper workspaces or source archives.
+
+3. BOOM Library — Cannons
+https://www.boomlibrary.com/sound-effects/cannons/
+https://www.boomlibrary.com/blog/cannons/
+Publisher describes recording fifteen cannons. Suitable reference/source option for an actual heavy cannon report rather than a pitched synth boom. Paid option, not a prerequisite or a purchase performed here. Its historic acoustics may need careful adaptation for this fictional deck weapon; do not claim every sample is modern naval artillery.
+
+4. Sonniss — GameAudioGDC archive and license
+https://sonniss.com/gameaudiogdc/
+https://sonniss.com/gdc-bundle-license/
+The free bundles are licensed for use in finished games, including commercial projects. The published terms do not authorize redistribution as a raw sound library; source/provenance and the download-date license must be retained. For this project, keep raw licensed sources out of the public Godot-source ZIP unless the actual license permits it. The bundles are large: inspect a tracklist and fetch a needed part rather than downloading the whole archive.
+
+Verified tracklist, from the archive's 2015 section:
+https://sonniss.com/storage/2025/05/Tracklist-GDC-GameAudio-Giveaway-Sheet1-1.pdf
+Concrete audition candidates listed there:
+- Coll Anderson / Guns: EFX EXT M4 Shots 02 B.wav
+- Coll Anderson / Guns: EFX EXT Mortar Explosion 08.wav
+- Coll Anderson / Metal Plate: EFX SD Metal plate bang 01 B.M.wav
+- Soundopolis / Water: Splash_Dive_Fienup_002.wav
+These are candidates for shot, impact and water layers, not a claim that an M4 or mortar is the game's cannon. Actual selection requires hearing the source and checking which archive part contains it. No bulk download was made.
+
+5. Sonniss / Pro Sound Effects — Tommy Gun
+https://sonniss.com/sound-effects/tommy-gun/
+Publisher describes real Thompson recordings with different firing patterns, pass-bys and impacts. A compact paid option to audition for a mechanical automatic-gun character. Outdoor forest tails differ from an open sea mix. No purchase or license entitlement is assumed.
+
+WHY A SEARCH RESULT NAME IS NOT ENOUGH
+The Freesound file called Machine Gun.wav by C-V is described by its creator as neighborhood fireworks assembled and EQ-ed to imitate a gun:
+https://freesound.org/people/C-V/sounds/640721/
+It is not the first choice for an owner explicitly asking for real weapon recordings. Similarly, some other uploaded "heavy machine gun" results are heavily processed derivatives with their own attribution chains. The source description and actual sound matter more than the filename. No raw video/game extraction is authorized by a plausible filename.
+
+IMPORT MANIFEST TO KEEP PER CHOSEN FILE
+Local asset ID; original title/file; creator/vendor; original page; source recording/provenance; source SHA256; acquisition date; license name/version and saved evidence; attribution text; permitted distribution; edits/cuts/layers; output SHA256; weapon/event assignment. Status starts CANDIDATE, becomes ACQUIRED only when obtained, and AUDITIONED only after listening. Do not label this research INSTALLED or AUDITIONED.
+
+GAME IMPLEMENTATION TARGETS
+Separate firing events from impact and sinking events. Pool voices; start at 32 with class priorities and measure. Support both teams, anti-repeat selection, camera-aware pan/distance and separate weapons/engines/ambience/music settings. Automatic fire timing follows the weapon cycle and stops cleanly. Keep peaks below clipping with useful headroom and modest music ducking. The effects must stay intelligible with forty boats; louder repetition is not impact.
+
+SHORT QA
+Validate event IDs/coverage, file formats/hashes, missing assets, license evidence, voice caps and clipping. Export a short controlled audition of one gun, cannon, rocket, torpedo and a mixed fleet for the owner's voluntary playback. Silent headless checks can prove scheduling and bounds; they cannot prove that the sound is convincing. No audio was played on the user's speakers during this research.

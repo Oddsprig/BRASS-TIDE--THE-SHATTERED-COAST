@@ -1,5 +1,16 @@
-# Brass Tide v0.002 — delivered native Windows build
+# Brass Tide — next-build plan and fast tooling, 20 October 2026
 
+Latest user steering: the v0.002 detached under-hull shapes and weak combat presentation/audio are unacceptable. They request a build/version map, Lyria prompts as text, actual weapon-recording research, stronger menus/dev tools/full-fleet testing and an expanded coast. Full BUILD PLAN.txt is authoritative for this stage. Numerical test passes are not visual acceptance.
+
+Completed now: BUILD PLAN.txt; revised VERSION MAP.txt/ROADMAP.md; docs/audio/LYRIA MUSIC PROMPTS.txt (six main cues and two optional stingers); docs/audio/WEAPON SOUND RESEARCH.txt (verified sources, not acquired/auditioned audio); docs/FAST DEV TOOLS.txt. Public copies and an illustrative 10,400x7,200 territory concept/draft are in ../Brass Tide - Next build plan.
+
+Working new dev tools: tools/qa_brass.py, tools/fleet_bench.gd, tools/bench_scenarios.json and tools/plan_territory.py. All seven battle presets passed, including all-family AI,300v300fortyboats and preserved over-cap reserve. Logs: ../../work/qa/planning-fast-tools. Full300sample6simseconds took1,091ms simulation work on this run; no rendered FPS/audio audition is claimed. The runner checks for an existing game/editor and serializes hidden/headless processes; no real save is loaded or written. Territory tool confirms current world bytes unchanged; proposed nearest-port spacing800–2,523units is a draft, not proven route geometry.
+
+Next playable v0.003: remove detached full-hull copies/outline at negative height in BoatArt._one_hull; construct connected solid water-contact hulls; proper title/Escape flow and fleet laboratory using the shared preset definitions; explicit dev overlay and copied dev-state isolation. Subsequent planned versions:0.004 combat effects plus per-boat recorded audio,0.005world/nav/save expansion,0.006all-hull/music/first-hour finish. Do not label these implemented.
+
+Current executable/BUILD remains0.002/2. No old release, launcher or owner save was changed by this step. Next implementation reads maps/development.txt and the relevant generated current-system maps, then follows BUILD PLAN acceptance gates and existing portable release rules. Background-only/no-input tests persist; never two game instances. The user's earlier four-model team remains authorized but no extra models/helpers were started here. Music generation was explicitly requested as prompts only; do not generate or buy tracks as part of this task. No paid SFX library was purchased, downloaded or installed.
+
+CURRENT RELEASE REFERENCE
 Source: outputs/brass-tide on main. Current game BUILD2/version0.002, tagged game source 6c0e81b69684b7c1eebaa6430d2eebd190bf7b72. Preserve all v0.001 artifacts and real saves. No foreground/mouse/keyboard tests; never two game instances.
 
 Implemented: coins labels, WASD/Shift camera, Home center, default autopilot, click/drag selection, right-click move/attack/escort,1/2/3orders, Space pause, Tab tactical pause/restore, U manual/AI, X flagship. Manual arrows/mouse/Ctrl.300DP ownership/deployment with preserved legacy over-cap reserves. Paid weapon/engine/armor fitting, OP/hardpoint sizes, finite parts/worker/specialist bills and lockers. Current24original hulls have richer shaded code art, seven silhouettes, fitted weapons, damage, capped curved wakes and projectile trails. Water remains a cheap gradient; crew numerical/static helm/gunner only.

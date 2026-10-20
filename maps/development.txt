@@ -1,0 +1,41 @@
+BRASS TIDE — DEVELOPMENT MAP (planning/tooling after v0.002)
+
+Current runtime remains v0.002. This file separates built tools from planned game features.
+
+BUILT FILES / VERIFIED SYMBOLS
+tools/qa_brass.py
+  existing_game(): read-only Windows process guard; never terminates a user's game.
+  main(): --list / --scenario / --suite smoke,all; serial hidden/headless runner and owned timeout.
+tools/fleet_bench.gd
+  hull(): copied canonical hull lookup.
+  roster(): isolated compatible boat/loadout fixtures; never career ownership.
+  _initialize(): bounded actual Battle/Deployment/Refit simulation, integrity/coverage/timing reports.
+tools/bench_scenarios.json
+  schema1; duel,all_weapons,mixed,full_300,reserve_boundary,torpedoes,rockets.
+tools/plan_territory.py
+  center(), edge_distance(), inside(): geometry helpers.
+  proposal(): larger-territory placement concept; does not modify runtime data.
+  main(): guards original geometry, exports PNG/JSON, checks bounds/water/current bytes.
+
+READS
+game/data/world.json; existing battle.gd/damage.gd/refit.gd/deployment.gd/version.gd.
+No Main/Campaign creation, real save access, desktop input, audio playback or rendered game.
+
+WRITES
+Task work/qa/fast-battles by default; supplied log directory for tests.
+Territory tool writes only its supplied concept output directory.
+
+ACTUAL VERIFICATION
+All7native presets passed; full_300 is40deployed boats at300DP each side.
+Reports/logs: ../../work/qa/planning-fast-tools; simulation timing is not GPU FPS.
+Python syntax/list/geometry checks and plan/document source references are checked separately.
+
+PLANNED GAME WORK (not existing APIs)
+v0.003 solid water-contact hulls, title/Escape menus, configurable battle lab and dev overlay.
+v0.004 typed all-boat audio events, recorded SFX and new combat effects.
+v0.005 expanded territory/nav/camera/save migration; v0.006 hull identity/music/polish.
+See BUILD PLAN.txt, VERSION MAP.txt, docs/FAST DEV TOOLS.txt and docs/audio/*.txt.
+
+EXISTING CHECKS
+tools/check_game.py --only <affected suites>; boat_gallery.gd/render_boat_gallery.py;
+verify_legacy_save.gd. Full campaign/release gates remain required before a playable version ships.

@@ -1,0 +1,146 @@
+BRASS TIDE — BUILD PLAN
+20 October 2026 | owner feedback after v0.002 | Godot / Windows PC
+
+PURPOSE
+Fix the presentation the owner actually sees and hears, provide a proper fleet-testing front end, then expand this territory. Numerical test passes are not evidence of attractive boats or satisfying combat. The existing v0.002 playable files, saves and launcher remain intact during this planning/tooling step. BUILD stays 2 until the next playable release. Music prompts are text only; no music generation or audio purchase has been performed.
+
+OWNER DIRECTION
+Remove the terrible shapes beneath boats. Combat needs substantially better visuals and actual weapon sound recordings, not repeated pitched pings. Improve title/Escape menus. Add dev mode, short tests and scripts, and a title-menu mode for full fleet engagements with different boats. Make the same territory substantially larger and spread its ports out. Improve boat models. Prepare Lyria music prompts.
+
+DECISIONS
+1. Keep inexpensive water and the campaign-chart -> separate isometric battle structure. Keep numerical crews, default autopilot, fitting and the 300-point normal fleet limit.
+2. Remove detached full-hull shadows and duplicate waterline outlines. Build one solid, connected hull sitting at the water surface. Reflections are not part of the next build.
+3. Make a battle laboratory the first development milestone, so new art, sound and fleet behavior can be compared in seconds.
+4. Use recorded weapon transients and material impacts. Music stays on a separate bus and does not contain gunfire or baked-in sea effects.
+5. Expand the current 2,600 x 1,800 world toward 10,400 x 7,200 units: four times each dimension and sixteen times the area. Keep the ten existing port identities first; author wider channels, distinct coastal regions and larger dual-port coastlines. Do not just add blank border water.
+6. Start the player in a readable regional view. A whole-territory overview is a navigation tool, not the default tiny-village display.
+
+WHAT THE SCREENSHOTS AND CURRENT SOURCE SHOW
+BoatArt._one_hull (game/scripts/boat_art.gd) draws a complete dark outline polygon at height -7 and another full outline at -2 before drawing the hull at positive heights. The projection moves those negative-height copies down the screen. This explains the detached hull/reflection appearance; it is not a fluid effect. Simply adding more planks or rivets will not repair that construction.
+
+The current combat effects in Chart.draw_battle are mostly expanding circles/arcs. Muzzle, splash and explosion effects share this treatment. Main._physics_process only detects flagship ammunition changes for shot sound. Sound._ready makes one generic synthetic shot, one boom and a bell. Enemy fire and allied secondary boats therefore lack individual firing feedback. This needs an event connection as well as better samples.
+
+The world is 2,600 x 1,800. Current nearest-port separations are about 260–517 units; the port bounds span only 1,730 by 890 units. Chart zoom-out and always-visible names/industry labels compound the crowding. Camera/grid limits and campaign navigation still contain fixed old-world dimensions.
+
+A title_screen and Escape captain's desk already exist, but the requested work is a clearer complete menu flow and an actual configurable fleet test mode. The current Quick battle is one preset, not a battle builder.
+
+BUILD ORDER / DEPENDENCY MAP
+Current plan + working fast bench
+  -> v0.003: solid hulls, title/Escape menus, battle laboratory and dev controls
+  -> v0.004: combat effects and recorded weapon/audio event system
+  -> v0.005: expanded territory, navigation, map readability and save migration
+  -> v0.006: complete 24-hull identity pass, music integration and first-hour polish
+
+The small visual/audio comparison fixtures can be developed alongside menu work. Territory changes wait for reproducible route and save fixtures. Music generation can happen independently using the supplied text prompts.
+
+v0.003 — SOLID BOATS + BATTLE LABORATORY
+Visible result:
+- No detached silhouette, dark boat copy or traced reflection beneath any boat.
+- Connected hull sides/freeboard meet the water; opaque hull surfaces occlude their own fittings. Hydrofoil struts may be visible, but must physically connect to the hull/foil, without a ghost boat underneath.
+- Start with representative skiff, catamaran, torpedo launch and monitor views, then apply the construction to all hulls. Wakes begin at the actual stern, curve with movement and fade while remaining behind the boat.
+- Clean muzzle flash shapes and local impact cues replace the worst overlapping translucent discs as the initial effects cleanup.
+
+Title menu:
+Continue voyage / New voyage / Fleet battle laboratory / Options / Guide & credits / Quit.
+Show version clearly. Use an original harbor/boat scene with calm motion and a single grounded hero boat. Support the same flow by mouse or keyboard. Opening the application presents the title; Continue is an explicit choice.
+
+Escape menu:
+Resume / Save or Load when valid / Options / Main menu / Quit. Opening it pauses the relevant simulation and resumes its previous pause state when closed. In the laboratory also offer Restart same seed and Return to battle builder. Separate audio controls for master, weapons, engines/ambience and music. Keep technical counters out of ordinary player menus.
+
+Fleet battle laboratory, reachable directly from the title:
+- Two independently editable fleet columns. Pick any of the 24 hulls, quantity and actual compatible loadout. Show points, crew, armor, speed, weapons and magazine capacity before launch.
+- Normal mode uses up to 300 points per side with the same Deployment/Refit/Battle code as the career. Empty or invalid rosters show a clear reason. Do not silently drop selected boats.
+- Defaults: autopilot for both fleets, full laboratory crew/stores, neutral starting condition. These are explicitly free test fixtures, outside the economy.
+- Presets: starter duel, four weapons, mixed flotillas, 300 v 300, reserve boundary, torpedoes against armor, rocket engagement. Add terrain, daylight palette and formation selectors only after the core builder works.
+- Reproducible seed, replay, optional manual flagship, pause/step and readable after-action results (damage by weapon, losses, rounds, breaches, flooding and remaining points).
+- Any later stress budget above 300 is a clearly marked laboratory-only option with a hard cap, isolated from campaign acquisition rules. It is not required for the first lab release.
+- Never load a real career into the laboratory, award coins, save laboratory hulls as a campaign, or overwrite a career when returning to the title.
+
+Dev mode:
+Explicit --dev launch option or an Options toggle; show DEVELOPMENT on screen. F9 toggles the overlay. Provide seed, simulation timing, boat/point counts, projectile/effect/voice counts, AI intent, collision bounds, firing arcs, hit points and water/repair rates. Pause, single-step, replay and snapshot export are first-class tools. Spawn/repair/refill controls operate on lab fixtures. Career investigation uses a separate copied dev save with autosave disabled, never the owner's ordinary save. No arbitrary shell/remote execution console.
+
+Likely changes:
+boat_art.gd, boat_portrait.gd, chart.gd, main.gd, interface.gd. Split new menu, lab and overlay UI into small dedicated modules rather than growing Interface beyond its size limit. Reuse tools/bench_scenarios.json as the preset source. New module names are planned, not existing APIs.
+
+Exit gate:
+All 24 boats at eight headings, three zoom levels, stationary and moving: no detached hull/outline copies or clipped fittings. Check actual-size silhouettes, not primitive counts. Title -> builder -> battle -> results -> builder -> title works. Escape restores pause state. Normal 300-point checks and save isolation pass. A full career replay still conserves resources.
+
+v0.004 — COMBAT THAT READS AND SOUNDS LIKE MOTORBOAT COMBAT
+Visual language:
+- Machine guns: sharp short muzzle flash at the correct barrel, interrupted tracer streaks, small material hits and short missed-shot water kicks. A rapid gun must look automatic. If its cycle rate rises, rebalance per-round damage and paid ammunition use together; never show imaginary shots while retaining a fake ammo count.
+- Cannons: brief bright flash, visible barrel recoil/return, a heavier shell streak, local smoke, splinter/plate fragments and a separate water impact for misses.
+- Rockets: rack ignition, short exhaust, capped smoke trail and a compact impact/fire effect. Avoid giant glowing circles covering both hulls.
+- Torpedoes: readable moving body and thin foam trail at water height; water-column impact, hull shock and persistent breach/flooding consequences. No laser appearance or constant fireball.
+- Distinguish wood hits, armor hits, engine damage, fire and sinking. Sink in a short controlled hull-down/foam/wreck sequence rather than disappearing behind a generic circle.
+- Keep selected outlines, orders and health bars readable through effects. Camera shake is restrained, optional and can be zero.
+
+Audio connection:
+Battle emits bounded typed events for fire, hit, splash, engine failure and sinking, including source/target IDs, mount, weapon family, position, material and event sequence. Main consumes each event once. Sound playback must not depend on flagship ammo comparisons. All player and enemy boats contribute.
+
+Audio bank and mix:
+Recorded gunshot attack + body + appropriate short outdoor tail, mechanical action and material-specific impact. Separate light/heavy gun and cannon variants, rocket ignition/flight/impact, torpedo launch/water impact, engine idle/load/damage, hull creaks, fire and bailing/pumps. No procedural sine-tone ping as weapon or impact feedback. Use variation without immediate repeats, restrained pitch variation, camera-aware panning/distance, priority and per-category voice limits. Start with a 32-voice budget and measure it; near relevant attacks and major impacts take priority over distant detail. Automatic fire uses correctly timed single shots or authored start/body/tail segments; do not restart a long burst every frame. Music ducks modestly during important combat feedback. Headroom and a limiter prevent a forty-boat battle becoming clipped noise.
+
+Sources are researched in WEAPON SOUND RESEARCH.txt. Select and audition a small first bank; verify individual rights, keep acquisition evidence and produce proper credits. Paid libraries are options, not purchases made or required by this plan. Do not rip sounds from another game or a random video. Source archives and extracted licensed WAVs stay in a local audio work folder, not a public Git source ZIP; commit a manifest/import recipe and distribute only what the license allows inside the finished game.
+
+Exit gate:
+One representative firing/hit/miss/sinking sequence for each family is unmistakable at play zoom. A forty-boat scenario emits audio for both teams, respects caps and does not reuse a bell as a gun. Audio source/credit audit passes. Numerical samples cannot decide whether it sounds good: export short audition files for the owner to hear voluntarily, while automated runs stay silent/background.
+
+v0.005 — A LARGER SHATTER COAST, NOT A TINY CLUSTER IN A BIG VIEWPORT
+Territory target:
+10,400 x 7,200 world units. Retain the ten named ports and original region identities. Spread island centers about fourfold; reshape dual-port coastlines so Cinder/Anvil and Rust/Shatter also separate meaningfully. The concept drawing uses a minimum draft port spacing of about 800 units and measured nearest-neighbor spacings of 800–2,523. This is a placement proposal, not a tested playable geography.
+
+Structure:
+- Working harbors and farming channels near the home region.
+- Timber/shoal crossings with meaningful alternate passages.
+- Industrial foundry/shipyard coastline with room for convoys and patrol routes.
+- Reed channels and refinery approaches with safe and risky route choices.
+- Outer fortified coast, broader open sea and approach lanes for the blockade finale.
+Keep useful destinations and route decisions within reach. Do not add ten copies of the same port just to fill the map. Additional economies require their own future material/workforce/purse migration design; v0.005 first expands the existing ten.
+
+Camera and readability:
+Default regional view should show roughly 2–4 ports at useful size. Home centers the fleet; WASD/Shift still pans. Add a whole-territory view/fit-region control. Use actual map bounds and the viewport area between sidebars. Far zoom draws simplified coast/port markers and selected/hovered/contract labels; near zoom draws villages and industry labels. Place labels by screen-space priority/overlap tests, not all at once. Restore sensible zoom on entering a new game and remember deliberate player zoom thereafter. The concept figure fits both territories for comparison; it is not the proposed default play zoom.
+
+Navigation and economy:
+Campaign must pass actual world dimensions to Navigation.create; replace chart/grid/pan constants and use bounds consistently. Current Navigation already grows its cells to stay below 5,000 nodes: retain this safeguard. Prototype an explicit coarse grid (about 160-unit cells gives about 2,925 grid positions) with exact local harbor connectors. Add bounded fine local grids/portal routes only if route tests demonstrate the coarse representation loses narrow channels. Benchmark construction/query cost, cache static geometry and cull offscreen scenery. A larger map must not imply a water simulation or per-frame whole-world rebuild.
+
+Travel speed, time controls, days/wages, food, fuel, patrol contacts and contract economics must be measured together. Preserve the 100-coin wage anchor. Larger distance must not quietly multiply the cost of an introductory job beyond its funded reward. Retune campaign cruise/time controls or mission route/reward calculations explicitly, with the same real transfer rules; do not mint compensation coins. Keep battle-unit scale and boat speed separate from campaign-map expansion.
+
+Old saves:
+Add a map revision and a one-time, copy-first migration. Reassign port coordinates by stable port ID while preserving each port's stocks/workforce/purses. A fleet docked at an old port moves to that port's new location; at-sea positions get the documented coordinate transform and safe-water verification. Rebuild route intent, patrol paths and harbor connectors against the new world. Preserve boat damage/loadouts/crew/stores, contracts, escrow, finances and campaign progress exactly. Reject malformed/unknown revisions before changing live state; never apply expansion twice. Original saves remain untouched.
+
+Exit gate:
+All ten ports reachable by actual water paths; routes remain inside bounds and outside land. Draft spacing target validated after authored reshaping. Labels readable at 1280x800, 1440x900 and a wide desktop size. Travel/wage/fuel/reward report for opening jobs and full campaign. Existing real-save migration and 365-day coin/workforce conservation pass. A complete actual eight-contract route still wins with earned resources and default autopilot.
+
+v0.006 — COMPLETE BOAT IDENTITY + MUSIC + FIRST-HOUR POLISH
+Give every hull a recognizable silhouette and at least two meaningful structural distinctions, not only recoloring one of seven archetypes: bow/stern, beam, cockpit/bridge placement, engine housings, armor belt, deck arrangement and fitted weapons. Keep turrets aligned with their actual fire arcs; make magazines/engines/armor visually coherent without animating crews. Validate visual body versus cheap collision approximation in the lab so boats do not appear to pass through one another. Keep fixed helm/gunner art only where it makes sense. Cache static geometry, use LOD/culling, and keep effects bounded.
+
+The six main Lyria prompts cover title, travel, harbor economy, contact, fleet combat and finale, with two optional result stingers. Audition user-generated outputs, edit/loop them and record their exact source/usage terms before integration. Do not promise separately generated cues are sample-aligned stems or perfectly seamless. Add music/ambience/combat settings and restrained crossfades; keep field sound effects outside the music file. Include a quiet music-off option.
+
+Finish the first-hour guidance for contracts, crew, repairs, fitting and why goods/boats cost coins. Run the final full campaign and clean portable export checks once the candidate is stable. Preserve all prior versions and update the icon target only after verification.
+
+DEVELOPMENT TOOLS — BUILT NOW
+tools/qa_brass.py: --list, --scenario or --suite smoke/all; starts one hidden headless Godot process at a time, refuses a detected existing Brass Tide/Godot instance, writes logs/reports outside the repository and times out its owned process after 20 seconds.
+tools/fleet_bench.gd: real Battle/Refit/Deployment numerical fixtures, seeded AI, finite-state/cap checks, weapon-kind coverage, reserve integrity and simulation timing. Internal work budget 10 seconds. Does not load Main/Campaign or read/save a career; no graphics, audio playback or desktop input.
+tools/bench_scenarios.json: seven reusable scenarios including forty deployed boats at exactly 300 points per side and an over-cap preserved reserve case.
+tools/plan_territory.py: reproducible concept PNG and coordinate draft; verifies current world bytes are unchanged. The draft is not loaded by the game.
+
+All seven bench presets passed independently. On this run the forty-boat 300 v 300 preset simulated six seconds in about 1.09 seconds of simulation work. These are CPU simulation measurements, not rendered FPS or audio-quality evidence. Exact per-run JSON/logs are in work/qa/planning-fast-tools.
+
+NEXT TOOLS TO BUILD WITH THEIR SYSTEMS
+- Map linter: bounds, port-to-shore associations, pair spacing, route reachability and travel economics; static checks first.
+- Encounter capture: exact boat/effect renderer at selected headings/timestamps/zooms, with contact sheets for visual review.
+- Replay/snapshot: same seed/loadout/orders, one command to reproduce an AI or damage failure.
+- Audio audit: file provenance/hash/format, missing families, clipping/headroom and emitted-event/voice limits. Listening remains a separate quality check.
+- Add targeted check_game selections for each change; avoid rerunning the entire economic campaign while moving a menu label. Run complete campaign/save/economy gates before release, not after every art edit.
+No full foreground run, mouse/keyboard takeover, global install or parallel game instances.
+
+TEAM SPLIT WHEN IMPLEMENTATION RESUMES
+Lead: taste, priority, acceptance, integration, user updates and release.
+App Sol6.1 Max: battle lab fixtures, typed combat events, AI/collision correctness.
+Argon High: bounded audio-source/manifest/import work and independent short-test audits.
+Opus5.5 Medium on Google plan: world bounds/navigation/save migration and economy/travel consistency.
+Muse Wonder Full: solid boat construction, silhouettes, effects timing and menu presentation.
+Use the already authorized team, written allowlists and isolated worktrees. No additional helpers or background service changes. Builders do not publish or delete. Root reviews complete changes and runs the serialized checks.
+
+RELEASE RULE
+A plan or a test-script change does not increment the playable BUILD. Each playable version advances by exactly 0.001, gets its immutable CHANGES file, records/maps, commit/tag, clean separate export, save/standalone checks and current launcher. A pass is recorded only after the actual check. v0.002's historical files remain preserved; its visual presentation is explicitly rejected by the owner's current feedback.

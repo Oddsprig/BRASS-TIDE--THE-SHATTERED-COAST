@@ -27,3 +27,6 @@ The playable game is game/. dist/ and root tests/*.cjs preserve the historical b
 - tools/publish_github.cmd: verified origin, preserved v0.001 tag, current annotated tag, clean main/tagged game check; non-force atomic main/tag push and remote verification.
 
 Maps: campaign, combat, economy, construction, navigation, presentation (each under80lines). Current evidence: docs/TEST RESULTS v0.002.md and separate raw/helper verdict. Human play questions: TO BE TESTED.md.
+
+
+Current development additions (playable game remains v0.002): BUILD PLAN.txt and VERSION MAP.txt define planned stages; docs/audio holds text music prompts and recorded-SFX research. tools/qa_brass.py runs tools/fleet_bench.gd against shared tools/bench_scenarios.json in isolated headless fixtures; tools/plan_territory.py emits a concept/draft without changing world data. See maps/development.txt and docs/FAST DEV TOOLS.txt. In-game lab/dev/menu improvements remain planned v0.003 work, not existing runtime APIs.
