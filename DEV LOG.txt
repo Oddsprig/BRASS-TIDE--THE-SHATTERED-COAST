@@ -1,3 +1,12 @@
+2026-10-20 | v0.001 | GitHub destination verified; upload pending
+Owner supplied Oddsprig/BRASS-TIDE--THE-SHATTERED-COAST; verified repository ID 1427417534, empty refs and connected-account push access.
+Configured origin to that exact repository without changing game files or the annotated v0.001 tag.
+Atomic Git push could not authenticate: Windows denied the sandboxed credential manager access to saved credentials (0x5).
+No remote branch/tag was created; connected GitHub tools do not support preserving the existing history and annotated tag.
+Prepared a one-click publisher for the user's normal Windows account, with clean-source/destination/tag checks, non-force atomic push and remote verification.
+Updated delivery records and source inventory; native executable/PCK, version and previous background test evidence remain unchanged.
+No foreground control, browser sign-in or new game instance was used.
+
 2026-10-20 | v0.001 | shipped locally | source e4c07d3ab72de3604010c6042e51d3e04a3dccaa
 Tagged and exported the exact source in a separate clean release worktree; all ten native suites passed there again.
 Exported EXE passed headless menu, campaign/save and battle; native icon/PE version and packaged resources verified.

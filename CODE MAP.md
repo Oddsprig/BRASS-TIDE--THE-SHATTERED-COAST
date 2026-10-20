@@ -19,5 +19,6 @@ The playable game is game/. dist/ and root tests/*.cjs preserve the first JavaSc
 - version.gd: integer build;1→0.001. game/export_presets.cfg excludes development tests/tools from native x86_64 package.
 - game/tests/: current native suites plus preserved superseded prototype campaign test. tools/check_game.py runs bounded sequential background-only checks and rejects logged script errors even on exit0.
 - tools/update_maps.py generates maps. build_notices.gd extracts exact engine legal notices into docs/legal and is excluded from export.
+- tools/publish_github.cmd checks the owner's verified GitHub destination, clean main and original release tag/game, then pushes main/tag atomically without force and verifies remote hashes. --check-only is local preflight.
 
 Maps: campaign,combat,economy,construction,navigation,presentation. Verification: docs/TEST RESULTS v0.001.md. Human play questions: TO BE TESTED.md.
