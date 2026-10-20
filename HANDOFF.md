@@ -1,6 +1,6 @@
-# Brass Tide v0.002 — integration complete; release verification next
+# Brass Tide v0.002 — delivered native Windows build
 
-Source: outputs/brass-tide on main. Current game BUILD2/version0.002. Preserve all v0.001 artifacts and real saves. No foreground/mouse/keyboard tests; never two game instances.
+Source: outputs/brass-tide on main. Current game BUILD2/version0.002, tagged game source 6c0e81b69684b7c1eebaa6430d2eebd190bf7b72. Preserve all v0.001 artifacts and real saves. No foreground/mouse/keyboard tests; never two game instances.
 
 Implemented: coins labels, WASD/Shift camera, Home center, default autopilot, click/drag selection, right-click move/attack/escort,1/2/3orders, Space pause, Tab tactical pause/restore, U manual/AI, X flagship. Manual arrows/mouse/Ctrl.300DP ownership/deployment with preserved legacy over-cap reserves. Paid weapon/engine/armor fitting, OP/hardpoint sizes, finite parts/worker/specialist bills and lockers. Current24original hulls have richer shaded code art, seven silhouettes, fitted weapons, damage, capped curved wakes and projectile trails. Water remains a cheap gradient; crew numerical/static helm/gunner only.
 
@@ -10,6 +10,8 @@ Team explicitly authorized by owner: app-native Sol6.1Max (/root/v002_combat), A
 
 v0.001 GitHub main f7f13d9 and annotated tag8c71de0→e4c07d3 were verified. Current v0.002 publishing requires exact remote verification; do not report it pushed merely because it is committed locally. Existing publisher now derives current version and preserves original tag/history. Windows sandbox credentials previously failed0x5; do not bypass the vault.
 
-Next: source import/final small integration checks, annotated tag, clean separate release-worktree tests/export, standalone EXE/menu/save/battle and PCK/icon/PE/hash audit. Copy a real save only after tests. Update prepared/Desktop launcher to new native EXE after required Desktop write grant; keep v0.001. Finish exact source/tag/delivery receipts and user-facing archive hashes. Final links must live under this task's outputs/.
+Delivered ../Brass Tide v0.002 and its Windows x64 ZIP. Exact annotated tag v0.002 resolves to 6c0e81b69684b7c1eebaa6430d2eebd190bf7b72; tag object4086c9c6f1b703e6e5e3ca5428f586782b9817dd. Separate clean ../../work/release-v0.002 passed all15suites again, then tools/release_game.py imported/exported and verified standalone native menu/campaign/save/battle. PCK audit: all required runtime modules/data/icon, version/currency and Separate renderer present; dev tools/tests/saves absent. PE metadata0.0.2.0 and original native icon verified. RELEASE.json records hashes. QA saves are retained outside the release. The prepared launcher was copied to Desktop after the required path permission; target/workdir/icon and identical launcher hashes read back. It has not been launched in the foreground.
+
+Final delivery copies the real v0.001 saves into only the new folder after executable tests. Clean Windows/source archives exclude private saves. Old folder/save bytes remain untouched. Post-export documentation on main does not change tagged game files. GitHub v0.002 publication status must be read from the final receipt; no successful remote update is inferred from local tags. Next development step: owner play feedback in TO BE TESTED.md. All final links live under outputs/.
 
 Engine C:/Users/bligh/Documents/Codex/2026-09-25/we-x20/work/engine/Godot_v4.7.2-stable_win64_console.exe; matching export template exists. Main thread owns UI/state publication; worker economy owns snapshots; rendering Separate. Stable Rendering.vbs has per-launch Safe fallback. See TO BE TESTED.md for actual human questions and documented Separate glyph issue. Read AGENTS/maps/CODE MAP then targeted rg before changes.

@@ -1,3 +1,11 @@
+2026-10-20 | v0.002 | native release verified | source 6c0e81b69684b7c1eebaa6430d2eebd190bf7b72
+Clean separate tagged worktree passed all15native suites, then imported/exported Windows x64.
+Standalone EXE passed menu/campaign/save/battle headless; PCK runtime/exclusion/version/currency/Separate audit0failures.
+Original Windows icon and PE0.0.2.0 verified; QA saves preserved outside release, v0.001 retained.
+Updated Desktop launcher after exact path grant; read back native target, working directory, icon and matching hash.
+No foreground launch, input control or GPU frame-rate claim. Final source/tag/upload state and archive hashes are in delivery receipts.
+Next0.003: owner play feedback on camera, fitting, fleet readability and measured rendering.
+
 2026-10-20 | v0.002 | integrated candidate | lead Codex + authorized four-model team
 Owner requested coins, WASD camera, flagship autopilot, commander controls,300DP, fitting and higher boat detail.
 Combat, paid refits, strict save migration, canonical morale, finite magazines and detailed original boats/wakes are integrated.
