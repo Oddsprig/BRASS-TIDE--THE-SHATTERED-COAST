@@ -1,8 +1,10 @@
 extends RefCounted
 ## Pure fixed-step combat. State and RNG belong exclusively to the caller.
 const Damage=preload("res://scripts/damage.gd")
+const Deployment=preload("res://scripts/deployment.gd")
 const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
+const MAX_MOUNTS: int=16
 
 static func _pos(s: Dictionary) -> Vector2:
 	return Vector2(s.x,s.y)
@@ -53,7 +55,7 @@ static func _log(st: Dictionary,message: String) -> void:
 static func create(options: Dictionary) -> Dictionary:
 	var random: RandomNumberGenerator=RandomNumberGenerator.new()
 	random.seed=int(options.get("seed",1))
-	var st: Dictionary={"ships":[],"projectiles":[],"effects":[],"wrecks":[],"time":0.0,"result":null,"playerId":null,"order":"engage","rng":random,"location":options.get("location",{"name":"Open water"}),"islands":[],"log":[],"retreatTimer":null}
+	var st: Dictionary={"ships":[],"projectiles":[],"effects":[],"wrecks":[],"time":0.0,"result":null,"playerId":null,"order":"engage","autopilot":true,"rng":random,"location":options.get("location",{"name":"Open water"}),"islands":[],"log":[],"retreatTimer":null,"reserves":{"player":[],"enemy":[]},"deployment":{"player":0,"enemy":0,"limit":Deployment.LIMIT}}
 	for island in options.get("islands",[]):
 		var points: Array=island.get("points",[]) if island is Dictionary else island
 		if points.size()>=3:
@@ -61,41 +63,62 @@ static func create(options: Dictionary) -> Dictionary:
 	if st.islands.is_empty():
 		st.islands=[{"points":[[850,80],[1130,120],[1210,310],[1030,420],[820,300]]},{"points":[[1040,1320],[1240,1250],[1430,1450],[1320,1640],[1070,1580]]}]
 	var fleet: Array=options.get("fleet",[])
-	var enemies: Array=options.get("enemySpecs",[])
-	var enemy_fleet: Array=options.get("enemyFleet",[])
-	for i in range(fleet.size()):
-		_deploy(st,fleet[i],i,"player",fleet.size())
-	if not enemy_fleet.is_empty():
-		for i in range(enemy_fleet.size()):
-			_deploy(st,enemy_fleet[i],i,"enemy",enemy_fleet.size())
-	else:
-		for i in range(enemies.size()):
-			_deploy(st,Damage.create_ship(enemies[i]),i,"enemy",enemies.size())
+	var enemy_fleet: Array=options.get("enemyFleet",[]).duplicate()
+	if enemy_fleet.is_empty():
+		for spec in options.get("enemySpecs",[]):
+			enemy_fleet.append(Damage.create_ship(spec))
+	var player_split: Dictionary=Deployment.split(fleet)
+	var enemy_split: Dictionary=Deployment.split(enemy_fleet)
+	st.reserves.player=player_split.reserve
+	st.reserves.enemy=enemy_split.reserve
+	st.deployment.player=player_split.points
+	st.deployment.enemy=enemy_split.points
+	for i in range(player_split.deployed.size()):
+		_deploy(st,player_split.deployed[i],i,"player",player_split.deployed.size())
+	for i in range(enemy_split.deployed.size()):
+		_deploy(st,enemy_split.deployed[i],i,"enemy",enemy_split.deployed.size())
 	for ship in st.ships:
 		if ship.team=="player" and not ship.sunk:
 			st.playerId=ship.id
+			ship.selected=true
 			break
 	return st
 
 static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: int) -> void:
 	s.team=team
 	s.id="%s-%d-%s"%[team,index,s.type]
-	s.x=(520.0 if team=="player" else 1600.0)+(index%2)*65.0
+	s.x=(520.0 if team=="player" else 1600.0)+(index%2)*85.0
 	s.y=850.0+(floor(index/2.0)-(ceil(count/2.0)-1.0)/2.0)*85.0
 	s.angle=0.0 if team=="player" else PI
 	s.turretAngle=s.angle
 	s.vx=0.0
 	s.vy=0.0
+	s.armor=maxf(0.0,Damage.number(s.spec.get("armor"),Damage.number(s.get("armor"))))
 	s.cooldown=0.0
+	s.weaponCooldowns=[]
+	for mount in _mounts(s):
+		s.weaponCooldowns.append(0.0)
+	s.selected=false
+	s.order="engage"
+	s.orderTarget={}
+	s.formationIndex=index
 	s._wreckRecorded=false
-	if _blocked(st,_pos(s),_radius(s)):
-		for k in range(40):
-			var p: Vector2=Vector2(300.0 if team=="player" else 1950.0,200.0+k*32.0)
-			if not _blocked(st,p,_radius(s)):
+	if not _spawn_clear(st,s,_pos(s)):
+		for k in range(128):
+			var p: Vector2=Vector2((260.0 if team=="player" else 1880.0)+(k%4)*80.0,90.0+floor(k/4.0)*48.0)
+			if _spawn_clear(st,s,p):
 				s.x=p.x
 				s.y=p.y
 				break
 	st.ships.append(s)
+
+static func _spawn_clear(st: Dictionary,s: Dictionary,p: Vector2) -> bool:
+	if _blocked(st,p,_radius(s)):
+		return false
+	for other in st.ships:
+		if not other.sunk and p.distance_to(_pos(other))<_radius(s)+_radius(other)+4.0:
+			return false
+	return true
 
 static func get_flagship(st: Dictionary) -> Dictionary:
 	for s in st.ships:
@@ -107,11 +130,69 @@ static func select_flagship(st: Dictionary,id) -> bool:
 	for s in st.ships:
 		if s.id==id and s.team=="player" and not s.sunk:
 			st.playerId=id
+			for boat in st.ships:
+				boat.selected=boat.id==id
 			return true
 	return false
 
-static func set_order(st: Dictionary,order: String) -> String:
-	if order in ["engage","escort","hold","withdraw"]:
+static func set_autopilot(st: Dictionary,enabled: bool) -> bool:
+	st.autopilot=enabled
+	return enabled
+
+static func _ship_with_id(st: Dictionary,id: String) -> Dictionary:
+	for s in st.ships:
+		if str(s.id)==id and not s.sunk:
+			return s
+	return {}
+
+static func issue_order(st: Dictionary,ids: Array,order: String,target: Dictionary={}) -> bool:
+	if st.result!=null or ids.is_empty() or order not in ["move","attack","escort","hold","engage","withdraw"]:
+		return false
+	var boats: Array=[]
+	var seen: Dictionary={}
+	for id in ids:
+		if not (id is String or id is StringName):
+			return false
+		var boat: Dictionary=_ship_with_id(st,str(id))
+		if boat.is_empty() or boat.team!="player":
+			return false
+		if not seen.has(str(id)):
+			boats.append(boat)
+			seen[str(id)]=true
+	var clean: Dictionary={}
+	if target.has("x") or target.has("y"):
+		var x: float=Damage.number(target.get("x"),NAN)
+		var y: float=Damage.number(target.get("y"),NAN)
+		if not is_finite(x) or not is_finite(y):
+			return false
+		for boat in boats:
+			if _blocked(st,Vector2(x,y),_radius(boat)):
+				return false
+		clean={"x":x,"y":y}
+	if order=="move" and not clean.has("x"):
+		return false
+	if target.has("shipId"):
+		if not (target.shipId is String or target.shipId is StringName):
+			return false
+		var target_id: String=str(target.shipId)
+		if not target_id.is_empty():
+			var other: Dictionary=_ship_with_id(st,target_id)
+			if other.is_empty() or (order=="attack" and other.team!="enemy") or (order=="escort" and other.team!="player"):
+				return false
+			clean.shipId=target_id
+	for boat in boats:
+		boat.order=order
+		boat.orderTarget=clean.duplicate()
+		if order=="hold" and not clean.has("x"):
+			boat.orderTarget={"x":float(boat.x),"y":float(boat.y)}
+	return true
+
+static func set_order(st: Dictionary,order: String,target: Dictionary={}) -> String:
+	var ids: Array=[]
+	for s in st.ships:
+		if s.team=="player" and not s.sunk:
+			ids.append(s.id)
+	if issue_order(st,ids,order,target):
 		st.order=order
 	return st.order
 
@@ -122,25 +203,127 @@ static func retreat(st: Dictionary) -> void:
 	set_order(st,"withdraw")
 	_log(st,"Fleet withdrawing — 12 seconds to escape")
 
-static func _fire(st: Dictionary,s: Dictionary,target: Vector2) -> void:
-	if s.cooldown>0.0 or s.ammo<1.0 or s.sunk or st.projectiles.size()>=400:
+static func _mounts(s: Dictionary) -> Array:
+	var raw_mounts: Array=[]
+	var legacy: bool=not (s.spec.get("weaponMounts") is Array)
+	if legacy:
+		raw_mounts=[{"id":"primary","kind":s.spec.get("weapon","gun"),"damage":s.spec.get("damage",10),"fireRate":s.spec.get("fireRate",1.0),"range":s.spec.get("range",400),"arc":TAU}]
+	else:
+		raw_mounts=s.spec.weaponMounts
+	var mounts: Array=[]
+	for raw in raw_mounts:
+		if mounts.size()>=MAX_MOUNTS:
+			break
+		if not raw is Dictionary:
+			continue
+		var kind: String=str(raw.get("kind","gun"))
+		if kind not in ["gun","cannon","rocket","torpedo"]:
+			continue
+		var speed: float=240.0 if kind=="torpedo" else (730.0 if kind=="rocket" else (620.0 if kind=="cannon" else 850.0))
+		mounts.append({"id":str(raw.get("id","mount-%d"%mounts.size())),"kind":kind,"damage":clampf(Damage.number(raw.get("damage"),10.0),0.0,100000.0),"fireRate":clampf(Damage.number(raw.get("fireRate"),1.0),0.05,60.0),"range":clampf(Damage.number(raw.get("range"),400.0),1.0,5000.0),"speed":clampf(Damage.number(raw.get("speed"),speed),20.0,5000.0),"ammoCost":int(ceil(clampf(Damage.number(raw.get("ammoCost"),1.0),1.0,1000.0))),"x":clampf(Damage.number(raw.get("x")),-150.0,150.0),"y":clampf(Damage.number(raw.get("y")),-150.0,150.0),"arc":clampf(Damage.number(raw.get("arc"),TAU),0.01,TAU),"angle":wrapf(Damage.number(raw.get("angle")),-PI,PI),"legacy":legacy})
+	return mounts
+
+static func _sync_cooldowns(s: Dictionary,count: int) -> void:
+	if not (s.get("weaponCooldowns") is Array):
+		s.weaponCooldowns=[]
+	while s.weaponCooldowns.size()<count:
+		s.weaponCooldowns.append(0.0)
+	if s.weaponCooldowns.size()>count:
+		s.weaponCooldowns.resize(count)
+
+static func _tick_cooldowns(s: Dictionary,dt: float) -> void:
+	_sync_cooldowns(s,_mounts(s).size())
+	for i in range(s.weaponCooldowns.size()):
+		s.weaponCooldowns[i]=maxf(0.0,Damage.number(s.weaponCooldowns[i])-dt)
+	if not s.weaponCooldowns.is_empty():
+		# Damage.tick_ship already advances this legacy timer once. Keep the
+		# primary mount compatible with callers reading or setting cooldown.
+		s.weaponCooldowns[0]=maxf(s.weaponCooldowns[0],Damage.number(s.cooldown))
+		s.cooldown=s.weaponCooldowns[0]
+
+static func _mount_origin(s: Dictionary,mount: Dictionary) -> Vector2:
+	return _pos(s)+Vector2(mount.x,mount.y).rotated(s.angle)
+
+static func _lead(s: Dictionary,mount: Dictionary,target: Dictionary) -> Vector2:
+	var delta: Vector2=_pos(target)-_mount_origin(s,mount)
+	var velocity: Vector2=Vector2(target.vx,target.vy)-Vector2(s.vx,s.vy)*0.2
+	var speed: float=mount.speed
+	var a: float=velocity.length_squared()-speed*speed
+	var b: float=2.0*delta.dot(velocity)
+	var c: float=delta.length_squared()
+	var t: float=delta.length()/speed
+	if absf(a)<0.00001:
+		if absf(b)>0.00001 and -c/b>0.0:
+			t=-c/b
+	else:
+		var discriminant: float=b*b-4.0*a*c
+		if discriminant>=0.0:
+			var root: float=sqrt(discriminant)
+			var t1: float=(-b-root)/(2.0*a)
+			var t2: float=(-b+root)/(2.0*a)
+			if t1>0.0 and t2>0.0:
+				t=minf(t1,t2)
+			elif maxf(t1,t2)>0.0:
+				t=maxf(t1,t2)
+	return _pos(target)+velocity*clampf(t,0.0,mount.range/speed)
+
+static func _clear_shot(st: Dictionary,start: Vector2,end: Vector2,radius: float=2.0) -> bool:
+	if minf(start.x,end.x)<radius or maxf(start.x,end.x)>WIDTH-radius or minf(start.y,end.y)<radius or maxf(start.y,end.y)>HEIGHT-radius:
+		return false
+	for island in st.islands:
+		var points: Array=island.points
+		if _inside(start,points) or _inside(end,points):
+			return false
+		for i in range(points.size()):
+			var a: Vector2=Vector2(points[i][0],points[i][1])
+			var b: Vector2=Vector2(points[(i+1)%points.size()][0],points[(i+1)%points.size()][1])
+			var delta: Vector2=end-start
+			var edge: Vector2=b-a
+			var denominator: float=delta.cross(edge)
+			if absf(denominator)>0.000001:
+				var along: float=(a-start).cross(edge)/denominator
+				var across: float=(a-start).cross(delta)/denominator
+				if along>=0.0 and along<=1.0 and across>=0.0 and across<=1.0:
+					return false
+			if minf(minf(_edge_distance(start,a,b),_edge_distance(end,a,b)),minf(_edge_distance(a,start,end),_edge_distance(b,start,end)))<radius:
+				return false
+	return true
+
+static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dictionary={}) -> void:
+	if s.sunk or st.projectiles.size()>=400:
 		return
+	var mounts: Array=_mounts(s)
+	_sync_cooldowns(s,mounts.size())
 	var status: Dictionary=Damage.get_status(s)
 	if status.weaponFactor<=0.01:
 		return
-	var weapon: String=s.spec.get("weapon","gun")
-	var kind: String="torpedo" if weapon=="torpedo" else ("bullet" if weapon=="gun" else "shell")
-	var speed: float=240.0 if weapon=="torpedo" else (730.0 if weapon=="rocket" else (620.0 if weapon=="cannon" else 850.0))
-	var angle: float=(target-_pos(s)).angle()
-	s.turretAngle=angle
-	angle+=(st.rng.randf()-0.5)*(0.025 if weapon=="torpedo" else 0.045)
-	var direction: Vector2=Vector2.from_angle(angle)
-	var p: Vector2=_pos(s)+direction*(_radius(s)+6.0)
-	var velocity: Vector2=direction*speed+Vector2(s.vx,s.vy)*0.2
-	st.projectiles.append({"x":p.x,"y":p.y,"px":p.x,"py":p.y,"vx":velocity.x,"vy":velocity.y,"team":s.team,"damage":float(s.spec.get("damage",10))*(1.8 if weapon=="torpedo" else 1.0),"kind":kind,"life":float(s.spec.get("range",400))/speed,"owner":s.id,"radius":5.0 if kind=="torpedo" else 2.0})
-	s.ammo-=1.0
-	s.cooldown=1.0/(maxf(0.05,float(s.spec.get("fireRate",1.0)))*maxf(0.15,status.weaponFactor))
-	_effect(st,p,"muzzle")
+	for i in range(mounts.size()):
+		var mount: Dictionary=mounts[i]
+		if s.weaponCooldowns[i]>0.0 or (i==0 and s.cooldown>0.0) or s.ammo<mount.ammoCost or st.projectiles.size()>=400:
+			continue
+		var origin: Vector2=_mount_origin(s,mount)
+		var aim: Vector2=_lead(s,mount,target_ship) if not target_ship.is_empty() else target
+		var delta: Vector2=aim-origin
+		if delta.length()>mount.range or delta.length()<0.001:
+			continue
+		var bearing: float=delta.angle()
+		if absf(angle_difference(s.angle+mount.angle,bearing))>mount.arc*0.5+0.00001:
+			continue
+		var kind: String="bullet" if mount.kind=="gun" else ("shell" if mount.kind=="cannon" else mount.kind)
+		var radius: float=5.0 if kind=="torpedo" else (3.0 if kind=="rocket" else 2.0)
+		var distance: float=_radius(s)+6.0 if mount.legacy else 6.0
+		var muzzle: Vector2=origin+Vector2.from_angle(bearing)*distance
+		if not _clear_shot(st,origin,aim,radius) or _blocked(st,muzzle,radius):
+			continue
+		s.turretAngle=bearing
+		var angle: float=bearing+(st.rng.randf()-0.5)*(0.025 if kind=="torpedo" else 0.045)
+		var velocity: Vector2=Vector2.from_angle(angle)*mount.speed+Vector2(s.vx,s.vy)*0.2
+		st.projectiles.append({"x":muzzle.x,"y":muzzle.y,"px":muzzle.x,"py":muzzle.y,"vx":velocity.x,"vy":velocity.y,"team":s.team,"damage":mount.damage*(1.8 if kind=="torpedo" else 1.0),"kind":kind,"life":mount.range/mount.speed,"age":0.0,"owner":s.id,"mountId":mount.id,"radius":radius,"penetration":18.0 if kind=="torpedo" else (4.0 if kind=="shell" else 0.0),"blastRadius":36.0 if kind=="rocket" else 0.0,"incendiary":kind=="rocket","height":0.0 if kind=="torpedo" else (14.0 if kind=="rocket" else 9.0),"trail":"foam" if kind=="torpedo" else ("smoke" if kind=="rocket" else "tracer")})
+		s.ammo=maxf(0.0,s.ammo-mount.ammoCost)
+		s.weaponCooldowns[i]=1.0/(mount.fireRate*maxf(0.15,status.weaponFactor))
+		if i==0:
+			s.cooldown=s.weaponCooldowns[0]
+		_effect(st,muzzle,"muzzle")
 
 static func _nearest(st: Dictionary,s: Dictionary) -> Dictionary:
 	var best: Dictionary={}
@@ -154,9 +337,9 @@ static func _nearest(st: Dictionary,s: Dictionary) -> Dictionary:
 	return best
 
 static func _move(st: Dictionary,s: Dictionary,dt: float,desired: float,throttle: float,boost: bool) -> void:
-	var turn: float=float(s.spec.get("turn",1.8))
-	s.angle+=clampf(angle_difference(s.angle,desired),-turn*dt,turn*dt)
-	var speed: float=float(s.spec.get("speed",90))*Damage.get_status(s).speedFactor*(1.0 if s.fuel>0.0 else 0.2)*throttle*(1.2 if boost else 1.0)
+	var turn: float=maxf(0.0,Damage.number(s.spec.get("turn"),1.8))
+	s.angle=wrapf(s.angle+clampf(angle_difference(s.angle,desired),-turn*dt,turn*dt),-PI,PI)
+	var speed: float=maxf(0.0,Damage.number(s.spec.get("speed"),90.0))*Damage.get_status(s).speedFactor*(1.0 if s.fuel>0.0 else 0.2)*throttle*(1.2 if boost else 1.0)
 	var velocity: Vector2=Vector2(s.vx,s.vy).lerp(Vector2.from_angle(s.angle)*speed,1.0-exp(-dt*4.0))
 	var point: Vector2=_pos(s)+velocity*dt
 	if not _blocked(st,point,_radius(s)):
@@ -167,39 +350,106 @@ static func _move(st: Dictionary,s: Dictionary,dt: float,desired: float,throttle
 	s.vx=velocity.x
 	s.vy=velocity.y
 	if velocity.length()>5.0:
-		s.fuel=maxf(0.0,s.fuel-dt*(0.018 if boost else 0.01))
+		s.fuel=maxf(0.0,s.fuel-dt*(0.018 if boost else 0.01)*maxf(0.0,Damage.number(s.spec.get("fuelUse"),1.0)))
+
+static func _weapon_range(s: Dictionary) -> float:
+	var result: float=0.0
+	for mount in _mounts(s):
+		result=maxf(result,mount.range)
+	return maxf(80.0,result)
+
+static func _engagement_range(s: Dictionary) -> float:
+	var useful: Array=[]
+	var total: float=0.0
+	for mount in _mounts(s):
+		if s.ammo<mount.ammoCost:
+			continue
+		var dps: float=mount.damage*mount.fireRate*(1.8 if mount.kind=="torpedo" else 1.0)
+		if dps<=0.0:
+			continue
+		useful.append({"range":mount.range,"dps":dps})
+		total+=dps
+	# Dry/unarmed boats retain their previous spacing rather than charging in.
+	if useful.is_empty():
+		return _weapon_range(s)
+	useful.sort_custom(func(a,b): return a.range>b.range)
+	var cumulative: float=0.0
+	for mount in useful:
+		cumulative+=mount.dps
+		if cumulative>=total*0.8:
+			return maxf(80.0,mount.range)
+	return _weapon_range(s)
+
+static func _combat_heading(s: Dictionary,target: Dictionary) -> float:
+	var desired: float=(_pos(target)-_pos(s)).angle()
+	var best: float=-1.0
+	for mount in _mounts(s):
+		if _pos(s).distance_to(_pos(target))>mount.range*0.95 or s.ammo<mount.ammoCost:
+			continue
+		var weight: float=mount.damage*mount.fireRate
+		if weight>best:
+			best=weight
+			var bearing: float=(_lead(s,mount,target)-_mount_origin(s,mount)).angle()
+			desired=bearing-mount.angle if mount.arc<TAU-0.01 else bearing
+	return desired
+
+static func _avoid_land(st: Dictionary,s: Dictionary,desired: float,throttle: float) -> float:
+	if throttle<=0.0:
+		return desired
+	var look: float=_radius(s)+95.0
+	if _clear_shot(st,_pos(s),_pos(s)+Vector2.from_angle(desired)*look,_radius(s)+6.0):
+		return desired
+	var side: float=1.0 if int(s.get("formationIndex",0))%2==0 else -1.0
+	for offset in [0.5*side,-0.5*side,0.95*side,-0.95*side,1.5*side,-1.5*side,2.2*side,-2.2*side,PI]:
+		var angle: float=desired+offset
+		if _clear_shot(st,_pos(s),_pos(s)+Vector2.from_angle(angle)*look,_radius(s)+6.0):
+			return angle
+	return desired
 
 static func _ai(st: Dictionary,s: Dictionary,dt: float) -> void:
 	var target: Dictionary=_nearest(st,s)
-	if target.is_empty():
-		_move(st,s,dt,s.angle,0.0,false)
-		return
-	var desired: float=(_pos(target)-_pos(s)).angle()
-	var d: float=_pos(s).distance_to(_pos(target))
-	var weapon_range: float=float(s.spec.get("range",400))
-	var throttle: float=0.85 if d>weapon_range*0.72 else (-0.25 if d<weapon_range*0.35 else 0.22)
-	if s.team=="player":
-		if st.order=="withdraw":
-			desired=PI
-			throttle=1.0
-		elif st.order=="hold":
-			throttle=0.0
-		elif st.order=="escort":
-			var leader: Dictionary=get_flagship(st)
-			if not leader.is_empty() and leader.id!=s.id and _pos(s).distance_to(_pos(leader))>140.0:
-				desired=(_pos(leader)-_pos(s)).angle()
-				throttle=0.9
-	var look: float=_radius(s)+75.0
-	if throttle>0.0 and _blocked(st,_pos(s)+Vector2.from_angle(desired)*look,_radius(s)+8.0):
-		for offset in [0.7,-0.7,1.3,-1.3,PI]:
-			var a: float=desired+offset
-			if not _blocked(st,_pos(s)+Vector2.from_angle(a)*look,_radius(s)+8.0):
-				desired=a
-				break
+	var order: String=str(s.get("order",st.order if s.team=="player" else "engage"))
+	var order_target: Dictionary=s.get("orderTarget",{})
+	if order=="attack" and order_target.has("shipId"):
+		var chosen: Dictionary=_ship_with_id(st,str(order_target.shipId))
+		if not chosen.is_empty() and chosen.team!=s.team:
+			target=chosen
+	var desired: float=s.angle
+	var throttle: float=0.0
+	var weapon_range: float=_weapon_range(s)
+	var engagement_range: float=_engagement_range(s)
+	var distance: float=INF
+	if not target.is_empty():
+		distance=_pos(s).distance_to(_pos(target))
+		desired=_combat_heading(s,target)
+		throttle=0.9 if distance>engagement_range*0.72 else (-0.25 if distance<engagement_range*0.35 else 0.18)
+		if not _clear_shot(st,_pos(s),_pos(target),3.0):
+			desired=(_pos(target)-_pos(s)).angle()
+			throttle=0.9
+	if order=="withdraw":
+		desired=PI if s.team=="player" else 0.0
+		throttle=1.0
+	elif order in ["move","hold"] or (order=="attack" and not order_target.has("shipId") and order_target.has("x") and distance>weapon_range):
+		var goal: Vector2=Vector2(order_target.get("x",s.x),order_target.get("y",s.y))
+		var gap: float=_pos(s).distance_to(goal)
+		throttle=clampf(gap/140.0,0.2,0.95) if gap>12.0 else 0.0
+		if gap>12.0:
+			desired=(goal-_pos(s)).angle()
+	elif order=="escort":
+		var leader: Dictionary=_ship_with_id(st,str(order_target.shipId)) if order_target.has("shipId") else get_flagship(st)
+		if not leader.is_empty() and leader.id!=s.id:
+			var side: float=1.0 if int(s.formationIndex)%2==0 else -1.0
+			var goal: Vector2=_pos(leader)+Vector2(-105.0,side*90.0).rotated(leader.angle)
+			var gap: float=_pos(s).distance_to(goal)
+			throttle=clampf(gap/160.0,0.15,1.0) if gap>40.0 else 0.0
+			if gap>75.0:
+				desired=(goal-_pos(s)).angle()
+	desired=_avoid_land(st,s,desired,throttle)
 	_move(st,s,dt,desired,throttle,false)
-	s.turretAngle=(_pos(target)-_pos(s)).angle()
-	if d<weapon_range:
-		_fire(st,s,_pos(target))
+	if not target.is_empty():
+		s.turretAngle=(_pos(target)-_pos(s)).angle()
+		if distance<=weapon_range:
+			_fire(st,s,_pos(target),target)
 
 static func _collisions(st: Dictionary) -> void:
 	for i in range(st.ships.size()):
@@ -223,6 +473,17 @@ static func _collisions(st: Dictionary) -> void:
 					b.x=bp.x
 					b.y=bp.y
 
+static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String) -> void:
+	var radius: float=Damage.number(p.get("blastRadius"))
+	if radius<=0.0:
+		return
+	for s in st.ships:
+		if s.sunk or s.team==p.team or str(s.id)==direct_id:
+			continue
+		var distance: float=point.distance_to(_pos(s))
+		if distance<radius+_radius(s) and _clear_shot(st,point,_pos(s),1.0):
+			Damage.apply_hit(s,{"damage":p.damage*0.45*clampf(1.0-distance/(radius+_radius(s)),0.0,1.0),"kind":"rocket","incendiary":true,"section":"deck"},st.rng)
+
 static func _projectiles(st: Dictionary,dt: float) -> void:
 	var survivors: Array=[]
 	for p in st.projectiles:
@@ -231,6 +492,7 @@ static func _projectiles(st: Dictionary,dt: float) -> void:
 		p.x+=p.vx*dt
 		p.y+=p.vy*dt
 		p.life-=dt
+		p.age=Damage.number(p.get("age"))+dt
 		var start: Vector2=Vector2(p.px,p.py)
 		var delta: Vector2=_pos(p)-start
 		var hit: Dictionary={}
@@ -250,12 +512,14 @@ static func _projectiles(st: Dictionary,dt: float) -> void:
 				land_t=t
 				break
 		if not hit.is_empty() and first<land_t:
-			var events: Array=Damage.apply_hit(hit,{"damage":p.damage,"kind":p.kind,"section":"engine" if st.rng.randf()<0.25 else "bow"},st.rng)
-			_effect(st,start+delta*first,"explosion" if p.kind=="torpedo" else "hit")
+			var point: Vector2=start+delta*first
+			var events: Array=Damage.apply_hit(hit,{"damage":p.damage,"kind":p.kind,"penetration":p.get("penetration",0.0),"incendiary":p.get("incendiary",false),"section":"waterline" if p.kind=="torpedo" else ("engine" if st.rng.randf()<0.25 else "bow")},st.rng)
+			_blast(st,p,point,str(hit.id))
+			_effect(st,point,"explosion" if p.kind in ["torpedo","rocket"] else "hit")
 			if not events.is_empty():
 				_log(st,hit.name+": "+events[0])
 		elif land_t!=INF or p.life<=0.0:
-			_effect(st,_pos(p),"splash")
+			_effect(st,_pos(p),"explosion" if p.kind=="rocket" else "splash")
 		else:
 			survivors.append(p)
 	st.projectiles=survivors
@@ -270,23 +534,27 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	if get_flagship(st).is_empty():
 		for s in st.ships:
 			if s.team=="player" and not s.sunk:
-				st.playerId=s.id
+				select_flagship(st,s.id)
 				break
 	var flagship: Dictionary=get_flagship(st)
 	for s in st.ships:
 		if s.sunk:
 			continue
-		# Exactly one cooldown decrement per living ship, including the manual flagship.
+		# Exactly one decrement of each timer, including the manual flagship.
 		Damage.tick_ship(s,dt,{"inCombat":true})
+		_tick_cooldowns(s,dt)
 		if s.sunk:
 			continue
-		if not flagship.is_empty() and s.id==flagship.id and st.order!="withdraw":
+		var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
+		if manual and not flagship.is_empty() and s.id==flagship.id and s.order!="withdraw":
 			var steer: float=(1.0 if input.get("right",false) else 0.0)-(1.0 if input.get("left",false) else 0.0)
 			var desired: float=s.angle+steer*float(s.spec.get("turn",1.8))*dt
 			var throttle: float=(1.0 if input.get("forward",false) else 0.0)-(0.55 if input.get("backward",false) else 0.0)
 			_move(st,s,dt,desired,throttle,input.get("boost",false))
-			if input.has("aimX") and input.has("aimY") and is_finite(float(input.aimX)) and is_finite(float(input.aimY)):
-				var aim: Vector2=Vector2(input.aimX,input.aimY)
+			var aim_x: float=Damage.number(input.get("aimX"),NAN)
+			var aim_y: float=Damage.number(input.get("aimY"),NAN)
+			if is_finite(aim_x) and is_finite(aim_y):
+				var aim: Vector2=Vector2(aim_x,aim_y)
 				s.turretAngle=(aim-_pos(s)).angle()
 				if input.get("fire",false):
 					_fire(st,s,aim)
@@ -314,7 +582,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		else:
 			enemies.append(s)
 	if get_flagship(st).is_empty() and not players.is_empty():
-		st.playerId=players[0].id
+		select_flagship(st,players[0].id)
 	if players.is_empty():
 		st.result="lost"
 	elif enemies.is_empty():

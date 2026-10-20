@@ -492,7 +492,7 @@ static func transact(port: Dictionary, wallet: Dictionary, good: String, qty: Va
 	if wallet_coins < 0:
 		return {"ok": false, "qty": 0, "total": 0, "coins": 0, "message": "Invalid wallet coins"}
 	if not _is_num(port.get("cash")) or float(port.get("cash")) < 0.0:
-		return {"ok": false, "qty": 0, "total": 0, "coins": 0, "message": "Invalid port cash"}
+		return {"ok": false, "qty": 0, "total": 0, "coins": 0, "message": "Invalid port coins"}
 
 	var q := int(qty)
 	var g_info: Dictionary = GOODS[g]
@@ -536,7 +536,7 @@ static func transact(port: Dictionary, wallet: Dictionary, good: String, qty: Va
 	var sell_unit := price(port, g, "sell")
 	var sell_total := sell_unit * q
 	if port_cash < sell_total:
-		return {"ok": false, "qty": 0, "total": 0, "coins": 0, "message": "Port lacks cash to buy cargo"}
+		return {"ok": false, "qty": 0, "total": 0, "coins": 0, "message": "Port lacks coins to buy cargo"}
 
 	if not (wallet.get("cargo") is Dictionary):
 		wallet["cargo"] = {}

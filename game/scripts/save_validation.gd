@@ -2,6 +2,11 @@ extends RefCounted
 ## Read-only schema preflight. No filesystem, SceneTree, singleton, or live-state access.
 const GOODS: Array=["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns"]
 const MAX_COINS: float=9007199254740991.0
+## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
+const Refits=preload("res://scripts/refit.gd")
+## Roster safety cap, not an ownership rule: 300 DP of 8-DP hulls is 37 boats, plus margin.
+const MAX_ROSTER: int=48
+const MAX_LOCKER: int=256
 
 static func _number(v,minimum: float=0.0,maximum: float=INF,whole: bool=false) -> bool:
 	if not (v is int or v is float):
@@ -34,7 +39,63 @@ static func _point(value,path: String,width: float,height: float) -> String:
 		return path+" must contain finite world coordinates."
 	return ""
 
-static func _boat(value,hulls: Dictionary,path: String,player: bool) -> String:
+static func _module_ids() -> Dictionary:
+	var ids: Dictionary={}
+	var catalog=Refits.catalog()
+	if catalog is Dictionary:
+		for family in ["weapons","engines","armor"]:
+			var group=catalog.get(family)
+			if group is Dictionary:
+				for id in group:
+					ids[str(id)]=true
+	return ids
+
+static func _normalized_loadout(result: Dictionary) -> Dictionary:
+	if result.get("loadout") is Dictionary:
+		return result.loadout
+	var loadout: Dictionary=result.duplicate(true)
+	loadout.erase("ok")
+	loadout.erase("error")
+	return loadout
+
+static func _locker(value,modules: Dictionary,path: String) -> String:
+	if not (value is Array or value is Dictionary): return path+" refit locker must contain module counts."
+	var entries: Array=[]
+	if value is Dictionary:
+		for id in value: entries.append({"id":id,"count":value[id]})
+	else:
+		entries=value
+	if entries.size()>MAX_LOCKER: return path+" refit locker is too large."
+	var total: int=0
+	for entry in entries:
+		var id=entry.get("id") if entry is Dictionary else entry
+		var count=entry.get("count",1) if entry is Dictionary else 1
+		if entry is Dictionary:
+			for key in entry:
+				if key not in ["id","count"]: return path+" refit locker has unknown fields."
+		if not _text(id) or not modules.has(id) or not _number(count,0.0,MAX_LOCKER,true): return path+" refit locker holds an unknown module or invalid count."
+		total+=int(count)
+		if total>MAX_LOCKER: return path+" refit locker contains too many parts."
+	return ""
+
+## Optional v0.002 fitting fields. Old v0.001 boats omit them. Returns the canonical max HP the
+## (validated) loadout implies, or an error string; input is never mutated.
+static func _fitting(value: Dictionary,spec: Dictionary,modules: Dictionary,path: String):
+	if value.has("baseSpec") and not value.baseSpec is Dictionary: return path+" has an invalid base spec record."
+	if value.has("refitLocker"):
+		var locker_error: String=_locker(value.refitLocker,modules,path)
+		if not locker_error.is_empty(): return locker_error
+	if not value.has("loadout"):
+		return float(spec.hp)
+	if not value.loadout is Dictionary: return path+" has an invalid refit loadout."
+	var normalized=Refits.normalize(spec.duplicate(true),value.loadout.duplicate(true))
+	if not normalized is Dictionary or normalized.get("ok",true)==false:
+		return path+" has a rejected refit loadout: "+str(normalized.get("error","invalid") if normalized is Dictionary else "invalid")
+	var effective=Refits.effective_spec(spec.duplicate(true),_normalized_loadout(normalized))
+	if not effective is Dictionary or not _number(effective.get("hp"),1.0): return path+" loadout produces an invalid design."
+	return float(effective.hp)
+
+static func _boat(value,hulls: Dictionary,path: String,player: bool,modules: Dictionary={}) -> String:
 	if not value is Dictionary:
 		return path+" must be a boat dictionary."
 	if not _text(value.get("type")) or not hulls.has(value.type):
@@ -50,7 +111,9 @@ static func _boat(value,hulls: Dictionary,path: String,player: bool) -> String:
 	if value.has("mothballed") and not value.mothballed is bool: return path+" has invalid mothballed flag."
 	var error: String=_numbers(value,["maxHp","hp","armor","crew","crewMin","crewOptimal","crewMax","wounded","water","capacity","fire","engine","supplies","ammo","fuel","cooldown"],path)
 	if not error.is_empty(): return error
-	if value.maxHp<=0 or not is_equal_approx(float(value.maxHp),float(spec.hp)) or value.hp>value.maxHp:
+	var fitted=_fitting(value,spec,modules,path)
+	if fitted is String: return fitted
+	if value.maxHp<=0 or not is_equal_approx(float(value.maxHp),float(fitted)) or value.hp>value.maxHp:
 		return path+" has invalid hull HP bounds."
 	if value.crew>float(spec.crewMax) or value.crew>value.crewMax or value.wounded>value.crew or value.crewMin>value.crewOptimal or value.crewOptimal>value.crewMax or value.crewMax>float(spec.crewMax):
 		return path+" has invalid crew bounds."
@@ -66,6 +129,10 @@ static func _boat(value,hulls: Dictionary,path: String,player: bool) -> String:
 		if not _number(value.spec.get(key)): return path+" has invalid stored spec "+key+"."
 	for key in ["turn","pumps","cargo","hp","armor","crewMin","crewOptimal","crewMax","price"]:
 		if value.spec.has(key) and not _number(value.spec[key]): return path+" has invalid stored spec "+key+"."
+	if value.spec.has("weaponMounts"):
+		if not value.spec.weaponMounts is Array: return path+" has invalid stored weapon mounts."
+		for mount in value.spec.weaponMounts:
+			if not mount is Dictionary: return path+" has an invalid stored weapon mount."
 	if not value.get("breaches") is Array: return path+" requires a breach array."
 	for breach in value.breaches:
 		if not breach is Dictionary or not _number(breach.get("area")) or not _text(breach.get("section")):
@@ -150,10 +217,11 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 		for order in p.buildQueue:
 			error=_order(order,hulls,p.id+".buildQueue")
 			if not error.is_empty(): return error
-	if not s.get("fleet") is Array or s.fleet.size()>8: return "Player fleet must be an array of at most eight hulls."
+	if not s.get("fleet") is Array or s.fleet.size()>MAX_ROSTER: return "Player fleet must be an array of at most %d hulls."%MAX_ROSTER
+	var modules: Dictionary=_module_ids()
 	var uids: Dictionary={}
 	for boat in s.fleet:
-		error=_boat(boat,hulls,"save.fleet",true)
+		error=_boat(boat,hulls,"save.fleet",true,modules)
 		if not error.is_empty(): return error
 		if uids.has(boat.uid): return "Duplicate player boat uid."
 		uids[boat.uid]=true
@@ -176,7 +244,7 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 			if not _text(id) or not ports.has(id): return owner.id+" has unknown route harbor."
 		if not _text(owner.get("atPort"),true) or (not owner.atPort.is_empty() and not ports.has(owner.atPort)): return owner.id+" has invalid dock."
 		for boat in owner.boats:
-			error=_boat(boat,hulls,owner.id+".boats",false)
+			error=_boat(boat,hulls,owner.id+".boats",false,modules)
 			if not error.is_empty(): return error
 		for key in ["tradeCargo","wageRemainder","daysOperated","performanceFactor","progress","lastPayroll","lastFoodConsumed","lastFuelConsumed"]:
 			if owner.has(key) and not _number(owner[key]): return owner.id+" has invalid "+key+"."

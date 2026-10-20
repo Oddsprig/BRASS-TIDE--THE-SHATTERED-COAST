@@ -1,3 +1,12 @@
+2026-10-20 | v0.002 | integrated candidate | lead Codex + authorized four-model team
+Owner requested coins, WASD camera, flagship autopilot, commander controls,300DP, fitting and higher boat detail.
+Combat, paid refits, strict save migration, canonical morale, finite magazines and detailed original boats/wakes are integrated.
+Root corrected art/input interfaces, atomic campaign refits/lockers, weak fixture skip, input aliasing on restore and a purse-label regression caught by tests.
+Late battle losses traced to bad mixed-range spacing and underprepared captain logistics; symmetric DPS range and actual paid workdays/hulls/armor now win.
+All15headless suites pass; both actual8-contract voyages grow1→10and end3afloat, one with zero battle input. Real save23checks; art93checks.
+No foreground/mouse/keyboard tests, GPU FPS claims, copied reference assets or removed old releases.
+Next: clean tagged native Windows export, portable smoke/PCK/icon/hash audit, current launcher and exact GitHub publication verification.
+
 2026-10-20 | v0.001 | GitHub destination verified; upload pending
 Owner supplied Oddsprig/BRASS-TIDE--THE-SHATTERED-COAST; verified repository ID 1427417534, empty refs and connected-account push access.
 Configured origin to that exact repository without changing game files or the annotated v0.001 tag.

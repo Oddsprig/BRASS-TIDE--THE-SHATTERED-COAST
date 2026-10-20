@@ -1,34 +1,40 @@
-BRASS TIDE — COMBAT MAP (generated; v0.001)
+BRASS TIDE — COMBAT MAP (generated; v0.002)
 
 Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/battle.gd: 11804 bytes; extends RefCounted
-  game/scripts/battle.gd:53 create()
-  game/scripts/battle.gd:100 get_flagship()
-  game/scripts/battle.gd:106 select_flagship()
-  game/scripts/battle.gd:113 set_order()
-  game/scripts/battle.gd:118 retreat()
-  game/scripts/battle.gd:263 update()
-  game/scripts/battle.gd:7 _pos()
-  game/scripts/battle.gd:10 _radius()
-  game/scripts/battle.gd:13 _inside()
-  game/scripts/battle.gd:24 _edge_distance()
-  game/scripts/battle.gd:29 _blocked()
-  game/scripts/battle.gd:43 _effect()
-game/scripts/damage.gd: 8062 bytes; extends RefCounted
+game/scripts/battle.gd: 24374 bytes; extends RefCounted
+  game/scripts/battle.gd:55 create()
+  game/scripts/battle.gd:123 get_flagship()
+  game/scripts/battle.gd:129 select_flagship()
+  game/scripts/battle.gd:138 set_autopilot()
+  game/scripts/battle.gd:148 issue_order()
+  game/scripts/battle.gd:190 set_order()
+  game/scripts/battle.gd:199 retreat()
+  game/scripts/battle.gd:527 update()
+  game/scripts/battle.gd:9 _pos()
+  game/scripts/battle.gd:12 _radius()
+  game/scripts/battle.gd:15 _inside()
+  game/scripts/battle.gd:26 _edge_distance()
+game/scripts/damage.gd: 8462 bytes; extends RefCounted
   game/scripts/damage.gd:6 number()
   game/scripts/damage.gd:11 create_ship()
   game/scripts/damage.gd:41 sum_areas()
   game/scripts/damage.gd:47 set_policy()
   game/scripts/damage.gd:52 get_status()
   game/scripts/damage.gd:81 apply_hit()
-  game/scripts/damage.gd:120 tick_ship()
-  game/scripts/damage.gd:166 repair_at_port()
+  game/scripts/damage.gd:121 tick_ship()
+  game/scripts/damage.gd:167 repair_at_port()
   game/scripts/damage.gd:23 _sanitize()
   game/scripts/damage.gd:73 _roll()
+game/scripts/deployment.gd: 1799 bytes; extends RefCounted
+  game/scripts/deployment.gd:10 cost()
+  game/scripts/deployment.gd:25 total()
+  game/scripts/deployment.gd:31 fits()
+  game/scripts/deployment.gd:34 split()
+  game/scripts/deployment.gd:5 _number()
 
 TESTS (game/tests/*.gd)
-test_damage, test_battle, test_runtime, test_voyage
+test_damage, test_battle, test_tactics, test_runtime, test_voyage, test_commander
 
 Full symbols: rg -n '^func |^static func ' on named files.

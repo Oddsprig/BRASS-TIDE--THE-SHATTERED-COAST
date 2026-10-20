@@ -1,7 +1,7 @@
 {
   "TITLE": "BRASS TIDE",
   "SUBTITLE": "THE SHATTER COAST",
-  "VERSION": "0.001",
+  "VERSION": "0.002",
   "WORLD": {
     "width": 2600,
     "height": 1800
@@ -1184,9 +1184,9 @@
     "crew": 5,
     "coins": 15000
   },
-  "BUILD": 1,
+  "BUILD": 2,
   "CURRENCY": {
-    "name": "bronze cash",
+    "name": "bronze coins",
     "ordinaryDailyWage": 100,
     "coinsPerString": 1000
   }

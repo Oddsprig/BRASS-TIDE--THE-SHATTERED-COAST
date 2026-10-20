@@ -1,6 +1,6 @@
-CURRENT STAGE: native playable coastal campaign
-done  v0.001 Brass Tide: inherited skiff to flotilla, original coast, eight contracts, crew/flooding/supplies, circulating bronze cash, portable PC release.
-next  v0.002 First-voyage feedback: balance, clarity, stability and measured performance.
-next  v0.003 Expand coastal fleet behavior and mission variety after the first build is proven.
+CURRENT STAGE: fleet command and boat refitting
+done  v0.001 Original coast, inherited skiff, eight contracts, paid crew/industry, persistent damage and portable PC build.
+done  v0.002 Coins, WASD camera, flagship autopilot, tactical fleet orders, 300 points/side, paid weapon/engine/armor fitting and detailed original boats/wakes.
+next  v0.003 Owner play feedback: readability, fleet control feel, fitting balance and measured graphics performance.
 
-Integer BUILD in game/scripts/version.gd advances exactly0.001 per release.
+Integer BUILD in game/scripts/version.gd advances exactly 0.001 per release.

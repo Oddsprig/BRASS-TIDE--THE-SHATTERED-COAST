@@ -1,4 +1,8 @@
 extends CanvasLayer
+const TacticsUI = preload("res://scripts/tactics_ui.gd")
+const RefitUI = preload("res://scripts/refit_ui.gd")
+const Portrait = preload("res://scripts/boat_portrait.gd")
+const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
 
 const INK = Color("102731")
@@ -31,6 +35,9 @@ var flood_bar: ProgressBar
 var damage_label: Label
 var battle_fleet: VBoxContainer
 var policy_buttons: Dictionary = {}
+var battle_points_label: Label
+var battle_control_label: Label
+var autopilot_button: Button
 
 func setup(game_host):
 	host = game_host
@@ -269,40 +276,7 @@ func build_campaign_hud(size: Vector2):
 	dock_button = button(actions, "Enter harbor  ↗", func(): open_port(), true)
 
 func build_battle_hud(size: Vector2):
-	eyebrow(left_body, "FLAGSHIP · DAMAGE CONTROL")
-	flagship_label = label(left_body, "", 25, TEXT, true)
-	hull_bar = progress(left_body, TEAL)
-	flood_bar = progress(left_body, Color("74b7da"))
-	damage_label = label(left_body, "", 13, MUTED)
-	rule(left_body)
-	eyebrow(left_body, "CREW PRIORITY")
-	for pair in [["balanced", "Balanced"], ["bail", "Bail water"], ["repair", "Patch & repair"], ["fight", "Guns first"]]:
-		var policy: String = pair[0]
-		var b = button(left_body, pair[1], func(): host.set_crew_policy(policy))
-		b.custom_minimum_size.y = 33
-		b.add_theme_font_size_override("font_size", 13)
-		policy_buttons[policy] = b
-	rule(left_body)
-	paragraph(left_body, "More hands bailing and repairing means fewer on the guns. Patching consumes supplies. Bailing does not.", 13)
-	eyebrow(right_body, "BATTLE GROUP")
-	label(right_body, host.battle.location.get("name", "Coastal waters"), 24, TEXT, true)
-	battle_fleet = column(right_body)
-	for boat in host.battle.ships:
-		if boat.team == "player":
-			var id = boat.id
-			button(battle_fleet, boat.name, func(): host.Battle.select_flagship(host.battle, id))
-	rule(right_body)
-	paragraph(right_body, "W / S   Throttle\nA / D   Steer\nSHIFT   Boost\nMOUSE   Aim · hold click to fire\nR   Toggle auto gunners\nTAB   Switch flagship\nSPACE   Tactical pause", 14)
-	var bottom = panel(chrome, Vector2(0, size.y - 90), Vector2(size.x, 90))
-	var actions = row(bottom)
-	label(actions, "FLEET ORDERS", 11, MUTED)
-	for pair in [["engage", "1 · Engage"], ["escort", "2 · Escort"], ["hold", "3 · Hold"]]:
-		var order: String = pair[0]
-		button(actions, pair[1], func(): host.Battle.set_order(host.battle, order))
-	voyage_label = label(actions, "", 13, MUTED)
-	voyage_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	voyage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	button(actions, "Withdraw  ↗", func(): host.Battle.retreat(host.battle))
+	TacticsUI.build(self, size)
 
 func update_hud():
 	if host.mode == "menu" or host.mode != hud_mode or stats_label == null or not is_instance_valid(stats_label) or host.core.state.is_empty():
@@ -318,7 +292,7 @@ func update_hud():
 		ammo += s.ammo
 		fuel += s.fuel
 		crew += int(s.crew)
-	stats_label.text = "%s cash     ▱  %d boats     ◉  %d crew     ▣  %d kits     ◆  %d fuel     ·  %d ammo" % [money(w.coins), boats.size(), crew, supplies, fuel, ammo]
+	stats_label.text = "%s coins     ▱  %d boats     ◉  %d crew     ▣  %d kits     ◆  %d fuel     ·  %d ammo" % [money(w.coins), boats.size(), crew, supplies, fuel, ammo]
 	clock_label.text = "DAY %d  ·  %s" % [int(w.day), "PAUSED" if host.paused else "%d×" % host.speed if host.mode != "battle" else "%02d:%02d" % [int(host.battle.time) / 60, int(host.battle.time) % 60]]
 	if host.mode == "battle":
 		var s = host.Battle.get_flagship(host.battle)
@@ -332,7 +306,8 @@ func update_hud():
 		for policy in policy_buttons:
 			policy_buttons[policy].add_theme_color_override("font_color", GOLD if s.policy == policy else TEXT)
 		var enemies = host.battle.ships.filter(func(t): return t.team == "enemy" and not t.sunk).size()
-		voyage_label.text = "%d HOSTILE  ·  %s  ·  %s" % [enemies, host.battle.order.to_upper(), "AUTO GUNNERS ON" if host.auto_gunners else "MANUAL GUNNERY"]
+		voyage_label.text = "%d HOSTILE · %d SELECTED · %s" % [enemies, host.selected_battle_ids.size(), "AUTOPILOT" if host.battle.get("autopilot", true) else "MANUAL FLAGSHIP"]
+		TacticsUI.update(self)
 		if host.battle.retreatTimer != null:
 			voyage_label.text = "WITHDRAWING · %.0f seconds" % host.battle.retreatTimer
 	else:
@@ -403,7 +378,7 @@ func open_port(tab: String = ""):
 	var body = modal(p.name, "%s · %s" % [host.core.faction(p.faction).name, p.industry.to_upper()])
 	paragraph(body, p.description, 16)
 	var tabs = row(body)
-	for item in ["Market", "Boatyard", "Crew & repairs", "Economy", "Contracts"]:
+	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
 		var value: String = item
 		var b = button(tabs, value, func(): open_port(value))
 		b.add_theme_color_override("font_color", GOLD if port_tab == value else MUTED)
@@ -411,6 +386,7 @@ func open_port(tab: String = ""):
 		"Market": market_view(body, p)
 		"Boatyard": yard_view(body, p)
 		"Crew & repairs": fleet_view(body, true)
+		"Refit": RefitUI.roster(self, body)
 		"Economy": economy_view(body, p)
 		"Contracts": contracts_view(body)
 	spacer(body, 10)
@@ -438,8 +414,8 @@ func market_view(body: Node, p: Dictionary):
 		name_label.custom_minimum_size.x = 220
 		label(line, "%4d stock" % p.stocks[key], 13, MUTED).custom_minimum_size.x = 110
 		label(line, "%4d hold" % host.core.state.cargo[key], 13, MUTED).custom_minimum_size.x = 100
-		button(line, "Buy %d cash" % host.Economy.price(p, key), func(): host.trade(key, trade_qty, "buy"))
-		button(line, "Sell %d cash" % host.Economy.price(p, key, "sell"), func(): host.trade(key, trade_qty, "sell"))
+		button(line, "Buy %d coins" % host.Economy.price(p, key), func(): host.trade(key, trade_qty, "buy"))
+		button(line, "Sell %d coins" % host.Economy.price(p, key, "sell"), func(): host.trade(key, trade_qty, "sell"))
 		button(line,"Cost",func():Finance.good_recipe(self,key))
 		rule(body)
 
@@ -453,8 +429,9 @@ func hull_card(body: Node, h: Dictionary, in_yard: bool, stock: int = 0):
 	var details = column(head)
 	eyebrow(details, "%s · %s · TIER %d" % [host.core.faction(h.faction).name, h.role, h.tier])
 	label(details, h.name, 25, TEXT, true)
-	label(head, "%s cash" % money(q.readyPrice), 23, GOLD)
+	label(head, "%s coins" % money(q.readyPrice), 23, GOLD)
 	paragraph(content, h.description, 14)
+	label(content, "%d DEPLOYMENT POINTS" % Deployment.cost(h), 13, GOLD)
 	label(content, "%d hull  ·  %d armor  ·  %d speed  ·  %d hold  ·  Crew %d / %d / %d" % [h.hp, h.armor, h.speed, h.cargo, h.crewMin, h.crewOptimal, h.crewMax], 13, MUTED)
 	label(content, "%s  ·  %.1f shots/s  ·  %d impact  ·  %d m range" % [h.weapon.to_upper(), h.fireRate, h.damage, h.range], 13, TEAL)
 	paragraph(content,"Materials %s · Assembly %s · Supervising experts %s · %.1f worker-days"%[money(q.materialCost),money(q.laborCost),money(q.supervisionCost),q.workerDays],13)
@@ -463,16 +440,16 @@ func hull_card(body: Node, h: Dictionary, in_yard: bool, stock: int = 0):
 		var actions = row(content)
 		var buy = button(actions, "Buy hull + minimum crew" if stock > 0 else "Out of stock", func(): host.buy_boat(h.id), true)
 		buy.disabled = stock <= 0
-		button(actions, "Commission · %s cash" % money(q.commissionPrice), func(): host.commission(h.id))
+		button(actions, "Commission · %s coins" % money(q.commissionPrice), func(): host.commission(h.id))
 		paragraph(content,"%.1f calendar days with a full team. Paid supervisors and physical materials are required."%q.estimatedDays,12)
 
 func yard_view(body: Node, p: Dictionary):
-	paragraph(body, "Buy a completed boat or commission one for less. Building consumes this town's physical stocks and takes working days. Newly launched hulls need sailors and stores. Your flotilla can contain eight boats.", 15)
+	paragraph(body, "Buy a completed boat or commission one for less. Building consumes this town's physical stocks and takes working days. Newly launched hulls need sailors and stores. Your fleet has a 300-point deployment budget; light boats cost fewer points than capital hulls.", 15)
 	for i in range(p.buildQueue.size()):
 		var index = i
 		var order = p.buildQueue[i]
 		var line = row(body)
-		label(line, "%s · %s · %s" % [host.core.hull(order.hull).name,"YOUR ORDER" if order.owner == "player" else "YARD STOCK","READY" if order.ready else "%.1f worker-days left · %s cash escrow"%[order.remainingWorkerDays,money(order.escrow)]], 15, GOLD).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		label(line, "%s · %s · %s" % [host.core.hull(order.hull).name,"YOUR ORDER" if order.owner == "player" else "YARD STOCK","READY" if order.ready else "%.1f worker-days left · %s coins escrow"%[order.remainingWorkerDays,money(order.escrow)]], 15, GOLD).size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		if order.owner == "player":
 			button(line, "Collect hull", func(): host.collect_boat(index)).disabled = not order.ready
 	for id in p.get("shipIds", []):
@@ -495,6 +472,7 @@ func open_fleet():
 
 func fleet_view(body: Node, docked: bool):
 	paragraph(body, "Crew counts show minimum / full effectiveness / maximum. Wounded sailors remain aboard but cannot work. An uncrewed hull is towed and stays out of battle. All damage, stores and casualties persist.", 15)
+	label(body, "%d / 300 DEPLOYMENT POINTS" % host.core.fleet_points(), 19, GOLD)
 	for boat in host.core.state.fleet:
 		var s: Dictionary = boat
 		var uid: String = s.uid
@@ -503,6 +481,10 @@ func fleet_view(body: Node, docked: bool):
 		body.add_child(container)
 		var card = column(container)
 		var heading = row(card)
+		var portrait = Portrait.new()
+		portrait.boat = s
+		portrait.custom_minimum_size = Vector2(170, 110)
+		heading.add_child(portrait)
 		label(heading, s.name, 27, TEXT, true).size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		eyebrow(heading, "FLAGSHIP" if host.core.state.flagship == uid else "TOWED / RESERVE" if s.get("mothballed", false) else "ACTIVE")
 		var health = progress(card)
@@ -516,6 +498,8 @@ func fleet_view(body: Node, docked: bool):
 			var b = button(priorities, policy.capitalize(), func(): host.Damage.set_policy(s, policy); refresh_fleet())
 			b.add_theme_color_override("font_color", GOLD if s.policy == policy else TEXT)
 		var actions = row(card)
+		label(card, "%d deployment points · %d weapon mounts" % [Deployment.cost(s), s.spec.get("weaponMounts", []).size()], 13, TEAL)
+		button(actions, "Refit weapons, engine & armor", func(): open_refit(uid)).disabled = not docked
 		button(actions, "Set flagship", func(): host.core.state.flagship = uid; refresh_fleet()).disabled = s.crew < s.crewMin
 		button(actions, "Activate" if s.get("mothballed", false) else "Reserve", func(): s.mothballed = not s.get("mothballed", false); refresh_fleet()).disabled = s.crew < s.crewMin
 		if docked:
@@ -523,13 +507,16 @@ func fleet_view(body: Node, docked: bool):
 			button(actions, "Fill crew", func(): host.recruit(uid, maxi(1, int(s.crewOptimal - s.crew))))
 			var quote = host.core.service_quote(s, host.core.current_port())
 			var services = row(card)
-			button(services, "Drydock · %s cash" % money(quote.cost), func(): host.repair_boat(uid), true)
+			button(services, "Drydock · %s coins" % money(quote.cost), func(): host.repair_boat(uid), true)
 			button(services, "Voyage stores", func(): host.resupply_boat(uid,"voyage"))
 			button(services, "Full stores", func(): host.resupply_boat(uid))
 			button(services, "Sell hull", func(): host.sell_boat(uid)).disabled = host.core.state.fleet.size() <= 1
-			paragraph(card,"Voyage stores target 80 rounds, 3 fuel and 6 repair kits; full stores target 80 rounds, 60 fuel and 20 kits. Pay only for missing stock.",12)
+			paragraph(card,"Voyage stores fill the fitted magazine (80 rounds per weapon), 3 fuel and 6 repair kits. Full stores add 60 fuel and 20 kits. Every missing round is bought from actual harbor stock.",12)
 		else:
 			paragraph(card, "At sea: use repair priority to patch breaches and repair hull with supplies. Visit a harbor to recruit, treat wounded, or use drydock.", 13)
+
+func open_refit(uid: String):
+	RefitUI.open(self, uid)
 
 func refresh_fleet():
 	if modal_kind == "port":
@@ -554,11 +541,11 @@ func open_cargo():
 	button(body, "Load reserves into working stores", func(): host.core.use_reserves(); open_cargo(), true)
 	rule(body)
 	var costs = host.Economy.daily_upkeep(host.core.state.fleet)
-	paragraph(body,"Daily wages: %s cash · Rations: %.1f bales\nSailors' shared purse: %s cash · Unpaid wages: %s\nHarbor loan: %s cash · Morale: %d / 100"%[money(costs.wages),costs.food,money(host.core.state.crewPurse),money(host.core.state.wageArrears),money(host.core.state.debt),host.core.state.morale],16)
+	paragraph(body,"Daily wages: %s coins · Rations: %.1f bales\nSailors' shared purse: %s coins · Unpaid wages: %s\nHarbor loan: %s coins · Morale: %d / 100"%[money(costs.wages),costs.food,money(host.core.state.crewPurse),money(host.core.state.wageArrears),money(host.core.state.debt),host.core.state.morale],16)
 	if host.core.state.wageArrears > 0:
 		button(body,"Pay owed crew wages",func():host.respond(host.core.pay_wage_arrears());open_cargo())
 	if host.core.state.debt > 0:
-		button(body,"Repay up to 5,000 cash to the treasury",func():host.respond(host.core.repay_loan());open_cargo())
+		button(body,"Repay up to 5,000 coins to the treasury",func():host.respond(host.core.repay_loan());open_cargo())
 
 func open_contracts():
 	modal_kind = "contracts"
@@ -577,7 +564,7 @@ func contracts_view(body: Node):
 		eyebrow(body, "ACTIVE CONTRACT")
 		label(body, active.title, 26, TEXT, true)
 		paragraph(body, active.description, 16)
-		label(body, "Destination: %s · Reward %s cash" % [host.core.port(active.targetPort).name, money(active.reward)], 16, TEAL)
+		label(body, "Destination: %s · Reward %s coins" % [host.core.port(active.targetPort).name, money(active.reward)], 16, TEAL)
 		var actions = row(body)
 		if host.core.contract_ready():
 			button(actions, "Deliver & collect reward" if active.cleared else "Engage hostile flotilla", host.resolve_contract, true)
@@ -594,7 +581,7 @@ func contracts_view(body: Node):
 		eyebrow(card, "STORY CONTRACT" if c.get("story", false) else "HARBOR WORK")
 		label(card, c.title, 23, TEXT, true)
 		paragraph(card, c.description, 14)
-		label(card, "%s → %s · %s cash · %d hostile boats" % [host.core.port(c.port).name, host.core.port(c.targetPort).name, money(c.reward), c.enemyHulls.size()], 14, GOLD)
+		label(card, "%s → %s · %s coins · %d hostile boats" % [host.core.port(c.port).name, host.core.port(c.targetPort).name, money(c.reward), c.enemyHulls.size()], 14, GOLD)
 		var p = host.core.current_port()
 		if p.is_empty() or p.id != c.port:
 			button(card, "Go to %s  ↗" % host.core.port(c.port).name, func(): host.sail_to(c.port); close_modal())
@@ -606,17 +593,18 @@ func open_guide():
 	modal_kind = "guide"
 	var body = modal("A captain's guide", "BRASS TIDE · v%s" % host.Version.text())
 	for section in [
-		["Bronze cash and paid work","An ordinary sailor earns 100 bronze cash per day, with rations supplied separately. Wages move into the crew's shared purse. Missed wages become arrears and reduce morale and combat performance. The Hold shows savings and arrears. Each town has business, worker, specialist and government purses; its Economy screen shows employment and actual transfers."],
+		["Bronze coins and paid work","An ordinary sailor earns 100 bronze coins per day, with rations supplied separately. Wages move into the crew's shared purse. Missed wages become arrears and reduce morale and combat performance. The Hold shows savings and arrears. Each town has business, worker, specialist and government purses; its Economy screen shows employment and actual transfers."],
 		["Why a boat costs what it costs","Every design has physical material requirements and paid shipwrights, mechanics, fitters, foremen and supervising experts. Trace the price through logs and planks, ore and iron, powder ingredients, ammunition, guns and engines. Yard quotes list those inputs, wages, overhead, margin and duty. Commissions hold wages in escrow and only pay for work completed."],
-		["Your first voyage", "Start at Brass Haven in a cheap Tinwake skiff with five sailors. Enter harbor, open Contracts, and accept Clear the Lantern Narrows. Chart Kelp Reach, sail there, then engage its raider. Earn bronze cash, buy another hull, and recruit enough sailors to use it."],
-		["At the helm", "W / S adjusts throttle; A / D steers. Hold left mouse to fire at your cursor; aim near a boat for gentle aim assistance. Shift boosts. R toggles automatic gunners. Tab switches your flagship. Space pauses. F11 toggles fullscreen. Mouse wheel changes zoom."],
-		["Command a flotilla", "You directly steer one boat. Your other active boats steer and fire on their own. 1 engages, 2 escorts your flagship, and 3 holds position. Withdraw orders a 12-second escape. Hulls with too few sailors are towed and do not deploy. You can field up to eight boats."],
+		["Your first voyage", "Start at Brass Haven in a cheap Tinwake skiff with five sailors. Enter harbor, open Contracts, and accept Clear the Lantern Narrows. Chart Kelp Reach, sail there, then engage its raider. Earn bronze coins, buy another hull, and recruit enough sailors to use it."],
+		["Your camera", "WASD pans the camera in both the chart and battle, even while paused. Shift pans faster. Scroll zooms. Home centers on your fleet or flagship. F11 toggles fullscreen. Your flagship begins on autopilot; the fleet fights without manual steering."],
+		["Command a flotilla", "Left-click a boat or drag a box to select; Shift adds boats. Right-click open water to move, an enemy to attack, or an ally to escort. Space pauses. Tab opens a paused tactical overview and restores your prior pause state when closed. 1 engages, 2 escorts the flagship, 3 holds. Each side fields up to 300 deployment points. U toggles flagship autopilot; optional manual controls use the arrows and mouse. X cycles flagship."] ,
+		["Refit your boat", "Dock at a harbor and open Refit, or use the Fleet refit button. Fit compatible machine guns, cannons, rocket racks and torpedo launchers within each hull’s fitting budget. Engine and armor packages trade speed, fuel use and protection. The bill shows physical materials, paid fitting workers, experts and duty. Removed modules remain in that boat’s locker; stored modules still need paid installation. Refitting does not repair existing damage."],
 		["Keep the water outside", "Hits can puncture hulls, wound sailors, damage engines, and start fires. Breaches admit water; too much water sinks a boat even if its hull is intact. Powered pumps need fuel and engine power. Crew can bail without supplies. More water slows the boat."],
 		["Choose what the crew does", "Balanced divides hands among guns, bailing and repair. Bail water moves hands off the guns. Patch & repair closes holes using supplies, then slowly repairs hull once holes are closed. Guns first leaves little damage control. Wounded sailors cannot work. Fixed helmsman and gunner details are just part of a boat's art."],
 		["Make the coast work for you", "Villages hire woodcutters, carpenters, miners, smelters and other trades. They need both inputs and payroll. Buy abundant goods and sell into shortages. Your cargo can restart a stalled workshop. A commissioned hull needs its full bill of materials, workforce and supervisors."],
-		["Build your fleet", "Buy completed hulls at a yard; the price of minimum crew is added. Recruit toward optimal crew for full efficiency. Drydock consumes repair kits and cash. Refill working stores from local stock, or buy reserves into the hold and load them. Victory may offer a battered hull to recover; it needs crew and repairs."],
+		["Build your fleet", "Buy completed hulls at a yard; the price of minimum crew is added. Recruit toward optimal crew for full efficiency. Drydock consumes repair kits and coins. Refill working stores from local stock, or buy reserves into the hold and load them. Victory may offer a battered hull to recover; it needs crew and repairs."],
 		["Save your voyage", "Autosaves happen on the campaign chart and after major actions. Manual saves are in the captain's menu. Saves live in a saves folder beside the portable game. Quick battle is separate from the campaign. If every boat is lost, a harbor rescue provides another cheap skiff on a funded harbor loan."],
-		["Free the Shatter Coast", "The eight story contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. v0.001 is the first complete playable step; later versions advance by 0.001."]
+		["Free the Shatter Coast", "The eight story contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. v0.002 adds command battles, refits, deployment points and detailed boats. Later versions advance by 0.001."]
 	]:
 		label(body, section[0], 24, GOLD, true)
 		paragraph(body, section[1], 17)
@@ -660,9 +648,9 @@ func outcome(result: String, report: Dictionary, enemies: Array):
 		return
 	var salvage = report.get("salvage", {})
 	if result == "won" and not salvage.is_empty():
-		paragraph(body, "Recoverable hull: %s. Tug labor, engineer inspection and company fee: %s cash. It returns at 35%% hull with no crew or stores." % [salvage.name, money(host.core.salvage_quote(salvage.id).total)], 15)
+		paragraph(body, "Recoverable hull: %s. Tug labor, engineer inspection and company fee: %s coins. It returns at 35%% hull with no crew or stores." % [salvage.name, money(host.core.salvage_quote(salvage.id).total)], 15)
 		var recovery_button = button(body, "Recover %s" % salvage.name, func(): host.recover_salvage(salvage.id))
-		recovery_button.disabled = host.core.state.fleet.size() >= host.core.MAX_FLEET
+		recovery_button.disabled = not host.core.can_add_boat(salvage)
 	if report.get("fleetLost", false):
 		paragraph(body,"Brass Haven may lend enough from its real treasury to buy an available hull, hire sailors and purchase stores. The itemized cost becomes a harbor loan.",16,GOLD)
 		button(body, "Accept harbor rescue", host.accept_rescue, true)

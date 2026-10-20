@@ -33,9 +33,9 @@ if not "%BRASS_BRANCH%"=="main" (
     echo Stopped: the source must be on main.
     goto failed
 )
-set "BRASS_TAG="
-for /f "delims=" %%I in ('git rev-parse refs/tags/v0.001') do set "BRASS_TAG=%%I"
-if not "%BRASS_TAG%"=="8c71de042ce02cc119ba74965c869e905fe6a642" (
+set "BRASS_ORIGINAL_TAG="
+for /f "delims=" %%I in ('git rev-parse refs/tags/v0.001') do set "BRASS_ORIGINAL_TAG=%%I"
+if not "%BRASS_ORIGINAL_TAG%"=="8c71de042ce02cc119ba74965c869e905fe6a642" (
     echo Stopped: the verified annotated v0.001 tag has changed.
     goto failed
 )
@@ -44,9 +44,23 @@ if errorlevel 1 (
     echo Stopped: main must include the verified release history.
     goto failed
 )
-git diff --quiet v0.001 main -- game
+set "BRASS_RELEASE="
+for /f "tokens=2 delims==" %%I in ('findstr /b /c:"config/version=" game\project.godot') do set "BRASS_RELEASE=%%~I"
+if not defined BRASS_RELEASE goto failed
+set "BRASS_REF=v%BRASS_RELEASE%"
+set "BRASS_TAG="
+for /f "delims=" %%I in ('git rev-parse refs/tags/%BRASS_REF%') do set "BRASS_TAG=%%I"
+set "BRASS_TAG_TYPE="
+for /f "delims=" %%I in ('git cat-file -t refs/tags/%BRASS_REF%') do set "BRASS_TAG_TYPE=%%I"
+if not "%BRASS_TAG_TYPE%"=="tag" (
+    echo Stopped: the current release needs an annotated version tag.
+    goto failed
+)
+git merge-base --is-ancestor %BRASS_REF% main
+if errorlevel 1 goto failed
+git diff --quiet %BRASS_REF% main -- game
 if errorlevel 1 (
-    echo Stopped: game files differ from the verified v0.001 build.
+    echo Stopped: game files differ from the current tagged build.
     goto failed
 )
 set "BRASS_DIRTY="
@@ -58,13 +72,13 @@ if defined BRASS_DIRTY (
 set "BRASS_HEAD="
 for /f "delims=" %%I in ('git rev-parse refs/heads/main') do set "BRASS_HEAD=%%I"
 if /i "%~1"=="--check-only" (
-    echo PASS: destination, clean main, original game files and annotated tag verified.
+    echo PASS: destination, clean main, tagged game and annotated %BRASS_REF% verified.
     popd
     exit /b 0
 )
-echo Publishing Brass Tide main and v0.001 to the verified repository.
+echo Publishing Brass Tide main and %BRASS_REF% to the verified repository.
 echo Existing remote history is protected; this does not force-push.
-git push --atomic --set-upstream --porcelain origin refs/heads/main:refs/heads/main refs/tags/v0.001:refs/tags/v0.001
+git push --atomic --set-upstream --porcelain origin refs/heads/main:refs/heads/main refs/tags/%BRASS_REF%:refs/tags/%BRASS_REF%
 if errorlevel 1 (
     echo Publishing did not complete. Check GitHub sign-in and the message above.
     echo No browser or sign-in window was opened by this publisher.
@@ -73,10 +87,10 @@ if errorlevel 1 (
 set "BRASS_REMOTE_HEAD="
 set "BRASS_REMOTE_TAG="
 for /f "tokens=1" %%I in ('git ls-remote --refs origin refs/heads/main') do set "BRASS_REMOTE_HEAD=%%I"
-for /f "tokens=1" %%I in ('git ls-remote --refs origin refs/tags/v0.001') do set "BRASS_REMOTE_TAG=%%I"
+for /f "tokens=1" %%I in ('git ls-remote --refs origin refs/tags/%BRASS_REF%') do set "BRASS_REMOTE_TAG=%%I"
 if not "%BRASS_REMOTE_HEAD%"=="%BRASS_HEAD%" goto unverified
 if not "%BRASS_REMOTE_TAG%"=="%BRASS_TAG%" goto unverified
-echo SUCCESS: GitHub main and the annotated v0.001 tag match the local source.
+echo SUCCESS: GitHub main and the annotated %BRASS_REF% tag match the local source.
 echo https://github.com/Oddsprig/BRASS-TIDE--THE-SHATTERED-COAST
 popd
 exit /b 0

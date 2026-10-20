@@ -1,0 +1,11 @@
+# v0.002 paid refits — Sol backstop raw report
+
+Implemented only refit.gd, test_refit.gd and this report in the isolated backstop worktree. Existing campaign/harbor/save-validation/Deployment drafts were read only and are not part of this change.
+
+The compact pure module implements catalog/hardpoints/defaults/normalize/effective_spec/ensure/quote/install without Campaign, Harbor, Battle or Economy preloads. Defaults preserve the original primary and hull performance; extra hardpoints start empty. Catalog contains two options per weapon family plus three alternative engines and armor sets. Size and fitting-point limits reject overloaded hulls. Effective mount coordinates use world units; engine fuelUse is a multiplier. Armor changes protection and drag, preserving maximum HP and existing damage.
+
+Quotes show actual Goods recursive component costs, bounded local scarcity, 125-coins shipwright-days, 200-coins engineer-days, 8% yard margin and 5% duty. Install preflights copies before transferring exact integer coins to existing cash/householdPurse/expertPurse/governmentPurse recipients and consuming physical stock. Ordinary worker pay uses householdPurse because Money.total does not count a workerPurse field. Shared Construction yard reservation counters cap ordinary/expert work; availableWorkers and availableSpecialists are not reduced again. Refits cannot increase a fleet beyond 300 DP; legacy over-cap fleets may reduce or retain their existing points.
+
+Removed equipment is a strict per-boat module-count locker. Reusing owned equipment charges labor without new component consumption. Repeated swaps consume one stored asset and store one removed asset. ensure is idempotent and preserves crew, wounds, water, engine damage, stores and health. Invalid fitting/locker/cash/stock/workforce/points requests cannot mutate live state.
+
+Added tests for all 24 default hulls, four weapon families, fitting limits, paid conservation, stock/workforce caps, shared reservations, locker cycles, legacy migration, no healing/refill and atomic failures. Tests remain explicitly UNRUN by this helper: root owns serialized headless execution. Static whitespace review only; no engine/game/import process, foreground/UI/input, installs, deletions or pushes.

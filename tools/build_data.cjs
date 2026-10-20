@@ -12,6 +12,6 @@ for(const hull of world.HULLS) delete hull.price;
 delete world.START.credits;
 world.START.coins=world.START.crew*100*30; // inherited thirty days of ordinary payroll
 for(const mission of world.MISSIONS) delete mission.reward; // funded offers calculated from hull value
-world.CURRENCY={name:'bronze cash',ordinaryDailyWage:100,coinsPerString:1000};
+world.CURRENCY={name:'bronze coins',ordinaryDailyWage:100,coinsPerString:1000};
 fs.writeFileSync(path.join(root,'game/data/world.json'),JSON.stringify(world,null,2)+'\n');
 console.log(`World data ${world.VERSION}: ${world.HULLS.length} hulls, ${world.PORTS.length} ports, ${world.MISSIONS.length} story contracts`);

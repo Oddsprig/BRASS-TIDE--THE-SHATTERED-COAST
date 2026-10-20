@@ -12,6 +12,9 @@ import time
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
+BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
+VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
+TAG = "v" + VERSION
 
 
 def run(command, log, env, timeout=120):
@@ -37,9 +40,9 @@ def main():
     env = os.environ.copy()
     env["APPDATA"] = str(logs / "appdata")
     commit = run(["git", "rev-parse", "HEAD"], logs / "commit.log", env)
-    tag = run(["git", "rev-parse", "v0.001^{commit}"], logs / "tag.log", env)
+    tag = run(["git", "rev-parse", TAG + "^{commit}"], logs / "tag.log", env)
     if commit != tag:
-        raise RuntimeError("Export checkout must be the exact v0.001 tag.")
+        raise RuntimeError(f"Export checkout must be the exact {TAG} tag.")
     dirty = run(["git", "status", "--porcelain"], logs / "source-status.log", env)
     if dirty:
         raise RuntimeError("Release worktree must be clean before export.")
@@ -63,7 +66,7 @@ def main():
     print("Checking the exported game itself: menu, campaign/save and battle; no window/input.", flush=True)
     for name, hook in [("menu", []), ("campaign", ["--", "--qa-campaign"]), ("battle", ["--", "--qa-battle"])]:
         output = run([executable, "--headless", "--quit-after", "30", *hook], logs / f"portable-{name}.log", env, 30)
-        assert "BRASS TIDE v0.001" in output, f"No verified game startup in {name}"
+        assert "BRASS TIDE v" + VERSION in output, f"No verified game startup in {name}"
     # Preserve the newly generated test save outside the shipped game. Never delete user saves.
     saves = dest / "saves"
     if saves.exists():
@@ -75,19 +78,19 @@ def main():
     for name in ["ECONOMY.md", "ORIGINALITY AND CREDITS.md", "BUILD AND TEST.md", "CODEX PORTABLE BUILD RULES.txt"]:
         shutil.copy2(ROOT / "docs" / name, docs / name)
     shutil.copytree(ROOT / "docs/legal", docs / "legal", dirs_exist_ok=True)
-    for name in ["AGENTS.md", "CODE MAP.md", "HANDOFF.md", "ROADMAP.md", "VERSION MAP.txt", "DEV LOG.txt", "TO BE TESTED.md", "CHANGES v0.001.md"]:
+    for name in ["AGENTS.md", "CODE MAP.md", "HANDOFF.md", "ROADMAP.md", "VERSION MAP.txt", "DEV LOG.txt", "TO BE TESTED.md", f"CHANGES v{VERSION}.md"]:
         shutil.copy2(ROOT / name, docs / name)
     shutil.copytree(ROOT / "maps", dest / "maps", dirs_exist_ok=True)
     tests = dest / "tests"
     tests.mkdir(exist_ok=True)
-    shutil.copy2(ROOT / "docs/TEST RESULTS v0.001.md", tests / "TEST RESULTS v0.001.md")
+    shutil.copy2(ROOT / f"docs/TEST RESULTS v{VERSION}.md", tests / f"TEST RESULTS v{VERSION}.md")
     shutil.copytree(ROOT / "docs/helper-reports", tests / "helper-reports", dirs_exist_ok=True)
-    (dest / "START HERE.txt").write_text(START, encoding="utf-8")
+    (dest / "START HERE.txt").write_text(START.replace("v0.001", "v" + VERSION), encoding="utf-8")
     (dest / "Stable Rendering.vbs").write_text(STABLE, encoding="utf-8")
     hashes = {p.relative_to(dest).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
               for p in sorted(dest.rglob("*")) if p.is_file()}
-    manifest = {"game":"Brass Tide: The Shatter Coast", "version":"0.001", "build":1,
-                "source_commit":commit, "source_tag":"v0.001", "platform":"Windows x86_64",
+    manifest = {"game":"Brass Tide: The Shatter Coast", "version":VERSION, "build":BUILD,
+                "source_commit":commit, "source_tag":TAG, "platform":"Windows x86_64",
                 "engine":run([engine,"--version"],logs / "engine-version.log",env),
                 "exported_background_smoke":["menu","campaign and portable save","battle"],
                 "sha256":hashes}
@@ -105,24 +108,37 @@ PLAY
 Double-click Brass Tide.exe. No editor, installer, Node or Python is needed.
 Keep the EXE and matching PCK together. You can move this whole portable folder.
 Your voyage and backup are saved in saves/ beside the EXE after you start playing.
+Existing v0.001 voyages load in v0.002; copy your old saves folder into this new folder
+while both games are closed. Keep the original folder as a backup.
 
 FIRST VOYAGE
 Start a new campaign with one inherited Tinwake skiff and five sailors.
 Enter Brass Haven, open Contracts, and accept the first story job.
 Choose its destination on the chart, sail there, then resolve the contract.
-Battles begin paused: inspect your boats, then press Space to start.
+Your fleet begins on autopilot. Space pauses; Tab opens a tactical overview.
 Victory releases the sponsor's escrow. Recover a wreck, hire sailors, repair it,
-or buy a stronger hull to grow your fleet. You can field up to eight boats.
+or buy a stronger hull to grow your fleet. Each side can field up to 300 deployment points; different hulls cost different points.
 Use Voyage stores for an affordable short trip; Full stores fills long-range tanks.
 Keep rations and wages paid. Inspect the Hold and Economy screens for real purses.
 
 CONTROLS
+WASD pans the camera in chart and battle; Shift pans faster. Scroll zooms.
+Home centers the camera. Space pauses. F11 toggles fullscreen.
 Chart: click a harbor/open water to sail; right-click cancels the course.
-Space pauses. Mouse wheel zooms. E harbor, F fleet, C hold, J contracts, H guide.
-Battle: W/S throttle, A/D steer (or arrows), Shift boost; aim and hold left click.
-R toggles automatic gunners. Tab changes flagship. 1 engage, 2 escort, 3 hold.
-Fleet withdrawal is available in the battle controls; it takes twelve seconds.
-Escape opens the captain's desk. F11 toggles fullscreen.
+E harbor, F fleet, C hold, J contracts, H guide. Dock for the Refit tab.
+Battle: click or drag to select boats, Shift adds to selection.
+Right-click water to move, enemies to attack, or allies to escort.
+Tab toggles a paused tactical overview and restores your prior pause state.
+U toggles flagship autopilot; X cycles flagship. 1 engage, 2 escort, 3 hold.
+Optional manual flagship control uses arrow keys, mouse aim/fire and Ctrl boost.
+Withdraw fleet orders a twelve-second escape. Escape opens the captain's desk.
+
+REFITS
+Dock at a harbor and open Refit, or use a boat's refit button in Fleet.
+Fit compatible machine guns, cannons, rockets and torpedoes within the fitting budget.
+Choose engine and armor packages. Review the physical materials and paid workers.
+Removed equipment stays in the boat's locker; owned parts still need paid installation.
+Refitting preserves existing damage, crew and stores. Coins circulate between purses.
 
 RENDERING
 The normal launch uses separate rendering and background economy jobs.
@@ -137,7 +153,7 @@ maps/   Verified source/system maps for continuing development.
 tests/  Actual automated evidence, helper reports and independent root verdict.
 RELEASE.json  Exact source commit/tag and hashes of the delivered files.
 
-This is the first playable version. Future releases advance by exactly 0.001.
+This is the second playable version. Future releases advance by exactly 0.001.
 The editable Godot source is delivered separately in the brass-tide source folder.
 """
 

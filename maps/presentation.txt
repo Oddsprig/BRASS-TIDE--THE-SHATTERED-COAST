@@ -1,35 +1,44 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.001)
+BRASS TIDE — PRESENTATION MAP (generated; v0.002)
 
 Campaign/battle telemetry -> main-thread canvas/UI and generated audio. No fluid or animated crew.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 22981 bytes; extends Node2D
-  game/scripts/chart.gd:20 setup()
-  game/scripts/chart.gd:65 polygon()
-  game/scripts/chart.gd:71 polygon_center()
-  game/scripts/chart.gd:77 noise()
-  game/scripts/chart.gd:80 project()
-  game/scripts/chart.gd:84 world_at()
-  game/scripts/chart.gd:90 step()
-  game/scripts/chart.gd:107 world_line()
-  game/scripts/chart.gd:114 world_poly()
-  game/scripts/chart.gd:121 world_ring()
-  game/scripts/chart.gd:127 text_at()
-  game/scripts/chart.gd:152 draw_island()
-game/scripts/interface.gd: 38661 bytes; extends CanvasLayer
-  game/scripts/interface.gd:35 setup()
-  game/scripts/interface.gd:60 create_theme()
-  game/scripts/interface.gd:80 box()
-  game/scripts/interface.gd:92 clear()
-  game/scripts/interface.gd:97 label()
-  game/scripts/interface.gd:107 paragraph()
-  game/scripts/interface.gd:113 eyebrow()
-  game/scripts/interface.gd:118 button()
-  game/scripts/interface.gd:135 row()
-  game/scripts/interface.gd:140 column()
-  game/scripts/interface.gd:146 spacer()
-  game/scripts/interface.gd:151 rule()
-game/scripts/finance_ui.gd: 7441 bytes; extends RefCounted
+game/scripts/chart.gd: 33575 bytes; extends Node2D
+  game/scripts/chart.gd:32 setup()
+  game/scripts/chart.gd:77 polygon()
+  game/scripts/chart.gd:83 polygon_center()
+  game/scripts/chart.gd:89 noise()
+  game/scripts/chart.gd:92 project()
+  game/scripts/chart.gd:96 world_at()
+game/scripts/boat_art.gd: 33768 bytes; extends RefCounted
+  game/scripts/boat_art.gd:21 archetype()
+  game/scripts/boat_art.gd:110 palette()
+  game/scripts/boat_art.gd:156 mounts_of()
+  game/scripts/boat_art.gd:518 draw_boat()
+  game/scripts/boat_art.gd:610 draw_wake()
+  game/scripts/boat_art.gd:660 draw_trail()
+game/scripts/boat_portrait.gd: 2957 bytes; class_name BoatPortrait
+  game/scripts/boat_portrait.gd:32 set_spec()
+  game/scripts/boat_portrait.gd:27 _init()
+  game/scripts/boat_portrait.gd:35 _draw()
+game/scripts/interface.gd: 38512 bytes; extends CanvasLayer
+  game/scripts/interface.gd:42 setup()
+  game/scripts/interface.gd:67 create_theme()
+  game/scripts/interface.gd:87 box()
+  game/scripts/interface.gd:99 clear()
+  game/scripts/interface.gd:104 label()
+  game/scripts/interface.gd:114 paragraph()
+game/scripts/tactics_ui.gd: 3406 bytes; extends RefCounted
+  game/scripts/tactics_ui.gd:4 build()
+  game/scripts/tactics_ui.gd:48 update()
+game/scripts/refit_ui.gd: 7838 bytes; extends RefCounted
+  game/scripts/refit_ui.gd:6 module_name()
+  game/scripts/refit_ui.gd:15 roster()
+  game/scripts/refit_ui.gd:30 preview()
+  game/scripts/refit_ui.gd:38 open()
+  game/scripts/refit_ui.gd:73 choose()
+  game/scripts/refit_ui.gd:99 review()
+game/scripts/finance_ui.gd: 7552 bytes; extends RefCounted
   game/scripts/finance_ui.gd:5 boat_quote()
   game/scripts/finance_ui.gd:24 good_recipe()
   game/scripts/finance_ui.gd:45 settlement()

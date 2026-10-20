@@ -8,12 +8,14 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 SUITES = ["damage", "battle", "navigation", "economy", "construction",
-          "fleet_economy", "campaign_cash", "save_validation", "runtime", "voyage"]
+          "fleet_economy", "campaign_cash", "save_validation", "runtime", "voyage",
+          "tactics", "refit", "fleet_points", "commander", "autovoyage"]
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine", required=True, type=Path)
+    parser.add_argument("--project", type=Path, default=ROOT / "game")
     parser.add_argument("--logs", type=Path, default=ROOT.parent.parent / "work" / "qa" / "final")
     parser.add_argument("--only", nargs="+", choices=SUITES)
     args = parser.parse_args()
@@ -23,7 +25,7 @@ def main():
     bad = []
     for suite in args.only or SUITES:
         started = time.monotonic()
-        command = [str(args.engine.resolve()), "--headless", "--path", str(ROOT / "game"),
+        command = [str(args.engine.resolve()), "--headless", "--path", str(args.project.resolve()),
                    "--script", f"res://tests/test_{suite}.gd"]
         try:
             result = subprocess.run(command, capture_output=True, text=True, encoding="utf-8",

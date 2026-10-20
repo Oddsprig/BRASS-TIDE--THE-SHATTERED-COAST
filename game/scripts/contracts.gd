@@ -73,7 +73,7 @@ static func accept(core, id: String) -> Dictionary:
 	Money.move(p,payer_key,contract,"escrow",int(contract.reward),"Sponsor funds contract escrow",core.state.moneyLog)
 	contract.cleared = contract.enemyHulls.is_empty()
 	core.state.activeContract = contract
-	core.log_entry("Accepted %s; %d cash moved from the sponsor into escrow."%[contract.title,contract.reward])
+	core.log_entry("Accepted %s; %d coins moved from the sponsor into escrow."%[contract.title,contract.reward])
 	return core.ok("Contract funded. Chart its destination.")
 
 static func finish(core) -> Dictionary:
@@ -96,8 +96,8 @@ static func finish(core) -> Dictionary:
 	core.state.activeContract = {}
 	core.state.freight = {}
 	core.state.completed = core.state.missionIndex >= core.data.MISSIONS.size()
-	core.log_entry("Completed %s: %d bronze cash released by its sponsor."%[contract.title,paid])
-	return {"ok":true,"message":"Contract paid: %d cash."%paid,"reward":paid,"completed":core.state.completed}
+	core.log_entry("Completed %s: %d bronze coins released by its sponsor."%[contract.title,paid])
+	return {"ok":true,"message":"Contract paid: %d coins."%paid,"reward":paid,"completed":core.state.completed}
 
 static func abandon(core) -> Dictionary:
 	if core.state.activeContract.is_empty():

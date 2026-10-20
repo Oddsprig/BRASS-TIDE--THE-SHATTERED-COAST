@@ -87,22 +87,23 @@ static func apply_hit(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator
 		return events
 	var kind: String=hit.get("kind","bullet")
 	var explosive: bool=kind=="torpedo"
+	var rocket: bool=kind=="rocket"
 	var shell: bool=kind in ["shell","ram"]
 	var armor: float=maxf(0.0,s.armor-maxf(0.0,number(hit.get("penetration"))))
 	var impact: float=maxf(raw*0.22,raw-armor*(0.3 if explosive else 0.8))
 	var damage: float=impact*HULL_DAMAGE_SCALE
 	s.hp-=damage
 	events.append("Hull hit: %.1f HP"%damage)
-	var chance: float=1.0 if explosive else (0.72 if shell else 0.3)
+	var chance: float=1.0 if explosive else (0.8 if rocket else (0.72 if shell else 0.3))
 	if _roll(rng)<chance:
-		var area: float=impact*(5.0 if explosive else (1.1 if shell else 0.45))
-		s.breaches.append({"area":area,"section":hit.get("section","bow")})
+		var area: float=impact*(5.0 if explosive else (1.35 if rocket else (1.1 if shell else 0.45)))
+		s.breaches.append({"area":area,"section":"waterline" if explosive else hit.get("section","bow")})
 		events.append("Breach: %.1f cm²"%area)
 	if _roll(rng)<(0.65 if hit.get("section","")=="engine" else (0.4 if explosive else 0.09)):
 		s.engine-=minf(0.35,impact/s.maxHp*0.7)
 		events.append("Engine damaged")
-	if _roll(rng)<(0.35 if explosive else (0.2 if kind=="shell" else 0.05)):
-		s.fire+=minf(28.0,impact*0.55)
+	if _roll(rng)<(0.35 if explosive else (0.75 if rocket else (0.2 if kind=="shell" else 0.05))) or rocket or hit.get("incendiary",false):
+		s.fire+=minf(32.0,4.0+impact*0.55) if rocket else minf(28.0,impact*0.55)
 		events.append("Fire aboard")
 	if _roll(rng)<minf(0.4,impact/s.maxHp*(1.8 if explosive else 0.65)):
 		if s.wounded>=1.0 and _roll(rng)<0.18:

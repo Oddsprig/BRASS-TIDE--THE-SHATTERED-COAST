@@ -1,9 +1,9 @@
-# Current stage — playable coast v0.001
+# Current stage — fleet command v0.002
 
-Owner: “godot, and a pc only build”; “v0.001”; “testing on background ... don't take my mouse”; “real coins moving around the economies”; “each fleet owner has an economy their boats are based on, and a cost.”
+Owner: “CALL IT COINS NOT CASH”, “WASD FOR CAMERA CONTROL”, “BATTLEMAP SHOULD WORK LIKE AN AUTOBATTLER”, “FLAGSHIP ... DEFAULT AUTOPILOT”, weapons/engines/hull armor, wakes and “300-300 ship points per side”. Background testing only; no foreground, mouse or keyboard control.
 
-Deliver one complete small native campaign: inherited skiff, eight-boat flotilla, original coast, eight story battles and persistent numerical crew/damage. Keep water decorative and cheap, rendering Separate, background economy jobs safely copied. Expose the paid material/worker/expert cost of boats and bronze cash moving across residents, firms, government, captains, sailors and NPC owners.
+This step adds default AI for every boat, selection and right-click fleet orders, paused tactical overview, optional manual flagship, 300 deployment points per side, paid fitting with module lockers, original hull detail and bounded wakes. The inherited skiff, original coast, eight contracts, numerical crew, finite supplies and circulating economy continue.
 
-Completion gate: actual route/combat progression with earned resources; bounded background checks; portable Windows export from a tagged commit in a separate worktree; original launcher/desktop icon; current records/maps and preserved helper evidence. Keep the local game useful if a GitHub destination is missing.
+Completion gates: earned eight-contract progression with zero battle input, all native checks, real v0.001 save migration without modifying the original, clean tagged Windows export, native executable smoke checks and updated icon launcher. Keep v0.001 intact. Current records distinguish automated evidence from unmeasured human feel/GPU performance.
 
-Later0.001 releases follow play feedback on balance, clarity, stability, fleet behavior and diplomacy. Expensive fluid/animated crew are outside this stage. Android compatibility is useful, not required.
+The next 0.001 step follows owner play feedback. Water remains decorative and cheap. Android is useful, not required.

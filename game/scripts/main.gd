@@ -7,6 +7,8 @@ const Version = preload("res://scripts/version.gd")
 const Campaign = preload("res://scripts/campaign.gd")
 const Chart = preload("res://scripts/chart.gd")
 const Interface = preload("res://scripts/interface.gd")
+const Refit = preload("res://scripts/refit.gd")
+const Deployment = preload("res://scripts/deployment.gd")
 const Sound = preload("res://scripts/sound.gd")
 
 var data: Dictionary
@@ -23,7 +25,13 @@ var battle_context: Dictionary = {}
 var battle_enemies: Array = []
 var quick_mode = false
 var fire_held = false
-var auto_gunners = false
+var auto_gunners = true
+var tactical_mode = false
+var pre_tactical_paused = false
+var selected_battle_ids: Array = []
+var selection_start = Vector2.ZERO
+var selection_box = Rect2()
+var selection_dragging = false
 var result_handled = false
 var salvage_claimed = false
 var hud_timer = 0.0
@@ -78,6 +86,10 @@ func _process(dt: float):
 	_finish_economy(false)
 	if not core.state.is_empty() and core.pending_days > 0 and economy_task < 0:
 		start_economy()
+	if mode != "menu" and not ui.modal_open:
+		var axis = Vector2(float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)), float(Input.is_physical_key_pressed(KEY_S)) - float(Input.is_physical_key_pressed(KEY_W)))
+		if axis.length_squared() > 0:
+			chart.pan_camera(axis.normalized(), minf(dt, 0.1), Input.is_physical_key_pressed(KEY_SHIFT))
 	chart.step(minf(dt, 0.1))
 	hud_timer += dt
 	if hud_timer >= 0.15:
@@ -112,28 +124,9 @@ func _physics_process(dt: float):
 	elif mode == "battle" and not battle.is_empty() and not result_handled:
 		var aim = chart.world_at(get_global_mouse_position())
 		var flagship = Battle.get_flagship(battle)
-		var firing = fire_held
-		if not flagship.is_empty():
-			var closest: Dictionary = {}
-			var mouse_distance = 45.0
-			var best = INF
-			for target in battle.ships:
-				if target.team != "enemy" or target.sunk:
-					continue
-				var d = Vector2(target.x - flagship.x, target.y - flagship.y).length()
-				var screen_distance = chart.project(Vector2(target.x, target.y)).distance_to(get_global_mouse_position())
-				if (auto_gunners and d < best) or (not auto_gunners and screen_distance < mouse_distance):
-					closest = target
-					best = d
-					mouse_distance = screen_distance
-			if not closest.is_empty() and (firing or auto_gunners):
-				var projectile_speed = 240.0 if flagship.spec.weapon == "torpedo" else 850.0
-				var flight = minf(1.7, best / projectile_speed)
-				aim = Vector2(closest.x + closest.vx * flight, closest.y + closest.vy * flight)
-				if auto_gunners:
-					firing = best < flagship.spec.range
 		var old_ammo = flagship.get("ammo", 0)
-		Battle.update(battle, dt, {"forward": Input.is_physical_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP), "backward": Input.is_physical_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN), "left": Input.is_physical_key_pressed(KEY_A) or Input.is_key_pressed(KEY_LEFT), "right": Input.is_physical_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT), "boost": Input.is_key_pressed(KEY_SHIFT), "fire": firing, "aimX": aim.x, "aimY": aim.y})
+		var manual = not bool(battle.get("autopilot", true)) and not tactical_mode
+		Battle.update(battle, dt, {"manual":manual,"forward":Input.is_key_pressed(KEY_UP),"backward":Input.is_key_pressed(KEY_DOWN),"left":Input.is_key_pressed(KEY_LEFT),"right":Input.is_key_pressed(KEY_RIGHT),"boost":Input.is_key_pressed(KEY_CTRL),"fire":manual and fire_held,"aimX":aim.x,"aimY":aim.y})
 		if not flagship.is_empty() and flagship.ammo < old_ammo:
 			audio.play("shot")
 		if battle.wrecks.size() > battle_last_wrecks:
@@ -171,31 +164,47 @@ func _unhandled_input(event):
 			KEY_J: ui.open_contracts() if mode == "campaign" else null
 			KEY_H: ui.open_guide()
 			KEY_E: ui.open_port() if mode == "campaign" else null
-			KEY_TAB: switch_flagship() if mode == "battle" else null
+			KEY_TAB: toggle_tactical() if mode == "battle" else null
+			KEY_HOME: chart.center_camera()
+			KEY_U: toggle_autopilot() if mode == "battle" else null
+			KEY_X: switch_flagship() if mode == "battle" else null
 			KEY_R:
 				if mode == "battle":
 					auto_gunners = not auto_gunners
-					ui.toast("Automatic gunners on. Steer your boat into range." if auto_gunners else "Manual gunnery.")
-			KEY_1: Battle.set_order(battle, "engage") if mode == "battle" else null
-			KEY_2: Battle.set_order(battle, "escort") if mode == "battle" else null
-			KEY_3: Battle.set_order(battle, "hold") if mode == "battle" else null
+					ui.toast("Fleet gunnery is automatic while autopilot is on. U toggles flagship control.")
+			KEY_1: command_selected("engage") if mode == "battle" else null
+			KEY_2: command_selected("escort") if mode == "battle" else null
+			KEY_3: command_selected("hold") if mode == "battle" else null
 	elif event is InputEventMouseButton and not ui.modal_open:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-			chart.zoom = clampf(chart.zoom * 1.12, 0.7, 1.8)
+			chart.zoom = clampf(chart.zoom * 1.12, 0.45, 3.0)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
-			chart.zoom = clampf(chart.zoom / 1.12, 0.7, 1.8)
+			chart.zoom = clampf(chart.zoom / 1.12, 0.45, 3.0)
 		elif event.button_index == MOUSE_BUTTON_LEFT:
 			if mode == "battle":
-				fire_held = event.pressed
+				if bool(battle.get("autopilot", true)) or tactical_mode:
+					if event.pressed:
+						selection_start = get_global_mouse_position()
+						selection_dragging = true
+					elif selection_dragging:
+						finish_battle_selection(get_global_mouse_position(), Input.is_key_pressed(KEY_SHIFT))
+				else:
+					fire_held = event.pressed
 			elif mode == "campaign" and event.pressed:
 				click_chart(get_global_mouse_position())
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and mode == "battle":
+			order_at(get_global_mouse_position())
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and mode == "campaign":
 			core.stop_sailing()
 			ui.toast("Engines idle. Course canceled.")
 
 func _input(event):
+	if event is InputEventMouseMotion and selection_dragging:
+		selection_box = Rect2(selection_start, get_global_mouse_position() - selection_start).abs()
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		fire_held = false
+		if selection_dragging and mode == "battle" and not ui.modal_open:
+			finish_battle_selection(get_global_mouse_position(), Input.is_key_pressed(KEY_SHIFT))
 
 func toggle_pause():
 	paused = not paused
@@ -211,6 +220,7 @@ func new_game():
 	quick_mode = false
 	paused = false
 	chart.zoom = 1.0
+	chart.center_camera()
 	selected_port = data.START.port
 	ui.close_modal()
 	ui.build_hud()
@@ -377,7 +387,9 @@ func quick_battle():
 		core.new_game(35)
 	var fleet: Array = []
 	for id in ["tin_skiff", "harbor_sloop", "reed_stinger"]:
-		fleet.append(Damage.create_ship(core.hull(id)))
+		var boat = Damage.create_ship(core.hull(id))
+		Refit.ensure(boat, core.hull(id))
+		fleet.append(boat)
 	battle_enemies = [core.hull("bilge_punt"), core.hull("scab_cutter"), core.hull("ash_corvette")]
 	battle_context = {"kind": "skirmish", "name": "The proving shoals"}
 	battle = Battle.create({"fleet": fleet, "enemySpecs": battle_enemies, "seed": 25, "location": {"name": "The proving shoals"}})
@@ -385,20 +397,23 @@ func quick_battle():
 	_enter_battle()
 
 func _enter_battle():
-	# A new encounter replaces any previous result screen without settling it again.
 	ui.modal_kind = ""
 	mode = "battle"
-	paused = true
-	auto_gunners = false
+	paused = false
+	tactical_mode = false
+	auto_gunners = true
+	Battle.set_autopilot(battle, true)
 	result_handled = false
 	salvage_claimed = false
 	battle_last_wrecks = 0
+	selection_dragging = false
+	selected_battle_ids = [battle.playerId] if battle.playerId != null else []
 	chart.zoom = 1.0
-	var flagship = Battle.get_flagship(battle)
-	chart.camera = Vector2(flagship.x, flagship.y)
+	chart.set_tactical(false)
+	chart.center_camera()
 	ui.close_modal()
 	ui.build_hud()
-	ui.toast("Tactical pause. W/S throttle, A/D steer, hold click to fire. Space starts the battle. R enables auto gunners.")
+	ui.toast("Autopilot engaged. WASD camera · Space pause · select boats, right-click orders · Tab tactical view.")
 
 func switch_flagship():
 	var fleet = battle.ships.filter(func(s): return s.team == "player" and not s.sunk)
@@ -410,7 +425,107 @@ func switch_flagship():
 			index = (i + 1) % fleet.size()
 			break
 	Battle.select_flagship(battle, fleet[index].id)
+	select_battle_boat(str(fleet[index].id))
 	ui.update_hud()
+
+func toggle_autopilot():
+	if mode != "battle" or battle.is_empty():
+		return
+	Battle.set_autopilot(battle, not bool(battle.get("autopilot", true)))
+	fire_held = false
+	ui.toast("Flagship autopilot engaged." if battle.autopilot else "Manual flagship: arrow keys steer, mouse aims/fires. WASD still moves the camera.")
+	ui.update_hud()
+
+func toggle_tactical():
+	if mode != "battle":
+		return
+	tactical_mode = not tactical_mode
+	if tactical_mode:
+		pre_tactical_paused = paused
+		paused = true
+		Battle.set_autopilot(battle, true)
+	else:
+		paused = pre_tactical_paused
+	chart.set_tactical(tactical_mode)
+	fire_held = false
+	ui.update_hud()
+
+func select_battle_boat(id: String, additive: bool = false):
+	if not battle.ships.any(func(boat):return str(boat.id)==id and boat.team=="player" and not boat.sunk):
+		return
+	if not additive:
+		selected_battle_ids.clear()
+	if not id in selected_battle_ids:
+		selected_battle_ids.append(id)
+	ui.update_hud()
+
+func select_all_boats():
+	selected_battle_ids.clear()
+	for boat in battle.get("ships", []):
+		if boat.team == "player" and not boat.sunk:
+			selected_battle_ids.append(boat.id)
+	ui.update_hud()
+
+func finish_battle_selection(position: Vector2, additive: bool = false):
+	selection_dragging = false
+	var rectangle = Rect2(selection_start, position - selection_start).abs()
+	if rectangle.size.length() < 8:
+		var nearest = ""
+		var distance = 42.0
+		for boat in battle.ships:
+			if boat.team == "player" and not boat.sunk:
+				var d = chart.project(Vector2(boat.x, boat.y)).distance_to(position)
+				if d < distance:
+					distance = d
+					nearest = str(boat.id)
+		if not nearest.is_empty():
+			select_battle_boat(nearest, additive)
+	else:
+		if not additive:
+			selected_battle_ids.clear()
+		for boat in battle.ships:
+			if boat.team == "player" and not boat.sunk and rectangle.has_point(chart.project(Vector2(boat.x, boat.y))) and not boat.id in selected_battle_ids:
+				selected_battle_ids.append(boat.id)
+	selection_box = Rect2()
+	ui.update_hud()
+
+func command_selected(order: String, target: Dictionary = {}):
+	if battle.is_empty():
+		return
+	if order == "escort" and target.is_empty():
+		target = {"shipId":str(battle.playerId)}
+	selected_battle_ids = selected_battle_ids.filter(func(id):return battle.ships.any(func(boat):return boat.id==id and boat.team=="player" and not boat.sunk))
+	if selected_battle_ids.is_empty():
+		select_all_boats()
+	if not Battle.issue_order(battle, selected_battle_ids, order, target):
+		ui.toast("Choose navigable water or a living target for that order.", true)
+	ui.update_hud()
+
+func order_at(position: Vector2):
+	if battle.is_empty():
+		return
+	var target: Dictionary = {}
+	var closest = 42.0
+	for boat in battle.ships:
+		if boat.sunk:
+			continue
+		var distance = chart.project(Vector2(boat.x, boat.y)).distance_to(position)
+		if distance < closest:
+			closest = distance
+			target = boat
+	if not target.is_empty():
+		command_selected("attack" if target.team == "enemy" else "escort", {"shipId":str(target.id)})
+	else:
+		var point = chart.world_at(position)
+		command_selected("move", {"x":point.x,"y":point.y})
+
+func refit_boat(uid: String, slot: String, module_id: String):
+	sync_economy()
+	var result = core.refit_boat(uid, slot, module_id)
+	respond(result)
+	if result.ok:
+		save_game(false)
+	ui.open_refit(uid)
 
 func set_crew_policy(policy: String):
 	var flagship = Battle.get_flagship(battle)
@@ -436,6 +551,9 @@ func recover_salvage(id: String):
 	respond(result)
 
 func return_to_campaign():
+	tactical_mode = false
+	chart.set_tactical(false)
+	chart.center_camera()
 	mode = "campaign"
 	paused = false
 	quick_mode = false

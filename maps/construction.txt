@@ -1,4 +1,4 @@
-BRASS TIDE — CONSTRUCTION MAP (generated; v0.001)
+BRASS TIDE — CONSTRUCTION MAP (generated; v0.002)
 
 Physical bill/local prices/ordinary and expert workers/escrow -> paid hull building, repairs, stock and hires.
 
@@ -16,20 +16,33 @@ game/scripts/construction.gd: 36995 bytes; extends RefCounted
   game/scripts/construction.gd:302 _good_cost_with_wages()
   game/scripts/construction.gd:314 _resolve_prices()
   game/scripts/construction.gd:564 _extract_specialist_count()
-game/scripts/harbor.gd: 11512 bytes; extends RefCounted
+game/scripts/harbor.gd: 12102 bytes; extends RefCounted
   game/scripts/harbor.gd:7 quote()
   game/scripts/harbor.gd:15 buy()
   game/scripts/harbor.gd:37 commission()
-  game/scripts/harbor.gd:60 collect()
-  game/scripts/harbor.gd:71 tick_yards()
-  game/scripts/harbor.gd:102 recruit()
-  game/scripts/harbor.gd:114 sell()
-  game/scripts/harbor.gd:140 service_quote()
-  game/scripts/harbor.gd:152 repair()
-  game/scripts/harbor.gd:182 resupply()
-  game/scripts/harbor.gd:206 use_reserves()
+  game/scripts/harbor.gd:62 collect()
+  game/scripts/harbor.gd:77 tick_yards()
+  game/scripts/harbor.gd:108 recruit()
+  game/scripts/harbor.gd:120 sell()
+  game/scripts/harbor.gd:146 service_quote()
+  game/scripts/harbor.gd:158 repair()
+  game/scripts/harbor.gd:188 resupply()
+  game/scripts/harbor.gd:213 use_reserves()
+game/scripts/refit.gd: 21444 bytes; extends RefCounted
+  game/scripts/refit.gd:23 catalog()
+  game/scripts/refit.gd:55 hardpoints()
+  game/scripts/refit.gd:65 defaults()
+  game/scripts/refit.gd:73 normalize()
+  game/scripts/refit.gd:101 effective_spec()
+  game/scripts/refit.gd:172 ensure()
+  game/scripts/refit.gd:220 quote()
+  game/scripts/refit.gd:270 install()
+  game/scripts/refit.gd:10 _number()
+  game/scripts/refit.gd:13 _whole()
+  game/scripts/refit.gd:17 _fail()
+  game/scripts/refit.gd:20 _weapon()
 
 TESTS (game/tests/*.gd)
-test_construction, test_campaign_cash, test_voyage
+test_construction, test_refit, test_fleet_points, test_campaign_cash, test_voyage
 
 Full symbols: rg -n '^func |^static func ' on named files.

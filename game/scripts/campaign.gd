@@ -11,7 +11,12 @@ const Construction = preload("res://scripts/construction.gd")
 const Fleets = preload("res://scripts/fleet_economy.gd")
 const Contracts = preload("res://scripts/contracts.gd")
 const SaveValidation = preload("res://scripts/save_validation.gd")
-const MAX_FLEET = 8
+# v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
+const Deployment = preload("res://scripts/deployment.gd")
+const Refits = preload("res://scripts/refit.gd")
+# Roster safety cap only: 300 DP of the cheapest 8-DP hulls is 37 boats. Ownership is limited by
+# deployment points through can_add_boat(); this is never an eight-boat ownership rule.
+const MAX_FLEET = SaveValidation.MAX_ROSTER
 const DAY_SECONDS = 45.0
 
 var data: Dictionary
@@ -58,6 +63,7 @@ func new_game(seed_value: int = 1):
 	var initial = Damage.create_ship(hull(start.hull), {"crew": start.crew, "ammo": start.ammo, "fuel": start.fuel, "supplies": start.supplies})
 	initial.uid = "boat-1"
 	initial.mothballed = false
+	fit_boat(initial,true)
 	var cargo: Dictionary = {}
 	for good in Economy.GOODS:
 		cargo[good] = float(start.food) if good == "food" else 0.0
@@ -224,7 +230,7 @@ func step(dt: float):
 			continue
 		Damage.tick_ship(s, dt, {"inCombat": false})
 		if moving and not s.get("mothballed", false):
-			s.fuel = maxf(0.0, s.fuel - dt * (0.011 + s.spec.size * 0.0002))
+			s.fuel = maxf(0.0, s.fuel - dt * (0.011 + s.spec.size * 0.0002) * maxf(0.2,float(s.spec.get("fuelUse",1.0))))
 		if s.sunk:
 			log_entry("%s was lost to flooding." % s.name)
 	state.fleet = state.fleet.filter(func(s): return not s.sunk)
@@ -278,7 +284,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		state.wageArrears += due-paid
 		if paid < due:
 			state.morale = maxf(10.0,state.morale-8.0)
-			log_entry("Crew wages short by %d cash. Unpaid wages accumulate and morale falls."%(due-paid))
+			log_entry("Crew wages short by %d coins. Unpaid wages accumulate and morale falls."%(due-paid))
 		elif state.wageArrears == 0:
 			state.morale = minf(100.0,state.morale+1.0)
 		var food_need: float = float(costs.food)
@@ -308,10 +314,17 @@ func apply_economy(ports: Array, messages: Array, days: int):
 func apply_morale():
 	var factor: float = clampf(state.morale/85.0,0.35,1.0)
 	for boat in state.fleet:
-		var base: Dictionary = hull(boat.type)
+		# Morale scales the canonical fitted design, never a stale or serialized spec.
+		var base: Dictionary = fitted_spec(boat)
 		boat.economyFactor = factor
-		boat.spec.speed = base.speed*factor
-		boat.spec.fireRate = base.fireRate*factor
+		boat.spec.speed = float(base.speed)*factor
+		boat.spec.fireRate = float(base.fireRate)*factor
+		var mounts = base.get("weaponMounts")
+		var live = boat.spec.get("weaponMounts")
+		if mounts is Array and live is Array and mounts.size() == live.size():
+			for i in range(mounts.size()):
+				if mounts[i] is Dictionary and live[i] is Dictionary and mounts[i].has("fireRate"):
+					live[i].fireRate = float(mounts[i].fireRate)*factor
 
 func pay_wage_arrears() -> Dictionary:
 	var amount: int = mini(int(state.coins),int(state.wageArrears))
@@ -321,7 +334,7 @@ func pay_wage_arrears() -> Dictionary:
 	state.wageArrears -= amount
 	state.morale = minf(100.0,state.morale+10.0)
 	apply_morale()
-	return ok("Paid %d cash of owed wages into the sailors' purse."%amount)
+	return ok("Paid %d coins of owed wages into the sailors' purse."%amount)
 
 func repay_loan(amount: int = 5000) -> Dictionary:
 	var payment: int = mini(amount,mini(int(state.coins),int(state.debt)))
@@ -329,7 +342,7 @@ func repay_loan(amount: int = 5000) -> Dictionary:
 		return fail("No payable harbor loan.")
 	Money.move(state,"coins",port(data.START.port),"governmentPurse",payment,"Repayment to harbor treasury",state.moneyLog)
 	state.debt -= payment
-	return ok("Repaid %d cash to Brass Haven."%payment)
+	return ok("Repaid %d coins to Brass Haven."%payment)
 
 func fleet_owner(id: String) -> Dictionary:
 	for owner in state.get("fleetOwners",[]):
@@ -375,8 +388,82 @@ func add_boat(h: Dictionary, crew: int = 0) -> Dictionary:
 	boat.uid = "boat-%d"%state.nextUid
 	state.nextUid += 1
 	boat.mothballed = crew < boat.crewMin
+	fit_boat(boat,true)
 	state.fleet.append(boat)
 	return boat
+
+## v0.002 fittings. The base hull is always rebuilt from world data; the loadout is the only
+## fitting input. Never heals damage, refills stores, recruits or moves coins.
+func fitted_spec(boat: Dictionary) -> Dictionary:
+	var base: Dictionary = hull(str(boat.get("type",""))).duplicate(true)
+	if base.is_empty():
+		return boat.get("spec",{})
+	var loadout = boat.get("loadout")
+	if not loadout is Dictionary:
+		loadout = Refits.defaults(base)
+	return Refits.effective_spec(base,loadout)
+
+func fit_boat(boat: Dictionary, fresh: bool = false) -> void:
+	var base: Dictionary = hull(str(boat.get("type",""))).duplicate(true)
+	if base.is_empty():
+		return
+	boat.baseSpec = base.duplicate(true)
+	Refits.ensure(boat,base)
+	boat.spec = Refits.effective_spec(base,boat.loadout)
+	var max_hp: float = maxf(1.0,float(boat.spec.get("hp",base.hp)))
+	if fresh:
+		boat.hp = max_hp # a newly built hull is delivered to its fitted design
+	boat.maxHp = max_hp
+	boat.hp = clampf(float(boat.hp),0.0,max_hp) # existing damage is never healed
+	boat.armor = maxf(0.0,float(boat.spec.get("armor",base.get("armor",0.0))))
+
+## v0.002 deployment-point ownership limit (replaces the eight-boat cap).
+func hull_points(h: Dictionary) -> int:
+	var base: Dictionary = hull(str(h.get("id",""))).duplicate(true)
+	if base.is_empty():
+		return Deployment.cost(h)
+	return Deployment.cost(Refits.effective_spec(base,Refits.defaults(base)))
+
+func fleet_points() -> int:
+	return Deployment.total(state.get("fleet",[]).filter(func(s): return not s.get("sunk",false)))
+
+func fleet_limit() -> int:
+	return Deployment.LIMIT
+
+func can_add_boat(spec: Dictionary) -> bool:
+	if state.is_empty() or hull(str(spec.get("id",""))).is_empty():
+		return false
+	if state.fleet.size() >= MAX_FLEET:
+		return false
+	return fleet_points()+hull_points(spec) <= fleet_limit()
+
+func points_refusal(spec: Dictionary) -> String:
+	return "%s needs %d deployment points; your flotilla uses %d of %d." % [str(spec.get("name","That hull")),hull_points(spec),fleet_points(),fleet_limit()]
+
+func refit_boat(uid: String, slot: String, module_id: String) -> Dictionary:
+	var boat: Dictionary = find_boat(uid)
+	if boat.is_empty() or boat.get("sunk",false):
+		return fail("That boat is not in your flotilla.")
+	var dock: Dictionary = current_port()
+	if dock.is_empty() or not state.path.is_empty():
+		return fail("Refits need a harbor yard. Dock before refitting.")
+	var previous: Dictionary = state
+	var previous_points: int = fleet_points()
+	state = previous.duplicate(true)
+	var result: Dictionary = Refits.install(state,current_port(),find_boat(uid),slot,module_id)
+	if not result.get("ok",false):
+		state = previous
+		return fail(str(result.get("message","The yard refused this refit.")))
+	if fleet_points() > fleet_limit() and fleet_points() > previous_points:
+		state = previous
+		return fail("This fitting would exceed your 300 deployment points.")
+	fit_boat(find_boat(uid))
+	apply_morale()
+	if Money.total(state) != int(state.coinSupply):
+		state = previous
+		return fail("The fitting bill could not be reconciled; your original boat and purses are unchanged.")
+	log_entry(str(result.get("message","Refit complete.")))
+	return ok(str(result.get("message","Refit complete.")))
 
 func buy_boat(id: String) -> Dictionary:
 	return Harbor.buy(self,id)
@@ -432,7 +519,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary) -> 
 		state.kills += enemy_specs.size()
 		if not owner.is_empty():
 			loot = floori(float(owner.coins)*0.30)
-			Money.move(owner,"coins",state,"coins",loot,"Captured fleet operating cash",state.moneyLog)
+			Money.move(owner,"coins",state,"coins",loot,"Captured fleet operating coins",state.moneyLog)
 			owner.active = false
 		state.renown += enemy_specs.size()*3
 		if not enemy_specs.is_empty():
@@ -465,11 +552,13 @@ func salvage_quote(id: String) -> Dictionary:
 
 func salvage_boat(id: String) -> Dictionary:
 	var h: Dictionary = hull(id)
-	if h.is_empty() or state.fleet.size() >= MAX_FLEET or state.recoverable.get("hull","") != id or state.recoverable.get("claimed",true):
-		return fail("No unclaimed wreck of that design, or your flotilla is full.")
+	if h.is_empty() or state.recoverable.get("hull","") != id or state.recoverable.get("claimed",true):
+		return fail("No unclaimed wreck of that design.")
+	if not can_add_boat(h):
+		return fail(points_refusal(h))
 	var q: Dictionary = salvage_quote(id)
 	if state.coins < q.total:
-		return fail("Recovery needs %d cash for tug labor, inspection and the company fee."%q.total)
+		return fail("Recovery needs %d coins for tug labor, inspection and the company fee."%q.total)
 	var base: Dictionary = port(state.lastPort)
 	Money.move(state,"coins",base,"householdPurse",q.ordinary,"Salvage tug crew wages",state.moneyLog)
 	Money.move(state,"coins",base,"expertPurse",q.expert,"Salvage engineer inspection",state.moneyLog)
@@ -485,7 +574,8 @@ func rescue() -> Dictionary:
 	var home: Dictionary = port(data.START.port)
 	var candidate: Dictionary = {}
 	var selected_quote: Dictionary = {}
-	var existing: Dictionary = state.fleet[0] if state.fleet.size() >= MAX_FLEET else {}
+	# Re-crew an owned living hull before buying another; never strand boats to fit a cap.
+	var existing: Dictionary = state.fleet[0] if not state.fleet.is_empty() else {}
 	var hull_cost: int = 0
 	if existing.is_empty():
 		for id in home.shipIds:
@@ -553,8 +643,8 @@ func rescue() -> Dictionary:
 		Economy.transact(home,state,"food",mini(rations,floori(home.stocks.food)),"buy",capacity())
 	state.encounterGrace = 120.0
 	apply_morale()
-	log_entry("Brass Haven lent %d cash; the yard supplied a real hull, labor and stores."%borrowed)
-	return ok("Rescue funded by a %d-cash harbor loan."%borrowed)
+	log_entry("Brass Haven lent %d coins; the yard supplied a real hull, labor and stores."%borrowed)
+	return ok("Rescue funded by a %d-coins harbor loan."%borrowed)
 
 func log_entry(message: String):
 	if state.is_empty():
@@ -583,17 +673,21 @@ func restore(saved: Dictionary) -> Dictionary:
 			return fail("The save contains an unknown boat.")
 	if Money.total(saved) != int(saved.get("coinSupply",-1)):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
+	var incoming: Dictionary = saved.duplicate(true)
 	new_game(int(saved.get("seed", 1)))
 	for key in state.keys():
-		if saved.has(key):
-			state[key] = saved[key]
+		if incoming.has(key):
+			state[key] = incoming[key]
 	state.coins = maxi(0, int(state.coins))
 	state.day = maxf(1.0, float(state.day))
 	state.missionIndex = clampi(int(state.missionIndex), 0, data.MISSIONS.size())
 	for s in state.fleet:
-		s.spec = hull(s.type).duplicate(true)
-		s.maxHp = s.spec.hp
+		# Canonical base + validated loadout; serialized combat stats are not trusted.
+		fit_boat(s)
 		Damage.tick_ship(s, 0.0)
+	for owner in state.fleetOwners:
+		for b in owner.boats:
+			canonical_npc_boat(b)
 	for patrol in state.patrols:
 		set_patrol_course(patrol,port(patrol.from),port(patrol.to))
 		place_patrol(patrol)
@@ -603,6 +697,21 @@ func restore(saved: Dictionary) -> Dictionary:
 	if Money.total(state) != int(state.coinSupply):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
 	return ok("Voyage restored.")
+
+func canonical_npc_boat(boat: Dictionary) -> void:
+	var base: Dictionary = hull(str(boat.get("type","")))
+	if base.is_empty():
+		return
+	var factor: float = clampf(float(boat.get("economyFactor",1.0)),0.35,1.0)
+	boat.spec = base.duplicate(true)
+	boat.maxHp = maxf(1.0,float(base.hp))
+	boat.hp = clampf(float(boat.hp),0.0,boat.maxHp)
+	boat.armor = maxf(0.0,float(base.get("armor",0.0)))
+	if boat.has("economyBaseSpeed"):
+		boat.economyBaseSpeed = float(base.speed)
+		boat.economyBaseFireRate = float(base.fireRate)
+		boat.spec.speed = float(base.speed)*factor
+		boat.spec.fireRate = float(base.fireRate)*factor
 
 func ok(message: String) -> Dictionary:
 	return {"ok": true, "message": message}

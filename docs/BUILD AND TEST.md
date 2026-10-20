@@ -1,25 +1,22 @@
-# Build and test
+# Build and test — v0.002
 
-Use the existing Godot 4.7.2 Windows console executable and its matching Windows export template. No global installation is required. The project is game/project.godot; source art and the Windows ICO are in game/assets. Build number 1 displays 0.001. Advance BUILD by one for each subsequent release.
+Native Godot4.7.2 Windows x64, existing matching export template, no global install. Project: game/project.godot. BUILD2 displays0.002; each release advances the integer by1. The shipped game needs no editor, Node or Python.
 
-Run bounded native checks from this source root:
+From this source root:
 
     python tools/check_game.py --engine "C:/path/to/Godot_v4.7.2-stable_win64_console.exe"
-
-Every process is headless, sequential, hidden and limited to 60 seconds. The checker rejects script errors even when Godot returns exit 0. Raw logs go to the task's work/qa/final directory by default. Current suites cover damage, battle, water navigation, paid production, physical construction, NPC finances, cash campaign protocols, the actual scene/controller and an eight-contract voyage. The old test_campaign.gd retains superseded pre-cash fixtures; test_campaign_cash.gd replaces its financial contract. It is not a valid test of the new currency requirements.
-
-Regenerate the source map with:
-
     python tools/update_maps.py
 
-The owner's final constraint is background testing only: no mouse/keyboard/focus, no desktop UI automation, no foreground windows. Do not start another instance while one test/game is running. Pure headless simulation does not prove current graphical appearance, FPS or human gameplay feel.
+The checker runs15current suites sequentially, headless and hidden,60s each maximum. --only selects suites; --project points at an isolated helper candidate. Tests cover damage, battle, routes, economy, construction, fleets, campaign finance, validation, actual scene, tactics, fitting, fleet points and manual/zero-input eight-contract voyages. The old test_campaign.gd is a superseded historical prototype. Test logs/caches/saves stay out of Git.
 
-For release, review named changes, commit them, tag v0.001, create a separate Git worktree of that exact release commit and export from its game/ folder:
+Art QA: run tools/boat_gallery.gd with the engine --headless --path game --script <absolute file> -- --out=<capture.json>, then tools/render_boat_gallery.py <capture.json> --out <previewfolder>. This captures actual BoatArt primitives without a window. tools/verify_legacy_save.gd with --save=<portablevoyage.json> checks real migration read-only.
 
-    Godot... --headless --path game --export-release "Windows Portable" "C:/absolute/release/Brass Tide.exe"
+Commit named reviewed files, create annotated v0.002 tag, and add a separate clean release worktree at that tag. In that checkout:
 
-Ship the executable, matching PCK, original ICO, START HERE, current docs/maps and test notes. Exclude editor caches, Python/Node, tests, development scripts, credentials, logs and browser prototypes from the PCK. Saves are created beside the exported executable, not in a developer-specific location. Test the exported executable headless without the editor to verify portability.
+    python tools/release_game.py --engine "C:/path/to/Godot_v4.7.2-stable_win64_console.exe" --release-dir "C:/absolute/Brass Tide v0.002" --logs "C:/absolute/work/qa/v002-release-export"
 
-Rendering is Separate by default as requested. The engine help confirms --render-thread safe as an optional per-launch fallback for the documented Godot glyph-atlas race; this does not change the saved default. Economy uses copied WorkerThreadPool jobs; main-thread actions synchronize before modifying any purse or inventory.
+It refuses dirty/non-tagged checkouts and verified-release overwrite, imports/exports headless, checks native icon and standalone menu/campaign/save/battle, preserves generated test saves outside the release, and writes a manifest/ZIP. Runtime PCK excludes tests, dev tools and saves. User saves live beside the EXE and are copied separately after checks; original releases stay intact.
 
-Engine notices in docs/legal are extracted by the development-only game/scripts/build_notices.gd from the exact engine. Read docs/ORIGINALITY AND CREDITS.md. The owner supplied https://github.com/Oddsprig/BRASS-TIDE--THE-SHATTERED-COAST, verified empty with write access and configured as origin. Windows denied the sandboxed Git credential manager access to saved credentials, so upload remains pending. tools/publish_github.cmd checks clean main, the exact original annotated tag, unchanged game files and the intended destination before a non-force atomic main/tag push, then verifies both remote hashes. Run it under the user's normal Windows account; --check-only performs local read-only preflight without uploading or opening a window.
+Owner rule: background only, no focus/mouse/keyboard/desktop control, no simultaneous game instances. Pure simulation does not prove GPU performance, display scaling or human feel. Separate rendering remains default, with a Stable Rendering.vbs per-launch Safe fallback for the documented engine font issue. Economy jobs own copied state and main-thread transactions first publish finished snapshots.
+
+Origin is the verified owner repository Oddsprig/BRASS-TIDE--THE-SHATTERED-COAST. v0.001 upload was independently verified. tools/publish_github.cmd derives the current version, checks clean main/current annotated tag/game and original v0.001 history, then pushes main/tag atomically without force and verifies remote refs. --check-only is local preflight. The sandbox's Windows credential manager previously denied vault access; use the user's existing supported authentication context if still necessary. Never claim a new upload without remote hashes. Do not treat a chat file link as an executable launch action.

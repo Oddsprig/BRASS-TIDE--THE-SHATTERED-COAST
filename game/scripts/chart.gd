@@ -1,5 +1,6 @@
 extends Node2D
 
+const BoatArt = preload("res://scripts/boat_art.gd")
 const GOLD = Color("dfbd7d")
 const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
@@ -16,6 +17,17 @@ var sans: SystemFont
 var mono: SystemFont
 var foliage: Array = []
 var villages: Array = []
+var follow_camera: bool = true
+var tactical: bool = false
+var _campaign_follow: bool = false
+var _last_mode: String = ""
+var _wakes: Dictionary = {}
+var _trails: Array = []
+var _last_trail_stamp: float = -1.0
+const WAKE_MAX_PER_BOAT: int = 26
+const WAKE_MAX_BOATS: int = 64
+const WAKE_LIFE_SEC: float = 6.0
+const TRAIL_MAX: int = 700
 
 func setup(game_host):
 	host = game_host
@@ -88,6 +100,214 @@ func world_at(screen: Vector2) -> Vector2:
 	return camera + Vector2((a + b) * 0.5, (b - a) * 0.5)
 
 func step(dt: float):
+	clock += dt
+	var viewport = get_viewport_rect().size
+	if host != null and "tactical_mode" in host:
+		tactical = bool(host.tactical_mode)
+	var mode_now: String = str(host.mode) if host != null else ""
+	var mode_changed := mode_now != _last_mode
+	_last_mode = mode_now
+	if host != null and host.mode == "battle" and not host.battle.is_empty():
+		if mode_changed:
+			_wakes.clear()
+			_trails.clear()
+		if follow_camera:
+			var boat = host.Battle.get_flagship(host.battle)
+			if not boat.is_empty():
+				camera = camera.lerp(Vector2(boat.x, boat.y), 1.0 - exp(-dt * 4.0))
+		scale_factor = clampf(viewport.x / 1700.0, 0.65, 1.2) * zoom * (0.52 if tactical else 1.0)
+		_update_wakes(host.battle.ships)
+		_update_trails(host.battle.projectiles)
+	elif host != null and host.mode == "menu":
+		if mode_changed:
+			camera = Vector2(1360, 730)
+			_wakes.clear()
+			_trails.clear()
+		scale_factor = minf(viewport.x / 1700.0, viewport.y / 950.0) * 1.18
+	else:
+		if mode_changed:
+			_wakes.clear()
+			_trails.clear()
+		if _campaign_follow and follow_camera and host != null and host.core != null and not host.core.state.is_empty():
+			var wp = host.core.state.position
+			camera = camera.lerp(Vector2(wp.x, wp.y), 1.0 - exp(-dt * 4.0))
+		scale_factor = minf((viewport.x - 450.0) / 3050.0, (viewport.y - 210.0) / 1850.0) * zoom * (0.75 if tactical else 1.0)
+		if host != null and host.core != null and not host.core.state.is_empty():
+			_update_wakes(_campaign_boats())
+	queue_redraw()
+
+func _screen_to_world_delta(screen_offset: Vector2) -> Vector2:
+	var d = screen_offset / maxf(0.05, scale_factor)
+	var a = d.x / 0.82
+	var b = d.y / 0.41
+	return Vector2((a + b) * 0.5, (b - a) * 0.5)
+
+func pan_camera(screen_direction: Vector2, dt: float, fast: bool = false):
+	if dt <= 0.0 or screen_direction.length_squared() < 0.0001:
+		return
+	follow_camera = false
+	_campaign_follow = false
+	var speed := 1150.0 if fast else 540.0
+	camera += _screen_to_world_delta(screen_direction.normalized() * speed * dt)
+	var world_size := Vector2(2300, 1700) if (host != null and host.mode == "battle") else Vector2(2600, 1800)
+	camera.x = clampf(camera.x, -450.0, world_size.x + 450.0)
+	camera.y = clampf(camera.y, -450.0, world_size.y + 450.0)
+	queue_redraw()
+
+func center_camera():
+	follow_camera = true
+	if host == null:
+		return
+	if host.mode == "battle" and not host.battle.is_empty():
+		var boat = host.Battle.get_flagship(host.battle)
+		if not boat.is_empty():
+			camera = Vector2(boat.x, boat.y)
+	elif host.mode != "menu" and host.core != null and not host.core.state.is_empty():
+		_campaign_follow = true
+		var wp = host.core.state.position
+		camera = Vector2(wp.x, wp.y)
+	queue_redraw()
+
+func set_tactical(enabled: bool):
+	tactical = enabled
+	if host != null and "tactical_mode" in host:
+		host.tactical_mode = enabled
+	queue_redraw()
+
+func _boat_key(boat: Dictionary, fallback: int) -> String:
+	if boat.has("uid"):
+		return str(boat.uid)
+	if boat.has("id"):
+		return str(boat.id)
+	return "boat-%d" % fallback
+
+func _campaign_boats() -> Array:
+	var out: Array = []
+	if host == null or host.core == null or host.core.state.is_empty():
+		return out
+	var world = host.core.state
+	var fleet = host.core.active_fleet()
+	for i in range(fleet.size()):
+		var boat = fleet[i].duplicate()
+		var offset = Vector2.ZERO if i == 0 else Vector2(-30 * ceili(i / 2.0), (1 if i % 2 else -1) * 30)
+		boat.x = world.position.x + offset.x
+		boat.y = world.position.y + offset.y
+		boat.angle = world.heading
+		boat.turretAngle = world.heading
+		var vel = Vector2.from_angle(world.heading) * (45.0 if not world.path.is_empty() else 0.0)
+		boat.vx = vel.x
+		boat.vy = vel.y
+		out.append(boat)
+	return out
+
+func _update_wakes(boats: Array):
+	var seen: Dictionary = {}
+	for i in range(boats.size()):
+		var boat = boats[i]
+		if not (boat is Dictionary) or bool(boat.get("sunk", false)):
+			continue
+		var key := _boat_key(boat, i)
+		pass # key tracked implicitly by _wakes membership
+		if Vector2(float(boat.get("vx", 0.0)), float(boat.get("vy", 0.0))).length() < 10.0:
+			continue
+		var stern: Vector2 = BoatArt.stern_of(boat)
+		var spec_v = boat.get("spec", {})
+		var bsize := maxf(4.0, float(spec_v.get("size", 16))) if spec_v is Dictionary else 16.0
+		var samples: Array = _wakes.get(key, [])
+		if samples.is_empty() or Vector2(samples[samples.size() - 1].p).distance_to(stern) > bsize * 0.5:
+			samples.append({"p": stern, "d": Vector2.from_angle(float(boat.get("angle", 0.0))), "t": clock, "w": bsize * 0.42})
+			while samples.size() > WAKE_MAX_PER_BOAT:
+				samples.pop_front()
+			_wakes[key] = samples
+	for key in _wakes.keys():
+		var samples: Array = _wakes[key]
+		while not samples.is_empty() and clock - float(samples[0].t) > WAKE_LIFE_SEC:
+			samples.pop_front()
+		if samples.is_empty():
+			_wakes.erase(key)
+		else:
+			_wakes[key] = samples
+	while _wakes.size() > WAKE_MAX_BOATS:
+		_wakes.erase(_wakes.keys()[0])
+
+func _update_trails(projectiles: Array):
+	while not _trails.is_empty() and clock - float(_trails[0].t) > 1.4:
+		_trails.pop_front()
+	if clock - _last_trail_stamp < 0.03:
+		return
+	_last_trail_stamp = clock
+	for shot in projectiles:
+		if not (shot is Dictionary):
+			continue
+		var kind := str(shot.get("kind", ""))
+		if kind in ["torpedo", "rocket"]:
+			_trails.append({"p": Vector2(float(shot.x), float(shot.y)), "t": clock, "kind": kind, "life": 1.1 if kind == "torpedo" else 1.4})
+	while _trails.size() > TRAIL_MAX:
+		_trails.pop_front()
+
+func _projector() -> Callable:
+	return func(p: Vector2, h: float) -> Vector2: return project(p, h)
+
+func _draw_wakes():
+	if _wakes.is_empty():
+		return
+	var proj := _projector()
+	var view := get_viewport_rect().grow(320.0)
+	for key in _wakes.keys():
+		var raw: Array = _wakes[key]
+		if raw.size() < 2:
+			continue
+		if not view.has_point(project(Vector2(raw[raw.size() - 1].p))):
+			continue
+		var samples: Array = []
+		for s in raw:
+			samples.append({"p": s.p, "d": s.d, "age": clock - float(s.t), "w": s.w})
+		BoatArt.draw_wake(self, proj, samples, {"life": WAKE_LIFE_SEC})
+
+func _draw_trails():
+	if _trails.is_empty():
+		return
+	var proj := _projector()
+	for kind in ["torpedo", "rocket"]:
+		var pts: Array = []
+		for s in _trails:
+			if str(s.kind) == kind:
+				pts.append({"p": s.p, "age": clock - float(s.t), "life": float(s.life)})
+		if not pts.is_empty():
+			BoatArt.draw_trail(self, proj, pts, kind, {"px": maxf(4.0, 14.0 * scale_factor)})
+
+func _selected_battle_ids(battle: Dictionary) -> Array:
+	if host != null and "selected_battle_ids" in host and host.selected_battle_ids is Array and not host.selected_battle_ids.is_empty():
+		return host.selected_battle_ids
+	var out: Array = []
+	for s in battle.get("ships", []):
+		if s is Dictionary and bool(s.get("selected", false)):
+			out.append(s.get("id"))
+	if out.is_empty() and battle.get("playerId") != null:
+		out.append(battle.playerId)
+	return out
+
+func _draw_order_indicator(battle: Dictionary, boat: Dictionary):
+	var order: String = str(boat.get("order", "engage"))
+	var target_data: Dictionary = boat.get("orderTarget", {})
+	var target = Vector2.INF
+	if target_data.has("x") and target_data.has("y"):
+		target = Vector2(target_data.x, target_data.y)
+	elif target_data.has("shipId"):
+		for other in battle.ships:
+			if str(other.id) == str(target_data.shipId) and not other.sunk:
+				target = Vector2(other.x, other.y)
+				break
+	if target == Vector2.INF:
+		return
+	var color = ENEMY if order == "attack" else FRIEND if order == "escort" else GOLD
+	draw_dashed_line(project(Vector2(boat.x, boat.y)), project(target), Color(color, 0.55), 1.2, 5.0, true)
+	var point = project(target)
+	draw_line(point-Vector2(6,6), point+Vector2(6,6), Color(color,0.9),1.4,true)
+	draw_line(point+Vector2(6,-6), point+Vector2(-6,6), Color(color,0.9),1.4,true)
+	world_ring(target,14.0,Color(color,0.5),1.0)
+
+func _step_v001(dt: float):
 	clock += dt
 	var viewport = get_viewport_rect().size
 	if host.mode == "battle" and not host.battle.is_empty():
@@ -246,6 +466,7 @@ func draw_campaign():
 			var point = Vector2(step_point.x, step_point.y)
 			draw_dashed_line(project(previous), project(point), Color(GOLD, 0.75), 1.5, 5.0, true)
 			previous = point
+	_draw_wakes()
 	for patrol in world.patrols:
 		if not patrol.active:
 			continue
@@ -285,6 +506,36 @@ func boat_shape(p: Vector2, angle: float, shape: Array, size_value: float, heigh
 	world_poly(points, color, height)
 
 func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bool = false, enlargement: float = 1.0, no_bars: bool = false):
+	# v0.002: rich BoatArt geometry with offscreen culling + zoom LOD.
+	# Persistent wakes are recorded in step() and drawn by _draw_wakes().
+	var spec_v = boat.get("spec", {})
+	if not (spec_v is Dictionary):
+		return
+	var boat_size := maxf(4.0, float(spec_v.get("size", 16))) * enlargement
+	var p := Vector2(float(boat.get("x", 0.0)), float(boat.get("y", 0.0)))
+	var screen := project(p)
+	var margin: float = 120.0 + boat_size * scale_factor * 3.2
+	if not get_viewport_rect().grow(margin).has_point(screen):
+		return
+	if selected:
+		world_ring(p, boat_size * 2.6, Color(GOLD, 0.65), 1.0)
+	var screen_len: float = boat_size * 3.9 * scale_factor * 0.82
+	var lod := 0 if screen_len > 78.0 else (1 if screen_len > 36.0 else 2)
+	if tactical:
+		lod = maxi(lod, 1)
+	BoatArt.draw_boat(self, _projector(), boat, {
+		"accent": color, "enemy": enemy, "lod": lod, "clock": clock,
+		"px": maxf(2.0, boat_size * scale_factor * 0.82), "enlargement": enlargement})
+	if not no_bars and boat.has("hp") and boat.has("maxHp"):
+		var center = project(p, -35)
+		var width = maxf(35, boat_size * scale_factor * 2.5)
+		var hp_frac = clampf(float(boat.hp) / maxf(1.0, float(boat.maxHp)), 0, 1)
+		draw_rect(Rect2(center - Vector2(width / 2, 0), Vector2(width, 4)), Color("0b2632"))
+		draw_rect(Rect2(center - Vector2(width / 2, 0), Vector2(width * hp_frac, 4)), ENEMY if hp_frac < 0.25 else color)
+		if float(boat.get("water", 0.0)) > 0.0 and boat.has("capacity"):
+			draw_rect(Rect2(center + Vector2(-width / 2, 6), Vector2(width * clampf(float(boat.water) / maxf(1.0, float(boat.capacity)), 0, 1), 2)), Color("75b9d7"))
+
+func _draw_boat_v001(boat: Dictionary, color: Color, selected: bool = false, enemy: bool = false, enlargement: float = 1.0, no_bars: bool = false):
 	var spec = boat.spec
 	var p = Vector2(boat.x, boat.y)
 	var angle = float(boat.get("angle", 0))
@@ -379,18 +630,24 @@ func draw_battle():
 		world_ring(Vector2(flagship.x, flagship.y), flagship.spec.range, Color(0.75, 0.84, 0.63, 0.07), 1.0)
 	for wreck in battle.wrecks:
 		world_ring(Vector2(wreck.x, wreck.y), wreck.size * 1.5, Color(0.02, 0.10, 0.13, 0.35), wreck.size * scale_factor * 0.55)
+	_draw_wakes()
+	_draw_trails()
+	var selected_ids := _selected_battle_ids(battle)
 	var sorted_ships = battle.ships.duplicate()
 	sorted_ships.sort_custom(func(a, b): return a.x + a.y < b.x + b.y)
 	for boat in sorted_ships:
 		if not boat.sunk:
-			draw_boat(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, boat.id == battle.playerId, boat.team == "enemy")
+			var is_sel: bool = boat.id in selected_ids or bool(boat.get("selected", false))
+			draw_boat(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, is_sel, boat.team == "enemy")
+			if is_sel and boat.team == "player":
+				_draw_order_indicator(battle, boat)
 	for shot in battle.projectiles:
-		var a = project(Vector2(shot.px, shot.py), 9)
-		var b = project(Vector2(shot.x, shot.y), 9)
-		var direction = (b - a).normalized()
-		var color = Color("9bdcc5") if shot.kind == "torpedo" else ENEMY if shot.team == "enemy" else Color("ffe2a6")
-		draw_line(a - direction * (9 if shot.kind == "torpedo" else 5), b, Color(color, 0.28), 5.0, true)
-		draw_line(a, b, color, 3.0 if shot.kind == "torpedo" else 2.0, true)
+		BoatArt.draw_projectile(self, _projector(), shot, {})
+		pass # projectile body drawn by BoatArt above
+		pass
+		pass
+		pass
+		pass
 	for effect in battle.effects:
 		var t = effect.age / effect.life
 		var p = project(Vector2(effect.x, effect.y), 10)

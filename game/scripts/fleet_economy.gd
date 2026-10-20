@@ -106,7 +106,7 @@ static func create_owners(ports: Array,world: Dictionary) -> Array:
 		var capital: int=mini(requested,_integer(home.get(purse,0)))
 		home[purse]=_integer(home.get(purse,0))-capital
 		owner.coins=capital
-		_log(owner,"Capital: %d bronze cash transferred from %s."%[capital,home.name])
+		_log(owner,"Capital: %d bronze coins transferred from %s."%[capital,home.name])
 		owners.append(owner)
 	return owners
 
@@ -126,7 +126,7 @@ static func subsidize(owner: Dictionary,port: Dictionary,amount: int) -> int:
 	port.governmentPurse=_integer(port.get("governmentPurse",0))-transfer
 	owner.coins+=transfer
 	if transfer>0:
-		_log(owner,"Public subsidy: %d cash."%transfer)
+		_log(owner,"Public subsidy: %d coins."%transfer)
 	return transfer
 
 static func _capacity(owner: Dictionary) -> float:
@@ -313,7 +313,7 @@ static func tick(owners: Array,ports: Array,days: float) -> Array:
 			owner.morale=clampf(owner.morale+(-8.0 if unpaid else 1.0)*h-(5.0*h if hungry else 0.0),10.0,100.0)
 			_performance(owner)
 			if unpaid and due>0:
-				var message: String="%s: %d cash wage arrears; morale %.0f."%[owner.name,owner.wageArrears,owner.morale]
+				var message: String="%s: %d coins wage arrears; morale %.0f."%[owner.name,owner.wageArrears,owner.morale]
 				_log(owner,message)
 				if messages.size()<24:
 					messages.append(message)

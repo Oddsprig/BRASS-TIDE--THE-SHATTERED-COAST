@@ -2,12 +2,12 @@ config_version=5
 
 [application]
 config/name="Brass Tide — The Shatter Coast"
-config/version="0.001"
+config/version="0.002"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://assets/icon.svg"
 config/windows_native_icon="res://assets/Brass Tide.ico"
-config/description="Fleet combat and a coast of paid work, real cargo and circulating bronze cash."
+config/description="Fleet combat and a coast of paid work, real cargo and circulating bronze coins."
 
 [display]
 window/size/viewport_width=1600

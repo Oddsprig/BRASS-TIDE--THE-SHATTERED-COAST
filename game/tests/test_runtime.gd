@@ -85,7 +85,8 @@ func run():
 	for id in first.enemyHulls:
 		specs.append(game.core.hull(id))
 	game.begin_battle(specs,{"kind":"contract","ownerId":first.ownerId,"id":first.id,"name":"Lantern Narrows"})
-	check(game.mode == "battle" and game.paused,"tactical deployment starts paused")
+	check(game.mode == "battle" and not game.paused and game.battle.autopilot,"commander battle starts running on autopilot")
+	game.paused = true
 	var flagship: Dictionary = game.Battle.get_flagship(game.battle)
 	for frame in range(7200):
 		if game.battle.result != null:

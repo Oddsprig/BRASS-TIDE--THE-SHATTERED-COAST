@@ -1,0 +1,732 @@
+extends RefCounted
+## BoatArt: original code-drawn boat rendering for Brass Tide.
+## Canvas-like and untyped on purpose: `canvas` is any object exposing
+## draw_colored_polygon(PackedVector2Array, Color),
+## draw_polyline(PackedVector2Array, Color, float),
+## draw_line(Vector2, Vector2, Color, float) and
+## draw_circle(Vector2, float, Color). A Node2D/Control in game, or the
+## dummy recorder in tools/boat_gallery.gd under headless Godot.
+## `projector` is a Callable(world_pos: Vector2, height: float) -> Vector2
+## in canvas/screen coordinates. All geometry is built in boat-local units
+## (x = bow, y = starboard, hull length ~3.8 units) scaled by spec.size.
+## No fluid simulation, no animated crew: helm/gunner are static shapes.
+
+const FOAM := Color(0.73, 0.87, 0.75, 1.0)
+const WAKE_LIFE := 6.0
+
+static var _station_cache: Dictionary = {}
+
+# --- classification -------------------------------------------------------
+
+static func archetype(spec: Dictionary) -> String:
+	var role := str(spec.get("role", "skiff"))
+	match role:
+		"skiff":
+			return "speedboat"
+		"cutter":
+			return "hydrofoil"
+		"torpedo":
+			return "hydrofoil"
+		"raider":
+			return "catamaran"
+		"corvette":
+			return "patrol"
+		"gunboat":
+			return "armored"
+		"rocket":
+			return "monitor"
+		"cruiser":
+			return "command"
+		_:
+			return "patrol"
+
+static func _seed(spec: Dictionary) -> int:
+	return absi(str(spec.get("id", "boat")).hash())
+
+static func _stations(spec: Dictionary) -> Array:
+	# Array of Vector2(x, half_beam), stern -> bow. Cached per hull id.
+	var arch := archetype(spec)
+	var key := str(spec.get("id", arch)) + "|" + arch
+	if _station_cache.has(key):
+		return _station_cache[key]
+	var s: Array = []
+	match arch:
+		"speedboat":
+			s = [Vector2(-1.70, 0.34), Vector2(-1.55, 0.46), Vector2(-0.90, 0.52),
+				Vector2(-0.10, 0.54), Vector2(0.70, 0.48), Vector2(1.35, 0.34),
+				Vector2(1.85, 0.12), Vector2(2.05, 0.0)]
+		"hydrofoil":
+			s = [Vector2(-1.80, 0.30), Vector2(-1.60, 0.40), Vector2(-0.90, 0.44),
+				Vector2(0.0, 0.44), Vector2(0.80, 0.38), Vector2(1.50, 0.24),
+				Vector2(1.95, 0.08), Vector2(2.10, 0.0)]
+		"catamaran":
+			# One slim demi-hull; drawn twice at +/- CAT_OFFSET.
+			s = [Vector2(-1.85, 0.17), Vector2(-1.60, 0.21), Vector2(-0.60, 0.22),
+				Vector2(0.60, 0.20), Vector2(1.45, 0.13), Vector2(1.95, 0.04),
+				Vector2(2.05, 0.0)]
+		"armored":
+			s = [Vector2(-1.80, 0.58), Vector2(-1.65, 0.68), Vector2(-0.80, 0.72),
+				Vector2(0.20, 0.72), Vector2(0.95, 0.64), Vector2(1.55, 0.44),
+				Vector2(1.90, 0.18), Vector2(2.00, 0.0)]
+		"monitor":
+			s = [Vector2(-1.75, 0.66), Vector2(-1.60, 0.80), Vector2(-0.70, 0.86),
+				Vector2(0.40, 0.86), Vector2(1.15, 0.76), Vector2(1.65, 0.52),
+				Vector2(1.92, 0.22), Vector2(1.98, 0.0)]
+		"command":
+			s = [Vector2(-2.05, 0.50), Vector2(-1.90, 0.62), Vector2(-1.00, 0.66),
+				Vector2(0.10, 0.66), Vector2(1.00, 0.58), Vector2(1.70, 0.40),
+				Vector2(2.15, 0.16), Vector2(2.30, 0.0)]
+		_:  # patrol monohull
+			s = [Vector2(-1.85, 0.44), Vector2(-1.65, 0.56), Vector2(-0.80, 0.60),
+				Vector2(0.20, 0.60), Vector2(0.95, 0.52), Vector2(1.60, 0.34),
+				Vector2(2.00, 0.12), Vector2(2.12, 0.0)]
+	_station_cache[key] = s
+	return s
+
+const CAT_OFFSET := 0.62
+
+static func _width_at(stations: Array, x: float) -> float:
+	if stations.is_empty():
+		return 0.0
+	if x <= stations[0].x:
+		return stations[0].y
+	for i in range(stations.size() - 1):
+		var a: Vector2 = stations[i]
+		var b: Vector2 = stations[i + 1]
+		if x <= b.x:
+			var t := 0.0 if is_equal_approx(b.x, a.x) else (x - a.x) / (b.x - a.x)
+			return lerpf(a.y, b.y, clampf(t, 0.0, 1.0))
+	return stations[stations.size() - 1].y
+
+static func _outline(stations: Array, y_offset: float = 0.0, shrink: float = 1.0, x_scale: float = 1.0) -> Array:
+	var pts: Array = []
+	for st in stations:
+		pts.append(Vector2(st.x * x_scale, y_offset - st.y * shrink))
+	for i in range(stations.size() - 1, -1, -1):
+		var st: Vector2 = stations[i]
+		pts.append(Vector2(st.x * x_scale, y_offset + st.y * shrink))
+	return pts
+
+static func palette(spec: Dictionary, accent: Color, enemy: bool) -> Dictionary:
+	var faction := str(spec.get("faction", "compact"))
+	var side := Color("24383f")
+	var top := Color("2f4a50")
+	var deck := Color("8d8262")
+	var cabin := Color("b9ac84")
+	match faction:
+		"forge":
+			side = Color("3a2e28"); top = Color("4d3b30"); deck = Color("6e5a44"); cabin = Color("8a7154")
+		"reed":
+			side = Color("274036"); top = Color("33523f"); deck = Color("9a7c53"); cabin = Color("b39d6d")
+		"raiders":
+			side = Color("402c2c"); top = Color("523838"); deck = Color("7d6a55"); cabin = Color("97795c")
+		_:  # compact
+			side = Color("24383f"); top = Color("30505c"); deck = Color("8d8262"); cabin = Color("b9ac84")
+	if enemy:
+		deck = deck.lerp(Color("8a5f4c"), 0.45)
+		cabin = cabin.lerp(Color("a07a5e"), 0.4)
+	return {
+		"side": side, "top": top, "deck": deck, "deck_dark": deck.darkened(0.22),
+		"seam": Color(0.08, 0.14, 0.16, 0.45), "plate": top.lightened(0.16),
+		"plate2": top.lightened(0.05), "cabin": cabin, "roof": cabin.lightened(0.18),
+		"glass": Color("79b7c4"), "glass_dark": Color("2d5560"),
+		"metal": Color("39494d"), "metal_light": Color("c9c9a8"),
+		"brass": Color("c8a35e"), "accent": accent,
+		"shadow": Color(0.02, 0.11, 0.15, 0.55), "foam": FOAM,
+		"ring": Color("e8e4d2"), "ring_red": Color("c45a3c"),
+		"skin": Color("ddc6a0"), "cloth": Color("4a5a52"),
+	}
+
+# --- weapon mounts ----------------------------------------------------------
+
+static func _mount_scale(raw) -> float:
+	if raw is String:
+		match str(raw).to_lower():
+			"small", "s": return 0.8
+			"medium", "m": return 1.0
+			"large", "l": return 1.3
+			_: return 1.0
+	var v := float(raw) if (raw is int or raw is float) else 0.0
+	if v <= 0.0:
+		return 1.0
+	if v <= 3.5:
+		return clampf(0.65 + 0.25 * v, 0.7, 1.5)
+	return 1.4
+
+static func mounts_of(spec: Dictionary) -> Array:
+	# Normalized mounts: {kind, x, y (boat-local units), angle (local rad), scale}
+	var out: Array = []
+	var fitted = spec.get("weaponMounts", [])
+	var size := maxf(6.0, float(spec.get("size", 16)))
+	if spec.has("weaponMounts") and fitted is Array:
+		for m in fitted:
+			if not (m is Dictionary):
+				continue
+			var kind := str(m.get("kind", "gun")).to_lower()
+			if kind in ["mg", "machinegun", "machine_gun", "autocannon"]:
+				kind = "gun"
+			elif kind in ["shell", "howitzer"]:
+				kind = "cannon"
+			elif kind in ["missile", "rockets"]:
+				kind = "rocket"
+			elif kind in ["torpedoes", "tube"]:
+				kind = "torpedo"
+			if not kind in ["gun", "cannon", "rocket", "torpedo"]:
+				kind = "gun"
+			var mx := float(m.get("x", 0.6))
+			var my := float(m.get("y", 0.0))
+			# Refit/combat may author x,y in world units; local units are ~[-2.3, 2.3].
+			mx /= size
+			my /= size
+			out.append({"kind": kind, "x": clampf(mx, -2.2, 2.2), "y": clampf(my, -1.2, 1.2),
+				"angle": float(m.get("angle", 0.0)), "scale": _mount_scale(m.get("size", 0))})
+			if out.size() >= 6:
+				break
+		return out
+	# Legacy single-weapon fallback, preserving v0.001 read of each hull.
+	var weapon := str(spec.get("weapon", "gun"))
+	var role := str(spec.get("role", "skiff"))
+	match weapon:
+		"torpedo":
+			out.append({"kind": "torpedo", "x": 0.15, "y": -0.46, "angle": 0.0, "scale": 1.0})
+			out.append({"kind": "torpedo", "x": 0.15, "y": 0.46, "angle": 0.0, "scale": 1.0})
+			out.append({"kind": "gun", "x": 0.95, "y": 0.0, "angle": 0.0, "scale": 0.8})
+		"rocket":
+			out.append({"kind": "rocket", "x": 0.55, "y": 0.0, "angle": 0.0, "scale": 1.15})
+			if role in ["rocket", "cruiser"]:
+				out.append({"kind": "gun", "x": -1.05, "y": 0.0, "angle": 0.0, "scale": 0.8})
+		"cannon":
+			out.append({"kind": "cannon", "x": 0.62, "y": 0.0, "angle": 0.0, "scale": 1.15})
+			if role in ["cruiser", "gunboat"]:
+				out.append({"kind": "cannon", "x": -1.10, "y": 0.0, "angle": 0.0, "scale": 0.95})
+		_:
+			out.append({"kind": "gun", "x": 0.78, "y": 0.0, "angle": 0.0, "scale": 1.0})
+			if role in ["cruiser", "gunboat", "corvette"] and int(spec.get("tier", 1)) >= 3:
+				out.append({"kind": "gun", "x": -1.08, "y": 0.0, "angle": 0.0, "scale": 0.85})
+	return out
+
+# --- canvas helpers (ctx carries canvas/projector/transform/counts) ---------
+
+static func _pt(ctx: Dictionary, local: Vector2, h: float) -> Vector2:
+	var world: Vector2 = ctx.pos + local.rotated(ctx.angle) * ctx.size
+	var r = ctx.proj.call(world, h)
+	return r if r is Vector2 else Vector2.ZERO
+
+static func _poly(ctx: Dictionary, locals: Array, h: float, col: Color) -> void:
+	if locals.size() < 3:
+		return
+	var pts := PackedVector2Array()
+	for l in locals:
+		pts.append(_pt(ctx, l, h))
+	ctx.canvas.draw_colored_polygon(pts, col)
+	ctx.n = int(ctx.n) + 1
+	ctx.npoly = int(ctx.npoly) + 1
+
+static func _line(ctx: Dictionary, locals: Array, h: float, col: Color, width: float = 1.0, closed: bool = false) -> void:
+	if locals.size() < 2:
+		return
+	var pts := PackedVector2Array()
+	for l in locals:
+		pts.append(_pt(ctx, l, h))
+	if closed:
+		pts.append(pts[0])
+	ctx.canvas.draw_polyline(pts, col, width)
+	ctx.n = int(ctx.n) + 1
+	ctx.nline = int(ctx.nline) + 1
+
+static func _seg(ctx: Dictionary, a: Vector2, b: Vector2, h: float, col: Color, width: float = 1.0) -> void:
+	ctx.canvas.draw_line(_pt(ctx, a, h), _pt(ctx, b, h), col, width)
+	ctx.n = int(ctx.n) + 1
+	ctx.nline = int(ctx.nline) + 1
+
+static func _circ(ctx: Dictionary, local: Vector2, h: float, r_units: float, col: Color) -> void:
+	ctx.canvas.draw_circle(_pt(ctx, local, h), maxf(0.8, r_units * float(ctx.px)), col)
+	ctx.n = int(ctx.n) + 1
+	ctx.ncirc = int(ctx.ncirc) + 1
+
+static func _rect(ctx: Dictionary, cx: float, cy: float, len_: float, wid: float, h: float, col: Color, rot: float = 0.0) -> void:
+	var c := Vector2(cx, cy)
+	var pts: Array = []
+	for o in [Vector2(-0.5, -0.5), Vector2(0.5, -0.5), Vector2(0.5, 0.5), Vector2(-0.5, 0.5)]:
+		pts.append(c + (o * Vector2(len_, wid)).rotated(rot))
+	_poly(ctx, pts, h, col)
+
+static func _wline(ctx: Dictionary) -> float:
+	# A ~1.2px screen line at current scale, never hairline-invisible.
+	return maxf(1.0, float(ctx.px) * 0.05)
+
+# --- hull construction ------------------------------------------------------
+
+static func _one_hull(ctx: Dictionary, stations: Array, y_off: float, c: Dictionary, lift: float = 0.0) -> void:
+	var lod := int(ctx.lod)
+	# Water shadow, then shaded side, rim and inset deck.
+	_poly(ctx, _outline(stations, y_off + 0.10, 1.10, 1.04), -7.0, c.shadow)
+	_line(ctx, _outline(stations, y_off, 1.04, 1.01), -2.0, Color(c.foam, 0.35), _wline(ctx) * 1.4, true)
+	_poly(ctx, _outline(stations, y_off), 3.0 + lift, c.side)
+	_poly(ctx, _outline(stations, y_off, 0.97, 0.99), 6.5 + lift, c.top)
+	_line(ctx, _outline(stations, y_off, 0.97, 0.99), 7.0 + lift, Color(c.accent, 0.85), _wline(ctx) * 1.5, true)
+	_poly(ctx, _outline(stations, y_off, 0.84, 0.94), 9.0 + lift, c.deck)
+	if lod >= 2:
+		return
+	# Deck plank seams across the inset deck plus a centerline.
+	var x0: float = stations[0].x
+	var x1: float = stations[stations.size() - 1].x
+	var steps := 9 if lod == 0 else 5
+	for i in range(1, steps):
+		var x := lerpf(x0, x1, float(i) / float(steps)) * 0.94
+		var w := _width_at(stations, x / 0.94) * 0.84
+		if w > 0.05:
+			_seg(ctx, Vector2(x, y_off - w), Vector2(x, y_off + w), 9.4 + lift, c.seam, _wline(ctx) * 0.8)
+	_seg(ctx, Vector2(x0 * 0.9, y_off), Vector2(x1 * 0.92, y_off), 9.4 + lift, Color(c.deck_dark, 0.8), _wline(ctx))
+	# Bow foam chevrons when moving.
+	if float(ctx.speed) > 8.0:
+		var bow := Vector2(x1 * 0.98, y_off)
+		for side in [-1.0, 1.0]:
+			_line(ctx, [bow + Vector2(0.05, side * 0.05), bow + Vector2(-0.45, side * 0.42),
+				bow + Vector2(-0.95, side * 0.55)], -1.0, Color(c.foam, 0.55), _wline(ctx) * 1.3)
+
+static func _armor_plates(ctx: Dictionary, stations: Array, c: Dictionary, lift: float = 0.0) -> void:
+	# Segmented side plates with seams; rivet dots at corners on full detail.
+	var lod := int(ctx.lod)
+	for side in [-1.0, 1.0]:
+		for i in range(stations.size() - 1):
+			var a: Vector2 = stations[i]
+			var b: Vector2 = stations[i + 1]
+			if a.y < 0.2 or b.y < 0.2:
+				continue
+			var quad: Array = [
+				Vector2(a.x * 0.99, side * a.y * 0.80), Vector2(b.x * 0.99, side * b.y * 0.80),
+				Vector2(b.x * 0.99, side * b.y * 0.96), Vector2(a.x * 0.99, side * a.y * 0.96)]
+			_poly(ctx, quad, 7.6 + lift, c.plate if i % 2 == 0 else c.plate2)
+			_seg(ctx, quad[0], quad[3], 7.8 + lift, c.seam, _wline(ctx) * 0.8)
+			if lod == 0:
+				for q in [quad[0], quad[1]]:
+					_circ(ctx, Vector2(q.x, q.y * 1.06), 8.0 + lift, 0.028, c.metal_light)
+
+static func _rivet_row(ctx: Dictionary, stations: Array, c: Dictionary, y_off: float = 0.0) -> void:
+	if int(ctx.lod) != 0:
+		return
+	for side in [-1.0, 1.0]:
+		var x: float = stations[0].x + 0.15
+		while x < stations[stations.size() - 1].x - 0.25:
+			var w := _width_at(stations, x)
+			if w > 0.12:
+				_circ(ctx, Vector2(x, y_off + side * w * 0.92), 7.4, 0.024, Color(c.metal_light, 0.8))
+			x += 0.34
+
+static func _rails(ctx: Dictionary, stations: Array, c: Dictionary, y_off: float = 0.0, lift: float = 0.0) -> void:
+	if int(ctx.lod) >= 2:
+		return
+	for side in [-1.0, 1.0]:
+		var pts: Array = []
+		for st in stations:
+			if st.x > -0.4:
+				pts.append(Vector2(st.x * 0.96, y_off + side * st.y * 0.90))
+		_line(ctx, pts, 13.0 + lift, Color(c.metal_light, 0.75), _wline(ctx))
+		if int(ctx.lod) == 0:
+			for p in pts:
+				_circ(ctx, Vector2(p.x, p.y), 10.0 + lift, 0.022, Color(c.metal_light, 0.8))
+
+static func _cabin(ctx: Dictionary, cx: float, cy: float, len_: float, wid: float, c: Dictionary, h_top: float = 20.0, glass: bool = true) -> void:
+	_rect(ctx, cx, cy, len_ * 1.06, wid * 1.10, h_top - 5.0, Color(c.cabin).darkened(0.25))
+	_rect(ctx, cx, cy, len_, wid, h_top - 2.0, c.cabin)
+	if glass and int(ctx.lod) < 2:
+		# Forward glazing band with mullions and a darker side window strip.
+		_rect(ctx, cx + len_ * 0.30, cy, len_ * 0.34, wid * 0.86, h_top - 1.0, c.glass)
+		_rect(ctx, cx + len_ * 0.30, cy, len_ * 0.34, wid * 0.30, h_top - 0.6, c.glass_dark)
+		for i in range(-1, 2):
+			_seg(ctx, Vector2(cx + len_ * (0.30 + i * 0.11), cy - wid * 0.43),
+				Vector2(cx + len_ * (0.30 + i * 0.11), cy + wid * 0.43), h_top - 0.4, Color(c.metal, 0.8), _wline(ctx) * 0.8)
+	_rect(ctx, cx - len_ * 0.08, cy, len_ * 0.72, wid * 0.88, h_top, c.roof)
+	_seg(ctx, Vector2(cx - len_ * 0.42, cy), Vector2(cx + len_ * 0.26, cy), h_top + 0.3, Color(c.seam, 0.6), _wline(ctx) * 0.8)
+
+static func _figure(ctx: Dictionary, at: Vector2, c: Dictionary, h: float = 14.0) -> void:
+	# Static helm/gunner: torso lozenge + head. Never animated.
+	if int(ctx.lod) >= 2:
+		return
+	_poly(ctx, [at + Vector2(-0.09, -0.06), at + Vector2(0.09, -0.06), at + Vector2(0.07, 0.07), at + Vector2(-0.07, 0.07)], h, c.cloth)
+	_circ(ctx, at, h + 3.0, 0.055, c.skin)
+
+static func _vents(ctx: Dictionary, cx: float, cy: float, c: Dictionary, slats: int = 4) -> void:
+	if int(ctx.lod) >= 2:
+		return
+	_rect(ctx, cx, cy, 0.42, 0.30, 11.5, c.metal)
+	for i in range(slats):
+		var x := cx - 0.16 + i * (0.32 / maxf(1.0, float(slats - 1)))
+		_seg(ctx, Vector2(x, cy - 0.12), Vector2(x, cy + 0.12), 12.0, Color(c.metal_light, 0.65), _wline(ctx) * 0.8)
+
+static func _stack(ctx: Dictionary, at: Vector2, c: Dictionary, r: float = 0.10) -> void:
+	_circ(ctx, at, 16.0, r, c.metal)
+	_circ(ctx, at, 19.0, r * 0.72, Color(0.05, 0.07, 0.08, 1.0))
+	_circ(ctx, at, 19.5, r * 0.30, Color(c.brass, 0.9))
+
+static func _life_ring(ctx: Dictionary, at: Vector2, c: Dictionary) -> void:
+	if int(ctx.lod) != 0:
+		return
+	_circ(ctx, at, 15.0, 0.085, c.ring)
+	_circ(ctx, at, 15.4, 0.050, c.ring_red)
+	_circ(ctx, at, 15.8, 0.030, c.cabin)
+
+static func _rope_coil(ctx: Dictionary, at: Vector2, c: Dictionary) -> void:
+	if int(ctx.lod) != 0:
+		return
+	_circ(ctx, at, 9.8, 0.10, Color("a68d5f"))
+	_circ(ctx, at, 10.1, 0.065, Color("8a714a"))
+	_circ(ctx, at, 10.4, 0.032, c.deck)
+
+static func _mast(ctx: Dictionary, at: Vector2, c: Dictionary, top_h: float = 44.0, pennant: bool = true) -> void:
+	if int(ctx.lod) >= 2:
+		return
+	var top_screen := _pt(ctx, at, top_h)
+	ctx.canvas.draw_line(_pt(ctx, at, 12.0), top_screen, Color(c.metal_light, 0.9), _wline(ctx) * 1.1)
+	ctx.n = int(ctx.n) + 1
+	ctx.nline = int(ctx.nline) + 1
+	_circ(ctx, at, top_h, 0.035, c.brass)
+	if pennant:
+		ctx.canvas.draw_colored_polygon(PackedVector2Array([
+			top_screen, top_screen + Vector2(0.34, 0.06) * float(ctx.px), top_screen + Vector2(0.0, 0.13) * float(ctx.px)]), Color(c.accent, 0.95))
+		ctx.n = int(ctx.n) + 1
+		ctx.npoly = int(ctx.npoly) + 1
+
+static func _superstructure(ctx: Dictionary, arch: String, spec: Dictionary, c: Dictionary) -> void:
+	var tier := int(spec.get("tier", 1))
+	var seed := _seed(spec)
+	match arch:
+		"speedboat":
+			# Open cockpit, raked windshield, twin outboard blocks at the stern.
+			_rect(ctx, -0.55, 0.0, 0.95, 0.62, 11.0, Color(c.cabin).darkened(0.35))
+			_rect(ctx, -0.42, 0.0, 0.70, 0.52, 12.0, Color("33424a"))
+			_line(ctx, [Vector2(0.02, -0.30), Vector2(0.16, 0.0), Vector2(0.02, 0.30)], 17.0, c.glass, _wline(ctx) * 2.2)
+			_figure(ctx, Vector2(-0.28, 0.10), c, 13.0)
+			for side in [-1.0, 1.0]:
+				_rect(ctx, -1.72, side * 0.22, 0.30, 0.20, 12.5, c.metal)
+				_rect(ctx, -1.72, side * 0.22, 0.20, 0.13, 14.0, c.metal_light)
+			_vents(ctx, -1.05, -0.28, c, 3)
+			_rope_coil(ctx, Vector2(1.15, 0.16), c)
+		"hydrofoil":
+			# Slim cabin on a lifted hull; foil wings + struts drawn by caller lift pass.
+			_cabin(ctx, -0.45, 0.0, 0.85, 0.52, c, 19.0)
+			_figure(ctx, Vector2(-0.05, 0.0), c, 15.0)
+			_stack(ctx, Vector2(-1.25, 0.18), c, 0.08)
+			_vents(ctx, -1.15, -0.20, c, 4)
+			_mast(ctx, Vector2(-0.75, 0.0), c, 36.0, tier >= 2)
+		"catamaran":
+			# Bridge cabin spanning the demi-hulls, cargo crates between/aft.
+			_cabin(ctx, -0.25, 0.0, 0.95, 1.05, c, 20.0)
+			_figure(ctx, Vector2(0.18, -0.18), c, 15.0)
+			_life_ring(ctx, Vector2(-0.55, -0.58), c)
+			_life_ring(ctx, Vector2(-0.55, 0.58), c)
+			for i in range(3):
+				var cx := -1.25 + float((seed + i * 7) % 3) * 0.18
+				_rect(ctx, cx, -0.35 + i * 0.35, 0.30, 0.28, 12.0 + i, Color("7a6444") if i % 2 == 0 else c.metal)
+			_mast(ctx, Vector2(-0.45, 0.0), c, 40.0)
+			_vents(ctx, -1.45, 0.0, c, 5)
+		"armored":
+			# Low casemate block, armored wheelhouse slit, paired stacks.
+			_rect(ctx, -0.45, 0.0, 1.15, 0.92, 13.0, c.plate)
+			_cabin(ctx, -0.35, 0.0, 0.80, 0.66, c, 21.0)
+			_rect(ctx, 0.02, 0.0, 0.10, 0.52, 21.6, Color(0.05, 0.08, 0.09, 1.0))
+			_stack(ctx, Vector2(-1.15, -0.30), c, 0.11)
+			_stack(ctx, Vector2(-1.15, 0.30), c, 0.11)
+			_vents(ctx, -0.95, 0.0, c, 5)
+			_figure(ctx, Vector2(0.08, 0.32), c, 14.0)
+		"monitor":
+			# Broad low deckhouse aft of the main mount, sponson boxes on the flanks.
+			_cabin(ctx, -0.95, 0.0, 0.85, 0.80, c, 19.0)
+			for side in [-1.0, 1.0]:
+				_rect(ctx, -0.15, side * 0.72, 0.85, 0.30, 11.0, c.plate)
+				_circ(ctx, Vector2(0.12, side * 0.72), 12.0, 0.05, c.metal_light)
+			_stack(ctx, Vector2(-1.45, 0.0), c, 0.12)
+			_mast(ctx, Vector2(-1.15, 0.0), c, 38.0, false)
+			_figure(ctx, Vector2(-0.55, 0.30), c, 14.0)
+		"command":
+			# Stepped bridge tower with two glazed tiers, funnel pair, signal mast.
+			_cabin(ctx, -0.55, 0.0, 1.25, 0.78, c, 19.0)
+			_cabin(ctx, -0.42, 0.0, 0.80, 0.58, c, 27.0)
+			_rect(ctx, -0.30, 0.0, 0.34, 0.40, 30.0, c.roof)
+			_stack(ctx, Vector2(-1.35, -0.22), c, 0.10)
+			_stack(ctx, Vector2(-1.35, 0.22), c, 0.10)
+			_mast(ctx, Vector2(-0.30, 0.0), c, 52.0)
+			_mast(ctx, Vector2(1.15, 0.0), c, 30.0, false)
+			_life_ring(ctx, Vector2(-0.95, -0.44), c)
+			_life_ring(ctx, Vector2(-0.95, 0.44), c)
+			_figure(ctx, Vector2(-0.02, 0.24), c, 16.0)
+			_vents(ctx, -1.05, 0.0, c, 5)
+		_:  # patrol
+			_cabin(ctx, -0.45, 0.0, 0.95, 0.62, c, 20.0)
+			_figure(ctx, Vector2(0.0, 0.14), c, 14.0)
+			_stack(ctx, Vector2(-1.20, 0.0), c, 0.09)
+			_mast(ctx, Vector2(-0.70, 0.0), c, 40.0)
+			_life_ring(ctx, Vector2(-0.80, -0.36), c)
+			_rope_coil(ctx, Vector2(1.25, -0.18), c)
+			_vents(ctx, -1.20, 0.28, c, 3)
+
+static func _draw_mount(ctx: Dictionary, m: Dictionary, turret_world: float, c: Dictionary) -> void:
+	var at := Vector2(float(m.x), float(m.y))
+	var k := float(m.scale)
+	var lod := int(ctx.lod)
+	# Local bearing of the weapon: turreted guns follow the boat's turret, fixed
+	# tubes/racks keep their fitted local angle.
+	var bearing := float(m.angle)
+	if str(m.kind) in ["gun", "cannon"]:
+		bearing = turret_world - float(ctx.angle)
+	var dir := Vector2.from_angle(bearing)
+	var side := dir.orthogonal()
+	match str(m.kind):
+		"gun":
+			_circ(ctx, at, 11.0, 0.16 * k, c.metal)
+			_poly(ctx, [at + dir * 0.20 * k + side * 0.17 * k, at + dir * 0.20 * k - side * 0.17 * k,
+				at + dir * 0.02 * k - side * 0.13 * k, at + dir * 0.02 * k + side * 0.13 * k], 13.5, c.plate)
+			for s in [-1.0, 1.0]:
+				_seg(ctx, at + side * 0.045 * k * s, at + dir * 0.78 * k + side * 0.045 * k * s, 15.0, Color("202e33"), maxf(1.4, _wline(ctx) * 1.8))
+				_seg(ctx, at + side * 0.045 * k * s, at + dir * 0.78 * k + side * 0.045 * k * s, 15.6, c.metal_light, maxf(0.8, _wline(ctx) * 0.8))
+			if lod == 0:
+				_figure(ctx, at - dir * 0.28 * k, c, 12.0)
+		"cannon":
+			_circ(ctx, at, 11.0, 0.27 * k, Color(c.metal).darkened(0.15))
+			_rect(ctx, at.x + dir.x * 0.05, at.y + dir.y * 0.05, 0.46 * k, 0.36 * k, 14.5, c.plate, bearing)
+			_seg(ctx, at, at + dir * 1.05 * k, 16.0, Color("232f34"), maxf(2.2, _wline(ctx) * 3.0))
+			_seg(ctx, at + dir * 0.10 * k, at + dir * 1.08 * k, 16.8, c.metal_light, maxf(1.0, _wline(ctx) * 1.2))
+			_circ(ctx, at + dir * 1.08 * k, 16.5, 0.055 * k, Color("141d21"))
+			if lod == 0:
+				_circ(ctx, at - dir * 0.16 * k, 15.5, 0.045 * k, c.brass)
+		"rocket":
+			_rect(ctx, at.x, at.y, 0.62 * k, 0.58 * k, 12.5, c.metal, bearing)
+			var tubes := 4 if lod < 2 else 2
+			for i in range(tubes):
+				var off := (float(i) - float(tubes - 1) * 0.5) * 0.13 * k
+				var base := at + side * off - dir * 0.18 * k
+				_seg(ctx, base, base + dir * 0.72 * k, 17.0, Color("2b383c"), maxf(1.8, _wline(ctx) * 2.2))
+				_circ(ctx, base + dir * 0.72 * k, 17.5, 0.045 * k, Color("d8b36a"))
+			if lod == 0:
+				for s in [-1.0, 1.0]:
+					_seg(ctx, at + side * 0.26 * k * s - dir * 0.25 * k, at + side * 0.26 * k * s + dir * 0.05 * k, 10.5, c.metal_light, _wline(ctx))
+		"torpedo":
+			for s in [-1.0, 1.0]:
+				var tube_c := at + Vector2(0, s * 0.09 * k)
+				_seg(ctx, tube_c - dir * 0.55 * k, tube_c + dir * 0.62 * k, 12.5, Color("9aa583"), maxf(2.0, _wline(ctx) * 2.8))
+				_seg(ctx, tube_c - dir * 0.55 * k, tube_c + dir * 0.62 * k, 13.2, Color("3c4a4a"), maxf(0.8, _wline(ctx) * 0.9))
+				_circ(ctx, tube_c + dir * 0.62 * k, 13.0, 0.05 * k, Color("202a2c"))
+			if lod == 0:
+				for t in [0.25, 0.65]:
+					_circ(ctx, at - dir * 0.55 * k + dir * 1.17 * k * t, 13.4, 0.028 * k, c.brass)
+
+# --- main entry ---------------------------------------------------------------
+## opts: accent:Color, enemy:bool, lod:int 0..2, clock:float,
+## px:float (screen pixels per boat-local unit, for circles/line widths),
+## enlargement:float. Returns primitive counts + classification for QA.
+static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dictionary = {}) -> Dictionary:
+	var spec_v = boat.get("spec", {})
+	var spec: Dictionary = spec_v if spec_v is Dictionary else {}
+	var arch := archetype(spec)
+	var accent: Color = opts.get("accent", Color("8fc6b4")) if opts.get("accent") is Color else Color("8fc6b4")
+	var c := palette(spec, accent, bool(opts.get("enemy", false)))
+	var enlargement := float(opts.get("enlargement", 1.0))
+	var vel := Vector2(float(boat.get("vx", 0.0)), float(boat.get("vy", 0.0)))
+	var ctx: Dictionary = {
+		"canvas": canvas, "proj": projector,
+		"pos": Vector2(float(boat.get("x", 0.0)), float(boat.get("y", 0.0))),
+		"angle": float(boat.get("angle", 0.0)),
+		"size": maxf(4.0, float(spec.get("size", 16))) * enlargement,
+		"px": maxf(2.0, float(opts.get("px", 12.0))),
+		"lod": clampi(int(opts.get("lod", 0)), 0, 2),
+		"clock": float(opts.get("clock", 0.0)), "speed": vel.length(),
+		"n": 0, "npoly": 0, "nline": 0, "ncirc": 0,
+	}
+	var stations := _stations(spec)
+	var lift := 5.0 if arch == "hydrofoil" and float(ctx.speed) > 20.0 else 0.0
+	if arch == "catamaran":
+		_one_hull(ctx, stations, -CAT_OFFSET, c)
+		_one_hull(ctx, stations, CAT_OFFSET, c)
+		# Bridge deck joining the demi-hulls, with its own plank seams.
+		_poly(ctx, [Vector2(-1.55, -CAT_OFFSET), Vector2(1.45, -CAT_OFFSET),
+			Vector2(1.45, CAT_OFFSET), Vector2(-1.55, CAT_OFFSET)], 9.5, c.deck)
+		if int(ctx.lod) < 2:
+			for i in range(1, 7):
+				var x := lerpf(-1.55, 1.45, float(i) / 7.0)
+				_seg(ctx, Vector2(x, -CAT_OFFSET), Vector2(x, CAT_OFFSET), 9.9, c.seam, _wline(ctx) * 0.8)
+		_rivet_row(ctx, stations, c, -CAT_OFFSET)
+		_rivet_row(ctx, stations, c, CAT_OFFSET)
+	else:
+		_one_hull(ctx, stations, 0.0, c, lift)
+		if arch in ["armored", "monitor", "command"] or int(spec.get("armor", 0)) >= 10:
+			_armor_plates(ctx, stations, c, lift)
+		else:
+			_rivet_row(ctx, stations, c)
+		if arch == "hydrofoil":
+			# Foil wings at water level with angled struts up to the lifted hull.
+			for fx in [1.05, -1.25]:
+				var span := 0.95 if fx > 0.0 else 0.80
+				_poly(ctx, [Vector2(fx - 0.16, -span), Vector2(fx + 0.22, 0.0), Vector2(fx - 0.16, span),
+					Vector2(fx - 0.30, 0.0)], -3.0, Color(c.metal, 0.9))
+				for s in [-1.0, 1.0]:
+					_seg(ctx, Vector2(fx - 0.05, s * span * 0.62), Vector2(fx, s * 0.30), 2.0, c.metal_light, _wline(ctx) * 1.6)
+					if float(ctx.speed) > 8.0 and int(ctx.lod) < 2:
+						_circ(ctx, Vector2(fx - 0.12, s * span * 0.62), -1.0, 0.07, Color(c.foam, 0.6))
+		_rails(ctx, stations, c, 0.0, lift)
+	_superstructure(ctx, arch, spec, c)
+	var mounts := mounts_of(spec)
+	var turret_world := float(boat.get("turretAngle", boat.get("angle", 0.0)))
+	for m in mounts:
+		_draw_mount(ctx, m, turret_world, c)
+	_damage(ctx, boat, stations, arch, c)
+	return {"primitives": int(ctx.n), "polygons": int(ctx.npoly), "lines": int(ctx.nline),
+		"circles": int(ctx.ncirc), "archetype": arch, "mounts": mounts.size(), "lod": int(ctx.lod)}
+
+static func _damage(ctx: Dictionary, boat: Dictionary, stations: Array, arch: String, c: Dictionary) -> void:
+	var breaches_v = boat.get("breaches", [])
+	var scars := mini(4, breaches_v.size()) if breaches_v is Array else 0
+	for i in range(scars):
+		var at := Vector2(0.55 - float(i) * 0.55, (0.30 if i % 2 == 0 else -0.34))
+		if arch == "catamaran":
+			at.y += (-CAT_OFFSET if i % 2 == 0 else CAT_OFFSET)
+		_poly(ctx, [at + Vector2(-0.16, -0.08), at + Vector2(0.14, -0.03), at + Vector2(0.18, 0.07), at + Vector2(-0.10, 0.10)], 9.6, Color("16211f"))
+		_circ(ctx, at, 10.0, 0.05, Color("0a1416"))
+	var water := float(boat.get("water", 0.0))
+	if water > 0.0:
+		var flood := clampf(water / maxf(1.0, float(boat.get("capacity", 100.0))), 0.0, 1.0)
+		if arch == "catamaran":
+			_poly(ctx, _outline(stations, -CAT_OFFSET, 0.7, 0.9), 9.7, Color(0.19, 0.57, 0.66, flood * 0.55))
+			_poly(ctx, _outline(stations, CAT_OFFSET, 0.7, 0.9), 9.7, Color(0.19, 0.57, 0.66, flood * 0.55))
+		else:
+			_poly(ctx, _outline(stations, 0.0, 0.72, 0.9), 9.7, Color(0.19, 0.57, 0.66, flood * 0.55))
+	if float(boat.get("fire", 0.0)) > 0.0 and int(ctx.lod) < 2:
+		var clock := float(ctx.clock)
+		for i in range(3):
+			var at := Vector2(-0.25 + float(i) * 0.28, sin(clock * 7.0 + float(i) * 1.7) * 0.05)
+			_circ(ctx, at, 16.0 + float(i) * 5.0, 0.13 - float(i) * 0.025, Color(1.0, 0.52 + float(i) * 0.12, 0.20, 0.85))
+			_circ(ctx, at + Vector2(-0.08, 0.03), 26.0 + float(i) * 6.0, 0.11, Color(0.16, 0.16, 0.16, 0.35))
+
+# --- wakes, trails, projectiles (world-space, same canvas/projector) ---------
+
+static func _wpt(projector: Callable, p: Vector2, h: float) -> Vector2:
+	var r = projector.call(p, h)
+	return r if r is Vector2 else Vector2.ZERO
+
+## samples: path-ordered [{p:Vector2 stern world, d:Vector2 heading, age:float,
+## w:float emission half-width in world units}]. Three polylines total: two
+## widening V edges + centre churn, alpha fading with age. Cheap and curved
+## because it follows the recorded stern path. Returns primitive count.
+static func draw_wake(canvas, projector: Callable, samples: Array, opts: Dictionary = {}) -> int:
+	if samples.size() < 2:
+		return 0
+	var life := float(opts.get("life", WAKE_LIFE))
+	var left := PackedVector2Array()
+	var right := PackedVector2Array()
+	var mid := PackedVector2Array()
+	var n := 0
+	for s in samples:
+		if not (s is Dictionary):
+			continue
+		var age := clampf(float(s.get("age", 0.0)), 0.0, life)
+		var p: Vector2 = s.get("p", Vector2.ZERO)
+		var d: Vector2 = s.get("d", Vector2.RIGHT)
+		if d.length_squared() < 0.001:
+			d = Vector2.RIGHT
+		var perp := d.normalized().orthogonal()
+		var w := float(s.get("w", 8.0)) * (1.0 + age * 0.85)
+		left.append(_wpt(projector, p + perp * w, -2.0))
+		right.append(_wpt(projector, p - perp * w, -2.0))
+		mid.append(_wpt(projector, p, -2.0))
+	if left.size() < 2:
+		return 0
+	# Samples arrive oldest-first. Draw up to 4 contiguous age bands (<=12
+	# primitives per boat) so the tail visibly fades and widens behind.
+	var ages: Array = []
+	for s in samples:
+		ages.append(clampf(float(s.get("age", life)), 0.0, life) if s is Dictionary else life)
+	var bands := mini(4, left.size() - 1)
+	var per := int(ceil(float(left.size()) / float(bands)))
+	for b in range(bands):
+		var i0 := b * per
+		var i1 := mini(left.size() - 1, (b + 1) * per)
+		if i1 <= i0:
+			continue
+		var mean_age := 0.0
+		for i in range(i0, i1 + 1):
+			mean_age += float(ages[mini(i, ages.size() - 1)])
+		mean_age /= float(i1 - i0 + 1)
+		var a_edge := 0.36 * clampf(1.0 - mean_age / life, 0.0, 1.0)
+		if a_edge < 0.01:
+			continue
+		canvas.draw_polyline(left.slice(i0, i1 + 1), Color(FOAM, a_edge), 1.4)
+		canvas.draw_polyline(right.slice(i0, i1 + 1), Color(FOAM, a_edge), 1.4)
+		canvas.draw_polyline(mid.slice(i0, i1 + 1), Color(FOAM, a_edge * 0.55), 2.2)
+		n += 3
+	return n
+
+## points: [{p:Vector2, age:float, life:float}] fading dots for torpedo foam
+## or rocket smoke. Caller caps the array; oldest are skipped past life.
+static func draw_trail(canvas, projector: Callable, points: Array, kind: String, opts: Dictionary = {}) -> int:
+	var n := 0
+	var px := float(opts.get("px", 10.0))
+	for s in points:
+		if not (s is Dictionary):
+			continue
+		var life := maxf(0.05, float(s.get("life", 1.0)))
+		var t := clampf(float(s.get("age", 0.0)) / life, 0.0, 1.0)
+		if t >= 1.0:
+			continue
+		var p: Vector2 = s.get("p", Vector2.ZERO)
+		if kind == "torpedo":
+			canvas.draw_circle(_wpt(projector, p, -1.0), maxf(1.0, px * 0.16 * (0.5 + t)), Color(0.75, 0.90, 0.84, 0.30 * (1.0 - t)))
+		else:  # rocket smoke
+			canvas.draw_circle(_wpt(projector, p, 12.0), maxf(1.0, px * 0.20 * (0.4 + t * 1.3)), Color(0.72, 0.70, 0.64, 0.28 * (1.0 - t)))
+		n += 1
+	return n
+
+## One projectile, visually distinct per family. shot uses battle fields
+## {x,y,px,py,kind,team}; kind bullet|shell|rocket|torpedo (gun/cannon map too).
+static func draw_projectile(canvas, projector: Callable, shot: Dictionary, opts: Dictionary = {}) -> int:
+	var kind := str(shot.get("kind", "bullet")).to_lower()
+	if kind == "gun":
+		kind = "bullet"
+	elif kind == "cannon":
+		kind = "shell"
+	var a := _wpt(projector, Vector2(float(shot.get("px", shot.get("x", 0.0))), float(shot.get("py", shot.get("y", 0.0)))), 9.0)
+	var b := _wpt(projector, Vector2(float(shot.get("x", 0.0)), float(shot.get("y", 0.0))), 9.0)
+	var dir := (b - a)
+	dir = dir.normalized() if dir.length() > 0.01 else Vector2.RIGHT
+	var friendly := str(shot.get("team", "player")) != "enemy"
+	var n := 0
+	match kind:
+		"torpedo":
+			var col := Color("9bdcc5")
+			canvas.draw_line(b - dir * 14.0, b, Color(col, 0.35), 5.0)
+			canvas.draw_line(b - dir * 11.0, b, col, 3.0)
+			canvas.draw_circle(b, 2.6, Color("e6f4e9"))
+			n = 3
+		"rocket":
+			var body := Color("e8c98a") if friendly else Color("e8947a")
+			canvas.draw_line(b - dir * 10.0, b, body, 3.4)
+			canvas.draw_circle(b - dir * 11.0, 3.2, Color(1.0, 0.62, 0.25, 0.9))
+			canvas.draw_circle(b, 2.0, Color("fff2cf"))
+			n = 3
+		"shell":
+			var col2 := Color("ffe2a6") if friendly else Color("e8947a")
+			canvas.draw_line(b - dir * 8.0, b, Color(col2, 0.45), 4.2)
+			canvas.draw_line(b - dir * 6.0, b, col2, 2.4)
+			canvas.draw_circle(b, 2.2, col2)
+			n = 3
+		_:  # bullet tracer
+			var col3 := Color("ffeec2") if friendly else Color("f0a58c")
+			canvas.draw_line(b - dir * 6.0, b, Color(col3, 0.5), 2.2)
+			canvas.draw_line(b - dir * 4.0, b, col3, 1.3)
+			n = 2
+	return n
+
+## Stern world position for a boat dict, shared by chart wake recording.
+static func stern_of(boat: Dictionary) -> Vector2:
+	var spec_v = boat.get("spec", {})
+	var size := maxf(4.0, float(spec_v.get("size", 16))) if spec_v is Dictionary else 16.0
+	var angle := float(boat.get("angle", 0.0))
+	return Vector2(float(boat.get("x", 0.0)), float(boat.get("y", 0.0))) + Vector2(-1.75, 0.0).rotated(angle) * size
+
+## A ready-made display boat for portraits/galleries without a live campaign.
+static func preview_boat(spec: Dictionary, angle: float = -0.45) -> Dictionary:
+	return {"spec": spec, "x": 0.0, "y": 0.0, "angle": angle, "turretAngle": angle + 0.35,
+		"vx": 0.0, "vy": 0.0, "water": 0.0, "fire": 0.0, "breaches": [], "capacity": 100.0}
+
+
+
+

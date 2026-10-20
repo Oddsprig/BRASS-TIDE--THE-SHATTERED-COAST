@@ -17,8 +17,8 @@ static func buy(core, id: String) -> Dictionary:
 	var h: Dictionary = core.hull(id)
 	if p.is_empty() or h.is_empty() or p.shipStock.get(id, 0) <= 0:
 		return core.fail("That hull is not in stock here.")
-	if core.state.fleet.size() >= core.MAX_FLEET:
-		return core.fail("Your eight-boat flotilla is full.")
+	if not core.can_add_boat(h):
+		return core.fail(core.points_refusal(h))
 	var q: Dictionary = quote(core, h, p)
 	var price: int = int(q.readyPrice)
 	var probe_wallet: Dictionary = {"coins":core.state.coins-price,"crewPurse":0,"cargo":{}}
@@ -41,9 +41,11 @@ static func commission(core, id: String) -> Dictionary:
 		return core.fail("This yard does not build that design.")
 	if p.buildQueue.size() >= 2:
 		return core.fail("Both building slips are occupied.")
+	if not core.can_add_boat(h):
+		return core.fail(core.points_refusal(h))
 	var q: Dictionary = quote(core, h, p)
 	if core.state.coins < q.commissionPrice or not core.can_materials(p,q.materials):
-		return core.fail("The yard needs the quoted cash and physical materials before booking this hull.")
+		return core.fail("The yard needs the quoted coins and physical materials before booking this hull.")
 	var order: Dictionary = Construction.make_order(h,q,"player")
 	var wages: int = int(order.escrow)
 	var tax: int = int(q.get("tax",0))
@@ -62,9 +64,13 @@ static func collect(core, index: int) -> Dictionary:
 	if p.is_empty() or index < 0 or index >= p.buildQueue.size():
 		return core.fail("No hull is ready to collect.")
 	var order: Dictionary = p.buildQueue[index]
-	if order.get("owner", "player") != "player" or not order.get("ready",false) or int(order.get("escrow",0)) != 0 or core.state.fleet.size() >= core.MAX_FLEET:
-		return core.fail("The hull is unfinished or your flotilla is full.")
-	var boat: Dictionary = core.add_boat(core.hull(str(order.hull)),0)
+	if order.get("owner", "player") != "player" or not order.get("ready",false) or int(order.get("escrow",0)) != 0:
+		return core.fail("The hull is unfinished.")
+	var h: Dictionary = core.hull(str(order.hull))
+	if not core.can_add_boat(h):
+		# The finished hull stays safely on the slip until points are free.
+		return core.fail(core.points_refusal(h))
+	var boat: Dictionary = core.add_boat(h,0)
 	p.buildQueue.remove_at(index)
 	return core.ok("%s launched. Hire sailors and buy fuel, ammunition and repair kits." % boat.name)
 
@@ -135,7 +141,7 @@ static func sell(core, uid: String) -> Dictionary:
 	core.state.fleet.erase(boat)
 	if core.state.flagship == uid:
 		core.state.flagship = core.state.fleet[0].uid
-	return core.ok("Sold %s for %d cash; sailors and their savings returned ashore." % [boat.name,value])
+	return core.ok("Sold %s for %d coins; sailors and their savings returned ashore." % [boat.name,value])
 
 static func service_quote(core, boat: Dictionary, p: Dictionary) -> Dictionary:
 	var damage: float = maxf(0.0,boat.maxHp-boat.hp)
@@ -156,7 +162,7 @@ static func repair(core, uid: String) -> Dictionary:
 		return core.fail("Enter harbor for paid drydock service.")
 	var q: Dictionary = service_quote(core,boat,p)
 	if core.state.coins < q.cost or p.stocks.supplies < q.purchase:
-		return core.fail("Drydock needs the quoted cash and repair kits.")
+		return core.fail("Drydock needs the quoted coins and repair kits.")
 	var ordinary_days: float = (maxf(0.0,boat.maxHp-boat.hp)*0.08+core.Damage.sum_areas(boat)*0.002+boat.water*0.0001)
 	var expert_days: float = ((1.0-boat.engine)*12.0+boat.wounded+boat.fire*0.002)
 	var free_workers: float = maxf(0.0,float(p.get("availableWorkers",0))-float(p.get("_yardWorkersUsed",0)))
@@ -177,7 +183,7 @@ static func repair(core, uid: String) -> Dictionary:
 	boat.engine = 1.0
 	boat.fire = 0.0
 	boat.wounded = 0.0
-	return core.ok("%s repaired for %d cash, paid to suppliers, shipwrights and specialists." % [boat.name,q.cost])
+	return core.ok("%s repaired for %d coins, paid to suppliers, shipwrights and specialists." % [boat.name,q.cost])
 
 static func resupply(core, uid: String, profile: String = "full") -> Dictionary:
 	var boat: Dictionary = core.find_boat(uid)
@@ -187,7 +193,8 @@ static func resupply(core, uid: String, profile: String = "full") -> Dictionary:
 	var spent: int = 0
 	# A voyage load avoids tying up a new captain's cash in a full long-range fuel tank.
 	# Ammunition is purchased first; each transaction still consumes actual local stock.
-	var targets: Dictionary = {"fuel":3.0,"ammo":80.0,"supplies":6.0} if profile == "voyage" else {"fuel":60.0,"ammo":80.0,"supplies":20.0}
+	var magazine: float = maxf(80.0,float(boat.spec.get("ammoCapacity",80*maxi(1,boat.spec.get("weaponMounts",[]).size()))))
+	var targets: Dictionary = {"fuel":3.0,"ammo":magazine,"supplies":6.0} if profile == "voyage" else {"fuel":60.0,"ammo":magazine,"supplies":20.0}
 	for good in ["ammo","supplies","fuel"]:
 		var conversion: float = Goods.ROUNDS_PER_CASE if good == "ammo" else 1.0
 		var target: float = targets[good]
@@ -201,7 +208,7 @@ static func resupply(core, uid: String, profile: String = "full") -> Dictionary:
 		p.stocks[good] -= amount
 		boat[good] += amount*conversion
 		spent += cost
-	return core.ok("%s: %d cash spent; %.0f rounds, %.1f fuel and %.1f repair kits aboard." % [boat.name,spent,boat.ammo,boat.fuel,boat.supplies]) if spent > 0 else core.fail("Stores full, stock low, or your purse is empty.")
+	return core.ok("%s: %d coins spent; %.0f rounds, %.1f fuel and %.1f repair kits aboard." % [boat.name,spent,boat.ammo,boat.fuel,boat.supplies]) if spent > 0 else core.fail("Stores full, stock low, or your purse is empty.")
 
 static func use_reserves(core):
 	for boat in core.state.fleet:
@@ -209,7 +216,7 @@ static func use_reserves(core):
 			continue
 		for good in ["ammo","fuel","supplies"]:
 			var conversion: float = Goods.ROUNDS_PER_CASE if good == "ammo" else 1.0
-			var target: float = 80.0 if good == "ammo" else 60.0 if good == "fuel" else 20.0
+			var target: float = maxf(80.0,float(boat.spec.get("ammoCapacity",80*maxi(1,boat.spec.get("weaponMounts",[]).size())))) if good == "ammo" else 60.0 if good == "fuel" else 20.0
 			var amount: float = minf(core.state.cargo.get(good,0.0),maxf(0.0,(target-boat[good])/conversion))
 			core.state.cargo[good] -= amount
 			boat[good] += amount*conversion

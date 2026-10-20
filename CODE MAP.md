@@ -1,24 +1,29 @@
-# Native source map
+# Native source map — v0.002
 
-The playable game is game/. dist/ and root tests/*.cjs preserve the first JavaScript reference; no browser game is shipped. All scripts below are in game/scripts/. Generated maps contain verified symbol names/line numbers; update with tools/update_maps.py.
+The playable game is game/. dist/ and root tests/*.cjs preserve the historical browser prototype. Runtime scripts below are in game/scripts/. Generated maps contain verified file/line symbols; tools/update_maps.py refreshes them.
 
-- project.godot/main.tscn: native Windows entry, Separate rendering, fixed60Hz physics, cheap 2D Mobile renderer.
-- main.gd: main-thread controller/input/UI, copied economy worker jobs, safe publication, battle transitions and portable JSON saves.
-- campaign.gd: voyage/world, actual ownership, paid crew, morale, travel, salvage and treasury rescue loans.
-- contracts.gd/money.gd: sponsor escrow, finite freight/rewards, atomic integer purse transfers and complete circulating coin counts.
-- damage.gd/battle.gd: numerical crew tasks, hull/engine/fire/wounds, holes/flooding/patching/pumps, swept shots, AI fleets and withdrawal.
-- goods.gd:16abstract lots, occupations,100cash sailor wage and recursive costs. industry_data.gd: regional industry and initial capital/stock assumptions.
-- economy.gd: paid resident production, consumption, public work, tax, finite trade and recruitment from authoritative workforce.
-- fleet_economy.gd: persistent NPC boats, owner/crew purses, payroll, cargo, trade, upkeep and morale/performance.
-- construction.gd: physical boat bills, whole engine/gun assemblies, skilled labor/supervision, escrow and finite slipway work. harbor.gd: real hull purchases, orders, hires, repairs, sales and stores.
-- navigation.gd: bounded water-only routes around the original archipelago.
-- chart.gd: code-drawn villages/forest/isometric boats/shots/wrecks, flat gradient water and bounded decorative wakes.
-- interface.gd/finance_ui.gd: title/campaign/combat/harbor/fleet/guide/settings UI and exposed recipe/boat costs, resident and owner accounts.
-- sound.gd: original generated sound effects. game/assets/: original SVG/PNG/Windows ICO art.
-- game/data/world.json: original24hulls,10ports,4factions,8missions/islands. tools/build_data.cjs regenerates it without legacy prices/rewards.
-- version.gd: integer build;1→0.001. game/export_presets.cfg excludes development tests/tools from native x86_64 package.
-- game/tests/: current native suites plus preserved superseded prototype campaign test. tools/check_game.py runs bounded sequential background-only checks and rejects logged script errors even on exit0.
-- tools/update_maps.py generates maps. build_notices.gd extracts exact engine legal notices into docs/legal and is excluded from export.
-- tools/publish_github.cmd checks the owner's verified GitHub destination, clean main and original release tag/game, then pushes main/tag atomically without force and verifies remote hashes. --check-only is local preflight.
+- project.godot/main.tscn: native Windows entry, Separate rendering and fixed 60Hz physics.
+- main.gd: scene/input, WASD camera, AI/manual modes, selection/orders, tactical pause, worker publication and portable saves.
+- campaign.gd: voyages, canonical fitted boats, 300-point ownership, morale, real hull/crew/salvage/loan transactions and read-only-input restore.
+- contracts.gd/money.gd: funded escrow, freight/rewards, integer purse transfers and complete coin counts.
+- damage.gd: numerical crew allocation, breaches, water inflow/bailing/pumps, finite patching, wounds/fire/engines and sinking.
+- battle.gd/deployment.gd: 300 points/side with preserved reserves, default autopilot, orders, optional manual flagship, independent weapon mounts, led swept projectiles, arcs, shore collision and DPS-aware engagement spacing.
+- refit.gd: hardpoints, fitting budgets, four weapon families, engines/armor, exact itemized costs, real stocks/shared workers, atomic installation and finite module lockers.
+- goods.gd/industry_data.gd/economy.gd: sixteen paid input chains, 100 coins per sailor-day, finite resident/business/expert/government purses and workforce.
+- fleet_economy.gd: NPC owned boats, operating/crew purses, payroll, cargo/trade, finite stores/repairs and morale.
+- construction.gd/harbor.gd: physical hull bills, whole machinery, labor/supervision escrow, shared yard capacity, hires, repairs, stores and sales. Fitted magazines buy ammunition; fitting supplies none.
+- navigation.gd: bounded water-only routes around the original coast.
+- chart.gd/boat_art.gd: isometric coast/boats, seven hull silhouettes, fitting-aware mounts, damage marks, bounded fading wakes and trails, culling and three LODs. Flat decorative water.
+- boat_portrait.gd: same BoatArt geometry in fleet/fitting previews.
+- interface.gd/finance_ui.gd/tactics_ui.gd/refit_ui.gd: current title/harbor/fleet/finance/guide/command/fitting UI. Currency labels say coins; internal saved cash keys remain compatible.
+- sound.gd and game/assets/: original generated sound and original icon/vector art; no animated crew.
+- game/data/world.json: 24 original hulls, 10 ports, 4 factions, 8 story contracts and islands. tools/build_data.cjs regenerates current build/currency metadata.
+- version.gd: integer BUILD2 displays0.002. export_presets.cfg: native x86_64, dev tests/tools/saves excluded.
+- game/tests/:15 current bounded native suites; superseded pre-economy campaign fixture is retained as history.
+- tools/check_game.py: sequential hidden/headless runner, 60s process limit, rejects script errors even on exit0.
+- tools/boat_gallery.gd + render_boat_gallery.py: capture exact BoatArt primitives, software raster PNG/GIF preview; no GPU/FPS claim.
+- tools/verify_legacy_save.gd: read-only real portable save migration check.
+- tools/release_game.py: clean exact-tag export, native standalone smoke checks, icon, manifests and Windows ZIP.
+- tools/publish_github.cmd: verified origin, preserved v0.001 tag, current annotated tag, clean main/tagged game check; non-force atomic main/tag push and remote verification.
 
-Maps: campaign,combat,economy,construction,navigation,presentation. Verification: docs/TEST RESULTS v0.001.md. Human play questions: TO BE TESTED.md.
+Maps: campaign, combat, economy, construction, navigation, presentation (each under80lines). Current evidence: docs/TEST RESULTS v0.002.md and separate raw/helper verdict. Human play questions: TO BE TESTED.md.

@@ -1,9 +1,9 @@
-BRASS TIDE — ECONOMY MAP (generated; v0.001)
+BRASS TIDE — ECONOMY MAP (generated; v0.002)
 
 Fixed civilian pools/recipes/stock/ownership -> payroll, production, finite trade and resident/owner purses.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/economy.gd: 55468 bytes; extends RefCounted
+game/scripts/economy.gd: 55470 bytes; extends RefCounted
   game/scripts/economy.gd:54 is_expert_occupation()
   game/scripts/economy.gd:78 default_recruit_pool()
   game/scripts/economy.gd:82 replenish_volunteers()
@@ -35,7 +35,7 @@ game/scripts/goods.gd: 3858 bytes; extends RefCounted
   game/scripts/goods.gd:43 cost()
   game/scripts/goods.gd:52 full_labor_days()
   game/scripts/goods.gd:59 definitions()
-game/scripts/fleet_economy.gd: 13672 bytes; extends RefCounted
+game/scripts/fleet_economy.gd: 13675 bytes; extends RefCounted
   game/scripts/fleet_economy.gd:24 normalize_owner()
   game/scripts/fleet_economy.gd:45 upkeep()
   game/scripts/fleet_economy.gd:55 total_coins()

@@ -1,13 +1,14 @@
-# Human play questions — v0.001
+# Human play questions — v0.002
 
-Background automation does not settle these. The owner forbids foreground, mouse, keyboard and computer control for tests.
+The owner requires background tests only. Never take mouse, keyboard, foreground/focus or desktop control. Headless simulation and software-rasterized BoatArt do not answer these questions.
 
-- Current bronze-cash screen readability at1440x900 and different Windows display scaling.
-- Aiming, throttle and damage-control feel during a crowded late battle.
-- Visual quality/readability of boats, fixed helm/gunner details, wakes, shelves and villages.
-- GPU frame pacing on this RTX5090 laptop with Separate rendering; measure a defined scenario before claiming FPS.
-- Godot Separate glyph-atlas issue122206 on this GPU: graphical default launch and optional Safe renderer launch.
-- Wage pressure, prices, salvage/refit costs and story difficulty feel fair to a new captain beyond the deterministic automated captain.
-- Audio, fullscreen/window resizing and desktop shortcut after installation.
+- Fleet selection/right-click command feel, WASD camera speed and tactical overview at different display scaling.
+- Fitting screen readability, module comparisons and affordability clarity during a normal first voyage.
+- In-game boat/wake/projectile visibility during crowded battles; commercial art parity is not claimed.
+- Optional manual flagship steering/aiming feel and audio balance.
+- Real GPU frame pacing on the owner's machine with Separate rendering. No measured FPS yet.
+- Godot Separate font/glyph issue122206 on Windows/Vulkan; human comparison with included Stable Rendering launcher.
+- New captain understanding of real workers, stock shortages, paid workdays, magazine resupply and armor/engine tradeoffs.
+- Native desktop launcher launch behavior (target/icon/workdir are checked without launching it).
 
-Record completed play observations in test notes before removing lines.
+Record actual play observations in test notes before removing questions.
