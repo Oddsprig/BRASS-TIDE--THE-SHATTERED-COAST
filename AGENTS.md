@@ -1,4 +1,4 @@
-2026-10-20 latest owner feedback: reject detached under-hull shadow/reflection copies, weak combat visuals/synthetic pings and clustered map. Requested build/version plan, real recording research, Lyria prompts as text only, better menus/boats, dev tools and full-fleet lab. Read BUILD PLAN.txt, VERSION MAP.txt and maps/development.txt. Planning/tooling does not bump playable BUILD. Existing releases/saves/launcher stay intact. Next runtime milestone is v0.003; do not claim it shipped from documentation alone.
+2026-10-20 latest owner authorization: IMPLEMENT v0.003, v0.004, v0.005 and v0.006 in sequence, building each on its finished predecessor. Team is root plus exactly two Argon High helpers through Bridge; no GPT/Opus/Muse helpers. This supersedes the earlier team. Collect the supplied Lyria MP3s in Desktop/Brass Tide Music and integrate a reloadable portable music library. Follow BUILD PLAN.txt and briefs/V0.003-V0.006 TEAM CONTRACT.md. Preserve prior releases and owner saves. All tests remain background, no desktop input/focus and never two game instances.
 
 # Brass Tide — Codex team rules
 
