@@ -1,4 +1,4 @@
-# Brass Tide v0.001 — release candidate ready
+# Brass Tide v0.001 — delivered Windows build
 
 The native Godot Windows game is implemented in game/: one inherited skiff, up to eight boats, original 24-hull roster, 10 ports, 4 factions, 8 story battles, water-only chart routes and isometric combat. Scene/controller, current harbor/finance/fleet screens, cheap code-drawn scenery, generated sound, portable JSON save/backup and original Windows ICO are complete.
 
@@ -12,7 +12,9 @@ Critical integration fixes: publish copied worker snapshots before every port-ch
 
 The authorized helpers were app-native Sol6.1 damage_specialist and two Argon High Bridge projects brass-tide-economy-helper-1ff755 / brass-tide-world-helper-ccb141. All are done. Their isolated worktrees remain in ../../work/{sol,economy,world}-native; no deletion. Raw reports are unchanged; docs/helper-reports/ROOT VERDICT.md explains root review and corrections, including rejection of an employment-freezing workaround. No extra helpers.
 
-Next delivery steps: commit explicit reviewed source/records, tag v0.001, export from a separate exact-commit worktree with tools/release_game.py, verify native executable/embedded icon/campaign-save/battle headless, preserve test saves outside the shipped folder, package ZIP and manifest. Then request only exact Desktop/Brass Tide.lnk write access and verify the shortcut. No release/export/desktop/push is claimed until evidence exists.
+Delivered portable folder: ../Brass Tide v0.001. Archive: ../Brass Tide v0.001 Windows x64.zip. Exact game source commit: e4c07d3ab72de3604010c6042e51d3e04a3dccaa; annotated tag v0.001. Built from the separate clean ../../work/release-v0.001 checkout, where the complete native suite passed again. The exported EXE independently passed menu, campaign/save and battle startup headless. Native icon exists and PE metadata reads v0.001 / 0.0.1.0. Matching-engine --main-pack audit confirms required resources and Separate rendering, with dev scripts/tests/saves excluded. Test saves were preserved outside the release.
+
+Desktop/Brass Tide.lnk is installed and its target, working directory and original icon were read back and verified. File-only write permission did not allow creation; the user granted Desktop folder access and only that one shortcut was copied. The prepared identical launcher remains in ../Brass Tide.lnk. The shortcut has not been launched in the foreground. Stable Rendering.vbs is included, with its verified native per-launch flag; graphical retesting remains deferred. Final release records and checksums accompany the ZIP.
 
 No intended GitHub repository is configured. Never infer an unrelated repo or publish via Sites. Ask for the user's repository URL only when the local release is reviewable; retain local commit/tag and report any remote push still pending. Final deliverable links must be under this task's outputs/.
 
