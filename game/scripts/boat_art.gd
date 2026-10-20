@@ -267,8 +267,11 @@ static func _one_hull(ctx: Dictionary, stations: Array, y_off: float, c: Diction
 	for i in range(contact.size()):
 		var j: int=(i+1)%contact.size()
 		var points=PackedVector2Array([_pt(ctx,contact[i],0.0),_pt(ctx,contact[j],0.0),_pt(ctx,rim[j],6.5+lift),_pt(ctx,rim[i],6.5+lift)])
-		ctx.canvas.draw_colored_polygon(points,c.side.lightened(0.06) if i%2==0 else c.side)
-		ctx.n+=1;ctx.npoly+=1
+		for triangle in [[points[0],points[1],points[2]],[points[0],points[2],points[3]]]:
+			# The two bow-tip stations coincide; omit zero-area faces at every heading.
+			if absf((triangle[1]-triangle[0]).cross(triangle[2]-triangle[0]))<0.01:continue
+			ctx.canvas.draw_colored_polygon(PackedVector2Array(triangle),c.side.lightened(0.06) if i%2==0 else c.side)
+			ctx.n+=1;ctx.npoly+=1
 	_poly(ctx, _outline(stations, y_off, 0.97, 0.99), 6.5 + lift, c.top)
 	_line(ctx, _outline(stations, y_off, 0.97, 0.99), 7.0 + lift, Color(c.accent, 0.85), _wline(ctx) * 1.5, true)
 	_poly(ctx, _outline(stations, y_off, 0.84, 0.94), 9.0 + lift, c.deck)
