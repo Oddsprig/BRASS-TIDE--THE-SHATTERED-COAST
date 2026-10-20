@@ -259,10 +259,16 @@ static func _wline(ctx: Dictionary) -> float:
 
 static func _one_hull(ctx: Dictionary, stations: Array, y_off: float, c: Dictionary, lift: float = 0.0) -> void:
 	var lod := int(ctx.lod)
-	# Water shadow, then shaded side, rim and inset deck.
-	_poly(ctx, _outline(stations, y_off + 0.10, 1.10, 1.04), -7.0, c.shadow)
-	_line(ctx, _outline(stations, y_off, 1.04, 1.01), -2.0, Color(c.foam, 0.35), _wline(ctx) * 1.4, true)
-	_poly(ctx, _outline(stations, y_off), 3.0 + lift, c.side)
+	# One solid hull: opaque faces connect the water contact to its upper rim.
+	# There is no displaced shadow, reflection or complete foam outline below it.
+	var contact: Array=_outline(stations,y_off)
+	var rim: Array=_outline(stations,y_off,0.97,0.99)
+	_poly(ctx,contact,0.0,c.side)
+	for i in range(contact.size()):
+		var j: int=(i+1)%contact.size()
+		var points=PackedVector2Array([_pt(ctx,contact[i],0.0),_pt(ctx,contact[j],0.0),_pt(ctx,rim[j],6.5+lift),_pt(ctx,rim[i],6.5+lift)])
+		ctx.canvas.draw_colored_polygon(points,c.side.lightened(0.06) if i%2==0 else c.side)
+		ctx.n+=1;ctx.npoly+=1
 	_poly(ctx, _outline(stations, y_off, 0.97, 0.99), 6.5 + lift, c.top)
 	_line(ctx, _outline(stations, y_off, 0.97, 0.99), 7.0 + lift, Color(c.accent, 0.85), _wline(ctx) * 1.5, true)
 	_poly(ctx, _outline(stations, y_off, 0.84, 0.94), 9.0 + lift, c.deck)

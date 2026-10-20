@@ -1,3 +1,7 @@
+# Active source v0.003
+
+Implemented additions: fleet_lab.gd and lab_ui.gd own normal300point fixtures/builder/results; dev_tools.gd is explicit opt-in lab tooling; music.gd loads portable/Desktop music at runtime. Main isolates/restores career objects. Release/check runners serialize engine processes. Read generated maps and maps/development.txt for older-tool context. Later system additions are recorded below.
+
 # Native source map — v0.002
 
 The playable game is game/. dist/ and root tests/*.cjs preserve the historical browser prototype. Runtime scripts below are in game/scripts/. Generated maps contain verified file/line symbols; tools/update_maps.py refreshes them.

@@ -1,9 +1,10 @@
-# Current stage — repair the presentation and build the battle laboratory
+# Sequential presentation releases
 
-20 October 2026 owner feedback rejects the detached hull shadows/reflections, weak combat effects and pitched weapon audio. The owner requests real recorded SFX research, Lyria prompt text, stronger boats, title/Escape menus, dev tools, a configurable full-fleet test mode and a larger territory with wider port spacing.
+Current source candidate v0.003. Each version builds on the verified predecessor.
 
-The current playable build is v0.002. This planning/tooling step does not increment BUILD or replace its executable. Seven silent seeded battle presets, the short-test runner and a territory-concept generator are implemented and verified. Music prompts and recorded-source research are complete as text. See BUILD PLAN.txt and VERSION MAP.txt.
+- v0.003: implemented in current source — Removed displaced whole-hull shadows/reflections; opaque side faces connect the water surface and upper rim.
+- v0.004: next planned — All-team typed firing/hit/miss/engine/sink events feed position-aware recorded sound; bounded queues and consume-once IDs.
+- v0.005: next planned — Expanded original coast to10400x7200world units,16times the previous area; all ten ports retained with much wider separation.
+- v0.006: next planned — Completed the24-hull structural identity pass, checked across headings/LODs, with solid contact and fitted equipment.
 
-Build order: v0.003 solid water-contact hulls plus title/Escape/lab/dev flow; v0.004 combat effects and recording-based all-fleet audio; v0.005 expanded 10,400 x 7,200 territory with regional camera, navigation and copy-first save migration; v0.006 complete hull identity, music and first-hour polish. Each version has separate visible acceptance and numerical/release gates. Numerical passes alone do not establish visual/audio quality.
-
-Keep cheap water, numerical crews, 300-point normal fleets, paid fitting, finite resources and circulating coins. Preserve old releases/saves. All agent tests remain background/headless without input/focus. Implement in bounded source modules; use the already authorized team only when assigning written implementation briefs. No new helpers were dispatched during this planning step.
+Two Argon High helpers only; root owns integration and serialized background tests. Full BUILD PLAN.txt records acceptance. Previous portable releases and saves remain intact.

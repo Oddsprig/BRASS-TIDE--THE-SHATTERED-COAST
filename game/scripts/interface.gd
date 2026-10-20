@@ -127,7 +127,7 @@ func button(parent: Node, text: String, action: Callable, primary: bool = false)
 	result.text = text
 	result.custom_minimum_size.y = 42
 	result.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	result.focus_mode = Control.FOCUS_NONE
+	result.focus_mode = Control.FOCUS_ALL
 	if primary:
 		result.add_theme_stylebox_override("normal", box(GOLD, GOLD, 14))
 		result.add_theme_stylebox_override("hover", box(Color("efd197"), Color("efd197"), 14))
@@ -182,14 +182,14 @@ func title_screen():
 	title_root.visible = true
 	var size = root.get_viewport_rect().size
 	var v = VBoxContainer.new()
-	v.position = Vector2(100, 110)
+	v.position = Vector2(90, 60)
 	v.size = Vector2(560, 780)
 	v.add_theme_constant_override("separation", 8)
 	title_root.add_child(v)
 	eyebrow(v, "—  A COAST WORTH FIGHTING FOR")
 	spacer(v, 20)
-	label(v, "BRASS", 120, TEXT, true)
-	var title = label(v, "TIDE", 120, GOLD, true)
+	label(v, "BRASS", 88, TEXT, true)
+	var title = label(v, "TIDE", 88, GOLD, true)
 	title.add_theme_constant_override("line_spacing", -20)
 	eyebrow(v, "THE SHATTER COAST")
 	spacer(v, 22)
@@ -198,11 +198,16 @@ func title_screen():
 	var actions = column(v)
 	actions.custom_minimum_size.x = 345
 	actions.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	button(actions, "TAKE THE HELM                         ↗", host.new_game, true)
+	var first: Button
 	if host.has_save():
-		button(actions, "Continue voyage                         →", host.load_game)
-	button(actions, "Quick battle                                 ⚑", host.quick_battle)
-	button(actions, "Captain's guide                            ?", open_guide)
+		first=button(actions, "Continue voyage", host.load_game, true)
+	var start=button(actions, "New voyage", host.new_game, first==null)
+	if first==null:first=start
+	button(actions, "Fleet battle laboratory", host.open_lab)
+	button(actions, "Options & music", open_settings)
+	button(actions, "Guide & credits", open_guide)
+	button(actions, "Quit to desktop", host.quit_game)
+	first.grab_focus()
 	spacer(v, 25)
 	eyebrow(v, "FLEET COMBAT  ·  LIVING PORTS  ·  YOUR OWN FLOTILLA")
 	var footer = Label.new()
@@ -613,9 +618,12 @@ func open_guide():
 func open_menu():
 	modal_kind = "menu"
 	var body = modal("Captain's desk", "BRASS TIDE · v%s" % host.Version.text(), 650, 690)
-	button(body, "Return to voyage", close_modal, true)
-	button(body, "Save voyage", func(): host.save_game(true)).disabled = host.mode == "battle"
-	button(body, "Load saved voyage", func(): host.load_game()).disabled = not host.has_save()
+	button(body, "Resume", close_modal, true).grab_focus()
+	if host.lab_active:
+		button(body,"Restart same fleets / seed",host.start_lab)
+		button(body,"Change laboratory fleets",host.open_lab)
+	button(body, "Save voyage", func(): host.save_game(true)).disabled = host.mode != "campaign"
+	button(body, "Load saved voyage", func(): host.load_game()).disabled = not host.has_save() or host.lab_active
 	button(body, "Captain's guide", open_guide)
 	button(body, "Fleet register · all 24 hulls", open_catalog)
 	button(body, "Settings & performance", open_settings)
@@ -627,11 +635,23 @@ func open_settings():
 	var body = modal("Settings", "VIDEO · AUDIO · PERFORMANCE", 800, 650)
 	button(body, "Toggle fullscreen · F11", host.toggle_fullscreen)
 	button(body, "Sound: ON" if host.audio.enabled else "Sound: OFF", func(): host.audio.enabled = not host.audio.enabled; open_settings())
+	button(body,"Music: "+("ON" if host.music.enabled else "OFF"),func():host.music.enabled=not host.music.enabled;open_settings())
+	paragraph(body,"Now playing: "+host.music.title(),15,GOLD)
+	var music_volume=HSlider.new()
+	music_volume.min_value=0;music_volume.max_value=1;music_volume.step=0.01;music_volume.value=host.music.volume
+	music_volume.custom_minimum_size=Vector2(360,28)
+	music_volume.value_changed.connect(func(value):host.music.volume=value)
+	body.add_child(music_volume)
+	var music_actions=row(body)
+	button(music_actions,"Next track",func():host.music.next_track();open_settings())
+	button(music_actions,"Reload music folder",func():host.music.rescan();host.music.next_track();open_settings())
+	paragraph(body,"Add MP3, OGG or WAV files to music beside the game, or your Desktop's Brass Tide Music folder. New tracks are detected automatically.",14)
 	button(body, "Frame cap: %d" % Engine.max_fps, func(): Engine.max_fps = 60 if Engine.max_fps == 120 else 120; open_settings())
+	button(body,"Development tools: "+("ON · F9 overlay" if host.dev_enabled else "OFF"),func():host.dev_enabled=not host.dev_enabled;open_settings())
 	paragraph(body,"If changing text flickers or disappears, close the game and use Stable Rendering.vbs in the portable folder. The normal launcher keeps separate rendering enabled.",14)
 	paragraph(body, "Godot 4.7.2 · 2D Mobile renderer\nSeparate rendering thread configured from the first build. Economy days run on worker snapshots; interface and rendering commands are submitted on the main thread. Water is a flat gradient with a small set of decorative highlights and wakes.", 16)
 	paragraph(body, "CPU: %s\nThreads: %d · Adapter: %s\nCurrent frame rate: %d FPS" % [OS.get_processor_name(), OS.get_processor_count(), RenderingServer.get_video_adapter_name(), Engine.get_frames_per_second()], 15, TEAL)
-	button(body, "Back to captain's desk", open_menu)
+	button(body, "Back", close_modal if host.mode=="menu" else open_menu)
 
 func outcome(result: String, report: Dictionary, enemies: Array):
 	modal_kind = "outcome"

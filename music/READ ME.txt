@@ -1,0 +1,13 @@
+BRASS TIDE MUSIC LIBRARY
+
+The two Brass and Salt tracks were supplied by the game owner from Lyria.
+Original files are preserved. No music was generated or purchased by the build agent.
+
+Add MP3, OGG Vorbis or PCM WAV tracks to this folder, or Desktop/Brass Tide Music.
+The game scans for additions every ten seconds; Options also offers Reload and Next.
+Optional subfolders: title, travel, harbor, contact, combat, finale, victory, loss, all.
+Known cue names from the supplied prompts are assigned automatically. Other names
+join the general playlist. Keep short victory/loss stingers in their own folders.
+
+Music is optional. The game remains portable with this music folder beside the EXE;
+it does not need the original Downloads/Desktop files to play the included tracks.

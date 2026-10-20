@@ -5,11 +5,12 @@ from pathlib import Path
 import re
 import subprocess
 import time
+from qa_brass import existing_game
 
 ROOT = Path(__file__).resolve().parents[1]
 SUITES = ["damage", "battle", "navigation", "economy", "construction",
           "fleet_economy", "campaign_cash", "save_validation", "runtime", "voyage",
-          "tactics", "refit", "fleet_points", "commander", "autovoyage"]
+          "tactics", "refit", "fleet_points", "commander", "autovoyage", "laboratory"]
 
 
 def main():
@@ -24,6 +25,8 @@ def main():
     env["APPDATA"] = str(args.logs / "appdata")
     bad = []
     for suite in args.only or SUITES:
+        if existing_game():
+            raise RuntimeError("Another Brass Tide/Godot process is running; no test launched.")
         started = time.monotonic()
         command = [str(args.engine.resolve()), "--headless", "--path", str(args.project.resolve()),
                    "--script", f"res://tests/test_{suite}.gd"]
@@ -34,12 +37,17 @@ def main():
             output = result.stdout + result.stderr
             ok = result.returncode == 0 and not re.search(r"SCRIPT ERROR:|(?m:^ERROR:)|Parse Error|\bFAIL(?:URE)?\b", output)
         except subprocess.TimeoutExpired as error:
-            output = f"TIMEOUT after 60 seconds; this owned process was terminated. {error}"
+            partial=(error.stdout or b'')+(error.stderr or b'')
+            output = (partial.decode('utf-8',errors='replace') if isinstance(partial,bytes) else partial)
+            output += f"\nTIMEOUT after 60 seconds; this owned process was terminated. {error}"
             ok = False
         (args.logs / f"{suite}.log").write_text(output, encoding="utf-8")
         print(f"{'PASS' if ok else 'FAIL'} {suite}: {time.monotonic() - started:.2f}s", flush=True)
+        shown=set()
         for line in output.splitlines():
             if re.search(r"checks|failures|assertions|^FAIL|^SCRIPT ERROR|^ERROR|voyage leg", line, re.I):
+                if line in shown or len(shown)>=24: continue
+                shown.add(line)
                 print("  " + line, flush=True)
         if not ok:
             bad.append(suite)

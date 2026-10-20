@@ -10,12 +10,17 @@ const Interface = preload("res://scripts/interface.gd")
 const Refit = preload("res://scripts/refit.gd")
 const Deployment = preload("res://scripts/deployment.gd")
 const Sound = preload("res://scripts/sound.gd")
+const FleetLab = preload("res://scripts/fleet_lab.gd")
+const LabUI = preload("res://scripts/lab_ui.gd")
+const DevTools = preload("res://scripts/dev_tools.gd")
+const Music = preload("res://scripts/music.gd")
 
 var data: Dictionary
 var core
 var chart
 var ui
 var audio
+var music
 var mode = "menu"
 var paused = false
 var speed = 1
@@ -41,6 +46,13 @@ var economy_job: Dictionary = {}
 var save_directory = ""
 var battle_last_wrecks = 0
 var screenshots_requested: Array = []
+var lab_active=false
+var lab_config: Dictionary={}
+var lab_seed: int=83
+var career_core=null
+var dev_enabled=false
+var dev_tools
+var simulation_us: int=0
 
 func _ready():
 	Engine.max_fps = 120
@@ -55,15 +67,21 @@ func _ready():
 	chart.setup(self)
 	audio = Sound.new()
 	add_child(audio)
+	music=Music.new()
+	add_child(music)
 	ui = Interface.new()
 	add_child(ui)
 	ui.setup(self)
+	dev_tools=DevTools.new()
+	add_child(dev_tools)
+	dev_tools.setup(self)
 	save_directory = ProjectSettings.globalize_path("res://saves") if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("saves")
 	ui.title_screen()
 	get_viewport().size_changed.connect(_resize_interface)
 	print("BRASS TIDE v", Version.text(), " | ", OS.get_processor_name(), " | ", OS.get_processor_count(), " logical threads | ", RenderingServer.get_video_adapter_name())
 	# Development hooks are explicit launch arguments; retail controls do not expose them.
 	var args = OS.get_cmdline_user_args()
+	dev_enabled="--dev" in args
 	if "--qa-campaign" in args:
 		new_game()
 	if "--qa-battle" in args:
@@ -91,6 +109,7 @@ func _process(dt: float):
 		if axis.length_squared() > 0:
 			chart.pan_camera(axis.normalized(), minf(dt, 0.1), Input.is_physical_key_pressed(KEY_SHIFT))
 	chart.step(minf(dt, 0.1))
+	music.set_context("title" if mode=="menu" else ("combat" if mode=="battle" else ("harbor" if ui.modal_open else "travel")))
 	hud_timer += dt
 	if hud_timer >= 0.15:
 		hud_timer = 0.0
@@ -122,11 +141,13 @@ func _physics_process(dt: float):
 				"encounter":
 					show_patrol_encounter(event.patrol)
 	elif mode == "battle" and not battle.is_empty() and not result_handled:
+		var started: int=Time.get_ticks_usec()
 		var aim = chart.world_at(get_global_mouse_position())
 		var flagship = Battle.get_flagship(battle)
 		var old_ammo = flagship.get("ammo", 0)
 		var manual = not bool(battle.get("autopilot", true)) and not tactical_mode
 		Battle.update(battle, dt, {"manual":manual,"forward":Input.is_key_pressed(KEY_UP),"backward":Input.is_key_pressed(KEY_DOWN),"left":Input.is_key_pressed(KEY_LEFT),"right":Input.is_key_pressed(KEY_RIGHT),"boost":Input.is_key_pressed(KEY_CTRL),"fire":manual and fire_held,"aimX":aim.x,"aimY":aim.y})
+		simulation_us=Time.get_ticks_usec()-started
 		if not flagship.is_empty() and flagship.ammo < old_ammo:
 			audio.play("shot")
 		if battle.wrecks.size() > battle_last_wrecks:
@@ -138,6 +159,14 @@ func _physics_process(dt: float):
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed and not event.echo:
+		if dev_enabled:
+			if event.keycode==KEY_F9: dev_tools.shown=not dev_tools.shown;return
+			if event.keycode==KEY_F6: dev_tools.refill();return
+			if event.keycode==KEY_F8: dev_tools.snapshot();return
+			if event.keycode==KEY_PERIOD and lab_active and paused and not ui.modal_open:
+				Battle.update(battle,1.0/30.0,{})
+				if battle.result!=null and not result_handled: result_handled=true;settle_battle()
+				return
 		if event.keycode == KEY_F11:
 			toggle_fullscreen()
 			return
@@ -214,6 +243,7 @@ func toggle_fullscreen():
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN else DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func new_game():
+	_leave_lab()
 	sync_economy()
 	core.new_game(int(Time.get_unix_time_from_system()))
 	mode = "campaign"
@@ -382,18 +412,41 @@ func begin_battle(specs: Array, context: Dictionary):
 	_enter_battle()
 
 func quick_battle():
+	lab_config=FleetLab.preset(data,"mixed")
+	start_lab()
+
+func _leave_lab():
+	if career_core!=null:
+		core=career_core
+		career_core=null
+	lab_active=false
+	quick_mode=false
+
+func open_lab():
+	if mode=="campaign": save_game(false)
+	_leave_lab()
+	mode="menu"
+	battle={}
+	ui.modal_kind=""
+	ui.title_screen()
+	LabUI.open(ui)
+
+func start_lab():
 	sync_economy()
-	if core.state.is_empty():
-		core.new_game(35)
-	var fleet: Array = []
-	for id in ["tin_skiff", "harbor_sloop", "reed_stinger"]:
-		var boat = Damage.create_ship(core.hull(id))
-		Refit.ensure(boat, core.hull(id))
-		fleet.append(boat)
-	battle_enemies = [core.hull("bilge_punt"), core.hull("scab_cutter"), core.hull("ash_corvette")]
-	battle_context = {"kind": "skirmish", "name": "The proving shoals"}
-	battle = Battle.create({"fleet": fleet, "enemySpecs": battle_enemies, "seed": 25, "location": {"name": "The proving shoals"}})
-	quick_mode = true
+	if lab_config.is_empty():lab_config=FleetLab.preset(data,"mixed")
+	var built: Dictionary=FleetLab.create(data,lab_config,lab_seed)
+	if not built.ok:
+		ui.toast(built.error,true)
+		return
+	if career_core==null:career_core=core
+	core=Campaign.new(data)
+	# HUD-only laboratory state: never initialize a career economy or read a save.
+	core.state={"coins":0,"day":0.0,"fleet":[]}
+	lab_active=true
+	quick_mode=true
+	battle=built.battle
+	battle_enemies=battle.ships.filter(func(s):return s.team=="enemy").map(func(s):return s.spec)
+	battle_context={"kind":"laboratory","name":"Fleet battle laboratory"}
 	_enter_battle()
 
 func _enter_battle():
@@ -535,6 +588,9 @@ func set_crew_policy(policy: String):
 
 func settle_battle():
 	fire_held = false
+	if lab_active:
+		LabUI.results(ui)
+		return
 	var report = {"coins": 0, "salvage": {}, "fleetLost": false, "completed": false}
 	if not quick_mode:
 		report = core.battle_settled(battle.result, battle_enemies, battle_context)
@@ -551,10 +607,14 @@ func recover_salvage(id: String):
 	respond(result)
 
 func return_to_campaign():
+	_leave_lab()
+	if core.state.is_empty():
+		return_to_title()
+		return
 	tactical_mode = false
 	chart.set_tactical(false)
-	chart.center_camera()
 	mode = "campaign"
+	chart.center_camera()
 	paused = false
 	quick_mode = false
 	chart.zoom = 1.0
@@ -575,6 +635,7 @@ func accept_rescue():
 func return_to_title():
 	if mode == "campaign":
 		save_game(false)
+	_leave_lab()
 	mode = "menu"
 	paused = false
 	quick_mode = false
@@ -651,6 +712,7 @@ func save_game(show_notice: bool = true):
 
 func load_game():
 	sync_economy()
+	_leave_lab()
 	if not has_save():
 		ui.toast("No saved voyage yet.", true)
 		return

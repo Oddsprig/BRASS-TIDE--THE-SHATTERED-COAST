@@ -1,21 +1,21 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.002)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.003)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 23491 bytes; extends Node2D
-  game/scripts/main.gd:209 toggle_pause()
-  game/scripts/main.gd:213 toggle_fullscreen()
-  game/scripts/main.gd:216 new_game()
-  game/scripts/main.gd:230 click_chart()
-  game/scripts/main.gd:253 sail_to()
-  game/scripts/main.gd:261 respond()
-  game/scripts/main.gd:267 trade()
-  game/scripts/main.gd:276 buy_boat()
-  game/scripts/main.gd:282 commission()
-  game/scripts/main.gd:288 collect_boat()
-  game/scripts/main.gd:294 recruit()
-  game/scripts/main.gd:300 repair_boat()
+game/scripts/main.gd: 25241 bytes; extends Node2D
+  game/scripts/main.gd:238 toggle_pause()
+  game/scripts/main.gd:242 toggle_fullscreen()
+  game/scripts/main.gd:245 new_game()
+  game/scripts/main.gd:260 click_chart()
+  game/scripts/main.gd:283 sail_to()
+  game/scripts/main.gd:291 respond()
+  game/scripts/main.gd:297 trade()
+  game/scripts/main.gd:306 buy_boat()
+  game/scripts/main.gd:312 commission()
+  game/scripts/main.gd:318 collect_boat()
+  game/scripts/main.gd:324 recruit()
+  game/scripts/main.gd:330 repair_boat()
 game/scripts/campaign.gd: 29546 bytes; extends RefCounted
   game/scripts/campaign.gd:34 hull()
   game/scripts/campaign.gd:40 port()

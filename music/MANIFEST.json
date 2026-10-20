@@ -1,0 +1,32 @@
+{
+  "tracks": [
+    {
+      "file": "Brass and Salt (Variation).mp3",
+      "bytes": 3464324,
+      "sha256": "6817a12f10311401f25d64bba34df41503e5b07ebcf2930c4c15bee19569f752",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Brass and Salt.mp3",
+      "bytes": 3389157,
+      "sha256": "08ebe0689da041dfeb6e8cc1ed462d277d6ca7028fab4a605e8f5b454179bdf6",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Channels at First Light (Variation).mp3",
+      "bytes": 3539480,
+      "sha256": "a9c173651d59de93655c09050ecce5f056cd677d51d50673ea6c568e011c20c5",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Channels at First Light.mp3",
+      "bytes": 3624085,
+      "sha256": "7f75a45c02c069e27f1c4c23247ec140820ebef505f21e502ec0287490da819d",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "note": "Isolated test fixtures, never career fleets or economy transactions.",
+  "scenarios": {
+    "duel": {"label": "Starter skiff duel", "seconds": 12, "player": ["tin_skiff"], "enemy": ["bilge_punt"]},
+    "all_weapons": {"label": "Four fitted weapon families", "seconds": 16, "player": ["maiden_dreadnought"], "enemy": ["iron_bastion"], "playerFit": "all_families", "requirePlayerKinds": ["bullet", "shell", "rocket", "torpedo"]},
+    "mixed": {"label": "Mixed flotillas", "seconds": 12, "player": ["gale_cutter", "slag_gunboat", "reed_stinger", "cinder_monitor"], "enemy": ["lantern_skiff", "ash_corvette", "krill_torpedo", "barbed_lance"]},
+    "full_300": {"label": "300 versus 300 points, forty boats", "seconds": 6, "player": ["tin_skiff"], "enemy": ["tin_skiff"], "playerRepeat": 20, "enemyRepeat": 20, "requirePoints": 300},
+    "reserve_boundary": {"label": "Over-cap roster retains one safe reserve", "seconds": 2, "player": ["tin_skiff"], "enemy": ["tin_skiff"], "playerRepeat": 21, "enemyRepeat": 20, "requirePoints": 300, "requirePlayerReserves": 1},
+    "torpedoes": {"label": "Torpedo launches against armor", "seconds": 20, "player": ["reed_stinger", "krill_torpedo", "manta_strike"], "enemy": ["iron_bastion", "slag_gunboat"]},
+    "rockets": {"label": "Rocket boats and fire damage", "seconds": 14, "player": ["barbed_lance", "cinder_monitor"], "enemy": ["ash_corvette", "slag_gunboat"]}
+  }
+}

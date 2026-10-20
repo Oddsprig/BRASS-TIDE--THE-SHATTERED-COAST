@@ -1,3 +1,15 @@
+# Active sequential build v0.003
+
+Owner authorizes v0.003–v0.006 in order, root + exactly two Argon High helpers. Current source implements:
+- Removed displaced whole-hull shadows/reflections; opaque side faces connect the water surface and upper rim.
+- Title menu now has Continue/New voyage, fleet battle laboratory, options, guide and quit, with keyboard focus.
+- Configurable two-sided battle laboratory: all24hulls, quantities, compatible weapon/engine/armor fittings, normal300points, seeds, replay and after-action flow.
+- Career object/save isolation, opt-in F9 development overlay, paused single step, lab-only refill and report export.
+- Runtime-loaded drop-in music library, separate music volume, reload/next and two supplied title plus two travel takes. Desktop staging supported.
+
+16 native suites pass. Laboratory67checks; exact BoatArt capture93checks/33panels and software inspection; four supplied MP3 takes decode silently. Commander return-to-career bug fixed without changing the prior tests.
+Next: verify clean tagged release/export, then the next sequential milestone. All old releases/owner files stay intact. Music source is music/ and Desktop/Brass Tide Music; collect only owner-supplied tracks. No foreground/input tests.
+
 # Brass Tide — next-build plan and fast tooling, 20 October 2026
 
 Latest user steering: the v0.002 detached under-hull shapes and weak combat presentation/audio are unacceptable. They request a build/version map, Lyria prompts as text, actual weapon-recording research, stronger menus/dev tools/full-fleet testing and an expanded coast. Full BUILD PLAN.txt is authoritative for this stage. Numerical test passes are not visual acceptance.

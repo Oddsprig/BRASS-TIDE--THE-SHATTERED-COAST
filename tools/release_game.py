@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import time
 import zipfile
+from qa_brass import existing_game
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
@@ -18,6 +19,8 @@ TAG = "v" + VERSION
 
 
 def run(command, log, env, timeout=120):
+    if '--headless' in command and existing_game():
+        raise RuntimeError('Another game/editor is running; no engine was launched.')
     result = subprocess.run([str(x) for x in command], cwd=ROOT, env=env, capture_output=True,
                             text=True, encoding="utf-8", errors="replace", timeout=timeout,
                             creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
@@ -49,6 +52,8 @@ def main():
     if dest.exists() and (dest / "RELEASE.json").exists():
         raise RuntimeError("A verified release already exists here; preserve it and use a new version.")
     dest.mkdir(parents=True, exist_ok=True)
+    if (ROOT / 'music').is_dir():
+        shutil.copytree(ROOT / 'music',dest / 'music',dirs_exist_ok=True)
     engine = args.engine.resolve()
     executable = dest / "Brass Tide.exe"
     print("Importing the clean release worktree in the background.", flush=True)
@@ -78,7 +83,7 @@ def main():
     for name in ["ECONOMY.md", "ORIGINALITY AND CREDITS.md", "BUILD AND TEST.md", "CODEX PORTABLE BUILD RULES.txt"]:
         shutil.copy2(ROOT / "docs" / name, docs / name)
     shutil.copytree(ROOT / "docs/legal", docs / "legal", dirs_exist_ok=True)
-    for name in ["AGENTS.md", "CODE MAP.md", "HANDOFF.md", "ROADMAP.md", "VERSION MAP.txt", "DEV LOG.txt", "TO BE TESTED.md", f"CHANGES v{VERSION}.md"]:
+    for name in ["AGENTS.md", "CODE MAP.md", "HANDOFF.md", "ROADMAP.md", "VERSION MAP.txt", "DEV LOG.txt", "TO BE TESTED.md", "VERSIONS.md", f"CHANGES v{VERSION}.md"]:
         shutil.copy2(ROOT / name, docs / name)
     shutil.copytree(ROOT / "maps", dest / "maps", dirs_exist_ok=True)
     tests = dest / "tests"
@@ -147,13 +152,23 @@ game and launch Stable Rendering.vbs. This changes rendering for that launch onl
 Godot's separate-thread font issue is documented in the test notes. Current final
 graphics/FPS and human feel have not been tested in the foreground, as requested.
 
+MUSIC AND LABORATORY
+Fleet battle laboratory on the title menu lets you choose both fleets and fittings.
+Normal battles use 300 points per side; both fleets default to autopilot.
+Replay the same seed, change rosters or return to the title without changing a voyage.
+Options enables development tools: F9 overlay, . single step while paused,
+F6 repair/refill laboratory fixtures, F8 export a diagnostic report.
+Drop MP3, OGG or WAV files into music/ beside the game or Desktop/Brass Tide Music.
+Options has music volume, next track and reload. The folder is scanned automatically.
+Tracks may be sorted into title/travel/harbor/contact/combat/finale/victory/loss folders.
+
 FOLDERS
 docs/   Economy, credits/licenses, portable build rules and current source records.
 maps/   Verified source/system maps for continuing development.
 tests/  Actual automated evidence, helper reports and independent root verdict.
 RELEASE.json  Exact source commit/tag and hashes of the delivered files.
 
-This is the second playable version. Future releases advance by exactly 0.001.
+Each playable release advances by exactly 0.001. Previous portable releases are preserved.
 The editable Godot source is delivered separately in the brass-tide source folder.
 """
 
