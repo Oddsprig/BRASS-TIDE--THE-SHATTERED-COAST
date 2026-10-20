@@ -1,0 +1,35 @@
+BRASS TIDE — CONSTRUCTION MAP (generated; v0.001)
+
+Physical bill/local prices/ordinary and expert workers/escrow -> paid hull building, repairs, stock and hires.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/construction.gd: 36995 bytes; extends RefCounted
+  game/scripts/construction.gd:112 blueprint()
+  game/scripts/construction.gd:334 quote()
+  game/scripts/construction.gd:494 make_order()
+  game/scripts/construction.gd:611 begin_day()
+  game/scripts/construction.gd:643 advance()
+  game/scripts/construction.gd:83 _finite_float()
+  game/scripts/construction.gd:91 _round2()
+  game/scripts/construction.gd:95 _derive_weapon_count()
+  game/scripts/construction.gd:268 _resolve_wages()
+  game/scripts/construction.gd:302 _good_cost_with_wages()
+  game/scripts/construction.gd:314 _resolve_prices()
+  game/scripts/construction.gd:564 _extract_specialist_count()
+game/scripts/harbor.gd: 11512 bytes; extends RefCounted
+  game/scripts/harbor.gd:7 quote()
+  game/scripts/harbor.gd:15 buy()
+  game/scripts/harbor.gd:37 commission()
+  game/scripts/harbor.gd:60 collect()
+  game/scripts/harbor.gd:71 tick_yards()
+  game/scripts/harbor.gd:102 recruit()
+  game/scripts/harbor.gd:114 sell()
+  game/scripts/harbor.gd:140 service_quote()
+  game/scripts/harbor.gd:152 repair()
+  game/scripts/harbor.gd:182 resupply()
+  game/scripts/harbor.gd:206 use_reserves()
+
+TESTS (game/tests/*.gd)
+test_construction, test_campaign_cash, test_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.

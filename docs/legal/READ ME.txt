@@ -1,0 +1,8 @@
+Notices extracted from Godot 4.7.2-stable (official).
+GODOT LICENSE.txt: engine MIT license.
+GODOT COMPONENTS.json: each third-party component, its copyright and applicable license.
+Other .txt files: complete corresponding license texts.
+Godot source: https://github.com/godotengine/godot
+Compliance guidance: https://docs.godotengine.org/en/stable/about/complying_with_licenses.html
+
+Licenses: Apache-2.0, BSD-2-clause, BSD-3-clause, BSL-1.0, CC0-1.0, CC-BY-4.0, Expat, glslang, FTL, HarfBuzz, IJG, MPL-2.0, MIT-0, OFL-1.1, Unicode, Unlicense, WOL, X11, Zlib

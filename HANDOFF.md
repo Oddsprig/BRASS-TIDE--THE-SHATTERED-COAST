@@ -1,7 +1,21 @@
-# Current state — v0.001 in development
+# Brass Tide v0.001 — release candidate ready
 
-Owner chose Godot4 native Windows after an initial browser technical prototype. Source under game/ is authoritative; dist/ contains tested JavaScript reference modules only. No web build will be released. Separate render thread configured in game/project.godot. Current code is incomplete; no playable release has been claimed.
+The native Godot Windows game is implemented in game/: one inherited skiff, up to eight boats, original 24-hull roster, 10 ports, 4 factions, 8 story battles, water-only chart routes and isometric combat. Scene/controller, current harbor/finance/fleet screens, cheap code-drawn scenery, generated sound, portable JSON save/backup and original Windows ICO are complete.
 
-One Sol6.1 specialist built the JS damage/battle/navigation reference. Two Argon High Bridge helpers built economy and original24boat/10port/8mission world. Native ports now use isolated Git worktrees. Root builds campaign/UI/art, verifies all integration, documents and exports.
+The owner's constraint persists: test only in the background. Never take foreground/focus, mouse, keyboard or computer control. Never run two game instances. A graphical title/chart/old-harbor inspection predated that constraint; it does not validate the final cash/battle screens or GPU FPS. See TO BE TESTED.md and the documented Separate-render font issue.
 
-Immediate next step: finish native module ports, campaign/render/UI, import and headless checks, actual Windows playtest, release docs and export in a separate worktree, then desktop icon and verified GitHub push if host access permits.
+All ten final native suites pass. Economy 73591; construction 2827; fleet 1190; cash campaign 418; save preflight 83; runtime 120; actual voyage 66 checks, plus damage/battle/navigation. The real eight-battle voyage grew to eight boats and finished with five surviving, using only earned money, actual recruits and purchased supplies. Every process was headless; the full suite took under 20 seconds. Raw logs are in ../../work/qa/final. Source import also passed without script errors.
+
+The economy uses 100 bronze cash per sailor-day, sixteen paid input chains, physical hull bills with whole machinery, ordinary/expert labor escrow, and real business/household/expert/government/captain/crew/NPC purses. Initial capital is seeded only at world creation. Daily transfers conserve all coins, including commissions and funded contracts. Owners have home economies, actual boats and costs. Existing idle civilians may volunteer; no new workforce is spawned. Morale and performance use the same baseline for player/NPC crews.
+
+Critical integration fixes: publish copied worker snapshots before every port-changing action; refuse malformed/imbalanced saves before touching the live voyage; rescue consumes actual available hull stock and sailors using a real treasury loan; count identical but distinct escrow orders separately; reserve shared ordinary/expert workers across construction, repairs and NPC service. Voyage stores avoid overbuying full long-range tanks.
+
+The authorized helpers were app-native Sol6.1 damage_specialist and two Argon High Bridge projects brass-tide-economy-helper-1ff755 / brass-tide-world-helper-ccb141. All are done. Their isolated worktrees remain in ../../work/{sol,economy,world}-native; no deletion. Raw reports are unchanged; docs/helper-reports/ROOT VERDICT.md explains root review and corrections, including rejection of an employment-freezing workaround. No extra helpers.
+
+Next delivery steps: commit explicit reviewed source/records, tag v0.001, export from a separate exact-commit worktree with tools/release_game.py, verify native executable/embedded icon/campaign-save/battle headless, preserve test saves outside the shipped folder, package ZIP and manifest. Then request only exact Desktop/Brass Tide.lnk write access and verify the shortcut. No release/export/desktop/push is claimed until evidence exists.
+
+No intended GitHub repository is configured. Never infer an unrelated repo or publish via Sites. Ask for the user's repository URL only when the local release is reviewable; retain local commit/tag and report any remote push still pending. Final deliverable links must be under this task's outputs/.
+
+Engine: C:/Users/bligh/Documents/Codex/2026-09-25/we-x20/work/engine/Godot_v4.7.2-stable_win64_console.exe; matching self-contained export template exists. Build/test/map tools are development-only; the game requires no editor, Python or Node. Separate rendering remains default; Stable Rendering.vbs uses the verified --render-thread safe fallback for one launch. Integer BUILD=1 displays 0.001; each shipped build increments by one.
+
+Read AGENTS, maps/PROJECT MAP.txt, CODE MAP and the relevant short system map before editing. Regenerate maps after changes. Early dist/*.js, CONTRACT.md, docs/damage-model.md and test_campaign.gd are preserved historical prototypes; current cash/engine contracts and native tests supersede them. Adapted rules are in docs/CODEX PORTABLE BUILD RULES.txt and the sibling outputs document.

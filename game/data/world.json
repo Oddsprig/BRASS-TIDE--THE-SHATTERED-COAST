@@ -1,0 +1,1193 @@
+{
+  "TITLE": "BRASS TIDE",
+  "SUBTITLE": "THE SHATTER COAST",
+  "VERSION": "0.001",
+  "WORLD": {
+    "width": 2600,
+    "height": 1800
+  },
+  "FACTIONS": [
+    {
+      "id": "compact",
+      "name": "Mercantile Compact",
+      "color": "#2f80ed",
+      "description": "Chartered harbor syndicates and convoy wardens keeping the Shatter Coast sea-lanes open with disciplined gunboats.",
+      "doctrine": "Balanced coastal patrol hulls, reliable rapid-fire deck guns, and high-endurance convoy escorts."
+    },
+    {
+      "id": "forge",
+      "name": "Cinder Forge Directorate",
+      "color": "#d97706",
+      "description": "Foundry barons and fuel refiners operating out of volcanic calderas, arming slab-sided iron hulls with heavy ordnance.",
+      "doctrine": "Thick riveted armor plating, high-caliber cannons, siege rocket batteries, and heavy damage control pumps."
+    },
+    {
+      "id": "reed",
+      "name": "Reedwater Commune",
+      "color": "#10b981",
+      "description": "Shallow-draft marsh navigators, hydroplane builders, and agrarian cooperatives defending the southern channels.",
+      "doctrine": "High-speed planing hulls, tight turning radii, torpedo ambushes, and agile flanking tactics."
+    },
+    {
+      "id": "raiders",
+      "name": "Shatter Reef Raiders",
+      "color": "#ef4444",
+      "description": "Breakaway blockade flotillas and reef scavengers seizing toll narrows from fortified eastern sea-stacks.",
+      "doctrine": "Aggressive wolfpack interceptors, salvo rockets, overcharged engines, and high-alpha strike craft."
+    }
+  ],
+  "HULLS": [
+    {
+      "id": "tin_skiff",
+      "name": "Tinwake Skiff",
+      "faction": "compact",
+      "role": "skiff",
+      "tier": 1,
+      "hp": 150,
+      "armor": 2,
+      "speed": 118,
+      "turn": 2.65,
+      "crewMin": 3,
+      "crewOptimal": 5,
+      "crewMax": 8,
+      "cargo": 60,
+      "weapon": "gun",
+      "fireRate": 2.2,
+      "damage": 12,
+      "range": 340,
+      "size": 14,
+      "pumps": 2.4,
+      "description": "Riveted utility harbor skiff fitted with a pintle heavy autocannon. Cheap, nimble, and dependable in a scrape."
+    },
+    {
+      "id": "bilge_punt",
+      "name": "Bilgewater Punt",
+      "faction": "raiders",
+      "role": "skiff",
+      "tier": 1,
+      "hp": 135,
+      "armor": 1,
+      "speed": 122,
+      "turn": 2.75,
+      "crewMin": 3,
+      "crewOptimal": 4,
+      "crewMax": 7,
+      "cargo": 45,
+      "weapon": "gun",
+      "fireRate": 2,
+      "damage": 10,
+      "range": 310,
+      "size": 13,
+      "pumps": 2,
+      "description": "Patchwork reef skiff stripped of bulkheads for speed. Common among outer-channel lookouts and blockade scouts."
+    },
+    {
+      "id": "lantern_skiff",
+      "name": "Lantern Ward Skiff",
+      "faction": "compact",
+      "role": "skiff",
+      "tier": 2,
+      "hp": 210,
+      "armor": 4,
+      "speed": 126,
+      "turn": 2.55,
+      "crewMin": 4,
+      "crewOptimal": 7,
+      "crewMax": 10,
+      "cargo": 75,
+      "weapon": "gun",
+      "fireRate": 2.5,
+      "damage": 14,
+      "range": 365,
+      "size": 15,
+      "pumps": 3,
+      "description": "Up-engined customs skiff with twin-fed rotary carbines and reinforced bilge stringers."
+    },
+    {
+      "id": "marsh_dart",
+      "name": "Marsh Dart Hydro",
+      "faction": "reed",
+      "role": "cutter",
+      "tier": 1,
+      "hp": 140,
+      "armor": 2,
+      "speed": 142,
+      "turn": 2.9,
+      "crewMin": 3,
+      "crewOptimal": 5,
+      "crewMax": 8,
+      "cargo": 50,
+      "weapon": "gun",
+      "fireRate": 2.4,
+      "damage": 11,
+      "range": 330,
+      "size": 14,
+      "pumps": 2.3,
+      "description": "Shallow-step hydroplane cutter that skims across shoal water to run down smugglers."
+    },
+    {
+      "id": "scab_cutter",
+      "name": "Scabfin Cutter",
+      "faction": "raiders",
+      "role": "cutter",
+      "tier": 2,
+      "hp": 230,
+      "armor": 4,
+      "speed": 138,
+      "turn": 2.6,
+      "crewMin": 5,
+      "crewOptimal": 8,
+      "crewMax": 12,
+      "cargo": 70,
+      "weapon": "gun",
+      "fireRate": 2.6,
+      "damage": 15,
+      "range": 360,
+      "size": 17,
+      "pumps": 3.1,
+      "description": "Twin-screw raider cutter with saw-toothed bow fenders and rapid-fire casemate repeaters."
+    },
+    {
+      "id": "gale_cutter",
+      "name": "Galeblade Interceptor",
+      "faction": "reed",
+      "role": "cutter",
+      "tier": 3,
+      "hp": 310,
+      "armor": 6,
+      "speed": 148,
+      "turn": 2.7,
+      "crewMin": 6,
+      "crewOptimal": 11,
+      "crewMax": 15,
+      "cargo": 85,
+      "weapon": "gun",
+      "fireRate": 2.9,
+      "damage": 18,
+      "range": 390,
+      "size": 18,
+      "pumps": 3.8,
+      "description": "Supercharged commune pursuit craft built to outflank heavy flotillas and shred exposed gun crews."
+    },
+    {
+      "id": "silt_lugger",
+      "name": "Silt Runner Lugger",
+      "faction": "reed",
+      "role": "raider",
+      "tier": 1,
+      "hp": 185,
+      "armor": 3,
+      "speed": 104,
+      "turn": 2.1,
+      "crewMin": 4,
+      "crewOptimal": 6,
+      "crewMax": 10,
+      "cargo": 130,
+      "weapon": "gun",
+      "fireRate": 1.9,
+      "damage": 13,
+      "range": 345,
+      "size": 17,
+      "pumps": 2.8,
+      "description": "Broad-beamed estuary freighter with concealed deck guns and cavernous dry-cargo holds."
+    },
+    {
+      "id": "hook_raider",
+      "name": "Grapnel Blockade Runner",
+      "faction": "raiders",
+      "role": "raider",
+      "tier": 2,
+      "hp": 275,
+      "armor": 6,
+      "speed": 120,
+      "turn": 2.2,
+      "crewMin": 6,
+      "crewOptimal": 10,
+      "crewMax": 15,
+      "cargo": 165,
+      "weapon": "cannon",
+      "fireRate": 1.15,
+      "damage": 24,
+      "range": 410,
+      "size": 20,
+      "pumps": 3.5,
+      "description": "Fast contraband runner carrying a low-velocity deck howitzer and reinforced smuggling lockers."
+    },
+    {
+      "id": "mercantile_clipper",
+      "name": "Sovereign Armed Packet",
+      "faction": "compact",
+      "role": "raider",
+      "tier": 3,
+      "hp": 380,
+      "armor": 9,
+      "speed": 116,
+      "turn": 1.95,
+      "crewMin": 8,
+      "crewOptimal": 14,
+      "crewMax": 20,
+      "cargo": 230,
+      "weapon": "cannon",
+      "fireRate": 1.3,
+      "damage": 28,
+      "range": 440,
+      "size": 23,
+      "pumps": 4.5,
+      "description": "Armored Compact treasury packet capable of hauling bulk high-value cargo right through a cordon."
+    },
+    {
+      "id": "harbor_sloop",
+      "name": "Breakwater Patrol Sloop",
+      "faction": "compact",
+      "role": "corvette",
+      "tier": 1,
+      "hp": 195,
+      "armor": 4,
+      "speed": 108,
+      "turn": 2.2,
+      "crewMin": 4,
+      "crewOptimal": 7,
+      "crewMax": 11,
+      "cargo": 80,
+      "weapon": "cannon",
+      "fireRate": 1.1,
+      "damage": 20,
+      "range": 385,
+      "size": 17,
+      "pumps": 2.9,
+      "description": "Sturdy brass-trimmed sloop mounting a quick-firing bow pounder for coastal convoy duty."
+    },
+    {
+      "id": "ash_corvette",
+      "name": "Ashwake Escort Corvette",
+      "faction": "forge",
+      "role": "corvette",
+      "tier": 2,
+      "hp": 310,
+      "armor": 8,
+      "speed": 102,
+      "turn": 1.9,
+      "crewMin": 7,
+      "crewOptimal": 12,
+      "crewMax": 17,
+      "cargo": 105,
+      "weapon": "cannon",
+      "fireRate": 1.2,
+      "damage": 26,
+      "range": 430,
+      "size": 21,
+      "pumps": 3.9,
+      "description": "Welded foundry corvette with turtleback armored decking and a high-velocity turret gun."
+    },
+    {
+      "id": "aegis_corvette",
+      "name": "Vanguard Line Corvette",
+      "faction": "compact",
+      "role": "corvette",
+      "tier": 3,
+      "hp": 430,
+      "armor": 11,
+      "speed": 106,
+      "turn": 1.85,
+      "crewMin": 9,
+      "crewOptimal": 16,
+      "crewMax": 23,
+      "cargo": 125,
+      "weapon": "cannon",
+      "fireRate": 1.35,
+      "damage": 31,
+      "range": 470,
+      "size": 24,
+      "pumps": 4.8,
+      "description": "Fleet-standard Compact escort vessel balancing rangefinder gunnery with compartmentalized flood control."
+    },
+    {
+      "id": "reed_stinger",
+      "name": "Fen Stinger Torpedo Launch",
+      "faction": "reed",
+      "role": "torpedo",
+      "tier": 2,
+      "hp": 215,
+      "armor": 4,
+      "speed": 136,
+      "turn": 2.5,
+      "crewMin": 5,
+      "crewOptimal": 8,
+      "crewMax": 12,
+      "cargo": 60,
+      "weapon": "torpedo",
+      "fireRate": 0.55,
+      "damage": 36,
+      "range": 420,
+      "size": 17,
+      "pumps": 3.2,
+      "description": "Low-profile marsh launch carrying twin compressed-air drop collars for close-range hull breaches."
+    },
+    {
+      "id": "krill_torpedo",
+      "name": "Tallowfin Torpedo Boat",
+      "faction": "raiders",
+      "role": "torpedo",
+      "tier": 3,
+      "hp": 320,
+      "armor": 7,
+      "speed": 134,
+      "turn": 2.35,
+      "crewMin": 7,
+      "crewOptimal": 12,
+      "crewMax": 17,
+      "cargo": 75,
+      "weapon": "torpedo",
+      "fireRate": 0.65,
+      "damage": 42,
+      "range": 465,
+      "size": 20,
+      "pumps": 4,
+      "description": "Raider wolfpack strike craft built around centerline reloads that crack heavy armor belts open."
+    },
+    {
+      "id": "manta_strike",
+      "name": "Manta Flotilla Leader",
+      "faction": "reed",
+      "role": "torpedo",
+      "tier": 4,
+      "hp": 450,
+      "armor": 10,
+      "speed": 132,
+      "turn": 2.25,
+      "crewMin": 11,
+      "crewOptimal": 18,
+      "crewMax": 25,
+      "cargo": 100,
+      "weapon": "torpedo",
+      "fireRate": 0.75,
+      "damage": 48,
+      "range": 510,
+      "size": 24,
+      "pumps": 5.2,
+      "description": "Premier hydro-foil torpedo destroyer capable of devastating dreadnought formations at high speed."
+    },
+    {
+      "id": "slag_gunboat",
+      "name": "Slagclast River Gunboat",
+      "faction": "forge",
+      "role": "gunboat",
+      "tier": 2,
+      "hp": 350,
+      "armor": 10,
+      "speed": 86,
+      "turn": 1.65,
+      "crewMin": 8,
+      "crewOptimal": 13,
+      "crewMax": 19,
+      "cargo": 95,
+      "weapon": "cannon",
+      "fireRate": 0.95,
+      "damage": 32,
+      "range": 460,
+      "size": 22,
+      "pumps": 4.2,
+      "description": "Casemate ironclad gunboat built to trade broadsides in narrow industrial straits."
+    },
+    {
+      "id": "bellows_gunboat",
+      "name": "Bellows Siege Gunboat",
+      "faction": "forge",
+      "role": "gunboat",
+      "tier": 3,
+      "hp": 490,
+      "armor": 14,
+      "speed": 80,
+      "turn": 1.5,
+      "crewMin": 11,
+      "crewOptimal": 18,
+      "crewMax": 26,
+      "cargo": 120,
+      "weapon": "cannon",
+      "fireRate": 1.05,
+      "damage": 39,
+      "range": 520,
+      "size": 26,
+      "pumps": 5.4,
+      "description": "Twin-turret foundry monitor whose heavy armor shrugs off small-caliber gunfire."
+    },
+    {
+      "id": "furnace_turret",
+      "name": "Furnace Sovereign Monitor",
+      "faction": "forge",
+      "role": "gunboat",
+      "tier": 4,
+      "hp": 610,
+      "armor": 18,
+      "speed": 72,
+      "turn": 1.3,
+      "crewMin": 15,
+      "crewOptimal": 25,
+      "crewMax": 34,
+      "cargo": 145,
+      "weapon": "cannon",
+      "fireRate": 1.1,
+      "damage": 46,
+      "range": 575,
+      "size": 30,
+      "pumps": 6.4,
+      "description": "Floating steel bastion mounting a long-barrel coastal siege rifle and high-volume steam bilge ejectors."
+    },
+    {
+      "id": "barbed_lance",
+      "name": "Sparkrack Rocket Scow",
+      "faction": "raiders",
+      "role": "rocket",
+      "tier": 2,
+      "hp": 260,
+      "armor": 6,
+      "speed": 98,
+      "turn": 1.85,
+      "crewMin": 6,
+      "crewOptimal": 10,
+      "crewMax": 15,
+      "cargo": 80,
+      "weapon": "rocket",
+      "fireRate": 0.85,
+      "damage": 30,
+      "range": 480,
+      "size": 20,
+      "pumps": 3.4,
+      "description": "Converted ore barge fitted with angled incendiary rocket rails that saturate enemy decks with fire."
+    },
+    {
+      "id": "cinder_monitor",
+      "name": "Pyreclast Rocket Monitor",
+      "faction": "forge",
+      "role": "rocket",
+      "tier": 3,
+      "hp": 420,
+      "armor": 12,
+      "speed": 88,
+      "turn": 1.6,
+      "crewMin": 10,
+      "crewOptimal": 17,
+      "crewMax": 24,
+      "cargo": 110,
+      "weapon": "rocket",
+      "fireRate": 0.95,
+      "damage": 37,
+      "range": 545,
+      "size": 25,
+      "pumps": 4.9,
+      "description": "Armored bombardment platform firing spin-stabilized thermite rockets across long open-water lanes."
+    },
+    {
+      "id": "wraith_rocket",
+      "name": "Hellbore Salvo Cruiser",
+      "faction": "raiders",
+      "role": "rocket",
+      "tier": 4,
+      "hp": 540,
+      "armor": 14,
+      "speed": 94,
+      "turn": 1.55,
+      "crewMin": 14,
+      "crewOptimal": 24,
+      "crewMax": 32,
+      "cargo": 135,
+      "weapon": "rocket",
+      "fireRate": 1.05,
+      "damage": 44,
+      "range": 600,
+      "size": 29,
+      "pumps": 5.8,
+      "description": "Heavy raider battery vessel built to rain salvos from extreme range before closing for the kill."
+    },
+    {
+      "id": "cobalt_frigate",
+      "name": "Cobalt Commodore Frigate",
+      "faction": "compact",
+      "role": "cruiser",
+      "tier": 2,
+      "hp": 390,
+      "armor": 10,
+      "speed": 96,
+      "turn": 1.7,
+      "crewMin": 9,
+      "crewOptimal": 15,
+      "crewMax": 22,
+      "cargo": 140,
+      "weapon": "cannon",
+      "fireRate": 1.25,
+      "damage": 29,
+      "range": 465,
+      "size": 24,
+      "pumps": 4.5,
+      "description": "Command frigate equipped with armored sponsons, dual diesel-turbines, and brigade damage-control teams."
+    },
+    {
+      "id": "iron_bastion",
+      "name": "Bastion Armored Cruiser",
+      "faction": "compact",
+      "role": "cruiser",
+      "tier": 3,
+      "hp": 560,
+      "armor": 16,
+      "speed": 84,
+      "turn": 1.4,
+      "crewMin": 14,
+      "crewOptimal": 24,
+      "crewMax": 33,
+      "cargo": 175,
+      "weapon": "cannon",
+      "fireRate": 1.2,
+      "damage": 41,
+      "range": 550,
+      "size": 31,
+      "pumps": 6,
+      "description": "Heavy fleet flagship of the Compact, built to anchor battle lines and absorb punishing salvos."
+    },
+    {
+      "id": "maiden_dreadnought",
+      "name": "Shatter Throne Dreadnought",
+      "faction": "forge",
+      "role": "cruiser",
+      "tier": 4,
+      "hp": 700,
+      "armor": 20,
+      "speed": 68,
+      "turn": 1.15,
+      "crewMin": 22,
+      "crewOptimal": 36,
+      "crewMax": 48,
+      "cargo": 220,
+      "weapon": "cannon",
+      "fireRate": 1.15,
+      "damage": 50,
+      "range": 620,
+      "size": 36,
+      "pumps": 7.5,
+      "description": "Apex capital warship of the Shatter Coast: triple-belted krupp steel, twin siege turrets, and massive bilge manifolds."
+    }
+  ],
+  "PORTS": [
+    {
+      "id": "brass_haven",
+      "name": "Brass Haven",
+      "faction": "compact",
+      "x": 495,
+      "y": 1240,
+      "population": 6800,
+      "industry": "trade",
+      "specialty": "Bonded Convoy Exchange",
+      "description": "The Western Compact anchorage sheltered behind Lantern Cay, bustling with coastal packet boats and repair slips.",
+      "wealth": 78,
+      "shipIds": [
+        "tin_skiff",
+        "lantern_skiff",
+        "harbor_sloop",
+        "mercantile_clipper",
+        "aegis_corvette"
+      ]
+    },
+    {
+      "id": "kelp_reach",
+      "name": "Kelp Reach",
+      "faction": "reed",
+      "x": 530,
+      "y": 630,
+      "population": 4400,
+      "industry": "fishery",
+      "specialty": "Salted Trawl & Drying Racks",
+      "description": "Stilt-built curing wharves along Kelpback Shoal where fast hydroplane cutters patrol the western sound.",
+      "wealth": 56,
+      "shipIds": [
+        "tin_skiff",
+        "marsh_dart",
+        "silt_lugger",
+        "gale_cutter"
+      ]
+    },
+    {
+      "id": "sawtooth_mill",
+      "name": "Sawtooth Mill",
+      "faction": "compact",
+      "x": 680,
+      "y": 390,
+      "population": 5100,
+      "industry": "timber",
+      "specialty": "Steam-Bent Ironwood Planking",
+      "description": "Cliffside water-mills cutting dense ironwood logs floated down from Sawtooth Crag.",
+      "wealth": 64,
+      "shipIds": [
+        "tin_skiff",
+        "harbor_sloop",
+        "lantern_skiff",
+        "cobalt_frigate"
+      ]
+    },
+    {
+      "id": "silt_hollow",
+      "name": "Silt Hollow",
+      "faction": "reed",
+      "x": 1010,
+      "y": 1280,
+      "population": 5900,
+      "industry": "agriculture",
+      "specialty": "Terraced Marsh Grain & Rations",
+      "description": "Polder farms and floating granaries feeding the southern archipelago from the lee of Verdigris Atoll.",
+      "wealth": 60,
+      "shipIds": [
+        "marsh_dart",
+        "silt_lugger",
+        "reed_stinger",
+        "manta_strike"
+      ]
+    },
+    {
+      "id": "cinder_quay",
+      "name": "Cinder Quay",
+      "faction": "forge",
+      "x": 1080,
+      "y": 620,
+      "population": 8200,
+      "industry": "foundry",
+      "specialty": "Bessemer Armor Plate & Shells",
+      "description": "Soot-darkened blast furnaces on the western shelf of Cinder Crown casting heavy turret steel and munitions.",
+      "wealth": 84,
+      "shipIds": [
+        "ash_corvette",
+        "slag_gunboat",
+        "cinder_monitor",
+        "bellows_gunboat"
+      ]
+    },
+    {
+      "id": "anvil_dock",
+      "name": "Anvil Dock",
+      "faction": "forge",
+      "x": 1525,
+      "y": 580,
+      "population": 7600,
+      "industry": "shipyard",
+      "specialty": "Heavy Marine Diesel & Gantry Slips",
+      "description": "Deepwater drydocks on eastern Cinder Crown where armored monitors and turbine engines are assembled.",
+      "wealth": 88,
+      "shipIds": [
+        "ash_corvette",
+        "bellows_gunboat",
+        "furnace_turret",
+        "iron_bastion",
+        "maiden_dreadnought"
+      ]
+    },
+    {
+      "id": "reed_floats",
+      "name": "Reedwater Floats",
+      "faction": "reed",
+      "x": 1585,
+      "y": 1075,
+      "population": 6300,
+      "industry": "trade",
+      "specialty": "Estuary Barter Flotilla",
+      "description": "Lashed pontoon markets off Kettle Fen Isle serving as the neutral crossroad between west and east.",
+      "wealth": 70,
+      "shipIds": [
+        "marsh_dart",
+        "reed_stinger",
+        "gale_cutter",
+        "mercantile_clipper",
+        "manta_strike"
+      ]
+    },
+    {
+      "id": "naphtha_bay",
+      "name": "Naphtha Bay",
+      "faction": "forge",
+      "x": 1920,
+      "y": 455,
+      "population": 6900,
+      "industry": "refinery",
+      "specialty": "Distilled Bunker Fuel & Propellant",
+      "description": "Cracking towers and tank piers beneath Oilstone Bluff supplying high-grade marine distillate.",
+      "wealth": 82,
+      "shipIds": [
+        "slag_gunboat",
+        "cinder_monitor",
+        "cobalt_frigate",
+        "furnace_turret"
+      ]
+    },
+    {
+      "id": "rust_anchorage",
+      "name": "Rust Anchorage",
+      "faction": "raiders",
+      "x": 2125,
+      "y": 885,
+      "population": 4800,
+      "industry": "fishery",
+      "specialty": "Wreck Salvage & Whaling Stores",
+      "description": "Chain-guarded sea caves on the western approach to Shatter Bastion where raiders refit prize hulls.",
+      "wealth": 58,
+      "shipIds": [
+        "bilge_punt",
+        "scab_cutter",
+        "hook_raider",
+        "barbed_lance",
+        "krill_torpedo"
+      ]
+    },
+    {
+      "id": "shatter_spire",
+      "name": "Shatter Spire",
+      "faction": "raiders",
+      "x": 2225,
+      "y": 1125,
+      "population": 7400,
+      "industry": "shipyard",
+      "specialty": "Fortified Sea-Stack Gunworks",
+      "description": "The iron-ringed citadel at the southern point of Shatter Bastion from which the Raider Admiral commands the blockade.",
+      "wealth": 86,
+      "shipIds": [
+        "scab_cutter",
+        "krill_torpedo",
+        "wraith_rocket",
+        "iron_bastion",
+        "maiden_dreadnought"
+      ]
+    }
+  ],
+  "ISLANDS": [
+    {
+      "id": "isl_lantern",
+      "name": "Lantern Cay",
+      "color": "#4b5563",
+      "points": [
+        [
+          210,
+          1180
+        ],
+        [
+          410,
+          1160
+        ],
+        [
+          445,
+          1330
+        ],
+        [
+          305,
+          1410
+        ],
+        [
+          190,
+          1300
+        ]
+      ]
+    },
+    {
+      "id": "isl_kelp",
+      "name": "Kelpback Shoal",
+      "color": "#3f6212",
+      "points": [
+        [
+          230,
+          560
+        ],
+        [
+          435,
+          530
+        ],
+        [
+          470,
+          680
+        ],
+        [
+          350,
+          745
+        ],
+        [
+          215,
+          670
+        ]
+      ]
+    },
+    {
+      "id": "isl_sawtooth",
+      "name": "Sawtooth Crag",
+      "color": "#57534e",
+      "points": [
+        [
+          520,
+          150
+        ],
+        [
+          770,
+          135
+        ],
+        [
+          810,
+          275
+        ],
+        [
+          660,
+          330
+        ],
+        [
+          500,
+          265
+        ]
+      ]
+    },
+    {
+      "id": "isl_verdigris",
+      "name": "Verdigris Atoll",
+      "color": "#365314",
+      "points": [
+        [
+          860,
+          1360
+        ],
+        [
+          1150,
+          1335
+        ],
+        [
+          1190,
+          1495
+        ],
+        [
+          1010,
+          1565
+        ],
+        [
+          835,
+          1475
+        ]
+      ]
+    },
+    {
+      "id": "isl_cinder",
+      "name": "Cinder Crown",
+      "color": "#78350f",
+      "points": [
+        [
+          1170,
+          480
+        ],
+        [
+          1420,
+          465
+        ],
+        [
+          1465,
+          625
+        ],
+        [
+          1310,
+          680
+        ],
+        [
+          1145,
+          600
+        ]
+      ]
+    },
+    {
+      "id": "isl_fen",
+      "name": "Kettle Fen Isle",
+      "color": "#14532d",
+      "points": [
+        [
+          1475,
+          1145
+        ],
+        [
+          1705,
+          1135
+        ],
+        [
+          1745,
+          1265
+        ],
+        [
+          1595,
+          1320
+        ],
+        [
+          1445,
+          1245
+        ]
+      ]
+    },
+    {
+      "id": "isl_oilstone",
+      "name": "Oilstone Bluff",
+      "color": "#44403c",
+      "points": [
+        [
+          1790,
+          195
+        ],
+        [
+          2055,
+          180
+        ],
+        [
+          2095,
+          335
+        ],
+        [
+          1930,
+          390
+        ],
+        [
+          1760,
+          315
+        ]
+      ]
+    },
+    {
+      "id": "isl_shatter",
+      "name": "Shatter Bastion",
+      "color": "#7f1d1d",
+      "points": [
+        [
+          2210,
+          800
+        ],
+        [
+          2430,
+          780
+        ],
+        [
+          2470,
+          980
+        ],
+        [
+          2275,
+          1085
+        ],
+        [
+          2185,
+          955
+        ]
+      ]
+    }
+  ],
+  "ROUTES": [
+    [
+      "brass_haven",
+      "kelp_reach"
+    ],
+    [
+      "brass_haven",
+      "silt_hollow"
+    ],
+    [
+      "kelp_reach",
+      "sawtooth_mill"
+    ],
+    [
+      "kelp_reach",
+      "cinder_quay"
+    ],
+    [
+      "kelp_reach",
+      "silt_hollow"
+    ],
+    [
+      "sawtooth_mill",
+      "silt_hollow"
+    ],
+    [
+      "sawtooth_mill",
+      "cinder_quay"
+    ],
+    [
+      "sawtooth_mill",
+      "naphtha_bay"
+    ],
+    [
+      "silt_hollow",
+      "cinder_quay"
+    ],
+    [
+      "silt_hollow",
+      "reed_floats"
+    ],
+    [
+      "cinder_quay",
+      "reed_floats"
+    ],
+    [
+      "anvil_dock",
+      "reed_floats"
+    ],
+    [
+      "anvil_dock",
+      "naphtha_bay"
+    ],
+    [
+      "anvil_dock",
+      "rust_anchorage"
+    ],
+    [
+      "reed_floats",
+      "rust_anchorage"
+    ],
+    [
+      "reed_floats",
+      "shatter_spire"
+    ],
+    [
+      "naphtha_bay",
+      "rust_anchorage"
+    ],
+    [
+      "naphtha_bay",
+      "shatter_spire"
+    ],
+    [
+      "rust_anchorage",
+      "shatter_spire"
+    ]
+  ],
+  "MISSIONS": [
+    {
+      "id": "mission_1_lantern_sweep",
+      "step": 1,
+      "title": "1. Clear the Lantern Narrows",
+      "description": "A lone Raider lookout skiff is harassing fishing boats between Brass Haven and Kelp Reach. Sortie in your patrol skiff and sink the raider scout.",
+      "kind": "battle",
+      "port": "brass_haven",
+      "targetPort": "kelp_reach",
+      "enemyHulls": [
+        "bilge_punt"
+      ],
+      "renown": 15
+    },
+    {
+      "id": "mission_2_sawtooth_timber",
+      "step": 2,
+      "title": "2. Patching Supplies to Sawtooth Mill",
+      "description": "Sawtooth Mill needs emergency hull-patching supplies to reopen its repair slipway. Run the blockade cutters guarding the northern sound.",
+      "kind": "delivery",
+      "port": "kelp_reach",
+      "targetPort": "sawtooth_mill",
+      "cargo": {
+        "good": "supplies",
+        "qty": 12
+      },
+      "enemyHulls": [
+        "bilge_punt",
+        "marsh_dart"
+      ],
+      "renown": 25
+    },
+    {
+      "id": "mission_3_silt_bounty",
+      "step": 3,
+      "title": "3. Hunt the Grain Reavers",
+      "description": "Raider outriders led by a Scabfin Cutter have been burning grain barges outside Silt Hollow. Track down and destroy their patrol.",
+      "kind": "bounty",
+      "port": "sawtooth_mill",
+      "targetPort": "silt_hollow",
+      "enemyHulls": [
+        "scab_cutter",
+        "bilge_punt"
+      ],
+      "renown": 35
+    },
+    {
+      "id": "mission_4_cinder_passage",
+      "step": 4,
+      "title": "4. Break the Foundry Cordon",
+      "description": "Two heavy raider blockade runners have mined the western channel into Cinder Quay. Smash their cordon so Compact convoys can reach the blast furnaces.",
+      "kind": "battle",
+      "port": "silt_hollow",
+      "targetPort": "cinder_quay",
+      "enemyHulls": [
+        "scab_cutter",
+        "hook_raider"
+      ],
+      "renown": 50
+    },
+    {
+      "id": "mission_5_floats_munitions",
+      "step": 5,
+      "title": "5. Munitions for Reedwater Floats",
+      "description": "Deliver a critical crate shipment of foundry ammunition from Cinder Quay to the commune defenders at Reedwater Floats through a three-ship ambush pack.",
+      "kind": "delivery",
+      "port": "cinder_quay",
+      "targetPort": "reed_floats",
+      "cargo": {
+        "good": "ammo",
+        "qty": 16
+      },
+      "enemyHulls": [
+        "ash_corvette",
+        "scab_cutter",
+        "reed_stinger"
+      ],
+      "renown": 65
+    },
+    {
+      "id": "mission_6_anvil_bounty",
+      "step": 6,
+      "title": "6. Silence the Strait Bombardiers",
+      "description": "A renegade gunboat division has seized the eastern approach to Anvil Dock, shelling every shipyard tug in sight. Eliminate the strike group.",
+      "kind": "bounty",
+      "port": "reed_floats",
+      "targetPort": "anvil_dock",
+      "enemyHulls": [
+        "slag_gunboat",
+        "barbed_lance",
+        "hook_raider"
+      ],
+      "renown": 85
+    },
+    {
+      "id": "mission_7_naphtha_convoy",
+      "step": 7,
+      "title": "7. Reclaim the Naphtha Tanker Lane",
+      "description": "Secure the fuel lifelines at Naphtha Bay by defeating the Raider vanguard squadron of rocket monitors and torpedo boats.",
+      "kind": "battle",
+      "port": "anvil_dock",
+      "targetPort": "naphtha_bay",
+      "enemyHulls": [
+        "cinder_monitor",
+        "krill_torpedo",
+        "slag_gunboat"
+      ],
+      "renown": 110
+    },
+    {
+      "id": "mission_8_shatter_throne",
+      "step": 8,
+      "title": "8. Assault on Shatter Spire",
+      "description": "Lead the combined coastal flotilla into the eastern reef citadel and sink the Raider Admiral aboard the Shatter Throne Dreadnought and its two heavy escorts.",
+      "kind": "battle",
+      "port": "naphtha_bay",
+      "targetPort": "shatter_spire",
+      "enemyHulls": [
+        "maiden_dreadnought",
+        "iron_bastion",
+        "wraith_rocket"
+      ],
+      "renown": 150
+    }
+  ],
+  "START": {
+    "hull": "tin_skiff",
+    "port": "brass_haven",
+    "supplies": 20,
+    "food": 30,
+    "fuel": 60,
+    "ammo": 80,
+    "crew": 5,
+    "coins": 15000
+  },
+  "BUILD": 1,
+  "CURRENCY": {
+    "name": "bronze cash",
+    "ordinaryDailyWage": 100,
+    "coinsPerString": 1000
+  }
+}

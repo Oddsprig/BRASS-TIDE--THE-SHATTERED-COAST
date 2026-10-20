@@ -5,3 +5,7 @@ qa/
 *.tmp
 .openai/
 releases/
+game/saves/
+
+__pycache__/
+*.pyc

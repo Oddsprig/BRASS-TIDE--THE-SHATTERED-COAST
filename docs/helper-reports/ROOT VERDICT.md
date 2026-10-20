@@ -1,0 +1,17 @@
+# Independent lead verdict — v0.001
+
+Raw helper reports are retained unchanged, including old JavaScript/native-pre-cash reports and the validator report that correctly says its author did not execute tests. They are historical evidence, not automatically accepted results. The original fleet report retains its trailing blank line verbatim; a Git whitespace warning on that source report is preserved rather than editing it. Some Argon reports exceeded the requested 300-word limit; they were preserved rather than edited to look compliant.
+
+The authorized team was one app-native Sol6.1 specialist plus two Argon High helpers through BigBridge. Each used an isolated Git worktree and a written module/cash contract. No additional helpers were spawned. Root reviewed the complete module changes, mechanical industry extraction and subsequent diffs; root independently imported and ran the integrated native suites.
+
+Accepted foundations: Sol's pure damage/battle simulation and actual NPC ownership/purses; Argon's bounded water navigation, original world/roster and paid sixteen-good regional production; physical construction bills with skilled supervision and real escrow. Root supplied the scene/controller, UI/art/sound, transaction integration, contracts, save flow, progression balance and release work.
+
+Review corrections: whole installed engines/guns instead of fractional assemblies; authoritative workforce instead of a mutable employment-field inference; zero initial actual-production telemetry; available specialist priority; a combined ordinary/expert worker cap; explicit daily reservation reset with no whole-order references in saves; physical rescue stock/workers funded by a real loan; pre-sync every port-changing UI/controller action; and complete escrow counting by physical order identity.
+
+Root rejected the volunteer followup's added employment-freezing workaround: it could mark people employed without matching paid work. Daily volunteers are now a separate pure update bounded by the actual day's idle civilians. Tests of an unchanged idle pool call that operation directly; 365-day paid production and 100-day full campaign integration still run. Two value-identical commissions each retain their own escrow; aliasing the same physical order does not duplicate it.
+
+Root added affordable voyage stores, real earned-money purchases in the campaign test, minimum-first/destination recruitment, NPC water-course positions, and shared construction/drydock/NPC specialist reservations. A runtime combat test originally used the current wall-clock seed; it now uses a documented fixed seed and predictive aim. Its original assertion remains a real inherited-skiff win. The separate eight-contract test still pays all costs and resolves actual combat.
+
+Integrated results: economy73591, construction2827, fleet1190, cash campaign418, validation83, runtime120 and voyage66 checks pass, plus the native damage/battle/navigation suites. Sol's new validator was independently executed by root, then malformed live restores were tested for unchanged campaign state. All eight actual story battles completed, with fleet losses and earned replacements. See current TEST RESULTS for scope and limits.
+
+Export, icon, final desktop launcher and GitHub are separate delivery gates. Never infer them from a helper's success report. The release manifest records actual exported-executable evidence; no GPU FPS/final graphical playtest or remote push is claimed without its corresponding evidence.

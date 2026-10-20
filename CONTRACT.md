@@ -1,3 +1,5 @@
+> Historical browser-prototype contract. Native and bronze-cash contracts in briefs/ supersede it; preserve this as history.
+
 # Brass Tide v1 module contract
 
 Dependency-free browser game, Canvas 2D. Original motorboat world. JS modules use IIFE and expose globalThis.BrassSystems / BrassEconomy / BrassData, plus module.exports in Node. No imports, packages, DOM or network in these modules. Desktop double-click must work with classic script tags. Fixed-step battle simulation, flat water, no fluid rendering.

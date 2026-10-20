@@ -1,0 +1,13 @@
+# Native Bronze Cash Economy Report (`v0.001`)
+
+## Expected New API & Port Fields
+- **Static constants & helpers (`Economy`)**: `GOODS` (`Goods.definitions()`, 16 goods), `GOOD_KEYS` (16 keys), `OCCUPATION_KEYS`, `SAILOR_WAGE` (`100`), `ORDINARY_WAGE` (`100`), `WAGES`, `SEED_BUSINESS_WAGE_DAYS` (`20`), `SEED_HOUSEHOLD_WAGE_DAYS` (`15`), `SEED_EXPERT_WAGE_DAYS` (`5`), `SEED_GOVERNMENT_WAGE_DAYS` (`40`), `is_expert_occupation(occ)`, `port_coins(port) -> int`, `total_coins(ports, owners=[], orders=[], extra_wallets=[]) -> int`.
+- **Port dictionary fields (`create_port`)**: `cash` (business purse, `20 * 100 * workforce`), `householdPurse` (`15 * 100 * workforce`), `expertPurse` (`5 * 100 * workforce`), `governmentPurse` (`40 * 100 * workforce`), `workforce` (fixed civilian pool), `workers` / `employedWorkers` (active industrial workers), `publicWorkers`, `availableWorkers` (`workforce - workers - publicWorkers`), `specialistWorkers`, `employed` / `employedByOccupation` (`occupation -> int`), `lastPayroll` (`{total, business, household, expert, public, tax, byOccupation}`), `publicStores` (`good -> float`), `stocks` (16 float goods), `lastProduction`, `shortages`, `ledger` (bounded `<= 32`), `shipIds`, `shipStock`, `recruits`, `prosperity`.
+- **Wallet / Return fields**: `wallet.coins` (primary), `wallet.crewPurse` (optional crew advance purse); `transact` returns `{ok, qty, total, coins, message}`; `recruit` returns `{ok, count, cost, coins, message}`.
+
+## What Changed
+- `game/scripts/economy.gd:1-1491`: Implemented the 16-good bronze cash economy using `res://scripts/goods.gd` (`economy.gd:6-36`), deterministic world-creation purse seeding (`economy.gd:430-449`), `port_coins` / `total_coins` global accounting (`economy.gd:581-650`), recursive labor/scarcity pricing (`economy.gd:653-679`), fractional-preserving `transact` (`economy.gd:744-815`), `recruit_cost` (`1000..1200` coins) and `recruit` transferring advances to `wallet.crewPurse` or `port.householdPurse` while reducing `recruits` and `workforce` (`economy.gd:817-888`), `daily_upkeep` at `100` coins/crew/day and `0.08` food/crew/day (`economy.gd:908-940`), and atomic coin-conserving `tick_ports` (`economy.gd:988-1491`).
+- `game/tests/test_economy.gd:1-466`: Added headless test suite covering all 16 goods, purses, paid occupations, zero-cash/missing-input limits, fractional trades, recruitment, thread snapshots, and 365-day coin conservation.
+
+## What Ran & What Was Found
+- Ran `Godot_v4.7.2-stable_win64_console.exe --headless --path game --script res://tests/test_economy.gd`: **73,523 checks passed in 1,800 ms (1.8 s)**, exit 0. Exact global bronze coin conservation held across all 365 days (`diff == 0`).

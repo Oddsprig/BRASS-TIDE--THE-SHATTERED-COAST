@@ -1,0 +1,34 @@
+BRASS TIDE — COMBAT MAP (generated; v0.001)
+
+Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/battle.gd: 11804 bytes; extends RefCounted
+  game/scripts/battle.gd:53 create()
+  game/scripts/battle.gd:100 get_flagship()
+  game/scripts/battle.gd:106 select_flagship()
+  game/scripts/battle.gd:113 set_order()
+  game/scripts/battle.gd:118 retreat()
+  game/scripts/battle.gd:263 update()
+  game/scripts/battle.gd:7 _pos()
+  game/scripts/battle.gd:10 _radius()
+  game/scripts/battle.gd:13 _inside()
+  game/scripts/battle.gd:24 _edge_distance()
+  game/scripts/battle.gd:29 _blocked()
+  game/scripts/battle.gd:43 _effect()
+game/scripts/damage.gd: 8062 bytes; extends RefCounted
+  game/scripts/damage.gd:6 number()
+  game/scripts/damage.gd:11 create_ship()
+  game/scripts/damage.gd:41 sum_areas()
+  game/scripts/damage.gd:47 set_policy()
+  game/scripts/damage.gd:52 get_status()
+  game/scripts/damage.gd:81 apply_hit()
+  game/scripts/damage.gd:120 tick_ship()
+  game/scripts/damage.gd:166 repair_at_port()
+  game/scripts/damage.gd:23 _sanitize()
+  game/scripts/damage.gd:73 _roll()
+
+TESTS (game/tests/*.gd)
+test_damage, test_battle, test_runtime, test_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.

@@ -1,0 +1,46 @@
+BRASS TIDE — PRESENTATION MAP (generated; v0.001)
+
+Campaign/battle telemetry -> main-thread canvas/UI and generated audio. No fluid or animated crew.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/chart.gd: 22981 bytes; extends Node2D
+  game/scripts/chart.gd:20 setup()
+  game/scripts/chart.gd:65 polygon()
+  game/scripts/chart.gd:71 polygon_center()
+  game/scripts/chart.gd:77 noise()
+  game/scripts/chart.gd:80 project()
+  game/scripts/chart.gd:84 world_at()
+  game/scripts/chart.gd:90 step()
+  game/scripts/chart.gd:107 world_line()
+  game/scripts/chart.gd:114 world_poly()
+  game/scripts/chart.gd:121 world_ring()
+  game/scripts/chart.gd:127 text_at()
+  game/scripts/chart.gd:152 draw_island()
+game/scripts/interface.gd: 38661 bytes; extends CanvasLayer
+  game/scripts/interface.gd:35 setup()
+  game/scripts/interface.gd:60 create_theme()
+  game/scripts/interface.gd:80 box()
+  game/scripts/interface.gd:92 clear()
+  game/scripts/interface.gd:97 label()
+  game/scripts/interface.gd:107 paragraph()
+  game/scripts/interface.gd:113 eyebrow()
+  game/scripts/interface.gd:118 button()
+  game/scripts/interface.gd:135 row()
+  game/scripts/interface.gd:140 column()
+  game/scripts/interface.gd:146 spacer()
+  game/scripts/interface.gd:151 rule()
+game/scripts/finance_ui.gd: 7441 bytes; extends RefCounted
+  game/scripts/finance_ui.gd:5 boat_quote()
+  game/scripts/finance_ui.gd:24 good_recipe()
+  game/scripts/finance_ui.gd:45 settlement()
+  game/scripts/finance_ui.gd:73 fleet_accounts()
+game/scripts/sound.gd: 1697 bytes; extends Node
+  game/scripts/sound.gd:22 make_sound()
+  game/scripts/sound.gd:42 play()
+  game/scripts/sound.gd:9 _ready()
+  game/scripts/sound.gd:19 _process()
+
+TESTS (game/tests/*.gd)
+test_runtime; play questions in TO BE TESTED.md
+
+Full symbols: rg -n '^func |^static func ' on named files.

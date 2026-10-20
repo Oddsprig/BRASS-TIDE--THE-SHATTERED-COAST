@@ -1,0 +1,14 @@
+# Native Economy Module Report (`v0.001`)
+
+## What Changed
+- `game/scripts/economy.gd:1-934`: Ported the Brass Tide economy module to pure, thread-safe Godot 4.7.2 `RefCounted` GDScript with zero Node, SceneTree, resource, or shared mutable global state dependencies.
+  - `game/scripts/economy.gd:3-147`: Defined read-only `GOODS` (7 goods: `food`, `timber`, `steel`, `fuel`, `supplies`, `ammo`, `engines` with `name`, `base`, `weight`, `color`, `unit`), `GOOD_KEYS`, `BASE_EQUILIBRIUM`, and `INDUSTRIES`.
+  - `game/scripts/economy.gd:297-379`: Implemented `create_port(def)` preserving camelCase port fields (`id`, `name`, `faction`, `x`, `y`, `industry`, `stocks`, `cash`, `workers`, `prosperity`, `recruits`, `shipStock`, `lastProduction`, `shortages`) plus deep pure-data snapshot helpers `clone_port`, `clone_ports`, and `snapshot_ports`.
+  - `game/scripts/economy.gd:382-560`: Implemented `price`, `cargo_weight`, `cargo_space_left`, `transact`, `recruit_cost`, and `recruit` with atomic validation and zero mutation on rejected calls. Fixed `transact` (`economy.gd:430-503`) to validate against comparison floors while preserving fractional existing `port.stocks` and `wallet.cargo` balances on buy/sell (`_add_stock`), and updated `recruit` (`economy.gd:515-560`) to deduct recruited crew `q` from `port.workers` down to `0` (`maxi(0, cur_workers - q)`).
+  - `game/scripts/economy.gd:579-613`: Implemented read-only `daily_upkeep(fleet)` calibrated to 1.5 wages/crew/day (`1..2`), 0.08 food/crew/day (`0.05..0.1`), and `0.11..0.19` fuel/hull/day (`0.1..0.2`).
+  - `game/scripts/economy.gd:654-934`: Implemented `tick_ports(ports, days, options)` supporting fractional days, labor ratios, opening-stock recipe input consumption, rationing, slow worker/recruit recovery, and cash/stock-conserving coaster trade.
+- `game/tests/test_economy.gd:1-479`: Added headless `SceneTree` test suite including fractional trade regression (`test_economy.gd:176-215`) and recruitment worker-deduction/flooring checks (`test_economy.gd:218-263`).
+
+## What Ran & What Was Found
+- Ran `Godot_v4.7.2-stable_win64_console.exe --headless --path game --script res://tests/test_economy.gd` (`ALL NATIVE ECONOMY TESTS PASSED`, exit 0 in ~2s).
+- Verified `GOODS` & `create_port` (`test_economy.gd:28-67`), scarcity pricing (`test_economy.gd:69-96`), atomic `transact` plus fractional `9.6` / `150.25` buy/sell conservation and non-mutation (`test_economy.gd:98-215`), `recruit` count/room/pool constraints and `port.workers` deduction clamped at `0` with daily replenishment (`test_economy.gd:218-263`), starter affordability & `daily_upkeep` (`test_economy.gd:266-310`), labor/input chains (`test_economy.gd:313-355`), coaster trade conservation & blockades (`test_economy.gd:358-408`), `WorkerThreadPool` snapshot isolation (`test_economy.gd:411-428`), and 365-day stability (`test_economy.gd:431-479`).

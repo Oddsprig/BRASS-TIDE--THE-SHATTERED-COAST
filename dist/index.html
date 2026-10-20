@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0d232b"><title>Brass Tide — The Shatter Coast</title><meta name="description" content="Start with a battered motorboat. Build a fleet, keep your crew alive, and break the blockade of an original coastal world."><link rel="icon" href="icon.svg"><link rel="stylesheet" href="style.css"></head>
+<body>
+<canvas id="sea" aria-label="Isometric sea chart and naval battlefield"></canvas>
+<div id="vignette"></div>
+<header id="topbar" class="hidden"><button id="brand" class="brand" title="Captain's menu"><span class="brand-mark">◈</span><span>BRASS TIDE<small>THE SHATTER COAST</small></span></button><div class="resources" id="resources"></div><div class="time-controls"><span id="day-label"></span><button id="pause" title="Pause (Space)">Ⅱ</button><button id="speed" title="Campaign speed">1×</button><button id="sound" title="Toggle sound">♫</button><button id="menu" title="Captain's menu (Escape)">☰</button></div></header>
+<section id="title-screen" class="title-screen">
+ <div class="title-kicker"><span></span> A COAST WORTH FIGHTING FOR</div>
+ <h1>BRASS<br><em>TIDE</em><span>THE SHATTER COAST</span></h1>
+ <p class="title-copy">One worn-out skiff. An ocean of trouble.<br>Build your fleet. Keep it afloat. Break the blockade.</p>
+ <div class="title-actions"><button class="primary large" id="new-game">Take the helm <span>↗</span></button><button id="continue-game" class="large hidden">Continue voyage <span>→</span></button><button id="skirmish" class="large secondary">Quick battle <span>⚑</span></button></div>
+ <div class="title-features"><span>TACTICAL BOAT COMBAT</span><i>·</i><span>A LIVING COAST</span><i>·</i><span>YOUR OWN FLEET</span></div>
+ <div class="version">CAPTAIN'S EDITION <b>v1.0</b><span>ORIGINAL WORLD · LOCAL SAVES · NO DOWNLOADS NEEDED</span></div>
+</section>
+<aside id="left-panel" class="left-panel hidden"></aside>
+<aside id="right-panel" class="right-panel hidden"></aside>
+<div id="chart-caption" class="chart-caption hidden"><span class="eyebrow">THE SHATTER COAST</span><strong>Nothing stays afloat alone.</strong><span>Click a harbor to chart a course · Scroll to zoom</span></div>
+<footer id="bottom-bar" class="bottom-bar hidden"><nav id="navigation"><button data-panel="fleet">▱ <span>Fleet</span><kbd>F</kbd></button><button data-panel="cargo">▤ <span>Hold</span><kbd>C</kbd></button><button data-panel="journal">⚑ <span>Contracts</span><kbd>J</kbd></button><button data-panel="guide">? <span>Captain's guide</span><kbd>H</kbd></button></nav><div id="voyage-status"></div><button id="dock-button" class="primary">Enter harbor ↗</button></footer>
+<div id="battle-controls" class="battle-controls hidden"><div class="helm-help"><span><kbd>W</kbd><kbd>S</kbd> THROTTLE</span><span><kbd>A</kbd><kbd>D</kbd> STEER</span><span><kbd>⇧</kbd> BOOST</span><span><b>CLICK</b> FIRE · <kbd>Tab</kbd> SWITCH BOAT</span><span><kbd>Space</kbd> PAUSE</span></div><div class="orders"><span>FLEET ORDERS</span><button data-order="engage" class="active">1 · Engage</button><button data-order="escort">2 · Escort</button><button data-order="hold">3 · Hold</button><button id="retreat" class="danger">Withdraw ↗</button></div></div>
+<div id="notifications" class="notifications" aria-live="polite"></div>
+<div id="modal-root"></div>
+<input type="file" id="import-save" accept="application/json,.json" hidden>
+<script src="content.js"></script><script src="systems.js"></script><script src="economy.js"></script><script src="battle.js"></script><script src="renderer.js"></script><script src="app.js"></script>
+</body></html>

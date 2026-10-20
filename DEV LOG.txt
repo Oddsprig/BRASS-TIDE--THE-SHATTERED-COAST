@@ -1,0 +1,10 @@
+2026-10-20 | v0.001 | release candidate | lead: Codex; one Sol6.1 and two Argon High helpers
+Owner chose native Godot PC, exact 0.001 increments, cheap water, numerical crew, Separate rendering and background-only tests.
+Completed original 24 boats, 10 ports, 8 battles, chart/harbor/fleet/finance UI, persistent damage, saves, sound and icon.
+Bronze cash pays actual production/assembly/supervision/crew from finite business/resident/expert/government/owner purses.
+Review fixed snapshot transaction order, rescue resources, save atomicity, equal-order escrow, shared workers and depleted recruits.
+Root rejected a helper employment-freezing workaround; volunteer updates no longer falsify paid jobs. Preserved raw reports and separate verdict.
+Actual voyage now wins all 8 battles with earned purchases and salvage, growing from 1 to 8 hulls and ending with 5 afloat.
+All 10 headless native suites pass; economy73591/construction2827/fleet1190/campaign418/validation83/runtime120/voyage66 checks.
+No current foreground graphics/FPS claim; engine Separate font issue documented, optional Safe renderer launcher prepared.
+Next: exact-commit separate-worktree export, native portable smoke/icon/ZIP, verified Desktop shortcut and intended GitHub URL if supplied.

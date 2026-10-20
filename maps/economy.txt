@@ -1,0 +1,55 @@
+BRASS TIDE — ECONOMY MAP (generated; v0.001)
+
+Fixed civilian pools/recipes/stock/ownership -> payroll, production, finite trade and resident/owner purses.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/economy.gd: 55468 bytes; extends RefCounted
+  game/scripts/economy.gd:54 is_expert_occupation()
+  game/scripts/economy.gd:78 default_recruit_pool()
+  game/scripts/economy.gd:82 replenish_volunteers()
+  game/scripts/economy.gd:107 get_equilibrium_stock()
+  game/scripts/economy.gd:144 create_port()
+  game/scripts/economy.gd:300 clone_port()
+  game/scripts/economy.gd:304 clone_ports()
+  game/scripts/economy.gd:312 snapshot_ports()
+  game/scripts/economy.gd:323 port_coins()
+  game/scripts/economy.gd:343 total_coins()
+  game/scripts/economy.gd:401 price()
+  game/scripts/economy.gd:430 cargo_weight()
+game/scripts/industry_data.gd: 13438 bytes; extends RefCounted
+  game/scripts/industry_data.gd:259 get_equilibrium_stock()
+  game/scripts/industry_data.gd:204 _is_num()
+  game/scripts/industry_data.gd:209 _clean_stock()
+  game/scripts/industry_data.gd:215 _normalize_good()
+  game/scripts/industry_data.gd:222 _normalize_industry()
+  game/scripts/industry_data.gd:227 _normalize_wealth_factor()
+  game/scripts/industry_data.gd:240 _normalize_pop_factor()
+  game/scripts/industry_data.gd:249 _get_workforce_needed()
+  game/scripts/industry_data.gd:283 _default_ship_stock()
+  game/scripts/industry_data.gd:292 _default_ship_ids()
+  game/scripts/industry_data.gd:300 _build_recipes()
+  game/scripts/industry_data.gd:325 _empty_employed_map()
+game/scripts/goods.gd: 3858 bytes; extends RefCounted
+  game/scripts/goods.gd:31 labor_cost()
+  game/scripts/goods.gd:37 labor_days()
+  game/scripts/goods.gd:43 cost()
+  game/scripts/goods.gd:52 full_labor_days()
+  game/scripts/goods.gd:59 definitions()
+game/scripts/fleet_economy.gd: 13672 bytes; extends RefCounted
+  game/scripts/fleet_economy.gd:24 normalize_owner()
+  game/scripts/fleet_economy.gd:45 upkeep()
+  game/scripts/fleet_economy.gd:55 total_coins()
+  game/scripts/fleet_economy.gd:61 create_owners()
+  game/scripts/fleet_economy.gd:122 subsidize()
+  game/scripts/fleet_economy.gd:155 dock()
+  game/scripts/fleet_economy.gd:270 tick()
+  game/scripts/fleet_economy.gd:8 _log()
+  game/scripts/fleet_economy.gd:13 _find()
+  game/scripts/fleet_economy.gd:19 _integer()
+  game/scripts/fleet_economy.gd:113 _trade_good()
+  game/scripts/fleet_economy.gd:132 _capacity()
+
+TESTS (game/tests/*.gd)
+test_economy, test_fleet_economy, test_campaign_cash
+
+Full symbols: rg -n '^func |^static func ' on named files.

@@ -1,0 +1,45 @@
+BRASS TIDE — CAMPAIGN MAP (generated; v0.001)
+
+World/player orders and finished worker snapshots -> voyages, contracts, saves and purses.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/main.gd: 19312 bytes; extends Node2D
+  game/scripts/main.gd:200 toggle_pause()
+  game/scripts/main.gd:204 toggle_fullscreen()
+  game/scripts/main.gd:207 new_game()
+  game/scripts/main.gd:220 click_chart()
+  game/scripts/main.gd:243 sail_to()
+  game/scripts/main.gd:251 respond()
+  game/scripts/main.gd:257 trade()
+  game/scripts/main.gd:266 buy_boat()
+  game/scripts/main.gd:272 commission()
+  game/scripts/main.gd:278 collect_boat()
+  game/scripts/main.gd:284 recruit()
+  game/scripts/main.gd:290 repair_boat()
+game/scripts/campaign.gd: 24418 bytes; extends RefCounted
+  game/scripts/campaign.gd:29 hull()
+  game/scripts/campaign.gd:35 port()
+  game/scripts/campaign.gd:41 faction()
+  game/scripts/campaign.gd:47 new_game()
+  game/scripts/campaign.gd:102 port_position()
+  game/scripts/campaign.gd:108 set_patrol_course()
+  game/scripts/campaign.gd:115 place_patrol()
+  game/scripts/campaign.gd:128 active_fleet()
+  game/scripts/campaign.gd:136 capacity()
+  game/scripts/campaign.gd:143 cargo_weight()
+  game/scripts/campaign.gd:149 freight_weight()
+  game/scripts/campaign.gd:155 crew_count()
+game/scripts/contracts.gd: 6051 bytes; extends RefCounted
+  game/scripts/contracts.gd:5 available()
+  game/scripts/contracts.gd:49 accept()
+  game/scripts/contracts.gd:79 finish()
+  game/scripts/contracts.gd:102 abandon()
+game/scripts/money.gd: 1425 bytes; extends RefCounted
+  game/scripts/money.gd:4 move()
+  game/scripts/money.gd:17 port_total()
+  game/scripts/money.gd:25 total()
+
+TESTS (game/tests/*.gd)
+test_campaign_cash, test_runtime, test_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.

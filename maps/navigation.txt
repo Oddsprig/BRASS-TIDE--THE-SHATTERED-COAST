@@ -1,0 +1,23 @@
+BRASS TIDE — NAVIGATION MAP (generated; v0.001)
+
+Original island polygons/endpoints -> bounded precomputed water grid and safe water paths.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/navigation.gd: 11151 bytes; extends RefCounted
+  game/scripts/navigation.gd:62 is_water()
+  game/scripts/navigation.gd:97 isWater()
+  game/scripts/navigation.gd:136 create()
+  game/scripts/navigation.gd:288 find_path()
+  game/scripts/navigation.gd:383 findPath()
+  game/scripts/navigation.gd:11 _is_finite_num()
+  game/scripts/navigation.gd:17 _point_pair()
+  game/scripts/navigation.gd:27 _inside()
+  game/scripts/navigation.gd:46 _edge_distance()
+  game/scripts/navigation.gd:101 _clear()
+  game/scripts/navigation.gd:230 _connectors()
+  game/scripts/navigation.gd:256 _heap_push()
+
+TESTS (game/tests/*.gd)
+test_navigation, test_runtime, test_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.
