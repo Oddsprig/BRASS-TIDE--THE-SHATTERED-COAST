@@ -1,5 +1,7 @@
 # Brass Tide — Codex team rules
 
+2026-10-20 v0.002 owner steering supersedes earlier limits: use coins in all visible text; WASD camera, default flagship autopilot/commander battles, 300 deployment points/side, paid weapon/engine/armor refits and much better original boats/wakes. Owner explicitly added Argon High, Opus5.5 Medium Google-plan, Muse Wonder Full and another app-native Sol6.1 Max. Read briefs/V0.002 TEAM CONTRACT.md. Preserve old releases. Background-only testing persists.
+
 The owner supplied portable build rules and asked: "rebuild it to fit a chatgpt workflow"; "file location/folder location would fit u and ur tools - but the other rules that are transferable are transfered."
 
 Authoritative source is this Git repository. Scratch, helper worktrees, logs and release checkouts live in the parent task's work/ directory. User-facing releases live in the parent task's outputs/ directory. The requested desktop launcher points at the newest portable release; placing it requires the host's filesystem permission. Never infer a new repository's GitHub destination from an unrelated project.
