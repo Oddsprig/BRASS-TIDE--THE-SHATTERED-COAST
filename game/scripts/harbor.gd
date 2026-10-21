@@ -189,6 +189,9 @@ static func repair(core, uid: String) -> Dictionary:
 	boat.engine = 1.0
 	boat.fire = 0.0
 	boat.wounded = 0.0
+	boat.needsHarborRepair=false
+	boat.towed=false
+	boat.towSpeedFactor=1.0
 	return core.ok("%s repaired for %d coins, paid to suppliers, shipwrights and specialists." % [boat.name,q.cost])
 
 static func resupply(core, uid: String, profile: String = "full") -> Dictionary:

@@ -1,3 +1,7 @@
+v0.010 voluntary play: Salvage and recovery
+Assess readability and usefulness of: Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing. Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices. Tows reduce speed and need harbor repairs; workshop drawings can license paid construction at a chosen yard.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.009 voluntary play: Island exploration
 Assess readability and usefulness of: Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads. Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages. Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

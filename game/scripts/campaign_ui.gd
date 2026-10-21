@@ -83,6 +83,7 @@ static func site(ui,site_id: String) -> void:
 		ui.label(body,"Chart the approaches" if action=="chart" else "Land a resource survey",24,ui.GOLD,true)
 		ui.paragraph(body,"%d spare crew · %.1f days · %.2f prepaid rations · %.0f kits\nThe payroll continues at %s coins/day for your existing crew."%[q.crewNeeded,q.days,q.food,q.supplies,ui.money(c.Economy.daily_upkeep(c.state.fleet).wages)],16)
 		ui.paragraph(body,q.message,15,ui.TEAL if q.ok else ui.RED)
+		if c.distance(c.state.position,s)<=180 and not c.state.path.is_empty():ui.button(body,"Idle engines at this landing",func():c.stop_sailing();site(ui,site_id))
 		ui.button(body,"Assign shore party",func():ui.host.respond(c.begin_survey(site_id,action));site(ui,site_id),true).disabled=not q.ok or c.distance(c.state.position,s)>180 or not c.state.path.is_empty()
 	var assignment: Dictionary=c.Exploration.assignment(c.state)
 	if not assignment.is_empty():

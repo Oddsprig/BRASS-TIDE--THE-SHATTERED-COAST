@@ -1,4 +1,4 @@
-# Brass Tide v0.009 source map
+# Brass Tide v0.010 source map
 
 The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
 

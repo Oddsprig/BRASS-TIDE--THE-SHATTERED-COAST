@@ -5,7 +5,7 @@ const Damage=preload("res://scripts/damage.gd")
 const DAY_SECONDS: float=45.0
 
 static func traveling(state: Dictionary) -> Array:
-	return state.get("fleet",[]).filter(func(b):return b is Dictionary and not b.get("sunk",false) and not b.get("mothballed",false) and str(b.get("storedPort","")).is_empty() and float(b.get("crew",0))>=float(b.get("crewMin",1)))
+	return state.get("fleet",[]).filter(func(b):return b is Dictionary and not b.get("sunk",false) and not b.get("mothballed",false) and not b.get("needsHarborRepair",false) and str(b.get("storedPort","")).is_empty() and float(b.get("crew",0))>=float(b.get("crewMin",1)))
 
 static func capacity(state: Dictionary) -> float:
 	var total: float=0.0
@@ -19,11 +19,12 @@ static func cargo_weight(state: Dictionary) -> float:
 	if not freight.is_empty():total+=maxf(0,float(freight.get("qty",0)))*float(Goods.ITEMS.get(freight.get("good",""),{"weight":1}).weight)
 	for b in state.get("fleet",[]):
 		if b.get("sunk",false) or not str(b.get("storedPort","")).is_empty():continue
-		var spec: Dictionary=b.get("spec",{})
-		total+=maxf(0,float(b.get("fuel",0))-float(spec.get("fuelCapacity",60)))
-		total+=maxf(0,float(b.get("supplies",0))-float(spec.get("kitCapacity",20)))
-		total+=maxf(0,float(b.get("ammo",0))-float(spec.get("ammoCapacity",80)))/Goods.ROUNDS_PER_CASE
+		total+=store_overflow(b)
 	return total
+
+static func store_overflow(b: Dictionary) -> float:
+	var spec: Dictionary=b.get("spec",{})
+	return maxf(0,float(b.get("fuel",0))-float(spec.get("fuelCapacity",60)))+maxf(0,float(b.get("supplies",0))-float(spec.get("kitCapacity",20)))+maxf(0,float(b.get("ammo",0))-float(spec.get("ammoCapacity",80)))/Goods.ROUNDS_PER_CASE
 
 static func report(state: Dictionary,world: Dictionary,route_distance: float=0.0) -> Dictionary:
 	var fleet: Array=traveling(state)

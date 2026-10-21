@@ -5,6 +5,7 @@ const Portrait = preload("res://scripts/boat_portrait.gd")
 const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
+const RecoveryUI=preload("res://scripts/recovery_ui.gd")
 
 const INK = Color("102731")
 const LINE = Color("3b5a60")
@@ -257,6 +258,7 @@ func build_campaign_hud(size: Vector2):
 	button(left_body, "Contracts & logbook          J", open_contracts)
 	button(left_body,"Prepare expedition",func():CampaignUI.expedition(self))
 	button(left_body,"Island charts & surveys     I",func():CampaignUI.islands(self))
+	button(left_body,"Wrecks & recovery",func():RecoveryUI.open(self))
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
 	if not host.core.state.activeContract.is_empty():
@@ -388,6 +390,7 @@ func open_port(tab: String = ""):
 	modal_kind = "port"
 	var body = modal(p.name, "%s · %s" % [host.core.faction(p.faction).name, p.industry.to_upper()])
 	paragraph(body, p.description, 16)
+	if p.industry=="shipyard":button(body,"Recovered drawings & design licenses",func():RecoveryUI.blueprints(self))
 	var tabs = row(body)
 	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
 		var value: String = item
@@ -550,6 +553,8 @@ func open_cargo():
 		var line = row(body)
 		label(line, host.Economy.GOODS[good].name, 17).size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label(line, "%.1f  ×  %d space" % [host.core.state.cargo[good], host.Economy.GOODS[good].weight], 16, MUTED)
+		var good_id: String=str(good)
+		button(line,"Set 1 on a marked float",func():host.respond(host.core.jettison(good_id,1));open_cargo()).disabled=host.core.state.cargo[good]<1
 	if not host.core.state.freight.is_empty():
 		paragraph(body, "Sealed contract freight: %d %s. Reserved until delivery or abandonment." % [host.core.state.freight.qty, host.core.state.freight.good], 15, GOLD)
 	button(body, "Load reserves into working stores", func(): host.core.use_reserves(); open_cargo(), true)
@@ -684,6 +689,9 @@ func outcome(result: String, report: Dictionary, enemies: Array):
 		button(body, "Fight another skirmish", host.quick_battle, true)
 		button(body, "Main menu", host.return_to_title)
 		return
+	if not report.get("wrecks",[]).is_empty():
+		paragraph(body,"%d individual wrecks marked. Recovery choices persist on the coastal chart."%report.wrecks.size(),16,GOLD)
+		button(body,"Inspect wrecks & recovery",func():host.return_to_campaign();RecoveryUI.open(self)).disabled=host.core.active_fleet().is_empty()
 	var salvage = report.get("salvage", {})
 	if result == "won" and not salvage.is_empty():
 		paragraph(body, "Recoverable hull: %s. Tug labor, engineer inspection and company fee: %s coins. It returns at 35%% hull with no crew or stores." % [salvage.name, money(host.core.salvage_quote(salvage.id).total)], 15)

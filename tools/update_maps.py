@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "recovery": (["salvage","recovery_ui"],
+                 "Actual destroyed hulls/site provenance -> persistent finite wrecks, selectable lots, paid tow and recovered blueprints.",
+                 "test_salvage, test_salvage_voyage"),
     "expeditions": (["expedition","hold_manifest","economy_workers","campaign_ui","campaign_state_validation","exploration","island_site_art"],
                     "Traveling fleet/real stores -> cargo carriers, paid endurance, shore assignments, persistent discoveries and copied-port workers.",
                     "test_expedition, test_campaign_logistics, test_exploration, test_island_voyage"),

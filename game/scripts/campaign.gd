@@ -15,6 +15,7 @@ const SaveValidation = preload("res://scripts/save_validation.gd")
 const Expedition=preload("res://scripts/expedition.gd")
 const Manifest=preload("res://scripts/hold_manifest.gd")
 const Exploration=preload("res://scripts/exploration.gd")
+const Salvage=preload("res://scripts/salvage.gd")
 # v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
 const Deployment = preload("res://scripts/deployment.gd")
 const Refits = preload("res://scripts/refit.gd")
@@ -109,6 +110,9 @@ func new_game(seed_value: int = 1):
 	state.coinSupply = Money.total(state)
 	state.cargoManifest={}
 	state.surveyFoodCredit=0.0
+	state.wreckHazards={}
+	state.blueprints={}
+	Salvage.ensure(state)
 	if int(data.get("MAP_REVISION",1))>=2:
 		Exploration.ensure(state,data)
 		Exploration.discover_near(state,state.position,1000.0)
@@ -146,7 +150,7 @@ func place_patrol(patrol: Dictionary):
 func active_fleet() -> Array:
 	var fleet: Array = []
 	for s in state.get("fleet", []):
-		if not s.sunk and not s.get("mothballed", false) and str(s.get("storedPort","")).is_empty() and s.crew >= s.crewMin:
+		if not s.sunk and not s.get("mothballed", false) and not s.get("needsHarborRepair",false) and str(s.get("storedPort","")).is_empty() and s.crew >= s.crewMin:
 			fleet.append(s)
 	fleet.sort_custom(func(a, b): return a.uid == state.flagship and b.uid != state.flagship)
 	return fleet
@@ -197,11 +201,13 @@ func travel_speed() -> float:
 		speed = minf(speed, s.spec.speed * maxf(0.25, Damage.get_status(s).speedFactor) * (1.0 if s.fuel > 0 else 0.3))
 	var powered_mass: float=0.0
 	var tow_mass: float=0.0
+	var tow_factor: float=1.0
 	for s in state.fleet:
 		if s.sunk or not str(s.get("storedPort","")).is_empty():continue
-		if s.get("mothballed",false) or s.crew<s.crewMin:tow_mass+=float(s.spec.size)
+		if s.get("mothballed",false) or s.crew<s.crewMin or s.get("needsHarborRepair",false):tow_mass+=float(s.spec.size)
 		else:powered_mass+=float(s.spec.size)
-	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)
+		if s.get("towed",false):tow_factor=minf(tow_factor,float(s.get("towSpeedFactor",1)))
+	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if not state.get("exploration",{}).get("assignment",{}).is_empty():return fail("Recall your shore party before sailing away.")
@@ -423,6 +429,49 @@ func advance_surveys(days: float) -> void:
 		var lead: String=str(event.get("leadId",""))
 		var next: Dictionary=Exploration.catalog_site(state,lead)
 		if not next.is_empty():Exploration.discover_near(state,next,1.0)
+		if int(event.level)>=3:
+			var found: Dictionary=Exploration.catalog_site(state,event.siteId)
+			if str(found.get("kind","")) in ["wreck_field","salvage_anchorage"]:Salvage.seed_site_wreck(self,found,"harbor_sloop")
+			if str(found.get("kind",""))=="workshop_ruin":
+				state.blueprints["manta_strike"]=true
+				log_entry("Recovered Manta Strike workshop drawings. License them at a shipyard to unlock paid construction.")
+
+func license_blueprint(id: String) -> Dictionary:
+	var p: Dictionary=current_port()
+	if p.is_empty() or p.industry!="shipyard" or not state.blueprints.get(id,false) or hull(id).is_empty():return fail("Take a recovered hull drawing to a shipyard.")
+	if not id in p.shipIds:p.shipIds.append(id)
+	return ok("Design licensed at %s. The yard still requires physical materials, workers, expert wages and coins."%p.name)
+
+func recovery_days(weight: float) -> float:
+	return maxf(0.1,weight/maxf(1,Exploration.spare_crew(state)*20.0))
+
+func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0) -> Dictionary:
+	var w: Dictionary=Salvage.find_wreck(state,id)
+	if w.is_empty() or distance(state.position,w)>180:return fail("Approach this wreck within180water units first.")
+	var hazard: Dictionary=fleet_owner(str(state.wreckHazards.get(w.sourceId,"")))
+	if not hazard.is_empty() and hazard.active and hazard.boats.any(func(b):return not b.sunk):return fail("Hostiles still control this wreck field. Secure the waters before recovery.")
+	if not state.path.is_empty() or not state.exploration.assignment.is_empty():return fail("Stop the fleet and recall shore parties before recovery.")
+	var q: Dictionary=Salvage.quote(self,id,mode)
+	if mode=="strip" and Exploration.spare_crew(state)<1:return fail("Recovery needs at least one spare able sailor above the boat minimums.")
+	var result: Dictionary=Salvage.strip_good(self,id,good,qty) if mode=="strip" and not good.is_empty() else Salvage.recover(self,id,mode)
+	if not result.ok:return result
+	var work_days: float=recovery_days(float(result.get("weight",q.get("weight",1)))) if mode=="strip" else maxf(1,float(q.get("ordinary",100))/200.0)
+	var previous_day: int=int(state.day)
+	state.day+=work_days
+	pending_days+=int(state.day)-previous_day
+	Manifest.allocate(state)
+	log_entry(str(result.message)+" %.2f working days; normal wages/provisions apply."%work_days)
+	return result
+
+func jettison(good: String,qty: int) -> Dictionary:
+	if not Goods.ITEMS.has(good) or qty<=0 or float(state.cargo.get(good,0))<qty:return fail("Choose a positive owned cargo lot.")
+	Salvage.ensure(state)
+	state.wreckSeq+=1
+	state.cargo[good]-=qty
+	state.wrecks.append({"id":"wreck-%d"%state.wreckSeq,"sourceId":"jettison:%d"%state.wreckSeq,"hull":"","name":"Marked cargo float","x":state.position.x,"y":state.position.y,"stores":{good:float(qty)},"components":{},"status":"unclaimed","day":state.day})
+	Salvage.ensure(state)
+	Manifest.allocate(state)
+	return ok("Cargo set on a marked float. It can be recovered later if space is available.")
 
 func trade(id: String, good: String, qty: int, side: String) -> Dictionary:
 	var p = current_port()
@@ -518,6 +567,7 @@ func set_boat_active(uid: String, enabled: bool) -> Dictionary:
 	if b.is_empty() or not str(b.get("storedPort","")).is_empty():return fail("Collect this boat from its harbor first.")
 	if int(b.get("shoreCrew",0))>0:return fail("Recall the shore party before changing this boat's status.")
 	if enabled and b.crew<b.crewMin:return fail("Hire the minimum crew before activation.")
+	if enabled and b.get("needsHarborRepair",false):return fail("This recovered hull needs paid harbor repairs before it can sail under its own power.")
 	if not enabled and b.uid==state.flagship:return fail("Choose another active flagship first.")
 	var before: bool=b.get("mothballed",false)
 	b.mothballed=not enabled
@@ -617,7 +667,19 @@ func finish_contract() -> Dictionary:
 func abandon_contract() -> Dictionary:
 	return Contracts.abandon(self)
 
-func battle_settled(result: String, enemy_specs: Array, context: Dictionary) -> Dictionary:
+func battle_settled(result: String, enemy_specs: Array, context: Dictionary,physical_battle: Dictionary={}) -> Dictionary:
+	var physical_wrecks: Array=[]
+	if not physical_battle.is_empty():
+		var source: String="battle:%d:%d"%[state.seed,state.wins+state.losses]
+		physical_wrecks=Salvage.record_battle(self,physical_battle,source)
+		if result!="won":
+			state.wreckHazards[source]=str(context.get("ownerId",""))
+			while state.wreckHazards.size()>256:state.wreckHazards.erase(state.wreckHazards.keys()[0])
+		for record in physical_wrecks:
+			if not record.friendly:continue
+			var live: Dictionary=Salvage.find_wreck(state,record.id)
+			for good in state.get("cargoManifest",{}).get(record.uid,{}):
+				if Goods.ITEMS.has(good):live.stores[good]=float(live.stores.get(good,0))+float(state.cargoManifest[record.uid][good])*0.5
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s):return not s.sunk)
 	Manifest.allocate(state)
@@ -634,7 +696,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary) -> 
 			Money.move(owner,"coins",state,"coins",loot,"Captured fleet operating coins",state.moneyLog)
 			owner.active = false
 		state.renown += enemy_specs.size()*3
-		if not enemy_specs.is_empty():
+		if not enemy_specs.is_empty() and physical_battle.is_empty():
 			salvage = enemy_specs[0]
 			state.recoverable = {"hull":salvage.id,"claimed":false}
 		if context.get("kind","") == "contract" and not state.activeContract.is_empty():
@@ -651,7 +713,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary) -> 
 	use_reserves()
 	apply_morale()
 	log_entry("Engagement %s. %d boats remain."%[result,state.fleet.size()])
-	return {"coins":loot,"salvage":salvage,"fleetLost":active_fleet().is_empty(),"completed":state.completed}
+	return {"coins":loot,"salvage":salvage,"wrecks":physical_wrecks,"fleetLost":active_fleet().is_empty(),"completed":state.completed}
 
 func salvage_quote(id: String) -> Dictionary:
 	var h: Dictionary = hull(id)
@@ -811,6 +873,12 @@ func restore(saved: Dictionary) -> Dictionary:
 	Manifest.allocate(state)
 	pending_days = 0
 	Exploration.ensure(state,data)
+	Salvage.ensure(state)
+	if not state.recoverable.is_empty() and not state.recoverable.get("claimed",true):
+		var legacy_site: Dictionary=state.position.duplicate(true)
+		legacy_site.id="legacy-recovery"
+		Salvage.seed_site_wreck(self,legacy_site,state.recoverable.hull,"legacy-recovery")
+		state.recoverable.claimed=true
 	apply_morale()
 	if Money.total(state) != int(state.coinSupply):
 		return fail("The saved coin ledger is inconsistent; use your backup.")

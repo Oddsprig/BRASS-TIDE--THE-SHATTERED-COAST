@@ -318,6 +318,10 @@ func click_chart(position: Vector2):
 		if patrol.active and chart.project(Vector2(patrol.x, patrol.y)).distance_to(position) < 15:
 			show_patrol_encounter(patrol.id)
 			return
+	for w in core.state.get("wrecks",[]):
+		if w.get("status","")=="unclaimed" and chart.project(Vector2(w.x,w.y)).distance_to(position)<16:
+			ui.RecoveryUI.open(ui,w.id)
+			return
 	var world = chart.world_at(position)
 	respond(core.chart_course({"x": world.x, "y": world.y}))
 
@@ -635,7 +639,7 @@ func settle_battle():
 		return
 	var report = {"coins": 0, "salvage": {}, "fleetLost": false, "completed": false}
 	if not quick_mode:
-		report = core.battle_settled(battle.result, battle_enemies, battle_context)
+		report = core.battle_settled(battle.result,battle_enemies,battle_context,battle)
 	ui.outcome(battle.result, report, battle_enemies)
 
 func recover_salvage(id: String):

@@ -1,3 +1,23 @@
+# v0.010 — Salvage and recovery
+
+SOURCE ACCEPTED: 28 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing.
+- Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices.
+- Tows reduce speed and need harbor repairs; workshop drawings can license paid construction at a chosen yard.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.010.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.010 — Salvage and recovery
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing.
+- Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices.
+- Tows reduce speed and need harbor repairs; workshop drawings can license paid construction at a chosen yard.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.010.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.009 — Island exploration
 
 SOURCE ACCEPTED: 26 native suites pass; portable export evidence is recorded separately in RELEASE.json.

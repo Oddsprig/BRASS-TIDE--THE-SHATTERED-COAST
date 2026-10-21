@@ -1,3 +1,5 @@
+v0.010 SOURCE ACCEPTED — Salvage and recovery. 28 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 v0.009 SOURCE ACCEPTED — Island exploration. 26 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 # Brass Tide campaign roadmap

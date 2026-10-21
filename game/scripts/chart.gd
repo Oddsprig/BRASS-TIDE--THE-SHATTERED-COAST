@@ -537,6 +537,13 @@ func draw_campaign():
 	for site in knowledge.get("catalog",[]):
 		var level: int=int(knowledge.get("sites",{}).get(site.id,{}).get("level",0))
 		if level>0:SiteArt.draw_site(self,site,level,str(host.selected_site)==str(site.id))
+	for wreck in world.get("wrecks",[]):
+		if wreck.get("status","")!="unclaimed":continue
+		var marker_pos: Vector2=project(Vector2(wreck.x,wreck.y))
+		if not get_viewport_rect().grow(30).has_point(marker_pos):continue
+		draw_circle(marker_pos,7,Color(GOLD,0.12))
+		draw_line(marker_pos+Vector2(-4,-4),marker_pos+Vector2(4,4),GOLD,1.5)
+		draw_line(marker_pos+Vector2(-4,4),marker_pos+Vector2(4,-4),GOLD,1.5)
 	var fleet = host.core.active_fleet()
 	for i in range(fleet.size()):
 		var boat = fleet[i].duplicate()

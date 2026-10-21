@@ -1,3 +1,15 @@
+v0.010 SOURCE ACCEPTED | Salvage and recovery
+28 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.010 CANDIDATE | Salvage and recovery
+- Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing.
+- Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices.
+- Tows reduce speed and need harbor repairs; workshop drawings can license paid construction at a chosen yard.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.009 DELIVERED | exact game 7485e5516be1a980e6a8d9a4dbae44c50e7c90c9
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.009 SOURCE ACCEPTED | Island exploration
 26 native suites passed; source report saved. Portable export and publication require separate receipts.
 

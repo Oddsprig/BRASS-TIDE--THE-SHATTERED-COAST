@@ -1,3 +1,11 @@
+## v0.010 — Salvage and recovery
+
+Candidate; verified test/export records follow.
+
+- Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing.
+- Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices.
+- Tows reduce speed and need harbor repairs; workshop drawings can license paid construction at a chosen yard.
+
 ## v0.009 — Island exploration
 
 Candidate; verified test/export records follow.
