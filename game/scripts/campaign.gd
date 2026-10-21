@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const StoryOps=preload("res://scripts/story_ops.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
 const FleetSupport=preload("res://scripts/fleet_support.gd")
@@ -126,6 +127,7 @@ func new_game(seed_value: int = 1):
 	NavalAI.ensure(state,data)
 	TradeIntel.ensure(state)
 	FleetIdentity.ensure(state)
+	StoryOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -341,6 +343,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		Harbor.tick_yards(self,1)
 		NavalLifecycle.daily(self)
 		TradeFlow.daily(self)
+		StoryOps.daily(self)
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
 		state.econDay += 1
@@ -430,6 +433,8 @@ func advance_surveys(days: float) -> void:
 		for b in state.fleet:b.shoreCrew=0
 		log_entry("%s: %s. %s"%[event.siteName,event.levelName,event.discovery])
 		events.append(event)
+		FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),"survey")
+		StoryOps.refresh(self)
 		var lead: String=str(event.get("leadId",""))
 		var next: Dictionary=Exploration.catalog_site(state,lead)
 		if not next.is_empty():Exploration.discover_near(state,next,1.0)
@@ -443,7 +448,9 @@ func advance_surveys(days: float) -> void:
 func license_blueprint(id: String) -> Dictionary:
 	var p: Dictionary=current_port()
 	if p.is_empty() or p.industry!="shipyard" or not state.blueprints.get(id,false) or hull(id).is_empty():return fail("Take a recovered hull drawing to a shipyard.")
-	if not id in p.shipIds:p.shipIds.append(id)
+	if not id in p.shipIds:
+		p.shipIds.append(id)
+		state.campaignFacts.licensedDesigns=int(state.campaignFacts.get("licensedDesigns",0))+1
 	return ok("Design licensed at %s. The yard still requires physical materials, workers, expert wages and coins."%p.name)
 
 func recovery_days(weight: float) -> float:
@@ -675,11 +682,15 @@ func accept_voyage_job(id: String) -> Dictionary:
 	var permission: Dictionary=Politics.permit(self,"contract")
 	if not permission.ok:return permission
 	var result: Dictionary=VoyageJobs.accept(self,id)
-	if result.ok:Contacts.visit(state,current_port(),state.day)
+	if result.ok:
+		Contacts.visit(state,current_port(),state.day)
+		if id.begins_with("chainfreight-"):state.storyRights.usedOffers[id]=true
 	Manifest.allocate(state)
 	return result
 
 func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
+	var permission: Dictionary=Politics.permit(self,"contract")
+	if not permission.ok:return permission
 	var before: Dictionary=VoyageJobs._find(state,id).duplicate(true)
 	var result: Dictionary=VoyageJobs.abandon(self,id) if abandon else VoyageJobs.finish(self,id)
 	if result.ok:
@@ -931,6 +942,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	NavalAI.ensure(state,data)
 	TradeIntel.ensure(state)
 	FleetIdentity.ensure(state)
+	StoryOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -942,6 +954,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	apply_morale()
 	if Money.total(state) != int(state.coinSupply):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
+	StoryOps.refresh(self)
 	return ok("Voyage restored.")
 
 func canonical_npc_boat(boat: Dictionary) -> void:

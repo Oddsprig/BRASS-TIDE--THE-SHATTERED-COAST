@@ -292,6 +292,7 @@ static func available(core) -> Array:
 					"freight": {}, "state": STATE_OFFERED,
 					"siteId": "", "ownerId": str(owner["id"])})
 			break
+	if state.get("storyRights") is Dictionary:offers.append_array(preload("res://scripts/story_offers.gd").available(core))
 	return offers
 
 

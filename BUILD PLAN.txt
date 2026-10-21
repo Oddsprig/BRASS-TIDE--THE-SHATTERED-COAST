@@ -1,3 +1,9 @@
+v0.016 SOURCE ACCEPTED — Memorable exploration chains
+- Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices.
+- Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity.
+- Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 v0.015 SOURCE ACCEPTED — Fleet identity
 - Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories.
 - Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems.

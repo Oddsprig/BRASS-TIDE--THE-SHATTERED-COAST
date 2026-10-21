@@ -130,4 +130,20 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not number(value):return "Invalid campaign achievement count."
 	if s.has("escortEvents") and (not s.escortEvents is Dictionary or s.escortEvents.size()>256):return "Invalid escorted passage ledger."
 	if s.has("battleSeq") and not number(s.battleSeq):return "Invalid engagement sequence."
+	if s.has("stories"):
+		if not s.stories is Dictionary:return "Invalid coastal story book."
+		var stories: Dictionary=s.stories
+		if not stories.get("catalog") is Array or stories.catalog.size()>16 or not stories.get("chains") is Dictionary or stories.chains.size()>16:return "Invalid bounded story catalog/progress."
+		for key in ["events","consequences","notified"]:
+			if not stories.get(key) is Array or stories[key].size()>128:return "Invalid story event history."
+		for rec in stories.chains.values():
+			if not rec is Dictionary or not rec.get("stage") is String or not rec.get("done") is bool or not rec.get("flags") is Array or not rec.get("leads") is Array:return "Invalid story progress."
+		for e in stories.consequences:
+			if not e is Dictionary or not e.get("id") is String or e.get("kind","") not in ["faction","contact"] or not number(e.get("amount"),-25,25) or not e.get("applied") is bool:return "Invalid story consequence."
+	if s.has("storyRights"):
+		if not s.storyRights is Dictionary:return "Invalid story rights."
+		var r: Dictionary=s.storyRights
+		for key in ["openField","privateField","workshopCharter","privateOre","publicCharts","privateCharts"]:
+			if not r.get(key) is bool:return "Invalid story permission."
+		if r.get("buyer","") not in ["","compact","forge"] or not r.get("usedOffers") is Dictionary or r.usedOffers.size()>8 or not r.get("salvageWork") is Dictionary or r.salvageWork.size()>32:return "Invalid story opportunity ledger."
 	return ""

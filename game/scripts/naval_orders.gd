@@ -461,7 +461,7 @@ static func select_trader_order(state: Dictionary, owner: Dictionary, current_po
 		}
 	var origin_port: Dictionary = cur_port if not cur_port.is_empty() else home
 	var export_src: Dictionary = home if not home.is_empty() else origin_port
-	var good: String = pick_export_good(export_src, str(owner.get("tradeGood", "timber")))
+	var good: String = str(owner.get("tradeGood","timber")) if trade_cargo>0 else pick_export_good(export_src,str(owner.get("tradeGood","timber")))
 	owner["tradeGood"] = good
 	var buy_port: Dictionary = origin_port if not origin_port.is_empty() else home
 	var buy_price: int = int(Economy.price(buy_port, good, "buy"))

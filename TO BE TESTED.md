@@ -1,3 +1,7 @@
+v0.016 voluntary play: Memorable exploration chains
+Assess readability and usefulness of: Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices. Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity. Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.015 voluntary play: Fleet identity
 Assess readability and usefulness of: Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories. Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems. Protect real convoys through timed battles without inventing enemy destruction or loot; repaired NPC replacement, cargo-loss and save-route lifecycle defects.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

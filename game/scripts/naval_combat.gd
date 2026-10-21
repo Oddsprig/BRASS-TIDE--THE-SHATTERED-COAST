@@ -346,6 +346,8 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 
 	var rem_a: int = NavalOrders.living_boats(owner_a).size()
 	var rem_b: int = NavalOrders.living_boats(owner_b).size()
+	if rem_a==0:owner_a.defeats=int(owner_a.get("defeats",0))+1
+	if rem_b==0:owner_b.defeats=int(owner_b.get("defeats",0))+1
 	var sunk_a: int = maxi(0, init_a - rem_a)
 	var sunk_b: int = maxi(0, init_b - rem_b)
 

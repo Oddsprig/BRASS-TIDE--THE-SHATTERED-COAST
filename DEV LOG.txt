@@ -1,3 +1,15 @@
+v0.016 SOURCE ACCEPTED | Memorable exploration chains
+41 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.016 CANDIDATE | Memorable exploration chains
+- Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices.
+- Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity.
+- Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.015 DELIVERED | exact game 74d90f058305a92d7d0c77ffad789d4d23aaae40
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.015 SOURCE ACCEPTED | Fleet identity
 39 native suites passed; source report saved. Portable export and publication require separate receipts.
 

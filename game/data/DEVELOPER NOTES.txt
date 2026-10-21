@@ -1,4 +1,16 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.016 — Memorable exploration chains
+SOURCE ACCEPTED: 41 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices.
+- Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity.
+- Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
+
+Team: Codex root + one Muse Wonder Full + one Argon High + one Grok4.7.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.015 — Fleet identity
 SOURCE ACCEPTED: 39 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 

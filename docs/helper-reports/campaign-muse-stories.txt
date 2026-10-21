@@ -1,0 +1,118 @@
+BRASS TIDE HELPER B REPORT - MUSE WONDER FULL - v0.016 COASTAL STORIES
+Raw helper report. Preserve unchanged; root verdict in a separate file.
+All earlier modules and raw reports were preserved untouched.
+
+CHANGED PATHS (new allowlist only)
+- game/scripts/coastal_stories.gd
+- game/data/coastal_stories.json
+- game/tests/test_coastal_stories.gd
+- docs/helper-reports/campaign-muse-stories.txt (this report)
+No existing file was edited or deleted. No engine, test, shell command,
+commit, install or settings change was run by this helper.
+
+PUBLIC API (game/scripts/coastal_stories.gd, all static)
+- ensure(state) -> Dictionary: state["stories"] = {catalog (copied from
+  res://data/coastal_stories.json, read once), chains {chainId: {stage,
+  flags[], leads[], done, startedDay}}, events[] (<=128 settled
+  "story:<chain>:<stage>:<choice>" ids), consequences[] (<=64 pending
+  records), notified[]}. Progress naming unknown chains/stages is dropped.
+- available(core) -> Array: unstarted chains whose startPort is the current
+  harbor and whose startContact is already met (Contacts visit), each with
+  first-stage nextAction, journal location and choices. No writes beyond
+  ensure()/Contacts.ensure().
+- choose(core, chain_id, choice_id) -> Dictionary: starts the chain at its
+  harbor when needed (the start record persists even if stage one's gate is
+  elsewhere), then settles one decision. Unknown chain/choice, finished
+  chain, already-recorded event id, missing requiresFlag, unmet gate and
+  unaffordable delivery cost all refuse BEFORE any write (atomic; the
+  destination stage is also validated before cargo moves). On success:
+  optional delivery transfers player cargo -> named port stocks, flags and
+  site leads are recorded, an optional "reveal" legitimately sights a site
+  through Exploration.discover_near, faction/contact consequences are
+  appended as pending {id,kind,target,amount,reason,day,applied:false}
+  records for ROOT to apply, and the chain advances or finishes. Returns
+  ok/message plus chainId, stage, done, eventId, consequences, leads.
+- journal(state) -> Array: one entry per started chain {chainId,title,
+  approach,stage,stageTitle,done,nextAction,location {kind,id,name,x,y},
+  flags,leads,choices}; location resolves to the gated site coordinates or
+  the named/start port from state.ports.
+- tick(core) -> Array: emits each active stage's "gate_ready" notice once
+  when its gate first becomes satisfiable; never advances a chain itself.
+Gate types in data: site {site,level} (Exploration levels 1 sighted /
+2 charted / 3 surveyed), at_port {port}, visit {port} (a dated Contacts
+market snapshot exists), npc_defeated {owner} (fleetOwner inactive or all
+boats sunk), contact_met {contact}, none. Choice fields: id,text,next
+(stage id or "done"),tradeoff,requiresFlag?,setFlags[],cost? {good,qty,
+port},leads[],reveal?,consequences[] {kind faction|contact,target,amount,
+reason}. Arbitrary JSON cannot mint anything: unknown consequence kinds are
+dropped, costs only move existing cargo into existing port stocks, and no
+choice field can create coins, boats, crew or goods. NO chain uses coins
+or escrow at all, so Money.total needs no story term.
+
+AUTHORED CHAINS (game/data/coastal_stories.json; all ids real and tested)
+1. middle_sea_chart (explorer; reed_floats, Sister Wren): chart
+   middle_chart_rock -> share vs keep secret (flag-gated endings) -> survey
+   shatter_wreck_field -> open the field to Commune salvors (shared) vs
+   exclusive claim (secret): public salvage access vs a private field.
+2. ironwood_for_the_mill (merchant; brass_haven, Tobin Hale): deliver 5
+   timber to sawtooth_mill -> chart sawtooth_timber_stand -> Compact-first
+   vs Forge-first ironwood call, each pleasing one faction and queueing
+   the other. Opportunities differ by buyer network, not payout size.
+3. the_toll_camp (privateer; rust_anchorage, Cass Rye): sight
+   kelp_defended_camp -> defeat the named patrol-0 toll fleet -> chart
+   kelp_shoal_cut -> publish the shortcut for everyone vs keep it private.
+4. the_cold_workshop (escort; anvil_dock, Mara Voss): survey
+   cinder_workshop_ruin -> deliver 4 supplies at anvil_dock -> chart
+   cinder_ore_seam -> back a harbor workshop charter (harbor-owned future
+   output) vs keep the seam chart as a private fleet lead.
+Every chain has 3 gated stages, at least one real survey/delivery/defeat
+gate, site leads (rust_salvage_anchorage, kelp_shoal_cut, cinder_ore_seam,
+oilstone_seep_terrace), and a stated tradeoff on every choice. All names,
+plots and text are original to Brass Tide's coast and characters.
+
+ROOT INTEGRATION NEEDS (intentionally not done here)
+- Apply pending consequences: walk state.stories.consequences where
+  applied == false, feed contact entries to Contacts.record(state, target,
+  entry.id, amount) and faction entries to the v0.012 factions adjust()
+  with the entry id as event_id, then mark applied. Both sinks are already
+  idempotent per event id.
+- Call tick() on arrival/day change and surface journal() in chart/UI;
+  offer available() beside Contacts at harbors. Starting a chain currently
+  happens through its first choose() attempt at the start harbor.
+- save_validation: accept state.stories (catalog may be large but is plain
+  JSON; validate chains/events/consequences bounds and known ids).
+- Leads are knowledge records only; root decides how a recorded lead or an
+  opened claim changes salvage access, workshop charters or published
+  routes (for example a published kelp_shoal_cut in route finding). Paid
+  follow-up work should be issued as voyage_jobs by contacts, per design.
+- patrol-0 is named by the privateer chain as integrations name patrol ids
+  today; if root renumbers patrols, update the JSON owner field.
+
+TESTS WRITTEN, NOT RUN (root serializes all engine tests)
+game/tests/test_coastal_stories.gd on a real Campaign.new_game validates
+every referenced port/site/contact/faction/good/lead/stage id against
+world.json, exploration sites and Contacts, requires >=3 chains/stages and
+all four approaches; walks the merchant chain end-to-end (harbor start
+persisting, atomic delivery refusal with zero goods/event movement, exact
+cargo->mill-stock transfer, no double settlement, survey gate, recorded
+pending consequences, Money.total unchanged throughout); runs both explorer
+branches proving each ending is flag-closed to the other captain and their
+consequence targets differ; proves the NPC gate against the real patrol-0
+owner with tick() notifying exactly once; and JSON-roundtrips mid-chain
+state (stage, lead, settled event id, no repeat after load) plus legacy
+ensure(). Site levels in tests are set as fixtures standing in for real
+survey parties (survey pacing is proven by the exploration suite). Run via
+root's normal headless harness once registered. No test or engine was run
+for this report.
+
+CAVEATS / KNOWN SHORTCOMINGS
+- Consequence amounts are first-pass relationship tuning for root's
+  factions/contacts scales; they do nothing until root applies them.
+- "visit" gates trust Contacts snapshots, so a captain who docks without
+  root calling Contacts.visit (once integrated at arrival) would not pass;
+  that coupling is deliberate and documented above.
+- Chains are linear stage lists with flag-gated branches, not a general
+  graph engine; that covers these four stories without inventing a quest
+  scripting language root must then secure.
+- tick() notices are keyed by chain+stage, so re-entering a stage id (not
+  possible in the authored linear chains) would not re-notify.

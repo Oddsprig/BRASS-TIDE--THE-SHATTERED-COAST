@@ -1,0 +1,499 @@
+{
+  "version": 1,
+  "chains": [
+    {
+      "id": "middle_sea_chart",
+      "title": "The Middle Sea Chart",
+      "approach": "explorer",
+      "startPort": "reed_floats",
+      "startContact": "contact_sister_wren",
+      "summary": "Sister Wren's chart-keepers want the bottle-post rock read properly; what you do with its secret is yours.",
+      "stages": [
+        {
+          "id": "read_the_rock",
+          "title": "Read the Chart Rock",
+          "nextAction": "Chart the Middle Sea Chart Rock, then decide who learns what it says.",
+          "gate": {
+            "type": "site",
+            "site": "middle_chart_rock",
+            "level": 2
+          },
+          "choices": [
+            {
+              "id": "share_chart",
+              "text": "Share the chart with Wren's keepers",
+              "next": "survey_the_wrecks",
+              "setFlags": [
+                "shared_chart"
+              ],
+              "tradeoff": "The Commune gains the route too; Wren owes you trust, but the wreck field will not stay yours alone.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_sister_wren",
+                  "amount": 8,
+                  "reason": "Shared the Middle Sea chart"
+                },
+                {
+                  "kind": "faction",
+                  "target": "reed",
+                  "amount": 3,
+                  "reason": "Chart shared with the chart-keepers"
+                }
+              ]
+            },
+            {
+              "id": "keep_secret",
+              "text": "Keep the chart secret",
+              "next": "survey_the_wrecks",
+              "setFlags": [
+                "kept_secret"
+              ],
+              "tradeoff": "No one else learns the bearing; no harbor owes you anything for it either.",
+              "consequences": []
+            }
+          ],
+          "body": "The launch Low Lantern vanished after Wren sent it to check an old storm bearing. Her last bottle post names a rock, not a harbor. A proper chart may explain why the crew changed course."
+        },
+        {
+          "id": "survey_the_wrecks",
+          "title": "Survey the Wreck Field",
+          "nextAction": "Fully survey the Shatter Wreck Field the chart names.",
+          "gate": {
+            "type": "site",
+            "site": "shatter_wreck_field",
+            "level": 3
+          },
+          "choices": [
+            {
+              "id": "mark_field",
+              "text": "Mark the field in your journal",
+              "next": "choose_a_claim",
+              "setFlags": [],
+              "tradeoff": "Knowledge only; the claim itself is still to make.",
+              "consequences": [],
+              "leads": [
+                "rust_salvage_anchorage"
+              ]
+            }
+          ],
+          "body": "The marks line up with the wreck field beyond Shatter. Broken mooring rings and matching survey tags show that Low Lantern found a safer anchorage before the storm caught it. Its crew left the bearing for whoever came next."
+        },
+        {
+          "id": "choose_a_claim",
+          "title": "Choose a Claim",
+          "nextAction": "Return to Reedwater Floats and settle who may work the field.",
+          "gate": {
+            "type": "at_port",
+            "port": "reed_floats"
+          },
+          "choices": [
+            {
+              "id": "open_field",
+              "text": "Open the field to Commune salvors",
+              "next": "done",
+              "requiresFlag": "shared_chart",
+              "setFlags": [],
+              "tradeoff": "Cooperative salvage charter; nearby Commune convoys may recover real materials. You give up exclusive access.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "reed",
+                  "amount": 4,
+                  "reason": "Opened the Shatter wreck field"
+                },
+                {
+                  "kind": "faction",
+                  "target": "raiders",
+                  "amount": -3,
+                  "reason": "Wreck field claimed under Commune notice"
+                }
+              ]
+            },
+            {
+              "id": "exclusive_claim",
+              "text": "Stake an exclusive salvage claim",
+              "next": "done",
+              "requiresFlag": "kept_secret",
+              "setFlags": [],
+              "tradeoff": "Private salvage charter and exclusive authored-field access; Wren loses trust.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_sister_wren",
+                  "amount": -4,
+                  "reason": "Withheld the wreck-field survey"
+                }
+              ],
+              "leads": [
+                "rust_salvage_anchorage"
+              ]
+            }
+          ],
+          "body": "Wren can enter those bearings in the Commune register. That opens a cooperative salvage charter and lets nearby Commune convoys lift finite materials from the marked wrecks. Keeping the field private preserves exclusive access and opens a quiet salvage charter instead."
+        }
+      ]
+    },
+    {
+      "id": "ironwood_for_the_mill",
+      "title": "Ironwood for the Mill",
+      "approach": "merchant",
+      "startPort": "brass_haven",
+      "startContact": "contact_tobin_hale",
+      "summary": "Tobin Hale can place Sawtooth ironwood with two rival buyers, if someone proves the stand and keeps the mill fed.",
+      "stages": [
+        {
+          "id": "feed_the_mill",
+          "title": "Feed the Mill",
+          "nextAction": "Deliver timber from your own hold to Sawtooth Mill.",
+          "gate": {
+            "type": "at_port",
+            "port": "sawtooth_mill"
+          },
+          "choices": [
+            {
+              "id": "deliver_timber",
+              "text": "Unload 5 timber at the mill",
+              "next": "prove_the_stand",
+              "setFlags": [
+                "fed_mill"
+              ],
+              "cost": {
+                "good": "timber",
+                "qty": 5.0,
+                "port": "sawtooth_mill"
+              },
+              "tradeoff": "Your cargo becomes mill stock; the mill owes its next opening to you.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_tobin_hale",
+                  "amount": 5,
+                  "reason": "Kept Sawtooth Mill cutting"
+                }
+              ]
+            }
+          ],
+          "body": "Tobin puts a bundle of unpaid delivery slips on the quay. Sawtooth has buyers and a usable mill, but its timber reserve is thin. Five bundles from your own hold will keep the next work order possible."
+        },
+        {
+          "id": "prove_the_stand",
+          "title": "Prove the Stand",
+          "nextAction": "Chart the Sawtooth Ironwood Stand so buyers believe it exists.",
+          "gate": {
+            "type": "site",
+            "site": "sawtooth_timber_stand",
+            "level": 2
+          },
+          "choices": [
+            {
+              "id": "show_survey",
+              "text": "Show Tobin the coastal chart",
+              "next": "pick_a_buyer",
+              "setFlags": [],
+              "tradeoff": "A charted stand can be contracted; an unproven rumor cannot.",
+              "consequences": [],
+              "reveal": "sawtooth_timber_stand"
+            }
+          ],
+          "body": "A mill hand remembers ironwood above the shoal, where ordinary logging boats turn back. The buyers need sound bearings before they commit another convoy. Chart the stand; no one is paying for a rumor."
+        },
+        {
+          "id": "pick_a_buyer",
+          "title": "Pick a Buyer",
+          "nextAction": "Return to Brass Haven and choose whose yards the ironwood feeds first.",
+          "gate": {
+            "type": "at_port",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "compact_first",
+              "text": "Compact yards get first call",
+              "next": "done",
+              "setFlags": [],
+              "tradeoff": "One funded Sawtooth timber passage to Brass Haven; Compact standing rises and Forge standing falls.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "compact",
+                  "amount": 4,
+                  "reason": "Ironwood first call to Compact yards"
+                },
+                {
+                  "kind": "faction",
+                  "target": "forge",
+                  "amount": -2,
+                  "reason": "Forge buyers queued behind the Compact"
+                }
+              ]
+            },
+            {
+              "id": "forge_first",
+              "text": "Forge yards get first call",
+              "next": "done",
+              "setFlags": [],
+              "tradeoff": "One funded Sawtooth timber passage to Anvil Dock; Forge standing rises and Compact standing falls.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "forge",
+                  "amount": 4,
+                  "reason": "Ironwood first call to Forge yards"
+                },
+                {
+                  "kind": "faction",
+                  "target": "compact",
+                  "amount": -2,
+                  "reason": "Compact buyers queued behind the Forge"
+                }
+              ]
+            }
+          ],
+          "body": "Two factors arrive with competing manifests. Choose the first recipient and Tobin will post one finite, funded timber passage at Sawtooth, paid by its treasury. The other faction will remember being passed over."
+        }
+      ]
+    },
+    {
+      "id": "the_toll_camp",
+      "title": "The Toll Camp",
+      "approach": "privateer",
+      "startPort": "rust_anchorage",
+      "startContact": "contact_cass_rye",
+      "summary": "Cass Rye knows who collects at the Kelpback toll camp, and what breaking or buying that toll would open.",
+      "stages": [
+        {
+          "id": "find_the_camp",
+          "title": "Find the Camp",
+          "nextAction": "Sight the Kelpback Toll Camp from the water.",
+          "gate": {
+            "type": "site",
+            "site": "kelp_defended_camp",
+            "level": 1
+          },
+          "choices": [
+            {
+              "id": "report_sighting",
+              "text": "Report the sighting to Cass",
+              "next": "break_the_toll",
+              "setFlags": [],
+              "tradeoff": "Cass can name the toll fleet; the camp still has to be dealt with.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_cass_rye",
+                  "amount": 4,
+                  "reason": "Confirmed the toll camp"
+                }
+              ]
+            }
+          ],
+          "body": "Cass has a list of skippers who paid the Kelpback toll twice and still lost their cargo. She wants a confirmed sighting before naming the collection fleet. Watch the shore without spending your crews on an unproven landing."
+        },
+        {
+          "id": "break_the_toll",
+          "title": "Break the Toll",
+          "nextAction": "Destroy or disable the named raider toll fleet (patrol-0).",
+          "gate": {
+            "type": "npc_defeated",
+            "owner": "patrol-0"
+          },
+          "choices": [
+            {
+              "id": "claim_the_break",
+              "text": "Claim the broken toll",
+              "next": "open_or_keep",
+              "setFlags": [
+                "broke_toll"
+              ],
+              "tradeoff": "The lane is open by force; who benefits is the next decision.",
+              "consequences": [],
+              "leads": [
+                "kelp_shoal_cut"
+              ]
+            }
+          ],
+          "body": "The collector is the real company marked patrol-0. Its hulls, wages and replacements belong to this coast. A recorded defeat breaks this particular toll claim even if the company later finds money for another boat."
+        },
+        {
+          "id": "open_or_keep",
+          "title": "Open or Keep the Cut",
+          "nextAction": "Chart the Kelpback Shoal Cut, then decide who may use it.",
+          "gate": {
+            "type": "site",
+            "site": "kelp_shoal_cut",
+            "level": 2
+          },
+          "choices": [
+            {
+              "id": "open_cut",
+              "text": "Publish the shoal cut",
+              "next": "done",
+              "setFlags": [],
+              "tradeoff": "A funded public chart-courier passage opens at Reedwater Floats; Reed standing rises and Raiders fall.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "reed",
+                  "amount": 4,
+                  "reason": "Published the Kelpback cut"
+                },
+                {
+                  "kind": "faction",
+                  "target": "raiders",
+                  "amount": -4,
+                  "reason": "Toll lane published"
+                }
+              ]
+            },
+            {
+              "id": "keep_cut",
+              "text": "Keep the cut uncharted",
+              "next": "done",
+              "setFlags": [],
+              "tradeoff": "A funded private courier passage to Rust opens at Brass Haven; Cass gains trust and Reed standing falls.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_cass_rye",
+                  "amount": 5,
+                  "reason": "Kept the cut between friends"
+                },
+                {
+                  "kind": "faction",
+                  "target": "reed",
+                  "amount": -2,
+                  "reason": "Shoal cut withheld"
+                }
+              ]
+            }
+          ],
+          "body": "The camp papers contain bearings through the shoal. Publishing them opens a funded public chart-courier passage; sharing them only with Cass opens private courier work to Rust. Neither choice creates free cargo or a free payment."
+        }
+      ]
+    },
+    {
+      "id": "the_cold_workshop",
+      "title": "The Cold Workshop",
+      "approach": "escort",
+      "startPort": "anvil_dock",
+      "startContact": "contact_mara_voss",
+      "summary": "Mara Voss built on the Cinder Crown years ago; a surveyed ruin, real materials and a guarded landing could wake it.",
+      "stages": [
+        {
+          "id": "survey_the_ruin",
+          "title": "Survey the Ruin",
+          "nextAction": "Fully survey the Cinder Crown Workshop Ruin.",
+          "gate": {
+            "type": "site",
+            "site": "cinder_workshop_ruin",
+            "level": 3
+          },
+          "choices": [
+            {
+              "id": "bring_the_survey",
+              "text": "Bring Mara the full survey",
+              "next": "stock_the_forge",
+              "setFlags": [],
+              "tradeoff": "Mara can judge the forge bed honestly; materials are still on you.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_mara_voss",
+                  "amount": 6,
+                  "reason": "Surveyed her old workshop"
+                }
+              ],
+              "leads": [
+                "cinder_ore_seam"
+              ]
+            }
+          ],
+          "body": "Mara recognizes the workshop bell in your sketch. She left the Cinder works before a failed evacuation, and knows which foundations survived. Survey the ruin before she risks other workers there."
+        },
+        {
+          "id": "stock_the_forge",
+          "title": "Stock the Forge",
+          "nextAction": "Deliver repair kits from your hold at Anvil Dock for the shore party.",
+          "gate": {
+            "type": "at_port",
+            "port": "anvil_dock"
+          },
+          "choices": [
+            {
+              "id": "deliver_kits",
+              "text": "Unload 4 repair kits for the forge party",
+              "next": "prove_the_seam",
+              "setFlags": [
+                "stocked_forge"
+              ],
+              "cost": {
+                "good": "supplies",
+                "qty": 4.0,
+                "port": "anvil_dock"
+              },
+              "tradeoff": "Your kits become yard stock for the landing; they are not coming back as cargo.",
+              "consequences": []
+            }
+          ],
+          "body": "The surviving forge bed is sound. Mara will not send a party with empty repair racks: four kits must reach Anvil as actual stock. Your survey and delivery are steps toward a charter, not an instant building."
+        },
+        {
+          "id": "prove_the_seam",
+          "title": "Prove the Seam",
+          "nextAction": "Chart the Cinder Crown Ore Seam that would feed a revived forge.",
+          "gate": {
+            "type": "site",
+            "site": "cinder_ore_seam",
+            "level": 2
+          },
+          "choices": [
+            {
+              "id": "revive_workshop",
+              "text": "Back Mara's harbor workshop charter",
+              "next": "done",
+              "setFlags": [],
+              "tradeoff": "Workshop charter right opens. Setup still needs your coins, materials, workers and operating capital.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "forge",
+                  "amount": 5,
+                  "reason": "Backed the Cinder workshop charter"
+                },
+                {
+                  "kind": "contact",
+                  "target": "contact_mara_voss",
+                  "amount": 8,
+                  "reason": "Proved the seam for her charter"
+                }
+              ],
+              "leads": [
+                "oilstone_seep_terrace"
+              ]
+            },
+            {
+              "id": "keep_the_seam",
+              "text": "Keep the seam chart for your own fleet",
+              "next": "done",
+              "setFlags": [],
+              "tradeoff": "A funded private ore passage opens at Cinder Quay. The workshop charter stays closed; Mara loses trust.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_mara_voss",
+                  "amount": -5,
+                  "reason": "Withheld the ore seam chart"
+                }
+              ],
+              "leads": [
+                "oilstone_seep_terrace"
+              ]
+            }
+          ],
+          "body": "The ore bearing completes the picture. Backing Mara grants the right to open your own paid workshop business later, with hired staff and operating capital. Keeping the seam private opens a finite ore passage instead; Mara receives no charter."
+        }
+      ]
+    }
+  ]
+}

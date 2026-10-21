@@ -6,6 +6,7 @@ const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
+const StoryUI=preload("res://scripts/story_ui.gd")
 const IdentityUI=preload("res://scripts/identity_ui.gd")
 const TradeUI=preload("res://scripts/trade_ui.gd")
 const NavalUI=preload("res://scripts/naval_ui.gd")
@@ -256,6 +257,15 @@ func build_hud():
 	update_hud()
 
 func build_campaign_hud(size: Vector2):
+	# Keep the expanding campaign tools reachable on every supported logical viewport.
+	var frame: Node=left_body.get_parent()
+	frame.remove_child(left_body)
+	var scroll=ScrollContainer.new()
+	scroll.custom_minimum_size=Vector2(280,maxf(300,size.y-230))
+	scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+	frame.add_child(scroll)
+	scroll.add_child(left_body)
+	left_body.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	eyebrow(left_body, "YOUR FLOTILLA")
 	flagship_label = label(left_body, "", 26, TEXT, true)
 	paragraph(left_body, "A captain is only as strong as the boats and sailors that come home.", 14)
@@ -267,6 +277,7 @@ func build_campaign_hud(size: Vector2):
 	button(left_body,"Island charts & surveys     I",func():CampaignUI.islands(self))
 	button(left_body,"Wrecks & recovery",func():RecoveryUI.open(self))
 	button(left_body,"Voyage jobs & contacts     K",func():VoyageUI.open(self))
+	button(left_body,"Coastal stories & leads",func():StoryUI.open(self))
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
 	if not host.core.state.activeContract.is_empty():
@@ -409,6 +420,7 @@ func open_port(tab: String = ""):
 	button(body,"Faction standing & safe passage",func():FactionUI.open(self))
 	host.core.Contacts.visit(host.core.state,p,host.core.state.day)
 	button(body,"Voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
+	button(body,"Coastal stories & expedition leads",func():StoryUI.open(self))
 	if p.industry=="shipyard":button(body,"Recovered drawings & design licenses",func():RecoveryUI.blueprints(self))
 	var tabs = row(body)
 	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:

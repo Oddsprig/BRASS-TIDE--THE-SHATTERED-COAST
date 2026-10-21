@@ -1,3 +1,23 @@
+# v0.016 — Memorable exploration chains
+
+SOURCE ACCEPTED: 41 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices.
+- Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity.
+- Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.016.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.016 — Memorable exploration chains
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices.
+- Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity.
+- Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.016.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.015 — Fleet identity
 
 SOURCE ACCEPTED: 39 native suites pass; portable export evidence is recorded separately in RELEASE.json.

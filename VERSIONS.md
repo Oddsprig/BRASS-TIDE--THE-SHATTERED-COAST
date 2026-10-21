@@ -1,3 +1,11 @@
+## v0.016 — Memorable exploration chains
+
+Candidate; verified test/export records follow.
+
+- Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices.
+- Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity.
+- Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
+
 ## v0.015 — Fleet identity
 
 Candidate; verified test/export records follow.

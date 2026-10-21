@@ -154,6 +154,7 @@ func _physics_process(dt: float):
 		for event in core.pop_events():
 			match event.kind:
 				"arrival":
+					core.StoryOps.refresh(core)
 					selected_port = event.port
 					ui.toast("Arrived at %s. Enter harbor to trade, recruit, and refit." % core.port(event.port).name)
 					audio.play("bell")
@@ -432,7 +433,7 @@ func show_patrol_encounter(id: String):
 	if not patrol.hostile:
 		ui.paragraph(body, "A coastal merchant convoy sails this route. It carries goods between the same ports that supply your fleet. Its crews signal a peaceful passage.", 19)
 		ui.button(body, "Let them pass", ui.close_modal, true)
-		if owner.kind=="trader" and not preload("res://scripts/escort_ops.gd").threat(core,owner).is_empty():ui.button(body,"Defend this convoy · 45-second protection",func():preload("res://scripts/escort_ops.gd").start(self,id))
+		if not owner.is_empty() and owner.kind=="trader" and not preload("res://scripts/escort_ops.gd").threat(core,owner).is_empty():ui.button(body,"Defend this convoy · 45-second protection",func():preload("res://scripts/escort_ops.gd").start(self,id))
 		ui.paragraph(body,"Opening fire damages public standing, creates a witnessed offense and a harbor claim.",15,ui.RED)
 		ui.button(body,"Attack this convoy",func():engage_patrol(patrol))
 		return
