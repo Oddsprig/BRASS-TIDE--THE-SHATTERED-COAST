@@ -642,6 +642,7 @@ static func daily_upkeep(fleet: Variant) -> Dictionary:
 		return {"wages": 0, "food": 0.0, "fuel": 0.0}
 
 	var total_crew := 0.0
+	var food_crew: float=0.0
 	var total_fuel := 0.0
 
 	for item in ships:
@@ -654,6 +655,7 @@ static func daily_upkeep(fleet: Variant) -> Dictionary:
 		total_crew += crew
 
 		var spec: Dictionary = ship.get("spec") if ship.get("spec") is Dictionary else ship
+		food_crew+=crew*clampf(float(spec.get("upkeepFactor",1)),0.8,1.0)
 		var size_val: Variant = spec.get("size", ship.get("size", 14.0))
 		var speed_val: Variant = spec.get("speed", ship.get("speed", 75.0))
 		var size := clampf(float(size_val) if _is_num(size_val) else 14.0, 10.0, 48.0)
@@ -662,7 +664,7 @@ static func daily_upkeep(fleet: Variant) -> Dictionary:
 		total_fuel += ship_fuel
 
 	var wages := int(round(total_crew * float(SAILOR_WAGE))) if total_crew > 0.0 else 0
-	var food := snappedf(total_crew * DAILY_FOOD_PER_PERSON, 0.01)
+	var food := snappedf(food_crew * DAILY_FOOD_PER_PERSON, 0.01)
 	var fuel := snappedf(total_fuel, 0.01)
 	return {
 		"wages": wages,

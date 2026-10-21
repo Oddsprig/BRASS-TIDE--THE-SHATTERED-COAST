@@ -68,7 +68,7 @@ static func get_status(s: Dictionary) -> Dictionary:
 		guns=0.0
 		pump=0.0
 		speed=0.0
-	return {"inflow":inflow,"bailing":bail*CONSTANTS.bailPerCrew+pump if active and not s.sunk else 0.0,"repair":repair*CONSTANTS.patchPerCrew if area>0.0 and s.supplies>0.0 else 0.0,"crewGuns":guns,"crewBail":bail,"crewRepair":repair,"speedFactor":speed,"weaponFactor":0.0 if s.sunk else clampf(guns/maxf(1.0,s.crewOptimal*0.5),0.0,1.0)*(1.0-s.fire*0.004),"events":[]}
+	return {"inflow":inflow,"bailing":bail*CONSTANTS.bailPerCrew+pump if active and not s.sunk else 0.0,"repair":repair*CONSTANTS.patchPerCrew*maxf(maxf(1,float(s.spec.get("repairFactor",1))),float(s.get("supportRepairFactor",1))) if area>0.0 and s.supplies>0.0 else 0.0,"crewGuns":guns,"crewBail":bail,"crewRepair":repair,"speedFactor":speed,"weaponFactor":0.0 if s.sunk else clampf(guns/maxf(1.0,s.crewOptimal*0.5),0.0,1.0)*(1.0-s.fire*0.004),"events":[]}
 
 static func _roll(rng: RandomNumberGenerator) -> float:
 	# No global RNG state: callers normally supply their battle-owned seeded RNG.
@@ -141,7 +141,7 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}) -> Di
 		s.supplies-=patch*CONSTANTS.patchSupplyPerArea
 		total_repair+=patch
 		if sum_areas(s)<0.001 and s.policy=="repair" and s.supplies>0.0:
-			var hull: float=minf(s.maxHp-s.hp,minf(t.crewRepair*CONSTANTS.hullRepairPerCrew*h,s.supplies/CONSTANTS.hullSupplyPerHp))
+			var hull: float=minf(s.maxHp-s.hp,minf(t.crewRepair*CONSTANTS.hullRepairPerCrew*h*maxf(maxf(1,float(s.spec.get("repairFactor",1))),float(s.get("supportRepairFactor",1))),s.supplies/CONSTANTS.hullSupplyPerHp))
 			s.hp+=hull
 			s.supplies-=hull*CONSTANTS.hullSupplyPerHp
 		if s.fire>0.0:

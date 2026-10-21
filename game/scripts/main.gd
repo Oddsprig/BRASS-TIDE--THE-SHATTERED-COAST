@@ -432,6 +432,7 @@ func show_patrol_encounter(id: String):
 	if not patrol.hostile:
 		ui.paragraph(body, "A coastal merchant convoy sails this route. It carries goods between the same ports that supply your fleet. Its crews signal a peaceful passage.", 19)
 		ui.button(body, "Let them pass", ui.close_modal, true)
+		if owner.kind=="trader" and not preload("res://scripts/escort_ops.gd").threat(core,owner).is_empty():ui.button(body,"Defend this convoy · 45-second protection",func():preload("res://scripts/escort_ops.gd").start(self,id))
 		ui.paragraph(body,"Opening fire damages public standing, creates a witnessed offense and a harbor claim.",15,ui.RED)
 		ui.button(body,"Attack this convoy",func():engage_patrol(patrol))
 		return
@@ -451,8 +452,8 @@ func engage_patrol(patrol: Dictionary):
 	begin_battle(specs, {"kind": "patrol", "id": patrol.id, "ownerId":patrol.id,"aggression":aggression, "name": "Coastal shipping lane"})
 
 func begin_battle(specs: Array, context: Dictionary):
-	if core.active_fleet().is_empty():
-		ui.toast("You need a crewed, active boat before fighting.", true)
+	if core.FleetSupport.combat(core).is_empty():
+		ui.toast("You need a crewed boat marked for battle deployment.", true)
 		return
 	sync_economy()
 	core.use_reserves()
@@ -463,7 +464,12 @@ func begin_battle(specs: Array, context: Dictionary):
 	battle_context = context
 	var owner = core.fleet_owner(str(context.get("ownerId","")))
 	var enemy_fleet = owner.get("boats",[]).filter(func(b):return not b.sunk) if not owner.is_empty() else []
-	battle = Battle.create({"fleet": core.active_fleet(), "enemySpecs": specs, "enemyFleet":enemy_fleet, "seed": int(core.state.seed) + core.state.wins * 17 + core.state.losses * 5, "location": {"name": context.name}})
+	var player_fleet: Array=core.FleetSupport.combat(core)
+	if context.get("kind","")=="escort":
+		var ally_owner: Dictionary=core.fleet_owner(str(context.get("allyOwnerId","")))
+		player_fleet=ally_owner.get("boats",[]).filter(func(b):return not b.sunk and b.crew>=b.crewMin)+player_fleet
+	for boat in player_fleet:boat.supportRepairFactor=1.0
+	battle = Battle.create({"fleet":player_fleet,"mission":context.get("mission",{}), "enemySpecs": specs, "enemyFleet":enemy_fleet, "seed": int(core.state.seed) + core.state.wins * 17 + core.state.losses * 5, "location": {"name": context.name}})
 	_enter_battle()
 
 func quick_battle():
@@ -649,6 +655,7 @@ func settle_battle():
 		return
 	var report = {"coins": 0, "salvage": {}, "fleetLost": false, "completed": false}
 	if not quick_mode:
+		battle_context.objectiveOnly=bool(battle.get("objectiveOnly",false))
 		report = core.battle_settled(battle.result,battle_enemies,battle_context,battle)
 	ui.outcome(battle.result, report, battle_enemies)
 

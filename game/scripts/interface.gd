@@ -6,6 +6,7 @@ const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
+const IdentityUI=preload("res://scripts/identity_ui.gd")
 const TradeUI=preload("res://scripts/trade_ui.gd")
 const NavalUI=preload("res://scripts/naval_ui.gd")
 const FactionUI=preload("res://scripts/faction_ui.gd")
@@ -42,6 +43,7 @@ var flood_bar: ProgressBar
 var damage_label: Label
 var battle_fleet: VBoxContainer
 var policy_buttons: Dictionary = {}
+var objective_label: Label
 var battle_points_label: Label
 var battle_control_label: Label
 var autopilot_button: Button
@@ -531,6 +533,7 @@ func fleet_view(body: Node, docked: bool):
 		var actions = row(card)
 		label(card, "%d deployment points · %d weapon mounts" % [Deployment.cost(s), s.spec.get("weaponMounts", []).size()], 13, TEAL)
 		button(actions, "Refit weapons, engine & armor", func(): open_refit(uid)).disabled = not docked
+		button(card,"Support conversion, specialists & service history",func():IdentityUI.open(self,uid))
 		button(actions, "Set flagship", func(): host.core.state.flagship = uid; refresh_fleet()).disabled = s.crew < s.crewMin
 		button(actions, "Activate" if s.get("mothballed", false) else "Stand down", func():host.respond(host.core.set_boat_active(uid,s.get("mothballed",false)));refresh_fleet()).disabled = s.crew<s.crewMin or not str(s.get("storedPort","")).is_empty()
 		if docked:
@@ -544,7 +547,7 @@ func fleet_view(body: Node, docked: bool):
 			button(services, "Voyage stores", func(): host.resupply_boat(uid,"voyage"))
 			button(services, "Full stores", func(): host.resupply_boat(uid))
 			button(services, "Sell hull", func(): host.sell_boat(uid)).disabled = host.core.state.fleet.size() <= 1
-			paragraph(card,"Voyage stores fill the fitted magazine (80 rounds per weapon), 3 fuel and 6 repair kits. Full stores add 60 fuel and 20 kits. Every missing round is bought from actual harbor stock.",12)
+			paragraph(card,"Voyage stores fill the fitted magazine (80 rounds per weapon), 3 fuel and 6 repair kits. Full stores fill the fitted fuel tank and add 20 kits. Every missing round is bought from actual harbor stock.",12)
 		else:
 			paragraph(card, "At sea: use repair priority to patch breaches and repair hull with supplies. Visit a harbor to recruit, treat wounded, or use drydock.", 13)
 

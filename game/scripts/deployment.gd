@@ -37,6 +37,9 @@ static func split(fleet: Array,limit: int=LIMIT) -> Dictionary:
 	var points: int=0
 	var budget: int=maxi(0,limit)
 	for ship in fleet:
+		if ship.get("supportOnly",false):
+			reserve.append(ship)
+			continue
 		var amount: int=cost(ship)
 		if points+amount<=budget:
 			deployed.append(ship)

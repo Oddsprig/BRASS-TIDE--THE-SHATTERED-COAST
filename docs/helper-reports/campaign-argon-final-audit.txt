@@ -1,0 +1,533 @@
+================================================================================
+BRASS TIDE v0.013 — FINAL LIFECYCLE AUDIT REPORT (ARGON)
+================================================================================
+Date: 2026-10-21
+Workspace: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/campaign-argon
+Audited Root Source (Read-Only):
+  C:/Users/bligh/Documents/Codex/2026-10-20/how/outputs/brass-tide/game/scripts/
+    - naval_lifecycle.gd (87 lines)
+    - naval_ai.gd        (323 lines)
+    - naval_orders.gd    (767 lines)
+    - naval_replacements.gd (373 lines)
+    - naval_combat.gd    (465 lines)
+    - campaign.gd        (928 lines)
+    - fleet_economy.gd   (326 lines)
+    - harbor.gd          (249 lines)
+    (+ supporting read-only reference of construction.gd, salvage.gd, economy.gd)
+
+Compliance:
+  - No root or worktree code files modified.
+  - Earlier helper reports (campaign-argon.txt, campaign-argon-naval.txt,
+    campaign-argon-naval-split.txt) preserved unchanged.
+  - No engine, shell, test, delegation, commit, or delete operations executed.
+
+================================================================================
+EXECUTIVE SUMMARY OF AUDIT VERDICTS
+================================================================================
+1. Duplication of Cargo / Wrecks / Crew / Coins:
+   - Coins & Wrecks: PASS (strictly conserved; Money.total invariant holds;
+     boat.wreckRecorded prevents double wreck creation).
+   - Cargo & Crew Edge Cases: 3 concrete defects found:
+     (1a) Multi-day apply_economy collision on NPC wreck sourceId (`int(state.day)`
+          instead of `state.econDay` / boat uid) can skip second-day wrecks or
+          merge cargo into an older wreck.
+     (1b) Partial-loss denominator in `naval_lifecycle.gd:73` counts already-
+          recorded sunk boats still sitting in `owner.boats`, under-dropping
+          cargo when a second boat sinks later (leaving phantom cargo on a
+          0-boat fleet).
+     (1c) Fractional combat crew casualties in `Damage` + integer truncation in
+          `NavalLifecycle.hire` (`int(boat.crewMin) - int(boat.crew)`) can hire
+          1 extra sailor onto a boat with e.g. `1.8` crew, pushing `boat.crew`
+          to `2.8` (above `crewMin`, or above `crewMax` if `crewMax == crewMin`).
+
+2. Repeated Construction Advancement:
+   - Campaign Daily Loop: PASS (`naval_lifecycle.gd:60-62` sets
+     `c.state.yardsAdvancedThisDay = true` around `AI.tick(c, 1)`, and
+     `naval_replacements.gd:92` exits immediately).
+   - Standalone Multi-Day `NavalAI.tick(core, days)` Edge Case: 2 defects found:
+     (2a) Redundant `Construction.begin_day(p)` in `campaign.gd:322` before
+          `Harbor.tick_yards` calls `Construction.begin_day(p)` again at
+          `harbor.gd:89`.
+     (2b) In `naval_replacements.gd:113`, `(step_index > 0 or is_equal_approx(
+          cur_elapsed, last_elapsed))` will advance NPC orders on `step_index >= 1`
+          if a caller ever invokes `Harbor.tick_yards(core, days)` followed by
+          `NavalAI.tick(core, days)` with `days > 1` without setting
+          `yardsAdvancedThisDay`.
+
+3. Replacement Teleporting a Surviving Fleet (or Teleporting New Boat to Sea):
+   - CRITICAL LIFECYCLE DEFECTS FOUND (3 concrete paths):
+     (3a) `NavalReplacements.collect_replacements` (`naval_replacements.gd:138-167`)
+          never checks whether a surviving fleet (`living > 0`) is actually at
+          port `p` (`owner.atPort == p.id`). Calling `attach_new_boat` sets
+          `owner["atPort"] = p.id` and runs `Fleets.dock(owner, p)` on all
+          boats, teleporting a surviving fleet at sea (or at another port) to
+          `p` for docking/trading/repairs and attaching the hull mid-voyage.
+     (3b) `NavalAI.tick` step 2 (`naval_ai.gd:254-264`) allows an under-strength
+          surviving fleet (`0 < living < target`) docked at a non-home port `p`
+          to commission a slip replacement at `p`, even though
+          `NavalLifecycle.holding` (`naval_lifecycle.gd:31`) only holds fleets
+          at `owner.homePort`. The surviving fleet immediately sails away from
+          `p`, and when the slip order finishes later, `collect_replacements`
+          triggers (3a).
+     (3c) Conversely, when a wiped-out fleet (`living == 0`) gets a replacement
+          at `homePort`, `attach_new_boat` (`naval_replacements.gd:59-88`) sets
+          `owner.atPort = port.id` and `pat.active = true` WITHOUT resetting
+          `pat.x = port.x`, `pat.y = port.y`, `pat.from = port.id`,
+          `pat.to = port.id`, `pat.progress = 0.0`, or `pat.holding = true`.
+          The new boat therefore spawns at the old mid-ocean battle coordinates
+          `(pat.x, pat.y)` instead of launching from `port`.
+
+4. Stale Routes:
+   - CRITICAL & MODERATE ROUTE DEFECTS FOUND (4 concrete paths):
+     (4a) In `NavalOrders.assign_post_dock_order` (`naval_orders.gd:722-739`),
+          when `dock_id == home_id` and `needs_home_recovery` is non-empty, it
+          falls through past `if dock_id != home_id` and assigns `neighbor_id`
+          (`!= home_id`) as `owner.destination` and `owner.route = [home_id,
+          neighbor_id]` with `purpose = "replace" / "repair"`. If `p.holding` is
+          `false` (e.g. after replacement or initial ensure), `NavalLifecycle.daily`
+          line 87 (`owner.destination != p.to`) immediately launches the
+          damaged/under-strength fleet out of `homePort` toward `neighbor_id`!
+          Even when `p.holding` is `true`, `owner.destination` and `owner.order`
+          falsely report `neighbor_id` while holding at `homePort`.
+     (4b) Mid-ocean course redirection via `NavalLifecycle.route(c, p, dest)`
+          (`naval_lifecycle.gd:25-28`) computes `p.course` from current `(p.x, p.y)`
+          to `dest` and resets `p.progress = 0.0`, but leaves `p.from` unchanged.
+          If `dest == p.from` (e.g. withdrawing to `homePort` via `NavalAI.tick`
+          step 4), `p.from == p.to == homePort`. On save/load, `campaign.gd:888`
+          rebuilds `set_patrol_course(patrol, port(patrol.from), port(patrol.to))`
+          between `p.from` and `p.to`, snapping the mid-ocean patrol onto a
+          port-to-port (or zero-length `homePort -> homePort`) course.
+     (4c) In `NavalCombat.resolve_encounter` (`naval_combat.gd:413-420`), course
+          reversal only triggers when `pat.from == home_id`; if `pat.to == home_id`
+          already, `owner.destination` is `home_id == pat.to`, which works, but
+          `owner.route` is never updated to reflect the withdrawal.
+     (4d) `NavalAI.tick` step 4 (`naval_ai.gd:311-318`) preserves `targetOwnerId`
+          and `destination` on `intercept`, `escort`, and `raid` orders without
+          checking if the target fleet has since been sunk or changed ports.
+
+5. No Repair Recovery (Damaged Fleets Stuck or Failing to Recover):
+   - CRITICAL RECOVERY DEADLOCKS FOUND (4 concrete paths):
+     (5a) Permanent Flooding Lock: `NavalOrders.needs_home_recovery`
+          (`naval_orders.gd:324`) holds any boat with
+          `water > capacity * 0.2`. However, `Fleets._repair`
+          (`fleet_economy.gd:218-264`) only repairs `fire`, `breaches`, `engine`,
+          `wounded`, and `hp` — it NEVER reduces `boat.water`, and `Damage.tick_ship`
+          never runs on NPC boats outside combat! Any NPC boat that exits
+          `resolve_encounter` with `water > capacity * 0.2` is permanently stuck
+          in `holding(c, owner) == true` at `homePort` even after all breaches
+          are patched.
+     (5b) Specialist / 150-Coin Engine Lock: In `Fleets._repair`
+          (`fleet_economy.gd:226-245`), if `boat.engine < 1.0` and
+          `owner.coins >= 150`, it selects `key = "engine"` (`wage = 150`), and
+          then at line 243 returns early if `port` has `availableSpecialists < 1.0`.
+          This both (i) blocks `wounded` and `hp` repair behind unavailable
+          specialists even when `engine >= 0.68`, and (ii) permanently locks a
+          fleet with `engine < 0.68` at any `homePort` that lacks an idle
+          specialist (or when `owner.coins < 150`).
+     (5c) Full-Hold Store Purchase Deadlock: `Fleets.dock` (`fleet_economy.gd:182-193`)
+          buys boat working stores (`fuel`, `supplies`, `ammo`) through
+          `Fleets._purchase`, which requires free cargo capacity in `owner.cargo`
+          (`_capacity(owner) - Economy.cargo_weight(owner.cargo)`), before moving
+          them into `boat[good]`. Because a trader only sells `tradeCargo` when
+          `port.id != owner.homePort` (`fleet_economy.gd:169`), a trader returning
+          to `homePort` with a full cargo hold cannot buy `supplies` (for repair),
+          `fuel`, or `ammo`, deadlocking in `holding(c, owner) == true` forever.
+     (5d) Arrival Double-Dock vs. Bankrupt/Stockless Hold: On arrival at
+          `homePort`, `NavalLifecycle.step` calls `Fleets.dock` (`naval_lifecycle.gd:48`)
+          and `NavalAI.arrived` immediately calls `Fleets.dock` a second time
+          (`naval_ai.gd:213`). Conversely, if an NPC owner runs out of `coins`
+          (`< 100`) or `homePort` runs out of `supplies`/`fuel`/`ammo`,
+          `holding(c, owner)` keeps the fleet pinned at `homePort` indefinitely
+          with no subsidy or degraded-sortie fallback.
+
+================================================================================
+DETAILED AUDIT BY TOPIC (WITH FILE & LINE REFERENCES)
+================================================================================
+
+--------------------------------------------------------------------------------
+TOPIC 1: DUPLICATION OF CARGO, WRECKS, CREW, AND COINS
+--------------------------------------------------------------------------------
+
+1.1 Coin Conservation (`Money.total(state)`):
+  - Verified across:
+    * `naval_combat.gd:373-376`: Skirmish prize coins use `Money.move(loser,
+      "coins", winner, "coins", loot_coins, ...)`.
+    * `naval_replacements.gd:266-275`: Ready stock purchase moves `price - tax`
+      to `port.cash`, `tax` to `port.governmentPurse`, and recruits via
+      `Economy.recruit` (moving advance from `owner.coins` to `owner.crewPurse`).
+    * `naval_replacements.gd:342-346`: Slip commission moves `commission_price -
+      wages - tax` to `port.cash`, `tax` to `port.governmentPurse`, and transfers
+      `wages` from `owner.coins` into `order.escrow` (which `Money.total` sums
+      from `port.buildQueue`).
+    * `fleet_economy.gd:246-252` & `292-295`: Repair wages move from `owner.coins`
+      to `port.householdPurse` / `port.expertPurse`; daily sailor wages move from
+      `owner.coins` to `owner.crewPurse`.
+  - Result: No coin duplication or leak exists.
+
+1.2 Wreck Duplication (`campaign.gd:686-690`, `naval_lifecycle.gd:66-80`, `salvage.gd:208-252`):
+  - Both player combat (`campaign.gd:690`) and NPC daily resolution
+    (`naval_lifecycle.gd:68-69`) check `not boat.get("wreckRecorded", false)` and
+    stamp `boat.wreckRecorded = true` before calling `Salvage.record_battle`.
+  - Defect 1A (Multi-day `apply_economy` wreck `sourceId` collision):
+    * Location: `naval_lifecycle.gd:71` and `campaign.gd:297-329`.
+    * Mechanism: `naval_lifecycle.gd:71` builds
+      `source = "npc:%s:%d:%d" % [owner.id, int(c.state.day), int(owner.get("nextBoatSeq", 0))]`.
+      In `campaign.gd:297-329`, `apply_economy(ports, messages, days)` loops
+      `for i in range(days):` incrementing `state.econDay` each iteration while
+      `int(c.state.day)` remains fixed. If `days >= 2` and the same `owner` loses
+      one boat on day `i = 0` and another boat on day `i = 1` without
+      `nextBoatSeq` changing, `source` is identical on both days. Because
+      `Salvage.record_battle` (`salvage.gd:213-215`) is idempotent by `source_id`
+      and returns existing records when `source_id` already exists in
+      `state.wrecks`, the second day's sunk boat is silently skipped from wreck
+      creation and its `lost * 0.5` cargo is added to the first day's wreck!
+    * Fix recommendation for Root: Include `int(c.state.econDay)` and/or the
+      first sunk boat's `uid` in `source` at `naval_lifecycle.gd:71`.
+
+1.3 Cargo Duplication / Loss Accounting (`naval_combat.gd:377-395`, `naval_lifecycle.gd:73-80`):
+  - In `NavalCombat.resolve_encounter` (`naval_combat.gd:388-392`), captured
+    `tradeCargo` (`take`) is subtracted from `loser.cargo[l_good]` and
+    `loser["tradeCargo"]` before being added to `winner.cargo[l_good]`.
+  - Subsequently in `NavalLifecycle.daily` (`naval_lifecycle.gd:73-80`),
+    remaining `owner.cargo` is reduced by `lost = float(owner.cargo[good]) * fraction`
+    and `0.5 * lost` is placed into `wreck.stores[good]`. Cargo is never
+    duplicated.
+  - Defect 1B (Sunk-boat denominator under-drops cargo on sequential losses):
+    * Location: `naval_lifecycle.gd:73` and `naval_replacements.gd:73-78`.
+    * Mechanism: `naval_lifecycle.gd:73` computes
+      `var fraction: float = float(sunk.size()) / maxi(1, owner.boats.size())`.
+      Because sunk boats remain in `owner.boats` (with `sunk = true,
+      wreckRecorded = true`) until replaced by `attach_new_boat`, if a 2-boat
+      convoy loses 1 boat on Day 3 (`sunk.size() == 1`, `owner.boats.size() == 2`,
+      losing 50% cargo) and loses its 2nd boat on Day 4 (`sunk.size() == 1`,
+      `owner.boats.size() == 2`), `fraction` on Day 4 is `1 / 2 = 0.5` instead of
+      `1 / 1 = 1.0` (the fraction of previously-living boats that just sank:
+      `sunk.size() / (living_now + sunk.size())`). The wiped-out fleet is left
+      carrying 25% of its original cargo with 0 living boats.
+  - Defect 1C (Multi-day `NavalAI.tick(core, days)` with `days > 1` can erase a
+    sunk boat before `NavalLifecycle.daily` records its wreck):
+    * Location: `naval_ai.gd:234-289`, `naval_replacements.gd:73-78`,
+      `naval_lifecycle.gd:61, 66-70`.
+    * Mechanism: In `campaign.gd`, `NavalLifecycle.daily` calls `AI.tick(c, 1)`,
+      where step 1/2 (replacements) run before step 3 (combat), so boats sunk in
+      step 3 are still in `owner.boats` when `daily` records wrecks at lines
+      66-70. However, if `AI.tick(c, days)` is ever called with `days > 1`, a
+      boat sunk in Day 1 step 3 can be removed from `owner.boats` by
+      `attach_new_boat` (`naval_replacements.gd:77`) in Day 2 step 2 before
+      `NavalLifecycle.daily` inspects `owner.boats`.
+
+1.4 Crew Conservation (`naval_lifecycle.gd:10-16`, `naval_replacements.gd:160-166, 272-276`):
+  - All crew recruitment uses `Economy.recruit`, deducting integer sailors from
+    `port.recruits` and `port.workforce`.
+  - Defect 1D (Fractional combat crew + integer truncation in `NavalLifecycle.hire`):
+    * Location: `naval_lifecycle.gd:13-16`.
+    * Mechanism: `Damage.apply_hit` / `Damage.tick_ship` can leave `boat.crew` as
+      a non-integer float (e.g. `1.8` when `crewMin = 2, crewMax = 4`). In
+      `NavalLifecycle.hire`:
+        `var need: int = maxi(0, int(boat.crewMin) - int(boat.crew))`
+        `var result: Dictionary = Economy.recruit(p, owner, need, int(boat.crewMax) - int(boat.crew))`
+        `if result.ok: boat.crew += int(result.count)`
+      Because `int(1.8)` truncates to `1`, `need` is `2 - 1 = 1`, and `boat.crew`
+      becomes `1.8 + 1 = 2.8`. If `boat.crew` was `3.8` with `crewMax = 4`,
+      `int(boat.crewMax) - int(boat.crew)` is `1`, allowing `boat.crew` to reach
+      `4.8 > crewMax`.
+    * Fix recommendation for Root: Round or floor `boat.crew` to an integer on
+      combat resolution (`naval_combat.gd:335-345`) or use `int(round(float(boat.crew)))`
+      in `NavalLifecycle.hire`.
+
+--------------------------------------------------------------------------------
+TOPIC 2: REPEATED CONSTRUCTION ADVANCEMENT
+--------------------------------------------------------------------------------
+
+2.1 Normal Campaign Daily Flow (`campaign.gd:321-326`, `harbor.gd:86-116`, `naval_lifecycle.gd:59-62`):
+  - In `campaign.gd:325-326`:
+    1. `Harbor.tick_yards(self, 1)` advances every order in `p.buildQueue` once
+       by `1.0` day (`harbor.gd:93`). Completed NPC orders (`order.npcOwnerId != ""`)
+       are left on `p.buildQueue` because `harbor.gd:95` checks
+       `str(order.get("npcOwnerId", "")).is_empty()`.
+    2. `NavalLifecycle.daily(self)` sets `c.state.yardsAdvancedThisDay = true`,
+       calls `AI.tick(c, 1)`, and then erases `yardsAdvancedThisDay`.
+    3. `NavalReplacements.advance_unstepped_npc_orders` (`naval_replacements.gd:92`)
+       checks `if bool(state.get("yardsAdvancedThisDay", false)): return`.
+  - Result: In the live campaign loop, NPC construction orders are advanced
+    exactly once per day.
+
+2.2 Edge Cases in Construction Advancement:
+  - Defect 2A (Redundant `Construction.begin_day(p)` in `campaign.gd:321-325`):
+    * `campaign.gd:321-322` calls `Construction.begin_day(p)` for all ports,
+      then runs `Fleets.tick(state.fleetOwners, state.ports, 1.0)` (which consumes
+      `p.availableWorkers` and `p.availableSpecialists` for NPC boat repairs),
+      and then `Harbor.tick_yards` (`harbor.gd:89`) calls `Construction.begin_day(p)`
+      a second time. Because `Fleets._repair` mutates `p.workers`,
+      `p.availableWorkers`, and `p.availableSpecialists` directly rather than
+      `_yardWorkersUsed`, the second `begin_day(p)` recomputes `base_total` from
+      the post-repair `availableWorkers`, so workers are not double-spent, but
+      the first `Construction.begin_day(p)` at `campaign.gd:321-322` is dead work.
+  - Defect 2B (Standalone multi-day `NavalAI.tick(core, days)` after `Harbor.tick_yards`):
+    * Location: `naval_replacements.gd:113`.
+    * Mechanism: `if cur_tick > booked_tick and (step_index > 0 or is_equal_approx(cur_elapsed, last_elapsed)):`
+      If an external caller or test calls `Harbor.tick_yards(core, 2)` and then
+      `NavalAI.tick(core, 2)` without setting `state.yardsAdvancedThisDay`,
+      `step_index == 0` correctly sees `cur_elapsed != last_elapsed` and skips
+      advancing, but `step_index == 1` satisfies `step_index > 0` and advances
+      the order a third time. Using `is_equal_approx(cur_elapsed, last_elapsed)`
+      for all `step_index` (or tracking `ord["_lastAdvancedEconDay"]`) avoids this.
+
+--------------------------------------------------------------------------------
+TOPIC 3: REPLACEMENT TELEPORTING A SURVIVING FLEET (OR TELEPORTING NEW HULL)
+--------------------------------------------------------------------------------
+
+3.1 Defect 3A (`collect_replacements` teleports surviving fleet to shipyard port):
+  - Location: `naval_replacements.gd:59-88` (`attach_new_boat`) and
+    `naval_replacements.gd:121-194` (`collect_replacements`).
+  - Mechanism:
+    * `collect_replacements` iterates all ports `p` and all ready NPC orders in
+      `p.buildQueue`. It never checks whether `owner` is currently at `p`
+      (`str(owner.get("atPort", "")) == str(p.get("id", ""))`) when `owner` still
+      has surviving boats (`living > 0`).
+    * It immediately calls `attach_new_boat(state, owner, p, h, crew_count)`,
+      which:
+        1. Appends `boat` to `owner.boats` (merging a harbor-built hull into a
+           fleet that may be at sea or at another port),
+        2. Overwrites `owner["atPort"] = str(port.get("id", ...))` (line 82),
+        3. Calls `Fleets.dock(owner, port)` (line 84), allowing the entire
+           surviving fleet to trade cargo, buy working stores, and run repairs at
+           `port` regardless of where its patrol actually is on the chart, and
+        4. Calls `NavalOrders.assign_post_dock_order(state, owner, p)` (line 191),
+           which overwrites `owner.destination` and `owner.route` from `p`,
+           causing `NavalLifecycle.daily` (line 87) to re-route the mid-ocean
+           patrol!
+
+3.2 Defect 3B (`NavalAI.tick` commissions replacements at non-home ports where surviving fleets do not hold):
+  - Location: `naval_ai.gd:254-264` and `naval_lifecycle.gd:30-34, 50-51`.
+  - Mechanism:
+    * In `naval_ai.gd:255`, step 2 checks `var at_id: String = str(owner.get("atPort", ""))`.
+      If a surviving fleet (`0 < living < target`) is docked at a non-home port
+      `at_id != owner.homePort` when `NavalAI.tick` runs, it calls
+      `NavalReplacements.request_replacement(core, owner, p)` at that non-home
+      port.
+    * If that port queues a slip commission (`mode == "commission"`), the order is
+      placed on the non-home port's `buildQueue`.
+    * However, `NavalLifecycle.holding(c, owner)` (`naval_lifecycle.gd:31`) checks:
+      `if str(owner.get("atPort", "")) != str(owner.homePort): return false`.
+      So the surviving fleet is NOT held at the non-home port and sails away
+       toward `homePort`. When the slip order later completes at the non-home
+      port, `collect_replacements` fires while the surviving fleet is elsewhere,
+      triggering Defect 3A.
+    * Even if `owner` commissioned the order at `homePort`, if `p.holding` was
+      `false` (see Defect 4A below), the surviving fleet sails out of `homePort`
+      while the order is still on the slip, and `collect_replacements` later
+      teleports `owner.atPort` back to `homePort`.
+
+3.3 Defect 3C (Wiped-out fleet `living == 0` replacement teleports new hull to old battle coordinates):
+  - Location: `naval_combat.gd:406-410`, `naval_replacements.gd:59-88`, and
+    `naval_lifecycle.gd:81-87`.
+  - Mechanism:
+    * When all boats in `owner` are sunk in a sea encounter at `(pat.x, pat.y)`,
+      `resolve_encounter` (`naval_combat.gd:407-409`) sets `own["atPort"] = home_id`
+      and `pat["active"] = false`, leaving `pat.x, pat.y` at the sea battle site
+      (which `NavalLifecycle.daily` lines 70-72 needs on that day to record the
+      wreck at `{"x": p.x, "y": p.y}`).
+    * On a subsequent day, when `request_replacement` (stock purchase) or
+      `collect_replacements` (completed slip order) calls `attach_new_boat` at
+      `port` (`homePort`), `attach_new_boat` sets `owner["active"] = true`,
+      `owner["atPort"] = port.id`, and `pat["active"] = true` — but NEVER resets
+      `pat.x = port.x`, `pat.y = port.y`, `pat.from = port.id`, `pat.to = port.id`,
+      `pat.progress = 0.0`, or `pat.holding = true`.
+    * In `NavalLifecycle.daily` (`naval_lifecycle.gd:81-87`), `p.active` is now
+      `true` and `p.get("holding", false)` is `false`. Line 87 calls
+      `route(c, p, str(owner.destination))`, which builds `p.course` starting
+      from the old mid-ocean battle coordinates `(p.x, p.y)` (or if
+      `owner.destination == p.to`, doesn't even rebuild `p.course` and continues
+      from `p.progress` in mid-ocean). The newly built hull at `homePort`
+      teleports out to the sea battle site!
+
+--------------------------------------------------------------------------------
+TOPIC 4: STALE ROUTES
+--------------------------------------------------------------------------------
+
+4.1 Defect 4A (`assign_post_dock_order` at `homePort` during recovery assigns `neighbor_id` instead of holding at `homePort`):
+  - Location: `naval_orders.gd:712-739` and `naval_lifecycle.gd:83-87`.
+  - Mechanism:
+    * In `NavalOrders.assign_post_dock_order`, when `not recovery_reason.is_empty()`:
+      - Lines 715-721 handle `if dock_id != home_id`: they set `destination = home_id`
+        and return `home_id`.
+      - When the fleet IS already at `homePort` (`dock_id == home_id`), execution
+        falls through to lines 722-739, which find the nearest port
+        `neighbor_id != home_id`, call
+        `build_order(state, owner, cur_purpose, neighbor_id, recovery_reason)`,
+        set `owner["route"] = [dock_id, neighbor_id]`, and return `neighbor_id`!
+    * Consequences:
+      1. Whenever a fleet is holding at `homePort` for repairs, resupply, crew, or
+         hull replacement, `owner.destination`, `owner.order.destination`, and
+         `owner.route` point to `neighbor_id` instead of `homePort` while the
+         order `reason` says `"returning home for replacement/repair"`.
+      2. Worse, if `p.get("holding", false)` is `false` when `NavalLifecycle.daily`
+         runs line 87 (`elif str(owner.get("destination", p.to)) != str(p.to):
+         route(c, p, str(owner.destination))`), `owner.destination` (`neighbor_id`)
+         differs from `p.to` (`home_id`), so `NavalLifecycle.daily` immediately
+         routes the unrecovered/under-strength fleet OUT of `homePort` to
+         `neighbor_id`! Upon reaching `neighbor_id`, `assign_post_dock_order`
+         sees `dock_id != home_id` and routes it back to `home_id`.
+
+4.2 Defect 4B (Mid-ocean `NavalLifecycle.route` leaves stale `p.from`, breaking save/load course restoration):
+  - Location: `naval_lifecycle.gd:18-29` and `campaign.gd:887-889`.
+  - Mechanism:
+    * When `NavalLifecycle.route(c, p, dest)` is called while `p` is at sea (via
+      `naval_lifecycle.gd:87`), it sets `p.to = dest`, `p.progress = 0.0`, and
+      `p.course = Navigation.find_path(c.nav, p, target)` (from mid-ocean `p` to
+      `target`), without updating `p.from`.
+    * If `dest == p.from` (which happens whenever a patrol that departed
+      `homePort` is ordered to withdraw back to `homePort` during `NavalAI.tick`
+      step 4 at `naval_ai.gd:306-309`), `p.from` and `p.to` both equal `homePort`.
+    * When the campaign is saved and reloaded, `campaign.gd:887-889` executes:
+        `for patrol in state.patrols:`
+        `    set_patrol_course(patrol, port(patrol.from), port(patrol.to))`
+        `    place_patrol(patrol)`
+      This discards the mid-ocean `p.course` and snaps `patrol` onto the path
+      between `port(p.from)` and `port(p.to)` (which is a zero-length path at
+      `homePort` if `p.from == p.to == homePort`, teleporting the patrol to
+      `homePort` on load!).
+
+4.3 Defect 4C (`NavalCombat.resolve_encounter` reversal vs `NavalLifecycle.daily` re-routing):
+  - Location: `naval_combat.gd:413-420` and `naval_lifecycle.gd:87`.
+  - Mechanism:
+    * When a fleet withdraws in `resolve_encounter` and `pat.from == home_id` and
+      `pat.to != home_id`, lines 414-420 reverse `pat.course` in place, swap
+      `pat.from` and `pat.to` (so `pat.to = home_id`), and set
+      `pat.progress = 1.0 - pat.progress`. Because `pat.to` now equals
+      `owner.destination` (`home_id`), `NavalLifecycle.daily` line 87 does not
+      overwrite it.
+    * However, if `pat.from != home_id` and `pat.to != home_id`, `resolve_encounter`
+      leaves `pat.to` unchanged, and `NavalLifecycle.daily` line 87 calls
+      `route(c, p, home_id)`, triggering Defect 4B (`p.from` remains the old port
+      while `p.course` starts in mid-ocean). Also, `owner.route` is not updated
+      on withdrawal in `resolve_encounter`.
+
+4.4 Defect 4D (Stale `targetOwnerId` on `intercept` / `escort` / `raid` orders during `NavalAI.tick`):
+  - Location: `naval_ai.gd:292-318`.
+  - Mechanism:
+    * Step 4 of `NavalAI.tick` refreshes reserves and performance on existing
+      orders, and checks `needs_home_recovery`, but never re-validates
+      `cur_ord.targetOwnerId`. If the hunted raider or escorted trader was sunk
+      in step 3 (or docked and changed destination), the pursuing patrol/raider
+      keeps the stale `targetOwnerId` and destination until it reaches `p.to`.
+
+--------------------------------------------------------------------------------
+TOPIC 5: NO REPAIR RECOVERY (DAMAGED FLEETS STUCK OR FAILING TO RECOVER)
+--------------------------------------------------------------------------------
+
+5.1 Defect 5A (Permanent Flooding Deadlock — `boat.water` is never pumped or cleared at port):
+  - Location: `naval_orders.gd:324`, `fleet_economy.gd:207-264`, `naval_combat.gd:335-338`,
+    and `naval_lifecycle.gd:30-34, 83-86`.
+  - Mechanism:
+    * `NavalOrders.needs_home_recovery` (`naval_orders.gd:324`) returns a
+      non-empty recovery reason whenever
+      `float(b.get("water", 0.0)) > float(b.get("capacity", 200.0)) * 0.2`.
+    * In `NavalCombat.resolve_encounter` (`naval_combat.gd:337`), surviving boats
+      only run `Damage.tick_ship(b, 8.0, {"inCombat": false})` for 8 seconds
+      immediately after the salvos (while breaches are still open and admitting
+      water).
+    * Outside `resolve_encounter`, `Damage.tick_ship` is NEVER called on NPC
+      boats (neither in `NavalLifecycle.step`, `NavalLifecycle.daily`, nor
+      `Fleets.tick`).
+    * In `Fleets._repair` (`fleet_economy.gd:218-264`), harbor repair handles
+      `fire`, `breaches`, `engine`, `wounded`, and `hp`, but NEVER reduces
+      `boat.water`!
+    * Result: Any NPC boat that finishes a skirmish with `water > capacity * 0.2`
+      will have its breaches patched at `homePort`, but `boat.water` remains
+      frozen above `20%` capacity forever. `holding(c, owner)` (`naval_lifecycle.gd:34`)
+      stays `true` on every subsequent day, permanently bricking the fleet at
+      `homePort`!
+
+5.2 Defect 5B (Specialist / 150-Coin Engine Repair Block & Permanent Lock):
+  - Location: `fleet_economy.gd:226-245` and `naval_orders.gd:326-331`.
+  - Mechanism:
+    * In `Fleets._repair` (`fleet_economy.gd:226-239`), the `if / elif` priority
+      chain is:
+        1. `boat.fire > 0`
+        2. `area > 0` (`breaches`)
+        3. `boat.engine < 1 and owner.coins >= 150` (`wage = 150`)
+        4. `boat.wounded > 0`
+        5. `boat.hp < boat.maxHp`
+      Then at lines 241-245:
+        `if wage == 150:`
+        `    var experts: float = maxf(0.0, float(port.get("availableSpecialists", ...)) - float(port.get("_yardSpecialistsUsed", 0)))`
+        `    if experts < 1.0:`
+        `        return`
+    * Two failure modes result:
+      1. If `boat.engine` has minor wear (e.g. `0.85`, above the `0.68` recovery
+         threshold) while `boat.hp` is critically low (e.g. `40%`), and the port
+         has `availableSpecialists < 1.0`, `_repair` enters the `boat.engine < 1`
+         branch and returns early at line 244 without repairing `wounded` or
+         `hp`! Thus a port without free specialists cannot even repair hull HP
+         on a boat that has `engine == 0.99`!
+      2. If `boat.engine < 0.68` (`needs_home_recovery` is true) and `homePort`
+         has no available specialists (or `owner.coins < 150`), `boat.engine`
+         never recovers to `0.68`, locking the fleet at `homePort` indefinitely.
+
+5.3 Defect 5C (Full Cargo Hold Blocks Boat Working-Store Purchases at `homePort`):
+  - Location: `fleet_economy.gd:144-194` and `naval_orders.gd:332-337`.
+  - Mechanism:
+    * `Fleets.dock` (`fleet_economy.gd:182-193`) replenishes each boat's onboard
+      `fuel`, `supplies`, and `ammo` by first calling
+      `_purchase(owner, port, good, need - have)` into `owner.cargo` and then
+      moving units from `owner.cargo[good]` to `boat[good]`.
+    * `Fleets._purchase` (`fleet_economy.gd:150-151`) caps purchases by free hold
+      capacity: `room = maxf(0.0, _capacity(owner) - Economy.cargo_weight(owner.cargo))`.
+    * However, `Fleets.dock` (`fleet_economy.gd:169`) only sells `owner.tradeCargo`
+      when `port.id != owner.homePort`.
+    * If a trader loads a full hold of `tradeCargo` at `homePort` (`room < 1.0`),
+      sails out, is damaged or expends `ammo`/`fuel`/`supplies` in a skirmish,
+      and withdraws to `homePort`:
+      - At `homePort`, it does not sell `tradeCargo`.
+      - Because `room` is `0`, `_purchase` cannot buy `supplies` (needed by
+        `_repair`), `fuel`, or `ammo`!
+      - With `boat.supplies == 0` (or `ammo < 18/boat` or `fuel < 0.6/boat`),
+        `_repair` and resupply do nothing, `needs_home_recovery` stays non-empty,
+        and the trader is permanently deadlocked at `homePort`.
+
+5.4 Defect 5D (Double `Fleets.dock` on Arrival & Insolvent Hold Lock):
+  - Location: `naval_lifecycle.gd:48` and `naval_ai.gd:212-213`.
+  - Mechanism:
+    * When a patrol reaches `p.progress >= 1` at `homePort`, `naval_lifecycle.gd:48`
+      calls `Fleets.dock(owner, dock)` and `naval_lifecycle.gd:49` calls
+      `AI.arrived(c, owner, dock)`, which at `naval_ai.gd:213` calls
+      `Fleets.dock(owner, dock_port)` a second time in the same step if
+      `recovery_reason` is still non-empty.
+    * Conversely, if an NPC owner at `homePort` has `owner.coins < 100` (cannot
+      afford 1 worker-day of repair or store purchases) and no trade cargo to
+      sell at `homePort`, nothing in `Fleets.tick` or `NavalLifecycle.daily`
+      subsidizes or releases the owner, leaving `holding(c, owner) == true`
+      permanently.
+
+================================================================================
+SUMMARY CHECKLIST FOR ROOT INTEGRATION
+================================================================================
+[ ] 1. `fleet_economy.gd` (`_repair`): Clear `boat.water = 0.0` when docked/breaches
+       patched (or pump water in `Fleets.dock`); check specialist availability
+       BEFORE selecting the `boat.engine < 1` branch so `wounded`/`hp` repairs
+       are not blocked when `availableSpecialists < 1`.
+[ ] 2. `fleet_economy.gd` (`dock`): Allow boat working stores (`fuel`, `supplies`,
+       `ammo`) to be purchased directly into `boat[good]` (or bypass hold `room`
+       for immediate onboard transfer) so a full `tradeCargo` hold at `homePort`
+       cannot deadlock repairs/resupply.
+[ ] 3. `naval_orders.gd` (`assign_post_dock_order` lines 712-739): When
+       `dock_id == home_id` and `not recovery_reason.is_empty()`, keep
+       `destination = home_id` and `owner.route = [home_id, home_id]` instead of
+       routing to `neighbor_id`.
+[ ] 4. `naval_replacements.gd` (`collect_replacements`, `attach_new_boat`) &
+       `naval_ai.gd` (step 2):
+       - Only request or collect replacements when `living == 0` or
+         `owner.atPort == port.id` (at `owner.homePort`).
+       - When attaching a boat to a wiped-out fleet (`living_before == 0`),
+         reset `pat.x = port.x`, `pat.y = port.y`, `pat.from = port.id`,
+         `pat.to = port.id`, `pat.progress = 0.0`, and `pat.holding = true`.
+[ ] 5. `naval_lifecycle.gd`:
+       - Use `state.econDay` and sunk boat `uid` in wreck `sourceId` (line 71).
+       - Compute cargo loss `fraction` against `(living_boats + sunk.size())`
+         instead of `owner.boats.size()` (line 73).
+       - Round fractional `boat.crew` before `hire()` recruitment (lines 13-16).
+       - Ensure mid-ocean `route()` updates `p.from` (or serializes mid-ocean
+         waypoints) so `campaign.restore()` does not snap redirected patrols.
+================================================================================

@@ -111,4 +111,23 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 				if not record.get(key) is Dictionary or record[key].size()>16:return "Invalid observed market."
 				for value in record[key].values():
 					if not number(value):return "Invalid observed market value."
+	if s.has("specialists"):
+		if not s.specialists is Array or s.specialists.size()>1024:return "Invalid specialist ledger."
+		var specialist_ids: Dictionary={}
+		for r in s.specialists:
+			if not r is Dictionary or not r.get("id") is String or specialist_ids.has(r.id) or r.get("role","") not in ["pilot","gunner","chief_engineer","surveyor","quartermaster"]:return "Invalid specialist identity."
+			specialist_ids[r.id]=true
+			for key in ["coins","arrears","premiumPerDay","hiredDay"]:
+				if not number(r.get(key)):return "Invalid specialist accounting."
+			if not r.get("boatUid") is String or not r.get("portId") is String or not r.get("active") is bool:return "Invalid specialist assignment."
+	for b in s.get("fleet",[]):
+		if b.has("conversion") and b.conversion not in ["","cargo_rig","survey_rig","workshop_rig","tug_rig","auxiliary_tanks"]:return "Unknown support conversion."
+		if b.has("supportOnly") and not b.supportOnly is bool:return "Invalid support deployment policy."
+		if b.has("serviceHistory") and (not b.serviceHistory is Array or b.serviceHistory.size()>12):return "Invalid boat service history."
+	if s.has("campaignFacts"):
+		if not s.campaignFacts is Dictionary or s.campaignFacts.size()>32:return "Invalid campaign achievements."
+		for value in s.campaignFacts.values():
+			if not number(value):return "Invalid campaign achievement count."
+	if s.has("escortEvents") and (not s.escortEvents is Dictionary or s.escortEvents.size()>256):return "Invalid escorted passage ledger."
+	if s.has("battleSeq") and not number(s.battleSeq):return "Invalid engagement sequence."
 	return ""

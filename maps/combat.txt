@@ -1,22 +1,22 @@
-BRASS TIDE — COMBAT MAP (generated; v0.014)
+BRASS TIDE — COMBAT MAP (generated; v0.015)
 
 Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/battle.gd: 28420 bytes; extends RefCounted
-  game/scripts/battle.gd:58 pop_events()
-  game/scripts/battle.gd:61 mount_shot_time()
-  game/scripts/battle.gd:64 mount_shot_age()
-  game/scripts/battle.gd:67 hull_material()
-  game/scripts/battle.gd:70 weapon_family()
-  game/scripts/battle.gd:78 create()
-  game/scripts/battle.gd:151 get_flagship()
-  game/scripts/battle.gd:157 select_flagship()
-  game/scripts/battle.gd:166 set_autopilot()
-  game/scripts/battle.gd:176 issue_order()
-  game/scripts/battle.gd:218 set_order()
-  game/scripts/battle.gd:227 retreat()
-game/scripts/damage.gd: 8498 bytes; extends RefCounted
+game/scripts/battle.gd: 28838 bytes; extends RefCounted
+  game/scripts/battle.gd:59 pop_events()
+  game/scripts/battle.gd:62 mount_shot_time()
+  game/scripts/battle.gd:65 mount_shot_age()
+  game/scripts/battle.gd:68 hull_material()
+  game/scripts/battle.gd:71 weapon_family()
+  game/scripts/battle.gd:79 create()
+  game/scripts/battle.gd:157 get_flagship()
+  game/scripts/battle.gd:163 select_flagship()
+  game/scripts/battle.gd:172 set_autopilot()
+  game/scripts/battle.gd:182 issue_order()
+  game/scripts/battle.gd:224 set_order()
+  game/scripts/battle.gd:233 retreat()
+game/scripts/damage.gd: 8674 bytes; extends RefCounted
   game/scripts/damage.gd:6 number()
   game/scripts/damage.gd:11 create_ship()
   game/scripts/damage.gd:41 sum_areas()
@@ -27,7 +27,7 @@ game/scripts/damage.gd: 8498 bytes; extends RefCounted
   game/scripts/damage.gd:167 repair_at_port()
   game/scripts/damage.gd:23 _sanitize()
   game/scripts/damage.gd:73 _roll()
-game/scripts/deployment.gd: 1799 bytes; extends RefCounted
+game/scripts/deployment.gd: 1920 bytes; extends RefCounted
   game/scripts/deployment.gd:10 cost()
   game/scripts/deployment.gd:25 total()
   game/scripts/deployment.gd:31 fits()

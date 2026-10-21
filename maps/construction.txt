@@ -1,4 +1,4 @@
-BRASS TIDE — CONSTRUCTION MAP (generated; v0.014)
+BRASS TIDE — CONSTRUCTION MAP (generated; v0.015)
 
 Physical bill/local prices/ordinary and expert workers/escrow -> paid hull building, repairs, stock and hires.
 
@@ -16,7 +16,7 @@ game/scripts/construction.gd: 36995 bytes; extends RefCounted
   game/scripts/construction.gd:302 _good_cost_with_wages()
   game/scripts/construction.gd:314 _resolve_prices()
   game/scripts/construction.gd:564 _extract_specialist_count()
-game/scripts/harbor.gd: 14074 bytes; extends RefCounted
+game/scripts/harbor.gd: 14286 bytes; extends RefCounted
   game/scripts/harbor.gd:8 quote()
   game/scripts/harbor.gd:16 buy()
   game/scripts/harbor.gd:41 commission()
@@ -24,10 +24,10 @@ game/scripts/harbor.gd: 14074 bytes; extends RefCounted
   game/scripts/harbor.gd:86 tick_yards()
   game/scripts/harbor.gd:117 recruit()
   game/scripts/harbor.gd:133 sell()
-  game/scripts/harbor.gd:164 service_quote()
-  game/scripts/harbor.gd:176 repair()
-  game/scripts/harbor.gd:212 resupply()
-  game/scripts/harbor.gd:240 use_reserves()
+  game/scripts/harbor.gd:165 service_quote()
+  game/scripts/harbor.gd:177 repair()
+  game/scripts/harbor.gd:213 resupply()
+  game/scripts/harbor.gd:241 use_reserves()
 game/scripts/refit.gd: 21329 bytes; extends RefCounted
   game/scripts/refit.gd:25 catalog()
   game/scripts/refit.gd:57 hardpoints()

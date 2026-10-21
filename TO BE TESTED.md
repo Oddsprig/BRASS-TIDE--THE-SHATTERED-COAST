@@ -1,3 +1,7 @@
+v0.015 voluntary play: Fleet identity
+Assess readability and usefulness of: Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories. Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems. Protect real convoys through timed battles without inventing enemy destruction or loot; repaired NPC replacement, cargo-loss and save-route lifecycle defects.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.014 voluntary play: Reactive trade and blockades
 Assess readability and usefulness of: Visited market quotes, shortage reports and cargo-limited round-trip trade estimates include wages, fuel, provisions and buyer liquidity. Actual supplied fleets establish or contest blockades; loss, withdrawal and fuel starvation lift them. Real convoy deliveries feed yard materials; background economic days publish one at a time before fleet and blockade decisions advance.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

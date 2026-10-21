@@ -277,7 +277,10 @@ static func quote(state: Dictionary, site_id: String, action) -> Dictionary:
 	var ex: Dictionary = state["exploration"]
 	var level := int(_site_record(ex, site_id).get("level", LEVEL_UNKNOWN))
 	var crew := int(spec["crew"])
-	var days := float(spec["days"])
+	var survey_factor: float=1.0
+	for boat in state.get("fleet",[]):
+		if not boat.get("sunk",false) and not boat.get("mothballed",false) and str(boat.get("storedPort","")).is_empty() and float(boat.get("crew",0))-float(boat.get("wounded",0))>float(boat.get("crewMin",1)):survey_factor=maxf(survey_factor,float(boat.get("spec",{}).get("surveyFactor",1)))
+	var days := float(spec["days"])/survey_factor
 	var food := snappedf(FOOD_PER_CREW_DAY * float(crew) * days, 0.01)
 	var cargo: Dictionary = state.get("cargo", {}) if state.get("cargo") is Dictionary else {}
 	var have_food := maxf(0.0, _num(cargo.get("food", 0.0)))

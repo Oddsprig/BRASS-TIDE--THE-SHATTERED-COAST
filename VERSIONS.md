@@ -1,3 +1,11 @@
+## v0.015 — Fleet identity
+
+Candidate; verified test/export records follow.
+
+- Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories.
+- Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems.
+- Protect real convoys through timed battles without inventing enemy destruction or loot; repaired NPC replacement, cargo-loss and save-route lifecycle defects.
+
 ## v0.014 — Reactive trade and blockades
 
 Candidate; verified test/export records follow.

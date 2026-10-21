@@ -1,3 +1,15 @@
+v0.015 SOURCE ACCEPTED | Fleet identity
+39 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.015 CANDIDATE | Fleet identity
+- Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories.
+- Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems.
+- Protect real convoys through timed battles without inventing enemy destruction or loot; repaired NPC replacement, cargo-loss and save-route lifecycle defects.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.014 DELIVERED | exact game e4b4d7d7adb37d42411a76ebf8e70aad315a82b5
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.014 SOURCE ACCEPTED | Reactive trade and blockades
 36 native suites passed; source report saved. Portable export and publication require separate receipts.
 

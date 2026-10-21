@@ -25,6 +25,7 @@ static func open(ui):
 	var choices: Array=[]
 	for id in Lab.presets(): choices.append({"id":id,"label":Lab.presets()[id].label})
 	picker(top,choices,"",func(id):host.lab_config=Lab.preset(host.data,id);open(ui))
+	picker(top,[{"id":"","label":"Fleet engagement"},{"id":"escort","label":"Protect first boat for 45 seconds"}],str(host.lab_config.get("objective","")),func(id):host.lab_config.objective=id;open(ui))
 	ui.label(top,"Seed",15)
 	var seed_box=SpinBox.new()
 	seed_box.min_value=1;seed_box.max_value=2147483647;seed_box.value=host.lab_seed

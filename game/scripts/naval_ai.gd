@@ -210,7 +210,6 @@ static func arrived(core, owner: Dictionary, dock: Dictionary = {}) -> String:
 		var perf: Dictionary = NavalOrders.fleet_performance(owner)
 		var recovery_reason: String = NavalOrders.needs_home_recovery(owner, res, perf)
 		if not recovery_reason.is_empty() and dock_id == home_id and not dock_port.is_empty():
-			Fleets.dock(owner, dock_port)
 			if int(res.get("boats", 0)) < int(res.get("targetBoats", 1)):
 				NavalReplacements.request_replacement(core, owner, dock_port)
 
@@ -303,6 +302,11 @@ static func tick(core, days = 1) -> Array:
 			var perf_now: Dictionary = NavalOrders.fleet_performance(owner)
 			var rec_why: String = NavalOrders.needs_home_recovery(owner, res_now, perf_now)
 			var cur_purpose: String = str(cur_ord.get("purpose", ""))
+			var target: Dictionary=NavalOrders.find_owner(state,str(cur_ord.get("targetOwnerId","")))
+			if cur_purpose in ["intercept","escort","raid"] and not str(cur_ord.get("targetOwnerId","")).is_empty() and (target.is_empty() or not target.get("active",false) or NavalOrders.living_boats(target).is_empty()):
+				NavalOrders.assign_post_dock_order(state,owner,{})
+				cur_ord=owner.order
+				cur_purpose=str(cur_ord.purpose)
 			if not rec_why.is_empty() and not (cur_purpose in ["withdraw", "repair", "resupply", "replace"]):
 				var h_id: String = str(owner.get("homePort", ""))
 				var purp: String = "replace" if int(res_now.get("boats", 0)) < int(res_now.get("targetBoats", 1)) else "withdraw"

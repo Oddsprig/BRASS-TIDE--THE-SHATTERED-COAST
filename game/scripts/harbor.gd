@@ -142,6 +142,7 @@ static func sell(core, uid: String) -> Dictionary:
 	var lost_capacity: float=float(boat.spec.cargo) if core.active_fleet().has(boat) else 0.0
 	if core.cargo_weight() > core.capacity()-lost_capacity:
 		return core.fail("Sell cargo before reducing your hold space.")
+	if not core.FleetSupport.aboard(core,uid).is_empty():return core.fail("Discharge specialists with their savings before selling this hull.")
 	var q: Dictionary = quote(core,core.hull(boat.type),p)
 	var value: int = floori(float(q.materialCost+q.laborCost+q.supervisionCost)*0.65*boat.hp/boat.maxHp)
 	if p.cash < value:
@@ -221,7 +222,7 @@ static func resupply(core, uid: String, profile: String = "full") -> Dictionary:
 	# A voyage load avoids tying up a new captain's cash in a full long-range fuel tank.
 	# Ammunition is purchased first; each transaction still consumes actual local stock.
 	var magazine: float = maxf(80.0,float(boat.spec.get("ammoCapacity",80*maxi(1,boat.spec.get("weaponMounts",[]).size()))))
-	var targets: Dictionary = {"fuel":3.0,"ammo":magazine,"supplies":6.0} if profile == "voyage" else {"fuel":60.0,"ammo":magazine,"supplies":20.0}
+	var targets: Dictionary = {"fuel":3.0,"ammo":magazine,"supplies":6.0} if profile == "voyage" else {"fuel":float(boat.spec.get("fuelCapacity",60)),"ammo":magazine,"supplies":20.0}
 	for good in ["ammo","supplies","fuel"]:
 		var conversion: float = Goods.ROUNDS_PER_CASE if good == "ammo" else 1.0
 		var target: float = targets[good]
@@ -243,7 +244,7 @@ static func use_reserves(core):
 			continue
 		for good in ["ammo","fuel","supplies"]:
 			var conversion: float = Goods.ROUNDS_PER_CASE if good == "ammo" else 1.0
-			var target: float = maxf(80.0,float(boat.spec.get("ammoCapacity",80*maxi(1,boat.spec.get("weaponMounts",[]).size())))) if good == "ammo" else 60.0 if good == "fuel" else 20.0
+			var target: float = maxf(80.0,float(boat.spec.get("ammoCapacity",80*maxi(1,boat.spec.get("weaponMounts",[]).size())))) if good == "ammo" else float(boat.spec.get("fuelCapacity",60)) if good == "fuel" else 20.0
 			var amount: float = minf(core.state.cargo.get(good,0.0),maxf(0.0,(target-boat[good])/conversion))
 			core.state.cargo[good] -= amount
 			boat[good] += amount*conversion

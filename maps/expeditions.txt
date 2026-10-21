@@ -1,9 +1,9 @@
-BRASS TIDE — EXPEDITIONS MAP (generated; v0.014)
+BRASS TIDE — EXPEDITIONS MAP (generated; v0.015)
 
 Traveling fleet/real stores -> cargo carriers, paid endurance, shore assignments, persistent discoveries and copied-port workers.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/expedition.gd: 4262 bytes; extends RefCounted
+game/scripts/expedition.gd: 4502 bytes; extends RefCounted
   game/scripts/expedition.gd:7 traveling()
   game/scripts/expedition.gd:10 capacity()
   game/scripts/expedition.gd:15 cargo_weight()
@@ -24,10 +24,10 @@ game/scripts/campaign_ui.gd: 6704 bytes; extends RefCounted
   game/scripts/campaign_ui.gd:39 islands()
   game/scripts/campaign_ui.gd:62 site()
   game/scripts/campaign_ui.gd:97 survey_day()
-game/scripts/campaign_state_validation.gd: 8572 bytes; extends RefCounted
+game/scripts/campaign_state_validation.gd: 10182 bytes; extends RefCounted
   game/scripts/campaign_state_validation.gd:3 number()
   game/scripts/campaign_state_validation.gd:6 validate()
-game/scripts/exploration.gd: 18545 bytes; extends RefCounted
+game/scripts/exploration.gd: 18914 bytes; extends RefCounted
   game/scripts/exploration.gd:133 catalog_site()
   game/scripts/exploration.gd:152 ensure()
   game/scripts/exploration.gd:191 sites()

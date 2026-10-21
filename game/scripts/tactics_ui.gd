@@ -17,6 +17,7 @@ static func build(ui, size: Vector2):
 		ui.policy_buttons[policy] = b
 	ui.paragraph(ui.left_body, "Bailing needs hands. Patching needs hands and repair kits.", 12)
 	ui.eyebrow(ui.right_body, "FLEET COMMAND")
+	ui.objective_label=ui.paragraph(ui.right_body,preload("res://scripts/battle_objectives.gd").label(ui.host.battle),15,ui.GOLD)
 	ui.paragraph(ui.right_body, ui.host.battle.location.get("name","Coastal waters"), 22, ui.TEXT)
 	ui.battle_points_label = ui.paragraph(ui.right_body, "", 15, ui.GOLD)
 	ui.autopilot_button = ui.button(ui.right_body, "", ui.host.toggle_autopilot, true)
@@ -47,6 +48,7 @@ static func build(ui, size: Vector2):
 
 static func update(ui):
 	var battle: Dictionary = ui.host.battle
+	if is_instance_valid(ui.objective_label):ui.objective_label.text=preload("res://scripts/battle_objectives.gd").label(battle)
 	var player: Array = battle.ships.filter(func(s):return s.team=="player" and not s.sunk)
 	var enemy: Array = battle.ships.filter(func(s):return s.team=="enemy" and not s.sunk)
 	ui.battle_points_label.text = "YOUR FLEET  %d / 300 DP\nENEMY FLEET  %d / 300 DP" % [Deployment.total(player),Deployment.total(enemy)]

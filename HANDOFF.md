@@ -1,3 +1,23 @@
+# v0.015 — Fleet identity
+
+SOURCE ACCEPTED: 39 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories.
+- Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems.
+- Protect real convoys through timed battles without inventing enemy destruction or loot; repaired NPC replacement, cargo-loss and save-route lifecycle defects.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.015.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.015 — Fleet identity
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories.
+- Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems.
+- Protect real convoys through timed battles without inventing enemy destruction or loot; repaired NPC replacement, cargo-loss and save-route lifecycle defects.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.015.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.014 — Reactive trade and blockades
 
 SOURCE ACCEPTED: 36 native suites pass; portable export evidence is recorded separately in RELEASE.json.

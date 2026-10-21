@@ -141,17 +141,18 @@ static func _capacity(owner: Dictionary) -> float:
 			result+=float(boat.spec.get("cargo",0))
 	return result
 
-static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: int,crew_paid: bool=false) -> int:
+static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: int,crew_paid: bool=false,working: bool=false) -> int:
 	if quantity<=0:
 		return 0
 	var purse: String="crewPurse" if crew_paid else "coins"
 	var wallet: Dictionary={"coins":owner[purse],"cargo":owner.cargo}
 	var price: int=Economy.price(port,good,"buy")
 	var room: float=maxf(0.0,_capacity(owner)-Economy.cargo_weight(owner.cargo))
+	if working:room=maxf(room,quantity*float(Goods.ITEMS[good].weight))
 	var count: int=mini(quantity,mini(_integer(port.stocks.get(good,0)),mini(int(owner[purse])/maxi(1,price),int(floor(room/float(Goods.ITEMS[good].weight))))))
 	if count<=0:
 		return 0
-	var result: Dictionary=Economy.transact(port,wallet,good,count,"buy",_capacity(owner))
+	var result: Dictionary=Economy.transact(port,wallet,good,count,"buy",maxf(_capacity(owner),Economy.cargo_weight(owner.cargo)+count*float(Goods.ITEMS[good].weight)) if working else _capacity(owner))
 	if not result.ok:
 		return 0
 	owner[purse]=wallet.coins
@@ -185,7 +186,7 @@ static func dock(owner: Dictionary,port: Dictionary) -> Array:
 			var need: int=maxi(0,ceili((target-float(boat[good]))/conversion))
 			var have: int=mini(need,_integer(owner.cargo.get(good,0)))
 			if have<need:
-				_purchase(owner,port,good,need-have)
+				_purchase(owner,port,good,need-have,false,true)
 			var moved: int=mini(need,_integer(owner.cargo.get(good,0)))
 			owner.cargo[good]-=moved
 			if good==owner.tradeGood:
@@ -223,7 +224,7 @@ static func _repair(owner: Dictionary,port: Dictionary,boat: Dictionary) -> void
 		key="breaches"
 		amount=minf(area,minf(100.0,boat.supplies/0.018))
 		kits=amount*0.018
-	elif boat.engine<1 and owner.coins>=150:
+	elif boat.engine<1 and owner.coins>=150 and float(port.get("availableSpecialists",0))>=1:
 		key="engine"
 		amount=minf(1.0-boat.engine,minf(0.25,boat.supplies/4.0))
 		kits=amount*4.0
@@ -309,6 +310,8 @@ static func tick(owners: Array,ports: Array,days: float) -> Array:
 			for boat in owner.boats:
 				if boat.sunk:
 					continue
+				if boat.water>0 or Damage.sum_areas(boat)>0 or boat.fire>0:
+					Damage.tick_ship(boat,45.0*h,{"inCombat":false})
 				var fuel_need: float=costs.fuel*h/maxi(1,owner.boats.size())
 				var used: float=minf(boat.fuel,fuel_need)
 				boat.fuel=maxf(0.0,boat.fuel-used)

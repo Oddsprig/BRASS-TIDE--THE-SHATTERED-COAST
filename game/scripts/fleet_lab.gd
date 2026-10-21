@@ -63,6 +63,8 @@ static func create(world: Dictionary,config: Dictionary,seed_value: int) -> Dict
 				ship.fuel=120.0
 				fleets[team].append(ship)
 	var battle: Dictionary=Battle.create({"fleet":fleets.player,"enemyFleet":fleets.enemy,"seed":seed_value,"location":{"name":"Fleet battle laboratory"}})
+	if config.get("objective","")=="escort" and not fleets.player.is_empty():
+		battle.mission={"kind":"escort","allyUids":[fleets.player[0].uid],"duration":45.0}
 	configure_formation(battle,str(config.get("formation","")))
 	return {"ok":true,"battle":battle}
 

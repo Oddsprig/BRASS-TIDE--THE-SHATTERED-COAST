@@ -1,5 +1,6 @@
 extends RefCounted
 ## Pure fixed-step combat. State and RNG belong exclusively to the caller.
+const Objectives=preload("res://scripts/battle_objectives.gd")
 const Refit=preload("res://scripts/refit.gd")
 const WeaponGeometry=preload("res://scripts/weapon_geometry.gd")
 const Damage=preload("res://scripts/damage.gd")
@@ -79,6 +80,7 @@ static func create(options: Dictionary) -> Dictionary:
 	var random: RandomNumberGenerator=RandomNumberGenerator.new()
 	random.seed=int(options.get("seed",1))
 	var st: Dictionary={"ships":[],"projectiles":[],"effects":[],"wrecks":[],"events":[],"eventSeq":0,"droppedEvents":0,"_stepEvents":0,"_engineTracker":{},"_hitTracker":{},"time":0.0,"result":null,"playerId":null,"order":"engage","autopilot":true,"rng":random,"location":options.get("location",{"name":"Open water"}),"islands":[],"log":[],"retreatTimer":null,"reserves":{"player":[],"enemy":[]},"deployment":{"player":0,"enemy":0,"limit":Deployment.LIMIT}}
+	st.mission=options.get("mission",{}).duplicate(true)
 	for island in options.get("islands",[]):
 		var points: Array=island.get("points",[]) if island is Dictionary else island
 		if points.size()>=3:
@@ -101,7 +103,10 @@ static func create(options: Dictionary) -> Dictionary:
 	for i in range(enemy_split.deployed.size()):
 		_deploy(st,enemy_split.deployed[i],i,"enemy",enemy_split.deployed.size())
 	for ship in st.ships:
-		if ship.team=="player" and not ship.sunk:
+		if str(ship.get("uid","")) in st.mission.get("allyUids",[]):
+			ship.order="hold";ship.orderTarget={"x":ship.x,"y":ship.y}
+	for ship in st.ships:
+		if ship.team=="player" and not ship.sunk and not str(ship.get("uid","")) in st.mission.get("allyUids",[]):
 			st.playerId=ship.id
 			ship.selected=true
 			break
@@ -110,6 +115,7 @@ static func create(options: Dictionary) -> Dictionary:
 static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: int) -> void:
 	if not s.spec.get("weaponMounts") is Array:
 		s.spec=Refit.effective_spec(s.spec,Refit.defaults(s.spec))
+	s.supportRepairFactor=1.0
 	s.localAimAngles={}
 	s.team=team
 	s.id="%s-%d-%s"%[team,index,s.type]
@@ -661,6 +667,8 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			enemies.append(s)
 	if get_flagship(st).is_empty() and not players.is_empty():
 		select_flagship(st,players[0].id)
+	Objectives.update(st)
+	if st.result!=null:return st
 	if players.is_empty():
 		st.result="lost"
 	elif enemies.is_empty():

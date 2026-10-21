@@ -115,6 +115,8 @@ static func opportunities(core) -> Array:
 	var here := _current_port(state)
 	var upkeep = Economy.daily_upkeep(state.get("fleet", []))
 	var daily_wages := int(upkeep.get("wages", 0))
+	for specialist in state.get("specialists",[]):
+		if not specialist.get("discharged",false) and not specialist.get("lost",false):daily_wages+=int(specialist.get("premiumPerDay",0))
 	var food_per_day := float(upkeep.get("food", 0))
 	var carried := _sellable(state)
 	var free: float=maxf(0,float(core.capacity())-float(core.cargo_weight())) if not core is Dictionary and core!=null and core.has_method("capacity") else maxf(0,Expedition.capacity(state)-Expedition.cargo_weight(state))

@@ -48,6 +48,8 @@ static func report(state: Dictionary,world: Dictionary,route_distance: float=0.0
 	var capacity_value: float=capacity(state)
 	var weight: float=cargo_weight(state)
 	var wages: int=all_crew*Goods.SAILOR_WAGE
+	for specialist in state.get("specialists",[]):
+		if not specialist.get("discharged",false) and not specialist.get("lost",false):wages+=int(specialist.get("premiumPerDay",0))
 	var food_days: float=maxf(0,float(state.get("cargo",{}).get("food",0)))/maxf(0.01,all_crew*0.08) if all_crew>0 else 0.0
 	var funds: float=maxf(0,float(state.get("coins",0))-float(state.get("wageArrears",0)))
 	var affordable: float=funds/maxi(1,wages) if wages>0 else 0.0

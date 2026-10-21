@@ -1,9 +1,9 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.014)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.015)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 29328 bytes; extends Node2D
+game/scripts/main.gd: 30017 bytes; extends Node2D
   game/scripts/main.gd:261 toggle_pause()
   game/scripts/main.gd:265 toggle_fullscreen()
   game/scripts/main.gd:269 save_preferences()
@@ -16,25 +16,25 @@ game/scripts/main.gd: 29328 bytes; extends Node2D
   game/scripts/main.gd:352 buy_boat()
   game/scripts/main.gd:358 commission()
   game/scripts/main.gd:364 collect_boat()
-game/scripts/campaign.gd: 42830 bytes; extends RefCounted
-  game/scripts/campaign.gd:48 hull()
-  game/scripts/campaign.gd:54 port()
-  game/scripts/campaign.gd:60 faction()
-  game/scripts/campaign.gd:66 new_game()
-  game/scripts/campaign.gd:139 port_position()
-  game/scripts/campaign.gd:145 set_patrol_course()
-  game/scripts/campaign.gd:152 place_patrol()
-  game/scripts/campaign.gd:165 active_fleet()
-  game/scripts/campaign.gd:173 capacity()
-  game/scripts/campaign.gd:176 cargo_weight()
-  game/scripts/campaign.gd:179 expedition_report()
-  game/scripts/campaign.gd:186 freight_weight()
+game/scripts/campaign.gd: 45079 bytes; extends RefCounted
+  game/scripts/campaign.gd:51 hull()
+  game/scripts/campaign.gd:57 port()
+  game/scripts/campaign.gd:63 faction()
+  game/scripts/campaign.gd:69 new_game()
+  game/scripts/campaign.gd:146 port_position()
+  game/scripts/campaign.gd:152 set_patrol_course()
+  game/scripts/campaign.gd:159 place_patrol()
+  game/scripts/campaign.gd:172 active_fleet()
+  game/scripts/campaign.gd:180 capacity()
+  game/scripts/campaign.gd:183 cargo_weight()
+  game/scripts/campaign.gd:186 expedition_report()
+  game/scripts/campaign.gd:193 freight_weight()
 game/scripts/contracts.gd: 6169 bytes; extends RefCounted
   game/scripts/contracts.gd:5 available()
   game/scripts/contracts.gd:49 accept()
   game/scripts/contracts.gd:79 finish()
   game/scripts/contracts.gd:102 abandon()
-game/scripts/money.gd: 1521 bytes; extends RefCounted
+game/scripts/money.gd: 1646 bytes; extends RefCounted
   game/scripts/money.gd:4 move()
   game/scripts/money.gd:17 port_total()
   game/scripts/money.gd:25 total()

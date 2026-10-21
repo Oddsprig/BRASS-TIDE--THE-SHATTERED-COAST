@@ -57,6 +57,7 @@ static func owner_has_queued_replacement(state: Dictionary, owner_id: String) ->
 
 
 static func attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictionary, h: Dictionary, crew_count: int) -> Dictionary:
+	var was_empty: bool=NavalOrders.living_boats(owner).is_empty()
 	var boats_arr: Array = owner.get("boats", []) if owner.get("boats") is Array else []
 	var default_seq: int = boats_arr.size() + 1
 	var seq: int = int(owner.get("nextBoatSeq", default_seq))
@@ -85,6 +86,9 @@ static func attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictiona
 	var pat: Dictionary = NavalOrders.find_patrol(state, str(owner.get("id", "")))
 	if not pat.is_empty():
 		pat["active"] = true
+		if was_empty:
+			pat.x=port.x;pat.y=port.y;pat.from=port.id;pat.to=port.id;pat.progress=0.0;pat.holding=true
+			pat.course=[{"x":port.x,"y":port.y},{"x":port.x,"y":port.y}];pat.courseLength=0.0
 	return boat
 
 
@@ -110,7 +114,7 @@ static func advance_unstepped_npc_orders(state: Dictionary, step_index: int, _to
 			var cur_elapsed: float = float(ord.get("elapsedDays", 0.0))
 			var last_elapsed: float = float(ord.get("_lastTickElapsed", -1.0))
 			var booked_tick: int = int(ord.get("_bookedTick", -1))
-			if cur_tick > booked_tick and (step_index > 0 or is_equal_approx(cur_elapsed, last_elapsed)):
+			if cur_tick > booked_tick and is_equal_approx(cur_elapsed, last_elapsed):
 				if need_begin:
 					Construction.begin_day(p)
 					need_begin = false
@@ -144,6 +148,7 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 			var owner: Dictionary = NavalOrders.find_owner(state, npc_id)
 			if owner.is_empty() or NavalOrders.is_story_owner(owner):
 				continue
+			if not NavalOrders.living_boats(owner).is_empty() and str(owner.get("atPort",""))!=str(p.id):continue
 			var hid: String = str(ord.get("hull", ord.get("hullId", "bilge_punt")))
 			var h: Dictionary = NavalOrders.hull_spec(core, state, world, hid)
 			if h.is_empty():continue
@@ -212,6 +217,8 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 		p = NavalOrders.find_port(state, port_id)
 	if p.is_empty():
 		return {"ok": false, "reason": "no_harbor"}
+	if str(p.id)!=str(owner.homePort):return {"ok":false,"reason":"replacement_needs_home_yard"}
+	if not NavalOrders.living_boats(owner).is_empty() and str(owner.get("atPort",""))!=str(p.id):return {"ok":false,"reason":"survivors_must_reach_yard"}
 
 	var candidate_ids: Array = []
 	if not hull_id.is_empty():

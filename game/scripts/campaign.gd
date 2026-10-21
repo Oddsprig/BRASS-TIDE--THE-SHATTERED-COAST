@@ -18,6 +18,9 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const EscortOps=preload("res://scripts/escort_ops.gd")
+const FleetIdentity=preload("res://scripts/fleet_identity.gd")
+const FleetSupport=preload("res://scripts/fleet_support.gd")
 const TradeIntel=preload("res://scripts/trade_intel.gd")
 const TradeFlow=preload("res://scripts/trade_flow.gd")
 const NavalAI=preload("res://scripts/naval_ai.gd")
@@ -122,6 +125,10 @@ func new_game(seed_value: int = 1):
 	Politics.ensure(self)
 	NavalAI.ensure(state,data)
 	TradeIntel.ensure(state)
+	FleetIdentity.ensure(state)
+	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
+	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
+	if not state.has("battleSeq"):state.battleSeq=0
 	state.cargoManifest={}
 	state.surveyFoodCredit=0.0
 	state.wreckHazards={}
@@ -221,7 +228,10 @@ func travel_speed() -> float:
 		if s.sunk or not str(s.get("storedPort","")).is_empty():continue
 		if s.get("mothballed",false) or s.crew<s.crewMin or s.get("needsHarborRepair",false):tow_mass+=float(s.spec.size)
 		else:powered_mass+=float(s.spec.size)
-		if s.get("towed",false):tow_factor=minf(tow_factor,float(s.get("towSpeedFactor",1)))
+		if s.get("towed",false):
+			var best_tug: float=0.55
+			for tug in fleet:best_tug=maxf(best_tug,float(tug.spec.get("towSpeedFactor",0.55)))
+			tow_factor=minf(tow_factor,maxf(best_tug,float(s.get("towSpeedFactor",0.55))))
 	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
@@ -277,11 +287,13 @@ func step(dt: float):
 	for s in state.fleet:
 		if s.sunk or not str(s.get("storedPort","")).is_empty():
 			continue
+		s.supportRepairFactor=FleetSupport.repair_factor(self)
 		Damage.tick_ship(s, dt, {"inCombat": false})
 		if moving and not s.get("mothballed", false):
 			s.fuel = maxf(0.0, s.fuel - dt * (0.011 + s.spec.size * 0.0002) * maxf(0.2,float(s.spec.get("fuelUse",1.0))))
 		if s.sunk:
 			log_entry("%s was lost to flooding." % s.name)
+	FleetSupport.reconcile(self)
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s): return not s.sunk)
 	if state.fleet.is_empty():
@@ -325,6 +337,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 			Construction.begin_day(p)
 		for message in Fleets.tick(state.fleetOwners,state.ports,1.0).slice(0,2):
 			log_entry(str(message))
+		for message in FleetIdentity.tick(self,1):log_entry(str(message))
 		Harbor.tick_yards(self,1)
 		NavalLifecycle.daily(self)
 		TradeFlow.daily(self)
@@ -344,7 +357,8 @@ func apply_morale():
 	var factor: float = clampf(state.morale/85.0,0.35,1.0)
 	for boat in state.fleet:
 		# Morale scales the canonical fitted design, never a stale or serialized spec.
-		var base: Dictionary = fitted_spec(boat)
+		var base: Dictionary = FleetIdentity.effective(boat,fitted_spec(boat))
+		boat.spec=base.duplicate(true)
 		boat.economyFactor = factor
 		boat.spec.speed = float(base.speed)*factor
 		boat.spec.fireRate = float(base.fireRate)*factor
@@ -524,7 +538,7 @@ func fit_boat(boat: Dictionary, fresh: bool = false) -> void:
 		return
 	boat.baseSpec = base.duplicate(true)
 	Refits.ensure(boat,base)
-	boat.spec = Refits.effective_spec(base,boat.loadout)
+	boat.spec = FleetIdentity.effective(boat,Refits.effective_spec(base,boat.loadout))
 	var max_hp: float = maxf(1.0,float(boat.spec.get("hp",base.hp)))
 	if fresh:
 		boat.hp = max_hp # a newly built hull is delivered to its fitted design
@@ -582,6 +596,7 @@ func toggle_storage(uid: String) -> Dictionary:
 		b.mothballed=b.crew<b.crewMin
 		Manifest.allocate(state)
 		return ok("Boat collected. Hire sailors and provision it before activation.")
+	if not FleetSupport.aboard(self,uid).is_empty():return fail("Discharge specialists with their savings before storing this boat.")
 	if uid==state.flagship:return fail("Choose another active flagship before storing this boat.")
 	b.storedPort=p.id
 	if cargo_weight()>capacity()+0.001:
@@ -668,7 +683,9 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	var before: Dictionary=VoyageJobs._find(state,id).duplicate(true)
 	var result: Dictionary=VoyageJobs.abandon(self,id) if abandon else VoyageJobs.finish(self,id)
 	if result.ok:
-		if not abandon:Politics.job_completed(self,before)
+		if not abandon:
+			Politics.job_completed(self,before)
+			if before.get("kind","")!="bounty":FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),"survey" if before.get("kind","")=="survey" else "trade")
 		for contact in Contacts.list_contacts(state):
 			if contact.port==before.get("port",""):Contacts.record(state,contact.id,"job:"+id+(":abandoned" if abandon else ":paid"),-5 if abandon else 5)
 	Manifest.allocate(state)
@@ -680,20 +697,24 @@ func contract_ready() -> bool:
 func finish_contract() -> Dictionary:
 	var before: Dictionary=state.activeContract.duplicate(true)
 	var result: Dictionary=Contracts.finish(self)
-	if result.ok:Politics.job_completed(self,before)
+	if result.ok:
+		Politics.job_completed(self,before)
+		if before.get("kind","")=="delivery":FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),"trade")
 	return result
 
 func abandon_contract() -> Dictionary:
 	return Contracts.abandon(self)
 
 func battle_settled(result: String, enemy_specs: Array, context: Dictionary,physical_battle: Dictionary={}) -> Dictionary:
+	FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),result)
+	state.battleSeq=int(state.get("battleSeq",0))+1
 	var physical_wrecks: Array=[]
 	if not physical_battle.is_empty():
-		var source: String="battle:%d:%d"%[state.seed,state.wins+state.losses]
+		var source: String="engagement:%d:%d"%[state.seed,state.battleSeq]
 		physical_wrecks=Salvage.record_battle(self,physical_battle,source)
 		for ship in physical_battle.get("ships",[]):
 			if ship.get("sunk",false):ship.wreckRecorded=true
-		if result!="won":
+		if result!="won" or context.get("objectiveOnly",false):
 			state.wreckHazards[source]=str(context.get("ownerId",""))
 			while state.wreckHazards.size()>256:state.wreckHazards.erase(state.wreckHazards.keys()[0])
 		for record in physical_wrecks:
@@ -701,6 +722,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 			var live: Dictionary=Salvage.find_wreck(state,record.id)
 			for good in state.get("cargoManifest",{}).get(record.uid,{}):
 				if Goods.ITEMS.has(good):live.stores[good]=float(live.stores.get(good,0))+float(state.cargoManifest[record.uid][good])*0.5
+	FleetSupport.reconcile(self)
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s):return not s.sunk)
 	Manifest.allocate(state)
@@ -709,7 +731,8 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	var loot: int = 0
 	var salvage: Dictionary = {}
 	var owner: Dictionary = fleet_owner(str(context.get("ownerId","")))
-	if result == "won":
+	EscortOps.settled(self,result,context)
+	if result == "won" and not context.get("objectiveOnly",false):
 		state.wins += 1
 		state.kills += enemy_specs.size()
 		if not owner.is_empty():
@@ -729,7 +752,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 			for patrol in state.patrols:
 				if patrol.id == context.get("id",""):
 					patrol.active = false
-	else:
+	elif result!="won":
 		state.losses += 1
 		state.morale = maxf(10.0,state.morale-6)
 	Politics.settled(self,owner,result,context)
@@ -890,8 +913,13 @@ func restore(saved: Dictionary) -> Dictionary:
 		for b in owner.boats:
 			canonical_npc_boat(b)
 	for patrol in state.patrols:
-		set_patrol_course(patrol,port(patrol.from),port(patrol.to))
-		place_patrol(patrol)
+		# Saved chart position is authoritative; recompute a safe remaining route from there.
+		var saved_position: Dictionary={"x":patrol.x,"y":patrol.y}
+		patrol.course=Navigation.find_path(nav,saved_position,port(patrol.to))
+		patrol.courseLength=0.0
+		for i in range(1,patrol.course.size()):patrol.courseLength+=distance(patrol.course[i-1],patrol.course[i])
+		patrol.progress=0.0
+		patrol.x=saved_position.x;patrol.y=saved_position.y
 	state.path = incoming.get("path",[]).duplicate(true)
 	Manifest.allocate(state)
 	pending_days = 0
@@ -902,6 +930,10 @@ func restore(saved: Dictionary) -> Dictionary:
 	Politics.ensure(self)
 	NavalAI.ensure(state,data)
 	TradeIntel.ensure(state)
+	FleetIdentity.ensure(state)
+	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
+	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
+	if not state.has("battleSeq"):state.battleSeq=0
 	if not state.recoverable.is_empty() and not state.recoverable.get("claimed",true):
 		var legacy_site: Dictionary=state.position.duplicate(true)
 		legacy_site.id="legacy-recovery"

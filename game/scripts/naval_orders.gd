@@ -719,24 +719,10 @@ static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_po
 			if not dock_id.is_empty():
 				owner["route"] = [dock_id, home_id]
 			return home_id
-		var neighbor_id: String = ""
-		var best_dist: float = INF
-		for p_var in ports:
-			if p_var is Dictionary:
-				var p: Dictionary = p_var
-				var pid: String = str(p.get("id", ""))
-				if pid != home_id:
-					var d: float = port_dist(port_ref, p)
-					if d < best_dist:
-						best_dist = d
-						neighbor_id = pid
-		if neighbor_id.is_empty():
-			neighbor_id = home_id
-		var cur_purpose: String = "replace" if living_cnt < target_cnt else "repair"
-		build_order(state, owner, cur_purpose, neighbor_id, recovery_reason)
-		if not dock_id.is_empty() and neighbor_id != dock_id:
-			owner["route"] = [dock_id, neighbor_id]
-		return neighbor_id
+		var cur_purpose: String="replace" if living_cnt<target_cnt else "repair"
+		build_order(state,owner,cur_purpose,home_id,recovery_reason)
+		owner["route"]=[home_id,home_id]
+		return home_id
 
 	var kind: String = str(owner.get("kind", "patrol"))
 	var plan: Dictionary = {}
