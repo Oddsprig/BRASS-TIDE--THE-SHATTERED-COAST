@@ -1,3 +1,9 @@
+v0.009 SOURCE ACCEPTED — Island exploration
+- Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads.
+- Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages.
+- Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 21 October2026 — AUTHORIZED CAMPAIGN IMPLEMENTATION
 Owner authorized the entire0.008-0.018sequence, building each on its verified predecessor, with root + one Muse Wonder Full / one Argon High / one Grok4.7. v0.008 source passes24native suites; export has separate exact-tag receipts. In-game TXT notes are game/data/DEVELOPER NOTES.txt, shipped also beside the executable. Preserve older releases/saves/music; use scoped helper worktrees and background-only serialized tests. Next milestone0.009exploration follows0.008export.
 

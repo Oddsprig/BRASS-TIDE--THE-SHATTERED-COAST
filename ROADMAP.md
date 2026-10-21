@@ -1,3 +1,5 @@
+v0.009 SOURCE ACCEPTED — Island exploration. 26 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 # Brass Tide campaign roadmap
 
 v0.008 source accepted: expedition preparation, separate ownership/deployment, storage and parallel production pass24native suites. Exact-tag Windows export has separate receipts. Current implementation team is root plus one Muse Wonder Full, one Argon High and one Grok4.7, superseding the historical team below. Continue v0.009 after preserving v0.008.

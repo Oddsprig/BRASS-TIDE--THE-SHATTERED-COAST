@@ -4,6 +4,7 @@ const GOODS: Array=["food","logs","timber","ore","charcoal","iron","copper","sal
 const MAX_COINS: float=9007199254740991.0
 ## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
 const Refits=preload("res://scripts/refit.gd")
+const CampaignState=preload("res://scripts/campaign_state_validation.gd")
 ## Roster safety cap, not an ownership rule: 300 DP of 8-DP hulls is 37 boats, plus margin.
 const MAX_ROSTER: int=96
 const MAX_LOCKER: int=256
@@ -110,6 +111,7 @@ static func _boat(value,hulls: Dictionary,path: String,player: bool,modules: Dic
 	if not value.get("sunk") is bool: return path+" requires a sinking flag."
 	if value.has("mothballed") and not value.mothballed is bool: return path+" has invalid mothballed flag."
 	if value.has("storedPort") and not _text(value.storedPort,true):return path+" has an invalid stored harbor."
+	if value.has("shoreCrew") and not _number(value.shoreCrew,0.0,float(value.get("crew",0)),true):return path+" has an invalid shore party."
 	var error: String=_numbers(value,["maxHp","hp","armor","crew","crewMin","crewOptimal","crewMax","wounded","water","capacity","fire","engine","supplies","ammo","fuel","cooldown"],path)
 	if not error.is_empty(): return error
 	var fitted=_fitting(value,spec,modules,path)
@@ -170,6 +172,7 @@ static func _order(value,hulls: Dictionary,path: String) -> String:
 
 static func validate(saved: Dictionary,world: Dictionary) -> Dictionary:
 	var error: String=_validate(saved,world)
+	if error.is_empty():error=CampaignState.validate(saved,world)
 	return {"ok":error.is_empty(),"message":"Save schema is valid." if error.is_empty() else error}
 
 static func _validate(s: Dictionary,world: Dictionary) -> String:

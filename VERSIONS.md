@@ -1,3 +1,11 @@
+## v0.009 — Island exploration
+
+Candidate; verified test/export records follow.
+
+- Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads.
+- Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages.
+- Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+
 ## v0.008 — Expedition preparation
 
 Candidate; verified test/export records follow.

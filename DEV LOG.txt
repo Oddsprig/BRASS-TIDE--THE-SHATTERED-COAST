@@ -1,3 +1,12 @@
+v0.009 SOURCE ACCEPTED | Island exploration
+26 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.009 CANDIDATE | Island exploration
+- Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads.
+- Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages.
+- Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
 v0.008 SOURCE ACCEPTED | Expedition preparation
 24 native suites passed; source report saved. Portable export and publication require separate receipts.
 

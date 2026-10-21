@@ -256,6 +256,7 @@ func build_campaign_hud(size: Vector2):
 	button(left_body, "Cargo & supplies               C", open_cargo)
 	button(left_body, "Contracts & logbook          J", open_contracts)
 	button(left_body,"Prepare expedition",func():CampaignUI.expedition(self))
+	button(left_body,"Island charts & surveys     I",func():CampaignUI.islands(self))
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
 	if not host.core.state.activeContract.is_empty():

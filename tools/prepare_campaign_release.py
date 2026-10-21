@@ -43,7 +43,7 @@ def main():
         report += "\n".join(f"| {name} | {summary.replace('|', '/')} |" for name, summary in results)
         report += "\n\nThis report establishes source checks. Exact tagged export identity, native Windows startup/save/battle and file hashes are recorded separately in portable RELEASE.json. No human listening, subjective fun or GPU frame-pacing claim is made.\n"
         (ROOT / f"docs/TEST RESULTS v{version}.md").write_text(report, encoding="utf-8")
-        status = f"SOURCE ACCEPTED: {len(SUITES)} native suites pass; export verification pending."
+        status = f"SOURCE ACCEPTED: {len(SUITES)} native suites pass; portable export evidence is recorded separately in RELEASE.json."
     else:
         status = "SOURCE CANDIDATE: implementation underway; no new test/export claim."
     if old != args.build:
@@ -81,6 +81,11 @@ def main():
     text = code.read_text(encoding="utf-8")
     text = re.sub(r"^# Brass Tide v[\d.]+ source map", f"# Brass Tide v{version} source map", text)
     code.write_text(text, encoding="utf-8")
+    (ROOT / "BUILD STATUS.txt").write_text(f"BRASS TIDE BUILD STATUS\nCurrent source: v{version} / BUILD {args.build}\nMilestone: {args.title}\n{status}\n\nPlayable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v{version} DELIVERY VERIFIED.json.\nIn-game TXT notes: game/data/DEVELOPER NOTES.txt. Original campaign plan: docs/CAMPAIGN ROADMAP.txt.\nOwner authorized sequential builds0.008-0.018 with root, Muse Wonder Full, Argon High and Grok4.7.\nPrevious versions, original saves and supplied music must remain intact.\n", encoding="utf-8")
+    if args.accept_logs:
+        prepend(ROOT / "ROADMAP.md", f"v{version} SOURCE ACCEPTED — {args.title}. {len(SUITES)} native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.")
+        prepend(ROOT / "BUILD PLAN.txt", f"v{version} SOURCE ACCEPTED — {args.title}\n{features}\nNative checks accepted; preserve this build's verified export before advancing. Historical plans follow.")
+        prepend(ROOT / "TO BE TESTED.md", f"v{version} voluntary play: {args.title}\nAssess readability and usefulness of: {' '.join(args.feature)}\nAutomated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.")
     print(f"Recorded v{version}: {status}")
 
 

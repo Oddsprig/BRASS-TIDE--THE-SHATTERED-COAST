@@ -1,4 +1,16 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.009 — Island exploration
+SOURCE ACCEPTED: 26 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads.
+- Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages.
+- Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+
+Team: Codex root + one Muse Wonder Full + one Argon High + one Grok4.7.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.008 — Expedition preparation
 SOURCE ACCEPTED: 24 native suites pass; export verification pending.
 

@@ -2,6 +2,7 @@ extends Node2D
 
 const BoatArt = preload("res://scripts/boat_art.gd")
 const CombatArt = preload("res://scripts/combat_art.gd")
+const SiteArt=preload("res://scripts/island_site_art.gd")
 const GOLD = Color("dfbd7d")
 const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
@@ -532,6 +533,10 @@ func draw_campaign():
 	var target_id: String=str(world.activeContract.get("targetPort",""))
 	label_ports.sort_custom(func(a,b):return (3 if a.id==host.selected_port else 2 if a.id==target_id else 1 if a.id==world.lastPort else 0)>(3 if b.id==host.selected_port else 2 if b.id==target_id else 1 if b.id==world.lastPort else 0))
 	for p in label_ports:_harbor_label(p)
+	var knowledge: Dictionary=world.get("exploration",{})
+	for site in knowledge.get("catalog",[]):
+		var level: int=int(knowledge.get("sites",{}).get(site.id,{}).get("level",0))
+		if level>0:SiteArt.draw_site(self,site,level,str(host.selected_site)==str(site.id))
 	var fleet = host.core.active_fleet()
 	for i in range(fleet.size()):
 		var boat = fleet[i].duplicate()

@@ -27,6 +27,7 @@ var mode = "menu"
 var paused = false
 var speed = 1
 var selected_port = "brass_haven"
+var selected_site: String=""
 var battle: Dictionary = {}
 var battle_context: Dictionary = {}
 var battle_enemies: Array = []
@@ -163,6 +164,7 @@ func _physics_process(dt: float):
 					ui.button(body, "Accept harbor rescue", accept_rescue, true)
 				"encounter":
 					show_patrol_encounter(event.patrol)
+				"survey_complete":ui.toast("%s: %s"%[event.siteName,event.levelName])
 	elif mode == "battle" and not battle.is_empty() and not result_handled:
 		var started: int=Time.get_ticks_usec()
 		var aim = chart.world_at(get_global_mouse_position())
@@ -210,6 +212,7 @@ func _unhandled_input(event):
 			KEY_C: ui.open_cargo() if mode == "campaign" else null
 			KEY_J: ui.open_contracts() if mode == "campaign" else null
 			KEY_H: ui.open_guide()
+			KEY_I: ui.CampaignUI.islands(ui) if mode=="campaign" else null
 			KEY_E: ui.open_port() if mode == "campaign" else null
 			KEY_TAB: toggle_tactical() if mode == "battle" else null
 			KEY_HOME: chart.center_camera()
@@ -306,6 +309,11 @@ func click_chart(position: Vector2):
 		else:
 			sail_to(nearest.id)
 		return
+	for site in core.Exploration.sites(core.state):
+		if site.level>0 and chart.project(Vector2(site.x,site.y)).distance_to(position)<22:
+			selected_site=site.id
+			ui.CampaignUI.site(ui,site.id)
+			return
 	for patrol in core.state.patrols:
 		if patrol.active and chart.project(Vector2(patrol.x, patrol.y)).distance_to(position) < 15:
 			show_patrol_encounter(patrol.id)

@@ -1,4 +1,4 @@
-BRASS TIDE — ECONOMY MAP (generated; v0.008)
+BRASS TIDE — ECONOMY MAP (generated; v0.009)
 
 Fixed civilian pools/recipes/stock/ownership -> payroll, production, finite trade and resident/owner purses.
 

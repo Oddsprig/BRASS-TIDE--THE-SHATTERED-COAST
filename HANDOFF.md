@@ -1,3 +1,23 @@
+# v0.009 — Island exploration
+
+SOURCE ACCEPTED: 26 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads.
+- Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages.
+- Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.009.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.009 — Island exploration
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads.
+- Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages.
+- Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.009.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.008 — Expedition preparation
 
 SOURCE ACCEPTED: 24 native suites pass; export verification pending.

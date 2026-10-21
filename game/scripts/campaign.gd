@@ -14,6 +14,7 @@ const CoastMigration=preload("res://scripts/coast_migration.gd")
 const SaveValidation = preload("res://scripts/save_validation.gd")
 const Expedition=preload("res://scripts/expedition.gd")
 const Manifest=preload("res://scripts/hold_manifest.gd")
+const Exploration=preload("res://scripts/exploration.gd")
 # v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
 const Deployment = preload("res://scripts/deployment.gd")
 const Refits = preload("res://scripts/refit.gd")
@@ -27,6 +28,7 @@ var state: Dictionary = {}
 var nav: Dictionary = {}
 var events: Array = []
 var pending_days: int = 0
+var exploration_timer: float=0.0
 
 func _init(world_data: Dictionary):
 	data = world_data
@@ -106,6 +108,11 @@ func new_game(seed_value: int = 1):
 			owner.atPort = ""
 	state.coinSupply = Money.total(state)
 	state.cargoManifest={}
+	state.surveyFoodCredit=0.0
+	if int(data.get("MAP_REVISION",1))>=2:
+		Exploration.ensure(state,data)
+		Exploration.discover_near(state,state.position,1000.0)
+	else:state.exploration={"version":1,"catalog":[],"sites":{},"assignment":{},"leads":[],"log":[]}
 	Manifest.allocate(state)
 	log_entry("You inherited a Tinwake skiff, five sailors, and a debt-free start. The coast is yours to explore.")
 	events.clear()
@@ -197,6 +204,7 @@ func travel_speed() -> float:
 	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
+	if not state.get("exploration",{}).get("assignment",{}).is_empty():return fail("Recall your shore party before sailing away.")
 	if active_fleet().is_empty():
 		return fail("Crew a boat before setting sail.")
 	if active_fleet().size()>MAX_TRAVELING:return fail("Store boats at a harbor: up to %d active boats may accompany one expedition."%MAX_TRAVELING)
@@ -218,6 +226,12 @@ func step(dt: float):
 	if state.is_empty():
 		return
 	state.encounterGrace = maxf(0.0, state.encounterGrace - dt)
+	exploration_timer+=dt
+	if exploration_timer>=0.5 and int(data.get("MAP_REVISION",1))>=2:
+		exploration_timer=0.0
+		for site in Exploration.discover_near(state,state.position,620.0):
+			log_entry("Sighted %s. Open Island charts (I) to investigate."%site.name)
+	advance_surveys(dt/DAY_SECONDS)
 	var moving: bool = not state.path.is_empty()
 	if moving:
 		var step_left = travel_speed() * dt
@@ -303,6 +317,9 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		elif state.wageArrears == 0:
 			state.morale = minf(100.0,state.morale+1.0)
 		var food_need: float = float(costs.food)
+		var prepaid: float=minf(food_need,float(state.get("surveyFoodCredit",0)))
+		state.surveyFoodCredit=maxf(0,float(state.get("surveyFoodCredit",0))-prepaid)
+		food_need-=prepaid
 		if state.cargo.food >= food_need:
 			state.cargo.food -= food_need
 		else:
@@ -370,6 +387,42 @@ func wait_day():
 	state.day += 1.0
 	pending_days += 1
 	state.encounterGrace = 60.0
+	advance_surveys(1.0)
+
+func begin_survey(site_id: String, action: String) -> Dictionary:
+	var site: Dictionary=Exploration.catalog_site(state,site_id)
+	if site.is_empty() or distance(state.position,site)>180:return fail("Approach within180water units of this landing first.")
+	if not state.path.is_empty():return fail("Stop the fleet before landing your survey party.")
+	var result: Dictionary=Exploration.begin(state,site_id,action)
+	if not result.ok:return result
+	state.surveyFoodCredit=float(state.get("surveyFoodCredit",0))+float(result.food)
+	var left: int=int(result.crewNeeded)
+	for b in active_fleet():
+		var assigned: int=mini(left,maxi(0,int(b.crew)-ceili(b.wounded)-int(b.crewMin)))
+		b.shoreCrew=assigned
+		left-=assigned
+	Manifest.allocate(state)
+	log_entry("Landed %d sailors at %s; wages continue and assigned hands cannot man the boats."%[result.crewNeeded,result.siteName])
+	return result
+
+func recall_survey() -> Dictionary:
+	if state.exploration.assignment.is_empty():return fail("No shore party is assigned.")
+	state.exploration.assignment={}
+	for b in state.fleet:b.shoreCrew=0
+	state.cargo.food+=float(state.get("surveyFoodCredit",0))
+	state.surveyFoodCredit=0.0
+	Manifest.allocate(state)
+	return ok("Party recalled; unused prepaid rations returned. Survey tools already used are spent.")
+
+func advance_surveys(days: float) -> void:
+	if int(data.get("MAP_REVISION",1))<2:return
+	for event in Exploration.advance(state,days):
+		for b in state.fleet:b.shoreCrew=0
+		log_entry("%s: %s. %s"%[event.siteName,event.levelName,event.discovery])
+		events.append(event)
+		var lead: String=str(event.get("leadId",""))
+		var next: Dictionary=Exploration.catalog_site(state,lead)
+		if not next.is_empty():Exploration.discover_near(state,next,1.0)
 
 func trade(id: String, good: String, qty: int, side: String) -> Dictionary:
 	var p = current_port()
@@ -463,6 +516,7 @@ func points_refusal(spec: Dictionary) -> String:
 func set_boat_active(uid: String, enabled: bool) -> Dictionary:
 	var b: Dictionary=find_boat(uid)
 	if b.is_empty() or not str(b.get("storedPort","")).is_empty():return fail("Collect this boat from its harbor first.")
+	if int(b.get("shoreCrew",0))>0:return fail("Recall the shore party before changing this boat's status.")
 	if enabled and b.crew<b.crewMin:return fail("Hire the minimum crew before activation.")
 	if not enabled and b.uid==state.flagship:return fail("Choose another active flagship first.")
 	var before: bool=b.get("mothballed",false)
@@ -477,6 +531,7 @@ func toggle_storage(uid: String) -> Dictionary:
 	var b: Dictionary=find_boat(uid)
 	var p: Dictionary=current_port()
 	if b.is_empty() or p.is_empty() or not state.path.is_empty():return fail("Dock at a harbor to store or collect a boat.")
+	if int(b.get("shoreCrew",0))>0:return fail("Recall the shore party before storing its boat.")
 	var stored: String=str(b.get("storedPort",""))
 	if not stored.is_empty():
 		if stored!=p.id:return fail("This boat is stored at %s."%port(stored).name)
@@ -755,6 +810,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	state.path = incoming.get("path",[]).duplicate(true)
 	Manifest.allocate(state)
 	pending_days = 0
+	Exploration.ensure(state,data)
 	apply_morale()
 	if Money.total(state) != int(state.coinSupply):
 		return fail("The saved coin ledger is inconsistent; use your backup.")

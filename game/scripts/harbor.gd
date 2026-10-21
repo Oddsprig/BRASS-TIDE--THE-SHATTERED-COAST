@@ -124,6 +124,7 @@ static func sell(core, uid: String) -> Dictionary:
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty() or core.state.fleet.size() <= 1:
 		return core.fail("Keep one boat. Hull sales require a harbor.")
+	if int(boat.get("shoreCrew",0))>0:return core.fail("Recall its shore party before selling the hull.")
 	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("Visit the harbor storing this hull before selling it.")
 	var lost_capacity: float=float(boat.spec.cargo) if core.active_fleet().has(boat) else 0.0
 	if core.cargo_weight() > core.capacity()-lost_capacity:

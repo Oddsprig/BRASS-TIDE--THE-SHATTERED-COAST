@@ -1,3 +1,7 @@
+v0.009 voluntary play: Island exploration
+Assess readability and usefulness of: Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads. Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages. Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 # Human review questions — v0.007
 
 All agent tests remain background/headless, one instance at a time, without desktop input/focus.

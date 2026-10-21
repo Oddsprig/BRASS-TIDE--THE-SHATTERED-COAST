@@ -1,3 +1,7 @@
+v0.009 CANDIDATE — Island exploration
+Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads. Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages. Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
 v0.008 CANDIDATE — Expedition preparation
 Readable expedition cargo, endurance, payroll and return reserves. Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore. Actual cargo carrier manifests, sinking losses, protected legacy save migration and bounded parallel harbor production.
 Source acceptance and export receipts determine completion; every build advances0.001.

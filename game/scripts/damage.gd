@@ -50,7 +50,7 @@ static func set_policy(s: Dictionary, policy: String) -> String:
 	return s.policy
 
 static func get_status(s: Dictionary) -> Dictionary:
-	var able: float=maxf(0.0,s.crew-s.wounded)
+	var able: float=maxf(0.0,s.crew-s.wounded-maxf(0,float(s.get("shoreCrew",0))))
 	var area: float=sum_areas(s)
 	var inflow: float=area*CONSTANTS.inflowPerArea*(1.0+s.water/s.capacity*0.45)
 	var weights: Array={"balanced":[0.5,0.28,0.22],"bail":[0.15,0.65,0.2],"repair":[0.15,0.2,0.65],"fight":[0.85,0.1,0.05]}.get(s.policy,[0.5,0.28,0.22])
