@@ -27,11 +27,13 @@ static func roster(ui, body: Node):
 		ui.button(details,"Open fitting bay ↗",func():open(ui,uid),true)
 		ui.rule(body)
 
-static func preview(ui, body: Node, ship: Dictionary):
+static func preview(ui, body: Node, ship: Dictionary, select: Callable=Callable()):
 	var portrait = Portrait.new()
 	portrait.boat = ship
 	portrait.custom_minimum_size = Vector2(390,245)
 	portrait.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	portrait.show_sockets=true
+	if select.is_valid():portrait.mount_selected.connect(select)
 	body.add_child(portrait)
 	ui.label(body,"%d DP · %.0f SPEED · %.0f ARMOR · %.0f HULL" % [Deployment.cost(ship),ship.spec.speed,ship.armor,ship.maxHp],16,ui.GOLD)
 
@@ -42,7 +44,7 @@ static func open(ui, uid: String):
 		return
 	ui.modal_kind = "refit"
 	var body = ui.modal(ship.name,"FITTING BAY · WEAPONS · ENGINE · ARMOR",1100,850)
-	preview(ui,body,ship)
+	preview(ui,body,ship,func(index):choose(ui,uid,"weapon:%d"%index))
 	var port: Dictionary = ui.host.core.current_port()
 	var docked: bool = not port.is_empty()
 	ui.paragraph(body,"Purse: %s coins · Fleet: %d / 300 deployment points" % [ui.money(ui.host.core.state.coins),ui.host.core.fleet_points()],16,ui.TEAL)
@@ -55,7 +57,7 @@ static func open(ui, uid: String):
 		var slot: Dictionary = slots[i]
 		var module_id: String = str(fittings.weapons[i]) if i < fittings.weapons.size() else ""
 		var line = ui.row(body)
-		ui.paragraph(line,"%s · size %s\n%s" % [slot.get("label","Mount %d"%(i+1)),str(slot.get("size",1)),module_name(module_id)],16,ui.TEXT)
+		ui.paragraph(line,"%d · %s · size %s\n%s" % [i+1,slot.get("label","Mount %d"%(i+1)),str(slot.get("size",1)),module_name(module_id)],16,ui.TEXT)
 		ui.button(line,"Change weapon ↗",func():choose(ui,uid,"weapon:%d"%index)).disabled = not docked
 	for pair in [["engine","Propulsion",str(fittings.engine)],["armor","Hull protection",str(fittings.armor)]]:
 		var slot_id: String = pair[0]

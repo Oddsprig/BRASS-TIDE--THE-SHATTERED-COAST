@@ -10,6 +10,7 @@ extends SceneTree
 ## families visible. Exit code 0 = pass, 1 = failure. Default output:
 ## <repo>/qa/boat_gallery.json (res://../qa/boat_gallery.json).
 
+const Refit=preload("res://scripts/refit.gd")
 const BoatArt = preload("res://scripts/boat_art.gd")
 
 const PANEL_W := 640.0
@@ -144,21 +145,12 @@ func _run() -> void:
 	check(lod_counts[0] > lod_counts[1] and lod_counts[1] > lod_counts[2],
 		"LOD primitive counts decrease (%s)" % str(lod_counts))
 	# Fitted variant: one hull carrying all four weapon families at once.
-	var fitted: Dictionary = big.duplicate(true)
-	fitted.weaponMounts = [
-		{"kind": "gun", "x": 1.15, "y": 0.0, "angle": 0.0, "size": "small"},
-		{"kind": "cannon", "x": 0.45, "y": 0.0, "angle": 0.0, "size": "large"},
-		{"kind": "rocket", "x": -0.55, "y": 0.0, "angle": 0.0, "size": "medium"},
-		{"kind": "torpedo", "x": -0.15, "y": -0.55, "angle": 0.0, "size": "medium"},
-		{"kind": "torpedo", "x": -0.15, "y": 0.55, "angle": 0.0, "size": "medium"},
-	]
-	# Fitted positions follow combat's world-unit hardpoint contract.
-	for mount in fitted.weaponMounts:
-		mount.x *= float(big.size)
-		mount.y *= float(big.size)
+	var loadout: Dictionary=Refit.defaults(big)
+	loadout.weapons=["stock_primary","rapid_gun","fire_rocket","light_torpedo"]
+	var fitted: Dictionary=Refit.effective_spec(big,loadout)
 	var fitted_panel := _panel("fitted_all_families", "Fitted: gun+cannon+rocket+torpedoes", BoatArt.preview_boat(fitted, -0.45), 0)
 	panels.append(fitted_panel)
-	check(int(fitted_panel.stats.mounts) == 5, "fitted panel draws all 5 fitted mounts (4 families)")
+	check(int(fitted_panel.stats.mounts) == 4, "fitted panel draws all4 real sockets with4 families")
 	var mounts := BoatArt.mounts_of(fitted)
 	var kinds: Dictionary = {}
 	for m in mounts:

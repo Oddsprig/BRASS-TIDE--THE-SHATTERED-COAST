@@ -1,0 +1,21 @@
+BRASS TIDE — VERSION MAP
+20 October 2026 | current source BUILD 3 = v0.003
+
+done     v0.001  Functional original coast, finite economy, inherited skiff -> fleet, eight contracts and native PC build.
+done     v0.002  Functional autopilot, 300 points/side, paid weapon/engine/armor refits. Owner rejects current visual/audio quality; presentation repair is the current stage.
+done     tooling  Seven silent seeded battle presets, one-process short-test runner, territory concept generator, build plan, sound-source research and Lyria prompt text. This does not change playable version.
+
+coded    v0.003  Remove detached hull/shadow copies; connected water-contact hulls; proper title/Escape flow; configurable fleet battle laboratory and explicit dev mode.
+coded    v0.004  Distinct weapon/hit/splash/sinking effects; actual recorded weapon bank; all-boats typed audio events; engines/ambience and controlled fleet mix.
+coded    v0.005  10,400 x 7,200 territory target (16x area); wider ports/channels, regional camera/label LOD, bounded navigation and one-time save migration; travel/payroll/fuel checks.
+planned  v0.006  Full 24-hull structural identity pass, collision/visual coherence, supplied music integration, audio controls and first-hour polish; complete campaign/export verification.
+
+ORDER: fast fixtures -> solid boats/menus/lab -> combat/audio -> territory/save migration -> complete boat/music polish.
+Each release must change play, pass its targeted gates and preserve prior releases/saves. Integer BUILD increments by 1; displayed version increments 0.001. No dates or completion claims are assigned to unbuilt versions.
+See BUILD PLAN.txt for dependencies, actual files, acceptance gates and the current/planned tool distinction.
+
+Current source v0.003: gates passed; exact-tag portable export is recorded in its RELEASE.json. Releases are complete only when that file exists and verifies.
+
+Current source v0.004: gates passed; exact-tag portable export is recorded in its RELEASE.json. Releases are complete only when that file exists and verifies.
+
+Current source v0.005: gates passed; exact-tag portable export is recorded in its RELEASE.json. Releases are complete only when that file exists and verifies.

@@ -1,4 +1,4 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.005)
+BRASS TIDE — PRESENTATION MAP (generated; v0.006)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
@@ -10,18 +10,19 @@ game/scripts/chart.gd: 35685 bytes; extends Node2D
   game/scripts/chart.gd:91 noise()
   game/scripts/chart.gd:94 project()
   game/scripts/chart.gd:98 world_at()
-game/scripts/boat_art.gd: 32336 bytes; extends RefCounted
-  game/scripts/boat_art.gd:23 archetype()
-  game/scripts/boat_art.gd:113 palette()
-  game/scripts/boat_art.gd:159 mounts_of()
-  game/scripts/boat_art.gd:488 draw_boat()
-  game/scripts/boat_art.gd:581 draw_wake()
-  game/scripts/boat_art.gd:631 draw_trail()
-game/scripts/boat_portrait.gd: 2957 bytes; class_name BoatPortrait
-  game/scripts/boat_portrait.gd:32 set_spec()
-  game/scripts/boat_portrait.gd:27 _init()
-  game/scripts/boat_portrait.gd:35 _draw()
-game/scripts/interface.gd: 40327 bytes; extends CanvasLayer
+game/scripts/boat_art.gd: 30910 bytes; extends RefCounted
+  game/scripts/boat_art.gd:25 archetype()
+  game/scripts/boat_art.gd:80 palette()
+  game/scripts/boat_art.gd:126 mounts_of()
+  game/scripts/boat_art.gd:425 draw_boat()
+  game/scripts/boat_art.gd:524 draw_wake()
+  game/scripts/boat_art.gd:574 draw_trail()
+game/scripts/boat_portrait.gd: 3987 bytes; class_name BoatPortrait
+  game/scripts/boat_portrait.gd:40 set_spec()
+  game/scripts/boat_portrait.gd:35 _init()
+  game/scripts/boat_portrait.gd:43 _gui_input()
+  game/scripts/boat_portrait.gd:49 _draw()
+game/scripts/interface.gd: 40410 bytes; extends CanvasLayer
   game/scripts/interface.gd:42 setup()
   game/scripts/interface.gd:67 create_theme()
   game/scripts/interface.gd:87 box()
@@ -31,13 +32,13 @@ game/scripts/interface.gd: 40327 bytes; extends CanvasLayer
 game/scripts/tactics_ui.gd: 3406 bytes; extends RefCounted
   game/scripts/tactics_ui.gd:4 build()
   game/scripts/tactics_ui.gd:48 update()
-game/scripts/refit_ui.gd: 7838 bytes; extends RefCounted
+game/scripts/refit_ui.gd: 8014 bytes; extends RefCounted
   game/scripts/refit_ui.gd:6 module_name()
   game/scripts/refit_ui.gd:15 roster()
   game/scripts/refit_ui.gd:30 preview()
-  game/scripts/refit_ui.gd:38 open()
-  game/scripts/refit_ui.gd:73 choose()
-  game/scripts/refit_ui.gd:99 review()
+  game/scripts/refit_ui.gd:40 open()
+  game/scripts/refit_ui.gd:75 choose()
+  game/scripts/refit_ui.gd:101 review()
 game/scripts/finance_ui.gd: 7552 bytes; extends RefCounted
   game/scripts/finance_ui.gd:5 boat_quote()
   game/scripts/finance_ui.gd:24 good_recipe()

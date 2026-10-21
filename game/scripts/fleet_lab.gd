@@ -18,7 +18,7 @@ static func presets() -> Dictionary:
 
 static func preset(world: Dictionary,id: String) -> Dictionary:
 	var source: Dictionary=presets().get(id,presets().duel)
-	var config: Dictionary={"player":[],"enemy":[]}
+	var config: Dictionary={"player":[],"enemy":[],"formation":source.get("formation","")}
 	for team in ["player","enemy"]:
 		for spec_id in source[team]:
 			var item: Dictionary=entry(world,spec_id,int(source.get(team+"Repeat",1)))
@@ -62,4 +62,18 @@ static func create(world: Dictionary,config: Dictionary,seed_value: int) -> Dict
 				ship.ammo=float(ship.spec.ammoCapacity)
 				ship.fuel=120.0
 				fleets[team].append(ship)
-	return {"ok":true,"battle":Battle.create({"fleet":fleets.player,"enemyFleet":fleets.enemy,"seed":seed_value,"location":{"name":"Fleet battle laboratory"}})}
+	var battle: Dictionary=Battle.create({"fleet":fleets.player,"enemyFleet":fleets.enemy,"seed":seed_value,"location":{"name":"Fleet battle laboratory"}})
+	configure_formation(battle,str(config.get("formation","")))
+	return {"ok":true,"battle":battle}
+
+static func configure_formation(battle: Dictionary,formation: String):
+	if formation!="surrounded":return
+	var players: Array=battle.ships.filter(func(s):return s.team=="player")
+	var enemies: Array=battle.ships.filter(func(s):return s.team=="enemy")
+	if players.size()!=1 or enemies.size()!=4:return
+	var center=Vector2(1100,850)
+	players[0].x=center.x;players[0].y=center.y;players[0].angle=0.0
+	for i in range(enemies.size()):
+		var position: Vector2=center+Vector2.from_angle(i*TAU/4)*330.0
+		enemies[i].x=position.x;enemies[i].y=position.y
+		enemies[i].angle=(center-position).angle()

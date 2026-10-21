@@ -1,8 +1,8 @@
 BRASS TIDE — BUILD PLAN
-20 October 2026 | owner feedback after v0.002 | Godot / Windows PC
+20 October 2026 | cumulative v0.003–v0.006 implementation | Godot / Windows PC
 
 PURPOSE
-Fix the presentation the owner actually sees and hears, provide a proper fleet-testing front end, then expand this territory. Numerical test passes are not evidence of attractive boats or satisfying combat. The existing v0.002 playable files, saves and launcher remain intact during this planning/tooling step. BUILD stays 2 until the next playable release. Music prompts are text only; no music generation or audio purchase has been performed.
+This plan began after the v0.002 feedback. v0.003, v0.004 and v0.005 are now preserved verified Windows exports. The v0.006 source integrates24distinct boat silhouettes, separate physical weapon models and shared interchangeable sockets, independent all-team combat audio/effects,18owner music tracks, portable options, the fleet laboratory/dev tools and the expanded original coast. All old saves and releases remain intact. Release status is proven by each portable RELEASE.json, rather than by the planning language retained below. No music was generated or purchased by the agent; the owner supplied the Lyria output.
 
 OWNER DIRECTION
 Remove the terrible shapes beneath boats. Combat needs substantially better visuals and actual weapon sound recordings, not repeated pitched pings. Improve title/Escape menus. Add dev mode, short tests and scripts, and a title-menu mode for full fleet engagements with different boats. Make the same territory substantially larger and spread its ports out. Improve boat models. Prepare Lyria music prompts.
@@ -15,7 +15,7 @@ DECISIONS
 5. Expand the current 2,600 x 1,800 world toward 10,400 x 7,200 units: four times each dimension and sixteen times the area. Keep the ten existing port identities first; author wider channels, distinct coastal regions and larger dual-port coastlines. Do not just add blank border water.
 6. Start the player in a readable regional view. A whole-territory overview is a navigation tool, not the default tiny-village display.
 
-WHAT THE SCREENSHOTS AND CURRENT SOURCE SHOW
+BASELINE FINDINGS — v0.002 SCREENSHOTS AND SOURCE (historical)
 BoatArt._one_hull (game/scripts/boat_art.gd) draws a complete dark outline polygon at height -7 and another full outline at -2 before drawing the hull at positive heights. The projection moves those negative-height copies down the screen. This explains the detached hull/reflection appearance; it is not a fluid effect. Simply adding more planks or rivets will not repair that construction.
 
 The current combat effects in Chart.draw_battle are mostly expanding circles/arcs. Muzzle, splash and explosion effects share this treatment. Main._physics_process only detects flagship ammunition changes for shot sound. Sound._ready makes one generic synthetic shot, one boom and a bell. Enemy fire and allied secondary boats therefore lack individual firing feedback. This needs an event connection as well as better samples.

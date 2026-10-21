@@ -1,5 +1,7 @@
 extends RefCounted
 ## Paid, atomic fitting. Pure dictionaries; no campaign/economy dependency cycle.
+const Layout=preload("res://scripts/mount_layout.gd")
+const WeaponGeometry=preload("res://scripts/weapon_geometry.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Money=preload("res://scripts/money.gd")
 const Deployment=preload("res://scripts/deployment.gd")
@@ -53,14 +55,7 @@ static func _size(spec: Dictionary) -> int:
 	return 1 if size<19.0 else (2 if size<27.0 else 3)
 
 static func hardpoints(spec: Dictionary) -> Array:
-	var size: float=clampf(_number(spec.get("size"),14.0),8.0,48.0)
-	var mount_size: int=_size(spec)
-	var result: Array=[{"id":"mount0","label":"Main deck","size":mount_size,"x":size*0.65,"y":0.0,"arc":TAU,"angle":0.0},{"id":"mount1","label":"Aft deck","size":maxi(1,mount_size-1),"x":-size*0.60,"y":0.0,"arc":TAU,"angle":PI}]
-	if size>=20.0:
-		result.append({"id":"mount2","label":"Port deck","size":maxi(1,mount_size-1),"x":0.0,"y":-size*0.48,"arc":PI*1.25,"angle":-PI/2.0})
-	if size>=28.0:
-		result.append({"id":"mount3","label":"Starboard deck","size":maxi(1,mount_size-1),"x":0.0,"y":size*0.48,"arc":PI*1.25,"angle":PI/2.0})
-	return result
+	return Layout.hardpoints(spec)
 
 static func defaults(spec: Dictionary) -> Dictionary:
 	var weapons: Array[String]=[]
@@ -123,9 +118,9 @@ static func effective_spec(base: Dictionary,loadout: Dictionary) -> Dictionary:
 			for key in ["damage","fireRate","range"]: module[key]=_number(base.get(key),12.0 if key=="damage" else (2.0 if key=="fireRate" else 340.0))
 			module.speed=240.0 if module.kind=="torpedo" else (730.0 if module.kind=="rocket" else (620.0 if module.kind=="cannon" else 850.0))
 		var point: Dictionary=points[i]
-		var fixed: bool=not original and module.kind in ["rocket","torpedo"]
-		# Deck launchers point over the bow regardless of their deck position.
-		result.weaponMounts.append({"id":point.id,"moduleId":id,"kind":module.kind,"damage":module.damage,"fireRate":module.fireRate,"range":module.range,"speed":module.speed,"ammoCost":module.ammoCost,"size":module.size,"x":point.x,"y":point.y,"arc":minf(point.arc,0.9) if fixed else point.arc,"angle":0.0 if original or fixed else point.angle})
+		if original: module.size=point.size
+		var aim: Dictionary=Layout.weapon_aim(point,module.kind,original)
+		result.weaponMounts.append({"id":point.id,"moduleId":id,"kind":module.kind,"damage":module.damage,"fireRate":module.fireRate,"range":module.range,"speed":module.speed,"ammoCost":module.ammoCost,"size":module.size,"x":point.x,"y":point.y,"arc":aim.arc,"angle":aim.angle,"muzzleDistance":WeaponGeometry.muzzle(module.kind,float(base.size),int(module.size)),"barrelHeight":WeaponGeometry.height(module.kind,float(base.size),int(module.size))})
 	if not result.weaponMounts.is_empty():
 		var primary: Dictionary=result.weaponMounts[0]
 		result.weapon=primary.kind

@@ -577,6 +577,7 @@ static func emit_fire(st: Dictionary, ship: Dictionary, mount: Dictionary, mount
 		"team": str(ship.get("team", "player")),
 		"mountId": str(mount.get("id", "mount-%d" % mount_index)),
 		"mountIndex": mount_index,
+		"height":number(mount.get("barrelHeight"),9.0),
 		"x": muzzle.x,
 		"y": muzzle.y,
 		"angle": angle,
@@ -589,6 +590,7 @@ static func emit_fire(st: Dictionary, ship: Dictionary, mount: Dictionary, mount
 	})
 	add_effect(st, muzzle, "muzzle", {
 		"kind": "fire",
+		"height":number(mount.get("barrelHeight"),9.0),
 		"family": fam,
 		"projectileKind": proj_kind,
 		"variant": variant,

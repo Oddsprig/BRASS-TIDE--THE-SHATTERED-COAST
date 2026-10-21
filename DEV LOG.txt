@@ -1,3 +1,10 @@
+2026-10-20 | v0.006 source candidate | root + two Argon High worktrees
+Completed24distinct hull silhouettes/bridges/deck details; removed residual bow-outline foam and retained solid contact. Shared physical interchangeable sockets feed previews, paid fittings and combat.
+Eighteen supplied music tracks cover eight contexts and cycle all takes; saved audio/fullscreen/frame-cap/development options and portable drop-in workflow.
+Numbered clickable fitting sockets, live lab previews, independent per-mount aiming and exact barrel/tube projectile origins; explicit attack priority retained. Cumulative menus/lab, recorded audio and expanded coast retain predecessor releases/saves.
+21 native suites pass; Seven short fleet fixtures pass, including four surrounding threats exercising all4physical weapon arcs and40boats at300DP per side. Final native geometry audit:8128182polygons,0invalid;93gallery checks and33captured panels. Native Main full_300 ran360fixed frames without script/drawing errors. Actual owner saves remain byte-identical; no human audition or GPU FPS claim.
+Owner saves/releases preserved; source/tag/export sequence requires actual verification. No foreground/input test.
+
 2026-10-20 | v0.005 source candidate | root + two Argon High worktrees
 Expanded original coast to10400x7200world units,16times the previous area; all ten ports retained with much wider separation.
 World-aware camera/navigation, regional default view, territory overview and prioritized map labels.

@@ -609,7 +609,7 @@ func open_guide():
 		["Make the coast work for you", "Villages hire woodcutters, carpenters, miners, smelters and other trades. They need both inputs and payroll. Buy abundant goods and sell into shortages. Your cargo can restart a stalled workshop. A commissioned hull needs its full bill of materials, workforce and supervisors."],
 		["Build your fleet", "Buy completed hulls at a yard; the price of minimum crew is added. Recruit toward optimal crew for full efficiency. Drydock consumes repair kits and coins. Refill working stores from local stock, or buy reserves into the hold and load them. Victory may offer a battered hull to recover; it needs crew and repairs."],
 		["Save your voyage", "Autosaves happen on the campaign chart and after major actions. Manual saves are in the captain's menu. Saves live in a saves folder beside the portable game. Quick battle is separate from the campaign. If every boat is lost, a harbor rescue provides another cheap skiff on a funded harbor loan."],
-		["Free the Shatter Coast", "The eight story contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. v0.002 adds command battles, refits, deployment points and detailed boats. Later versions advance by 0.001."]
+		["Free the Shatter Coast", "The eight story contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. Use the main menu fleet laboratory to test any hulls and fittings without spending career coins. M shows the expanded coast. Click numbered fittings in the yard preview to select a mount."]
 	]:
 		label(body, section[0], 24, GOLD, true)
 		paragraph(body, section[1], 17)
@@ -634,30 +634,30 @@ func open_settings():
 	modal_kind = "settings"
 	var body = modal("Settings", "VIDEO · AUDIO · PERFORMANCE", 800, 650)
 	button(body, "Toggle fullscreen · F11", host.toggle_fullscreen)
-	button(body, "Sound: ON" if host.audio.enabled else "Sound: OFF", func(): host.audio.enabled = not host.audio.enabled; open_settings())
+	button(body, "Sound: ON" if host.audio.enabled else "Sound: OFF", func(): host.audio.enabled = not host.audio.enabled; host.save_preferences(); open_settings())
 	for pair in [["weapon_volume","Weapons"],["ambience_volume","Engines / ambience"]]:
 		label(body,pair[1],14,GOLD)
 		var volume_slider=HSlider.new()
 		volume_slider.min_value=0;volume_slider.max_value=1;volume_slider.step=0.01;volume_slider.value=host.audio.get(pair[0])
 		volume_slider.custom_minimum_size=Vector2(360,24)
 		var property: String=pair[0]
-		volume_slider.value_changed.connect(func(value):host.audio.set(property,value))
+		volume_slider.value_changed.connect(func(value):host.audio.set(property,value);host.save_preferences())
 		body.add_child(volume_slider)
-	button(body,"Music: "+("ON" if host.music.enabled else "OFF"),func():host.music.enabled=not host.music.enabled;open_settings())
+	button(body,"Music: "+("ON" if host.music.enabled else "OFF"),func():host.music.enabled=not host.music.enabled;host.save_preferences();open_settings())
 	paragraph(body,"Now playing: "+host.music.title(),15,GOLD)
 	var music_volume=HSlider.new()
 	music_volume.min_value=0;music_volume.max_value=1;music_volume.step=0.01;music_volume.value=host.music.volume
 	music_volume.custom_minimum_size=Vector2(360,28)
-	music_volume.value_changed.connect(func(value):host.music.volume=value)
+	music_volume.value_changed.connect(func(value):host.music.volume=value;host.save_preferences())
 	body.add_child(music_volume)
 	var music_actions=row(body)
 	button(music_actions,"Next track",func():host.music.next_track();open_settings())
 	button(music_actions,"Reload music folder",func():host.music.rescan();host.music.next_track();open_settings())
 	paragraph(body,"Add MP3, OGG or WAV files to music beside the game, or your Desktop's Brass Tide Music folder. New tracks are detected automatically.",14)
-	button(body, "Frame cap: %d" % Engine.max_fps, func(): Engine.max_fps = 60 if Engine.max_fps == 120 else 120; open_settings())
-	button(body,"Development tools: "+("ON · F9 overlay" if host.dev_enabled else "OFF"),func():host.dev_enabled=not host.dev_enabled;open_settings())
+	button(body, "Frame cap: %d" % Engine.max_fps, func(): Engine.max_fps = 60 if Engine.max_fps == 120 else 120; host.save_preferences(); open_settings())
+	button(body,"Development tools: "+("ON · F9 overlay" if host.dev_enabled else "OFF"),func():host.dev_enabled=not host.dev_enabled;host.save_preferences();open_settings())
 	paragraph(body,"If changing text flickers or disappears, close the game and use Stable Rendering.vbs in the portable folder. The normal launcher keeps separate rendering enabled.",14)
-	paragraph(body, "Godot 4.7.2 · 2D Mobile renderer\nSeparate rendering thread configured from the first build. Economy days run on worker snapshots; interface and rendering commands are submitted on the main thread. Water is a flat gradient with a small set of decorative highlights and wakes.", 16)
+	paragraph(body, "Options are saved beside the game. Music is optional and can be added while the game is running. A lower frame cap reduces power use.", 16)
 	paragraph(body, "CPU: %s\nThreads: %d · Adapter: %s\nCurrent frame rate: %d FPS" % [OS.get_processor_name(), OS.get_processor_count(), RenderingServer.get_video_adapter_name(), Engine.get_frames_per_second()], 15, TEAL)
 	button(body, "Back", close_modal if host.mode=="menu" else open_menu)
 

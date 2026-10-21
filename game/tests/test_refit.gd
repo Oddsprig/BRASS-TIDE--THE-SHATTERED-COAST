@@ -225,6 +225,20 @@ func autopilot_ahead(ship: Dictionary) -> Dictionary:
 	B.update(battle,1.0/30.0,{})
 	return battle
 
+func autopilot_surrounded(ship: Dictionary) -> Dictionary:
+	var enemies: Array=[]
+	for i in range(4):
+		var target: Dictionary=D.create_ship(world.HULLS[23],{"ammo":0.0})
+		target.spec.speed=0.0
+		enemies.append(target)
+	var battle: Dictionary=B.create({"fleet":[ship],"enemyFleet":enemies,"seed":19})
+	ship.x=500.0;ship.y=850.0;ship.angle=0.0
+	var positions: Array=[Vector2(850,850),Vector2(170,850),Vector2(500,520),Vector2(500,1180)]
+	for i in range(enemies.size()):
+		enemies[i].x=positions[i].x;enemies[i].y=positions[i].y
+	B.update(battle,1.0/30.0,{})
+	return battle
+
 func test_fitted_autopilot() -> void:
 	var state: Dictionary=fixture(23)
 	var port: Dictionary=state.ports[0]
@@ -239,8 +253,10 @@ func test_fitted_autopilot() -> void:
 	var points: Array=R.hardpoints(ship.baseSpec)
 	for index in [2,3]:
 		var mount: Dictionary=ship.spec.weaponMounts[index]
-		check(mount.x==points[index].x and mount.y==points[index].y and is_equal_approx(mount.arc,0.9) and mount.angle==0.0,"side-deck launcher keeps real position and fixed forward arc")
-	var battle: Dictionary=autopilot_ahead(ship)
+		check(mount.x==points[index].x and mount.y==points[index].y and is_equal_approx(mount.arc,0.9) and is_equal_approx(mount.angle,points[index].angle),"side-deck launcher keeps socket position and outward firing arc")
+	var forward_battle: Dictionary=autopilot_ahead(ship.duplicate(true))
+	check(not forward_battle.projectiles.any(func(shot):return shot.team=="player" and shot.mountId in ["mount2","mount3"]),"outward side launchers cannot fire through their deck at a forward-only target")
+	var battle: Dictionary=autopilot_surrounded(ship)
 	var fired: Dictionary={}
 	for shot in battle.projectiles:
 		if shot.team=="player": fired[shot.mountId]=shot.kind
@@ -250,8 +266,8 @@ func test_fitted_autopilot() -> void:
 		var fit: Dictionary=R.defaults(world.HULLS[23])
 		fit.weapons[1]=id
 		var aft: Dictionary=D.create_ship(R.effective_spec(world.HULLS[23],fit))
-		battle=autopilot_ahead(aft)
-		check(battle.projectiles.any(func(shot):return shot.team=="player" and shot.mountId=="mount1"),"aft-deck "+id+" fires alongside the stronger forward stock cannon")
+		battle=autopilot_surrounded(aft)
+		check(battle.projectiles.any(func(shot):return shot.team=="player" and shot.mountId=="mount1"),"aft-deck "+id+" fires at an aft threat alongside the stronger stock cannon")
 
 func _initialize() -> void:
 	world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))

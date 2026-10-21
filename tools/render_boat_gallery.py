@@ -29,6 +29,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('capture', type=Path)
     parser.add_argument('--out', required=True, type=Path)
+    parser.add_argument('--label',default='v0.006')
     args = parser.parse_args()
     data = json.loads(args.capture.read_text(encoding='utf-8'))
     assert data['failures'] == 0, 'Do not preview a failed capture as a passing gallery'
@@ -40,12 +41,12 @@ def main():
     title_font = ImageFont.truetype(str(font_path), 29) if font_path.exists() else font
     sheet = Image.new('RGB', (1920, 70+6*350), '#0b242f')
     draw = ImageDraw.Draw(sheet)
-    draw.text((24, 16), 'BRASS TIDE  v0.002  |  24 ORIGINAL HULLS', font=title_font, fill='#dfbd7d')
+    draw.text((24, 16), f'BRASS TIDE  {args.label}  |  24 ORIGINAL HULLS', font=title_font, fill='#dfbd7d')
     for i, panel in enumerate(panels[:24]):
         x, y = (i % 4)*480, 70+(i//4)*350
         sheet.paste(images[panel['id']].resize((480, 315), Image.Resampling.LANCZOS), (x, y))
         draw.text((x+14, y+321), panel['title'], font=font, fill='#dfdccc')
-    sheet.save(args.out/'Brass Tide v0.002 - Fleet gallery.png')
+    sheet.save(args.out/f'Brass Tide {args.label} - Fleet gallery.png')
     detail_panels = [p for p in panels if p['id'] in ('lod0','fitted_all_families','damaged','projectiles')]
     detail = Image.new('RGB', (1280, 910), '#0b242f')
     dd = ImageDraw.Draw(detail)
@@ -54,10 +55,10 @@ def main():
         x, y = (i % 2)*640, 60+(i//2)*425
         detail.paste(images[panel['id']], (x, y))
         dd.text((x+12, y+390), panel['title'], font=font, fill='#dfdccc')
-    detail.save(args.out/'Brass Tide v0.002 - Boat detail.png')
+    detail.save(args.out/f'Brass Tide {args.label} - Boat detail.png')
     wakes = [images[p['id']] for p in panels if p['id'].startswith('wake_frame')]
     if wakes:
-        wakes[0].save(args.out/'Brass Tide v0.002 - Wake study.gif', save_all=True, append_images=wakes[1:], duration=550, loop=0)
+        wakes[0].save(args.out/f'Brass Tide {args.label} - Wake study.gif', save_all=True, append_images=wakes[1:], duration=550, loop=0)
     print(f'Rendered {len(images)} captured panels; 24 hulls, detail and wake study: {args.out}')
 
 

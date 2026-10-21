@@ -1,6 +1,20 @@
 {
   "tracks": [
     {
+      "file": "An Empty Berth (Variation).mp3",
+      "bytes": 2116292,
+      "sha256": "697fb3886178ae5b00643b46acfe9ecdea9d406c0c86a381199b2157e1957acb",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "An Empty Berth.mp3",
+      "bytes": 2157490,
+      "sha256": "159a4519aad3887c24542ef458f1ebf4ce24a80451c66b41d049e0ff3e15a647",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
       "file": "Brass and Salt (Variation).mp3",
       "bytes": 3464324,
       "sha256": "6817a12f10311401f25d64bba34df41503e5b07ebcf2930c4c15bee19569f752",
@@ -25,6 +39,90 @@
       "file": "Channels at First Light.mp3",
       "bytes": 3624085,
       "sha256": "7f75a45c02c069e27f1c4c23247ec140820ebef505f21e502ec0287490da819d",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Iron Across the Water (Variation).mp3",
+      "bytes": 3504343,
+      "sha256": "1272df7e22b3bffa2919a9e2cddcdcf58fa780b3e580760820293bbc5c0c1ec4",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Iron Across the Water.mp3",
+      "bytes": 3668080,
+      "sha256": "e6e619f4ff7c95ca8ce8a5a9f63fb0071935577218da3c7f1d86e3fc08f627e0",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Shapes Through the Haze (Variation).mp3",
+      "bytes": 2741493,
+      "sha256": "ec6ae1b0f077f16466bb624c4d234b289083d3fdfd78eca99c51d2bc3c27df07",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Shapes Through the Haze.mp3",
+      "bytes": 2666340,
+      "sha256": "11931e8ddeb76766f1874af3f8c08ac70e8ef3f95c7646191485f2112177ee33",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Survivors Home (Variation).mp3",
+      "bytes": 1692186,
+      "sha256": "bdd3fb8837a445196e012ef04fc5f3328ad159cfaa03e33f119806075b0ce71c",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "Survivors Home.mp3",
+      "bytes": 2473519,
+      "sha256": "cbf9b3db76e19715824a04a40650ddae23f5b6cc8411f151f1a0df028fe32e8f",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "The Shatter Line (Variation).mp3",
+      "bytes": 3772387,
+      "sha256": "8ad1d80cf058af297aba6709456e275d5459055ce4e3d804c7775330c4ee64aa",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "The Shatter Line.mp3",
+      "bytes": 3405641,
+      "sha256": "da6f02c672592a97e7bbcefc29ae1fc1aadc61e1b45dd7b7df8c4f9510659bc3",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "The Shipwrights' Quay (1).mp3",
+      "bytes": 3111900,
+      "sha256": "2ebaff6592c3d7cd4d5c35a60b2e2aa8e2e7237727a91049c900422b9334edc7",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "The Shipwrights' Quay (Variation) (1).mp3",
+      "bytes": 3523000,
+      "sha256": "ec17a14dd22fe60910d1b99040ac7fd4f14243620c3a3014325b9b3a642205fe",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "The Shipwrights' Quay (Variation).mp3",
+      "bytes": 3523000,
+      "sha256": "5446e384ed2f146bc1f267508f1c20ae2743cf12360eeb26f70740e1e16ae641",
+      "source": "Owner supplied Lyria output",
+      "usage": "Owner requested integration; retain generation provenance with original output."
+    },
+    {
+      "file": "The Shipwrights' Quay.mp3",
+      "bytes": 3111900,
+      "sha256": "40d5679b0476d54fce563595ced7a4e283e9a3d8fffca29eb5e426b8000adae0",
       "source": "Owner supplied Lyria output",
       "usage": "Owner requested integration; retain generation provenance with original output."
     }

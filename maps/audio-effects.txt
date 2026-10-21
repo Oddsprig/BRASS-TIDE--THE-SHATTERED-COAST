@@ -1,4 +1,4 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.005)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.006)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 
@@ -12,19 +12,19 @@ game/scripts/sound.gd: 5525 bytes; extends Node2D
   game/scripts/sound.gd:21 _ready()
   game/scripts/sound.gd:57 _process()
   game/scripts/sound.gd:103 _schedule()
-game/scripts/music.gd: 4345 bytes; extends Node
+game/scripts/music.gd: 4480 bytes; extends Node
   game/scripts/music.gd:51 rescan()
   game/scripts/music.gd:66 load_track()
   game/scripts/music.gd:73 set_context()
   game/scripts/music.gd:79 next_track()
-  game/scripts/music.gd:110 title()
+  game/scripts/music.gd:111 title()
   game/scripts/music.gd:18 _ready()
   game/scripts/music.gd:29 _scan()
-  game/scripts/music.gd:97 _process()
+  game/scripts/music.gd:98 _process()
 game/scripts/combat_art.gd: 3874 bytes; extends RefCounted
   game/scripts/combat_art.gd:3 effect()
   game/scripts/combat_art.gd:50 wreck()
-game/scripts/combat_events.gd: 36525 bytes; extends RefCounted
+game/scripts/combat_events.gd: 37626 bytes; extends RefCounted
   game/scripts/combat_events.gd:14 number()
   game/scripts/combat_events.gd:19 weapon_family()
   game/scripts/combat_events.gd:35 projectile_kind()
@@ -37,15 +37,14 @@ game/scripts/combat_events.gd: 36525 bytes; extends RefCounted
   game/scripts/combat_events.gd:158 record_mount_shot()
   game/scripts/combat_events.gd:176 mount_shot_time()
   game/scripts/combat_events.gd:194 mount_shot_age()
-game/scripts/weapon_art.gd: 6543 bytes; extends RefCounted
-  game/scripts/weapon_art.gd:5 draw()
-  game/scripts/weapon_art.gd:71 mount_tier()
-  game/scripts/weapon_art.gd:65 _p()
-  game/scripts/weapon_art.gd:74 _face()
-  game/scripts/weapon_art.gd:82 _line()
-  game/scripts/weapon_art.gd:86 _box()
-  game/scripts/weapon_art.gd:97 _pad()
-  game/scripts/weapon_art.gd:106 _tube()
+game/scripts/weapon_art.gd: 6663 bytes; extends RefCounted
+  game/scripts/weapon_art.gd:7 draw()
+  game/scripts/weapon_art.gd:67 _p()
+  game/scripts/weapon_art.gd:73 _face()
+  game/scripts/weapon_art.gd:81 _line()
+  game/scripts/weapon_art.gd:85 _box()
+  game/scripts/weapon_art.gd:96 _pad()
+  game/scripts/weapon_art.gd:105 _tube()
 
 TESTS (game/tests/*.gd)
 test_audio, test_combat_events; tools/audit_boat_geometry.gd and tools/boat_gallery.gd

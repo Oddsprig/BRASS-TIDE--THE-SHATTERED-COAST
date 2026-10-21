@@ -9,3 +9,5 @@ game/saves/
 
 __pycache__/
 *.pyc
+
+/settings.json

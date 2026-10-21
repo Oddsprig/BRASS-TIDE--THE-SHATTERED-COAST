@@ -1,5 +1,7 @@
 extends RefCounted
 ## Pure fixed-step combat. State and RNG belong exclusively to the caller.
+const Refit=preload("res://scripts/refit.gd")
+const WeaponGeometry=preload("res://scripts/weapon_geometry.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const CombatEvents=preload("res://scripts/combat_events.gd")
@@ -106,6 +108,9 @@ static func create(options: Dictionary) -> Dictionary:
 	return st
 
 static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: int) -> void:
+	if not s.spec.get("weaponMounts") is Array:
+		s.spec=Refit.effective_spec(s.spec,Refit.defaults(s.spec))
+	s.localAimAngles={}
 	s.team=team
 	s.id="%s-%d-%s"%[team,index,s.type]
 	s.x=(520.0 if team=="player" else 1600.0)+(index%2)*85.0
@@ -244,6 +249,9 @@ static func _mounts(s: Dictionary) -> Array:
 			continue
 		var speed: float=240.0 if kind=="torpedo" else (730.0 if kind=="rocket" else (620.0 if kind=="cannon" else 850.0))
 		mounts.append({"id":str(raw.get("id","mount-%d"%mounts.size())),"moduleId":str(raw.get("moduleId","")),"size":int(clampf(Damage.number(raw.get("size"),1.0),1.0,4.0)),"kind":kind,"damage":clampf(Damage.number(raw.get("damage"),10.0),0.0,100000.0),"fireRate":clampf(Damage.number(raw.get("fireRate"),1.0),0.05,60.0),"range":clampf(Damage.number(raw.get("range"),400.0),1.0,5000.0),"speed":clampf(Damage.number(raw.get("speed"),speed),20.0,5000.0),"ammoCost":int(ceil(clampf(Damage.number(raw.get("ammoCost"),1.0),1.0,1000.0))),"x":clampf(Damage.number(raw.get("x")),-150.0,150.0),"y":clampf(Damage.number(raw.get("y")),-150.0,150.0),"arc":clampf(Damage.number(raw.get("arc"),TAU),0.01,TAU),"angle":wrapf(Damage.number(raw.get("angle")),-PI,PI),"legacy":legacy})
+		var last: Dictionary=mounts[-1]
+		last.muzzleDistance=WeaponGeometry.muzzle(kind,float(s.spec.get("size",16)),int(last.size))
+		last.barrelHeight=WeaponGeometry.height(kind,float(s.spec.get("size",16)),int(last.size))
 	return mounts
 
 static func _sync_cooldowns(s: Dictionary,count: int) -> void:
@@ -314,6 +322,21 @@ static func _clear_shot(st: Dictionary,start: Vector2,end: Vector2,radius: float
 				return false
 	return true
 
+static func _target_for_mount(st: Dictionary,s: Dictionary,mount: Dictionary,preferred: Dictionary) -> Dictionary:
+	var origin: Vector2=_mount_origin(s,mount)
+	var result: Dictionary={}
+	var best: float=INF
+	for candidate in st.ships:
+		if candidate.sunk or candidate.team==s.team:continue
+		var delta: Vector2=_lead(s,mount,candidate)-origin
+		if delta.length()>mount.range:continue
+		if absf(angle_difference(s.angle+mount.angle,delta.angle()))>mount.arc*0.5:continue
+		if not _clear_shot(st,origin,_pos(candidate),3.0):continue
+		if candidate==preferred:return candidate
+		var score: float=delta.length_squared()
+		if score<best:best=score;result=candidate
+	return result
+
 static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dictionary={}) -> void:
 	if s.sunk or st.projectiles.size()>=400:
 		return
@@ -327,8 +350,10 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 		var mount: Dictionary=mounts[i]
 		if s.weaponCooldowns[i]>0.0 or (i==0 and s.cooldown>0.0) or s.ammo<mount.ammoCost or st.projectiles.size()>=400:
 			continue
+		var mount_target: Dictionary=_target_for_mount(st,s,mount,target_ship) if not target_ship.is_empty() else {}
+		if not target_ship.is_empty() and mount_target.is_empty():continue
 		var origin: Vector2=_mount_origin(s,mount)
-		var aim: Vector2=_lead(s,mount,target_ship) if not target_ship.is_empty() else target
+		var aim: Vector2=_lead(s,mount,mount_target) if not mount_target.is_empty() else target
 		var delta: Vector2=aim-origin
 		if delta.length()>mount.range or delta.length()<0.001:
 			continue
@@ -337,19 +362,21 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 			continue
 		var kind: String="bullet" if mount.kind=="gun" else ("shell" if mount.kind=="cannon" else mount.kind)
 		var radius: float=5.0 if kind=="torpedo" else (3.0 if kind=="rocket" else 2.0)
-		var distance: float=_radius(s)+6.0 if mount.legacy else 6.0
+		var distance: float=float(mount.muzzleDistance)
 		var muzzle: Vector2=origin+Vector2.from_angle(bearing)*distance
 		if not _clear_shot(st,origin,aim,radius) or _blocked(st,muzzle,radius):
 			continue
 		s.turretAngle=bearing
+		if not s.get("localAimAngles") is Dictionary:s.localAimAngles={}
+		s.localAimAngles[str(mount.id)]=angle_difference(float(s.angle),bearing)
 		var angle: float=bearing+(st.rng.randf()-0.5)*(0.025 if kind=="torpedo" else 0.045)
 		var velocity: Vector2=Vector2.from_angle(angle)*mount.speed+Vector2(s.vx,s.vy)*0.2
-		st.projectiles.append({"x":muzzle.x,"y":muzzle.y,"px":muzzle.x,"py":muzzle.y,"vx":velocity.x,"vy":velocity.y,"team":s.team,"damage":mount.damage*(1.8 if kind=="torpedo" else 1.0),"kind":kind,"family":mount.kind,"variant":CombatEvents.weapon_variant(mount.kind,mount),"moduleId":str(mount.get("moduleId","")),"size":int(mount.get("size",1)),"life":mount.range/mount.speed,"age":0.0,"owner":s.id,"sourceUid":str(s.get("uid",s.id)),"sourceHull":str(s.get("type",s.spec.get("id","boat"))),"mountId":mount.id,"mountIndex":i,"angle":angle,"radius":radius,"penetration":18.0 if kind=="torpedo" else (4.0 if kind=="shell" else 0.0),"blastRadius":36.0 if kind=="rocket" else 0.0,"incendiary":kind=="rocket","height":0.0 if kind=="torpedo" else (14.0 if kind=="rocket" else 9.0),"trail":"foam" if kind=="torpedo" else ("smoke" if kind=="rocket" else "tracer")})
+		st.projectiles.append({"x":muzzle.x,"y":muzzle.y,"px":muzzle.x,"py":muzzle.y,"vx":velocity.x,"vy":velocity.y,"team":s.team,"damage":mount.damage*(1.8 if kind=="torpedo" else 1.0),"kind":kind,"family":mount.kind,"variant":CombatEvents.weapon_variant(mount.kind,mount),"moduleId":str(mount.get("moduleId","")),"size":int(mount.get("size",1)),"life":mount.range/mount.speed,"age":0.0,"owner":s.id,"sourceUid":str(s.get("uid",s.id)),"sourceHull":str(s.get("type",s.spec.get("id","boat"))),"mountId":mount.id,"mountIndex":i,"angle":angle,"radius":radius,"penetration":18.0 if kind=="torpedo" else (4.0 if kind=="shell" else 0.0),"blastRadius":36.0 if kind=="rocket" else 0.0,"incendiary":kind=="rocket","height":mount.barrelHeight,"trail":"foam" if kind=="torpedo" else ("smoke" if kind=="rocket" else "tracer")})
 		s.ammo=maxf(0.0,s.ammo-mount.ammoCost)
 		s.weaponCooldowns[i]=1.0/(mount.fireRate*maxf(0.15,status.weaponFactor))
 		if i==0:
 			s.cooldown=s.weaponCooldowns[0]
-		CombatEvents.emit_fire(st,s,mount,i,muzzle,angle,target_ship)
+		CombatEvents.emit_fire(st,s,mount,i,muzzle,angle,mount_target)
 
 static func _nearest(st: Dictionary,s: Dictionary) -> Dictionary:
 	var best: Dictionary={}

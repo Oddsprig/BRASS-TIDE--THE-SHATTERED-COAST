@@ -129,7 +129,8 @@ Keep rations and wages paid. Inspect the Hold and Economy screens for real purse
 
 CONTROLS
 WASD pans the camera in chart and battle; Shift pans faster. Scroll zooms.
-Home centers the camera. Space pauses. F11 toggles fullscreen.
+M shows the full territory; Home returns to the fleet's regional view.
+Space pauses. F11 toggles fullscreen.
 Chart: click a harbor/open water to sail; right-click cancels the course.
 E harbor, F fleet, C hold, J contracts, H guide. Dock for the Refit tab.
 Battle: click or drag to select boats, Shift adds to selection.
@@ -142,6 +143,8 @@ Withdraw fleet orders a twelve-second escape. Escape opens the captain's desk.
 REFITS
 Dock at a harbor and open Refit, or use a boat's refit button in Fleet.
 Fit compatible machine guns, cannons, rockets and torpedoes within the fitting budget.
+Click a numbered mount in the boat preview to choose its weapon. Empty sockets remain visible.
+Rear/side launchers point outward and automatically engage threats in their own arcs.
 Choose engine and armor packages. Review the physical materials and paid workers.
 Removed equipment stays in the boat's locker; owned parts still need paid installation.
 Refitting preserves existing damage, crew and stores. Coins circulate between purses.
@@ -161,6 +164,7 @@ Options enables development tools: F9 overlay, . single step while paused,
 F6 repair/refill laboratory fixtures, F8 export a diagnostic report.
 Drop MP3, OGG or WAV files into music/ beside the game or Desktop/Brass Tide Music.
 Options has music volume, next track and reload. The folder is scanned automatically.
+Audio, fullscreen, frame cap and development options persist in settings.json beside the game.
 Tracks may be sorted into title/travel/harbor/contact/combat/finale/victory/loss folders.
 
 FOLDERS

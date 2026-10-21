@@ -19,12 +19,12 @@ Reports include source game version, seed, points, reserves, numerical checks, w
 
 Each launch uses a unique report token and validates the scenario, seed and requested duration, so a leftover report cannot count as a fresh pass.
 
-Actual current check: all seven presets passed. Full_300 deploys forty boats at exactly300points per side. On this run it simulated6seconds in1,091ms of simulation work; p95 simulation tick8,446microseconds. Process launch/guard overhead is separate. This is not rendered FPS or an audio audition. Logs and JSON reports: work/qa/planning-fast-tools.
+Latest source check: all seven presets pass. The four-family fixture now places four threats around a paid fitted hull so outward side/rear launchers can exercise their actual arcs. Full_300 deploys40boats at300points per side. v0.006 candidate simulated6seconds in1,186ms of simulation work; p95 tick10,650microseconds. Launch/guard overhead is separate. This is CPU simulation evidence, not rendered FPS or a listening audition. Logs: work/qa/v006-fast-final.
 
 Territory concept tool:
   python tools/plan_territory.py --out "../Brass Tide - Next build plan"
-It creates a planning PNG and coordinate draft from the existing map and confirms the playable world file bytes are unchanged. The placement draft does not prove route safety or save migration.
+Historical planning tool: it deliberately requires the v0.002 geometry. The playable v0.005+ world now contains the expanded geography and LEGACY_MAP. Do not rerun it against the expanded world as if it were a second expansion.
 
 Already available: tools/check_game.py --only <suite...> for targeted native checks; tools/boat_gallery.gd and render_boat_gallery.py for exact code-art previews; tools/verify_legacy_save.gd for read-only save checks.
 
-Planned with the next builds: in-game fleet builder and dev overlay; effect capture/replay, map reachability/economics lint and audio/provenance/voice-budget checks. The new headless scripts are working now; those player-facing menu tools have not yet been added to the v0.002 executable.
+Implemented: title-menu fleet builder, compatible live fitting previews, seeded replay/results, opt-in F9 tools, audio codec/event/voice checks, map migration checks and21native suites. --qa-lab=full_300 is an explicit launch hook for a silent native Main test, distinct from the pure CPU benchmark. Geometry audit covers every hull at360headings and threeLODs; the gallery records the exact boat drawing primitives for software raster inspection.

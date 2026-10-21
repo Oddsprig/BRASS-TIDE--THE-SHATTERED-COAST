@@ -6,6 +6,14 @@ extends Control
 ## set_spec(spec) to preview any hull/fitted spec directly.
 
 const BoatArt = preload("res://scripts/boat_art.gd")
+const Layout=preload("res://scripts/mount_layout.gd")
+signal mount_selected(index: int)
+var _socket_points: Array=[]
+var show_sockets: bool=false:
+	set(value):
+		show_sockets=value
+		mouse_filter=Control.MOUSE_FILTER_STOP if value else Control.MOUSE_FILTER_IGNORE
+		queue_redraw()
 
 var boat: Dictionary = {}:
 	set(value):
@@ -32,6 +40,12 @@ func _init() -> void:
 func set_spec(spec: Dictionary) -> void:
 	boat = BoatArt.preview_boat(spec, display_angle)
 
+func _gui_input(event: InputEvent) -> void:
+	if show_sockets and event is InputEventMouseButton and event.pressed and event.button_index==MOUSE_BUTTON_LEFT:
+		for i in range(_socket_points.size()):
+			if event.position.distance_to(_socket_points[i])<=17.0:
+				mount_selected.emit(i);accept_event();return
+
 func _draw() -> void:
 	var rect := Rect2(Vector2.ZERO, size)
 	draw_rect(rect, Color("14313e"))
@@ -50,10 +64,9 @@ func _draw() -> void:
 	var display: Dictionary = boat.duplicate()
 	display.x = 0.0
 	display.y = 0.0
-	if not display.has("angle"):
-		display.angle = display_angle
-	if not display.has("turretAngle"):
-		display.turretAngle = float(display.angle) + 0.35
+	display.angle=display_angle
+	display.localAimAngles={}
+	display.turretAngle=display_angle
 	display.vx = 0.0
 	display.vy = 0.0
 	# Fit: hull length in world units is ~4.4 * spec.size (command is longest).
@@ -66,7 +79,17 @@ func _draw() -> void:
 		"accent": accent, "enemy": enemy, "lod": 0, "clock": 0.0,
 		"px": maxf(4.0, k * float(spec.get("size", 16))), "enlargement": 1.0})
 	var font := get_theme_default_font()
-	if font != null:
+	_socket_points=[]
+	if show_sockets:
+		var sockets: Array=Layout.hardpoints(spec)
+		for i in range(sockets.size()):
+			var socket: Dictionary=sockets[i]
+			var point: Vector2=projector.call(Vector2(socket.x,socket.y).rotated(display_angle),10.0)
+			_socket_points.append(point)
+			draw_arc(point,13.0,0,TAU,20,accent,1.5,true)
+			draw_circle(point+Vector2(0,18),9,Color("0b242f"))
+			if font!=null:draw_string(font,point+Vector2(-4,22),str(i+1),HORIZONTAL_ALIGNMENT_LEFT,-1,11,accent)
+	if font != null and size.y>=100:
 		var label := str(spec.get("name", spec.get("id", "Boat")))
 		var sub := (str(spec.get("role", "")) + " · " + BoatArt.archetype(spec)).to_upper()
 		draw_string(font, Vector2(12, 20), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("e6dfc6"))

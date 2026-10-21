@@ -82,10 +82,11 @@ func next_track():
 	if pool.is_empty():pool=tracks.filter(func(t):return t.role not in ["victory","loss"])
 	if pool.is_empty():return
 	var previous: String=str(last_by_context.get(context,current))
-	var candidates=pool.filter(func(t):return t.path!=previous)
-	if candidates.is_empty():candidates=pool
-	# Rotating order is deterministic and prevents adjacent repeats where possible.
-	var track: Dictionary=candidates[0]
+	var next_index: int=0
+	for i in range(pool.size()):
+		if pool[i].path==previous:next_index=(i+1)%pool.size();break
+	# Cycle the entire role pool, including every new variation, without adjacent repeats.
+	var track: Dictionary=pool[next_index]
 	var stream: AudioStream=load_track(track.path)
 	if stream==null or stream.get_length()<=0:return
 	active=1-active

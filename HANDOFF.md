@@ -1,3 +1,13 @@
+# Active sequential build v0.006
+
+Owner authorizes v0.003–v0.006 in order, root + exactly two Argon High helpers. Current source implements:
+- Completed24distinct hull silhouettes/bridges/deck details; removed residual bow-outline foam and retained solid contact. Shared physical interchangeable sockets feed previews, paid fittings and combat.
+- Eighteen supplied music tracks cover eight contexts and cycle all takes; saved audio/fullscreen/frame-cap/development options and portable drop-in workflow.
+- Numbered clickable fitting sockets, live lab previews, independent per-mount aiming and exact barrel/tube projectile origins; explicit attack priority retained. Cumulative menus/lab, recorded audio and expanded coast retain predecessor releases/saves.
+
+21 native suites pass. Seven short fleet fixtures pass, including four surrounding threats exercising all4physical weapon arcs and40boats at300DP per side. Final native geometry audit:8128182polygons,0invalid;93gallery checks and33captured panels. Native Main full_300 ran360fixed frames without script/drawing errors. Actual owner saves remain byte-identical; no human audition or GPU FPS claim.
+Next: verify clean tagged release/export, then the next sequential milestone. All old releases/owner files stay intact. Music source is music/ and Desktop/Brass Tide Music; collect only owner-supplied tracks. No foreground/input tests.
+
 # Active sequential build v0.005
 
 Owner authorizes v0.003–v0.006 in order, root + exactly two Argon High helpers. Current source implements:

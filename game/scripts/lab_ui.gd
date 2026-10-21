@@ -42,7 +42,7 @@ static func open(ui):
 			var item: Dictionary=host.lab_config[team][i]
 			var spec: Dictionary=Lab.hull(host.data,item.hull)
 			var row=ui.row(col)
-			var portrait=Portrait.new();portrait.set_spec(spec);portrait.custom_minimum_size=Vector2(86,53)
+			var portrait=Portrait.new();portrait.set_spec(Refit.effective_spec(spec,item.loadout));portrait.custom_minimum_size=Vector2(86,53)
 			row.add_child(portrait)
 			var text=ui.column(row)
 			ui.label(text,spec.name,16,ui.TEXT)
@@ -83,7 +83,7 @@ static func edit(ui,team: String,index: int):
 	var draft: Dictionary=item.loadout.duplicate(true)
 	ui.modal_kind="lab"
 	var body=ui.modal(spec.name,"LABORATORY FITTING · NO COINS SPENT",820,730)
-	var portrait=Portrait.new();portrait.set_spec(spec);portrait.custom_minimum_size=Vector2(600,130);body.add_child(portrait)
+	var portrait=Portrait.new();portrait.set_spec(Refit.effective_spec(spec,draft));portrait.show_sockets=true;portrait.custom_minimum_size=Vector2(600,190);body.add_child(portrait)
 	var cat: Dictionary=Refit.catalog()
 	var mounts: Array=Refit.hardpoints(spec)
 	for i in range(mounts.size()):
@@ -91,13 +91,13 @@ static func edit(ui,team: String,index: int):
 		var choices: Array=[]
 		for id in cat.weapons:
 			if cat.weapons[id].size<=mounts[i].size and (id!="stock_primary" or i==0): choices.append({"id":id,"label":cat.weapons[id].name})
-		picker(body,choices,draft.weapons[i],func(id):draft.weapons[i]=id)
+		picker(body,choices,draft.weapons[i],func(id):draft.weapons[i]=id;refresh_preview(portrait,spec,draft))
 	for slot in ["engine","armor"]:
 		ui.label(body,slot.capitalize(),14,ui.GOLD)
 		var choices: Array=[]
 		var group: Dictionary=cat.engines if slot=="engine" else cat.armor
 		for id in group: choices.append({"id":id,"label":group[id].name})
-		picker(body,choices,draft[slot],func(id):draft[slot]=id)
+		picker(body,choices,draft[slot],func(id):draft[slot]=id;refresh_preview(portrait,spec,draft))
 	var status=ui.paragraph(body,"The normal hardpoint sizes and fitting-point budget apply.",14)
 	ui.button(body,"Apply fitting",func():
 		var checked: Dictionary=Refit.normalize(spec,draft)
@@ -105,6 +105,10 @@ static func edit(ui,team: String,index: int):
 		else: status.text=checked.message
 	,true)
 	ui.button(body,"Cancel",func():open(ui))
+
+static func refresh_preview(portrait,spec: Dictionary,draft: Dictionary):
+	var fit: Dictionary=Refit.normalize(spec,draft)
+	if fit.ok:portrait.set_spec(Refit.effective_spec(spec,fit.loadout))
 
 static func results(ui):
 	var host=ui.host

@@ -1,44 +1,24 @@
-# Active source v0.005
+# Brass Tide v0.006 source map
 
-Implemented additions: fleet_lab.gd and lab_ui.gd own normal300point fixtures/builder/results; dev_tools.gd is explicit opt-in lab tooling; music.gd loads portable/Desktop music at runtime. Main isolates/restores career objects. Release/check runners serialize engine processes. Read generated maps and maps/development.txt for older-tool context. Later system additions are recorded below.
+The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
 
-# Active source v0.004
+- main.gd: title/career/lab lifetime, WASD camera and commander input, fixed-step battle, worker publication, portable saves/options and music context.
+- campaign.gd, contracts.gd, money.gd: voyages, finite real purses, funded contracts, canonical fleets, ownership budget and restore.
+- economy.gd, industry_data.gd, goods.gd, construction.gd, harbor.gd, fleet_economy.gd:100coin wage anchor, paid input chains/experts/construction, NPC budgets, crew savings and actual material/stores trades.
+- damage.gd: numerical crew jobs, breaches/flooding/pumps/bailing, finite supplies/repairs, fire/wounds/engines and sinking.
+- battle.gd, deployment.gd, combat_events.gd: normal300DP, preserved reserves, autopilot/orders, independent mount targets/aim, swept impacts and bounded all-team events/effects/wrecks.
+- refit.gd: compatible paid weapon/engine/armor installations, exact bill, stable IDs and finite lockers. mount_layout.gd owns shared sockets/structure; weapon_geometry.gd owns barrel/tube dimensions.
+- hull_profiles.gd, boat_art.gd, weapon_art.gd:24original silhouettes, solid hull contact, separate detailed weapon models, threeLODs and bounded cheap wakes/trails. Numerical specs are never replaced by art data.
+- chart.gd, navigation.gd, coast_migration.gd:10400x7200coast, regional/territory camera/priority labels, bounded water routes, copy-first revision migration with original port IDs and unchanged purses.
+- interface.gd, tactics_ui.gd, finance_ui.gd, refit_ui.gd, boat_portrait.gd: title/Escape, wages/markets, fleet orders, clickable numbered physical mounts and the same fitted boat geometry.
+- fleet_lab.gd, lab_ui.gd, dev_tools.gd:24hulls/compatible fittings,300DPbuilder, deterministic fixtures/replay/results, career isolation and explicit opt-in short-test tools.
+- sound.gd, combat_art.gd: six CC0 recording families/three cuts each, bounded32voice spatial pool, short distinct muzzle/impact/water effects and staged sinking. Quiet engine bed is original/procedural.
+- music.gd, preferences.gd:18owner-supplied Lyria tracks in eight roles, complete variation cycles, live portable/Desktop scan and separate persistent presentation settings.
+- game/tests/:21native suites. tools/check_game.py serializes them with isolated APPDATA and per-suite timeouts; script errors fail even on exit0.
+- tools/qa_brass.py, fleet_bench.gd, bench_scenarios.json: seven short isolated CPU benchmarks including40boats at300DPper side and physical outward-arc coverage.
+- tools/boat_gallery.gd, render_boat_gallery.py, audit_boat_geometry.gd: exact code drawing capture/software PNG/GIF and360heading native polygon checks.
+- tools/sync_music.py, verify_legacy_save.gd: owner audio copy/hash manifest and read-only real-save migration verification.
+- tools/release_game.py: clean exact-tag native Windows export, icon/PCK/menu/campaign/save/battle checks, RELEASE.json and portable ZIP.
+- tools/publish_github.py: verified exact repository, clean main/tag ancestry, atomic non-forced publish of all playable tags and exact remote verification. No interactive sign-in UI.
 
-Implemented additions: fleet_lab.gd and lab_ui.gd own normal300point fixtures/builder/results; dev_tools.gd is explicit opt-in lab tooling; music.gd loads portable/Desktop music at runtime. Main isolates/restores career objects. Release/check runners serialize engine processes. Read generated maps and maps/development.txt for older-tool context. Later system additions are recorded below.
-
-# Active source v0.003
-
-Implemented additions: fleet_lab.gd and lab_ui.gd own normal300point fixtures/builder/results; dev_tools.gd is explicit opt-in lab tooling; music.gd loads portable/Desktop music at runtime. Main isolates/restores career objects. Release/check runners serialize engine processes. Read generated maps and maps/development.txt for older-tool context. Later system additions are recorded below.
-
-# Native source map — v0.002
-
-The playable game is game/. dist/ and root tests/*.cjs preserve the historical browser prototype. Runtime scripts below are in game/scripts/. Generated maps contain verified file/line symbols; tools/update_maps.py refreshes them.
-
-- project.godot/main.tscn: native Windows entry, Separate rendering and fixed 60Hz physics.
-- main.gd: scene/input, WASD camera, AI/manual modes, selection/orders, tactical pause, worker publication and portable saves.
-- campaign.gd: voyages, canonical fitted boats, 300-point ownership, morale, real hull/crew/salvage/loan transactions and read-only-input restore.
-- contracts.gd/money.gd: funded escrow, freight/rewards, integer purse transfers and complete coin counts.
-- damage.gd: numerical crew allocation, breaches, water inflow/bailing/pumps, finite patching, wounds/fire/engines and sinking.
-- battle.gd/deployment.gd: 300 points/side with preserved reserves, default autopilot, orders, optional manual flagship, independent weapon mounts, led swept projectiles, arcs, shore collision and DPS-aware engagement spacing.
-- refit.gd: hardpoints, fitting budgets, four weapon families, engines/armor, exact itemized costs, real stocks/shared workers, atomic installation and finite module lockers.
-- goods.gd/industry_data.gd/economy.gd: sixteen paid input chains, 100 coins per sailor-day, finite resident/business/expert/government purses and workforce.
-- fleet_economy.gd: NPC owned boats, operating/crew purses, payroll, cargo/trade, finite stores/repairs and morale.
-- construction.gd/harbor.gd: physical hull bills, whole machinery, labor/supervision escrow, shared yard capacity, hires, repairs, stores and sales. Fitted magazines buy ammunition; fitting supplies none.
-- navigation.gd: bounded water-only routes around the original coast.
-- chart.gd/boat_art.gd: isometric coast/boats, seven hull silhouettes, fitting-aware mounts, damage marks, bounded fading wakes and trails, culling and three LODs. Flat decorative water.
-- boat_portrait.gd: same BoatArt geometry in fleet/fitting previews.
-- interface.gd/finance_ui.gd/tactics_ui.gd/refit_ui.gd: current title/harbor/fleet/finance/guide/command/fitting UI. Currency labels say coins; internal saved cash keys remain compatible.
-- sound.gd and game/assets/: original generated sound and original icon/vector art; no animated crew.
-- game/data/world.json: 24 original hulls, 10 ports, 4 factions, 8 story contracts and islands. tools/build_data.cjs regenerates current build/currency metadata.
-- version.gd: integer BUILD2 displays0.002. export_presets.cfg: native x86_64, dev tests/tools/saves excluded.
-- game/tests/:15 current bounded native suites; superseded pre-economy campaign fixture is retained as history.
-- tools/check_game.py: sequential hidden/headless runner, 60s process limit, rejects script errors even on exit0.
-- tools/boat_gallery.gd + render_boat_gallery.py: capture exact BoatArt primitives, software raster PNG/GIF preview; no GPU/FPS claim.
-- tools/verify_legacy_save.gd: read-only real portable save migration check.
-- tools/release_game.py: clean exact-tag export, native standalone smoke checks, icon, manifests and Windows ZIP.
-- tools/publish_github.cmd: verified origin, preserved v0.001 tag, current annotated tag, clean main/tagged game check; non-force atomic main/tag push and remote verification.
-
-Maps: campaign, combat, economy, construction, navigation, presentation (each under80lines). Current evidence: docs/TEST RESULTS v0.002.md and separate raw/helper verdict. Human play questions: TO BE TESTED.md.
-
-
-Current development additions (playable game remains v0.002): BUILD PLAN.txt and VERSION MAP.txt define planned stages; docs/audio holds text music prompts and recorded-SFX research. tools/qa_brass.py runs tools/fleet_bench.gd against shared tools/bench_scenarios.json in isolated headless fixtures; tools/plan_territory.py emits a concept/draft without changing world data. See maps/development.txt and docs/FAST DEV TOOLS.txt. In-game lab/dev/menu improvements remain planned v0.003 work, not existing runtime APIs.
+Read BUILD PLAN.txt for original acceptance and version notes/verdicts for actual changes/corrections. Source captures and numerical/codec checks do not substitute for voluntary foreground play or listening.

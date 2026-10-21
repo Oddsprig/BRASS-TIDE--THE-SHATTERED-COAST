@@ -2,14 +2,16 @@ extends RefCounted
 ## Fitted equipment drawn in physical units. Hull size never stretches a gun.
 ## Every shaded face is culled below half a screen pixel, including end-on tubes.
 
+const Geometry=preload("res://scripts/weapon_geometry.gd")
+
 static func draw(ctx: Dictionary, mount: Dictionary, world_bearing: float, palette: Dictionary) -> void:
 	var kind: String = str(mount.kind)
 	var tier: int = clampi(int(mount.get("size", 1)), 1, 3)
-	var unit: float = (0.78 + tier * 0.22) / float(ctx.size)
-	var bearing: float = float(mount.angle)
-	if kind in ["gun", "cannon"]: bearing = world_bearing - float(ctx.angle)
+	var world_unit: float=Geometry.unit(float(ctx.get("hull_size",ctx.size)),tier)
+	var unit: float = world_unit*float(ctx.get("enlargement",1.0)) / float(ctx.size)
+	var bearing: float = world_bearing - float(ctx.angle)
 	var model := {"ctx":ctx, "at":Vector2(mount.x,mount.y), "bearing":bearing,
-		"u":unit, "lod":int(ctx.lod), "h":9.7}
+		"u":unit, "world_unit":world_unit, "lod":int(ctx.lod), "h":9.7}
 	var dark := Color("1e2c31")
 	var steel := Color("52656b")
 	var edge := Color("a3b4ae")
@@ -66,10 +68,7 @@ static func _p(m: Dictionary, p: Vector3) -> Vector2:
 	var ctx: Dictionary=m.ctx
 	var local: Vector2=m.at+Vector2(p.x,p.y).rotated(m.bearing)*float(m.u)
 	var world: Vector2=ctx.pos+local.rotated(ctx.angle)*float(ctx.size)
-	return ctx.proj.call(world,float(m.h)+p.z*(0.78+float(mount_tier(m))*0.22))
-
-static func mount_tier(m: Dictionary) -> int:
-	return clampi(roundi((float(m.u)*float(m.ctx.size)-0.78)/0.22),1,3)
+	return ctx.proj.call(world,float(m.h)+p.z*float(m.world_unit))
 
 static func _face(m: Dictionary, vertices: Array, color: Color) -> void:
 	var p:=PackedVector2Array()

@@ -14,6 +14,7 @@ const FleetLab = preload("res://scripts/fleet_lab.gd")
 const LabUI = preload("res://scripts/lab_ui.gd")
 const DevTools = preload("res://scripts/dev_tools.gd")
 const Music = preload("res://scripts/music.gd")
+const Preferences=preload("res://scripts/preferences.gd")
 
 var data: Dictionary
 var core
@@ -53,9 +54,14 @@ var career_core=null
 var dev_enabled=false
 var dev_tools
 var simulation_us: int=0
+var preferences_path=""
 
 func _ready():
-	Engine.max_fps = 120
+	preferences_path=ProjectSettings.globalize_path("res://../settings.json") if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("settings.json")
+	if DisplayServer.get_name()=="headless":preferences_path=OS.get_user_data_dir().path_join("qa-settings.json")
+	var options: Dictionary=Preferences.load_options(preferences_path)
+	Engine.max_fps = options.frame_cap
+	dev_enabled=options.dev_enabled
 	data = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	if data.is_empty():
 		push_error("World data missing.")
@@ -66,8 +72,10 @@ func _ready():
 	add_child(chart)
 	chart.setup(self)
 	audio = Sound.new()
+	audio.enabled=options.audio_enabled;audio.weapon_volume=options.weapon_volume;audio.ambience_volume=options.ambience_volume
 	add_child(audio)
 	music=Music.new()
+	music.enabled=options.music_enabled;music.volume=options.music_volume
 	add_child(music)
 	ui = Interface.new()
 	add_child(ui)
@@ -81,11 +89,17 @@ func _ready():
 	print("BRASS TIDE v", Version.text(), " | ", OS.get_processor_name(), " | ", OS.get_processor_count(), " logical threads | ", RenderingServer.get_video_adapter_name())
 	# Development hooks are explicit launch arguments; retail controls do not expose them.
 	var args = OS.get_cmdline_user_args()
-	dev_enabled="--dev" in args
+	dev_enabled=dev_enabled or "--dev" in args
+	if options.fullscreen and DisplayServer.get_name()!="headless":DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	if "--qa-campaign" in args:
 		new_game()
 	if "--qa-battle" in args:
 		quick_battle()
+	for argument in args:
+		if str(argument).begins_with("--qa-lab="):
+			var preset: String=str(argument).trim_prefix("--qa-lab=")
+			if FleetLab.presets().has(preset):
+				lab_config=FleetLab.preset(data,preset);start_lab()
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -112,7 +126,7 @@ func _process(dt: float):
 	var running: bool=mode=="battle" and not paused and not ui.modal_open
 	if mode=="campaign" and not core.state.is_empty():running=not core.state.path.is_empty() and not paused and not ui.modal_open
 	audio.set_engine(running,0.65)
-	music.set_context("title" if mode=="menu" else ("combat" if mode=="battle" else ("harbor" if ui.modal_open else "travel")))
+	music.set_context(music_context())
 	hud_timer += dt
 	if hud_timer >= 0.15:
 		hud_timer = 0.0
@@ -240,6 +254,20 @@ func toggle_pause():
 
 func toggle_fullscreen():
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN else DisplayServer.WINDOW_MODE_FULLSCREEN)
+	save_preferences()
+
+func save_preferences():
+	Preferences.save_options(preferences_path,{"audio_enabled":audio.enabled,"weapon_volume":audio.weapon_volume,"ambience_volume":audio.ambience_volume,"music_enabled":music.enabled,"music_volume":music.volume,"frame_cap":Engine.max_fps,"fullscreen":DisplayServer.window_get_mode()==DisplayServer.WINDOW_MODE_FULLSCREEN,"dev_enabled":dev_enabled})
+
+func music_context() -> String:
+	if mode=="menu":return "title"
+	if mode=="battle":
+		if battle.get("result")!=null:return "victory" if battle.result=="won" else "loss"
+		if not quick_mode and not lab_active and battle_context.get("kind","")=="contract" and core.state.get("activeContract",{}).get("story",false) and int(core.state.get("missionIndex",0))==data.MISSIONS.size()-1:return "finale"
+		return "combat"
+	if ui.modal_open:
+		return "contact" if ui.modal_kind=="encounter" else "harbor"
+	return "travel"
 
 func new_game():
 	_leave_lab()
@@ -741,6 +769,7 @@ func load_game():
 	respond(result)
 
 func quit_game():
+	save_preferences()
 	save_game(false)
 	sync_economy()
 	get_tree().quit()

@@ -1,5 +1,6 @@
 extends SceneTree
 ## Silent headless battle fixtures. No Main/Campaign, audio, input or save access.
+const Lab=preload("res://scripts/fleet_lab.gd")
 const Battle=preload("res://scripts/battle.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Refit=preload("res://scripts/refit.gd")
@@ -65,6 +66,7 @@ func _initialize():
 	var enemies: Array=roster(world,config.enemy,int(config.get("enemyRepeat",1)),"","enemy")
 	var reserves_before: Array=players.duplicate(true)
 	var battle: Dictionary=Battle.create({"fleet":players,"enemyFleet":enemies,"seed":int(args.seed)})
+	Lab.configure_formation(battle,str(config.get("formation","")))
 	check(battle.autopilot,"default flagship autopilot")
 	check(battle.deployment.player<=300 and battle.deployment.enemy<=300,"deployment stays within 300 per side")
 	if config.has("requirePoints"):
