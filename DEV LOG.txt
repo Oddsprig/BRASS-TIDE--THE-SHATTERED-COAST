@@ -1,3 +1,15 @@
+v0.011 SOURCE ACCEPTED | Jobs and contacts
+30 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.011 CANDIDATE | Jobs and contacts
+- Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow.
+- Four persistent harbor contacts, personal trust and dated market observations from actual visits.
+- Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.010 DELIVERED | exact game 9d24444b0c7aad0cb1013dc8508b0dff1b80aa30
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.010 SOURCE ACCEPTED | Salvage and recovery
 28 native suites passed; source report saved. Portable export and publication require separate receipts.
 

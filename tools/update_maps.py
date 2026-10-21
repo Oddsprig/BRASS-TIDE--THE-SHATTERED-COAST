@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "voyage-jobs": (["voyage_jobs","contacts","voyage_ui"],
+                    "Real sponsors/stock/crew-based quotes -> several funded jobs, physical sealed lots, remembered contacts and dated observations.",
+                    "test_voyage_jobs, test_voyage_flow"),
     "recovery": (["salvage","recovery_ui"],
                  "Actual destroyed hulls/site provenance -> persistent finite wrecks, selectable lots, paid tow and recovered blueprints.",
                  "test_salvage, test_salvage_voyage"),

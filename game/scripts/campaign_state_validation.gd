@@ -47,4 +47,33 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not s.blueprints[key] is bool or not world.HULLS.any(func(h):return h.id==key):return "Unknown recovered hull design."
 	for key in ["wreckSeededSources","wreckHazards"]:
 		if s.has(key) and (not s[key] is Dictionary or s[key].size()>512):return "Invalid wreck provenance ledger."
+	if s.has("voyageJobs"):
+		if not s.voyageJobs is Array or s.voyageJobs.size()>6:return "Invalid voyage commitment collection."
+		var jobs: Dictionary={}
+		var ports: Array=[]
+		for p in world.PORTS:ports.append(p.id)
+		for job in s.voyageJobs:
+			if not job is Dictionary or not job.get("id") is String or jobs.has(job.id):return "Invalid or duplicate voyage job."
+			jobs[job.id]=true
+			if job.get("kind","") not in ["freight","survey","bounty"] or job.get("state","") not in ["active","expired"]:return "Invalid voyage job kind/state."
+			if not job.get("port","") in ports or not job.get("targetPort","") in ports or job.get("payerKey","") not in ["cash","governmentPurse"]:return "Unknown voyage sponsor/destination."
+			for key in ["reward","escrow","deadlineDay","acceptedDay"]:
+				if not number(job.get(key)):return "Invalid voyage job accounting."
+			if floorf(float(job.escrow))!=float(job.escrow) or float(job.escrow)>float(job.reward):return "Invalid voyage escrow."
+			if not job.get("freight") is Dictionary:return "Invalid sealed voyage freight."
+			var freight: Dictionary=job.freight
+			if not freight.is_empty():
+				if not freight.get("good") is String or not number(freight.get("qty")) or not freight.good in ["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns"]:return "Invalid sealed voyage goods."
+			for key in ["title","description","siteId","ownerId"]:
+				if not job.get(key) is String:return "Invalid voyage text."
+	if s.has("doneVoyageJobs") and (not s.doneVoyageJobs is Array or s.doneVoyageJobs.size()>128):return "Invalid completed voyage records."
+	if s.has("contacts"):
+		if not s.contacts is Array or s.contacts.size()>32:return "Invalid contact list."
+		for person in s.contacts:
+			if not person is Dictionary or not person.get("id") is String or not number(person.get("trust"),-100,100) or not person.get("met") is bool:return "Invalid contact identity/trust."
+	if s.has("marketSnapshots"):
+		if not s.marketSnapshots is Dictionary or s.marketSnapshots.size()>32:return "Invalid market reports."
+		for id in s.marketSnapshots:
+			var snap=s.marketSnapshots[id]
+			if not snap is Dictionary or not number(snap.get("day")) or not number(snap.get("cash")) or not snap.get("stocks") is Dictionary:return "Invalid dated market observation."
 	return ""

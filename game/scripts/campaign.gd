@@ -16,6 +16,8 @@ const Expedition=preload("res://scripts/expedition.gd")
 const Manifest=preload("res://scripts/hold_manifest.gd")
 const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
+const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
+const Contacts=preload("res://scripts/contacts.gd")
 # v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
 const Deployment = preload("res://scripts/deployment.gd")
 const Refits = preload("res://scripts/refit.gd")
@@ -108,10 +110,13 @@ func new_game(seed_value: int = 1):
 			Fleets.dock(owner,port(owner.homePort))
 			owner.atPort = ""
 	state.coinSupply = Money.total(state)
+	VoyageJobs.ensure(self)
+	Contacts.ensure(state,data)
 	state.cargoManifest={}
 	state.surveyFoodCredit=0.0
 	state.wreckHazards={}
 	state.blueprints={}
+	state.defeatedOwners={}
 	Salvage.ensure(state)
 	if int(data.get("MAP_REVISION",1))>=2:
 		Exploration.ensure(state,data)
@@ -340,6 +345,8 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		for message in Fleets.tick(state.fleetOwners,state.ports,1.0).slice(0,2):
 			log_entry(str(message))
 		Harbor.tick_yards(self,1)
+		VoyageJobs.ensure(self)
+		VoyageJobs._expire_overdue(self,state)
 		state.econDay += 1
 	apply_morale()
 	Manifest.allocate(state)
@@ -658,6 +665,21 @@ func available_contracts() -> Array:
 func accept_contract(id: String) -> Dictionary:
 	return Contracts.accept(self,id)
 
+func accept_voyage_job(id: String) -> Dictionary:
+	var result: Dictionary=VoyageJobs.accept(self,id)
+	if result.ok:Contacts.visit(state,current_port(),state.day)
+	Manifest.allocate(state)
+	return result
+
+func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
+	var before: Dictionary=VoyageJobs._find(state,id).duplicate(true)
+	var result: Dictionary=VoyageJobs.abandon(self,id) if abandon else VoyageJobs.finish(self,id)
+	if result.ok:
+		for contact in Contacts.list_contacts(state):
+			if contact.port==before.get("port",""):Contacts.record(state,contact.id,"job:"+id+(":abandoned" if abandon else ":paid"),-5 if abandon else 5)
+	Manifest.allocate(state)
+	return result
+
 func contract_ready() -> bool:
 	return not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
 
@@ -695,6 +717,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 			loot = floori(float(owner.coins)*0.30)
 			Money.move(owner,"coins",state,"coins",loot,"Captured fleet operating coins",state.moneyLog)
 			owner.active = false
+			state.defeatedOwners[owner.id]=int(state.defeatedOwners.get(owner.id,0))+1
 		state.renown += enemy_specs.size()*3
 		if not enemy_specs.is_empty() and physical_battle.is_empty():
 			salvage = enemy_specs[0]
@@ -874,6 +897,8 @@ func restore(saved: Dictionary) -> Dictionary:
 	pending_days = 0
 	Exploration.ensure(state,data)
 	Salvage.ensure(state)
+	VoyageJobs.ensure(self)
+	Contacts.ensure(state,data)
 	if not state.recoverable.is_empty() and not state.recoverable.get("claimed",true):
 		var legacy_site: Dictionary=state.position.duplicate(true)
 		legacy_site.id="legacy-recovery"

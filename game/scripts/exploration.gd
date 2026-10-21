@@ -282,6 +282,8 @@ static func quote(state: Dictionary, site_id: String, action) -> Dictionary:
 	var cargo: Dictionary = state.get("cargo", {}) if state.get("cargo") is Dictionary else {}
 	var have_food := maxf(0.0, _num(cargo.get("food", 0.0)))
 	var have_supplies := maxf(0.0, _num(cargo.get("supplies", 0.0)))
+	for boat in state.get("fleet",[]):
+		if not boat.get("sunk",false) and not boat.get("mothballed",false) and str(boat.get("storedPort","")).is_empty():have_supplies+=maxf(0,_num(boat.get("supplies",0)))
 	var spare := spare_crew(state)
 	base.merge({
 		"siteName": str(site["name"]), "level": level, "levelName": LEVEL_NAMES[level],
@@ -302,7 +304,7 @@ static func quote(state: Dictionary, site_id: String, action) -> Dictionary:
 	elif have_food < food:
 		base["message"] = "Needs %.2f food in cargo; %.2f aboard." % [food, have_food]
 	elif have_supplies < float(spec["supplies"]):
-		base["message"] = "Needs %.0f supply kits in cargo; %.2f aboard." % [float(spec["supplies"]), have_supplies]
+		base["message"] = "Needs %.0f supply kits in cargo or working racks; %.2f aboard." % [float(spec["supplies"]), have_supplies]
 	else:
 		base["ok"] = true
 		base["message"] = "Ready: %d crew, %.1f days, %.2f food, %.0f supply kits." % [crew, days, food, float(spec["supplies"])]
@@ -318,7 +320,16 @@ static func begin(state: Dictionary, site_id: String, action) -> Dictionary:
 		return q
 	var cargo: Dictionary = state.get("cargo", {}) if state.get("cargo") is Dictionary else {}
 	cargo["food"] = maxf(0.0, _num(cargo.get("food", 0.0)) - float(q["food"]))
-	cargo["supplies"] = maxf(0.0, _num(cargo.get("supplies", 0.0)) - float(q["supplies"]))
+	var left: float=float(q.supplies)
+	var cargo_use: float=minf(left,maxf(0,_num(cargo.get("supplies",0))))
+	cargo.supplies=maxf(0,_num(cargo.get("supplies",0))-cargo_use)
+	left-=cargo_use
+	for boat in state.get("fleet",[]):
+		if boat.get("sunk",false) or boat.get("mothballed",false) or not str(boat.get("storedPort","")).is_empty():continue
+		var use: float=minf(left,maxf(0,_num(boat.get("supplies",0))))
+		boat.supplies=maxf(0,_num(boat.get("supplies",0))-use)
+		left-=use
+		if left<=0.00001:break
 	state["cargo"] = cargo
 	var ex: Dictionary = state["exploration"]
 	ex["assignment"] = {

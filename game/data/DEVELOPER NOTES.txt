@@ -1,4 +1,16 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.011 — Jobs and contacts
+SOURCE ACCEPTED: 30 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow.
+- Four persistent harbor contacts, personal trust and dated market observations from actual visits.
+- Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
+
+Team: Codex root + one Muse Wonder Full + one Argon High + one Grok4.7.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.010 — Salvage and recovery
 SOURCE ACCEPTED: 28 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 

@@ -1,0 +1,40 @@
+BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.011)
+
+Real sponsors/stock/crew-based quotes -> several funded jobs, physical sealed lots, remembered contacts and dated observations.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/voyage_jobs.gd: 22811 bytes; extends RefCounted
+  game/scripts/voyage_jobs.gd:79 ensure()
+  game/scripts/voyage_jobs.gd:128 pending_freight_weight()
+  game/scripts/voyage_jobs.gd:211 available()
+  game/scripts/voyage_jobs.gd:310 accept()
+  game/scripts/voyage_jobs.gd:389 finish()
+  game/scripts/voyage_jobs.gd:439 abandon()
+  game/scripts/voyage_jobs.gd:32 _is_num()
+  game/scripts/voyage_jobs.gd:36 _num()
+  game/scripts/voyage_jobs.gd:40 _state()
+  game/scripts/voyage_jobs.gd:44 _clean_freight()
+  game/scripts/voyage_jobs.gd:52 _sanitize_job()
+  game/scripts/voyage_jobs.gd:105 _find()
+game/scripts/contacts.gd: 8176 bytes; extends RefCounted
+  game/scripts/contacts.gd:81 ensure()
+  game/scripts/contacts.gd:127 visit()
+  game/scripts/contacts.gd:147 list_contacts()
+  game/scripts/contacts.gd:160 record()
+  game/scripts/contacts.gd:30 _is_num()
+  game/scripts/contacts.gd:34 _num()
+  game/scripts/contacts.gd:38 _known_ports()
+  game/scripts/contacts.gd:49 _fresh()
+  game/scripts/contacts.gd:58 _sanitize()
+  game/scripts/contacts.gd:105 _clean_snapshot()
+  game/scripts/contacts.gd:116 _find()
+game/scripts/voyage_ui.gd: 4626 bytes; extends RefCounted
+  game/scripts/voyage_ui.gd:3 open()
+  game/scripts/voyage_ui.gd:45 settle()
+  game/scripts/voyage_ui.gd:50 contacts()
+  game/scripts/voyage_ui.gd:62 intel()
+
+TESTS (game/tests/*.gd)
+test_voyage_jobs, test_voyage_flow
+
+Full symbols: rg -n '^func |^static func ' on named files.

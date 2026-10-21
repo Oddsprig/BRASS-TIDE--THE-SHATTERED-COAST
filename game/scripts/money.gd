@@ -29,4 +29,6 @@ static func total(state: Dictionary) -> int:
 	for owner in state.get("fleetOwners", []):
 		amount += int(owner.get("coins", 0)) + int(owner.get("crewPurse", 0))
 	amount += int(state.get("activeContract", {}).get("escrow", 0))
+	for job in state.get("voyageJobs",[]):
+		if job is Dictionary:amount+=int(job.get("escrow",0))
 	return amount

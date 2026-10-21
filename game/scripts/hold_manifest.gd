@@ -16,13 +16,22 @@ static func allocate(state: Dictionary) -> void:
 	var load: Dictionary=state.get("cargo",{}).duplicate(true)
 	var freight: Dictionary=state.get("freight",{})
 	if not freight.is_empty():load["@freight"]=float(freight.get("qty",0))
+	var job_goods: Dictionary={}
+	for job in state.get("voyageJobs",[]):
+		var lot: Dictionary=job.get("freight",{})
+		if not lot.is_empty():
+			var key: String="@job:"+str(job.id)
+			load[key]=float(lot.get("qty",0))
+			job_goods[key]=str(lot.get("good",""))
 	var keys: Array=load.keys()
 	keys.sort()
 	for good in keys:
-		var weight: float=float(Goods.ITEMS.get(freight.get("good","") if good=="@freight" else good,{"weight":1}).weight)
+		var material: String=str(freight.get("good","")) if good=="@freight" else str(job_goods.get(good,good))
+		var weight: float=float(Goods.ITEMS.get(material,{"weight":1}).weight)
 		var left: float=float(load[good])
 		for b in boats:
 			var qty: float=minf(left,maxf(0,free[b.uid])/maxf(0.01,weight))
+			if str(good).begins_with("@"):qty=floorf(qty)
 			if qty<=0:continue
 			manifest[b.uid][good]=qty
 			free[b.uid]-=qty*weight
@@ -42,6 +51,12 @@ static func losses(state: Dictionary) -> Array:
 			if good=="@freight":
 				state.freight.qty=maxf(0,float(state.freight.get("qty",0))-qty)
 				state.freight.lost=true
+			elif str(good).begins_with("@job:"):
+				var id: String=str(good).trim_prefix("@job:")
+				for job in state.get("voyageJobs",[]):
+					if job.id==id:
+						job.freight.qty=maxf(0,float(job.freight.get("qty",0))-qty)
+						job.freight.lost=true;job.failed=true
 			else:state.cargo[good]=maxf(0,float(state.cargo.get(good,0))-qty)
 			lost.append({"boat":b.name,"good":good,"qty":qty})
 		manifest.erase(b.get("uid",""))

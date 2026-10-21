@@ -1,3 +1,23 @@
+# v0.011 — Jobs and contacts
+
+SOURCE ACCEPTED: 30 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow.
+- Four persistent harbor contacts, personal trust and dated market observations from actual visits.
+- Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.011.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.011 — Jobs and contacts
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow.
+- Four persistent harbor contacts, personal trust and dated market observations from actual visits.
+- Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.011.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.010 — Salvage and recovery
 
 SOURCE ACCEPTED: 28 native suites pass; portable export evidence is recorded separately in RELEASE.json.

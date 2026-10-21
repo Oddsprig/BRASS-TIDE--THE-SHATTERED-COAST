@@ -17,6 +17,9 @@ static func cargo_weight(state: Dictionary) -> float:
 	for key in Goods.ITEMS:total+=maxf(0,float(state.get("cargo",{}).get(key,0)))*float(Goods.ITEMS[key].weight)
 	var freight: Dictionary=state.get("freight",{})
 	if not freight.is_empty():total+=maxf(0,float(freight.get("qty",0)))*float(Goods.ITEMS.get(freight.get("good",""),{"weight":1}).weight)
+	for job in state.get("voyageJobs",[]):
+		var lot: Dictionary=job.get("freight",{})
+		if not lot.is_empty():total+=maxf(0,float(lot.get("qty",0)))*float(Goods.ITEMS.get(lot.get("good",""),{"weight":1}).weight)
 	for b in state.get("fleet",[]):
 		if b.get("sunk",false) or not str(b.get("storedPort","")).is_empty():continue
 		total+=store_overflow(b)

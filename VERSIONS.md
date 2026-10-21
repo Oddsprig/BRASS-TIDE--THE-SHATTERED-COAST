@@ -1,3 +1,11 @@
+## v0.011 — Jobs and contacts
+
+Candidate; verified test/export records follow.
+
+- Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow.
+- Four persistent harbor contacts, personal trust and dated market observations from actual visits.
+- Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
+
 ## v0.010 — Salvage and recovery
 
 Candidate; verified test/export records follow.

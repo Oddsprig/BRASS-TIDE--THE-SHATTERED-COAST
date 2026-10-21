@@ -1,3 +1,9 @@
+v0.011 SOURCE ACCEPTED — Jobs and contacts
+- Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow.
+- Four persistent harbor contacts, personal trust and dated market observations from actual visits.
+- Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 v0.010 SOURCE ACCEPTED — Salvage and recovery
 - Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing.
 - Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices.

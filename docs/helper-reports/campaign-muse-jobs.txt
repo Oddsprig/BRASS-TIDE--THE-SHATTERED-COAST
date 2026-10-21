@@ -1,0 +1,130 @@
+BRASS TIDE HELPER B REPORT - MUSE WONDER FULL - v0.011 VOYAGE JOBS + CONTACTS
+Raw helper report. Preserve unchanged; root verdict belongs in a separate
+file. All v0.009/v0.010 modules and reports were preserved untouched.
+
+CHANGED PATHS (new allowlist only)
+- game/scripts/voyage_jobs.gd
+- game/scripts/contacts.gd
+- game/tests/test_voyage_jobs.gd
+- docs/helper-reports/campaign-muse-jobs.txt (this report)
+No existing file was edited or deleted. No engine, test, shell command,
+commit, install, settings change or publication was run by this helper.
+
+VOYAGE JOBS API (game/scripts/voyage_jobs.gd, all static, core = Campaign)
+Runs beside contracts.gd: state.activeContract and state.freight are never
+read for writing or modified, and no Contracts API is replaced.
+- ensure(core) -> Array: normalizes state["voyageJobs"] (plain dicts, max 6
+  kept) and state["doneVoyageJobs"] (unique string ids, newest 128 kept).
+  Job fields: id,title,description,port,targetPort,kind,reward,escrow,
+  payerKey ("cash"|"governmentPurse"),deadlineDay,acceptedDay,
+  freight {good,qty} or {},state ("offered"|"active"|"expired"), plus
+  siteId/ownerId ("" unless survey/bounty).
+- available(core) -> Array: deterministic offers at the docked harbor only.
+  Ids embed port+day (+site for survey) - "vfreight-<port>-<day>",
+  "vsurvey-<port>-<day>-<siteId>", "vbounty-<port>-<day>" - so the same day
+  never rerolls, and accepted/closed ids never reappear. Up to one of each:
+  freight (first of supplies/food/timber/fuel the source port physically
+  stocks, qty 6+day%5, destination a deterministic other port, payer cash),
+  survey (one deterministic not-yet-surveyed exploration catalog site,
+  payer governmentPurse), bounty (first actually active patrol-* raider
+  fleetOwner with living boats, payer governmentPurse). An offer is listed
+  only while its sponsor purse covers the whole reward.
+- accept(core,id) -> Dictionary: max 6 active; re-derives the offer, checks
+  sponsor harbor/funds, physical source stock and combined hold space
+  BEFORE any write (atomic refusal). On success: source stocks -= freight
+  qty, Money.move sponsor purse -> job.escrow for the full reward, job
+  becomes active with acceptedDay. Survey acceptance sights the rumored
+  site via Exploration.discover_near at its coordinates (level 1 knowledge
+  only; no goods, coins, crew or later progress are granted).
+- finish(core,id) -> Dictionary: pays job.escrow -> state.coins exactly
+  once and closes the job into doneVoyageJobs. Conditions: freight at
+  targetPort (target stocks += sealed qty); survey reported at the
+  sponsoring port with Exploration level == 3 for job.siteId; bounty
+  claimed at the sponsor with the named owner inactive or all boats sunk.
+  Incomplete escrow refuses without paying.
+- abandon(core,id) -> Dictionary: refunds remaining escrow to the sponsor
+  purse and closes the job. Sealed freight unloads into the CURRENT
+  harbor's stocks; abandoning at sea with freight is refused, never
+  jettisoned or deleted.
+- pending_freight_weight(state) -> float: total weight of all side-job
+  freight, for root to fold into campaign cargo accounting.
+Expiry (lazy, on accept/finish/abandon when state.day > deadlineDay): job
+state becomes "expired", escrow refunds to the sponsor, freight remains
+sealed in job.freight until harbor abandon unloads it; expired jobs can
+never finish for pay. Deadlines: freight ceil(2x one-way days + 6), survey
+ceil(2x + 14), bounty +20 days from the offer day.
+Rewards are wages-derived like contracts.gd: freight = crew_count x 100
+coins x max(1, one-way days) x 2 + Goods.cost(good); survey = 12 survey
+crew-days (chart 2x1.0 + survey 4x2.5 from exploration.gd) x 100 x 2 plus
+half the route-wage term; bounty = 45% of living enemy hull prices + 10
+sailor-days, mirroring the existing side bounty. Capacity on accept =
+core.capacity() - core.cargo_weight() (which already includes the story
+contract's state.freight) - pending_freight_weight(state).
+
+CONTACTS API (game/scripts/contacts.gd, all static)
+- ensure(state, world = {}) -> Array: builds/normalizes state["contacts"]
+  from four authored definitions whose port exists in world.PORTS/state
+  ports, and state["marketSnapshots"] ({}). No visits or trust invented.
+  Contacts: Mara Voss, shipwright, anvil_dock; Tobin Hale, convoy broker,
+  brass_haven; Sister Wren, survey patron, reed_floats; Cass Rye, salvage
+  agent, rust_anchorage. Record: {id,name,role,port,title,trust -100..100,
+  met,lastVisitDay,events[<=32 ids],log[<=20 {day,event,amount,trust}]}.
+- visit(state, port, day) -> Dictionary: the ONLY writer of market
+  snapshots; stamps {day, cash, governmentPurse, stocks(all 16 goods)} for
+  that port and marks its contact met/lastVisitDay. Returns copies.
+- list_contacts(state) -> Array: deep copies sorted by id.
+- record(state, contact_id, event_id, amount) -> Dictionary: applies a
+  trust delta (clamped to +-50 per event, trust clamped -100..100) exactly
+  once per event_id per contact; repeats return applied=false unchanged.
+  Trust is personal per contact and fully separate from any faction rep
+  (the v0.012 factions module is not read or written here).
+
+ROOT INTEGRATION ASSUMPTIONS / NEEDS (intentionally not done here)
+- Money.total must add every active job.escrow (root stated this); the test
+  asserts conservation under exactly that assumption. Until then,
+  Money.total alone undercounts by live side-job escrows.
+- save_validation must validate voyageJobs (<=6 documented plain records,
+  escrow == reward while active, payerKey, known ports/goods/site/owner),
+  doneVoyageJobs (<=128 strings), contacts and marketSnapshots.
+- campaign cargo accounting should add pending_freight_weight(state) to
+  cargo_weight() (and then accept()'s local subtraction must be removed to
+  avoid double counting - flagged in the module header). Sealed side
+  freight must stay unsellable, like state.freight today.
+- UI: a job board listing available() beside Contracts offers, active job
+  list with deadline/state, finish/abandon buttons gated by the returned
+  messages; contacts panel showing trust and snapshot day/age per port.
+- Day ticks may call any mutating API to surface expiry promptly, or root
+  can add its own expiry notice; escrow/freight semantics already hold
+  whenever expiry is observed. Bounty completion relies on root battle
+  settlement sinking/deactivating the named owner as it does today.
+- Survey jobs depend on root having integrated exploration.gd progression
+  (advance by game days); if a site is surveyed through another path first,
+  the job can legitimately be reported and paid once.
+
+TESTS WRITTEN, NOT RUN (root serializes all engine tests)
+game/tests/test_voyage_jobs.gd on a real Campaign.new_game covers:
+deterministic non-rerolled offers; two simultaneous jobs with story slot
+untouched; sponsor purse/stock debits and coin conservation including
+escrows; duplicate-accept refusal; full-hold capacity refusal atomicity
+(no job, stock or coin writes) and reserved-freight weight accounting;
+survey rumor reveal, finish refused at sighted and charted levels, paid
+once after a real Exploration chart+survey to level 3; freight delivery
+raising destination stocks and paying once; at-sea abandon refusal,
+deadline expiry refunding escrow while keeping sealed freight, harbor
+unload on abandon; four contacts with roles, visit-only dated snapshots,
+idempotent trust events, trust clamping and per-contact independence;
+JSON save roundtrip for jobs/escrow/freight/contacts/snapshots and legacy
+ensure(). Run via root's normal headless harness once registered. No test
+or engine was run for this report.
+
+CAVEATS / KNOWN SHORTCOMINGS
+- One offer per kind per port per day is deliberate anti-reroll design;
+  board depth (several freights per day) is root tuning if wanted.
+- Bounty uses the first active patrol raider like contracts.gd does; both
+  systems could name the same owner on the same day - root may want to
+  suppress one board's bounty when the other is accepted.
+- Survey reward assumes the full chart+survey crew-day cost even when a
+  site is already charted; sponsors never pay for work already rewarded
+  because each survey job id settles once, but root may rebalance.
+- Expiry is lazy by design (no new tick hook invented); an expired job's
+  escrow visibly refunds on the next accept/finish/abandon call.

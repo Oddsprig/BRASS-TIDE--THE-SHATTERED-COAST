@@ -1,3 +1,7 @@
+v0.011 voluntary play: Jobs and contacts
+Assess readability and usefulness of: Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow. Four persistent harbor contacts, personal trust and dated market observations from actual visits. Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.010 voluntary play: Salvage and recovery
 Assess readability and usefulness of: Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing. Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices. Tows reduce speed and need harbor repairs; workshop drawings can license paid construction at a chosen yard.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

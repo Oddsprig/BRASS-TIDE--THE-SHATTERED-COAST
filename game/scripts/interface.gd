@@ -6,6 +6,7 @@ const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
+const VoyageUI=preload("res://scripts/voyage_ui.gd")
 
 const INK = Color("102731")
 const LINE = Color("3b5a60")
@@ -259,6 +260,7 @@ func build_campaign_hud(size: Vector2):
 	button(left_body,"Prepare expedition",func():CampaignUI.expedition(self))
 	button(left_body,"Island charts & surveys     I",func():CampaignUI.islands(self))
 	button(left_body,"Wrecks & recovery",func():RecoveryUI.open(self))
+	button(left_body,"Voyage jobs & contacts     K",func():VoyageUI.open(self))
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
 	if not host.core.state.activeContract.is_empty():
@@ -390,6 +392,8 @@ func open_port(tab: String = ""):
 	modal_kind = "port"
 	var body = modal(p.name, "%s · %s" % [host.core.faction(p.faction).name, p.industry.to_upper()])
 	paragraph(body, p.description, 16)
+	host.core.Contacts.visit(host.core.state,p,host.core.state.day)
+	button(body,"Voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	if p.industry=="shipyard":button(body,"Recovered drawings & design licenses",func():RecoveryUI.blueprints(self))
 	var tabs = row(body)
 	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
@@ -557,6 +561,8 @@ func open_cargo():
 		button(line,"Set 1 on a marked float",func():host.respond(host.core.jettison(good_id,1));open_cargo()).disabled=host.core.state.cargo[good]<1
 	if not host.core.state.freight.is_empty():
 		paragraph(body, "Sealed contract freight: %d %s. Reserved until delivery or abandonment." % [host.core.state.freight.qty, host.core.state.freight.good], 15, GOLD)
+	for job in host.core.state.get("voyageJobs",[]):
+		if not job.get("freight",{}).is_empty():paragraph(body,"Sealed %s: %.0f %s · %.0f space"%[job.title,job.freight.qty,job.freight.good,job.freight.qty*host.Economy.GOODS[job.freight.good].weight],14,GOLD)
 	button(body, "Load reserves into working stores", func(): host.core.use_reserves(); open_cargo(), true)
 	rule(body)
 	var costs = host.Economy.daily_upkeep(host.core.state.fleet)
@@ -569,6 +575,7 @@ func open_cargo():
 func open_contracts():
 	modal_kind = "contracts"
 	var body = modal("Contracts & logbook", "THE COAST REMEMBERS WHAT YOU DO")
+	button(body,"Several voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	contracts_view(body)
 	rule(body)
 	eyebrow(body, "CAPTAIN'S LOG")

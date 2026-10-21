@@ -10,8 +10,12 @@ ENGINE = Path(r"C:\Users\bligh\Documents\Codex\2026-09-25\we-x20\work\engine\God
 
 
 def run(args, cwd=ROOT):
+    print("Running " + " ".join(str(x) for x in args[:3]),flush=True)
     result = subprocess.run([str(x) for x in args], cwd=cwd, text=True, encoding="utf-8", errors="replace",
+                            capture_output=True,
                             creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
+    if result.stdout:print(result.stdout,flush=True)
+    if result.stderr and result.returncode:print(result.stderr,flush=True)
     if result.returncode:
         raise SystemExit(f"Step failed ({result.returncode}): {args[0:3]}")
 
@@ -62,7 +66,7 @@ def main():
         raise SystemExit("Clean-tag checkout changed unexpectedly; no export created.")
     run(["python", "tools/release_game.py", "--engine", ENGINE, "--release-dir", ROOT.parent / f"Brass Tide v{version}", "--logs", work / "qa" / f"export-v{args.build:03}"], cwd=checkout)
     run(["python", "tools/complete_campaign_delivery.py", "--build", str(args.build)])
-    run(["powershell.exe", "-NoProfile", "-NonInteractive", "-File", ROOT / "tools/update_launcher.ps1", "-BuildVersion", version])
+    run(["python", "tools/update_launcher.py", "--build", str(args.build)])
     print(f"v{version} completed sequentially; prior releases retained.", flush=True)
 
 
