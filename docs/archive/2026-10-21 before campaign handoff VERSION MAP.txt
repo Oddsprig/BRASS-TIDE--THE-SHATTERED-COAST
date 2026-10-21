@@ -1,0 +1,73 @@
+v0.018 DELIVERED — exact game a75dd7bde2868da2b88e6e1df9bb4a756c4b2459 — Regional campaigns
+Choose sustained corridor watches, a paid harbor development goal, a real survey chain or negotiated thirty-day faction ceasefires. Existing patrols receive finite treasury upkeep and physical corridor orders; clear days, actual passages and paid business activity establish progress. Two-sided relief, earned diplomatic standing and elapsed talks govern peace; expired treaties, world facts, save migration and regional records remain explicit.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.017 CANDIDATE — A home harbor
+Paid staffed warehouses, eight-slot private berths and public watch accounts, with finite local shore inventories. Survey- and story-earned salvage/workshop charters use actual setup materials, staff, wages, operating capital and optional local sales. Business purses, material basis, earned-only dividends, wage arrears, retained output and harbor-local cash handling persist through saves.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.016 CANDIDATE — Memorable exploration chains
+Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices. Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity. Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.015 CANDIDATE — Fleet identity
+Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories. Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems. Protect real convoys through timed battles without inventing enemy destruction or loot; repaired NPC replacement, cargo-loss and save-route lifecycle defects.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.014 CANDIDATE — Reactive trade and blockades
+Visited market quotes, shortage reports and cargo-limited round-trip trade estimates include wages, fuel, provisions and buyer liquidity. Actual supplied fleets establish or contest blockades; loss, withdrawal and fuel starvation lift them. Real convoy deliveries feed yard materials; background economic days publish one at a time before fleet and blockade decisions advance.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.013 CANDIDATE — Independent fleet activity
+Convoys, patrols and raiders follow stock, escort, interception and recovery objectives using actual boats and stores. Bounded seeded offscreen engagements spend ammunition, damage hulls, retreat and leave persistent wrecks. Finite funded replacement purchases and construction use ordinary yards, workers, crew advances and wage escrow.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.012 CANDIDATE — Faction relationships
+Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust. Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences. Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.011 CANDIDATE — Jobs and contacts
+Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow. Four persistent harbor contacts, personal trust and dated market observations from actual visits. Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.010 CANDIDATE — Salvage and recovery
+Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing. Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices. Tows reduce speed and need harbor repairs; workshop drawings can license paid construction at a chosen yard.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.009 CANDIDATE — Island exploration
+Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads. Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages. Shore assignments affect boat labor, prevent accidental departure and persist through protected saves.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+v0.008 CANDIDATE — Expedition preparation
+Readable expedition cargo, endurance, payroll and return reserves. Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore. Actual cargo carrier manifests, sinking losses, protected legacy save migration and bounded parallel harbor production.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
+BRASS TIDE — VERSION MAP
+20 October2026 | current source BUILD7 = v0.007
+
+delivered v0.001  Original coast/eight contracts/finite production, crew damage and Windows build.
+delivered v0.002  Default autopilot/commands,300DPper side, paid weapons/engines/armor, wakes.
+delivered v0.003  Title/Escape, configurable fleet laboratory/replay/results, opt-in dev tools/music library.
+delivered v0.004  Recorded all-team weapon/impact sound, shaped effects/sinking and separate physical weapon art.
+delivered v0.005  Original10400x7200coast, wider ports, regional/M overview, bounded routes/protected save migration.
+delivered v0.006 24distinct silhouettes, shared physical interchangeable sockets, click-to-fit/live previews,
+                 per-mount targets/aim/barrel origins,18contextual music tracks and saved presentation options.
+
+delivered v0.007 Stern outboards/drives; localized damage, flames/smoke, metal sparks, explosions,
+                 cause-aware sinking and final-kill animation tail. Bounded colored meshes reduce CPU drawing work.
+
+21 October2026 planning only: ROADMAP.md and docs/CAMPAIGN ROADMAP.txt propose campaign milestones0.008-0.018.
+Next playable build remains0.008; proposed targets may move, each actual build still advances0.001.
+No new playable version/export/tag or launcher change is implied by that roadmap.
+
+Each release builds on its predecessor. Annotated Git tags identify exact game source.
+Each portable RELEASE.json proves export identity, completed native smoke tests and file hashes.
+v0.007 source gates:22native suites including3952feedback checks; seven fleet fixtures;
+33boat panels/45animation frames;12777222polygons/0invalid in the full heading/LOD audit.
+Clean exact-tag22suite run and standalone Windows export checks pass; see RELEASE.json.
+Desktop launcher targets v0.007; owner voyage copied after clean archives, originals unchanged.
+Earlier verified portable releases/ZIPs and owner saves remain intact.
+
+Game testing is background only, serialized, no desktop input/focus. CPU simulation timings,
+software raster captures and decoding checks are not renderedFPS, human listening or control-feel evidence.
+Historical version-map drafts are retained in docs/archive. BUILD advances1; displayed version advances0.001.

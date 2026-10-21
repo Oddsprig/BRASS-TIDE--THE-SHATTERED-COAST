@@ -1,6 +1,6 @@
 ## v0.018 — Regional campaigns
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game a75dd7bde2868da2b88e6e1df9bb4a756c4b2459. Native/export/archive evidence is in the delivery receipts.
 
 - Choose sustained corridor watches, a paid harbor development goal, a real survey chain or negotiated thirty-day faction ceasefires.
 - Existing patrols receive finite treasury upkeep and physical corridor orders; clear days, actual passages and paid business activity establish progress.
@@ -8,7 +8,7 @@ Candidate; verified test/export records follow.
 
 ## v0.017 — A home harbor
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game 8e281003f734429410246a8633bcd88b56378fe7. Individual delivery receipts establish the native export and archives.
 
 - Paid staffed warehouses, eight-slot private berths and public watch accounts, with finite local shore inventories.
 - Survey- and story-earned salvage/workshop charters use actual setup materials, staff, wages, operating capital and optional local sales.
@@ -16,7 +16,7 @@ Candidate; verified test/export records follow.
 
 ## v0.016 — Memorable exploration chains
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game d255e7b2296250fc6cdd8f0781b9bb1d3425f4df. Individual delivery receipts establish the native export and archives.
 
 - Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices.
 - Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity.
@@ -24,7 +24,7 @@ Candidate; verified test/export records follow.
 
 ## v0.015 — Fleet identity
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game 74d90f058305a92d7d0c77ffad789d4d23aaae40. Individual delivery receipts establish the native export and archives.
 
 - Five paid interior conversions, real specialist berths and professional wages, individual savings and bounded boat service histories.
 - Traveling support reserves retain logistics utility outside 300-point combat; survey, repair, tank and tug benefits operate in actual systems.
@@ -32,7 +32,7 @@ Candidate; verified test/export records follow.
 
 ## v0.014 — Reactive trade and blockades
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game e4b4d7d7adb37d42411a76ebf8e70aad315a82b5. Individual delivery receipts establish the native export and archives.
 
 - Visited market quotes, shortage reports and cargo-limited round-trip trade estimates include wages, fuel, provisions and buyer liquidity.
 - Actual supplied fleets establish or contest blockades; loss, withdrawal and fuel starvation lift them.
@@ -40,7 +40,7 @@ Candidate; verified test/export records follow.
 
 ## v0.013 — Independent fleet activity
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game 2614fe5281a0787552b4ee82a44ddc4ba6c55728. Individual delivery receipts establish the native export and archives.
 
 - Convoys, patrols and raiders follow stock, escort, interception and recovery objectives using actual boats and stores.
 - Bounded seeded offscreen engagements spend ammunition, damage hulls, retreat and leave persistent wrecks.
@@ -48,7 +48,7 @@ Candidate; verified test/export records follow.
 
 ## v0.012 — Faction relationships
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game 6e70a49f386b43ca04cb3253bc728687fab86561. Individual delivery receipts establish the native export and archives.
 
 - Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust.
 - Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences.
@@ -56,7 +56,7 @@ Candidate; verified test/export records follow.
 
 ## v0.011 — Jobs and contacts
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game e2a32af3bd56510e083336f4fd22e6a178f60f1c. Individual delivery receipts establish the native export and archives.
 
 - Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow.
 - Four persistent harbor contacts, personal trust and dated market observations from actual visits.
@@ -64,7 +64,7 @@ Candidate; verified test/export records follow.
 
 ## v0.010 — Salvage and recovery
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game 9d24444b0c7aad0cb1013dc8508b0dff1b80aa30. Individual delivery receipts establish the native export and archives.
 
 - Persistent individual enemy and friendly wrecks, selected material recovery, finite marked cargo floats and paid towing.
 - Actual remaining stores and hull-derived salvage, once-only claims, protected site provenance and cargo capacity choices.
@@ -72,7 +72,7 @@ Candidate; verified test/export records follow.
 
 ## v0.009 — Island exploration
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game 7485e5516be1a980e6a8d9a4dbae44c50e7c90c9. Individual delivery receipts establish the native export and archives.
 
 - Fourteen original persistent coastal landmarks, sighting, charting, landed surveys and chained leads.
 - Island chart window and selectable map landmarks; actual spare crew, kit use, rations and continuing wages.
@@ -80,7 +80,7 @@ Candidate; verified test/export records follow.
 
 ## v0.008 — Expedition preparation
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game 2728f3bad1cdd99e0bc7e8f07707a425afe31e3a. Individual delivery receipts establish the native export and archives.
 
 - Readable expedition cargo, endurance, payroll and return reserves.
 - Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore.

@@ -1,3 +1,11 @@
+2026-10-21 | CAMPAIGN SEQUENCE DELIVERED | v0.008–v0.018
+All 11 playable increments preserved; combined file/archive/tag ancestry audit passed. Current v0.018 a75dd7bde2868da2b88e6e1df9bb4a756c4b2459.
+46clean-tag native suites; Windows menu/save/battle/icon/PCK;180 economic days with 8 worker lanes; all 7 battle CPU fixtures; real-owner save 14 checks. Desktop shortcut now v0.018, original save SHA256 unchanged,18 owner tracks preserved. No foreground/input test.
+Separate publication receipt required for GitHub. No next playable increment started.
+
+v0.018 DELIVERED | exact game a75dd7bde2868da2b88e6e1df9bb4a756c4b2459
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.018 SOURCE ACCEPTED | Regional campaigns
 46 native suites passed; source report saved. Portable export and publication require separate receipts.
 

@@ -1,3 +1,11 @@
+AUTHORIZED CAMPAIGN SEQUENCE COMPLETE — v0.008–v0.018
+All 11 individual builds passed exact-tag Windows/source delivery and combined archive audits.
+Current game v0.018: a75dd7bde2868da2b88e6e1df9bb4a756c4b2459
+Desktop icon targets v0.018; owner save and 18 music tracks preserved.
+46 native suites,180 economic days, seven battle fixtures and real-save migration passed in background.
+GitHub publication is a separate final step; inspect its remote-ref receipt.
+Historical proposal and per-version records follow.
+
 v0.018 SOURCE ACCEPTED — Regional campaigns. 46 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 v0.017 SOURCE ACCEPTED — A home harbor. 43 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.

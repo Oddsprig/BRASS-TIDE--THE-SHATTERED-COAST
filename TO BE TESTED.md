@@ -1,3 +1,14 @@
+# Voluntary play questions — v0.018
+
+All authorized automated integrity/export checks are complete. No automated task below requires foreground control.
+
+- Judge camera/selection, fleet roles, weapons, battle feedback and audio on your display.
+- Try one combined freight/survey/salvage voyage and assess preparation and return reserves.
+- Judge regional-goal progress, dated market reports, faction explanations and business accounts for readability.
+- Assess long-term difficulty, pacing and fun beyond the tested numerical invariants.
+
+See docs/TEST RESULTS v0.018.md and delivery receipts for completed background checks. Earlier play questions follow.
+
 v0.018 voluntary play: Regional campaigns
 Assess readability and usefulness of: Choose sustained corridor watches, a paid harbor development goal, a real survey chain or negotiated thirty-day faction ceasefires. Existing patrols receive finite treasury upkeep and physical corridor orders; clear days, actual passages and paid business activity establish progress. Two-sided relief, earned diplomatic standing and elapsed talks govern peace; expired treaties, world facts, save migration and regional records remain explicit.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
