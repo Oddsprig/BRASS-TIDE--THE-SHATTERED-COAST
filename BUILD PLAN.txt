@@ -1,3 +1,7 @@
+BRASS TIDE — v0.007 FOLLOW-UP
+Owner requested actual stern engines/outboards, more boat detail, damage animations, sparks, explosions and sinking. The completed0.003-0.006sequence remains preserved below.
+v0.007 adds transom machinery clear of all interchangeable sockets, localized damage/fire/engine smoke, material-specific impacts and cause-aware sinking. Final kill effects finish after result settlement without advancing combat/economy. Root's bounded colored-mesh cache reduces repeated static drawing; water stays decorative2D, crew numerical. Same two Argon High helpers through Bridge; no new GPT helpers. Exact-tag tests/export/launcher follow source acceptance and are proven by receipts.
+
 BRASS TIDE — BUILD PLAN
 20 October 2026 | cumulative v0.003–v0.006 implementation | Godot / Windows PC
 

@@ -1,3 +1,10 @@
+2026-10-20 | v0.007 source accepted | root + existing two Argon High Bridge helpers
+Added real transom motors/drives; full hull/socket/engine-package review; initial triple-drive265primitive excess reduced to241 without raising the budget.
+Localized scars, animated engine smoke/deck flames, metal and armor sparks, stronger family effects, flooding-specific sinking and final-kill cosmetic progression.
+Root found77ms median CPU drawing at40boats; bounded colored hull/weapon meshes reduced it to roughly5-6ms in the same background fixture. No GPU FPS claim.
+Added3952feedback/mesh/effect tests and exact cached drawing captures, frame CPU bench, offscreen culling and mass-sink LOD.
+Full native checks and exact-tag Windows export evidence are recorded in docs/TEST RESULTS v0.007.md and RELEASE.json. Prior releases/saves/music preserved; no foreground/input tests.
+
 2026-10-20 | v0.006 DELIVERED | exact tagged game17306228e150b6d3aeb1a7b98861a1c3ce94545b
 Clean exact-tag21suite check passed; exported Windows menu/campaign-save/battle checks passed.
 v0.003/v0.004/v0.005/v0.006 manifests, Windows/source ZIPs, CRC/SHA256 and linear ancestry verified.

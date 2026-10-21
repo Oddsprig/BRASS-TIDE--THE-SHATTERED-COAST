@@ -137,6 +137,14 @@ static func _boat(value,hulls: Dictionary,path: String,player: bool,modules: Dic
 	for breach in value.breaches:
 		if not breach is Dictionary or not _number(breach.get("area")) or not _text(breach.get("section")):
 			return path+" contains an invalid breach."
+	if value.has("visualHits"):
+		if not value.visualHits is Array or value.visualHits.size()>8:return path+" has invalid visual hit records."
+		for hit in value.visualHits:
+			if not hit is Dictionary:return path+" has an invalid visual hit."
+			for key in ["x","y","at","angle"]:
+				if not _number(hit.get(key),-INF):return path+" has invalid visual hit geometry."
+			if not _number(hit.get("power")) or hit.power>2.4 or absf(float(hit.x))>3 or absf(float(hit.y))>1.5:return path+" has invalid visual hit bounds."
+			if not _text(hit.get("material")) or not _text(hit.get("section")):return path+" has invalid visual hit material."
 	return ""
 
 static func _order(value,hulls: Dictionary,path: String) -> String:

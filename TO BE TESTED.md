@@ -1,11 +1,11 @@
-# Human review questions — v0.006
+# Human review questions — v0.007
 
-All agent tests remain in the background. Never take mouse/keyboard/focus.
+All agent tests remain background/headless, one instance at a time, without desktop input/focus.
 
-- Actual desktop UI/control feel and display scaling for title, fleet builder and orders.
-- Rendered hull/contact/effects quality at play zoom during a full fleet battle.
-- Voluntary listening to recordings/music mix; automated decoding is not an audio audition.
-- GPU frame pacing and Separate rendering font stability on the owner’s hardware.
-- First-hour economy/fitting explanations and route readability.
+- Motor, weapon, damage and sinking readability at the owner's preferred battle zoom.
+- Small heading-bucket transitions and line/rivet sizes at unusually large zoom values.
+- Full battle GPU frame pacing and separate-rendering font stability on the owner's display.
+- Voluntary listening to the recorded sounds and supplied music mix.
+- Actual camera/selection/fitting feel during play.
 
-Numerical tests, source rendering captures and codec checks are recorded separately in docs/TEST RESULTS v0.006.md. Preserve prior version notes and releases.
+Automated evidence is in docs/TEST RESULTS v0.007.md. Cached-render PNG/GIF previews come from actual game drawing calls and controlled fixtures. They are not an audition or GPU FPS test. Preserve earlier version notes and saves.

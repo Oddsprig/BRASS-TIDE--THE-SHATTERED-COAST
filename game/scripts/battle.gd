@@ -586,6 +586,22 @@ static func _projectiles(st: Dictionary,dt: float) -> void:
 			survivors.append(p)
 	st.projectiles=survivors
 
+static func advance_visuals(st: Dictionary,dt: float) -> void:
+	# Cosmetic tail only: ships, projectiles, combat time, RNG and rewards stay fixed.
+	if st.get("result")==null:return
+	if float(st.get("visualTailTime",0))>=12.0:return
+	dt=clampf(Damage.number(dt),0.0,0.1)
+	st.visualTailTime=minf(12.0,float(st.get("visualTailTime",0))+dt)
+	CombatEvents.tick_wrecks(st,dt)
+	_age_effects(st,dt)
+
+static func _age_effects(st: Dictionary,dt: float) -> void:
+	var effects: Array=[]
+	for effect in st.get("effects",[]):
+		effect.age+=dt
+		if effect.age<effect.life:effects.append(effect)
+	st.effects=effects
+
 static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionary:
 	CombatEvents.ensure_state(st)
 	if st.result!=null:
@@ -629,12 +645,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			_ai(st,s,dt)
 	_collisions(st)
 	_projectiles(st,dt)
-	var effects: Array=[]
-	for effect in st.effects:
-		effect.age+=dt
-		if effect.age<effect.life:
-			effects.append(effect)
-	st.effects=effects
+	_age_effects(st,dt)
 	var players: Array=[]
 	var enemies: Array=[]
 	for s in st.ships:

@@ -1,9 +1,9 @@
-BRASS TIDE — COMBAT MAP (generated; v0.006)
+BRASS TIDE — COMBAT MAP (generated; v0.007)
 
 Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/battle.gd: 27929 bytes; extends RefCounted
+game/scripts/battle.gd: 28420 bytes; extends RefCounted
   game/scripts/battle.gd:58 pop_events()
   game/scripts/battle.gd:61 mount_shot_time()
   game/scripts/battle.gd:64 mount_shot_age()

@@ -11,6 +11,7 @@ var camera = Vector2(1300, 900)
 var scale_factor = 0.36
 var zoom = 1.0
 var clock = 0.0
+var presentation_us: int=0
 var background: Texture2D
 var title_shade: Texture2D
 var serif: SystemFont
@@ -372,6 +373,7 @@ func text_at(text: String, pos: Vector2, font_size: int, color: Color, font: Fon
 func _draw():
 	if host == null or background == null:
 		return
+	var started: int=Time.get_ticks_usec()
 	var viewport = get_viewport_rect().size
 	draw_texture_rect(background, Rect2(Vector2.ZERO, viewport), false)
 	for i in range(65):
@@ -384,6 +386,7 @@ func _draw():
 		draw_title()
 	else:
 		draw_campaign()
+	presentation_us=Time.get_ticks_usec()-started
 
 func draw_island(island: Dictionary, index: int, tactical: bool = false):
 	var points = polygon(island.points)
@@ -579,6 +582,8 @@ func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bo
 		lod = maxi(lod, 1)
 	BoatArt.draw_boat(self, _projector(), boat, {
 		"accent": color, "enemy": enemy, "lod": lod, "clock": clock,
+		"cache":true,
+		"combat":host.mode=="battle","battle_clock":float(host.battle.get("time",0))+float(host.battle.get("visualTailTime",0)) if host.mode=="battle" else 0.0,
 		"px": maxf(2.0, boat_size * scale_factor * 0.82), "enlargement": enlargement})
 	if not no_bars and boat.has("hp") and boat.has("maxHp"):
 		var center = project(p, -35)
@@ -683,8 +688,15 @@ func draw_battle():
 	var flagship = host.Battle.get_flagship(battle)
 	if not flagship.is_empty():
 		world_ring(Vector2(flagship.x, flagship.y), flagship.spec.range, Color(0.75, 0.84, 0.63, 0.07), 1.0)
+	var active_wrecks: int=0
 	for wreck in battle.wrecks:
-		CombatArt.wreck(self,wreck)
+		if bool(wreck.get("sinking",false)):active_wrecks+=1
+	for wreck in battle.wrecks:
+		var margin: float=maxf(100,float(wreck.size)*scale_factor*3.2)
+		if get_viewport_rect().grow(margin).has_point(project(Vector2(wreck.x,wreck.y))):
+			if active_wrecks>=8:
+				var coarse: Dictionary=wreck.duplicate();coarse.lod=2;CombatArt.wreck(self,coarse)
+			else:CombatArt.wreck(self,wreck)
 	_draw_wakes()
 	_draw_trails()
 	var selected_ids := _selected_battle_ids(battle)
@@ -704,7 +716,8 @@ func draw_battle():
 		pass
 		pass
 	for effect in battle.effects:
-		CombatArt.effect(self,effect)
+		var margin: float=maxf(100,float(effect.get("radius",20))*scale_factor*3.0)
+		if get_viewport_rect().grow(margin).has_point(project(Vector2(effect.x,effect.y),float(effect.get("height",0)))):CombatArt.effect(self,effect)
 	if not flagship.is_empty():
 		var nearest: Dictionary = {}
 		var best = INF

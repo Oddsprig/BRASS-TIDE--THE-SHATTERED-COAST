@@ -1,4 +1,4 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.006)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.007)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 
@@ -21,23 +21,33 @@ game/scripts/music.gd: 4480 bytes; extends Node
   game/scripts/music.gd:18 _ready()
   game/scripts/music.gd:29 _scan()
   game/scripts/music.gd:98 _process()
-game/scripts/combat_art.gd: 3874 bytes; extends RefCounted
-  game/scripts/combat_art.gd:3 effect()
-  game/scripts/combat_art.gd:50 wreck()
-game/scripts/combat_events.gd: 37626 bytes; extends RefCounted
-  game/scripts/combat_events.gd:14 number()
-  game/scripts/combat_events.gd:19 weapon_family()
-  game/scripts/combat_events.gd:35 projectile_kind()
-  game/scripts/combat_events.gd:49 weapon_variant()
-  game/scripts/combat_events.gd:71 archetype()
-  game/scripts/combat_events.gd:91 hull_material()
-  game/scripts/combat_events.gd:112 ensure_state()
-  game/scripts/combat_events.gd:126 begin_step()
-  game/scripts/combat_events.gd:130 sync_mount_shots()
-  game/scripts/combat_events.gd:158 record_mount_shot()
-  game/scripts/combat_events.gd:176 mount_shot_time()
-  game/scripts/combat_events.gd:194 mount_shot_age()
-game/scripts/weapon_art.gd: 6663 bytes; extends RefCounted
+game/scripts/combat_art.gd: 39055 bytes; extends RefCounted
+  game/scripts/combat_art.gd:211 effect()
+  game/scripts/combat_art.gd:584 wreck()
+  game/scripts/combat_art.gd:108 _num()
+  game/scripts/combat_art.gd:113 _scale()
+  game/scripts/combat_art.gd:118 _lod()
+  game/scripts/combat_art.gd:131 _project()
+  game/scripts/combat_art.gd:144 _det_unit()
+  game/scripts/combat_art.gd:148 _det_signed()
+  game/scripts/combat_art.gd:151 _det_angle()
+  game/scripts/combat_art.gd:157 _fx_poly()
+  game/scripts/combat_art.gd:165 _fx_line()
+  game/scripts/combat_art.gd:171 _fx_circle()
+game/scripts/combat_events.gd: 38412 bytes; extends RefCounted
+  game/scripts/combat_events.gd:15 number()
+  game/scripts/combat_events.gd:20 weapon_family()
+  game/scripts/combat_events.gd:36 projectile_kind()
+  game/scripts/combat_events.gd:50 weapon_variant()
+  game/scripts/combat_events.gd:72 archetype()
+  game/scripts/combat_events.gd:92 hull_material()
+  game/scripts/combat_events.gd:113 ensure_state()
+  game/scripts/combat_events.gd:127 begin_step()
+  game/scripts/combat_events.gd:131 sync_mount_shots()
+  game/scripts/combat_events.gd:159 record_mount_shot()
+  game/scripts/combat_events.gd:177 mount_shot_time()
+  game/scripts/combat_events.gd:195 mount_shot_age()
+game/scripts/weapon_art.gd: 6685 bytes; extends RefCounted
   game/scripts/weapon_art.gd:7 draw()
   game/scripts/weapon_art.gd:67 _p()
   game/scripts/weapon_art.gd:73 _face()

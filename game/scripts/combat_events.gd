@@ -1,4 +1,5 @@
 extends RefCounted
+const HullFeedback=preload("res://scripts/hull_feedback.gd")
 ## Pure bounded combat event, effect, wreck and mount-shot metadata for Battle.
 ## State belongs exclusively to the battle dictionary passed by the caller.
 
@@ -206,6 +207,12 @@ static func register_ship(st: Dictionary, ship: Dictionary, mounts: Array) -> vo
 	ship.battleTime = 0.0
 	ship.weaponShotTimes = []
 	ship.mountShotTimes = {}
+	ship.lastImpactTime = -100.0
+	# Preserve scars on damaged hulls, but never replay a previous battle's flash.
+	if number(ship.get("hp"))>=number(ship.get("maxHp"),1)-0.1 and ship.get("breaches",[]).is_empty():ship.visualHits=[]
+	elif ship.get("visualHits") is Array:
+		for hit in ship.visualHits:
+			if hit is Dictionary:hit.at=-100.0
 	sync_mount_shots(ship, mounts)
 	var ship_id: String = str(ship.get("id", ""))
 	if not ship_id.is_empty():
@@ -642,6 +649,8 @@ static func emit_hit(st: Dictionary, proj: Dictionary, target_ship: Dictionary, 
 			"material": mat
 		}
 	var base_mag: float = (0.55 if fam == "gun" else (1.0 if fam == "cannon" else (1.15 if fam == "rocket" else 1.35))) * (1.2 if variant == "heavy" else 1.0) * (1.0 if direct else 0.7)
+	if number(target_ship.get("hp"))+maxf(0,hp_lost)>=number(target_ship.get("maxHp"),1)-0.1:target_ship.visualHits=[]
+	HullFeedback.record(target_ship,point,number(st.get("time"),0),base_mag,mat,section,angle)
 	var ev: Dictionary = push_event(st, {
 		"kind": "hit",
 		"type": "hit",
@@ -896,6 +905,9 @@ static func record_wreck(st: Dictionary, ship: Dictionary, radius: float) -> Dic
 		"faction": str(ship_spec.get("faction", "compact")),
 		"archetype": archetype(ship_spec),
 		"spec": ship_spec.duplicate(true),
+		"visualHits": ship.get("visualHits",[]).duplicate(true),
+		"localAimAngles": ship.get("localAimAngles",{}).duplicate(true),
+		"engine": number(ship.get("engine"),0.0),
 		"material": mat,
 		"cause": cause,
 		"killerId": str(last_hit.get("sourceId", "")),

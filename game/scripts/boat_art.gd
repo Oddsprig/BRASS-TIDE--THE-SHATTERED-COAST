@@ -16,6 +16,9 @@ const WAKE_LIFE := 6.0
 const HullProfiles=preload("res://scripts/hull_profiles.gd")
 const Layout=preload("res://scripts/mount_layout.gd")
 const WeaponArt = preload("res://scripts/weapon_art.gd")
+const HullFeedback=preload("res://scripts/hull_feedback.gd")
+const MotorArt=preload("res://scripts/motor_art.gd")
+const MeshCache=preload("res://scripts/boat_mesh_cache.gd")
 
 static var _station_cache: Dictionary = {}
 static var _audit_geometry: bool = "--qa-geometry" in OS.get_cmdline_user_args()
@@ -366,9 +369,6 @@ static func _superstructure(ctx: Dictionary, _arch: String, spec: Dictionary, c:
 				var x: float=float(vent.x)-float(vent.length)*0.4+i*float(vent.length)*0.8/maxf(1.0,float(vent.slats)-1.0)
 				_seg(ctx,Vector2(x,vent.y-vent.width*0.4),Vector2(x,vent.y+vent.width*0.4),engine.height+0.6,c.metal_light,0.8)
 	for stack in plan.stacks:_stack(ctx,Vector2(stack.x,stack.y),c,stack.radius)
-	for pod in engine.pods:
-		_rect(ctx,pod.x,pod.y,pod.length,pod.width,pod.height,c.plate)
-		_seg(ctx,Vector2(pod.x-pod.length*0.3,pod.y),Vector2(pod.x+pod.length*0.3,pod.y),pod.height+0.6,c.metal_light,1.0)
 	if cabin.style=="cockpit" and not identity.bridge.glass:
 		_rect(ctx,cabin.x,0,cabin.length,cabin.width,11.5,c.cabin.darkened(0.3))
 		_rect(ctx,cabin.x,0,cabin.length*0.8,cabin.width*0.8,12.0,Color("243b43"))
@@ -405,6 +405,7 @@ static func _deck_details(ctx: Dictionary,spec: Dictionary,identity: Dictionary,
 		if not clear:continue
 		var at=Vector2(item.x,item.y)
 		var kind: String=str(item.kind)
+		if kind=="outboard_pair":continue # Replaced by physical transom-mounted motors.
 		if "rope" in kind or "reel" in kind:
 			_rope_coil(ctx,at,c)
 		elif "drum" in kind or "cask" in kind:
@@ -438,10 +439,61 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 		"hull_size":float(spec.get("size",16)),"enlargement":enlargement,
 		"px": maxf(2.0, float(opts.get("px", 12.0))),
 		"lod": clampi(int(opts.get("lod", 0)), 0, 2),
-		"clock": float(boat.get("battleTime",opts.get("clock", 0.0))), "speed": vel.length(),
-		"shots":boat.get("mountShotTimes",{}),"localAimAngles":boat.get("localAimAngles",{}),
+		"clock": float(opts.get("clock",boat.get("battleTime",0.0))), "speed": vel.length(),
+		"shot_clock":float(opts.get("battle_clock",boat.get("battleTime",0.0))),
+		"combat":bool(opts.get("combat",boat.has("battleTime"))),
+		"shots":boat.get("mountShotTimes",{}) if bool(opts.get("combat",boat.has("battleTime"))) else {},"localAimAngles":boat.get("localAimAngles",{}),
 		"n": 0, "npoly": 0, "nline": 0, "ncirc": 0,
 	}
+	var stations := _stations(spec)
+	var mounts := mounts_of(spec)
+	if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
+		_cached_base(ctx,spec,boat,c,arch)
+		MotorArt.draw_motion(ctx,spec,boat,c)
+	else:_static(ctx,spec,boat,c,arch)
+	for m in mounts:
+		var local_bearing: float=float(ctx.localAimAngles.get(str(m.get("id","mount0")),m.angle))
+		if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c)
+		else:_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
+	_damage(ctx, boat, stations, arch, c)
+	return {"primitives": int(ctx.n), "polygons": int(ctx.npoly), "lines": int(ctx.nline),
+		"circles": int(ctx.ncirc), "archetype": arch, "mounts": mounts.size(), "lod": int(ctx.lod)}
+
+static func _cached_base(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Dictionary,arch: String) -> void:
+	var engine_id: String=MotorArt._engine_id(spec,boat)
+	var density: float=MeshCache.density(ctx.proj,ctx.pos)
+	var key: String="hull:%s:%.2f:%d:%s:%s:%s:%s"%[str(spec.get("id","boat")),float(ctx.size),int(ctx.lod),engine_id,c.deck.to_html(),c.cabin.to_html(),c.accent.to_html()]
+	key+=":density%.3f"%density
+	var bake=func(rec,angle: float):
+		var context: Dictionary=ctx.duplicate()
+		context.canvas=rec;context.pos=Vector2.ZERO;context.angle=angle
+		context.proj=func(p: Vector2,h: float):return Vector2((p.x-p.y)*0.82,(p.x+p.y)*0.41-h)*density
+		context.px=context.size*0.82*density;context.clock=0.0;context.speed=0.0
+		var frozen: Dictionary=boat.duplicate();frozen.engine=1.0;frozen.fuel=0.0;frozen.vx=0.0;frozen.vy=0.0
+		_static(context,spec,frozen,c,arch)
+	MeshCache.draw(ctx.canvas,ctx.proj,ctx.pos,ctx.angle,key,bake,0.0,density)
+	ctx.n+=1
+
+static func _cached_weapon(ctx: Dictionary,mount: Dictionary,bearing: float,c: Dictionary) -> void:
+	var id: String=str(mount.get("id","mount0"))
+	var age: float=float(ctx.shot_clock)-float(ctx.shots.get(id,-100.0))
+	var phase: int=clampi(int(age/0.04),0,4) if age>=0.0 and age<0.16 else 4
+	var density: float=MeshCache.density(ctx.proj,ctx.pos)
+	var key: String="weapon:%s:%s:%d:%.2f:%.2f:%d:%d:%s:%s"%[mount.kind,str(mount.get("moduleId","")),int(mount.get("size",1)),float(ctx.hull_size),float(ctx.enlargement),int(ctx.lod),phase,c.top.to_html(),c.brass.to_html()]
+	key+=":density%.3f"%density
+	var bake=func(rec,angle: float):
+		var context: Dictionary=ctx.duplicate()
+		context.canvas=rec;context.pos=Vector2.ZERO;context.angle=0.0
+		context.proj=func(p: Vector2,h: float):return Vector2((p.x-p.y)*0.82,(p.x+p.y)*0.41-h)*density
+		context.px=context.size*0.82*density;context.shot_clock=phase*0.04;context.shots={id:0.0}
+		var centered: Dictionary=mount.duplicate();centered.x=0.0;centered.y=0.0
+		_draw_mount(context,centered,angle,c)
+	var position: Vector2=ctx.pos+Vector2(mount.x,mount.y).rotated(ctx.angle)*float(ctx.size)
+	var firing_height: float=WeaponArt.Geometry.height(str(mount.kind),float(ctx.hull_size),int(mount.get("size",1)))
+	MeshCache.draw(ctx.canvas,ctx.proj,position,bearing,key,bake,firing_height,density)
+	ctx.n+=1
+
+static func _static(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Dictionary,arch: String) -> void:
 	var stations := _stations(spec)
 	var lift := 0.0 # Solid water contact; foil silhouette remains, with no duplicated hull outline.
 	if arch == "catamaran":
@@ -474,28 +526,15 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 						_circ(ctx, Vector2(fx - 0.12, s * span * 0.62), -1.0, 0.07, Color(c.foam, 0.6))
 		_rails(ctx, stations, c, 0.0, lift)
 	_superstructure(ctx, arch, spec, c)
-	var mounts := mounts_of(spec)
+	MotorArt.draw(ctx,spec,boat,c)
 	for socket in Layout.hardpoints(spec):
 		var at=Vector2(socket.localX,socket.localY)
 		_rect(ctx,at.x,at.y,socket.footprintRadius*1.65,socket.footprintRadius*1.65,10.0,c.metal)
 		if int(ctx.lod)==0:
 			_line(ctx,[at+Vector2(-0.1,-0.1),at+Vector2(0.1,-0.1),at+Vector2(0.1,0.1)],10.4,c.brass,0.8)
-	for m in mounts:
-		var local_bearing: float=float(ctx.localAimAngles.get(str(m.get("id","mount0")),m.angle))
-		_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
-	_damage(ctx, boat, stations, arch, c)
-	return {"primitives": int(ctx.n), "polygons": int(ctx.npoly), "lines": int(ctx.nline),
-		"circles": int(ctx.ncirc), "archetype": arch, "mounts": mounts.size(), "lod": int(ctx.lod)}
 
 static func _damage(ctx: Dictionary, boat: Dictionary, stations: Array, arch: String, c: Dictionary) -> void:
-	var breaches_v = boat.get("breaches", [])
-	var scars := mini(4, breaches_v.size()) if breaches_v is Array else 0
-	for i in range(scars):
-		var at := Vector2(0.55 - float(i) * 0.55, (0.30 if i % 2 == 0 else -0.34))
-		if arch == "catamaran":
-			at.y += (-CAT_OFFSET if i % 2 == 0 else CAT_OFFSET)
-		_poly(ctx, [at + Vector2(-0.16, -0.08), at + Vector2(0.14, -0.03), at + Vector2(0.18, 0.07), at + Vector2(-0.10, 0.10)], 9.6, Color("16211f"))
-		_circ(ctx, at, 10.0, 0.05, Color("0a1416"))
+	HullFeedback.draw(ctx,boat,stations)
 	var water := float(boat.get("water", 0.0))
 	if water > 0.0:
 		var flood := clampf(water / maxf(1.0, float(boat.get("capacity", 100.0))), 0.0, 1.0)
@@ -504,12 +543,6 @@ static func _damage(ctx: Dictionary, boat: Dictionary, stations: Array, arch: St
 			_poly(ctx, _outline(stations, CAT_OFFSET, 0.7, 0.9), 9.7, Color(0.19, 0.57, 0.66, flood * 0.55))
 		else:
 			_poly(ctx, _outline(stations, 0.0, 0.72, 0.9), 9.7, Color(0.19, 0.57, 0.66, flood * 0.55))
-	if float(boat.get("fire", 0.0)) > 0.0 and int(ctx.lod) < 2:
-		var clock := float(ctx.clock)
-		for i in range(3):
-			var at := Vector2(-0.25 + float(i) * 0.28, sin(clock * 7.0 + float(i) * 1.7) * 0.05)
-			_circ(ctx, at, 16.0 + float(i) * 5.0, 0.13 - float(i) * 0.025, Color(1.0, 0.52 + float(i) * 0.12, 0.20, 0.85))
-			_circ(ctx, at + Vector2(-0.08, 0.03), 26.0 + float(i) * 6.0, 0.11, Color(0.16, 0.16, 0.16, 0.35))
 
 # --- wakes, trails, projectiles (world-space, same canvas/projector) ---------
 

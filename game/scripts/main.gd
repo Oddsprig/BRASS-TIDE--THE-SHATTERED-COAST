@@ -122,8 +122,11 @@ func _process(dt: float):
 		var axis = Vector2(float(Input.is_physical_key_pressed(KEY_D)) - float(Input.is_physical_key_pressed(KEY_A)), float(Input.is_physical_key_pressed(KEY_S)) - float(Input.is_physical_key_pressed(KEY_W)))
 		if axis.length_squared() > 0:
 			chart.pan_camera(axis.normalized(), minf(dt, 0.1), Input.is_physical_key_pressed(KEY_SHIFT))
+	# Results settle immediately, while the last wreck and blast finish behind the panel.
+	if mode=="battle" and result_handled and not paused and not battle.is_empty() and (not ui.modal_open or ui.modal_kind=="outcome"):
+		Battle.advance_visuals(battle,minf(dt,0.1))
 	chart.step(minf(dt, 0.1))
-	var running: bool=mode=="battle" and not paused and not ui.modal_open
+	var running: bool=mode=="battle" and not result_handled and not paused and not ui.modal_open
 	if mode=="campaign" and not core.state.is_empty():running=not core.state.path.is_empty() and not paused and not ui.modal_open
 	audio.set_engine(running,0.65)
 	music.set_context(music_context())

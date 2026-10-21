@@ -16,7 +16,7 @@ static func draw(ctx: Dictionary, mount: Dictionary, world_bearing: float, palet
 	var steel := Color("52656b")
 	var edge := Color("a3b4ae")
 	var bronze: Color = palette.brass
-	var age: float = float(ctx.get("clock",0.0))-float(ctx.get("shots",{}).get(str(mount.get("id","")),-100.0))
+	var age: float = float(ctx.get("shot_clock",ctx.get("clock",0.0)))-float(ctx.get("shots",{}).get(str(mount.get("id","")),-100.0))
 	var recoil: float = -1.1 * maxf(0.0,1.0-age/0.16) if age>=0.0 else 0.0
 	# A bolt-down octagonal deck plate, bearing race and pedestal: no black discs.
 	_pad(model,2.1 if kind=="gun" else 3.0,0.25,dark)

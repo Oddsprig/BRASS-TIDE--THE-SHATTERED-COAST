@@ -52,6 +52,15 @@ func _initialize() -> void:
 	core.state.fleet[0].engine=0.7
 	core.state.fleet[0].supplies=2.75
 	accept(copy_json(core.state),"Actual damaged boat JSON")
+	var hit_save: Dictionary=valid.duplicate(true)
+	hit_save.fleet[0].visualHits=[{"x":0.5,"y":0.1,"at":-100.0,"power":1.0,"angle":0.0,"material":"wood","section":"bow"}]
+	accept(copy_json(hit_save),"Portable localized damage records survive JSON round trip")
+	var bad_hits: Dictionary=hit_save.duplicate(true)
+	bad_hits.fleet[0].visualHits[0].x=NAN
+	reject(bad_hits,"Nonfinite cosmetic damage location")
+	bad_hits=hit_save.duplicate(true)
+	for i in range(8):bad_hits.fleet[0].visualHits.append(bad_hits.fleet[0].visualHits[0].duplicate(true))
+	reject(bad_hits,"Unbounded damage record array")
 	var extra: Dictionary=valid.duplicate(true)
 	extra.futureExtension={"note":"accepted unknown metadata","optional":null}
 	extra.fleet[0].ammo=100.0
