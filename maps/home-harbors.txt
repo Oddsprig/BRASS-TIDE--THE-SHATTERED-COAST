@@ -1,0 +1,34 @@
+BRASS TIDE — HOME-HARBORS MAP (generated; v0.018)
+
+Physical local materials/staff/coins -> paid shore stock, business payroll and earned-only dividends, private/public berths and arrears.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/home_harbor.gd: 29096 bytes; extends RefCounted
+  game/scripts/home_harbor.gd:140 ensure()
+  game/scripts/home_harbor.gd:187 list_businesses()
+  game/scripts/home_harbor.gd:201 quote()
+  game/scripts/home_harbor.gd:293 establish()
+  game/scripts/home_harbor.gd:344 transfer_goods()
+  game/scripts/home_harbor.gd:395 capital()
+  game/scripts/home_harbor.gd:419 dividend()
+  game/scripts/home_harbor.gd:504 tick()
+  game/scripts/home_harbor.gd:41 _is_num()
+  game/scripts/home_harbor.gd:45 _num()
+  game/scripts/home_harbor.gd:49 _round2()
+  game/scripts/home_harbor.gd:53 _fail()
+game/scripts/home_ops.gd: 3438 bytes; extends RefCounted
+  game/scripts/home_ops.gd:7 slots()
+  game/scripts/home_ops.gd:10 ensure()
+  game/scripts/home_ops.gd:15 warehouse()
+  game/scripts/home_ops.gd:20 room()
+  game/scripts/home_ops.gd:29 can_store()
+  game/scripts/home_ops.gd:36 pay_arrears()
+  game/scripts/home_ops.gd:48 daily()
+game/scripts/home_ui.gd: 4271 bytes; extends RefCounted
+  game/scripts/home_ui.gd:3 open()
+  game/scripts/home_ui.gd:55 act()
+
+TESTS (game/tests/*.gd)
+test_home_harbor, test_home_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.

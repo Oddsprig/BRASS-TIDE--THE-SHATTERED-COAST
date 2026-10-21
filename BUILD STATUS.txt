@@ -1,9 +1,9 @@
 BRASS TIDE BUILD STATUS
-Current source: v0.017 / BUILD 17
-Milestone: A home harbor
-SOURCE ACCEPTED: 43 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+Current source: v0.018 / BUILD 18
+Milestone: Regional campaigns
+SOURCE ACCEPTED: 46 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 
-Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.017 DELIVERY VERIFIED.json.
+Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.018 DELIVERY VERIFIED.json.
 In-game TXT notes: game/data/DEVELOPER NOTES.txt. Original campaign plan: docs/CAMPAIGN ROADMAP.txt.
 Owner authorized sequential builds0.008-0.018 with root, Muse Wonder Full, Argon High and Grok4.7.
 Previous versions, original saves and supplied music must remain intact.

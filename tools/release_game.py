@@ -96,6 +96,11 @@ def main():
         shutil.copy2(ROOT / "game/data/DEVELOPER NOTES.txt",dest / "DEVELOPER NOTES.txt")
     if (ROOT / "docs/CAMPAIGN ROADMAP.txt").is_file():
         shutil.copy2(ROOT / "docs/CAMPAIGN ROADMAP.txt",docs / "CAMPAIGN ROADMAP.txt")
+    if (ROOT / "docs/CAPTAINS CAMPAIGN GUIDE.txt").is_file():
+        shutil.copy2(ROOT / "docs/CAPTAINS CAMPAIGN GUIDE.txt",docs / "CAPTAINS CAMPAIGN GUIDE.txt")
+    metrics=ROOT / f"docs/PERFORMANCE AND SAVE CHECKS v{VERSION}.txt"
+    if metrics.is_file():
+        shutil.copy2(metrics,docs / metrics.name)
     (dest / "Stable Rendering.vbs").write_text(STABLE, encoding="utf-8")
     hashes = {p.relative_to(dest).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
               for p in sorted(dest.rglob("*")) if p.is_file()}

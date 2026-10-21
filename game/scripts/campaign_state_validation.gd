@@ -174,4 +174,55 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if actual!=staff[b.kind]:return "Business has an invalid permanent workforce."
 	for b in s.get("fleet",[]):
 		if b.has("berthArrears") and not number(b.berthArrears):return "Invalid stored berth account."
+	var port_ids: Array=world.PORTS.map(func(p):return p.id)
+	if s.has("regionalOrigin") and (not s.regionalOrigin is String or (s.regionalOrigin!="" and not s.regionalOrigin in port_ids)):return "Invalid regional departure."
+	if s.has("campaignFocus"):
+		if not s.campaignFocus is Dictionary:return "Invalid regional focus."
+		for key in ["fromPort","toPort","portId"]:
+			if not s.campaignFocus.get(key,"") in port_ids:return "Unknown regional harbor."
+		for key in ["peaceA","peaceB"]:
+			if not s.campaignFocus.get(key,"") in ["compact","forge","reed","raiders"]:return "Unknown treaty party."
+	if s.has("regionalFacts"):
+		if not s.regionalFacts is Dictionary:return "Invalid physical regional facts."
+		for key in ["deliveries","passages"]:
+			if not s.regionalFacts.get(key) is Dictionary or s.regionalFacts[key].size()>64:return "Invalid bounded regional facts."
+			for id in s.regionalFacts[key]:
+				if not number(s.regionalFacts[key][id]):return "Invalid regional activity amount."
+				if key=="deliveries" and not id in port_ids:return "Unknown regional delivery harbor."
+				if key=="passages":
+					var ends: PackedStringArray=str(id).split("|")
+					if ends.size()!=2 or not ends[0] in port_ids or not ends[1] in port_ids or ends[0]==ends[1]:return "Invalid physical corridor."
+	if s.has("regionalCampaigns"):
+		if not s.regionalCampaigns is Dictionary:return "Invalid regional campaign book."
+		var book: Dictionary=s.regionalCampaigns
+		for key in ["operations","completed","peace","fundedRoutes"]:
+			if not book.get(key) is Dictionary or book[key].size()>128:return "Invalid bounded regional book."
+		if not book.get("journal") is Array or book.journal.size()>40 or not number(book.get("seq")):return "Invalid regional history."
+		if book.operations.size()>4 or book.peace.size()>6:return "Too many regional operations."
+		for id in book.operations:
+			var op=book.operations[id]
+			if not id in ["corridor","harbor","survey","ceasefire"] or not op is Dictionary or op.get("id","")!=id or op.get("status","") not in ["active","complete","cancelled"]:return "Invalid regional operation identity."
+			if not op.get("completionId") is String or not op.get("ownerId") is String or not op.get("portId") is String:return "Invalid regional assignment."
+			if op.portId!="" and not op.portId in port_ids:return "Unknown regional operation harbor."
+			for key in ["funded","startedDay","clearDays","lastAssessedDay","patrolVisits","talksStartedDay","passageBaseline","deliveryBaseline"]:
+				if not number(op.get(key)):return "Invalid regional progress/accounting."
+			if not op.get("playerAction") is bool or not op.get("ends") is Array or op.ends.size()>2:return "Invalid regional corridor proof."
+			for value in op.ends:
+				if not value in port_ids:return "Unknown corridor endpoint."
+			for key in ["contributed","baseline","businessWages","relief"]:
+				if not op.get(key) is Dictionary or op[key].size()>32:return "Invalid regional supply/progress ledger."
+				for value in op[key].values():
+					if not number(value):return "Invalid regional supply/progress amount."
+			if id=="ceasefire":
+				for key in ["peaceA","peaceB"]:
+					if not op.get(key,"") in ["compact","forge","reed","raiders"]:return "Unknown operation treaty party."
+		for rec in book.peace.values():
+			if not rec is Dictionary or not rec.get("active") is bool:return "Invalid regional treaty."
+			for key in ["a","b"]:
+				if not rec.get(key,"") in ["compact","forge","reed","raiders"]:return "Unknown treaty faction."
+			for key in ["day","untilDay","cooldownUntil"]:
+				if not number(rec.get(key)):return "Invalid treaty date."
+			if not number(rec.get("before"),-100,100) or rec.a==rec.b or int(rec.untilDay)<int(rec.day) or int(rec.cooldownUntil)<int(rec.untilDay):return "Invalid treaty terms."
+		for rec in book.fundedRoutes.values():
+			if not rec is Dictionary or not number(rec.get("amount")) or not rec.get("ownerId") is String or not rec.get("portId","") in port_ids:return "Invalid once-only regional grant record."
 	return ""

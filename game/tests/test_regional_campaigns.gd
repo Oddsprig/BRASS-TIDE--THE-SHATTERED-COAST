@@ -1,0 +1,164 @@
+extends SceneTree
+## Root-reviewed tests: finite funding, actual deliveries, sustained progress and time-limited diplomacy.
+const R=preload("res://scripts/regional_campaigns.gd")
+const Rules=preload("res://scripts/regional_rules.gd")
+const RO=preload("res://scripts/regional_orders.gd")
+const Damage=preload("res://scripts/damage.gd")
+const Money=preload("res://scripts/money.gd")
+const Factions=preload("res://scripts/factions.gd")
+var checks: int=0
+var failures: int=0
+func check(ok: bool,text: String):
+	checks+=1
+	if not ok:failures+=1;print("FAIL regional: "+text)
+func boat(id: String) -> Dictionary:
+	var b: Dictionary=Damage.create_ship({"id":id,"hp":80,"crewMin":1,"crewOptimal":3,"crewMax":4,"size":16,"speed":80,"cargo":20},{"crew":3,"fuel":8,"ammo":40})
+	b.uid=id
+	return b
+func port(id: String,x: float,faction: String) -> Dictionary:
+	return {"id":id,"name":id,"x":x,"y":0,"faction":faction,"industry":"trade","cash":1000,"householdPurse":100,"expertPurse":100,"governmentPurse":5000,"stocks":{"food":2,"fuel":2,"supplies":1,"ammo":1,"timber":1}}
+func fresh() -> Dictionary:
+	var s: Dictionary={"day":1,"coins":500,"crewPurse":0,"ports":[port("harbor",0,"compact"),port("mill",800,"forge"),port("reef",1600,"raiders")],"fleet":[],"fleetOwners":[],"patrols":[],"cargo":{"food":20,"timber":15},"position":{"x":0,"y":0},"path":[],"lastPort":"harbor","campaignFacts":{"goodsDelivered":0,"escortsSaved":0,"bountyWins":0,"licensedDesigns":0},"regionalFacts":{"deliveries":{},"passages":{}},"campaignFocus":{"fromPort":"harbor","toPort":"mill","portId":"harbor","peaceA":"compact","peaceB":"raiders"}}
+	Factions.ensure(s,{})
+	return s
+func _initialize():
+	funding_and_watch()
+	harbor_development()
+	diplomacy()
+	survey_roundtrip()
+	print("regional campaigns: %d checks, %d failures"%[checks,failures])
+	quit(0 if failures==0 else 1)
+func funding_and_watch():
+	var s: Dictionary=fresh()
+	var patrol: Dictionary={"id":"patrol","kind":"patrol","faction":"compact","homePort":"harbor","atPort":"harbor","active":true,"coins":100,"crewPurse":0,"boats":[boat("p-a"),boat("p-b")]}
+	var raider: Dictionary={"id":"raider","kind":"raider","faction":"raiders","homePort":"reef","atPort":"","active":true,"coins":15,"crewPurse":0,"boats":[boat("r-a")]}
+	s.fleetOwners=[patrol,raider];s.patrols=[{"id":"raider","x":20,"y":0,"active":true,"from":"reef","to":"harbor","progress":0.5}]
+	Factions.adjust(s,"compact",25,"unit fixture earned standing")
+	var total: int=Money.total(s)
+	var ids: Array=s.fleetOwners.map(func(o):return o.id)
+	R.available(s)
+	check(Money.total(s)==total,"listing goals moves no money")
+	var begun: Dictionary=R.start(s,"corridor")
+	check(begun.ok and begun.funded==4200 and begun.ownerId=="patrol","two crews of three receive exactly seven wage-days")
+	check(s.ports[0].governmentPurse==800 and patrol.coins==4300,"treasury and owner move equally")
+	check(Money.total(s)==total and s.fleetOwners.map(func(o):return o.id)==ids and patrol.boats.size()==2,"funding preserves coins, owners and hulls")
+	check(not R.start(s,"corridor").ok and patrol.coins==4300,"an active goal cannot fund twice")
+	check(R.journal(s)[0].purpose=="upkeep" and R.journal(s)[0].funder=="harbor","funding cause and source are journaled")
+	check(R.tick(s,0).is_empty(),"zero-time ticks do not advance")
+	check(R.tick(s).is_empty(),"hostile corridor cannot complete")
+	var op: Dictionary=s.regionalCampaigns.operations.corridor
+	check(RO.plan(s,patrol,"harbor").destination=="mill","existing patrol receives actual opposite endpoint order")
+	RO.arrival(s,patrol,s.ports[0]);RO.arrival(s,patrol,s.ports[0])
+	check(op.patrolVisits==0,"repeated readings at the start are not passages")
+	RO.arrival(s,patrol,s.ports[1]);RO.arrival(s,patrol,s.ports[1]);RO.arrival(s,patrol,s.ports[0])
+	check(op.patrolVisits==2,"two different real endpoint arrivals are remembered once")
+	raider.boats[0].fuel=0
+	for i in range(6):
+		s.day+=1
+		check(R.tick(s).is_empty(),"clear day %d alone cannot finish early"%(i+1))
+	check(op.clearDays==6,"six distinct days are six progress days")
+	R.tick(s);R.tick(s)
+	check(op.clearDays==6,"repeated same-day ticks cannot manufacture days")
+	raider.boats[0].fuel=8;s.day+=1;R.tick(s)
+	check(op.clearDays==0,"renewed threat resets consecutive clear days")
+	raider.boats[0].fuel=0
+	for i in range(6):s.day+=1;R.tick(s)
+	s.day+=1
+	var done: Array=R.tick(s)
+	check(done.size()==1 and done[0].cause=="sustained-corridor","seven clear days plus actual visits finish once")
+	check(R.tick(s).is_empty() and not R.start(s,"corridor").ok and Money.total(s)==total,"completed stable route neither pays nor repeats")
+	s.campaignFocus.toPort="reef"
+	check(R.available(s).filter(func(x):return x.id=="corridor")[0].ready,"a different corridor is a different stable goal")
+	var neutral: Dictionary=fresh()
+	neutral.fleetOwners=[patrol.duplicate(true),raider.duplicate(true)]
+	neutral.fleetOwners[1].boats[0].fuel=8
+	var before: int=int(neutral.ports[0].governmentPurse)
+	check(R.start(neutral,"corridor").funded==0 and neutral.ports[0].governmentPurse==before,"neutral standing cannot requisition the treasury")
+	var distant: Dictionary=fresh()
+	distant.fleetOwners=[patrol.duplicate(true),raider.duplicate(true)];distant.position.x=5000
+	Factions.adjust(distant,"compact",25,"unit fixture earned standing")
+	check(R.start(distant,"corridor").funded==0,"government funding cannot be arranged remotely")
+	var restart: Dictionary=fresh()
+	restart.fleetOwners=[patrol.duplicate(true),raider.duplicate(true)]
+	restart.fleetOwners[1].boats[0].fuel=8
+	Factions.adjust(restart,"compact",25,"unit fixture earned standing")
+	R.start(restart,"corridor")
+	var purse: int=restart.fleetOwners[0].coins
+	check(R.cancel(restart,"corridor").ok and R.start(restart,"corridor").ok,"Optional watch can be withdrawn and chosen again")
+	check(restart.fleetOwners[0].coins==purse and restart.ports[0].governmentPurse==800,"Withdrawal cannot farm or refund regional grants")
+func harbor_development():
+	var s: Dictionary=fresh()
+	var b: Dictionary={"id":"business-1","homePort":"harbor","kind":"warehouse","coins":1000,"paused":false,"employees":[{"wage":100},{"wage":100}],"wagesPaid":0}
+	s.businesses=[b]
+	var total: int=Money.total(s)
+	check(not R.contribute(s,"harbor","timber",1).ok,"a closed goal refuses cargo")
+	check(R.start(s,"harbor").ok,"harbor development starts")
+	s.position.x=800
+	var count: float=float(s.cargo.timber)+float(s.ports[0].stocks.timber)
+	check(not R.contribute(s,"harbor","timber",3).ok and float(s.cargo.timber)+float(s.ports[0].stocks.timber)==count,"remote contribution refuses without moving stock")
+	s.position.x=0
+	check(not R.contribute(s,"harbor","timber",90).ok and s.cargo.timber==15,"oversized contribution is atomic")
+	check(not R.contribute(s,"harbor","guns",1).ok,"nonaccepted materials are refused")
+	check(R.contribute(s,"harbor","timber",11).ok and s.cargo.timber==4,"eleven physical lots reach the actual stock")
+	check(R.tick(s).is_empty(),"deliveries alone do not create paid development")
+	check(R.contribute(s,"harbor","timber",1).ok,"twelfth lot is delivered")
+	for i in range(2):
+		Money.move(b,"coins",s.ports[0],"householdPurse",200,"test actual business payroll",[])
+		b.wagesPaid+=200;s.day+=1
+		check(R.tick(s).is_empty(),"two paid days are not three")
+	Money.move(b,"coins",s.ports[0],"householdPurse",200,"test actual business payroll",[])
+	b.wagesPaid+=200;s.day+=1
+	var done: Array=R.tick(s)
+	check(done.size()==1 and done[0].cause=="paid-harbor-development","three actual payrolls and twelve lots complete development")
+	check(Money.total(s)==total and float(s.cargo.timber)+float(s.ports[0].stocks.timber)==count,"business pay and cargo conserve coins and timber")
+	check(not R.contribute(s,"harbor","timber",1).ok and R.tick(s).is_empty(),"finished development does not consume or pay again")
+func diplomacy():
+	var s: Dictionary=fresh()
+	s.day=10
+	Factions.adjust(s,"compact",25,"unit fixture earned mandate")
+	check(not R.propose_peace(s,"compact","forge").ok,"peaceful factions are not rewritten")
+	check(not R.propose_peace(s,"compact","raiders").ok,"hostility alone is not a treaty")
+	check(R.start(s,"ceasefire").ok,"ceasefire goal starts without a commission")
+	var total: int=Money.total(s)
+	check(R.contribute(s,"ceasefire","food",5).ok,"five real food lots reach the first party")
+	check(not R.propose_peace(s,"compact","raiders").ok,"one-sided relief cannot establish peace")
+	s.position.x=5000
+	check(not R.contribute(s,"ceasefire","food",5).ok,"relief cannot teleport from sea")
+	s.position.x=1600
+	check(not R.contribute(s,"ceasefire","food",5).ok,"hostile entry cannot donate through access gates")
+	for i in range(3):Factions.adjust(s,"raiders",25,"unit fixture earned public reconciliation")
+	Factions.adjust(s,"compact",25,"unit fixture renewed Compact mandate after reconciliation")
+	check(R.contribute(s,"ceasefire","food",5).ok,"actual relief reaches the other accessible party")
+	var op: Dictionary=s.regionalCampaigns.operations.ceasefire
+	check(op.relief.compact==5 and op.relief.raiders==5 and s.cargo.food==10,"both relief receipts are physical and separate")
+	check(not R.propose_peace(s,"compact","raiders").ok,"talks require elapsed days")
+	s.day=12;R.tick(s)
+	check(not R.propose_peace(s,"compact","raiders").ok,"two days are not three")
+	var rep: Array=[Factions.standing(s,"compact").public,Factions.standing(s,"raiders").public]
+	s.day=13;R.tick(s)
+	var deal: Dictionary=R.propose_peace(s,"raiders","compact")
+	check(deal.ok and deal.untilDay==43 and deal.cooldownUntil==73,"three-day talks produce a dated thirty-day treaty")
+	check(Factions.relation(s,"compact","raiders")==0 and Factions.relation(s,"raiders","compact")==0,"one symmetric faction pair becomes neutral")
+	check([Factions.standing(s,"compact").public,Factions.standing(s,"raiders").public]==rep,"treaty does not grant player reputation")
+	check(not s.relationships.commission.committed and Money.total(s)==total,"no forced commission, coin gift or escrow")
+	check(not R.propose_peace(s,"compact","raiders").ok and not R.start(s,"ceasefire").ok,"treaty and cooldown cannot be stacked")
+	s.day=43
+	var ended: Array=R.tick(s)
+	check(ended.size()==1 and Factions.relation(s,"compact","raiders")==-40,"expiry restores the actual previous dispute")
+	check(R.tick(s).is_empty(),"expiry is once only")
+	s.day=73
+	check(R.start(s,"ceasefire").ok,"fresh talks can start after the full cooldown")
+	var rec: Dictionary=s.regionalCampaigns.peace["compact|raiders"]
+	rec.active=true;rec.untilDay=74;Factions.set_relation(s,"compact","raiders",15,"a later independent accord")
+	s.day=74;R.tick(s)
+	check(Factions.relation(s,"compact","raiders")==15,"expiry never overwrites a later diplomatic change")
+func survey_roundtrip():
+	var s: Dictionary=fresh()
+	s.exploration={"catalog":[{"id":"a","leadId":"b"},{"id":"b","leadId":"c"},{"id":"c","leadId":""}],"sites":{"a":{"level":3},"b":{"level":3},"c":{"level":2}}}
+	check(R.start(s,"survey").ok and R.tick(s).is_empty(),"two surveyed links and a chart are not three full surveys")
+	s.exploration.sites.c.level=3
+	check(R.tick(s).size()==1 and not R.start(s,"survey").ok,"three connected full surveys complete once")
+	var book=JSON.parse_string(JSON.stringify(s.regionalCampaigns))
+	s.regionalCampaigns=book;R.ensure(s)
+	check(R.tick(s).is_empty() and not R.start(s,"survey").ok,"roundtrip preserves completed IDs")
+	check(not R.start(s,"conquest").ok and s.fleetOwners.is_empty(),"unknown goals never spawn fleets")

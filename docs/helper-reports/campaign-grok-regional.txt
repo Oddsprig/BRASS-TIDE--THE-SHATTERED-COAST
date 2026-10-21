@@ -1,0 +1,184 @@
+HELPER C RAW REPORT — v0.018 REGIONAL CAMPAIGNS
+Grok 4.7. Worktree: campaign-grok. 21 October 2026.
+Godot was not started. No commits, deletes, installs, or other files.
+factions.gd, test_factions.gd, campaign-grok.txt, trade_intel.gd, test_trade_intel.gd, and campaign-grok-trade.txt were not modified.
+
+ALLOWLIST
+- game/scripts/regional_campaigns.gd (22263 bytes)
+- game/tests/test_regional_campaigns.gd
+- docs/helper-reports/campaign-grok-regional.txt
+No .uid files. tools/check_game.py was not edited, so it has no regional_campaigns suite name.
+
+DEPENDENCY
+regional_campaigns.gd preloads money.gd, goods.gd, factions.gd, trade_intel.gd, and fleet_economy.gd.
+trade_intel.gd preloads economy.gd, goods.gd, damage.gd, navigation.gd, and factions.gd.
+Root must integrate v0.012 factions and v0.014 trade intel before this file can parse.
+This module does not preload exploration.gd. It does not call Exploration.ensure, Factions.adjust, Factions.commission, Economy.transact, Economy.tick_ports, or Fleets.dock.
+
+NO ESCROW
+No operation purse was added. Return field escrow is always "" on start, propose_peace, and their refusals.
+The only coin movement is Money.move from an existing port.governmentPurse to an existing owner.coins.
+That transfer is written to state.moneyLog when the amount is positive. state.moneyLog is created only then.
+
+PUBLIC API
+game/scripts/regional_campaigns.gd extends RefCounted. Static calls only. No class_name.
+Book: state.regionalCampaigns. JSON objects, arrays, strings, bools, and finite numbers only.
+Goals: corridor, survey, harbor, ceasefire. There is no capture or conquest id.
+
+ensure(state) -> Dictionary
+  state may be the campaign dictionary, {state, world}, or an object with state and data/world.
+  Creates or repairs state.regionalCampaigns. version 1. cadence "daily".
+  Keeps operations, completed, peace, and journal. Repairs each operation.
+  Journal cap is 40. Newest entry is journal[0]. Completed ids and peace records are not trimmed:
+  each goal has one stable completion id, and peace is one record per faction pair.
+  Does not mint coins, spawn owners, or read live remote prices.
+  Returns the book.
+
+available(core) -> Array
+  One row per goal, in corridor, survey, harbor, ceasefire order.
+  Fields: id, title, ready, status, reason, completionId, paths.
+  ready is false when that completion id is already stored, the goal is active or complete,
+  a corridor has fewer than two ports, or a harbor has no port.
+  paths:
+    corridor: patrol, player
+    harbor: delivery, recorded-deliveries
+    survey: existing-surveys, later-surveys
+    ceasefire: offering
+  Does not start a goal, move coins, or create a fleet.
+
+start(core, id) -> Dictionary
+  Opens one goal. A second call for an active or completed goal returns ok false and moves nothing.
+  Unknown ids, including conquest, return ok false.
+  Fields: ok, id, status, completionId, funded, ownerId, portId, recognized, completed, spawned, minted, escrow, message.
+  spawned is false. minted is false. escrow is "".
+  Survey with an already surveyed chain of 3 completes immediately. recognized and completed are true.
+  That reads existing levels. It does not raise them.
+  Corridor may fund an existing patrol. Harbor, survey, and ceasefire never move coins.
+  No goal appends fleetOwners, boats, or patrols.
+
+contribute(core, id, good, qty) -> Dictionary
+  Active goal only. good must be a Goods.ITEMS key and on that goal's list. qty must be a positive whole number.
+  Harbor accepts food, logs, timber, ore, iron, charcoal, crude, fuel, supplies.
+  Corridor accepts fuel, ammo, food, supplies.
+  Ceasefire accepts food, supplies.
+  Survey accepts supplies. Supplies do not by themselves finish a survey.
+  Removes qty from state.cargo and adds the same qty to the goal port's existing stocks dictionary.
+  Refusal happens before either write: unknown goal, inactive goal, bad good, bad qty, missing cargo ledger,
+  missing port stocks, or cargo below qty. A refused call leaves cargo, stock, and coins as they were.
+  No price, no wage, no reputation, and no campaignFacts change.
+  Success fields: ok, refused false, id, good, qty, cargo, stock, message.
+  Failure fields: ok false, refused true, message.
+
+tick(core, days = 1) -> Array
+  One assessment. days is not simulated one day at a time, and this is not a per-frame world pass.
+  days below 1, or a non-whole value, returns [] and completes nothing.
+  days of 2 or more is still one pass. Root should call this on the economy-day cadence.
+  Returns only new completion events. A goal that is already complete emits nothing.
+  Event fields: day, kind "complete", id, goal, completionId, cause, funded, seq.
+  Does not mint coins, move cargo, spawn fleets, change faction scores, or set port.blockaded.
+
+propose_peace(core, a, b) -> Dictionary
+  Calls Factions.ensure(state, world). That repairs state.relationships. It does not call commission or adjust.
+  All of these must be true, or the call returns ok false and changed false without writing a relation:
+    distinct: two different ids in Factions.CANON
+    hostile: Factions.relation <= Factions.ENEMY_AT (-20)
+    cooldown: no peace record for that pair with cooldownUntil still in the future
+    goal: ceasefire operation status is active
+    offering: that operation has already received at least 1 food or supplies through contribute
+    party: some state.ports row has faction a or faction b
+  On success, Factions.set_relation(state, a, b, 0, reason) sets one symmetric pair to neutral.
+  Player public scores are not an input and are not written.
+  Recorded on state.regionalCampaigns.peace[sortedPair]:
+    relation 0, before, day, untilDay = today + 30, cooldownUntil = today + 60, duration 30,
+    purpose ceasefire, target the pair key, cause existing-hostility, funder none, commissioned false.
+  The ceasefire goal completes once with completion id peace:ceasefire and cause peace.
+  Duration is a record only. Tick does not restore hostility when untilDay passes, and it does not start a new war.
+  A later propose_peace while cooldownUntil is still ahead returns without calling set_relation.
+  Fields: ok, changed, relation, before, after, key, duration, untilDay, cooldownUntil, conditions, commissioned, escrow, message.
+  commissioned is false. escrow is "".
+
+journal(state) -> Array
+  Deep copy of the book journal, newest first. Cap 40.
+
+COMPLETION IDS
+  corridor:<sortedPortA>|<sortedPortB>
+  survey:chain
+  harbor:<lastPort or first port>
+  peace:ceasefire
+  A stored completion id cannot be earned again. Battle and delivery progress uses a baseline taken at start.
+  escortsSaved, goodsDelivered, bountyWins, and licensedDesigns are read from state.campaignFacts.
+  Missing facts read as 0. This module never creates or increments campaignFacts.
+  licensedDesigns is stored on the baseline and is not a completion path.
+
+CORRIDOR
+  Needs two ports. The pair is the first two port ids in alphabetical order.
+  Mobilization runs only when both a threat and a supplied base exist.
+  Threat is TradeIntel.blockades on either end, else a non-story active owner with force >= 2 whose faction
+  relation to an end's faction is <= -20. Owners whose ids start with "story-" are ignored.
+  Calling blockades repairs state.tradeIntel. It does not move coins or set port.blockaded.
+  Supplied base: governmentPurse > 0 and at least 1 food, fuel, supplies, or ammo in that port's stocks,
+  plus an existing active patrol or trader of that port's faction whose homePort is that port and who has
+  at least one unsunk boat with crew >= 1. Patrol is preferred over trader. The lower id wins a tie.
+  No matching owner means funded stays 0. No owner is created.
+  Grant = min(governmentPurse, min(14000, floor(Fleets.upkeep(owner).wages) * 7)).
+  Fleets.upkeep wages are the existing sum of unsunk crew * 100. Fuel and food from upkeep are not added to the grant.
+  A zero grant writes a mobilize-skipped journal row and moves no coins.
+  A positive grant is Money.move(port, "governmentPurse", owner, "coins", amount, reason, state.moneyLog).
+  reason is: purpose=upkeep target=<owner id> cause=<threat> funder=<port id> purse=governmentPurse
+  Journal kind mobilize carries purpose, target, cause, funder, purse, and amount.
+  The coins are the patrol's coins. This module does not call Fleets.dock, so it does not itself buy fuel,
+  ammo, repairs, or replacement hulls. Root's existing dock and upkeep spend those coins.
+  Completion, once, when neither end is in TradeIntel.blockades and either:
+    patrol: funded > 0 and that owner's supplied force is still >= 2
+    player: escortsSaved or bountyWins is at least 1 above the baseline stored at start
+  Force matches trade intel: active owner, not sunk, crew >= max(1, crewMin), fuel >= 0.5, ammo >= 10,
+  each such boat adds max(1, hp/40).
+  An already open coast does not complete at start. The baseline blocks old escort and bounty totals.
+  A blockade that is still active blocks both paths.
+
+SURVEY
+  Does not call Exploration.ensure and does not read res://data/island_sites.json.
+  Chain length walks state.exploration.catalog. Each site uses leadId and state.exploration.sites[id].level.
+  Level >= 3 counts as surveyed, the same number Exploration uses for "surveyed".
+  The walk counts consecutive surveyed links and stops at a missing, unsurveyed, or empty lead.
+  Need 3. If the catalog is missing or empty, the chain length is 0 even if sites has rows.
+  Root should call Exploration.ensure before expecting survey progress to be visible.
+  Existing chain of 3 completes inside start. A shorter chain completes on a later tick after the levels are already there.
+  This module does not write exploration, sites, or catalog.
+
+HARBOR
+  Port is state.lastPort when that id exists, otherwise the first port.
+  Completion needs a real industry or a real business, plus one of:
+    delivery: contributed lots on this goal total >= 4
+    recorded-deliveries: campaignFacts.goodsDelivered is at least 4 above the start baseline
+  Industry is port.industry not empty.
+  Business is a state.businesses row with the same portId and active not false. The row is not edited.
+  Neither businesses nor goodsDelivered is created or incremented here.
+  Contributed lots are the cargo physically moved into that port's stocks.
+
+CEASEFIRE
+  Choosing the goal does not change a relation. propose_peace does, and only under the conditions above.
+  Food or supplies must already have been removed from player cargo and added to the goal port's stock.
+
+NOT DONE HERE
+No port capture, occupation, or conquest.
+No fleet, boat, crew, or patrol is spawned because the player grew.
+Tick does not raise hostility, add a crisis, or refill a purse.
+Story-owned fleets are not funded and are not treated as the threat that releases funds.
+Small-fleet play is unchanged if the player never calls start. Nothing here is compulsory.
+Root still owns UI, save migration, campaignFacts, Exploration.sites, state.businesses,
+Fleets.dock, economy day, and writing blockade ids into Economy.tick_ports.
+
+TESTS NOT RUN
+Root, when the serialized slot is free:
+
+<Godot console> --headless --path game --script res://tests/test_regional_campaigns.gd
+
+Success line: ALL REGIONAL CAMPAIGN TESTS PASSED
+The suite covers a story threat that does not pay or spawn, a real patrol grant that conserves Money.total,
+no second grant, blockade blocking completion, completion once after the raider's fuel is gone,
+atomic timber transfer and refusal, guns refused, a business plus goodsDelivered delta with the fact left unchanged,
+escort and bounty baselines, peaceful refusal, hostile refusal without an offering, one neutral pair,
+unchanged player reputation, empty commission, cooldown after a relapsed relation, survey recognition,
+save roundtrip of the completion id, and a later survey that completes once.
+No engine, test, or other command was run by this helper.

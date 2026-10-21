@@ -175,6 +175,7 @@ static func dock(owner: Dictionary,port: Dictionary) -> Array:
 				if result.ok:
 					owner.coins=wallet.coins
 					owner.tradeCargo-=int(result.qty)
+					owner.tradeDelivered=float(owner.get("tradeDelivered",0))+float(result.qty)
 					messages.append("%s sold %d %s at %s."%[owner.name,sale,good,port.name])
 	_purchase(owner,port,"food",maxi(0,ceili(costs.food*3.0-float(owner.cargo.food))),true)
 	for boat in owner.boats:

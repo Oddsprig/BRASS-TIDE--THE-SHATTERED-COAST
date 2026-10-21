@@ -49,8 +49,11 @@ static func step(c,dt: float) -> void:
 			p.progress+=dt*float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))/maxf(1,float(p.courseLength))
 			if p.progress>=1:
 				var dock: Dictionary=c.port(p.to)
+				var origin: String=str(p.from)
+				var delivered_before: float=float(owner.get("tradeDelivered",0))
 				p.x=dock.x;p.y=dock.y;p.from=p.to;p.progress=0.0
 				Fleets.dock(owner,dock);hire(c,owner,dock)
+				c.RegionalOps.delivered(c,str(dock.id),maxf(0,float(owner.get("tradeDelivered",0))-delivered_before),origin,false)
 				var next: String=AI.arrived(c,owner,dock)
 				if holding(c,owner):route(c,p,dock.id)
 				else:route(c,p,next)

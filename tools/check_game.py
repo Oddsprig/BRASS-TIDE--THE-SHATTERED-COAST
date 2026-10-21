@@ -10,7 +10,7 @@ from qa_brass import existing_game
 ROOT = Path(__file__).resolve().parents[1]
 SUITES = ["damage", "battle", "navigation", "economy", "construction",
           "fleet_economy", "campaign_cash", "save_validation", "runtime", "voyage",
-          "tactics", "refit", "fleet_points", "commander", "autovoyage", "laboratory", "combat_events", "audio", "map_revision", "mount_layout", "presentation", "feedback", "expedition", "campaign_logistics", "exploration", "island_voyage", "salvage", "salvage_voyage", "voyage_jobs", "voyage_flow", "factions", "political_voyage", "naval_ai", "naval_voyage", "trade_intel", "reactive_trade", "fleet_identity", "support_voyage", "naval_recovery", "coastal_stories", "story_voyage", "home_harbor", "home_voyage"]
+          "tactics", "refit", "fleet_points", "commander", "autovoyage", "laboratory", "combat_events", "audio", "map_revision", "mount_layout", "presentation", "feedback", "expedition", "campaign_logistics", "exploration", "island_voyage", "salvage", "salvage_voyage", "voyage_jobs", "voyage_flow", "factions", "political_voyage", "naval_ai", "naval_voyage", "trade_intel", "reactive_trade", "fleet_identity", "support_voyage", "naval_recovery", "coastal_stories", "story_voyage", "home_harbor", "home_voyage", "regional_campaigns", "regional_voyage", "campaign_endurance"]
 
 
 def main():

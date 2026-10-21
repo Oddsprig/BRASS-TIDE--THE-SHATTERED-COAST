@@ -58,6 +58,17 @@ def main():
     entry = f"v{version} DELIVERED | exact game {tag}\nClean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.\n\n"
     if entry not in log.read_text(encoding="utf-8"):
         log.write_text(entry + log.read_text(encoding="utf-8"), encoding="utf-8")
+    version_map=ROOT/"VERSION MAP.txt"
+    version_map.write_text(version_map.read_text(encoding="utf-8").replace(
+        f"v{version} CANDIDATE",f"v{version} DELIVERED — exact game {tag}",1),encoding="utf-8")
+    versions=ROOT/"VERSIONS.md"
+    versions.write_text(versions.read_text(encoding="utf-8").replace(
+        "Candidate; verified test/export records follow.",
+        f"Verified local Windows delivery; exact tagged game {tag}. Native/export/archive evidence is in the delivery receipts.",1),encoding="utf-8")
+    if args.build==18:
+        handoff=ROOT/"HANDOFF.md"
+        note=f"# v{version} delivered — authorized campaign sequence complete\n\nAll eleven increments v0.008–v0.018 are preserved as individual playable Windows folders, exact annotated tags and source/Windows archives. Current exact game: {tag}. Desktop shortcut, owner-save preservation and GitHub each have separate receipts. No later playable version is authorized by the completed roadmap. Read docs/CAPTAINS CAMPAIGN GUIDE.txt and current maps before future work.\n\n"
+        handoff.write_text(note+handoff.read_text(encoding="utf-8"),encoding="utf-8")
     print(f"v{version}: exact-tag source, portable hashes, archives and local delivery verified")
 
 

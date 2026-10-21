@@ -1,0 +1,46 @@
+BRASS TIDE — NAVAL-ACTIVITY MAP (generated; v0.018)
+
+Existing companies, spatial positions, stores and shipyards -> actual trade, escorts/intercepts, paid combat, recovery and replacements.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/naval_ai.gd: 14979 bytes; extends RefCounted
+  game/scripts/naval_ai.gd:19 is_story_owner()
+  game/scripts/naval_ai.gd:51 fleet_reserves()
+  game/scripts/naval_ai.gd:55 fleet_performance()
+  game/scripts/naval_ai.gd:59 build_order()
+  game/scripts/naval_ai.gd:63 spatial_index()
+  game/scripts/naval_ai.gd:67 nearby_hostile_pairs()
+game/scripts/naval_orders.gd: 33211 bytes; extends RefCounted
+  game/scripts/naval_orders.gd:17 is_story_owner()
+  game/scripts/naval_orders.gd:21 state_of()
+  game/scripts/naval_orders.gd:34 world_of()
+  game/scripts/naval_orders.gd:50 find_port()
+  game/scripts/naval_orders.gd:62 find_owner()
+  game/scripts/naval_orders.gd:74 find_patrol()
+game/scripts/naval_combat.gd: 20682 bytes; extends RefCounted
+  game/scripts/naval_combat.gd:20 spatial_index()
+  game/scripts/naval_combat.gd:60 are_hostile()
+  game/scripts/naval_combat.gd:78 nearby_hostile_pairs()
+  game/scripts/naval_combat.gd:258 resolve_encounter()
+  game/scripts/naval_combat.gd:74 _compare_pair_priority()
+  game/scripts/naval_combat.gd:153 _alive_defenders()
+game/scripts/naval_replacements.gd: 16677 bytes; extends RefCounted
+  game/scripts/naval_replacements.gd:17 quote_at_port()
+  game/scripts/naval_replacements.gd:26 can_materials()
+  game/scripts/naval_replacements.gd:35 consume_materials()
+  game/scripts/naval_replacements.gd:42 owner_has_queued_replacement()
+  game/scripts/naval_replacements.gd:59 attach_new_boat()
+  game/scripts/naval_replacements.gd:95 advance_unstepped_npc_orders()
+game/scripts/naval_lifecycle.gd: 5265 bytes; extends RefCounted
+  game/scripts/naval_lifecycle.gd:10 hire()
+  game/scripts/naval_lifecycle.gd:21 route()
+  game/scripts/naval_lifecycle.gd:34 holding()
+  game/scripts/naval_lifecycle.gd:41 step()
+  game/scripts/naval_lifecycle.gd:67 daily()
+game/scripts/naval_ui.gd: 1293 bytes; extends RefCounted
+  game/scripts/naval_ui.gd:2 open()
+
+TESTS (game/tests/*.gd)
+test_naval_ai, test_naval_voyage, test_naval_recovery
+
+Full symbols: rg -n '^func |^static func ' on named files.

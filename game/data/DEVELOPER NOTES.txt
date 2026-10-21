@@ -1,4 +1,16 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.018 — Regional campaigns
+SOURCE ACCEPTED: 46 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Choose sustained corridor watches, a paid harbor development goal, a real survey chain or negotiated thirty-day faction ceasefires.
+- Existing patrols receive finite treasury upkeep and physical corridor orders; clear days, actual passages and paid business activity establish progress.
+- Two-sided relief, earned diplomatic standing and elapsed talks govern peace; expired treaties, world facts, save migration and regional records remain explicit.
+
+Team: Codex root + one Muse Wonder Full + one Argon High + one Grok4.7.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.017 — A home harbor
 SOURCE ACCEPTED: 43 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 

@@ -3,6 +3,7 @@ extends RefCounted
 ## Leaf NavalAI sub-module: preloads only core economy/damage/goods scripts (no preload cycles).
 
 const Factions=preload("res://scripts/factions.gd")
+const RegionalOrders=preload("res://scripts/regional_orders.gd")
 const Damage = preload("res://scripts/damage.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Goods = preload("res://scripts/goods.gd")
@@ -697,6 +698,7 @@ static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_po
 	if not port_ref.is_empty():
 		dock_id = str(port_ref.get("id", ""))
 		owner["atPort"] = dock_id
+		RegionalOrders.arrival(state,owner,port_ref)
 
 	if is_story_owner(owner):
 		var story_route: Array = owner.get("route", []) if owner.get("route") is Array else []
@@ -734,7 +736,8 @@ static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_po
 	elif kind == "raider":
 		plan = select_raider_order(state, owner, dock_id)
 	else:
-		plan = select_patrol_order(state, owner, dock_id)
+		plan = RegionalOrders.plan(state,owner,dock_id)
+		if plan.is_empty():plan = select_patrol_order(state, owner, dock_id)
 
 	var next_port: String = str(plan.get("destination", home_id))
 	if find_port(state, next_port).is_empty():

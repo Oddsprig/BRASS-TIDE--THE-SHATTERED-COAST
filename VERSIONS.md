@@ -1,3 +1,11 @@
+## v0.018 — Regional campaigns
+
+Candidate; verified test/export records follow.
+
+- Choose sustained corridor watches, a paid harbor development goal, a real survey chain or negotiated thirty-day faction ceasefires.
+- Existing patrols receive finite treasury upkeep and physical corridor orders; clear days, actual passages and paid business activity establish progress.
+- Two-sided relief, earned diplomatic standing and elapsed talks govern peace; expired treaties, world facts, save migration and regional records remain explicit.
+
 ## v0.017 — A home harbor
 
 Candidate; verified test/export records follow.

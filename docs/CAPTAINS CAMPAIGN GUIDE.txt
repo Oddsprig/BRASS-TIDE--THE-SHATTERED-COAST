@@ -1,0 +1,135 @@
+BRASS TIDE — THE SHATTER COAST
+Captain's campaign guide | v0.018
+
+START SMALL
+Continue preserves your existing voyage. New career begins with a Tinwake
+skiff, five paid sailors and 15,000 coins. The eight original contracts remain
+available; exploring, trading and building a life ashore are optional careers.
+The fleet laboratory on the title screen is isolated from career money/saves.
+
+WASD pans the camera. Shift pans faster. Scroll zooms. Home returns to your
+fleet; M shows the territory. F opens Fleet, C Hold, J Contracts, I Island
+charts, K Voyage jobs and L Regional goals. Escape opens the captain's menu.
+Your flagship begins on autopilot. Pause with Space; issue orders while paused.
+
+PREPARE TO RETURN
+Open Prepare expedition before a long passage. Read hold space, actual crew
+pay, food, fuel and round-trip reserves. An ordinary sailor earns 100 coins per
+day; food is separate. Missed wages become arrears and affect morale. Sailors'
+savings are their purse, not spending money for the captain.
+
+Working tanks, magazines and kit racks have explicit capacities. Extra stores,
+trade goods and sealed freight consume dry hold space. A sunk carrier loses its
+allocated goods. You can jettison owned cargo onto a finite marked float.
+Sealed freight belongs to its sponsor and cannot be donated to your business.
+
+You may own more than 300 deployment points. Each normal battle still fields
+up to 300 points per side. Stored hulls remain at their actual harbor.
+Traveling support reserves contribute their hold and fitted support benefits
+without deploying as warships. Paid storage returns sailors and savings ashore;
+discharge paid specialists before putting their boat into storage.
+
+FOLLOW A LEAD
+Approach a coastal landmark to sight it, then open I. Charting and full surveys
+need spare able sailors, time, food and tools. Reserve enough sailors above the
+boats' minimum crews. Stop close to the site while a shore party works; recall
+it before departing. Following a lead can reveal an anchorage, resources,
+machinery, a wreck field or another useful location.
+
+Surveys reveal knowledge and opportunities. They do not conjure stock into your
+hold. Four coastal story chains connect those discoveries to harbor contacts,
+actual deliveries, local hostility and a choice with persistent consequences.
+Read the story journal's next location. Some endings open a unique funded
+freight passage, public/private salvage rights or a workshop charter.
+
+CHOOSE WHAT TO SAVE
+Destroyed boats leave individual persistent wrecks. Approach and stop to inspect
+them. Recover useful equipment, strip selected material lots or pay for a tow.
+Stripping structure rules out recovering the same whole hull. Space, spare
+hands and time decide what can come home. A towed hull is damaged, uncrewed and
+slows the flotilla; it needs paid harbor repairs before active service.
+
+MAKE ONE VOYAGE DO SEVERAL JOBS
+K holds up to six compatible funded jobs alongside your main contract. Freight
+occupies real space aboard actual carriers. Sponsors buy/allocate physical
+goods and move payment into escrow. Survey jobs and dated leads can align with
+the same route. Deadlines matter; damaged or lost freight cannot be paid twice.
+Meet harbor contacts and keep track of personal trust separately from faction
+reputation. Market reports are dated observations, not live omniscient prices.
+
+THE COAST MOVES
+Convoys buy and sell actual inventory. Patrols escort/intercept; raiders seek
+prey. They spend wages, rations, fuel and ammunition, can retreat and repair,
+and need real money, workers and materials to replace losses. A supplied
+hostile fleet can blockade a port; withdrawal, starvation, defeat or defenders
+can lift it. Delivering missing iron can make a real shipyard commission viable.
+
+Peaceful traders are not free targets. Attacking them creates explained
+reputation losses, witnessed offenses and harbor claims. Legal neutral ports
+offer basic civilian services. Advanced military equipment needs Friendly
+standing. Safe conduct is a paid, limited civil agreement. A commission is an
+explicit commitment with stated enemies; it never creates free stipend coins.
+
+GIVE BOATS A JOB
+All 24 hull designs remain available through appropriate yards and discovery.
+Weapons fit physical interchangeable sockets; engines and armor are paid fits.
+Interior conversions trade hold and speed for cargo, surveying, repair support,
+towing or reserve fuel. Paid specialists occupy real crew berths and receive
+professional wages in addition to their ordinary crew share. Unpaid premiums
+become arrears and suspend benefits. Service histories remember actual voyages.
+
+BUILD A HOME
+At a legal harbor, open Home harbors & warehouses. A warehouse hires two real
+workers, stores owned goods ashore and includes eight small-boat berth slots
+while its staff are paid. Larger boats occupy more slots. Public storage is
+28 coins per slot/day, paid to the harbor watch/registry. Unpaid rent becomes a
+visible liability; your hull is preserved, but pay locally before collection.
+
+Specialist businesses require full surveys and appropriate story-earned rights.
+They buy setup materials, reserve construction/supervision workers, hire staff
+out of the town and hold their own working capital. Move goods and company
+coins at that actual home port. Workshops consume timber, iron and carpenter
+work to make repair kits. Retain output for the fleet or sell to a solvent
+local buyer. Wage shortfalls pause work; no workers, inputs or coins appear
+for free.
+
+Goods you deposit have standard production-cost basis. Capital and deposited
+goods are not earned profits. Dividends require actual sales surplus after pay
+and sold-material cost, with fourteen days of staff wages reserved.
+
+SET A LONGER GOAL — L
+Corridor: choose two harbors and organize the goal at either endpoint.
+Keep the approaches and lane clear for seven consecutive economic days, with
+a real merchant passage, local escort/victory or two actual endpoint visits
+by the assigned patrol. A Friendly local government may fund up to seven
+wage-days for an existing patrol while retaining two public-payroll days.
+Its boats still sail, recover and resupply normally; they never spawn beside
+you. A renewed threat resets consecutive clear days.
+
+Harbor: choose and visit the harbor, then begin its development goal. Contribute
+or sell twelve owned material lots after starting. A shore business there must
+pay three full daily payrolls. Existing materials, staff and purses determine
+what development is affordable.
+
+Explorer: fully survey three connected sites by following their leads.
+Previously completed full surveys count as earned progress; charting alone
+does not qualify.
+
+Peacemaker: choose hostile factions. Deliver five food or repair-kit lots to
+EACH side, earn Friendly standing with one party and legal access to both, and
+clear witnessed offenses and claims. Allow three economic days for talks after
+both relief deliveries. Sign at either party's legal harbor. The neutral truce
+lasts thirty days; the previous dispute resumes unless later diplomacy has
+superseded it. New talks must wait through the stated cooldown. Your personal
+reputation and commission remain separate from the faction-pair agreement.
+
+Goals are optional and can run together. Withdraw one to change direction;
+delivered goods and grants remain with their recipients, and a restart cannot
+duplicate treasury support. Completed routes/harbors retain stable records.
+
+PORTABILITY AND TESTING
+Keep the executable with its PCK, music, saves and docs folders. Older version
+folders remain independent. In-game Development notes and the adjacent
+DEVELOPER NOTES.txt describe the current build. Automated checks run hidden or
+headless, with no desktop input. Numerical and CPU results do not replace your
+judgment about control feel, presentation, listening or campaign fun.

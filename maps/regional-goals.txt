@@ -1,0 +1,53 @@
+BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.018)
+
+Chosen real ports/factions and physical receipts -> sustained watches, paid development, survey achievements, optional finite treaties and bounded history.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/regional_campaigns.gd: 25272 bytes; extends RefCounted
+  game/scripts/regional_campaigns.gd:29 ensure()
+  game/scripts/regional_campaigns.gd:53 available()
+  game/scripts/regional_campaigns.gd:88 start()
+  game/scripts/regional_campaigns.gd:122 contribute()
+  game/scripts/regional_campaigns.gd:150 tick()
+  game/scripts/regional_campaigns.gd:172 propose_peace()
+  game/scripts/regional_campaigns.gd:197 journal()
+  game/scripts/regional_campaigns.gd:200 cancel()
+  game/scripts/regional_campaigns.gd:209 _mobilize()
+  game/scripts/regional_campaigns.gd:249 _ready_cause()
+  game/scripts/regional_campaigns.gd:253 _complete()
+  game/scripts/regional_campaigns.gd:267 _touch()
+game/scripts/regional_rules.gd: 7773 bytes; extends RefCounted
+  game/scripts/regional_rules.gd:13 today()
+  game/scripts/regional_rules.gd:16 local_port()
+  game/scripts/regional_rules.gd:24 may_deliver()
+  game/scripts/regional_rules.gd:31 initialize()
+  game/scripts/regional_rules.gd:43 route_key()
+  game/scripts/regional_rules.gd:47 near_corridor()
+  game/scripts/regional_rules.gd:56 threatened()
+  game/scripts/regional_rules.gd:71 progress()
+  game/scripts/regional_rules.gd:96 relief_ready()
+  game/scripts/regional_rules.gd:99 peace_conditions()
+  game/scripts/regional_rules.gd:118 expire()
+game/scripts/regional_orders.gd: 1465 bytes; extends RefCounted
+  game/scripts/regional_orders.gd:5 operation()
+  game/scripts/regional_orders.gd:9 arrival()
+  game/scripts/regional_orders.gd:16 plan()
+game/scripts/regional_ops.gd: 3853 bytes; extends RefCounted
+  game/scripts/regional_ops.gd:9 ensure()
+  game/scripts/regional_ops.gd:24 start()
+  game/scripts/regional_ops.gd:41 contribute()
+  game/scripts/regional_ops.gd:48 delivered()
+  game/scripts/regional_ops.gd:59 battle()
+  game/scripts/regional_ops.gd:68 begin_day()
+  game/scripts/regional_ops.gd:73 daily()
+game/scripts/regional_ui.gd: 7056 bytes; extends RefCounted
+  game/scripts/regional_ui.gd:6 port_picker()
+  game/scripts/regional_ui.gd:16 faction_picker()
+  game/scripts/regional_ui.gd:25 open()
+  game/scripts/regional_ui.gd:78 event_text()
+  game/scripts/regional_ui.gd:89 act()
+
+TESTS (game/tests/*.gd)
+test_regional_campaigns, test_regional_voyage, test_campaign_endurance
+
+Full symbols: rg -n '^func |^static func ' on named files.

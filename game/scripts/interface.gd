@@ -7,6 +7,7 @@ const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
 const HomeUI=preload("res://scripts/home_ui.gd")
+const RegionalUI=preload("res://scripts/regional_ui.gd")
 const StoryUI=preload("res://scripts/story_ui.gd")
 const IdentityUI=preload("res://scripts/identity_ui.gd")
 const TradeUI=preload("res://scripts/trade_ui.gd")
@@ -280,6 +281,7 @@ func build_campaign_hud(size: Vector2):
 	button(left_body,"Voyage jobs & contacts     K",func():VoyageUI.open(self))
 	button(left_body,"Coastal stories & leads",func():StoryUI.open(self))
 	button(left_body,"Home harbors & warehouses",func():HomeUI.open(self))
+	button(left_body,"Regional goals                    L",func():RegionalUI.open(self))
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
 	if not host.core.state.activeContract.is_empty():
@@ -663,6 +665,7 @@ func open_guide():
 		["Build your fleet", "Buy completed hulls at a yard; the price of minimum crew is added. Recruit toward optimal crew for full efficiency. Drydock consumes repair kits and coins. Refill working stores from local stock, or buy reserves into the hold and load them. Victory may offer a battered hull to recover; it needs crew and repairs."],
 		["Save your voyage", "Autosaves happen on the campaign chart and after major actions. Manual saves are in the captain's menu. Saves live in a saves folder beside the portable game. Quick battle is separate from the campaign. If every boat is lost, a harbor rescue provides another cheap skiff on a funded harbor loan."],
 		["Free the Shatter Coast", "The eight story contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. Use the main menu fleet laboratory to test any hulls and fittings without spending career coins. M shows the expanded coast. Click numbered fittings in the yard preview to select a mount."]
+		,["Build a life on the coast","Prepare expedition shows hold space, wages and return reserves. I opens island surveys, K holds compatible jobs and contacts, and L opens regional goals. Salvage individual wrecks, follow coastal stories, earn faction access and support real convoys. A paid home-harbor business stores cargo and hires shore workers. You own your whole roster while each battle deploys up to 300 points; stored and traveling support boats remain separate."]
 	]:
 		label(body, section[0], 24, GOLD, true)
 		paragraph(body, section[1], 17)

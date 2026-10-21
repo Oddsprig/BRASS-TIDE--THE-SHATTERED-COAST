@@ -19,6 +19,7 @@ const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
 const HomeOps=preload("res://scripts/home_ops.gd")
+const RegionalOps=preload("res://scripts/regional_ops.gd")
 const StoryOps=preload("res://scripts/story_ops.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -130,6 +131,7 @@ func new_game(seed_value: int = 1):
 	FleetIdentity.ensure(state)
 	StoryOps.ensure(self)
 	HomeOps.ensure(self)
+	RegionalOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -249,6 +251,8 @@ func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if path.is_empty():
 		return fail("No safe water route. Choose a harbor or open water.")
 	path.pop_front()
+	var departure: Dictionary=current_port()
+	if not departure.is_empty():state.regionalOrigin=str(departure.id)
 	state.path = path
 	state.destination = destination
 	return ok("Course set for %s." % (port(destination).get("name", "open water")))
@@ -343,10 +347,12 @@ func apply_economy(ports: Array, messages: Array, days: int):
 			log_entry(str(message))
 		for message in FleetIdentity.tick(self,1):log_entry(str(message))
 		Harbor.tick_yards(self,1)
+		RegionalOps.begin_day(self)
 		NavalLifecycle.daily(self)
 		TradeFlow.daily(self)
 		StoryOps.daily(self)
 		HomeOps.daily(self)
+		RegionalOps.daily(self)
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
 		state.econDay += 1
@@ -496,7 +502,9 @@ func trade(id: String, good: String, qty: int, side: String) -> Dictionary:
 	var overflow: float=maxf(0,cargo_weight()-Economy.cargo_weight(state.cargo)-freight_weight())
 	var result: Dictionary=Economy.transact(p,state,good,qty,side,maxf(0,capacity()-freight_weight()-overflow))
 	Manifest.allocate(state)
-	if result.ok:TradeFlow.observe(self)
+	if result.ok:
+		TradeFlow.observe(self)
+		if side=="sell":RegionalOps.delivered(self,id,float(result.qty),str(state.get("regionalOrigin","")))
 	return result
 
 func ship_materials(h: Dictionary) -> Dictionary:
@@ -704,6 +712,7 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	if result.ok:
 		if not abandon:
 			Politics.job_completed(self,before)
+			if before.get("kind","")=="freight":RegionalOps.delivered(self,str(before.targetPort),float(before.get("freight",{}).get("qty",0)),str(before.port))
 			if before.get("kind","")!="bounty":FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),"survey" if before.get("kind","")=="survey" else "trade")
 		for contact in Contacts.list_contacts(state):
 			if contact.port==before.get("port",""):Contacts.record(state,contact.id,"job:"+id+(":abandoned" if abandon else ":paid"),-5 if abandon else 5)
@@ -718,6 +727,7 @@ func finish_contract() -> Dictionary:
 	var result: Dictionary=Contracts.finish(self)
 	if result.ok:
 		Politics.job_completed(self,before)
+		if before.get("kind","")=="delivery":RegionalOps.delivered(self,str(before.targetPort),float(before.get("cargo",{}).get("qty",0)),str(before.port))
 		if before.get("kind","")=="delivery":FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),"trade")
 	return result
 
@@ -750,6 +760,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	var loot: int = 0
 	var salvage: Dictionary = {}
 	var owner: Dictionary = fleet_owner(str(context.get("ownerId","")))
+	RegionalOps.battle(self,owner,result,bool(context.get("objectiveOnly",false)))
 	EscortOps.settled(self,result,context)
 	if result == "won" and not context.get("objectiveOnly",false):
 		state.wins += 1
@@ -952,6 +963,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	FleetIdentity.ensure(state)
 	StoryOps.ensure(self)
 	HomeOps.ensure(self)
+	RegionalOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0

@@ -1,4 +1,4 @@
-# Brass Tide v0.017 source map
+# Brass Tide v0.018 source map
 
 The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
 
@@ -18,7 +18,7 @@ The native Godot game is game/. Generated maps/ contains current symbols/line nu
 - fleet_lab.gd, lab_ui.gd, dev_tools.gd:24hulls/compatible fittings,300DPbuilder, deterministic fixtures/replay/results, career isolation and explicit opt-in short-test tools.
 - sound.gd, combat_art.gd: six CC0 recording families/three cuts each, bounded32voice spatial pool, short distinct muzzle/impact/water effects and staged sinking. Quiet engine bed is original/procedural.
 - music.gd, preferences.gd:18owner-supplied Lyria tracks in eight roles, complete variation cycles, live portable/Desktop scan and separate persistent presentation settings.
-- game/tests/:22native suites. tools/check_game.py serializes them with isolated APPDATA and per-suite timeouts; script errors fail even on exit0.
+- game/tests/:46 native suites. tools/check_game.py serializes them with isolated APPDATA and per-suite timeouts; script errors fail even on exit0.
 - tools/qa_brass.py, fleet_bench.gd, bench_scenarios.json: seven short isolated CPU benchmarks including40boats at300DPper side and physical outward-arc coverage.
 - tools/check_visuals.py, feedback_gallery.gd, render_feedback_gallery.py, presentation_bench.gd: short cached-render animation captures, mesh/impact/sinking geometry checks and actual Main CPU timings.
 - tools/boat_gallery.gd, render_boat_gallery.py, audit_boat_geometry.gd: exact code drawing capture/software PNG/GIF and360heading native polygon checks.
@@ -26,7 +26,7 @@ The native Godot game is game/. Generated maps/ contains current symbols/line nu
 - tools/release_game.py: clean exact-tag native Windows export, icon/PCK/menu/campaign/save/battle checks, RELEASE.json and portable ZIP.
 - tools/publish_github.py: verified exact repository, clean main/tag ancestry, atomic non-forced publish of all playable tags and exact remote verification. No interactive sign-in UI.
 
-Read BUILD PLAN.txt for original acceptance and version notes/verdicts for actual changes/corrections. ROADMAP.md and docs/CAMPAIGN ROADMAP.txt describe proposed campaign milestones, actual v0.007 gaps, integration seams and future acceptance; none of those proposed systems is claimed as delivered. Source captures and numerical/codec checks do not substitute for voluntary foreground play or listening.
+Read BUILD PLAN.txt, version notes/verdicts and delivery receipts for actual changes and verification. ROADMAP.md and docs/CAMPAIGN ROADMAP.txt preserve the original plan and its v0.007 gap analysis beneath current acceptance records. docs/CAPTAINS CAMPAIGN GUIDE.txt describes the integrated campaign. Source captures and numerical/codec checks do not substitute for voluntary foreground play or listening.
 
 - v0.011: voyage_jobs.gd owns finite side-job escrow and freight; contacts.gd owns harbor trust and dated observations; voyage_ui.gd presents these books. Campaign wrappers allocate sealed cargo and record actual visits/settlements. test_voyage_flow.gd covers lost cargo, once-only payment and the real menu.
 
@@ -41,3 +41,5 @@ Read BUILD PLAN.txt for original acceptance and version notes/verdicts for actua
 - v0.016: coastal_stories.gd plus data/coastal_stories.json define original chains; story_ops.gd applies choices/rights and physical public salvage; story_offers.gd creates finite ordinary freight opportunities; story_ui.gd presents narratives, gates and next locations.
 
 - v0.017: home_harbor.gd owns paid shore businesses, employees, local inventories and standard material basis; home_ops.gd owns private/public berths and arrears; home_ui.gd presents establishment, stock, capital and earned-only dividends. Canonical money and save validation include business purses and staff.
+
+- v0.018: regional_campaigns.gd owns optional goal/grant/treaty records; regional_rules.gd owns distinct-day progress, physical locality, diplomatic conditions and expiry; regional_orders.gd assigns actual corridor patrol routes beneath normal recovery priorities; regional_ops.gd records actual paid deliveries/combat and publishes daily progress; regional_ui.gd presents the selected goals (L). test_campaign_endurance runs 180 published economic days with the real worker pool.

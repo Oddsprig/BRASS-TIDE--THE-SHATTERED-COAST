@@ -1,0 +1,34 @@
+BRASS TIDE — COASTAL-STORIES MAP (generated; v0.018)
+
+Four original chains and actual survey/delivery/contact choices -> persistent branches, rights and finite funded opportunities.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/coastal_stories.gd: 17488 bytes; extends RefCounted
+  game/scripts/coastal_stories.gd:47 catalog()
+  game/scripts/coastal_stories.gd:76 ensure()
+  game/scripts/coastal_stories.gd:180 available()
+  game/scripts/coastal_stories.gd:236 choose()
+  game/scripts/coastal_stories.gd:325 journal()
+  game/scripts/coastal_stories.gd:349 tick()
+  game/scripts/coastal_stories.gd:23 _is_num()
+  game/scripts/coastal_stories.gd:27 _num()
+  game/scripts/coastal_stories.gd:31 _load()
+  game/scripts/coastal_stories.gd:53 _chain_def()
+  game/scripts/coastal_stories.gd:60 _stage_def()
+  game/scripts/coastal_stories.gd:67 _record()
+game/scripts/story_ops.gd: 4200 bytes; extends RefCounted
+  game/scripts/story_ops.gd:5 ensure()
+  game/scripts/story_ops.gd:15 start()
+  game/scripts/story_ops.gd:27 apply_pending()
+  game/scripts/story_ops.gd:34 choose()
+  game/scripts/story_ops.gd:59 refresh()
+  game/scripts/story_ops.gd:64 daily()
+game/scripts/story_offers.gd: 2569 bytes; extends RefCounted
+  game/scripts/story_offers.gd:4 available()
+game/scripts/story_ui.gd: 2498 bytes; extends RefCounted
+  game/scripts/story_ui.gd:3 open()
+
+TESTS (game/tests/*.gd)
+test_coastal_stories, test_story_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.

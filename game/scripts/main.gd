@@ -215,6 +215,7 @@ func _unhandled_input(event):
 			KEY_H: ui.open_guide()
 			KEY_I: ui.CampaignUI.islands(ui) if mode=="campaign" else null
 			KEY_K: ui.VoyageUI.open(ui) if mode=="campaign" else null
+			KEY_L: ui.RegionalUI.open(ui) if mode=="campaign" else null
 			KEY_E: ui.open_port() if mode == "campaign" else null
 			KEY_TAB: toggle_tactical() if mode == "battle" else null
 			KEY_HOME: chart.center_camera()

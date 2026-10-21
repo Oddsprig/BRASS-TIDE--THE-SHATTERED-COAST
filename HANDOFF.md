@@ -1,3 +1,23 @@
+# v0.018 — Regional campaigns
+
+SOURCE ACCEPTED: 46 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Choose sustained corridor watches, a paid harbor development goal, a real survey chain or negotiated thirty-day faction ceasefires.
+- Existing patrols receive finite treasury upkeep and physical corridor orders; clear days, actual passages and paid business activity establish progress.
+- Two-sided relief, earned diplomatic standing and elapsed talks govern peace; expired treaties, world facts, save migration and regional records remain explicit.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.018.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.018 — Regional campaigns
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Choose sustained corridor watches, a paid harbor development goal, a real survey chain or negotiated thirty-day faction ceasefires.
+- Existing patrols receive finite treasury upkeep and physical corridor orders; clear days, actual passages and paid business activity establish progress.
+- Two-sided relief, earned diplomatic standing and elapsed talks govern peace; expired treaties, world facts, save migration and regional records remain explicit.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.018.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.017 — A home harbor
 
 SOURCE ACCEPTED: 43 native suites pass; portable export evidence is recorded separately in RELEASE.json.

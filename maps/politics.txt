@@ -1,0 +1,36 @@
+BRASS TIDE — POLITICS MAP (generated; v0.018)
+
+Witnessed player actions, public standing, claims and faction pairs -> explained access, paid conduct and explicit commissions.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/factions.gd: 38260 bytes; extends RefCounted
+  game/scripts/factions.gd:58 ensure()
+  game/scripts/factions.gd:109 standing()
+  game/scripts/factions.gd:117 adjust()
+  game/scripts/factions.gd:189 relation()
+  game/scripts/factions.gd:202 set_relation()
+  game/scripts/factions.gd:223 access()
+  game/scripts/factions.gd:306 is_hostile()
+  game/scripts/factions.gd:310 commission()
+  game/scripts/factions.gd:363 _repair_book()
+  game/scripts/factions.gd:404 _faction_defs()
+  game/scripts/factions.gd:416 _new_standing()
+  game/scripts/factions.gd:420 _repair_standing()
+game/scripts/politics.gd: 6151 bytes; extends RefCounted
+  game/scripts/politics.gd:6 ensure()
+  game/scripts/politics.gd:12 access()
+  game/scripts/politics.gd:20 permit()
+  game/scripts/politics.gd:31 inspect()
+  game/scripts/politics.gd:43 parley()
+  game/scripts/politics.gd:68 job_completed()
+  game/scripts/politics.gd:76 declare_attack()
+  game/scripts/politics.gd:86 settled()
+  game/scripts/politics.gd:95 hostile()
+game/scripts/faction_ui.gd: 2449 bytes; extends RefCounted
+  game/scripts/faction_ui.gd:4 open()
+  game/scripts/faction_ui.gd:32 terms()
+
+TESTS (game/tests/*.gd)
+test_factions, test_political_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.
