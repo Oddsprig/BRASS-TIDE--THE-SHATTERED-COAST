@@ -23,4 +23,4 @@ The native Godot game is game/. Generated maps/ contains current symbols/line nu
 - tools/release_game.py: clean exact-tag native Windows export, icon/PCK/menu/campaign/save/battle checks, RELEASE.json and portable ZIP.
 - tools/publish_github.py: verified exact repository, clean main/tag ancestry, atomic non-forced publish of all playable tags and exact remote verification. No interactive sign-in UI.
 
-Read BUILD PLAN.txt for original acceptance and version notes/verdicts for actual changes/corrections. Source captures and numerical/codec checks do not substitute for voluntary foreground play or listening.
+Read BUILD PLAN.txt for original acceptance and version notes/verdicts for actual changes/corrections. ROADMAP.md and docs/CAMPAIGN ROADMAP.txt describe proposed campaign milestones, actual v0.007 gaps, integration seams and future acceptance; none of those proposed systems is claimed as delivered. Source captures and numerical/codec checks do not substitute for voluntary foreground play or listening.

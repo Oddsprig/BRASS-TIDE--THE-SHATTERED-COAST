@@ -12,6 +12,10 @@ delivered v0.006 24distinct silhouettes, shared physical interchangeable sockets
 delivered v0.007 Stern outboards/drives; localized damage, flames/smoke, metal sparks, explosions,
                  cause-aware sinking and final-kill animation tail. Bounded colored meshes reduce CPU drawing work.
 
+21 October2026 planning only: ROADMAP.md and docs/CAMPAIGN ROADMAP.txt propose campaign milestones0.008-0.018.
+Next playable build remains0.008; proposed targets may move, each actual build still advances0.001.
+No new playable version/export/tag or launcher change is implied by that roadmap.
+
 Each release builds on its predecessor. Annotated Git tags identify exact game source.
 Each portable RELEASE.json proves export identity, completed native smoke tests and file hashes.
 v0.007 source gates:22native suites including3952feedback checks; seven fleet fixtures;

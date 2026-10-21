@@ -1,3 +1,6 @@
+21 October2026 — CAMPAIGN PLANNING POINTER
+The owner requested a roadmap connecting exploration, island surveying, fleet growth, faction relations/conflict, trade and finite economics. Read ROADMAP.md and docs/CAMPAIGN ROADMAP.txt for the proposed0.008-0.018 sequence, actual0.007 gaps and acceptance. This is documentation only; delivered game remains0.007. The historical completed presentation build plan below remains preserved. Next implementation should scope0.008 rather than starting all proposed systems together.
+
 BRASS TIDE — v0.007 FOLLOW-UP
 Owner requested actual stern engines/outboards, more boat detail, damage animations, sparks, explosions and sinking. The completed0.003-0.006sequence remains preserved below.
 v0.007 adds transom machinery clear of all interchangeable sockets, localized damage/fire/engine smoke, material-specific impacts and cause-aware sinking. Final kill effects finish after result settlement without advancing combat/economy. Root's bounded colored-mesh cache reduces repeated static drawing; water stays decorative2D, crew numerical. Same two Argon High helpers through Bridge; no new GPT helpers. Exact-tag tests/export/launcher follow source acceptance and are proven by receipts.

@@ -1,3 +1,10 @@
+2026-10-21 | Campaign roadmap only | playable version remains v0.007
+Owner asked for connected Starsector-inspired campaign loops: surveys, relationships, NPC wars, trade and cargo.
+Inspected current campaign/deployment/contracts/economy/owner/navigation seams and distinguished actual features from proposals.
+Saved docs/CAMPAIGN ROADMAP.txt and a proposed0.008-0.018 sequence in ROADMAP.md; first prove an expedition loop, then the reacting coast and later optional ownership.
+Identified ownership/deployment coupling, mothballed cargo capacity, single contract, absent surveys/relations and NPC-versus-NPC orders as future work.
+Documentation-only; no BUILD increment, engine test, playable export, owner save or desktop launcher change. References and generated inventory updated.
+
 2026-10-20 | v0.007 DELIVERED | exact game c9a466119010618984b3a275ddfecba3784c8e25
 Clean exact-tag22suite run; native Windows menu/campaign/save/battle/icon/PCK checks pass.
 Windows/source ZIP CRC and SHA256 pass; Desktop/output shortcuts target007; latest006voyage copied after archives.

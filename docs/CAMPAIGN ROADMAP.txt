@@ -1,0 +1,178 @@
+BRASS TIDE — THE LIVING COAST CAMPAIGN ROADMAP
+21 October 2026 | design proposal grounded in delivered v0.007
+
+STATUS AND INTENT
+This is a campaign design roadmap, not a release announcement. The playable game remains v0.007 / BUILD 7. The next playable version is v0.008. Proposed milestone numbers below express development order, not dates or a promise that a large system will fit in one build. If a milestone needs intermediate releases, each still advances by exactly 0.001 and later milestone numbers move forward. Preserve every prior release, save and supplied music track.
+
+The aim is the satisfaction of building a personal fleet and finding opportunities in a dangerous world. Use Starsector as a reference for how exploration, logistics, fitting, combat, trade and relationships create reasons to keep sailing. Brass Tide needs original islands, boats, characters, conflicts, discoveries and progression. Autonomous territorial campaigns described here are our proposed design; do not present them as an inventory of unmodified Starsector features.
+
+1. THE PROMISE TO THE PLAYER
+
+Start with a cheap working boat. Learn a small part of the coast. Bring home something worth the trip. Improve the fleet. Discover a reason to go farther. Eventually influence the harbors and sea lanes that made the fleet possible.
+
+The repeatable loop:
+Hear a lead -> choose a destination -> fit, crew and provision -> sail with optional detours -> explore, negotiate, trade or fight -> choose what to recover -> return, pay, repair and reinvest -> discover new options and consequences.
+
+Each part should feed another. A survey uncovers a sheltered anchorage and a damaged machine shop. A salvaged component suggests a new fitting. The fitting makes an escort job practical. Saving that convoy delivers iron to a yard. The yard can build a boat the player now wants. That faction's rival notices who helped.
+
+The game is fun when several reasonable choices compete. Keep provisions or make room for valuable salvage? Take a slower cargo boat or reach the island before a rival? Save a crippled escort or secure the convoy? Sell a resource chart, keep the site secret, or invest in it later? A larger fleet offers more options and also costs more to move and maintain.
+
+2. ACTUAL v0.007 BASELINE
+
+Already present:
+- 24 hull designs across eight classes, interchangeable physical weapon sockets, paid weapon/engine/armor refits, and distinct motorboat combat roles.
+- Default flagship autopilot, commander orders, separate isometric battles, 300 deployment points per side and a deployment/reserve split.
+- Persistent breaches, flooding, pumping/bailing, repairs, finite repair supplies, wounds, fire, engines, sinking and numerical crew jobs.
+- Ten ports and four original factions on a 10400 x 7200 coast, with navigation, careers, eight story contracts and background economy ticks.
+- Pooled cargo limits, commodity weights, sealed freight, markets, paid production/construction and finite household, expert, business, government and fleet-owner purses.
+- Crew wages, accumulated crew savings, arrears and morale. A sailor-day is anchored at 100 bronze coins.
+- NPC owners with actual hulls, operating funds, wages, provisions, market purchases and trade cargo; current chart patrols follow predefined routes.
+- Fleet laboratory, deterministic fixtures, development tools, saved presentation options, owner music and inexpensive 2D water.
+
+Important gaps found in current source:
+- Faction definitions supply identity and doctrine; there is no campaign reputation or faction-to-faction diplomacy system yet.
+- There is no persistent island discovery/survey progression or contact/intelligence network.
+- Only one contract can be active. Several blockades are tied to story progress rather than actual naval control.
+- Patrol encounters concern the player; NPC fleets do not fight each other or plan replacement construction.
+- The campaign's 300-point check currently caps total owned fleet points as well as battle deployment. More ownership is necessary for support boats, reserves and port storage.
+- Cargo capacity currently includes every nonsunk owned boat, including mothballed boats; fuel, ammunition and repair stores also need a consistent relationship to capacity.
+- Recovery currently offers a simplified candidate hull rather than a persistent inventory of individual physical wrecks and components.
+
+Build on these systems. Do not rewrite the finite economy or replace detailed combat just to add campaign features.
+
+3. SEQUENTIAL PLAYABLE MILESTONES
+
+v0.008 — A VOYAGE YOU CAN PLAN
+Unify the fleet manifest and make preparation readable. Show usable cargo, fuel endurance, provisions, repair stock, wages due, minimum return reserve, cruising speed and a conservative trip estimate. Display both affordable time away and physical endurance; estimates must account for damaged engines, route length, stops and a clearly stated contingency.
+Separate total owned boats, boats actually accompanying the expedition, and boats committed to a battle. Keep 300 points per side as the normal deployed ceiling. Port-stored or mothballed hulls provide no traveling capacity. Support boats may stay out of the initial battle but still exist, consume stores and can be exposed by an interception or failed escape. Reinforcements require committed boats and a defined arrival/withdrawal rule; no unlimited instant replacement waves. Establish a documented active-roster performance ceiling independently of deployment points.
+Keep one convenient pooled manifest with automatic allocation. Installed tanks and magazines have explicit limits; loose fuel, rounds, provisions, tools, spare parts, trade goods and contract freight occupy their appropriate storage exactly once. Give each cargo allocation a real carrier for loss/recovery without requiring the player to drag every crate. An overloaded fleet must offload, tow, store or leave things behind rather than silently erase them. Preserve legacy saves through a copy-first migration and explain any existing overflow without deleting it.
+Done when: a player can compare a small fast expedition against a slower loaded fleet before leaving, own reserves beyond the battle ceiling, and cannot gain afloat cargo space from an absent boat. Current saves retain coins, crew, cargo, fittings and hull identity.
+
+v0.009 — ISLAND EXPLORATION AND SURVEYING
+Add persistent discoveries and a chart of knowledge. Public towns and major lanes remain known. Outer islands, coves, wreck fields, inlets and inland sites become sighted, coast-charted and surveyed. Keep the authored original major coast; add seeded minor sites and unexplored reaches where they improve routes and regional identity. Generate locations once and preserve them in saves.
+Use three useful actions: sighting reveals location and broad danger; coastal charting reveals approaches, shoals, landing sites and shelter; a landed survey reveals resources, structures and specific opportunities. Survey crews are numerical assignments with equipment, specialist capability, time and supplies. They remain part of the real crew, so boats cannot keep operating at full strength while everyone is ashore. No animated walking crew or land combat game is required.
+First discoveries include a usable freshwater cove, shallow shortcut, timber stand, ore/saltpeter seam, abandoned workshop, salvage anchorage, defended camp and a chart fragment pointing elsewhere. Show visible clues and expected risks. Different findings must change at least a route, resource access, fitting option, contact, recovery opportunity or future investment; repeatable coins alone are insufficient. Deep surveys are optional when the fleet cannot safely spare time or crew.
+Done when: a small starting fleet can complete a coastal expedition with at least three materially different discoveries, choose whether to investigate further, and retain its findings after save/load. Reopening the same site cannot reroll rewards.
+
+v0.010 — WRECKS WORTH CHANGING COURSE FOR
+Represent individual wrecks, surviving stores, equipment and hull damage persistently. Battle recovery and exploration recovery use the same rules. Allow a choice between stripping useful machinery, taking compact valuable components, marking the location for later or towing a recoverable hull. Tow weight, speed, crew and repair materials matter. Some wrecks are destroyed beyond recovery; visibly communicate why.
+Recovered boats need crew and repairs. Rare designs and workshop drawings unlock production/refit possibilities, not a free completed boat. A yard still needs the drawing, materials, workers, expert oversight and payment. Basic functional weapons and common hulls remain available through ordinary production; essential progression cannot depend on one rare random find.
+Done when: after a battle, choosing a weapon versus a tow versus provisions changes the return trip. Uncollected wreck contents remain where appropriate, already claimed items cannot duplicate, and a defeated player's surviving fleet has a credible recovery path.
+
+v0.011 — JOBS THAT MAKE A ROUTE
+Replace the single active-contract slot with several compatible commitments, each with actual escrow, cargo allocation, deadlines and a sponsor able to pay. Add an intelligence board and initial persistent harbor contacts: a shipwright, convoy broker, survey patron and salvage agent. Show report age and source instead of revealing every market and fleet perfectly.
+Start with freight, survey, salvage, escort and bounty work. Allow accepting jobs along the same route; warn when capacity, timing or hostility makes a combination unworkable. Progress, failures and rescued people affect who calls again. Survey reports are site-specific information: a purchaser pays only if it needs that information and has budget. Reselling the same report to the same buyer is not an income source; exclusivity is an explicit priced contract term.
+Done when: one expedition can sensibly combine a delivery, a survey and an optional salvage lead. Payment is funded, carried freight remains reserved, and the player can see a good next objective without needing to grind an identical job repeatedly.
+
+v0.012 — FACTIONS THAT REMEMBER
+Track three separate things: a faction's relationship with the player, relationships between factions, and personal trust with contacts. Add readable states from hostile through neutral to trusted, with thresholds that avoid constant state flickering and a log explaining changes. Distinguish public reputation from an individual witnessed offense or port's outstanding claim.
+Relationships affect port entry, inspections, restricted goods, military fittings, repair priority, intelligence, commissions, escorts and contracts. Helping one faction can cost access elsewhere; warn before a commission or raid changes legal status. No automatic friendship with every enemy of an enemy. Neutral trading and independent exploration remain viable careers. Recovery from hostility requires understandable restitution, negotiated work or time under stated conditions.
+Use existing identities: Mercantile Compact values convoy security and commerce; Cinder Forge Directorate values industrial inputs and protected foundries; Reedwater Commune values shallow-water access, food and local autonomy; Shatter Reef Raiders value salvage, tolls and opportunistic force. These are competing interests, with internal contacts, not four identical colored markets.
+Done when: two players aiding different groups see different opportunities and practical consequences. A neutral player can still operate, and the reason for any attack, refusal or inspection is visible.
+
+v0.013 — FLEETS WITH PURPOSES OF THEIR OWN
+Give actual owners orders: deliver cargo, escort, patrol, intercept, raid, withdraw, repair, resupply and commission replacements. Detection, pursuit and evasion use visibility, speed, engine state, scouting and local geography. Hostility cannot depend on the player moving; waiting beside an enemy must not create immunity.
+Let NPCs encounter and fight one another while the player is elsewhere. Near the player, show the encounter and allow intervention, avoidance or following survivors. Resolve distant engagements using a seeded bounded model based on the same actual hulls, fittings, crew, damage, stores and retreat capabilities. It need not draw every shot. Validate outcomes against representative detailed battles and record casualties, ammunition, wrecks and resulting orders once.
+Replacement boats come from yard stock or paid construction, with real materials, workers, experts and recruit availability. No free full-strength fleet spawning after a loss. Bound order queues and maintain a spatial lookup; do not compare every boat to every other boat each frame.
+Done when: a convoy can be attacked, an escort can retreat, surviving boats can repair, and a sponsor can fund or fail to fund replacements while the player watches from another harbor. Reports tell a coherent history with no duplicate cargo or boats.
+
+v0.014 — TRADE LANES, BLOCKADES AND A REACTIVE ECONOMY
+Connect those fleet orders to market consequences. A successful timber convoy supplies a real yard; a lost fuel convoy constrains a refinery's customers. Persistent naval control can interrupt traffic, with declared conditions for establishing and breaking a blockade. Replace story-only blockade flags through an explicit migration that preserves completed missions.
+Market intelligence shows observed stock, buyer liquidity, likely demand and age. Estimate net trip profit after purchase costs, fees, fuel, consumed ammunition, repairs and wages; distinguish a quote from a guaranteed contract. Let scarcity create opportunities without ensuring every distant market is profitable or every crisis can afford an unlimited purchase. Paid procurement can reserve funds for genuinely needed relief.
+Keep the existing labor/material pricing anchor and scarcity logic. Do not add a separate price generator or invisible instant interport goods transfer alongside physical convoys. Contraband is a later extension of specific faction laws, inspection risk, counterparties and consequences, not a universal profit button. Small fleets can profit through speed, specialization and better intelligence.
+Done when: losing or saving a specific shipment visibly changes local stock, output or available construction; delivering actual needed goods helps; profit reports reconcile to real transfers. A long isolated campaign run conserves coins and gives a meaningful recovery path after war disrupts a region.
+
+v0.015 — FLEET COMPOSITION AND PEOPLE YOU CARE ABOUT
+Deepen the 24 current hulls before expanding the roster. Establish clear strengths and counters: scouts, escorts, cargo carriers, gun platforms, torpedo flankers, rocket support and durable command boats. Use hull geometry, handling, crew, stores and existing fitting costs to make specialization matter.
+Add survey, towing, cargo, tanker and workshop conversions where the chassis supports them. A workshop trades space/weight/crew for repairs, and consumes stock; it does not manufacture spare parts from nothing. A support hull must justify its upkeep outside combat. Armor, engine power, weapon load, stability, cargo and endurance compete through understandable limits. No arrangement should maximize all of them at once.
+Introduce a small number of paid captains/specialists with bounded, legible specialties: pilot, gunner, chief engineer, surveyor or quartermaster. Their wages, training and shore availability exist in the same economy. Track boat names and service histories, rescues and crew morale. Use these to build attachment and different careers, not compulsory leveling before a boat becomes functional. Preserve default autopilot and low micromanagement.
+Add battle purposes that serve voyages: break contact, protect a retreating cargo boat, intercept a raider, rescue survivors or run a blockade. Victory need not require sinking everything. Recovery and economic consequences follow the actual result.
+Done when: at least three fleet approaches are viable over representative voyages, a cheap scout remains useful beside a cruiser, and a civilian support boat improves a specific expedition enough to explain its cost.
+
+v0.016 — AN ORIGINAL COAST WORTH LEARNING
+Expand authored discovery chains, contacts and regional differences after the systems work. Connect workshops, old charts, missing convoys, faction secrets and disputed resource sites. Choices can change access, ownership claims or a later encounter rather than merely selecting a different reward amount.
+Give marsh routes, industrial volcanic harbors, exposed channels and raider coves different geography, goods, threats and boat advantages. Use shoals, narrow passages and shelter to influence routing and encounter layouts without expensive wave physics. Add landmarks, distinctive original island silhouettes and readable navigation cues. Prefer a denser useful coast to stretching empty travel further.
+Support at least four satisfying careers: explorer/salvager, merchant/industrial supplier, independent escort/bounty captain and faction privateer. Each needs a reliable starting opportunity, an uncertain opportunity and a long-term aspiration. Player strength does not automatically level every opponent upward; dangerous waters are signposted and a strong fleet should feel strong in familiar waters.
+Done when: players can describe memorable places, people and discoveries, and choose another voyage because of a lead. Multiple seeded campaigns vary opportunities while preserving navigable authored geography and viable starts.
+
+v0.017 — A HOME HARBOR AND AN OPTIONAL BUSINESS
+Offer a rented berth, warehouse, repair agreement and paid dock storage before full settlement ownership. Later a negotiated charter can develop a surveyed site or operate a business in an existing port. Claims, permissions and local relationships matter.
+Every building needs input goods, paid labor and oversight. Staff leave an existing available workforce or arrive through an explicit funded migration; they are not simultaneously employed elsewhere. Businesses keep their own inventory and purse. Taxes, wages, purchases, loans and distributions are transfers. Reserve working capital before dividends. Automated trade uses real boats, captains, cargo, route times and risk, with simple standing orders.
+Begin with one meaningful facility such as a salvage yard, warehouse or repair dock. Add production chains only as trade demand and geography justify them. A charter adds responsibilities and opportunities; it is optional for a successful independent captain. Existing civilian settlement economies continue without requiring the player to run them all.
+Done when: the player can explain how the business earns, what it consumes, who was paid and why a delivery matters. It can suffer a real loss or shortfall without corrupting the wider campaign or becoming a free passive-income faucet.
+
+v0.018 — REGIONAL CAMPAIGNS AND PLAYER-CHOSEN GOALS
+Build prolonged faction operations on the existing logistics: prepare at a supplied base, assemble paid ships, attack a specified objective, repair, negotiate or withdraw. Begin with limited raids and blockade campaigns; port occupation/capture requires a separate proven political, civilian and economic model. Do not jump straight to perpetual total conquest.
+Provide original late-game goals: secure a dangerous trade corridor, complete a major exploration chain, sustain an industrial harbor, help a faction win a limited campaign or broker a settlement. Threats have sponsors, buildup, finite strength and warnings. Peace and recovery give prior choices time to matter.
+New crises must use the world's available resources or an explicitly authored, budgeted outside expedition. No punishment fleet materializes just because the player's purse or fleet passed a threshold. Success can end an arc while the sandbox continues; no compulsory colony or one universal win condition.
+Done when: at least one sustained campaign can be won through several supported contributions, with lasting understandable consequences, while an independent small-fleet career remains playable.
+
+4. EXAMPLE OF THE CONNECTED EXPERIENCE
+
+A shipwright at Brass Haven is waiting for iron. You take a funded freight job toward Cinder Quay and hear of an uncharted sheltered inlet on the way. You bring a cheap scout and a cargo carrier, trading speed for room. The manifest shows the return reserve and wages due.
+
+The inlet's coastal chart reveals a shortcut usable by shallow-draft boats. A landed survey finds a damaged workshop and a lead to a wreck. Surveying takes time and some crew away from ship duties. You choose whether to spend those resources or meet the delivery deadline first.
+
+A damaged convoy approaches with raiders behind it. Joining the escort could improve Compact standing and preserve a valuable shipment, but ammunition, repairs and a possible tow reduce your spare capacity. Avoiding it may be the sensible choice for an underpowered expedition. The world proceeds either way.
+
+After a successful intervention, there is more salvage than you can carry. You mark the wreck, recover a useful engine component and keep enough provisions to return. The convoy reaches its real buyer. Iron enters that port's inventory, paid workers can advance a construction order, and the contact remembers your help. Your next opportunity grows out of those events.
+
+Illustrative accounting: five sailors away for eight game days require 5 x 8 x 100 = 4,000 coins in wages alone. Add actual food, fuel, ammunition, repair inputs, fees and any specialist differential. The route's margin must be measured after those costs. This illustrates the existing wage anchor; it does not set new hull prices, trip durations or fixed mission rewards. Boat prices remain derived from inputs, labor, expertise and construction.
+
+5. ECONOMIC AND CAMPAIGN RULES THAT MUST SURVIVE
+
+- Bronze coins only in player-facing terminology. Wages enter the aggregate sailor purse and stay owned by those sailors until actual spending or another explicit transfer. Arrears affect morale; skipping payment is not free labor.
+- Every reward identifies a funded payer. Escrow is reserved when promised, released once, and reconciled on completion/failure. Informational rewards and blueprints do not need to create money.
+- Every physical item has a source and destination. A sunk cargo boat loses or spills its own allocated load; it does not erase a random percentage of every commodity or leave its cargo magically aboard the survivors.
+- Factions need money, materials, time, yards and people. A defeated owner may genuinely be unable to replace losses. No invisible refill of crew, inventory or purses.
+- Economic recovery uses surviving production, household spending, reserves, finite relief, paid trade and ceasefires. Monitor liquidity and hoarding before enabling major wars; conservation by itself does not guarantee a playable economy.
+- Restrict destructive war behavior before allowing the whole coast to collapse. An indefinite campaign must retain meaningful civilian trade/recovery opportunities without secretly resetting losses.
+- Information is useful but imperfect. Known routes are known; remote prices and fleet reports grow stale. Do not demand note-taking that the chart/intel board can handle.
+- Setbacks should create stories and recovery choices. Use surviving boats, stored reserves, towing, funded work and clearly explained arrangements. Never silently restore destroyed boats or mint rescue funds.
+- Early onboarding should demonstrate one preparation decision, one discovery, one optional risk, one fitting improvement and one relationship consequence. Introduce the rest progressively.
+
+6. PERFORMANCE, DEVELOPMENT TOOLS AND ACCEPTANCE
+
+Keep the existing campaign chart -> separate isometric battle structure. Water remains inexpensive 2D decoration. Crews remain numbers with fixed crew details only where a helmsman/gunner is part of an asset. No new real-time fluids, walking crews or permanent detailed rendering of the whole world.
+
+Use different simulation detail by distance and relevance. Nearby boats need readable motion; distant owners need orders, scheduled arrivals and bounded combat/economy events. Process spatially relevant encounters rather than all pairs. Worker tasks own copied snapshots; the main thread publishes complete changes once. Pause, fast-forward, save/load and worker completion must share one authoritative event/order identity so a convoy or payout cannot happen twice.
+
+Extend opt-in development tools with jump-to-site, known/unknown chart toggle, spawn a funded scenario, inspect a purse/order/manifest, reveal a relationship's causes, force a specified encounter, run a named seeded voyage and audit conservation. These tools operate on isolated fixtures unless the user explicitly enables them in a career. Do not mix test money or dev unlocks into owner saves.
+
+Keep tests background/headless, serialized and isolated. Most fixtures should answer their question in under a minute; no background test takes desktop input or focus. Use a multi-month accelerated coast simulation to check flow, wars, liquidity, migration and NPC replacement costs. Record actual runtimes and step latencies instead of promising an unmeasured speed. Recheck the existing 40-boat 300-versus-300 battle benchmark when campaign/combat interfaces change.
+
+Release gates relevant to each milestone:
+- Save round-trips and copy-first migration preserve stable IDs, discoveries, relationships, crew, inventories, purses, contracts and orders. Owner saves are never tested in place.
+- Every coin ledger reconciles; stocks and crew remain nonnegative; cargo and capacity reconcile; rewards, wreck claims and orders settle once.
+- Offscreen war results and detailed combat agree directionally across representative fleet roles; demonstrate bounded work as the owner/fleet count grows.
+- An isolated voyage can finish with a useful reward after actual operating costs, and can fail without an unexplained forced reset. Check several fleet sizes and difficulty settings.
+- A funded trade disruption has an observable effect and a funded recovery route. No duplicate virtual/physical shipping and no permanent economy death spiral in the supported campaign fixtures.
+- Human fun and readability still require voluntary owner play. Automated checks establish integrity and performance evidence; they cannot prove that a discovery is memorable or a battle feels good.
+
+7. ROOT IMPLEMENTATION ORDER AND SCOPE
+
+First complete v0.008-v0.011 as an integrated expedition slice: clear preparation, interesting islands, meaningful salvage and several reasons to make one voyage. Then v0.012-v0.014 make factions and trade react. Deepen fleet identity, authored content and optional ownership after the basic loop sustains repeated play. Politics and endgame campaigns depend on all of those foundations.
+
+Before each playable milestone, write the concrete state/schema migration, affected systems, owner-facing behavior, acceptance fixture and helper file allowlists. Keep the authorized team at root plus the existing two Argon High helpers through Bridge if helper work is needed. Root retains design, integration and serialized testing. A planning document alone creates no playable build, tag, export or desktop launcher change.
+
+Relevant existing seams:
+- campaign.gd / deployment.gd: owned, traveling, committed, deployed and reserved boats; effective capacity and roster constraints.
+- goods.gd / fleet_economy.gd / economy.gd / money.gd / construction.gd: actual people, goods, production, purchases, wages, shipbuilding and transfers.
+- chart.gd / navigation.gd / coast_migration.gd: discovery knowledge, routes, site locations and protected coast revisions.
+- contracts.gd / campaign.gd: persistent commitments, contacts, intel and relationships; introduce focused modules rather than a single growing campaign script.
+- battle.gd / damage.gd / combat_events.gd: campaign outcomes, actual recovery candidates, intervention and withdrawal objectives.
+- main.gd / interface.gd / finance_ui.gd / dev_tools.gd: readable preparation/intel, snapshot publication, scenario controls and portable persistence.
+
+The next implementation proposal should specify v0.008 only, while retaining these dependencies. Do not start eleven systems together or replace an incomplete voyage with an endless feature backlog.
+
+8. DESIGN REFERENCES AND LIMITS
+
+The roadmap is original Brass Tide design, informed by the owner's Starsector/Blood Wake references and inspection of delivered v0.007 source. It deliberately keeps Brass Tide's detailed finite-purse economy rather than adopting another game's abstraction or currency values.
+
+Primary developer reference: Alexander Mosolov, Economy & Outposts discussion, reply 69, 23 September 2017:
+https://fractalsoftworks.com/forum/index.php?topic=13008.60
+The developer discusses the difficulty of keeping numerous interacting markets comprehensible. Design takeaway here: retain honest underlying accounts, but present routes, shortages, costs and consequences clearly. This is a design inference, not a claim that Starsector implements Brass Tide's planned physical accounting.
+
+Primary developer reference: Alexander Mosolov, Campaign Missions discussion, 26 March 2015:
+https://fractalsoftworks.com/forum/index.php?topic=9249.0
+The developer describes mission infrastructure and mission-specific behavior. Brass Tide's stacked funded jobs, contacts, convoy interventions and island chains above are proposals for our own campaign, not a reproduction of that implementation.
