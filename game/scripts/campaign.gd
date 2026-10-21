@@ -12,12 +12,14 @@ const Fleets = preload("res://scripts/fleet_economy.gd")
 const Contracts = preload("res://scripts/contracts.gd")
 const CoastMigration=preload("res://scripts/coast_migration.gd")
 const SaveValidation = preload("res://scripts/save_validation.gd")
+const Expedition=preload("res://scripts/expedition.gd")
+const Manifest=preload("res://scripts/hold_manifest.gd")
 # v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
 const Deployment = preload("res://scripts/deployment.gd")
 const Refits = preload("res://scripts/refit.gd")
-# Roster safety cap only: 300 DP of the cheapest 8-DP hulls is 37 boats. Ownership is limited by
-# deployment points through can_add_boat(); this is never an eight-boat ownership rule.
+# Ownership and traveling roster safety bounds are independent of battle deployment.
 const MAX_FLEET = SaveValidation.MAX_ROSTER
+const MAX_TRAVELING: int=48
 const DAY_SECONDS = 45.0
 
 var data: Dictionary
@@ -103,6 +105,8 @@ func new_game(seed_value: int = 1):
 			Fleets.dock(owner,port(owner.homePort))
 			owner.atPort = ""
 	state.coinSupply = Money.total(state)
+	state.cargoManifest={}
+	Manifest.allocate(state)
 	log_entry("You inherited a Tinwake skiff, five sailors, and a debt-free start. The coast is yours to explore.")
 	events.clear()
 
@@ -135,23 +139,23 @@ func place_patrol(patrol: Dictionary):
 func active_fleet() -> Array:
 	var fleet: Array = []
 	for s in state.get("fleet", []):
-		if not s.sunk and not s.get("mothballed", false) and s.crew >= s.crewMin:
+		if not s.sunk and not s.get("mothballed", false) and str(s.get("storedPort","")).is_empty() and s.crew >= s.crewMin:
 			fleet.append(s)
 	fleet.sort_custom(func(a, b): return a.uid == state.flagship and b.uid != state.flagship)
 	return fleet
 
 func capacity() -> float:
-	var result = 0.0
-	for s in state.get("fleet", []):
-		if not s.sunk:
-			result += s.spec.cargo
-	return result
+	return Expedition.capacity(state)
 
 func cargo_weight() -> float:
-	var weight = freight_weight()
-	for key in Economy.GOODS:
-		weight += state.get("cargo", {}).get(key, 0.0) * Economy.GOODS[key].weight
-	return weight
+	return Expedition.cargo_weight(state)
+
+func expedition_report(route_distance: float=0.0) -> Dictionary:
+	var result: Dictionary=Expedition.report(state,data,route_distance)
+	var sailing: float=route_distance*2.0/maxf(0.01,travel_speed())/DAY_SECONDS
+	result.tripDays=sailing+float(result.reserveDays)
+	result.returnWages=ceili(result.tripDays*result.dailyWages)
+	return result
 
 func freight_weight() -> float:
 	var freight = state.get("freight", {})
@@ -184,11 +188,20 @@ func travel_speed() -> float:
 	var speed = 170.0
 	for s in fleet:
 		speed = minf(speed, s.spec.speed * maxf(0.25, Damage.get_status(s).speedFactor) * (1.0 if s.fuel > 0 else 0.3))
-	return speed * 1.55 * float(data.get("CAMPAIGN_SCALE",1.0))
+	var powered_mass: float=0.0
+	var tow_mass: float=0.0
+	for s in state.fleet:
+		if s.sunk or not str(s.get("storedPort","")).is_empty():continue
+		if s.get("mothballed",false) or s.crew<s.crewMin:tow_mass+=float(s.spec.size)
+		else:powered_mass+=float(s.spec.size)
+	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if active_fleet().is_empty():
 		return fail("Crew a boat before setting sail.")
+	if active_fleet().size()>MAX_TRAVELING:return fail("Store boats at a harbor: up to %d active boats may accompany one expedition."%MAX_TRAVELING)
+	if cargo_weight()>capacity()+0.001:return fail("The traveling holds are overloaded. Offload cargo or activate a carrier before sailing.")
+	Manifest.allocate(state)
 	var path = Navigation.find_path(nav, state.position, target)
 	if path.is_empty():
 		return fail("No safe water route. Choose a harbor or open water.")
@@ -227,13 +240,14 @@ func step(dt: float):
 			events.append({"kind": "arrival", "port": state.destination})
 			state.destination = ""
 	for s in state.fleet:
-		if s.sunk:
+		if s.sunk or not str(s.get("storedPort","")).is_empty():
 			continue
 		Damage.tick_ship(s, dt, {"inCombat": false})
 		if moving and not s.get("mothballed", false):
 			s.fuel = maxf(0.0, s.fuel - dt * (0.011 + s.spec.size * 0.0002) * maxf(0.2,float(s.spec.get("fuelUse",1.0))))
 		if s.sunk:
 			log_entry("%s was lost to flooding." % s.name)
+	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s): return not s.sunk)
 	if state.fleet.is_empty():
 		events.append({"kind": "defeat"})
@@ -305,6 +319,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		Harbor.tick_yards(self,1)
 		state.econDay += 1
 	apply_morale()
+	Manifest.allocate(state)
 	for patrol in state.patrols:
 		var owner: Dictionary = fleet_owner(patrol.id)
 		if not owner.is_empty():
@@ -360,7 +375,10 @@ func trade(id: String, good: String, qty: int, side: String) -> Dictionary:
 	var p = current_port()
 	if p.is_empty() or p.id != id:
 		return fail("Enter this harbor to trade.")
-	return Economy.transact(p, state, good, qty, side, maxf(0.0, capacity() - freight_weight()))
+	var overflow: float=maxf(0,cargo_weight()-Economy.cargo_weight(state.cargo)-freight_weight())
+	var result: Dictionary=Economy.transact(p,state,good,qty,side,maxf(0,capacity()-freight_weight()-overflow))
+	Manifest.allocate(state)
+	return result
 
 func ship_materials(h: Dictionary) -> Dictionary:
 	return Construction.blueprint(h).materials
@@ -389,6 +407,7 @@ func add_boat(h: Dictionary, crew: int = 0) -> Dictionary:
 	boat.uid = "boat-%d"%state.nextUid
 	state.nextUid += 1
 	boat.mothballed = crew < boat.crewMin
+	boat.storedPort=""
 	fit_boat(boat,true)
 	state.fleet.append(boat)
 	return boat
@@ -436,10 +455,47 @@ func can_add_boat(spec: Dictionary) -> bool:
 		return false
 	if state.fleet.size() >= MAX_FLEET:
 		return false
-	return fleet_points()+hull_points(spec) <= fleet_limit()
+	return true
 
 func points_refusal(spec: Dictionary) -> String:
-	return "%s needs %d deployment points; your flotilla uses %d of %d." % [str(spec.get("name","That hull")),hull_points(spec),fleet_points(),fleet_limit()]
+	return "The fleet register holds at most %d owned hulls. Sell a hull or collect an existing stored boat; battle deployment remains 300 points per side."%MAX_FLEET
+
+func set_boat_active(uid: String, enabled: bool) -> Dictionary:
+	var b: Dictionary=find_boat(uid)
+	if b.is_empty() or not str(b.get("storedPort","")).is_empty():return fail("Collect this boat from its harbor first.")
+	if enabled and b.crew<b.crewMin:return fail("Hire the minimum crew before activation.")
+	if not enabled and b.uid==state.flagship:return fail("Choose another active flagship first.")
+	var before: bool=b.get("mothballed",false)
+	b.mothballed=not enabled
+	if cargo_weight()>capacity()+0.001:
+		b.mothballed=before
+		return fail("Offload cargo before standing down its carrier.")
+	Manifest.allocate(state)
+	return ok("Boat activated." if enabled else "Boat stood down; it contributes no expedition hold space.")
+
+func toggle_storage(uid: String) -> Dictionary:
+	var b: Dictionary=find_boat(uid)
+	var p: Dictionary=current_port()
+	if b.is_empty() or p.is_empty() or not state.path.is_empty():return fail("Dock at a harbor to store or collect a boat.")
+	var stored: String=str(b.get("storedPort",""))
+	if not stored.is_empty():
+		if stored!=p.id:return fail("This boat is stored at %s."%port(stored).name)
+		b.storedPort=""
+		b.mothballed=b.crew<b.crewMin
+		Manifest.allocate(state)
+		return ok("Boat collected. Hire sailors and provision it before activation.")
+	if uid==state.flagship:return fail("Choose another active flagship before storing this boat.")
+	b.storedPort=p.id
+	if cargo_weight()>capacity()+0.001:
+		b.storedPort=""
+		return fail("Offload cargo before storing its carrier.")
+	var savings: int=floori(float(state.crewPurse)*float(b.crew)/maxi(1,crew_count()))
+	Money.move(state,"crewPurse",p,"householdPurse",savings,"Stored boat sailors take savings ashore",state.moneyLog)
+	p.workforce+=int(b.crew);p.recruits+=int(b.crew)
+	b.crew=0.0;b.wounded=0.0;b.mothballed=true
+	Economy.sync_workforce(p)
+	Manifest.allocate(state)
+	return ok("Hull stored at %s; sailors and their savings returned ashore. Stores and fittings stay with the hull."%p.name)
 
 func refit_boat(uid: String, slot: String, module_id: String) -> Dictionary:
 	var boat: Dictionary = find_boat(uid)
@@ -448,16 +504,13 @@ func refit_boat(uid: String, slot: String, module_id: String) -> Dictionary:
 	var dock: Dictionary = current_port()
 	if dock.is_empty() or not state.path.is_empty():
 		return fail("Refits need a harbor yard. Dock before refitting.")
+	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=dock.id:return fail("Visit the harbor storing this hull before refitting it.")
 	var previous: Dictionary = state
-	var previous_points: int = fleet_points()
 	state = previous.duplicate(true)
 	var result: Dictionary = Refits.install(state,current_port(),find_boat(uid),slot,module_id)
 	if not result.get("ok",false):
 		state = previous
 		return fail(str(result.get("message","The yard refused this refit.")))
-	if fleet_points() > fleet_limit() and fleet_points() > previous_points:
-		state = previous
-		return fail("This fitting would exceed your 300 deployment points.")
 	fit_boat(find_boat(uid))
 	apply_morale()
 	if Money.total(state) != int(state.coinSupply):
@@ -492,6 +545,7 @@ func resupply_boat(uid: String, profile: String = "full") -> Dictionary:
 
 func use_reserves():
 	Harbor.use_reserves(self)
+	Manifest.allocate(state)
 
 func available_contracts() -> Array:
 	return Contracts.available(self)
@@ -500,7 +554,7 @@ func accept_contract(id: String) -> Dictionary:
 	return Contracts.accept(self,id)
 
 func contract_ready() -> bool:
-	return not state.activeContract.is_empty() and distance(state.position,port(state.activeContract.targetPort)) < 90
+	return not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
 
 func finish_contract() -> Dictionary:
 	return Contracts.finish(self)
@@ -509,7 +563,9 @@ func abandon_contract() -> Dictionary:
 	return Contracts.abandon(self)
 
 func battle_settled(result: String, enemy_specs: Array, context: Dictionary) -> Dictionary:
+	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s):return not s.sunk)
+	Manifest.allocate(state)
 	state.encounterGrace = 75.0
 	stop_sailing()
 	var loot: int = 0
@@ -697,6 +753,7 @@ func restore(saved: Dictionary) -> Dictionary:
 		set_patrol_course(patrol,port(patrol.from),port(patrol.to))
 		place_patrol(patrol)
 	state.path = incoming.get("path",[]).duplicate(true)
+	Manifest.allocate(state)
 	pending_days = 0
 	apply_morale()
 	if Money.total(state) != int(state.coinSupply):

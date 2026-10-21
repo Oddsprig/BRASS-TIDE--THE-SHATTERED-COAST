@@ -1,3 +1,11 @@
+## v0.008 — Expedition preparation
+
+Candidate; verified test/export records follow.
+
+- Readable expedition cargo, endurance, payroll and return reserves.
+- Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore.
+- Actual cargo carrier manifests, sinking losses, protected legacy save migration and bounded parallel harbor production.
+
 # Release history
 
 | Version | Exact tagged game-source commit | Date | Portable release |

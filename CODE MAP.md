@@ -1,6 +1,9 @@
-# Brass Tide v0.007 source map
+# Brass Tide v0.008 source map
 
 The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
+
+- expedition.gd, hold_manifest.gd, campaign_ui.gd: read-only voyage costs/endurance, actual carrier cargo allocations/sinking losses, preparation window and in-game TXT notes; stored hulls stay at their harbor.
+- economy_workers.gd: disjoint copied-harbor group jobs, hardware-aware bounded workers, explicit joins and main-thread once-only publication. tools/prepare_campaign_release.py records sequential build/source-acceptance notes without claiming exports.
 
 - main.gd: title/career/lab lifetime, WASD camera and commander input, fixed-step battle, worker publication, portable saves/options and music context.
 - campaign.gd, contracts.gd, money.gd: voyages, finite real purses, funded contracts, canonical fleets, ownership budget and restore.

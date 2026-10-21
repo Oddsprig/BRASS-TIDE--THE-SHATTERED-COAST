@@ -1,0 +1,25 @@
+BRASS TIDE — DEVELOPMENT NOTES
+v0.008 — Expedition preparation
+SOURCE ACCEPTED: 24 native suites pass; export verification pending.
+
+- Readable expedition cargo, endurance, payroll and return reserves.
+- Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore.
+- Actual cargo carrier manifests, sinking losses, protected legacy save migration and bounded parallel harbor production.
+
+Team: Codex root + one Muse Wonder Full + one Argon High + one Grok4.7.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — CAMPAIGN DEVELOPMENT
+v0.008 expedition preparation — implementation in progress
+
+Authorized sequence: v0.008 through v0.018, each completed build on the last.
+Team: Codex root, one Muse Wonder Full, one Argon High, one Grok4.7.
+
+v0.008 scope: useful traveling cargo and endurance reports, clear payroll/return reserve, stored fleet ownership beyond the normal300-point battle deployment ceiling, and bounded parallel harbor production.
+
+Rendering remains Separate. Harbor jobs work on disjoint copied port state; results publish once on the main thread before trade, save or NPC arrivals. Worker count adapts to logical CPU count, reserving two logical threads and using at most eight harbor workers. The coast has ten ports; unnecessary per-boat/per-frame threads would add overhead.
+
+Numerical crew, inexpensive decorative water and original boat/faction/coast content remain the design. Wages are100bronze coins per sailor-day; actual coins move among existing purses. All engine tests run headless/hidden with isolated saves; no desktop input or focus is taken.
+
+This entry records work in progress. Completed checks and release status are added after root verification. Future roadmap features are not yet claimed as delivered.

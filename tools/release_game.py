@@ -92,6 +92,10 @@ def main():
     shutil.copy2(ROOT / f"docs/TEST RESULTS v{VERSION}.md", tests / f"TEST RESULTS v{VERSION}.md")
     shutil.copytree(ROOT / "docs/helper-reports", tests / "helper-reports", dirs_exist_ok=True)
     (dest / "START HERE.txt").write_text(START.replace("{VERSION}", VERSION), encoding="utf-8")
+    if (ROOT / "game/data/DEVELOPER NOTES.txt").is_file():
+        shutil.copy2(ROOT / "game/data/DEVELOPER NOTES.txt",dest / "DEVELOPER NOTES.txt")
+    if (ROOT / "docs/CAMPAIGN ROADMAP.txt").is_file():
+        shutil.copy2(ROOT / "docs/CAMPAIGN ROADMAP.txt",docs / "CAMPAIGN ROADMAP.txt")
     (dest / "Stable Rendering.vbs").write_text(STABLE, encoding="utf-8")
     hashes = {p.relative_to(dest).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
               for p in sorted(dest.rglob("*")) if p.is_file()}

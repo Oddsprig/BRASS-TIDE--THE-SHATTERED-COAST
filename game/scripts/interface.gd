@@ -4,6 +4,7 @@ const RefitUI = preload("res://scripts/refit_ui.gd")
 const Portrait = preload("res://scripts/boat_portrait.gd")
 const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
+const CampaignUI=preload("res://scripts/campaign_ui.gd")
 
 const INK = Color("102731")
 const LINE = Color("3b5a60")
@@ -206,7 +207,10 @@ func title_screen():
 	button(actions, "Fleet battle laboratory", host.open_lab)
 	button(actions, "Options & music", open_settings)
 	button(actions, "Guide & credits", open_guide)
+	button(actions, "Development notes", func():CampaignUI.notes(self))
 	button(actions, "Quit to desktop", host.quit_game)
+	for action in actions.get_children():
+		if action is Button:action.custom_minimum_size.y=36
 	first.grab_focus()
 	spacer(v, 25)
 	eyebrow(v, "FLEET COMBAT  ·  LIVING PORTS  ·  YOUR OWN FLOTILLA")
@@ -251,6 +255,7 @@ func build_campaign_hud(size: Vector2):
 	button(left_body, "Fleet & damage control     F", open_fleet)
 	button(left_body, "Cargo & supplies               C", open_cargo)
 	button(left_body, "Contracts & logbook          J", open_contracts)
+	button(left_body,"Prepare expedition",func():CampaignUI.expedition(self))
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
 	if not host.core.state.activeContract.is_empty():
@@ -477,7 +482,7 @@ func open_fleet():
 
 func fleet_view(body: Node, docked: bool):
 	paragraph(body, "Crew counts show minimum / full effectiveness / maximum. Wounded sailors remain aboard but cannot work. An uncrewed hull is towed and stays out of battle. All damage, stores and casualties persist.", 15)
-	label(body, "%d / 300 DEPLOYMENT POINTS" % host.core.fleet_points(), 19, GOLD)
+	label(body,"%d owned points · 300 deployable per battle · %d / %d owned hulls"%[host.core.fleet_points(),host.core.state.fleet.size(),host.core.MAX_FLEET],17,GOLD)
 	for boat in host.core.state.fleet:
 		var s: Dictionary = boat
 		var uid: String = s.uid
@@ -491,7 +496,7 @@ func fleet_view(body: Node, docked: bool):
 		portrait.custom_minimum_size = Vector2(170, 110)
 		heading.add_child(portrait)
 		label(heading, s.name, 27, TEXT, true).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		eyebrow(heading, "FLAGSHIP" if host.core.state.flagship == uid else "TOWED / RESERVE" if s.get("mothballed", false) else "ACTIVE")
+		eyebrow(heading,"STORED AT "+str(host.core.port(s.storedPort).get("name",s.storedPort)) if not str(s.get("storedPort","")).is_empty() else "FLAGSHIP" if host.core.state.flagship==uid else "INACTIVE / TOWED" if s.get("mothballed",false) else "ACTIVE")
 		var health = progress(card)
 		health.value = s.hp / s.maxHp * 100
 		label(card, "Hull %d / %d · Armor %d · Water %d%% · Engine %d%% · Holes %d" % [s.hp, s.maxHp, s.armor, s.water / s.capacity * 100, s.engine * 100, s.breaches.size()], 14, MUTED)
@@ -506,7 +511,9 @@ func fleet_view(body: Node, docked: bool):
 		label(card, "%d deployment points · %d weapon mounts" % [Deployment.cost(s), s.spec.get("weaponMounts", []).size()], 13, TEAL)
 		button(actions, "Refit weapons, engine & armor", func(): open_refit(uid)).disabled = not docked
 		button(actions, "Set flagship", func(): host.core.state.flagship = uid; refresh_fleet()).disabled = s.crew < s.crewMin
-		button(actions, "Activate" if s.get("mothballed", false) else "Reserve", func(): s.mothballed = not s.get("mothballed", false); refresh_fleet()).disabled = s.crew < s.crewMin
+		button(actions, "Activate" if s.get("mothballed", false) else "Stand down", func():host.respond(host.core.set_boat_active(uid,s.get("mothballed",false)));refresh_fleet()).disabled = s.crew<s.crewMin or not str(s.get("storedPort","")).is_empty()
+		if docked:
+			button(actions,"Collect stored boat" if not str(s.get("storedPort","")).is_empty() else "Store at this harbor",func():host.respond(host.core.toggle_storage(uid));refresh_fleet())
 		if docked:
 			button(actions, "+1 sailor", func(): host.recruit(uid, 1))
 			button(actions, "Fill crew", func(): host.recruit(uid, maxi(1, int(s.crewOptimal - s.crew))))
@@ -537,6 +544,7 @@ func open_cargo():
 	var body = modal("The hold", "CARGO · RESERVES · ACCOUNTS", 850, 700)
 	paragraph(body, "Trade cargo uses fleet hold space. Ready-use ammunition, fuel and repair supplies stay aboard each boat. Load reserves to transfer cargo into those working stores.")
 	label(body, "%.0f / %.0f cargo space" % [host.core.cargo_weight(), host.core.capacity()], 26, GOLD, true)
+	button(body,"Endurance, payroll & return reserves",func():CampaignUI.expedition(self))
 	for good in host.Economy.GOODS:
 		var line = row(body)
 		label(line, host.Economy.GOODS[good].name, 17).size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -627,6 +635,7 @@ func open_menu():
 	button(body, "Captain's guide", open_guide)
 	button(body, "Fleet register · all 24 hulls", open_catalog)
 	button(body, "Settings & performance", open_settings)
+	button(body,"Development notes",func():CampaignUI.notes(self))
 	button(body, "Main menu", func(): host.return_to_title())
 	button(body, "Quit to desktop", func(): host.quit_game())
 

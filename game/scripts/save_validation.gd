@@ -5,7 +5,7 @@ const MAX_COINS: float=9007199254740991.0
 ## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
 const Refits=preload("res://scripts/refit.gd")
 ## Roster safety cap, not an ownership rule: 300 DP of 8-DP hulls is 37 boats, plus margin.
-const MAX_ROSTER: int=48
+const MAX_ROSTER: int=96
 const MAX_LOCKER: int=256
 
 static func _number(v,minimum: float=0.0,maximum: float=INF,whole: bool=false) -> bool:
@@ -109,6 +109,7 @@ static func _boat(value,hulls: Dictionary,path: String,player: bool,modules: Dic
 	if not value.policy in ["balanced","bail","repair","fight"]: return path+" has an unknown crew policy."
 	if not value.get("sunk") is bool: return path+" requires a sinking flag."
 	if value.has("mothballed") and not value.mothballed is bool: return path+" has invalid mothballed flag."
+	if value.has("storedPort") and not _text(value.storedPort,true):return path+" has an invalid stored harbor."
 	var error: String=_numbers(value,["maxHp","hp","armor","crew","crewMin","crewOptimal","crewMax","wounded","water","capacity","fire","engine","supplies","ammo","fuel","cooldown"],path)
 	if not error.is_empty(): return error
 	var fitted=_fitting(value,spec,modules,path)
@@ -231,6 +232,7 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 	for boat in s.fleet:
 		error=_boat(boat,hulls,"save.fleet",true,modules)
 		if not error.is_empty(): return error
+		if not str(boat.get("storedPort","")).is_empty() and not ports.has(boat.storedPort):return "Stored boat has an unknown harbor."
 		if uids.has(boat.uid): return "Duplicate player boat uid."
 		uids[boat.uid]=true
 	if not s.get("fleetOwners") is Array: return "NPC fleet owners must be an array."

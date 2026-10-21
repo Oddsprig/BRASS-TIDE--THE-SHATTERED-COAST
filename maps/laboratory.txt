@@ -1,4 +1,4 @@
-BRASS TIDE — LABORATORY MAP (generated; v0.007)
+BRASS TIDE — LABORATORY MAP (generated; v0.008)
 
 Title builder -> isolated normal300point battle, seeded replay/results and opt-in developer metrics.
 
@@ -19,10 +19,10 @@ game/scripts/lab_ui.gd: 7273 bytes; extends RefCounted
   game/scripts/lab_ui.gd:80 edit()
   game/scripts/lab_ui.gd:109 refresh_preview()
   game/scripts/lab_ui.gd:113 results()
-game/scripts/dev_tools.gd: 3274 bytes; extends CanvasLayer
+game/scripts/dev_tools.gd: 3596 bytes; extends CanvasLayer
   game/scripts/dev_tools.gd:9 setup()
-  game/scripts/dev_tools.gd:40 refill()
-  game/scripts/dev_tools.gd:50 snapshot()
+  game/scripts/dev_tools.gd:41 refill()
+  game/scripts/dev_tools.gd:51 snapshot()
   game/scripts/dev_tools.gd:23 _process()
 
 TESTS (game/tests/*.gd)

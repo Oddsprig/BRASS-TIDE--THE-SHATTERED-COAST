@@ -1,3 +1,6 @@
+21 October2026 — AUTHORIZED CAMPAIGN IMPLEMENTATION
+Owner authorized the entire0.008-0.018sequence, building each on its verified predecessor, with root + one Muse Wonder Full / one Argon High / one Grok4.7. v0.008 source passes24native suites; export has separate exact-tag receipts. In-game TXT notes are game/data/DEVELOPER NOTES.txt, shipped also beside the executable. Preserve older releases/saves/music; use scoped helper worktrees and background-only serialized tests. Next milestone0.009exploration follows0.008export.
+
 21 October2026 — CAMPAIGN PLANNING POINTER
 The owner requested a roadmap connecting exploration, island surveying, fleet growth, faction relations/conflict, trade and finite economics. Read ROADMAP.md and docs/CAMPAIGN ROADMAP.txt for the proposed0.008-0.018 sequence, actual0.007 gaps and acceptance. This is documentation only; delivered game remains0.007. The historical completed presentation build plan below remains preserved. Next implementation should scope0.008 rather than starting all proposed systems together.
 

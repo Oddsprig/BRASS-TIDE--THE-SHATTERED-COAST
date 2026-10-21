@@ -110,11 +110,13 @@ static func recruit(core, uid: String, count: int) -> Dictionary:
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty():
 		return core.fail("Hire sailors at a harbor.")
+	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("Visit the harbor storing this hull before assigning crew.")
 	var result: Dictionary = Economy.recruit(p,core.state,count,int(boat.crewMax-boat.crew))
 	if result.ok:
 		boat.crew += result.count
 		if boat.crew >= boat.crewMin:
 			boat.mothballed = false
+		core.Manifest.allocate(core.state)
 	return result
 
 static func sell(core, uid: String) -> Dictionary:
@@ -122,7 +124,9 @@ static func sell(core, uid: String) -> Dictionary:
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty() or core.state.fleet.size() <= 1:
 		return core.fail("Keep one boat. Hull sales require a harbor.")
-	if core.cargo_weight() > core.capacity()-boat.spec.cargo:
+	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("Visit the harbor storing this hull before selling it.")
+	var lost_capacity: float=float(boat.spec.cargo) if core.active_fleet().has(boat) else 0.0
+	if core.cargo_weight() > core.capacity()-lost_capacity:
 		return core.fail("Sell cargo before reducing your hold space.")
 	var q: Dictionary = quote(core,core.hull(boat.type),p)
 	var value: int = floori(float(q.materialCost+q.laborCost+q.supervisionCost)*0.65*boat.hp/boat.maxHp)
@@ -160,6 +164,7 @@ static func repair(core, uid: String) -> Dictionary:
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty():
 		return core.fail("Enter harbor for paid drydock service.")
+	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("This hull is stored at another harbor.")
 	var q: Dictionary = service_quote(core,boat,p)
 	if core.state.coins < q.cost or p.stocks.supplies < q.purchase:
 		return core.fail("Drydock needs the quoted coins and repair kits.")
@@ -190,6 +195,7 @@ static func resupply(core, uid: String, profile: String = "full") -> Dictionary:
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty():
 		return core.fail("Enter harbor to buy working stores.")
+	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("This hull is stored at another harbor.")
 	var spent: int = 0
 	# A voyage load avoids tying up a new captain's cash in a full long-range fuel tank.
 	# Ammunition is purchased first; each transaction still consumes actual local stock.
@@ -212,7 +218,7 @@ static func resupply(core, uid: String, profile: String = "full") -> Dictionary:
 
 static func use_reserves(core):
 	for boat in core.state.fleet:
-		if boat.sunk:
+		if boat.sunk or not str(boat.get("storedPort","")).is_empty():
 			continue
 		for good in ["ammo","fuel","supplies"]:
 			var conversion: float = Goods.ROUNDS_PER_CASE if good == "ammo" else 1.0

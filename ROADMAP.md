@@ -1,5 +1,7 @@
 # Brass Tide campaign roadmap
 
+v0.008 source accepted: expedition preparation, separate ownership/deployment, storage and parallel production pass24native suites. Exact-tag Windows export has separate receipts. Current implementation team is root plus one Muse Wonder Full, one Argon High and one Grok4.7, superseding the historical team below. Continue v0.009 after preserving v0.008.
+
 21 October 2026. The delivered game remains **v0.007**. The next playable build is **v0.008**. This update records proposed campaign work; it does not change the game, saves, release tags or launcher.
 
 The purpose is a connected loop: hear a lead, prepare a fleet, explore/trade/fight, choose what to recover, return and reinvest, then follow the opportunities and consequences. Exploration, fleet composition, factions and economics should give one voyage several worthwhile possibilities.

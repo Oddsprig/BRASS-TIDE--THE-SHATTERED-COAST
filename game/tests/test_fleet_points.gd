@@ -111,12 +111,14 @@ func _test_many_light_boats() -> void:
 	var cost: int=c.hull_points(h)
 	check(cost>=8 and cost<=75,"Hull deployment cost within contract range")
 	var added: int=0
-	while c.can_add_boat(h) and added<80:
+	while c.can_add_boat(h) and added<120:
 		c.add_boat(h,0)
 		added+=1
 	check(c.state.fleet.size()>8,"More than eight light boats fit within 300 points (cost %d, roster %d)"%[cost,c.state.fleet.size()])
-	check(c.fleet_points()<=c.fleet_limit(),"Light flotilla stays within the limit")
-	check(not c.can_add_boat(h) and c.fleet_points()+cost>c.fleet_limit(),"Next light hull would exceed 300")
+	check(c.fleet_points()>c.fleet_limit() and c.state.fleet.size()==c.MAX_FLEET,"Owned reserves exceed300 and stop at the separate roster bound")
+	check(not c.can_add_boat(h),"Next light hull exceeds the owned roster bound")
+	var deployment: Dictionary=Deployment.split(c.state.fleet)
+	check(deployment.points<=300 and deployment.deployed.size()+deployment.reserve.size()==c.state.fleet.size(),"All owned hulls survive the300-point battle split")
 	check(c.state.coins==coins,"Fixture add_boat moves no coins")
 	conservation("Light flotilla")
 	var saved: Dictionary=copy_json(c.state)
@@ -132,26 +134,26 @@ func _test_rejection_over_limit() -> void:
 	while c.can_add_boat(heavy) and guard<10:
 		c.add_boat(heavy,0)
 		guard+=1
-	check(c.fleet_points()<=300 and not c.can_add_boat(heavy),"Heavy hulls are refused once they would pass 300")
+	check(c.fleet_points()>300 and c.can_add_boat(heavy),"Heavy reserve ownership is independent of300-point deployment")
 	var light: Dictionary=cheapest_hull()
-	while c.can_add_boat(light) and guard<80:
+	while c.can_add_boat(light) and guard<120:
 		c.add_boat(light,0)
 		guard+=1
-	check(not c.can_add_boat(light),"Fleet is filled to within one minimum hull of the limit")
+	check(not c.can_add_boat(light) and c.state.fleet.size()==c.MAX_FLEET,"Fleet is filled to the owned hull safety bound")
 	var p: Dictionary=home()
 	var id: String=str(p.shipIds[0])
 	p.shipStock[id]=maxi(1,int(p.shipStock.get(id,0)))
 	var snapshot: Dictionary=c.state.duplicate(true)
 	var bought: Dictionary=c.buy_boat(id)
-	check(not bought.ok and same(snapshot,c.state),"Purchase over 300 is refused without mutation")
-	check(str(bought.message).contains("deployment points"),"Refusal explains deployment points")
-	check(not c.commission(id).ok and same(snapshot,c.state),"Commission over 300 is refused without taking coins or materials")
+	check(not bought.ok and same(snapshot,c.state),"Purchase beyond owned roster capacity is refused without mutation")
+	check(str(bought.message).contains("register"),"Refusal explains the separate fleet register")
+	check(not c.commission(id).ok and same(snapshot,c.state),"Commission beyond owned roster capacity is refused without taking coins or materials")
 	c.state.recoverable={"hull":id,"claimed":false}
 	snapshot=c.state.duplicate(true)
-	check(not c.salvage_boat(id).ok and same(snapshot,c.state),"Salvage over 300 is refused and the wreck stays unclaimed")
+	check(not c.salvage_boat(id).ok and same(snapshot,c.state),"Salvage beyond owned roster capacity is refused and the wreck stays unclaimed")
 	p.buildQueue.append({"id":"fleet-points-test","hull":id,"owner":"player","ready":true,"escrow":0})
 	snapshot=c.state.duplicate(true)
-	check(not c.collect_boat(p.buildQueue.size()-1).ok and same(snapshot,c.state),"Finished hull stays on the slip while over the limit")
+	check(not c.collect_boat(p.buildQueue.size()-1).ok and same(snapshot,c.state),"Finished hull stays on the slip while the owned roster is full")
 	p.buildQueue.pop_back()
 
 func _test_legacy_save() -> void:
@@ -190,7 +192,7 @@ func _test_legacy_save() -> void:
 	check(c.state.coins==int(before.coins) and c.state.crewPurse==int(before.crewPurse),"Legacy load creates no coins")
 	conservation("Legacy restore")
 	check(c.fleet_points()>c.fleet_limit(),"Legacy roster stays over the cap rather than being trimmed")
-	check(not c.can_add_boat(cheapest_hull()),"Over-cap legacy roster cannot buy more")
+	check(c.can_add_boat(cheapest_hull()),"Legacy owner can expand reserves beyond300 deployment points")
 	var split: Dictionary=Deployment.split(c.active_fleet())
 	check(split.deployed.size()+split.reserve.size()==c.active_fleet().size() and split.points<=300,"Battle split keeps every legacy boat in deployment or reserve")
 

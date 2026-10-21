@@ -1,3 +1,23 @@
+# v0.008 — Expedition preparation
+
+SOURCE ACCEPTED: 24 native suites pass; export verification pending.
+
+- Readable expedition cargo, endurance, payroll and return reserves.
+- Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore.
+- Actual cargo carrier manifests, sinking losses, protected legacy save migration and bounded parallel harbor production.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.008.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.008 — Expedition preparation
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Readable expedition cargo, endurance, payroll and return reserves.
+- Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore.
+- Actual cargo carrier manifests, sinking losses, protected legacy save migration and bounded parallel harbor production.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.008.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # Brass Tide v0.007 delivered
 
 Local Windows delivery is complete. The clean exact-tag checkout passed all22native suites and standalone Windows menu/campaign/save/battle/icon/PCK checks. Tagged game source:c9a466119010618984b3a275ddfecba3784c8e25. Windows/source ZIPs pass CRC/SHA256. The desktop/output launchers target v0.007, and the owner voyage was copied from v0.006 after clean archives; originals remain unchanged. GitHub has a separate remote-ref receipt.

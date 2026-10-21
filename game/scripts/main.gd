@@ -15,6 +15,7 @@ const LabUI = preload("res://scripts/lab_ui.gd")
 const DevTools = preload("res://scripts/dev_tools.gd")
 const Music = preload("res://scripts/music.gd")
 const Preferences=preload("res://scripts/preferences.gd")
+const EconomyWorkers=preload("res://scripts/economy_workers.gd")
 
 var data: Dictionary
 var core
@@ -44,6 +45,7 @@ var hud_timer = 0.0
 var save_timer = 0.0
 var economy_task: int = -1
 var economy_job: Dictionary = {}
+var economy_workers=EconomyWorkers.new()
 var save_directory = ""
 var battle_last_wrecks = 0
 var screenshots_requested: Array = []
@@ -145,7 +147,8 @@ func _physics_process(dt: float):
 		return
 	if mode == "campaign":
 		# Publish the worker's port snapshot before NPC arrivals can trade with these purses.
-		_finish_economy(true)
+		_finish_economy(false)
+		if economy_task>=0:return # Await copied port jobs without stalling a frame or trading stale purses.
 		core.step(dt * speed)
 		for event in core.pop_events():
 			match event.kind:
@@ -691,17 +694,16 @@ func start_economy():
 		blocked.append("cinder_quay")
 	if core.state.missionIndex < 8:
 		blocked.append("shatter_spire")
-	var job = {"ports": core.state.ports.duplicate(true), "days": days, "events": [], "blocked": blocked}
-	economy_job = job
-	economy_task = WorkerThreadPool.add_task(func(): job.events = Economy.tick_ports(job.ports, job.days, {"blockaded": job.blocked,"interport_trade":false}), false, "Brass Tide coastal economy")
+	economy_workers.start(core.state.ports,days,blocked,int(core.state.seed)+int(core.state.econDay)*104729)
+	economy_task=0
 
 func _finish_economy(force: bool):
 	if economy_task < 0:
 		return
-	if not force and not WorkerThreadPool.is_task_completed(economy_task):
+	if not force and not economy_workers.ready():
 		return
-	WorkerThreadPool.wait_for_task_completion(economy_task)
-	core.apply_economy(economy_job.ports, economy_job.events, economy_job.days)
+	var completed: Dictionary=economy_workers.finish(force)
+	core.apply_economy(completed.ports, completed.events, completed.days)
 	economy_task = -1
 	economy_job = {}
 
@@ -779,7 +781,7 @@ func quit_game():
 
 func _exit_tree():
 	if economy_task >= 0:
-		WorkerThreadPool.wait_for_task_completion(economy_task)
+		economy_workers.finish(true)
 
 func capture_after_start():
 	await get_tree().create_timer(2.0).timeout

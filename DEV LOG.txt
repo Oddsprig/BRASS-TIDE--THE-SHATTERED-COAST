@@ -1,3 +1,12 @@
+v0.008 SOURCE ACCEPTED | Expedition preparation
+24 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.008 CANDIDATE | Expedition preparation
+- Readable expedition cargo, endurance, payroll and return reserves.
+- Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore.
+- Actual cargo carrier manifests, sinking losses, protected legacy save migration and bounded parallel harbor production.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
 2026-10-21 | Campaign roadmap only | playable version remains v0.007
 Owner asked for connected Starsector-inspired campaign loops: surveys, relationships, NPC wars, trade and cargo.
 Inspected current campaign/deployment/contracts/economy/owner/navigation seams and distinguished actual features from proposals.

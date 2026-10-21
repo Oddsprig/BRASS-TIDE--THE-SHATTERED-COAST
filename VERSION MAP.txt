@@ -1,3 +1,7 @@
+v0.008 CANDIDATE — Expedition preparation
+Readable expedition cargo, endurance, payroll and return reserves. Independent owned roster, traveling boats and300-point normal battle deployment; harbor storage retains hulls and returns sailors/savings ashore. Actual cargo carrier manifests, sinking losses, protected legacy save migration and bounded parallel harbor production.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
 BRASS TIDE — VERSION MAP
 20 October2026 | current source BUILD7 = v0.007
 

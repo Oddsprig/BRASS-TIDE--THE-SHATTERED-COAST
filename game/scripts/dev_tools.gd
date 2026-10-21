@@ -29,6 +29,7 @@ func _process(dt: float):
 	var b: Dictionary=host.battle
 	info.text="DEVELOPMENT · %s · physics %.2f ms\nF9 overlay · . single step · F6 repair/refill lab · F8 report\n%s"%[host.mode,host.simulation_us/1000.0,"Laboratory fixtures" if host.lab_active else "Read-only career diagnostics"]
 	info.text+="\nDrawing commands %.2f ms · cached shapes %d / %d"%[host.chart.presentation_us/1000.0,MeshCache._meshes.size(),MeshCache.LIMIT]
+	info.text+="\nCPU %d threads · harbor workers %d · last group %.2f ms"%[OS.get_processor_count(),host.economy_workers.last_workers,host.economy_workers.last_us/1000.0]
 	if not b.is_empty():
 		info.text+="\nSeed %d · %.1f s · boats %d · shots %d · effects %d\nDeploy %d : %d / 300 · %s"%[host.lab_seed,b.time,b.ships.size(),b.projectiles.size(),b.effects.size(),b.deployment.player,b.deployment.enemy,"AI" if b.autopilot else "manual"]
 		info.text+="\nAudio events %d · scheduled %d · peak voices %d / 32 · culled %d"%[host.audio.received,host.audio.scheduled,host.audio.peak_voices,host.audio.dropped]
@@ -54,6 +55,7 @@ func snapshot():
 	if file==null:return
 	var report: Dictionary={"version":host.Version.text(),"mode":host.mode,"lab":host.lab_active,"seed":host.lab_seed,"config":host.lab_config,"simulationUs":host.simulation_us}
 	report.presentationUs=host.chart.presentation_us;report.cachedShapes=MeshCache._meshes.size();report.cacheHits=MeshCache.hits;report.cacheMisses=MeshCache.misses
+	report.logicalThreads=OS.get_processor_count();report.harborWorkers=host.economy_workers.last_workers;report.harborJobUs=host.economy_workers.last_us
 	if not host.battle.is_empty():
 		report["time"]=host.battle.time;report["deployment"]=host.battle.deployment
 		report["ships"]=host.battle.ships.duplicate(true)
