@@ -1,3 +1,8 @@
+2026-10-20 | v0.007 DELIVERED | exact game c9a466119010618984b3a275ddfecba3784c8e25
+Clean exact-tag22suite run; native Windows menu/campaign/save/battle/icon/PCK checks pass.
+Windows/source ZIP CRC and SHA256 pass; Desktop/output shortcuts target007; latest006voyage copied after archives.
+Every earlier release and original owner save/music retained; no window/input tests. GitHub receipt is separate.
+
 2026-10-20 | v0.007 source accepted | root + existing two Argon High Bridge helpers
 Added real transom motors/drives; full hull/socket/engine-package review; initial triple-drive265primitive excess reduced to241 without raising the budget.
 Localized scars, animated engine smoke/deck flames, metal and armor sparks, stronger family effects, flooding-specific sinking and final-kill cosmetic progression.

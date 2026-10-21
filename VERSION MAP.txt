@@ -9,14 +9,15 @@ delivered v0.005  Original10400x7200coast, wider ports, regional/M overview, bou
 delivered v0.006 24distinct silhouettes, shared physical interchangeable sockets, click-to-fit/live previews,
                  per-mount targets/aim/barrel origins,18contextual music tracks and saved presentation options.
 
-source v0.007    Stern outboards/drives; localized damage, flames/smoke, metal sparks, explosions,
+delivered v0.007 Stern outboards/drives; localized damage, flames/smoke, metal sparks, explosions,
                  cause-aware sinking and final-kill animation tail. Bounded colored meshes reduce CPU drawing work.
 
 Each release builds on its predecessor. Annotated Git tags identify exact game source.
 Each portable RELEASE.json proves export identity, completed native smoke tests and file hashes.
 v0.007 source gates:22native suites including3952feedback checks; seven fleet fixtures;
 33boat panels/45animation frames;12777222polygons/0invalid in the full heading/LOD audit.
-Exact-tag source/export evidence belongs to the final test record and portable RELEASE.json.
+Clean exact-tag22suite run and standalone Windows export checks pass; see RELEASE.json.
+Desktop launcher targets v0.007; owner voyage copied after clean archives, originals unchanged.
 Earlier verified portable releases/ZIPs and owner saves remain intact.
 
 Game testing is background only, serialized, no desktop input/focus. CPU simulation timings,

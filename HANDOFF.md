@@ -1,4 +1,6 @@
-# Brass Tide v0.007 source accepted
+# Brass Tide v0.007 delivered
+
+Local Windows delivery is complete. The clean exact-tag checkout passed all22native suites and standalone Windows menu/campaign/save/battle/icon/PCK checks. Tagged game source:c9a466119010618984b3a275ddfecba3784c8e25. Windows/source ZIPs pass CRC/SHA256. The desktop/output launchers target v0.007, and the owner voyage was copied from v0.006 after clean archives; originals remain unchanged. GitHub has a separate remote-ref receipt.
 
 Owner requested more boat detail, actual stern engines/outboards, damage animation, sparks, explosions and sinking. This build advances the completed v0.006. Root integrated motor_art.gd from Argon A and combat_art.gd from Argon B, the existing two Argon High Bridge helpers only. Raw reports remain unchanged in docs/helper-reports, with a separate root verdict. No helper started an engine.
 
