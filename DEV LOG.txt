@@ -1,3 +1,6 @@
+2026-10-21 | PUBLICATION BLOCKED | local v0.008–v0.018 delivery remains complete
+Network permission granted. Exact-destination atomic non-forced Git push failed in Windows credential-helper MSYS named-object creation (0xC0000022). Direct installed native GCM noninteractive authentication also unavailable. No credentials logged, sign-in UI, forced push or global settings changes. All source/tags/archives and verified desktop v0.018 remain intact; publication is not claimed. See docs/GITHUB PUBLICATION v0.018.txt.
+
 2026-10-21 | CAMPAIGN SEQUENCE DELIVERED | v0.008–v0.018
 All 11 playable increments preserved; combined file/archive/tag ancestry audit passed. Current v0.018 a75dd7bde2868da2b88e6e1df9bb4a756c4b2459.
 46clean-tag native suites; Windows menu/save/battle/icon/PCK;180 economic days with 8 worker lanes; all 7 battle CPU fixtures; real-owner save 14 checks. Desktop shortcut now v0.018, original save SHA256 unchanged,18 owner tracks preserved. No foreground/input test.

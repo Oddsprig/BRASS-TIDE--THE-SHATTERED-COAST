@@ -8,6 +8,6 @@ Read docs/CAPTAINS CAMPAIGN GUIDE.txt, docs/CAMPAIGN DELIVERY v0.008-v0.018.txt,
 
 The existing root/Muse Wonder Full/Argon High/Grok4.7 team completed the work. Muse's optional final audit exhausted its quota; root finished integration. Do not start another helper or later playable build without new owner direction. Never overwrite owner saves, old exports, tags, music or archives. Keep pure workers on copied state, joined before main-thread publication; Separate rendering and cheap 2D water remain configured.
 
-GitHub publication has a separate verified remote-ref receipt. Local release success alone does not establish upload. Preserve exact tagged game files when recording post-delivery documentation.
+GitHub publication remains unverified: the normal publisher and installed native credential manager could not access authentication under this Windows session. Network access was granted; no sign-in window or global setting change was used. See docs/GITHUB PUBLICATION v0.018.txt and work/qa/github-v018-receipt.json. All local source/tags are preserved. Preserve exact tagged game files when recording post-delivery documentation.
 
 Earlier detailed handoff history is in docs/archive/2026-10-21 before campaign handoff HANDOFF.md.

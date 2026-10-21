@@ -46,8 +46,8 @@ outputs/Brass Tide v0.018 DELIVERY VERIFIED.json: exact export/archive identity.
 outputs/Brass Tide v0.018 LAUNCHER VERIFIED.json: actual desktop/save readback.
 work/qa/CAMPAIGN SERIES VERIFIED.json: all 11 deliveries verified together.
 
-GitHub has a separate exact remote-ref receipt; local delivery does not
-by itself claim an upload. Current publication is the final separate step.
+GitHub upload remains unverified: Windows credential access failed.
+See docs/GITHUB PUBLICATION v0.018.txt. All local source and tags are intact.
 
 The user authorized root + one Muse Wonder Full, one Argon High and one
 Grok4.7 through Bridge. All three contributed. No further helper was used.
