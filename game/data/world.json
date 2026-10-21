@@ -1,10 +1,10 @@
 {
   "TITLE": "BRASS TIDE",
   "SUBTITLE": "THE SHATTER COAST",
-  "VERSION": "0.004",
+  "VERSION": "0.005",
   "WORLD": {
-    "width": 2600,
-    "height": 1800
+    "width": 10400,
+    "height": 7200
   },
   "FACTIONS": [
     {
@@ -571,8 +571,8 @@
       "id": "brass_haven",
       "name": "Brass Haven",
       "faction": "compact",
-      "x": 495,
-      "y": 1240,
+      "x": 1476.75,
+      "y": 5059.0,
       "population": 6800,
       "industry": "trade",
       "specialty": "Bonded Convoy Exchange",
@@ -590,8 +590,8 @@
       "id": "kelp_reach",
       "name": "Kelp Reach",
       "faction": "reed",
-      "x": 530,
-      "y": 630,
+      "x": 1597.5,
+      "y": 2539.25,
       "population": 4400,
       "industry": "fishery",
       "specialty": "Salted Trawl & Drying Racks",
@@ -608,8 +608,8 @@
       "id": "sawtooth_mill",
       "name": "Sawtooth Mill",
       "faction": "compact",
-      "x": 680,
-      "y": 390,
+      "x": 2643.0,
+      "y": 1122.75,
       "population": 5100,
       "industry": "timber",
       "specialty": "Steam-Bent Ironwood Planking",
@@ -626,8 +626,8 @@
       "id": "silt_hollow",
       "name": "Silt Hollow",
       "faction": "reed",
-      "x": 1010,
-      "y": 1280,
+      "x": 4037.25,
+      "y": 5576.5,
       "population": 5900,
       "industry": "agriculture",
       "specialty": "Terraced Marsh Grain & Rations",
@@ -644,8 +644,8 @@
       "id": "cinder_quay",
       "name": "Cinder Quay",
       "faction": "forge",
-      "x": 1080,
-      "y": 620,
+      "x": 4810.5,
+      "y": 2369.53,
       "population": 8200,
       "industry": "foundry",
       "specialty": "Bessemer Armor Plate & Shells",
@@ -662,8 +662,8 @@
       "id": "anvil_dock",
       "name": "Anvil Dock",
       "faction": "forge",
-      "x": 1525,
-      "y": 580,
+      "x": 5607.29,
+      "y": 2297.91,
       "population": 7600,
       "industry": "shipyard",
       "specialty": "Heavy Marine Diesel & Gantry Slips",
@@ -681,8 +681,8 @@
       "id": "reed_floats",
       "name": "Reedwater Floats",
       "faction": "reed",
-      "x": 1585,
-      "y": 1075,
+      "x": 6362.0,
+      "y": 4704.25,
       "population": 6300,
       "industry": "trade",
       "specialty": "Estuary Barter Flotilla",
@@ -700,8 +700,8 @@
       "id": "naphtha_bay",
       "name": "Naphtha Bay",
       "faction": "forge",
-      "x": 1920,
-      "y": 455,
+      "x": 7696.5,
+      "y": 1347.0,
       "population": 6900,
       "industry": "refinery",
       "specialty": "Distilled Bunker Fuel & Propellant",
@@ -718,8 +718,8 @@
       "id": "rust_anchorage",
       "name": "Rust Anchorage",
       "faction": "raiders",
-      "x": 2125,
-      "y": 885,
+      "x": 8674.46,
+      "y": 3572.31,
       "population": 4800,
       "industry": "fishery",
       "specialty": "Wreck Salvage & Whaling Stores",
@@ -737,8 +737,8 @@
       "id": "shatter_spire",
       "name": "Shatter Spire",
       "faction": "raiders",
-      "x": 2225,
-      "y": 1125,
+      "x": 8982.15,
+      "y": 4310.77,
       "population": 7400,
       "industry": "shipyard",
       "specialty": "Fortified Sea-Stack Gunworks",
@@ -760,24 +760,24 @@
       "color": "#4b5563",
       "points": [
         [
-          210,
-          1180
+          1120.5,
+          4984.0
         ],
         [
-          410,
-          1160
+          1370.5,
+          4959.0
         ],
         [
-          445,
-          1330
+          1414.25,
+          5171.5
         ],
         [
-          305,
-          1410
+          1239.25,
+          5271.5
         ],
         [
-          190,
-          1300
+          1095.5,
+          5134.0
         ]
       ]
     },
@@ -787,24 +787,24 @@
       "color": "#3f6212",
       "points": [
         [
-          230,
-          560
+          1222.5,
+          2451.75
         ],
         [
-          435,
-          530
+          1478.75,
+          2414.25
         ],
         [
-          470,
-          680
+          1522.5,
+          2601.75
         ],
         [
-          350,
-          745
+          1372.5,
+          2683.0
         ],
         [
-          215,
-          670
+          1203.75,
+          2589.25
         ]
       ]
     },
@@ -814,24 +814,24 @@
       "color": "#57534e",
       "points": [
         [
-          520,
-          150
+          2443.0,
+          822.75
         ],
         [
-          770,
-          135
+          2755.5,
+          804.0
         ],
         [
-          810,
-          275
+          2805.5,
+          979.0
         ],
         [
-          660,
-          330
+          2618.0,
+          1047.75
         ],
         [
-          500,
-          265
+          2418.0,
+          966.5
         ]
       ]
     },
@@ -841,24 +841,24 @@
       "color": "#365314",
       "points": [
         [
-          860,
-          1360
+          3849.75,
+          5676.5
         ],
         [
-          1150,
-          1335
+          4212.25,
+          5645.25
         ],
         [
-          1190,
-          1495
+          4262.25,
+          5845.25
         ],
         [
-          1010,
-          1565
+          4037.25,
+          5932.75
         ],
         [
-          835,
-          1475
+          3818.5,
+          5820.25
         ]
       ]
     },
@@ -868,24 +868,24 @@
       "color": "#78350f",
       "points": [
         [
-          1170,
-          480
+          4971.65,
+          2118.85
         ],
         [
-          1420,
-          465
+          5419.28,
+          2091.99
         ],
         [
-          1465,
-          625
+          5499.86,
+          2378.48
         ],
         [
-          1310,
-          680
+          5222.32,
+          2476.96
         ],
         [
-          1145,
-          600
+          4926.89,
+          2333.72
         ]
       ]
     },
@@ -895,24 +895,24 @@
       "color": "#14532d",
       "points": [
         [
-          1475,
-          1145
+          6224.5,
+          4791.75
         ],
         [
-          1705,
-          1135
+          6512.0,
+          4779.25
         ],
         [
-          1745,
-          1265
+          6562.0,
+          4941.75
         ],
         [
-          1595,
-          1320
+          6374.5,
+          5010.5
         ],
         [
-          1445,
-          1245
+          6187.0,
+          4916.75
         ]
       ]
     },
@@ -922,24 +922,24 @@
       "color": "#44403c",
       "points": [
         [
-          1790,
-          195
+          7534.0,
+          1022.0
         ],
         [
-          2055,
-          180
+          7865.25,
+          1003.25
         ],
         [
-          2095,
-          335
+          7915.25,
+          1197.0
         ],
         [
-          1930,
-          390
+          7709.0,
+          1265.75
         ],
         [
-          1760,
-          315
+          7496.5,
+          1172.0
         ]
       ]
     },
@@ -949,24 +949,24 @@
       "color": "#7f1d1d",
       "points": [
         [
-          2210,
-          800
+          8936.0,
+          3310.77
         ],
         [
-          2430,
-          780
+          9612.92,
+          3249.23
         ],
         [
-          2470,
-          980
+          9736.0,
+          3864.62
         ],
         [
-          2275,
-          1085
+          9136.0,
+          4187.69
         ],
         [
-          2185,
-          955
+          8859.08,
+          3787.69
         ]
       ]
     }
@@ -1184,10 +1184,423 @@
     "crew": 5,
     "coins": 15000
   },
-  "BUILD": 4,
+  "BUILD": 5,
   "CURRENCY": {
     "name": "bronze coins",
     "ordinaryDailyWage": 100,
     "coinsPerString": 1000
+  },
+  "MAP_REVISION": 2,
+  "CAMPAIGN_SCALE": 4.0,
+  "LEGACY_MAP": {
+    "WORLD": {
+      "width": 2600,
+      "height": 1800
+    },
+    "PORTS": [
+      {
+        "id": "brass_haven",
+        "name": "Brass Haven",
+        "faction": "compact",
+        "x": 495,
+        "y": 1240,
+        "population": 6800,
+        "industry": "trade",
+        "specialty": "Bonded Convoy Exchange",
+        "description": "The Western Compact anchorage sheltered behind Lantern Cay, bustling with coastal packet boats and repair slips.",
+        "wealth": 78,
+        "shipIds": [
+          "tin_skiff",
+          "lantern_skiff",
+          "harbor_sloop",
+          "mercantile_clipper",
+          "aegis_corvette"
+        ]
+      },
+      {
+        "id": "kelp_reach",
+        "name": "Kelp Reach",
+        "faction": "reed",
+        "x": 530,
+        "y": 630,
+        "population": 4400,
+        "industry": "fishery",
+        "specialty": "Salted Trawl & Drying Racks",
+        "description": "Stilt-built curing wharves along Kelpback Shoal where fast hydroplane cutters patrol the western sound.",
+        "wealth": 56,
+        "shipIds": [
+          "tin_skiff",
+          "marsh_dart",
+          "silt_lugger",
+          "gale_cutter"
+        ]
+      },
+      {
+        "id": "sawtooth_mill",
+        "name": "Sawtooth Mill",
+        "faction": "compact",
+        "x": 680,
+        "y": 390,
+        "population": 5100,
+        "industry": "timber",
+        "specialty": "Steam-Bent Ironwood Planking",
+        "description": "Cliffside water-mills cutting dense ironwood logs floated down from Sawtooth Crag.",
+        "wealth": 64,
+        "shipIds": [
+          "tin_skiff",
+          "harbor_sloop",
+          "lantern_skiff",
+          "cobalt_frigate"
+        ]
+      },
+      {
+        "id": "silt_hollow",
+        "name": "Silt Hollow",
+        "faction": "reed",
+        "x": 1010,
+        "y": 1280,
+        "population": 5900,
+        "industry": "agriculture",
+        "specialty": "Terraced Marsh Grain & Rations",
+        "description": "Polder farms and floating granaries feeding the southern archipelago from the lee of Verdigris Atoll.",
+        "wealth": 60,
+        "shipIds": [
+          "marsh_dart",
+          "silt_lugger",
+          "reed_stinger",
+          "manta_strike"
+        ]
+      },
+      {
+        "id": "cinder_quay",
+        "name": "Cinder Quay",
+        "faction": "forge",
+        "x": 1080,
+        "y": 620,
+        "population": 8200,
+        "industry": "foundry",
+        "specialty": "Bessemer Armor Plate & Shells",
+        "description": "Soot-darkened blast furnaces on the western shelf of Cinder Crown casting heavy turret steel and munitions.",
+        "wealth": 84,
+        "shipIds": [
+          "ash_corvette",
+          "slag_gunboat",
+          "cinder_monitor",
+          "bellows_gunboat"
+        ]
+      },
+      {
+        "id": "anvil_dock",
+        "name": "Anvil Dock",
+        "faction": "forge",
+        "x": 1525,
+        "y": 580,
+        "population": 7600,
+        "industry": "shipyard",
+        "specialty": "Heavy Marine Diesel & Gantry Slips",
+        "description": "Deepwater drydocks on eastern Cinder Crown where armored monitors and turbine engines are assembled.",
+        "wealth": 88,
+        "shipIds": [
+          "ash_corvette",
+          "bellows_gunboat",
+          "furnace_turret",
+          "iron_bastion",
+          "maiden_dreadnought"
+        ]
+      },
+      {
+        "id": "reed_floats",
+        "name": "Reedwater Floats",
+        "faction": "reed",
+        "x": 1585,
+        "y": 1075,
+        "population": 6300,
+        "industry": "trade",
+        "specialty": "Estuary Barter Flotilla",
+        "description": "Lashed pontoon markets off Kettle Fen Isle serving as the neutral crossroad between west and east.",
+        "wealth": 70,
+        "shipIds": [
+          "marsh_dart",
+          "reed_stinger",
+          "gale_cutter",
+          "mercantile_clipper",
+          "manta_strike"
+        ]
+      },
+      {
+        "id": "naphtha_bay",
+        "name": "Naphtha Bay",
+        "faction": "forge",
+        "x": 1920,
+        "y": 455,
+        "population": 6900,
+        "industry": "refinery",
+        "specialty": "Distilled Bunker Fuel & Propellant",
+        "description": "Cracking towers and tank piers beneath Oilstone Bluff supplying high-grade marine distillate.",
+        "wealth": 82,
+        "shipIds": [
+          "slag_gunboat",
+          "cinder_monitor",
+          "cobalt_frigate",
+          "furnace_turret"
+        ]
+      },
+      {
+        "id": "rust_anchorage",
+        "name": "Rust Anchorage",
+        "faction": "raiders",
+        "x": 2125,
+        "y": 885,
+        "population": 4800,
+        "industry": "fishery",
+        "specialty": "Wreck Salvage & Whaling Stores",
+        "description": "Chain-guarded sea caves on the western approach to Shatter Bastion where raiders refit prize hulls.",
+        "wealth": 58,
+        "shipIds": [
+          "bilge_punt",
+          "scab_cutter",
+          "hook_raider",
+          "barbed_lance",
+          "krill_torpedo"
+        ]
+      },
+      {
+        "id": "shatter_spire",
+        "name": "Shatter Spire",
+        "faction": "raiders",
+        "x": 2225,
+        "y": 1125,
+        "population": 7400,
+        "industry": "shipyard",
+        "specialty": "Fortified Sea-Stack Gunworks",
+        "description": "The iron-ringed citadel at the southern point of Shatter Bastion from which the Raider Admiral commands the blockade.",
+        "wealth": 86,
+        "shipIds": [
+          "scab_cutter",
+          "krill_torpedo",
+          "wraith_rocket",
+          "iron_bastion",
+          "maiden_dreadnought"
+        ]
+      }
+    ],
+    "ISLANDS": [
+      {
+        "id": "isl_lantern",
+        "name": "Lantern Cay",
+        "color": "#4b5563",
+        "points": [
+          [
+            210,
+            1180
+          ],
+          [
+            410,
+            1160
+          ],
+          [
+            445,
+            1330
+          ],
+          [
+            305,
+            1410
+          ],
+          [
+            190,
+            1300
+          ]
+        ]
+      },
+      {
+        "id": "isl_kelp",
+        "name": "Kelpback Shoal",
+        "color": "#3f6212",
+        "points": [
+          [
+            230,
+            560
+          ],
+          [
+            435,
+            530
+          ],
+          [
+            470,
+            680
+          ],
+          [
+            350,
+            745
+          ],
+          [
+            215,
+            670
+          ]
+        ]
+      },
+      {
+        "id": "isl_sawtooth",
+        "name": "Sawtooth Crag",
+        "color": "#57534e",
+        "points": [
+          [
+            520,
+            150
+          ],
+          [
+            770,
+            135
+          ],
+          [
+            810,
+            275
+          ],
+          [
+            660,
+            330
+          ],
+          [
+            500,
+            265
+          ]
+        ]
+      },
+      {
+        "id": "isl_verdigris",
+        "name": "Verdigris Atoll",
+        "color": "#365314",
+        "points": [
+          [
+            860,
+            1360
+          ],
+          [
+            1150,
+            1335
+          ],
+          [
+            1190,
+            1495
+          ],
+          [
+            1010,
+            1565
+          ],
+          [
+            835,
+            1475
+          ]
+        ]
+      },
+      {
+        "id": "isl_cinder",
+        "name": "Cinder Crown",
+        "color": "#78350f",
+        "points": [
+          [
+            1170,
+            480
+          ],
+          [
+            1420,
+            465
+          ],
+          [
+            1465,
+            625
+          ],
+          [
+            1310,
+            680
+          ],
+          [
+            1145,
+            600
+          ]
+        ]
+      },
+      {
+        "id": "isl_fen",
+        "name": "Kettle Fen Isle",
+        "color": "#14532d",
+        "points": [
+          [
+            1475,
+            1145
+          ],
+          [
+            1705,
+            1135
+          ],
+          [
+            1745,
+            1265
+          ],
+          [
+            1595,
+            1320
+          ],
+          [
+            1445,
+            1245
+          ]
+        ]
+      },
+      {
+        "id": "isl_oilstone",
+        "name": "Oilstone Bluff",
+        "color": "#44403c",
+        "points": [
+          [
+            1790,
+            195
+          ],
+          [
+            2055,
+            180
+          ],
+          [
+            2095,
+            335
+          ],
+          [
+            1930,
+            390
+          ],
+          [
+            1760,
+            315
+          ]
+        ]
+      },
+      {
+        "id": "isl_shatter",
+        "name": "Shatter Bastion",
+        "color": "#7f1d1d",
+        "points": [
+          [
+            2210,
+            800
+          ],
+          [
+            2430,
+            780
+          ],
+          [
+            2470,
+            980
+          ],
+          [
+            2275,
+            1085
+          ],
+          [
+            2185,
+            955
+          ]
+        ]
+      }
+    ]
   }
 }

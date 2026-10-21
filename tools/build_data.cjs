@@ -4,6 +4,10 @@ const root=path.resolve(__dirname,'..');
 const data=require(path.join(root,'dist/content.js'));
 const build=Number(fs.readFileSync(path.join(root,'game/scripts/version.gd'),'utf8').match(/BUILD: int = (\d+)/)[1]);
 const world=JSON.parse(JSON.stringify(data));
+const existing=JSON.parse(fs.readFileSync(path.join(root,'game/data/world.json'),'utf8'));
+if(existing.MAP_REVISION>=2){
+  for(const key of ['WORLD','PORTS','ISLANDS','MAP_REVISION','CAMPAIGN_SCALE','LEGACY_MAP']) world[key]=existing[key];
+}
 world.BUILD=build;world.VERSION=(build/1000).toFixed(3);
 world.HULLS.find(h=>h.id==='krill_torpedo').name='Tallowfin Torpedo Boat';
 // Earlier drafting used an existing reference game's boat name. The release uses an original name.

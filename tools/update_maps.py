@@ -18,7 +18,7 @@ GROUPS = {
     "construction": (["construction", "harbor", "refit"],
                      "Physical bill/local prices/ordinary and expert workers/escrow -> paid hull building, repairs, stock and hires.",
                      "test_construction, test_refit, test_fleet_points, test_campaign_cash, test_voyage"),
-    "navigation": (["navigation"],
+    "navigation": (["navigation", "coast_migration"],
                    "Original island polygons/endpoints -> bounded precomputed water grid and safe water paths.",
                    "test_navigation, test_runtime, test_voyage"),
     "presentation": (["chart", "boat_art", "boat_portrait", "interface", "tactics_ui", "refit_ui", "finance_ui"],

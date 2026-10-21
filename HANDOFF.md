@@ -1,3 +1,14 @@
+# Active sequential build v0.005
+
+Owner authorizes v0.003–v0.006 in order, root + exactly two Argon High helpers. Current source implements:
+- Expanded original coast to10400x7200world units,16times the previous area; all ten ports retained with much wider separation.
+- World-aware camera/navigation, regional default view, territory overview and prioritized map labels.
+- Copy-first one-time map revision migration retains port/workforce/stock/boat/coin state and rebuilds route intent.
+- Campaign cruise and NPC chart scale compensate for larger coordinates without changing the100coin wage anchor or minting payouts.
+
+19 native suites pass. Read-only migration of the actual v0.001 and v0.002 owner saves passed23and14checks; original file hashes unchanged. Native map revision361checks pass on actual expanded geography. Whole-territory M and regional Home views use actual dimensions.
+Next: verify clean tagged release/export, then the next sequential milestone. All old releases/owner files stay intact. Music source is music/ and Desktop/Brass Tide Music; collect only owner-supplied tracks. No foreground/input tests.
+
 # Active sequential build v0.004
 
 Owner authorizes v0.003–v0.006 in order, root + exactly two Argon High helpers. Current source implements:

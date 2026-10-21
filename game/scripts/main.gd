@@ -193,6 +193,7 @@ func _unhandled_input(event):
 			KEY_E: ui.open_port() if mode == "campaign" else null
 			KEY_TAB: toggle_tactical() if mode == "battle" else null
 			KEY_HOME: chart.center_camera()
+			KEY_M: chart.territory_view() if mode=="campaign" else null
 			KEY_U: toggle_autopilot() if mode == "battle" else null
 			KEY_X: switch_flagship() if mode == "battle" else null
 			KEY_R:
@@ -204,9 +205,9 @@ func _unhandled_input(event):
 			KEY_3: command_selected("hold") if mode == "battle" else null
 	elif event is InputEventMouseButton and not ui.modal_open:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-			chart.zoom = clampf(chart.zoom * 1.12, 0.45, 3.0)
+			chart.zoom = clampf(chart.zoom * 1.12, 0.10 if mode=="campaign" else 0.45, 3.0)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
-			chart.zoom = clampf(chart.zoom / 1.12, 0.45, 3.0)
+			chart.zoom = clampf(chart.zoom / 1.12, 0.10 if mode=="campaign" else 0.45, 3.0)
 		elif event.button_index == MOUSE_BUTTON_LEFT:
 			if mode == "battle":
 				if bool(battle.get("autopilot", true)) or tactical_mode:
@@ -719,12 +720,22 @@ func load_game():
 	if not parsed is Dictionary:
 		ui.toast("Save is unreadable. Your backup is in the saves folder.", true)
 		return
+	if int(data.get("MAP_REVISION",1))>int(parsed.get("mapRevision",1)):
+		var source_text=FileAccess.get_file_as_string(save_directory.path_join("voyage.json"))
+		var backup_path=save_directory.path_join("voyage.pre-map2.%s.json"%source_text.sha256_text().left(12))
+		if not FileAccess.file_exists(backup_path):
+			var original=FileAccess.open(backup_path,FileAccess.WRITE)
+			if original==null:
+				ui.toast("Cannot preserve the original save here. Move the portable folder to a writable location.",true)
+				return
+			original.store_string(source_text);original.close()
 	var result = core.restore(parsed)
 	if result.ok:
 		mode = "campaign"
 		quick_mode = false
 		paused = false
 		chart.zoom = 1.0
+		chart.center_camera()
 		ui.close_modal()
 		ui.build_hud()
 	respond(result)

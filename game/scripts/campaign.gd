@@ -10,6 +10,7 @@ const Harbor = preload("res://scripts/harbor.gd")
 const Construction = preload("res://scripts/construction.gd")
 const Fleets = preload("res://scripts/fleet_economy.gd")
 const Contracts = preload("res://scripts/contracts.gd")
+const CoastMigration=preload("res://scripts/coast_migration.gd")
 const SaveValidation = preload("res://scripts/save_validation.gd")
 # v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
 const Deployment = preload("res://scripts/deployment.gd")
@@ -29,7 +30,7 @@ func _init(world_data: Dictionary):
 	data = world_data
 	for h in data.HULLS:
 		h.price = Construction.quote(h).readyPrice
-	nav = Navigation.create(data.ISLANDS)
+	nav = Navigation.create(data.ISLANDS,float(data.WORLD.width),float(data.WORLD.height),40.0*float(data.get("CAMPAIGN_SCALE",1.0)))
 
 func hull(id: String) -> Dictionary:
 	for h in data.HULLS:
@@ -67,7 +68,7 @@ func new_game(seed_value: int = 1):
 	var cargo: Dictionary = {}
 	for good in Economy.GOODS:
 		cargo[good] = float(start.food) if good == "food" else 0.0
-	state = {"format":2,"version":Version.text(),"seed":seed_value,"nextUid":2,"coins":int(start.coins),"crewPurse":int(start.crew)*Goods.SAILOR_WAGE*10,"wageArrears":0,"debt":0,"day":1.0,"econDay":1,"renown":0,"morale":85.0,"ports":ports,"fleet":[initial],"cargo":cargo,"position":port_position(start.port),"heading":0.0,"path":[],"destination":"","lastPort":start.port,"flagship":initial.uid,"missionIndex":0,"activeContract":{},"freight":{},"doneSide":[],"wins":0,"losses":0,"kills":0,"completed":false,"patrols":[],"fleetOwners":[],"log":[],"moneyLog":[],"recoverable":{},"encounterGrace":90.0,"coinSupply":0}
+	state = {"mapRevision":int(data.get("MAP_REVISION",1)),"format":2,"version":Version.text(),"seed":seed_value,"nextUid":2,"coins":int(start.coins),"crewPurse":int(start.crew)*Goods.SAILOR_WAGE*10,"wageArrears":0,"debt":0,"day":1.0,"econDay":1,"renown":0,"morale":85.0,"ports":ports,"fleet":[initial],"cargo":cargo,"position":port_position(start.port),"heading":0.0,"path":[],"destination":"","lastPort":start.port,"flagship":initial.uid,"missionIndex":0,"activeContract":{},"freight":{},"doneSide":[],"wins":0,"losses":0,"kills":0,"completed":false,"patrols":[],"fleetOwners":[],"log":[],"moneyLog":[],"recoverable":{},"encounterGrace":90.0,"coinSupply":0}
 	var home: Dictionary = port(start.port)
 	home.workforce = maxi(0,int(home.workforce)-int(start.crew))
 	home.recruits = maxi(0,int(home.recruits)-int(start.crew))
@@ -183,7 +184,7 @@ func travel_speed() -> float:
 	var speed = 170.0
 	for s in fleet:
 		speed = minf(speed, s.spec.speed * maxf(0.25, Damage.get_status(s).speedFactor) * (1.0 if s.fuel > 0 else 0.3))
-	return speed * 1.55
+	return speed * 1.55 * float(data.get("CAMPAIGN_SCALE",1.0))
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if active_fleet().is_empty():
@@ -249,7 +250,7 @@ func step(dt: float):
 		var sailing_owner: Dictionary = fleet_owner(p.id)
 		var performance: float = float(sailing_owner.get("performanceFactor",1.0))
 		var has_fuel: bool = sailing_owner.get("boats",[]).any(func(boat):return not boat.sunk and boat.fuel > 0)
-		p.progress += dt * 35.0 * performance * (1.0 if has_fuel else 0.2) / maxf(1.0, p.courseLength)
+		p.progress += dt * 35.0 * float(data.get("CAMPAIGN_SCALE",1.0)) * performance * (1.0 if has_fuel else 0.2) / maxf(1.0, p.courseLength)
 		if p.progress >= 1.0:
 			p.progress = 0.0
 			var owner: Dictionary = fleet_owner(p.id)
@@ -659,6 +660,10 @@ func pop_events() -> Array:
 	return result
 
 func restore(saved: Dictionary) -> Dictionary:
+	if int(data.get("MAP_REVISION",1))>=2:
+		var prepared: Dictionary=CoastMigration.prepare(saved,data,nav)
+		if not prepared.ok: return fail(prepared.message)
+		saved=prepared.state
 	var validation: Dictionary = SaveValidation.validate(saved,data)
 	if not validation.ok:
 		return fail("Save refused: "+str(validation.message)+" Use your backup.")
@@ -691,7 +696,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	for patrol in state.patrols:
 		set_patrol_course(patrol,port(patrol.from),port(patrol.to))
 		place_patrol(patrol)
-	state.path = []
+	state.path = incoming.get("path",[]).duplicate(true)
 	pending_days = 0
 	apply_morale()
 	if Money.total(state) != int(state.coinSupply):

@@ -1,3 +1,11 @@
+2026-10-20 | v0.005 source candidate | root + two Argon High worktrees
+Expanded original coast to10400x7200world units,16times the previous area; all ten ports retained with much wider separation.
+World-aware camera/navigation, regional default view, territory overview and prioritized map labels.
+Copy-first one-time map revision migration retains port/workforce/stock/boat/coin state and rebuilds route intent.
+Campaign cruise and NPC chart scale compensate for larger coordinates without changing the100coin wage anchor or minting payouts.
+19 native suites pass; Read-only migration of the actual v0.001 and v0.002 owner saves passed23and14checks; original file hashes unchanged. Native map revision361checks pass on actual expanded geography. Whole-territory M and regional Home views use actual dimensions.
+Owner saves/releases preserved; source/tag/export sequence requires actual verification. No foreground/input test.
+
 2026-10-20 | v0.004 source candidate | root + two Argon High worktrees
 All-team typed firing/hit/miss/engine/sink events feed position-aware recorded sound; bounded queues and consume-once IDs.
 Real CC0 weapon/impact/water recording cuts replace synthesized gun pings, with source/credit/hash manifest.

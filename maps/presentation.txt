@@ -1,15 +1,15 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.004)
+BRASS TIDE — PRESENTATION MAP (generated; v0.005)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 33095 bytes; extends Node2D
-  game/scripts/chart.gd:33 setup()
-  game/scripts/chart.gd:78 polygon()
-  game/scripts/chart.gd:84 polygon_center()
-  game/scripts/chart.gd:90 noise()
-  game/scripts/chart.gd:93 project()
-  game/scripts/chart.gd:97 world_at()
+game/scripts/chart.gd: 35685 bytes; extends Node2D
+  game/scripts/chart.gd:34 setup()
+  game/scripts/chart.gd:79 polygon()
+  game/scripts/chart.gd:85 polygon_center()
+  game/scripts/chart.gd:91 noise()
+  game/scripts/chart.gd:94 project()
+  game/scripts/chart.gd:98 world_at()
 game/scripts/boat_art.gd: 32336 bytes; extends RefCounted
   game/scripts/boat_art.gd:23 archetype()
   game/scripts/boat_art.gd:113 palette()
@@ -21,7 +21,7 @@ game/scripts/boat_portrait.gd: 2957 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:32 set_spec()
   game/scripts/boat_portrait.gd:27 _init()
   game/scripts/boat_portrait.gd:35 _draw()
-game/scripts/interface.gd: 40279 bytes; extends CanvasLayer
+game/scripts/interface.gd: 40327 bytes; extends CanvasLayer
   game/scripts/interface.gd:42 setup()
   game/scripts/interface.gd:67 create_theme()
   game/scripts/interface.gd:87 box()

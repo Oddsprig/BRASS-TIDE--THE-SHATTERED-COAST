@@ -5,7 +5,8 @@
 | 0.001 | e4c07d3ab72de3604010c6042e51d3e04a3dccaa | 2026-10-20 | ../Brass Tide v0.001 |
 | 0.002 | 6c0e81b69684b7c1eebaa6430d2eebd190bf7b72 | 2026-10-20 | ../Brass Tide v0.002 |
 | 0.003 | 511981eb0ab3d70cf19fa2dd6e3584ae2c224f48 | 2026-10-20 | ../Brass Tide v0.003 |
-| 0.004 | exact tag v0.004; export identity in RELEASE.json | 2026-10-20 | ../Brass Tide v0.004 |
+| 0.004 | 17225a90c8170c82f19f5847ab2ec6da11e8a8dd | 2026-10-20 | ../Brass Tide v0.004 |
+| 0.005 | exact tag v0.005; export identity in RELEASE.json | 2026-10-20 | ../Brass Tide v0.005 |
 
 v0.001 main/tag publication was independently verified. v0.002 Windows x64 export and its standalone menu/campaign/save/battle, PCK/icon/PE checks passed. Its publication receipt records the exact remote state. Post-export records may live on main with game files unchanged from the exact tagged source. All older releases are preserved.
 

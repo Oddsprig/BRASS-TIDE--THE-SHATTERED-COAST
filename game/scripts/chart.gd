@@ -22,6 +22,7 @@ var follow_camera: bool = true
 var tactical: bool = false
 var _campaign_follow: bool = false
 var _last_mode: String = ""
+var _map_labels: Array=[]
 var _wakes: Dictionary = {}
 var _trails: Array = []
 var _last_trail_stamp: float = -1.0
@@ -121,7 +122,8 @@ func step(dt: float):
 		_update_trails(host.battle.projectiles)
 	elif host != null and host.mode == "menu":
 		if mode_changed:
-			camera = Vector2(1360, 730)
+			var home: Dictionary=host.data.PORTS[0]
+			camera = Vector2(home.x,home.y)+Vector2(-120,150)
 			_wakes.clear()
 			_trails.clear()
 		scale_factor = minf(viewport.x / 1700.0, viewport.y / 950.0) * 1.18
@@ -132,7 +134,7 @@ func step(dt: float):
 		if _campaign_follow and follow_camera and host != null and host.core != null and not host.core.state.is_empty():
 			var wp = host.core.state.position
 			camera = camera.lerp(Vector2(wp.x, wp.y), 1.0 - exp(-dt * 4.0))
-		scale_factor = minf((viewport.x - 450.0) / 3050.0, (viewport.y - 210.0) / 1850.0) * zoom * (0.75 if tactical else 1.0)
+		scale_factor = regional_scale() * zoom * (0.75 if tactical else 1.0)
 		if host != null and host.core != null and not host.core.state.is_empty():
 			_update_wakes(_campaign_boats())
 	queue_redraw()
@@ -150,7 +152,7 @@ func pan_camera(screen_direction: Vector2, dt: float, fast: bool = false):
 	_campaign_follow = false
 	var speed := 1150.0 if fast else 540.0
 	camera += _screen_to_world_delta(screen_direction.normalized() * speed * dt)
-	var world_size := Vector2(2300, 1700) if (host != null and host.mode == "battle") else Vector2(2600, 1800)
+	var world_size := Vector2(2300, 1700) if (host != null and host.mode == "battle") else Vector2(host.data.WORLD.width,host.data.WORLD.height)
 	camera.x = clampf(camera.x, -450.0, world_size.x + 450.0)
 	camera.y = clampf(camera.y, -450.0, world_size.y + 450.0)
 	queue_redraw()
@@ -164,9 +166,22 @@ func center_camera():
 		if not boat.is_empty():
 			camera = Vector2(boat.x, boat.y)
 	elif host.mode != "menu" and host.core != null and not host.core.state.is_empty():
+		zoom=1.0
 		_campaign_follow = true
 		var wp = host.core.state.position
 		camera = Vector2(wp.x, wp.y)
+	queue_redraw()
+
+func regional_scale() -> float:
+	var viewport=get_viewport_rect().size
+	return maxf(0.15,minf((viewport.x-560.0)/2100.0,(viewport.y-260.0)/1150.0))
+
+func territory_view():
+	follow_camera=false;_campaign_follow=false
+	var w=float(host.data.WORLD.width);var h=float(host.data.WORLD.height)
+	camera=Vector2(w,h)*0.5
+	var viewport=get_viewport_rect().size
+	zoom=clampf(minf((viewport.x-660.0)/((w+h)*0.82),(viewport.y-290.0)/((w+h)*0.41))/regional_scale(),0.10,1.0)
 	queue_redraw()
 
 func set_tactical(enabled: bool):
@@ -373,6 +388,17 @@ func _draw():
 func draw_island(island: Dictionary, index: int, tactical: bool = false):
 	var points = polygon(island.points)
 	var center = polygon_center(island.points)
+	var bounds=Rect2(project(points[0]),Vector2.ZERO)
+	for p in points: bounds=bounds.expand(project(p))
+	if not get_viewport_rect().grow(160).intersects(bounds.grow(100)):return
+	if scale_factor<0.19 and host.mode!="battle":
+		var coarse: Array=[]
+		for p in points:coarse.append(p)
+		world_poly(coarse,Color("c4b788"))
+		var inner_coarse: Array=[]
+		for p in points:inner_coarse.append(center+(p-center)*0.85)
+		world_poly(inner_coarse,Color("506f55"),8)
+		return
 	for expansion in [1.22, 1.12, 1.055]:
 		var shelf: Array = []
 		for p in points:
@@ -423,6 +449,11 @@ func draw_house(p: Vector2, size_value: float, height: float, roof: Color):
 func draw_harbor(p: Dictionary, index: int):
 	var v = villages[index]
 	var position = Vector2(p.x, p.y)
+	var screen=project(position)
+	if not get_viewport_rect().grow(240).has_point(screen):return
+	if scale_factor<0.19:
+		draw_circle(screen,4.0,GOLD if host.selected_port==p.id else FRIEND)
+		return
 	var tangent = (v.inland - position).normalized().orthogonal()
 	var color = Color(host.core.faction(p.faction).get("color", "#8fb8a3"))
 	world_line([v.inland, position], Color("5a7468"), maxf(4, 11 * scale_factor), 6)
@@ -442,17 +473,34 @@ func draw_harbor(p: Dictionary, index: int):
 	var flag = project(position + Vector2(10, 0), 56)
 	draw_line(project(position + Vector2(10, 0), 8), flag, Color("c5c9a7"), 1.3)
 	draw_colored_polygon(PackedVector2Array([flag, flag + Vector2(16, 5), flag + Vector2(0, 10)]), color)
-	text_at(p.name, s + Vector2(0, 28), 16 if selected else 14, GOLD if selected else Color("d7e1cc"), sans, true)
-	text_at(p.industry.to_upper(), s + Vector2(0, 43), 9, Color("9db8a5"), mono, true)
+
+func _harbor_label(p: Dictionary):
+	var s=project(Vector2(p.x,p.y))
+	var viewport=get_viewport_rect().size
+	if not Rect2(345,110,viewport.x-385,viewport.y-260).has_point(s):return
+	var selected: bool=host.selected_port==p.id
+	var width: float=sans.get_string_size(p.name,HORIZONTAL_ALIGNMENT_LEFT,-1,15).x+16.0
+	for offset in [Vector2(0,27),Vector2(0,-20),Vector2(65,8),Vector2(-65,8),Vector2(0,51)]:
+		var rect=Rect2(s+offset-Vector2(width*0.5,17),Vector2(width,37 if scale_factor>0.24 else 23))
+		if not Rect2(345,110,viewport.x-385,viewport.y-260).encloses(rect):continue
+		var collision=false
+		for existing in _map_labels:
+			if rect.grow(6).intersects(existing):collision=true;break
+		if collision:continue
+		_map_labels.append(rect)
+		text_at(p.name,s+offset,16 if selected else 14,GOLD if selected else Color("d7e1cc"),sans,true)
+		if scale_factor>0.24:text_at(p.industry.to_upper(),s+offset+Vector2(0,15),9,Color("9db8a5"),mono,true)
+		return
 
 func draw_campaign():
 	if host.core == null or host.core.state.is_empty():
 		return
 	var world = host.core.state
-	for x in range(0, 2601, 250):
-		world_line([Vector2(x, 0), Vector2(x, 1800)], Color(0.6, 0.8, 0.69, 0.027))
-	for y in range(0, 1801, 250):
-		world_line([Vector2(0, y), Vector2(2600, y)], Color(0.6, 0.8, 0.69, 0.027))
+	var w=int(host.data.WORLD.width);var h=int(host.data.WORLD.height)
+	for x in range(0,w+1,1000):
+		world_line([Vector2(x,0),Vector2(x,h)],Color(0.6,0.8,0.69,0.027))
+	for y in range(0,h+1,1000):
+		world_line([Vector2(0,y),Vector2(w,y)],Color(0.6,0.8,0.69,0.027))
 	for route in host.data.ROUTES:
 		var a = host.core.port(route[0])
 		var b = host.core.port(route[1])
@@ -476,6 +524,11 @@ func draw_campaign():
 		draw_colored_polygon(PackedVector2Array([s + Vector2(0, -5), s + Vector2(5, 0), s + Vector2(0, 5), s + Vector2(-5, 0)]), Color(color, 0.5))
 	for i in range(world.ports.size()):
 		draw_harbor(world.ports[i], i)
+	_map_labels=[]
+	var label_ports: Array=world.ports.duplicate()
+	var target_id: String=str(world.activeContract.get("targetPort",""))
+	label_ports.sort_custom(func(a,b):return (3 if a.id==host.selected_port else 2 if a.id==target_id else 1 if a.id==world.lastPort else 0)>(3 if b.id==host.selected_port else 2 if b.id==target_id else 1 if b.id==world.lastPort else 0))
+	for p in label_ports:_harbor_label(p)
 	var fleet = host.core.active_fleet()
 	for i in range(fleet.size()):
 		var boat = fleet[i].duplicate()
@@ -497,7 +550,7 @@ func draw_campaign():
 	var size = get_viewport_rect().size
 	text_at("THE SHATTER COAST", Vector2(size.x * 0.5, size.y - 175), 12, GOLD, mono, true)
 	text_at("Nothing stays afloat alone.", Vector2(size.x * 0.5, size.y - 144), 26, Color("c7d4bd"), serif, true)
-	text_at("CLICK A HARBOR TO CHART A COURSE  ·  SCROLL TO ZOOM", Vector2(size.x * 0.5, size.y - 118), 10, Color("93b4a8"), mono, true)
+	text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK HARBOR TO SAIL  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118), 10, Color("93b4a8"), mono, true)
 	draw_compass(Vector2(size.x - 70, size.y - 133))
 
 func boat_shape(p: Vector2, angle: float, shape: Array, size_value: float, height: float, color: Color):
@@ -607,7 +660,8 @@ func draw_turret(p: Vector2, angle: float, size_value: float, color: Color):
 func draw_title():
 	for i in range(host.data.ISLANDS.size()):
 		draw_island(host.data.ISLANDS[i], i)
-	var hero = {"spec": host.data.HULLS[20], "x": 1770.0 + sin(clock * 0.04) * 45, "y": 620.0 + cos(clock * 0.04) * 45, "angle": 0.9, "turretAngle": 0.8, "vx": 45, "vy": 25, "water": 0, "fire": 0, "breaches": []}
+	var home: Dictionary=host.data.PORTS[0]
+	var hero = {"spec": host.data.HULLS[20], "x": float(home.x)+180.0 + sin(clock * 0.04) * 45, "y": float(home.y)-180.0 + cos(clock * 0.04) * 45, "angle": 0.9, "turretAngle": 0.8, "vx": 45, "vy": 25, "water": 0, "fire": 0, "breaches": []}
 	draw_boat(hero, GOLD, false, false, 2.0, true)
 	for i in range(2):
 		var escort = hero.duplicate()
