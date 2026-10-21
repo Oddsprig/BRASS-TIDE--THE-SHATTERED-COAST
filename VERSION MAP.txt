@@ -6,13 +6,13 @@ delivered v0.002  Default autopilot/commands,300DPper side, paid weapons/engines
 delivered v0.003  Title/Escape, configurable fleet laboratory/replay/results, opt-in dev tools/music library.
 delivered v0.004  Recorded all-team weapon/impact sound, shaped effects/sinking and separate physical weapon art.
 delivered v0.005  Original10400x7200coast, wider ports, regional/M overview, bounded routes/protected save migration.
-coded     v0.006 24distinct silhouettes, shared physical interchangeable sockets, click-to-fit/live previews,
+delivered v0.006 24distinct silhouettes, shared physical interchangeable sockets, click-to-fit/live previews,
                  per-mount targets/aim/barrel origins,18contextual music tracks and saved presentation options.
 
 Each release builds on its predecessor. Annotated Git tags identify exact game source.
 Each portable RELEASE.json proves export identity, completed native smoke tests and file hashes.
 v0.006 source gates:21native suites, seven fleet fixtures, native forty-boat Main check,
-93gallery assertions and full360heading/threeLOD geometry audit. Exact-tag clean export is the next gate.
+93gallery assertions and full360heading/threeLOD geometry audit. Exact-tag clean21suite run and standalone Windows export checks pass.
 Earlier verified portable releases/ZIPs and owner saves remain intact.
 
 Game testing is background only, serialized, no desktop input/focus. CPU simulation timings,

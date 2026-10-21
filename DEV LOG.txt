@@ -1,3 +1,11 @@
+2026-10-20 | v0.006 DELIVERED | exact tagged game17306228e150b6d3aeb1a7b98861a1c3ce94545b
+Clean exact-tag21suite check passed; exported Windows menu/campaign-save/battle checks passed.
+v0.003/v0.004/v0.005/v0.006 manifests, Windows/source ZIPs, CRC/SHA256 and linear ancestry verified.
+Desktop/output shortcuts point to v0.006; latest owner v0.002save copied after clean ZIP creation, originals byte-identical.
+18owner MP3s preserved on Desktop and in v0.006, eight music contexts, recorded weapon bank.
+No input/focus or foreground game used. No human audio audition, GPU FPS or subjective quality claim.
+GitHub publication has a separate exact-ref receipt; source documentation updates leave tagged game unchanged.
+
 2026-10-20 | v0.006 source candidate | root + two Argon High worktrees
 Completed24distinct hull silhouettes/bridges/deck details; removed residual bow-outline foam and retained solid contact. Shared physical interchangeable sockets feed previews, paid fittings and combat.
 Eighteen supplied music tracks cover eight contexts and cycle all takes; saved audio/fullscreen/frame-cap/development options and portable drop-in workflow.
