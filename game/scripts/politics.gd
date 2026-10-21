@@ -37,7 +37,7 @@ static func inspect(c) -> Dictionary:
 	if not c.state.relationships.inspections.has(key):
 		c.state.relationships.inspections[key]=true
 		while c.state.relationships.inspections.size()>80:c.state.relationships.inspections.erase(c.state.relationships.inspections.keys()[0])
-		c.log_entry("%s inspected the manifest: %.1f tons of declared cargo; owned fittings and sealed cargo admitted. No confiscation or invented fee."%[p.name,c.cargo_weight()])
+		c.log_entry("%s inspected the manifest: %.1f hold space of declared cargo; owned fittings and sealed cargo admitted. No confiscation or invented fee."%[p.name,c.cargo_weight()])
 	return c.ok("Inspection complete. Declared cargo admitted.")
 
 static func parley(c) -> Dictionary:

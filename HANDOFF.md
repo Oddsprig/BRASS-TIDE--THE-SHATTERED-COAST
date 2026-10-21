@@ -1,3 +1,23 @@
+# v0.017 — A home harbor
+
+SOURCE ACCEPTED: 43 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Paid staffed warehouses, eight-slot private berths and public watch accounts, with finite local shore inventories.
+- Survey- and story-earned salvage/workshop charters use actual setup materials, staff, wages, operating capital and optional local sales.
+- Business purses, material basis, earned-only dividends, wage arrears, retained output and harbor-local cash handling persist through saves.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.017.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.017 — A home harbor
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Paid staffed warehouses, eight-slot private berths and public watch accounts, with finite local shore inventories.
+- Survey- and story-earned salvage/workshop charters use actual setup materials, staff, wages, operating capital and optional local sales.
+- Business purses, material basis, earned-only dividends, wage arrears, retained output and harbor-local cash handling persist through saves.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.017.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.016 — Memorable exploration chains
 
 SOURCE ACCEPTED: 41 native suites pass; portable export evidence is recorded separately in RELEASE.json.

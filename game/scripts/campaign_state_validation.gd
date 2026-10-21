@@ -146,4 +146,32 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		for key in ["openField","privateField","workshopCharter","privateOre","publicCharts","privateCharts"]:
 			if not r.get(key) is bool:return "Invalid story permission."
 		if r.get("buyer","") not in ["","compact","forge"] or not r.get("usedOffers") is Dictionary or r.usedOffers.size()>8 or not r.get("salvageWork") is Dictionary or r.salvageWork.size()>32:return "Invalid story opportunity ledger."
+	if s.has("businesses"):
+		if not s.businesses is Array or s.businesses.size()>12:return "Invalid shore business collection."
+		var business_ids: Dictionary={}
+		var ports: Array=[]
+		for p in world.PORTS:ports.append(p.id)
+		var caps: Dictionary={"warehouse":400,"salvage_yard":600,"workshop":300}
+		var staff: Dictionary={"warehouse":{"laborer":2},"salvage_yard":{"laborer":3,"mechanic":1},"workshop":{"carpenter":3,"mechanic":1}}
+		for b in s.businesses:
+			if not b is Dictionary or not b.get("id") is String or business_ids.has(b.id) or not caps.has(b.get("kind","")) or not b.get("homePort","") in ports:return "Invalid business identity/home."
+			business_ids[b.id]=true
+			for key in ["coins","workingCapital","capitalIn","revenue","wagesPaid","dividendsPaid","arrearsHousehold","arrearsExpert","establishedDay","costOfSales","inKindCapital","inKindReturned"]:
+				if not number(b.get(key)):return "Invalid business accounting."
+			if not b.get("inventory") is Dictionary or b.inventory.size()>16 or not b.get("inventoryBasis") is Dictionary or b.inventoryBasis.size()>16 or not b.get("paused") is bool or not b.get("autoSell") is bool:return "Invalid business inventory/state."
+			var weight: float=0
+			for good in b.inventory:
+				if not preload("res://scripts/goods.gd").ITEMS.has(good) or not number(b.inventory[good]):return "Invalid stored business good."
+				weight+=float(b.inventory[good])*float(preload("res://scripts/goods.gd").ITEMS[good].weight)
+			for value in b.inventoryBasis.values():
+				if not number(value):return "Invalid stored material basis."
+			if weight>float(caps[b.kind])+0.01:return "Business store exceeds its physical capacity."
+			if not b.get("employees") is Array or b.employees.size()>8:return "Invalid business staff."
+			var actual: Dictionary={}
+			for e in b.employees:
+				if not e is Dictionary or not preload("res://scripts/goods.gd").WAGES.has(e.get("occupation","")) or e.get("wage",0)!=preload("res://scripts/goods.gd").WAGES[e.occupation] or not e.get("name") is String:return "Invalid business employee/wage."
+				actual[e.occupation]=int(actual.get(e.occupation,0))+1
+			if actual!=staff[b.kind]:return "Business has an invalid permanent workforce."
+	for b in s.get("fleet",[]):
+		if b.has("berthArrears") and not number(b.berthArrears):return "Invalid stored berth account."
 	return ""

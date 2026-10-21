@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const HomeOps=preload("res://scripts/home_ops.gd")
 const StoryOps=preload("res://scripts/story_ops.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -128,6 +129,7 @@ func new_game(seed_value: int = 1):
 	TradeIntel.ensure(state)
 	FleetIdentity.ensure(state)
 	StoryOps.ensure(self)
+	HomeOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -344,6 +346,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		NavalLifecycle.daily(self)
 		TradeFlow.daily(self)
 		StoryOps.daily(self)
+		HomeOps.daily(self)
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
 		state.econDay += 1
@@ -598,11 +601,16 @@ func toggle_storage(uid: String) -> Dictionary:
 	if int(b.get("shoreCrew",0))>0:return fail("Recall the shore party before storing its boat.")
 	var stored: String=str(b.get("storedPort",""))
 	if not stored.is_empty():
+		var permission: Dictionary=Politics.permit(self,"service")
+		if not permission.ok:return permission
+		if int(b.get("berthArrears",0))>0:return fail("Settle this hull's berth arrears in Home harbors before collecting it.")
 		if stored!=p.id:return fail("This boat is stored at %s."%port(stored).name)
 		b.storedPort=""
 		b.mothballed=b.crew<b.crewMin
 		Manifest.allocate(state)
 		return ok("Boat collected. Hire sailors and provision it before activation.")
+	var berth: Dictionary=HomeOps.can_store(self,b,p)
+	if not berth.ok:return berth
 	if not FleetSupport.aboard(self,uid).is_empty():return fail("Discharge specialists with their savings before storing this boat.")
 	if uid==state.flagship:return fail("Choose another active flagship before storing this boat.")
 	b.storedPort=p.id
@@ -943,6 +951,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	TradeIntel.ensure(state)
 	FleetIdentity.ensure(state)
 	StoryOps.ensure(self)
+	HomeOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0

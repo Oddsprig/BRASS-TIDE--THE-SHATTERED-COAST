@@ -1,4 +1,4 @@
-BRASS TIDE — NAVIGATION MAP (generated; v0.016)
+BRASS TIDE — NAVIGATION MAP (generated; v0.017)
 
 Original island polygons/endpoints -> bounded precomputed water grid and safe water paths.
 

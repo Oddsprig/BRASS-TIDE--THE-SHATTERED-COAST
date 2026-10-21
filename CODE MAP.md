@@ -1,4 +1,4 @@
-# Brass Tide v0.016 source map
+# Brass Tide v0.017 source map
 
 The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
 
@@ -39,3 +39,5 @@ Read BUILD PLAN.txt for original acceptance and version notes/verdicts for actua
 - v0.015: fleet_identity.gd owns paid interior/specialist records; fleet_support.gd handles reserve policy, discharge, losses and support accounting; identity_ui.gd exposes them. battle_objectives.gd and escort_ops.gd connect real timed convoy protection to the same battle/deployment engine. naval_recovery regressions cover the independent Argon audit.
 
 - v0.016: coastal_stories.gd plus data/coastal_stories.json define original chains; story_ops.gd applies choices/rights and physical public salvage; story_offers.gd creates finite ordinary freight opportunities; story_ui.gd presents narratives, gates and next locations.
+
+- v0.017: home_harbor.gd owns paid shore businesses, employees, local inventories and standard material basis; home_ops.gd owns private/public berths and arrears; home_ui.gd presents establishment, stock, capital and earned-only dividends. Canonical money and save validation include business purses and staff.

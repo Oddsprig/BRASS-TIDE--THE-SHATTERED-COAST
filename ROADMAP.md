@@ -1,3 +1,5 @@
+v0.017 SOURCE ACCEPTED — A home harbor. 43 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 v0.016 SOURCE ACCEPTED — Memorable exploration chains. 41 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 v0.015 SOURCE ACCEPTED — Fleet identity. 39 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.

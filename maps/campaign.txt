@@ -1,4 +1,4 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.016)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.017)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses.
 
@@ -16,25 +16,25 @@ game/scripts/main.gd: 30076 bytes; extends Node2D
   game/scripts/main.gd:353 buy_boat()
   game/scripts/main.gd:359 commission()
   game/scripts/main.gd:365 collect_boat()
-game/scripts/campaign.gd: 45622 bytes; extends RefCounted
-  game/scripts/campaign.gd:52 hull()
-  game/scripts/campaign.gd:58 port()
-  game/scripts/campaign.gd:64 faction()
-  game/scripts/campaign.gd:70 new_game()
-  game/scripts/campaign.gd:148 port_position()
-  game/scripts/campaign.gd:154 set_patrol_course()
-  game/scripts/campaign.gd:161 place_patrol()
-  game/scripts/campaign.gd:174 active_fleet()
-  game/scripts/campaign.gd:182 capacity()
-  game/scripts/campaign.gd:185 cargo_weight()
-  game/scripts/campaign.gd:188 expedition_report()
-  game/scripts/campaign.gd:195 freight_weight()
+game/scripts/campaign.gd: 46053 bytes; extends RefCounted
+  game/scripts/campaign.gd:53 hull()
+  game/scripts/campaign.gd:59 port()
+  game/scripts/campaign.gd:65 faction()
+  game/scripts/campaign.gd:71 new_game()
+  game/scripts/campaign.gd:150 port_position()
+  game/scripts/campaign.gd:156 set_patrol_course()
+  game/scripts/campaign.gd:163 place_patrol()
+  game/scripts/campaign.gd:176 active_fleet()
+  game/scripts/campaign.gd:184 capacity()
+  game/scripts/campaign.gd:187 cargo_weight()
+  game/scripts/campaign.gd:190 expedition_report()
+  game/scripts/campaign.gd:197 freight_weight()
 game/scripts/contracts.gd: 6169 bytes; extends RefCounted
   game/scripts/contracts.gd:5 available()
   game/scripts/contracts.gd:49 accept()
   game/scripts/contracts.gd:79 finish()
   game/scripts/contracts.gd:102 abandon()
-game/scripts/money.gd: 1646 bytes; extends RefCounted
+game/scripts/money.gd: 1732 bytes; extends RefCounted
   game/scripts/money.gd:4 move()
   game/scripts/money.gd:17 port_total()
   game/scripts/money.gd:25 total()

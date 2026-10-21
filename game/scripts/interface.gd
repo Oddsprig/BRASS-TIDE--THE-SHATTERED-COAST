@@ -6,6 +6,7 @@ const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
+const HomeUI=preload("res://scripts/home_ui.gd")
 const StoryUI=preload("res://scripts/story_ui.gd")
 const IdentityUI=preload("res://scripts/identity_ui.gd")
 const TradeUI=preload("res://scripts/trade_ui.gd")
@@ -278,6 +279,7 @@ func build_campaign_hud(size: Vector2):
 	button(left_body,"Wrecks & recovery",func():RecoveryUI.open(self))
 	button(left_body,"Voyage jobs & contacts     K",func():VoyageUI.open(self))
 	button(left_body,"Coastal stories & leads",func():StoryUI.open(self))
+	button(left_body,"Home harbors & warehouses",func():HomeUI.open(self))
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
 	if not host.core.state.activeContract.is_empty():
@@ -421,6 +423,7 @@ func open_port(tab: String = ""):
 	host.core.Contacts.visit(host.core.state,p,host.core.state.day)
 	button(body,"Voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	button(body,"Coastal stories & expedition leads",func():StoryUI.open(self))
+	button(body,"Home harbor, storage & business",func():HomeUI.open(self))
 	if p.industry=="shipyard":button(body,"Recovered drawings & design licenses",func():RecoveryUI.blueprints(self))
 	var tabs = row(body)
 	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
@@ -536,6 +539,7 @@ func fleet_view(body: Node, docked: bool):
 		health.value = s.hp / s.maxHp * 100
 		label(card, "Hull %d / %d · Armor %d · Water %d%% · Engine %d%% · Holes %d" % [s.hp, s.maxHp, s.armor, s.water / s.capacity * 100, s.engine * 100, s.breaches.size()], 14, MUTED)
 		label(card, "Crew %d aboard (%d wounded) · Required %d / %d / %d" % [s.crew, s.wounded, s.crewMin, s.crewOptimal, s.crewMax], 15, GOLD)
+		if not str(s.get("storedPort","")).is_empty():paragraph(card,"Berth: %s · %d coins owed. Public watch costs 28 coins per slot/day; a paid warehouse includes eight slots."%[s.get("storageProvider","Pending harbor watch"),s.get("berthArrears",0)],13)
 		label(card, "Ammo %d · Fuel %.1f · Supplies %.1f · Cargo capacity %d" % [s.ammo, s.fuel, s.supplies, s.spec.cargo], 14, MUTED)
 		var priorities = row(card)
 		for policy_value in ["balanced", "bail", "repair", "fight"]:

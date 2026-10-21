@@ -1,0 +1,116 @@
+BRASS TIDE HELPER B REPORT - MUSE WONDER FULL - v0.017 HOME HARBOR
+Raw helper report. Preserve unchanged; root verdict in a separate file.
+All earlier modules and raw reports (incl. v016 stories) preserved untouched.
+
+CHANGED PATHS (new allowlist only)
+- game/scripts/home_harbor.gd (new, focused under 24KB)
+- game/tests/test_home_harbor.gd (new, native SceneTree test, UNRUN)
+- docs/helper-reports/campaign-muse-harbor.txt (this report)
+No existing file was edited or deleted. No engine, test, shell command,
+commit, delete, install or settings change was run by this helper.
+Verification was by careful source re-reading only.
+
+PUBLIC API (game/scripts/home_harbor.gd, all static)
+- ensure(state) -> Array: normalizes plain state["businesses"] (<=12) and
+  monotonic state["businessSeq"] IN PLACE so references root holds stay
+  live. Each record: {id "business-<seq>", kind, name, homePort,
+  charterSite, coins int, inventory {}, capacity, employees[] {name,
+  occupation, wage, specialist}, workingCapital (input reserve),
+  capitalIn, revenue, wagesPaid, dividendsPaid, arrearsHousehold,
+  arrearsExpert, paused, establishedDay}. Unknown kinds/id-less records
+  are dropped, never guessed.
+- quote(core, kind, port_id) -> Dictionary: read-only. Kinds: "warehouse"
+  (aliases rented_berth/berth), "salvage_yard" (salvage), "workshop"
+  (repair_workshop/repair); always at EXISTING state.ports, no new ports.
+  Permission here: captain docked at that port (real dock access);
+  salvage_yard also needs rust_salvage_anchorage OR shatter_wreck_field
+  surveyed (exploration level 3), workshop needs cinder_workshop_ruin
+  surveyed. One business per kind per port. Bill: physical materials at
+  Economy.price (checked against real port stocks) + setup wage-days at
+  Goods.WAGES (ordinary/expert split at 150/day) + 8% margin + 5% duty
+  (Construction pattern) + workingCapitalDeposit = 14 days of staff
+  wages + inputCapital (500 warehouse / 1500 chartered). Returns full
+  breakdown incl. staff rows, dailyWages, reserve (== deposit),
+  affordable flag. Refuses missing materials, insufficient free workers
+  (availableWorkers minus _yardWorkersUsed must cover setup days AND
+  permanent staff) or free specialists likewise, before any write.
+- establish(core, kind, port_id) -> Dictionary: re-quotes; coin refusal
+  (setup + deposit) also precedes every write, so refusal is atomic.
+  Pays captain -> port cash (materials+margin), householdPurse (ordinary
+  setup wages), expertPurse (expert setup wages), governmentPurse
+  (duty), and captain -> new business.coins (deposit, recorded as
+  capitalIn). Consumes port stocks, bumps _yardWorkersUsed/
+  _yardSpecialistsUsed by setup days, and permanently removes staff from
+  the port: workforce and recruits drop by headcount, specialists/
+  specialistWorkers/availableSpecialists by expert headcount, then
+  Economy.sync_workforce(port). Staff exist only as business employees
+  afterwards: never boat crew, never town industry. No free output: the
+  business starts with empty inventory and only the deposited coins.
+  Staffing: warehouse 2 laborers (200/day, cap 400); salvage_yard
+  3 laborers + 1 mechanic (450/day, cap 600); workshop 3 carpenters +
+  1 mechanic (525/day, cap 300).
+- transfer_goods(core, business_id, good, qty, direction) -> Dictionary:
+  direction in {in,store,to_business,deposit,unload} or {out,load,
+  to_fleet,withdraw,take}; floats snapped to 0.01. Docked at homePort
+  only. "in" moves real state.cargo -> inventory within capacity weight
+  (Goods weights); stored goods never count in campaign cargo_weight/
+  traveling hold. "out" moves inventory -> state.cargo within the
+  fleet's real remaining hold (core.cargo_weight()/capacity()).
+- capital(core, business_id, amount) -> Dictionary: captain coins ->
+  business.coins via Money.move, capitalIn += amount.
+- dividend(core, business_id, amount) -> Dictionary: business -> captain
+  capped by min(coins - reserve, revenue - wagesPaid - dividendsPaid),
+  reserve = 14 * daily wages + workingCapital. Contributed capital can
+  never leave as a dividend; no passive faucet.
+- tick(core, days = 1) -> Array[String]: whole days (floor). Arrears
+  first, then wages business.coins -> home householdPurse (<150/day
+  staff) / expertPurse (>=150/day). Shortfall stays in arrearsHousehold/
+  arrearsExpert, sets paused, and that business does NO production or
+  sales that tick. Paid workshop runs the existing Goods supplies recipe
+  verbatim (0.4 timber + 0.05 iron + 0.5 carpenter-day per kit) from its
+  own stored materials only, then sells whole kits; paid salvage yard
+  sells its stored salvage-material goods (sorted); it never creates
+  wrecks or goods. Sales go to the home port only while port stock is
+  below Economy.get_equilibrium_stock AND port cash covers
+  Economy.price(port, good, "sell"); coins port cash -> business,
+  goods inventory -> port stocks, revenue tallied. Warehouse only pays
+  wages. Missing home port pauses with purse preserved.
+- list_businesses(state) -> Array: deep copies plus computed dailyWages,
+  reserve and storedWeight.
+
+CONSERVATION / NO-CLONING SUMMARY
+- Every coin path is Money.move between existing purses (captain, port
+  cash/household/expert/government, business). Setup materials are real
+  port stocks; production inputs are real transferred cargo; outputs
+  are recipe conversions or resold stored goods; income is only a
+  liquid, under-stocked home port paying real cash.
+- People are conserved: setup labor uses the shared daily yard pool,
+  permanent staff are subtracted from workforce/recruits/specialists.
+
+ROOT INTEGRATION NEEDS (intentionally not done here)
+- Add every business.coins to Money.total and validate businesses/
+  businessSeq in the save schema (the test does this locally as
+  total_with_businesses()).
+- Layer Factions standing/permission checks over quote()/establish()
+  (docked access + surveyed charter site are enforced here).
+- Call tick() with the daily economy, surface quote/establish/transfer/
+  capital/dividend and list_businesses() in harbor UI. Salvage yard
+  input arrives as ordinary stripped-salvage cargo via transfer_goods.
+
+TESTS (game/tests/test_home_harbor.gd) - NATIVE, UNRUN BY INSTRUCTION
+Extends SceneTree in the test_campaign.gd check/quit pattern over a real
+Campaign.new(world) + new_game(123): warehouse setup (paid inputs, stock
+consumption, staff leaving workforce/recruits, coin conservation vs
+Money.total + business purses, duplicate refusal), real cargo transfers
+(hold weight drops, store capacity, no transfers at sea, load-back),
+atomic refusals (broke / missing timber / no workers leave stocks,
+people and purses untouched) and charter gates (unsurveyed refusals,
+workshop survey does not unlock salvage, nonexistent port, no dock
+access), workshop production material limits (exactly 4 kits from
+1.6 timber / 0.2 iron), tier-split wages (375 household / 150 expert),
+port-need + cash sale with exact revenue == port cash delta, dividend
+ceiling (earned-only, reserve intact, fresh capital not dividendable),
+buyer-liquidity and at-equilibrium no-sale ticks, salvage sale of stored
+iron with no wrecks spawned, wage starvation (arrears == 450-10, paused,
+no sales) and capital rescue clearing arrears first, and a full JSON
+save roundtrip into a second Campaign. Root runs these serially.

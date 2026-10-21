@@ -109,6 +109,13 @@ static func ensure(state: Dictionary) -> Array:
 		var tail := str(rec["id"]).trim_prefix("specialist-")
 		if tail.is_valid_int():
 			max_suffix = maxi(max_suffix, int(tail))
+	while cleaned.size()>512:
+		var retired: int=-1
+		for i in range(cleaned.size()):
+			if (cleaned[i].get("discharged",false) or cleaned[i].get("lost",false)) and int(cleaned[i].coins)==0 and int(cleaned[i].arrears)==0:
+				retired=i;break
+		if retired<0:break
+		cleaned.remove_at(retired)
 	state["specialists"] = cleaned
 	state["specialistSeq"] = maxi(int(_num(state.get("specialistSeq", 0))), max_suffix)
 	for boat in state.get("fleet", []) if state.get("fleet") is Array else []:
@@ -275,7 +282,7 @@ static func install_conversion(core, uid: String, id: String) -> Dictionary:
 
 static func _specialist_on(state: Dictionary, uid: String, role: String) -> Dictionary:
 	for rec in state.get("specialists", []):
-		if rec is Dictionary and str(rec.get("boatUid", "")) == uid and str(rec.get("role", "")) == role:
+		if rec is Dictionary and str(rec.get("boatUid", "")) == uid and str(rec.get("role", "")) == role and not rec.get("discharged",false) and not rec.get("lost",false):
 			return rec
 	return {}
 

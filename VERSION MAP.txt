@@ -1,3 +1,7 @@
+v0.017 CANDIDATE — A home harbor
+Paid staffed warehouses, eight-slot private berths and public watch accounts, with finite local shore inventories. Survey- and story-earned salvage/workshop charters use actual setup materials, staff, wages, operating capital and optional local sales. Business purses, material basis, earned-only dividends, wage arrears, retained output and harbor-local cash handling persist through saves.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
 v0.016 CANDIDATE — Memorable exploration chains
 Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices. Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity. Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
 Source acceptance and export receipts determine completion; every build advances0.001.

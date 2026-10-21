@@ -1,3 +1,7 @@
+v0.017 voluntary play: A home harbor
+Assess readability and usefulness of: Paid staffed warehouses, eight-slot private berths and public watch accounts, with finite local shore inventories. Survey- and story-earned salvage/workshop charters use actual setup materials, staff, wages, operating capital and optional local sales. Business purses, material basis, earned-only dividends, wage arrears, retained output and harbor-local cash handling persist through saves.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.016 voluntary play: Memorable exploration chains
 Assess readability and usefulness of: Four original three-stage regional stories combine actual surveys, cargo deliveries, contacts, fleet defeats and irreversible branch choices. Story decisions open finite funded passages, private or cooperative salvage rights and a paid workshop charter opportunity. Nearby authorized convoys can recover real public-field materials using their own sailors, hold and repair kits; journals show the next useful destination.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
