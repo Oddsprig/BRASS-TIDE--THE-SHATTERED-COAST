@@ -376,12 +376,7 @@ static func _at_port(core, state: Dictionary, port_id: String) -> bool:
 
 
 static func _bounty_cleared(state: Dictionary, owner_id: String,baseline: int=0) -> bool:
-	if int(state.get("defeatedOwners",{}).get(owner_id,0))>baseline:return true
-	for owner in state.get("fleetOwners", []) if state.get("fleetOwners") is Array else []:
-		if owner is Dictionary and str(owner.get("id", "")) == owner_id:
-			var boats: Array = owner.get("boats", []) if owner.get("boats") is Array else []
-			return not boats.is_empty() and boats.all(func(b): return bool(b.get("sunk", false)))
-	return false
+	return int(state.get("defeatedOwners",{}).get(owner_id,0))>baseline
 
 
 # Pays escrow to the captain exactly once when the kind's real condition is

@@ -1,3 +1,11 @@
+## v0.014 — Reactive trade and blockades
+
+Candidate; verified test/export records follow.
+
+- Visited market quotes, shortage reports and cargo-limited round-trip trade estimates include wages, fuel, provisions and buyer liquidity.
+- Actual supplied fleets establish or contest blockades; loss, withdrawal and fuel starvation lift them.
+- Real convoy deliveries feed yard materials; background economic days publish one at a time before fleet and blockade decisions advance.
+
 ## v0.013 — Independent fleet activity
 
 Candidate; verified test/export records follow.

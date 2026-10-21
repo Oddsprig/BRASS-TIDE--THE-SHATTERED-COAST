@@ -6,6 +6,7 @@ const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
+const TradeUI=preload("res://scripts/trade_ui.gd")
 const NavalUI=preload("res://scripts/naval_ui.gd")
 const FactionUI=preload("res://scripts/faction_ui.gd")
 const Politics=preload("res://scripts/politics.gd")
@@ -395,12 +396,14 @@ func open_port(tab: String = ""):
 		FactionUI.open(self)
 		return
 	Politics.inspect(host.core)
+	host.core.TradeFlow.observe(host.core)
 	if not tab.is_empty():
 		port_tab = tab
 	modal_kind = "port"
 	var body = modal(p.name, "%s · %s" % [host.core.faction(p.faction).name, p.industry.to_upper()])
 	paragraph(body, p.description, 16)
 	paragraph(body,access.reason,14,TEAL)
+	button(body,"Trade estimates & observed shortages",func():TradeUI.open(self))
 	button(body,"Faction standing & safe passage",func():FactionUI.open(self))
 	host.core.Contacts.visit(host.core.state,p,host.core.state.day)
 	button(body,"Voyage jobs, contacts & intelligence",func():VoyageUI.open(self))

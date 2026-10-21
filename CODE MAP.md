@@ -1,4 +1,4 @@
-# Brass Tide v0.013 source map
+# Brass Tide v0.014 source map
 
 The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
 
@@ -33,3 +33,5 @@ Read BUILD PLAN.txt for original acceptance and version notes/verdicts for actua
 - v0.012: factions.gd is the political ledger; politics.gd enforces services and records real events; faction_ui.gd presents standing, claims, safe conduct and explicit commission terms. test_political_voyage.gd exercises actual access, purses and menus.
 
 - v0.013: naval_ai.gd coordinates naval_orders.gd, naval_combat.gd and naval_replacements.gd; naval_lifecycle.gd publishes travel, harbor recovery and finite wrecks into the campaign. naval_ui.gd shows nearby objectives. Per-port economy workers remain independent snapshots.
+
+- v0.014: trade_intel.gd owns dated quotes and living-fleet blockade assessment; trade_flow.gd connects physical authored stations and daily port flags; trade_ui.gd shows finite buyer/route estimates. Main publishes one economic day before taking the next copied snapshot.

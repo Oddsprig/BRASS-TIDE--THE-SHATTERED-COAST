@@ -1,9 +1,9 @@
 BRASS TIDE BUILD STATUS
-Current source: v0.013 / BUILD 13
-Milestone: Independent fleet activity
-SOURCE ACCEPTED: 34 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+Current source: v0.014 / BUILD 14
+Milestone: Reactive trade and blockades
+SOURCE ACCEPTED: 36 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 
-Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.013 DELIVERY VERIFIED.json.
+Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.014 DELIVERY VERIFIED.json.
 In-game TXT notes: game/data/DEVELOPER NOTES.txt. Original campaign plan: docs/CAMPAIGN ROADMAP.txt.
 Owner authorized sequential builds0.008-0.018 with root, Muse Wonder Full, Argon High and Grok4.7.
 Previous versions, original saves and supplied music must remain intact.

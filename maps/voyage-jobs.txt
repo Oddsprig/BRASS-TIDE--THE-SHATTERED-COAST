@@ -1,15 +1,15 @@
-BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.013)
+BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.014)
 
 Real sponsors/stock/crew-based quotes -> several funded jobs, physical sealed lots, remembered contacts and dated observations.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/voyage_jobs.gd: 22998 bytes; extends RefCounted
+game/scripts/voyage_jobs.gd: 22642 bytes; extends RefCounted
   game/scripts/voyage_jobs.gd:79 ensure()
   game/scripts/voyage_jobs.gd:128 pending_freight_weight()
   game/scripts/voyage_jobs.gd:211 available()
   game/scripts/voyage_jobs.gd:312 accept()
-  game/scripts/voyage_jobs.gd:391 finish()
-  game/scripts/voyage_jobs.gd:441 abandon()
+  game/scripts/voyage_jobs.gd:386 finish()
+  game/scripts/voyage_jobs.gd:436 abandon()
   game/scripts/voyage_jobs.gd:32 _is_num()
   game/scripts/voyage_jobs.gd:36 _num()
   game/scripts/voyage_jobs.gd:40 _state()
@@ -28,11 +28,11 @@ game/scripts/contacts.gd: 8176 bytes; extends RefCounted
   game/scripts/contacts.gd:58 _sanitize()
   game/scripts/contacts.gd:105 _clean_snapshot()
   game/scripts/contacts.gd:116 _find()
-game/scripts/voyage_ui.gd: 4833 bytes; extends RefCounted
+game/scripts/voyage_ui.gd: 4910 bytes; extends RefCounted
   game/scripts/voyage_ui.gd:3 open()
-  game/scripts/voyage_ui.gd:47 settle()
-  game/scripts/voyage_ui.gd:52 contacts()
-  game/scripts/voyage_ui.gd:64 intel()
+  game/scripts/voyage_ui.gd:48 settle()
+  game/scripts/voyage_ui.gd:53 contacts()
+  game/scripts/voyage_ui.gd:65 intel()
 
 TESTS (game/tests/*.gd)
 test_voyage_jobs, test_voyage_flow

@@ -709,13 +709,9 @@ func wait_one_day():
 func start_economy():
 	if economy_task >= 0 or core.pending_days <= 0:
 		return
-	var days = core.pending_days
-	core.pending_days = 0
-	var blocked: Array = []
-	if core.state.missionIndex < 4:
-		blocked.append("cinder_quay")
-	if core.state.missionIndex < 8:
-		blocked.append("shatter_spire")
+	var days: int=1
+	core.pending_days-=days
+	var blocked: Array=core.TradeFlow.blockades(core)
 	economy_workers.start(core.state.ports,days,blocked,int(core.state.seed)+int(core.state.econDay)*104729)
 	economy_task=0
 
@@ -731,7 +727,7 @@ func _finish_economy(force: bool):
 
 func sync_economy():
 	_finish_economy(true)
-	if not core.state.is_empty() and core.pending_days > 0:
+	while not core.state.is_empty() and core.pending_days > 0:
 		start_economy()
 		_finish_economy(true)
 

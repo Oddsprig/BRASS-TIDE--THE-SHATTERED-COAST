@@ -7,6 +7,7 @@ static func open(ui,tab: String="Work board") -> void:
 	c.VoyageJobs._expire_overdue(c,c.state)
 	ui.modal_kind="voyage_jobs"
 	var body=ui.modal("Voyage jobs & contacts","PLAN A ROUTE WITH SEVERAL REASONS TO SAIL",1040,820)
+	ui.button(body,"Trade chart & observed prices",func():ui.TradeUI.open(ui))
 	ui.button(body,"Coastal traffic",func():ui.NavalUI.open(ui))
 	ui.button(body,"Factions & safe passage",func():ui.FactionUI.open(ui))
 	var tabs=ui.row(body)

@@ -1,3 +1,5 @@
+v0.014 SOURCE ACCEPTED — Reactive trade and blockades. 36 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 v0.013 SOURCE ACCEPTED — Independent fleet activity. 34 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 v0.012 SOURCE ACCEPTED — Faction relationships. 32 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.

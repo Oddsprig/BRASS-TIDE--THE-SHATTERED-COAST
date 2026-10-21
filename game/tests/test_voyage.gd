@@ -72,9 +72,7 @@ func daily():
 	var days: int = core.pending_days
 	core.pending_days = 0
 	var ports: Array = core.state.ports.duplicate(true)
-	var blocked: Array = []
-	if core.state.missionIndex < 4: blocked.append("cinder_quay")
-	if core.state.missionIndex < 8: blocked.append("shatter_spire")
+	var blocked: Array=core.TradeFlow.blockades(core)
 	var messages: Array = Economy.tick_ports(ports,days,{"interport_trade":false,"blockaded":blocked})
 	core.apply_economy(ports,messages,days)
 

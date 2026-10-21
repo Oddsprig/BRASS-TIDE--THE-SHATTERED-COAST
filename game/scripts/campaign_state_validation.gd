@@ -101,4 +101,14 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		for key in ["spatialGrid","ordersByOwner"]:
 			if not s.navalAi.get(key) is Dictionary or s.navalAi[key].size()>128:return "Invalid naval index."
 		if not number(s.navalAi.get("tickCount")) or not number(s.navalAi.get("lastDay")):return "Invalid naval day counter."
+	if s.has("tradeIntel"):
+		if not s.tradeIntel is Dictionary:return "Invalid trade intelligence."
+		var ti: Dictionary=s.tradeIntel
+		if not ti.get("observations") is Dictionary or ti.observations.size()>16 or not ti.get("blockades") is Dictionary or ti.blockades.size()>32 or not ti.get("events") is Array or ti.events.size()>40:return "Invalid bounded trade intelligence."
+		for record in ti.observations.values():
+			if not record is Dictionary or not number(record.get("day")) or not number(record.get("businessFunds")):return "Invalid dated buyer observation."
+			for key in ["stocks","buy","sell"]:
+				if not record.get(key) is Dictionary or record[key].size()>16:return "Invalid observed market."
+				for value in record[key].values():
+					if not number(value):return "Invalid observed market value."
 	return ""

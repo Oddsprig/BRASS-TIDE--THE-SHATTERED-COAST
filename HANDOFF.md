@@ -1,3 +1,23 @@
+# v0.014 — Reactive trade and blockades
+
+SOURCE ACCEPTED: 36 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Visited market quotes, shortage reports and cargo-limited round-trip trade estimates include wages, fuel, provisions and buyer liquidity.
+- Actual supplied fleets establish or contest blockades; loss, withdrawal and fuel starvation lift them.
+- Real convoy deliveries feed yard materials; background economic days publish one at a time before fleet and blockade decisions advance.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.014.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.014 — Reactive trade and blockades
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Visited market quotes, shortage reports and cargo-limited round-trip trade estimates include wages, fuel, provisions and buyer liquidity.
+- Actual supplied fleets establish or contest blockades; loss, withdrawal and fuel starvation lift them.
+- Real convoy deliveries feed yard materials; background economic days publish one at a time before fleet and blockade decisions advance.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.014.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.013 — Independent fleet activity
 
 SOURCE ACCEPTED: 34 native suites pass; portable export evidence is recorded separately in RELEASE.json.

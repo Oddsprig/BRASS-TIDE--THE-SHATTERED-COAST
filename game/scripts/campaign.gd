@@ -18,6 +18,8 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const TradeIntel=preload("res://scripts/trade_intel.gd")
+const TradeFlow=preload("res://scripts/trade_flow.gd")
 const NavalAI=preload("res://scripts/naval_ai.gd")
 const NavalLifecycle=preload("res://scripts/naval_lifecycle.gd")
 const Politics=preload("res://scripts/politics.gd")
@@ -119,6 +121,7 @@ func new_game(seed_value: int = 1):
 	Contacts.ensure(state,data)
 	Politics.ensure(self)
 	NavalAI.ensure(state,data)
+	TradeIntel.ensure(state)
 	state.cargoManifest={}
 	state.surveyFoodCredit=0.0
 	state.wreckHazards={}
@@ -324,6 +327,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 			log_entry(str(message))
 		Harbor.tick_yards(self,1)
 		NavalLifecycle.daily(self)
+		TradeFlow.daily(self)
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
 		state.econDay += 1
@@ -468,6 +472,7 @@ func trade(id: String, good: String, qty: int, side: String) -> Dictionary:
 	var overflow: float=maxf(0,cargo_weight()-Economy.cargo_weight(state.cargo)-freight_weight())
 	var result: Dictionary=Economy.transact(p,state,good,qty,side,maxf(0,capacity()-freight_weight()-overflow))
 	Manifest.allocate(state)
+	if result.ok:TradeFlow.observe(self)
 	return result
 
 func ship_materials(h: Dictionary) -> Dictionary:
@@ -896,6 +901,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	Contacts.ensure(state,data)
 	Politics.ensure(self)
 	NavalAI.ensure(state,data)
+	TradeIntel.ensure(state)
 	if not state.recoverable.is_empty() and not state.recoverable.get("claimed",true):
 		var legacy_site: Dictionary=state.position.duplicate(true)
 		legacy_site.id="legacy-recovery"

@@ -1,3 +1,15 @@
+v0.014 SOURCE ACCEPTED | Reactive trade and blockades
+36 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.014 CANDIDATE | Reactive trade and blockades
+- Visited market quotes, shortage reports and cargo-limited round-trip trade estimates include wages, fuel, provisions and buyer liquidity.
+- Actual supplied fleets establish or contest blockades; loss, withdrawal and fuel starvation lift them.
+- Real convoy deliveries feed yard materials; background economic days publish one at a time before fleet and blockade decisions advance.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.013 DELIVERED | exact game 2614fe5281a0787552b4ee82a44ddc4ba6c55728
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.013 SOURCE ACCEPTED | Independent fleet activity
 34 native suites passed; source report saved. Portable export and publication require separate receipts.
 

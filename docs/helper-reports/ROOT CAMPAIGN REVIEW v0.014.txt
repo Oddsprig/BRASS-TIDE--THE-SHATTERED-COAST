@@ -1,0 +1,11 @@
+ROOT INTEGRATION REVIEW - v0.014 Reactive trade and blockades
+
+Grok 4.7 supplied trade_intel.gd, its native tests and the unchanged raw campaign-grok-trade.txt. Root read the full module/tests and integrated trade_flow.gd and trade_ui.gd into actual visits, trades, harbor windows, save validation and daily production.
+
+Corrections: opportunity capacity and speed use the canonical real campaign, including all sealed side-job freight, stored hull exclusions and towing. Owned cargo is separate from sealed freight and is not subtracted twice. Quantities preserve estimated passage costs, arrears and two payroll days. Unnavigable routes are omitted. Distant harbor quotations remain dated visits, never live remote prices. Patrol positions, rather than a stale departure/progress label, determine physical blockade proximity.
+
+Dynamic blockade assessment now feeds the actual economy worker inputs and port flags. Existing Cinder/Shatter authored blockade stations require an active, crewed, supplied physical detachment; mission-number booleans no longer control the retail economy. Economic work publishes one day at a time, then actual fleet deliveries, skirmishes and blockade decisions advance before the next day snapshot. Funded bounty payouts require the player's actual recorded defeat of the owner, so an absent NPC kill cannot cash the player's escrow.
+
+Verification: all 36 source suites passed, including 67 trade-intelligence checks and nine actual reactive-trade checks. An iron-starved real yard refused a commission; a paid finite convoy delivery put iron into its inventory and allowed the actual funded construction order. Native checks also verify dated reports, blockade fuel starvation, canonical save restoration, trade UI and exact coin conservation. Both eight-contract voyages use the real blockade API and completed actual battles. All engine work stayed headless and serialized. Exact-tag native export and archive evidence follows in delivery receipts.
+
+Estimates remain estimates: no guaranteed buyer price or profit is claimed. Port production stays copied per-worker data; SceneTree, UI, purse transfers and fleet publication remain on the main thread.
