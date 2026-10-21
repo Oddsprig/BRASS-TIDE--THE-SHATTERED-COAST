@@ -76,4 +76,22 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		for id in s.marketSnapshots:
 			var snap=s.marketSnapshots[id]
 			if not snap is Dictionary or not number(snap.get("day")) or not number(snap.get("cash")) or not snap.get("stocks") is Dictionary:return "Invalid dated market observation."
+	if s.has("relationships"):
+		if not s.relationships is Dictionary:return "Invalid faction record."
+		var b: Dictionary=s.relationships
+		for key in ["factions","pairs","contacts","commission","seen","portIndex"]:
+			if not b.get(key) is Dictionary or b[key].size()>128:return "Invalid faction book "+key+"."
+		for id in b.factions:
+			var f=b.factions[id]
+			if not f is Dictionary or not number(f.get("score"),-100,100) or not number(f.get("witnessed"),-100,100) or f.get("band","") not in ["hostile","wary","neutral","friendly","trusted"] or not f.get("claims") is Dictionary:return "Invalid faction standing."
+			for port_id in f.claims:
+				if not number(f.claims[port_id],0,100):return "Invalid harbor claim."
+		for value in b.pairs.values():
+			if not number(value,-100,100):return "Invalid faction diplomacy."
+		for key in ["log","seenOrder"]:
+			if not b.get(key) is Array or b[key].size()>128:return "Invalid faction history."
+		for key in ["safeConduct","inspections"]:
+			if b.has(key) and (not b[key] is Dictionary or b[key].size()>128):return "Invalid faction permits."
+		for value in b.get("safeConduct",{}).values():
+			if not number(value):return "Invalid safe conduct duration."
 	return ""

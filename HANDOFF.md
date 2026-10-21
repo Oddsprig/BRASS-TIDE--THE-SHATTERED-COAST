@@ -1,3 +1,23 @@
+# v0.012 — Faction relationships
+
+SOURCE ACCEPTED: 32 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust.
+- Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences.
+- Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.012.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.012 — Faction relationships
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust.
+- Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences.
+- Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.012.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.011 — Jobs and contacts
 
 SOURCE ACCEPTED: 30 native suites pass; portable export evidence is recorded separately in RELEASE.json.

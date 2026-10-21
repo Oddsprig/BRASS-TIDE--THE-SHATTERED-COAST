@@ -1,3 +1,9 @@
+v0.012 SOURCE ACCEPTED — Faction relationships
+- Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust.
+- Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences.
+- Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 v0.011 SOURCE ACCEPTED — Jobs and contacts
 - Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow.
 - Four persistent harbor contacts, personal trust and dated market observations from actual visits.

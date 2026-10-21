@@ -93,6 +93,9 @@ func sail(id: String) -> bool:
 
 func prepare():
 	var p: Dictionary = core.current_port()
+	# This captain buys the same negotiated civilian pass shown in the harbor menu.
+	if not core.Politics.access(core,p).legal:
+		check(core.Politics.parley(core).ok,"Pay actual safe-conduct wages before services at hostile destination")
 	# Larger yards serve a fleet across paid working days, not unlimited instant labor.
 	# These are the same Wait/Trade/Drydock actions available to the player.
 	if core.state.missionIndex >= 4:
@@ -145,6 +148,7 @@ func expand():
 	for id in p.shipStock:
 		if p.shipStock[id] <= 0: continue
 		var h: Dictionary = core.hull(id)
+		if int(h.tier)>=5 and not core.Politics.permit(core,"military").ok:continue
 		var bill: int = int(core.ship_quote(h,p).readyPrice)+Economy.recruit_cost(p,int(h.crewOptimal))+8000+core.crew_count()*300
 		if core.state.coins < bill: continue
 		if not core.can_add_boat(h) and power(h) < power(weakest.spec)*1.2: continue
@@ -176,6 +180,7 @@ func upgrade_refits():
 			var best_id: String = ""
 			var best_score: float = 0.0
 			for module_id in modules:
+				if module_id in ["heavy_cannon","salvo_rocket","heavy_torpedo"] and not core.Politics.permit(core,"military").ok:continue
 				var module: Dictionary = modules[module_id]
 				var q: Dictionary = Refit.quote(port,boat,"weapon:%d"%index,str(module_id))
 				if not q.get("ok",false) or int(q.cost)+core.crew_count()*300+4000 > core.state.coins: continue

@@ -1,4 +1,5 @@
 extends RefCounted
+const Politics=preload("res://scripts/politics.gd")
 const Goods = preload("res://scripts/goods.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Construction = preload("res://scripts/construction.gd")
@@ -13,6 +14,9 @@ static func quote(core, h: Dictionary, at: Dictionary = {}) -> Dictionary:
 	return Construction.quote(h, prices)
 
 static func buy(core, id: String) -> Dictionary:
+	var requested: Dictionary=core.hull(id)
+	var permission: Dictionary=Politics.permit(core,"military" if int(requested.get("tier",1))>=5 else "service")
+	if not permission.ok:return permission
 	var p: Dictionary = core.current_port()
 	var h: Dictionary = core.hull(id)
 	if p.is_empty() or h.is_empty() or p.shipStock.get(id, 0) <= 0:
@@ -35,6 +39,9 @@ static func buy(core, id: String) -> Dictionary:
 	return core.ok("%s joined your flotilla with %d sailors." % [boat.name,boat.crew])
 
 static func commission(core, id: String) -> Dictionary:
+	var requested: Dictionary=core.hull(id)
+	var permission: Dictionary=Politics.permit(core,"military" if int(requested.get("tier",1))>=5 else "service")
+	if not permission.ok:return permission
 	var p: Dictionary = core.current_port()
 	var h: Dictionary = core.hull(id)
 	if p.is_empty() or h.is_empty() or not id in p.get("shipIds", []):
@@ -60,6 +67,8 @@ static func commission(core, id: String) -> Dictionary:
 	return core.ok("%s booked. Wages are held in escrow and paid as the workforce builds it." % h.name)
 
 static func collect(core, index: int) -> Dictionary:
+	var permission: Dictionary=Politics.permit(core,"service")
+	if not permission.ok:return permission
 	var p: Dictionary = core.current_port()
 	if p.is_empty() or index < 0 or index >= p.buildQueue.size():
 		return core.fail("No hull is ready to collect.")
@@ -106,6 +115,8 @@ static func tick_yards(core, days: int):
 				break
 
 static func recruit(core, uid: String, count: int) -> Dictionary:
+	var permission: Dictionary=Politics.permit(core,"service")
+	if not permission.ok:return permission
 	var boat: Dictionary = core.find_boat(uid)
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty():
@@ -120,6 +131,8 @@ static func recruit(core, uid: String, count: int) -> Dictionary:
 	return result
 
 static func sell(core, uid: String) -> Dictionary:
+	var permission: Dictionary=Politics.permit(core,"service")
+	if not permission.ok:return permission
 	var boat: Dictionary = core.find_boat(uid)
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty() or core.state.fleet.size() <= 1:
@@ -161,6 +174,8 @@ static func service_quote(core, boat: Dictionary, p: Dictionary) -> Dictionary:
 	return {"cost":materials+ordinary+expert+fee,"material":material,"own":own,"purchase":purchase,"ordinary":ordinary,"expert":expert,"materials":materials,"fee":fee}
 
 static func repair(core, uid: String) -> Dictionary:
+	var permission: Dictionary=Politics.permit(core,"repair")
+	if not permission.ok:return permission
 	var boat: Dictionary = core.find_boat(uid)
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty():
@@ -195,6 +210,8 @@ static func repair(core, uid: String) -> Dictionary:
 	return core.ok("%s repaired for %d coins, paid to suppliers, shipwrights and specialists." % [boat.name,q.cost])
 
 static func resupply(core, uid: String, profile: String = "full") -> Dictionary:
+	var permission: Dictionary=Politics.permit(core,"service")
+	if not permission.ok:return permission
 	var boat: Dictionary = core.find_boat(uid)
 	var p: Dictionary = core.current_port()
 	if boat.is_empty() or p.is_empty():

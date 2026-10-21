@@ -1,0 +1,134 @@
+HELPER C RAW REPORT — v0.012 RELATIONSHIPS
+Grok 4.7. Worktree: campaign-grok. 21 October 2026.
+Godot was not started. No other files were edited. No commit, delete, install, or publish.
+
+ALLOWLIST
+- game/scripts/factions.gd (37122 bytes)
+- game/tests/test_factions.gd (21402 bytes)
+- docs/helper-reports/campaign-grok.txt
+No .uid files. Root's importer may add those later. tools/check_game.py was not edited, so --only factions is not a suite name yet.
+
+PUBLIC API
+game/scripts/factions.gd extends RefCounted. Static calls only. No class_name.
+Stored book: state.relationships. JSON objects, arrays, strings, bools, and finite numbers only.
+
+ensure(state, world) -> Dictionary
+  Creates or repairs state.relationships. Reads world.FACTIONS and world.PORTS. Does not write into world.
+  Missing canon factions are added. Existing scores, bands, witness totals, claims, pairs, contact trust, the log, seen event ids, and the commission are kept.
+  A new raiders row starts at score -70, band hostile. A new compact, forge, or reed row starts at score 0, band neutral.
+  Returns the stored book.
+
+standing(state, faction_id) -> Dictionary
+  Read only. Keys: ok, known, factionId, name, score, public, band, label, witnessed, claims, claimTotal, hostile, message, recovery.
+  public is a copy of score. witnessed and claims are separate stored fields.
+  hostile is true when band is hostile OR witnessed <= -50.
+  Unknown faction: ok false, known false, hostile false.
+
+adjust(state, faction_id, amount, reason, event_id="") -> Dictionary
+  Requires ensure. Non-finite amount returns ok false and changes nothing.
+  A non-empty event id is applied once. A repeat returns repeated true and changed false.
+  Empty event id is not idempotent. Only the newest 80 ids are remembered.
+  Reason prefixes select the channel. The stored log keeps the text after the prefix, plus kind.
+    public (no prefix)
+    witness:<text>
+    claim:<portId>:<text>
+    restitution:<portId>:<text>  or  restitution:<text>
+    time:<text>
+    contact:<contactId>:<text>
+  The contact's factionId must equal faction_id.
+
+relation(state, a, b) -> int
+  One symmetric value. relation(a, a) is 0. Unknown or missing book is 0.
+  Key order is min(a,b)|max(a,b).
+
+set_relation(state, a, b, value, reason) -> Dictionary
+  Clamps to -100..100. Same value does not grow the log.
+  Does not change player score, witness, claims, or contact trust.
+
+access(state, port) -> Dictionary
+  port is an id string or a dictionary with id. A dictionary that already has id and faction is copied and not retained.
+  Otherwise state.ports is checked, then the port index stored by ensure.
+  Keys: ok, known, portId, portName, factionId, factionName, band, label, score, public, witnessed, claim, legal, entry, inspection, restrictedGoods, militaryFittings, repairPriority, intelligence, escorts, contracts, hostile, reason, recovery.
+  entry is open, inspected, or refused.
+
+is_hostile(state, faction_id) -> bool
+  Same rule as standing.hostile. Unknown is false.
+
+commission(state, faction_id) -> Dictionary
+  First call sets pending and returns committed false, stipend 0, enemies, and warning. No score change.
+  The next call for the same faction is the explicit commit.
+  Commit requires public band friendly or trusted, and hostile false.
+  Otherwise ok false, pending cleared, no score change, no coins.
+  Commit stores relationships.commission.contract with reward 0, escrow 0, stipend 0.
+  It does not write state.activeContract and does not move coins.
+  Calling again for the same committed faction returns repeated true and does not stack the legal shift.
+
+FORMULAS
+Public score, witness, contact trust, and pair value are integers clamped to -100..100.
+One public, witness, trust, or time step applies clamp(amount, -25, 25), except time never goes below 0 and never rises above 0.
+A claim step is min(25, abs(amount)), clamped per port to 0..100. Negative amount adds debt. Positive amount reduces that record. Coins are not read or written.
+Positive public help spills to the explicit rival only:
+  spill = -min(8, int(applied / 3))
+  Rivals, not derived from pair scores: compact/forge/reed -> raiders, and raiders -> compact.
+  No chain. Enemy-of-enemy does not gain standing.
+Time, witness, claim, restitution, and commission do not use that spill.
+Time applies only when score < 0, witnessed > -50, and claimTotal is 0. Result is min(0, score + step).
+Restitution uses a positive step on public score, moves witnessed toward 0 by that step, and reduces the named port claim by that step.
+Bands, enter then stay:
+  hostile  enter <= -50, stay while score < -35
+  wary     enter <= -20, stay while score < -5, unless score <= -50
+  neutral  enter -19..19
+  friendly enter >= 20, stay while score > 5, unless score >= 50 or score <= -20
+  trusted  enter >= 50, stay while score > 35, unless score <= -20
+Initial pairs, used only when a pair key is missing:
+  compact|forge 15, compact|reed 5, compact|raiders -40,
+  forge|reed -10, forge|raiders -30, reed|raiders -25.
+Commission enemies are other factions whose pair value is <= -20, sorted by id.
+On commit, each enemy public score changes by -12 once. Event id: commission-legal:<patron>+<enemy>.
+The pair value itself does not change. Leaving and returning does not refund or stack that -12.
+
+ACCESS
+Hostile, or witnessed <= -50: entry refused, legal false, no contracts, fittings, escorts, intelligence, or repair.
+Wary, or witnessed <= -20, or a port claim > 0: entry inspected, legal true, contracts true.
+Claim > 0: repairPriority held, military fittings closed.
+Neutral and clean: entry open, ordinary repair, guns and engines restricted, no escorts, no intelligence.
+Friendly and no claim and not hostile: military fittings and escorts, restrictedGoods empty, ordinary repair.
+Trusted and no claim and not hostile and witnessed > -20: priority repair and intelligence.
+Neutral Brass Haven reason is exactly:
+  Neutral legal access at Brass Haven. Ordinary trade and contracts are open; guns and engines stay restricted.
+
+CONTACTS
+holt, Maren Holt, brass_haven, compact, convoy clerk.
+pek, Sura Pek, cinder_quay, forge, foundry factor.
+liss, Ivo Liss, reed_floats, reed, estuary speaker.
+vetch, Captain Vetch, shatter_spire, raiders, toll captain.
+Trust uses the same bounds and band thresholds as public score. It does not move faction score.
+
+LOG
+relationships.log keeps the newest 40 dictionaries: seq, day, kind, factionId, otherId, amount, before, after, reason, eventId.
+day is the campaign state.day at the call, minimum 1.
+relationships.seen plus seenOrder keep the newest 80 event ids. Older ids can apply again. That limit is the caveat on idempotency.
+
+TESTS NOT RUN
+game/tests/test_factions.gd covers initial hostility, neutral access, pair symmetry, player-rep independence, contact trust, explicit rival spill, no enemy-of-enemy friendship, hysteresis, caps, event repeat, empty event ids, the 40-log and 80-event bounds, non-finite rejection, claims, witness versus public score, time recovery, restitution, commission warn-then-commit, no stipend, and a JSON round trip.
+Root command, from the campaign-grok worktree, when the serialized slot is free:
+  <Godot console> --headless --path game --script res://tests/test_factions.gd
+Do not use tools/check_game.py --only factions until root adds factions to SUITES.
+Expected success line: ALL FACTION TESTS PASSED
+This helper did not run that command, check_game.py, or any other Godot, game, or test process.
+
+INTEGRATION FOR ROOT
+Call ensure(state, world) from new game and after load, before standing, adjust, access, or commission.
+Keep state.relationships on the save. Current save_validation.gd does not walk unknown top-level keys; its extra-field case already expects an added dictionary to pass. Root still has to confirm that with the real suite. Do not put these dictionaries into state.log. That array must stay strings.
+Do not treat commission.contract as escrow. It is a marker with reward, escrow, and stipend forced to 0 on repair.
+Docking, inspections, restricted sales, repair priority, intelligence, escorts, and contract offers should read access(). Combat hostility should read is_hostile(). Those hooks are not in this module.
+A live state.ports row wins over the world port index for id, name, and faction.
+
+CAVEATS
+No NPC orders, battles, blockades, or port capture.
+Helping compact, forge, or reed costs raiders only. Helping raiders costs compact only. Changing a pair does not rewrite that table.
+Commission can still list every faction whose current pair is <= -20, and the -12 hits player reputation with those factions. It does not make their enemies friendlier, and it does not change the pair.
+Time cannot erase a capital witness or a port claim, and it cannot pass neutral.
+One public step can still cross a band if the step is larger than the stay margin. A one-point reversal at 20/19 does not.
+The module does not know cargo law beyond guns and engines.
+Root owns UI copy, save migration of older careers that lack relationships, and any later link from contracts.gd renown.

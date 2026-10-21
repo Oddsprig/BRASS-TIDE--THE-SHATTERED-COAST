@@ -1,3 +1,11 @@
+## v0.012 — Faction relationships
+
+Candidate; verified test/export records follow.
+
+- Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust.
+- Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences.
+- Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
+
 ## v0.011 — Jobs and contacts
 
 Candidate; verified test/export records follow.

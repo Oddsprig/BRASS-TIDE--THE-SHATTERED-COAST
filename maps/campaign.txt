@@ -1,9 +1,9 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.011)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.012)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 28829 bytes; extends Node2D
+game/scripts/main.gd: 29314 bytes; extends Node2D
   game/scripts/main.gd:261 toggle_pause()
   game/scripts/main.gd:265 toggle_fullscreen()
   game/scripts/main.gd:269 save_preferences()
@@ -16,19 +16,19 @@ game/scripts/main.gd: 28829 bytes; extends Node2D
   game/scripts/main.gd:352 buy_boat()
   game/scripts/main.gd:358 commission()
   game/scripts/main.gd:364 collect_boat()
-game/scripts/campaign.gd: 42209 bytes; extends RefCounted
-  game/scripts/campaign.gd:42 hull()
-  game/scripts/campaign.gd:48 port()
-  game/scripts/campaign.gd:54 faction()
-  game/scripts/campaign.gd:60 new_game()
-  game/scripts/campaign.gd:129 port_position()
-  game/scripts/campaign.gd:135 set_patrol_course()
-  game/scripts/campaign.gd:142 place_patrol()
-  game/scripts/campaign.gd:155 active_fleet()
-  game/scripts/campaign.gd:163 capacity()
-  game/scripts/campaign.gd:166 cargo_weight()
-  game/scripts/campaign.gd:169 expedition_report()
-  game/scripts/campaign.gd:176 freight_weight()
+game/scripts/campaign.gd: 43240 bytes; extends RefCounted
+  game/scripts/campaign.gd:44 hull()
+  game/scripts/campaign.gd:50 port()
+  game/scripts/campaign.gd:56 faction()
+  game/scripts/campaign.gd:62 new_game()
+  game/scripts/campaign.gd:132 port_position()
+  game/scripts/campaign.gd:138 set_patrol_course()
+  game/scripts/campaign.gd:145 place_patrol()
+  game/scripts/campaign.gd:158 active_fleet()
+  game/scripts/campaign.gd:166 capacity()
+  game/scripts/campaign.gd:169 cargo_weight()
+  game/scripts/campaign.gd:172 expedition_report()
+  game/scripts/campaign.gd:179 freight_weight()
 game/scripts/contracts.gd: 6169 bytes; extends RefCounted
   game/scripts/contracts.gd:5 available()
   game/scripts/contracts.gd:49 accept()

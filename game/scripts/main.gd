@@ -425,21 +425,28 @@ func show_patrol_encounter(id: String):
 		return
 	var body = ui.modal(patrol.name, "CONTACT ON THE COAST", 700, 550)
 	ui.modal_kind = "encounter"
+	var owner: Dictionary=core.fleet_owner(id)
+	patrol.hostile=core.Politics.hostile(core,owner)
 	if not patrol.hostile:
 		ui.paragraph(body, "A coastal merchant convoy sails this route. It carries goods between the same ports that supply your fleet. Its crews signal a peaceful passage.", 19)
 		ui.button(body, "Let them pass", ui.close_modal, true)
+		ui.paragraph(body,"Opening fire damages public standing, creates a witnessed offense and a harbor claim.",15,ui.RED)
+		ui.button(body,"Attack this convoy",func():engage_patrol(patrol))
 		return
 	ui.paragraph(body, "Raider engines echo across the water. You can engage their boats or give them a wide berth. Their strength is %d boat(s)." % patrol.strength, 19)
 	ui.button(body, "Engage the raiders", func(): engage_patrol(patrol), true)
 	ui.button(body, "Avoid contact", func(): core.state.encounterGrace = 90.0; ui.close_modal())
 
 func engage_patrol(patrol: Dictionary):
+	var owner: Dictionary=core.fleet_owner(patrol.id)
+	var aggression: bool=not core.Politics.hostile(core,owner)
+	if aggression:core.Politics.declare_attack(core,owner)
 	var specs: Array = [core.hull("bilge_punt")]
 	if patrol.strength >= 2:
 		specs.append(core.hull("scab_cutter"))
 	if patrol.strength >= 3:
 		specs.append(core.hull("barbed_lance"))
-	begin_battle(specs, {"kind": "patrol", "id": patrol.id, "ownerId":patrol.id, "name": "Coastal shipping lane"})
+	begin_battle(specs, {"kind": "patrol", "id": patrol.id, "ownerId":patrol.id,"aggression":aggression, "name": "Coastal shipping lane"})
 
 func begin_battle(specs: Array, context: Dictionary):
 	if core.active_fleet().is_empty():
@@ -513,7 +520,7 @@ func _enter_battle():
 	chart.center_camera()
 	ui.close_modal()
 	ui.build_hud()
-	ui.toast("Autopilot engaged. WASD camera · Space pause · select boats, right-click orders · Tab tactical view.")
+	ui.toast("Autopilot engaged. WASD camera Â· Space pause Â· select boats, right-click orders Â· Tab tactical view.")
 
 func switch_flagship():
 	var fleet = battle.ships.filter(func(s): return s.team == "player" and not s.sunk)

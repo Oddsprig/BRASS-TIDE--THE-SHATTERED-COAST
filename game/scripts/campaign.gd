@@ -18,6 +18,8 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const Politics=preload("res://scripts/politics.gd")
+const Factions=preload("res://scripts/factions.gd")
 # v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
 const Deployment = preload("res://scripts/deployment.gd")
 const Refits = preload("res://scripts/refit.gd")
@@ -112,6 +114,7 @@ func new_game(seed_value: int = 1):
 	state.coinSupply = Money.total(state)
 	VoyageJobs.ensure(self)
 	Contacts.ensure(state,data)
+	Politics.ensure(self)
 	state.cargoManifest={}
 	state.surveyFoodCredit=0.0
 	state.wreckHazards={}
@@ -307,7 +310,7 @@ func step(dt: float):
 		if not owner.is_empty():
 			owner.progress = p.progress
 			owner.atPort = ""
-		if moving and p.hostile and state.encounterGrace <= 0 and distance(state.position, p) < 75 and state.day > 2.0:
+		if moving and Politics.hostile(self,sailing_owner) and state.encounterGrace <= 0 and distance(state.position, p) < 75 and state.day > 2.0:
 			state.encounterGrace = 60.0
 			stop_sailing()
 			events.append({"kind": "encounter", "patrol": p.id})
@@ -481,6 +484,8 @@ func jettison(good: String,qty: int) -> Dictionary:
 	return ok("Cargo set on a marked float. It can be recovered later if space is available.")
 
 func trade(id: String, good: String, qty: int, side: String) -> Dictionary:
+	var permission: Dictionary=Politics.permit(self,"buy_good" if side=="buy" else "trade",good)
+	if not permission.ok:return permission
 	var p = current_port()
 	if p.is_empty() or p.id != id:
 		return fail("Enter this harbor to trade.")
@@ -610,6 +615,9 @@ func toggle_storage(uid: String) -> Dictionary:
 	return ok("Hull stored at %s; sailors and their savings returned ashore. Stores and fittings stay with the hull."%p.name)
 
 func refit_boat(uid: String, slot: String, module_id: String) -> Dictionary:
+	var advanced: bool=module_id in ["heavy_cannon","salvo_rocket","heavy_torpedo","heavy_drive","fortress_plating","naval_plating"]
+	var permission: Dictionary=Politics.permit(self,"military" if advanced else "service")
+	if not permission.ok:return permission
 	var boat: Dictionary = find_boat(uid)
 	if boat.is_empty() or boat.get("sunk",false):
 		return fail("That boat is not in your flotilla.")
@@ -663,9 +671,13 @@ func available_contracts() -> Array:
 	return Contracts.available(self)
 
 func accept_contract(id: String) -> Dictionary:
+	var permission: Dictionary=Politics.permit(self,"contract")
+	if not permission.ok:return permission
 	return Contracts.accept(self,id)
 
 func accept_voyage_job(id: String) -> Dictionary:
+	var permission: Dictionary=Politics.permit(self,"contract")
+	if not permission.ok:return permission
 	var result: Dictionary=VoyageJobs.accept(self,id)
 	if result.ok:Contacts.visit(state,current_port(),state.day)
 	Manifest.allocate(state)
@@ -675,6 +687,7 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	var before: Dictionary=VoyageJobs._find(state,id).duplicate(true)
 	var result: Dictionary=VoyageJobs.abandon(self,id) if abandon else VoyageJobs.finish(self,id)
 	if result.ok:
+		if not abandon:Politics.job_completed(self,before)
 		for contact in Contacts.list_contacts(state):
 			if contact.port==before.get("port",""):Contacts.record(state,contact.id,"job:"+id+(":abandoned" if abandon else ":paid"),-5 if abandon else 5)
 	Manifest.allocate(state)
@@ -684,7 +697,10 @@ func contract_ready() -> bool:
 	return not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
 
 func finish_contract() -> Dictionary:
-	return Contracts.finish(self)
+	var before: Dictionary=state.activeContract.duplicate(true)
+	var result: Dictionary=Contracts.finish(self)
+	if result.ok:Politics.job_completed(self,before)
+	return result
 
 func abandon_contract() -> Dictionary:
 	return Contracts.abandon(self)
@@ -733,6 +749,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	else:
 		state.losses += 1
 		state.morale = maxf(10.0,state.morale-6)
+	Politics.settled(self,owner,result,context)
 	use_reserves()
 	apply_morale()
 	log_entry("Engagement %s. %d boats remain."%[result,state.fleet.size()])
@@ -846,7 +863,7 @@ func rescue() -> Dictionary:
 func log_entry(message: String):
 	if state.is_empty():
 		return
-	state.log.push_front("Day %d · %s" % [int(state.day), message])
+	state.log.push_front("Day %d Â· %s" % [int(state.day), message])
 	if state.log.size() > 45:
 		state.log.resize(45)
 
@@ -899,6 +916,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	Salvage.ensure(state)
 	VoyageJobs.ensure(self)
 	Contacts.ensure(state,data)
+	Politics.ensure(self)
 	if not state.recoverable.is_empty() and not state.recoverable.get("claimed",true):
 		var legacy_site: Dictionary=state.position.duplicate(true)
 		legacy_site.id="legacy-recovery"

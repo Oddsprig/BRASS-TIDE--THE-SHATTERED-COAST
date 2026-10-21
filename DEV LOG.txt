@@ -1,3 +1,15 @@
+v0.012 SOURCE ACCEPTED | Faction relationships
+32 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.012 CANDIDATE | Faction relationships
+- Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust.
+- Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences.
+- Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.011 DELIVERED | exact game e2a32af3bd56510e083336f4fd22e6a178f60f1c
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.011 SOURCE ACCEPTED | Jobs and contacts
 30 native suites passed; source report saved. Portable export and publication require separate receipts.
 

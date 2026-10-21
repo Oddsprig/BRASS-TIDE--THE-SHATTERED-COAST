@@ -1,3 +1,7 @@
+v0.012 voluntary play: Faction relationships
+Assess readability and usefulness of: Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust. Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences. Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.011 voluntary play: Jobs and contacts
 Assess readability and usefulness of: Six compatible funded voyage commitments alongside story work, with real reserved cargo, expiry and once-only escrow. Four persistent harbor contacts, personal trust and dated market observations from actual visits. Relief sponsors pay suppliers for cargo and price passage from wages, provisions, fuel and tools; all purses and carrier losses reconcile.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

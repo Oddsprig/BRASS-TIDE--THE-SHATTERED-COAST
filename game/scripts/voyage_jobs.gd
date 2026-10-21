@@ -217,6 +217,7 @@ static func available(core) -> Array:
 	var p: Dictionary = core.current_port()
 	if p.is_empty():
 		return offers
+	if core.has_method("faction") and not preload("res://scripts/politics.gd").access(core,p).contracts:return offers
 	var day := int(_num(state.get("day", 1.0)))
 	var taken := {}
 	for job in state["voyageJobs"]:
@@ -270,6 +271,7 @@ static func available(core) -> Array:
 		for owner in state.get("fleetOwners", []) if state.get("fleetOwners") is Array else []:
 			if not (owner is Dictionary) or str(owner.get("kind", "")) != "raider" or not str(owner.get("id", "")).begins_with("patrol-") or not bool(owner.get("active", false)):
 				continue
+			if str(owner.get("faction",""))==str(p.get("faction","")):continue
 			var living := 0
 			var enemy_value := 0.0
 			for boat in owner.get("boats", []) if owner.get("boats") is Array else []:

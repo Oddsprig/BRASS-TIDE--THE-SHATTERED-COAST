@@ -1,4 +1,16 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.012 — Faction relationships
+SOURCE ACCEPTED: 32 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust.
+- Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences.
+- Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
+
+Team: Codex root + one Muse Wonder Full + one Argon High + one Grok4.7.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.011 — Jobs and contacts
 SOURCE ACCEPTED: 30 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 
