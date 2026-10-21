@@ -1,3 +1,9 @@
+v0.013 SOURCE ACCEPTED — Independent fleet activity
+- Convoys, patrols and raiders follow stock, escort, interception and recovery objectives using actual boats and stores.
+- Bounded seeded offscreen engagements spend ammunition, damage hulls, retreat and leave persistent wrecks.
+- Finite funded replacement purchases and construction use ordinary yards, workers, crew advances and wage escrow.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 v0.012 SOURCE ACCEPTED — Faction relationships
 - Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust.
 - Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences.

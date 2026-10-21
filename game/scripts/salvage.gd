@@ -218,7 +218,7 @@ static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
 		if record is Dictionary:
 			causes[str(record.get("id", ""))] = str(record.get("cause", ""))
 			causes[str(record.get("uid", ""))] = str(record.get("cause", ""))
-	var xy := _position_xy(state.get("position", {}))
+	var xy := _position_xy(battle.get("chartPosition",state.get("position", {})))
 	var chart_x: float=float(xy[0]) if xy.size()==2 else 0.0
 	var chart_y: float=float(xy[1]) if xy.size()==2 else 0.0
 	var created: Array = []

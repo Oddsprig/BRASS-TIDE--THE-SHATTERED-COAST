@@ -7,6 +7,7 @@ static func open(ui,tab: String="Work board") -> void:
 	c.VoyageJobs._expire_overdue(c,c.state)
 	ui.modal_kind="voyage_jobs"
 	var body=ui.modal("Voyage jobs & contacts","PLAN A ROUTE WITH SEVERAL REASONS TO SAIL",1040,820)
+	ui.button(body,"Coastal traffic",func():ui.NavalUI.open(ui))
 	ui.button(body,"Factions & safe passage",func():ui.FactionUI.open(ui))
 	var tabs=ui.row(body)
 	for value in ["Work board","Contacts","Market notes"]:
@@ -15,12 +16,12 @@ static func open(ui,tab: String="Work board") -> void:
 	if tab=="Contacts":contacts(ui,body);return
 	if tab=="Market notes":intel(ui,body);return
 	ui.paragraph(body,"Carry up to six compatible side jobs alongside your story contract. Freight uses real hold space; rewards are reserved in escrow. Relief cargo is purchased by its sponsoring treasury, then entrusted to your fleet.",16)
-	ui.label(body,"%d / 6 commitments Â· Hold %.1f / %.1f"%[c.state.voyageJobs.size(),c.cargo_weight(),c.capacity()],22,ui.GOLD,true)
+	ui.label(body,"%d / 6 commitments · Hold %.1f / %.1f"%[c.state.voyageJobs.size(),c.cargo_weight(),c.capacity()],22,ui.GOLD,true)
 	for raw in c.state.voyageJobs:
 		var job: Dictionary=raw.duplicate(true)
 		ui.rule(body)
 		ui.label(body,job.title,24,ui.GOLD,true)
-		ui.paragraph(body,"%s Â· %.1f days remaining Â· %s coins reserved"%[str(job.state).capitalize(),job.deadlineDay-c.state.day,ui.money(job.escrow)],15,ui.TEAL)
+		ui.paragraph(body,"%s · %.1f days remaining · %s coins reserved"%[str(job.state).capitalize(),job.deadlineDay-c.state.day,ui.money(job.escrow)],15,ui.TEAL)
 		if job.get("failed",false):ui.paragraph(body,"Freight lost: this job needs to be closed at a harbor.",15,ui.RED)
 		var target: Dictionary=c.port(job.targetPort)
 		if job.kind=="survey":
@@ -38,7 +39,7 @@ static func open(ui,tab: String="Work board") -> void:
 		var offer: Dictionary=item.duplicate(true)
 		ui.label(body,offer.title,23,ui.TEXT,true)
 		ui.paragraph(body,offer.description,15)
-		ui.paragraph(body,"%s coins Â· deadline day%.0f"%[ui.money(offer.reward),offer.deadlineDay],15,ui.GOLD)
+		ui.paragraph(body,"%s coins · deadline day%.0f"%[ui.money(offer.reward),offer.deadlineDay],15,ui.GOLD)
 		ui.button(body,"Accept funded job",func():ui.host.respond(c.accept_voyage_job(offer.id));ui.host.save_game(false);open(ui),true).disabled=c.state.voyageJobs.size()>=6
 		ui.rule(body)
 	ui.button(body,"Story contracts & captain's log",ui.open_contracts)
@@ -55,10 +56,10 @@ static func contacts(ui,body) -> void:
 		var contact: Dictionary=person
 		ui.rule(body)
 		ui.label(body,contact.name,25,ui.GOLD,true)
-		ui.paragraph(body,"%s Â· %s"%[contact.title,c.port(contact.port).name],16,ui.TEXT)
-		ui.paragraph(body,"Trust %d Â· %s"%[contact.trust,"last visited day%.1f"%contact.lastVisitDay if contact.met else "not yet met"],15,ui.TEAL)
+		ui.paragraph(body,"%s · %s"%[contact.title,c.port(contact.port).name],16,ui.TEXT)
+		ui.paragraph(body,"Trust %d · %s"%[contact.trust,"last visited day%.1f"%contact.lastVisitDay if contact.met else "not yet met"],15,ui.TEAL)
 		ui.button(body,"Chart this harbor",func():ui.host.sail_to(contact.port);ui.close_modal())
-		for entry in contact.log.slice(-3):ui.paragraph(body,"Day%.0f Â· %s Â· trust %+d"%[entry.day,entry.event,entry.amount],13)
+		for entry in contact.log.slice(-3):ui.paragraph(body,"Day%.0f · %s · trust %+d"%[entry.day,entry.event,entry.amount],13)
 
 static func intel(ui,body) -> void:
 	var c=ui.host.core
@@ -66,7 +67,7 @@ static func intel(ui,body) -> void:
 	for id in c.state.get("marketSnapshots",{}):
 		var snap: Dictionary=c.state.marketSnapshots[id]
 		ui.rule(body)
-		ui.label(body,"%s Â· %.1f days old"%[c.port(id).name,maxf(0,c.state.day-snap.day)],23,ui.GOLD,true)
+		ui.label(body,"%s · %.1f days old"%[c.port(id).name,maxf(0,c.state.day-snap.day)],23,ui.GOLD,true)
 		ui.paragraph(body,"Observed business purse: %s coins"%ui.money(snap.cash),15)
-		for good in ["food","timber","iron","fuel","supplies"]:ui.paragraph(body,"%s Â· %.1f observed lots"%[c.Goods.ITEMS[good].name,snap.stocks.get(good,0)],14)
+		for good in ["food","timber","iron","fuel","supplies"]:ui.paragraph(body,"%s · %.1f observed lots"%[c.Goods.ITEMS[good].name,snap.stocks.get(good,0)],14)
 	if c.state.get("marketSnapshots",{}).is_empty():ui.paragraph(body,"Visit a harbor and enter its market to record your first observations.",17)

@@ -58,7 +58,7 @@ func _initialize() -> void:
 	check(coins(owners,ports)==total,"Initial owner capital is transferred, never minted")
 	for i in range(owners.size()):
 		var owner: Dictionary=owners[i]
-		check(owner.id=="patrol-%d"%i and owner.route==world.ROUTES[(i*3+1)%world.ROUTES.size()],"Owner matches patrol route %d"%i)
+		check(owner.id=="patrol-%d"%i and (owner.route[0]==owner.homePort and find(ports,owner.homePort).faction=="raiders" if owner.kind=="raider" else owner.route==world.ROUTES[(i*3+1)%world.ROUTES.size()]),"Owner follows a funded route from the correct home faction %d"%i)
 		check(not owner.boats.is_empty(),"Owner owns concrete boats %d"%i)
 		owner.atPort=""
 		owner.cargo.food=100.0

@@ -18,6 +18,8 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const NavalAI=preload("res://scripts/naval_ai.gd")
+const NavalLifecycle=preload("res://scripts/naval_lifecycle.gd")
 const Politics=preload("res://scripts/politics.gd")
 const Factions=preload("res://scripts/factions.gd")
 # v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
@@ -99,7 +101,8 @@ func new_game(seed_value: int = 1):
 		state.fleetOwners.append(owner)
 	pending_days = 0
 	for i in range(9):
-		var route = data.ROUTES[(i * 3 + 1) % data.ROUTES.size()]
+		var initial_owner: Dictionary=fleet_owner("patrol-%d"%i)
+		var route: Array=initial_owner.get("route",data.ROUTES[(i * 3 + 1) % data.ROUTES.size()])
 		var a = port(route[0])
 		var b = port(route[1])
 		var t = float(i % 5) / 5.0
@@ -115,6 +118,7 @@ func new_game(seed_value: int = 1):
 	VoyageJobs.ensure(self)
 	Contacts.ensure(state,data)
 	Politics.ensure(self)
+	NavalAI.ensure(state,data)
 	state.cargoManifest={}
 	state.surveyFoodCredit=0.0
 	state.wreckHazards={}
@@ -284,36 +288,7 @@ func step(dt: float):
 	state.day += dt / DAY_SECONDS
 	if int(state.day) > old_day:
 		pending_days += int(state.day) - old_day
-	for p in state.patrols:
-		if not p.active:
-			continue
-		var a = port(p.from)
-		var b = port(p.to)
-		var sailing_owner: Dictionary = fleet_owner(p.id)
-		var performance: float = float(sailing_owner.get("performanceFactor",1.0))
-		var has_fuel: bool = sailing_owner.get("boats",[]).any(func(boat):return not boat.sunk and boat.fuel > 0)
-		p.progress += dt * 35.0 * float(data.get("CAMPAIGN_SCALE",1.0)) * performance * (1.0 if has_fuel else 0.2) / maxf(1.0, p.courseLength)
-		if p.progress >= 1.0:
-			p.progress = 0.0
-			var owner: Dictionary = fleet_owner(p.id)
-			if not owner.is_empty():
-				Fleets.dock(owner,b)
-			var previous = p.from
-			p.from = p.to
-			p.to = previous
-			p.course.reverse()
-			var swap = a
-			a = b
-			b = swap
-		place_patrol(p)
-		var owner: Dictionary = fleet_owner(p.id)
-		if not owner.is_empty():
-			owner.progress = p.progress
-			owner.atPort = ""
-		if moving and Politics.hostile(self,sailing_owner) and state.encounterGrace <= 0 and distance(state.position, p) < 75 and state.day > 2.0:
-			state.encounterGrace = 60.0
-			stop_sailing()
-			events.append({"kind": "encounter", "patrol": p.id})
+	NavalLifecycle.step(self,dt)
 
 func apply_economy(ports: Array, messages: Array, days: int):
 	state.ports = ports
@@ -348,6 +323,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		for message in Fleets.tick(state.fleetOwners,state.ports,1.0).slice(0,2):
 			log_entry(str(message))
 		Harbor.tick_yards(self,1)
+		NavalLifecycle.daily(self)
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
 		state.econDay += 1
@@ -710,6 +686,8 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	if not physical_battle.is_empty():
 		var source: String="battle:%d:%d"%[state.seed,state.wins+state.losses]
 		physical_wrecks=Salvage.record_battle(self,physical_battle,source)
+		for ship in physical_battle.get("ships",[]):
+			if ship.get("sunk",false):ship.wreckRecorded=true
 		if result!="won":
 			state.wreckHazards[source]=str(context.get("ownerId",""))
 			while state.wreckHazards.size()>256:state.wreckHazards.erase(state.wreckHazards.keys()[0])
@@ -732,7 +710,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 		if not owner.is_empty():
 			loot = floori(float(owner.coins)*0.30)
 			Money.move(owner,"coins",state,"coins",loot,"Captured fleet operating coins",state.moneyLog)
-			owner.active = false
+			owner.active = owner.boats.any(func(b):return not b.sunk) if not physical_battle.is_empty() else false
 			state.defeatedOwners[owner.id]=int(state.defeatedOwners.get(owner.id,0))+1
 		state.renown += enemy_specs.size()*3
 		if not enemy_specs.is_empty() and physical_battle.is_empty():
@@ -863,7 +841,7 @@ func rescue() -> Dictionary:
 func log_entry(message: String):
 	if state.is_empty():
 		return
-	state.log.push_front("Day %d Â· %s" % [int(state.day), message])
+	state.log.push_front("Day %d · %s" % [int(state.day), message])
 	if state.log.size() > 45:
 		state.log.resize(45)
 
@@ -917,6 +895,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	VoyageJobs.ensure(self)
 	Contacts.ensure(state,data)
 	Politics.ensure(self)
+	NavalAI.ensure(state,data)
 	if not state.recoverable.is_empty() and not state.recoverable.get("claimed",true):
 		var legacy_site: Dictionary=state.position.duplicate(true)
 		legacy_site.id="legacy-recovery"

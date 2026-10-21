@@ -1,3 +1,11 @@
+## v0.013 — Independent fleet activity
+
+Candidate; verified test/export records follow.
+
+- Convoys, patrols and raiders follow stock, escort, interception and recovery objectives using actual boats and stores.
+- Bounded seeded offscreen engagements spend ammunition, damage hulls, retreat and leave persistent wrecks.
+- Finite funded replacement purchases and construction use ordinary yards, workers, crew advances and wage escrow.
+
 ## v0.012 — Faction relationships
 
 Candidate; verified test/export records follow.

@@ -44,7 +44,7 @@ const PAIR_BASE := {
 	"compact|raiders": -40,
 	"forge|reed": -10,
 	"forge|raiders": -30,
-	"reed|raiders": -25,
+	"raiders|reed": -25,
 }
 const CONTACT_ROSTER := [
 	{"id": "holt", "name": "Maren Holt", "portId": "brass_haven", "factionId": "compact", "role": "convoy clerk"},
@@ -81,6 +81,10 @@ static func ensure(state, world) -> Dictionary:
 				book.pairs[key] = int(PAIR_BASE.get(key, 0))
 			else:
 				book.pairs[key] = clampi(_as_int(book.pairs[key]), REP_MIN, REP_MAX)
+	if int(book.get("politicalRevision",0))<2:
+		if int(book.pairs.get("raiders|reed",0))==0 and not book.log.any(func(e):return str(e.get("kind",""))=="relation" and [e.get("factionId",""),e.get("otherId","")].has("raiders")):
+			book.pairs["raiders|reed"]=-25
+		book.politicalRevision=2
 	for row in CONTACT_ROSTER:
 		var cid := str(row.id)
 		if not book.contacts.has(cid):

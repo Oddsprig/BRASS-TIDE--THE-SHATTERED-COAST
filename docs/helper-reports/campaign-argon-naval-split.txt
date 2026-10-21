@@ -1,0 +1,134 @@
+HELPER REPORT — HELPER A (Argon High)
+Task: v0.013 — Naval AI Coordinator Split & Explicit GDScript Typing
+Workspace: C:\Users\bligh\Documents\Codex\2026-10-20\how\work\campaign-argon
+Date: 2026-10-21
+
+================================================================================
+1. DELIVERED ALLOWLIST FILES & SIZES
+================================================================================
+- game/scripts/naval_ai.gd               (299 lines, ~10.5 KB; target <25 KB)
+- game/scripts/naval_orders.gd           (515 lines, ~21.6 KB; target <25 KB)
+- game/scripts/naval_combat.gd           (355 lines, ~15.4 KB; target <25 KB)
+- game/scripts/naval_replacements.gd     (290 lines, ~12.4 KB; target <25 KB)
+- game/tests/test_naval_ai.gd            (439 lines, ~19.2 KB)
+- docs/helper-reports/campaign-argon-naval-split.txt (this report)
+
+Preserved Unchanged:
+- docs/helper-reports/campaign-argon.txt
+- docs/helper-reports/campaign-argon-naval.txt
+- game/scripts/expedition.gd
+- game/tests/test_expedition.gd
+- All existing repository files.
+
+================================================================================
+2. ACYCLIC PRELOAD DEPENDENCY GRAPH (NO CYCLES)
+================================================================================
+1. game/scripts/naval_orders.gd (Leaf sub-module)
+   Preloads:
+   - res://scripts/damage.gd
+   - res://scripts/economy.gd
+   - res://scripts/goods.gd
+   - res://scripts/fleet_economy.gd
+   (Does NOT preload naval_ai.gd, naval_combat.gd, or naval_replacements.gd.)
+
+2. game/scripts/naval_combat.gd (Mid-tier sub-module)
+   Preloads:
+   - res://scripts/damage.gd
+   - res://scripts/economy.gd
+   - res://scripts/goods.gd
+   - res://scripts/money.gd
+   - res://scripts/fleet_economy.gd
+   - res://scripts/naval_orders.gd
+   (Does NOT preload naval_ai.gd or naval_replacements.gd.)
+
+3. game/scripts/naval_replacements.gd (Mid-tier sub-module)
+   Preloads:
+   - res://scripts/damage.gd
+   - res://scripts/economy.gd
+   - res://scripts/goods.gd
+   - res://scripts/money.gd
+   - res://scripts/construction.gd
+   - res://scripts/fleet_economy.gd
+   - res://scripts/naval_orders.gd
+   (Does NOT preload naval_ai.gd or naval_combat.gd.)
+
+4. game/scripts/naval_ai.gd (Top-level thin coordinator)
+   Preloads:
+   - res://scripts/fleet_economy.gd
+   - res://scripts/naval_orders.gd
+   - res://scripts/naval_combat.gd
+   - res://scripts/naval_replacements.gd
+
+================================================================================
+3. PUBLIC & MODULE APIS
+================================================================================
+A. NavalAI (game/scripts/naval_ai.gd)
+   - NavalAI.ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary
+   - NavalAI.arrived(core, owner: Dictionary, dock: Dictionary = {}) -> String
+   - NavalAI.tick(core, days = 1) -> Array
+   - Forwarding static wrappers preserved for callers/tests:
+     is_story_owner, fleet_reserves, fleet_performance, build_order,
+     spatial_index, nearby_hostile_pairs, resolve_encounter,
+     collect_replacements, request_replacement, _state_of, _world_of,
+     _find_port, _find_owner, _find_patrol, _living_boats, _quote_at_port.
+
+B. NavalOrders (game/scripts/naval_orders.gd)
+   - is_story_owner(owner: Dictionary) -> bool
+   - state_of(core_or_state) -> Dictionary
+   - world_of(core_or_state) -> Dictionary
+   - find_port(state: Dictionary, port_id: String) -> Dictionary
+   - find_owner(state: Dictionary, owner_id: String) -> Dictionary
+   - find_patrol(state: Dictionary, patrol_id: String) -> Dictionary
+   - hull_spec(core_or_state, state: Dictionary, world: Dictionary, hull_id: String) -> Dictionary
+   - living_boats(owner: Dictionary) -> Array
+   - owner_position(state: Dictionary, owner: Dictionary) -> Vector2
+   - port_dist(a: Dictionary, b: Dictionary) -> float
+   - fleet_reserves(owner: Dictionary) -> Dictionary
+   - fleet_performance(owner: Dictionary) -> Dictionary
+   - needs_home_recovery(owner: Dictionary, res: Dictionary, perf: Dictionary) -> String
+   - build_order(state: Dictionary, owner: Dictionary, purpose: String = "", destination: String = "", reason: String = "", target_owner_id: String = "") -> Dictionary
+   - pick_export_good(home: Dictionary, current_good: String) -> String
+   - select_trader_order(state: Dictionary, owner: Dictionary, current_port_id: String) -> Dictionary
+   - select_patrol_order(state: Dictionary, owner: Dictionary, current_port_id: String) -> Dictionary
+   - select_raider_order(state: Dictionary, owner: Dictionary, current_port_id: String) -> Dictionary
+   - assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_port: Dictionary = {}) -> String
+
+C. NavalCombat (game/scripts/naval_combat.gd)
+   - spatial_index(state: Dictionary, cell_size: float = CELL_SIZE) -> Dictionary
+   - are_hostile(state: Dictionary, owner_a: Dictionary, patrol_a: Dictionary, owner_b: Dictionary, patrol_b: Dictionary) -> bool
+   - nearby_hostile_pairs(state: Dictionary, radius: float = ENCOUNTER_RADIUS) -> Array
+   - resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: Dictionary, patrol_a: Dictionary = {}, patrol_b: Dictionary = {}, seed_val: int = 1) -> Dictionary
+
+D. NavalReplacements (game/scripts/naval_replacements.gd)
+   - quote_at_port(h: Dictionary, port: Dictionary) -> Dictionary
+   - can_materials(port: Dictionary, materials: Dictionary) -> bool
+   - consume_materials(port: Dictionary, materials: Dictionary) -> void
+   - owner_has_queued_replacement(state: Dictionary, owner_id: String) -> bool
+   - attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictionary, h: Dictionary, crew_count: int) -> Dictionary
+   - advance_unstepped_npc_orders(state: Dictionary, step_index: int, _total_days: int) -> void
+   - collect_replacements(core, port: Dictionary = {}) -> Array
+   - request_replacement(core, owner: Dictionary, port: Dictionary = {}, hull_id: String = "") -> Dictionary
+
+================================================================================
+4. EXPLICIT GDSCRIPT TYPING & VARIANT ARITHMETIC AUDIT
+================================================================================
+- Zero `:=` inferred Variant assignments across all four `naval_*.gd` scripts
+  and `test_naval_ai.gd`.
+- Every `Array` and `Dictionary` iteration binds the loop element to an explicit
+  typed local (`var b: Dictionary = b_var`, `var p: Dictionary = p_var`,
+  `var mat: String = str(mat_var)`, `var step_idx: int = int(step_i)`).
+- All arithmetic and comparison operands extracted from `Dictionary` / `Array`
+  or untyped methods (`Economy.price`, `Economy.recruit_cost`, `Goods.cost`,
+  `Damage.sum_areas`, `Money.total`) are explicitly cast via `float(...)` or
+  `int(...)` before `+`, `-`, `*`, `/`, `<`, `>`, `<=`, `>=`.
+- Custom sort and filter callbacks in `NavalCombat` use static typed functions
+  (`_compare_pair_priority(x: Dictionary, y: Dictionary) -> bool` and
+  `_alive_defenders(defenders: Array) -> Array`) instead of untyped inline
+  lambdas.
+
+================================================================================
+5. TESTS NOT RUN (SERIALIZED BY ROOT)
+================================================================================
+- No Godot, Python, or shell processes were launched in this helper workspace.
+- Root can run the native headless suite via:
+  <Godot_console_exe> --headless --path game --script res://tests/test_naval_ai.gd

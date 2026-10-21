@@ -69,6 +69,11 @@ static func create_owners(ports: Array,world: Dictionary) -> Array:
 		if home.is_empty():
 			continue
 		var kind: String="raider" if i%3==0 else ("trader" if i%3==1 else "patrol")
+		if kind=="raider":
+			var refuge: Dictionary=_find(ports,"rust_anchorage" if i%2==0 else "shatter_spire")
+			if not refuge.is_empty():
+				home=refuge
+				route=[home.id,str(route[1]) if str(route[1])!=str(home.id) else "brass_haven"]
 		var strength: int=1+i%3
 		var ids: Array=["bilge_punt"]
 		if strength>=2:

@@ -1,3 +1,23 @@
+# v0.013 — Independent fleet activity
+
+SOURCE ACCEPTED: 34 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Convoys, patrols and raiders follow stock, escort, interception and recovery objectives using actual boats and stores.
+- Bounded seeded offscreen engagements spend ammunition, damage hulls, retreat and leave persistent wrecks.
+- Finite funded replacement purchases and construction use ordinary yards, workers, crew advances and wage escrow.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.013.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.013 — Independent fleet activity
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Convoys, patrols and raiders follow stock, escort, interception and recovery objectives using actual boats and stores.
+- Bounded seeded offscreen engagements spend ammunition, damage hulls, retreat and leave persistent wrecks.
+- Finite funded replacement purchases and construction use ordinary yards, workers, crew advances and wage escrow.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.013.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.012 — Faction relationships
 
 SOURCE ACCEPTED: 32 native suites pass; portable export evidence is recorded separately in RELEASE.json.

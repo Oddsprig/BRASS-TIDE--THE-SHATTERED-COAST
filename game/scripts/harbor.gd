@@ -92,10 +92,10 @@ static func tick_yards(core, days: int):
 				var was_ready: bool = bool(order.get("ready",false))
 				Construction.advance(p,order,1.0)
 				if not was_ready and order.get("ready",false):
-					if order.get("owner","player") == "yard":
+					if order.get("owner","player") == "yard" and str(order.get("npcOwnerId","")).is_empty():
 						p.shipStock[order.hull] = int(p.shipStock.get(order.hull,0))+1
 						finished.append(order)
-					else:
+					elif order.get("owner","player")=="player":
 						core.log_entry("Your %s is ready at %s." % [core.hull(order.hull).name,p.name])
 			for order in finished:
 				if int(order.get("escrow",0)) == 0:

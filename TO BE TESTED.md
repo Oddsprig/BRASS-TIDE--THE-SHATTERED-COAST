@@ -1,3 +1,7 @@
+v0.013 voluntary play: Independent fleet activity
+Assess readability and usefulness of: Convoys, patrols and raiders follow stock, escort, interception and recovery objectives using actual boats and stores. Bounded seeded offscreen engagements spend ammunition, damage hulls, retreat and leave persistent wrecks. Finite funded replacement purchases and construction use ordinary yards, workers, crew advances and wage escrow.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.012 voluntary play: Faction relationships
 Assess readability and usefulness of: Public reputation, witnessed offenses, harbor claims and symmetric faction diplomacy persist separately from personal contact trust. Enforced harbor access, inspections, restricted military equipment, paid safe conduct and optional commissions with explicit consequences. Funded jobs and actual combat change standing; attacks on peaceful convoys create claims and hostility without minting coins.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

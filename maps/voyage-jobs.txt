@@ -1,4 +1,4 @@
-BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.012)
+BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.013)
 
 Real sponsors/stock/crew-based quotes -> several funded jobs, physical sealed lots, remembered contacts and dated observations.
 
@@ -28,11 +28,11 @@ game/scripts/contacts.gd: 8176 bytes; extends RefCounted
   game/scripts/contacts.gd:58 _sanitize()
   game/scripts/contacts.gd:105 _clean_snapshot()
   game/scripts/contacts.gd:116 _find()
-game/scripts/voyage_ui.gd: 4790 bytes; extends RefCounted
+game/scripts/voyage_ui.gd: 4833 bytes; extends RefCounted
   game/scripts/voyage_ui.gd:3 open()
-  game/scripts/voyage_ui.gd:46 settle()
-  game/scripts/voyage_ui.gd:51 contacts()
-  game/scripts/voyage_ui.gd:63 intel()
+  game/scripts/voyage_ui.gd:47 settle()
+  game/scripts/voyage_ui.gd:52 contacts()
+  game/scripts/voyage_ui.gd:64 intel()
 
 TESTS (game/tests/*.gd)
 test_voyage_jobs, test_voyage_flow

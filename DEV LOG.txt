@@ -1,3 +1,15 @@
+v0.013 SOURCE ACCEPTED | Independent fleet activity
+34 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-21 | v0.013 CANDIDATE | Independent fleet activity
+- Convoys, patrols and raiders follow stock, escort, interception and recovery objectives using actual boats and stores.
+- Bounded seeded offscreen engagements spend ammunition, damage hulls, retreat and leave persistent wrecks.
+- Finite funded replacement purchases and construction use ordinary yards, workers, crew advances and wage escrow.
+Root + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.012 DELIVERED | exact game 6e70a49f386b43ca04cb3253bc728687fab86561
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.012 SOURCE ACCEPTED | Faction relationships
 32 native suites passed; source report saved. Portable export and publication require separate receipts.
 

@@ -425,6 +425,8 @@ func show_patrol_encounter(id: String):
 		return
 	var body = ui.modal(patrol.name, "CONTACT ON THE COAST", 700, 550)
 	ui.modal_kind = "encounter"
+	var observed: Dictionary=core.fleet_owner(id)
+	if not observed.is_empty():ui.paragraph(body,str(observed.get("reason","")),15,ui.GOLD)
 	var owner: Dictionary=core.fleet_owner(id)
 	patrol.hostile=core.Politics.hostile(core,owner)
 	if not patrol.hostile:
@@ -520,7 +522,7 @@ func _enter_battle():
 	chart.center_camera()
 	ui.close_modal()
 	ui.build_hud()
-	ui.toast("Autopilot engaged. WASD camera Â· Space pause Â· select boats, right-click orders Â· Tab tactical view.")
+	ui.toast("Autopilot engaged. WASD camera · Space pause · select boats, right-click orders · Tab tactical view.")
 
 func switch_flagship():
 	var fleet = battle.ships.filter(func(s): return s.team == "player" and not s.sunk)

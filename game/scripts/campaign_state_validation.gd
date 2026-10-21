@@ -94,4 +94,11 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if b.has(key) and (not b[key] is Dictionary or b[key].size()>128):return "Invalid faction permits."
 		for value in b.get("safeConduct",{}).values():
 			if not number(value):return "Invalid safe conduct duration."
+	if s.has("navalAi"):
+		if not s.navalAi is Dictionary:return "Invalid naval activity book."
+		for key in ["encounters","replacements"]:
+			if not s.navalAi.get(key) is Array or s.navalAi[key].size()>24:return "Invalid bounded naval history."
+		for key in ["spatialGrid","ordersByOwner"]:
+			if not s.navalAi.get(key) is Dictionary or s.navalAi[key].size()>128:return "Invalid naval index."
+		if not number(s.navalAi.get("tickCount")) or not number(s.navalAi.get("lastDay")):return "Invalid naval day counter."
 	return ""

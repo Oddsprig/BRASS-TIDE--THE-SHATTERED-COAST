@@ -9,6 +9,7 @@ func check(ok: bool,message: String):
 func _initialize():
 	var w: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	var c=C.new(w);c.new_game(121)
+	check(c.Factions.relation(c.state,"reed","raiders")==-25 and c.Factions.relation(c.state,"raiders","reed")==-25,"Canonical pair ordering preserves Reed-raider hostility in both directions")
 	var supply: int=M.total(c.state)
 	check(c.Politics.access(c,c.current_port()).legal,"Neutral civilian harbor access")
 	var before: String=JSON.stringify(c.state)
