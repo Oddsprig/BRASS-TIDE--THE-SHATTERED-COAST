@@ -29,6 +29,7 @@ func _process(dt: float):
 	info.text="DEVELOPMENT · %s · physics %.2f ms\nF9 overlay · . single step · F6 repair/refill lab · F8 report\n%s"%[host.mode,host.simulation_us/1000.0,"Laboratory fixtures" if host.lab_active else "Read-only career diagnostics"]
 	if not b.is_empty():
 		info.text+="\nSeed %d · %.1f s · boats %d · shots %d · effects %d\nDeploy %d : %d / 300 · %s"%[host.lab_seed,b.time,b.ships.size(),b.projectiles.size(),b.effects.size(),b.deployment.player,b.deployment.enemy,"AI" if b.autopilot else "manual"]
+		info.text+="\nAudio events %d · scheduled %d · peak voices %d / 32 · culled %d"%[host.audio.received,host.audio.scheduled,host.audio.peak_voices,host.audio.dropped]
 		var ship: Dictionary=host.Battle.get_flagship(b)
 		if not ship.is_empty():
 			var status: Dictionary=host.Damage.get_status(ship)

@@ -1,27 +1,27 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.003)
+BRASS TIDE — PRESENTATION MAP (generated; v0.004)
 
-Campaign/battle telemetry -> main-thread canvas/UI and generated audio. No fluid or animated crew.
+Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 33575 bytes; extends Node2D
-  game/scripts/chart.gd:32 setup()
-  game/scripts/chart.gd:77 polygon()
-  game/scripts/chart.gd:83 polygon_center()
-  game/scripts/chart.gd:89 noise()
-  game/scripts/chart.gd:92 project()
-  game/scripts/chart.gd:96 world_at()
-game/scripts/boat_art.gd: 34670 bytes; extends RefCounted
-  game/scripts/boat_art.gd:22 archetype()
-  game/scripts/boat_art.gd:112 palette()
-  game/scripts/boat_art.gd:158 mounts_of()
-  game/scripts/boat_art.gd:531 draw_boat()
-  game/scripts/boat_art.gd:623 draw_wake()
-  game/scripts/boat_art.gd:673 draw_trail()
+game/scripts/chart.gd: 33095 bytes; extends Node2D
+  game/scripts/chart.gd:33 setup()
+  game/scripts/chart.gd:78 polygon()
+  game/scripts/chart.gd:84 polygon_center()
+  game/scripts/chart.gd:90 noise()
+  game/scripts/chart.gd:93 project()
+  game/scripts/chart.gd:97 world_at()
+game/scripts/boat_art.gd: 32336 bytes; extends RefCounted
+  game/scripts/boat_art.gd:23 archetype()
+  game/scripts/boat_art.gd:113 palette()
+  game/scripts/boat_art.gd:159 mounts_of()
+  game/scripts/boat_art.gd:488 draw_boat()
+  game/scripts/boat_art.gd:581 draw_wake()
+  game/scripts/boat_art.gd:631 draw_trail()
 game/scripts/boat_portrait.gd: 2957 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:32 set_spec()
   game/scripts/boat_portrait.gd:27 _init()
   game/scripts/boat_portrait.gd:35 _draw()
-game/scripts/interface.gd: 39803 bytes; extends CanvasLayer
+game/scripts/interface.gd: 40279 bytes; extends CanvasLayer
   game/scripts/interface.gd:42 setup()
   game/scripts/interface.gd:67 create_theme()
   game/scripts/interface.gd:87 box()
@@ -43,11 +43,6 @@ game/scripts/finance_ui.gd: 7552 bytes; extends RefCounted
   game/scripts/finance_ui.gd:24 good_recipe()
   game/scripts/finance_ui.gd:45 settlement()
   game/scripts/finance_ui.gd:73 fleet_accounts()
-game/scripts/sound.gd: 1697 bytes; extends Node
-  game/scripts/sound.gd:22 make_sound()
-  game/scripts/sound.gd:42 play()
-  game/scripts/sound.gd:9 _ready()
-  game/scripts/sound.gd:19 _process()
 
 TESTS (game/tests/*.gd)
 test_runtime; play questions in TO BE TESTED.md

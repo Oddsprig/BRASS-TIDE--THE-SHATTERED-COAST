@@ -1,0 +1,222 @@
+{
+  "sources": [
+    {
+      "id": "gun",
+      "title": "Freesound - Clean Machine Gun Burst by qubodup",
+      "creator": "qubodup",
+      "page": "https://freesound.org/people/qubodup/sounds/482122/",
+      "public_preview": "https://cdn.freesound.org/previews/482/482122_71257-hq.mp3",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "acquired": "2026-10-20",
+      "source_sha256": "ac12c79b300f6436519cf5d8978d6aaa994eb3258e9dcd59499378b873135562",
+      "license_page_sha256": "b8d776ffa52d1e2d221e7f2dce8b8d322cf46a89fc915b5560ed3634e8b67d29",
+      "recording_seconds": 1.5981859410430839,
+      "cuts_seconds": [
+        0.62,
+        1.06,
+        1.32
+      ],
+      "cut_duration": 0.135,
+      "edits": "Mono 44.1k PCM cuts from public HQ preview, high/low-pass, edge fades, limiter; no synthesized weapon attack. Not yet human-auditioned.",
+      "files": [
+        {
+          "file": "gun-1.wav",
+          "sha256": "3f5794e0f197e519ebcf1fd94c729e8585bac06463342f63c5cdfb6748457c8a"
+        },
+        {
+          "file": "gun-2.wav",
+          "sha256": "ea168f4de497b67f7b48df79ae9579be7d99ef2188145bdace316dbc1fc3e8d5"
+        },
+        {
+          "file": "gun-3.wav",
+          "sha256": "3d8db290573d531795ae2611be0961ac9a5f10e2ab16765bbefbf6ea0d8f238a"
+        }
+      ]
+    },
+    {
+      "id": "cannon",
+      "title": "Freesound - Artillery Gunfire by qubodup",
+      "creator": "qubodup",
+      "page": "https://freesound.org/people/qubodup/sounds/239137/",
+      "public_preview": "https://cdn.freesound.org/previews/239/239137_71257-hq.mp3",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "acquired": "2026-10-20",
+      "source_sha256": "6b5d70ee4467a8b4998064a8e01fb5bd5cf58304ab95eccb357558d68ce90a47",
+      "license_page_sha256": "477a97790d04b41c723b27f8f2e409fd5e981b26148955c01cfeae71157fae80",
+      "recording_seconds": 6.910544217687074,
+      "cuts_seconds": [
+        0,
+        3.08,
+        5.1000000000000005
+      ],
+      "cut_duration": 1.35,
+      "edits": "Mono 44.1k PCM cuts from public HQ preview, high/low-pass, edge fades, limiter; no synthesized weapon attack. Not yet human-auditioned.",
+      "files": [
+        {
+          "file": "cannon-1.wav",
+          "sha256": "045a6971f83ae8c3369d3b1004501cc38ce1065c43165edf459180c42e323531"
+        },
+        {
+          "file": "cannon-2.wav",
+          "sha256": "71f39e738ffa196a7567455536f023162afc77b70acb1fcadbdb24aabfdf1b1d"
+        },
+        {
+          "file": "cannon-3.wav",
+          "sha256": "fd7861a3c3837c0b0caae9f3251f15d97a707ae9c2dac386155b47d8a9ab1a32"
+        }
+      ]
+    },
+    {
+      "id": "rocket",
+      "title": "Freesound - Rocket Launch.flac by qubodup",
+      "creator": "qubodup",
+      "page": "https://freesound.org/people/qubodup/sounds/182794/",
+      "public_preview": "https://cdn.freesound.org/previews/182/182794_71257-hq.mp3",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "acquired": "2026-10-20",
+      "source_sha256": "6853bef08fe98fd3682bf0622f23693b2fb05dd8a02a2c69804654bce8b49d16",
+      "license_page_sha256": "83157ea730c6a6125e026f8bc00d622529f41a8048230287ccef8c9f924785f8",
+      "recording_seconds": 26.569523809523808,
+      "cuts_seconds": [
+        0.59,
+        7.28,
+        19.25
+      ],
+      "cut_duration": 0.85,
+      "edits": "Mono 44.1k PCM cuts from public HQ preview, high/low-pass, edge fades, limiter; no synthesized weapon attack. Not yet human-auditioned.",
+      "files": [
+        {
+          "file": "rocket-1.wav",
+          "sha256": "67ab5b78a966a9b2c61f31c1eac6d7b38463738c65791ee618d21a7efec54443"
+        },
+        {
+          "file": "rocket-2.wav",
+          "sha256": "03ac1df38cc073cfdbe825b09e955c5447759300f60951623cc3097eb5e884e3"
+        },
+        {
+          "file": "rocket-3.wav",
+          "sha256": "d5a0cbbecf0e4bdf9f45395686c12959f38ff20f0bb19d38d3cd68d584ad9224"
+        }
+      ]
+    },
+    {
+      "id": "splash",
+      "title": "Freesound - Water splash, emptying a bucket 8 by wormer2",
+      "creator": "wormer2",
+      "page": "https://freesound.org/people/wormer2/sounds/417992/",
+      "public_preview": "https://cdn.freesound.org/previews/417/417992_2383863-hq.mp3",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "acquired": "2026-10-20",
+      "source_sha256": "9724b818f39576c1f73e83837417b6f2d2ace39ba04765c0a18fe9bfff6c8348",
+      "license_page_sha256": "927308410c974cb4db26b20927e50ff8fa984040aa77eef20ffec959c62c0ae5",
+      "recording_seconds": 8.77501133786848,
+      "cuts_seconds": [
+        0.29,
+        0.76,
+        1.22
+      ],
+      "cut_duration": 0.65,
+      "edits": "Mono 44.1k PCM cuts from public HQ preview, high/low-pass, edge fades, limiter; no synthesized weapon attack. Not yet human-auditioned.",
+      "files": [
+        {
+          "file": "splash-1.wav",
+          "sha256": "0b2be03d47d84f0d4d0ffaa6bb47be7c5590be010458fd7168c2dc8ecf4f0b5f"
+        },
+        {
+          "file": "splash-2.wav",
+          "sha256": "56186d78a06e735040a16ed18b579babc86b5b35148888e23b523ed0ea80c808"
+        },
+        {
+          "file": "splash-3.wav",
+          "sha256": "276dcbf40fc08b5691dcc3d4a7ed274e50a6d6b86cb4ac45040d738a0a4a71b3"
+        }
+      ]
+    },
+    {
+      "id": "metal",
+      "title": "Freesound - metallic hit - wooden spoon on pot bottom muted.wav by chonkdonk",
+      "creator": "chonkdonk",
+      "page": "https://freesound.org/people/chonkdonk/sounds/618292/",
+      "public_preview": "https://cdn.freesound.org/previews/618/618292_13093778-hq.mp3",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "acquired": "2026-10-20",
+      "source_sha256": "5bae40e9cf013af0082fe0314d626e4ee72c0ff3fd6ab5d7053a9f29dd67b4b7",
+      "license_page_sha256": "5b05cde3609020cb1de7bae1bff515ae4585b34a3ec46a24fafecb21f2a67f0e",
+      "recording_seconds": 13.345668934240363,
+      "cuts_seconds": [
+        2.19,
+        8.450000000000001,
+        11.23
+      ],
+      "cut_duration": 0.24,
+      "edits": "Mono 44.1k PCM cuts from public HQ preview, high/low-pass, edge fades, limiter; no synthesized weapon attack. Not yet human-auditioned.",
+      "files": [
+        {
+          "file": "metal-1.wav",
+          "sha256": "5d366c644d2c41c66f5f9f29c4bbb3989cf7fd644a209397e847f07207bc676b"
+        },
+        {
+          "file": "metal-2.wav",
+          "sha256": "779cdd76e9065d662b700da3b73c2587d7c62a8ed34d1f88639710ba3f4fb6af"
+        },
+        {
+          "file": "metal-3.wav",
+          "sha256": "b6047971c5fd8781d0c192e02b7202f6ec5bbc1fb6aae606e31315fec2be05d7"
+        }
+      ]
+    },
+    {
+      "id": "wood",
+      "title": "Freesound - wood board hit with metal.wav by alec_mackay",
+      "creator": "alec_mackay",
+      "page": "https://freesound.org/people/alec_mackay/sounds/463662/",
+      "public_preview": "https://cdn.freesound.org/previews/463/463662_6551032-hq.mp3",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "acquired": "2026-10-20",
+      "source_sha256": "bda7d47a5992464aa1c1f692b48131ab3afedee9be558c7097fb33c5beb8da6f",
+      "license_page_sha256": "a3ed7671ff4fe59b5077da8b0f42a0df2abf2460cc14cd115ecd46048df21972",
+      "recording_seconds": 45.270204081632656,
+      "cuts_seconds": [
+        8.75,
+        19.93,
+        25.76
+      ],
+      "cut_duration": 0.25,
+      "edits": "Mono 44.1k PCM cuts from public HQ preview, high/low-pass, edge fades, limiter; no synthesized weapon attack. Not yet human-auditioned.",
+      "files": [
+        {
+          "file": "wood-1.wav",
+          "sha256": "7f7e591c222b2aa9b70c3795ed8250cb8b25fc004744f6c25cbe961191e4d28e"
+        },
+        {
+          "file": "wood-2.wav",
+          "sha256": "6b5e42e174ade8496500dc6df0edae07f159f62c6ec5f0de9b5be8800d86b76d"
+        },
+        {
+          "file": "wood-3.wav",
+          "sha256": "deb55d72c1660d99072a4139c015782d131afe1227d1f9d4255192d55e77b2d9"
+        }
+      ]
+    },
+    {
+      "id": "engine",
+      "creator": "Brass Tide original procedural asset",
+      "page": "Original game project",
+      "license": "Original project asset",
+      "edits": "Quiet low engine bed, generated periodic45/90/135Hz motor harmonics and low broadband components. This is not a field recording or a weapon sound. Field-recording acquisition returned403 and was not represented as acquired.",
+      "files": [
+        {
+          "file": "engine.wav",
+          "sha256": "915f55fc10243ef737d9ec8504a5d537db8f7d166a4baf4ff46c256a12df787a"
+        }
+      ]
+    }
+  ],
+  "note": "Public CC0 recording previews; no game rip, purchase or synthesized weapon attack."
+}

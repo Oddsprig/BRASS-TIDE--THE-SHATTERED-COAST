@@ -635,6 +635,14 @@ func open_settings():
 	var body = modal("Settings", "VIDEO · AUDIO · PERFORMANCE", 800, 650)
 	button(body, "Toggle fullscreen · F11", host.toggle_fullscreen)
 	button(body, "Sound: ON" if host.audio.enabled else "Sound: OFF", func(): host.audio.enabled = not host.audio.enabled; open_settings())
+	for pair in [["weapon_volume","Weapons"],["ambience_volume","Engines / ambience"]]:
+		label(body,pair[1],14,GOLD)
+		var volume_slider=HSlider.new()
+		volume_slider.min_value=0;volume_slider.max_value=1;volume_slider.step=0.01;volume_slider.value=host.audio.get(pair[0])
+		volume_slider.custom_minimum_size=Vector2(360,24)
+		var property: String=pair[0]
+		volume_slider.value_changed.connect(func(value):host.audio.set(property,value))
+		body.add_child(volume_slider)
 	button(body,"Music: "+("ON" if host.music.enabled else "OFF"),func():host.music.enabled=not host.music.enabled;open_settings())
 	paragraph(body,"Now playing: "+host.music.title(),15,GOLD)
 	var music_volume=HSlider.new()

@@ -109,6 +109,9 @@ func _process(dt: float):
 		if axis.length_squared() > 0:
 			chart.pan_camera(axis.normalized(), minf(dt, 0.1), Input.is_physical_key_pressed(KEY_SHIFT))
 	chart.step(minf(dt, 0.1))
+	var running: bool=mode=="battle" and not paused and not ui.modal_open
+	if mode=="campaign" and not core.state.is_empty():running=not core.state.path.is_empty() and not paused and not ui.modal_open
+	audio.set_engine(running,0.65)
 	music.set_context("title" if mode=="menu" else ("combat" if mode=="battle" else ("harbor" if ui.modal_open else "travel")))
 	hud_timer += dt
 	if hud_timer >= 0.15:
@@ -144,15 +147,10 @@ func _physics_process(dt: float):
 		var started: int=Time.get_ticks_usec()
 		var aim = chart.world_at(get_global_mouse_position())
 		var flagship = Battle.get_flagship(battle)
-		var old_ammo = flagship.get("ammo", 0)
 		var manual = not bool(battle.get("autopilot", true)) and not tactical_mode
 		Battle.update(battle, dt, {"manual":manual,"forward":Input.is_key_pressed(KEY_UP),"backward":Input.is_key_pressed(KEY_DOWN),"left":Input.is_key_pressed(KEY_LEFT),"right":Input.is_key_pressed(KEY_RIGHT),"boost":Input.is_key_pressed(KEY_CTRL),"fire":manual and fire_held,"aimX":aim.x,"aimY":aim.y})
 		simulation_us=Time.get_ticks_usec()-started
-		if not flagship.is_empty() and flagship.ammo < old_ammo:
-			audio.play("shot")
-		if battle.wrecks.size() > battle_last_wrecks:
-			battle_last_wrecks = battle.wrecks.size()
-			audio.play("boom")
+		audio.consume(Battle.pop_events(battle),chart)
 		if battle.result != null:
 			result_handled = true
 			settle_battle.call_deferred()
@@ -450,6 +448,7 @@ func start_lab():
 	_enter_battle()
 
 func _enter_battle():
+	audio.reset_battle()
 	ui.modal_kind = ""
 	mode = "battle"
 	paused = false

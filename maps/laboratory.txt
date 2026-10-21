@@ -1,0 +1,29 @@
+BRASS TIDE — LABORATORY MAP (generated; v0.004)
+
+Title builder -> isolated normal300point battle, seeded replay/results and opt-in developer metrics.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/fleet_lab.gd: 3213 bytes; extends RefCounted
+  game/scripts/fleet_lab.gd:8 hull()
+  game/scripts/fleet_lab.gd:13 entry()
+  game/scripts/fleet_lab.gd:16 presets()
+  game/scripts/fleet_lab.gd:19 preset()
+  game/scripts/fleet_lab.gd:30 inspect()
+  game/scripts/fleet_lab.gd:50 create()
+game/scripts/lab_ui.gd: 6788 bytes; extends RefCounted
+  game/scripts/lab_ui.gd:6 picker()
+  game/scripts/lab_ui.gd:18 open()
+  game/scripts/lab_ui.gd:63 update_summary()
+  game/scripts/lab_ui.gd:69 add()
+  game/scripts/lab_ui.gd:80 edit()
+  game/scripts/lab_ui.gd:109 results()
+game/scripts/dev_tools.gd: 2908 bytes; extends CanvasLayer
+  game/scripts/dev_tools.gd:8 setup()
+  game/scripts/dev_tools.gd:38 refill()
+  game/scripts/dev_tools.gd:48 snapshot()
+  game/scripts/dev_tools.gd:22 _process()
+
+TESTS (game/tests/*.gd)
+test_laboratory, test_commander
+
+Full symbols: rg -n '^func |^static func ' on named files.

@@ -1,0 +1,53 @@
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.004)
+
+Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/sound.gd: 5525 bytes; extends Node2D
+  game/scripts/sound.gd:52 reset_battle()
+  game/scripts/sound.gd:65 priority()
+  game/scripts/sound.gd:70 consume()
+  game/scripts/sound.gd:130 set_engine()
+  game/scripts/sound.gd:137 play()
+  game/scripts/sound.gd:21 _ready()
+  game/scripts/sound.gd:57 _process()
+  game/scripts/sound.gd:103 _schedule()
+game/scripts/music.gd: 4345 bytes; extends Node
+  game/scripts/music.gd:51 rescan()
+  game/scripts/music.gd:66 load_track()
+  game/scripts/music.gd:73 set_context()
+  game/scripts/music.gd:79 next_track()
+  game/scripts/music.gd:110 title()
+  game/scripts/music.gd:18 _ready()
+  game/scripts/music.gd:29 _scan()
+  game/scripts/music.gd:97 _process()
+game/scripts/combat_art.gd: 3874 bytes; extends RefCounted
+  game/scripts/combat_art.gd:3 effect()
+  game/scripts/combat_art.gd:50 wreck()
+game/scripts/combat_events.gd: 36525 bytes; extends RefCounted
+  game/scripts/combat_events.gd:14 number()
+  game/scripts/combat_events.gd:19 weapon_family()
+  game/scripts/combat_events.gd:35 projectile_kind()
+  game/scripts/combat_events.gd:49 weapon_variant()
+  game/scripts/combat_events.gd:71 archetype()
+  game/scripts/combat_events.gd:91 hull_material()
+  game/scripts/combat_events.gd:112 ensure_state()
+  game/scripts/combat_events.gd:126 begin_step()
+  game/scripts/combat_events.gd:130 sync_mount_shots()
+  game/scripts/combat_events.gd:158 record_mount_shot()
+  game/scripts/combat_events.gd:176 mount_shot_time()
+  game/scripts/combat_events.gd:194 mount_shot_age()
+game/scripts/weapon_art.gd: 6543 bytes; extends RefCounted
+  game/scripts/weapon_art.gd:5 draw()
+  game/scripts/weapon_art.gd:71 mount_tier()
+  game/scripts/weapon_art.gd:65 _p()
+  game/scripts/weapon_art.gd:74 _face()
+  game/scripts/weapon_art.gd:82 _line()
+  game/scripts/weapon_art.gd:86 _box()
+  game/scripts/weapon_art.gd:97 _pad()
+  game/scripts/weapon_art.gd:106 _tube()
+
+TESTS (game/tests/*.gd)
+test_audio, test_combat_events; tools/audit_boat_geometry.gd and tools/boat_gallery.gd
+
+Full symbols: rg -n '^func |^static func ' on named files.

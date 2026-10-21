@@ -1,6 +1,7 @@
 extends Node2D
 
 const BoatArt = preload("res://scripts/boat_art.gd")
+const CombatArt = preload("res://scripts/combat_art.gd")
 const GOLD = Color("dfbd7d")
 const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
@@ -629,7 +630,7 @@ func draw_battle():
 	if not flagship.is_empty():
 		world_ring(Vector2(flagship.x, flagship.y), flagship.spec.range, Color(0.75, 0.84, 0.63, 0.07), 1.0)
 	for wreck in battle.wrecks:
-		world_ring(Vector2(wreck.x, wreck.y), wreck.size * 1.5, Color(0.02, 0.10, 0.13, 0.35), wreck.size * scale_factor * 0.55)
+		CombatArt.wreck(self,wreck)
 	_draw_wakes()
 	_draw_trails()
 	var selected_ids := _selected_battle_ids(battle)
@@ -649,13 +650,7 @@ func draw_battle():
 		pass
 		pass
 	for effect in battle.effects:
-		var t = effect.age / effect.life
-		var p = project(Vector2(effect.x, effect.y), 10)
-		var r = (32 if effect.type == "explosion" else 11 if effect.type == "muzzle" else 18) * scale_factor * (0.2 + t)
-		var color = Color(0.65, 0.88, 0.79, 1.0 - t) if effect.type == "splash" else Color(1, 0.72, 0.37, 1 - t)
-		draw_circle(p, r * 1.8, Color(color, (1.0 - t) * 0.10))
-		draw_circle(p, r * 0.6, color)
-		draw_arc(p, r, 0, TAU, 16, Color(0.94, 0.91, 0.71, 1 - t), 1.0, true)
+		CombatArt.effect(self,effect)
 	if not flagship.is_empty():
 		var nearest: Dictionary = {}
 		var best = INF

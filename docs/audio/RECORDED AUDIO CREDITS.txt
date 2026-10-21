@@ -1,0 +1,15 @@
+BRASS TIDE — RECORDED AUDIO CREDITS
+
+Edited excerpts of public CC0-1.0 recordings; original pages and hashes in game/assets/sfx/manifest.json.
+License: https://creativecommons.org/publicdomain/zero/1.0/
+
+gun — qubodup — https://freesound.org/people/qubodup/sounds/482122/
+cannon — qubodup — https://freesound.org/people/qubodup/sounds/239137/
+rocket — qubodup — https://freesound.org/people/qubodup/sounds/182794/
+splash — wormer2 — https://freesound.org/people/wormer2/sounds/417992/
+metal — chonkdonk — https://freesound.org/people/chonkdonk/sounds/618292/
+wood — alec_mackay — https://freesound.org/people/alec_mackay/sounds/463662/
+engine — Brass Tide original procedural asset — Original game project
+
+Clean Machine Gun Burst, Artillery Gunfire and Rocket Launch: qubodup; creator describes military/public-domain source material. Source-page license retained; voluntary credit given.
+SFX cuts are adapted recording layers, not a claim that every sound is a literal recording of this fictional weapon. No listening quality claim from codec tests.

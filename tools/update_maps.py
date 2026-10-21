@@ -21,9 +21,15 @@ GROUPS = {
     "navigation": (["navigation"],
                    "Original island polygons/endpoints -> bounded precomputed water grid and safe water paths.",
                    "test_navigation, test_runtime, test_voyage"),
-    "presentation": (["chart", "boat_art", "boat_portrait", "interface", "tactics_ui", "refit_ui", "finance_ui", "sound"],
-                     "Campaign/battle telemetry -> main-thread canvas/UI and generated audio. No fluid or animated crew.",
+    "presentation": (["chart", "boat_art", "boat_portrait", "interface", "tactics_ui", "refit_ui", "finance_ui"],
+                     "Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.",
                      "test_runtime; play questions in TO BE TESTED.md"),
+    "audio-effects": (["sound", "music", "combat_art", "combat_events", "weapon_art"],
+                      "Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.",
+                      "test_audio, test_combat_events; tools/audit_boat_geometry.gd and tools/boat_gallery.gd"),
+    "laboratory": (["fleet_lab", "lab_ui", "dev_tools"],
+                   "Title builder -> isolated normal300point battle, seeded replay/results and opt-in developer metrics.",
+                   "test_laboratory, test_commander"),
 }
 EXCLUDED = {".git", ".godot", ".openai", "qa", "toolchain", "releases", "saves", "__pycache__"}
 

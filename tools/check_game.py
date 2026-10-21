@@ -10,7 +10,7 @@ from qa_brass import existing_game
 ROOT = Path(__file__).resolve().parents[1]
 SUITES = ["damage", "battle", "navigation", "economy", "construction",
           "fleet_economy", "campaign_cash", "save_validation", "runtime", "voyage",
-          "tactics", "refit", "fleet_points", "commander", "autovoyage", "laboratory"]
+          "tactics", "refit", "fleet_points", "commander", "autovoyage", "laboratory", "combat_events", "audio"]
 
 
 def main():
@@ -20,9 +20,18 @@ def main():
     parser.add_argument("--logs", type=Path, default=ROOT.parent.parent / "work" / "qa" / "final")
     parser.add_argument("--only", nargs="+", choices=SUITES)
     args = parser.parse_args()
+    args.logs = args.logs.resolve()
     args.logs.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
     env["APPDATA"] = str(args.logs / "appdata")
+    if (args.project / 'assets/sfx').is_dir() and not list((args.project / '.godot/imported').glob('gun-1.wav-*.sample')):
+        if existing_game(): raise RuntimeError('Another game/editor is running; no import launched.')
+        result=subprocess.run([str(args.engine.resolve()),'--headless','--path',str(args.project.resolve()),'--editor','--import','--quit'],capture_output=True,text=True,encoding='utf-8',errors='replace',env=env,timeout=60,creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+        output=result.stdout+result.stderr
+        (args.logs/'asset-import.log').write_text(output,encoding='utf-8')
+        if result.returncode or re.search(r'SCRIPT ERROR:|(?m:^ERROR:)|Parse Error',output):
+            print('FAIL asset import; inspect asset-import.log')
+            return 1
     bad = []
     for suite in args.only or SUITES:
         if existing_game():

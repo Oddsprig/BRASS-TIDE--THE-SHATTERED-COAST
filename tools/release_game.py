@@ -83,6 +83,7 @@ def main():
     for name in ["ECONOMY.md", "ORIGINALITY AND CREDITS.md", "BUILD AND TEST.md", "CODEX PORTABLE BUILD RULES.txt"]:
         shutil.copy2(ROOT / "docs" / name, docs / name)
     shutil.copytree(ROOT / "docs/legal", docs / "legal", dirs_exist_ok=True)
+    shutil.copytree(ROOT / "docs/audio", docs / "audio", dirs_exist_ok=True)
     for name in ["AGENTS.md", "CODE MAP.md", "HANDOFF.md", "ROADMAP.md", "VERSION MAP.txt", "DEV LOG.txt", "TO BE TESTED.md", "VERSIONS.md", f"CHANGES v{VERSION}.md"]:
         shutil.copy2(ROOT / name, docs / name)
     shutil.copytree(ROOT / "maps", dest / "maps", dirs_exist_ok=True)

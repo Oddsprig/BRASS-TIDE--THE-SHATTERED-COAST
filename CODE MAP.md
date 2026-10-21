@@ -1,3 +1,7 @@
+# Active source v0.004
+
+Implemented additions: fleet_lab.gd and lab_ui.gd own normal300point fixtures/builder/results; dev_tools.gd is explicit opt-in lab tooling; music.gd loads portable/Desktop music at runtime. Main isolates/restores career objects. Release/check runners serialize engine processes. Read generated maps and maps/development.txt for older-tool context. Later system additions are recorded below.
+
 # Active source v0.003
 
 Implemented additions: fleet_lab.gd and lab_ui.gd own normal300point fixtures/builder/results; dev_tools.gd is explicit opt-in lab tooling; music.gd loads portable/Desktop music at runtime. Main isolates/restores career objects. Release/check runners serialize engine processes. Read generated maps and maps/development.txt for older-tool context. Later system additions are recorded below.

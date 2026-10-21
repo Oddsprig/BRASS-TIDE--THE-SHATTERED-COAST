@@ -13,6 +13,7 @@ extends RefCounted
 
 const FOAM := Color(0.73, 0.87, 0.75, 1.0)
 const WAKE_LIFE := 6.0
+const WeaponArt = preload("res://scripts/weapon_art.gd")
 
 static var _station_cache: Dictionary = {}
 static var _audit_geometry: bool = "--qa-geometry" in OS.get_cmdline_user_args()
@@ -180,8 +181,11 @@ static func mounts_of(spec: Dictionary) -> Array:
 			# Refit/combat may author x,y in world units; local units are ~[-2.3, 2.3].
 			mx /= size
 			my /= size
+			var raw_size=m.get("size",1)
+			var tier: int=int(raw_size) if not raw_size is String else {"small":1,"medium":2,"large":3}.get(str(raw_size),1)
 			out.append({"kind": kind, "x": clampf(mx, -2.2, 2.2), "y": clampf(my, -1.2, 1.2),
-				"angle": float(m.get("angle", 0.0)), "scale": _mount_scale(m.get("size", 0))})
+				"id":str(m.get("id","mount-%d"%out.size())),"moduleId":str(m.get("moduleId","")),"size":tier,
+				"angle": float(m.get("angle", 0.0)), "scale": _mount_scale(raw_size)})
 			if out.size() >= 6:
 				break
 		return out
@@ -475,54 +479,7 @@ static func _superstructure(ctx: Dictionary, arch: String, spec: Dictionary, c: 
 			_vents(ctx, -1.20, 0.28, c, 3)
 
 static func _draw_mount(ctx: Dictionary, m: Dictionary, turret_world: float, c: Dictionary) -> void:
-	var at := Vector2(float(m.x), float(m.y))
-	var k := float(m.scale)
-	var lod := int(ctx.lod)
-	# Local bearing of the weapon: turreted guns follow the boat's turret, fixed
-	# tubes/racks keep their fitted local angle.
-	var bearing := float(m.angle)
-	if str(m.kind) in ["gun", "cannon"]:
-		bearing = turret_world - float(ctx.angle)
-	var dir := Vector2.from_angle(bearing)
-	var side := dir.orthogonal()
-	match str(m.kind):
-		"gun":
-			_circ(ctx, at, 11.0, 0.16 * k, c.metal)
-			_poly(ctx, [at + dir * 0.20 * k + side * 0.17 * k, at + dir * 0.20 * k - side * 0.17 * k,
-				at + dir * 0.02 * k - side * 0.13 * k, at + dir * 0.02 * k + side * 0.13 * k], 13.5, c.plate)
-			for s in [-1.0, 1.0]:
-				_seg(ctx, at + side * 0.045 * k * s, at + dir * 0.78 * k + side * 0.045 * k * s, 15.0, Color("202e33"), maxf(1.4, _wline(ctx) * 1.8))
-				_seg(ctx, at + side * 0.045 * k * s, at + dir * 0.78 * k + side * 0.045 * k * s, 15.6, c.metal_light, maxf(0.8, _wline(ctx) * 0.8))
-			if lod == 0:
-				_figure(ctx, at - dir * 0.28 * k, c, 12.0)
-		"cannon":
-			_circ(ctx, at, 11.0, 0.27 * k, Color(c.metal).darkened(0.15))
-			_rect(ctx, at.x + dir.x * 0.05, at.y + dir.y * 0.05, 0.46 * k, 0.36 * k, 14.5, c.plate, bearing)
-			_seg(ctx, at, at + dir * 1.05 * k, 16.0, Color("232f34"), maxf(2.2, _wline(ctx) * 3.0))
-			_seg(ctx, at + dir * 0.10 * k, at + dir * 1.08 * k, 16.8, c.metal_light, maxf(1.0, _wline(ctx) * 1.2))
-			_circ(ctx, at + dir * 1.08 * k, 16.5, 0.055 * k, Color("141d21"))
-			if lod == 0:
-				_circ(ctx, at - dir * 0.16 * k, 15.5, 0.045 * k, c.brass)
-		"rocket":
-			_rect(ctx, at.x, at.y, 0.62 * k, 0.58 * k, 12.5, c.metal, bearing)
-			var tubes := 4 if lod < 2 else 2
-			for i in range(tubes):
-				var off := (float(i) - float(tubes - 1) * 0.5) * 0.13 * k
-				var base := at + side * off - dir * 0.18 * k
-				_seg(ctx, base, base + dir * 0.72 * k, 17.0, Color("2b383c"), maxf(1.8, _wline(ctx) * 2.2))
-				_circ(ctx, base + dir * 0.72 * k, 17.5, 0.045 * k, Color("d8b36a"))
-			if lod == 0:
-				for s in [-1.0, 1.0]:
-					_seg(ctx, at + side * 0.26 * k * s - dir * 0.25 * k, at + side * 0.26 * k * s + dir * 0.05 * k, 10.5, c.metal_light, _wline(ctx))
-		"torpedo":
-			for s in [-1.0, 1.0]:
-				var tube_c := at + Vector2(0, s * 0.09 * k)
-				_seg(ctx, tube_c - dir * 0.55 * k, tube_c + dir * 0.62 * k, 12.5, Color("9aa583"), maxf(2.0, _wline(ctx) * 2.8))
-				_seg(ctx, tube_c - dir * 0.55 * k, tube_c + dir * 0.62 * k, 13.2, Color("3c4a4a"), maxf(0.8, _wline(ctx) * 0.9))
-				_circ(ctx, tube_c + dir * 0.62 * k, 13.0, 0.05 * k, Color("202a2c"))
-			if lod == 0:
-				for t in [0.25, 0.65]:
-					_circ(ctx, at - dir * 0.55 * k + dir * 1.17 * k * t, 13.4, 0.028 * k, c.brass)
+	WeaponArt.draw(ctx,m,turret_world,c)
 
 # --- main entry ---------------------------------------------------------------
 ## opts: accent:Color, enemy:bool, lod:int 0..2, clock:float,
@@ -544,6 +501,7 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 		"px": maxf(2.0, float(opts.get("px", 12.0))),
 		"lod": clampi(int(opts.get("lod", 0)), 0, 2),
 		"clock": float(opts.get("clock", 0.0)), "speed": vel.length(),
+		"shots":boat.get("mountShotTimes",{}),
 		"n": 0, "npoly": 0, "nline": 0, "ncirc": 0,
 	}
 	var stations := _stations(spec)

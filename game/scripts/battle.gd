@@ -2,9 +2,14 @@ extends RefCounted
 ## Pure fixed-step combat. State and RNG belong exclusively to the caller.
 const Damage=preload("res://scripts/damage.gd")
 const Deployment=preload("res://scripts/deployment.gd")
+const CombatEvents=preload("res://scripts/combat_events.gd")
 const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
 const MAX_MOUNTS: int=16
+const MAX_EVENTS: int=CombatEvents.MAX_EVENTS
+const MAX_STEP_EVENTS: int=CombatEvents.MAX_STEP_EVENTS
+const MAX_EFFECTS: int=CombatEvents.MAX_EFFECTS
+const MAX_WRECKS: int=CombatEvents.MAX_WRECKS
 
 static func _pos(s: Dictionary) -> Vector2:
 	return Vector2(s.x,s.y)
@@ -28,9 +33,7 @@ static func _edge_distance(p: Vector2,a: Vector2,b: Vector2) -> float:
 	var t: float=clampf((p-a).dot(delta)/maxf(0.00001,delta.length_squared()),0.0,1.0)
 	return p.distance_to(a+delta*t)
 
-static func _blocked(st: Dictionary, p: Vector2, r: float) -> bool:
-	if p.x<r or p.x>WIDTH-r or p.y<r or p.y>HEIGHT-r:
-		return true
+static func _island_blocked(st: Dictionary, p: Vector2, r: float) -> bool:
 	for island in st.islands:
 		var points: Array=island.points
 		if _inside(p,points):
@@ -42,10 +45,28 @@ static func _blocked(st: Dictionary, p: Vector2, r: float) -> bool:
 				return true
 	return false
 
-static func _effect(st: Dictionary,p: Vector2,type: String) -> void:
-	st.effects.append({"x":p.x,"y":p.y,"type":type,"age":0.0,"life":1.3 if type=="explosion" else (0.16 if type=="muzzle" else 0.45)})
-	if st.effects.size()>200:
-		st.effects.pop_front()
+static func _blocked(st: Dictionary, p: Vector2, r: float) -> bool:
+	if p.x<r or p.x>WIDTH-r or p.y<r or p.y>HEIGHT-r:
+		return true
+	return _island_blocked(st,p,r)
+
+static func _effect(st: Dictionary,p: Vector2,type: String,meta: Dictionary={}) -> void:
+	CombatEvents.add_effect(st,p,type,meta)
+
+static func pop_events(st: Dictionary) -> Array:
+	return CombatEvents.pop_events(st)
+
+static func mount_shot_time(s: Dictionary,mount_id_or_index) -> float:
+	return CombatEvents.mount_shot_time(s,mount_id_or_index)
+
+static func mount_shot_age(s: Dictionary,mount_id_or_index,now: float=NAN) -> float:
+	return CombatEvents.mount_shot_age(s,mount_id_or_index,now)
+
+static func hull_material(s: Dictionary) -> String:
+	return CombatEvents.hull_material(s)
+
+static func weapon_family(kind) -> String:
+	return CombatEvents.weapon_family(kind)
 
 static func _log(st: Dictionary,message: String) -> void:
 	st.log.append(message)
@@ -55,7 +76,7 @@ static func _log(st: Dictionary,message: String) -> void:
 static func create(options: Dictionary) -> Dictionary:
 	var random: RandomNumberGenerator=RandomNumberGenerator.new()
 	random.seed=int(options.get("seed",1))
-	var st: Dictionary={"ships":[],"projectiles":[],"effects":[],"wrecks":[],"time":0.0,"result":null,"playerId":null,"order":"engage","autopilot":true,"rng":random,"location":options.get("location",{"name":"Open water"}),"islands":[],"log":[],"retreatTimer":null,"reserves":{"player":[],"enemy":[]},"deployment":{"player":0,"enemy":0,"limit":Deployment.LIMIT}}
+	var st: Dictionary={"ships":[],"projectiles":[],"effects":[],"wrecks":[],"events":[],"eventSeq":0,"droppedEvents":0,"_stepEvents":0,"_engineTracker":{},"_hitTracker":{},"time":0.0,"result":null,"playerId":null,"order":"engage","autopilot":true,"rng":random,"location":options.get("location",{"name":"Open water"}),"islands":[],"log":[],"retreatTimer":null,"reserves":{"player":[],"enemy":[]},"deployment":{"player":0,"enemy":0,"limit":Deployment.LIMIT}}
 	for island in options.get("islands",[]):
 		var points: Array=island.get("points",[]) if island is Dictionary else island
 		if points.size()>=3:
@@ -95,9 +116,11 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: 
 	s.vy=0.0
 	s.armor=maxf(0.0,Damage.number(s.spec.get("armor"),Damage.number(s.get("armor"))))
 	s.cooldown=0.0
+	var mounts: Array=_mounts(s)
 	s.weaponCooldowns=[]
-	for mount in _mounts(s):
+	for mount in mounts:
 		s.weaponCooldowns.append(0.0)
+	CombatEvents.register_ship(st,s,mounts)
 	s.selected=false
 	s.order="engage"
 	s.orderTarget={}
@@ -220,7 +243,7 @@ static func _mounts(s: Dictionary) -> Array:
 		if kind not in ["gun","cannon","rocket","torpedo"]:
 			continue
 		var speed: float=240.0 if kind=="torpedo" else (730.0 if kind=="rocket" else (620.0 if kind=="cannon" else 850.0))
-		mounts.append({"id":str(raw.get("id","mount-%d"%mounts.size())),"kind":kind,"damage":clampf(Damage.number(raw.get("damage"),10.0),0.0,100000.0),"fireRate":clampf(Damage.number(raw.get("fireRate"),1.0),0.05,60.0),"range":clampf(Damage.number(raw.get("range"),400.0),1.0,5000.0),"speed":clampf(Damage.number(raw.get("speed"),speed),20.0,5000.0),"ammoCost":int(ceil(clampf(Damage.number(raw.get("ammoCost"),1.0),1.0,1000.0))),"x":clampf(Damage.number(raw.get("x")),-150.0,150.0),"y":clampf(Damage.number(raw.get("y")),-150.0,150.0),"arc":clampf(Damage.number(raw.get("arc"),TAU),0.01,TAU),"angle":wrapf(Damage.number(raw.get("angle")),-PI,PI),"legacy":legacy})
+		mounts.append({"id":str(raw.get("id","mount-%d"%mounts.size())),"moduleId":str(raw.get("moduleId","")),"size":int(clampf(Damage.number(raw.get("size"),1.0),1.0,4.0)),"kind":kind,"damage":clampf(Damage.number(raw.get("damage"),10.0),0.0,100000.0),"fireRate":clampf(Damage.number(raw.get("fireRate"),1.0),0.05,60.0),"range":clampf(Damage.number(raw.get("range"),400.0),1.0,5000.0),"speed":clampf(Damage.number(raw.get("speed"),speed),20.0,5000.0),"ammoCost":int(ceil(clampf(Damage.number(raw.get("ammoCost"),1.0),1.0,1000.0))),"x":clampf(Damage.number(raw.get("x")),-150.0,150.0),"y":clampf(Damage.number(raw.get("y")),-150.0,150.0),"arc":clampf(Damage.number(raw.get("arc"),TAU),0.01,TAU),"angle":wrapf(Damage.number(raw.get("angle")),-PI,PI),"legacy":legacy})
 	return mounts
 
 static func _sync_cooldowns(s: Dictionary,count: int) -> void:
@@ -232,7 +255,9 @@ static func _sync_cooldowns(s: Dictionary,count: int) -> void:
 		s.weaponCooldowns.resize(count)
 
 static func _tick_cooldowns(s: Dictionary,dt: float) -> void:
-	_sync_cooldowns(s,_mounts(s).size())
+	var mounts: Array=_mounts(s)
+	_sync_cooldowns(s,mounts.size())
+	CombatEvents.sync_mount_shots(s,mounts)
 	for i in range(s.weaponCooldowns.size()):
 		s.weaponCooldowns[i]=maxf(0.0,Damage.number(s.weaponCooldowns[i])-dt)
 	if not s.weaponCooldowns.is_empty():
@@ -294,6 +319,7 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 		return
 	var mounts: Array=_mounts(s)
 	_sync_cooldowns(s,mounts.size())
+	CombatEvents.sync_mount_shots(s,mounts)
 	var status: Dictionary=Damage.get_status(s)
 	if status.weaponFactor<=0.01:
 		return
@@ -318,12 +344,12 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 		s.turretAngle=bearing
 		var angle: float=bearing+(st.rng.randf()-0.5)*(0.025 if kind=="torpedo" else 0.045)
 		var velocity: Vector2=Vector2.from_angle(angle)*mount.speed+Vector2(s.vx,s.vy)*0.2
-		st.projectiles.append({"x":muzzle.x,"y":muzzle.y,"px":muzzle.x,"py":muzzle.y,"vx":velocity.x,"vy":velocity.y,"team":s.team,"damage":mount.damage*(1.8 if kind=="torpedo" else 1.0),"kind":kind,"life":mount.range/mount.speed,"age":0.0,"owner":s.id,"mountId":mount.id,"radius":radius,"penetration":18.0 if kind=="torpedo" else (4.0 if kind=="shell" else 0.0),"blastRadius":36.0 if kind=="rocket" else 0.0,"incendiary":kind=="rocket","height":0.0 if kind=="torpedo" else (14.0 if kind=="rocket" else 9.0),"trail":"foam" if kind=="torpedo" else ("smoke" if kind=="rocket" else "tracer")})
+		st.projectiles.append({"x":muzzle.x,"y":muzzle.y,"px":muzzle.x,"py":muzzle.y,"vx":velocity.x,"vy":velocity.y,"team":s.team,"damage":mount.damage*(1.8 if kind=="torpedo" else 1.0),"kind":kind,"family":mount.kind,"variant":CombatEvents.weapon_variant(mount.kind,mount),"moduleId":str(mount.get("moduleId","")),"size":int(mount.get("size",1)),"life":mount.range/mount.speed,"age":0.0,"owner":s.id,"sourceUid":str(s.get("uid",s.id)),"sourceHull":str(s.get("type",s.spec.get("id","boat"))),"mountId":mount.id,"mountIndex":i,"angle":angle,"radius":radius,"penetration":18.0 if kind=="torpedo" else (4.0 if kind=="shell" else 0.0),"blastRadius":36.0 if kind=="rocket" else 0.0,"incendiary":kind=="rocket","height":0.0 if kind=="torpedo" else (14.0 if kind=="rocket" else 9.0),"trail":"foam" if kind=="torpedo" else ("smoke" if kind=="rocket" else "tracer")})
 		s.ammo=maxf(0.0,s.ammo-mount.ammoCost)
 		s.weaponCooldowns[i]=1.0/(mount.fireRate*maxf(0.15,status.weaponFactor))
 		if i==0:
 			s.cooldown=s.weaponCooldowns[0]
-		_effect(st,muzzle,"muzzle")
+		CombatEvents.emit_fire(st,s,mount,i,muzzle,angle,target_ship)
 
 static func _nearest(st: Dictionary,s: Dictionary) -> Dictionary:
 	var best: Dictionary={}
@@ -482,7 +508,10 @@ static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String
 			continue
 		var distance: float=point.distance_to(_pos(s))
 		if distance<radius+_radius(s) and _clear_shot(st,point,_pos(s),1.0):
-			Damage.apply_hit(s,{"damage":p.damage*0.45*clampf(1.0-distance/(radius+_radius(s)),0.0,1.0),"kind":"rocket","incendiary":true,"section":"deck"},st.rng)
+			var before_hp: float=Damage.number(s.get("hp"))
+			var events: Array=Damage.apply_hit(s,{"damage":p.damage*0.45*clampf(1.0-distance/(radius+_radius(s)),0.0,1.0),"kind":"rocket","incendiary":true,"section":"deck"},st.rng)
+			if not events.is_empty():
+				CombatEvents.emit_hit(st,p,s,_pos(s),"deck",events,maxf(0.0,before_hp-Damage.number(s.get("hp"))),false)
 
 static func _projectiles(st: Dictionary,dt: float) -> void:
 	var survivors: Array=[]
@@ -505,32 +534,41 @@ static func _projectiles(st: Dictionary,dt: float) -> void:
 				hit=s
 				first=t
 		var land_t: float=INF
+		var hit_land: bool=false
 		var steps: int=maxi(1,int(ceil(delta.length()/6.0)))
 		for k in range(1,steps+1):
 			var t: float=float(k)/steps
-			if _blocked(st,start+delta*t,p.radius):
+			var sample: Vector2=start+delta*t
+			if _blocked(st,sample,p.radius):
 				land_t=t
+				hit_land=_island_blocked(st,sample,p.radius)
 				break
 		if not hit.is_empty() and first<land_t:
 			var point: Vector2=start+delta*first
-			var events: Array=Damage.apply_hit(hit,{"damage":p.damage,"kind":p.kind,"penetration":p.get("penetration",0.0),"incendiary":p.get("incendiary",false),"section":"waterline" if p.kind=="torpedo" else ("engine" if st.rng.randf()<0.25 else "bow")},st.rng)
+			var section: String="waterline" if p.kind=="torpedo" else ("engine" if st.rng.randf()<0.25 else "bow")
+			var before_hp: float=Damage.number(hit.get("hp"))
+			var events: Array=Damage.apply_hit(hit,{"damage":p.damage,"kind":p.kind,"penetration":p.get("penetration",0.0),"incendiary":p.get("incendiary",false),"section":section},st.rng)
+			CombatEvents.emit_hit(st,p,hit,point,section,events,maxf(0.0,before_hp-Damage.number(hit.get("hp"))),true)
 			_blast(st,p,point,str(hit.id))
-			_effect(st,point,"explosion" if p.kind in ["torpedo","rocket"] else "hit")
 			if not events.is_empty():
 				_log(st,hit.name+": "+events[0])
 		elif land_t!=INF or p.life<=0.0:
-			_effect(st,_pos(p),"explosion" if p.kind=="rocket" else "splash")
+			var miss_point: Vector2=start+delta*land_t if land_t!=INF else _pos(p)
+			CombatEvents.emit_miss(st,p,miss_point,hit_land and land_t!=INF)
 		else:
 			survivors.append(p)
 	st.projectiles=survivors
 
 static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionary:
+	CombatEvents.ensure_state(st)
 	if st.result!=null:
 		return st
 	dt=clampf(Damage.number(dt),0.0,1.0/30.0)
 	if dt<=0.0:
 		return st
+	CombatEvents.begin_step(st)
 	st.time+=dt
+	CombatEvents.tick_wrecks(st,dt)
 	if get_flagship(st).is_empty():
 		for s in st.ships:
 			if s.team=="player" and not s.sunk:
@@ -538,11 +576,13 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 				break
 	var flagship: Dictionary=get_flagship(st)
 	for s in st.ships:
+		s.battleTime=st.time
 		if s.sunk:
 			continue
 		# Exactly one decrement of each timer, including the manual flagship.
 		Damage.tick_ship(s,dt,{"inCombat":true})
 		_tick_cooldowns(s,dt)
+		CombatEvents.check_ship_engine(st,s)
 		if s.sunk:
 			continue
 		var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
@@ -574,8 +614,8 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		if s.sunk:
 			if not s._wreckRecorded:
 				s._wreckRecorded=true
-				st.wrecks.append({"x":s.x,"y":s.y,"angle":s.angle,"name":s.name,"team":s.team,"size":_radius(s)})
-				_effect(st,_pos(s),"explosion")
+				var wreck: Dictionary=CombatEvents.record_wreck(st,s,_radius(s))
+				CombatEvents.emit_sink(st,s,wreck)
 				_log(st,s.name+" sunk")
 		elif s.team=="player":
 			players.append(s)

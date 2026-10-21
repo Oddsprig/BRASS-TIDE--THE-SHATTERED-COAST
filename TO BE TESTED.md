@@ -1,4 +1,4 @@
-# Human review questions — v0.003
+# Human review questions — v0.004
 
 All agent tests remain in the background. Never take mouse/keyboard/focus.
 
@@ -8,4 +8,4 @@ All agent tests remain in the background. Never take mouse/keyboard/focus.
 - GPU frame pacing and Separate rendering font stability on the owner’s hardware.
 - First-hour economy/fitting explanations and route readability.
 
-Numerical tests, source rendering captures and codec checks are recorded separately in docs/TEST RESULTS v0.003.md. Preserve prior version notes and releases.
+Numerical tests, source rendering captures and codec checks are recorded separately in docs/TEST RESULTS v0.004.md. Preserve prior version notes and releases.
