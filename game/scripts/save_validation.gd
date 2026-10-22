@@ -4,6 +4,7 @@ const GOODS: Array=["food","logs","timber","ore","charcoal","iron","copper","sal
 const MAX_COINS: float=9007199254740991.0
 ## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
 const Refits=preload("res://scripts/refit.gd")
+const Training=preload("res://scripts/crew_training.gd")
 const CampaignState=preload("res://scripts/campaign_state_validation.gd")
 ## Roster safety cap, not an ownership rule: 300 DP of 8-DP hulls is 37 boats, plus margin.
 const MAX_ROSTER: int=96
@@ -211,6 +212,9 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 	for p in s.ports:
 		if not p is Dictionary or not _text(p.get("id")) or not ports.has(p.id) or seen_ports.has(p.id): return "Unknown, duplicate or malformed saved harbor."
 		seen_ports[p.id]=true
+		if p.has("training"):
+			var training_error: String=Training.validate(p)
+			if not training_error.is_empty():return str(p.id)+": "+training_error
 		error=_numbers(p,["cash","householdPurse","expertPurse","governmentPurse"],p.id,true,MAX_COINS)
 		if not error.is_empty(): return error
 		error=_cargo(p.get("stocks"),p.id+".stocks",true)

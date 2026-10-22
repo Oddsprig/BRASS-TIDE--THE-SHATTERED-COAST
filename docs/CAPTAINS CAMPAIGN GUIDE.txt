@@ -1,3 +1,7 @@
+v0.019 — PAID CREW TRAINING
+In harbor choose Crew training & harbor workforce. Qualified recruits can join a real crew berth immediately; hiring consumes both a resident worker and that eligibility. A course trains existing unqualified workers and reserves one available instructor as well. The full quote shows provisions, repair/survey kits, trainee pay100/day, professional instruction, oversight, facility costs and duty. Material lots and setup costs are spent when commissioned; wage coins remain held and are earned over actual economic days.
+Courses take4days for sailors,6for gunners and8for mechanics. Completion returns people to the civilian workforce with qualification eligibility; specialist courses also increase the town's trained expertise. Cancellation returns people and only unspent wages. Existing crew competence is preserved. Selling/storing boats and discharging professionals return real people and their savings ashore. Current courses persist through save/load.
+
 BRASS TIDE — THE SHATTER COAST
 Captain's campaign guide | v0.018
 

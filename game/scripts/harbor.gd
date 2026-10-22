@@ -153,6 +153,7 @@ static func sell(core, uid: String) -> Dictionary:
 	Money.move(p,"cash",core.state,"coins",value,"Yard buys a used hull",core.state.moneyLog)
 	p.recruits += int(boat.crew)
 	p.workforce += int(boat.crew)
+	core.TrainingOps.Training.return_qualified(p,int(boat.crew),"sailor")
 	p.stocks.fuel += boat.fuel
 	p.stocks.supplies += boat.supplies
 	p.stocks.ammo += boat.ammo/Goods.ROUNDS_PER_CASE

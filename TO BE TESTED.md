@@ -1,3 +1,7 @@
+v0.019 voluntary play: Crew training and labor pools
+Assess readability and usefulness of: Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow. Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger. Training accounts have harbor controls, cancellation and read-only save preflight; older releases and original saves remain preserved.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 # Voluntary play questions — v0.018
 
 All authorized automated integrity/export checks are complete. No automated task below requires foreground control.

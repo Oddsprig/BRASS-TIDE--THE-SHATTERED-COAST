@@ -1,0 +1,16 @@
+BRASS TIDE — ECONOMY DEVELOPMENT RECORD
+22 October 2026
+
+Owner authorized ten sequential builds v0.019–v0.028, with up to3 Sol6.1 Max helpers through Bridge. Three isolated helper projects:
+people: brass-tide-economy-sol-people-881c25
+supply: brass-tide-economy-sol-supply-71d56c
+industry: brass-tide-economy-sol-industry-608f2d
+
+Root integrates central state/UI/accounting and owns all engine runs. Initial helper file reads stalled; root supplied complete inline briefs and actual source interfaces. Helpers may return full source in their tracked Bridge response; root applies and independently tests it. Raw reports are preserved separately from root verdicts. This is development context, not release evidence.
+
+Verified existing hardware: Intel Core Ultra9 275HX,24logical processors. RAM/GPU model not verified. Existing bounded economy worker group: at most8jobs, reserves2logical processors; main thread joins and publishes copied state before cross-port transactions. Separate rendering and cheap2Dwater remain configured.
+
+Existing v0.018 baseline:46clean-tag native suites,180actual economic days,7battle CPU fixtures, preserved owner-save migration and portable Windows archives. See prior delivery/performance records for measured numbers and their limits.
+Future versions require their own receipts. Headless simulation time is not rendered FPS.
+
+All tests stay hidden/headless and serialized, one engine/game at a time. No desktop input/focus, audible test, global install/settings change, deletion of old releases or owner-save overwrite.

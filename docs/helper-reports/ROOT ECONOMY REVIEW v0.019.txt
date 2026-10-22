@@ -1,0 +1,6 @@
+ROOT REVIEW — v0.019 Crew training and labor pools
+Root wrote and integrated the training core and native scenarios while the Bridge People helper's file tools stalled. Its independent response remains pending and is not claimed as integrated code. Supply helper's later v0.020 module was reviewed and tested in its isolated worktree, not included in this game.
+Reviewed central hook diffs, training/UI/ops and actual test flows. Courses reserve trainees PLUS one instructor outside ordinary workforce; staff return once. Qualified counts are subsets, Money.port_total includes held wages once, and schema preflight runs before live restore. Professional dismissal preserves learned-role eligibility.
+The first actual save roundtrip rejected JSON whole-number floats. Root corrected validation to require finite exact whole numbers while rejecting fractions/booleans; both targeted tests then passed.
+48source native suites passed, including29focused training checks, both actual eight-contract voyage routes, staff/business regressions and180economic days. Exact-tag Windows export checks follow separately; no GPU FPS, human listening or subjective fun claim.
+All tests serialized/headless, no desktop input. Original versions/saves/music retained. New version is built directly on v0.018.

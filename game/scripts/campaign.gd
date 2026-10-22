@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const TrainingOps=preload("res://scripts/training_ops.gd")
 const HomeOps=preload("res://scripts/home_ops.gd")
 const RegionalOps=preload("res://scripts/regional_ops.gd")
 const StoryOps=preload("res://scripts/story_ops.gd")
@@ -132,6 +133,7 @@ func new_game(seed_value: int = 1):
 	StoryOps.ensure(self)
 	HomeOps.ensure(self)
 	RegionalOps.ensure(self)
+	TrainingOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -628,6 +630,7 @@ func toggle_storage(uid: String) -> Dictionary:
 	var savings: int=floori(float(state.crewPurse)*float(b.crew)/maxi(1,crew_count()))
 	Money.move(state,"crewPurse",p,"householdPurse",savings,"Stored boat sailors take savings ashore",state.moneyLog)
 	p.workforce+=int(b.crew);p.recruits+=int(b.crew)
+	TrainingOps.Training.return_qualified(p,int(b.crew),"sailor")
 	b.crew=0.0;b.wounded=0.0;b.mothballed=true
 	Economy.sync_workforce(p)
 	Manifest.allocate(state)
@@ -964,6 +967,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	StoryOps.ensure(self)
 	HomeOps.ensure(self)
 	RegionalOps.ensure(self)
+	TrainingOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0

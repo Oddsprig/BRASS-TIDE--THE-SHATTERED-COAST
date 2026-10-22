@@ -592,6 +592,8 @@ static func recruit(port: Dictionary, wallet: Dictionary, count: Variant, room: 
 	var wf_raw: Variant = port["workforce"] if port.has("workforce") else port.get("workers", 0)
 	var cur_workforce := maxi(0, int(floor(float(wf_raw)))) if _is_num(wf_raw) else 0
 	var available := mini(recruits_avail, cur_workforce)
+	if port.get("training") is Dictionary:
+		available=mini(available,int(port.training.get("qualified",{}).get("sailor",0)))
 	if q > available:
 		return {"ok": false, "count": 0, "cost": 0, "coins": 0, "message": "Not enough recruits available in port"}
 
@@ -608,6 +610,9 @@ static func recruit(port: Dictionary, wallet: Dictionary, count: Variant, room: 
 
 	port["recruits"] = maxi(0, available - q)
 	port["workforce"] = maxi(0, cur_workforce - q)
+	if port.get("training") is Dictionary:
+		var training_api: Script=load("res://scripts/crew_training.gd")
+		training_api.consume_qualified(port,q,"sailor")
 	_sync_port_workforce(port)
 
 	if _is_num(wallet.get("crew")):
@@ -1176,6 +1181,9 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 			port["lastProduction"] = _make_last_production(produced_rate)
 			port["projectedProduction"] = _make_last_production(produced_rate)
 			port["shortages"] = _make_shortages(shortage_items)
+			if port.get("training") is Dictionary:
+				var training_api: Script=load("res://scripts/crew_training.gd")
+				training_api.daily(port,dt)
 
 			if is_last_step:
 				if blockaded:

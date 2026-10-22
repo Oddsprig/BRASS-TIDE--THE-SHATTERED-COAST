@@ -1,3 +1,9 @@
+v0.019 SOURCE ACCEPTED — Crew training and labor pools
+- Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow.
+- Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger.
+- Training accounts have harbor controls, cancellation and read-only save preflight; older releases and original saves remain preserved.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 CURRENT PLANNING — 22 October 2026
 Current delivered game: v0.018. Next planned: v0.019.
 The requested new sequence is v0.019–v0.028; all ten steps remain PLANNED.

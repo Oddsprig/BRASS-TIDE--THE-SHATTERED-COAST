@@ -1,3 +1,11 @@
+## v0.019 — Crew training and labor pools
+
+Candidate; verified test/export records follow.
+
+- Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow.
+- Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger.
+- Training accounts have harbor controls, cancellation and read-only save preflight; older releases and original saves remain preserved.
+
 ## v0.018 — Regional campaigns
 
 Verified local Windows delivery; exact tagged game a75dd7bde2868da2b88e6e1df9bb4a756c4b2459. Native/export/archive evidence is in the delivery receipts.

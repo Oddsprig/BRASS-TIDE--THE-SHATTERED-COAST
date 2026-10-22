@@ -1,0 +1,30 @@
+BRASS TIDE — WORKFORCE-TRAINING MAP (generated; v0.019)
+
+Existing civilian people and funded course inputs -> reserved trainees, qualified recruits, paid wages and refund-safe cancellation.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/crew_training.gd: 10753 bytes; extends RefCounted
+  game/scripts/crew_training.gd:14 ensure()
+  game/scripts/crew_training.gd:19 quote()
+  game/scripts/crew_training.gd:46 enroll()
+  game/scripts/crew_training.gd:78 cancel()
+  game/scripts/crew_training.gd:90 daily()
+  game/scripts/crew_training.gd:110 report()
+  game/scripts/crew_training.gd:114 escrow_total()
+  game/scripts/crew_training.gd:119 consume_qualified()
+  game/scripts/crew_training.gd:131 return_qualified()
+  game/scripts/crew_training.gd:143 validate()
+  game/scripts/crew_training.gd:66 _return_people()
+  game/scripts/crew_training.gd:140 _int()
+game/scripts/training_ops.gd: 1263 bytes; extends RefCounted
+  game/scripts/training_ops.gd:5 ensure()
+  game/scripts/training_ops.gd:8 enroll()
+  game/scripts/training_ops.gd:19 cancel()
+game/scripts/economic_ui.gd: 3059 bytes; extends RefCounted
+  game/scripts/economic_ui.gd:6 act()
+  game/scripts/economic_ui.gd:13 open()
+
+TESTS (game/tests/*.gd)
+test_crew_training, test_training_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.

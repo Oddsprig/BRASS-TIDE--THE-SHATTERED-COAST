@@ -317,6 +317,8 @@ static func hire_specialist(core, uid: String, role: String) -> Dictionary:
 		return _fail(core, "This harbor has no sailor to spare.")
 	if int(_num(port.get("availableSpecialists", port.get("specialistWorkers", 0)))) < 1:
 		return _fail(core, "This harbor has no free specialist to spare today.")
+	if port.get("training") is Dictionary and int(port.training.get("qualified",{}).get("sailor",0))<1:
+		return _fail(core,"No qualified sailor is available. Fund a harbor training course first.")
 	var advance := Economy.recruit_cost(port, 1)
 	if int(state.get("coins", 0)) < advance:
 		return _fail(core, "Hiring needs a %d-coin advance." % advance)
@@ -326,6 +328,10 @@ static func hire_specialist(core, uid: String, role: String) -> Dictionary:
 	state["moneyLog"] = ledger
 	port["recruits"] = maxi(0, int(_num(port.get("recruits", 0))) - 1)
 	port["workforce"] = maxi(0, int(_num(port.get("workforce", 0))) - 1)
+	if port.get("training") is Dictionary:
+		var training_role: String="gunner" if role=="gunner" else ("mechanic" if role=="chief_engineer" else "sailor")
+		if int(port.training.qualified.get(training_role,0))<1:training_role="sailor"
+		core.TrainingOps.Training.consume_qualified(port,1,training_role)
 	if port.has("availableWorkers"):
 		port["availableWorkers"] = maxi(0, int(_num(port.get("availableWorkers", 0))) - 1)
 	if port.has("availableSpecialists"):

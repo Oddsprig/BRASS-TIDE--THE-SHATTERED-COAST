@@ -18,6 +18,8 @@ static func port_total(port: Dictionary) -> int:
 	var amount: int = 0
 	for key in ["cash", "householdPurse", "expertPurse", "governmentPurse"]:
 		amount += int(port.get(key, 0))
+	for course in port.get("training",{}).get("jobs",[]):
+		amount+=int(course.get("escrow",0))
 	for order in port.get("buildQueue", []):
 		amount += int(order.get("escrow", 0))
 	return amount

@@ -1,4 +1,4 @@
-# Brass Tide v0.018 source map
+# Brass Tide v0.019 source map
 
 The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
 
@@ -43,3 +43,5 @@ Read BUILD PLAN.txt, version notes/verdicts and delivery receipts for actual cha
 - v0.017: home_harbor.gd owns paid shore businesses, employees, local inventories and standard material basis; home_ops.gd owns private/public berths and arrears; home_ui.gd presents establishment, stock, capital and earned-only dividends. Canonical money and save validation include business purses and staff.
 
 - v0.018: regional_campaigns.gd owns optional goal/grant/treaty records; regional_rules.gd owns distinct-day progress, physical locality, diplomatic conditions and expiry; regional_orders.gd assigns actual corridor patrol routes beneath normal recovery priorities; regional_ops.gd records actual paid deliveries/combat and publishes daily progress; regional_ui.gd presents the selected goals (L). test_campaign_endurance runs 180 published economic days with the real worker pool.
+
+- v0.019: crew_training.gd owns finite qualification subsets, reserved trainee/instructor cohorts, paid material and wage escrow, completion and cancel rules. training_ops.gd enforces harbor access; economic_ui.gd shows full quotes and course accounts. Economy ticks copied local jobs; Money.port_total counts their escrow once and SaveValidation preflights it before restore.

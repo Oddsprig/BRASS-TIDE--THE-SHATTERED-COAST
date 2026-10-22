@@ -48,6 +48,7 @@ static func dismiss(c,id: String) -> Dictionary:
 		Money.move(c.state,"crewPurse",p,"householdPurse",savings,"Discharged specialist base savings",c.state.moneyLog)
 		Money.move(r,"coins",p,"expertPurse",int(r.coins),"Discharged specialist takes professional savings ashore",c.state.moneyLog)
 		p.workforce+=1;p.recruits+=1;p.specialists+=1;p.specialistWorkers=p.specialists
+		c.TrainingOps.Training.return_qualified(p,1,"gunner" if r.role=="gunner" else ("mechanic" if r.role=="chief_engineer" else "sailor"))
 		Economy.sync_workforce(p)
 		b.crew=maxf(0,float(b.crew)-1);b.specialistActive.erase(r.role)
 		r.discharged=true;r.active=false

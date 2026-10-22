@@ -1,3 +1,12 @@
+v0.019 SOURCE ACCEPTED | Crew training and labor pools
+48 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-22 | v0.019 CANDIDATE | Crew training and labor pools
+- Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow.
+- Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger.
+- Training accounts have harbor controls, cancellation and read-only save preflight; older releases and original saves remain preserved.
+Root + up to three Sol6.1 Max helpers through Bridge. Source checks and exact-tag export follow; no delivery claim yet.
+
 2026-10-22 | PLANNING ONLY | economy/fleet version map v0.019–v0.028
 Owner: "OK PREPARE A VERSION MAP"; lead prepared ten sequential planned steps.
 Start with paid crew training, harbor reserves and recovered industrial tooling.

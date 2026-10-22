@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "workforce-training": (["crew_training","training_ops","economic_ui"],
+                          "Existing civilian people and funded course inputs -> reserved trainees, qualified recruits, paid wages and refund-safe cancellation.",
+                          "test_crew_training, test_training_voyage"),
     "regional-goals": (["regional_campaigns","regional_rules","regional_orders","regional_ops","regional_ui"],
                        "Chosen real ports/factions and physical receipts -> sustained watches, paid development, survey achievements, optional finite treaties and bounded history.",
                        "test_regional_campaigns, test_regional_voyage, test_campaign_endurance"),

@@ -1,3 +1,23 @@
+# v0.019 — Crew training and labor pools
+
+SOURCE ACCEPTED: 48 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow.
+- Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger.
+- Training accounts have harbor controls, cancellation and read-only save preflight; older releases and original saves remain preserved.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.019.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.019 — Crew training and labor pools
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow.
+- Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger.
+- Training accounts have harbor controls, cancellation and read-only save preflight; older releases and original saves remain preserved.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.019.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # Brass Tide v0.018 delivered
 
 22 October 2026 planning update: the owner requested a version map after the installed-LTV review. docs/ECONOMY VERSION MAP v0.019-v0.028.txt is the detailed ten-step plan; ROADMAP.md is its current-stage summary and VERSION MAP.txt its compact status index. All future steps remain planned. First target is v0.019 paid crew training, then v0.020 reserves and v0.021 recovered machinery/yard development. The portable game, BUILD, launcher and release tags remain at v0.018. This task used no helpers or game tests. The prior roadmap is archived verbatim under docs/archive/2026-10-22 before economy version map ROADMAP.md.

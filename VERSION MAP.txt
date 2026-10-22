@@ -1,3 +1,7 @@
+v0.019 CANDIDATE — Crew training and labor pools
+Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow. Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger. Training accounts have harbor controls, cancellation and read-only save preflight; older releases and original saves remain preserved.
+Source acceptance and export receipts determine completion; every build advances0.001.
+
 BRASS TIDE — CURRENT AND PLANNED VERSION MAP
 22 October 2026 | current delivered v0.018 | next planned v0.019
 
