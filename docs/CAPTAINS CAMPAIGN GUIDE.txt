@@ -142,3 +142,25 @@ folders remain independent. In-game Development notes and the adjacent
 DEVELOPER NOTES.txt describe the current build. Automated checks run hidden or
 headless, with no desktop input. Numerical and CPU results do not replace your
 judgment about control feel, presentation, listening or campaign fun.
+
+RECOVER MACHINERY AND DEVELOP A WORKSHOP — v0.021
+Fully survey abandoned workshops or salvage anchorages, then open Recovered
+machinery from Hold or a harbor. Land two spare sailors, commit real kits and
+remain within reach for the stated paid days. Their ordinary crew payroll pays
+them once. Claim the finite equipment, keep its hold space free and bring it
+home. Losing its carrier loses that machine; the source stays exhausted.
+
+At an owned workshop, install compatible tooling with actual materials, wages
+and reserved staff. Commissioning takes elapsed days. Paid maintenance improves
+one named labor bottleneck by at most20%; inputs, staff and storage still limit
+output. Machinery is optional. Restore or remove the same item; consumed setup
+costs never return as a refund. Change workshop recipes between repair kits,
+planks, engine assemblies and weapons. Hire actual local trades to staff those
+recipes. You may cancel unfinished paid work before changing recipe; wages stay
+spent. Workshop inventory is private, so it can buffer real purchased inputs.
+
+A Friendly shipyard with your operating workshop can quote a five-day funded
+drydock expansion. Deliver missing public materials, fund its business purse
+and reserve the eight-person construction team. Wages remain held until earned.
+Up to two extra chartered slips share the harbor's existing finite construction
+workforce. More slips do not supply more workers, materials or free boats.

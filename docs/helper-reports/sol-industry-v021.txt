@@ -1,0 +1,252 @@
+SOL INDUSTRY — FIRST BOUNDED TASK — v0.021
+2026-10-22
+
+DELIVERY / CHECKPOINT
+Complete source, native SceneTree test, and this report are delivered inline.
+Local file reads and the initial partial file-write attempt stalled.
+No successful on-disk checkpoint or Git commit was confirmed.
+Root must inspect any partial industrial_tooling.gd and apply the COMPLETE
+contents supplied with this report.
+
+No central files, engine, game, tests, helpers, installs, pushes, deletions,
+owner saves, releases, or music were operated on.
+
+FILES
+game/scripts/industrial_tooling.gd
+game/tests/test_industrial_tooling.gd
+REPORT.txt
+
+TEST STATUS
+NOT RUN. Source was reviewed as text only.
+No test-pass, build, or integration claim is made.
+Root owns every native run and final acceptance.
+
+PUBLIC STATIC API
+ensure(core) -> void
+list_items(core) -> Array                  detached deep copies
+recover(core, site_id, kind) -> Dictionary
+quote_install(core, item_id, business_id) -> Dictionary
+install(core, item_id, business_id) -> Dictionary
+remove(core, item_id) -> Dictionary
+daily(core) -> void
+production_factor(core, business_id) -> float
+validate(state, world) -> String           empty string means valid
+
+Additional integration APIs:
+cargo_weight(core) -> float
+service(core, business_id) -> void
+
+DIRECT EXISTING INTERFACES USED
+core.state.day: float campaign day
+core.state.econDay: published integer economic day
+core.state.moneyLog: actual Array passed directly to Money.move
+core.state.businesses: owned-business array
+core.state.exploration.sites[siteId].level >= 3: fully surveyed
+core.current_port(), core.port(id), core.capacity(), core.cargo_weight()
+core.ok(message), core.fail(message)
+core.data: world, with ports array or ID-keyed ports dictionary
+Goods.ITEMS, Goods.WAGES, Economy.price, Money.move
+
+Preload paths assumed:
+res://scripts/goods.gd
+res://scripts/economy.gd
+res://scripts/money.gd
+These paths could not be inspected locally. Root must confirm them.
+
+STATE SCHEMA
+state.tooling = {
+  schema: 1,
+  nextId: positive integer,
+  items: Array[Dictionary],
+  extracted: {sourceId: itemId}
+}
+
+Item:
+id: stable "tool-%06d"
+kind: machine_tools | engine_fixture | hull_jig
+sourceId, sourceSite, provenance: site | wreck
+condition: finite 0..1
+location: cargo | commissioning | active
+businessId, portId, recipeGood, recipeLabor
+recoveredAt, readyAt: finite actual campaign dates
+lastEconDay, serviceDay: integer day markers; serviceDay initially -1
+workers, specialists, recruits: commissioning reservations
+setupCoins: cumulative setup expenditure, never refunded
+
+An item always remains in this book. Removal changes its location; it does
+not delete it, renew its source, return materials, or refund paid wages.
+
+REQUIRED ROOT HOOK: VERIFIED SOURCE
+core.tooling_recovery_offer(site_id: String, kind: String) -> Dictionary
+
+Success fields:
+{
+  ok: true,
+  sourceId: String,
+  siteId: String,
+  kind: String,
+  provenance: "site" | "wreck",
+  near: bool,
+  condition: finite 0..1
+}
+
+Root verifies actual proximity and source payload condition.
+The module independently admits exactly this catalog facility:
+site:cinder_workshop_ruin / cinder_workshop_ruin / machine_tools,
+with saved survey level >= 3.
+
+No unrelated surveyed site unlocks machinery.
+
+For optional finite wreck payloads, root supplies a durable world index:
+core.data.toolingWreckSources[sourceId] = {
+  finite: true, kind: String, siteId: String
+}
+sourceId must begin "wreck:" and identify a real finite payload.
+Keep spent provenance rows so old saves remain valid.
+Do not populate this index with speculative or random free opportunities.
+All extraction is additionally once-only in state.tooling.extracted.
+
+REQUIRED ROOT HOOK: ACTUALLY COMPLETED RECOVERY WORK
+core.tooling_settle_recovery(requirements: Dictionary) -> Dictionary
+
+Requirements contain:
+sourceId, siteId, kind, days, workers, workerDays, supplies, wages, weight.
+
+The hook consumes exactly one unclaimed completed job receipt for the same
+source. It must verify actual elapsed campaign time, paid finite sailor-days,
+and actual fleet supplies already consumed for that job.
+
+Current requirements:
+2 existing workers;
+2 recovery days for machine tools; 3 for fixtures/jigs;
+0.5 supplies per recovery day;
+minimum wages = workers * days * Goods.WAGES.sailor.
+
+This is an explicit integration boundary, not an assumed generic game API.
+No item is created before settlement returns ok:true.
+On failure, the hook must leave the receipt/resources unchanged.
+During successful synchronous settlement it must not replace core.state,
+advance time, move the fleet, or perform unrelated mutations.
+
+If no completed job exists, return ok:false with an explanatory message.
+recover() returns its work requirements so root can present/start the real
+existing campaign recovery job. The module does not invent elapsed time.
+
+CARGO / TRANSPORT HOOK
+Add IndustrialTooling.cargo_weight(core) exactly once to core.cargo_weight().
+Apply that total to every fleet capacity/transport check.
+Weights are 4/6/8 in the same cargo-weight units as Goods.ITEMS weights.
+Installed/commissioning items contribute zero fleet cargo weight.
+Recovery and removal preflight actual core capacity before mutation.
+
+INSTALLATION / MONEY
+Only an owned, staffed, unpaused shore business at the current home port
+accepts installation. One physical machinery item per business.
+
+Installation materials:
+actual bound Goods recipe inputs * kind restoration cycles (2/3/4),
+plus supplies equal to commissioning days (2/3/3).
+
+Every material is bought from actual port.stocks at Economy.price.
+Business.coins pays port.cash.
+Setup sailor wages enter port.householdPurse.
+Mechanic/engineer/shipwright/foreman wages enter port.expertPurse.
+All transfers use actual state.moneyLog through Money.move.
+
+Staff and all commissioning wages are reserved/paid at installation:
+machine tools: 2 sailors, 1 mechanic, 1 foreman, for 2 days;
+engine fixture: 2 sailors, 1 mechanic, 1 engineer, 1 foreman, for 3 days;
+hull jig: 2 sailors, 2 shipwrights, 1 foreman, for 3 days.
+
+availableSpecialists remains a subset of availableWorkers.
+The module requires enough general workers separately.
+Recruits are eligibility, not additional people: any overflow eligibility
+is reserved on the item and restored exactly.
+
+ROOT WORKFORCE INTEGRATION
+Count commissioning item.workers/specialists/recruits as a reserved pool in
+central workforce audits. They have already been subtracted from available
+counts; do not subtract them a second time or count specialists as extra people.
+No fleet crew or business employee is created.
+
+Actual commissioning date is state.day + commissioningDays.
+Changing econDay alone cannot finish the work.
+Completion restores condition to 1 and returns staff once.
+Cancellation preserves the original condition and spends all setup costs.
+
+PRODUCTION HOOK
+Confirmed default binding:
+machine_tools + workshop -> Goods.supplies / carpenter labor.
+
+After the real business wage payment succeeds:
+  business.toolingPaidDay = state.econDay
+  IndustrialTooling.service(core, business.id)
+
+Then get production_factor(core, business.id) and apply it only to the paid
+carpenter_days bottleneck in the supplied workshop _produce implementation,
+before its floor-to-kits calculation.
+
+Keep original input consumption, inventoryBasis, capacity, and output logic.
+Do not multiply final output, bypass inputs, or affect other businesses.
+
+daily(core) handles commissioning/corrosion and can service already-paid
+businesses. service(core, business_id) supports existing per-business wage
+loops without requiring all wages to be processed in a separate pass.
+
+Optional future real-recipe adapter:
+core.tooling_recipe(business_id: String, kind: String) -> Dictionary
+{
+  businessKind: actual business.kind,
+  good: actual Goods recipe key,
+  labor: actual positive recipe labor key
+}
+Root must bind this to an actual producer bottleneck.
+Engine fixtures/hull jigs have no invented default engine/hull recipe.
+They remain ineligible without a real binding.
+
+MAINTENANCE
+Active installed machinery loses 0.01 condition per economic day.
+On an actual paid operating day, upkeep buys/consumes 0.1 port supplies
+from the business purse and restores 0.02 condition, capped at 1.
+Routine servicing uses the already-paid business staff.
+No separate free maintenance worker or crew is generated.
+
+Service is once per economic day; repeated daily/service calls do not charge
+again. The factor is 1 unless current-day wages and upkeep succeeded, the
+stored actual recipe still matches, its named employee exists, the business
+is operating, and real recipe inputs are available.
+Maximum factor is 1.20, scaled by condition.
+
+OTHER ROOT ASSUMPTIONS
+core.port/current_port return the live mutable port record, not detached copies.
+State.businesses contains only owned shore businesses.
+Remove fitted tooling before selling/removing its business or changing its
+home port; dangling machinery is rejected by validate.
+Root validates tooling during save load before enabling its actions.
+Root retains its normal one-production-per-paid-business-day discipline.
+
+TEST CONTENT
+Synthetic core uses the supplied interfaces and actual Goods/Money/Economy.
+Tests cover:
+- paid elapsed recovery receipt, survey gate, real source matching;
+- missing finite-wreck evidence, once-only extraction, capacity;
+- cargo transport and detached item listings;
+- material purchase/consumption, household/expert payments, coin conservation;
+- finite setup staff and recruit eligibility reservations;
+- fractional actual-time commissioning versus published economic day;
+- paid named carpenter benefit with original input ceiling;
+- cancellation/removal, no refunds, stable IDs, returned cargo weight;
+- upkeep, paid-day gating, missing supplies, paused businesses;
+- repeated daily/service calls;
+- malformed books, duplicate IDs/items, invalid provenance links,
+  non-finite condition, fractional reservations, legacy save migration.
+
+The synthetic test port includes contractual fields and a prices dictionary.
+Economy.price implementation was unavailable to inspect. Root must compare
+this minimal fixture with existing economic fixtures and supply any actual
+required port fields before accepting native results.
+
+ROOT ACCEPTANCE
+Apply complete files, inspect full diff, confirm preload paths/fixture fields,
+implement the explicit central hooks, and run native checks hidden/headless
+and serialized. Preserve this raw report unchanged; put root verdict separately.

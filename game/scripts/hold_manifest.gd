@@ -1,5 +1,6 @@
 extends RefCounted
 ## Cargo is authoritative in state.cargo; this manifest assigns its real carriers.
+const Tooling=preload("res://scripts/industrial_tooling.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Expedition=preload("res://scripts/expedition.gd")
 
@@ -23,11 +24,16 @@ static func allocate(state: Dictionary) -> void:
 			var key: String="@job:"+str(job.id)
 			load[key]=float(lot.get("qty",0))
 			job_goods[key]=str(lot.get("good",""))
+	var tool_weights: Dictionary={}
+	for item in state.get("tooling",{}).get("items",[]):
+		if item.get("location","")=="cargo":
+			var key: String="@tool:"+str(item.id)
+			load[key]=1;tool_weights[key]=float(Tooling.KINDS[item.kind].weight)
 	var keys: Array=load.keys()
 	keys.sort()
 	for good in keys:
 		var material: String=str(freight.get("good","")) if good=="@freight" else str(job_goods.get(good,good))
-		var weight: float=float(Goods.ITEMS.get(material,{"weight":1}).weight)
+		var weight: float=float(tool_weights.get(good,Goods.ITEMS.get(material,{"weight":1}).weight))
 		var left: float=float(load[good])
 		for b in boats:
 			var qty: float=minf(left,maxf(0,free[b.uid])/maxf(0.01,weight))
@@ -48,7 +54,10 @@ static func losses(state: Dictionary) -> Array:
 		var cargo: Dictionary=manifest.get(b.get("uid",""),{})
 		for good in cargo:
 			var qty: float=float(cargo[good])
-			if good=="@freight":
+			if str(good).begins_with("@tool:"):
+				for item in state.get("tooling",{}).get("items",[]):
+					if item.id==str(good).trim_prefix("@tool:"):item.location="lost"
+			elif good=="@freight":
 				state.freight.qty=maxf(0,float(state.freight.get("qty",0))-qty)
 				state.freight.lost=true
 			elif str(good).begins_with("@job:"):

@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "industrial-development": (["industrial_tooling","tooling_ops","yard_development","tooling_ui"],
+                               "Actual surveyed sources, crews, owned workshops and paid teams -> finite transported machinery, recipe labor bottlenecks and chartered drydock bays.",
+                               "test_industrial_tooling, test_industrial_voyage"),
     "harbor-reserves": (["harbor_reserves","reserve_ops","supply_ui"],
                         "Actual consumption, route times and paid workers -> separate coverage, protected operating lots, feasible allocation floors and real public release.",
                         "test_harbor_reserves, test_supply_voyage"),

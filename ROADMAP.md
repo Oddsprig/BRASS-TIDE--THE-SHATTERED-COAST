@@ -1,3 +1,5 @@
+v0.021 SOURCE ACCEPTED — Recovered machinery and shipyard development. 52 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 v0.020 SOURCE ACCEPTED — Harbor reserves and production priorities. 50 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 v0.019 SOURCE ACCEPTED — Crew training and labor pools. 48 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.

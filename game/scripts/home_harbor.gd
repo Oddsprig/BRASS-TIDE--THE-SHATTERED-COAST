@@ -168,8 +168,9 @@ static func ensure(state: Dictionary) -> Array:
 		raw["autoSell"]=bool(raw.get("autoSell",true))
 		raw["capacity"] = float(spec["capacity"])
 		raw["employees"] = employees
+		raw["dailyWages"]=int(_daily_wages(employees).total)
 		raw["workingCapital"] = maxi(0, int(_num(raw.get("workingCapital", spec["inputCapital"]))))
-		for key in ["capitalIn", "revenue", "wagesPaid", "dividendsPaid", "arrearsHousehold", "arrearsExpert", "costOfSales", "inKindCapital", "inKindReturned"]:
+		for key in ["capitalIn", "revenue", "wagesPaid", "dividendsPaid", "arrearsHousehold", "arrearsExpert", "costOfSales", "otherExpenses", "inKindCapital", "inKindReturned"]:
 			raw[key] = maxi(0, int(_num(raw.get(key, 0))))
 		raw["paused"] = bool(raw.get("paused", false))
 		raw["establishedDay"] = _num(raw.get("establishedDay", 0.0))
@@ -430,7 +431,7 @@ static func dividend(core, business_id: String, amount: int) -> Dictionary:
 	if not permission.ok:return permission
 	if amount <= 0:
 		return _fail(core, "A dividend must be a positive coin amount.")
-	var earned := int(business["revenue"]) - int(business["wagesPaid"]) - int(business.get("costOfSales",0)) - int(business["dividendsPaid"])
+	var earned := int(business["revenue"]) - int(business["wagesPaid"]) - int(business.get("costOfSales",0)) - int(business["dividendsPaid"]) - int(business.get("otherExpenses",0))
 	var ceiling := maxi(0, mini(int(business["coins"]) - _reserve(business), earned))
 	if amount > ceiling:
 		return _fail(core, "Dividends are limited to %d earned coins above the 14-day reserve." % ceiling)
@@ -443,34 +444,40 @@ static func dividend(core, business_id: String, amount: int) -> Dictionary:
 
 
 # Goods "supplies" recipe verbatim, limited by materials/labor/capacity.
-static func _produce(business: Dictionary, days: int) -> int:
-	var recipe: Dictionary = Goods.ITEMS["supplies"]
-	var inputs: Dictionary = recipe["inputs"]
-	var labor: Dictionary = recipe["labor"]
-	var carpenter_days := 0.0
-	for e in business["employees"]:
-		if str(e.get("occupation", "")) == "carpenter":
-			carpenter_days += float(days)
-	var kits := int(floor(carpenter_days / float(labor["carpenter"]) + 0.000001))
-	for good in inputs:
-		kits = mini(kits, int(floor(_num(business["inventory"].get(good, 0.0)) / float(inputs[good]) + 0.000001)))
-	while kits > 0:
-		var weight := _inventory_weight(business["inventory"]) + float(kits) * float(Goods.ITEMS["supplies"]["weight"])
-		for good in inputs:
-			weight -= float(kits) * float(inputs[good]) * float(Goods.ITEMS[str(good)]["weight"])
-		if weight <= float(business["capacity"]) + 0.000001:
-			break
-		kits -= 1
-	if kits <= 0:
-		return 0
-	var output_basis: float=0
-	for good in inputs:
-		output_basis+=_take_basis(business,str(good),float(kits)*float(inputs[good]))
-		business["inventory"][good] = _round2(_num(business["inventory"].get(good, 0.0)) - float(kits) * float(inputs[good]))
-	business["inventoryBasis"]["supplies"]=float(business["inventoryBasis"].get("supplies",0))+output_basis
-	business["inventory"]["supplies"] = _round2(_num(business["inventory"].get("supplies", 0.0)) + float(kits))
-	return kits
-
+static func _produce(business: Dictionary, days: float) -> int:
+	var good: String=str(business.get("recipeGood","supplies"))
+	var recipe: Dictionary=Goods.ITEMS[good]
+	var inputs: Dictionary=recipe.inputs
+	var labor: Dictionary=recipe.labor
+	var throughput: float=1000000
+	var factor: float=float(business.get("toolingFactor",1))
+	var named_labor: String=str(business.get("toolingLabor",""))
+	for occupation in labor:
+		var worker_days: float=0
+		for employee in business.employees:
+			if str(employee.occupation)==str(occupation):worker_days+=days
+		if str(occupation)==named_labor:worker_days*=factor
+		throughput=minf(throughput,worker_days/float(labor[occupation]))
+	if throughput<=0:return 0
+	var material_cap: int=1000000
+	for ingredient in inputs:material_cap=mini(material_cap,floori(_num(business.inventory.get(ingredient,0))/float(inputs[ingredient])+0.000001))
+	var progress: float=minf(float(material_cap),float(business.get("productionProgress",0))+throughput)
+	var output: int=floori(progress+0.000001)
+	while output>0:
+		var weight: float=_inventory_weight(business.inventory)+float(output)*float(Goods.ITEMS[good].weight)
+		for ingredient in inputs:weight-=float(output)*float(inputs[ingredient])*float(Goods.ITEMS[ingredient].weight)
+		if weight<=float(business.capacity)+0.000001:break
+		output-=1
+	business.productionProgress=clampf(progress-float(output),0,0.999999)
+	if output<=0:return 0
+	var basis: float=0
+	for ingredient in inputs:
+		var amount: float=float(output)*float(inputs[ingredient])
+		basis+=_take_basis(business,str(ingredient),amount)
+		business.inventory[ingredient]=_round2(_num(business.inventory.get(ingredient,0))-amount)
+	business.inventoryBasis[good]=float(business.inventoryBasis.get(good,0))+basis
+	business.inventory[good]=_round2(_num(business.inventory.get(good,0))+output)
+	return output
 
 # Whole units to the home port only below equilibrium and within its cash.
 static func _sell(state: Dictionary, business: Dictionary, port: Dictionary, goods: Array, ledger: Array) -> int:
@@ -534,10 +541,17 @@ static func tick(core, days: float = 1.0) -> Array:
 			messages.append("%s wages short by %d coins; work paused." % [str(business["name"]), int(business["arrearsHousehold"]) + int(business["arrearsExpert"])])
 			continue
 		if str(business["kind"]) == "workshop":
+			business.toolingPaidDay=int(state.econDay)
+			var tooling_api: Script=load("res://scripts/industrial_tooling.gd")
+			tooling_api.service(core,str(business.id))
+			business.toolingFactor=tooling_api.production_factor(core,str(business.id))
+			business.toolingLabor=""
+			for item in state.get("tooling",{}).get("items",[]):
+				if item.businessId==business.id and item.location=="active":business.toolingLabor=str(item.recipeLabor)
 			var kits := _produce(business, whole)
 			if kits > 0:
-				messages.append("%s made %d repair kits from stored materials." % [str(business["name"]), kits])
-			if business.autoSell:_sell(state, business, port, ["supplies"], ledger)
+				messages.append("%s made %d %s from paid labor and stored materials." % [str(business["name"]), kits,str(Goods.ITEMS[str(business.get("recipeGood","supplies"))].name)])
+			if business.autoSell:_sell(state, business, port, [str(business.get("recipeGood","supplies"))], ledger)
 		elif str(business["kind"]) == "salvage_yard" and business.autoSell:
 			var goods: Array = (business["inventory"] as Dictionary).keys()
 			goods.sort()

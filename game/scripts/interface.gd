@@ -7,6 +7,7 @@ const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
 const HomeUI=preload("res://scripts/home_ui.gd")
+const ToolingUI=preload("res://scripts/tooling_ui.gd")
 const SupplyUI=preload("res://scripts/supply_ui.gd")
 const EconomicUI=preload("res://scripts/economic_ui.gd")
 const RegionalUI=preload("res://scripts/regional_ui.gd")
@@ -430,6 +431,7 @@ func open_port(tab: String = ""):
 	button(body,"Home harbor, storage & business",func():HomeUI.open(self))
 	button(body,"Crew training & harbor workforce",func():EconomicUI.open(self))
 	button(body,"Supply coverage & protected stocks",func():SupplyUI.open(self))
+	button(body,"Recovered machinery & workshop development",func():ToolingUI.open(self))
 	if p.industry=="shipyard":button(body,"Recovered drawings & design licenses",func():RecoveryUI.blueprints(self))
 	var tabs = row(body)
 	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
@@ -601,6 +603,7 @@ func open_cargo():
 		paragraph(body, "Sealed contract freight: %d %s. Reserved until delivery or abandonment." % [host.core.state.freight.qty, host.core.state.freight.good], 15, GOLD)
 	for job in host.core.state.get("voyageJobs",[]):
 		if not job.get("freight",{}).is_empty():paragraph(body,"Sealed %s: %.0f %s · %.0f space"%[job.title,job.freight.qty,job.freight.good,job.freight.qty*host.Economy.GOODS[job.freight.good].weight],14,GOLD)
+	button(body,"Recovered machinery & shore work",func():ToolingUI.open(self))
 	button(body, "Load reserves into working stores", func(): host.core.use_reserves(); open_cargo(), true)
 	rule(body)
 	var costs = host.Economy.daily_upkeep(host.core.state.fleet)

@@ -1,4 +1,4 @@
-# Brass Tide v0.020 source map
+# Brass Tide v0.021 source map
 
 The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
 
@@ -47,3 +47,5 @@ Read BUILD PLAN.txt, version notes/verdicts and delivery receipts for actual cha
 - v0.019: crew_training.gd owns finite qualification subsets, reserved trainee/instructor cohorts, paid material and wage escrow, completion and cancel rules. training_ops.gd enforces harbor access; economic_ui.gd shows full quotes and course accounts. Economy ticks copied local jobs; Money.port_total counts their escrow once and SaveValidation preflights it before restore.
 
 - v0.020: harbor_reserves.gd computes read-only demand/coverage/export availability and feasible priority floors; reserve_ops.gd publishes actual recipe/convoy observations and route horizons, enforces policy authority and transfers real granary lots; supply_ui.gd presents it. Economy/Fleets purchases use the same availability, and copied local production reserves essential work within the shared paid workforce.
+
+Industrial development: industrial_tooling.gd owns finite item identities and commissioning; tooling_ops.gd binds actual surveys, crews, physical recovery and paid workshop staffing/recipes; yard_development.gd owns five-day staffed bay escrow; tooling_ui.gd exposes those actions. Hold manifests carry equipment once; Money totals count only held bay wages. Tests: industrial_tooling and industrial_voyage.

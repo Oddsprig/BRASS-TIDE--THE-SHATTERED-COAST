@@ -1,9 +1,9 @@
 BRASS TIDE BUILD STATUS
-Current source: v0.020 / BUILD 20
-Milestone: Harbor reserves and production priorities
-SOURCE ACCEPTED: 50 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+Current source: v0.021 / BUILD 21
+Milestone: Recovered machinery and shipyard development
+SOURCE ACCEPTED: 52 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 
-Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.020 DELIVERY VERIFIED.json.
+Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.021 DELIVERY VERIFIED.json.
 In-game TXT notes: game/data/DEVELOPER NOTES.txt. Current economy plan: docs/ECONOMY VERSION MAP v0.019-v0.028.txt.
 Owner authorized sequential builds0.019-0.028 with root and up to three Sol6.1 Max helpers through Bridge.
 Previous versions, original saves and supplied music must remain intact.

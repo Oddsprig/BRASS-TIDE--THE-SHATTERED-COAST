@@ -46,8 +46,8 @@ static func commission(core, id: String) -> Dictionary:
 	var h: Dictionary = core.hull(id)
 	if p.is_empty() or h.is_empty() or not id in p.get("shipIds", []):
 		return core.fail("This yard does not build that design.")
-	if p.buildQueue.size() >= 2:
-		return core.fail("Both building slips are occupied.")
+	if p.buildQueue.size() >= 2+core.YardDevelopment.bays(core.state,str(p.id)):
+		return core.fail("The public and chartered building slips are occupied.")
 	if not core.can_add_boat(h):
 		return core.fail(core.points_refusal(h))
 	var q: Dictionary = quote(core, h, p)

@@ -18,6 +18,8 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const YardDevelopment=preload("res://scripts/yard_development.gd")
+const ToolingOps=preload("res://scripts/tooling_ops.gd")
 const ReserveOps=preload("res://scripts/reserve_ops.gd")
 const TrainingOps=preload("res://scripts/training_ops.gd")
 const HomeOps=preload("res://scripts/home_ops.gd")
@@ -136,6 +138,8 @@ func new_game(seed_value: int = 1):
 	RegionalOps.ensure(self)
 	TrainingOps.ensure(self)
 	ReserveOps.ensure(self)
+	ToolingOps.ensure(self)
+	YardDevelopment.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -245,6 +249,7 @@ func travel_speed() -> float:
 	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
+	if not state.get("toolingRecovery",{}).is_empty():return fail("Recall or finish the machinery recovery party before sailing away.")
 	if not state.get("exploration",{}).get("assignment",{}).is_empty():return fail("Recall your shore party before sailing away.")
 	if active_fleet().is_empty():
 		return fail("Crew a boat before setting sail.")
@@ -327,6 +332,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		var paid: int = mini(int(state.coins),due)
 		Money.move(state,"coins",state,"crewPurse",paid,"Captain pays sailors",state.moneyLog)
 		state.wageArrears += due-paid
+		ToolingOps.paid_day(self,paid,due)
 		if paid < due:
 			state.morale = maxf(10.0,state.morale-8.0)
 			log_entry("Crew wages short by %d coins. Unpaid wages accumulate and morale falls."%(due-paid))
@@ -350,11 +356,13 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		for message in Fleets.tick(state.fleetOwners,state.ports,1.0).slice(0,2):
 			log_entry(str(message))
 		for message in FleetIdentity.tick(self,1):log_entry(str(message))
+		YardDevelopment.daily(self)
 		Harbor.tick_yards(self,1)
 		RegionalOps.begin_day(self)
 		NavalLifecycle.daily(self)
 		TradeFlow.daily(self)
 		StoryOps.daily(self)
+		ToolingOps.Tooling.daily(self)
 		HomeOps.daily(self)
 		RegionalOps.daily(self)
 		ReserveOps.refresh(self)
@@ -417,6 +425,7 @@ func wait_day():
 	advance_surveys(1.0)
 
 func begin_survey(site_id: String, action: String) -> Dictionary:
+	if not state.get("toolingRecovery",{}).is_empty():return fail("Recall the machinery recovery party before assigning a survey.")
 	var site: Dictionary=Exploration.catalog_site(state,site_id)
 	if site.is_empty() or distance(state.position,site)>180:return fail("Approach within180water units of this landing first.")
 	if not state.path.is_empty():return fail("Stop the fleet before landing your survey party.")
@@ -972,6 +981,8 @@ func restore(saved: Dictionary) -> Dictionary:
 	RegionalOps.ensure(self)
 	TrainingOps.ensure(self)
 	ReserveOps.ensure(self)
+	ToolingOps.ensure(self)
+	YardDevelopment.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -1006,3 +1017,16 @@ func ok(message: String) -> Dictionary:
 
 func fail(message: String) -> Dictionary:
 	return {"ok": false, "message": message}
+
+
+func tooling_recovery_offer(site_id: String,kind: String) -> Dictionary:
+	return ToolingOps.offer(self,site_id,kind)
+
+func tooling_settle_recovery(requirements: Dictionary) -> Dictionary:
+	return ToolingOps.settle(self,requirements)
+
+func tooling_recipe(business_id: String,kind: String) -> Dictionary:
+	return ToolingOps.binding(self,business_id,kind)
+
+func tooling_hold_room(weight: float) -> bool:
+	return ToolingOps.hold_room(self,weight)

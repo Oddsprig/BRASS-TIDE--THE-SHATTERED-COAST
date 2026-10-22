@@ -1,3 +1,7 @@
+v0.021 voluntary play: Recovered machinery and shipyard development
+Assess readability and usefulness of: Finite surveyed machinery sources require spare sailors, real elapsed recovery days, ordinary paid crew time and consumed kits. Physical machinery occupies one carrier, can be lost, and restores in staffed owned workshops with actual installation materials and wages. Paid workshop trades and real kit, plank, engine or weapon recipes have material and labor bottlenecks; maintained tooling improves its named work. Friendly shipyard workshops fund timed drydock bays with reserved workers and wages; added slips share the same finite construction workforce.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.020 voluntary play: Harbor reserves and production priorities
 Assess readability and usefulness of: Route-scale supply coverage keeps commercial, public and inbound goods distinct and protects only actual operating or contracted stock. Essential recipes share bounded feasible paid-work floors; physical inputs, wages and one shared workforce still limit production. Real market/NPC purchases respect available lots; friendly harbor partners can advise policy and pay staff for a physical granary release. Training save preflight validates earned work and stable identities; fractional completion settles every held wage coin.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
