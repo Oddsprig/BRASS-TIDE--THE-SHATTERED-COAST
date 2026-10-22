@@ -507,6 +507,10 @@ static func transact(port: Dictionary, wallet: Dictionary, good: String, qty: Va
 	var port_cash := int(round(float(port["cash"])))
 
 	if trade_side == "buy":
+		if port.get("reserves") is Dictionary:
+			var reserve_api: Script=load("res://scripts/harbor_reserves.gd")
+			var available_for_sale: int=floori(float(reserve_api.exportable(port,g)))
+			if q>available_for_sale:return {"ok":false,"qty":0,"total":0,"coins":0,"message":"Operating and contracted stocks are protected; %d %s lots are available for new sales."%[available_for_sale,str(g_info.name)]}
 		if q > port_stock:
 			return {"ok": false, "qty": 0, "total": 0, "coins": 0, "message": "Port lacks sufficient " + str(g_info["name"])}
 		if capacity != null:
@@ -870,6 +874,17 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 				weighted_recipes.append({"good": rg, "weight": eff_w})
 				weight_sum += eff_w
 
+			var reserve_floors: Dictionary={}
+			var floor_workers: float=0
+			var remaining_worker_days: float=float(max_ind_workers)*dt
+			if port.get("reserves") is Dictionary:
+				port.reserves.availableRecipes=recipes.duplicate(true)
+				var reserve_api: Script=load("res://scripts/harbor_reserves.gd")
+				var affordable_workers: float=minf(float(max_ind_workers),float(payroll_budget)/(200.0*maxf(0.01,dt)))
+				reserve_floors=reserve_api.allocation_floors(port,affordable_workers)
+				for amount in reserve_floors.values():floor_workers+=float(amount)
+				weighted_recipes.sort_custom(func(a,b):return float(reserve_floors.get(a.good,0))>float(reserve_floors.get(b.good,0)))
+
 			if max_ind_workers > 0 and payroll_budget > 0 and weight_sum > 0.0:
 				for wr in weighted_recipes:
 					var rg := str(wr["good"])
@@ -880,6 +895,8 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 					var unit_cost := maxf(1.0, Goods.labor_cost(labor_map))
 
 					var alloc_worker_days := float(max_ind_workers) * dt * (float(wr["weight"]) / weight_sum) * jitter
+					if port.get("reserves") is Dictionary:
+						alloc_worker_days=minf(remaining_worker_days,float(reserve_floors.get(rg,0))*dt+maxf(0,float(max_ind_workers)-floor_workers)*dt*(float(wr.weight)/weight_sum)*jitter)
 					var batches := alloc_worker_days / unit_days
 
 					# Constrain by opening physical inputs
@@ -934,6 +951,8 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 
 					if recipe_gross <= 0 or batches <= 1e-5:
 						continue
+
+					remaining_worker_days=maxf(0,remaining_worker_days-batches*unit_days)
 
 					# Deplete real inputs and create output
 					for in_g in inputs_map.keys():
@@ -1119,11 +1138,13 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 					})
 
 			# Civic upkeep consumption from publicStores
+			port["lastPublicUse"]={}
 			for pg in GOOD_KEYS:
 				var cur_pub := float(public_stores.get(pg, 0.0))
 				var cap_pub := float(get_equilibrium_stock(port, pg)) * 0.35
 				if cur_pub > cap_pub:
 					public_stores[pg] = _clean_stock(cur_pub - (cur_pub - cap_pub) * 0.15 * dt)
+					port.lastPublicUse[pg]=maxf(0,cur_pub-float(public_stores[pg]))/maxf(0.01,dt)
 
 			# Commit float physical stocks and check low stock shortages
 			for g in GOOD_KEYS:

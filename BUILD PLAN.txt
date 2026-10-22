@@ -1,3 +1,10 @@
+v0.020 SOURCE ACCEPTED — Harbor reserves and production priorities
+- Route-scale supply coverage keeps commercial, public and inbound goods distinct and protects only actual operating or contracted stock.
+- Essential recipes share bounded feasible paid-work floors; physical inputs, wages and one shared workforce still limit production.
+- Real market/NPC purchases respect available lots; friendly harbor partners can advise policy and pay staff for a physical granary release.
+- Training save preflight validates earned work and stable identities; fractional completion settles every held wage coin.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 v0.019 SOURCE ACCEPTED — Crew training and labor pools
 - Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow.
 - Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger.

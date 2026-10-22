@@ -150,6 +150,9 @@ static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: 
 	var room: float=maxf(0.0,_capacity(owner)-Economy.cargo_weight(owner.cargo))
 	if working:room=maxf(room,quantity*float(Goods.ITEMS[good].weight))
 	var count: int=mini(quantity,mini(_integer(port.stocks.get(good,0)),mini(int(owner[purse])/maxi(1,price),int(floor(room/float(Goods.ITEMS[good].weight))))))
+	if port.get("reserves") is Dictionary:
+		var reserve_api: Script=load("res://scripts/harbor_reserves.gd")
+		count=mini(count,floori(float(reserve_api.exportable(port,good))))
 	if count<=0:
 		return 0
 	var result: Dictionary=Economy.transact(port,wallet,good,count,"buy",maxf(_capacity(owner),Economy.cargo_weight(owner.cargo)+count*float(Goods.ITEMS[good].weight)) if working else _capacity(owner))

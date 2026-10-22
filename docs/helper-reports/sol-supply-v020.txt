@@ -1,0 +1,138 @@
+SOL SUPPLY — v0.020 bounded delivery
+
+STATUS
+Complete source payload delivered in the response for root to apply.
+File/terminal reads stalled. No successful file reads or writes are claimed.
+No filesystem checkpoint or Git commit is claimed.
+Manual source/data-flow review only. No engine, game, test, export or build ran.
+No helpers were spawned. No central files, saves, releases or music changed.
+
+DELIVERED FILES
+game/scripts/harbor_reserves.gd
+game/tests/test_harbor_reserves.gd
+REPORT.txt
+
+EXACT STATIC API
+ensure(port: Dictionary) -> void
+report(port: Dictionary) -> Dictionary
+exportable(port: Dictionary, good: String) -> float
+allocation_floors(port: Dictionary, paid_workers: float) -> Dictionary
+set_policy(port: Dictionary, policy: String) -> Dictionary
+validate(port: Dictionary) -> String
+
+ensure and successful set_policy modify only port.reserves.
+report, exportable, allocation_floors and validate are read-only.
+validate returns an empty String for valid input; otherwise a diagnostic.
+set_policy returns {ok, message, policy}; it performs no authority check.
+
+DEPENDENCIES / ASSUMPTIONS
+Godot project root is game; supplied dependency paths assumed:
+res://scripts/goods.gd
+res://scripts/industry_data.gd
+
+Goods.ITEMS records contain inputs and labor Dictionaries.
+Goods.labor_days(labor) supplies actual worker-days per output unit.
+IndustryData.DAILY_FOOD_PER_PERSON is the supplied real constant 0.08.
+Port workforce is the numeric scalar confirmed by root.
+Stocks and publicStores remain distinct actual physical inventories.
+
+RESERVES SCHEMA
+Required normalized fields:
+schema: 1
+policy: "security" or "commercial"
+resupplyDays: float, clamped 1..14; default 4
+
+Optional bounded snapshots:
+observedDemand: {knownGood: actual units consumed per day}
+availableRecipes: Array[{good: knownGood, share: positive float}]
+contractedLots: {knownGood: actual reserved quantity WITHIN stocks}
+incoming: {knownGood: actual confirmed incoming quantity}
+
+These snapshot fields are explicit module adapter inputs.
+They are not claims that matching central runtime fields already exist.
+Known-good maps are bounded by Goods.ITEMS.
+Duplicate recipe records collapse by good.
+No derived coverage cache is persisted.
+
+DEMAND HOOK
+Module adds household food itself:
+max(0.5, max(10, workforce) * DAILY_FOOD_PER_PERSON).
+
+observedDemand MUST EXCLUDE that household food baseline.
+Populate it with actual recipe-input consumption and actual fleet use,
+converted to units/day. Actual lastProduction output rates may be converted
+through Goods.ITEMS[output].inputs. Do not treat projected production,
+incoming cargo or sale quantities as observed final consumption.
+Replace snapshots after completed ticks and refresh them on load.
+
+REPORT DATA
+Top level:
+schema, policy, resupplyDays, operatingDays, householdFoodPerDay, goods, reason.
+
+Each reported goods row:
+dailyDemand, noDemand, commercialStock, publicStock, incoming, contracted,
+commercialCoverageDays, publicCoverageDays, operatingTarget, publicTarget,
+operatingProtected, protected, exportable, reason.
+
+No-demand coverage is numeric zero with noDemand=true, avoiding infinity.
+Commercial coverage excludes actual contracted lots.
+Public coverage is separate. Incoming never contributes to coverage.
+Public targets are advisory and never lock a matching amount of commercial cargo.
+Security operating protection is 0.5..1.5 days of actual essential demand.
+Commercial operating protection is 0.25..0.75 days.
+Public targets are respectively one or half the bounded resupply horizon.
+
+EXPORT HOOK
+Use exportable for NEW, uncommitted export quotes.
+It subtracts only actual contracted lots plus the small operating buffer.
+It never changes stock, fulfills orders or moves coins.
+
+CONTRACT EXCEPTION
+Root retains actual named contract identities and fulfillment authority.
+Only actual reserved lots already contained in commercial stocks belong in
+contractedLots. Do not include incoming promises or public inventory.
+An existing named contract may fulfill its own bounded reserved lot through
+root's contract path, without applying the new-sale quote to that same lot.
+Atomically decrease actual stock and its actual reservation on shipment.
+This is not permission to bypass other contracts or export arbitrary reserves.
+Overcommitted snapshots are diagnosed; quotes remain conservative/nonnegative.
+
+PRODUCTION HOOK
+Supply availableRecipes from the real normalized industry/specialty recipe list,
+with positive shares and any existing specialist/site eligibility filtering.
+No snapshot means no priority floors.
+
+paid_workers must be the feasible shared industrial pool after public and yard
+commitments. Do not subtract those commitments again inside this module.
+Floors are fractional worker counts / worker-days per day, not output quantities.
+Combine these floors with allocation of the remaining workforce.
+Do not add them on top of a fully allocated workforce.
+
+Combined floors never exceed 25% of paid_workers.
+Food/supplies/fuel/ammo preference weights are 4/3/2/1.
+Only real available recipes with actual demand and a stock deficit receive floors.
+Feasibility uses real recipe labor and a shared opening commercial-input budget.
+Actual contracted ingredients are unavailable.
+Public goods, incoming cargo and hypothetical recipe outputs cannot fund floors.
+Root retains actual occupation eligibility, payroll, wages, taxes and final
+production/input checks; this module neither pays workers nor creates outputs.
+
+PUBLIC RELEASE PROPOSAL — ROOT ONLY
+After authority checks, perform an actual bounded transfer from publicStores
+to the real destination inventory or actual consumer. For release to commercial
+stock, decrement publicStores and increment stocks by the identical quantity
+atomically. Apply existing payment/ledger rules where relevant.
+Do not substitute a coverage adjustment or target change for physical transfer.
+No public-release API or central hook was added by this helper.
+
+PENDING ROOT VERIFICATION
+Apply the three payload files, inspect the resulting diff and independently
+compile/run the native SceneTree test through the serialized headless workflow.
+Register the new test in central tooling if required; central edits belong to root.
+
+Tests cover resident scale, no-demand and zero stocks, modest export protection,
+public/incoming separation, actual contracted subsets, policy bounds and rejection,
+inventory/purse preservation, available recipes, aggregate input feasibility,
+25% workforce cap, scarce inputs and malformed/nonfinite data.
+
+No test-pass claim. Integration, build/version records and release remain root-owned.

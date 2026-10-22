@@ -1,6 +1,14 @@
-## v0.019 — Crew training and labor pools
+## v0.020 — Harbor reserves and production priorities
 
 Candidate; verified test/export records follow.
+
+- Route-scale supply coverage keeps commercial, public and inbound goods distinct and protects only actual operating or contracted stock.
+- Essential recipes share bounded feasible paid-work floors; physical inputs, wages and one shared workforce still limit production.
+- Real market/NPC purchases respect available lots; friendly harbor partners can advise policy and pay staff for a physical granary release.
+
+## v0.019 — Crew training and labor pools
+
+Verified local Windows delivery; exact tagged game e06f7ad8b391848b4972274a9e2fa507df4dc379. Native/export/archive evidence is in the delivery receipts.
 
 - Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow.
 - Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger.

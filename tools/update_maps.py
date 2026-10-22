@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "harbor-reserves": (["harbor_reserves","reserve_ops","supply_ui"],
+                        "Actual consumption, route times and paid workers -> separate coverage, protected operating lots, feasible allocation floors and real public release.",
+                        "test_harbor_reserves, test_supply_voyage"),
     "workforce-training": (["crew_training","training_ops","economic_ui"],
                           "Existing civilian people and funded course inputs -> reserved trainees, qualified recruits, paid wages and refund-safe cancellation.",
                           "test_crew_training, test_training_voyage"),

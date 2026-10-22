@@ -1,3 +1,7 @@
+v0.020 voluntary play: Harbor reserves and production priorities
+Assess readability and usefulness of: Route-scale supply coverage keeps commercial, public and inbound goods distinct and protects only actual operating or contracted stock. Essential recipes share bounded feasible paid-work floors; physical inputs, wages and one shared workforce still limit production. Real market/NPC purchases respect available lots; friendly harbor partners can advise policy and pay staff for a physical granary release. Training save preflight validates earned work and stable identities; fractional completion settles every held wage coin.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.019 voluntary play: Crew training and labor pools
 Assess readability and usefulness of: Funded harbor courses reserve existing civilian workers and pay trainees and instructors from finite escrow. Qualified recruitment, returning sailors and copied-port daily training share the actual workforce and coin ledger. Training accounts have harbor controls, cancellation and read-only save preflight; older releases and original saves remain preserved.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

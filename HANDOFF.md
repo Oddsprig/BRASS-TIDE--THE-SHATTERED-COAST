@@ -1,3 +1,24 @@
+# v0.020 — Harbor reserves and production priorities
+
+SOURCE ACCEPTED: 50 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Route-scale supply coverage keeps commercial, public and inbound goods distinct and protects only actual operating or contracted stock.
+- Essential recipes share bounded feasible paid-work floors; physical inputs, wages and one shared workforce still limit production.
+- Real market/NPC purchases respect available lots; friendly harbor partners can advise policy and pay staff for a physical granary release.
+- Training save preflight validates earned work and stable identities; fractional completion settles every held wage coin.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.020.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.020 — Harbor reserves and production priorities
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Route-scale supply coverage keeps commercial, public and inbound goods distinct and protects only actual operating or contracted stock.
+- Essential recipes share bounded feasible paid-work floors; physical inputs, wages and one shared workforce still limit production.
+- Real market/NPC purchases respect available lots; friendly harbor partners can advise policy and pay staff for a physical granary release.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.020.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.019 — Crew training and labor pools
 
 SOURCE ACCEPTED: 48 native suites pass; portable export evidence is recorded separately in RELEASE.json.

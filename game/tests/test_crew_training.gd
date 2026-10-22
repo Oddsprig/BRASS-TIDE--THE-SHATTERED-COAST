@@ -36,6 +36,19 @@ func _initialize() -> void:
 	var bad: Dictionary=p.duplicate(true);bad.training.qualified.sailor=100000000
 	check(not T.validate(bad).is_empty(),"Qualifications cannot exceed actual workers")
 	check(not T.quote(p,-1).ok and not T.quote(p,101).ok and not T.quote(p,1,"wizard").ok,"Invalid counts and unknown course are refused")
+	check(T.enroll(p,c.state,1,"mechanic").ok,"A fractional-time regression course can begin")
+	var malformed: Dictionary=p.duplicate(true)
+	malformed.training.nextId=0
+	check(not T.validate(malformed).is_empty(),"Stale course sequence cannot create duplicate future identities")
+	malformed=p.duplicate(true)
+	malformed.training.jobs[0].progress=1.0
+	check(not T.validate(malformed).is_empty(),"Unpaid elapsed course progress cannot be forged")
+	var partitioned: Dictionary=p.duplicate(true)
+	var partition_money: int=M.port_total(partitioned)
+	for i in range(80):T.daily(partitioned,0.1)
+	check(partitioned.training.jobs.is_empty() and M.port_total(partitioned)==partition_money,"Eighty fractional slices finish once with every escrow coin settled")
+	T.daily(p,8)
+	check(T.validate(p).is_empty() and M.total(c.state)==total,"Whole and fractional training both keep canonical wages and people")
 	p.stocks.supplies=0
 	check(not T.enroll(p,c.state,1).ok,"Material shortage prevents funded but impossible training")
 	print("crew training: %d checks, %d failures"%[checks,failures])

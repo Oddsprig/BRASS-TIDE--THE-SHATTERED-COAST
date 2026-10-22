@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const ReserveOps=preload("res://scripts/reserve_ops.gd")
 const TrainingOps=preload("res://scripts/training_ops.gd")
 const HomeOps=preload("res://scripts/home_ops.gd")
 const RegionalOps=preload("res://scripts/regional_ops.gd")
@@ -134,6 +135,7 @@ func new_game(seed_value: int = 1):
 	HomeOps.ensure(self)
 	RegionalOps.ensure(self)
 	TrainingOps.ensure(self)
+	ReserveOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -355,6 +357,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		StoryOps.daily(self)
 		HomeOps.daily(self)
 		RegionalOps.daily(self)
+		ReserveOps.refresh(self)
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
 		state.econDay += 1
@@ -968,6 +971,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	HomeOps.ensure(self)
 	RegionalOps.ensure(self)
 	TrainingOps.ensure(self)
+	ReserveOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0

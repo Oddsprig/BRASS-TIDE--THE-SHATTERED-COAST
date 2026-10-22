@@ -93,8 +93,9 @@ static func daily(p: Dictionary,days: float=1.0) -> void:
 	var finished: Array=[]
 	for job in p.training.jobs:
 		var progress: float=minf(float(job.days),float(job.progress)+days)
-		var trainee_due: int=mini(int(job.traineeTotal),floori(float(job.traineeTotal)*progress/float(job.days)))-int(job.traineePaid)
-		var instructor_due: int=mini(int(job.instructorTotal),floori(float(job.instructorTotal)*progress/float(job.days)))-int(job.instructorPaid)
+		if progress+0.000001>=float(job.days):progress=float(job.days)
+		var trainee_due: int=mini(int(job.traineeTotal),floori(float(job.traineeTotal)*progress/float(job.days)+0.0000001))-int(job.traineePaid)
+		var instructor_due: int=mini(int(job.instructorTotal),floori(float(job.instructorTotal)*progress/float(job.days)+0.0000001))-int(job.instructorPaid)
 		if int(job.escrow)<trainee_due+instructor_due:
 			job.paused=true
 			continue
@@ -154,6 +155,9 @@ static func validate(p: Dictionary) -> String:
 	for job in b.jobs:
 		if not job is Dictionary or not job.get("id") is String or ids.has(job.id) or job.get("role") not in ROLES:return "Invalid or duplicate training identity."
 		ids[job.id]=true
+		var prefix: String="course-"+str(p.get("id","port"))+"-"
+		var suffix: String=str(job.id).trim_prefix(prefix)
+		if not str(job.id).begins_with(prefix) or not suffix.is_valid_int() or int(suffix)<1 or int(suffix)>int(b.nextId):return "Stale or noncanonical training identity."
 		if not _int(job.get("count"),MAX_PEOPLE) or int(job.count)<1:return "Invalid trainee count."
 		if not (job.get("progress") is int or job.get("progress") is float) or not is_finite(float(job.progress)) or job.progress<0 or job.progress>float(ROLES[job.role].days):return "Invalid training progress."
 		if job.get("days")!=ROLES[job.role].days or job.get("reservedWorkers")!=int(job.count)+1:return "Invalid course duration or reserved people."
@@ -161,5 +165,8 @@ static func validate(p: Dictionary) -> String:
 			if not _int(job.get(key)):return "Invalid training wage account."
 		if int(job.traineePaid)>int(job.traineeTotal) or int(job.instructorPaid)>int(job.instructorTotal) or int(job.escrow)!=int(job.traineeTotal)+int(job.instructorTotal)-int(job.traineePaid)-int(job.instructorPaid):return "Training wages and escrow do not reconcile."
 		if int(job.traineeTotal)!=ceili(float(job.count)*float(job.days)*Goods.SAILOR_WAGE) or int(job.instructorTotal)!=ceili(float(job.days)*int(Goods.WAGES[ROLES[job.role].instructor])):return "Noncanonical course wages."
+		var expected_trainee: int=floori(float(job.traineeTotal)*float(job.progress)/float(job.days)+0.0000001)
+		var expected_instructor: int=floori(float(job.instructorTotal)*float(job.progress)/float(job.days)+0.0000001)
+		if int(job.traineePaid)!=expected_trainee or int(job.instructorPaid)!=expected_instructor:return "Earned training wages do not match elapsed paid work."
 		if not job.get("paused") is bool or not job.get("payer") is String:return "Invalid training status or payer."
 	return ""

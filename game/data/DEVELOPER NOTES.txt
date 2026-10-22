@@ -1,4 +1,17 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.020 — Harbor reserves and production priorities
+SOURCE ACCEPTED: 50 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Route-scale supply coverage keeps commercial, public and inbound goods distinct and protects only actual operating or contracted stock.
+- Essential recipes share bounded feasible paid-work floors; physical inputs, wages and one shared workforce still limit production.
+- Real market/NPC purchases respect available lots; friendly harbor partners can advise policy and pay staff for a physical granary release.
+- Training save preflight validates earned work and stable identities; fractional completion settles every held wage coin.
+
+Team: Codex root + up to three Sol6.1 Max helpers through Bridge.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.019 — Crew training and labor pools
 SOURCE ACCEPTED: 48 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 
