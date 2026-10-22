@@ -1,3 +1,31 @@
+BRASS TIDE — CURRENT AND PLANNED VERSION MAP
+22 October 2026 | current delivered v0.018 | next planned v0.019
+
+PLANNING STATUS
+Owner requested a version map. v0.019–v0.028 are planned, not implemented.
+Each future playable version advances exactly 0.001 on its completed predecessor.
+Full mechanics, costs, dependencies and exit gates:
+docs/ECONOMY VERSION MAP v0.019-v0.028.txt
+
+v0.019 | NEXT | Crew training and labor pools
+v0.020 | PLANNED | Harbor reserves and production priorities
+v0.021 | PLANNED | Recovered machinery and shipyard development
+v0.022 | PLANNED | Worker wellbeing and paid policies
+v0.023 | PLANNED | Regional goods and household demand
+v0.024 | PLANNED | Player shipping companies
+v0.025 | PLANNED | Smuggling and economic diplomacy
+v0.026 | PLANNED | Boarding crews and coastal defenses
+v0.027 | PLANNED | Regional crises and resettlement
+v0.028 | PLANNED | Campaign balance, guidance and performance
+
+Milestone 1: .019–.021 people, supply and industrial investment.
+Milestone 2: .022–.025 living coast and merchant progression.
+Milestone 3: .026–.028 coastal operations, recovery and campaign polish.
+If a step needs another release, move later targets forward; never skip builds.
+Planning changes do not increment BUILD or alter the delivered v0.018 game.
+
+VERIFIED COMPLETED CAMPAIGN RECORD — PRESERVED BELOW
+
 BRASS TIDE — VERIFIED CAMPAIGN DELIVERY
 21 October 2026 | all eleven authorized increments complete
 

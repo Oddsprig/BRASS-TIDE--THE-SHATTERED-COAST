@@ -1,5 +1,7 @@
 # Brass Tide v0.018 delivered
 
+22 October 2026 planning update: the owner requested a version map after the installed-LTV review. docs/ECONOMY VERSION MAP v0.019-v0.028.txt is the detailed ten-step plan; ROADMAP.md is its current-stage summary and VERSION MAP.txt its compact status index. All future steps remain planned. First target is v0.019 paid crew training, then v0.020 reserves and v0.021 recovered machinery/yard development. The portable game, BUILD, launcher and release tags remain at v0.018. This task used no helpers or game tests. The prior roadmap is archived verbatim under docs/archive/2026-10-22 before economy version map ROADMAP.md.
+
 The authorized v0.008–v0.018 campaign sequence is complete. All eleven individual Windows builds, annotated tags and source/Windows archives are preserved and independently audited. Current exact game: a75dd7bde2868da2b88e6e1df9bb4a756c4b2459. The Desktop Brass Tide icon points to v0.018; the original owner voyage is unchanged and copied into that version after clean archives.
 
 All 46 native suites passed from the clean tag, then the actual Windows executable passed menu, campaign/save, battle, icon and PCK checks. Seven battle CPU fixtures and the 180 economic day worker/save/coin run passed. All tests were hidden/headless and serialized with no desktop input. GPU pacing, human listening and subjective play feel remain voluntary play questions.

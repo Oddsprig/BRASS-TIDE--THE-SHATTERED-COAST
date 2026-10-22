@@ -65,23 +65,23 @@ def main():
     if marker in text:
         text = text[text.find("\nPREVIOUS BUILD NOTES\n") + len("\nPREVIOUS BUILD NOTES\n"):] if "\nPREVIOUS BUILD NOTES\n" in text else ""
     features = "\n".join("- " + feature for feature in args.feature)
-    entry = f"BRASS TIDE — DEVELOPMENT NOTES\n{marker}\n{status}\n\n{features}\n\nTeam: Codex root + one Muse Wonder Full + one Argon High + one Grok4.7.\nBackground tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.\n\nPREVIOUS BUILD NOTES\n"
+    entry = f"BRASS TIDE — DEVELOPMENT NOTES\n{marker}\n{status}\n\n{features}\n\nTeam: Codex root + up to three Sol6.1 Max helpers through Bridge.\nBackground tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.\n\nPREVIOUS BUILD NOTES\n"
     notes.write_text(entry + text, encoding="utf-8")
     changes = ROOT / f"CHANGES v{version}.md"
     changes.write_text(f"# Brass Tide v{version} — {args.title}\n\n{status}\n\n{features}\n\nBuilt on the preceding version. Prior releases, original saves and owner music are preserved. See the source verification report and portable RELEASE.json for actual checks/export evidence.\n", encoding="utf-8")
     if not args.accept_logs:
         date = datetime.now().strftime("%Y-%m-%d")
-        prepend(ROOT / "DEV LOG.txt", f"{date} | v{version} CANDIDATE | {args.title}\n{features}\nRoot + Muse Wonder Full / Argon High / Grok4.7. Source checks and exact-tag export follow; no delivery claim yet.")
+        prepend(ROOT / "DEV LOG.txt", f"{date} | v{version} CANDIDATE | {args.title}\n{features}\nRoot + up to three Sol6.1 Max helpers through Bridge. Source checks and exact-tag export follow; no delivery claim yet.")
         prepend(ROOT / "VERSION MAP.txt", f"v{version} CANDIDATE — {args.title}\n" + " ".join(args.feature) + "\nSource acceptance and export receipts determine completion; every build advances0.001.")
         prepend(ROOT / "VERSIONS.md", f"## v{version} — {args.title}\n\nCandidate; verified test/export records follow.\n\n" + features)
     else:
         prepend(ROOT / "DEV LOG.txt", f"v{version} SOURCE ACCEPTED | {args.title}\n{len(SUITES)} native suites passed; source report saved. Portable export and publication require separate receipts.")
-    prepend(ROOT / "HANDOFF.md", f"# v{version} — {args.title}\n\n{status}\n\n" + features + f"\n\nContinue the authorized sequential roadmap after verifying/preserving this version. Existing root + Muse Wonder Full / Argon High / Grok4.7 only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v{version}.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.")
+    prepend(ROOT / "HANDOFF.md", f"# v{version} — {args.title}\n\n{status}\n\n" + features + f"\n\nContinue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v{version}.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.")
     code = ROOT / "CODE MAP.md"
     text = code.read_text(encoding="utf-8")
     text = re.sub(r"^# Brass Tide v[\d.]+ source map", f"# Brass Tide v{version} source map", text)
     code.write_text(text, encoding="utf-8")
-    (ROOT / "BUILD STATUS.txt").write_text(f"BRASS TIDE BUILD STATUS\nCurrent source: v{version} / BUILD {args.build}\nMilestone: {args.title}\n{status}\n\nPlayable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v{version} DELIVERY VERIFIED.json.\nIn-game TXT notes: game/data/DEVELOPER NOTES.txt. Original campaign plan: docs/CAMPAIGN ROADMAP.txt.\nOwner authorized sequential builds0.008-0.018 with root, Muse Wonder Full, Argon High and Grok4.7.\nPrevious versions, original saves and supplied music must remain intact.\n", encoding="utf-8")
+    (ROOT / "BUILD STATUS.txt").write_text(f"BRASS TIDE BUILD STATUS\nCurrent source: v{version} / BUILD {args.build}\nMilestone: {args.title}\n{status}\n\nPlayable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v{version} DELIVERY VERIFIED.json.\nIn-game TXT notes: game/data/DEVELOPER NOTES.txt. Current economy plan: docs/ECONOMY VERSION MAP v0.019-v0.028.txt.\nOwner authorized sequential builds0.019-0.028 with root and up to three Sol6.1 Max helpers through Bridge.\nPrevious versions, original saves and supplied music must remain intact.\n", encoding="utf-8")
     if args.accept_logs:
         prepend(ROOT / "ROADMAP.md", f"v{version} SOURCE ACCEPTED — {args.title}. {len(SUITES)} native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.")
         prepend(ROOT / "BUILD PLAN.txt", f"v{version} SOURCE ACCEPTED — {args.title}\n{features}\nNative checks accepted; preserve this build's verified export before advancing. Historical plans follow.")

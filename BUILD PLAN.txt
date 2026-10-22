@@ -1,3 +1,11 @@
+CURRENT PLANNING — 22 October 2026
+Current delivered game: v0.018. Next planned: v0.019.
+The requested new sequence is v0.019–v0.028; all ten steps remain PLANNED.
+Read docs/ECONOMY VERSION MAP v0.019-v0.028.txt for costs, dependencies and
+acceptance gates. ROADMAP.md is the current-stage summary; VERSION MAP.txt
+is its status index. This planning update does not increment the game BUILD.
+Historical build decisions and delivered campaign records follow unchanged.
+
 AUTHORIZED CAMPAIGN SEQUENCE COMPLETE — v0.008–v0.018
 All 11 individual builds passed exact-tag Windows/source delivery and combined archive audits.
 Current game v0.018: a75dd7bde2868da2b88e6e1df9bb4a756c4b2459

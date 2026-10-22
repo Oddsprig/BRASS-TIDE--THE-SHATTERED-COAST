@@ -1,3 +1,12 @@
+2026-10-22 | PLANNING ONLY | economy/fleet version map v0.019–v0.028
+Owner: "OK PREPARE A VERSION MAP"; lead prepared ten sequential planned steps.
+Start with paid crew training, harbor reserves and recovered industrial tooling.
+Then worker conditions, regional goods, shipping, smuggling, boarding and recovery.
+Detailed TXT includes economics, dependencies, save/performance rules and exit gates.
+Archived the previous ROADMAP.md verbatim; refreshed current planning indexes.
+Game BUILD stays18/v0.018. No new helper, engine test, release, tag or launcher change.
+Next implementation step when requested: complete and preserve v0.019 before .020.
+
 2026-10-21 | PUBLICATION BLOCKED | local v0.008–v0.018 delivery remains complete
 Network permission granted. Exact-destination atomic non-forced Git push failed in Windows credential-helper MSYS named-object creation (0xC0000022). Direct installed native GCM noninteractive authentication also unavailable. No credentials logged, sign-in UI, forced push or global settings changes. All source/tags/archives and verified desktop v0.018 remain intact; publication is not claimed. See docs/GITHUB PUBLICATION v0.018.txt.
 

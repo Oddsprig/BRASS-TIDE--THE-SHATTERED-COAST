@@ -26,7 +26,7 @@ The native Godot game is game/. Generated maps/ contains current symbols/line nu
 - tools/release_game.py: clean exact-tag native Windows export, icon/PCK/menu/campaign/save/battle checks, RELEASE.json and portable ZIP.
 - tools/publish_github.py: verified exact repository, clean main/tag ancestry, atomic non-forced publish of all playable tags and exact remote verification. No interactive sign-in UI.
 
-Read BUILD PLAN.txt, version notes/verdicts and delivery receipts for actual changes and verification. ROADMAP.md and docs/CAMPAIGN ROADMAP.txt preserve the original plan and its v0.007 gap analysis beneath current acceptance records. docs/CAPTAINS CAMPAIGN GUIDE.txt describes the integrated campaign. Source captures and numerical/codec checks do not substitute for voluntary foreground play or listening.
+Read BUILD PLAN.txt, version notes/verdicts and delivery receipts for actual changes and verification. ROADMAP.md summarizes the planned v0.019–v0.028 economy stage; docs/ECONOMY VERSION MAP v0.019-v0.028.txt records its costs, dependencies and exit gates. The previous roadmap is preserved in docs/archive/2026-10-22 before economy version map ROADMAP.md; docs/CAMPAIGN ROADMAP.txt retains the original v0.008–v0.018 design. docs/CAPTAINS CAMPAIGN GUIDE.txt describes the delivered campaign. Source captures and numerical/codec checks do not substitute for voluntary foreground play or listening.
 
 - v0.011: voyage_jobs.gd owns finite side-job escrow and freight; contacts.gd owns harbor trust and dated observations; voyage_ui.gd presents these books. Campaign wrappers allocate sealed cargo and record actual visits/settlements. test_voyage_flow.gd covers lost cargo, once-only payment and the real menu.
 

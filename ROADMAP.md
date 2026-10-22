@@ -1,70 +1,70 @@
-AUTHORIZED CAMPAIGN SEQUENCE COMPLETE — v0.008–v0.018
-All 11 individual builds passed exact-tag Windows/source delivery and combined archive audits.
-Current game v0.018: a75dd7bde2868da2b88e6e1df9bb4a756c4b2459
-Desktop icon targets v0.018; owner save and 18 music tracks preserved.
-46 native suites,180 economic days, seven battle fixtures and real-save migration passed in background.
-GitHub upload is unverified: Windows credential access failed. See docs/GITHUB PUBLICATION v0.018.txt.
-Historical proposal and per-version records follow.
+# Brass Tide: the next economy and fleet campaign stage
 
-v0.018 SOURCE ACCEPTED — Regional campaigns. 46 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+Prepared 22 October 2026 in response to: “OK PREPARE A VERSION MAP”.
 
-v0.017 SOURCE ACCEPTED — A home harbor. 43 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+Planned sequence: **v0.019–v0.028**.
 
-v0.016 SOURCE ACCEPTED — Memorable exploration chains. 41 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+Current delivered game: **v0.018**, exact game commit
+a75dd7bde2868da2b88e6e1df9bb4a756c4b2459. The next planned step is **v0.019**.
+This is the development sequence; no later game build is claimed.
 
-v0.015 SOURCE ACCEPTED — Fleet identity. 39 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+The aim is a connected voyage: prepare and train a crew, take several useful
+cargoes or jobs, discover equipment, fight or negotiate, return and reinvest.
+The coast should react through real people, goods and money. Company and
+harbor management remain optional careers.
 
-v0.014 SOURCE ACCEPTED — Reactive trade and blockades. 36 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
-
-v0.013 SOURCE ACCEPTED — Independent fleet activity. 34 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
-
-v0.012 SOURCE ACCEPTED — Faction relationships. 32 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
-
-v0.011 SOURCE ACCEPTED — Jobs and contacts. 30 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
-
-v0.010 SOURCE ACCEPTED — Salvage and recovery. 28 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
-
-v0.009 SOURCE ACCEPTED — Island exploration. 26 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
-
-# Brass Tide campaign roadmap
-
-v0.008 source accepted: expedition preparation, separate ownership/deployment, storage and parallel production pass24native suites. Exact-tag Windows export has separate receipts. Current implementation team is root plus one Muse Wonder Full, one Argon High and one Grok4.7, superseding the historical team below. Continue v0.009 after preserving v0.008.
-
-21 October 2026. The delivered game remains **v0.007**. The next playable build is **v0.008**. This update records proposed campaign work; it does not change the game, saves, release tags or launcher.
-
-The purpose is a connected loop: hear a lead, prepare a fleet, explore/trade/fight, choose what to recover, return and reinvest, then follow the opportunities and consequences. Exploration, fleet composition, factions and economics should give one voyage several worthwhile possibilities.
-
-Full design, current-source gaps, acceptance gates and a worked voyage: [CAMPAIGN ROADMAP.txt](docs/CAMPAIGN%20ROADMAP.txt).
-
-| Proposed build | Playable outcome |
+| Planned version | What becomes playable |
 | --- | --- |
-| v0.008 | Readable voyage costs/endurance and a consistent cargo manifest. Separate total fleet ownership, traveling boats and normal 300-point battle deployment; stored boats provide no afloat cargo. |
-| v0.009 | Persistent island discoveries, coastal charts and numerical landed surveys with distinct resource, route, equipment and story opportunities. |
-| v0.010 | Persistent wrecks, meaningful strip/tow/recover choices, and rare components/drawings that unlock paid production. |
-| v0.011 | Several compatible funded contracts, initial persistent contacts and dated intelligence, so one trip can combine jobs and discoveries. |
-| v0.012 | Player/faction/contact relationships, explained hostility, meaningful port access and commissions; viable independent play. |
-| v0.013 | Purposeful NPC convoys, escorts, raiders and patrols; NPC-versus-NPC encounters, retreat, repair and funded replacement orders. |
-| v0.014 | Physical trade disruptions, blockades and recovery affecting real stocks, production and opportunities; useful net-profit intelligence. |
-| v0.015 | Stronger roles across the existing 24 hulls, paid specialists and support conversions, persistent boat/crew histories and voyage-related battle objectives. |
-| v0.016 | Distinct regional discoveries, authored contact/story chains and sustained explorer, trader, escort and privateer careers. |
-| v0.017 | Optional paid berth/warehouse and a chartered harbor business using actual workers, inputs, capital and shipping. |
-| v0.018 | Sustained limited faction campaigns, peace/recovery and player-chosen late-game goals grounded in real logistics. |
+| v0.019 — Crew training and labor pools | Train existing people with real time, wages and supplies. |
+| v0.020 — Harbor reserves and production priorities | Readable supply coverage, protected stocks and useful exports. |
+| v0.021 — Recovered machinery and shipyard development | Recover, install and staff tools that improve actual production. |
+| v0.022 — Worker wellbeing and paid policies | Paid overtime, fatigue, unrest and negotiated recovery. |
+| v0.023 — Regional goods and household demand | Distinct civilian trade routes supported by real buyers. |
+| v0.024 — Player shipping companies | Operate owned cargo boats with captains, escorts and capital. |
+| v0.025 — Smuggling and economic diplomacy | Shared physical inventories, embargoes, permits and inspections. |
+| v0.026 — Boarding crews and coastal defenses | Capture disabled boats and supply numerical coastal forces. |
+| v0.027 — Regional crises and resettlement | Respond to actual shortages and move existing people by boat. |
+| v0.028 — Campaign balance, guidance and performance | Prove affordable progression, clear accounts and smooth operation. |
 
-These are sequencing targets, not dates or guaranteed feature counts per build. If a milestone needs several releases, increment every build by exactly 0.001 and move later targets forward. First prove the v0.008-v0.011 expedition loop, then the v0.012-v0.014 reacting coast. Keep cheap 2D water, numerical crews, default autopilot, original content, finite coins and background-only testing. Follow the existing two-Argon helper limit when implementation requires helpers.
+The detailed TXT plan records the player outcome, mechanics, economic rule,
+dependencies and acceptance gate for each step:
+[ECONOMY VERSION MAP v0.019-v0.028.txt](docs/ECONOMY%20VERSION%20MAP%20v0.019-v0.028.txt).
+VERSION MAP.txt is the compact status index.
 
-Current-source gaps include the ownership/deployment limit coupling, phantom traveling capacity from mothballed hulls, single active contract, absent survey/reputation progression, fixed patrol routes and story-gated blockades. Existing production, purses, cargo, crews, fittings and combat remain the foundation. Proposed autonomous territorial operations are Brass Tide design, not a claim about base Starsector behavior.
+First complete **v0.019–v0.021**: existing people train for real wages and
+inputs; coverage and production priorities expose shortages; recovered
+machinery improves an actual staffed yard. Then build **v0.022–v0.025** around
+working conditions, civilian goods, owned shipping and contested trade.
+Finish **v0.026–v0.028** with coastal operations, regional consequences and
+end-to-end campaign balance.
 
-# Delivered presentation releases
+All steps extend existing v0.018 systems: 24 hulls, physical fittings, separate
+300-point deployment, finite purses and recipes, discoveries/wrecks, contracts,
+factions, NPC fleets, blockades, specialists, home businesses and regional goals.
+The installed Powell RC9 LTV files inform the design; their prices, 90+30-day
+reserves and space-scale production counts are not Brass Tide balance values.
 
-Current delivered release v0.007. Each version preserves the completed predecessor. Each version builds on the verified predecessor.
+Keep the 100-coins-per-sailor-day anchor and derive prices from materials,
+worker/expert time, transport and explicit fees. Reserve targets follow actual
+consumption and resupply times. Trainees and recruits represent existing people.
+Every legal, military or illicit offer draws from real owned stock.
 
-- v0.003: exported and verified — Removed displaced whole-hull shadows/reflections; opaque side faces connect the water surface and upper rim.
-- v0.004: exported and verified — All-team typed firing/hit/miss/engine/sink events feed position-aware recorded sound; bounded queues and consume-once IDs.
-- v0.005: exported and verified — Expanded original coast to10400x7200world units,16times the previous area; all ten ports retained with much wider separation.
-- v0.006: exported and verified — Completed24distinct hull silhouettes/bridges/deck details; removed residual bow-outline foam and retained solid contact. Shared physical interchangeable sockets feed previews, paid fittings and combat.
+Keep inexpensive 2D water, numerical crew, default autopilot, WASD camera,
+bounded effects and Separate rendering. Local daily worker tasks own copied
+state and join before publication; cross-port transactions have stable ordering.
+Profile before changing the current bounded worker cap.
 
-- v0.007: exported and verified — stern machinery, localized/animated damage, material sparks, explosions, cause-aware sinking and a post-victory visual tail. Colored hull/equipment mesh caching keeps detailed fleet drawing cheap. Exact identity and checks are recorded in RELEASE.json.
+Tests stay hidden/headless and serialized, with no desktop input or focus.
+A future version needs affected-system checks, an actual campaign flow,
+conservation/save checks, required full regression gates and exact-tag Windows
+delivery. Plans do not count as implementations or test passes.
 
-Two Argon High helpers only; root owns integration and serialized background tests. Full BUILD PLAN.txt records acceptance. Previous portable releases and saves remain intact.
+Each future playable release advances by 0.001 on its verified predecessor.
+Preserve old versions, original saves, source archives and all owner music.
+Keep developer TXT notes, code/system maps and release records current during
+implementation. This planning task used no new helpers and launched no game.
 
-All four requested sequential versions are preserved as portable Windows builds and exact-tag source ZIPs. Further visual/mix/control refinement follows voluntary owner feedback; v0.007 follows the owner's subsequent engine/damage request.
+The complete prior ROADMAP.md is preserved byte-for-byte at
+docs/archive/2026-10-22 before economy version map ROADMAP.md.
+The delivered v0.008–v0.018 series remains documented in
+docs/CAMPAIGN DELIVERY v0.008-v0.018.txt and VERSION MAP.txt.
