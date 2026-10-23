@@ -1,3 +1,17 @@
+OWNER AI / CIVILIAN PLANNING AMENDMENT — 23 October 2026
+No new gameplay tests have run. Required future acceptance is defined in:
+docs/AI BEHAVIOR STANDARD v0.029-v0.038.txt (A1-A9) and
+docs/CIVILIAN FLEET PLAN v0.029-v0.038.txt (C1-C10).
+Observe real firing/approach/breakaway/escape decisions and credible counters;
+cosmetic orbiting or a won fixture is insufficient. Test autonomous three-party
+conflict with neutral traffic while the player is docked elsewhere, exclusive
+ship encounter reservations, saves/detail transitions and actual paid recovery.
+Test small-to-galleon transport, working fishing, conserved tanker transfer,
+high-status guest charters and vulnerable armed/unarmed/support carriers.
+Predeclare supported load/decision budgets, held-out outcome tolerances and
+ordinary economic progression bands; do not infer quality parity from .028 tests.
+All new requirements remain PLANNED, with no claim that current AI meets them.
+
 PLANNING UPDATE — 23 October 2026
 v0.029-v0.038 are planned, not implemented or tested. Their future acceptance
 scenarios are in docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt.

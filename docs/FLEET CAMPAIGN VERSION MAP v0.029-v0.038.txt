@@ -11,22 +11,35 @@ This planning update does not implement, increment, tag or launch a new build.
 DIRECTION
 Build a recognisable flotilla, prepare a fitting, choose an approach, fight for
 a useful objective, bring damaged boats home and reinvest in the next voyage.
-Explorer, merchant, escort and privateer careers should all benefit. Business and
+Explorer, merchant, escort, privateer, fisher and passenger careers benefit.
+Business and
 shipping management remain optional. The first improvements work on the existing
 starter boat; they must not require buying a costly second hull to enjoy them.
 Every step includes visual clarity tied to what the boats actually do.
 
+OWNER AI AND CIVILIAN SCOPE AMENDMENT — 23 OCTOBER 2026
+Both strategic fleets and battle boats must pursue the depth/polish the owner
+admires in Starsector. Autonomous pirate/faction conflict and coordinated light
+boat encirclement/harassment are required outcomes, not optional flavor.
+Read docs/AI BEHAVIOR STANDARD v0.029-v0.038.txt for behavior and scenario gates.
+Civilian progression now includes fishing boats, transports through galleon-sized
+motor merchantmen, fuel tankers and high-ranking yachts. Target12 new designs;
+current delivered roster is still 24. Read docs/CIVILIAN FLEET PLAN v0.029-v0.038.txt.
+The ten-version sequence is retained: .035/.036 now prioritise civilian hulls
+and working trade/piracy. Additional expedition story branches move after .038;
+the existing four chains and exploration remain supported. No new build starts.
+
 VERSION SUMMARY
 0.029 | Fleet workshop and boat presentation
-0.030 | Tactical formations and captain doctrines
+0.030 | Tactical roles, encirclement and harassment
 0.031 | Damageable weapons and machinery
 0.032 | Convoy breakthroughs and recovery battles
-0.033 | Sightings, pursuit and ambushes
-0.034 | Coastal geography that changes a battle
-0.035 | Outer-island expedition chains
-0.036 | Rival captains and remembered encounters
-0.037 | Faction operations with physical supply lines
-0.038 | Campaign progression, polish and performance
+0.033 | Autonomous fleet conflict, sightings and pursuit
+0.034 | Coastal geography and large-hull navigation
+0.035 | Civilian hull progression
+0.036 | Working civilian voyages, piracy and rivals
+0.037 | Supplied faction operations
+0.038 | AI quality, progression, polish and performance
 
 WHAT ALREADY EXISTS
 24 original hulls; physical interchangeable mounts; paid weapon/engine/armor
@@ -38,7 +51,9 @@ chains, multiple jobs, contacts, factions, moving NPC fleets, blockades,
 specialists, storage, businesses and regional campaigns. Versions .019-.028
 added training, reserves, machinery, work conditions, regional civilian goods,
 private shipping, customs, boarding, coastal defenses and civilian transport.
-The new versions extend these foundations. Their existence is not a new feature.
+Current NPC-NPC encounters already have a coarse numerical resolution and
+paid recovery; deeper observed decisions, coordinated tactics and consistent
+conflict are the future work. The new versions extend existing foundations.
 
 
 v0.029 — FLEET WORKSHOP AND BOAT PRESENTATION
@@ -69,28 +84,33 @@ an isolated lab battle with the previewed modules and arcs. Verify bills and
 presentation separately. No purchase of another hull is a prerequisite.
 
 
-v0.030 — TACTICAL FORMATIONS AND CAPTAIN DOCTRINES
-Player outcome: command a flotilla whose escorts screen and whose attack boats
-keep useful spacing while the flagship stays on autopilot by default.
+v0.030 — TACTICAL ROLES, ENCIRCLEMENT AND HARASSMENT
+Player outcome: boats fight intelligently in coordinated roles. Light craft
+can flank, encircle and harass rather than all chasing the nearest opponent.
 
 Build:
-- Selection groups and three bounded station patterns: line, screen and column.
-  Extend existing orders rather than replacing their command system. Show the
-  assigned station/target and explain blocked or impossible instructions.
-- Keep steady behavior and add cautious/aggressive alternatives. Doctrine reads
-  actual ranges, arcs, speed, flooding, ammunition and working crew. Add weapon
-  groups, reserve-fire choices for rockets/torpedoes and conditional withdrawal
-  to a chosen rally point. Direct player orders/manual control take precedence.
-- Improve spacing, collision avoidance and damaged-leader reassignment. Keep
-  motorboat acceleration/turning. Show/remap bindings explicitly if selection
-  groups conflict with numbered orders; WASD remains camera control.
+- Selection groups, line/screen/column stations and explained move/attack/escort/
+  hold/withdraw intent. Manual control and explicit commands stay authoritative.
+- Role-aware target/position scoring: threats to allies/objective, useful firing
+  arcs, observed vulnerability, actual weapons/ammo, ally commitments and escape
+  cost. Keep steady behavior and add cautious/aggressive alternatives without
+  hidden stat/resource bonuses. Include conditional rally-point withdrawal.
+- Light boats assign different reachable approach sectors, pressure an exposed
+  side, make firing passes, draw aim, peel away under focus fire and regroup.
+  Fixed-tube strikers align for a real solution and turn away after attack.
+  Heavies/screens counter flankers; support/civilian boats protect their mission.
+- Preserve actual acceleration, turning, mount origins/arcs and weapon costs.
+  Spacing, stable target/station commitment, leader reassignment and feasible
+  fallback prevent jitter, ally pileups and compulsory orbiting around land.
+  Expose weapon groups/reserve fire and withheld-fire reasons. Keep WASD camera.
 
-Visual deliverable: clear order/formation intent, short acknowledgements and
-actual out-of-arc/out-of-ammunition reasons, with restrained overlay clutter.
+Visual deliverable: readable order/group intent and motion evidence of purposeful
+harassment, firing passes and breakaways. A circle animation alone does not pass.
 Depends on: .029 fitted-stat previews and existing battle AI/orders.
-Exit gate: a mixed 300-point fleet screens a carrier, changes formation through
-a gap, loses its lead boat, withdraws a damaged escort and respects manual
-intervention. Check seeded behavior, unavailable targets and reserve boundaries.
+Exit gate: AI standard A1-A5, including both team orientations, screened and
+unscreened heavies, blocked arcs, lost leaders and successful counters. Required
+behaviors are observed; no test demands that light boats always win. Preserve
+300 DP, reserve boundaries, seeded replay and responsive manual overrides.
 
 
 v0.031 — DAMAGEABLE WEAPONS AND MACHINERY
@@ -116,6 +136,9 @@ Depends on: .029 stable module identity and .030 doctrine decisions.
 Exit gate: disable a gun and pump, reprioritize actual crew, exhaust repair
 supplies, restore a save and recover/pay to repair the same hull and modules.
 Include empty sockets, secured prizes, loss and no duplicated people/equipment.
+AI must react to real pump/gun/engine loss, fire and flooding: reprioritise
+crew, break a failed attack or disengage according to observed danger and
+doctrine. Returning or swapping a module cannot erase its condition.
 
 
 v0.032 — CONVOY BREAKTHROUGHS AND RECOVERY BATTLES
@@ -141,32 +164,53 @@ Depends on: .030 orders, .031 condition, existing escort/boarding/recovery.
 Exit gate: one carrier escapes while another sinks; an extracted hull retains
 its damage; an abandoned tow yields nothing; a secured prize can flood. Repeat
 settlement safely and reconcile real people, hulls, cargo, wrecks and escrow.
+Apply objective-aware roles to both sides. Threatened carriers remain physical
+attackable boats even when designated support; armed transports consume normal
+300 DP, unarmed objective slots are bounded and confer no free combat buffs.
+Define overflow/reserve risk and physical exits explicitly. Test AI standard A9.
 
 
-v0.033 — SIGHTINGS, PURSUIT AND AMBUSHES
-Player outcome: scouts, cautious merchants and privateers can influence when
-a fight begins and whether they can avoid it.
+v0.033 — AUTONOMOUS FLEET CONFLICT, SIGHTINGS AND PURSUIT
+Player outcome: a living coast where pirates raid, escorts/patrols respond and
+hostile factions engage each other even while the player remains docked elsewhere.
 
 Build:
-- Separate actual position from each observer's dated knowledge. Use bounded
-  detection range, coarse coastal occlusion and observed approach speed.
-  Extend contact/harbor reports with last-seen course, location and report age.
-- Add slow-approach and active-pursuit choices using real speed, engine state
-  and fuel. Concealment has explained limits. NPC choices use observed facts;
-  an offscreen AI must not receive secret live player coordinates.
-- Interception requires actual spatial contact. Show closure/escape estimates
-  and lost contact. Preserve customs witness history: losing sight does not
-  erase a witnessed offense or cause a remote automatic inspection.
+- Observe -> evaluate threat/value/return costs -> trade/raid/escort/patrol/war
+  objective -> sail/intercept/avoid/join -> disengage/settle -> paid recovery and
+  eventual return to duty. Use real hulls, crews, stores, purses and actual paths.
+- Pirates prefer valuable vulnerable traffic and can avoid strong escorts;
+  patrols protect/respond sustainably; hostile factions independently interdict
+  opposing fleets/supply. Merchants seek safe routes, wait, request funded
+  escorts or retreat. Pairwise hostile/allied/neutral relations govern every
+  engagement and joining side. No player trigger or nearby-player requirement.
+  Three-way pirates/faction/neutral interactions preserve participant-specific
+  hostility, deployment and prize responsibility. Do not collapse unrelated
+  enemies into a single side. Reserve each hull UID for one active encounter,
+  persisting entry/join/exit, orders, timers and commitments through saves/detail
+  transitions. Shared sightings do not expose undiscovered cargo or weapons.
+- Personal/shared reports have provenance, age and uncertainty. Last-seen
+  course/area permits search or abandonment, not following globally visible
+  unseen positions. Decisions need commitment/hysteresis and explained changes.
+- Interception/reinforcement requires physical contact/arrival. Share canonical
+  encounter and hull IDs across distant/near resolution, saves and aftermath;
+  casualties, captured stock, wrecks, costs and standing settle exactly once.
+  Repair/recruit/replacement consumes real harbor capacity, time and money.
+- Cheap distant resolution preserves real fitting/store/damage/crew/deployment
+  rules and calibrated role/doctrine/escape effects. Player presence or a detail
+  switch cannot resurrect/heal a fleet, restart combat or create free loot.
+  Keep customs witness history independent of subsequently losing visual contact.
 
-Visual deliverable: confirmed/lost-contact markers, course hints, aged reports
-and clear warnings. Use a cheap chart overlay, with no expensive water fog.
-Depends on: .030 doctrine, .032 encounter settlement and existing NPC movement.
-Exit gate: a loaded convoy is spotted, diverts behind a coastline, loses pursuit
-and arrives; a damaged slow fleet is caught. No teleportation or omniscient
-routing. Save/restore and deterministic worker/serial ordering agree.
+Visual deliverable: dated confirmed/lost contacts and fleet intent, readable
+pursuit/escape estimates, actual NPC encounter/aftermath reports and cheap overlays.
+Depends on: .030 roles, .031 damage, .032 objectives and existing autonomous fleets.
+Exit gate: AI standard A6-A8. With the player docked far away, observe pirate /
+loaded convoy / responding patrol plus hostile-faction combat. Neutral and peace
+controls do not fight. Save during pursuit/encounter; survivors physically return,
+pay or fail for insolvency. Validate coalition/double-pair prevention, calibrated
+near/distant outcomes and stable serial/worker publication.
 
 
-v0.034 — COASTAL GEOGRAPHY THAT CHANGES A BATTLE
+v0.034 — COASTAL GEOGRAPHY AND LARGE-HULL NAVIGATION
 Player outcome: routes and encounters have a recognisable place; lighter boats
 can exploit sheltered passages while heavy hulls choose a clear approach.
 
@@ -189,58 +233,79 @@ Exit gate: light/heavy fleets follow valid routes, objective exits stay reachabl
 required harbors remain connected, actors never spawn in land and old voyages
 migrate without inventory/position loss. Fixed terrain is this version's scope;
 dynamic tides and simulated water require separate design and measurement.
+Validate galleon-scale civilian envelopes and route/dock/spawn clearance in
+preparation for .035. Encirclement must choose reachable sectors and safe
+escape routes; large transports must not exploit tiny collision footprints.
 
 
-v0.035 — OUTER-ISLAND EXPEDITION CHAINS
-Player outcome: prepare an outward voyage, follow clues, make a worthwhile cargo
-choice and return with equipment, rights or knowledge that changes the next trip.
-
-Build:
-- One original frontier arc containing two three-stage expedition branches.
-  Candidate themes: a silent engine yard and a missing survey flotilla. Define
-  exact sites after .034 validates geography; retain the existing four chains.
-- Extend existing chart/survey/recovery with alternate approaches: spend survey
-  time, consult a trusted contact, escort actual researchers or recover useful
-  equipment. Use existing crew/cohort, supply, cargo and sponsor accounting.
-- Rewards come from finite authored site custody or actual sponsor escrow.
-  Tools, repairable fittings, access rights and route knowledge are alternatives
-  to coins. Converging leads refer to the same resource, not duplicated prizes.
-  Exhaustion, branch choices and completed work persist through reload/migration.
-
-Visual deliverable: distinctive site silhouettes, concise illustrated records
-and useful clues on the chart; no separate walking/animated-crew game.
-Depends on: .029 fittings, .032 recovery, .033 sightings, .034 geography.
-Exit gate: follow a lead, survey, choose cargo versus recovery, handle a hostile
-interruption and return to install/sell the find. Two leads to one item must
-resolve correctly; test full holds, exhausted sites, abandonment and poor sponsors.
-
-
-v0.036 — RIVAL CAPTAINS AND REMEMBERED ENCOUNTERS
-Player outcome: recognise a captain on the horizon and remember the encounter
-that made them a partner, rival or someone best avoided.
+v0.035 — CIVILIAN HULL PROGRESSION
+Player outcome: buy/build an appropriate working civilian boat, from a small
+fishing/transport craft to a galleon-sized powered merchant ship or elite yacht.
 
 Build:
-- Give up to six existing physical fleet owners original persistent captains,
-  insignia and motives tied to their trade, escort or raiding activity. Use
-  existing numerical people/professional pay; do not add duplicate captain crews.
-- Bounded dated memories of witnessed rescue, retreat, confiscation, capture
-  and delivery support contact dialogue and finite funded follow-ups. Include
-  two small harbor responses based on actual relief/security evidence.
-- Survivors return to real ports for paid repair/replacement. Captured/dead
-  captains cannot respawn in free revenge fleets. Personal trust and faction
-  standing stay separate; charge each observed action once. A harbor response
-  cannot mobilise a patrol that was destroyed or lacks real pay/provisions.
+- Target12 original additional designs: 3 fishing (skiff/netter/trawler),4 cargo
+  (launch/coaster/freighter/galleon-scale motor merchantman),2 fuel tankers
+  (lighter/coastal tanker) and3 yachts (courier/merchant/high-ranking official).
+  Preserve all 24 existing hull IDs; report the actual delivered count honestly.
+- Give each a distinctive physical hull/layout/scale, crew and machinery bill,
+  working stores, hold/tankage/guest accommodations, speed/turning/route footprint
+  and compatible mounts/defensive conversion. Larger means substantial structure,
+  cost, working crew and maneuvering needs, not a cheap scaled-up combat hull.
+- Construction/availability use actual staffed yards, materials, experts, paid
+  time and launch clearance. Refit/lab/UI/cargo/deployment/save schema cover the
+  new designs without24-entry assumptions. New catalogue knowledge mints no
+  boats, people, money or loaded cargo in legacy saves.
 
-Visual deliverable: recognisable pennants/paint, concise captain cards and
-encounter summaries attached to the same physical boats.
-Depends on: .031 condition, .033 observations, .035 optional leads, and existing
-contacts, faction records and NPC budgets.
-Exit gate: meet the same captain through trade, combat and a later harbor report;
-exercise escape, capture, loss and unaffordable replacement. Preserve memory and
-standing through saves without reward farming or an unbounded log.
+Visual deliverable: recognisable fishing working decks/gear, transport hatches/
+hoists, tanker piping/tanks and finished yacht cabins/decks/pennants. Include
+large hulls at actual combat scale and all new fitting/layout/motion galleries.
+Keep cheap cached art and numerical crew; avoid crowded animated passengers.
+Depends on: .029 fitting/art, .031 condition, .032 carriers, .034 size/route access.
+Exit gate: civilian plan C1,C8,C9 and applicable A9. All 12 designs have real
+catalogue/stats/bills/physical art and intended use, with small and galleon-scale
+builds consuming actual paid materials/labor. Test dock/turn/path/selection/mount
+clearance, capacity/custody and old24-hull migrations. Full economic voyage loops
+are the explicit next milestone, not implied by the hull thumbnails.
 
 
-v0.037 — FACTION OPERATIONS WITH PHYSICAL SUPPLY LINES
+v0.036 — WORKING CIVILIAN VOYAGES, PIRACY AND RIVALS
+Player outcome: earn through fishing, freight, fuel supply or passenger charters;
+protect or raid real traffic and recognise the captains whose fortunes change.
+
+Build:
+- Fishing boats travel to bounded grounds, use actual work/stores and carry a
+  finite catch home. Existing shore production shares its source accounting;
+  no stationary/uncrewed passive catch or duplicated fish. Buyers pay real coins.
+- Transports carry finite origin stock into real buyer demand and funded bulk
+  orders. Player companies and NPCs use the same hull/cost/custody conventions;
+  a large hold must have useful affordable routes, not just a large statistic.
+- Tank cargo is separate from working bunkers/general hold. Close/docked timed
+  transfer moves real fuel once; no passive endurance bonus or remote refuel.
+- Yachts carry actual guest parties/baggage and manifested valuables from finite
+  household/business/government owners. Premium service has funded charter terms.
+  Guests are not duplicated workforce; rank affects legitimate escort/diplomatic
+  responses, not magic loot. Use existing captive custody/release, not sale.
+- Independent civilian AI works, transports, waits, evades, seeks funded escorts
+  and uses objective exits. Pirates evaluate these real targets; faction patrols
+  and hired escorts can deter/fight them without player participation. Support
+  labels cannot protect their manifests from interception/capture/sinking.
+- Give up to 6 existing owners persistent original captain identities and bounded
+  witnessed memories. Survivors repair/replenish at cost; captives/dead captains
+  do not spawn free revenge fleets. Personal trust and faction standing differ.
+
+Visual deliverable: working civilian route/landing/refuelling/charter summaries,
+recognisable owners/pennants and readable cargo/passenger/escort encounters.
+Depends on: .033 independent conflict, .035 civilian hulls, existing industry,
+companies, workforce/passenger, contact and political ledgers.
+Exit gate: civilian plan C2-C7 plus A6-A9. Complete affordable starter fishing,
+small-to-large haulage, tanker partial transfer and a funded high-status yacht
+charter. With the player elsewhere, run actual piracy/escort response, loss,
+paid recovery or insolvency. Repeated action/save/arrival cannot clone cargo,
+fuel, guests, purses, reward/standing or replacement boats. Show voyage net costs
+and preserve a captain's witnessed history across recovery/loss.
+
+
+v0.037 — SUPPLIED FACTION OPERATIONS
 Player outcome: open a contested corridor through freight, escort, exploration
 or privateering, with consequences you can see in fleets and harbors.
 
@@ -251,6 +316,10 @@ Build:
 - Only funded real ships/crews/stores participate. Missing ammunition delays
   actual forces; delivered engines enable an actual paid repair. Allies fall
   back when their wages, stock or surviving hulls cannot support the plan.
+  Coordinate several actual friendly owners and reports against an opposing
+  faction objective, with arrival/rally/withdrawal conditions and 300 DP joining
+  rules. Normal independent NPC conflict must already work in .033; this story
+  is not the only mechanism that makes factions or pirates fight each other.
 - Offer armed and exploration/negotiation approaches through existing rights,
   permissions and sponsor-funded contracts. Merchant contributions supply actual
   needs. Alternative completions close one shared award; describe personal and
@@ -266,22 +335,24 @@ loss and saves. Reuse the existing war/economy books; whole-map conquest is
 outside this milestone.
 
 
-v0.038 — CAMPAIGN PROGRESSION, POLISH AND PERFORMANCE
+v0.038 — AI QUALITY, PROGRESSION, POLISH AND PERFORMANCE
 Player outcome: start in a cheap launch and grow a distinctive viable fleet,
 with understandable decisions and convincing battles across a longer campaign.
 
 Build:
-- Tune explorer, merchant, escort and privateer routes from real wages,
+- Tune explorer, merchant, escort, privateer, fisher and passenger-service routes
+  from real wages,
   materials, travel costs and actual outcomes. A useful first refit, second
   boat and return reserve need achievable earning routes using existing assets
   and funded jobs. Do not refill purses/stock to conceal an insolvent loop.
-- Audit all 24 hulls and fitting choices for useful roles. Resolve unreadable
+- Audit all 24 legacy hulls plus the delivered civilian roster and fittings for
+  useful roles. Resolve unreadable
   artwork, dead-end upgrades, failed doctrines and repetitive encounters.
   Improve guidance, order editing, aftermath and journal filters from observed
   friction; keep simulation/debug counters out of ordinary play screens.
 - Extend isolated Fleet Laboratory/dev fixtures for every new objective and
   loss branch. Record seed/config/version and bounded discrepancy reports.
-  Profile long careers, offscreen fleets, saves, effects and 300v300DP combat.
+  Profile long careers, offscreen fleets, saves, effects and 300v300 DP combat.
 
 Visual/audio deliverable: full-roster fitting/battle galleries, objective/context
 captures and mixer/voice-budget evidence. Automated CPU/codec checks do not prove
@@ -289,11 +360,20 @@ rendered frame pacing, a convincing sound mix or enjoyment. Record voluntary
 play/listening observations if available; do not force a foreground test or
 claim a human session occurred when it did not.
 Depends on: the preceding nine completed versions.
-Exit gate: four complete career flows and adverse branches reconcile coins,
+Exit gate: six representative career flows, tanker-support fixtures and adverse
+branches reconcile coins,
 people, goods, hulls and condition; extended runs keep bounded records and
 worker/serial results agree. Compare measured CPU baselines. Record rendered
 measurements separately only when obtained without foreground takeover. Verify
 copied legacy saves and exact-tag Windows menu/save/battle/icon/PCK/archives.
+Complete AI standard A1-A9 and civilian plan C1-C10 with motion/context review.
+Document counterplay, failed attacks and practical trading/civilian progression.
+The owner's minimum quality target cannot be marked met by native-suite count
+alone; disclose remaining observable behavior and subjective review gaps.
+Predeclare supported fleet/party/carrier load, decision latency and performance
+budgets, held-out matchup outcome tolerances and ordinary civilian progression
+bands before tuning. Test survival/capture, damage, crew, ammo, manifest and costs
+separately, including economic shocks and several real replacement cycles.
 
 
 SEQUENCE-WIDE RULES
@@ -309,7 +389,8 @@ SEQUENCE-WIDE RULES
 - A person/module/hull/cargo lot occupies one canonical custody. Shore work,
   boarding parties, captives and civilian cohorts remain conserved. Salvage and
   capture cannot both yield the same equipment. Installed condition persists.
-- Keep shared mount IDs, cheap 2D water, numerical crew, default autopilot, WASD
+- Preserve24 legacy hull IDs and add the audited civilian roster; keep shared
+  mount IDs, cheap 2D water, numerical crew, default autopilot, WASD
   camera and separate 300-point deployment. Use original art/map/names/content.
 - Bounded copied-data workers join before main-thread transactions/UI publication.
   Existing economy cap is 8 lanes on verified Core Ultra 9 275HX / 24 logical
@@ -338,6 +419,8 @@ work/roadmap-v029-v038; its verbatim report is in docs/planning/.
 Root independently reviewed owning modules/maps. The final order brings physical
 battle objectives forward, adds bounded pursuit/geography, and ties exploration,
 recognisable rivals and faction operations into the same existing economy.
-Read docs/PLANNING REVIEW v0.029-v0.038.txt for accepted and adapted suggestions.
+Read docs/PLANNING REVIEW v0.029-v0.038.txt for accepted/adapted advice and later
+owner amendments. The owner's AI, civilian and yacht requests supersede the former
+.035 extra-story/.036 captain-only focus; those original plans are archived.
 No game tests or engine launches were necessary or performed for this plan.
 All .029-.038 rows are planned; the delivered game remains v0.028.

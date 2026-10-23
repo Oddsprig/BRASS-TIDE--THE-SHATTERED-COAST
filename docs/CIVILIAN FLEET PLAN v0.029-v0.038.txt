@@ -1,0 +1,234 @@
+BRASS TIDE — CIVILIAN FLEET PLAN v0.029-v0.038
+23 October 2026 | OWNER REQUIREMENT | PLANNED, NOT IMPLEMENTED
+
+PURPOSE AND CURRENT STATE
+The owner wants viable player trade/piracy supported by actual civilian fleets:
+fishing boats, transports from small launches to galleon-sized motor ships,
+fuel tankers, and high-ranking civilian yachts. These are working owner-operated
+vessels with vulnerable physical cargo and people, not decorative map markers.
+
+Current world.json contains 24 original combat/armed hulls. Some carry useful
+cargo and existing support conversions improve capacity/endurance. Dedicated
+fishing/transport/tanker/yacht progression is NOT established by those hold values.
+Preserve all 24 legacy IDs/fits and add original civilian designs. Planning target:
+12 additional designs below, which would mean36 total only after all12 actually
+exist and pass delivery checks. Do not report a future target as the current count.
+
+INITIAL CIVILIAN ROSTER TARGET — ORIGINAL DESIGNS, WORKING CLASS LABELS
+Fishing (3):
+- Open fishing skiff: cheap local trips, small catch hold and modest working crew.
+- Motor netter/cutter: more gear and catch capacity, longer trips and higher costs.
+- Working trawler: larger catch/storage, meaningful labor/fuel and slow handling.
+Cargo transport (4):
+- Cargo launch: small owner-operated coastal parcels and starter trade.
+- Deck coaster: bulk local goods, loading gear and a reason to hire escort cover.
+- Coastal freighter: larger hold and dependable route work with expensive losses.
+- Galleon-scale motor merchantman: a genuinely large civilian hull, substantial
+  hold/crew, slower turning and suitable deep approaches. This is powered by
+  machinery; the size analogy does not require making it a sailing combat ship.
+Fuel tankers (2):
+- Fuel lighter: short delivery and flotilla reserve support.
+- Coastal tanker: bulk route/expedition fuel, costly working stores and machinery.
+Yachts/high-ranking civilian craft (3):
+- Courier yacht: fast private/official passage, limited baggage and cabins.
+- Merchant yacht: wealthy civilian travel, comfort and credible paid protection.
+- State/official yacht: high-ranking passenger parties, greater political value,
+  distinct quarters/finish and an actual funded escort when available.
+
+Final original names/art follow each design's faction, scale and function. Rank,
+wealth and passenger importance do not imply a free treasure chest or warship.
+Some civilian hulls may take limited defensive mounts or a paid armed conversion;
+that consumes deck/hold, labor, fittings and deployment budget honestly.
+
+DESIGN AND PRICE BEFORE A STAT NUMBER
+For each design record length/beam/draft envelope, hull/deck/cabin/tank layout,
+usable cargo volume/load allowance, passenger accommodations, minimum/optimal
+working crew, machinery, working stores, fittings, speed/turning and deployment
+cost where applicable. Choose a consistent game scale, not a stretched gunboat
+with a multiplied capacity statistic. Large hulls must fit real docks/routes,
+spawn areas, selection bounds, firing origins and collision/path clearance.
+
+Bill = physical inputs + ordinary worker-days + expert/design/oversight days +
+engine/handling/fitting equipment + transport/overhead + explicit fee/margin.
+Trace wages to actual workers/experts and existing 100-coins-per-sailor-day terms.
+A galleon-scale hold has real hull structure, labor and operating obligations.
+No round vessel price is chosen first and retrofitted with a justification.
+
+Show purchase/build cost separately from crew hiring/advances, fuel, provisions,
+repair reserve, cargo investment, fees and return costs. Construction uses an
+actual capable staffed yard, finite materials, paid time and launch clearance.
+Large hulls require suitable existing/paid yard capacity, not a level-button
+spawn. Player and NPC acquisition follow compatible physical accounting.
+
+CAPACITY AND CUSTODY
+- General hold, dedicated fuel tankage, working engine fuel, ammunition, crew
+  berths and guest cabins are distinct. No unit occupies two capacities at once.
+- Cargo/guest/tank allocations belong to actual hull UIDs. A full hold cannot
+  also provide empty deck space for captives or extra cabins without a stated
+  paid conversion and a coherent layout/load budget.
+- Guest berths are separate from working crew. Luxury passenger capacity cannot
+  be used to duplicate qualified workers. Existing civilian/migration/boarding
+  cohorts retain their provenance and counts; new empty accommodations create
+  capacity, not people or money.
+- Loading affects the appropriate capacity and handling/endurance consistently.
+  Use cheap bounded numerical penalties. Do not add a fluid/rigid-body cargo sim.
+- Damage, fire, loss, capture, salvage, unloading and transfers move/consume the
+  same manifest once. No generic money/loot award is also paid for that cargo.
+- A support designation does not protect intercepted boats from combat/capture.
+  Armed conversions obey300 DP; unarmed objective carriers use bounded real
+  mission slots, no free combat buffs. Define overflow/reserve risk explicitly.
+
+WORKING FISHING
+Fishing is a playable productive voyage and an independent NPC livelihood.
+- A working boat physically reaches a suitable known ground, assigns its real
+  crew/gear, spends elapsed work time, fuel/provisions and gear maintenance,
+  then carries its actual catch home. Empty fuel/crew/hold stops useful work.
+- Use bounded authored fish-ground capacity and explicit daily recovery/source
+  rules; retain depletion through save/load. New fleet catches and existing
+  harbor fishery production cannot each claim the same catch allocation.
+- Reuse appropriate food/preserved-fish goods/recipes. Processing needs actual
+  inputs/labor and suitable equipment or a real shore business; no instant
+  free transformation into high-value cargo aboard every fishing skiff.
+- Selling requires physical landing, a real buyer, money and inventory transfer.
+  Catch is not profit until sold, and cost includes crew, fuel, food, repairs,
+  gear and applicable handling. Congestion/depletion/oversupply can make a bad trip.
+- Publish one affordable starter fishing loop using existing owned assets or a
+  genuinely costed small vessel; no mandatory purchase of a giant ship to begin.
+
+TRANSPORT AND PLAYER TRADE
+- Cargo boats and NPC carriers carry actual origin stock to a reachable buyer.
+  Show free hold, loaded weight, purchase basis, crew/escort/working-store costs,
+  expected arrival and dated sale assumptions. A quoted price is not a guarantee.
+- Existing private shipping companies can use the same new hulls. Capital and
+  inventory stay separate from earned profit; losses, waiting and recalls remain
+  physical. Multiple concurrent owners compete for finite stock and liquidity.
+- Test useful progression from launch/coaster to a large merchantman. The large
+  hold needs credible real demand/production and funded bulk orders. Enlarging
+  holds without buyers able to purchase cargo does not establish feasible trade.
+- Sponsored freight/charters escrow actual sponsor money and identify goods,
+  carrier, deadline/route terms, failure and fees. Partial deliveries settle once.
+
+TANKERS AND FLEET ENDURANCE
+- Fuel carried for sale/supply is distinct from the tanker's own propulsion
+  bunkers. Dedicated tankage is not an infinite general warehouse.
+- A tanker extends range by transferring real fuel into working tanks at a
+  harbor or a safe close transfer with elapsed work/rate limits. Fuel leaves one
+  owner/tank and enters another exactly once; interruption keeps the remainder.
+- No passive endurance multiplier, cargo fuel counted twice, remote map refuel,
+  free fuel on undocking or fuel restored when a support boat rejoins.
+- The tanker still burns its own fuel, pays crew and needs repair. Trade demand
+  comes from actual refinery/harbor/fleet use and available buyer purses.
+- Existing bounded fire/leak damage can affect actual tank contents. Any added
+  spectacle is capped visual feedback; no expensive simulated oil/water layer.
+
+YACHTS AND HIGH-STATUS PASSENGERS
+- Give yacht owners actual household/business/government provenance and finite
+  funds. Guest parties reserve real existing people, accompanying attendants,
+  baggage and any manifested valuables. No free high-value passengers or purses.
+- Distinguish visiting guests from resettling workers. Arrival does not add a
+  visiting party to workforce and another ship's passenger book simultaneously.
+- Premium charter payment derives from a real customer's money and terms such
+  as route, time, risk, accommodation and delivery. Fees are funded/escrowed;
+  high rank is not an automatic reward multiplier or infinite passenger demand.
+- Yacht AI favours suitable safe routes, reachable refuge, hired escorts and
+  withdrawal. Display passenger importance when legitimately known. Damage,
+  rescue, interception and witnessed neutral attacks have explained diplomatic
+  consequences through existing faction/customs/contact systems.
+- Escorts require existing boats/crew/stores and a payer. A destroyed/insolvent
+  yacht owner cannot conjure a guard fleet. Capturing a prestigious yacht keeps
+  the same hull/party/manifest and can be politically costly. Captives are not
+  sold for coins; use existing safe release/custody handling.
+
+PIRACY, ESCORTS AND INDEPENDENT ACTIVITY
+Commercial traffic must create real opportunities while the player is elsewhere.
+Pirates evaluate observed cargo/importance, vulnerability, escorts, own ability
+and return cost. Escorts deter, screen and fight, and can fail. Patrols respond
+to actual recent reports. Hostile factions can interdict the other's actual
+trade/supply traffic; allied/neutral relations still constrain target selection.
+Caught carriers try an objective-aware escape/cover, not a gunboat charge.
+Losses remove the real delivered supply and may delay repairs/production.
+
+For player piracy/commerce, show likely costs and known risks. A successful theft
+can yield existing cargo or a recoverable hull; it is not both that cargo and a
+second full-value coin payout. Repeated sightings, capture and resale must not
+repeat political events or create a subsidy loop. Finite trade and sponsorship
+must support practical routes, with oversupply and failed voyages possible.
+
+ECONOMIC REACHABILITY AND FAILURE CONTRACT
+Authored current fresh start (world.json): owned Tinwake Skiff at Brass Haven,
+5 crew, 15,000 coins, 20 kits, 30 food, 60 fuel and 80 ammunition. This is a declared
+new-game fixture, not a refill applied to a continuing save. Keep the100-coin
+base crew-day anchor. Future starting changes must be explicit and costed.
+- Predeclare ordinary starting assets, operating requirements, intended voyage/
+  game-day progression bands and repeatable earning opportunities before tuning.
+  A useful early refit should be reachable through a few successful local trips;
+  record actual measured net margins and days, not a rich test-only company.
+- Large-vessel progression depends on actual build costs, market throughput and
+  funded demand. Model customer income sources and consumption/demand sinks;
+  wealthy charter clients cannot pay again until they actually have the funds.
+- Extend campaigns through several catch/sale/replacement cycles and an economic
+  shock, not one successful sale. Include shared depletion, lost tanker supply,
+  a poor buyer and an insolvent employer, with specified viable alternatives.
+  Failure is allowed; expose actual bankruptcy instead of silently subsidising.
+- Define fuel exhaustion, stranded craft, unavailable berths, blocked ports and
+  failed employers. Rescue/tow/paid delivery or liquidation uses existing actual
+  resources/actors; no forced free fuel or replacement. A failed business may
+  remain failed while the player takes another feasible line of work.
+- New hull creation defaults must not mint working fuel/ammo/kits. Load them
+  through an explicit paid bill/stock transfer, or launch with empty stores.
+  Fishing/cargo/yacht NPC careers cannot receive a fresh starter purse each trip.
+C2/C3/C5 must use the declared ordinary assets and progression interval. C6 must
+exercise the economic shock and affordable recovery or persistent insolvency.
+No route is guaranteed profit; the planned economic career must be viable under
+its declared normal conditions without erasing losses or inventing customers.
+
+VERSION PLACEMENT AND PRESENTATION
+.029 fitting/boat presentation remains useful on the current fleet; its design
+view anticipates these capacities without claiming new hulls have been delivered.
+.030 tactical behavior works with existing boats and generalised civilian roles.
+.031 persistent condition, .032 vulnerable carriers/objectives, .033 autonomous
+conflict and .034 large-footprint routes prepare the later commercial expansion.
+.035 delivers the 12-design civilian progression, layout/art/bills, construction,
+capacities, save migration, physical fitting and lab/career availability.
+.036 delivers the working fishing/haulage/refuelling/passenger loops, role-aware
+independent NPC traffic, piracy/escort opportunities and persistent captains.
+.037 connects those real fleets to funded faction supply objectives.
+.038 proves six representative careers (explorer, merchant, escort, privateer,
+fisher and passenger operator), plus tanker-support and scale/performance cases.
+The former extra expedition-story expansion moves after .038; existing four
+story chains and current exploration remain playable and must not regress.
+
+Recognisable art: fishing working decks/nets/gear; transports open hatches,
+coamings/hoists and properly scaled hulls; tankers pipes/tank housings; yachts
+finished cabins/decks/railings and pennants. Use original cheap cached art and
+LOD, fixed helmsman/gunner asset details only; no animated civilian crowds.
+Extend gallery, lab, mounts, collision and selection audits by roster IDs rather
+than fixed24-entry assumptions. Record actual delivered hull counts in each build.
+
+ACCEPTANCE SCENARIOS
+C1 Produce all12 planned designs through source/catalog/art/schema audit; build
+   small and galleon-scale examples through actual bills, workers and materials.
+   A hull thumbnail or borrowed scaled silhouette alone does not pass.
+C2 Buy/load a small cargo vessel; sell a real route; pay all costs; grow to a
+   larger useful carrier. Include a poor/oversupplied buyer and honest losses.
+C3 Fish a ground with real work/stores, land/sell catch, then revisit depleted
+   and recovered conditions. A docked or uncrewed boat cannot generate catch.
+C4 Carry reserve tanker fuel, partially transfer it, interrupt/save/reload,
+   finish transfer and sink/capture the tanker; fuel conservation always holds.
+C5 A paid yacht charter moves the actual guest party/baggage, completes once,
+   then returns/reassigns people correctly. Failure/late arrival/capture and
+   neutral attack consequences preserve people, escrow and political history.
+C6 With the player docked elsewhere, fishing and transport traffic sails, a real
+   pirate attacks, a funded escort/patrol responds and survivors repair/restock
+   or fail for insolvency. No player trigger is needed to manufacture the fight.
+C7 An intercepted convoy contains armed/unarmed/support-designated carriers:
+   all threatened manifests are physically at risk, limits hold and losses
+   remove the correct cargo/fuel/passengers once. Test reserve/overflow handling.
+C8 A loaded galleon-scale hull fits its paid yard, navigable port and battlefield,
+   turns/withdraws plausibly, and cannot exploit a tiny footprint or free gun
+   mounts. Test shallow-route rejection and real accessible alternatives.
+C9 Old24-hull saves load with unchanged ownership/purses/cargo. New catalogue
+   knowledge creates no free boats, workforce, passenger cohorts or stocked fuel.
+C10 Visual motion and mixed merchant/escort battle captures remain readable at
+    actual scale; expanded-roster CPU/cache/save checks are measured separately
+    from rendered FPS. Preserve hidden/silent serialized testing and old builds.

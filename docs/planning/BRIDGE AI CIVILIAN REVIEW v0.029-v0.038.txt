@@ -1,0 +1,35 @@
+status: ok
+final model: gpt-6.1-sol via codex at max
+speed: standard
+cost: $0.0000
+tokens: 26,366 in / 4,369 out
+attempt 1: gpt-6.1-sol via codex (max, pinned, 26,366 in / 4,369 out) ok
+  note: pool: ChatGPT plan
+check format: passed
+high usage: Max on Sol 6.1 is the second of its three levels above high; Ultra is above it. It thinks as long as Sol allows without handing work to extra agents, and uses much more of your ChatGPT plan than high.
+
+--- output ---
+Missing requirements / test traps
+
+1. Knowledge needs an explicit boundary. Define which contacts reveal identity, fitting, cargo value, condition and intentions; how reports propagate; and how uncertainty grows. Otherwise “valuable weak carriers” can authorize omniscient target selection despite dated positions. Specify search, lost-contact and reacquisition behavior, including responses to weapons first observed during combat.
+
+2. Reachable sectors need executable approaches and exits. Require clearance for actual hull dimensions, turning paths, moving allies and occupied berths. Define fleet role allocation, reassignment after losses, escort separation limits, and chase/stall/harassment termination conditions. Specify manual-order lifetime and return to doctrine. Otherwise apparent encirclement can conceal traffic jams, abandoned carriers or endless pursuit.
+
+3. “Both teams” leaves multi-party hostility underspecified. Define encounters containing mutually hostile pirates and faction fleets alongside allies and neutrals. Relationships must remain participant-specific when reinforcements arrive. Specify responsibility for hostile acts, surrender and capture so crossfire or intervention cannot silently recruit neutrals, merge enemies into one side, or award another participant’s prize.
+
+4. Party UIDs need exclusive vessel participation. Require one authoritative state and encounter reservation per ship UID across overlapping interceptions, waves, pursuit and LOD transitions. Define reinforcement travel time, retreat destination, surrender/capture transitions and release of reservations. Persist relevant orders, timers and ammunition commitments. Once-only final settlement alone cannot prevent a vessel fighting simultaneously in two encounters.
+
+5. Civilian progression needs economic reachability and failure rules. State starter assets, operating requirements, repeatable earning opportunities and intended progression times. Specify resource replenishment, customer income and demand sinks. Define outcomes for exhausted fuel, unavailable berths, stranded ships and insolvent employers. Short career fixtures can pass while ordinary play becomes unaffordable or the wider economy stops after several replacement cycles.
+
+6. Quality and calibration need enforceable gates. Predeclare cheap-resolution error metrics covering survival/capture, damage, crew, ammunition, manifests and economic cost, separated by matchup and side; use held-out fixtures. Declare supported fleet counts, decision latency and real-time performance budgets. Give visual review and voluntary play explicit behavioral criteria and failure thresholds. Aggregate win rates and collected recordings can otherwise hide persistent defects.
+
+Acceptance scenarios
+
+A. Independent three-party convoy interception.
+Place a merchant convoy, mutually hostile pirates and faction raiders, and neutral fishing traffic around open water adjoining a narrow approach. Give each fleet only its declared contact history; keep the player docked beyond observation. Pass requires independent hostile engagement, preserved neutrality, useful escort behavior and light-boat approaches with viable exits. Repeat with a blocked flank and depleted ammunition; assess adaptation and disengagement against declared criteria.
+
+B. Encounter continuity under interruption.
+Intercept a convoy whose carriers exceed objective slots, with reinforcements still physically travelling. Exercise save/reload and tactical/cheap transitions around entry, wave release, retreat, capture and sinking. Pass requires exclusive ship participation, physically valid arrival/exit times, persistent condition and timers, and exactly one accounting of every manifest, casualty, expenditure and payment. Compare matched tactical and cheap runs using the declared per-matchup error limits.
+
+C. Civilian progression through an economic shock.
+Start from the declared ordinary civilian assets and run repeatable fishing, cargo, passenger and tanker work through the intended progression period. Introduce shared-resource depletion, a lost tanker and an insolvent company while leaving specified viable opportunities available. Pass requires funded transactions, feasible progression within declared bands, and the specified paid recovery or persistent bankruptcy. At supported fleet load, verify decision budgets automatically and assess motion, clarity and player agency through recorded real-time play.

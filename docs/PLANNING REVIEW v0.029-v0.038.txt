@@ -1,58 +1,74 @@
 BRASS TIDE — LEAD PLANNING REVIEW v0.029-v0.038
-23 October 2026 | PLANNING, NOT IMPLEMENTATION ACCEPTANCE
+23 October 2026 | CURRENT AI / CIVILIAN OWNER AMENDMENT | PLAN ONLY
 
-Owner: "alright prepare a map of ten more versions - use the bridge pls"
-One bounded advisor used through Bridge. Requested and observed route:
-gpt-6.1-sol via Codex / ChatGPT plan, Max, standard speed; run c74659fa4ebb.
-Bridge reports 60,480 input tokens and 7,217 output tokens, $0 API charge.
-This is reported plan usage, not a claim that the consultation consumed no quota.
-No native helper was spawned. No additional helper or game build was required.
+OWNER REQUIREMENTS AND SCOPE
+Add the depth/polish the owner admires in Starsector to both campaign and battle
+AI; autonomous pirate/opposing-faction battles; light-boat encirclement/harassment;
+fishing, small-to-galleon powered transport, tankers and high-ranking yachts.
+These are requirements, not claims of existing implementation or quality parity.
+The primary map and AI/civilian contracts are the current scope. Current game v0.028
+and its 24-hull roster stay unchanged; target 12 additional designs is future work.
 
-Verbatim helper output: docs/planning/BRIDGE SOL REVIEW v0.029-v0.038.txt.
-Complete tool payload/route evidence: work/roadmap-v029-v038/bridge-sol-max-raw.json.
-The following verdict is separate; the original report was not rewritten.
+BRIDGE PROVENANCE
+Original roadmap: successful run c74659fa4ebb, gpt-6.1-sol via Codex/ChatGPT plan,
+Max. Verbatim report remains docs/planning/BRIDGE SOL REVIEW v0.029-v0.038.txt.
+The prior lead review is archived losslessly with the pre-amendment records.
 
-ACCEPTED
-- Start with existing-hull fitting decisions and honest full voyage costs.
-  Early improvements cannot be gated behind an expensive new hull purchase.
-- Templates are knowledge, never duplicate inventory. Use current refit and
-  ownership transactions rather than a second equipment/cost system.
-- Show real arcs, ammunition and damage reasons. Doctrine must use physical
-  fittings and stores, with two new behavior variants around the steady default.
-- Moving breakout/extraction objectives and a target-linked aftermath view
-  make support/cargo/prize decisions relevant to the actual campaign.
-- Branch convergence closes a shared finite item/award once. Harbor reactions
-  mobilise only real funded and provisioned actors. Preserve memory/custody.
-- Background numerical checks establish only their fixtures; rendering, audio
-  presentation and voluntary play require appropriate separate evidence.
+Current amendment: successful run 31552a21d757, pinned gpt-6.1-sol via Codex/ChatGPT
+plan at Max, no repository/tool access. It critiqued the complete inline design
+contract, including later civilian/yacht requests. Bridge reports26,366 input /
+4,369 output tokens and $0 API charge; this does not mean no plan quota was used.
+Verbatim report: docs/planning/BRIDGE AI CIVILIAN REVIEW v0.029-v0.038.txt.
+Complete raw response/route evidence: work/roadmap-ai-civilian/bridge-sol-ai-civilian-raw.json.
+An initial request (d8e02683ae06) returned missing input context; no findings were
+accepted. Root corrected the brief by placing the entire contract inline. Its
+original response is separately preserved, not overwritten or called a review.
+No native helper or game engine was started. This is document work only.
 
-ADAPTED BY LEAD
-- Consolidated the helper's separate combat-readability, order and opponent
-  profile proposals into .029-.031. Reserved .032 for physical objectives.
-- Added bounded mount/engine/pump condition to deepen existing damage control.
-  Current damage.gd has engine/fire/breach logic; it does not establish fully
-  persistent damaged mount items. That is explicitly future work.
-- Added .033 observed sightings/pursuit and .034 location-linked coastal
-  battlefields. These are lead proposals, not claimed advisor findings.
-- Kept a small two-branch exploration arc, rather than replacing existing
-  surveys/stories. Added persistent captain identities on existing real owners.
-- The final faction operation has one three-leg corridor story with alternative
-  approaches. Large territorial conquest, a general mission scripting engine,
-  dynamic tidal water and a parallel political/economic director are deferred.
-- Made boat/weapon art an explicit .029 deliverable and presentation checks part
-  of every step, addressing the owner's repeated quality requests.
+ADVISOR GAPS ACCEPTED AND INCORPORATED
+1. Contact knowledge now separately covers identity, weapon/cargo/condition
+   observations, intentions, report provenance and growing uncertainty.
+2. Encirclement stations need executable approaches/exits, turn clearance,
+   moving-allied spacing, order lifetime and chase/harassment termination.
+3. Three-way piracy/faction conflict preserves per-participant hostility and
+   prize/aggression responsibility; enemies are not merged against the player.
+4. Each ship UID has one authoritative active encounter reservation, including
+   waves, joining, escape/capture, saved timers and pending ammunition. Once-only
+   rewards alone do not prevent two fights using the same hull simultaneously.
+5. Civilian progression declares ordinary starter assets, economic reachability,
+   resource recovery, customer income/sinks and stranded/insolvent failure paths.
+6. Near/distant calibration uses held-out per-matchup survival/capture, damage,
+   crew, ammo, manifest and cost measures; declare supported load, decision and
+   performance targets before tuning. Numerical win rates alone do not pass.
 
-SOURCE CHECKS
-Read AGENTS, current handoff/code map, economy quick start/development records,
-relevant generated maps, current tactics/refit UI, damage/refit/battle sources,
-exploration/contact records and battle_objectives.gd. Existing escort success is
-survival-duration based. There are already eight non-stock weapon choices and
-multiple engine/armor refits, so .029 is their workflow/art improvement.
-Existing large central scripts should gain small integration hooks, with new
-logic in focused modules. New saved state needs preflight and copy migration.
+LEAD SCOPE DECISIONS
+- .030 role/pack tactics, .031 damage-aware survival and .032 physical objective
+  behavior precede .033 independent sighting-led conflict. Faction operations in
+  .037 cannot be the first/only source of NPC combat.
+- .035 now delivers12 original civilian designs: 3 fishing, 4 cargo, 2 tankers, 3 yachts;
+  .036 delivers physical production/trade/fuel/guest loops and pirate/escort
+  traffic plus persistent captains. The extra expedition branches move beyond
+  .038; four existing chains and exploration remain supported.
+- Civilian support cannot mean invulnerability. Real threatened unarmed carriers
+  use bounded objective slots and armed conversions use normal 300 DP. Define
+  overflow risk, actual manifests, exits and no free combat benefits explicitly.
+- Existing100coin sailor-day/material/expert bills and finite purses govern both
+  player/NPC boats. Yacht rank yields meaningful funded service/relations, not
+  free guests/treasure. Tanker endurance requires actual conserved fuel transfer.
+- Large hulls require proper geometry/turn/dock/route/art rather than only scaled
+  statistics. Benchmark actual count/scale and retain cheap water/numerical crews.
 
-PLAN ACCEPTANCE
-Ten consecutive planned versions .029-.038; each names player outcome, scope,
-presentation deliverable, dependencies and meaningful acceptance scenario.
-Current delivered v0.028 source/version/tag/builds/saves/launcher stay unchanged.
-Static document/diff checks only; no new gameplay verification is claimed.
+ROOT BASIS AND LIMITS
+Root inspected current planning records, source maps and world.json24-hull
+catalogue/START, plus existing cargo/working-store/passenger/support interfaces.
+Earlier source inspection established simple nearest/range battle decisions and
+coarse NPC-NPC resolution with paid recovery. Advisor did not inspect code;
+its result is a requirements critique, not code acceptance or gameplay testing.
+
+DOCUMENT ACCEPTANCE
+Exactly10 consecutive future versions remain .029-.038, each with outcome,
+scope, presentation, dependency and concrete gate. The new scenario contracts
+cover visible coordinated combat, offscreen conflict/continuity and actual
+civilian costs/custody/progression. Preserve all original reports and records.
+Static document/diff/source-tree/tag checks are separate from future gameplay
+acceptance; no new behavior, hull, performance or human playtest is claimed.

@@ -1,3 +1,17 @@
+2026-10-23 | AI DEPTH, ENCIRCLEMENT AND CIVILIAN FLEETS ADDED TO PLAN
+- Owner requires deep campaign/battle behavior, autonomous pirate/faction fights,
+  purposeful light-boat encirclement/harassment and credible counters/withdrawal.
+- Added explicit AI behavior/knowledge/encounter/quality acceptance standard.
+- Added fishing, small-to-galleon powered cargo, tanker and high-ranking yacht
+  progression; target12 additional designs, not a current delivered count.
+- .035/.036 now own civilian hulls and physical working voyages/piracy/guests;
+  extra expedition-story branches move after .038, existing exploration retained.
+- One successful additional Sol6.1Max Bridge critique accepted with separate
+  root verdict; initial missing-context response retained but not used as advice.
+- Preserved previous documents byte-for-byte and original raw helper reports.
+  Planning only: game stays v0.028; no engine/gameplay test, release/tag, save,
+  music, launcher or publication change.
+
 2026-10-23 | NEXT TEN VERSIONS PLANNED, GAME STILL v0.028
 - Owner requested v0.029-v0.038 map using Bridge, not implementation.
 - One tracked Sol6.1Max consultation via Codex/ChatGPT plan completed; raw

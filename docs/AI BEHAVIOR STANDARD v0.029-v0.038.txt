@@ -1,0 +1,236 @@
+BRASS TIDE — AI BEHAVIOR STANDARD v0.029-v0.038
+23 October 2026 | OWNER REQUIREMENT | PLANNED, NOT IMPLEMENTED
+
+QUALITY TARGET
+Owner requires at least the depth and polish they admire in Starsector, across
+both campaign fleets and individual battle boats. Light craft must be able to
+encircle and harass, and pirates/opposing factions must fight independently.
+This is the design and acceptance target. Current v0.028 does not meet it yet;
+passing numerical tests alone cannot establish comparable quality or enjoyment.
+Use original behavior/content. No proprietary algorithm or asset is copied.
+
+CURRENT FOUNDATION AND GAPS
+v0.028 already has moving traders/patrols/raiders, nearby NPC-NPC encounter
+resolution, persistent paid recovery/replacement, real stores and hostile faction
+checks. Battle boats lead shots, respect actual mount arcs/ranges, choose simple
+engagement distance, follow orders and avoid land. Current strategic knowledge
+is too global and tactical target choice is too heavily nearest-enemy based.
+Future work must strengthen these existing systems, not claim their basic debut.
+
+A. CAMPAIGN ACTORS — A WORLD THAT OPERATES WITHOUT THE PLAYER
+Every active owner has an explained objective, actual boats, crew, cargo/stores,
+purse, observed intelligence, home/support access and a route/recovery plan.
+Lifecycle: observe -> evaluate -> choose/continue objective -> sail -> intercept,
+escort, avoid or join a real encounter -> disengage/settle -> repair/resupply,
+recruit or commission a replacement -> return to duty when actually ready.
+
+Role decisions:
+- Pirates value capturable cargo and vulnerable targets against expected escort
+  strength, speed/escape options, own damage/ammunition and cost of returning.
+  A laden merchant is attractive; a powerful escort can deter or defeat a raid.
+  Pirates can flee, regroup and seek another observed target instead of always
+  charging. No universal hostility toward every actor or permanent player chase.
+- Patrols protect approaches and shipments, react to credible recent sightings,
+  pursue hostile raiders within sustainable reach and return when protection or
+  stores demand it. A pursuit does not abandon every other obligation forever.
+- Conflict factions independently raid, intercept, defend and escort according
+  to their actual pairwise relations, military objective and supplies. A hostile
+  faction can attack another faction without the player being nearby or involved.
+- Traders/fishers/tankers/yachts have their own jobs and risk tolerance. Evade,
+  wait for escorts, return home or choose a safer route when the evidence and
+  actual capabilities support it. Ordinary trade continues during a quiet coast.
+- Allied, neutral and hostile actors remain distinct. Encounter joining checks
+  relationship to each side, observed fight, actual distance/time and available
+  force. Neutrals do not become hostile through proximity or because the player
+  looked at them. Ceasefires/peace alter future targeting through existing law.
+- Three-way conflict preserves a hostility graph: pirates and two mutually
+  hostile factions are not one enemy team just because each opposes the player.
+  Alliances/neutrality are checked per participant on joining and on deliberate
+  hostile acts. Attribute damaging acts, surrender, capture and prize rights to
+  their actual actors. Do not grant another party's prize or recruit neutrals
+  automatically. Extend the current two-team assumptions where needed; do not
+  claim a three-party test passed by merging mutually hostile forces.
+- Allied coalition allocations respect the normal 300 DP shared deployment limit;
+  genuinely independent hostile sides have their own cap. Declare supported
+  active-party/hull/objective counts before testing, including reserve/wave
+  rules. A neutral objective is not an unlimited free armed coalition.
+
+Information and pursuit:
+- Decisions use personal/faction-shared dated observations and source provenance,
+  not all global live fleet positions. Define how reports are obtained/shared;
+  a shared report is not an omniscient feed. Apply the same rules to NPC targets.
+  Define separate evidence for identity, fitting, cargo value, condition and
+  intention; seeing a hull does not reveal its entire manifest. First observed
+  weapons update knowledge explicitly; uncertainty grows with age and distance.
+- A lost contact remains a last-seen course/area with age. Search, investigate,
+  reacquire or abandon; do not keep following exact unseen coordinates.
+- Compare own and observed enemy force, fittings, stores, speed, terrain and
+  objective value with uncertainty. Re-evaluate when evidence changes, using
+  commitment windows/hysteresis so fleets do not flip jobs every update.
+- Interception and reinforcement require actual movement. Show why a fleet is
+  pursuing, escorting, waiting or returning. Breaking pursuit takes real escape,
+  obscuration or a defeated pursuer; no teleport or invulnerable cooldown trick.
+
+Independent conflict and aftermath:
+- Pirates can raid traders/fishers/tankers/yachts; patrols and escorts can fight
+  pirates; mutually hostile factions fight each other. These interactions must
+  occur while the player stays docked elsewhere and must change real conditions.
+- Stable encounter IDs and participant hull UIDs own one active resolution.
+  Prevent overlapping pair fights, duplicate joins, repeated rewards, restored
+  casualties or ships simultaneously sailing and fighting in two places.
+  Reserve each ship UID exclusively at encounter entry; persist orders, timers,
+  pending launch/ammo commitments and joining/withdrawal/surrender transitions.
+  Release that reservation at the defined physical exit/settlement. Once-only
+  final rewards alone do not prevent two simultaneous fights using the same ship.
+- Survivors keep their actual crew, wounds, breaches, engine/mount condition,
+  cargo, working ammunition/fuel and losses. Wrecks and captured stock come from
+  those same hulls. Trade interruption affects actual supply and construction.
+- Repair, recruitment and replacement require a reachable working harbor, real
+  materials/workers, payment and elapsed work. An insolvent/destroyed actor can
+  fail to recover. No nightly purse reset, free escort spawn or revenge fleet.
+- Save/load, player approach/departure and changes of simulation detail must
+  preserve the encounter and ledger; none reroll the outcome or heal a fleet.
+
+B. BATTLE ROLES — COORDINATED BOATS, NOT A SHARED CHARGE
+Use a group intent layer, role/target selection, reachable station planning,
+short-horizon helm decisions and independent physical weapon control. These are
+logical responsibilities, not permission to replace the existing battle engine.
+Both AI sides and the autopilot use the same rules and physical constraints.
+
+Tactical roles:
+- Light skirmisher: probe an exposed approach, threaten a useful target, make a
+  firing pass, peel away under danger and reform. Harassment can distract/turn a
+  heavier opponent or open a firing opportunity for another boat.
+- Torpedo striker: build an actual launch solution and attack window, coordinate
+  with allied pressure, spend finite ammunition, then turn away and reposition.
+  A fixed tube needs hull alignment; no sideways torpedo launch or free reload.
+- Gunboat/artillery: choose a lane and range for its useful working mounts,
+  avoid being isolated and respond to flankers by turning, repositioning or
+  relying on an actual escort. It is allowed to counter and defeat light boats.
+- Screen/escort: protect a named vulnerable ally, occupy threat approaches and
+  intercept attackers without abandoning the protected boat for a distant kill.
+- Civilian/support: seek the objective/exit, preserve cargo and people, maintain
+  useful escort separation and seek shelter. A yacht or tanker must not inherit
+  a gunboat's compulsory close-combat charge simply because it has a small gun.
+
+Encirclement and harassment requirements:
+1. Two or more suitable light boats can allocate different reachable sectors
+   around a target, based on observed weapon arcs, target motion, obstacles and
+   allied positions. Avoid stacking every boat in the same approach lane.
+2. Choose a useful firing window or threat position, not a cosmetic orbit.
+   Keep own actual guns able to bear; exploit weaker coverage when observed.
+   An angle that only looks like a flank but never permits a shot is a failure.
+3. Use physical speed, acceleration, turning and collision footprints. Circling
+   is an available maneuver, not a command to spin forever. Narrow passages,
+   an agile target, a screen or insufficient speed can make encirclement unwise.
+4. Vary approach, pressure and breakaway. Under concentrated fire, dangerous
+   flooding, weapon loss or an unsuitable matchup, peel toward an escape lane,
+   use an actual screen/cover and regroup or withdraw as doctrine permits.
+5. Keep spacing, avoid trapping allies against land and deconflict torpedo
+   approaches. Reassign a lost/blocked station and a destroyed leader. There
+   is no invisible formation damage/defense bonus for occupying a sector.
+6. Harass for a purpose: threaten cargo, draw aim, pressure a weak side, support
+   a strike or delay pursuit. Do not require frigate-like boats to beat a heavier
+   ship in every test; target counters and meaningful failure must remain viable.
+
+Selection, survival and command:
+- Score targets by mission threat/value, role suitability, observed vulnerability,
+  firing access, friendly commitments and escape cost. Nearest is one input.
+- Use real fitted ranges/arcs, ammunition, crew, flood/fire and machinery state.
+  Avoid wasteful rockets/torpedoes at hopeless or blocked solutions. State clearly
+  whether a weapon is withholding, aligning, reloading, disabled or out of stock.
+- Define cautious, steady and aggressive choices through positioning, risk and
+  withdrawal thresholds; no hidden damage or resource bonuses. Profiles may
+  change priorities, not turn an impossible maneuver into possible movement.
+- Explicit orders/manual override stay authoritative and visibly acknowledged.
+  Automatic survival decisions explain themselves; any impossible order states
+  its limitation. Control switches do not silently erase player command intent.
+- Define explicit order lifetime, completion/cancellation and return to doctrine;
+  escort separation and pursuit/harassment time/risk limits prevent abandonment
+  or endless jobs. Every chosen sector needs an executable approach and exit
+  accounting for turning radius, moving allies and occupied berths.
+- Use stable targets/stations with hysteresis, interrupted by meaningful danger,
+  lost targets or explicit orders. Avoid jitter, endless circling, stuck chasing
+  a sunk/prized hull, runaway reversal and formation deadlock.
+
+C. CIVILIANS, DEPLOYMENT AND FAIR RESOLUTION
+Interception must endanger the actual cargo/passenger/fuel carriers. Designating
+an owned boat support-only cannot make it or its cargo immune to piracy.
+- Threatened unarmed carriers appear as physical objective boats in bounded
+  mission slots with real exit routes. They provide no free combat/support buff.
+- Armed commercial conversions use normal deployment cost within 300 points.
+  Never exempt a heavily armed transport by calling it a civilian objective.
+- Define how overflow carriers/reserves enter, escape or remain at risk; do not
+  teleport their manifests home, duplicate hulls into waves or hide unlimited
+  free guns. Stored boats at another port are not magically present in a convoy.
+- Both sides can target relevant carriers according to the mission/hostility.
+  Carrier capture, sinking and escape settle each physical manifest exactly once.
+
+Distant battles need an inexpensive resolution mode. It must use the same real
+hull/fitting/condition/crew/store, hostility, deployment and custody conventions.
+Include calibrated role/doctrine/escort effects, escape and damage rather than a
+raw hull-count victory roll. Compare repeated seeded matchup outcomes with normal
+tactical fixtures and set acceptable error bands before tuning. Different detail
+levels need not produce identical trajectories, but player presence must not
+systematically reverse winners or grant free stores/repairs. Predeclare per-
+matchup error metrics for survival/capture, hull damage, crew, ammunition,
+manifest and operating cost, with held-out fixtures separated by role and side.
+Aggregate win rate alone is insufficient. Promote/demote one
+canonical encounter; do not run both resolvers on the same hulls simultaneously.
+
+D. PERFORMANCE AND EVIDENCE
+Bound decision budgets, contact memory, group stations, encounter records and
+spatial queries. Stagger strategic choices and sample tactical intent at a
+profiled cadence while steering/projectiles continue smoothly. Do not solve all
+world paths every frame. Pure workers use copied data, join before main-thread
+canonical publication and never manipulate scene/UI objects. Keep Separate
+rendering, cheap water, numerical crews and serialized hidden/silent tests.
+
+Required scenario matrix, in both team orientations and varied seeds:
+A1 Three light boats versus a heavy: separated reachable sectors, useful firing
+   passes and breakaways; no guaranteed light-boat victory requirement.
+A2 Same heavy with a screen: coordinated harassment meets a credible counter.
+A3 Fixed-tube strike: legal launch alignment, sensible ammunition use, turn-away;
+   test blocked shot, spent tubes, fast/slow targets and an escaping carrier.
+A4 Focused/damaged skirmisher: prioritises escape/repair appropriately, can lose
+   if trapped, rejoins only when conditions permit; no instant condition reset.
+A5 Island channel/destroyed leader: choose a feasible substitute station or
+   abandon encirclement; no land penetration, deadlock or endless pursuit.
+A6 Player docked elsewhere: real pirate -> loaded convoy -> responding patrol,
+   plus an independently hostile faction encounter. Peace/neutral controls must
+   not fight. Survivors spend actual resources and may fail to recover.
+A7 Coalition/overlapping contacts: a nearby ally joins once, a neutral stays out,
+   deployed limits hold and each UID has one encounter/aftermath at a time.
+A8 Distant/near transition and mid-encounter save: no duplicated losses/loot,
+   healed boats, rerolled rewards or reset pursuit. Compare calibrated outcomes.
+A9 Civilian convoy with armed/unarmed carriers and support/reserves: actual
+   cargo/fuel/passengers are capturable/lost/escaped, never blanket invulnerable.
+
+Before implementation/tuning, record supported active fleet/party/carrier counts,
+strategic/tactical decision-latency targets and real-time CPU/frame budgets in
+a versioned fixture manifest. Report overruns, stalls and dropped decisions,
+not only average time. Use held-out seeds and adverse matchups for acceptance.
+A7 must include a merchant convoy, mutually hostile pirates and faction raiders,
+and neutral fishing traffic, with blocked-flank and depleted-ammunition variants.
+A8 must interrupt entry/wave release/withdrawal/capture with reinforcements still
+travelling; all reservations, state and physical arrival/exit times persist.
+
+Record intention, chosen role/target/station, firing opportunities, separation,
+withdrawal causes, damage/stores and objective outcomes. Freeze scenario criteria
+before tuning, including counterexamples, so cosmetic movement cannot pass.
+Review motion sequences and battle-context captures: circles that never attack,
+collisions, confusion and unresponsive orders are failures even if a test exits0.
+Voluntary comparative play/listening can establish subjective quality; do not
+invent such evidence or use headless timings as rendered FPS. Track every unmet
+behavior visibly in acceptance notes. No unsupported claim of quality parity.
+
+VERSION RESPONSIBILITY
+.030 owns tactical roles, coordinated harassment/encirclement and doctrine.
+.031 connects persistent system damage, crew priority and survival decisions.
+.032 owns objective-aware combat, carriers, extraction and consistent aftermath.
+.033 owns observation-led independent campaign conflict and encounter lifecycle.
+.034 makes terrain/scale, reachable flanks and escape/navigation cooperate.
+.035 adds real civilian designs; .036 applies role behavior to working commerce.
+.037 coordinates supplied faction operations; NPC-NPC combat cannot wait until it.
+.038 validates the full behavior matrix, careers, presentation and performance.
+Read the main TXT version map and CIVILIAN FLEET PLAN for related scopes.
