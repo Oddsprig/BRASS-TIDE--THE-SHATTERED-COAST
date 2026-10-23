@@ -1,3 +1,9 @@
+v0.023 SOURCE ACCEPTED — Regional goods and household demand
+- Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades.
+- Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties.
+- Regional output, coastal freight, real holds, prices, warehouses and save migration share the same physical goods and coin ledger.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 v0.022 SOURCE ACCEPTED — Worker wellbeing and paid policies
 - Daily food and paid employment facts explain harbor health, fatigue and unrest without another blanket hunger modifier.
 - Owned workplaces choose normal shifts, capped paid overtime, food relief or paid rest; extra wages and consumed inputs remain real costs.

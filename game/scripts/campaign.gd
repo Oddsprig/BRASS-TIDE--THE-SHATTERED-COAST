@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const RegionalGoodsOps=preload("res://scripts/civilian_goods_ops.gd")
 const WorkerOps=preload("res://scripts/worker_ops.gd")
 const YardDevelopment=preload("res://scripts/yard_development.gd")
 const ToolingOps=preload("res://scripts/tooling_ops.gd")
@@ -142,6 +143,7 @@ func new_game(seed_value: int = 1):
 	ToolingOps.ensure(self)
 	YardDevelopment.ensure(self)
 	WorkerOps.ensure(self)
+	RegionalGoodsOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -944,6 +946,7 @@ func restore(saved: Dictionary) -> Dictionary:
 			return fail("The save contains an unknown boat.")
 	if Money.total(saved) != int(saved.get("coinSupply",-1)):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
+	saved=validation.get("state",saved)
 	var incoming: Dictionary = saved.duplicate(true)
 	new_game(int(saved.get("seed", 1)))
 	for key in state.keys():
@@ -986,6 +989,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	ToolingOps.ensure(self)
 	YardDevelopment.ensure(self)
 	WorkerOps.ensure(self)
+	RegionalGoodsOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0

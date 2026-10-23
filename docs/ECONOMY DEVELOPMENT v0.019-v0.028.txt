@@ -1,3 +1,11 @@
+LIVE RELEASE STATUS
+v0.019 DELIVERED | e06f7ad8b391848b4972274a9e2fa507df4dc379
+v0.020 DELIVERED | c9a3a8d4ae672fe50b2ef7eb7d3680fb7cd777da
+v0.021 DELIVERED | 877b080ee59dbe434bb15d8a954765a53f22f53a
+v0.022 DELIVERED | b342ee076efac65b044bbed56566ae448227ea8a
+Current candidate: v0.023. Every later step remains unfinished until its own acceptance and delivery receipts exist.
+END LIVE RELEASE STATUS
+
 BRASS TIDE — ECONOMY DEVELOPMENT RECORD
 22 October 2026
 

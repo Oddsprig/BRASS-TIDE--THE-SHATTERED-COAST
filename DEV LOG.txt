@@ -1,3 +1,15 @@
+v0.023 SOURCE ACCEPTED | Regional goods and household demand
+56 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-22 | v0.023 CANDIDATE | Regional goods and household demand
+- Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades.
+- Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties.
+- Regional output, coastal freight, real holds, prices, warehouses and save migration share the same physical goods and coin ledger.
+Root + up to three Sol6.1 Max helpers through Bridge. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.022 DELIVERED | exact game b342ee076efac65b044bbed56566ae448227ea8a
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.022 SOURCE ACCEPTED | Worker wellbeing and paid policies
 54 native suites passed; source report saved. Portable export and publication require separate receipts.
 

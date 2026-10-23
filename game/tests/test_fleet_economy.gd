@@ -49,7 +49,7 @@ func find(items: Array,id: String) -> Dictionary:
 func _initialize() -> void:
 	var started: int=Time.get_ticks_msec()
 	world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
-	check(E.GOODS.size()==16,"Requires refreshed real sixteen-good bronze-cash Economy")
+	check(E.GOODS.size()==20,"Requires refreshed real twenty-good bronze-coin Economy")
 	var original_world: Dictionary=world.duplicate(true)
 	var ports: Array=ports_fixture()
 	var total: int=coins([],ports)
@@ -115,7 +115,7 @@ func _initialize() -> void:
 	_test_long_run()
 	_test_no_capital()
 	_test_normalization_and_pools()
-	if E.GOODS.size()==16:
+	if E.GOODS.size()==20:
 		_test_real_economy()
 	print("fleet cash: %d checks, %d failures, %d ms"%[count,failed.size(),Time.get_ticks_msec()-started])
 	if failed.is_empty():
@@ -272,7 +272,7 @@ func _test_normalization_and_pools() -> void:
 	var normalized: Dictionary=F.normalize_owner(external)
 	check(is_same(external,normalized) and is_same(external.boats[0],boat),"Normalize retains owner and ship identity")
 	check(external.coins==12345 and external.crewPurse==87 and external.wageArrears==5,"Normalize never creates or erases existing money/liabilities")
-	check(external.cargo.size()==16 and (external.tradeCargo is int or external.tradeCargo is float),"External story owners gain16cargo keys and numeric business lots")
+	check(external.cargo.size()==20 and (external.tradeCargo is int or external.tradeCargo is float),"External story owners gain20cargo keys and numeric business lots")
 	var before: Dictionary=external.duplicate(true)
 	F.normalize_owner(external)
 	check(before==external,"Normalization idempotent")

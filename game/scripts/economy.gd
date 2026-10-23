@@ -238,7 +238,7 @@ static func create_port(def: Dictionary = {}) -> Dictionary:
 		if _is_num(ov) and float(ov) >= 0.0:
 			stocks[g] = _clean_stock(float(ov))
 		else:
-			stocks[g] = float(get_equilibrium_stock(port, g))
+			stocks[g] = 0.0 if g in ["preserved_fish","fine_timber","lacquer","medicinal_plants"] else float(get_equilibrium_stock(port, g))
 	port["stocks"] = stocks
 
 	var src_pub_stores: Dictionary = src.get("publicStores", {}) if src.get("publicStores") is Dictionary else {}
@@ -1151,7 +1151,7 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 				var final_s := _clean_stock(maxf(0.0, float(working_stocks.get(g, 0.0))))
 				stocks[g] = final_s
 				var eq := float(get_equilibrium_stock(port, g))
-				if final_s < eq * 0.22:
+				if final_s < eq * 0.22 and g not in ["preserved_fish","fine_timber","lacquer","medicinal_plants"]:
 					shortage_items.append(g)
 
 			# Prosperity update based on food satisfaction, employment, and blockade
@@ -1206,6 +1206,8 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 			port["lastProduction"] = _make_last_production(produced_rate)
 			port["projectedProduction"] = _make_last_production(produced_rate)
 			port["shortages"] = _make_shortages(shortage_items)
+			var regional_api: Script=load("res://scripts/civilian_goods_ops.gd")
+			regional_api.daily(port,dt)
 			var condition_api: Script=load("res://scripts/worker_conditions.gd")
 			condition_api.daily_port(port,dt)
 			if port.get("training") is Dictionary:

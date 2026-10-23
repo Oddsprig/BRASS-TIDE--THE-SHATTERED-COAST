@@ -184,3 +184,26 @@ Home negotiation pays all arrears and25 clerk/44 registry-foreman coins. An
 actual paid public registry must have the available foreman time. Two later
 fully paid rest days are required; work resumes on the next eligible day.
 Missing funds, food or staff do not erase liabilities or reset a strike.
+
+COASTAL GOODS AND HOUSEHOLD BUYERS — v0.023
+Fishery harbors preserve existing food; timber towns finish existing planks;
+trade/refinery settlements make coastal lacquer from local forestry inputs;
+agricultural villages harvest medicinal plants using actual paid farmers.
+All four goods use real trades, inputs and available workers. A small team may
+use only the workforce remaining after essential work. Fine timber is a finished
+half-bundle: its cost includes half a plank bundle plus carpenter and foreman
+work. Open Regional goods & coastal trades to see each bill and actual production.
+
+Households buy food first, then optional products from their remaining savings.
+The report shows actual purchases, consumed stock and paid wages. Missing luxury
+stock creates no extra hunger/unrest penalty. Full stocks limit further output;
+an impoverished buyer cannot guarantee a sale. Civilian cargo uses real hold
+space, storage and dated market observations, and can be lost with its carrier.
+
+A solvent harbor may buy a small regional lot and sponsor its sealed freight
+alongside your other voyage jobs. Source inventory falls on acceptance; only
+actual destination arrival unloads it. Your own trading and the sponsor buy
+from the same warehouse. There is no second free inventory.
+
+Older saves receive new zero-valued commodity columns on a copied snapshot.
+Existing coins, cargo and regional inventories never refill during migration.

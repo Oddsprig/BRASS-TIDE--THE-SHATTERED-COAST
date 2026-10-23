@@ -108,7 +108,7 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		for record in ti.observations.values():
 			if not record is Dictionary or not number(record.get("day")) or not number(record.get("businessFunds")):return "Invalid dated buyer observation."
 			for key in ["stocks","buy","sell"]:
-				if not record.get(key) is Dictionary or record[key].size()>16:return "Invalid observed market."
+				if not record.get(key) is Dictionary or record[key].size()>preload("res://scripts/goods.gd").ITEMS.size():return "Invalid observed market."
 				for value in record[key].values():
 					if not number(value):return "Invalid observed market value."
 	if s.has("specialists"):
@@ -158,7 +158,7 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			business_ids[b.id]=true
 			for key in ["coins","workingCapital","capitalIn","revenue","wagesPaid","dividendsPaid","arrearsHousehold","arrearsExpert","establishedDay","costOfSales","inKindCapital","inKindReturned"]:
 				if not number(b.get(key)):return "Invalid business accounting."
-			if not b.get("inventory") is Dictionary or b.inventory.size()>16 or not b.get("inventoryBasis") is Dictionary or b.inventoryBasis.size()>16 or not b.get("paused") is bool or not b.get("autoSell") is bool:return "Invalid business inventory/state."
+			if not b.get("inventory") is Dictionary or b.inventory.size()>preload("res://scripts/goods.gd").ITEMS.size() or not b.get("inventoryBasis") is Dictionary or b.inventoryBasis.size()>preload("res://scripts/goods.gd").ITEMS.size() or not b.get("paused") is bool or not b.get("autoSell") is bool:return "Invalid business inventory/state."
 			var weight: float=0
 			for good in b.inventory:
 				if not preload("res://scripts/goods.gd").ITEMS.has(good) or not number(b.inventory[good]):return "Invalid stored business good."

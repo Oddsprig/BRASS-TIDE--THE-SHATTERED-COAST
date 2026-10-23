@@ -6,11 +6,12 @@ import re
 import subprocess
 import time
 from qa_brass import existing_game
+from hidden_check import run_hidden
 
 ROOT = Path(__file__).resolve().parents[1]
 SUITES = ["damage", "battle", "navigation", "economy", "construction",
           "fleet_economy", "campaign_cash", "save_validation", "runtime", "voyage",
-          "tactics", "refit", "fleet_points", "commander", "autovoyage", "laboratory", "combat_events", "audio", "map_revision", "mount_layout", "presentation", "feedback", "expedition", "campaign_logistics", "exploration", "island_voyage", "salvage", "salvage_voyage", "voyage_jobs", "voyage_flow", "factions", "political_voyage", "naval_ai", "naval_voyage", "trade_intel", "reactive_trade", "fleet_identity", "support_voyage", "naval_recovery", "coastal_stories", "story_voyage", "home_harbor", "home_voyage", "regional_campaigns", "regional_voyage", "campaign_endurance", "crew_training", "training_voyage", "harbor_reserves", "supply_voyage", "industrial_tooling", "industrial_voyage", "worker_conditions", "conditions_voyage"]
+          "tactics", "refit", "fleet_points", "commander", "autovoyage", "laboratory", "combat_events", "audio", "map_revision", "mount_layout", "presentation", "feedback", "expedition", "campaign_logistics", "exploration", "island_voyage", "salvage", "salvage_voyage", "voyage_jobs", "voyage_flow", "factions", "political_voyage", "naval_ai", "naval_voyage", "trade_intel", "reactive_trade", "fleet_identity", "support_voyage", "naval_recovery", "coastal_stories", "story_voyage", "home_harbor", "home_voyage", "regional_campaigns", "regional_voyage", "campaign_endurance", "crew_training", "training_voyage", "harbor_reserves", "supply_voyage", "industrial_tooling", "industrial_voyage", "worker_conditions", "conditions_voyage", "regional_goods", "civilian_voyage"]
 
 
 def main():
@@ -40,9 +41,7 @@ def main():
         command = [str(args.engine.resolve()), "--headless", "--path", str(args.project.resolve()),
                    "--script", f"res://tests/test_{suite}.gd"]
         try:
-            result = subprocess.run(command, capture_output=True, text=True, encoding="utf-8",
-                                    errors="replace", env=env, timeout=60,
-                                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
+            result = run_hidden(command, env=env, timeout=60)
             output = result.stdout + result.stderr
             ok = result.returncode == 0 and not re.search(r"SCRIPT ERROR:|(?m:^ERROR:)|Parse Error|\bFAIL(?:URE)?\b", output)
         except subprocess.TimeoutExpired as error:

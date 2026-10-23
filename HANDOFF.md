@@ -1,3 +1,23 @@
+# v0.023 — Regional goods and household demand
+
+SOURCE ACCEPTED: 56 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades.
+- Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties.
+- Regional output, coastal freight, real holds, prices, warehouses and save migration share the same physical goods and coin ledger.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.023.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.023 — Regional goods and household demand
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades.
+- Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties.
+- Regional output, coastal freight, real holds, prices, warehouses and save migration share the same physical goods and coin ledger.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.023.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.022 — Worker wellbeing and paid policies
 
 SOURCE ACCEPTED: 54 native suites pass; portable export evidence is recorded separately in RELEASE.json.

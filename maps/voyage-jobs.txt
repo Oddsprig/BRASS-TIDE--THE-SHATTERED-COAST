@@ -1,9 +1,9 @@
-BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.022)
+BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.023)
 
 Real sponsors/stock/crew-based quotes -> several funded jobs, physical sealed lots, remembered contacts and dated observations.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/voyage_jobs.gd: 22764 bytes; extends RefCounted
+game/scripts/voyage_jobs.gd: 22446 bytes; extends RefCounted
   game/scripts/voyage_jobs.gd:79 ensure()
   game/scripts/voyage_jobs.gd:128 pending_freight_weight()
   game/scripts/voyage_jobs.gd:211 available()

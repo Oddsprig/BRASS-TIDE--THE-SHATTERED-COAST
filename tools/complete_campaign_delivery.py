@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import zipfile
@@ -69,6 +70,19 @@ def main():
         handoff=ROOT/"HANDOFF.md"
         note=f"# v{version} delivered — authorized campaign sequence complete\n\nAll eleven increments v0.008–v0.018 are preserved as individual playable Windows folders, exact annotated tags and source/Windows archives. Current exact game: {tag}. Desktop shortcut, owner-save preservation and GitHub each have separate receipts. No later playable version is authorized by the completed roadmap. Read docs/CAPTAINS CAMPAIGN GUIDE.txt and current maps before future work.\n\n"
         handoff.write_text(note+handoff.read_text(encoding="utf-8"),encoding="utf-8")
+    if 19 <= args.build <= 28:
+        rows=[]
+        for build in range(19,29):
+            record=outputs/f"Brass Tide v0.{build:03} DELIVERY VERIFIED.json"
+            if record.is_file():
+                verified=json.loads(record.read_text(encoding="utf-8"))
+                rows.append(f"v0.{build:03} DELIVERED | {verified['source_commit']}")
+        note="LIVE RELEASE STATUS\n"+"\n".join(rows)+"\nCurrent delivered game: v"+version+". Later steps remain authorized and unfinished until their own receipts exist.\nEND LIVE RELEASE STATUS\n\n"
+        for name in ["docs/ECONOMY VERSION MAP v0.019-v0.028.txt","docs/ECONOMY DEVELOPMENT v0.019-v0.028.txt"]:
+            path=ROOT/name
+            old=path.read_text(encoding="utf-8")
+            old=re.sub(r"^LIVE RELEASE STATUS\n.*?END LIVE RELEASE STATUS\n\n", "", old, count=1, flags=re.S)
+            path.write_text(note+old,encoding="utf-8")
     print(f"v{version}: exact-tag source, portable hashes, archives and local delivery verified")
 
 

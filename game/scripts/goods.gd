@@ -25,7 +25,11 @@ const ITEMS: Dictionary = {
 	"fuel":{"name":"Distilled Fuel","unit":"drums","weight":1,"color":"#c58b53","inputs":{"crude":1.0},"labor":{"refiner":1.0}},
 	"supplies":{"name":"Drydock & Repair Kits","unit":"kits","weight":1,"color":"#84a36f","inputs":{"timber":0.4,"iron":0.05},"labor":{"carpenter":0.5}},
 	"engines":{"name":"Marine Engines","unit":"engine assemblies","weight":4,"color":"#83a9ac","inputs":{"iron":10.0,"copper":2.0,"fuel":2.0,"supplies":2.0},"labor":{"mechanic":40.0,"engineer":5.0}},
-	"guns":{"name":"Deck Guns & Launchers","unit":"weapon assemblies","weight":3,"color":"#b39b7c","inputs":{"iron":4.0,"copper":0.4,"timber":0.1},"labor":{"gunsmith":25.0,"engineer":3.0}}
+	"guns":{"name":"Deck Guns & Launchers","unit":"weapon assemblies","weight":3,"color":"#b39b7c","inputs":{"iron":4.0,"copper":0.4,"timber":0.1},"labor":{"gunsmith":25.0,"engineer":3.0}},
+	"preserved_fish":{"name":"Preserved Fish","unit":"sealed food lots","weight":1.0,"color":"#bc9470","inputs":{"food":1.0},"labor":{"fisher":0.10,"carpenter":0.04,"foreman":0.01}},
+	"fine_timber":{"name":"Fine Timber","unit":"finished half-bundles","weight":1.0,"color":"#c49b6e","inputs":{"timber":0.5},"labor":{"carpenter":0.40,"foreman":0.02}},
+	"lacquer":{"name":"Coastal Lacquer","unit":"sealed jars","weight":0.5,"color":"#b7654c","inputs":{"logs":0.25,"charcoal":0.25},"labor":{"woodcutter":0.05,"refiner":0.08,"carpenter":0.08,"foreman":0.02}},
+	"medicinal_plants":{"name":"Medicinal Plants","unit":"dried herb bundles","weight":0.25,"color":"#93b17a","inputs":{},"labor":{"farmer":0.20}}
 }
 
 static func labor_cost(labor: Dictionary) -> float:

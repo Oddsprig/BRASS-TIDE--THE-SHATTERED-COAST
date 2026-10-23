@@ -1,3 +1,7 @@
+v0.023 voluntary play: Regional goods and household demand
+Assess readability and usefulness of: Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades. Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties. Regional output, coastal freight, real holds, prices, warehouses and save migration share the same physical goods and coin ledger.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.022 voluntary play: Worker wellbeing and paid policies
 Assess readability and usefulness of: Daily food and paid employment facts explain harbor health, fatigue and unrest without another blanket hunger modifier. Owned workplaces choose normal shifts, capped paid overtime, food relief or paid rest; extra wages and consumed inputs remain real costs. Persistent wage arrears warn and stop work; home-harbor negotiation pays debts and service labor, then requires two later paid recovery days.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

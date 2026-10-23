@@ -16,7 +16,7 @@ func _check(cond: bool, msg: String) -> void:
 
 func _initialize() -> void:
 	var t0 := Time.get_ticks_msec()
-	_test_16_goods_and_recursive_costs()
+	_test_20_goods_and_recursive_costs()
 	_test_create_port_and_coin_seeding()
 	_test_price_spread_and_scarcity()
 	_test_transact_fractional_and_invalid_calls()
@@ -31,13 +31,13 @@ func _initialize() -> void:
 	quit(0)
 
 
-func _test_16_goods_and_recursive_costs() -> void:
+func _test_20_goods_and_recursive_costs() -> void:
 	var expected := [
 		"food", "logs", "timber", "ore", "charcoal", "iron", "copper", "saltpeter",
-		"sulfur", "gunpowder", "ammo", "crude", "fuel", "supplies", "engines", "guns"
+		"sulfur", "gunpowder", "ammo", "crude", "fuel", "supplies", "engines", "guns", "preserved_fish", "fine_timber", "lacquer", "medicinal_plants"
 	]
-	_check(Economy.GOODS.size() == 16, "GOODS has 16 entries")
-	_check(Economy.GOOD_KEYS.size() == 16, "GOOD_KEYS has 16 entries")
+	_check(Economy.GOODS.size() == 20, "GOODS has 20 entries")
+	_check(Economy.GOOD_KEYS.size() == 20, "GOOD_KEYS has 20 entries")
 	for k in expected:
 		_check(Economy.GOODS.has(k), "GOODS has key " + k)
 		var g: Dictionary = Economy.GOODS[k]
@@ -86,7 +86,7 @@ func _test_create_port_and_coin_seeding() -> void:
 
 	_check(port.get("stocks") is Dictionary, "stocks is Dictionary")
 	for g in Economy.GOOD_KEYS:
-		_check(float(port["stocks"][g]) > 0.0, "positive initial stock for " + g)
+		_check(float(port["stocks"][g]) == 0.0 if g in ["preserved_fish","fine_timber","lacquer","medicinal_plants"] else float(port["stocks"][g]) > 0.0, "Correct seeded versus unseeded initial stock for " + g)
 	# Food stock scaled to several days of population demand (1 bale per 12.5 person-days = 144/day for 1800 pop)
 	var daily_pop_food := 1800.0 / 12.5
 	_check(float(port["stocks"]["food"]) >= daily_pop_food * 1.5, "initial food stock covers multiple days of population demand")

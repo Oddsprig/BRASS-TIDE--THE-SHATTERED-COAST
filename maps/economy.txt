@@ -1,9 +1,9 @@
-BRASS TIDE — ECONOMY MAP (generated; v0.022)
+BRASS TIDE — ECONOMY MAP (generated; v0.023)
 
 Fixed civilian pools/recipes/stock/ownership -> payroll, production, finite trade and resident/owner purses.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/economy.gd: 56531 bytes; extends RefCounted
+game/scripts/economy.gd: 56788 bytes; extends RefCounted
   game/scripts/economy.gd:54 is_expert_occupation()
   game/scripts/economy.gd:78 default_recruit_pool()
   game/scripts/economy.gd:82 replenish_volunteers()
@@ -16,25 +16,25 @@ game/scripts/economy.gd: 56531 bytes; extends RefCounted
   game/scripts/economy.gd:343 total_coins()
   game/scripts/economy.gd:401 price()
   game/scripts/economy.gd:430 cargo_weight()
-game/scripts/industry_data.gd: 13438 bytes; extends RefCounted
-  game/scripts/industry_data.gd:259 get_equilibrium_stock()
-  game/scripts/industry_data.gd:204 _is_num()
-  game/scripts/industry_data.gd:209 _clean_stock()
-  game/scripts/industry_data.gd:215 _normalize_good()
-  game/scripts/industry_data.gd:222 _normalize_industry()
-  game/scripts/industry_data.gd:227 _normalize_wealth_factor()
-  game/scripts/industry_data.gd:240 _normalize_pop_factor()
-  game/scripts/industry_data.gd:249 _get_workforce_needed()
-  game/scripts/industry_data.gd:283 _default_ship_stock()
-  game/scripts/industry_data.gd:292 _default_ship_ids()
-  game/scripts/industry_data.gd:300 _build_recipes()
-  game/scripts/industry_data.gd:325 _empty_employed_map()
-game/scripts/goods.gd: 3858 bytes; extends RefCounted
-  game/scripts/goods.gd:31 labor_cost()
-  game/scripts/goods.gd:37 labor_days()
-  game/scripts/goods.gd:43 cost()
-  game/scripts/goods.gd:52 full_labor_days()
-  game/scripts/goods.gd:59 definitions()
+game/scripts/industry_data.gd: 13656 bytes; extends RefCounted
+  game/scripts/industry_data.gd:261 get_equilibrium_stock()
+  game/scripts/industry_data.gd:206 _is_num()
+  game/scripts/industry_data.gd:211 _clean_stock()
+  game/scripts/industry_data.gd:217 _normalize_good()
+  game/scripts/industry_data.gd:224 _normalize_industry()
+  game/scripts/industry_data.gd:229 _normalize_wealth_factor()
+  game/scripts/industry_data.gd:242 _normalize_pop_factor()
+  game/scripts/industry_data.gd:251 _get_workforce_needed()
+  game/scripts/industry_data.gd:285 _default_ship_stock()
+  game/scripts/industry_data.gd:294 _default_ship_ids()
+  game/scripts/industry_data.gd:302 _build_recipes()
+  game/scripts/industry_data.gd:327 _empty_employed_map()
+game/scripts/goods.gd: 4555 bytes; extends RefCounted
+  game/scripts/goods.gd:35 labor_cost()
+  game/scripts/goods.gd:41 labor_days()
+  game/scripts/goods.gd:47 cost()
+  game/scripts/goods.gd:56 full_labor_days()
+  game/scripts/goods.gd:63 definitions()
 game/scripts/fleet_economy.gd: 14559 bytes; extends RefCounted
   game/scripts/fleet_economy.gd:24 normalize_owner()
   game/scripts/fleet_economy.gd:45 upkeep()

@@ -6,7 +6,8 @@ const Goods = preload("res://scripts/goods.gd")
 
 const GOOD_KEYS: Array[String] = [
 	"food", "logs", "timber", "ore", "charcoal", "iron", "copper", "saltpeter",
-	"sulfur", "gunpowder", "ammo", "crude", "fuel", "supplies", "engines", "guns"
+	"sulfur", "gunpowder", "ammo", "crude", "fuel", "supplies", "engines", "guns",
+	"preserved_fish", "fine_timber", "lacquer", "medicinal_plants"
 ]
 
 const OCCUPATION_KEYS: Array[String] = [
@@ -48,7 +49,8 @@ const BASE_EQUILIBRIUM: Dictionary = {
 	"fuel": 75.0,
 	"supplies": 65.0,
 	"engines": 10.0,
-	"guns": 14.0
+	"guns": 14.0,
+	"preserved_fish":8.0,"fine_timber":8.0,"lacquer":8.0,"medicinal_plants":8.0
 }
 
 const INDUSTRIES: Dictionary = {
@@ -395,7 +397,7 @@ static func _compute_initial_telemetry(port: Dictionary, goods_dict: Dictionary)
 	for g in GOOD_KEYS:
 		var eq := float(get_equilibrium_stock(port, g, goods_dict))
 		var cur := maxf(0.0, float(stocks.get(g, 0.0)))
-		if cur < eq * 0.20:
+		if cur < eq * 0.20 and g not in ["preserved_fish","fine_timber","lacquer","medicinal_plants"]:
 			shortages.append(g)
 
 	# lastProduction remains zero until paid work occurs in tick_ports; projectedProduction exposes capacity

@@ -1,0 +1,34 @@
+ROOT REVIEW — v0.023
+Sol Supply supplied the original module/test/report preserved unchanged in work
+and the report beside this verdict. Root read every part and adapted its assumed
+input/labor APIs to the actual plural inputs and dictionary labor API.
+
+Root improved the fine-timber bill: half an existing plank bundle plus0.40
+carpenter-days and0.02 foreman-days, a247.25-coin full cost. Preserved fish costs
+216.75, lacquer128.50 and herbs20 before market margins. Carpenters/refiners
+receive the existing ordinary wage purse; named foremen receive expert wages.
+Small fractional jobs reserve a whole available person, retaining actual worked
+hours in production telemetry. No workforce, stock or coin is created by a buff.
+
+Production runs after essential food/base employment on copied ports; actual
+paid recipient and household-purchase totals reconcile in the harbor ledger.
+Optional demand remains separate from urgent shortages and hunger penalties.
+Root integrated20-good markets, storage, manifests, courier lots, dated quotes
+and copied zero-column legacy migration. Revisioned malformed saves cannot
+silently replace missing goods columns. Source input snapshots remain unchanged.
+
+The central civilian voyage covers actual zero starting stock, copied old-save
+migration, elapsed geographic production, household purchases, real market buys,
+carrier loss, government-funded regional freight, actual destination arrival,
+ledger/coin reconciliation, full save/load and the real report controls. Position
+fixtures shorten freight travel; existing navigation/endurance runs cover sailing.
+
+Root caught and corrected an integration filename collision with the existing
+regional campaign adapter before acceptance; it is restored unchanged and the
+new adapter is civilian_goods_ops.gd. The native goods registry test now verifies
+all20 definitions and explicit zero starting stock for the four new commodities.
+All original economic assertions remain. The hidden runner also verifies normal
+exit, fatal-compile cleanup and timeout on only its own launched child handle.
+
+Native/source/clean-tag/export reports provide actual acceptance separately.
+No foreground input, audible playback, new helper model or rendered-FPS claim.

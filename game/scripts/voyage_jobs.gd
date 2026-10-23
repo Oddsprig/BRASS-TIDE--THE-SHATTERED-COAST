@@ -23,7 +23,7 @@ const KIND_BOUNTY := "bounty"
 const STATE_OFFERED := "offered"
 const STATE_ACTIVE := "active"
 const STATE_EXPIRED := "expired"
-const FREIGHT_GOODS := ["supplies", "food", "timber", "fuel"]
+const FREIGHT_GOODS := ["preserved_fish","fine_timber","lacquer","medicinal_plants","supplies", "food", "timber", "fuel"]
 # Exploration work a full sighted->surveyed job may need (exploration.gd
 # ACTIONS): chart 2 crew x 1.0 day + survey 4 crew x 2.5 days = 12 crew-days.
 const SURVEY_CREW_DAYS := 12.0
@@ -226,8 +226,8 @@ static func available(core) -> Array:
 	var freight_dest := _destination(state, p, 1)
 	var freight_id := "vfreight-%s-%d" % [str(p["id"]), day]
 	if not freight_dest.is_empty() and not taken.has(freight_id) and not _is_closed(state, freight_id):
-		var qty := 6 + (day % 5)
 		for good in FREIGHT_GOODS:
+			var qty: int=1 if good in ["preserved_fish","fine_timber","lacquer","medicinal_plants"] else 6+(day%5)
 			var stocks: Dictionary = p.get("stocks", {}) if p.get("stocks") is Dictionary else {}
 			if _num(stocks.get(good, 0.0)) < float(qty):
 				continue

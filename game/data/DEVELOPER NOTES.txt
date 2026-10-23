@@ -1,4 +1,16 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.023 — Regional goods and household demand
+SOURCE ACCEPTED: 56 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades.
+- Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties.
+- Regional output, coastal freight, real holds, prices, warehouses and save migration share the same physical goods and coin ledger.
+
+Team: Codex root + up to three Sol6.1 Max helpers through Bridge.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.022 — Worker wellbeing and paid policies
 SOURCE ACCEPTED: 54 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 

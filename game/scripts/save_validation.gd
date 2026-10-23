@@ -1,9 +1,10 @@
 extends RefCounted
 ## Read-only schema preflight. No filesystem, SceneTree, singleton, or live-state access.
-const GOODS: Array=["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns"]
+const GOODS: Array=["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns","preserved_fish","fine_timber","lacquer","medicinal_plants"]
 const MAX_COINS: float=9007199254740991.0
 ## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
 const Refits=preload("res://scripts/refit.gd")
+const RegionalGoodsOps=preload("res://scripts/civilian_goods_ops.gd")
 const WorkerOps=preload("res://scripts/worker_ops.gd")
 const YardDevelopment=preload("res://scripts/yard_development.gd")
 const ToolingOps=preload("res://scripts/tooling_ops.gd")
@@ -176,12 +177,14 @@ static func _order(value,hulls: Dictionary,path: String) -> String:
 	return ""
 
 static func validate(saved: Dictionary,world: Dictionary) -> Dictionary:
+	saved=RegionalGoodsOps.prepare(saved)
 	var error: String=_validate(saved,world)
 	if error.is_empty():error=CampaignState.validate(saved,world)
 	if error.is_empty():error=ToolingOps.validate(saved,world)
 	if error.is_empty():error=YardDevelopment.validate(saved,world)
 	if error.is_empty():error=WorkerOps.validate(saved,world)
-	return {"ok":error.is_empty(),"message":"Save schema is valid." if error.is_empty() else error}
+	if error.is_empty():error=RegionalGoodsOps.validate(saved)
+	return {"ok":error.is_empty(),"message":"Save schema is valid." if error.is_empty() else error,"state":saved}
 
 static func _validate(s: Dictionary,world: Dictionary) -> String:
 	if not world.get("PORTS") is Array or not world.get("HULLS") is Array: return "World definitions are unavailable."
