@@ -1,5 +1,5 @@
 <!-- brass-tide-series:29:start -->
-BRASS TIDE ? v0.029 SOURCE CANDIDATE
+BRASS TIDE — v0.029 SOURCE CANDIDATE
 23 October 2026 | Actual70 native suites passed; root acceptance and delivery pending
 
 Delivered Windows game remains v0.028 until a separate clean exact-tag .029 receipt.
