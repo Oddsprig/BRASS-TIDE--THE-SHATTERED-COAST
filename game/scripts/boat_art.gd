@@ -19,6 +19,7 @@ const WeaponArt = preload("res://scripts/weapon_art.gd")
 const HullFeedback=preload("res://scripts/hull_feedback.gd")
 const MotorArt=preload("res://scripts/motor_art.gd")
 const MeshCache=preload("res://scripts/boat_mesh_cache.gd")
+const DeckDetail=preload("res://scripts/boat_deck_detail.gd")
 
 static var _station_cache: Dictionary = {}
 static var _audit_geometry: bool = "--qa-geometry" in OS.get_cmdline_user_args()
@@ -240,16 +241,7 @@ static func _one_hull(ctx: Dictionary, stations: Array, y_off: float, c: Diction
 	_poly(ctx, _outline(stations, y_off, 0.84, 0.94), 9.0 + lift, c.deck)
 	if lod >= 2:
 		return
-	# Deck plank seams across the inset deck plus a centerline.
-	var x0: float = stations[0].x
-	var x1: float = stations[stations.size() - 1].x
-	var steps := 9 if lod == 0 else 5
-	for i in range(1, steps):
-		var x := lerpf(x0, x1, float(i) / float(steps)) * 0.94
-		var w := _width_at(stations, x / 0.94) * 0.84
-		if w > 0.05:
-			_seg(ctx, Vector2(x, y_off - w), Vector2(x, y_off + w), 9.4 + lift, c.seam, _wline(ctx) * 0.8)
-	_seg(ctx, Vector2(x0 * 0.9, y_off), Vector2(x1 * 0.92, y_off), 9.4 + lift, Color(c.deck_dark, 0.8), _wline(ctx))
+	DeckDetail.planking(ctx,stations,y_off,lift,c)
 
 static func _armor_plates(ctx: Dictionary, stations: Array, c: Dictionary, lift: float = 0.0) -> void:
 	# Segmented side plates with seams; rivet dots at corners on full detail.
@@ -369,23 +361,18 @@ static func _superstructure(ctx: Dictionary, _arch: String, spec: Dictionary, c:
 				var x: float=float(vent.x)-float(vent.length)*0.4+i*float(vent.length)*0.8/maxf(1.0,float(vent.slats)-1.0)
 				_seg(ctx,Vector2(x,vent.y-vent.width*0.4),Vector2(x,vent.y+vent.width*0.4),engine.height+0.6,c.metal_light,0.8)
 	for stack in plan.stacks:_stack(ctx,Vector2(stack.x,stack.y),c,stack.radius)
+	DeckDetail.cabin(ctx,cabin,identity,c)
 	if cabin.style=="cockpit" and not identity.bridge.glass:
-		_rect(ctx,cabin.x,0,cabin.length,cabin.width,11.5,c.cabin.darkened(0.3))
-		_rect(ctx,cabin.x,0,cabin.length*0.8,cabin.width*0.8,12.0,Color("243b43"))
-		_line(ctx,[Vector2(cabin.x+cabin.length*0.4,-cabin.width*0.5),Vector2(cabin.x+cabin.length*0.55,0),Vector2(cabin.x+cabin.length*0.4,cabin.width*0.5)],cabin.height,c.glass,2.0)
 		_figure(ctx,Vector2(plan.helm.x,plan.helm.y),c,13.0)
-	else:
-		box_model.at=Vector2(cabin.x,cabin.y)
-		WeaponArt._box(box_model,Vector3(-cabin.length*ctx.size*0.5,-cabin.width*ctx.size*0.5,9.8),Vector3(cabin.length*ctx.size*0.5,cabin.width*ctx.size*0.5,cabin.height-3),c.cabin)
-		_cabin(ctx,cabin.x,cabin.y,cabin.length,cabin.width,c,cabin.height,bool(identity.bridge.glass))
-		if cabin.style=="command_tower":
-			_cabin(ctx,cabin.x-0.04,0,cabin.upperLength,cabin.upperWidth,c,cabin.upperHeight)
-		elif cabin.style=="casemate":
-			_rect(ctx,cabin.x-0.05,0,cabin.length*0.65,cabin.width*0.8,cabin.height+0.5,c.plate)
-		elif cabin.style=="span_bridge":
-			_rect(ctx,cabin.x,0,cabin.length*0.65,cabin.width*0.45,cabin.height+0.5,c.metal)
-	if "pagoda" in str(identity.bridgeStyle):
-		_rect(ctx,cabin.x-0.03,0,cabin.length*0.38,cabin.width*0.48,cabin.height+11,c.roof)
+	if cabin.style=="command_tower":
+		var upper: Dictionary=cabin.duplicate(true)
+		upper.x=float(cabin.x)-0.04;upper.length=cabin.upperLength;upper.width=cabin.upperWidth
+		upper.baseHeight=float(cabin.height)-2.0;upper.height=cabin.upperHeight
+		DeckDetail.cabin(ctx,upper,identity,c)
+		if "pagoda" in str(identity.bridgeStyle):
+			upper.baseHeight=float(upper.height)-2.0;upper.height=float(upper.height)+3.0
+			upper.length=float(upper.length)*0.65;upper.width=float(upper.width)*0.72
+			DeckDetail.cabin(ctx,upper,identity,c)
 	_deck_details(ctx,spec,identity,c)
 	for mast in plan.masts:
 		var top: float=maxf(cabin.height+(18.0 if "pagoda" in str(identity.bridgeStyle) else 8.0),minf(float(mast.height),14.0+float(spec.size)*0.65))
@@ -395,26 +382,8 @@ static func _superstructure(ctx: Dictionary, _arch: String, spec: Dictionary, c:
 		_life_ring(ctx,Vector2(cabin.x,cabin.width*0.65),c)
 
 static func _deck_details(ctx: Dictionary,spec: Dictionary,identity: Dictionary,c: Dictionary) -> void:
-	if int(ctx.lod)>=2:return
-	var sockets: Array=Layout.hardpoints(spec)
-	var details: Array=identity.deckAccents+identity.cargoDetails if int(ctx.lod)==0 else identity.deckAccents
-	for item in details:
-		var clear=true
-		for socket in sockets:
-			if Layout.footprint_clearance(socket,item)<0.025:clear=false;break
-		if not clear:continue
-		var at=Vector2(item.x,item.y)
-		var kind: String=str(item.kind)
-		if kind=="outboard_pair":continue # Replaced by physical transom-mounted motors.
-		if "rope" in kind or "reel" in kind:
-			_rope_coil(ctx,at,c)
-		elif "drum" in kind or "cask" in kind:
-			_circ(ctx,at,item.h,item.wid*0.5,c.metal)
-			_circ(ctx,at,item.h+1.8,item.wid*0.43,c.brass.darkened(0.25))
-		else:
-			var model: Dictionary={"ctx":ctx,"at":at,"bearing":0.0,"u":1.0/float(ctx.size),"world_unit":1.0,"lod":ctx.lod,"h":0.0}
-			WeaponArt._box(model,Vector3(-item.len*ctx.size*0.5,-item.wid*ctx.size*0.5,9.4),Vector3(item.len*ctx.size*0.5,item.wid*ctx.size*0.5,item.h),c.plate if "belt" in kind or "plate" in kind else c.deck_dark)
-			_seg(ctx,at-Vector2(item.len*0.3,0),at+Vector2(item.len*0.3,0),item.h+0.3,c.brass,0.7)
+	# Kept as a forwarding entry point for existing drawing callers.
+	DeckDetail.draw_items(ctx,spec,c)
 
 static func _draw_mount(ctx: Dictionary, m: Dictionary, turret_world: float, c: Dictionary) -> void:
 	WeaponArt.draw(ctx,m,turret_world,c)
@@ -524,7 +493,7 @@ static func _static(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Diction
 					_seg(ctx, Vector2(fx - 0.05, s * span * 0.62), Vector2(fx, s * 0.30), 2.0, c.metal_light, _wline(ctx) * 1.6)
 					if float(ctx.speed) > 8.0 and int(ctx.lod) < 2:
 						_circ(ctx, Vector2(fx - 0.12, s * span * 0.62), -1.0, 0.07, Color(c.foam, 0.6))
-		_rails(ctx, stations, c, 0.0, lift)
+	DeckDetail.rails(ctx,spec,c)
 	_superstructure(ctx, arch, spec, c)
 	MotorArt.draw(ctx,spec,boat,c)
 	for socket in Layout.hardpoints(spec):

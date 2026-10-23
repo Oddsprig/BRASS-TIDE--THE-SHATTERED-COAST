@@ -440,6 +440,22 @@ static func _band_color(plan: Dictionary, c: Dictionary) -> Color:
 		_:
 			return c.accent
 
+static func _cowling(m: Dictionary, a: Vector3, b: Vector3, body: Color, cap: Color) -> void:
+	# Six-sided powerhead with clipped shoulders and a sloping inspection hood.
+	# Three visible walls + a four-triangle lid replace two six-triangle boxes.
+	var length: float = b.x-a.x
+	var width: float = b.y-a.y
+	var ring: Array = [Vector2(a.x,a.y),Vector2(b.x-length*0.15,a.y),Vector2(b.x,a.y+width*0.22),Vector2(b.x,b.y-width*0.22),Vector2(b.x-length*0.15,b.y),Vector2(a.x,b.y)]
+	var top: Array = []
+	var walls: Array = []
+	for point in ring:top.append(Vector3(point.x,point.y,b.z-(point.x-a.x)*1.4))
+	for i in range(ring.size()):
+		var j: int = (i+1)%ring.size()
+		walls.append([Vector3(ring[i].x,ring[i].y,a.z),Vector3(ring[j].x,ring[j].y,a.z),top[j],top[i]])
+	walls.sort_custom(func(x,y):return (WeaponArt._p(m,x[0])+WeaponArt._p(m,x[1])).y<(WeaponArt._p(m,y[0])+WeaponArt._p(m,y[1])).y)
+	for i in range(3,6):WeaponArt._face(m,walls[i],body.darkened(0.2 if i==3 else 0.08))
+	WeaponArt._face(m,top,cap)
+
 static func _draw_outboard(ctx: Dictionary, unit: Dictionary, plan: Dictionary, c: Dictionary, lod: int, clock: float, speed: float,steer: float=0.0) -> void:
 	var tx: float = float(unit.get("transomX", plan.get("transomX", -1.88)))
 	var uy: float = float(unit.get("y", 0.0))
@@ -482,13 +498,15 @@ static func _draw_outboard(ctx: Dictionary, unit: Dictionary, plan: Dictionary, 
 	WeaponArt._box(m, Vector3(-0.09, -0.066 * w, 4.3), Vector3(0.04, 0.066 * w, 9.6), c.metal)
 	if lod == 0:
 		for s in [-1.0, 1.0]:
-			_line3d(m, Vector3(-0.07, s * 0.042 * w, 9.8), Vector3(0.03, s * 0.042 * w, 9.8), c.brass, 1.0)
+			# Slender bright trim rams link the clamp to the lower leg.
+			_line3d(m, Vector3(0.02, s * 0.042 * w, 8.8), Vector3(-0.21, s * 0.042 * w, 2.2), c.brass, 1.0)
 
 	# 4. Sculpted outboard powerhead cowling + upper hood cap
-	WeaponArt._box(m, Vector3(-0.34, -0.088 * w, 6.0), Vector3(-0.03, 0.088 * w, 12.8), cowl_col)
-	WeaponArt._box(m, Vector3(-0.31, -0.074 * w, 12.7), Vector3(-0.05, 0.074 * w, 14.9), cowl_cap)
+	_cowling(m,Vector3(-0.34,-0.088*w,6.0),Vector3(-0.03,0.088*w,14.9),cowl_col,cowl_cap)
 	if lod == 0:
-		WeaponArt._box(m, Vector3(-0.26, -0.046 * w, 14.8), Vector3(-0.09, 0.046 * w, 15.7), c.dark)
+		WeaponArt._face(m,[Vector3(-0.27,-0.046*w,14.85),Vector3(-0.09,-0.046*w,14.60),Vector3(-0.09,0.046*w,14.60),Vector3(-0.27,0.046*w,14.85)],c.dark)
+		_line3d(m,Vector3(-0.25,-0.029*w,14.96),Vector3(-0.25,0.029*w,14.96),c.metal_light,0.85)
+		_line3d(m,Vector3(-0.11,-0.029*w,14.76),Vector3(-0.11,0.029*w,14.76),c.metal_light,0.85)
 
 	# 5. Cowling wrap bands
 	WeaponArt._box(m, Vector3(-0.35, -0.093 * w, 9.4), Vector3(-0.025, 0.093 * w, 10.6), band_col)
@@ -567,8 +585,7 @@ static func _draw_stern_drive(ctx: Dictionary, unit: Dictionary, plan: Dictionar
 			_line3d(m, Vector3(-0.02, s * 0.066 * w, 5.6), Vector3(-0.25, s * 0.056 * w, 1.8), c.brass, 1.05)
 
 	# 4. Armored stern-drive doghouse cowling + sloped upper inspection hood
-	WeaponArt._box(m, Vector3(-0.32, -0.095 * w, 5.0), Vector3(0.02, 0.095 * w, 11.3), cowl_col)
-	WeaponArt._box(m, Vector3(-0.27, -0.076 * w, 11.2), Vector3(0.00, 0.076 * w, 13.4), cowl_cap)
+	_cowling(m,Vector3(-0.32,-0.095*w,5.0),Vector3(0.02,0.095*w,13.4),cowl_col,cowl_cap)
 	if lod == 0:
 		WeaponArt._face(m,[Vector3(-0.22,-0.048*w,13.6),Vector3(-0.04,-0.048*w,13.6),Vector3(-0.04,0.048*w,13.6),Vector3(-0.22,0.048*w,13.6)],c.metal)
 

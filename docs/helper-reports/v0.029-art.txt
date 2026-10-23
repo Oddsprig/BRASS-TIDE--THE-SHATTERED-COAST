@@ -1,0 +1,64 @@
+BRASS TIDE v0.029 ART — HELPER A RAW REPORT, 23 OCTOBER 2026
+Workspace: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/series-v029-v038/art
+Base: e870a2e9b904bee647778f85f0cbfef86fa8f5e8; runtime version unchanged (.028).
+
+Files:
+game/scripts/boat_art.gd
+game/scripts/boat_deck_detail.gd (new)
+game/scripts/weapon_art.gd
+game/scripts/motor_art.gd
+game/tests/test_art_workshop.gd (new)
+game/scripts/boat_deck_detail.gd.uid; game/tests/test_art_workshop.gd.uid (generated)
+REPORT-v029-art.txt
+
+All 24 existing hulls use raked solid cabins/open cockpits, clipped longitudinal
+planking with staggered butt joints, physical rail posts with socket clearance,
+access hatches, mooring bitts and differentiated existing working deck fittings.
+Command bridges have supported stepped stories. Motors have shaped powerhead
+cowlings, inspection panels and trim-ram presentation. Four fitted weapon families
+have separate receivers/feed boxes, cannon breech/slide/pistons, stable-count rocket
+cells, torpedo tube straps/rear breeches and air pipes. All draw APIs remain intact.
+
+DeckDetail.layout(spec) returns detached metadata for inspection. Drawing helpers
+are invoked during the existing bounded main-thread hull mesh bake. Canonical hull
+IDs/stations, mount IDs/positions/arcs, weapon_geometry, budgets/stats/world, water,
+crew animation, cache APIs and projectile origins are unchanged. No new geometry
+API changes requested. New test covers actual socket clearance, empty fittings,
+metadata isolation, finite triangulated geometry, LOD budgets and measured visible
+weapon-tip agreement with the native muzzle geometry.
+
+QA, all evidence relative to this workspace under qa/v029-art:
+Engine: C:/Users/bligh/Documents/Codex/2026-09-25/we-x20/work/engine/
+Godot_v4.7.2-stable_win64_console.exe; v4.7.2.stable.official.ed1daf0bf.
+Hidden/headless, serialized, isolated APPDATA. Unrelated active engines initially
+blocked preflight; none was touched. Sandboxed import hit Windows certificate-store
+access; approved host rerun passed (import-host.log). Generated asset-import EOL-only
+changes were verified against HEAD and restored; no asset-content edits retained.
+
+tools/check_game.py: feedback 3952, presentation 611, mount_layout 1483 checks;
+all zero failures (native/*.log). Motor budget:235 close/42 far, old assertions intact.
+New focused fixture:2402 checks, zero failures; stock hulls sampled at five headings
+and three LODs, max738 near/219 far primitives (art-workshop-captures.log).
+Its first tip measurement used subpixel projection and correctly exposed culling;
+measurement zoom was corrected, assertions retained. Initial/final logs preserved.
+Fixture is not registered in tools/SUITES because tools are outside this allowlist;
+run res://tests/test_art_workshop.gd, optional --views=<absolute output JSON>.
+
+tools/check_visuals.py: fleet93 checks/33 panels; feedback45 frames; full360-heading
+geometry audit13,720,530 polygons, zero invalid (visuals/*.log and JSON).
+Additional views.json:34 panels,8 cannon recoil frames. previews/ includes all24
+hulls, four representative empty/fitted bow/beam/stern sheets, true relative boat
+scales, eight weapon variants, recoil contact/GIF and existing feedback motion/GIF.
+Explicit roster: previews/Workshop - ALL24 hulls.png, 24 numbered/name-labeled hulls,
+1920x2170, honest .029 candidate / .028 runtime caption. CPU composition helper is
+ignored at qa/v029-art/compose_art_review.py; source tools are unchanged.
+A inspected the exact rasterized gallery/contact sheets; final root visual and
+motion acceptance remains separate. Stock renderer labels say .028 because BUILD
+is intentionally unchanged; these captures contain the .029 candidate art.
+
+git diff --check and local-Python static source/JSON/allowlist/preload checks pass.
+Final hashes and scope are in source-manifest.json. No foreground/input/audible
+audio, owner save/settings/music changes, deletion, commit/tag/push, sibling edits
+or nested helpers. No GPU FPS, human play/listening, Windows export or release claim.
+
+ENGINE LEASE RELEASED. Every A-owned engine process stopped before this report.
