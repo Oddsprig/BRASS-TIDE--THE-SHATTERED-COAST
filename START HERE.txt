@@ -1,14 +1,31 @@
-BRASS TIDE: THE SHATTER COAST — v0.001
+BRASS TIDE: THE SHATTER COAST — CURRENT SOURCE v0.028
+23 October 2026 | Workspace consolidated; gameplay unchanged
 
-This is the editable source project. The separate portable release is delivered beside this folder.
+This is the authoritative editable Git repository. Play the separate portable
+Windows release in ../Brass Tide v0.028/ or use the existing desktop Brass Tide icon.
+The exact v0.028 game commit is 2b11d4d1af69b62a2f8436bcdee4a5675432bd98.
 
-game/       Native Godot project, game code, original art, world data and background tests.
-docs/       Economy, rights/credits, exact engine notices and preserved helper reports.
-maps/       Short verified system maps and generated source inventory.
-briefs/     Written work contracts used by the three authorized specialists.
-tools/      Small development-only build/data/map/test tools; no global installation needed.
-dist/       Preserved early JavaScript reference modules; not a browser release.
-tests/      Reference-module tests; current native tests are in game/tests/.
+READ TO RESUME
+AGENTS.md                 Current owner constraints and development rules.
+HANDOFF.md                Current baseline, next scope and unresolved limits.
+CODE MAP.md + maps/        Functional file map and generated symbols/inventory.
+docs/VERIFICATION INDEX.txt  Accepted tests/evidence and when to rerun.
+docs/DEVELOPER LESSONS.txt   Prior failures, fixes and accounting invariants.
+ROADMAP.md + VERSION MAP.txt  Next ten PLANNED versions (.029-.038).
 
-Read the portable release's START HERE.txt to play. Edit game/project.godot with Godot to develop.
-Source rules: AGENTS.md. Current state: HANDOFF.md. Adapted user workflow: docs/CODEX PORTABLE BUILD RULES.txt.
+FOLDERS
+game/     Native Godot project, assets, canonical world data and 66 test suites.
+tools/    Current native test, preview, build, release, map and music tools.
+music/    Owner-supplied music with provenance/manifest; preserve.
+docs/     Current system guides, evidence, credits/legal/audio and future plans.
+briefs/   Current finite-economy, native-module and save-validation contracts.
+maps/     Short system maps; regenerate with tools/update_maps.py.
+
+Scratch and retained logs are ../../work/; recovery archives are ../../archives/.
+Old helper/release checkouts and duplicate test output were retired. The historical
+JavaScript prototype and generator are archived; game/data/world.json is native
+authority. Do not recreate current data by running the old prototype generator.
+
+Current changes: CHANGES v0.028.md. Delivery: BUILD STATUS.txt and the portable
+RELEASE.json/receipts. Cleanup details: docs/WORKSPACE MAINTENANCE.txt and
+ARCHIVE INDEX.txt. This documentation cleanup creates no new playable version.

@@ -38,6 +38,5 @@ moves after .038; the existing four chains and exploration are preserved.
 If implementation needs splitting, move later targets forward; never skip/reuse
 versions or reduce required behavior to mark a build complete.
 
-Previous map preserved verbatim:
-docs/history/2026-10-23 before AI civilian fleet planning/VERSION MAP.txt
-Earlier plan/history remains in docs/history and completed economy/campaign docs.
+Previous maps and completed campaign/economy stage records are preserved verbatim
+in the consolidation cold archive. See docs/ARCHIVE INDEX.txt for exact entries.

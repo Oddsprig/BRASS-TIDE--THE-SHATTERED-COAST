@@ -1,30 +1,10 @@
-LIVE RELEASE STATUS
-v0.019 DELIVERED | e06f7ad8b391848b4972274a9e2fa507df4dc379
-v0.020 DELIVERED | c9a3a8d4ae672fe50b2ef7eb7d3680fb7cd777da
-v0.021 DELIVERED | 877b080ee59dbe434bb15d8a954765a53f22f53a
-v0.022 DELIVERED | b342ee076efac65b044bbed56566ae448227ea8a
-v0.023 DELIVERED | 9c1845eda7f59228a986b5ad40f7504766f102aa
-v0.024 DELIVERED | a626ad3567716eb2eb69394de19050c239920412
-v0.025 DELIVERED | 47997682536d86d17e7b511e4590859295862548
-v0.026 DELIVERED | 79705bcb10e271f932563912ec54a8084a035005
-v0.027 DELIVERED | 7c4a2bf08ac39e15db3442ea3635343eb7ab8f66
-v0.028 DELIVERED | 2b11d4d1af69b62a2f8436bcdee4a5675432bd98
-Current delivered game: v0.028. The ten authorized economy increments v0.019-v0.028 are complete; each has its own verified receipt.
-END LIVE RELEASE STATUS
+BRASS TIDE — COMPLETED ECONOMY STAGE RECORD POINTER
 
-BRASS TIDE — ECONOMY DEVELOPMENT RECORD
-22 October 2026
+v0.019-v0.028 is complete. Delivered game remains v0.028.
+The verbatim historical stage record is in source-records-and-prototype.zip at
+source/docs/ECONOMY DEVELOPMENT v0.019-v0.028.txt
+See docs/ARCHIVE INDEX.txt for recovery location and manifest.
 
-Owner authorized ten sequential builds v0.019–v0.028, with up to3 Sol6.1 Max helpers through Bridge. Three isolated helper projects:
-people: brass-tide-economy-sol-people-881c25
-supply: brass-tide-economy-sol-supply-71d56c
-industry: brass-tide-economy-sol-industry-608f2d
-
-Root integrates central state/UI/accounting and owns all engine runs. Initial helper file reads stalled; root supplied complete inline briefs and actual source interfaces. Helpers may return full source in their tracked Bridge response; root applies and independently tests it. Raw reports are preserved separately from root verdicts. This is development context, not release evidence.
-
-Verified existing hardware: Intel Core Ultra9 275HX,24logical processors. RAM/GPU model not verified. Existing bounded economy worker group: at most8jobs, reserves2logical processors; main thread joins and publishes copied state before cross-port transactions. Separate rendering and cheap2Dwater remain configured.
-
-Existing v0.018 baseline:46clean-tag native suites,180actual economic days,7battle CPU fixtures, preserved owner-save migration and portable Windows archives. See prior delivery/performance records for measured numbers and their limits.
-Future versions require their own receipts. Headless simulation time is not rendered FPS.
-
-All tests stay hidden/headless and serialized, one engine/game at a time. No desktop input/focus, audible test, global install/settings change, deletion of old releases or owner-save overwrite.
+This small compatibility pointer preserves a path used by the retained stage
+delivery tools; do not treat its historical stage as unfinished work.
+Current future plan: VERSION MAP.txt and ROADMAP.md (.029-.038, planned only).

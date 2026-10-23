@@ -1,35 +1,59 @@
-2026-10-23 LATEST OWNER SCOPE AMENDMENT: add deep campaign/battle AI, independent pirate and hostile-faction battles, light boats that encircle/harass, and fishing/transport/tanker/high-ranking yacht progression to the v0.029-v0.038 map and roadmap. PLAN ONLY; delivered game remains v0.028 with24 hulls. Read docs/AI BEHAVIOR STANDARD v0.029-v0.038.txt and docs/CIVILIAN FLEET PLAN v0.029-v0.038.txt. .035 now owns civilian hulls and .036 their working voyages/piracy; extra story expansion moves after .038. The owner's Starsector quality target is required, not an existing verified achievement. Original Bridge report remains unchanged; current amendment has separate advice/verdict. No runtime implementation is authorised by this planning request.
+# Brass Tide — current working rules
 
-2026-10-23 CURRENT OWNER REQUEST: "alright prepare a map of ten more versions - use the bridge pls". Prepare the v0.029-v0.038 roadmap only; the completed game remains v0.028. One Bridge gpt-6.1-sol/Max advisory consultation completed; raw report and separate root verdict are preserved. Read ROADMAP.md and docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt. No implementation of these ten future versions is started or claimed by this planning task. Earlier implementation authorizations below refer to their completed ranges.
+Authoritative source is this Git repository. Delivered game is **v0.028**, 24 original
+hulls; game tag commit `2b11d4d1af69b62a2f8436bcdee4a5675432bd98`. The .029–.038
+AI/civilian roadmap is planned, not implemented. The current owner request is
+workspace consolidation without changing the game. Completed earlier version/team
+instructions live in the archive and do not authorize a new feature build.
 
-2026-10-22 LATEST OWNER AUTHORIZATION: IMPLEMENT v0.019 through v0.028 sequentially from docs/ECONOMY VERSION MAP v0.019-v0.028.txt. Team is Codex root plus UP TO THREE gpt-6.1-sol helpers at MAX effort through Bridge so usage is tracked there. Latest owner: "SORRY - USE THE BRIDGE PLS - 3 SOL 6.1 MAX - I WANNA TRACK THE USAGE THROUGH THE BRIDGE PLS"; "UP TO." This supersedes previous model/team counts. No native extra helpers or silent substitutions. Follow briefs/V0.019-V0.028 TEAM CONTRACT.txt. Owner authorizes routine game work without repeated confirmations; host-enforced access still applies. All tests remain hidden/headless and serialized; preserve old releases, saves and music.
+Read HANDOFF.md, CODE MAP.md and the relevant generated system map. Read
+`docs/VERIFICATION INDEX.txt` before repeating checks and `docs/DEVELOPER LESSONS.txt`
+before changing accounting, saves, combat or navigation. Use targeted searches;
+read files over 40 KB in parts and split code approaching 60 KB. World/data and
+actual native APIs/tests take precedence over old advisory reports.
 
-2026-10-21 LATEST OWNER AUTHORIZATION: IMPLEMENT the campaign roadmap v0.008 through v0.018 sequentially, one completed version on its predecessor. Team is root plus exactly ONE Muse Wonder Full, ONE Argon High and ONE Grok4.7 helper through Bridge. This supersedes all earlier helper counts/model limits. Follow briefs/V0.008-V0.018 TEAM CONTRACT.txt and docs/CAMPAIGN ROADMAP.txt. Keep in-game developer notes and TXT build records current. Preserve all older portable releases, source archives, saves and music. Tests stay hidden/headless and serialized; no desktop input/focus. Use bounded background workers and the owner's available hardware; no global system changes.
+Owner requirements: original motorboat fleets in Godot for Windows PC; cheap
+beautiful 2D water, numerical crews and fixed asset helmsmen/gunners; WASD camera,
+default flagship autopilot, 300 deployment points per side distinct from ownership.
+Physical interchangeable mount IDs/positions/arcs must agree across refit, art,
+aim and projectile origins. Use **coins**, 100 coins per sailor-day, finite people,
+material and purses, paid workers/experts/construction and real shipowner budgets.
+No copied Blood Wake/Starsector assets, code, stories or geography. Required AI
+quality is a design target, not a verified existing achievement.
 
-2026-10-20 historical owner authorization: IMPLEMENT v0.003, v0.004, v0.005 and v0.006 in sequence, building each on its finished predecessor. Team was root plus exactly two Argon High helpers through Bridge. Collect the supplied Lyria MP3s in Desktop/Brass Tide Music and integrate a reloadable portable music library. Follow BUILD PLAN.txt and briefs/V0.003-V0.006 TEAM CONTRACT.md. Preserve prior releases and owner saves. All tests remain background, no desktop input/focus and never two game instances.
+All game tests remain hidden/background/silent and serialized, one engine at a
+time. Never take mouse, keyboard or focus. Prefer question-specific bounded checks;
+never weaken assertions to pass. Preserve the owner’s saves/settings/music. Use
+only owned explicit PIDs for timeout cleanup. No global installs/system changes.
+Use the existing Godot 4.7.2 and local Python. Source/CPU tests, visual review,
+listening, Windows export, launcher and remote publication require separate proof.
 
-Owner additionally directs physical interchangeable mount points, as in the reference fleet games: hull is a chassis, weapons are fitted modules. Reserve clear deck footprints; use identical position/size/arc/ID for fitting preview, actual boat, aim/projectile origin and combat. Do not overlap cabins/stacks or paint extra decorative working weapons. Preserve stable mount IDs in old saves when updating geometry.
+Keep UI/scene/resources on the main thread. Worker tasks own copied data, join,
+then publish once on main. Rendering is Separate; current economy reserves two
+logical CPUs and caps worker lanes at eight on the observed 24-thread machine.
+Profile actual work before increasing concurrency. No expensive fluid simulation.
 
-# Brass Tide — Codex team rules
+If helpers are needed and authorized, latest owner preference is up to three
+Sol 6.1 Max helpers **through Bridge** for tracked usage; no silent model/provider
+substitution. No helpers are needed for this consolidation. Lead owns taste,
+integration, review and acceptance. Give each helper exact current inputs, its
+own worktree and a file allowlist; no helper deletions or competing engine tests.
+Preserve raw reports unchanged and write a separate lead verdict.
 
-2026-10-20 v0.002 owner steering supersedes earlier limits: use coins in all visible text; WASD camera, default flagship autopilot/commander battles, 300 deployment points/side, paid weapon/engine/armor refits and much better original boats/wakes. Owner explicitly added Argon High, Opus5.5 Medium Google-plan, Muse Wonder Full and another app-native Sol6.1 Max. Read briefs/V0.002 TEAM CONTRACT.md. Preserve old releases. Background-only testing persists.
+Owner authorizes pruning obsolete scratch, helper/release checkouts and redundant
+test history after preserving unique edits, useful proof and lessons. Follow
+`docs/WORKSPACE MAINTENANCE.txt`; validate absolute targets, refuse reparse paths,
+archive unique work first, and leave portable releases/source ZIPs/original saves,
+music and launcher intact. Host access requirements still apply. Do not invent a
+new confirmation flow for ordinary already-authorized maintenance.
 
-The owner supplied portable build rules and asked: "rebuild it to fit a chatgpt workflow"; "file location/folder location would fit u and ur tools - but the other rules that are transferable are transfered."
+Per actual playable version: advance integer build by one (=0.001), finish the
+previous build, update in-game notes/current TXT records/maps, commit named files
+and preserve an annotated tag. Export only a clean exact-tag release worktree.
+Never overwrite verified older releases or retag a rejected candidate as accepted.
+Publish only to the verified owner repository when authorized and authenticated;
+never claim a remote upload without remote hashes. Current upload remains pending.
 
-Authoritative source is this Git repository. Scratch, helper worktrees, logs and release checkouts live in the parent task's work/ directory. User-facing releases live in the parent task's outputs/ directory. The requested desktop launcher points at the newest portable release; placing it requires the host's filesystem permission. Never infer a new repository's GitHub destination from an unrelated project.
-
-Read order: maps/PROJECT MAP.txt, HANDOFF.md, CODE MAP.md, maps for the assigned systems, newest DEV LOG.txt entry, then targeted rg. Bootstrap missing maps/records honestly; never claim they exist. Read files over40KB in parts. Split code near60KB. Archive old documentation near80KB, devlogs near40KB; preserve archived text. Keep logs/test output out of Git.
-
-Owner requests: "v 0.001 - each version will advance by that .001 integer"; "godot, and a pc only build"; Android portability useful but not required; "multithreading ect"; "start the rendering as a multithread rendering too"; cheap decorative water; numerical crew with fixed helmsman/gunner details only; one extra Sol6.1 specialist directly in this app, two Argon High helpers through BigBridge in v0.001. The explicit v0.002 team above supersedes that earlier count. No further helpers beyond that team. Original assets/map/factions/roster inspired by motorboat combat and fleet economics. Never copy Blood Wake or Starsector assets/code/story/map.
-
-Lead owns plan, taste, balance, integration, user updates, testing and release. Helpers use a written brief and their own Git worktree, with an explicit file allowlist. A brief states goal, maps/inputs to read, names to keep, allowed changes, rules, build/tests, done condition and report. Helpers never delete files. Lead reads complete diffs and independently builds/tests before integration. Preserve helper reports unchanged and add a separate verdict.
-
-Prefer bounded tests under1minute, never over3minutes. Never weaken a test to pass it. Build dev tools that answer a question quickly. Use official Godot documentation for uncertain API behavior. UI stays on the main thread; pure worker tasks own copied state and publish results only after completion. Rendering thread is configured Separate. No animated crew, expensive fluid or per-pixel water simulation.
-
-Per playable version: integer build increments1, displayed as build/1000 to3decimalplaces. Update VERSION MAP.txt, DEV LOG.txt, ROADMAP.md, HANDOFF.md, TO BE TESTED.md, VERSIONS.md, CODE MAP.md, system maps and generated PROJECT MAP.txt. Write CHANGES vX.md at release and preserve it thereafter. Commit explicit named files and tag. Build/export in a separate release worktree. Push main and the version tag to the verified intended GitHub repository when accessible and authorized. Do not mark a push/export/playtest done without evidence.
-
-Keep working through mid-task steering. State mistakes plainly. Ask before deletions, removal of old releases, irreversible actions or genuinely missing permissions. Never kill processes by pattern; use only an owned explicit PID. Never run two game instances. Do not install tools globally or change system settings. Use existing Godot4.7.2, Python3.12 and Node. A portable release must run without an editor or Node/Python installed. Save/load must preserve campaign state. Keep bronze coins, stocks, crew and resources finite and nonnegative.
-
-Owner steering: all tests must run in the background; never take mouse/keyboard/focus or use UI automation. Economy now uses bronze coins, 100 coins per sailor-day, real household/expert/business/government/fleet-owner purses, paid production and construction with experts. Read briefs/CASH ECONOMY CONTRACT.md for the current interface. No arbitrary hull prices or regenerated coin balances.
-
-Build: tools/check_game.py --engine <existing Godot console path> runs all current native checks sequentially/headless. tools/update_maps.py regenerates verified maps. tools/release_game.py exports/verifies/packages only a clean exact-tag worktree. All copies of raw helper reports remain unchanged; root verdict is separate.
+Native checks: tools/check_game.py. Short fixtures: tools/qa_brass.py. Static maps:
+tools/update_maps.py. Export: tools/release_game.py. Retain all current game/tests/.
+Historical prototype dist/, root tests/ and build_data.cjs are cold archived.

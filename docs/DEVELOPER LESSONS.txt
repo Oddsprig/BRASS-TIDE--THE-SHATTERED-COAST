@@ -1,0 +1,82 @@
+BRASS TIDE — DEVELOPER LESSONS AND REGRESSION INVARIANTS
+23 October 2026 | Distilled from accepted root reviews and failure records
+Use alongside actual native code/tests; old rejected snapshots are not authority.
+
+ACCOUNTING AND OWNERSHIP
+- Coins, workers, crew, goods, stores, machinery and hulls have actual owners.
+  100 coins per sailor-day anchors bills; material inputs, labor, supervision and
+  upkeep are paid. Capital injection is not profit. No hidden rescue workforce,
+  refilled purses/restock or free NPC replacements.
+- Training qualifications are subsets of real people. Shore staff, sailors,
+  boarding parties, captives and passengers need canonical conserved cohorts.
+  Hiring/discharge/transport must check workers, berths and actual carrier holds.
+- Working fuel/ammo are separate from loose cargo. Fleet ownership, harbor storage,
+  traveling support and 300-point combat deployment are separate limits. Support
+  designation cannot erase cargo loss or make future civilians invulnerable.
+- Stable company IDs must survive the Campaign adapter. P&L separates paid operating
+  costs and cargo/hull basis from deposited capital. Registration stays bounded:
+  accepted .028 permits at most128 retained charters and8 open companies.
+
+STATE PUBLICATION AND SAVES
+- .025 staged customs initially replaced whole live state and stranded held
+  port/business/hull Dictionary references. Root fixed publication to preserve
+  existing live object identity. Test actual callers, not just detached snapshots.
+- A rejected .021 candidate omitted installed tooling/workshop staff from save
+  preflight. Validate every worker/purse/tooling record before restore; migrate a
+  copy and publish only after success. Keep candidate and accepted tags distinct.
+- Four civilian goods were omitted from wreck validation; a sunk flagship also
+  left a stale reference. Accepted .028 checks actual wreck cargo and selects a
+  real surviving hull before full restore. Extend schemas when adding goods.
+- Original owner saves stay read-only. Historical recorded SHA256:
+  voyage.json b475c50e1f5b0f95542d38b42d7f0f41633696c3bf6847713b7b8443fdb94e2e
+  backup      f524f272dcd57256a52bb539e4e5abbfc866511d255f3679d564317db6832c41
+  These identify preserved historical originals, not newly generated test saves.
+
+COMBAT, CUSTODY AND NAVIGATION
+- A secured prize can flood/sink before settlement. Accepted .028 records its
+  actual party/defenders/wreck once. A secured prize is not a manual flagship.
+  Check pending-prize capacity BEFORE sending people off their source hull.
+- Fitting preview, hull art, turret aim, projectile origin and damage use the same
+  stable mount ID/position/arc. Decorative weapons must not imply working mounts.
+  New large hulls require actual geometry/clearance, not just scaled statistics.
+- Failed snapped routing must not fall back across disconnected water. Use the
+  actual coast-migration API (_parse_campaign_scale), not an invented helper.
+  Wait for the actual voyage state gate, not a fixed4.5-second sleep.
+- Route reuse:128 entries, exact endpoints, detached returned arrays, outside saves,
+  reset on new_game/restore; malformed endpoints uncached. Future shallow-water or
+  hull-size eligibility belongs in cache keys as well as pathfinding.
+- Current role/nearest-range and coarse NPC results do not prove the advanced AI
+  roadmap. Require observed executable motion, retreat/counters, encounter custody
+  and calibrated distant outcomes. Don’t mark features done from a green exit code.
+
+PERFORMANCE AND TOOLS
+- On Windows, specify UTF-8 explicitly when reading/writing project text; default
+  ANSI decoding can corrupt punctuation even when scripts succeed. Check links
+  and current context for encoding errors after conversion or consolidation.
+- GDScript dynamic Dictionary/Array expressions need explicit types where inferred
+  types are ambiguous. Pure workers own copied data; main joins/publishes once.
+  No scene/UI/resource mutation from workers. Keep static world data immutable.
+- Observed machine: Core Ultra9 275HX,24 logical processors,8 economy worker lanes;
+  reserve2 and cap8. More threads do not automatically improve the measured task.
+- Native game/data/world.json is authority. Retired tools/build_data.cjs imported
+  legacy dist/content.js and could overwrite current world data. Never use it to
+  regenerate the native game. Historical plan_territory.py deliberately targets
+  .002 geometry; don’t apply it as another expansion to the enlarged .005+ world.
+
+EVIDENCE AND DELIVERY
+- Source suites, exact-tag checkout, Windows menu/save/battle, icon/PCK, archive
+  hashes, desktop shortcut and remote refs are different checks. Keep scope and
+  actual source/version/seed/engine with each accepted result. Missing old scratch
+  logs do not invalidate current unchanged-source proof.
+- One hidden/silent engine at a time; isolate APPDATA/test careers. Timeouts act
+  only on owned explicit PIDs. Fatal SCRIPT ERROR/Parse Error fails even at exit0.
+  Numerical CPU or software drawing captures do not prove GPU FPS or audio quality.
+- Helpers need actual current code/APIs and explicit allowlists. Missing input
+  context is not a review. Preserve raw report; put root verdict in another file.
+- Owner-approved GitHub atomic publish was blocked by MSYS0xC0000022 / credential
+  vault Access denied. No remote success was proved. Retry only when the supported
+  authentication context changes; don’t force, retag or replace history via API.
+
+Historical raw reports/failed runs/patches remain recoverable via ARCHIVE INDEX.
+Retain a small useful failure fixture or source regression, not every duplicate
+run, render-command dump or synthetic APPDATA profile.

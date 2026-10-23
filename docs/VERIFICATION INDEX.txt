@@ -1,0 +1,48 @@
+BRASS TIDE — CURRENT VERIFICATION INDEX
+23 October 2026 | Reuse evidence only for unchanged matching inputs
+
+BASELINE
+Playable version .028; exact tag commit 2b11d4d1af69b62a2f8436bcdee4a5675432bd98.
+Native Godot4.7.2 Windows x64. Source before consolidation:
+958143b7ce8bd668039869e45253d4e338e90218; game tree matches the delivered tag.
+Runtime/native tests/music and delivered outputs are protected by the cleanup audit.
+
+ACCEPTED EVIDENCE (docs/ is source-relative; work/ and outputs/ are task-relative)
+- docs/TEST RESULTS v0.028.md:66 accepted native suites; current source logs in
+  work/qa/v028-source-final/. Suite scripts stay in game/tests/.
+- work/qa/release-v028/: independent clean exact-tag native suite/import logs.
+- work/qa/export-v028/: engine identity/export plus portable menu, campaign/save
+  and battle smoke. outputs/Brass Tide v0.028/RELEASE.json contains delivered hashes.
+- outputs/Brass Tide v0.028 DELIVERY VERIFIED.json and corresponding source/Windows
+  ZIPs and .sha256 files: exact-tag packaging and preserved local delivery.
+- work/qa/v028-battles-final/: seven seeded CPU fixture JSON/log pairs and summary.
+  docs/FLEET BENCHMARKS v0.028.json and CPU CAMPAIGN MEASUREMENTS v0.028.txt scope the
+  measurements. Full300:40 boats,300 points per side; no rendering/listening proof.
+- work/qa/v018-legacy/: earlier read-only real-owner save migration evidence at
+  .018 only. This is not a new .028 owner-save migration run. Saved originals
+  remain unchanged; synthetic test profiles were removed after evidence retention.
+- outputs/Brass Tide v0.028 LAUNCHER VERIFIED.json: desktop launcher delivery proof.
+- work/qa/github-v028-publication.json: pending/failed remote publication evidence;
+  never infer upload from local commits, source checks or approval.
+- work/qa/CAMPAIGN SERIES VERIFIED.json: completed older-stage aggregate receipt.
+
+CLEANUP EVIDENCE
+archives/2026-10-23-consolidation/audit/: before/after inventories, protected-file
+SHA256 records, exact removal plan/actions, backup verification and final results.
+This context-only task runs static/hash checks, not Godot. docs/ARCHIVE INDEX.txt
+locates historical failed diagnostics, raw Bridge records and recoverable patches.
+
+WHEN TO TEST
+Context/docs/map or inactive scratch cleanup: check references, maps, source/tree,
+protected files and archive recovery; no engine regression solely for tidying.
+Behavior/schema/art/audio/data change: run affected native suites and one meaningful
+actual flow; add coverage only for a real new behavior/regression. For graphics,
+use a targeted geometry/motion capture when changed; preserve judgment limits.
+Playable release: required native regressions, clean exact-tag Windows export and
+independent file/icon/PCK/menu/save/battle/archive identity. Retain all old builds.
+Repeat accepted suites only for changed inputs, failures or an unresolved concern.
+
+Keep one accepted evidence set per source/engine/scenario/seed, with failure cause,
+fix and regression source. A planned feature or stale report can never substitute
+for that version’s actual verification. Human fun, advanced AI parity, audio mix,
+display scaling and rendered FPS remain separate open review questions.

@@ -1,1 +1,0 @@
-// Argon economy test entry.

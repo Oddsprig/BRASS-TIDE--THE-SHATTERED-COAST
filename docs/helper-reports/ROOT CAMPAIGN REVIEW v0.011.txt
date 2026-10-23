@@ -1,9 +1,0 @@
-ROOT INTEGRATION REVIEW - v0.011 Jobs and contacts
-
-Muse Wonder Full supplied voyage_jobs.gd, contacts.gd and the original helper tests/report. The raw campaign-muse-jobs.txt is preserved unchanged. Root reviewed the code and integrated the actual campaign, harbor UI, cargo allocation, save validation and native voyage flow.
-
-Corrections: escrow is counted exactly once; a relief sponsor pays the local supplier for its physical cargo before reserving the passage reward; all side-job freight uses the same finite hold and carrier-loss allocation as other cargo. Lost and overdue freight cannot pay a completion reward. Bounties require an actual defeat, rather than an inactive owner. Route prices use navigable passage, sailor wages, fuel, provisions and tools. Contact trust and dated observations persist separately from future faction standing. Survey parties can draw tools from either cargo or working racks without duplicated food costs.
-
-Verification: all 30 source native suites passed, including 69 jobs checks and 12 integrated voyage-flow checks. Exact-tag testing and portable Windows verification are performed by the release pipeline and recorded separately in the delivery receipts. No foreground testing or input control was used.
-
-Launcher: Windows script policy blocks the historical PowerShell script. The replacement uses installed Python and direct shortcut-file COM access, reads the saved target back, and preserves the original voyage. No policy setting is changed or bypassed.

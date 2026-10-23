@@ -1,0 +1,50 @@
+BRASS TIDE — COLD ARCHIVE AND RECOVERY INDEX
+23 October 2026 | Location relative to this repo: ../../archives/2026-10-23-consolidation/
+Absolute task root: C:/Users/bligh/Documents/Codex/2026-10-20/how
+
+source-history.bundle
+  Verified complete pre-cleanup Git history/branches/tags. Main before cleanup:
+  958143b7ce8bd668039869e45253d4e338e90218. Exact .028 tag game:
+  2b11d4d1af69b62a2f8436bcdee4a5675432bd98. Existing repo retains its history too.
+  Inspect with git bundle verify; restore in a NEW directory with git clone of the
+  bundle or inspect old files with git show <commit>:<path>. Never reset live source
+  or overwrite verified releases to inspect an old record.
+
+worktree-edits.zip + WORKTREE RECOVERY.json
+  HEAD/status and binary staged/unstaged/combined patches for46 retired checkouts,
+  plus366 actual changed/untracked/ignored non-cache files with SHA256. Entries:
+  worktrees/<old-folder>/files/<relative-path> and associated *.patch.
+  Restore the recorded HEAD in a separate checkout, then compare/copy saved edits;
+  inspect patch choice before applying. Staged/unstaged/combined are alternatives,
+  not three patches to apply blindly. No helper branch or tag was deleted.
+
+source-records-and-prototype.zip
+  source/<repo-relative-path>: verbatim historical context, old version notes,
+  test reports/briefs/raw helper reports, archive/history, source QA and obsolete
+  JavaScript prototype/root JS tests/build_data.cjs. SOURCE RECORDS.json lists
+  original paths, entries, byte counts and SHA256. Current native game/tests stay.
+
+context-addendum.zip
+  Verbatim originals of the three retained briefs, old damage guide/credits and
+  roadmap files before their current links/contracts were consolidated. It changes
+  no roadmap scope. CONTEXT ADDENDUM.json records every original and SHA256.
+
+historical-work-and-failures.zip
+  history/<task-relative-path>: old scratch, candidate/one-off scripts, helper reports,
+  prepublication .001 package and roadmap raw payloads. In particular:
+  history/work/roadmap-v029-v038/ and history/work/roadmap-ai-civilian/ contain the
+  original Bridge route/usage/raw results, including the rejected missing-context
+  reply. Current verbatim advisory TXT reports remain in docs/planning/.
+  diagnostics/<task-relative-path>: relevant failed run logs and synthetic
+  save/settings profiles retained for diagnosis. HISTORICAL WORK.json and RETAINED
+  DIAGNOSTICS.json give paths/hash/entry; DISCARDED REGENERABLE.json explains omitted
+  large raw drawing dumps. Repeated successful logs/caches were deliberately pruned.
+
+audit/
+  Exact preflight/operations, before/protected/after records, archive identities,
+  static verification and space/accounting receipt. Actual QA baselines stay in
+  ../../work/qa/; useful original audio/art references in ../../work/reference/.
+
+All ZIPs passed CRC and per-entry SHA256 checks before removal. Kept archives are
+recovery material, not current source authority. Extract only the specific needed
+record to a new scratch location; preserve owner originals and tag identities.

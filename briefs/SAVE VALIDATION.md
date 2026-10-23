@@ -1,7 +1,21 @@
-# Sol6.1 followup — save preflight
+# Current save preflight contract — v0.028 base
 
-Goal: validate malformed saved dictionaries before Campaign.restore counts coins or replaces the live voyage. Existing Sol specialist only, in its isolated worktree. No extra helpers, commits, deletion or unrelated edits.
+Read actual save_validation.gd, campaign_state_validation.gd, coast_migration.gd
+and Campaign.restore. SaveValidation.validate(saved, world) returns a Dictionary;
+Campaign accepts the validated/migrated state only after success. Use current keys
+and full native schemas rather than old example counts or ad-hoc JSON assumptions.
 
-Read current cash contract, campaign restore, money counters and actual new-game JSON. Own only new save_validation.gd, test_save_validation.gd and a new raw report. Pure static validate(saved,world) returns useful ok/message, accepts JSON whole-valued floats, permits additional metadata and preserves input. Validate ports/IDs/purses/stocks, construction escrow, player/NPC boats, crew/stores/geometry, cargo and funded sponsors before indexing.
+Preflight malformed types, nonfinite values, negative/fractional coins, IDs and
+ownership before counting/indexing/replacing live state. Accept legitimate JSON
+whole-valued numeric floats. Preserve input; migrate copies. Validate all goods,
+actual carrier cargo, working stores, crew/qualification subsets, shore employees,
+tooling, company charters, escrow, boarding/captives, passengers and liabilities.
+Reject inconsistent custody and capacity. Failure must leave live state intact.
 
-Tests cover actual new/damaged/contract saves plus malformed types, nonfinite values, duplicate IDs, negative or fractional coins and bad hulls. Root reserved the single-instance background test slot; the helper must not run Godot until granted. Root independently wires live-state atomicity and runs the tests. Report stated no execution claim, correctly; root later verified 83 checks and campaign rejection without mutation.
+Adding a good/cohort/owner requires the same addition to wreck/restore accounting.
+Installed tooling and workshop staff cannot disappear. Sunk flagship references
+must resolve to an actual surviving hull. See DEVELOPER LESSONS for .021/.028 fixes.
+Use isolated synthetic fixtures and read-only copies for legacy migration; keep
+owner originals/settings/backups untouched. Source test_save_validation.gd and
+actual module/voyage tests remain authoritative. Existing evidence is indexed;
+rerun affected schemas/flows only when changed, plus required release regressions.

@@ -53,4 +53,4 @@ for Bridge evidence and accepted amendments. Raw advisory reports are unchanged.
 Retain original content, cheap water, numerical crews, WASD camera, default
 flagship autopilot and 300 DP deployment. No game/build/tag/save/music/launcher
 change or engine test was made for this plan. Prior planning records are preserved
-under docs/history/2026-10-23 before AI civilian fleet planning/.
+in the consolidation cold archive; see docs/ARCHIVE INDEX.txt.

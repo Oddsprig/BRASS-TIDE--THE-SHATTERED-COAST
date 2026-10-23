@@ -1,0 +1,43 @@
+BRASS TIDE — WORKSPACE RETENTION AND MAINTENANCE
+23 October 2026 | Owner requested ongoing consolidation without changing the game
+
+ONE ACTIVE BASE
+outputs/brass-tide is authoritative. work/ holds only current scratch, selected QA
+and useful references. outputs/ preserves every playable release and source/Windows
+archive. archives/ holds cold recovery/history. Start with the task/source START
+HERE and current handoff; don’t feed the entire historical archive into context.
+
+AFTER A COMPLETED STAGE
+1. Record exact source/version/engine/scenario and accepted result in VERIFICATION
+   INDEX. Keep current test SOURCE, reusable tools, accepted baseline proof and
+   unresolved failure diagnostics. Distill cause/fix/invariant into DEVELOPER LESSONS.
+2. Retain current final source/tag/export/benchmark evidence, legal/provenance,
+   owner-provided references and unique useful visual comparisons. Remove repeated
+   success runs, raw drawing-command dumps, regenerated caches and synthetic test
+   APPDATA/profile saves once accepted evidence is preserved. Never confuse those
+   synthetic profiles with the owner’s real saves/settings.
+3. Before retiring a helper/release checkout: confirm no running helper/job owns
+   it; record HEAD/status; preserve unique changes, untracked/ignored non-cache
+   assets and full binary patches; verify archive contents/hashes and Git reachability.
+   Remove via Git’s worktree operation. Keep branch/tag history; no force-push.
+4. Resolve exact absolute remove/move targets and confirm intended scratch/context
+   boundary. Reject reparse/junction targets or ancestors. No wildcard recursive
+   deletion, no shell-hopping file operations and no process-pattern termination.
+5. Replace old chronological handoffs/plans with concise current records and an
+   archive pointer. Raw helper reports stay verbatim in cold storage; lead verdict
+   remains separate. Regenerate maps and check release-tool required input paths.
+6. Check protected runtime/output/save/music/launcher hashes; record reclaimed
+   bytes and recovery location. No build-number increment or redundant gameplay
+   testing for pure context/logistics maintenance.
+
+NEVER AUTOMATICALLY PRUNE
+Native game/tests, current runtime/assets/data, actual owner saves/backups/settings,
+music, credits/licenses/audio provenance, playable releases/source ZIPs/receipts,
+unique unintegrated work or unresolved failures. Missing proof/new edits must be
+resolved before removal. Host-enforced permissions still apply.
+
+This is a development practice applied at stage completion, not a new background
+watcher or schedule. Owner authorized routine stale-working-folder cleanup; don’t
+interrupt for the same scope again. Requests to remove actual releases or owner
+files are a different scope. Useful source tests remain even when their old run
+output goes away; consult VERIFICATION INDEX before deciding to rerun them.

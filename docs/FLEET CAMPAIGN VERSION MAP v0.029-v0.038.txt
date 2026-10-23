@@ -415,7 +415,8 @@ SEQUENCE-WIDE RULES
 PLANNING REVIEW AND STATUS
 One bounded Bridge consultation completed: gpt-6.1-sol via Codex, Max, ChatGPT
 plan; run c74659fa4ebb. Raw response and route/usage evidence are preserved in
-work/roadmap-v029-v038; its verbatim report is in docs/planning/.
+historical-work-and-failures.zip at history/work/roadmap-v029-v038/; its
+verbatim report remains in docs/planning/. See docs/ARCHIVE INDEX.txt.
 Root independently reviewed owning modules/maps. The final order brings physical
 battle objectives forward, adds bounded pursuit/geography, and ties exploration,
 recognisable rivals and faction operations into the same existing economy.

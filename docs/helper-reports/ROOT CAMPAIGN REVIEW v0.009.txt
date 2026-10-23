@@ -1,8 +1,0 @@
-ROOT REVIEW — v0.009 ISLAND EXPLORATION
-Muse Wonder Full's four allowlisted exploration/catalog/test/report files were fully reviewed and integrated after v0.008 Windows/source delivery. The raw report remains unchanged. Root fixed two GDScript type-inference errors and excluded wounded sailors from spare shore labor. No helper ran an engine.
-
-Root added actual chart markers and island windows, landing proximity/course gates, numerical shore assignments affecting available weapon/damage-control hands, recall and paid waiting, discovered leads, copied catalog persistence and strict optional save schema. Survey-ration prepayment now offsets ordinary daily ration use so a landed sailor does not eat twice. Assigned sailors remain paid exactly once through the normal crew wage system. Loaded carriers cannot be stored, stood down or sold while their shore party is out.
-
-Root caught a real regression: old-map fixtures were being given modern survey coordinates before the old coast was migrated. Legacy map1 starts now keep an empty exploration book until current-map restoration bootstraps the modern catalog. The unchanged361-check legacy map suite and new12-check real survey/save/food/Main flow pass after that fix. All14authored site positions pass Navigation.is_water; helper module suite passes270checks.
-
-Source acceptance combines the full v009-source suite logs with corrected map_revision/island_voyage logs, preserving the failed original run separately. Clean exact-tag checks and Windows export follow and have their own receipts. No foreground play or subjective fun/GPU pacing is claimed. Resource, workshop and route discoveries record usable knowledge/leads; physical recovery and later industry integrations follow the sequential roadmap.

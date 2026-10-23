@@ -19,7 +19,10 @@ plan at Max, no repository/tool access. It critiqued the complete inline design
 contract, including later civilian/yacht requests. Bridge reports26,366 input /
 4,369 output tokens and $0 API charge; this does not mean no plan quota was used.
 Verbatim report: docs/planning/BRIDGE AI CIVILIAN REVIEW v0.029-v0.038.txt.
-Complete raw response/route evidence: work/roadmap-ai-civilian/bridge-sol-ai-civilian-raw.json.
+Complete raw response/route evidence is cold archived in
+historical-work-and-failures.zip at
+history/work/roadmap-ai-civilian/bridge-sol-ai-civilian-raw.json.
+See docs/ARCHIVE INDEX.txt for recovery location/manifests.
 An initial request (d8e02683ae06) returned missing input context; no findings were
 accepted. Root corrected the brief by placing the entire contract inline. Its
 original response is separately preserved, not overwritten or called a review.

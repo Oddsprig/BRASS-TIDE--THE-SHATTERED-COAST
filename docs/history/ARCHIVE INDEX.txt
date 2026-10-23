@@ -1,0 +1,6 @@
+Historical records were consolidated on23October2026.
+Read docs/ARCHIVE INDEX.txt from the source root for exact recovery archives,
+original paths, manifests and hash checks. Current raw roadmap advisor reports
+remain in docs/planning/; accepted lead verdict is separate. Native game/tests
+and current .028 acceptance evidence remain active. This small directory is
+retained so release tooling can continue copying its expected documentation inputs.

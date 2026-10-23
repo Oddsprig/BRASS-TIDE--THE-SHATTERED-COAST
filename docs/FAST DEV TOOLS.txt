@@ -1,30 +1,43 @@
-BRASS TIDE — FAST DEVELOPMENT TOOLS
-20 October 2026 | working scripts in the source repository
+BRASS TIDE — CURRENT FAST DEVELOPMENT TOOLS
+23 October 2026 | v0.028 baseline; consult VERIFICATION INDEX first
 
-These tools run isolated numerical battle fixtures. They do not load a career, mutate a save, play sound, open a foreground game or use the mouse/keyboard. The runner refuses a detected existing Brass Tide or Godot process. All tests are serialized. An owned process has a 20-second timeout; the internal work loop has a 10-second budget.
+Static map refresh: python tools/update_maps.py. No engine needed for context edits.
+Targeted native test: tools/check_game.py --only <suite...> --engine <Godot> --logs
+<task>/work/qa/current-<question>. All66 source suites remain in game/tests/.
 
-Run from outputs/brass-tide:
-  python tools/qa_brass.py --list
-  python tools/qa_brass.py --scenario duel --engine "C:/path/to/Godot_console.exe"
-  python tools/qa_brass.py --scenario full_300 --engine "C:/path/to/Godot_console.exe"
-  python tools/qa_brass.py --suite smoke --engine "C:/path/to/Godot_console.exe"
-  python tools/qa_brass.py --suite all --engine "C:/path/to/Godot_console.exe"
-
-Existing engine on this computer:
-C:/Users/bligh/Documents/Codex/2026-09-25/we-x20/work/engine/Godot_v4.7.2-stable_win64_console.exe
-
-Options: --seed <integer>, --seconds <simulation seconds up to180>, --logs <output directory>.
+Short battle CPU fixtures: python tools/qa_brass.py --list
+python tools/qa_brass.py --scenario duel --engine <Godot> --logs <scratch>
+python tools/qa_brass.py --scenario full_300 --engine <Godot> --logs <scratch>
+Options include --seed, --seconds (up to180 simulated), --suite smoke/all.
 Presets: duel, all_weapons, mixed, full_300, reserve_boundary, torpedoes, rockets.
-Reports include source game version, seed, points, reserves, numerical checks, weapon coverage, projectile/effect peaks and simulation tick timing. A null battle result means the bounded sample ended, not a claimed win. Lab fixtures have explicit free full stores; the economy is intentionally outside this test.
+Owned process bound20s/internal work10s; unique tokens prevent stale-report reuse.
+Fixtures are isolated free-store lab boats, not proof of paid campaign accounting.
+Accepted current seven-scenario proof: work/qa/v028-battles-final. Full300 deploys
+40 boats at300points per side. Reports are CPU/weapon/flow evidence, not GPU FPS.
 
-Each launch uses a unique report token and validates the scenario, seed and requested duration, so a leftover report cannot count as a fresh pass.
+Changed visual question: tools/check_visuals.py (targeted --only), boat_gallery.gd,
+feedback_gallery.gd, render_boat_gallery.py, render_feedback_gallery.py and
+presentation_bench.gd. Capture exact drawing primitives/animation/software previews.
+audit_boat_geometry.gd checks headings/LODs. Keep a useful comparison; prune large
+raw command dumps after a verified accepted result. Old .007 comparisons are
+work/reference/boat-presentation-v007 and explicitly not current GPU screenshots.
 
-Latest source check: all seven presets pass. The four-family fixture now places four threats around a paid fitted hull so outward side/rear launchers can exercise their actual arcs. Full_300 deploys40boats at300points per side. v0.006 candidate simulated6seconds in1,186ms of simulation work; p95 tick10,650microseconds. Launch/guard overhead is separate. This is CPU simulation evidence, not rendered FPS or a listening audition. Logs: work/qa/v006-fast-final.
+Save migration: tools/verify_legacy_save.gd --save=<read-only copy>. Keep original
+hash and source version. Never use owner files as a writable test profile.
+Music: tools/sync_music.py preserves owner audio/provenance. Raw licensed weapon
+audio and decode/cut references are work/reference/audio-recordings/.
+Clean-tag export: tools/release_game.py; launcher and publication have independent
+receipts. Stage preparation/finalization tools are retained, but historical stage
+acceptance alone is not a native Windows export result. These stage tools still
+write historical .019-.028 record conventions: review their text assumptions
+before preparing a future build; do not rerun completed releases for housekeeping.
 
-Territory concept tool:
-  python tools/plan_territory.py --out "../Brass Tide - Next build plan"
-Historical planning tool: it deliberately requires the v0.002 geometry. The playable v0.005+ world now contains the expanded geography and LEGACY_MAP. Do not rerun it against the expanded world as if it were a second expansion.
+Historical plan_territory.py intentionally requires .002 geometry. Never rerun it
+as another expansion of current .005+ world. Obsolete build_data.cjs/dist/root JS
+tests are cold archived; native world.json is current authority.
 
-Already available: tools/check_game.py --only <suite...> for targeted native checks; tools/boat_gallery.gd and render_boat_gallery.py for exact code-art previews; tools/verify_legacy_save.gd for read-only save checks.
-
-Implemented: title-menu fleet builder, compatible live fitting previews, seeded replay/results, opt-in F9 tools, audio codec/event/voice checks, map migration checks and21native suites. --qa-lab=full_300 is an explicit launch hook for a silent native Main test, distinct from the pure CPU benchmark. Geometry audit covers every hull at360headings and threeLODs; the gallery records the exact boat drawing primitives for software raster inspection.
+Existing Godot: C:/Users/bligh/Documents/Codex/2026-09-25/we-x20/work/engine/
+Godot_v4.7.2-stable_win64_console.exe (join the two lines).
+All engine runs hidden/headless/silent, serialized, isolated APPDATA; no desktop
+input/focus. Prefer a short targeted question. Retain accepted proof/source test
+and lesson; don't repeat settled campaigns merely because duplicates were pruned.
