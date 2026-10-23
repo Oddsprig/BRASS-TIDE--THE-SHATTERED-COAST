@@ -1,27 +1,6 @@
-<!-- brass-tide-series:29:start -->
-BRASS TIDE — CURRENT SOURCE BUILD STATUS
+BRASS TIDE v0.029 — VERIFIED LOCAL WINDOWS DELIVERY
 
-v0.029 — Fleet workshop and boat presentation
-SOURCE CHECKS RECORDED: 70 native suites recorded from supplied logs. Feature acceptance requires lead review.
-
-Compare and prepare a purposeful fit on an existing owned hull, review its real bill and install it using paid work and physical equipment.
-
-Implemented behavior to review:
-- Fleet fitting workspace with numbered sockets, physical arcs and before/after capacity, deployment, stores and daily obligations.
-- Knowledge-only named templates and atomic paid fitting using real lockers, harbor materials, workers, experts and purses.
-- Original hull and equipment detail across the existing 24 hulls, sharing stable socket origins with aim and effects.
-
-Continue only after lead acceptance, preserved annotated tag and a separately verified clean exact-tag Windows release. Later stages remain pending; do not reuse tags or overwrite older releases.
-
-Exact-tag Windows export/startup/save/battle, archive hashes, launcher, remote publication, visual/motion review and listening require their own evidence. Source logs establish none of those outcomes.
-
-Roadmap: docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt
-Earlier records follow unchanged.
-<!-- brass-tide-series:29:end -->
-
-BRASS TIDE v0.028 — VERIFIED LOCAL WINDOWS DELIVERY
-
-Exact game source: 2b11d4d1af69b62a2f8436bcdee4a5675432bd98
+Exact game source: 44e2a46b55bd56b52998eeb1d4cdc681c5091482
 Native Windows menu, campaign/save and battle startup: PASS in background/headless mode.
 Executable icon/PCK, manifest hashes, Windows ZIP and exact-tag source ZIP CRC/SHA256: PASS.
 All prior releases and original owner saves/music remain preserved. No desktop input/focus.

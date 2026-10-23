@@ -1,0 +1,13 @@
+{
+  "version": "0.029",
+  "tag_commit": "44e2a46b55bd56b52998eeb1d4cdc681c5091482",
+  "manifest_files_verified": 106,
+  "archives_verified": [
+    "Brass Tide v0.029 Godot source.zip",
+    "Brass Tide v0.029 Windows x64.zip"
+  ],
+  "shortcut_actual_readback": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\Brass Tide v0.029\\Brass Tide.exe",
+  "owner_original_and_copy_identical": true,
+  "source_runtime_work": "majority via three Bridge Sol6.1Max",
+  "scope": "Root independent file/hash and shortcut readback; no game launched or foreground input."
+}

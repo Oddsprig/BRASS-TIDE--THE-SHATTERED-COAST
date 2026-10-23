@@ -15,8 +15,9 @@ specifically assigned later. Save concrete code early. Read actual native APIs.
 Read AGENTS.md, HANDOFF.md, CODE MAP.md, relevant generated maps, current
 briefs/contracts and docs/DEVELOPER LESSONS.txt. Actual native source/data wins over
 old report assumptions. Full roadmap: docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt;
-AI and CIVILIAN FLEET PLAN are required related contracts. Implement ONLY current
-milestone .029 until root accepts/preserves it; do not sneak in .030-.038 behavior.
+AI and CIVILIAN FLEET PLAN are required related contracts. Current milestone is .030 after preserved .029 delivery; implement ONLY the
+assigned .030 role/allowlist under root frozen tactical contract/r2. No .031-.038
+behavior before its accepted predecessor and explicit role assignment.
 
 Keep100coin sailor-day, real stock/workers/experts/purses/cargo/people. Fit templates
 are knowledge only, never equipment or inventory. Physical sockets/aim/muzzles share
@@ -39,6 +40,6 @@ Deliver actual files plus raw REPORT-v029-<role>.txt with file list, design/API,
 what changed, static checks and exactly what was NOT executed. Keep report under
 ~600words. Explain any integration hooks/limits. Root reads full changes, gives
 separate acceptance verdict and owns integration/tagging. Raw advice isn't tests.
-Current version stages .029 fitting/detail; .030 tactical AI; .031 equipment;
+Current delivered .029 fitting/detail; active .030 tactical AI; .031 equipment;
 .032 objectives; .033 independent conflict; .034 terrain; .035 civilians;
 .036 careers; .037 operations; .038 quality. Earlier releases are never overwritten.

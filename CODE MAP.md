@@ -25,7 +25,7 @@ Historical JS prototype is archived. Planned modules do not exist until implemen
 Related *_ui scripts present module results on main. Worker tasks own copies;
 join before publishing. Mount IDs/arcs/geometry are shared by fitting and combat.
 
-Current source candidate: v0.029; delivered release remains v0.028. Current tests:
+Delivered source: v0.029; .030 tactical implementation is isolated in helpers. Current tests:
 game/tests/ (70 named suites in tools/check_game.py; native results are recorded in
 docs/TEST RESULTS v0.029.md). The original 66 fixtures retain their assertions;
 workshop, art_workshop, workshop_voyage and workshop_ui cover the new milestone.

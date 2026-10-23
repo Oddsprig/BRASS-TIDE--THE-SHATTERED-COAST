@@ -1,3 +1,6 @@
+v0.029 DELIVERED | exact game 44e2a46b55bd56b52998eeb1d4cdc681c5091482
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 <!-- brass-tide-series:29:start -->
 CURRENT SERIES RECORD
 

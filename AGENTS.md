@@ -1,15 +1,16 @@
 # Brass Tide — current working rules
 
-Authoritative source is this Git repository. The **v0.029 source candidate passed
-all 70 actual native suites**; root acceptance/tagging and its separate Windows
-receipt remain pending. Delivered game is **v0.028**, 24 original hulls; game tag
-commit `2b11d4d1af69b62a2f8436bcdee4a5675432bd98`. The .029–.038 AI/civilian roadmap
-is AUTHORIZED FOR IMPLEMENTATION by the owner on23October2026; .030–.038 remain pending.
-Build .029 through .038 sequentially on the verified predecessor. Codex coordinates;
-majority implementation goes to up to THREE Sol6.1 MAX helpers THROUGH BRIDGE,
-ChatGPT plan. No native helpers or model substitutions. Current milestone is .029;
-future features stay pending until their predecessor is accepted. Read
-briefs/V0.029-V0.038 TEAM CONTRACT.txt. Completed cleanup history is cold archived.
+Authoritative source is this Git repository. Delivered game is **v0.029**, 24 original
+hulls; exact game tag commit `44e2a46b55bd56b52998eeb1d4cdc681c5091482`. All70 native
+suites and separate clean-tag Windows/menu/save/battle/archive/launcher checks passed.
+See docs/ROOT REVIEW v0.029.txt and docs/ROOT DELIVERY REVIEW v0.029.json.
+The owner authorized all ten .029–.038 builds sequentially on23October2026.
+Current milestone is **.030 tactical AI**; A/B implementation uses accepted4f6cfa6
+base in isolated Bridge worktrees. Later .031–.038 remain authorized and unfinished.
+Codex coordinates; majority implementation goes to up to THREE Sol6.1 MAX helpers
+THROUGH BRIDGE, ChatGPT plan. No native/nested helpers or model substitutions.
+Read briefs/V0.029-V0.038 TEAM CONTRACT.txt and briefs/TACTICAL CONTRACT v0.030.txt.
+Use accepted r2 budgets, not the conflicting raw r1/proposal. No benchmark hull cap.
 
 Read HANDOFF.md, CODE MAP.md and the relevant generated system map. Read
 `docs/VERIFICATION INDEX.txt` before repeating checks and `docs/DEVELOPER LESSONS.txt`

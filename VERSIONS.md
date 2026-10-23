@@ -1,3 +1,8 @@
+LIVE BRASS TIDE SERIES DELIVERY
+v0.029 DELIVERED | 44e2a46b55bd56b52998eeb1d4cdc681c5091482
+Current delivered: v0.029. Active .030 tactical AI; later .031-.038 authorized and unfinished.
+END LIVE BRASS TIDE SERIES DELIVERY
+
 <!-- brass-tide-series:29:start -->
 ## Current source milestone
 
