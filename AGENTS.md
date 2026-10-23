@@ -2,9 +2,12 @@
 
 Authoritative source is this Git repository. Delivered game is **v0.028**, 24 original
 hulls; game tag commit `2b11d4d1af69b62a2f8436bcdee4a5675432bd98`. The .029–.038
-AI/civilian roadmap is planned, not implemented. The current owner request is
-workspace consolidation without changing the game. Completed earlier version/team
-instructions live in the archive and do not authorize a new feature build.
+AI/civilian roadmap is now AUTHORIZED FOR IMPLEMENTATION by the owner on23October2026.
+Build .029 through .038 sequentially on the verified predecessor. Codex coordinates;
+majority implementation goes to up to THREE Sol6.1 MAX helpers THROUGH BRIDGE,
+ChatGPT plan. No native helpers or model substitutions. Current milestone is .029;
+future features stay pending until their predecessor is accepted. Read
+briefs/V0.029-V0.038 TEAM CONTRACT.txt. Completed cleanup history is cold archived.
 
 Read HANDOFF.md, CODE MAP.md and the relevant generated system map. Read
 `docs/VERIFICATION INDEX.txt` before repeating checks and `docs/DEVELOPER LESSONS.txt`
@@ -35,7 +38,7 @@ Profile actual work before increasing concurrency. No expensive fluid simulation
 
 If helpers are needed and authorized, latest owner preference is up to three
 Sol 6.1 Max helpers **through Bridge** for tracked usage; no silent model/provider
-substitution. No helpers are needed for this consolidation. Lead owns taste,
+substitution. The owner now requests majority delegation for implementation. Lead owns taste,
 integration, review and acceptance. Give each helper exact current inputs, its
 own worktree and a file allowlist; no helper deletions or competing engine tests.
 Preserve raw reports unchanged and write a separate lead verdict.

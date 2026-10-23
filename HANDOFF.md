@@ -1,3 +1,12 @@
+# Current implementation: authorized v0.029-v0.038
+
+23 October 2026 owner: "YOU CO ORDINATE HERE ... UP TO 3 SOL 6.1 MAX ON THE BRIDGE ...
+MAJORITY OF WORK ON THE BRIDGE". All ten increments are now authorized in sequence.
+Current delivered base remains .028; .029 work is starting in isolated helpers.
+Read briefs/V0.029-V0.038 TEAM CONTRACT.txt and work/series-v029-v038 for live state.
+No new version is delivered from a brief, and no later scope starts ahead of its
+accepted predecessor. Root coordinates, integrates and verifies; helpers implement.
+
 # Brass Tide — current handoff
 
 23 October 2026. **v0.028 is the delivered game**, with 24 hulls. Exact game source:
