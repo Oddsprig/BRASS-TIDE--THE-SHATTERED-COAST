@@ -1,0 +1,67 @@
+BRASS TIDE v0.029 — HELPER C PART 1 RAW REPORT
+23 October 2026 | Base e870a2e9b904bee647778f85f0cbfef86fa8f5e8
+Workspace: series-v029-v038/verification. No nested helpers.
+
+OUTPUTS
+- game/tests/test_workshop_voyage.gd
+- game/tests/test_workshop_ui.gd
+- tools/check_game.py: register those two actual fixtures; retain all 66 prior
+  suites, their order and assertions. B's workshop unit suite is not present
+  locally and is deliberately not registered speculatively.
+- tools/advance_series.py and tools/series_steps.json
+- docs/AI FIXTURE BUDGETS v0.030-v0.038.json
+- This report.
+
+EXACT SCENARIOS AUTHORED, NOT YET RUN
+Voyage: ordinary fresh-start Campaign, no capital injection; useful paid second
+gun against the real Refit bill, actual materials/work reservations and counted
+business/household/expert/government purses. Preview reconciles before/after,
+physical socket change and return reserve. Success retains live state/port/hull/
+stock references and exact damage, crew and working stores. Move the purchased
+gun between two sockets, store/reuse the original, reverse the swap and verify
+one physical asset/no new material purchase while still paying labor. Refuse
+insufficient funds, stock, workers, experts, hostile service permission, changed
+review stock and actual departure with canonical state EXACT and held references
+intact. Template CRUD/listing is knowledge-only and detached. JSON restoration
+preserves templates; old optional-field-free saves mint no hulls/people/stores.
+A real charted Campaign voyage moves and consumes working fuel with its paid fit.
+
+UI: actual main.tscn, headless controls/signals, synthetic isolated save directory.
+Click a portrait's numbered socket, choose a compatible real module, compare
+known hulls, reopen draft, save template via Main, load the actual career file and
+restore that template into the draft. Review missing-stock bill/disabled apply;
+change a real purse after review and invoke the stale button closure; fresh
+review/apply debits once, retains condition/references and saves the installed
+fit. The actual lab UI offers compatible physical weapon slots and launches an
+isolated battle with the previewed modules/origins/arcs, preserving the career.
+
+RECORDER AND TARGETS
+Recorder requires exact current/immediate successor integer build and consistent
+world/project/export versions. Advancing also needs the preceding source report
+and existing RELEASE.json with matching executable/PCK hashes. UTF-8, stable
+records and idempotent current-stage updates preserve .028 notes/history and old
+CHANGES. --accept-logs requires all real registered suites, positive completion
+and no empty/error/fail/timeout log; it records log/fixture SHA256. It never runs
+Godot, exports, deletes, tags or publishes. Source/log correspondence and feature
+acceptance still require lead review. --dry-run writes nothing.
+Manifest declares loads, parties/carriers, cadences, CPU/memory limits, 24 held-out
+seeds and 15 outcome/error metrics for .030-.038. Every milestone is pending;
+only existing .028 headless Core Ultra 9 / 24-logical / 8-worker evidence is cited.
+
+STATIC CHECKS AND INTEGRATION
+49 pure-Python in-memory recorder checks passed, including sequence, metadata,
+missing/corrupt logs, predecessor hashes, idempotence and mixed LF/CRLF historical
+notes preservation. All 66 existing completion formats were checked statically,
+with suite-specific actual regional-goods/shipping markers and negative controls.
+Python AST, JSON structure/seeds/gates, GDScript lexical/preload/guard checks and
+git diff --check pass. Lexical checks are not a Godot parse or execution.
+Fixtures align to B's authorized actual sibling APIs/quoteId. Unsaved drafts are
+UI-only; saved templates restore draft knowledge. Integrate B before engine use;
+register workshop once its actual unit file exists. Existing read-only commander
+assertions expect FITTING BAY, Change weapon and Change package from open_refit;
+B/root were notified to preserve meaningful production compatibility labels.
+
+NO ENGINE LEASE: zero Godot/editor/game/capture/audio launches. No native source,
+CPU, visual, motion, listening, export, launcher or publication result is claimed.
+No production/art/version/root-record edits, old-test changes, owner save mutation,
+deletion, installs, commits or tags. Root owns integration and separate acceptance.

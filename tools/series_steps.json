@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "base_build": 28,
+  "last_build": 38,
+  "roadmap": "docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt",
+  "steps": [
+    {
+      "build": 29,
+      "title": "Fleet workshop and boat presentation",
+      "outcome": "Compare and prepare a purposeful fit on an existing owned hull, review its real bill and install it using paid work and physical equipment.",
+      "features": [
+        "Fleet fitting workspace with numbered sockets, physical arcs and before/after capacity, deployment, stores and daily obligations.",
+        "Knowledge-only named templates and atomic paid fitting using real lockers, harbor materials, workers, experts and purses.",
+        "Original hull and equipment detail across the existing 24 hulls, sharing stable socket origins with aim and effects."
+      ],
+      "required_suites": ["workshop", "workshop_voyage", "workshop_ui"]
+    },
+    {
+      "build": 30,
+      "title": "Tactical roles, encirclement and harassment",
+      "outcome": "Light craft coordinate useful firing passes and breakaways while screens, heavies and explicit commands provide credible counters.",
+      "features": [
+        "Role-aware target and reachable station decisions using actual weapons, observed threats, objectives and escape costs.",
+        "Coordinated pressure, fixed-tube strike alignment, regrouping and doctrine with authoritative manual orders.",
+        "Bounded decisions and recorded A1-A5 motion, counterexamples and both team orientations."
+      ],
+      "required_suites": ["tactics", "battle", "commander", "fleet_points"]
+    },
+    {
+      "build": 31,
+      "title": "Damageable weapons and machinery",
+      "outcome": "Physical weapon, propulsion and pump failures change combat and survival, and persist through repair, refit and saves.",
+      "features": [
+        "Localized condition and disable state for actual fitted mount IDs, propulsion and pumps.",
+        "Crew repair priorities consume finite time, supplies and paid work without resetting condition through swaps.",
+        "Doctrine reacts to actual system loss, fire and flooding, with readable causes and repair choices."
+      ],
+      "required_suites": ["damage", "combat_events", "refit", "save_validation"]
+    },
+    {
+      "build": 32,
+      "title": "Convoy breakthroughs and recovery battles",
+      "outcome": "Physical carriers escape with their actual manifests and damaged hulls can be extracted, abandoned or lost with once-only custody.",
+      "features": [
+        "Navigable convoy exits and per-carrier objective results with bounded armed and unarmed deployment.",
+        "Recovery encounters reuse real boarding, prize, tow, wreck and crew ownership.",
+        "Aftermath choices reconcile actual losses, manifests, repair costs and escrow exactly once."
+      ],
+      "required_suites": ["battle", "boarding", "boarding_voyage", "salvage_voyage", "fleet_points"]
+    },
+    {
+      "build": 33,
+      "title": "Autonomous fleet conflict, sightings and pursuit",
+      "outcome": "Observed pirate, patrol and faction encounters run without the player nearby and retain one canonical lifecycle and ledger.",
+      "features": [
+        "Dated personal/shared observations guide physical search, pursuit, interception, joining and retreat.",
+        "Participant hostility graphs, exclusive hull reservations and persistent encounter transitions prevent duplicate battles or prizes.",
+        "Calibrated distant resolution and paid recovery preserve real condition, stores, crews and budgets."
+      ],
+      "required_suites": ["naval_ai", "naval_voyage", "naval_recovery", "factions", "save_validation"]
+    },
+    {
+      "build": 34,
+      "title": "Coastal geography and large-hull navigation",
+      "outcome": "Original regional terrain supports feasible light/heavy approaches, exits and large civilian hull envelopes.",
+      "features": [
+        "Roadstead, island passage and reef approach use repeatable encounter-region geometry and readable landmarks.",
+        "Hull eligibility and geometry revision participate in route feasibility and cache keys.",
+        "Copy-first voyage migration preserves identities, paid routes and inventories without land spawns or disconnected fallbacks."
+      ],
+      "required_suites": ["navigation", "map_revision", "island_voyage", "autovoyage"]
+    },
+    {
+      "build": 35,
+      "title": "Civilian hull progression",
+      "outcome": "Twelve original civilian designs have physical layouts, honest paid construction and useful hull-specific capacities.",
+      "features": [
+        "Three fishing, four cargo, two tanker and three yacht designs extend the 24 preserved original hull IDs.",
+        "Distinct working decks, scale, crew, stores, machinery, hold, tankage and guest accommodation have real costs.",
+        "Fitting, laboratory, navigation, custody and old-save schemas cover the actual delivered roster without minting assets."
+      ],
+      "required_suites": ["construction", "mount_layout", "presentation", "laboratory", "save_validation"]
+    },
+    {
+      "build": 36,
+      "title": "Working civilian voyages, piracy and rivals",
+      "outcome": "Fishing, freight, tanker transfers and funded yacht charters use vulnerable real manifests and finite owners.",
+      "features": [
+        "Affordable ordinary-asset fishing and haulage loops use actual work, source depletion, demand and buyer purses.",
+        "Timed partial fuel transfers and passenger/baggage custody survive interruption, capture, loss and saves.",
+        "Independent civilian, pirate and escort decisions coexist with bounded witnessed captain memories and paid recovery."
+      ],
+      "required_suites": ["civilian_voyage", "company_voyage", "crisis_voyage", "naval_voyage", "save_validation"]
+    },
+    {
+      "build": 37,
+      "title": "Supplied faction operations",
+      "outcome": "Funded faction objectives move real supplies, crews and hulls through vulnerable routes and sustainable operations.",
+      "features": [
+        "Bounded coordinated patrol, raid, escort and supply objectives consume actual owner budgets and logistics.",
+        "Physical arrivals, interdiction and losses affect readiness and construction instead of granting free reinforcements.",
+        "Independent relations, civilian custody and player career choices remain consistent through operations and saves."
+      ],
+      "required_suites": ["naval_ai", "naval_recovery", "regional_voyage", "supply_voyage", "campaign_endurance"]
+    },
+    {
+      "build": 38,
+      "title": "AI quality, progression, polish and performance",
+      "outcome": "The complete behavior matrix, six representative careers and declared CPU/load targets have separate reproducible evidence.",
+      "features": [
+        "Validate explorer, merchant, escort, privateer, fisher and passenger careers plus tanker and large-hull support cases.",
+        "Held-out adverse fixtures cover A1-A9, economic shocks, serial/worker publication and calibrated near/distant outcomes.",
+        "Review original presentation and motion separately from source checks, CPU measurements, audio, export and publication."
+      ],
+      "required_suites": ["campaign_endurance", "campaign_systems", "save_validation", "battle", "navigation"]
+    }
+  ]
+}

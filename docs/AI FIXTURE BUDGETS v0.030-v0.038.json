@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "manifest_id": "brass-tide-ai-fixtures-030-038-r1",
+  "status": "PREDECLARED ACCEPTANCE TARGETS; NOT IMPLEMENTED OR MEASURED ACHIEVEMENT",
+  "declared_on": "2026-10-23",
+  "authority": [
+    "docs/AI BEHAVIOR STANDARD v0.029-v0.038.txt",
+    "docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt",
+    "docs/CIVILIAN FLEET PLAN v0.029-v0.038.txt"
+  ],
+  "change_policy": "Freeze scenario, seed, load and metric targets before implementation/tuning. Lead must record the reason and a new manifest revision before changing a target; never relax it retrospectively to pass a failed run.",
+  "baseline_evidence": {
+    "version": "0.028",
+    "source_commit": "2b11d4d1af69b62a2f8436bcdee4a5675432bd98",
+    "engine": "Godot 4.7.2 Windows x64",
+    "cpu": "Intel Core Ultra 9 275HX",
+    "logical_processors": 24,
+    "economy_worker_lanes": 8,
+    "logical_processors_reserved": 2,
+    "rendering_default": "Separate",
+    "known_cpu_fixture": {"id": "full_300", "boats_total": 40, "deployment_points_per_side": 300},
+    "references": ["docs/VERIFICATION INDEX.txt", "docs/FLEET BENCHMARKS v0.028.json", "docs/CPU CAMPAIGN MEASUREMENTS v0.028.txt"],
+    "scope": "Existing headless CPU/source evidence only. This manifest adds no measurement, rendered FPS, GPU, listening, subjective quality or AI-parity claim."
+  },
+  "run_protocol": {
+    "engine_lease": "Root grants one serialized hidden/headless/silent process at a time. No owner saves, mouse, keyboard or focus.",
+    "profile": "Synthetic isolated APPDATA; deterministic seeds and explicit source/engine/config hashes.",
+    "dt_seconds": 0.03333333333333333,
+    "max_simulated_seconds_per_battle": 180,
+    "wall_timeout_seconds_per_native_suite": 60,
+    "calibration_battle_simulated_seconds_default": 90,
+    "stress_battle_simulated_seconds": 60,
+    "calibration_batch_max_paired_trials_per_process": 1,
+    "calibration_wall_work_budget_seconds": 40,
+    "max_campaign_game_days_per_fixture": 60,
+    "budget_exhaustion": "Record an incomplete/overrun result as pending or failed. Root may split later runs into bounded batches while retaining seeds and canonical transitions; never count a truncated fixture as passed.",
+    "warmup_simulated_seconds": 5,
+    "timing_scope": "CPU work excludes intentional waits, imports and warmup; keep elapsed wall time and overruns as separate fields. Report p50/p95/p99/max, samples, stalls and dropped decisions.",
+    "trace_fields": ["sim_time", "hull_uid", "encounter_id", "party", "order", "intent_reason", "observed_target", "role", "station", "approach_path", "exit_path", "weapon_opportunity", "withheld_reason", "separation", "withdrawal_reason", "condition", "stores", "objective_state"],
+    "mandatory_exact_invariants": [
+      "Coins, people, modules, goods and manifests have one canonical owner; aggregate ledger discrepancy is zero.",
+      "A hull UID has at most one active encounter reservation, with no concurrent near/distant resolver.",
+      "Allied coalition owners share 300 DP; independent hostile parties each have 300 DP; armed carriers use that cap.",
+      "No firing through illegal arcs, sideways fixed tubes, land penetration, teleport reinforcement, healed transitions or repeated settlement.",
+      "Manual orders are acknowledged within the next simulation tick; no hidden damage, defense, fuel or ammunition bonuses."
+    ],
+    "admission_overflow": "Reject unsupported active-party/load requests explicitly or retain finite real reserves under declared physical arrival and risk rules. Never silently discard a carrier or hide its manifest.",
+    "separate_evidence_pending": ["native implementation and measurements", "motion/context review", "rendered frame pacing", "voluntary listening/play", "clean exact-tag export", "launcher", "remote hashes"]
+  },
+  "load_profiles": {
+    "tactical_40": {"active_parties_total": 2, "independent_hostile_parties": 2, "neutral_parties": 0, "armed_hulls_per_party_max": 20, "armed_hulls_total_max": 40, "unarmed_objective_carriers_total_max": 0, "active_hulls_total_max": 40, "dp_per_hostile_party": 300},
+    "objective_44": {"active_parties_total": 2, "independent_hostile_parties": 2, "neutral_parties": 0, "armed_hulls_per_party_max": 20, "armed_hulls_total_max": 40, "unarmed_objective_carriers_per_party_max": 2, "unarmed_objective_carriers_total_max": 4, "active_hulls_total_max": 44, "dp_per_hostile_party": 300},
+    "three_party_72": {"active_parties_total": 4, "independent_hostile_parties": 3, "neutral_parties": 1, "coalition_owners_per_hostile_party_max": 2, "armed_hulls_per_hostile_party_max": 20, "armed_hulls_total_max": 60, "unarmed_objective_carriers_per_party_max": 4, "unarmed_objective_carriers_total_max": 8, "neutral_traffic_hulls_total_max": 4, "active_hulls_total_max": 72, "dp_per_hostile_party": 300},
+    "campaign_32": {"active_fleet_owners_max": 32, "sailing_fleets_max": 32, "concurrent_encounters_max": 8, "detailed_encounters_max": 1, "remaining_encounters": "distant; exclusively reserved canonical hulls", "pending_reinforcements_per_encounter_max": 8},
+    "scope": "These are proposed supported acceptance loads, not existing engine capabilities. Lower DP costs never permit more hulls than the declared count. Neutral traffic is physical and can suffer attributed unlawful attack; neutral status is not invulnerability."
+  },
+  "decision_cadence_targets": {
+    "steering_and_projectiles_hz_min": 30,
+    "normal_tactical_intent_period_sim_seconds_max": 0.2,
+    "urgent_survival_reevaluation_sim_seconds_max": 0.1,
+    "active_strategic_intent_period_sim_seconds_max": 0.5,
+    "quiet_strategic_intent_period_sim_seconds_max": 2.0,
+    "explicit_order_acknowledgement_sim_seconds_max": 0.03333333333333333,
+    "target_station_commitment_seconds_nominal": 1.2,
+    "commitment_interrupts": ["explicit order", "observed imminent danger", "lost/sunk/captured target", "blocked station/exit", "destroyed leader", "objective completed"],
+    "staggering": "Schedule bounded subsets across ticks; measure oldest pending decision age. No whole-world path solve every frame and no dropped decisions hidden by average timing."
+  },
+  "cpu_targets_ms": {
+    "tactical_40": {"ai_work_per_step_p95": 3.0, "battle_work_per_step_p95": 8.0, "battle_work_per_step_p99": 12.0, "battle_work_per_step_max": 25.0},
+    "objective_44": {"ai_work_per_step_p95": 3.5, "battle_work_per_step_p95": 9.0, "battle_work_per_step_p99": 14.0, "battle_work_per_step_max": 28.0},
+    "three_party_72": {"ai_work_per_step_p95": 5.0, "battle_work_per_step_p95": 12.0, "battle_work_per_step_p99": 18.0, "battle_work_per_step_max": 30.0},
+    "campaign_32": {"strategic_work_per_step_p95": 4.0, "strategic_work_per_step_p99": 8.0, "main_thread_publish_p99": 5.0, "economy_day_worker_work_p95": 1000.0},
+    "miss_policy": "Any missed latency/max budget is reported with source, scenario and counts; acceptance remains pending until explained and fixed or prospectively revised by lead. Zero dropped decisions and zero main-thread scene/resource writes from workers.",
+    "status": "Provisional engineering targets requiring root acceptance and actual same-machine profiling; no GPU/frame-rate implication. Do not increase the 8-lane worker cap to conceal a miss."
+  },
+  "bounded_memory_targets": {
+    "contact_records_per_owner_max": 64,
+    "observations_per_contact_max": 8,
+    "contact_uncertainty_expiry_game_days_max": 3,
+    "shared_report_copies_per_owner_max": 64,
+    "active_encounters_max": 8,
+    "settled_encounter_tombstones_max": 128,
+    "pending_reinforcements_per_encounter_max": 8,
+    "active_station_per_hull_max": 1,
+    "station_candidates_per_decision_max": 8,
+    "scored_target_candidates_per_decision_max": 16,
+    "new_full_route_queries_per_tactical_step_max": 4,
+    "route_cache_entries_max": 128,
+    "recognisable_captains_max": 6,
+    "witnessed_events_per_captain_max": 24,
+    "runtime_decision_trace_ring_records_max": 512,
+    "fixture_trace_records_max": 100000,
+    "additional_ai_serialized_bytes_max": 2097152,
+    "additional_ai_live_bytes_max": 16777216,
+    "eviction": "Expire uncertain reports and compact settled records deterministically. Never evict live reservations, unpaid escrow, unsettled losses or pending physical arrivals; throttle admission instead. Record truncation and all overflows; do not turn knowledge expiry into forgotten debt or renewed rewards.",
+    "status": "Declared caps for later implementation; real save-size/live-memory evidence pending."
+  },
+  "seeds": {
+    "tuning": [30011, 30029, 30047, 30059, 30071, 30089, 30103, 30119],
+    "held_out": [73013, 73019, 73037, 73043, 73061, 73063, 73079, 73087, 73109, 73121, 73127, 73133, 73141, 73151, 73159, 73163, 73171, 73189, 73201, 73213, 73229, 73237, 73243, 73259],
+    "use": "Held-out seeds are excluded from parameter tuning. Run every named variant in both tactical team orientations; A7/A8 additionally permute the three hostile-party label assignments. Log literal seed plus fixture/variant/config hash. Never replace adverse seeds after seeing results."
+  },
+  "near_distant_calibration": {
+    "required_from": "0.033",
+    "status": "PENDING IMPLEMENTATION AND MEASUREMENT; bands frozen before resolver tuning",
+    "paired_initial_state": "Same canonical hull UIDs, fitted modules/condition, crews, stores, manifests, hostility, terrain, orders and arrival schedules. Run independent detached near and distant copies for calibration only. Live play promotes/demotes one encounter, never both.",
+    "stratification": ["scenario", "variant", "orientation/party permutation", "role", "carrier class"],
+    "paired_trials_per_stratum_min": 24,
+    "statistical_reporting": "Report raw denominators, means, distribution quantiles and 95% bootstrap intervals using a separate fixed analysis seed 880301. Apply every band to every held-out stratum; a pooled win rate cannot hide a role, side or manifest failure. Wide uncertainty is disclosed and requires more prospectively allocated trials, not a success claim.",
+    "bands": {
+      "win_probability": {"metric": "absolute difference of near/distant outcome rates", "absolute_probability_max": 0.10},
+      "hull_survival_probability": {"metric": "per-initial-hull survival rate by role", "absolute_probability_max": 0.10},
+      "hull_capture_probability": {"metric": "per-initial-hull capture rate attributed to actual captor", "absolute_probability_max": 0.08},
+      "hull_damage": {"metric": "mean HP lost / initial maximum HP, including sunk hulls at full loss", "absolute_fraction_max": 0.12},
+      "crew_deaths": {"metric": "mean actual dead crew / initial real crew", "absolute_fraction_max": 0.08},
+      "crew_wounds": {"metric": "mean actual wounded / initial real crew", "absolute_fraction_max": 0.10},
+      "ammunition_spent": {"metric": "mean actual rounds spent / initial usable working ammunition, by weapon family", "absolute_fraction_max": 0.15},
+      "working_fuel_spent": {"metric": "mean actual propulsion fuel spent / initial working fuel", "absolute_fraction_max": 0.12},
+      "cargo_lost_or_captured": {"metric": "mean manifested goods lost/captured / initial manifested goods; separately per good and role", "absolute_fraction_max": 0.08},
+      "tank_cargo_lost_or_captured": {"metric": "mean sale/transfer fuel lost/captured / initial cargo fuel; excludes working bunkers", "absolute_fraction_max": 0.08},
+      "passenger_lost_or_captured": {"metric": "actual guest/captive cohort outcomes / initial guest cohort, separate from working crew", "absolute_fraction_max": 0.05},
+      "operating_cost": {"metric": "abs(mean distant paid operating coins - mean near paid operating coins) / max(100, mean near paid operating coins)", "relative_error_max": 0.15},
+      "physical_escape_probability": {"metric": "per-carrier physical exit success rate", "absolute_probability_max": 0.10},
+      "physical_exit_time": {"metric": "difference of mean successful physical exit times; maximum of 3 seconds or 20 percent of near mean", "absolute_seconds_floor": 3.0, "relative_error_max": 0.20},
+      "canonical_ledger_error": {"metric": "coins, people, hull/module ownership and per-good transferred/consumed/lost inventory discrepancy within each run", "absolute_units_max": 0}
+    },
+    "zero_denominator": "If the initial quantity is zero, require exactly zero consumption/loss/creation and mark the fraction not applicable; do not manufacture a denominator or silently omit an applicable metric.",
+    "small_parties": "Probabilistic bands compare repeated outcomes, not fractional individual people. Every run still conserves integer people and real custody exactly."
+  },
+  "scenarios": [
+    {"id": "A1", "from": "0.030", "load": "tactical_40", "setup": "Three light skirmishers versus one heavy; also fill both 300-DP coalitions with the same roles.", "variants": ["stationary heavy", "moving heavy", "fast turning counter", "light boats slower than target"], "observable_gate": "Separated reachable approaches, useful actual firing opportunities/passes, then a justified breakaway or counter defeat. Cosmetic orbiting and guaranteed light victory fail."},
+    {"id": "A2", "from": "0.030", "load": "tactical_40", "setup": "A1 heavy gains a real screen, finite stores and unchanged physical performance.", "variants": ["intact screen", "screen displaced by order", "blocked approach", "escort destroyed"], "observable_gate": "Escort protects the named hull, flankers adapt or withdraw, and the counter can succeed without artificial bonuses."},
+    {"id": "A3", "from": "0.030", "load": "tactical_40", "setup": "Fitted fixed-tube striker with real limited ammunition.", "variants": ["blocked shot", "spent tubes", "fast target", "slow target", "escaping carrier"], "observable_gate": "Executable alignment and legal muzzle/arc, sensible launch, finite ammunition and turn-away; blocked/empty weapons explain withholding."},
+    {"id": "A4", "from": "0.030", "load": "tactical_40", "setup": "Focused skirmisher with real damage, fire/flooding and escape options; persistent machinery cases begin .031.", "variants": ["open escape", "screened escape", "trapped hull", "disabled gun", "disabled engine", "disabled pump"], "observable_gate": "Observed danger changes intent, repair consumes real work/supplies, trapped boats may lose and returning boats retain condition."},
+    {"id": "A5", "from": "0.030", "load": "tactical_40", "setup": "Island channel and destroyed leader; large-footprint eligibility variants begin .034.", "variants": ["blocked flank", "leader destroyed", "occupied station", "large hull narrow passage"], "observable_gate": "Choose a reachable replacement station with an executable exit, or abandon the maneuver. No land penetration, pileup, deadlock or endless pursuit."},
+    {"id": "A6", "from": "0.033", "load": "three_party_72", "setup": "Player docked elsewhere; finite loaded convoy, raiders, responding patrol and separate hostile faction conflict.", "variants": ["ordinary funded traffic", "peace", "neutral controls", "insolvent recovery", "lost contact", "stale shared sighting"], "observable_gate": "Physical interception independent of player, observation provenance, sustainable pursuit and real losses/paid recovery or persistent insolvency."},
+    {"id": "A7", "from": "0.033", "load": "three_party_72", "setup": "Merchant convoy, mutually hostile pirate/faction raiders and neutral fishing traffic, with one arriving allied owner sharing its coalition's 300 DP.", "variants": ["simultaneous overlap", "blocked flank", "depleted ammunition", "reinforcement still travelling", "neutral crossing"], "observable_gate": "Three hostile parties remain distinct; one exclusive encounter reservation per UID; ally physically joins once, neutral stays neutral, limits and attribution hold."},
+    {"id": "A8", "from": "0.033", "load": "three_party_72", "setup": "Matched detached near/distant calibration plus one live encounter repeatedly promoted/demoted and saved.", "variants": ["entry interrupted", "wave release interrupted", "withdrawal interrupted", "capture interrupted", "reinforcement still travelling", "repeated settlement"], "observable_gate": "Preserve reservations, hulls, stores, damage, commitments, orders/timers and physical arrival/exit times. All per-metric held-out bands apply; zero ledger error."},
+    {"id": "A9", "from": "0.032", "load": "objective_44", "expanded_load_from_033": "three_party_72", "setup": "Armed/unarmed convoy, actual support-designated carriers and finite reserves; .035/.036 add delivered civilian hulls/guest and tanker manifests.", "variants": ["one escapes one sinks", "capture", "abandoned tow", "secured prize floods", "overflow reserve at risk", "partial tanker transfer", "guest party captured"], "observable_gate": "Actual manifests escape, transfer, sink or enter attributed custody once. Armed conversions spend DP; unarmed slots confer no free guns/buffs or invulnerability."}
+  ],
+  "milestones": [
+    {"build": 30, "status": "pending", "load_profiles": ["tactical_40"], "gates": ["A1", "A2", "A3", "A4", "A5"]},
+    {"build": 31, "status": "pending", "load_profiles": ["tactical_40"], "gates": ["A3", "A4", "condition follows modules through custody and saves"]},
+    {"build": 32, "status": "pending", "load_profiles": ["objective_44"], "gates": ["A9", "physical exit/tow/prize custody"]},
+    {"build": 33, "status": "pending", "load_profiles": ["three_party_72", "campaign_32"], "gates": ["A6", "A7", "A8", "near_distant_calibration"]},
+    {"build": 34, "status": "pending", "load_profiles": ["three_party_72", "campaign_32"], "gates": ["A5", "A8", "large-hull route/dock/spawn clearance"]},
+    {"build": 35, "status": "pending", "load_profiles": ["three_party_72", "campaign_32"], "gates": ["A9", "C1", "C8", "C9"]},
+    {"build": 36, "status": "pending", "load_profiles": ["three_party_72", "campaign_32"], "gates": ["A6", "A7", "A8", "A9", "C2-C7", "economic reachability and shock"]},
+    {"build": 37, "status": "pending", "load_profiles": ["three_party_72", "campaign_32"], "gates": ["A6", "A7", "A8", "supplied operations, peace and insolvency"]},
+    {"build": 38, "status": "pending", "load_profiles": ["tactical_40", "objective_44", "three_party_72", "campaign_32"], "gates": ["A1-A9", "C1-C10", "six careers", "all timing/memory/metric targets", "motion and separate release proof"]}
+  ],
+  "ordinary_career_targets": {
+    "declared_start": {"hull": "tin_skiff", "port": "brass_haven", "crew": 5, "captain_coins": 15000, "food": 30, "working_fuel": 60, "working_ammunition": 80, "working_kits": 20, "sailor_day_coins": 100},
+    "first_useful_starter_refit_game_days": {"min": 0, "max": 3},
+    "first_funded_local_fishing_or_freight_loop_game_days": {"min": 1, "max": 4},
+    "second_useful_small_hull_game_days": {"min": 7, "max": 30},
+    "large_merchantman_progression": "PENDING .035 actual paid hull bill, loading throughput and funded customer demand; freeze a numeric progression band before .036 economic tuning.",
+    "shock_cases": ["depleted fishing source", "poor/oversupplied buyer", "lost tanker supply", "insolvent charter employer", "stranded hull", "blocked destination"],
+    "evidence": "Pending actual operating margins and days through several source depletion/recovery and replacement cycles. Failure/loss is allowed; report viable funded alternatives or continued insolvency. Never refill purses, mint customers or supply an undeclared rich fixture."
+  }
+}
