@@ -26,6 +26,7 @@ static func cargo_weight(state: Dictionary) -> float:
 	for b in state.get("fleet",[]):
 		if b.get("sunk",false) or not str(b.get("storedPort","")).is_empty():continue
 		total+=store_overflow(b)
+		if not b.get("needsHarborRepair",false):total+=maxf(0,float(state.get("captiveBerths",{}).get(str(b.get("uid","")),0))-maxf(0,float(b.get("crewMax",0))-float(b.get("crew",0))))
 	return total
 
 static func store_overflow(b: Dictionary) -> float:

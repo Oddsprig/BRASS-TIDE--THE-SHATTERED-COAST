@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const BoardingOps=preload("res://scripts/boarding_ops.gd")
 const LawOps=preload("res://scripts/law_ops.gd")
 const CompanyOps=preload("res://scripts/company_ops.gd")
 const RegionalGoodsOps=preload("res://scripts/civilian_goods_ops.gd")
@@ -161,6 +162,7 @@ func new_game(seed_value: int = 1):
 		Exploration.ensure(state,data)
 		Exploration.discover_near(state,state.position,1000.0)
 	else:state.exploration={"version":1,"catalog":[],"sites":{},"assignment":{},"leads":[],"log":[]}
+	BoardingOps.ensure(self)
 	LawOps.ensure(self)
 	Manifest.allocate(state)
 	log_entry("You inherited a Tinwake skiff, five sailors, and a debt-free start. The coast is yours to explore.")
@@ -319,6 +321,8 @@ func step(dt: float):
 			s.fuel = maxf(0.0, s.fuel - dt * (0.011 + s.spec.size * 0.0002) * maxf(0.2,float(s.spec.get("fuelUse",1.0))))
 		if s.sunk:
 			log_entry("%s was lost to flooding." % s.name)
+	BoardingOps.step(self,dt)
+	BoardingOps.reconcile(self)
 	FleetSupport.reconcile(self)
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s): return not s.sunk)
@@ -380,6 +384,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		ReserveOps.refresh(self)
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
+		BoardingOps.daily(self)
 		LawOps.daily(self)
 		state.econDay += 1
 	apply_morale()
@@ -623,6 +628,7 @@ func toggle_storage(uid: String) -> Dictionary:
 	var p: Dictionary=current_port()
 	if b.is_empty() or p.is_empty() or not state.path.is_empty():return fail("Dock at a harbor to store or collect a boat.")
 	if int(b.get("shoreCrew",0))>0:return fail("Recall the shore party before storing its boat.")
+	if int(state.get("captiveBerths",{}).get(uid,0))>0:return fail("Release this boat's captives safely before storing it.")
 	var stored: String=str(b.get("storedPort",""))
 	if not stored.is_empty():
 		var permission: Dictionary=Politics.permit(self,"service")
@@ -752,6 +758,8 @@ func abandon_contract() -> Dictionary:
 	return Contracts.abandon(self)
 
 func battle_settled(result: String, enemy_specs: Array, context: Dictionary,physical_battle: Dictionary={}) -> Dictionary:
+	var boarding_result: Dictionary=BoardingOps.settle(self,physical_battle)
+	if not boarding_result.ok:return boarding_result
 	FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),result)
 	state.battleSeq=int(state.get("battleSeq",0))+1
 	var physical_wrecks: Array=[]
@@ -768,6 +776,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 			var live: Dictionary=Salvage.find_wreck(state,record.id)
 			for good in state.get("cargoManifest",{}).get(record.uid,{}):
 				if Goods.ITEMS.has(good):live.stores[good]=float(live.stores.get(good,0))+float(state.cargoManifest[record.uid][good])*0.5
+	BoardingOps.reconcile(self)
 	FleetSupport.reconcile(self)
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s):return not s.sunk)
@@ -957,6 +966,7 @@ func restore(saved: Dictionary) -> Dictionary:
 		# Canonical base + validated loadout; serialized combat stats are not trusted.
 		fit_boat(s)
 		Damage.tick_ship(s, 0.0)
+	for b in state.get("boardingPrizes",[]):fit_boat(b)
 	for owner in state.fleetOwners:
 		for b in owner.boats:
 			canonical_npc_boat(b,bool(owner.get("playerCompany",false)))
@@ -1000,6 +1010,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	apply_morale()
 	if Money.total(state) != int(state.coinSupply):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
+	BoardingOps.ensure(self)
 	LawOps.ensure(self)
 	StoryOps.refresh(self)
 	return ok("Voyage restored.")

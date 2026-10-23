@@ -23,6 +23,7 @@ static func build(ui, size: Vector2):
 	ui.autopilot_button = ui.button(ui.right_body, "", ui.host.toggle_autopilot, true)
 	ui.button(ui.right_body, "Tab · Tactical overview", ui.host.toggle_tactical)
 	ui.button(ui.right_body, "Select all active boats", ui.host.select_all_boats)
+	ui.button(ui.right_body,"Boarding orders",func():ui.BoardingUI.battle(ui))
 	var scroll = ScrollContainer.new()
 	scroll.custom_minimum_size = Vector2(0, 150)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -49,7 +50,7 @@ static func build(ui, size: Vector2):
 static func update(ui):
 	var battle: Dictionary = ui.host.battle
 	if is_instance_valid(ui.objective_label):ui.objective_label.text=preload("res://scripts/battle_objectives.gd").label(battle)
-	var player: Array = battle.ships.filter(func(s):return s.team=="player" and not s.sunk)
+	var player: Array = battle.ships.filter(func(s):return s.team=="player" and not s.sunk and not s.get("captureSecured",false))
 	var enemy: Array = battle.ships.filter(func(s):return s.team=="enemy" and not s.sunk)
 	ui.battle_points_label.text = "YOUR FLEET  %d / 300 DP\nENEMY FLEET  %d / 300 DP" % [Deployment.total(player),Deployment.total(enemy)]
 	ui.autopilot_button.text = "U · AUTOPILOT ON" if battle.get("autopilot",true) else "U · MANUAL FLAGSHIP"

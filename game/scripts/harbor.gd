@@ -122,7 +122,8 @@ static func recruit(core, uid: String, count: int) -> Dictionary:
 	if boat.is_empty() or p.is_empty():
 		return core.fail("Hire sailors at a harbor.")
 	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("Visit the harbor storing this hull before assigning crew.")
-	var result: Dictionary = Economy.recruit(p,core.state,count,int(boat.crewMax-boat.crew))
+	var captive_count: int=int(core.state.get("captiveBerths",{}).get(uid,0))
+	var result: Dictionary = Economy.recruit(p,core.state,count,maxi(0,int(boat.crewMax-boat.crew)-captive_count))
 	if result.ok:
 		boat.crew += result.count
 		if boat.crew >= boat.crewMin:
@@ -138,6 +139,7 @@ static func sell(core, uid: String) -> Dictionary:
 	if boat.is_empty() or p.is_empty() or core.state.fleet.size() <= 1:
 		return core.fail("Keep one boat. Hull sales require a harbor.")
 	if int(boat.get("shoreCrew",0))>0:return core.fail("Recall its shore party before selling the hull.")
+	if int(core.state.get("captiveBerths",{}).get(uid,0))>0:return core.fail("Release captives safely before selling their carrier.")
 	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("Visit the harbor storing this hull before selling it.")
 	var lost_capacity: float=float(boat.spec.cargo) if core.active_fleet().has(boat) else 0.0
 	if core.cargo_weight() > core.capacity()-lost_capacity:
@@ -153,7 +155,8 @@ static func sell(core, uid: String) -> Dictionary:
 	Money.move(p,"cash",core.state,"coins",value,"Yard buys a used hull",core.state.moneyLog)
 	p.recruits += int(boat.crew)
 	p.workforce += int(boat.crew)
-	core.TrainingOps.Training.return_qualified(p,int(boat.crew),"sailor")
+	core.TrainingOps.Training.return_qualified(p,int(boat.get("boarders",0)),"boarder")
+	core.TrainingOps.Training.return_qualified(p,maxi(0,int(boat.crew)-int(boat.get("boarders",0))),"sailor")
 	p.stocks.fuel += boat.fuel
 	p.stocks.supplies += boat.supplies
 	p.stocks.ammo += boat.ammo/Goods.ROUNDS_PER_CASE
@@ -206,6 +209,7 @@ static func repair(core, uid: String) -> Dictionary:
 	boat.engine = 1.0
 	boat.fire = 0.0
 	boat.wounded = 0.0
+	if boat.get("captureSecured",false):boat.supportOnly=false;boat.captureSecured=false
 	boat.needsHarborRepair=false
 	boat.towed=false
 	boat.towSpeedFactor=1.0

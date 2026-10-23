@@ -1,5 +1,6 @@
 extends RefCounted
 ## Pure fixed-step combat. State and RNG belong exclusively to the caller.
+const BoardingCombat=preload("res://scripts/combat_boarding.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const Refit=preload("res://scripts/refit.gd")
 const WeaponGeometry=preload("res://scripts/weapon_geometry.gd")
@@ -114,7 +115,8 @@ static func create(options: Dictionary) -> Dictionary:
 
 static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: int) -> void:
 	if not s.spec.get("weaponMounts") is Array:
-		s.spec=Refit.effective_spec(s.spec,Refit.defaults(s.spec))
+		if not s.get("loadout") is Dictionary:s.loadout=Refit.defaults(s.spec)
+		s.spec=Refit.effective_spec(s.spec,s.loadout)
 	s.supportRepairFactor=1.0
 	s.localAimAngles={}
 	s.team=team
@@ -224,7 +226,7 @@ static func issue_order(st: Dictionary,ids: Array,order: String,target: Dictiona
 static func set_order(st: Dictionary,order: String,target: Dictionary={}) -> String:
 	var ids: Array=[]
 	for s in st.ships:
-		if s.team=="player" and not s.sunk:
+		if s.team=="player" and not s.sunk and not s.get("captureSecured",false):
 			ids.append(s.id)
 	if issue_order(st,ids,order,target):
 		st.order=order
@@ -333,7 +335,7 @@ static func _target_for_mount(st: Dictionary,s: Dictionary,mount: Dictionary,pre
 	var result: Dictionary={}
 	var best: float=INF
 	for candidate in st.ships:
-		if candidate.sunk or candidate.team==s.team:continue
+		if candidate.sunk or candidate.team==s.team or candidate.get("captureSecured",false):continue
 		var delta: Vector2=_lead(s,mount,candidate)-origin
 		if delta.length()>mount.range:continue
 		if absf(angle_difference(s.angle+mount.angle,delta.angle()))>mount.arc*0.5:continue
@@ -344,7 +346,7 @@ static func _target_for_mount(st: Dictionary,s: Dictionary,mount: Dictionary,pre
 	return result
 
 static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dictionary={}) -> void:
-	if s.sunk or st.projectiles.size()>=400:
+	if s.sunk or s.get("captureSecured",false) or st.projectiles.size()>=400:
 		return
 	var mounts: Array=_mounts(s)
 	_sync_cooldowns(s,mounts.size())
@@ -388,7 +390,7 @@ static func _nearest(st: Dictionary,s: Dictionary) -> Dictionary:
 	var best: Dictionary={}
 	var best_distance: float=INF
 	for target in st.ships:
-		if target.team!=s.team and not target.sunk:
+		if target.team!=s.team and not target.sunk and not target.get("captureSecured",false):
 			var d: float=_pos(s).distance_to(_pos(target))
 			if d<best_distance:
 				best_distance=d
@@ -466,6 +468,11 @@ static func _avoid_land(st: Dictionary,s: Dictionary,desired: float,throttle: fl
 	return desired
 
 static func _ai(st: Dictionary,s: Dictionary,dt: float) -> void:
+	if s.get("captureSecured",false):return
+	var boarding: Dictionary=BoardingCombat.approach(st,s,dt)
+	if not boarding.is_empty():
+		_move(st,s,dt,_avoid_land(st,s,float(boarding.angle),float(boarding.throttle)),float(boarding.throttle),false)
+		return
 	var target: Dictionary=_nearest(st,s)
 	var order: String=str(s.get("order",st.order if s.team=="player" else "engage"))
 	var order_target: Dictionary=s.get("orderTarget",{})
@@ -537,7 +544,7 @@ static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String
 	if radius<=0.0:
 		return
 	for s in st.ships:
-		if s.sunk or s.team==p.team or str(s.id)==direct_id:
+		if s.get("captureSecured",false) or s.sunk or s.team==p.team or str(s.id)==direct_id:
 			continue
 		var distance: float=point.distance_to(_pos(s))
 		if distance<radius+_radius(s) and _clear_shot(st,point,_pos(s),1.0):
@@ -560,7 +567,7 @@ static func _projectiles(st: Dictionary,dt: float) -> void:
 		var hit: Dictionary={}
 		var first: float=INF
 		for s in st.ships:
-			if s.sunk or s.team==p.team:
+			if s.sunk or s.team==p.team or s.get("captureSecured",false):
 				continue
 			var t: float=clampf((_pos(s)-start).dot(delta)/maxf(0.0001,delta.length_squared()),0.0,1.0)
 			if _pos(s).distance_to(start+delta*t)<_radius(s)+p.radius and t<first:
@@ -620,7 +627,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	CombatEvents.tick_wrecks(st,dt)
 	if get_flagship(st).is_empty():
 		for s in st.ships:
-			if s.team=="player" and not s.sunk:
+			if s.team=="player" and not s.sunk and not s.get("captureSecured",false):
 				select_flagship(st,s.id)
 				break
 	var flagship: Dictionary=get_flagship(st)
@@ -649,6 +656,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 					_fire(st,s,aim)
 		else:
 			_ai(st,s,dt)
+	BoardingCombat.tick(st,dt)
 	_collisions(st)
 	_projectiles(st,dt)
 	_age_effects(st,dt)
@@ -661,9 +669,9 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 				var wreck: Dictionary=CombatEvents.record_wreck(st,s,_radius(s))
 				CombatEvents.emit_sink(st,s,wreck)
 				_log(st,s.name+" sunk")
-		elif s.team=="player":
+		elif s.team=="player" and not s.get("captureSecured",false):
 			players.append(s)
-		else:
+		elif not s.get("captureSecured",false):
 			enemies.append(s)
 	if get_flagship(st).is_empty() and not players.is_empty():
 		select_flagship(st,players[0].id)

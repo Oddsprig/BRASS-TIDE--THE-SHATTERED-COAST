@@ -6,7 +6,8 @@ const Economy=preload("res://scripts/economy.gd")
 const ROLES: Dictionary={
 	"sailor":{"days":4.0,"instructor":"mechanic"},
 	"gunner":{"days":6.0,"instructor":"gunsmith"},
-	"mechanic":{"days":8.0,"instructor":"engineer"}
+	"mechanic":{"days":8.0,"instructor":"engineer"},
+	"boarder":{"days":6.0,"instructor":"foreman"}
 }
 const MAX_JOBS: int=16
 const MAX_PEOPLE: int=100
@@ -14,7 +15,7 @@ const MAX_PEOPLE: int=100
 static func ensure(p: Dictionary) -> void:
 	if p.get("training") is Dictionary:return
 	var eligible: int=mini(int(p.get("workforce",0)),int(p.get("recruits",0)))
-	p.training={"schema":1,"nextId":0,"qualified":{"sailor":maxi(0,eligible),"gunner":0,"mechanic":0},"jobs":[]}
+	p.training={"schema":1,"nextId":0,"qualified":{"sailor":maxi(0,eligible),"gunner":0,"mechanic":0,"boarder":0},"jobs":[]}
 
 static func quote(p: Dictionary,count: int,role: String="sailor") -> Dictionary:
 	ensure(p)
@@ -66,7 +67,7 @@ static func enroll(p: Dictionary,wallet: Dictionary,count: int,role: String="sai
 static func _return_people(p: Dictionary,job: Dictionary,qualified: bool) -> void:
 	p.workforce+=int(job.reservedWorkers)
 	p.specialists=int(p.get("specialists",0))+1
-	if qualified and str(job.role)!="sailor":p.specialists+=int(job.count)
+	if qualified and str(job.role) in ["gunner","mechanic"]:p.specialists+=int(job.count)
 	p.specialistWorkers=p.specialists
 	Economy.sync_workforce(p)
 	if qualified:
@@ -125,9 +126,10 @@ static func consume_qualified(p: Dictionary,count: int,role: String="sailor") ->
 	# unclassified sailors first, then remove the corresponding subset if needed.
 	if role!="sailor" and q.has(role):q[role]=maxi(0,int(q[role])-n)
 	q.sailor=maxi(0,int(q.sailor)-n)
-	var overflow: int=maxi(0,int(q.gunner)+int(q.mechanic)-int(q.sailor))
+	var overflow: int=maxi(0,int(q.gunner)+int(q.mechanic)+int(q.get("boarder",0))-int(q.sailor))
 	var remove: int=mini(overflow,int(q.gunner));q.gunner-=remove;overflow-=remove
-	q.mechanic=maxi(0,int(q.mechanic)-overflow)
+	remove=mini(overflow,int(q.mechanic));q.mechanic-=remove;overflow-=remove
+	q.boarder=maxi(0,int(q.get("boarder",0))-overflow)
 
 static func return_qualified(p: Dictionary,count: int,role: String="sailor") -> void:
 	var already: bool=p.get("training") is Dictionary
@@ -136,7 +138,7 @@ static func return_qualified(p: Dictionary,count: int,role: String="sailor") -> 
 	var room: int=maxi(0,int(p.workforce)-int(p.training.qualified.sailor))
 	var n: int=mini(room,maxi(0,count))
 	p.training.qualified.sailor+=n
-	if role in ["gunner","mechanic"]:p.training.qualified[role]+=n
+	if role in ["gunner","mechanic","boarder"]:p.training.qualified[role]+=n
 
 static func _int(value,maximum: int=1000000000) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and value>=0 and value<=maximum and floorf(float(value))==float(value)
@@ -147,9 +149,9 @@ static func validate(p: Dictionary) -> String:
 	if not b is Dictionary or b.get("schema")!=1 or not _int(b.get("nextId")):return "Invalid academy schema or identity sequence."
 	var q=b.get("qualified")
 	if not q is Dictionary:return "Invalid qualification pool."
-	for key in ["sailor","gunner","mechanic"]:
+	for key in ["sailor","gunner","mechanic","boarder"]:
 		if not _int(q.get(key)):return "Invalid qualified "+key+"."
-	if float(q.sailor)>float(p.get("workforce",0)) or int(q.gunner)+int(q.mechanic)>int(q.sailor):return "Qualification subsets exceed real civilian workers."
+	if float(q.sailor)>float(p.get("workforce",0)) or int(q.gunner)+int(q.mechanic)+int(q.get("boarder",0))>int(q.sailor):return "Qualification subsets exceed real civilian workers."
 	if not b.get("jobs") is Array or b.jobs.size()>MAX_JOBS:return "Invalid training queue."
 	var ids: Dictionary={}
 	for job in b.jobs:

@@ -1,3 +1,9 @@
+v0.026 SOURCE ACCEPTED — Boarding crews and coastal defenses
+- Six-day paid boarder courses and real hiring use existing residents, berths and crew wages; parties leave their source hull on contact.
+- Capture keeps the actual damaged hull and fittings, finite prize crew and captive custody; paid harbor repair restores combat eligibility.
+- Paid coastal watches consume real public materials, full labor bills, daily food and finite ammunition; visible projectiles use normal impacts and sound routing.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 v0.025 SOURCE ACCEPTED — Smuggling and economic diplomacy
 - Finite consignment licences and unregistered counters use shared physical stock, paid workers and actual coin purses.
 - Real inspecting ports and nearby local patrols confiscate uncovered raw military cargo into named custody; fines and unpaid balances persist.

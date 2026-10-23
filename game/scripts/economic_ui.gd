@@ -25,8 +25,8 @@ static func open(ui) -> void:
 	ui.paragraph(body,"%d civilian workers · %d currently available · %d recruitment volunteers"%[int(p.workforce),int(p.availableWorkers),int(p.recruits)],16,ui.TEAL)
 	var r: Dictionary=Training.report(p)
 	var qualified: Dictionary=r.get("qualified",{})
-	ui.paragraph(body,"Qualified sailors: %d · Gunners: %d · Mechanics: %d"%[int(qualified.get("sailor",0)),int(qualified.get("gunner",0)),int(qualified.get("mechanic",0))],17,ui.GOLD)
-	for role_id in ["sailor","gunner","mechanic"]:
+	ui.paragraph(body,"Qualified sailors: %d · Gunners: %d · Mechanics: %d · Boarders: %d"%[int(qualified.get("sailor",0)),int(qualified.get("gunner",0)),int(qualified.get("mechanic",0)),int(qualified.get("boarder",0))],17,ui.GOLD)
+	for role_id in ["sailor","gunner","mechanic","boarder"]:
 		var role: String=role_id
 		ui.rule(body)
 		ui.label(body,role.capitalize()+" training",22,ui.GOLD,true)

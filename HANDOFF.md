@@ -1,3 +1,23 @@
+# v0.026 — Boarding crews and coastal defenses
+
+SOURCE ACCEPTED: 62 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Six-day paid boarder courses and real hiring use existing residents, berths and crew wages; parties leave their source hull on contact.
+- Capture keeps the actual damaged hull and fittings, finite prize crew and captive custody; paid harbor repair restores combat eligibility.
+- Paid coastal watches consume real public materials, full labor bills, daily food and finite ammunition; visible projectiles use normal impacts and sound routing.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.026.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.026 — Boarding crews and coastal defenses
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Paid boarder training and hiring use existing people, crew berths and ordinary wages; parties leave their source boat on contact.
+- Captures retain the actual damaged hull, fittings and stores; prize crews and captive custody persist through harbor recovery.
+- Captain-funded coastal batteries and garrisons consume actual materials, paid labor, daily provisions and ammunition through visible battle projectiles.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.026.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.025 — Smuggling and economic diplomacy
 
 SOURCE ACCEPTED: 60 native suites pass; portable export evidence is recorded separately in RELEASE.json.

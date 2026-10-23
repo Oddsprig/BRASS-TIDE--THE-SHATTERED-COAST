@@ -30,6 +30,8 @@ static func ensure(c) -> void:
 		if not b.has("mothballed"):b.mothballed=false
 
 static func create(c,uids: Array,destination: String,good: String,capital: int,limits: Dictionary) -> Dictionary:
+	for uid in uids:
+		if int(c.state.get("captiveBerths",{}).get(str(uid),0))>0:return c.fail("Release captives before assigning their carrier to a company.")
 	ensure(c)
 	var probe: Dictionary=c.state.duplicate(true)
 	probe.fleet=probe.fleet.filter(func(b):return b.uid not in uids)

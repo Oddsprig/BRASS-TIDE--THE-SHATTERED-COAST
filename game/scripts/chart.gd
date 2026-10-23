@@ -711,6 +711,23 @@ func draw_battle():
 			else:CombatArt.wreck(self,wreck)
 	_draw_wakes()
 	_draw_trails()
+	for fort in battle.get("coastalDefenses",[]):
+		var at: Vector2=project(Vector2(fort.x,fort.y))
+		var color: Color=ENEMY if fort.team=="enemy" else FRIEND
+		draw_colored_polygon(PackedVector2Array([at+Vector2(-25,0),at+Vector2(0,-13),at+Vector2(25,0),at+Vector2(0,13)]),Color("627271"))
+		draw_line(at+Vector2(-20,1),at+Vector2(0,10),GOLD,2,true)
+		draw_circle(at+Vector2(0,-5),7,Color("354d54"))
+		draw_line(at+Vector2(0,-7),at+Vector2(25 if fort.team=="player" else -25,-7),Color("a7b8b4"),5,true)
+		text_at(str(fort.port.name)+" watch",at+Vector2(0,30),11,color,mono,true)
+	for job in battle.get("boarding",{}).get("jobs",[]):
+		if job.status!="active":continue
+		var source: Dictionary={};var target: Dictionary={}
+		for b in battle.ships:
+			if str(b.id)==str(job.source):source=b
+			if str(b.id)==str(job.target):target=b
+		if not source.is_empty() and not target.is_empty():
+			draw_line(project(Vector2(source.x,source.y)),project(Vector2(target.x,target.y)),FRIEND,2,true)
+			text_at("BOARDING · %d"%int(job.alive),project(Vector2(target.x,target.y))+Vector2(0,-50),12,GOLD,mono,true)
 	var selected_ids := _selected_battle_ids(battle)
 	var sorted_ships = battle.ships.duplicate()
 	sorted_ships.sort_custom(func(a, b): return a.x + a.y < b.x + b.y)
@@ -718,6 +735,7 @@ func draw_battle():
 		if not boat.sunk:
 			var is_sel: bool = boat.id in selected_ids or bool(boat.get("selected", false))
 			draw_boat(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, is_sel, boat.team == "enemy")
+			if boat.get("captureSecured",false):text_at("SECURED PRIZE",project(Vector2(boat.x,boat.y))+Vector2(0,-38),11,GOLD,mono,true)
 			if is_sel and boat.team == "player":
 				_draw_order_indicator(battle, boat)
 	for shot in battle.projectiles:

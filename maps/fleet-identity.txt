@@ -1,4 +1,4 @@
-BRASS TIDE — FLEET-IDENTITY MAP (generated; v0.025)
+BRASS TIDE — FLEET-IDENTITY MAP (generated; v0.026)
 
 Actual crew berths, wages and fittings -> paid specialists/conversions, useful support reserves and real timed convoy protection.
 
@@ -16,14 +16,14 @@ game/scripts/fleet_identity.gd: 23750 bytes; extends RefCounted
   game/scripts/fleet_identity.gd:54 _is_num()
   game/scripts/fleet_identity.gd:58 _num()
   game/scripts/fleet_identity.gd:62 _round2()
-game/scripts/fleet_support.gd: 4078 bytes; extends RefCounted
+game/scripts/fleet_support.gd: 4201 bytes; extends RefCounted
   game/scripts/fleet_support.gd:5 combat()
   game/scripts/fleet_support.gd:8 aboard()
   game/scripts/fleet_support.gd:11 reserve()
-  game/scripts/fleet_support.gd:17 reconcile()
-  game/scripts/fleet_support.gd:31 dismiss()
-  game/scripts/fleet_support.gd:59 repair_factor()
-  game/scripts/fleet_support.gd:64 premium()
+  game/scripts/fleet_support.gd:18 reconcile()
+  game/scripts/fleet_support.gd:32 dismiss()
+  game/scripts/fleet_support.gd:60 repair_factor()
+  game/scripts/fleet_support.gd:65 premium()
 game/scripts/identity_ui.gd: 2448 bytes; extends RefCounted
   game/scripts/identity_ui.gd:3 open()
 game/scripts/escort_ops.gd: 2931 bytes; extends RefCounted

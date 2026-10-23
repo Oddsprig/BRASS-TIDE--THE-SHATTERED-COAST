@@ -1,3 +1,7 @@
+v0.026 voluntary play: Boarding crews and coastal defenses
+Assess readability and usefulness of: Six-day paid boarder courses and real hiring use existing residents, berths and crew wages; parties leave their source hull on contact. Capture keeps the actual damaged hull and fittings, finite prize crew and captive custody; paid harbor repair restores combat eligibility. Paid coastal watches consume real public materials, full labor bills, daily food and finite ammunition; visible projectiles use normal impacts and sound routing.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.025 voluntary play: Smuggling and economic diplomacy
 Assess readability and usefulness of: Finite consignment licences and unregistered counters use shared physical stock, paid workers and actual coin purses. Real inspecting ports and nearby local patrols confiscate uncovered raw military cargo into named custody; fines and unpaid balances persist. Fifteen-day military trade agreements apply to faction carriers through actual transaction paths; staged customs commits preserve live hull, port and business identity.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

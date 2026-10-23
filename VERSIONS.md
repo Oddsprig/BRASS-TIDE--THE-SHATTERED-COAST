@@ -1,6 +1,14 @@
-## v0.025 — Smuggling and economic diplomacy
+## v0.026 — Boarding crews and coastal defenses
 
 Candidate; verified test/export records follow.
+
+- Paid boarder training and hiring use existing people, crew berths and ordinary wages; parties leave their source boat on contact.
+- Captures retain the actual damaged hull, fittings and stores; prize crews and captive custody persist through harbor recovery.
+- Captain-funded coastal batteries and garrisons consume actual materials, paid labor, daily provisions and ammunition through visible battle projectiles.
+
+## v0.025 — Smuggling and economic diplomacy
+
+Verified local Windows delivery; exact tagged game 47997682536d86d17e7b511e4590859295862548. Native/export/archive evidence is in the delivery receipts.
 
 - Finite consignment licences and illicit counters use the same physical inventories, actual worker bills, named custody and finite coin purses.
 - Real nearby port or patrol witnesses inspect declared or deterministically concealed raw cargo; confiscation, affordable fines and remaining debts persist once per encounter.

@@ -1,26 +1,26 @@
-BRASS TIDE — WORKFORCE-TRAINING MAP (generated; v0.025)
+BRASS TIDE — WORKFORCE-TRAINING MAP (generated; v0.026)
 
 Existing civilian people and funded course inputs -> reserved trainees, qualified recruits, paid wages and refund-safe cancellation.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/crew_training.gd: 11330 bytes; extends RefCounted
-  game/scripts/crew_training.gd:14 ensure()
-  game/scripts/crew_training.gd:19 quote()
-  game/scripts/crew_training.gd:46 enroll()
-  game/scripts/crew_training.gd:78 cancel()
-  game/scripts/crew_training.gd:90 daily()
-  game/scripts/crew_training.gd:111 report()
-  game/scripts/crew_training.gd:115 escrow_total()
-  game/scripts/crew_training.gd:120 consume_qualified()
-  game/scripts/crew_training.gd:132 return_qualified()
-  game/scripts/crew_training.gd:144 validate()
-  game/scripts/crew_training.gd:66 _return_people()
-  game/scripts/crew_training.gd:141 _int()
+game/scripts/crew_training.gd: 11729 bytes; extends RefCounted
+  game/scripts/crew_training.gd:15 ensure()
+  game/scripts/crew_training.gd:20 quote()
+  game/scripts/crew_training.gd:47 enroll()
+  game/scripts/crew_training.gd:79 cancel()
+  game/scripts/crew_training.gd:91 daily()
+  game/scripts/crew_training.gd:112 report()
+  game/scripts/crew_training.gd:116 escrow_total()
+  game/scripts/crew_training.gd:121 consume_qualified()
+  game/scripts/crew_training.gd:134 return_qualified()
+  game/scripts/crew_training.gd:146 validate()
+  game/scripts/crew_training.gd:67 _return_people()
+  game/scripts/crew_training.gd:143 _int()
 game/scripts/training_ops.gd: 1263 bytes; extends RefCounted
   game/scripts/training_ops.gd:5 ensure()
   game/scripts/training_ops.gd:8 enroll()
   game/scripts/training_ops.gd:19 cancel()
-game/scripts/economic_ui.gd: 3059 bytes; extends RefCounted
+game/scripts/economic_ui.gd: 3117 bytes; extends RefCounted
   game/scripts/economic_ui.gd:6 act()
   game/scripts/economic_ui.gd:13 open()
 

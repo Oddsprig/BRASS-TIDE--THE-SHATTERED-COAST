@@ -472,6 +472,7 @@ func begin_battle(specs: Array, context: Dictionary):
 		player_fleet=ally_owner.get("boats",[]).filter(func(b):return not b.sunk and b.crew>=b.crewMin)+player_fleet
 	for boat in player_fleet:boat.supportRepairFactor=1.0
 	battle = Battle.create({"fleet":player_fleet,"mission":context.get("mission",{}), "enemySpecs": specs, "enemyFleet":enemy_fleet, "seed": int(core.state.seed) + core.state.wins * 17 + core.state.losses * 5, "location": {"name": context.name}})
+	core.BoardingOps.coastal(core,battle)
 	_enter_battle()
 
 func quick_battle():
@@ -659,6 +660,8 @@ func settle_battle():
 	if not quick_mode:
 		battle_context.objectiveOnly=bool(battle.get("objectiveOnly",false))
 		report = core.battle_settled(battle.result,battle_enemies,battle_context,battle)
+		if not report.get("ok",true):
+			paused=true;result_handled=false;ui.toast(str(report.message),true);return
 	ui.outcome(battle.result, report, battle_enemies)
 
 func recover_salvage(id: String):

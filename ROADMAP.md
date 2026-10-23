@@ -1,3 +1,5 @@
+v0.026 SOURCE ACCEPTED — Boarding crews and coastal defenses. 62 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 v0.025 SOURCE ACCEPTED — Smuggling and economic diplomacy. 60 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 v0.024 SOURCE ACCEPTED — Player shipping companies. 58 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.

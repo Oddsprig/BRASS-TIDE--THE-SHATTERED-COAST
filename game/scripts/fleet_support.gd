@@ -11,6 +11,7 @@ static func aboard(c,uid: String) -> Array:
 static func reserve(c,uid: String) -> Dictionary:
 	var b: Dictionary=c.find_boat(uid)
 	if b.is_empty():return c.fail("Unknown boat.")
+	if b.get("needsHarborRepair",false):return c.fail("Pay for harbor repair before returning a recovered prize to combat.")
 	b.supportOnly=not b.get("supportOnly",false)
 	return c.ok("Traveling support: stays outside battle deployment." if b.supportOnly else "Boat available for the next 300-point battle deployment.")
 
