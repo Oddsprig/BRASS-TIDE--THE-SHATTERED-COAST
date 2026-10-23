@@ -4,6 +4,7 @@ const GOODS: Array=["food","logs","timber","ore","charcoal","iron","copper","sal
 const MAX_COINS: float=9007199254740991.0
 ## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
 const Refits=preload("res://scripts/refit.gd")
+const WorkerOps=preload("res://scripts/worker_ops.gd")
 const YardDevelopment=preload("res://scripts/yard_development.gd")
 const ToolingOps=preload("res://scripts/tooling_ops.gd")
 const Reserves=preload("res://scripts/harbor_reserves.gd")
@@ -179,6 +180,7 @@ static func validate(saved: Dictionary,world: Dictionary) -> Dictionary:
 	if error.is_empty():error=CampaignState.validate(saved,world)
 	if error.is_empty():error=ToolingOps.validate(saved,world)
 	if error.is_empty():error=YardDevelopment.validate(saved,world)
+	if error.is_empty():error=WorkerOps.validate(saved,world)
 	return {"ok":error.is_empty(),"message":"Save schema is valid." if error.is_empty() else error}
 
 static func _validate(s: Dictionary,world: Dictionary) -> String:

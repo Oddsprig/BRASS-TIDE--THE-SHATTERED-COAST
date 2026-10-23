@@ -1,3 +1,15 @@
+v0.022 SOURCE ACCEPTED | Worker wellbeing and paid policies
+54 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-22 | v0.022 CANDIDATE | Worker wellbeing and paid policies
+- Daily food and paid employment facts explain harbor health, fatigue and unrest without another blanket hunger modifier.
+- Owned workplaces choose normal shifts, capped paid overtime, food relief or paid rest; extra wages and consumed inputs remain real costs.
+- Persistent wage arrears warn and stop work; home-harbor negotiation pays debts and service labor, then requires two later paid recovery days.
+Root + up to three Sol6.1 Max helpers through Bridge. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.021 DELIVERED | exact game 877b080ee59dbe434bb15d8a954765a53f22f53a
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.021 SOURCE ACCEPTED | Recovered machinery and shipyard development
 52 native suites passed; source report saved. Portable export and publication require separate receipts.
 

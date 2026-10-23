@@ -1,3 +1,23 @@
+# v0.022 — Worker wellbeing and paid policies
+
+SOURCE ACCEPTED: 54 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Daily food and paid employment facts explain harbor health, fatigue and unrest without another blanket hunger modifier.
+- Owned workplaces choose normal shifts, capped paid overtime, food relief or paid rest; extra wages and consumed inputs remain real costs.
+- Persistent wage arrears warn and stop work; home-harbor negotiation pays debts and service labor, then requires two later paid recovery days.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.022.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.022 — Worker wellbeing and paid policies
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Daily food and paid employment facts explain harbor health, fatigue and unrest without another blanket hunger modifier.
+- Owned workplaces choose normal shifts, capped paid overtime, food relief or paid rest; extra wages and consumed inputs remain real costs.
+- Persistent wage arrears warn and stop work; home-harbor negotiation pays debts and service labor, then requires two later paid recovery days.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.022.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.021 — Recovered machinery and shipyard development
 
 SOURCE ACCEPTED: 52 native suites pass; portable export evidence is recorded separately in RELEASE.json.

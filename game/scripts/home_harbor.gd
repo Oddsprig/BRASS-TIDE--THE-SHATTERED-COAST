@@ -537,8 +537,17 @@ static func tick(core, days: float = 1.0) -> Array:
 		business["arrearsHousehold"] = owed_household - paid_household
 		business["arrearsExpert"] = owed_expert - paid_expert
 		business["paused"] = int(business["arrearsHousehold"]) > 0 or int(business["arrearsExpert"]) > 0
+		var worker_ops: Script=load("res://scripts/worker_ops.gd")
+		var before_inventory: Dictionary=business.inventory.duplicate(true)
+		var prior_notice: String=str(business.get("labor",{}).get("notice",""))
+		var shift: Dictionary=worker_ops.step(core,business,port)
+		worker_ops.account_materials(business,before_inventory)
+		business.workFactor=float(shift.workFactor)
+		if not shift.canWork:business.paused=true
+		if str(shift.message)!=prior_notice:messages.append(str(business.name)+": "+str(shift.message))
 		if bool(business["paused"]):
-			messages.append("%s wages short by %d coins; work paused." % [str(business["name"]), int(business["arrearsHousehold"]) + int(business["arrearsExpert"])])
+			var shortfall: int=int(business["arrearsHousehold"])+int(business["arrearsExpert"])
+			if shortfall>0:messages.append("%s wages short by %d coins; work paused."%[str(business["name"]),shortfall])
 			continue
 		if str(business["kind"]) == "workshop":
 			business.toolingPaidDay=int(state.econDay)
@@ -548,7 +557,7 @@ static func tick(core, days: float = 1.0) -> Array:
 			business.toolingLabor=""
 			for item in state.get("tooling",{}).get("items",[]):
 				if item.businessId==business.id and item.location=="active":business.toolingLabor=str(item.recipeLabor)
-			var kits := _produce(business, whole)
+			var kits := _produce(business, float(whole)*float(business.get("workFactor",1)))
 			if kits > 0:
 				messages.append("%s made %d %s from paid labor and stored materials." % [str(business["name"]), kits,str(Goods.ITEMS[str(business.get("recipeGood","supplies"))].name)])
 			if business.autoSell:_sell(state, business, port, [str(business.get("recipeGood","supplies"))], ledger)

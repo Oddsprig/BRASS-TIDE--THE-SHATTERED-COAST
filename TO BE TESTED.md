@@ -1,3 +1,7 @@
+v0.022 voluntary play: Worker wellbeing and paid policies
+Assess readability and usefulness of: Daily food and paid employment facts explain harbor health, fatigue and unrest without another blanket hunger modifier. Owned workplaces choose normal shifts, capped paid overtime, food relief or paid rest; extra wages and consumed inputs remain real costs. Persistent wage arrears warn and stop work; home-harbor negotiation pays debts and service labor, then requires two later paid recovery days.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.021 voluntary play: Recovered machinery and shipyard development
 Assess readability and usefulness of: Finite surveyed machinery sources require spare sailors, real elapsed recovery days, ordinary paid crew time and consumed kits. Physical machinery occupies one carrier, can be lost, and restores in staffed owned workshops with actual installation materials and wages. Paid workshop trades and real kit, plank, engine or weapon recipes have material and labor bottlenecks; maintained tooling improves its named work. Friendly shipyard workshops fund timed drydock bays with reserved workers and wages; added slips share the same finite construction workforce.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

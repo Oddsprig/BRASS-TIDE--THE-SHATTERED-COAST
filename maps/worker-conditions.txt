@@ -1,0 +1,34 @@
+BRASS TIDE — WORKER-CONDITIONS MAP (generated; v0.022)
+
+Actual paid jobs and purchased food -> harbor conditions; funded workplace shifts, material relief and elapsed negotiated recovery.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/worker_conditions.gd: 14219 bytes; extends RefCounted
+  game/scripts/worker_conditions.gd:19 configure()
+  game/scripts/worker_conditions.gd:27 ensure()
+  game/scripts/worker_conditions.gd:42 daily_port()
+  game/scripts/worker_conditions.gd:67 report()
+  game/scripts/worker_conditions.gd:86 set_policy()
+  game/scripts/worker_conditions.gd:146 business_step()
+  game/scripts/worker_conditions.gd:202 negotiate()
+  game/scripts/worker_conditions.gd:259 validate_port()
+  game/scripts/worker_conditions.gd:313 validate_state()
+  game/scripts/worker_conditions.gd:14 _whole()
+  game/scripts/worker_conditions.gd:16 _num()
+  game/scripts/worker_conditions.gd:32 _labor()
+game/scripts/worker_ops.gd: 3904 bytes; extends RefCounted
+  game/scripts/worker_ops.gd:16 step()
+  game/scripts/worker_ops.gd:19 ensure()
+  game/scripts/worker_ops.gd:23 service_access()
+  game/scripts/worker_ops.gd:33 policy()
+  game/scripts/worker_ops.gd:42 account_materials()
+  game/scripts/worker_ops.gd:53 negotiate()
+  game/scripts/worker_ops.gd:66 validate()
+game/scripts/worker_ui.gd: 2722 bytes; extends RefCounted
+  game/scripts/worker_ui.gd:4 act()
+  game/scripts/worker_ui.gd:11 open()
+
+TESTS (game/tests/*.gd)
+test_worker_conditions, test_conditions_voyage
+
+Full symbols: rg -n '^func |^static func ' on named files.

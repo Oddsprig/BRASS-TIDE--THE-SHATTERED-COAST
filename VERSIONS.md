@@ -1,6 +1,14 @@
-## v0.021 — Recovered machinery and shipyard development
+## v0.022 — Worker wellbeing and paid policies
 
 Candidate; verified test/export records follow.
+
+- Daily food and paid employment facts explain harbor health, fatigue and unrest without another blanket hunger modifier.
+- Owned workplaces choose normal shifts, capped paid overtime, food relief or paid rest; extra wages and consumed inputs remain real costs.
+- Persistent wage arrears warn and stop work; home-harbor negotiation pays debts and service labor, then requires two later paid recovery days.
+
+## v0.021 — Recovered machinery and shipyard development
+
+Verified local Windows delivery; exact tagged game 877b080ee59dbe434bb15d8a954765a53f22f53a. Native/export/archive evidence is in the delivery receipts.
 
 - Finite surveyed machinery sources require spare sailors, real elapsed recovery days, ordinary paid crew time and consumed kits.
 - Physical machinery occupies a carrier, can be lost, and restores in staffed owned workshops with actual installation materials and wages.

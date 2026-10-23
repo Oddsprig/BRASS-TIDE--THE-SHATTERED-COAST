@@ -1,4 +1,4 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.021)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.022)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 

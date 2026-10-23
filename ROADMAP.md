@@ -1,3 +1,5 @@
+v0.022 SOURCE ACCEPTED — Worker wellbeing and paid policies. 54 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 v0.021 SOURCE ACCEPTED — Recovered machinery and shipyard development. 52 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 v0.021 SOURCE ACCEPTED — Recovered machinery and shipyard development. 52 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.

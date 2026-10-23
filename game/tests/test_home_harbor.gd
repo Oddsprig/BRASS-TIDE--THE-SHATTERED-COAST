@@ -51,6 +51,12 @@ func total_with_businesses() -> int:
 func business() -> Dictionary:
 	return c.state.businesses[0]
 
+func business_day(core) -> void:
+	# Match the campaign clock: one completed business step, then the day stamp.
+	HomeHarbor.tick(core,1)
+	core.state.day+=1.0
+	core.state.econDay+=1
+
 func _initialize() -> void:
 	world = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	c = Campaign.new(world)
@@ -150,7 +156,7 @@ func _test_workshop_production_sales_dividend() -> void:
 	var expert_before: int = int(p.expertPurse)
 	var cash_before: int = int(p.cash)
 	var supply_before: int = total_with_businesses()
-	HomeHarbor.tick(c, 1)
+	business_day(c)
 	check(is_equal_approx(float(b.inventory.get("timber", 0.0)), 0.0), "Production is limited by stored timber: exactly four kits of inputs")
 	check(is_equal_approx(float(b.inventory.get("iron", 0.0)), 4.8), "Four kits consume 0.2 iron per the Goods recipe")
 	check(is_equal_approx(float(p.stocks.supplies), 4.0), "The needing home port buys all four kits into its stocks")
@@ -170,14 +176,14 @@ func _test_workshop_production_sales_dividend() -> void:
 	p.cash = 0
 	var revenue_before: int = int(b.revenue)
 	var supply_liquidity: int = total_with_businesses()
-	HomeHarbor.tick(c, 1)
+	business_day(c)
 	check(int(b.revenue) == revenue_before, "A port with no cash buys nothing")
 	check(float(b.inventory.get("supplies", 0.0)) > 0.0, "Unsold kits stay in the workshop store")
 	check(total_with_businesses() == supply_liquidity, "Liquidity-blocked tick still conserves coins")
 	p.cash = 100000
 	p.stocks.supplies = 1000.0
 	revenue_before = int(b.revenue)
-	HomeHarbor.tick(c, 1)
+	business_day(c)
 	check(int(b.revenue) == revenue_before, "A port at or above equilibrium needs no kits and buys none")
 
 func _test_salvage_yard_and_starvation() -> void:
@@ -192,7 +198,7 @@ func _test_salvage_yard_and_starvation() -> void:
 	var household_before: int = int(p.householdPurse)
 	var expert_before: int = int(p.expertPurse)
 	var supply_before: int = total_with_businesses()
-	HomeHarbor.tick(c, 1)
+	business_day(c)
 	check(is_equal_approx(float(p.stocks.iron), 3.0) and is_equal_approx(float(b.inventory.get("iron", 0.0)), 0.0), "Yard sells stored salvage iron to the needing port")
 	check(int(b.revenue) > 0 and total_with_businesses() == supply_before, "Salvage sale moves coins, never mints")
 	check(int(p.householdPurse) - household_before == 300 and int(p.expertPurse) - expert_before == 150, "Yard wages split laborers and mechanic by tier")
@@ -201,14 +207,14 @@ func _test_salvage_yard_and_starvation() -> void:
 	c.state.cargo.iron = 2.0
 	check(bool(HomeHarbor.transfer_goods(c, str(b.id), "iron", 2.0, "in").ok), "More salvage stores before the starvation check")
 	supply_before = total_with_businesses()
-	HomeHarbor.tick(c, 1)
+	business_day(c)
 	check(bool(b.paused), "Unpaid wages pause the yard")
 	check(int(b.arrearsHousehold) + int(b.arrearsExpert) == 450 - 10, "Wage shortfall is recorded as arrears, not forgiven")
 	check(is_equal_approx(float(b.inventory.get("iron", 0.0)), 2.0), "Paused staff sell nothing")
 	check(total_with_businesses() == supply_before, "Starved tick conserves coins")
 	check(bool(HomeHarbor.capital(c, str(b.id), 5000).ok), "Captain capital can rescue the purse")
 	p.stocks.iron = 0.0
-	HomeHarbor.tick(c, 1)
+	business_day(c)
 	check(not bool(b.paused) and int(b.arrearsHousehold) == 0 and int(b.arrearsExpert) == 0, "Next paid tick clears arrears first and resumes work")
 
 func _test_save_roundtrip() -> void:

@@ -1190,6 +1190,10 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 
 			port["employed"] = emp_int_map
 			port["employedByOccupation"] = emp_int_map.duplicate(true)
+			port["lastFoodMet"]=food_met_ratio
+			port["lastEmployed"]=employed_ind_workers+paid_public_workers
+			port["lastPaid"]=employed_ind_workers+paid_public_workers
+			port["publicForemen"]=floori(float(paid_public_workers)*0.18)
 			port["lastPayroll"] = {
 				"total": business_payroll + public_payroll,
 				"business": business_payroll,
@@ -1202,6 +1206,8 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 			port["lastProduction"] = _make_last_production(produced_rate)
 			port["projectedProduction"] = _make_last_production(produced_rate)
 			port["shortages"] = _make_shortages(shortage_items)
+			var condition_api: Script=load("res://scripts/worker_conditions.gd")
+			condition_api.daily_port(port,dt)
 			if port.get("training") is Dictionary:
 				var training_api: Script=load("res://scripts/crew_training.gd")
 				training_api.daily(port,dt)

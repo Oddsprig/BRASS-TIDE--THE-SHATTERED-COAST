@@ -164,3 +164,23 @@ drydock expansion. Deliver missing public materials, fund its business purse
 and reserve the eight-person construction team. Wages remain held until earned.
 Up to two extra chartered slips share the harbor's existing finite construction
 workforce. More slips do not supply more workers, materials or free boats.
+
+PEOPLE AND PAID SHIFTS — v0.022
+At a harbor, open People, paid shifts & working conditions. Town food security
+uses food actually bought; health and unrest explain food and paid-job facts.
+These reports add no second universal hunger penalty.
+
+Choose a policy for an owned business while at its home port. Normal work pays
+its staff as before. Overtime pays each employee an extra half wage for up to25%
+more paid work; inputs still limit output. Extra spending defaults to a5,000-coin
+daily cap. Fatigue eventually prevents further rush shifts. Rest retains base
+payroll with no output and recovers fatigue. Food relief uses one privately
+owned food per employee and10% preparation time. You can set a continuing policy
+without renewing it every day.
+
+Three unpaid economic days cause a persistent stoppage with a visible reason.
+Fund the operating purse and provide one food per employee plus one repair kit.
+Home negotiation pays all arrears and25 clerk/44 registry-foreman coins. An
+actual paid public registry must have the available foreman time. Two later
+fully paid rest days are required; work resumes on the next eligible day.
+Missing funds, food or staff do not erase liabilities or reset a strike.

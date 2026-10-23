@@ -1,0 +1,32 @@
+ROOT REVIEW — v0.022
+Sol People supplied the module, standalone tests and unchanged report preserved
+beside this verdict. Root read the complete payload and adapted its goods
+validator to real finite fractional stock lots; coin/headcount fields remain
+whole. Paid policy wages now enter the actual lifetime wagesPaid account so
+overtime and negotiated wages cannot inflate dividendable surplus.
+
+Root connected daily copied-port food/employment facts, actual base payroll,
+recipe work factors, consumed private-food/material cost basis, actual home
+service permission and existing publicly paid registry foremen. Negotiations
+book quarter-day clerk time without assigning a second industrial workforce.
+A shallow completed-day context shares actual containers and advances only the
+processing stamp, matching the campaign's counter after the daily step.
+
+Actual central voyage covers capital/material purchases, paid rush output,
+paid rest without output, three-day arrears/stoppage, save/load, refused remote
+negotiation, actual funded service/material settlement, two later paid recovery
+days, subsequent output, malformed save refusal, coins and actual UI controls.
+Standalone module tests also cover caps, insolvency, copied isolation and atomic
+failed transfers. JSON identity check preserves the loaded snapshot rather than
+comparing its float types with pre-JSON integers.
+
+No foreground tests, extra helper models or desktop input. Complete source and
+clean-tag checks/export receipts establish acceptance separately. Town scores
+are descriptive; there is no extra blanket hunger multiplier.
+
+Regression adjustment: the older direct Home.tick fixture invoked successive
+days without advancing its campaign counter. Root made its test helper advance
+the actual day/econDay after each completed shift, matching production gameplay.
+All original 74 assertions remain. The paused-work message now distinguishes
+real wage shortfalls from paid rest; it no longer says zero wages are missing.
+Registry headcounts and paid work factors are also validated before restore.
