@@ -148,11 +148,13 @@ func test_knowledge_save_and_actual_voyage() -> void:
 	var ship: Dictionary=core.state.fleet[0]
 	var base: Dictionary=ship.baseSpec
 	var fit: Dictionary=ship.loadout.duplicate(true)
-	fit.engine="economy_drive"
+	fit.weapons[1]="rapid_gun"
 	var before: Dictionary=core.state.duplicate(true)
 	var known: Array=workshop.template_list(core.state,str(base.id))
 	var quote: Dictionary=workshop.preview(core,ship.uid,fit)
 	check(core.state==before and not quote.is_empty(),"listing and comparing a second fit grant no money, people, parts or migration mutation")
+	check(quote.applicable and quote.affordable and int(quote.cost)>0 and int(quote.cost)<=int(core.state.coins),"ordinary starter stock, workers and purse cover the actual paid voyage fit")
+	if not quote.applicable or not quote.affordable:return
 	var saved: Dictionary=workshop.save_template(core.state,base,"Long voyage starter",fit)
 	check(saved.get("ok",false) and saved.get("id") is String,"named template records fitting knowledge")
 	if not saved.get("ok",false):return
@@ -169,7 +171,7 @@ func test_knowledge_save_and_actual_voyage() -> void:
 	check(restored.restore(incoming).ok and incoming==incoming_before,"actual Campaign restore accepts templates without mutating input")
 	check(workshop.template_list(restored.state,str(base.id))==templates and Money.total(restored.state)==int(core.state.coinSupply),"JSON save/restore preserves templates and real purses")
 	var result: Dictionary=workshop.apply(core,ship.uid,fit,quote)
-	check(result.get("ok",false),"ordinary starter can apply its previewed voyage engine: "+str(result.get("message","")))
+	check(result.get("ok",false),"ordinary starter can apply its previewed voyage fit: "+str(result.get("message","")))
 	if not result.get("ok",false):return
 	var fuel: float=float(ship.fuel)
 	var departure: Dictionary=core.state.position.duplicate(true)
