@@ -1,0 +1,114 @@
+BRASS TIDE — ECONOMY AND FLEET PLAY GUIDE
+v0.028
+
+Begin with Captain's priorities on the coastal chart. It reads the current fleet,
+selected harbor route, food, working fuel, kits, crew pay and cargo. Choose Captain,
+Explorer, Merchant, Privateer or Harbormaster to see useful system links. These
+views do not spend coins or commit you to a career.
+
+SAILING AND BATTLES
+WASD pans the camera; scroll zooms. The flagship starts on autopilot. Select boats
+and issue tactical orders, or choose manual control. Space pauses. Escape opens
+the menu. Fleet Laboratory on the title screen provides separate engagement tests.
+Ownership is separate from 300-point battle deployment. Support boats carry real
+cargo and supplies; stored boats do not create traveling hold space.
+
+PACK FOR THE RETURN
+Every sailor earns 100 coins per day. Food, fuel and repair kits are real stock.
+Loose reserve fuel and ammunition need loading into boat working stores. Include
+wage arrears, specialist premiums and a return allowance before buying cargo.
+The native starting-harbor ready Tinwake bill is 41,581 coins: 30,904 materials,
+3,264 assembly and 1,353 supervision, plus yard overhead, margin, duty and storage.
+The detailed yard bill traces these costs. Crew advances and stores are separate.
+Local stock and the fitted design can change the actual bill you receive.
+
+TRAINING AND WORKERS
+Visit a harbor's academy to pay for existing workers and an instructor. Materials
+are consumed, wages are held and earned over actual days, and reserved people
+leave other work. Qualifications describe those people; they are not extra crew.
+Sailor, gunner, mechanic and boarder courses have different costs and durations.
+Hiring consumes real recruits and physical berths. Crew savings live in the shared
+crew purse. Unpaid wages accumulate and hurt morale.
+
+HARBOR SUPPLY AND INDUSTRY
+The supply report separates commercial stock, public stores and incoming cargo.
+Protected operating lots keep feasible essential production from selling all its
+inputs. A friendly partner can advise reserve policy or pay for a public food
+release. Actual shipments change what workers and yards can produce.
+Surveyed abandoned sites can hold finite machine tools, engine fixtures or hull
+jigs. Recovery reserves your real crew and supplies. Carried machinery uses a real
+hold, can be lost, and needs a paid staffed workshop installation. Yard expansion
+also consumes real materials, wages and commissioning time.
+
+PRIVATE BUSINESS
+Businesses have their own workers, inventories and purse. Those workers leave
+ordinary town jobs. Materials and wages are costs; deposited coins or goods are
+capital, not earned profit. Normal shifts, overtime, paid rest and food relief
+trade output against worker strain. Arrears can lead to a strike; recovery needs
+actual settlement, paid negotiation and subsequent paid rest days.
+Regional fish, timber, lacquer and medicinal plants use local production chains.
+Households first need basic food, then can afford limited civilian demand.
+
+SHIPPING COMPANIES
+Charter spare actual boats and their existing crews. Keep a seaworthy flagship.
+Choose a route, commodity, operating capital, price limits, cargo lot limit and
+reserve. A master is one of the crew and earns 75 additional coins per day.
+The company sails the actual coast, buys shared inventory, pays wages and bears
+losses. Sales minus sold material cost and operating costs determine its result.
+Invested capital does not count as profit. Small volumes on poor price spreads can
+lose coins; compare the quote and voyage bill before committing. Up to 8 companies
+can be open, with 128 retained charter records going forward. Existing records are
+preserved. Recall and collection require a physical return; boats do not teleport.
+
+CUSTOMS AND TRADE AGREEMENTS
+Neutral harbors restrict raw guns and engine assemblies. Friendly standing admits
+them; a paid local thirty-day licence covers a finite consignment. The registry
+bill is 69 coins for clerk labor and foreman oversight. Installed fittings and
+sealed freight follow their own admitted manifests.
+The unregistered broker uses the same physical stock, charges 28 coins labor and a
+15% buy premium or sale discount. A declared manifest is open to inspection;
+concealment can be discovered by an actual inspecting port or nearby local patrol.
+Confiscation moves goods into a named harbor's public stores. Fines transfer what
+you can afford and preserve any debt. Visit that harbor to settle it.
+A friendly authority can negotiate a 15-day guns-or-engines restriction for an
+existing hostile faction pair. Food and ordinary civilian goods remain outside
+that military agreement. Faction hostility does not vanish when an agreement ends.
+
+BOARDING AND THE COASTAL WATCH
+Train and hire boarders into spare berths. They receive normal crew wages. A party
+leaves its source boat only on contact with a weak or disabled enemy. Keep your
+minimum working crew aboard. Exchanges consume actual people and take time.
+Secured prizes retain their hull, damage, weapons and stores and leave active
+combat. Tow them home for paid repair before using their weapons. Captives occupy
+real berths or empty prize deck space and need rations. Release them safely in a
+harbor to return existing people to the workforce; no sale or reward is invented.
+Friendly coastal defenses need actual public materials, workers and paid expert
+labor. Their separate crews receive treasury wages and consume public food, kits
+and ammunition. An unpaid or unprovisioned watch cannot fire. A nearby harbor
+brings its actual position and finite-ammunition projectiles into an engagement.
+
+CRISES AND CIVILIAN PASSAGE
+Three observed bad days of food, unrest or recorded unpaid obligations establish
+a local crisis; three adequate days establish recovery. Read the dated evidence.
+Optional sponsored passage removes existing idle workers, skill subsets and their
+savings from the origin. A named boat needs spare crew berths and hold space for
+purchased provisions. Waiting, camera movement and direct coordinate edits earn
+no transport work. Actual sailing distance earns the fixed route work allowance.
+After arrival, two distinct provisioned and staffed reception days precede worker
+admission. Standing capacity uses the original workforce plus one vacant worker
+place per 200 authored residents, with existing commitments and incoming cohorts
+counted. It never refills on loading a save.
+Buy more real provisions if delayed. Return requires actual origin docking;
+unearned work money returns to its sponsor and unused food enters public stores.
+Carrier loss records its people and food once; savings stay in counted estate
+custody. Cohorts already ashore do not sink when your fleet departs.
+
+DEVELOPMENT AND PERFORMANCE
+Development notes are in the title and Escape menus and the portable TXT files.
+Earlier notes and handoffs are preserved in history files. Native tests run in
+isolated background/headless processes; no desktop input or focus is used.
+Godot uses Separate rendering. Pure harbor work owns copied state, with at most 8
+workers and 2 logical threads reserved. UI, fleet/law/passenger transactions and
+publication remain on the main thread after joins. Water is inexpensive 2D art.
+CPU measurements and native assertions are evidence for their specific fixtures;
+they do not establish GPU frame rate, a human listening test or subjective fun.

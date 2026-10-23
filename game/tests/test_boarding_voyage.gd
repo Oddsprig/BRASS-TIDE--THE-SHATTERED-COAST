@@ -37,6 +37,20 @@ func _initialize() -> void:
 	for i in range(130):scene.Battle.update(scene.battle,1.0/30.0,{})
 	check(target.get("captureSecured",false) and scene.battle.result=="won","Actual fixed-step battle resolves elapsed boarding and removes the secured prize from enemy combat")
 	check(is_same(target,scene.battle.captured[0]) and float(target.hp)==hp and JSON.stringify(target.loadout)==fitted,"Capture preserves the exact hull, damage and fitted weapons")
+	check(not scene.Battle.select_flagship(scene.battle,str(target.id)),"A secured damaged prize cannot bypass paid repair through manual flagship control")
+	var loss_core=c.get_script().new(c.data.duplicate(true))
+	var checkpoint: Dictionary=JSON.parse_string(JSON.stringify(c.state))
+	var restored: Dictionary=loss_core.restore(checkpoint)
+	check(restored.ok,"An actual capture-in-progress checkpoint can prepare an isolated loss branch")
+	if restored.ok:
+		var loss_target: Dictionary=loss_core.fleet_owner(str(owner.id)).boats[0]
+		loss_target.sunk=true;loss_target.hp=0;loss_target.crew=0;loss_target.wounded=0;loss_target.boarders=0
+		var loss_battle: Dictionary=scene.battle.duplicate(true)
+		loss_battle.ships=loss_core.state.fleet+[loss_target];loss_battle.captured=[loss_target]
+		var lost: Dictionary=loss_core.battle_settled("won",[loss_target.spec],scene.battle_context,loss_battle)
+		check(lost.get("ok",true) and int(loss_core.state.captives)==0 and int(loss_core.state.boardingLostPeople)==int(defenders)+3,"A sunk secured prize records its actual party and defenders once instead of blocking settlement")
+		check(loss_core.state.wrecks.any(func(w):return str(w.uid)==str(loss_target.uid)) and not loss_core.state.fleet.has(loss_target),"The same lost prize becomes a persistent physical wreck rather than a free living hull")
+		check(Money.total(loss_core.state)==total and loss_core.restore(JSON.parse_string(JSON.stringify(loss_core.state))).ok,"Secured-prize loss preserves all coins and restores through the actual complete schema")
 	var settled: Dictionary=c.battle_settled("won",[target.spec],scene.battle_context,scene.battle)
 	check(settled.get("ok",true) and c.state.fleet.has(target) and not c.fleet_owner(str(owner.id)).boats.has(target),"Actual settlement transfers hull ownership once rather than cloning an enemy boat")
 	check(int(c.state.captives)==int(defenders) and float(source.crew)+float(target.crew)==crew+3,"Prize crew and original defenders remain disjoint real people")

@@ -1,0 +1,35 @@
+BRASS TIDE v0.028 — native combined campaign CPU measurements
+
+{
+  "campaignStepP95us": 238,
+  "companyNetCoins": -17119,
+  "cpu": "Intel(R) Core(TM) Ultra 9 275HX",
+  "economicDays": 60,
+  "economicPublicationP95us": 70902,
+  "elapsedMs": 9725,
+  "logicalThreads": 24,
+  "rendering": "headless; GPU frame pacing not measured",
+  "routeCacheEntries": 27,
+  "routeCacheHits": 2,
+  "routeCacheMisses": 27,
+  "workerLanes": 8
+}
+
+A seeded 60-day combined campaign uses actual copied-port workers, a physical
+private company, academy wages, customs expiry, a paid coastal watch, wage crises
+and funded civilian reception. A paid reserve hull then verifies civilian wreck
+cargo and surviving-flagship save restoration. Final source run:97 checks,0 failures.
+
+The cache uses exact endpoints, returns detached arrays, caps at128 entries and
+resets on new_game/restore. Pure navigation and worker copies are unchanged.
+Counter values shown are from the current loaded Campaign instance. P95 task
+samples are CPU timings; publication includes joining worker copies and main-thread
+transactions. These values are not rendered frame times or a GPU-FPS guarantee.
+
+Seven isolated weapon/fleet scenarios also pass. The 300-versus-300 scenario deploys
+40 actual boats:180 fixed ticks,6 simulated seconds,1225ms work,11235us P95 tick,
+13381us maximum tick in that specific headless run. These are CPU simulation data;
+rendering was disabled and audio was not auditioned.
+
+The 180-day native endurance suite and clean release-checkout results are recorded
+separately. Each measurement describes its own fixture; no human playtest is implied.

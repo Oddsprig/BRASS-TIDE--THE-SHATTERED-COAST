@@ -57,7 +57,7 @@ static func settlement(ui,body,p: Dictionary):
 			ui.label(body,"%s · %d workers · %d coins/day"%[str(occupation).capitalize(),count,Goods.WAGES.get(occupation,100)],14,ui.MUTED)
 	ui.rule(body)
 	ui.label(body,"Physical stock & production",24,ui.GOLD,true)
-	var shortage = ", ".join(p.get("shortages",[]))
+	var shortage = ", ".join(p.get("shortages",[]).map(func(key):return str(Goods.ITEMS.get(key,{}).get("name","business coins" if key=="cash" else str(key).capitalize()))))
 	ui.paragraph(body,"Shortages: "+("none" if shortage.is_empty() else shortage),15,ui.RED if not shortage.is_empty() else ui.MUTED)
 	for good in Goods.ITEMS:
 		var row = ui.row(body)
@@ -66,7 +66,7 @@ static func settlement(ui,body,p: Dictionary):
 	ui.rule(body)
 	ui.label(body,"Recent transfers",24,ui.GOLD,true)
 	for line in p.get("ledger",[]).slice(-12):
-		ui.paragraph(body,"%s · %s → %s · %s coins"%[str(line.get("type","Transfer")).capitalize(),line.get("from",""),line.get("to",""),ui.money(line.get("coins",0))],13)
+		ui.paragraph(body,"%s · %s → %s · %s coins"%[str(line.get("type","Transfer")).capitalize(),str(line.get("from","")).replace("cash","business coins"),str(line.get("to","")).replace("cash","business coins"),ui.money(line.get("coins",0))],13)
 	ui.button(body,"Coastal fleet owners & costs",func():fleet_accounts(ui))
 	ui.paragraph(body,"Coast-wide circulating coins: %s · Coin ledger difference: %d"%[ui.money(Money.total(ui.host.core.state)),Money.total(ui.host.core.state)-int(ui.host.core.state.coinSupply)],13,ui.TEAL)
 

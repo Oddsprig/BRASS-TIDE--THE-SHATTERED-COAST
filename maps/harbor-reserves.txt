@@ -1,4 +1,4 @@
-BRASS TIDE — HARBOR-RESERVES MAP (generated; v0.027)
+BRASS TIDE — HARBOR-RESERVES MAP (generated; v0.028)
 
 Actual consumption, route times and paid workers -> separate coverage, protected operating lots, feasible allocation floors and real public release.
 
@@ -16,11 +16,11 @@ game/scripts/harbor_reserves.gd: 14484 bytes; extends RefCounted
   game/scripts/harbor_reserves.gd:364 _amounts_error()
   game/scripts/harbor_reserves.gd:378 _valid_amount()
   game/scripts/harbor_reserves.gd:385 _amount()
-game/scripts/reserve_ops.gd: 4868 bytes; extends RefCounted
-  game/scripts/reserve_ops.gd:10 ensure()
-  game/scripts/reserve_ops.gd:28 refresh()
-  game/scripts/reserve_ops.gd:54 policy()
-  game/scripts/reserve_ops.gd:63 release_food()
+game/scripts/reserve_ops.gd: 4909 bytes; extends RefCounted
+  game/scripts/reserve_ops.gd:11 ensure()
+  game/scripts/reserve_ops.gd:29 refresh()
+  game/scripts/reserve_ops.gd:55 policy()
+  game/scripts/reserve_ops.gd:64 release_food()
 game/scripts/supply_ui.gd: 3137 bytes; extends RefCounted
   game/scripts/supply_ui.gd:5 act()
   game/scripts/supply_ui.gd:12 open()

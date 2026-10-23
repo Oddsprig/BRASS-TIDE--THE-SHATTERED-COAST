@@ -1,4 +1,5 @@
 extends RefCounted
+const Routes=preload("res://scripts/route_cache.gd")
 ## Main-thread physical passenger/provision transaction adapter.
 const Goods=preload("res://scripts/goods.gd")
 const Money=preload("res://scripts/money.gd")
@@ -59,7 +60,7 @@ static func room(view,p: Dictionary) -> int:
 	committed+=int(p.get("defenses",{}).get("crew",0))
 	return maxi(0,capacity-committed)
 static func route_days(view,origin: String,destination: String) -> int:
-	var c=actual(view);var path: Array=c.Navigation.find_path(c.nav,c.port_position(origin),c.port_position(destination))
+	var c=actual(view);var path: Array=Routes.path(c,c.port_position(origin),c.port_position(destination))
 	if path.size()<2 or c.travel_speed()<=0:return -1
 	var distance: float=0.0
 	for i in range(1,path.size()):distance+=c.distance(path[i-1],path[i])
@@ -118,7 +119,7 @@ static func atomic(view,moves: Array,event: Dictionary) -> bool:
 		"buy":
 			p.stocks.food-=food;j.food.food=food
 			c.state.passengerTransport.carriers[str(j.id)]=carrier
-			var path: Array=c.Navigation.find_path(c.nav,c.port_position(j.origin),c.port_position(j.destination));var distance: float=0
+			var path: Array=Routes.path(c,c.port_position(j.origin),c.port_position(j.destination));var distance: float=0
 			for i in range(1,path.size()):distance+=c.distance(path[i-1],path[i])
 			c.state.passengerTransport.work[str(j.id)]={"distance":0.0,"unit":distance/maxi(1,int(j.days))}
 		"eat":j.food.food=maxf(0,float(j.food.food)-food)

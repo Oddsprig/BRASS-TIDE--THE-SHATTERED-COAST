@@ -28,7 +28,7 @@ static func open(ui) -> void:
 		ui.rule(body)
 		ui.label(body,b.name+" · "+c.port(b.homePort).name,23,ui.GOLD,true)
 		ui.paragraph(body,"Purse %s · daily pay %d · arrears %d · %.1f / %.1f stored · %s"%[ui.money(b.coins),b.dailyWages,b.arrearsHousehold+b.arrearsExpert,b.storedWeight,b.capacity,"work paused" if b.paused else "staff paid"],16,ui.RED if b.paused else ui.TEAL)
-		ui.paragraph(body,"Revenue %d − staff pay %d − sold material basis %d. Cash reserve %d. Deposited goods use standard production-cost valuation; contributed capital is not earned profit."%[b.revenue,b.wagesPaid,b.get("costOfSales",0),b.reserve],14)
+		ui.paragraph(body,"Revenue %d − staff pay %d − sold material basis %d. Coin reserve %d. Deposited goods use standard production-cost valuation; contributed capital is not earned profit."%[b.revenue,b.wagesPaid,b.get("costOfSales",0),b.reserve],14)
 		for worker in b.employees:ui.paragraph(body,"%s · %s · %d coins/day"%[worker.name,worker.occupation,worker.wage],13)
 		var local: bool=not p.is_empty() and p.id==b.homePort
 		if not local:

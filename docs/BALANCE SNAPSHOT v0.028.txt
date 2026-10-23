@@ -1,0 +1,61 @@
+BRASS TIDE v0.028 — actual native production and boat bills
+
+A sailor-day is 100 coins. These prices were read from the native Goods and
+Construction APIs at the seeded starting harbor. Trading lots are economic
+abstractions. Market stock, taxes, yard conditions and fitted designs affect
+actual quotes; modern motors and weapons belong to this original fictional coast.
+
+GOODS — embodied production cost, coins per lot
+ammo: 355 coins
+charcoal: 200 coins
+copper: 550 coins
+crude: 200 coins
+engines: 17,265 coins
+fine_timber: 248 coins
+food: 200 coins
+fuel: 325 coins
+gunpowder: 1,400 coins
+guns: 7,809 coins
+iron: 800 coins
+lacquer: 129 coins
+logs: 200 coins
+medicinal_plants: 20 coins
+ore: 200 coins
+preserved_fish: 217 coins
+saltpeter: 425 coins
+sulfur: 325 coins
+supplies: 258 coins
+timber: 388 coins
+
+BOATS — ready hull / minimum crew per day / deployment points
+Tinwake Skiff: 41,581 coins; 300 coins/day; 15 points
+Bilgewater Punt: 39,510 coins; 300 coins/day; 14 points
+Lantern Ward Skiff: 44,459 coins; 400 coins/day; 23 points
+Marsh Dart Hydro: 46,532 coins; 300 coins/day; 17 points
+Scabfin Cutter: 89,427 coins; 500 coins/day; 28 points
+Galeblade Interceptor: 94,910 coins; 600 coins/day; 36 points
+Silt Runner Lugger: 96,444 coins; 400 coins/day; 23 points
+Grapnel Blockade Runner: 121,144 coins; 600 coins/day; 34 points
+Sovereign Armed Packet: 181,282 coins; 800 coins/day; 45 points
+Breakwater Patrol Sloop: 107,415 coins; 400 coins/day; 25 points
+Ashwake Escort Corvette: 126,859 coins; 700 coins/day; 38 points
+Vanguard Line Corvette: 186,773 coins; 900 coins/day; 49 points
+Fen Stinger Torpedo Launch: 112,686 coins; 500 coins/day; 32 points
+Tallowfin Torpedo Boat: 156,463 coins; 700 coins/day; 43 points
+Manta Flotilla Leader: 204,793 coins; 1,100 coins/day; 56 points
+Slagclast River Gunboat: 140,603 coins; 800 coins/day; 44 points
+Bellows Siege Gunboat: 208,877 coins; 1,100 coins/day; 57 points
+Furnace Sovereign Monitor: 270,431 coins; 1,500 coins/day; 70 points
+Sparkrack Rocket Scow: 126,411 coins; 600 coins/day; 37 points
+Pyreclast Rocket Monitor: 195,696 coins; 1,000 coins/day; 52 points
+Hellbore Salvo Cruiser: 239,259 coins; 1,400 coins/day; 64 points
+Cobalt Commodore Frigate: 185,779 coins; 900 coins/day; 50 points
+Bastion Armored Cruiser: 286,620 coins; 1,400 coins/day; 67 points
+Shatter Throne Dreadnought: 350,150 coins; 2,200 coins/day; 75 points
+
+The full native JSON records material, assembly and supervision bill components.
+Ready hull prices do not include the ten-day crew advance or all voyage stores.
+The detailed in-game yard bill traces these components. Capital and material basis
+are not earned profit. The bounded eight-lot timber pressure-test charter records
+its actual deficit; unprofitable routes require a different spread, volume or cost.
+No nominal historical motorboat price or arbitrary starting hull price is asserted.

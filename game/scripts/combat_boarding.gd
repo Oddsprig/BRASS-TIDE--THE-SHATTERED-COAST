@@ -2,6 +2,8 @@ extends RefCounted
 const Boarding=preload("res://scripts/boarding.gd")
 const Events=preload("res://scripts/combat_events.gd")
 static func order(st: Dictionary,source_id: String,target_id: String,count: int) -> Dictionary:
+	var committed: int=st.get("captured",[]).size()+st.get("boarding",{}).get("jobs",[]).filter(func(job):return job.status=="active").size()
+	if committed>=int(st.get("captureSlots",64)):return {"ok":false,"message":"Recover existing saved prizes before attempting another capture."}
 	var source: Dictionary={};var target: Dictionary={}
 	for b in st.ships:
 		if str(b.id)==source_id:source=b

@@ -107,6 +107,9 @@ func orders() -> void:
 	t.x = 20.0
 	for n in [0, -1, 1.5, 129]:
 		check(not B.launch(b, "s", "t", n).ok, "Refuse invalid party count")
+	b.captureSlots=0
+	check(not B.launch(b,"s","t",4).ok and b.ships[0].crew==20,"Full saved-prize capacity refuses before taking actual crew")
+	b.captureSlots=64
 	check(B.launch(b, "s", "t", 4).ok, "Valid boarding order")
 	check(not B.launch(b, "s", "t", 1).ok, "Refuse duplicate party")
 	check(b.ships[0].crew == 16 and b.ships[0].boarders == 6,

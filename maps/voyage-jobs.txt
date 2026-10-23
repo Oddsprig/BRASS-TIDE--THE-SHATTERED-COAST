@@ -1,21 +1,21 @@
-BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.027)
+BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.028)
 
 Real sponsors/stock/crew-based quotes -> several funded jobs, physical sealed lots, remembered contacts and dated observations.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/voyage_jobs.gd: 22446 bytes; extends RefCounted
-  game/scripts/voyage_jobs.gd:79 ensure()
-  game/scripts/voyage_jobs.gd:128 pending_freight_weight()
-  game/scripts/voyage_jobs.gd:211 available()
-  game/scripts/voyage_jobs.gd:313 accept()
-  game/scripts/voyage_jobs.gd:387 finish()
-  game/scripts/voyage_jobs.gd:437 abandon()
-  game/scripts/voyage_jobs.gd:32 _is_num()
-  game/scripts/voyage_jobs.gd:36 _num()
-  game/scripts/voyage_jobs.gd:40 _state()
-  game/scripts/voyage_jobs.gd:44 _clean_freight()
-  game/scripts/voyage_jobs.gd:52 _sanitize_job()
-  game/scripts/voyage_jobs.gd:105 _find()
+game/scripts/voyage_jobs.gd: 22939 bytes; extends RefCounted
+  game/scripts/voyage_jobs.gd:80 ensure()
+  game/scripts/voyage_jobs.gd:129 pending_freight_weight()
+  game/scripts/voyage_jobs.gd:212 available()
+  game/scripts/voyage_jobs.gd:314 accept()
+  game/scripts/voyage_jobs.gd:388 finish()
+  game/scripts/voyage_jobs.gd:438 abandon()
+  game/scripts/voyage_jobs.gd:33 _is_num()
+  game/scripts/voyage_jobs.gd:37 _num()
+  game/scripts/voyage_jobs.gd:41 _state()
+  game/scripts/voyage_jobs.gd:45 _clean_freight()
+  game/scripts/voyage_jobs.gd:53 _sanitize_job()
+  game/scripts/voyage_jobs.gd:106 _find()
 game/scripts/contacts.gd: 8176 bytes; extends RefCounted
   game/scripts/contacts.gd:81 ensure()
   game/scripts/contacts.gd:127 visit()

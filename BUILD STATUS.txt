@@ -1,9 +1,9 @@
 BRASS TIDE BUILD STATUS
-Current source: v0.027 / BUILD 27
-Milestone: Regional crises and resettlement
-SOURCE ACCEPTED: 64 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+Current source: v0.028 / BUILD 28
+Milestone: Campaign balance guidance and performance
+SOURCE ACCEPTED: 66 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 
-Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.027 DELIVERY VERIFIED.json.
+Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.028 DELIVERY VERIFIED.json.
 In-game TXT notes: game/data/DEVELOPER NOTES.txt. Current economy plan: docs/ECONOMY VERSION MAP v0.019-v0.028.txt.
 Owner authorized sequential builds0.019-0.028 with root and up to three Sol6.1 Max helpers through Bridge.
 Previous versions, original saves and supplied music must remain intact.

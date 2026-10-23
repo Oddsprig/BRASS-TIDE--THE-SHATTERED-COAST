@@ -1,4 +1,4 @@
-BRASS TIDE — HOME-HARBORS MAP (generated; v0.027)
+BRASS TIDE — HOME-HARBORS MAP (generated; v0.028)
 
 Physical local materials/staff/coins -> paid shore stock, business payroll and earned-only dividends, private/public berths and arrears.
 
@@ -24,7 +24,7 @@ game/scripts/home_ops.gd: 3438 bytes; extends RefCounted
   game/scripts/home_ops.gd:29 can_store()
   game/scripts/home_ops.gd:36 pay_arrears()
   game/scripts/home_ops.gd:48 daily()
-game/scripts/home_ui.gd: 4271 bytes; extends RefCounted
+game/scripts/home_ui.gd: 4330 bytes; extends RefCounted
   game/scripts/home_ui.gd:3 open()
   game/scripts/home_ui.gd:55 act()
 

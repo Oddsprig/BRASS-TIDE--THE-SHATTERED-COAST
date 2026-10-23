@@ -1,4 +1,5 @@
 extends RefCounted
+const Routes=preload("res://scripts/route_cache.gd")
 ## Focused campaign windows; main-thread UI only.
 
 static func expedition(ui) -> void:
@@ -10,7 +11,7 @@ static func expedition(ui) -> void:
 	var route: Array=[]
 	var length: float=0.0
 	if not destination.is_empty():
-		route=c.Navigation.find_path(c.nav,c.state.position,destination)
+		route=Routes.path(c,c.state.position,destination)
 		for i in range(1,route.size()):length+=c.distance(route[i-1],route[i])
 	var r: Dictionary=c.expedition_report(length)
 	ui.label(body,"%d traveling boats · %d owned · %d crew"%[c.active_fleet().size(),c.state.fleet.size(),r.crew],25,ui.GOLD,true)

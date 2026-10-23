@@ -1,0 +1,57 @@
+v0.028 campaign guidance — inline candidate
+
+Deliverables:
+game/scripts/campaign_guidance.gd
+game/tests/test_campaign_guidance.gd
+
+Public static APIs:
+report(c, route_distance=0.0, career="captain") -> Dictionary
+careers() -> Array
+
+Guidance performs no purchases, transfers, assignments, canonicalization,
+save writes or history updates. Existing Expedition.report supplies
+capacity, actual crew wages, stores and trip/return estimates.
+Deployment supplies actual costs and the 300-point battle split.
+
+Report fields:
+ok, day, career, routeDistance, routeValid, notes, fleet,
+route_trip_returnbudget, cards, warnings, warningCount.
+
+Cards have id, title, reason, actionId and urgent. Cards and displayed
+warnings are capped at eight. Hull readiness, undercrew, recorded crew
+arrears, overload, stores and return payroll precede opportunities and
+career suggestions. Five careers each provide two suggestions.
+
+Owned hulls are deduplicated by UID across the player fleet and owners
+linked by shippingCompanies.ownerId with playerCompany=true.
+Stored, support and sunk counts are subsets of owned hulls; they can
+overlap. Company and player hull counts partition the unique owned total.
+Deployment reserves do not create additional cargo capacity.
+
+Company guidance reads recorded owner cash, crew purse, route, book
+status, recall and netProfit. Invested capital remains distinct from
+operating profit. Other opportunities inspect recorded training,
+reserves, tooling status, business labor/cash, law and inactive defenses.
+Unknown regionalCrises/jobs schemas are omitted for root's .027 adapter.
+Fire detection accepts a present numeric or boolean boat.fire field;
+unknown fire schemas are omitted.
+
+Invalid, negative or excessively large route distances explicitly use
+zero travel distance and retain the expedition reserve estimate.
+Invalid careers fall back to Captain with an explanation.
+Numeric display is finite and capped; nonfinite estimates become null.
+Wage estimates round upward to integer coins. Material stores come from
+Expedition; guidance invents no material prices, hull prices or profits.
+
+Tests instantiate actual Campaign/world JSON and compare actual
+Expedition/Deployment results. They cover read-only snapshots, invalid
+inputs, returned-data independence, careers, company accounting wording,
+stored/support/company hulls, fitted spec.cargo, numerical crew, damage,
+fire/water, arrears, supply/payroll shortages and overload.
+
+Edited fixtures are read-only test inputs, not accounting transactions.
+Money.total is used only on the pristine Campaign fixture.
+
+No files edited, tools invoked, engine run or native acceptance claimed.
+Root must execute the test, confirm optional field adapters, register it
+with serialized checks, and complete final balance/performance/UI review.

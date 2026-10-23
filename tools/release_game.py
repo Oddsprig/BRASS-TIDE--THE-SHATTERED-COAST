@@ -98,6 +98,16 @@ def main():
         shutil.copy2(ROOT / "docs/CAMPAIGN ROADMAP.txt",docs / "CAMPAIGN ROADMAP.txt")
     if (ROOT / "docs/CAPTAINS CAMPAIGN GUIDE.txt").is_file():
         shutil.copy2(ROOT / "docs/CAPTAINS CAMPAIGN GUIDE.txt",docs / "CAPTAINS CAMPAIGN GUIDE.txt")
+    # Keep current economy guidance and evidence available in the portable folder.
+    economy_records = ["ECONOMY QUICK START.txt", "ECONOMY VERSION MAP v0.019-v0.028.txt",
+                       "ECONOMY DEVELOPMENT v0.019-v0.028.txt", f"ROOT REVIEW v{VERSION}.txt",
+                       f"BALANCE SNAPSHOT v{VERSION}.txt", f"BALANCE SNAPSHOT v{VERSION}.json",
+                       f"CPU CAMPAIGN MEASUREMENTS v{VERSION}.txt", f"FLEET BENCHMARKS v{VERSION}.json"]
+    for name in economy_records:
+        source_record=ROOT/"docs"/name
+        if source_record.is_file():shutil.copy2(source_record,docs/name)
+    history=ROOT/"game/data/DEVELOPMENT HISTORY through v0.027.txt"
+    if history.is_file():shutil.copy2(history,docs/history.name)
     metrics=ROOT / f"docs/PERFORMANCE AND SAVE CHECKS v{VERSION}.txt"
     if metrics.is_file():
         shutil.copy2(metrics,docs / metrics.name)
@@ -128,6 +138,8 @@ while both games are closed. Keep the original folder as a backup.
 
 FIRST VOYAGE
 Start a new campaign with one inherited Tinwake skiff and five sailors.
+Open Captain's priorities on the coastal chart for current fleet and return-budget advice.
+Read docs/ECONOMY QUICK START.txt for training, businesses, companies, customs, boarding and civilian passage.
 Enter Brass Haven, open Contracts, and accept the first story job.
 Choose its destination on the chart, sail there, then resolve the contract.
 Your fleet begins on autopilot. Space pauses; Tab opens a tactical overview.

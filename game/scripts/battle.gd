@@ -158,13 +158,13 @@ static func _spawn_clear(st: Dictionary,s: Dictionary,p: Vector2) -> bool:
 
 static func get_flagship(st: Dictionary) -> Dictionary:
 	for s in st.ships:
-		if s.id==st.playerId and not s.sunk:
+		if s.id==st.playerId and not s.sunk and not s.get("captureSecured",false):
 			return s
 	return {}
 
 static func select_flagship(st: Dictionary,id) -> bool:
 	for s in st.ships:
-		if s.id==id and s.team=="player" and not s.sunk:
+		if s.id==id and s.team=="player" and not s.sunk and not s.get("captureSecured",false):
 			st.playerId=id
 			for boat in st.ships:
 				boat.selected=boat.id==id
@@ -639,7 +639,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		Damage.tick_ship(s,dt,{"inCombat":true})
 		_tick_cooldowns(s,dt)
 		CombatEvents.check_ship_engine(st,s)
-		if s.sunk:
+		if s.sunk or s.get("captureSecured",false):
 			continue
 		var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
 		if manual and not flagship.is_empty() and s.id==flagship.id and s.order!="withdraw":

@@ -1,0 +1,39 @@
+Root acceptance review — v0.028
+Bridge Sol6.1 Max industry helper source, tests and report read in full. Original
+report preserved unchanged. Root adapted actual law debts/bans, tooling location,
+worker arrears, employee arrays and undercrewed/repair-needed hull readiness.
+Fixed helper tests to create an actual new Campaign and use the real food good.
+Captain priorities remain read-only and expose five career views and real actions.
+
+Root added97-check actual combined60-day campaign coverage and287-check guidance
+coverage. The combined scenario includes physical company movement, paid academy,
+customs expiry, actual wage crises, civilian transport/reception and coastal wages.
+It also purchases an actual reserve hull and civilian goods, sinks the real carrier,
+checks persistent civilian wreck goods and restores a surviving flagship through
+complete save preflight. Full native source and clean-export results are separate.
+
+Root fixed two adjacent loss/restore defects: the old wreck schema omitted the four
+new civilian goods, and a lost flagship could leave a stale fleet reference. The
+company charter adapter now preserves its returned stable ID. Existing archives
+are kept; future company registrations stop at128 records with8 open companies.
+Currency prose now says coins in business reserves and ledger/shortage displays.
+
+Campaign route reuse uses a bounded128-entry exact-endpoint cache outside saves.
+Pure navigation remains independently tested. Returned path arrays are detached,
+malformed endpoints stay uncached, and the cache resets on new_game/restore.
+Copied-port workers and publication ownership remain unchanged. The verified CPU
+has24 logical threads; eight worker lanes were observed. Seven isolated fleet/
+weapon scenarios pass, including40 boats at300 deployment points per side. CPU
+logs explicitly exclude rendering and human audio audition. No GPU-FPS claim.
+
+Historical handoff, README and developer log were preserved verbatim before cleanup.
+Full earlier in-game notes remain in DEVELOPMENT HISTORY through v0.027.txt. Current
+quick-start, actual24-hull/20-good native bills and scoped CPU data are supplied.
+Source, exact annotated tag, Windows smoke, archive hashes, desktop launcher and
+GitHub publication each require their own evidence; none is inferred from another.
+
+Final damage review: a secured prize can still flood. Sinking before settlement
+now records its actual party/defenders and persistent wreck, rather than stranding
+the battle outcome. Secured prizes cannot be selected for manual flagship control.
+Actual boarding voyage now has28 checks. Full pending-prize capacity refuses new
+parties before crew departure; unit coverage checks that no people are withdrawn.

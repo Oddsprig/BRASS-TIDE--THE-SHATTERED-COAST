@@ -1,4 +1,5 @@
 extends RefCounted
+const Goods=preload("res://scripts/goods.gd")
 ## Optional campaign-extension schema; legacy voyages omit these fields.
 static func number(value,low: float=0.0,high: float=1000000000.0) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value)>=low and float(value)<=high
@@ -40,7 +41,7 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			for key in ["stores","components"]:
 				if not w.get(key) is Dictionary:return "Invalid wreck inventory."
 				for good in w[key]:
-					if not good in ["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns"] or not number(w[key][good]):return "Invalid wreck material quantity."
+					if not Goods.ITEMS.has(good) or not number(w[key][good]):return "Invalid wreck material quantity."
 	if s.has("blueprints"):
 		if not s.blueprints is Dictionary or s.blueprints.size()>128:return "Invalid blueprint library."
 		for key in s.blueprints:

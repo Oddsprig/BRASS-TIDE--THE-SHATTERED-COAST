@@ -1,3 +1,7 @@
+v0.028 voluntary play: Campaign balance guidance and performance
+Assess readability and usefulness of: Captain priorities provide five career views, actual readiness and return budgets, and direct links to existing campaign systems without changing game state. Paid physical companies, academy courses, customs expiry, defenses and civilian reception pass a combined60-day campaign; civilian wreck cargo and surviving-flagship restoration preserve exact accounting. Secured-prize sinking, manual-control exclusion and capture-capacity checks preserve actual people and wrecks. Bounded route reuse and charter records keep campaign work finite. Current portable play guides, native24-hull/20-good bills, scoped CPU measurements and original historical notes accompany the Windows build.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.027 voluntary play: Regional crises and resettlement
 Assess readability and usefulness of: Three consecutive observed food, unrest or unpaid-wage days open a dated local crisis; adequate recorded recovery closes it. Sponsored civilian passage moves existing people, skill subsets, savings and purchased food on named boats with actual berth and receiving limits. Real sailing earns work, two paid reception days admit workers, and returns or carrier losses preserve finite people, provisions, escrow and savings.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

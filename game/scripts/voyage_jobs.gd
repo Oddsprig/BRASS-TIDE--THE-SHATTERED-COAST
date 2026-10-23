@@ -1,4 +1,5 @@
 extends RefCounted
+const Routes=preload("res://scripts/route_cache.gd")
 ## v0.011 side voyage jobs that run ALONGSIDE the single story contract.
 ## Existing contracts.gd APIs and state.activeContract/state.freight are never
 ## touched. Side jobs live in state["voyageJobs"] (Array, max MAX_ACTIVE) with
@@ -145,7 +146,7 @@ static func _travel_days(core, a: Dictionary, b: Dictionary) -> float:
 	if core == null or not core.has_method("distance") or not core.has_method("travel_speed"):
 		return 1.0
 	var seconds := float(core.get("DAY_SECONDS")) if _is_num(core.get("DAY_SECONDS")) else 45.0
-	var route: Array=core.Navigation.find_path(core.nav,a,b)
+	var route: Array=Routes.path(core,a,b)
 	var length: float=0.0
 	for i in range(1,route.size()):length+=core.distance(route[i-1],route[i])
 	var speed: float=float(core.hull("tin_skiff").get("speed",75))*1.55*float(core.data.get("CAMPAIGN_SCALE",1))

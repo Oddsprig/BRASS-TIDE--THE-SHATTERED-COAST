@@ -1,4 +1,4 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.027)
+BRASS TIDE — PRESENTATION MAP (generated; v0.028)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
@@ -22,13 +22,13 @@ game/scripts/boat_portrait.gd: 3987 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:35 _init()
   game/scripts/boat_portrait.gd:43 _gui_input()
   game/scripts/boat_portrait.gd:49 _draw()
-game/scripts/interface.gd: 47165 bytes; extends CanvasLayer
-  game/scripts/interface.gd:63 setup()
-  game/scripts/interface.gd:88 create_theme()
-  game/scripts/interface.gd:108 box()
-  game/scripts/interface.gd:120 clear()
-  game/scripts/interface.gd:125 label()
-  game/scripts/interface.gd:135 paragraph()
+game/scripts/interface.gd: 47348 bytes; extends CanvasLayer
+  game/scripts/interface.gd:65 setup()
+  game/scripts/interface.gd:90 create_theme()
+  game/scripts/interface.gd:110 box()
+  game/scripts/interface.gd:122 clear()
+  game/scripts/interface.gd:127 label()
+  game/scripts/interface.gd:137 paragraph()
 game/scripts/tactics_ui.gd: 3830 bytes; extends RefCounted
   game/scripts/tactics_ui.gd:4 build()
   game/scripts/tactics_ui.gd:50 update()
@@ -39,7 +39,7 @@ game/scripts/refit_ui.gd: 8014 bytes; extends RefCounted
   game/scripts/refit_ui.gd:40 open()
   game/scripts/refit_ui.gd:75 choose()
   game/scripts/refit_ui.gd:101 review()
-game/scripts/finance_ui.gd: 7552 bytes; extends RefCounted
+game/scripts/finance_ui.gd: 7750 bytes; extends RefCounted
   game/scripts/finance_ui.gd:5 boat_quote()
   game/scripts/finance_ui.gd:24 good_recipe()
   game/scripts/finance_ui.gd:45 settlement()

@@ -1,6 +1,14 @@
-## v0.027 — Regional crises and resettlement
+## v0.028 — Campaign balance guidance and performance
 
 Candidate; verified test/export records follow.
+
+- Captain priorities explain actual hull, crew, supply and return-payroll problems, with five career views and direct links to existing systems.
+- Combined campaign verification exercises paid training, physical companies, customs expiry, coastal payroll, dated crises and actual passenger reception together.
+- Bounded campaign records, current developer notes and measured headless CPU timings support the portable Windows build; no render-FPS claim is inferred from simulation checks.
+
+## v0.027 — Regional crises and resettlement
+
+Verified local Windows delivery; exact tagged game 7c4a2bf08ac39e15db3442ea3635343eb7ab8f66. Native/export/archive evidence is in the delivery receipts.
 
 - Dated shortages, unrest and unpaid actual obligations require three consecutive observations; verified recovery takes three adequate days.
 - Sponsored voyages move existing idle workers, skill subsets, savings and purchased provisions on actual boats with finite receiving capacity.

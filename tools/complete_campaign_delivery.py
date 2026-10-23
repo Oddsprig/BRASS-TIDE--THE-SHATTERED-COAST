@@ -77,12 +77,20 @@ def main():
             if record.is_file():
                 verified=json.loads(record.read_text(encoding="utf-8"))
                 rows.append(f"v0.{build:03} DELIVERED | {verified['source_commit']}")
-        note="LIVE RELEASE STATUS\n"+"\n".join(rows)+"\nCurrent delivered game: v"+version+". Later steps remain authorized and unfinished until their own receipts exist.\nEND LIVE RELEASE STATUS\n\n"
+        sequence_status = ("The ten authorized economy increments v0.019-v0.028 are complete; each has its own verified receipt."
+                           if args.build == 28 else "Later steps remain authorized and unfinished until their own receipts exist.")
+        note="LIVE RELEASE STATUS\n"+"\n".join(rows)+"\nCurrent delivered game: v"+version+". "+sequence_status+"\nEND LIVE RELEASE STATUS\n\n"
         for name in ["docs/ECONOMY VERSION MAP v0.019-v0.028.txt","docs/ECONOMY DEVELOPMENT v0.019-v0.028.txt"]:
             path=ROOT/name
             old=path.read_text(encoding="utf-8")
             old=re.sub(r"^LIVE RELEASE STATUS\n.*?END LIVE RELEASE STATUS\n\n", "", old, count=1, flags=re.S)
             path.write_text(note+old,encoding="utf-8")
+    if args.build == 28:
+        handoff=ROOT/"HANDOFF.md"
+        heading=f"# v{version} delivered — authorized economy sequence complete\n\n"
+        if not handoff.read_text(encoding="utf-8").startswith(heading):
+            body=f"All ten builds v0.019-v0.028 have separate verified Windows/source archives and annotated tags. Exact current game: {tag}. Launcher, original-save preservation and remote publication have separate receipts. Read docs/ECONOMY QUICK START.txt and current maps for the completed systems. No additional playable increment has been started.\n\n"
+            handoff.write_text(heading+body+handoff.read_text(encoding="utf-8"),encoding="utf-8")
     print(f"v{version}: exact-tag source, portable hashes, archives and local delivery verified")
 
 

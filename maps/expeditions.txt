@@ -1,4 +1,4 @@
-BRASS TIDE — EXPEDITIONS MAP (generated; v0.027)
+BRASS TIDE — EXPEDITIONS MAP (generated; v0.028)
 
 Traveling fleet/real stores -> cargo carriers, paid endurance, shore assignments, persistent discoveries and copied-port workers.
 
@@ -18,15 +18,15 @@ game/scripts/economy_workers.gd: 1558 bytes; extends RefCounted
   game/scripts/economy_workers.gd:28 ready()
   game/scripts/economy_workers.gd:31 finish()
   game/scripts/economy_workers.gd:22 _work()
-game/scripts/campaign_ui.gd: 6704 bytes; extends RefCounted
-  game/scripts/campaign_ui.gd:4 expedition()
-  game/scripts/campaign_ui.gd:31 notes()
-  game/scripts/campaign_ui.gd:39 islands()
-  game/scripts/campaign_ui.gd:62 site()
-  game/scripts/campaign_ui.gd:97 survey_day()
-game/scripts/campaign_state_validation.gd: 18276 bytes; extends RefCounted
-  game/scripts/campaign_state_validation.gd:3 number()
-  game/scripts/campaign_state_validation.gd:6 validate()
+game/scripts/campaign_ui.gd: 6846 bytes; extends RefCounted
+  game/scripts/campaign_ui.gd:5 expedition()
+  game/scripts/campaign_ui.gd:32 notes()
+  game/scripts/campaign_ui.gd:40 islands()
+  game/scripts/campaign_ui.gd:63 site()
+  game/scripts/campaign_ui.gd:98 survey_day()
+game/scripts/campaign_state_validation.gd: 18429 bytes; extends RefCounted
+  game/scripts/campaign_state_validation.gd:4 number()
+  game/scripts/campaign_state_validation.gd:7 validate()
 game/scripts/exploration.gd: 18914 bytes; extends RefCounted
   game/scripts/exploration.gd:133 catalog_site()
   game/scripts/exploration.gd:152 ensure()

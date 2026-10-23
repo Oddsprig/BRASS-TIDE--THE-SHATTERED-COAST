@@ -1,4 +1,5 @@
 extends RefCounted
+const Routes=preload("res://scripts/route_cache.gd")
 const Reserves=preload("res://scripts/harbor_reserves.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Goods=preload("res://scripts/goods.gd")
@@ -18,7 +19,7 @@ static func ensure(c) -> void:
 				var length: float=c.distance(p,other)
 				if length<distance:distance=length;nearest=other
 			if not nearest.is_empty():
-				var path: Array=Navigation.find_path(c.nav,p,nearest)
+				var path: Array=Routes.path(c,p,nearest)
 				var length: float=0
 				for i in range(1,path.size()):length+=c.distance(path[i-1],path[i])
 				var transport_speed: float=maxf(10,float(c.hull("bilge_punt").get("speed",70))*1.55*float(c.data.get("CAMPAIGN_SCALE",1.0)))

@@ -147,6 +147,7 @@ func create(c,boat_uids: Array,destination: String,good: String,
 		return _fail(error)
 	var s: Dictionary=c.state
 	var books: Dictionary=s.get("shippingCompanies",{})
+	if books.size()>=128:return _fail("The company register holds 128 retained charters. Existing routes continue and all records are preserved.")
 	if _open(books) >= MAX_CO or boat_uids.is_empty() or amount <= 0 \
 			or amount > s.coins or not _goods.has(good) or not _limits(limits):
 		return _fail("Cannot create company.")

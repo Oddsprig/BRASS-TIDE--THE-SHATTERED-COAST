@@ -7,6 +7,7 @@ const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
 const HomeUI=preload("res://scripts/home_ui.gd")
+const GuidanceUI=preload("res://scripts/guidance_ui.gd")
 const CrisisUI=preload("res://scripts/crisis_ui.gd")
 const BoardingUI=preload("res://scripts/boarding_ui.gd")
 const LawUI=preload("res://scripts/law_ui.gd")
@@ -33,6 +34,7 @@ const GOLD = Color("dfbd7d")
 const TEAL = Color("8ac9b6")
 const RED = Color("eb9a7d")
 var host
+var guidance_career: String="captain"
 var root: Control
 var chrome: Control
 var overlay: Control
@@ -226,7 +228,7 @@ func title_screen():
 	if first==null:first=start
 	button(actions, "Fleet battle laboratory", host.open_lab)
 	button(actions, "Options & music", open_settings)
-	button(actions, "Guide & credits", open_guide)
+	button(actions, "Guide & acknowledgements", open_guide)
 	button(actions, "Development notes", func():CampaignUI.notes(self))
 	button(actions, "Quit to desktop", host.quit_game)
 	for action in actions.get_children():
@@ -281,6 +283,7 @@ func build_campaign_hud(size: Vector2):
 	flagship_label = label(left_body, "", 26, TEXT, true)
 	paragraph(left_body, "A captain is only as strong as the boats and sailors that come home.", 14)
 	rule(left_body)
+	button(left_body,"Captain's priorities",func():GuidanceUI.open(self),true)
 	button(left_body, "Fleet & damage control     F", open_fleet)
 	button(left_body, "Cargo & supplies               C", open_cargo)
 	button(left_body, "Contracts & logbook          J", open_contracts)

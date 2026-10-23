@@ -50,6 +50,9 @@ const DAY_SECONDS = 45.0
 
 var shipping
 var crises
+var route_cache: Dictionary={}
+var route_hits: int=0
+var route_misses: int=0
 var data: Dictionary
 var state: Dictionary = {}
 var nav: Dictionary = {}
@@ -62,6 +65,21 @@ func _init(world_data: Dictionary):
 	for h in data.HULLS:
 		h.price = Construction.quote(h).readyPrice
 	nav = Navigation.create(data.ISLANDS,float(data.WORLD.width),float(data.WORLD.height),40.0*float(data.get("CAMPAIGN_SCALE",1.0)))
+
+func cached_path(a: Dictionary,b: Dictionary) -> Array:
+	# Coast geometry is immutable for this Campaign instance. Cache exact numeric
+	# endpoints, return detached paths, and cap entries so chart movement is bounded.
+	for point in [a,b]:
+		for coordinate in ["x","y"]:
+			var value=point.get(coordinate)
+			if not (value is int or value is float) or not is_finite(float(value)):return Navigation.find_path(nav,a,b)
+	var key: Array=[float(a.x),float(a.y),float(b.x),float(b.y)]
+	if route_cache.has(key):route_hits+=1;return route_cache[key].duplicate(true)
+	route_misses+=1
+	var path: Array=Navigation.find_path(nav,a,b)
+	if route_cache.size()>=128:route_cache.erase(route_cache.keys()[0])
+	route_cache[key]=path.duplicate(true)
+	return path
 
 func hull(id: String) -> Dictionary:
 	for h in data.HULLS:
@@ -82,6 +100,7 @@ func faction(id: String) -> Dictionary:
 	return {}
 
 func new_game(seed_value: int = 1):
+	route_cache.clear();route_hits=0;route_misses=0
 	var start = data.START
 	var ports: Array = []
 	for definition in data.PORTS:
@@ -179,7 +198,7 @@ func port_position(id: String) -> Dictionary:
 
 func set_patrol_course(patrol: Dictionary, a: Dictionary, b: Dictionary):
 	# Precompute once per voyage/load; never pathfind or simulate water per frame.
-	patrol.course = Navigation.find_path(nav,a,b)
+	patrol.course = cached_path(a,b)
 	patrol.courseLength = 0.0
 	for i in range(1,patrol.course.size()):
 		patrol.courseLength += distance(patrol.course[i-1],patrol.course[i])
@@ -270,7 +289,7 @@ func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if active_fleet().size()>MAX_TRAVELING:return fail("Store boats at a harbor: up to %d active boats may accompany one expedition."%MAX_TRAVELING)
 	if cargo_weight()>capacity()+0.001:return fail("The traveling holds are overloaded. Offload cargo or activate a carrier before sailing.")
 	Manifest.allocate(state)
-	var path = Navigation.find_path(nav, state.position, target)
+	var path = cached_path(state.position,target)
 	if path.is_empty():
 		return fail("No safe water route. Choose a harbor or open water.")
 	path.pop_front()
@@ -332,6 +351,7 @@ func step(dt: float):
 	FleetSupport.reconcile(self)
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s): return not s.sunk)
+	if not state.fleet.is_empty() and not state.fleet.any(func(b):return str(b.uid)==str(state.flagship)):state.flagship=str(state.fleet[0].uid)
 	if state.fleet.is_empty():
 		events.append({"kind": "defeat"})
 		return
@@ -791,6 +811,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	FleetSupport.reconcile(self)
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
 	state.fleet = state.fleet.filter(func(s):return not s.sunk)
+	if not state.fleet.is_empty() and not state.fleet.any(func(b):return str(b.uid)==str(state.flagship)):state.flagship=str(state.fleet[0].uid)
 	Manifest.allocate(state)
 	state.encounterGrace = 75.0
 	stop_sailing()
@@ -984,7 +1005,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	for patrol in state.patrols:
 		# Saved chart position is authoritative; recompute a safe remaining route from there.
 		var saved_position: Dictionary={"x":patrol.x,"y":patrol.y}
-		patrol.course=Navigation.find_path(nav,saved_position,port(patrol.to))
+		patrol.course=cached_path(saved_position,port(patrol.to))
 		patrol.courseLength=0.0
 		for i in range(1,patrol.course.size()):patrol.courseLength+=distance(patrol.course[i-1],patrol.course[i])
 		patrol.progress=0.0

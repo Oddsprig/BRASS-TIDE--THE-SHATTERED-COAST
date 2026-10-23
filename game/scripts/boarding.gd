@@ -232,6 +232,8 @@ static func launch(battle: Dictionary, source_id, target_id, count) -> Dictionar
 	if not _setup(battle) or battle.boarding.jobs.size() >= JOBS \
 		or battle.boarding.next >= PEOPLE:
 		return _bad("Boarding job limit or invalid battle")
+	var slots=battle.get("captureSlots",PRIZES)
+	if not _w(slots,PRIZES) or battle.captured.size()+battle.boarding.jobs.filter(func(job):return job.status=="active").size()>=int(slots):return _bad("Bring existing prizes into available roster places before taking another capture")
 	for j in battle.boarding.jobs:
 		if j.status == "active" and (str(j.source) == str(source_id) \
 				or str(j.target) == str(target_id)):

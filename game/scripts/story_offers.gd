@@ -1,4 +1,5 @@
 extends RefCounted
+const Routes=preload("res://scripts/route_cache.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Economy=preload("res://scripts/economy.gd")
 static func available(c) -> Array:
@@ -19,7 +20,7 @@ static func available(c) -> Array:
 		var good: String=def[3]
 		var qty: int=int(def[4])
 		if float(p.stocks.get(good,0))<qty:continue
-		var route: Array=c.Navigation.find_path(c.nav,p,target)
+		var route: Array=Routes.path(c,p,target)
 		if route.size()<2:continue
 		var distance: float=0
 		for i in range(1,route.size()):distance+=c.distance(route[i-1],route[i])

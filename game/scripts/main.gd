@@ -472,6 +472,7 @@ func begin_battle(specs: Array, context: Dictionary):
 		player_fleet=ally_owner.get("boats",[]).filter(func(b):return not b.sunk and b.crew>=b.crewMin)+player_fleet
 	for boat in player_fleet:boat.supportRepairFactor=1.0
 	battle = Battle.create({"fleet":player_fleet,"mission":context.get("mission",{}), "enemySpecs": specs, "enemyFleet":enemy_fleet, "seed": int(core.state.seed) + core.state.wins * 17 + core.state.losses * 5, "location": {"name": context.name}})
+	battle.captureSlots=maxi(0,64-core.state.get("boardingPrizes",[]).size())
 	core.BoardingOps.coastal(core,battle)
 	_enter_battle()
 

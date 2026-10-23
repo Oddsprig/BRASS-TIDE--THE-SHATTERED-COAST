@@ -7,13 +7,14 @@ v0.023 DELIVERED | 9c1845eda7f59228a986b5ad40f7504766f102aa
 v0.024 DELIVERED | a626ad3567716eb2eb69394de19050c239920412
 v0.025 DELIVERED | 47997682536d86d17e7b511e4590859295862548
 v0.026 DELIVERED | 79705bcb10e271f932563912ec54a8084a035005
-Current delivered game: v0.026. Later steps remain authorized and unfinished until their own receipts exist.
+v0.027 DELIVERED | 7c4a2bf08ac39e15db3442ea3635343eb7ab8f66
+Current delivered game: v0.027. Later steps remain authorized and unfinished until their own receipts exist.
 END LIVE RELEASE STATUS
 
 BRASS TIDE — THE SHATTER COAST
 ECONOMY AND FLEET CAMPAIGN VERSION MAP
 Prepared 22 October 2026 | v0.019–v0.028
-STATUS: PLANNED. Current delivered game: v0.018 (integer BUILD 18).
+STATUS: Historical design specification. Current delivery facts are in the LIVE RELEASE STATUS table above.
 
 OWNER REQUEST
 "OK PREPARE A VERSION MAP"

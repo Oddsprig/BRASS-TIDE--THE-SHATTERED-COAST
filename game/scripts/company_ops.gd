@@ -1,4 +1,5 @@
 extends RefCounted
+const Routes=preload("res://scripts/route_cache.gd")
 ## Main-thread physical fleet-company binding. Accounting metadata holds no purse.
 const Companies=preload("res://scripts/shipping_companies.gd")
 const TradeRules=preload("res://scripts/trade_rules.gd")
@@ -61,7 +62,8 @@ static func create(c,uids: Array,destination: String,good: String,capital: int,l
 	var patrol: Dictionary=api(c)._patrol(c.state,owner.id)
 	c.NavalLifecycle.route(c,patrol,c.NavalAI.arrived(c,owner,c.current_port()))
 	c.Manifest.allocate(c.state)
-	return c.ok("Company chartered with the same actual boats and crews. Its master is one of those sailors and earns75 extra coins/day; all route costs use its real purse.")
+	result.message="Company chartered with the same actual boats and crews. Its master is one of those sailors and earns75 extra coins/day; all route costs use its real purse."
+	return result
 
 static func owner(c,id: String) -> Dictionary:
 	return c.fleet_owner(id)
@@ -224,7 +226,7 @@ static func quote(c,uids: Array,destination: String,good: String) -> Dictionary:
 	for boat in c.state.fleet:
 		if boat.uid not in uids:continue
 		crew+=float(boat.crew);hold_space+=float(c.fitted_spec(boat).cargo);speed=minf(speed,float(c.fitted_spec(boat).speed));boats+=1
-	var path: Array=c.Navigation.find_path(c.nav,home,target)
+	var path: Array=Routes.path(c,home,target)
 	var distance: float=0
 	for i in range(1,path.size()):distance+=c.distance(path[i-1],path[i])
 	var days: float=2*distance/maxf(1,speed*0.38*float(c.data.get("CAMPAIGN_SCALE",1)))/45.0+0.25

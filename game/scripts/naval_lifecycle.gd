@@ -1,4 +1,5 @@
 extends RefCounted
+const Routes=preload("res://scripts/route_cache.gd")
 ## Main-thread campaign publication around bounded autonomous daily decisions.
 const AI=preload("res://scripts/naval_ai.gd")
 const Fleets=preload("res://scripts/fleet_economy.gd")
@@ -27,7 +28,7 @@ static func route(c,p: Dictionary,dest: String) -> void:
 		return
 	p.voyageSeq=int(p.get("voyageSeq",0))+1
 	p.holding=false;owner.atPort="";p.to=dest;p.progress=0.0
-	p.course=Navigation.find_path(c.nav,p,target)
+	p.course=Routes.path(c,p,target)
 	p.courseLength=0.0
 	for i in range(1,p.course.size()):p.courseLength+=c.distance(p.course[i-1],p.course[i])
 

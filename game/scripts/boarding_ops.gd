@@ -91,6 +91,19 @@ static func allot_captives(c) -> bool:
 static func settle(c,battle: Dictionary) -> Dictionary:
 	ensure(c)
 	if battle.is_empty():return {"ok":true,"added":0}
+	# Securing a prize does not make a flooded hull immortal. Lost parties and
+	# defenders cannot strand the victory screen or become living prize crew.
+	var survivors: Array=[]
+	for b in battle.get("captured",[]):
+		if not b.get("sunk",false):survivors.append(b);continue
+		if not b.get("boardingSettled",false):
+			var party: int=0
+			for job in battle.get("boarding",{}).get("jobs",[]):
+				if str(job.target)==str(b.get("id","")):party+=int(job.get("prize",0))
+			c.state.boardingLostPeople+=party+int(b.get("captives",0))
+			b.boardingSettled=true;b.captives=0.0;b.crew=0.0;b.wounded=0.0;b.boarders=0
+			c.log_entry("Secured prize lost to flooding before recovery; its actual people and wreck were recorded.")
+	if battle.has("captured"):battle.captured=survivors
 	var r: Dictionary=Boarding.settle(c,battle)
 	if not r.ok:return message(c,r,"")
 	for owner in c.state.fleetOwners:

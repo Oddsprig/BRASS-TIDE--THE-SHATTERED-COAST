@@ -1,3 +1,5 @@
+v0.028 SOURCE ACCEPTED — Campaign balance guidance and performance. 66 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 v0.027 SOURCE ACCEPTED — Regional crises and resettlement. 64 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 v0.026 SOURCE ACCEPTED — Boarding crews and coastal defenses. 62 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
