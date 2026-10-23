@@ -1,3 +1,6 @@
+v0.028 DELIVERED | exact game 2b11d4d1af69b62a2f8436bcdee4a5675432bd98
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.028 SOURCE ACCEPTED | Campaign balance guidance and performance
 66 native suites passed; source report saved. Portable export and publication require separate receipts.
 

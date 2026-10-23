@@ -1,6 +1,6 @@
 ## v0.028 — Campaign balance guidance and performance
 
-Candidate; verified test/export records follow.
+Verified local Windows delivery; exact tagged game 2b11d4d1af69b62a2f8436bcdee4a5675432bd98. Native/export/archive evidence is in the delivery receipts.
 
 - Captain priorities explain actual hull, crew, supply and return-payroll problems, with five career views and direct links to existing systems.
 - Combined campaign verification exercises paid training, physical companies, customs expiry, coastal payroll, dated crises and actual passenger reception together.

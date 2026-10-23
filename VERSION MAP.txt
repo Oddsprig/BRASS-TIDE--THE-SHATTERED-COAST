@@ -1,4 +1,4 @@
-v0.028 CANDIDATE — Campaign balance guidance and performance
+v0.028 DELIVERED — exact game 2b11d4d1af69b62a2f8436bcdee4a5675432bd98 — Campaign balance guidance and performance
 Captain priorities explain actual hull, crew, supply and return-payroll problems, with five career views and direct links to existing systems. Combined campaign verification exercises paid training, physical companies, customs expiry, coastal payroll, dated crises and actual passenger reception together. Bounded campaign records, current developer notes and measured headless CPU timings support the portable Windows build; no render-FPS claim is inferred from simulation checks.
 Source acceptance and export receipts determine completion; every build advances0.001.
 

@@ -8,7 +8,8 @@ v0.024 DELIVERED | a626ad3567716eb2eb69394de19050c239920412
 v0.025 DELIVERED | 47997682536d86d17e7b511e4590859295862548
 v0.026 DELIVERED | 79705bcb10e271f932563912ec54a8084a035005
 v0.027 DELIVERED | 7c4a2bf08ac39e15db3442ea3635343eb7ab8f66
-Current delivered game: v0.027. Later steps remain authorized and unfinished until their own receipts exist.
+v0.028 DELIVERED | 2b11d4d1af69b62a2f8436bcdee4a5675432bd98
+Current delivered game: v0.028. The ten authorized economy increments v0.019-v0.028 are complete; each has its own verified receipt.
 END LIVE RELEASE STATUS
 
 BRASS TIDE — THE SHATTER COAST

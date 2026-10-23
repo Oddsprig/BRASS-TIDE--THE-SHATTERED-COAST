@@ -1,9 +1,8 @@
-BRASS TIDE BUILD STATUS
-Current source: v0.028 / BUILD 28
-Milestone: Campaign balance guidance and performance
-SOURCE ACCEPTED: 66 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+BRASS TIDE v0.028 — VERIFIED LOCAL WINDOWS DELIVERY
 
-Playable delivery is proven by each portable RELEASE.json and outputs/Brass Tide v0.028 DELIVERY VERIFIED.json.
-In-game TXT notes: game/data/DEVELOPER NOTES.txt. Current economy plan: docs/ECONOMY VERSION MAP v0.019-v0.028.txt.
-Owner authorized sequential builds0.019-0.028 with root and up to three Sol6.1 Max helpers through Bridge.
-Previous versions, original saves and supplied music must remain intact.
+Exact game source: 2b11d4d1af69b62a2f8436bcdee4a5675432bd98
+Native Windows menu, campaign/save and battle startup: PASS in background/headless mode.
+Executable icon/PCK, manifest hashes, Windows ZIP and exact-tag source ZIP CRC/SHA256: PASS.
+All prior releases and original owner saves/music remain preserved. No desktop input/focus.
+Development notes are available in the title/Escape menus and DEVELOPER NOTES.txt beside the game.
+GitHub upload and latest desktop shortcut have separate receipts.

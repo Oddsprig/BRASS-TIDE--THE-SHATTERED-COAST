@@ -1,3 +1,7 @@
+# v0.028 delivered — authorized economy sequence complete
+
+All ten builds v0.019-v0.028 have separate verified Windows/source archives and annotated tags. Exact current game: 2b11d4d1af69b62a2f8436bcdee4a5675432bd98. Launcher, original-save preservation and remote publication have separate receipts. Read docs/ECONOMY QUICK START.txt and current maps for the completed systems. No additional playable increment has been started.
+
 # v0.028 — Campaign balance guidance and performance
 
 SOURCE ACCEPTED: 66 native suites pass; portable export evidence is recorded separately in RELEASE.json.
