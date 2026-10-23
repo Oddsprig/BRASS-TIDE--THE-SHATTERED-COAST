@@ -1,0 +1,88 @@
+BRASS TIDE v0.030 — TACTICAL CONTRACT REVIEW
+23 October 2026 | A | DESIGN ONLY; no runtime authorization.
+
+Reviewed B's workshop/qa/TACTICAL INTEGRATION DESIGN v0.030.txt, SHA256
+0ee5dbc86d7a097faab0601d581719ed72d7710d692addc382362b67e99b85b2.
+Agree with the propose/certify/resolve seam, subject to these freeze corrections.
+
+1. Detached ownership
+propose(view,memory)->Array;
+resolve(view,memory,offers)->{memory,byId,counters}.
+B snapshots after all damage/cooldown updates, preserving once-only timers.
+view includes snapshotRevision and all side-filtered ships; dueIds restrict
+authorship. Other hulls' reservations remain visible and unchanged. Own records
+include normalized physical mounts/status; opponents contain observed pose,
+fittings, condition and fire, never private orders/ammo. No callbacks, live
+Dictionary/Resource references, RNG or Battle calls cross A's boundary.
+B owns per-battle/per-side memory keyed by existing hull id, not invented battle
+UIDs; removed/prized/sunk hulls are pruned. Publish detached results once.
+
+2. Offers and certificates
+Keep B's candidate fields and Vector2 paths. At most eight TOTAL offers per due
+hull across all targets/roles, sixteen scored targets including explicit target/
+immediate protected-ally threat; no eight-per-target multiplication.
+Put B's validation in certificate={status,reachable,exitReachable,eta,fireWindow,
+risk,checkedAt,validUntil,snapshotRevision,orderRevision,pathFingerprint,reason}.
+status is valid/pending/blocked; fireWindow={from,until,mountIds}, using simulation
+times and stable mount IDs. Bind the fingerprint to the complete candidate paths.
+resolve accepts only matching revisions, valid certificates and checked ingress,
+firing opportunity and exit; never manufacture or extend validation. Require validUntil<=checkedAt+0.2s; return candidateId/pathFingerprint and
+revisions with intent. Nonfiring move/hold/rally offers need
+no firing opportunity. Reserve one station/time window per hull and reject
+overlapping swept reservations, not merely identical waypoint coordinates.
+
+3. Bounded physical work
+Require swept canonical footprint clearance and predicted allied occupancy.
+Propose <=8 waypoints per approach/pass/exit leg and <=60 physical samples over
+2 seconds per rollout, using actual turn/acceleration/braking/reverse/fuel/status.
+Beyond that horizon, certify conservative static corridors, never promise future
+dynamic clearance. Revalidate kinematics at least every 0.2s and local safety
+each helm tick; deviation, new order, changed capability/occupancy or blocked
+exit invalidates execution. Failure/exhaustion is pending/blocked, with braking
+and drift clearance checked; zero throttle is not an instant stop.
+Four NEW full route queries per Battle.update across BOTH sides, including
+failed attempts; cache128 stores static geometry only, keyed by terrain,
+footprint and exact endpoints. Cache hits cannot renew dynamic certificates.
+Freeze separate aggregate geometry/rollout limits and counters: four route
+queries do not bound eight offers*60 samples*74 hulls each frame. Shortlist/stop
+early, stagger rollouts; count urgent work within the same caps. Never postpone
+cheap order/safety acknowledgement behind routing. Propose <=16 rollouts/step
+(960 samples), shared across sides/urgent work, at most one/hull; root must
+freeze this separately from route limits.
+
+4. Authority and firing
+Use canonical order/orderTarget plus separate orderRevision; commands invalidate
+old intents before next helm tick. Manual takeover suspends planner helm/fire
+without erasing orders; autopilot revalidates before resuming. ROOT RESOLUTION:
+remove battle.gd:645's withdraw exception. Manual always owns flagship helm/fire,
+including queued per-boat withdraw. Fleet retreat may enable autopilot/queue
+withdraw with UI acknowledgement; later U/manual opt-in retakes direct control.
+Keep retreat's 12s compatibility result, labeled "legacy escape timer". Local
+survival rally never calls fleet retreat or claims physical exit; .032 owns
+actual objective exits. C preserves existing assertions and adds focused
+manual-after-withdraw coverage. Cancel conflicting unlaunched boarding and
+prevent autoBoard recreation. Keep interruptible 1.2s commitments.
+
+fireGate remains mountId->{targetId,permit,shotLimit,reason}. Every automatic
+mount requires a current gate; absent/denied/expired gates withhold. No nearest
+fallback for ANY automatic mount, including guns. Legacy targetless attack
+selects its nearest target before gating. Recheck arcs/muzzle/intercept/lifetime,
+terrain/allied lanes, crew, ammo/cooldowns every shot. Consume shotLimit only
+after actual emission; never replenish it on a routine intent refresh.
+Recommend explicit manual fire bypass voluntary AI holds/reserve, retaining
+physical legality. Planner gates cannot intercept manual trigger input.
+
+5. Admission, budgets and outstanding revision
+Root's 300DP admission stands: cover 40/42 catalogue and synthetic60/74 active
+hulls; no20cap. Scale normal scheduling ceil(activeHulls/6), retain 30Hz helm,
+0.2s intent/0.1s urgent/next-tick commands and zero drops; report queue age. Prospective stage1
+battle p95/p99/max:40/42=16/24/33.333ms, AIp95=3ms;
+60/74=24/30/33.333ms, AIp95=5ms. Establish accepted-.029 stage0 first.
+8ms is a later optimization goal, never current baseline or proof.
+
+At review, B's r2 proposal/budget JSON were absent. Current r1 SHA256 begins
+07746465c925741e; my earlier 51c942d5 hash is stale. Its admission cap and
+tactical40 timings conflict with root's decision. Root must freeze exact r2
+schema, numeric work caps and hashes before .030 implementation.
+Only this review text is authorized; .029 remains frozen, with no engine/tests.
+

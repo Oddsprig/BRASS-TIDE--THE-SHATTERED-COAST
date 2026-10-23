@@ -1,0 +1,162 @@
+BRASS TIDE v0.030 — TACTICAL CONTRACT r2 PROPOSAL
+23 October 2026 | B | DESIGN ONLY; awaiting root freeze and .029 Windows receipt.
+Supersedes conflicting r1/B design clauses only after root acceptance.
+Inputs: A's art/qa/TACTICAL DESIGN v0.030.txt; C's verification/docs/AI FIXTURE
+BUDGETS v0.030-v0.038.json r1. Full input hashes are in the companion JSON.
+No A acknowledgement is assumed; this resolves the proposed shared interface.
+
+1. Loads, baseline and timings
+
+Counts name benchmark profiles, NEVER hull admission limits. Preserve
+Deployment.cost/fits/split, Battle.create and 300 DP per coalition; split keeps
+actual over-budget boats as reserves. Test tactical_40 (20 stock tin_skiff/side),
+catalogue_42 (21 stock bilge_punt/side), api_60 (30 synthetic 10-DP/side),
+api_74 (37 synthetic 8-DP/side), both orientations and overflow. No 20-hull cap.
+Future objective_44/three_party_72 likewise describe samples; .032/.033 must
+baseline expanded low-DP/carrier combinations before implementation.
+
+Stage0 freezes accepted .029's full_300 seed83 profile: unchanged stock fitting,
+20 tin_skiff/side, 300 DP/side, default islands/formation, dt=1/30.
+Retain the comparable 180-tick/no-warmup legacy run, then instrument stress:
+5 simulation seconds warmup, 60 measured seconds. Historical .028 p95/max
+11.235/13.381 ms is reference only; p99 was unrecorded. Accepted .029 measurements
+remain pending, never inferred from that historical run.
+
+Prospective Stage1 total battle p95/p99/max <=16/24/33.333 ms at 40/42;
+AI p95 <=3 ms. Synthetic 60/74: <=24/30/33.333 ms; AI p95 <=5 ms.
+8 ms remains a later optimization goal. Later CPU values retain r1 numbers
+labelled provisional, requiring pre-implementation baseline and root acceptance.
+Report raw samples, p50/p90/p95/p99/max, counts, active-load distribution,
+oldest decision/certificate age, overruns/stalls/dropped decisions (zero).
+No terminal no-op padding, truncated stress pass, or rendered-FPS inference.
+
+2. Lifetime, cadence and bounded work
+
+st.tactical owns per-side memory, revisions, intents, reservations and counters;
+create resets, removal prunes, result freezes. Never put planner state in campaign
+hulls/saves. UI/resources remain main-thread; no workers added.
+Normal decisions <=0.2s; survival <=0.1s; commands acknowledged immediately and
+govern the next tick; helm/projectiles >=30Hz. Schedule ceil(activeHulls/6)
+normal decisions/tick globally: 7/7/10/13 at 40/42/60/74. Safety checks every tick.
+A pending route is an explained brake/hold decision, never fabricated reachability.
+
+Eight offers TOTAL per due hull across sixteen scored targets. Four new full
+route searches/Battle.update globally; cache128 static corridors; one active
+station/hull; trace512. Separate global rollout budget: <=840 integration samples/
+update across BOTH sides, <=60 samples/certificate at 1/30s (first2s).
+Short-circuit candidates; prioritize commands/expiry/age; queue one pending
+certification/hull if exhausted. Cached routes still need fresh kinematic checks.
+Never execute 8*60*activeHulls rollouts every tick or call cached work free.
+Counters expose samples/searches/cache hits/pending ages/exhaustion.
+
+3. Exact A/B seam
+
+A: propose(view,memory)->Array; resolve(view,memory,offers)->{memory,byId,counters}.
+B copies once after all real Damage.tick_ship/_tick_cooldowns calls, certifies,
+validates resolve's output, then publishes once. No callbacks, Battle imports,
+live references, input mutation or battle RNG in A.
+
+view={snapshotRevision,terrainRevision,time,dt,side,dueIds,ships,groups,options,mission}.
+ships contains ALL active tactically visible ships, not just dueIds. Own fields
+are A's native-field whitelist plus orderRevision, normalized Battle._mounts,
+weaponCooldowns, Damage.get_status, mountShotTimes. Opponents expose rendered
+pose/fitting/condition/observed shots, never private orders/stores. mission copies
+kind/duration/allyUids only. groups<=4; members reference active IDs.
+dueIds exclusively authorizes proposals, byId writes and per-hull memory/
+reservation changes; other hulls are read-only context. Existing reservations
+for non-due hulls survive. Memory uses st lifetime, not an invented battle ID.
+
+candidate={candidateId,shipId,targetId,leaderId,role,sector,approach,pass,exit,
+fireMountIds,orderRevision,snapshotRevision}.
+Each path <=8 Vector2; <=24 points TOTAL across approach/pass/exit.
+One candidate's offers append certificate={reachable,exitReachable,eta,fireWindow,
+risk,checkedAt,validUntil,terrainRevision,geometryKey,checkedPose,dynamicsKey,
+physicalHorizonEnd,rolloutSamples,reason}. checkedPose={x,y,vx,vy,angle};
+rolloutSamples is a count, <=60. IDs/revisions bind the parent candidate.
+All values finite; IDs/reasons <=128 characters. Malformed/extra authorship fails.
+
+intent={candidateId,orderRevision,snapshotRevision,role,targetId,leaderId,sector,
+phase,waypoints,exit,fireGate,reason,validUntil}; flattened waypoints<=24;
+fireGate[mountId]={targetId,permit,shotLimit,reason}, only real installed IDs.
+A may choose only B-certified offers from the same snapshot/order revision.
+
+4. What certification actually proves
+
+B checks swept footprint corridor geometry across ingress, firing pass AND exit,
+including land/arrival spacing/occupied stations; no endpoint-only approval.
+The detached _move-equivalent rollout checks ONLY first2s of turn/acceleration/
+braking/fuel/condition feasibility. Long curved maneuvers are NOT physically
+certified end-to-end by that rollout; later segments require recertification
+before execution. Cached geometry carries no perpetual movement permission.
+
+validUntil<=checkedAt+0.2s, and never later than intent expiry.
+Before every helm/fire consumption check order/control/terrain/dynamics identity,
+current pose against the predicted current-tick pose (<=2px position,
+<=2px/s velocity, <=1degree heading), target legality and local allied clearance.
+Deviation, collision or _avoid_land deflection invalidates; brake/replan.
+Next snapshots may reuse an unexpired certificate only after those checks.
+Current _avoid_land is local nine-heading steering; _collisions is overlap
+separation; campaign Navigation is not battle routing. Nearest-only fallback
+and cosmetic orbit cannot satisfy this contract.
+
+5. Player authority, firing and boarding
+
+Direct manual input ALWAYS owns flagship helm/fire, including queued withdraw:
+remove update's implicit s.order!="withdraw" exception. Keep the stored order
+suspended; U/autopilot resumes only after revalidation. Explicit fleet retreat
+may enable autopilot and queue withdraw, with visible acknowledgement; later
+manual opt-in retakes control. Preserve retreat()'s 12s compatibility result,
+labelled "Legacy escape timer". Local survival rally never calls fleet retreat
+or claims physical exit; .032 implements actual objective exits.
+
+Voluntary group holds/reserves govern automatic fire ONLY. Manual UI:
+"Hold and reserve apply to automatic fire. Manual fire uses your aim and available rounds."
+Always enforce real crew, mount origin/arc/range, terrain, ammunition, cooldown
+and projectile cap. Automatic gates additionally recheck intercept/allied lanes,
+expire closed, consume shotLimit only on actual mount_shot_time changes;
+denied/reserved tubes never retarget through nearest fallback.
+
+TacticalRuntime.accept_command(st,ids,kind) increments orderRevision, invalidates
+intent and clears only unlaunched boardingOrder. Battle.issue_order and
+Combat.order use it after validation. Keep Combat.order's four existing arguments;
+optional automatic=false lets tick request automatic approaches without a new
+explicit command. Explicit boarding sets order="board" and stamps revision.
+One shared eligibility guard in combat_boarding.gd tick/approach requires matching
+revision/order and autopilot, no manual; automatic discovery requires engage.
+New explicit commands cancel unlaunched approaches. Launched Boarding jobs keep
+real crew/custody/timers; no implicit abort, recall or refund.
+
+C adds focused manual+queued-withdraw, fleet-retreat→U, manual hold/reserve bypass,
+next-tick cancellation and launched-party conservation cases. Preserve every
+existing manual/withdraw assertion. B-owned runtime/battle/main/tactics_ui/
+interface/chart plus this narrow combat_boarding gate; A owns planner; C fixtures.
+No production edits, engines, commits or acceptance claims in this proposal.
+
+
+6. Root amendments after A review (authoritative)
+
+Read art/qa/TACTICAL CONTRACT REVIEW v0.030.txt in full. Root accepted .029:
+v0.029, commit44e2a46b55bd56b52998eeb1d4cdc681c5091482. C exporting;
+Windows receipt/root runtime authorization remain prerequisites.
+
+Per update, BOTH sides and urgent/cache work share <=16 rollouts AND
+<=840 integration samples, <=60 each, <=1 rollout/hull. Also <=4096 NEW
+tactical corridor/segment clearance tests, including subdivisions/individual
+obstacle or occupancy tests; exhaustion records counters/pending/age.
+Legacy actual movement/collision/projectile physics is excluded from this AI cap.
+
+Certificate adds status=valid/pending/blocked, snapshotRevision, orderRevision
+and pathFingerprint (B's deterministic SHA256 of COMPLETE candidate, including
+all paths, identity, revisions, roles and fireMountIds). Intent echoes
+candidateId/pathFingerprint and exact revisions. Resolve requires matching valid
+certificate; fireWindow is explicitly {from,until,mountIds}. Nonfiring
+move/hold/rally needs no firing opportunity.
+
+fireGate adds leaseKind and firingPassId. Normal guns use renewable lawful
+continuous leases with actual cooldown/ammo; never permanent one-shot guns.
+Fixed-tube strike/salvo spent counters persist by ship/mount/orderRevision/
+firingPassId through routine refresh. Only a genuine new pass after
+breakaway/regroup or a new explicit attack command resets that allowance;
+candidate/fingerprint changes cannot. B validates pass identity and prevents
+fixed tubes requesting continuous renewal. Missing/denied/expired automatic
+gates never fall through to nearest targeting.

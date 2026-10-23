@@ -1,0 +1,69 @@
+BRASS TIDE v0.030 — ROOT FROZEN TACTICAL CONTRACT
+23 October 2026. Root reviewed A/B designs and the complete r1-to-r2 changes.
+This is the authoritative accepted seam with the companion r2 JSON. Raw proposals
+and A review remain verbatim under docs/helper-reports/v0.030-*.
+Runtime implementation requires the .029 Windows receipt and a root role brief.
+
+A owns pure detached propose(view,memory) and resolve(view,memory,offers) planning.
+B snapshots/certifies/validates/publishes and owns physical helm/fire integration,
+command revisions, boarding eligibility and plain player controls. C independently
+owns adversarial actual-motion/order/UI/load fixtures, CPU records and integration.
+Only the three existing pinned Bridge Sol6.1 Max helpers; no nested/native extras.
+
+The JSON tactical_contract_r2 fields are normative: all tactically visible ships,
+own field whitelist and observed opponent pose/fits/condition/shots; dueIds alone
+permit per-hull authorship. No Battle imports/callbacks/RNG/live aliases in A.
+At most8 offers TOTAL per due hull across16 targets; each approach/pass/exit leg
+has at most8 points,24 total. One active station/hull and bounded detached memory.
+Certificate includes status/revisions/complete-path fingerprint, checked geometry,
+first2s physical rollout, finite firing window, exact pose/dynamics and expiry.
+An unexpired certificate still needs current local legality each helm/fire tick.
+A long curved corridor is geometry only beyond2s; recertify its future prefix.
+Never execute or extend an unchecked/pending/blocked path. Brake/drift clearance
+is physical, zero throttle is not an instantaneous stop. No teleport or bonuses.
+
+Global caps per Battle.update across BOTH sides and urgent work:4 new full route
+queries (including failed searches),128 cached static corridors,16 rollouts AND
+840 integration samples,60 per rollout and1 rollout/hull;4096 new tactical
+clearance primitive tests. Cache revalidation is counted. Legacy movement,
+collisions and projectiles remain real and are outside the new AI-work cap.
+Normal intent <=.2s, survival <=.1s, commands govern next tick, helm/projectiles
+30Hz. Scale due decisions ceil(activeHulls/6); record age/exhaustion/zero drops.
+Do not add a20-hull limit: preserve300DP APIs and all actual overflow reserves.
+
+Every automatic mount needs its own current lawful fire gate; no nearest-target
+fallback. Check actual arc/muzzle/intercept/terrain/allied lane/crew/ammo/cooldown.
+Normal guns may renew continuous leases. Fixed-tube salvo spending persists across
+routine refresh and resets only after a genuine new pass or explicit attack order.
+Manual direct helm/fire always owns flagship, including a queued per-boat withdraw.
+AI holds/ammo reserves govern automatic fire only. Fleet-wide withdrawal may
+engage autopilot; later U/manual input retakes control. Preserve .030's12-second
+compatibility timer, describe its legacy nature in developer notes; player-facing
+text simply says Fleet withdrawal with remaining seconds. No new physical-exit
+claim until .032. Local survival rally never calls fleet retreat.
+
+New commands cancel only unlaunched boarding approaches; prevent automatic
+recreation against conflicting orders/manual control. Launched real parties keep
+crew custody and timers. A new arena clears stale unlaunched approach metadata;
+.030 adds no battle-save promise or planner dictionaries to campaign hulls.
+
+Role behavior must be executable: useful separated flanks/passes with exits,
+fixed-tube alignment, protected-ally screening, heavy counters, fire/flood retreat,
+explicit orders and lost-leader/blocked-station outcomes. C verifies actual movement
+and shots in both orientations, including adverse slower/trapped/blocked cases.
+A4 individual equipment variants start .031; A5 large-hull geography starts .034.
+Never call cosmetic orbiting, a tag, a log count or a debug string AI parity.
+
+Stage0 uses accepted .029 stock full_300 seed83,180 comparable ticks then a finite
+5s warmup/60s requested stress. Record early outcome/incomplete stress honestly;
+no terminal no-op padding or HP/ammo refills. Root settles any protocol correction
+from that OLD baseline before .030 tuning. Stage1 prospective40/42 CPU p95/p99/max
+16/24/33.333ms, AIp95 3ms;60/74 synthetic24/30/33.333ms, AIp95 5ms.
+8ms is a later goal. Seeds, original scenarios and calibration bands stay intact.
+No retrospective threshold changes to pass a failed .030 result. Future .032/.033
+load/CPU targets need their own measured predecessor and pre-code freeze.
+
+All engines remain serialized hidden/headless/Dummy-audio with isolated synthetic
+profiles, explicit owned children and bounded runs. Root owns integration/verdict
+and version tags; no helper exports/publishes/deletes/changes root source unless
+explicitly assigned. Keep original saves/music/older releases and raw evidence.
