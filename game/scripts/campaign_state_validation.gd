@@ -1,10 +1,13 @@
 extends RefCounted
 const Goods=preload("res://scripts/goods.gd")
+const Workshop=preload("res://scripts/fleet_workshop.gd")
 ## Optional campaign-extension schema; legacy voyages omit these fields.
 static func number(value,low: float=0.0,high: float=1000000000.0) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value)>=low and float(value)<=high
 
 static func validate(s: Dictionary,world: Dictionary) -> String:
+	var library_error: String=Workshop.validate_templates(s,world)
+	if not library_error.is_empty():return library_error
 	if s.has("surveyFoodCredit") and not number(s.surveyFoodCredit,0,1000):return "Invalid prepaid survey rations."
 	if s.has("exploration"):
 		if not s.exploration is Dictionary:return "Invalid exploration record."

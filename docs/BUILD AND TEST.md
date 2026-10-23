@@ -1,3 +1,19 @@
+<!-- brass-tide-series:29:start -->
+# v0.029 source checks and release gates
+
+SOURCE CANDIDATE: no native validation, export or delivery is claimed.
+
+Registered native suites: 70. Stage-specific minimum: workshop, art_workshop, workshop_voyage, workshop_ui.
+Use tools/check_game.py with an explicit existing Godot 4.7.2 path and isolated logs. One hidden/headless/silent engine at a time; no desktop input or owner saves.
+
+Record actual complete native logs with tools/advance_series.py --build 29 --accept-logs <logs>. This records evidence; it never runs Godot or exports. Refresh static maps separately with tools/update_maps.py.
+
+Continue only after lead acceptance, preserved annotated tag and a separately verified clean exact-tag Windows release. Later stages remain pending; do not reuse tags or overwrite older releases.
+
+Exact-tag Windows export/startup/save/battle, archive hashes, launcher, remote publication, visual/motion review and listening require their own evidence. Source logs establish none of those outcomes.
+Earlier build instructions follow as historical records.
+<!-- brass-tide-series:29:end -->
+
 # Build and test — current v0.028 source
 
 Godot 4.7.2 Windows x64; project game/project.godot. Existing console engine:

@@ -285,6 +285,7 @@ func new_game():
 	_leave_lab()
 	sync_economy()
 	core.new_game(int(Time.get_unix_time_from_system()))
+	ui.workshop_drafts.clear()
 	mode = "campaign"
 	quick_mode = false
 	paused = false
@@ -643,8 +644,32 @@ func refit_boat(uid: String, slot: String, module_id: String):
 	var result = core.refit_boat(uid, slot, module_id)
 	respond(result)
 	if result.ok:
+		ui.workshop_drafts.erase(uid)
 		save_game(false)
 	ui.open_refit(uid)
+
+func workshop_apply(uid: String,loadout: Dictionary,expected_quote: Dictionary={}):
+	sync_economy()
+	var result: Dictionary=core.workshop_apply(uid,loadout,expected_quote)
+	respond(result)
+	if result.ok:
+		ui.workshop_drafts.erase(uid)
+		if result.get("changed",false):save_game(false)
+	ui.open_refit(uid)
+
+func workshop_save_template(uid: String,name: String,loadout: Dictionary) -> Dictionary:
+	sync_economy()
+	var result: Dictionary=core.workshop_save_template(uid,name,loadout)
+	respond(result)
+	if result.ok:save_game(false)
+	return result
+
+func workshop_delete_template(id: String) -> Dictionary:
+	sync_economy()
+	var result: Dictionary=core.workshop_delete_template(id)
+	respond(result)
+	if result.ok:save_game(false)
+	return result
 
 func set_crew_policy(policy: String):
 	var flagship = Battle.get_flagship(battle)
@@ -795,6 +820,7 @@ func load_game():
 			original.store_string(source_text);original.close()
 	var result = core.restore(parsed)
 	if result.ok:
+		ui.workshop_drafts.clear()
 		mode = "campaign"
 		quick_mode = false
 		paused = false

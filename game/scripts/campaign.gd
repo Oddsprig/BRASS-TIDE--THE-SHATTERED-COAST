@@ -43,6 +43,7 @@ const Factions=preload("res://scripts/factions.gd")
 # v0.002 modules owned by the Combat and Refit helpers (public contract only; root copies them in).
 const Deployment = preload("res://scripts/deployment.gd")
 const Refits = preload("res://scripts/refit.gd")
+const Workshop = preload("res://scripts/fleet_workshop.gd")
 # Ownership and traveling roster safety bounds are independent of battle deployment.
 const MAX_FLEET = SaveValidation.MAX_ROSTER
 const MAX_TRAVELING: int=48
@@ -177,6 +178,7 @@ func new_game(seed_value: int = 1):
 	state.surveyFoodCredit=0.0
 	state.wreckHazards={}
 	state.blueprints={}
+	state.fitTemplates=[]
 	state.defeatedOwners={}
 	Salvage.ensure(state)
 	if int(data.get("MAP_REVISION",1))>=2:
@@ -686,29 +688,32 @@ func toggle_storage(uid: String) -> Dictionary:
 	return ok("Hull stored at %s; sailors and their savings returned ashore. Stores and fittings stay with the hull."%p.name)
 
 func refit_boat(uid: String, slot: String, module_id: String) -> Dictionary:
-	var advanced: bool=module_id in ["heavy_cannon","salvo_rocket","heavy_torpedo","heavy_drive","fortress_plating","naval_plating"]
-	var permission: Dictionary=Politics.permit(self,"military" if advanced else "service")
-	if not permission.ok:return permission
-	var boat: Dictionary = find_boat(uid)
-	if boat.is_empty() or boat.get("sunk",false):
-		return fail("That boat is not in your flotilla.")
-	var dock: Dictionary = current_port()
-	if dock.is_empty() or not state.path.is_empty():
-		return fail("Refits need a harbor yard. Dock before refitting.")
-	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=dock.id:return fail("Visit the harbor storing this hull before refitting it.")
-	var previous: Dictionary = state
-	state = previous.duplicate(true)
-	var result: Dictionary = Refits.install(state,current_port(),find_boat(uid),slot,module_id)
-	if not result.get("ok",false):
-		state = previous
-		return fail(str(result.get("message","The yard refused this refit.")))
-	fit_boat(find_boat(uid))
-	apply_morale()
-	if Money.total(state) != int(state.coinSupply):
-		state = previous
-		return fail("The fitting bill could not be reconciled; your original boat and purses are unchanged.")
-	log_entry(str(result.get("message","Refit complete.")))
-	return ok(str(result.get("message","Refit complete.")))
+	var boat: Dictionary=find_boat(uid)
+	if boat.is_empty():return fail("That boat is not in your flotilla.")
+	var fit: Dictionary=Refits.normalize(hull(str(boat.type)),boat.get("loadout",{}))
+	if not fit.ok:return fit
+	var position: Dictionary=Refits._slot(fit.loadout,slot)
+	if not position.ok:return position
+	var next: Dictionary=fit.loadout.duplicate(true)
+	if position.index>=0:next.weapons[position.index]=module_id
+	else:next[position.key]=module_id
+	return workshop_apply(uid,next)
+
+func workshop_preview(uid: String,loadout: Dictionary) -> Dictionary:
+	return Workshop.preview(self,uid,loadout)
+
+func workshop_apply(uid: String,loadout: Dictionary,expected_quote: Dictionary={}) -> Dictionary:
+	var result: Dictionary=Workshop.apply(self,uid,loadout,expected_quote)
+	if result.ok and result.get("changed",false):log_entry(str(result.message))
+	return result
+
+func workshop_save_template(uid: String,name: String,loadout: Dictionary) -> Dictionary:
+	var boat: Dictionary=find_boat(uid)
+	if boat.is_empty():return fail("Choose an owned hull to record a fitting.")
+	return Workshop.save_template(state,hull(str(boat.type)),name,loadout)
+
+func workshop_delete_template(id: String) -> Dictionary:
+	return Workshop.delete_template(state,id)
 
 func buy_boat(id: String) -> Dictionary:
 	return Harbor.buy(self,id)

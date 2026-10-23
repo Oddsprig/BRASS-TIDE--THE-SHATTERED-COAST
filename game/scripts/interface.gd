@@ -1,6 +1,7 @@
 extends CanvasLayer
 const TacticsUI = preload("res://scripts/tactics_ui.gd")
 const RefitUI = preload("res://scripts/refit_ui.gd")
+const WorkshopUI = preload("res://scripts/workshop_ui.gd")
 const Portrait = preload("res://scripts/boat_portrait.gd")
 const Deployment = preload("res://scripts/deployment.gd")
 const Finance = preload("res://scripts/finance_ui.gd")
@@ -42,6 +43,7 @@ var notices: VBoxContainer
 var title_root: Control
 var modal_open = false
 var modal_kind = ""
+var workshop_drafts: Dictionary={}
 var hud_mode = ""
 var port_tab = "Market"
 var trade_qty = 5
@@ -574,7 +576,7 @@ func fleet_view(body: Node, docked: bool):
 			b.add_theme_color_override("font_color", GOLD if s.policy == policy else TEXT)
 		var actions = row(card)
 		label(card, "%d deployment points · %d weapon mounts" % [Deployment.cost(s), s.spec.get("weaponMounts", []).size()], 13, TEAL)
-		button(actions, "Refit weapons, engine & armor", func(): open_refit(uid)).disabled = not docked
+		button(actions, "Fleet workshop & fitting templates", func(): open_refit(uid)).disabled = s.get("sunk",false)
 		button(card,"Support conversion, specialists & service history",func():IdentityUI.open(self,uid))
 		button(actions, "Set flagship", func(): host.core.state.flagship = uid; refresh_fleet()).disabled = s.crew < s.crewMin
 		button(actions, "Activate" if s.get("mothballed", false) else "Stand down", func():host.respond(host.core.set_boat_active(uid,s.get("mothballed",false)));refresh_fleet()).disabled = s.crew<s.crewMin or not str(s.get("storedPort","")).is_empty()
@@ -594,6 +596,9 @@ func fleet_view(body: Node, docked: bool):
 			paragraph(card, "At sea: use repair priority to patch breaches and repair hull with supplies. Visit a harbor to recruit, treat wounded, or use drydock.", 13)
 
 func open_refit(uid: String):
+	WorkshopUI.open(self, uid)
+
+func open_single_refit(uid: String):
 	RefitUI.open(self, uid)
 
 func refresh_fleet():

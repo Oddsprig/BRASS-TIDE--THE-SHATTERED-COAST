@@ -13,7 +13,7 @@
         "Knowledge-only named templates and atomic paid fitting using real lockers, harbor materials, workers, experts and purses.",
         "Original hull and equipment detail across the existing 24 hulls, sharing stable socket origins with aim and effects."
       ],
-      "required_suites": ["workshop", "workshop_voyage", "workshop_ui"]
+      "required_suites": ["workshop", "art_workshop", "workshop_voyage", "workshop_ui"]
     },
     {
       "build": 30,

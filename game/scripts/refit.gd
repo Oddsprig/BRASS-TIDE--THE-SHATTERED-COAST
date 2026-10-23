@@ -90,7 +90,8 @@ static func normalize(spec: Dictionary,loadout: Dictionary) -> Dictionary:
 		if int(module.size)>_size(spec): return _fail("That "+str(pair[0])+" is too large for this hull.")
 		points+=int(module.op)
 	var maximum: int=_budget(spec)
-	if points>maximum: return _fail("Fitting needs %d points; this hull has %d."%[points,maximum])
+	if points>maximum:
+		return _fail("Fitting needs %d points; this hull has %d."%[points,maximum]).merged({"usedPoints":points,"maxPoints":maximum,"loadout":clean})
 	return {"ok":true,"loadout":clean,"usedPoints":points,"maxPoints":maximum}
 
 static func effective_spec(base: Dictionary,loadout: Dictionary) -> Dictionary:
@@ -212,6 +213,46 @@ static func _workforce(port: Dictionary) -> Dictionary:
 	var experts_used: float=maxf(_number(port.get("_yardSpecialistsUsed")),_number(port.get("yardSpecialistsReserved")))
 	return {"total":total,"specialists":specialists,"used":used,"expertsUsed":experts_used,"free":maxf(0.0,total-used),"freeExperts":maxf(0.0,specialists-experts_used)}
 
+## One shared calculation for ordinary slot refits and whole-workshop bills.
+## Availability is checked by the caller after all physical inputs are aggregated.
+static func fitting_bill(port: Dictionary,base: Dictionary,group: String,old_id: String,module_id: String,owned: bool) -> Dictionary:
+	var module: Dictionary=catalog()[group][module_id]
+	var materials: Dictionary={} if owned else module.materials.duplicate(true)
+	if not owned and module_id in ["stock_primary","stock_engine"]:
+		var blueprint: Dictionary=Construction.blueprint(base)
+		materials["guns" if module_id=="stock_primary" else "engines"]=maxi(1,int(ceil(blueprint.weaponUnits if module_id=="stock_primary" else blueprint.engineUnits)))
+	var worker_days: float=float(module.workerDays)+(0.5 if not old_id.is_empty() else 0.0)
+	var expert_days: float=float(module.expertDays)+(0.25 if not old_id.is_empty() else 0.0)
+	var material_cost: int=0
+	var prices: Dictionary={}
+	for good in materials:
+		prices[good]=_price(port,good)
+		material_cost+=int(ceil(float(materials[good])*prices[good]))
+	var worker_wages: int=int(ceil(worker_days*Goods.WAGES.shipwright))
+	var expert_wages: int=int(ceil(expert_days*Goods.WAGES.engineer))
+	var subtotal: int=material_cost+worker_wages+expert_wages
+	var tax: int=int(ceil(subtotal*0.05))
+	var margin: int=int(ceil(subtotal*0.08))
+	var cost: int=subtotal+tax+margin
+	return {"ok":true,"message":"%s: %d coins (%d parts, %d worker wages, %d expert wages, %d yard margin, %d duty)."%[module.name,cost,material_cost,worker_wages,expert_wages,margin,tax],"cost":cost,"materials":materials,"materialPrices":prices,"materialCost":material_cost,"workerWages":worker_wages,"expertWages":expert_wages,"tax":tax,"margin":margin,"businessIncome":material_cost+margin,"workerDays":worker_days,"expertDays":expert_days,"fromLocker":owned,"oldModule":old_id,"moduleId":module_id}
+
+## .028 owns count-only lockers. Preserve unrecognised per-module condition data
+## verbatim, and refuse a swap until its owning schema can transfer it safely.
+## Hull/engine damage fields themselves are always retained by normal fitting.
+static func opaque_condition(ship: Dictionary) -> bool:
+	for key in ship:
+		var text: String=str(key).to_lower()
+		if (text.contains("module") or text.contains("fitting") or text.contains("equipment") or text.contains("weapon") or text.contains("engine") or text.contains("armor") or text.contains("pump")) and (text.contains("condition") or text.contains("state")):
+			return true
+	var spec=ship.get("spec",{})
+	if spec is Dictionary and spec.get("weaponMounts",[]) is Array:
+		for mount in spec.get("weaponMounts",[]):
+			if not mount is Dictionary:continue
+			for key in mount:
+				var field: String=str(key).to_lower()
+				if field.contains("condition") or field.contains("state") or field in ["disabled","serial","health","hp"]:return true
+	return false
+
 static func quote(port: Dictionary,ship: Dictionary,slot: String,module_id: String) -> Dictionary:
 	if ship.get("sunk",false) or not ship.get("spec") is Dictionary or not port.get("stocks") is Dictionary:
 		return _fail("A living boat and a harbor with physical stocks are required.")
@@ -232,34 +273,20 @@ static func quote(port: Dictionary,ship: Dictionary,slot: String,module_id: Stri
 	else: next[position.key]=module_id
 	var normalized: Dictionary=normalize(probe.baseSpec,next)
 	if not normalized.ok: return normalized
-	var module: Dictionary=cat[position.group][module_id]
 	var owned: bool=not module_id.is_empty() and int(stored.locker.get(module_id,0))>0
-	var materials: Dictionary={} if owned else module.materials.duplicate(true)
-	if not owned and module_id in ["stock_primary","stock_engine"]:
-		var blueprint: Dictionary=Construction.blueprint(probe.baseSpec)
-		materials["guns" if module_id=="stock_primary" else "engines"]=maxi(1,int(ceil(blueprint.weaponUnits if module_id=="stock_primary" else blueprint.engineUnits)))
-	var worker_days: float=float(module.workerDays)+(0.5 if not str(position.old).is_empty() else 0.0)
-	var expert_days: float=float(module.expertDays)+(0.25 if not str(position.old).is_empty() else 0.0)
-	var material_cost: int=0
-	var prices: Dictionary={}
-	for good in materials:
-		prices[good]=_price(port,good)
-		material_cost+=int(ceil(float(materials[good])*prices[good]))
-	var worker_wages: int=int(ceil(worker_days*Goods.WAGES.shipwright))
-	var expert_wages: int=int(ceil(expert_days*Goods.WAGES.engineer))
-	var subtotal: int=material_cost+worker_wages+expert_wages
-	var tax: int=int(ceil(subtotal*0.05))
-	var margin: int=int(ceil(subtotal*0.08))
-	var cost: int=subtotal+tax+margin
-	var q: Dictionary={"ok":true,"message":"%s: %d coins (%d parts, %d worker wages, %d expert wages, %d yard margin, %d duty)."%[module.name,cost,material_cost,worker_wages,expert_wages,margin,tax],"cost":cost,"materials":materials,"materialPrices":prices,"materialCost":material_cost,"workerWages":worker_wages,"expertWages":expert_wages,"tax":tax,"margin":margin,"businessIncome":material_cost+margin,"workerDays":worker_days,"expertDays":expert_days,"fromLocker":owned,"newLoadout":normalized.loadout,"newSpec":effective_spec(probe.baseSpec,normalized.loadout),"usedPoints":normalized.usedPoints,"maxPoints":normalized.maxPoints,"oldModule":position.old,"moduleId":module_id}
-	for good in materials:
-		if _number(port.stocks.get(good),-1.0)+0.000001<float(materials[good]):
+	var q: Dictionary=fitting_bill(port,probe.baseSpec,position.group,str(position.old),module_id,owned)
+	q.merge({"newLoadout":normalized.loadout,"newSpec":effective_spec(probe.baseSpec,normalized.loadout),"usedPoints":normalized.usedPoints,"maxPoints":normalized.maxPoints})
+	for good in q.materials:
+		if _number(port.stocks.get(good),-1.0)+0.000001<float(q.materials[good]):
 			q.ok=false
 			q.message="The yard lacks physical "+str(Goods.ITEMS[good].name)+" for this refit."
 	var workers: Dictionary=_workforce(port)
-	if workers.free+0.000001<worker_days+expert_days or workers.freeExperts+0.000001<expert_days:
+	if workers.free+0.000001<q.workerDays+q.expertDays or workers.freeExperts+0.000001<q.expertDays:
 		q.ok=false
 		q.message="The shared yard has insufficient available workers or specialists today."
+	if opaque_condition(ship):
+		q.ok=false
+		q.message="The yard cannot safely transfer this boat's equipment. Keep its current fitting."
 	return q
 
 static func install(state: Dictionary,port: Dictionary,ship: Dictionary,slot: String,module_id: String) -> Dictionary:

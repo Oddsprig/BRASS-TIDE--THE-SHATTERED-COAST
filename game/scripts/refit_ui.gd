@@ -24,7 +24,7 @@ static func roster(ui, body: Node):
 		var details = ui.column(line)
 		ui.label(details,ship.name,25,ui.TEXT,true)
 		ui.label(details,"%d DP · %.0f speed · %.0f armor · %d sailors" % [Deployment.cost(ship),ship.spec.speed,ship.armor,ship.crew],14,ui.TEAL)
-		ui.button(details,"Open fitting bay ↗",func():open(ui,uid),true)
+		ui.button(details,"Open fleet workshop ↗",func():ui.open_refit(uid),true)
 		ui.rule(body)
 
 static func preview(ui, body: Node, ship: Dictionary, select: Callable=Callable()):
@@ -90,7 +90,7 @@ static func choose(ui, uid: String, slot: String):
 		ui.paragraph(body,str(item.get("description",item.get("kind",""))),15)
 		if category == "weapons" and not id.is_empty():
 			var weapon: Dictionary = ship.baseSpec if id == "stock_primary" else item
-			ui.paragraph(body,"%s · %.1f shots/s · %.0f impact · %.0f m range · %d fitting points" % [str(weapon.get("kind",weapon.get("weapon","gun"))).to_upper(),float(weapon.get("fireRate",1)),float(weapon.get("damage",0)),float(weapon.get("range",0)),int(item.get("op",0))],13,ui.TEAL)
+			ui.paragraph(body,"%s · %.1f shots/s · %.0f impact · range %.0f · %d fitting points" % [str(weapon.get("kind",weapon.get("weapon","gun"))).to_upper(),float(weapon.get("fireRate",1)),float(weapon.get("damage",0)),float(weapon.get("range",0)),int(item.get("op",0))],13,ui.TEAL)
 		var has_bill: bool = quote.has("newSpec")
 		if not quote.get("ok",false): ui.paragraph(body,str(quote.get("message",quote.get("error","Unavailable for this mount"))),14,ui.MUTED)
 		var b = ui.button(body,"Review bill · %s coins" % ui.money(quote.get("cost",0)) if has_bill else "Unavailable for this mount",func():review(ui,uid,slot,id))

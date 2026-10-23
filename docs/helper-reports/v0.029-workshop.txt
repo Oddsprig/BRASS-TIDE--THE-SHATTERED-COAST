@@ -1,0 +1,83 @@
+BRASS TIDE v0.029 — HELPER B RAW IMPLEMENTATION REPORT
+Base: e870a2e9b904bee647778f85f0cbfef86fa8f5e8
+Workspace: series-v029-v038/workshop. Source implementation; acceptance pending.
+
+FILES
+New: game/scripts/fleet_workshop.gd, game/scripts/workshop_ui.gd,
+game/tests/test_workshop.gd, REPORT-v029-workshop.txt.
+Modified: refit.gd, refit_ui.gd, campaign.gd, campaign_state_validation.gd,
+interface.gd, main.gd, boat_portrait.gd under game/scripts/.
+New modules/test also have generated .gd.uid files. No commits or owner-save writes.
+
+APIS AND STATE
+FleetWorkshop static API matches the assignment: template_list(state,hull_id=""),
+save_template(state,base,name,loadout), delete_template(state,id),
+preview(core,uid,loadout), apply(core,uid,loadout,expected_quote={}).
+Optional fitTemplates is an Array of {id,hull,name,loadout}; at most24 records,
+names at most48 printable characters, unique IDs and hull/name pairs. Same-name
+save updates its stable ID. Strict CampaignState preflight validates actual hull,
+socket compatibility and fitting budget; old saves may omit the library.
+
+Preview exposes ok/message, validDraft/affordable/applicable, cost, material
+quantities/prices/availability, all wage/duty/margin lines, workerDays/expertDays,
+changes with slot/socket/source/bill, returns, lockerAfter, beforeSpec/afterSpec,
+beforeLoadout/newLoadout, usedPoints/maxPoints, workforce, permission, reserve,
+fleetPointsBefore/After and quoteId. Available diagnostics survive invalid drafts.
+Pass the full preview as expected_quote to reject stale inputs before applying.
+
+Campaign hooks: workshop_preview/apply/save_template/delete_template, with the
+workshop_ prefix on each named operation. Campaign.refit_boat now adapts one slot
+to this transaction, removing whole-state replacement. Main has corresponding
+apply/save/delete callbacks and save/refresh; new game/restore clears UI drafts.
+
+UI
+ui.open_refit(uid) enters WorkshopUI.open with visible FITTING BAY, Change weapon
+and Change package labels on the actual draft controls. WorkshopUI.choose(ui,uid,draft,slot),
+draft_set(ui,uid,draft,slot,module_id), review(ui,uid,draft), templates and compare
+are native controls. ui.workshop_drafts[uid] retains unsaved drafts between menus.
+Opening/storing drafts prunes sold/lost UIDs, retaining drafts on living owned boats.
+ui.open_single_refit(uid) retains the original slot bay. The laboratory is unchanged.
+Current/draft stats, all24 known designs, templates, numbered physical sockets,
+real firing bearings/range, engine/armor, points/DP/hold/crew/pay and full bill are
+visible. Apply appears only after quote review. Portrait arcs use canonical mount
+IDs/origins/arcs; their radius is explicitly schematic. Product prose uses numbered
+deck labels and neutral native range values; internal IDs/schema stay out of UI.
+
+TRANSACTION
+Uses shared Refits.fitting_bill, existing catalogue/blueprints, Politics.permit on
+copied state, Money transfers and Construction shared-yard reservations. Pools all
+removals before additions, so swaps and point-freeing changes work. Aggregate
+stock/workforce/locker/permission/coins/hold checks precede publication. Removed
+modules occur once; paid owned modules still cost installation labor. Publication
+preserves live state, port, stocks and hull Dictionary identity. Damage, crew,
+working stores and unknown hull metadata survive. No 300-DP ownership gate is
+introduced; battle deployment remains separate.
+
+CHECKS AND LIMITS
+Static checks: git diff --check, lexical balance/resource paths, file sizes and
+unchanged24-hull JSON. Fixtures cover no-mint, aggregate shortages, identity,
+stale quotes, swaps/point freeing, hold overflow and templates; execution follows.
+Return obligations explicitly show a two-day harbor contingency, not an unchosen
+route. The .028 locker remains counts. Opaque individual condition/state records
+are retained and block swaps until their schema can transfer them safely in .031.
+Root/helper C must compile/run serialized independent Campaign/UI/voyage checks,
+review rendered layout/arcs, and own maps/build notes/version/release acceptance.
+
+LEASE VERIFICATION — 23 October 2026
+Godot4.7.2 ed1daf0bf; own qa/v029-workshop APPDATA/logs; hidden/silent/serialized,
+60-second bounds, existing_game guard and hidden_check.run_hidden. Import command:
+ENGINE --headless --audio-driver Dummy --path game --editor --import --quit.
+Workshop: same flags without editor/import/quit, --script res://tests/test_workshop.gd.
+Regressions: python tools/check_game.py --engine ENGINE --project game
+--logs qa/v029-workshop/regression-01 --only refit save_validation.
+Import passed; workshop85, refit348, save_validation89, commander24 checks: zero failures.
+Only follow-up fix: three visible workshop captions; no tests/assertions changed.
+First sandbox import logged certificate-store
+access failure; authorized outside-sandbox rerun passed. Exact absolute commands,
+return codes, timings and owned PIDs: import-01/02.json, workshop-01.json and
+regression-01.json in qa/v029-workshop; adjacent .log files retain output.
+Commander used byte-identical commander-input/game to isolate its hardcoded
+synthetic save path. See commander-01.json, commander-01/commander.log and
+commander-input-manifest.json. Guard waited for unrelated engines; no kills.
+All owned children stopped. Source frozen; ENGINE LEASE RELEASED.
+Combined voyage/rendered UI/regression/export acceptance remains with root/C.
