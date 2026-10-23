@@ -11,7 +11,7 @@ All 52 native suites passed in isolated background/headless processes, serialize
 | construction | CONSTRUCTION PASS: 2827 checks in 16 ms |
 | fleet_economy | fleet cash: 1190 checks, 0 failures, 3099 ms |
 | campaign_cash | campaign cash: 418 checks, 0 failures, 3409 ms |
-| save_validation | save validation: 89 checks, 0 failures, 808ms |
+| save_validation | save validation: 89 checks, 0 failures, 954ms |
 | runtime | runtime: 120 checks, 0 failures, 2495ms; background/headless only |
 | voyage | voyage: 68 checks, 0 failures, 9727ms; largest fleet14 |
 | tactics | tactics: 114 checks, 0 failures |
@@ -55,6 +55,6 @@ All 52 native suites passed in isolated background/headless processes, serialize
 | harbor_reserves | Native suite completed |
 | supply_voyage | supply voyage: 12 checks, 0 failures |
 | industrial_tooling | Native suite completed |
-| industrial_voyage | industrial voyage: 32 checks, 0 failures |
+| industrial_voyage | industrial voyage: 35 checks, 0 failures |
 
 This report establishes source checks. Exact tagged export identity, native Windows startup/save/battle and file hashes are recorded separately in portable RELEASE.json. No human listening, subjective fun or GPU frame-pacing claim is made.

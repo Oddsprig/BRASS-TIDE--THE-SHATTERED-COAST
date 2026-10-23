@@ -166,12 +166,17 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			for value in b.inventoryBasis.values():
 				if not number(value):return "Invalid stored material basis."
 			if weight>float(caps[b.kind])+0.01:return "Business store exceeds its physical capacity."
-			if not b.get("employees") is Array or b.employees.size()>8:return "Invalid business staff."
+			if not b.get("employees") is Array or b.employees.size()>(12 if b.kind=="workshop" else 8):return "Invalid business staff."
 			var actual: Dictionary={}
 			for e in b.employees:
 				if not e is Dictionary or not preload("res://scripts/goods.gd").WAGES.has(e.get("occupation","")) or e.get("wage",0)!=preload("res://scripts/goods.gd").WAGES[e.occupation] or not e.get("name") is String:return "Invalid business employee/wage."
 				actual[e.occupation]=int(actual.get(e.occupation,0))+1
-			if actual!=staff[b.kind]:return "Business has an invalid permanent workforce."
+			if b.kind=="workshop":
+				if b.employees.is_empty():return "Workshop has no actual workforce."
+				for occupation in actual:
+					if occupation not in ["carpenter","mechanic","engineer","gunsmith"]:return "Unknown workshop trade."
+			else:
+				if actual!=staff[b.kind]:return "Business has an invalid permanent workforce."
 	for b in s.get("fleet",[]):
 		if b.has("berthArrears") and not number(b.berthArrears):return "Invalid stored berth account."
 	var port_ids: Array=world.PORTS.map(func(p):return p.id)

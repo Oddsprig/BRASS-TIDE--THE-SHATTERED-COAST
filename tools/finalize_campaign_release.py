@@ -55,15 +55,15 @@ def main():
     run(["git", "commit", "-m", f"Build v{version} {args.title.lower()}"])
     if output(["git", "status", "--porcelain"]):
         raise SystemExit("Unreviewed files remain after explicit commit; no tag or export created.")
-    run(["git", "tag", "-a", f"v{version}", "-m", f"v{version} {args.title}"])
     checkout = work / f"release-v{version}"
-    run(["git", "worktree", "add", "--detach", checkout, f"v{version}"])
+    run(["git", "worktree", "add", "--detach", checkout, "HEAD"])
     run(["python", "tools/check_game.py", "--engine", ENGINE, "--logs", work / "qa" / f"release-v{args.build:03}"], cwd=checkout)
     # Godot may normalize CRLF in import sidecars. Require no content diff before refreshing their index.
     run(["git", "diff", "--exit-code", "--", "game/assets"], cwd=checkout)
     run(["git", "add", "-u", "--", "game/assets"], cwd=checkout)
     if output(["git", "status", "--porcelain"], cwd=checkout):
         raise SystemExit("Clean-tag checkout changed unexpectedly; no export created.")
+    run(["git", "tag", "-a", f"v{version}", "-m", f"v{version} {args.title}"])
     run(["python", "tools/release_game.py", "--engine", ENGINE, "--release-dir", ROOT.parent / f"Brass Tide v{version}", "--logs", work / "qa" / f"export-v{args.build:03}"], cwd=checkout)
     run(["python", "tools/complete_campaign_delivery.py", "--build", str(args.build)])
     run(["python", "tools/update_launcher.py", "--build", str(args.build)])

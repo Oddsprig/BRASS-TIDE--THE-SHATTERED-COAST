@@ -24,3 +24,12 @@ The existing navigation/endurance voyages separately exercise actual sailing.
 No foreground tests, mouse/keyboard input, extra helpers or audible playback.
 Acceptance requires the full source and clean-tag suite plus exported Windows
 smokes. Those results and hashes are recorded independently, not presumed here.
+
+Pre-delivery correction: the previous fixed workshop staff validator conflicted
+with new paid hiring. Root extended it only for bounded canonical workshop
+trades and added the actual hire/save/load/discharge sequence. It passes.
+The first unpublished candidate tag is retained under a candidate alias; the
+final v0.021 tag is set only after the corrected clean checkout passes. Future
+release tooling now tags after its clean tests. No delivered tag is replaced.
+A first clean asset-import process returned nonzero after completion without a
+script diagnostic; the corrected clean run must still pass before export.

@@ -1,6 +1,9 @@
 v0.021 SOURCE ACCEPTED | Recovered machinery and shipyard development
 52 native suites passed; source report saved. Portable export and publication require separate receipts.
 
+v0.021 SOURCE ACCEPTED | Recovered machinery and shipyard development
+52 native suites passed; source report saved. Portable export and publication require separate receipts.
+
 2026-10-22 | v0.021 CANDIDATE | Recovered machinery and shipyard development
 - Finite surveyed machinery sources require spare sailors, real elapsed recovery days, ordinary paid crew time and consumed kits.
 - Physical machinery occupies a carrier, can be lost, and restores in staffed owned workshops with actual installation materials and wages.

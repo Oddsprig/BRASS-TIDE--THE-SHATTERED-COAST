@@ -100,6 +100,12 @@ func _initialize() -> void:
 		check(M.total(c.state)==supply and c.restore(JSON.parse_string(JSON.stringify(c.state))).ok,"Held construction wages count once and load safely")
 		for day in range(5):c.wait_day();scene.sync_economy()
 		check(c.YardDevelopment.bays(c.state,"anvil_dock")==1 and int(c.state.yardProjects[0].escrow)==0,"Five paid days complete an actual extra chartered building slip")
+	b=c.state.businesses[0]
+	var staff_before: int=b.employees.size()
+	check(c.ToolingOps.staff(c,b.id,"engineer",true).ok and b.employees.size()==staff_before+1,"Hire an actual additional local workshop trade")
+	check(c.restore(JSON.parse_string(JSON.stringify(c.state))).ok,"Expanded workshop staff passes the full actual save preflight")
+	b=c.state.businesses[0]
+	check(c.ToolingOps.staff(c,b.id,"engineer",false).ok and b.employees.size()==staff_before,"Discharge returns the actual paid trade to town")
 	var malformed: Dictionary=JSON.parse_string(JSON.stringify(c.state))
 	malformed.yardSeq=INF
 	check(not c.restore(malformed).ok,"Nonfinite construction sequence is refused before state mutation")

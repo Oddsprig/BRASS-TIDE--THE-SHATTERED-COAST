@@ -11,6 +11,17 @@ Continue the authorized sequential roadmap after verifying/preserving this versi
 
 # v0.021 — Recovered machinery and shipyard development
 
+SOURCE ACCEPTED: 52 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Finite surveyed machinery sources require spare sailors, real elapsed recovery days, ordinary paid crew time and consumed kits.
+- Physical machinery occupies one carrier, can be lost, and restores in staffed owned workshops with actual installation materials and wages.
+- Paid workshop trades and real kit, plank, engine or weapon recipes have material and labor bottlenecks; maintained tooling improves its named work.
+- Friendly shipyard workshops fund timed drydock bays with reserved workers and wages; added slips share the same finite construction workforce.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.021.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.021 — Recovered machinery and shipyard development
+
 SOURCE CANDIDATE: implementation underway; no new test/export claim.
 
 - Finite surveyed machinery sources require spare sailors, real elapsed recovery days, ordinary paid crew time and consumed kits.
