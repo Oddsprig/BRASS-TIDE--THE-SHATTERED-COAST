@@ -1,4 +1,4 @@
-# Brass Tide: The Shatter Coast — v0.023
+# Brass Tide: The Shatter Coast — v0.024
 
 An original Windows motorboat fleet campaign built in Godot. Start with a Tinwake skiff, earn bronze coins, pay sailors and build a fleet of 24 boat designs. Fit interchangeable guns, cannons, rockets, torpedoes, engines and armor. Numerical crews fight fires, patch breaches, bail water and keep damaged boats afloat.
 
@@ -12,6 +12,8 @@ v0.022 adds food/pay-based town conditions, funded overtime and food relief, pai
 
 v0.023 adds four geographically produced civilian goods, actual household buyers, coastal freight and full material/labor bills. New commodities start at zero in copied old-save migration; existing stocks and purses remain unchanged.
 
+v0.024 adds optional shipping companies using actual spare hulls, crews, capital and physical sea routes. Price/cargo/reserve/risk limits govern real transactions; accounts separate capital and inventory from earnings. Recall returns the same fitted, damaged boats only after a physical home-harbor meeting.
+
 The campaign now includes expedition reserves, island surveys, persistent wreck recovery, compatible jobs and remembered contacts, faction relationships, independent convoys/patrols/raiders, reactive inventories and blockades, support conversions and paid specialists, four original exploration stories, staffed home-harbor businesses and sustained regional goals.
 
 All eleven requested increments v0.008–v0.018 were built sequentially and preserved as individual tagged Windows/source deliveries. Each later portable version has its own exact-tag verification receipt; the Desktop launcher is updated only after verification. Prior releases, original saves and owner music remain intact. Local portable binaries live in the task's outputs folders; this repository contains the Godot source and version tags.
@@ -22,4 +24,4 @@ Read [the captain's guide](docs/CAPTAINS%20CAMPAIGN%20GUIDE.txt) for the full lo
 
 Rendering uses Separate threading, inexpensive decorative 2D water and cached boat geometry. Pure harbor production runs on copied state using a hardware-aware worker group capped at 8; the main thread publishes joined results before advancing fleet decisions. The native Windows portable game needs no editor, Node or Python installation.
 
-Development starts at game/project.godot. Read AGENTS.md, maps/PROJECT MAP.txt, HANDOFF.md and CODE MAP.md before editing. All 56 native suites run sequentially via tools/check_game.py with the existing Godot 4.7.2 console executable. Tests remain hidden/headless, with no desktop input. The 180-day campaign, real-save migration and the 300-versus-300 CPU fixture passed; these measurements do not claim rendered FPS or human listening. Keep each version's exact export/source archives and advance playable versions by 0.001.
+Development starts at game/project.godot. Read AGENTS.md, maps/PROJECT MAP.txt, HANDOFF.md and CODE MAP.md before editing. All 58 native suites run sequentially via tools/check_game.py with the existing Godot 4.7.2 console executable. Tests remain hidden/headless, with no desktop input. The 180-day campaign, real-save migration and the 300-versus-300 CPU fixture passed; these measurements do not claim rendered FPS or human listening. Keep each version's exact export/source archives and advance playable versions by 0.001.

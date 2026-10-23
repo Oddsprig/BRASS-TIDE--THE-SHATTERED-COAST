@@ -205,7 +205,7 @@ static func arrived(core, owner: Dictionary, dock: Dictionary = {}) -> String:
 		dock_id = str(dock_port.get("id", ""))
 		owner["atPort"] = dock_id
 
-	if not NavalOrders.is_story_owner(owner):
+	if not NavalOrders.is_story_owner(owner) and not owner.get("playerCompany",false):
 		var res: Dictionary = NavalOrders.fleet_reserves(owner)
 		var perf: Dictionary = NavalOrders.fleet_performance(owner)
 		var recovery_reason: String = NavalOrders.needs_home_recovery(owner, res, perf)
@@ -245,7 +245,7 @@ static func tick(core, days = 1) -> Array:
 			if not (owner_var is Dictionary):
 				continue
 			var owner: Dictionary = owner_var
-			if NavalOrders.is_story_owner(owner):
+			if NavalOrders.is_story_owner(owner) or owner.get("playerCompany",false):
 				continue
 			var res: Dictionary = NavalOrders.fleet_reserves(owner)
 			var living: int = int(res.get("boats", 0))

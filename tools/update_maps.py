@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "shipping-companies": (["shipping_companies","company_ops","company_ui"],
+                           "Actual player hulls, crews, purses and fixed physical routes -> shared-stock trade, material/hull basis, paid operation, real losses and physical recall.",
+                           "test_shipping_companies, test_company_voyage"),
     "civilian-trade": (["regional_goods","civilian_goods_ops","regional_goods_ui"],
                        "Actual geography, remaining paid workers and ingredients -> regional lots; household savings, physical cargo/freight, dated markets and copied zero-column save migration.",
                        "test_regional_goods, test_civilian_voyage"),

@@ -1,3 +1,15 @@
+v0.024 SOURCE ACCEPTED | Player shipping companies
+58 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-22 | v0.024 CANDIDATE | Player shipping companies
+- Assign actual spare hulls, numerical crews and real operating capital to a fixed physical trade route while retaining a seaworthy flagship.
+- Companies buy and sell shared inventory within chosen price, cargo, reserve and risk limits; pay wages, provisions and repairs; and keep capital separate from earned profit.
+- Physical recall returns the same damaged hulls, fittings, cargo and purses only when both fleets meet at home; losses leave finite wrecks without public replacement subsidies.
+Root + up to three Sol6.1 Max helpers through Bridge. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.023 DELIVERED | exact game 9c1845eda7f59228a986b5ad40f7504766f102aa
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.023 SOURCE ACCEPTED | Regional goods and household demand
 56 native suites passed; source report saved. Portable export and publication require separate receipts.
 

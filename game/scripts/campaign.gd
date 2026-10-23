@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const CompanyOps=preload("res://scripts/company_ops.gd")
 const RegionalGoodsOps=preload("res://scripts/civilian_goods_ops.gd")
 const WorkerOps=preload("res://scripts/worker_ops.gd")
 const YardDevelopment=preload("res://scripts/yard_development.gd")
@@ -44,6 +45,7 @@ const MAX_FLEET = SaveValidation.MAX_ROSTER
 const MAX_TRAVELING: int=48
 const DAY_SECONDS = 45.0
 
+var shipping
 var data: Dictionary
 var state: Dictionary = {}
 var nav: Dictionary = {}
@@ -144,6 +146,7 @@ func new_game(seed_value: int = 1):
 	YardDevelopment.ensure(self)
 	WorkerOps.ensure(self)
 	RegionalGoodsOps.ensure(self)
+	CompanyOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -357,13 +360,14 @@ func apply_economy(ports: Array, messages: Array, days: int):
 			Money.move(state,"crewPurse",dock,"cash",mini(int(state.crewPurse),crew_count()*12),"Sailors spend ashore",state.moneyLog)
 		for p in state.ports:
 			Construction.begin_day(p)
-		for message in Fleets.tick(state.fleetOwners,state.ports,1.0).slice(0,2):
+		for message in Fleets.tick(state.fleetOwners,state.ports,1.0,self).slice(0,2):
 			log_entry(str(message))
 		for message in FleetIdentity.tick(self,1):log_entry(str(message))
 		YardDevelopment.daily(self)
 		Harbor.tick_yards(self,1)
 		RegionalOps.begin_day(self)
 		NavalLifecycle.daily(self)
+		CompanyOps.daily(self)
 		TradeFlow.daily(self)
 		StoryOps.daily(self)
 		ToolingOps.Tooling.daily(self)
@@ -598,7 +602,7 @@ func fleet_limit() -> int:
 func can_add_boat(spec: Dictionary) -> bool:
 	if state.is_empty() or hull(str(spec.get("id",""))).is_empty():
 		return false
-	if state.fleet.size() >= MAX_FLEET:
+	if CompanyOps.api(self).owned_count(state) >= MAX_FLEET:
 		return false
 	return true
 
@@ -961,7 +965,7 @@ func restore(saved: Dictionary) -> Dictionary:
 		Damage.tick_ship(s, 0.0)
 	for owner in state.fleetOwners:
 		for b in owner.boats:
-			canonical_npc_boat(b)
+			canonical_npc_boat(b,bool(owner.get("playerCompany",false)))
 	for patrol in state.patrols:
 		# Saved chart position is authoritative; recompute a safe remaining route from there.
 		var saved_position: Dictionary={"x":patrol.x,"y":patrol.y}
@@ -990,6 +994,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	YardDevelopment.ensure(self)
 	WorkerOps.ensure(self)
 	RegionalGoodsOps.ensure(self)
+	CompanyOps.ensure(self)
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
@@ -1004,7 +1009,13 @@ func restore(saved: Dictionary) -> Dictionary:
 	StoryOps.refresh(self)
 	return ok("Voyage restored.")
 
-func canonical_npc_boat(boat: Dictionary) -> void:
+func canonical_npc_boat(boat: Dictionary,player_owned: bool=false) -> void:
+	if player_owned:
+		var performance: float=clampf(float(boat.get("economyFactor",1)),0.35,1)
+		fit_boat(boat)
+		boat.economyBaseSpeed=float(boat.spec.speed);boat.economyBaseFireRate=float(boat.spec.fireRate)
+		boat.spec.speed*=performance;boat.spec.fireRate*=performance
+		return
 	var base: Dictionary = hull(str(boat.get("type","")))
 	if base.is_empty():
 		return

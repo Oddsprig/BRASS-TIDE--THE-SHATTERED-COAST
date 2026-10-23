@@ -5,7 +5,7 @@ import subprocess
 import threading
 import time
 
-FATAL = re.compile(r"Parse Error:|Compile Error:|Failed to load script .*Compilation failed")
+FATAL = re.compile(r"SCRIPT ERROR:|Parse Error:|Compile Error:|Failed to load script .*Compilation failed")
 
 def run_hidden(command, *, env=None, timeout=60):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -36,7 +36,7 @@ def run_hidden(command, *, env=None, timeout=60):
     output="".join(lines)
     if timed_out:
         raise subprocess.TimeoutExpired(command,timeout,output=output.encode("utf-8"),stderr=b"")
-    if fatal.is_set(): output+="\nFAIL fatal compilation stopped this owned background test.\n"
+    if fatal.is_set(): output+="\nFAIL fatal script error stopped this owned background test.\n"
     return subprocess.CompletedProcess(command,process.returncode,output,"")
 
 if __name__=="__main__":
@@ -45,9 +45,11 @@ if __name__=="__main__":
     normal=run_hidden([sys.executable,"-c","print('normal child')"],timeout=2)
     assert normal.returncode==0 and "normal child" in normal.stdout
     broken=run_hidden([sys.executable,"-c","import time;print('Parse Error: test fixture',flush=True);time.sleep(30)"],timeout=2)
-    assert "FAIL fatal compilation" in broken.stdout
+    assert "FAIL fatal script error" in broken.stdout
+    runtime=run_hidden([sys.executable,"-c","import time;print('SCRIPT ERROR: runtime fixture',flush=True);time.sleep(30)"],timeout=2)
+    assert "FAIL fatal script error" in runtime.stdout
     try: run_hidden([sys.executable,"-c","import time;time.sleep(30)"],timeout=0.15)
     except subprocess.TimeoutExpired: pass
     else: raise AssertionError("Owned child timeout did not fire")
     assert time.monotonic()-start<4
-    print("Hidden child runner: normal exit, fatal compile and owned timeout passed.")
+    print("Hidden child runner: normal exit, fatal compile/runtime and owned timeout passed.")

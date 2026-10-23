@@ -100,8 +100,8 @@ static func daily(p: Dictionary,days: float=1.0) -> void:
 			job.paused=true
 			continue
 		job.paused=false
-		Money.move(job,"escrow",p,"householdPurse",trainee_due,"Trainees earn daily wages")
-		Money.move(job,"escrow",p,"expertPurse",instructor_due,"Instructor earns daily wages")
+		Money.move(job,"escrow",p,"householdPurse",trainee_due,"Trainees earn daily wages",[])
+		Money.move(job,"escrow",p,"expertPurse",instructor_due,"Instructor earns daily wages",[])
 		job.traineePaid+=trainee_due;job.instructorPaid+=instructor_due;job.progress=progress
 		if progress+0.000001>=float(job.days):finished.append(job)
 	for job in finished:

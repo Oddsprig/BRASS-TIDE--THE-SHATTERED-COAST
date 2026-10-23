@@ -1,3 +1,9 @@
+v0.024 SOURCE ACCEPTED — Player shipping companies
+- Assign actual spare hulls, numerical crews and real operating capital to a fixed physical trade route while retaining a seaworthy flagship.
+- Companies buy and sell shared inventory within chosen price, cargo, reserve and risk limits; pay wages, provisions and repairs; and keep capital separate from earned profit.
+- Physical recall returns the same damaged hulls, fittings, cargo and purses only when both fleets meet at home; losses leave finite wrecks without public replacement subsidies.
+Native checks accepted; preserve this build's verified export before advancing. Historical plans follow.
+
 v0.023 SOURCE ACCEPTED — Regional goods and household demand
 - Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades.
 - Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties.

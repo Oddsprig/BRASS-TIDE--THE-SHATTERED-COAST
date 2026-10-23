@@ -1,4 +1,4 @@
-# Brass Tide v0.023 source map
+# Brass Tide v0.024 source map
 
 The native Godot game is game/. Generated maps/ contains current symbols/line numbers and the source inventory. The historical browser prototype remains in dist/ and root tests/. Older maps are archived under docs/archive/.
 
@@ -53,3 +53,5 @@ Industrial development: industrial_tooling.gd owns finite item identities and co
 Worker conditions: worker_conditions.gd owns bounded food/pay facts and workplace shifts; worker_ops.gd binds actual permissions, public registry foremen, material basis and the completed-day stamp; worker_ui.gd exposes owned policies and restart costs. Economy snapshots record actual food and fully funded employment; Home payroll feeds the same workers once. Tests: worker_conditions, conditions_voyage.
 
 Civilian goods: regional_goods.gd owns bounded geographic paid production and actual household consumption; civilian_goods_ops.gd combines real wage/occupation telemetry and copied legacy zero-column migration; regional_goods_ui.gd shows full bills and actual supply/use. Existing regional_ops.gd still owns regional campaigns. Goods/IndustryData/save registries now contain20 items. Tests: regional_goods, civilian_voyage. tools/hidden_check.py stops fatal compiler failures through only the exact child it launched.
+
+Shipping companies: shipping_companies.gd owns bounded company metadata, commercial basis and same-reference roster/purse transfers; company_ops.gd binds actual hulls, master wages, working/hull capital basis, fixed route policy and physical meetings; company_ui.gd exposes charter/route/account controls and water-route payroll estimates. Fleet economy records real trade/pay/repair events. Naval lifecycle/orders keep physical travel and emergency repair; private replacements/subsidies are blocked. Tests: shipping_companies, company_voyage.

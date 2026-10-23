@@ -1,3 +1,23 @@
+# v0.024 — Player shipping companies
+
+SOURCE ACCEPTED: 58 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Assign actual spare hulls, numerical crews and real operating capital to a fixed physical trade route while retaining a seaworthy flagship.
+- Companies buy and sell shared inventory within chosen price, cargo, reserve and risk limits; pay wages, provisions and repairs; and keep capital separate from earned profit.
+- Physical recall returns the same damaged hulls, fittings, cargo and purses only when both fleets meet at home; losses leave finite wrecks without public replacement subsidies.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.024.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.024 — Player shipping companies
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Assign actual spare hulls, numerical crews and real operating capital to a fixed physical trade route while retaining a seaworthy flagship.
+- Companies buy and sell shared inventory within chosen price, cargo, reserve and risk limits; pay wages, provisions and repairs; and keep capital separate from earned profit.
+- Physical recall returns the same damaged hulls, fittings, cargo and purses only when both fleets meet at home; losses leave finite wrecks without public replacement subsidies.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.024.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.023 — Regional goods and household demand
 
 SOURCE ACCEPTED: 56 native suites pass; portable export evidence is recorded separately in RELEASE.json.

@@ -49,8 +49,8 @@ static func upkeep(owner: Dictionary) -> Dictionary:
 		if boat.sunk:
 			continue
 		crew+=maxf(0.0,float(boat.crew))
-		fuel+=clampf(0.11+(float(boat.spec.get("size",14))-10.0)/38.0*0.05+(float(boat.spec.get("speed",75))-40.0)/140.0*0.03,0.1,0.2)
-	return {"wages":crew*SAILOR_WAGE,"food":crew*0.08,"fuel":fuel}
+		fuel+=clampf(0.11+(float(boat.spec.get("size",14))-10.0)/38.0*0.05+(float(boat.spec.get("speed",75))-40.0)/140.0*0.03,0.1,0.2)*maxf(0.2,float(boat.spec.get("fuelUse",1)))
+	return {"wages":crew*SAILOR_WAGE+(75 if owner.get("playerCompany",false) and crew>0 else 0),"food":crew*0.08,"fuel":fuel}
 
 static func total_coins(owners: Array) -> int:
 	var total: int=0
@@ -125,7 +125,7 @@ static func _trade_good(port: Dictionary) -> String:
 	return "timber"
 
 static func subsidize(owner: Dictionary,port: Dictionary,amount: int) -> int:
-	if amount<=0:
+	if amount<=0 or owner.get("playerCompany",false):
 		return 0
 	var transfer: int=mini(amount,_integer(port.get("governmentPurse",0)))
 	port.governmentPurse=_integer(port.get("governmentPurse",0))-transfer
@@ -141,7 +141,7 @@ static func _capacity(owner: Dictionary) -> float:
 			result+=float(boat.spec.get("cargo",0))
 	return result
 
-static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: int,crew_paid: bool=false,working: bool=false) -> int:
+static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: int,crew_paid: bool=false,working: bool=false,core=null,commercial: bool=false) -> int:
 	if quantity<=0:
 		return 0
 	var purse: String="crewPurse" if crew_paid else "coins"
@@ -153,16 +153,23 @@ static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: 
 	if port.get("reserves") is Dictionary:
 		var reserve_api: Script=load("res://scripts/harbor_reserves.gd")
 		count=mini(count,floori(float(reserve_api.exportable(port,good))))
+	if owner.get("playerCompany",false) and commercial:
+		count=mini(count,core.CompanyOps.market_limit(core,owner,port,true,good,price) if core!=null else 0)
 	if count<=0:
 		return 0
 	var result: Dictionary=Economy.transact(port,wallet,good,count,"buy",maxf(_capacity(owner),Economy.cargo_weight(owner.cargo)+count*float(Goods.ITEMS[good].weight)) if working else _capacity(owner))
 	if not result.ok:
 		return 0
+	var paid: int=int(owner[purse])-int(wallet.coins)
 	owner[purse]=wallet.coins
+	if core!=null and owner.get("playerCompany",false):
+		if commercial:core.CompanyOps.record(core,owner,"purchase",paid,good,float(result.qty))
+		elif not crew_paid and working:core.CompanyOps.add_working(core,owner,good,float(result.qty),paid)
 	return int(result.qty)
 
-static func dock(owner: Dictionary,port: Dictionary) -> Array:
+static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 	normalize_owner(owner)
+	if owner.get("playerCompany",false) and core==null:return []
 	var messages: Array=[]
 	owner.atPort=port.id
 	if not owner.active:
@@ -170,17 +177,23 @@ static func dock(owner: Dictionary,port: Dictionary) -> Array:
 	var costs: Dictionary=upkeep(owner)
 	if owner.kind=="trader":
 		var good: String=owner.tradeGood
-		if port.id!=owner.homePort:
+		if port.id!=owner.homePort or (owner.get("playerCompany",false) and core.CompanyOps.book(core,owner.id).recall):
 			var sale: int=mini(_integer(owner.cargo.get(good,0)),_integer(owner.tradeCargo))
+			if owner.get("playerCompany",false):
+				sale=mini(sale,mini(core.CompanyOps.market_limit(core,owner,port,false,good,Economy.price(port,good,"sell")),int(port.cash)/maxi(1,Economy.price(port,good,"sell"))))
 			if sale>0:
 				var wallet: Dictionary={"coins":owner.coins,"cargo":owner.cargo}
 				var result: Dictionary=Economy.transact(port,wallet,good,sale,"sell",_capacity(owner))
 				if result.ok:
+					var earned: int=int(wallet.coins)-int(owner.coins)
 					owner.coins=wallet.coins
+					if owner.get("playerCompany",false):core.CompanyOps.record(core,owner,"sale",earned,good,float(result.qty))
 					owner.tradeCargo-=int(result.qty)
 					owner.tradeDelivered=float(owner.get("tradeDelivered",0))+float(result.qty)
 					messages.append("%s sold %d %s at %s."%[owner.name,sale,good,port.name])
-	_purchase(owner,port,"food",maxi(0,ceili(costs.food*3.0-float(owner.cargo.food))),true)
+	var personal_food: float=float(owner.cargo.food)
+	if owner.get("playerCompany",false) and owner.tradeGood=="food":personal_food=maxf(0,personal_food-float(owner.tradeCargo))
+	_purchase(owner,port,"food",maxi(0,ceili(costs.food*3.0-personal_food)),true,false,core)
 	for boat in owner.boats:
 		if boat.sunk:
 			continue
@@ -190,26 +203,27 @@ static func dock(owner: Dictionary,port: Dictionary) -> Array:
 			var need: int=maxi(0,ceili((target-float(boat[good]))/conversion))
 			var have: int=mini(need,_integer(owner.cargo.get(good,0)))
 			if have<need:
-				_purchase(owner,port,good,need-have,false,true)
+				_purchase(owner,port,good,need-have,false,true,core)
 			var moved: int=mini(need,_integer(owner.cargo.get(good,0)))
 			owner.cargo[good]-=moved
 			if good==owner.tradeGood:
 				owner.tradeCargo=maxi(0,owner.tradeCargo-moved)
 			boat[good]+=moved*conversion
-		_repair(owner,port,boat)
+		_repair(owner,port,boat,core)
 	if owner.kind=="trader" and port.id==owner.homePort:
 		var reserve: int=ceili(costs.wages*3.0)
 		var budget: int=maxi(0,owner.coins-reserve)
 		var qty: int=int(budget/maxi(1,Economy.price(port,owner.tradeGood,"buy")))
-		var bought: int=_purchase(owner,port,owner.tradeGood,qty)
+		var bought: int=_purchase(owner,port,owner.tradeGood,qty,false,false,core,true)
 		owner.tradeCargo+=bought
 		if bought>0:
 			messages.append("%s loaded %d %s at %s."%[owner.name,bought,owner.tradeGood,port.name])
+	if core!=null and owner.get("playerCompany",false):core.CompanyOps.reconcile(core,owner)
 	for message in messages:
 		_log(owner,message)
 	return messages
 
-static func _repair(owner: Dictionary,port: Dictionary,boat: Dictionary) -> void:
+static func _repair(owner: Dictionary,port: Dictionary,boat: Dictionary,core=null) -> void:
 	# One dock visit buys at most one worker-day, paid into residents' purse.
 	# No idle civilian worker, kits or affordable pay means no repair.
 	var idle: float=maxf(0.0,float(port.get("availableWorkers",0))-float(port.get("_yardWorkersUsed",0)))
@@ -249,6 +263,7 @@ static func _repair(owner: Dictionary,port: Dictionary,boat: Dictionary) -> void
 			return
 		port.availableSpecialists=maxf(0.0,float(port.get("availableSpecialists",port.get("specialistWorkers",0)))-1.0)
 	owner.coins-=wage
+	if core!=null and owner.get("playerCompany",false):core.CompanyOps.record(core,owner,"repairs",wage)
 	port.workers=float(port.get("workers",0))+1.0
 	port.availableWorkers=maxf(0.0,float(port.get("availableWorkers",0))-1.0)
 	if port.has("_lastWorkersField"):
@@ -277,7 +292,7 @@ static func _performance(owner: Dictionary) -> void:
 		boat.spec.speed=boat.economyBaseSpeed*owner.performanceFactor
 		boat.spec.fireRate=boat.economyBaseFireRate*owner.performanceFactor
 
-static func tick(owners: Array,ports: Array,days: float) -> Array:
+static func tick(owners: Array,ports: Array,days: float,core=null) -> Array:
 	var messages: Array=[]
 	if not is_finite(days) or days<=0:
 		return messages
@@ -299,10 +314,11 @@ static func tick(owners: Array,ports: Array,days: float) -> Array:
 			owner.crewPurse+=paid
 			owner.wageArrears-=paid
 			owner.lastPayroll=paid
+			if core!=null and owner.get("playerCompany",false):core.CompanyOps.record(core,owner,"wages",paid)
 			owner.daysOperated+=h
 			var port: Dictionary=_find(ports,str(owner.atPort))
 			if not port.is_empty():
-				messages.append_array(dock(owner,port))
+				messages.append_array(dock(owner,port,core))
 			var needed: float=costs.food*h
 			var owned_food: float=maxf(0.0,float(owner.cargo.food)-(float(owner.tradeCargo) if owner.tradeGood=="food" else 0.0))
 			var food: float=minf(needed,maxf(0.0,float(owner.cargo.food)))
@@ -323,6 +339,7 @@ static func tick(owners: Array,ports: Array,days: float) -> Array:
 			var unpaid: bool=owner.wageArrears>0
 			var hungry: bool=food+0.000001<needed
 			owner.morale=clampf(owner.morale+(-8.0 if unpaid else 1.0)*h-(5.0*h if hungry else 0.0),10.0,100.0)
+			if core!=null and owner.get("playerCompany",false):core.CompanyOps.reconcile(core,owner)
 			_performance(owner)
 			if unpaid and due>0:
 				var message: String="%s: %d coins wage arrears; morale %.0f."%[owner.name,owner.wageArrears,owner.morale]

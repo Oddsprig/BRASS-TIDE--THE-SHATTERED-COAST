@@ -23,7 +23,7 @@ static func route(c,p: Dictionary,dest: String) -> void:
 	if target.is_empty():return
 	var owner: Dictionary=c.fleet_owner(p.id)
 	if c.distance(p,target)<40:
-		p.holding=true;owner.atPort=dest;p.progress=0.0;p.to=dest
+		p.x=target.x;p.y=target.y;p.holding=true;owner.atPort=dest;p.progress=0.0;p.to=dest
 		return
 	p.voyageSeq=int(p.get("voyageSeq",0))+1
 	p.holding=false;owner.atPort="";p.to=dest;p.progress=0.0
@@ -33,6 +33,10 @@ static func route(c,p: Dictionary,dest: String) -> void:
 
 static func holding(c,owner: Dictionary) -> bool:
 	if str(owner.get("atPort","")).is_empty():return false
+	if owner.get("playerCompany",false):
+		var reason: String=preload("res://scripts/naval_orders.gd").needs_home_recovery(owner,AI.fleet_reserves(owner),AI.fleet_performance(owner))
+		if not reason.is_empty():return str(owner.atPort)==str(owner.homePort) or owner.get("purpose","")=="repair"
+		return c.CompanyOps.hold(c,owner)
 	if str(owner.atPort)!=str(owner.homePort) and str(owner.get("purpose",""))!="repair":return false
 	var res: Dictionary=AI.fleet_reserves(owner)
 	var perf: Dictionary=AI.fleet_performance(owner)
@@ -42,7 +46,7 @@ static func step(c,dt: float) -> void:
 	for p in c.state.patrols:
 		var owner: Dictionary=c.fleet_owner(p.id)
 		if owner.is_empty():continue
-		p.hostile=Factions.is_hostile(c.state,str(owner.faction))
+		p.hostile=false if owner.get("playerCompany",false) else Factions.is_hostile(c.state,str(owner.faction))
 		if not p.active:continue
 		if not p.get("holding",false):
 			var performance: Dictionary=AI.fleet_performance(owner)
@@ -51,8 +55,8 @@ static func step(c,dt: float) -> void:
 				var dock: Dictionary=c.port(p.to)
 				var origin: String=str(p.from)
 				var delivered_before: float=float(owner.get("tradeDelivered",0))
-				p.x=dock.x;p.y=dock.y;p.from=p.to;p.progress=0.0
-				Fleets.dock(owner,dock);hire(c,owner,dock)
+				p.x=dock.x;p.y=dock.y;p.from=p.to;p.progress=0.0;p.holding=true
+				Fleets.dock(owner,dock,c);hire(c,owner,dock)
 				c.RegionalOps.delivered(c,str(dock.id),maxf(0,float(owner.get("tradeDelivered",0))-delivered_before),origin,false)
 				var next: String=AI.arrived(c,owner,dock)
 				if holding(c,owner):route(c,p,dock.id)
@@ -86,6 +90,7 @@ static func daily(c) -> void:
 				if not records.is_empty():
 					var wreck: Dictionary=Salvage.find_wreck(c.state,records[0].id)
 					wreck.stores[good]=float(wreck.stores.get(good,0))+lost*0.5
+		if owner.get("playerCompany",false):c.CompanyOps.reconcile(c,owner)
 		p.active=bool(owner.active) and owner.boats.any(func(b):return not b.sunk)
 		if not p.active:continue
 		if p.get("holding",false) and str(owner.get("atPort",""))==str(owner.homePort):

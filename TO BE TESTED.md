@@ -1,3 +1,7 @@
+v0.024 voluntary play: Player shipping companies
+Assess readability and usefulness of: Assign actual spare hulls, numerical crews and real operating capital to a fixed physical trade route while retaining a seaworthy flagship. Companies buy and sell shared inventory within chosen price, cargo, reserve and risk limits; pay wages, provisions and repairs; and keep capital separate from earned profit. Physical recall returns the same damaged hulls, fittings, cargo and purses only when both fleets meet at home; losses leave finite wrecks without public replacement subsidies.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.023 voluntary play: Regional goods and household demand
 Assess readability and usefulness of: Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades. Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties. Regional output, coastal freight, real holds, prices, warehouses and save migration share the same physical goods and coin ledger.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

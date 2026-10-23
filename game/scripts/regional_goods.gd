@@ -455,7 +455,7 @@ static func _move(
 		return false
 	# Verify the baseline transfer before publishing balances.
 	var shadow: Dictionary = {"source": source_before, "target": target_before}
-	Money.move(shadow, "source", shadow, "target", amount, reason)
+	Money.move(shadow, "source", shadow, "target", amount, reason, [])
 	if not _coins(shadow.get("source")) or not _coins(shadow.get("target")):
 		return false
 	if int(shadow["source"]) != source_before - amount:

@@ -1,0 +1,33 @@
+v0.024 root-field alignment correction
+
+Supersedes the original report's incorrect statement that shoreCrew is
+a state-level Array. The module no longer reads state.shoreCrew.
+
+create checks each selected boat's numeric shoreCrew reserve before any
+mutation. Positive, fractional, negative or nonfinite reserves reject.
+An absent per-boat field defaults to zero for legacy compatibility.
+
+Any specialist whose boatUid matches a selected hull blocks transfer.
+No active flag is required or trusted. Specialist records, assignments
+and wages are never moved, copied or added to company payroll records.
+Roles are opaque. Numeric gunner/mechanic training capacity does not
+create specialist people.
+
+_error uses core.boats, the actual spec roster, for hull ID validation.
+The constructor and public APIs remain unchanged. The root-supplied
+hold callback remains authoritative; synthetic tests now use fitted
+cargoCapacity.
+
+Canonical owner/patrol construction and all existing purse, cargo,
+identity, accounting and lifecycle hooks remain unchanged.
+
+Tests omit state.shoreCrew entirely. They cover integer boat reserves,
+assigned specialists without active, rejection despite active:false,
+and retention of another hull's specialist identity and wage.
+
+Static text/diff review only; no file edits, engine, source execution,
+additional helpers or native acceptance. Reconstructed LF candidates:
+module 17,782 bytes; tests 8,989 bytes. Native verification and canonical
+fleet-owner checks remain with root before integration.
+
+Standing by for final v0.028 review.

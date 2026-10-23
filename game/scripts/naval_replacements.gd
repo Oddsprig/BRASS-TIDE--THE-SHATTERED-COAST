@@ -200,6 +200,7 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 
 
 static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, hull_id: String = "") -> Dictionary:
+	if owner.get("playerCompany",false):return {"ok":false,"message":"Company losses need actual owned replacement hulls; no public subsidy or automatic respawn."}
 	var state: Dictionary = NavalOrders.state_of(core)
 	var world: Dictionary = NavalOrders.world_of(core)
 	if owner.is_empty() or NavalOrders.is_story_owner(owner):

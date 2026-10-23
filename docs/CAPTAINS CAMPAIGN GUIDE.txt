@@ -207,3 +207,36 @@ from the same warehouse. There is no second free inventory.
 
 Older saves receive new zero-valued commodity columns on a copied snapshot.
 Existing coins, cargo and regional inventories never refill during migration.
+
+YOUR SHIPPING COMPANIES — v0.024
+At a legal harbor, open Shipping companies & route accounts. Select actual spare
+boats, a destination, a commodity and operating capital. Keep a seaworthy
+flagship and enough traveling hold space for your remaining cargo. Assigned
+boats and crew leave your traveling roster; their fitted weapons, armor, engines,
+damage and stores stay with the same hulls. One existing sailor serves as master
+at175coins/day total:100 ordinary pay plus75 professional premium. No extra
+person appears. The ordinary crew savings purse is split proportionally.
+
+Set a maximum buying price, minimum selling price, maximum cargo lot count,
+protected operating reserve and route risk allowance. The preview uses actual
+water-route distance, fitted speed and current market quotes. Price spread must
+cover wages, consumed fuel, repairs and losses; a delivery is not guaranteed
+profit. Empty stocks, poor buyers, prices, blockade risk or emergency repairs
+can hold a fleet. Its reason appears in the company report.
+
+Companies physically buy, sail, sell and return using the existing fleet
+simulation. They pay real wages and repair labor. Crew food is bought from
+crew savings. Commercial goods retain their material basis until sold or lost.
+Working stores retain their carried basis until consumed; lost hulls charge
+the declared standard production value allocated at charter. Those valuations
+are accounting records, not extra coin purses. Master/crew wages, material use,
+repairs and hull losses reduce the reported net result; capital deposits do not
+raise it. Transferred fittings remain physical property and are never reset.
+
+Recall orders a real homeward route. Meet a company at an actual harbor to hand
+over capital or settle crew arrears. Collect at its home only when both fleets
+are physically there, crew debts are settled and the returned cargo fits. The
+same boats and purses transfer once; damage is not healed. A wrecked operation
+keeps its finite wrecks and accounts. Government replacement subsidies and
+automatic replacement hulls are unavailable to your private company. Actual
+recovery and paid owned replacement boats remain your responsibility.

@@ -700,6 +700,14 @@ static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_po
 		owner["atPort"] = dock_id
 		RegionalOrders.arrival(state,owner,port_ref)
 
+	if owner.get("playerCompany",false):
+		var company_api: Script=load("res://scripts/company_ops.gd")
+		var recovery: String=needs_home_recovery(owner,fleet_reserves(owner),fleet_performance(owner))
+		var company_plan: Dictionary=company_api.plan(state,owner,port_ref,recovery)
+		var next: String=str(company_plan.get("destination",home_id))
+		build_order(state,owner,"resupply" if not recovery.is_empty() else "trade",next,str(company_plan.get("reason","Chartered route.")))
+		return next
+
 	if is_story_owner(owner):
 		var story_route: Array = owner.get("route", []) if owner.get("route") is Array else []
 		var story_dest: String = str(story_route[story_route.size() - 1]) if not story_route.is_empty() else home_id

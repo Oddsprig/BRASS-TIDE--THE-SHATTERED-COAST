@@ -1,6 +1,14 @@
-## v0.023 — Regional goods and household demand
+## v0.024 — Player shipping companies
 
 Candidate; verified test/export records follow.
+
+- Assign actual spare hulls, numerical crews and real operating capital to a fixed physical trade route while retaining a seaworthy flagship.
+- Companies buy and sell shared inventory within chosen price, cargo, reserve and risk limits; pay wages, provisions and repairs; and keep capital separate from earned profit.
+- Physical recall returns the same damaged hulls, fittings, cargo and purses only when both fleets meet at home; losses leave finite wrecks without public replacement subsidies.
+
+## v0.023 — Regional goods and household demand
+
+Verified local Windows delivery; exact tagged game 9c1845eda7f59228a986b5ad40f7504766f102aa. Native/export/archive evidence is in the delivery receipts.
 
 - Preserved fish, fine timber, lacquer and medicinal plants use original geographic recipes, actual inputs and paid local trades.
 - Civilian purchases follow essential food and spend only a bounded share of actual household savings; unavailable luxuries do not create hunger penalties.

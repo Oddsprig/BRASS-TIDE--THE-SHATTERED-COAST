@@ -1,9 +1,9 @@
-BRASS TIDE — WORKFORCE-TRAINING MAP (generated; v0.023)
+BRASS TIDE — WORKFORCE-TRAINING MAP (generated; v0.024)
 
 Existing civilian people and funded course inputs -> reserved trainees, qualified recruits, paid wages and refund-safe cancellation.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/crew_training.gd: 11496 bytes; extends RefCounted
+game/scripts/crew_training.gd: 11330 bytes; extends RefCounted
   game/scripts/crew_training.gd:14 ensure()
   game/scripts/crew_training.gd:19 quote()
   game/scripts/crew_training.gd:46 enroll()

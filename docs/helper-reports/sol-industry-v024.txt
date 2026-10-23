@@ -1,0 +1,147 @@
+v0.024 Player shipping companies -- bounded inline payload
+
+Status: static review only. No Godot, source execution, native acceptance,
+helper, repository edits, commits, export or publishing. v021 is untouched.
+Payload sizes, ASCII UTF-8 with LF/tab formatting:
+module 17,992 bytes; tests 8,997 bytes.
+
+Integration
+
+1. Instantiate shipping_companies.gd once with:
+   new(Goods.ITEMS, Money, Politics, hold_capacity)
+
+   hold_capacity is Callable(core, boat) -> finite nonnegative usable cargo
+   weight capacity. Return -1 for unknown capacity. Bind the existing fitted
+   hull calculation. The inline brief omitted its spec key, so the module
+   guesses no key.
+
+   Politics.permit must return bool or {ok:bool}; otherwise provide a
+   read-only adapter.
+
+2. Player cargo is state.cargo. Player/company cargo dictionaries contain
+   every Goods key. Ports are dictionaries with id/x/y; current_port()
+   represents the actual harbor.
+
+   specialists and shoreCrew are Arrays of {boatUid, active?:bool}.
+   Missing active means active. Unknown containers fail closed for transfers.
+
+3. After successful create, call NavalAI.ensure(state,data). Route the new
+   actual patrol through NavalLifecycle.route using next_port(core,owner).
+
+   Invoke next_port beneath emergency recovery at arrival/order selection.
+   On recall, retarget the physical course through NavalLifecycle.route
+   when emergency priority allows. next_port returns "" when recalled and
+   docked home, or when the owner is inactive.
+
+   Module does not advance voyages, manufacture income, consume stores,
+   repair or replace hulls. Existing native fleet/lifecycle systems do that.
+
+4. Commercial-only helper:
+   trade_limit(core,owner,buying:bool,good:String,price:float)->float
+
+   Mandatory limits:
+   buyMax: whole coins/unit >0
+   sellMin: whole coins/unit >=0
+   maxCargo: finite units >0
+   reserve: whole coins >=0
+   risk: finite [0,1]
+
+   Buys occur only at home. Sales occur at destination, or home after recall.
+   Buys respect usable hold, quantity cap, reserve and price ceiling.
+   Sales respect inventory/basis and price floor.
+
+   Root must additionally cap actual stock, counterparty liquidity, exact
+   integer payment/rounding and route risk. Life-support purchases bypass
+   this commercial helper.
+
+5. After each successful real goods/purse mutation, call record once:
+   purchase: goods-only payment and actual commercial quantity added
+   sale: gross goods-only revenue and actual quantity removed
+   loss: coins=0 and actual commercial quantity removed
+   wages: actual owner -> crewPurse payment
+   fuel: actual working-fuel payment
+   repairs/fees: actual owner expense
+
+   Record fees separately from gross trade. Commercial calls immediately
+   follow their individual cargo mutation, before another transaction.
+   The module checks expected inventory.
+
+   crew_food, deposits, withdrawals and other events are ignored. Food paid
+   from earned crewPurse is not another owner expense.
+
+   Monetary expense hooks have no transaction ID: root must avoid duplicate
+   calls from overlapping transaction/lifecycle hooks.
+
+6. daily refreshes metadata status only. Insolvent/inactive owners remain
+   intact. capital funds the actual owner purse without changing damage,
+   reactivating a lost fleet or spawning boats. Native lifecycle owns
+   recovery/reactivation.
+
+   Use owned_count for the 96-hull cap across player and company rosters,
+   including sunk records. Keep core.capacity() limited to physical player
+   hold; collection adds usable capacities of incoming nonsunk hulls.
+
+7. Collection requires recall, player home harbor, owner.atPort==home,
+   a holding patrol within 1 world unit of actual home coordinates,
+   no remotely stored living hull, settled wage arrears, roster space
+   and sufficient combined physical hold for remaining cargo.
+
+   Same boat dictionaries return, including sunk records with flags and
+   existing wreck references unchanged. No wreck is healed or relocated.
+   Root must preserve existing wreck/UID references.
+
+   Boats/cargo/purses transfer once; empty owner/patrol become inactive.
+   Earned crew purse stays separate from company/player capital.
+
+8. Validation:
+   validate(state,{ports:port_definitions,hulls:hull_definitions})
+   returns "" on success or an error string.
+
+   Definitions accept ID-keyed dictionaries or arrays of IDs/{id:...}.
+   Whole-valued JSON floats are accepted for integer fields through 2^53-1.
+   Fractions in integer fields, NaN and infinity fail.
+   Quantities may be finite fractions.
+
+   Checks company owner/patrol/route/good/port references, global boat UID
+   uniqueness, actual hull type IDs, account relationships and exact
+   metadata keys. This supplements the existing root validator for world,
+   loadout and noncompany state.
+
+   ensure adds only empty shippingCompanies when absent. It never resets
+   malformed existing data.
+
+Accounting
+
+NetProfit = revenue - proportional COGS - operating expenses.
+
+Purchases remain inventory basis until sale/loss. Proportional cost allocation
+uses whole coins; the final quantity carries the exact remaining cost.
+Lost commercial cargo writes its remaining allocated basis into operating.
+
+invested is capital deposited; withdrawn is actual owner cash returned;
+returnedBasis is unsold goods returned in kind at cost. Deposits and retained
+or returned inventory are not income. Crew purses are not capital investment,
+revenue or owner withdrawals.
+
+No dividends or arbitrary hull valuations. Only fleetOwners holds company
+coins/crewPurse. Company metadata contains accounting totals, not another purse.
+
+Maximum 8 open companies. Closed metadata persists under stable IDs and does
+not consume an open slot. Each company transaction log is capped at 32 rows.
+
+Tests
+
+Self-contained SceneTree native script with synthetic core, Money, Politics
+and capacity adapters. Failed checks produce a nonzero exit.
+
+Coverage includes funded creation and proportional crew-purse conservation;
+same boat identity, people, stores and refits; failure atomicity; harbor,
+service, shore-person and last-flagship restrictions; missing cargo/limits;
+8-open-company cap; price, quantity and reserve limits; physical recall,
+dock, cargo-space and unpaid-crew checks; single collection; damaged-company
+funding and sunk identity; malformed JSON-shaped saves; inventory, COGS,
+operating expenses and capital versus profit.
+
+Verification performed: static review and text delimiter checks only.
+Root must materialize the three files with LF/tab formatting, review them,
+then run native tests and serialized central acceptance before integration.
