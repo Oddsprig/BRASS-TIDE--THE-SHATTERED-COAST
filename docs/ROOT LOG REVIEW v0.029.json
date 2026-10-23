@@ -1,0 +1,362 @@
+{
+  "suites": 70,
+  "logs_with_positive_completion": 70,
+  "failed_or_missing": [],
+  "unexpected_functional_hash_differences": [],
+  "post_test_document_only_changes": [
+    "game/data/DEVELOPER NOTES.txt"
+  ],
+  "scope": "Independent root read of actual70 logs and frozen code/assets/metadata; respects literal legacy completion markers. In-game development-note text is being updated from candidate to measured source acceptance and disclosed separately. C receipts bind actual process/source/fixture. No root engine launch.",
+  "logs": [
+    {
+      "suite": "damage",
+      "summary": "damage: all native tests passed",
+      "sha256": "b739e4617b4484c4acb0f47fbb293df1b2c19622353a96af5dbe6ec417dd04a2"
+    },
+    {
+      "suite": "battle",
+      "summary": "battle: all native tests passed",
+      "sha256": "0ffa9b311ac15d771dec7ccaf0f3e0ec8c14b744739e0560ed8a9d7ca6f67868"
+    },
+    {
+      "suite": "navigation",
+      "summary": "navigation: direct, island detour, blocked targets, barriers, diagonal corners, shore connections, bounded finite graph, 10 ports and 19 routes passed",
+      "sha256": "7338a6c9b6e6d5b1420d4077604e2215b8dad8ed774e3d52a1e38b53547e2417"
+    },
+    {
+      "suite": "economy",
+      "summary": "ALL NATIVE ECONOMY TESTS PASSED (86831 checks in 2822 ms)",
+      "sha256": "81ad1fa59de2b6b33155299b9c400d6510241898806ab425597fff88c7321116"
+    },
+    {
+      "suite": "construction",
+      "summary": "CONSTRUCTION PASS: 2827 checks in 16 ms",
+      "sha256": "10572b3e5cf56afa43cd0df011d3fe5a72248c0dee1759039b5e5eb7936b09aa"
+    },
+    {
+      "suite": "fleet_economy",
+      "summary": "fleet cash: 1266 checks, 0 failures, 3993 ms",
+      "sha256": "1b936237017bd5151afe9066f6677a87b728ad6fe65ef23d8117dd9bc7ec5e27"
+    },
+    {
+      "suite": "campaign_cash",
+      "summary": "campaign cash: 458 checks, 0 failures, 9428 ms",
+      "sha256": "c704921c602999bd07a3ca7682c74622ebbbb9a23ec94243aae2dab4f803e771"
+    },
+    {
+      "suite": "save_validation",
+      "summary": "save validation: 89 checks, 0 failures, 852ms",
+      "sha256": "7abff06d74ab6d6358ea93436e412aa3ee828cbc5286cba78c6d0cc2c7140f0d"
+    },
+    {
+      "suite": "runtime",
+      "summary": "runtime: 124 checks, 0 failures, 2201ms; background/headless only",
+      "sha256": "6ce3bccf7477c7255ec0d7ca03fd3d3708846f83274ff5045fcba382fcd8afbf"
+    },
+    {
+      "suite": "voyage",
+      "summary": "voyage: 68 checks, 0 failures, 9934ms; largest fleet14",
+      "sha256": "19ae5f730ec5b263445a4a005ada3bfc2c20901ec1ef5127261f7bbbe7d32778"
+    },
+    {
+      "suite": "tactics",
+      "summary": "tactics: 114 checks, 0 failures",
+      "sha256": "b4ac1ec02d3fbaef3501307aa261fd613275837d134c4f548ff21bcec7b129bf"
+    },
+    {
+      "suite": "refit",
+      "summary": "refit: 348 checks, 0 failures",
+      "sha256": "67e16229d263ea8019b4b31625fe6c6dd8290729ef00a5a3f376955bb1b99739"
+    },
+    {
+      "suite": "fleet_points",
+      "summary": "fleet points: 99 checks, 0 failures, 1998ms",
+      "sha256": "9ef11353eb8f8bade88cb38af9d8bc9bac604211f488c0ce0d6c6d4e5f08d42d"
+    },
+    {
+      "suite": "commander",
+      "summary": "commander: 24 checks, 0 failures; background only",
+      "sha256": "76ba0b7f9377afbd36cbdefaa7ca93f99c7d9e1c1739aa9ae45ab4a33a77b55f"
+    },
+    {
+      "suite": "autovoyage",
+      "summary": "voyage: 68 checks, 0 failures, 9608ms; largest fleet13",
+      "sha256": "94998de0ef7176b014239a8022116d31d6f3b01c94b5e1b409d16750c2a40f22"
+    },
+    {
+      "suite": "laboratory",
+      "summary": "LABORATORY: 81 checks, 0 failures",
+      "sha256": "3e04e8a5ddc72eea91bf8b7c958984603e28d17738da4e1eb7c9cc87abe245dd"
+    },
+    {
+      "suite": "combat_events",
+      "summary": "combat_events: 10131 checks, 0 failures",
+      "sha256": "82fc26360bdce3336a603a3ab9829097a1f810ac90b113db66f59585ac7902b0"
+    },
+    {
+      "suite": "audio",
+      "summary": "AUDIO: 1233 checks, 0 failures; decoding/scheduling only, no audition",
+      "sha256": "dc52ef60020901e63867ba8fcf753ac89998a82f7d4ff8e9e26b0b65af55e924"
+    },
+    {
+      "suite": "map_revision",
+      "summary": "map revision: 361 checks, 0 failures, 3378ms",
+      "sha256": "2e63c1cee8587b10abf81caf1e6b46ccedf7348ba2f92b5e0b646395d12b00b9"
+    },
+    {
+      "suite": "mount_layout",
+      "summary": "mount_layout: 1483 checks, 0 failures",
+      "sha256": "b2e4acb76b13ab4b5d0bb1d7cd9b0b26b34f5ce2612782aa49c477ddeb07fec3"
+    },
+    {
+      "suite": "presentation",
+      "summary": "PRESENTATION: 611 checks, 0 failures",
+      "sha256": "03d72af6f25270b7c56ebef8063833419701d9bd04eb2863d76435002960ec3f"
+    },
+    {
+      "suite": "feedback",
+      "summary": "FEEDBACK: 3952 checks, 0 failures",
+      "sha256": "c27dee7d8df2bb1709b4381e6b69dac22682a52503c5b48720da17f9edc2dca2"
+    },
+    {
+      "suite": "expedition",
+      "summary": "expedition: 23 checks, 0 failures",
+      "sha256": "6fe22d26ea63a3208412d99f503f871348788eb078a6504ec27520c60f193219"
+    },
+    {
+      "suite": "campaign_logistics",
+      "summary": "campaign logistics: 16 checks, 0 failures",
+      "sha256": "cfe30045d9ed376defa3cc9ab89fdae1cfb2596438f10bf5bc6c182753e89536"
+    },
+    {
+      "suite": "exploration",
+      "summary": "exploration: 270 checks, 0 failures",
+      "sha256": "9ee1c9b805e027cb9170b19c97761ddce58720c3caca9b0e701cd77997300dec"
+    },
+    {
+      "suite": "island_voyage",
+      "summary": "island voyage: 12 checks, 0 failures",
+      "sha256": "c76c464cbccf27ce3f32525179bae55fc0c90d6a4a5cc27cc6e3659c7955d10e"
+    },
+    {
+      "suite": "salvage",
+      "summary": "salvage: 70 checks, 0 failures",
+      "sha256": "f13a4384383a3e0b0aaff49c4840d6263b9b4157cf6d41ded6da9010033d5f37"
+    },
+    {
+      "suite": "salvage_voyage",
+      "summary": "salvage voyage: 14 checks, 0 failures",
+      "sha256": "2a99bb81b3f30e46a535ca5dd0f75c7de164cb45695d4c0c56480c821f0af161"
+    },
+    {
+      "suite": "voyage_jobs",
+      "summary": "voyage_jobs: 69 checks, 0 failures",
+      "sha256": "0792645f46bb40b748b7e5836ac8cc4ae2a74b0dac439456c6331f20cb020530"
+    },
+    {
+      "suite": "voyage_flow",
+      "summary": "voyage flow: 12 checks, 0 failures",
+      "sha256": "1586992a5909617f76cece35b2b6853eba154197e1fa39ef59eb69eac94e0a36"
+    },
+    {
+      "suite": "factions",
+      "summary": "ALL FACTION TESTS PASSED (193 checks in 5 ms)",
+      "sha256": "b74ae22407997ee909069ff23a8af451155c81a7009d6dcc3ec6cdf43047a4ea"
+    },
+    {
+      "suite": "political_voyage",
+      "summary": "political voyage: 16 checks, 0 failures",
+      "sha256": "92b0b8d54885f6179ad580794dab2cb9a1f3199f5af6edb1bf8096e589258e35"
+    },
+    {
+      "suite": "naval_ai",
+      "summary": "naval_ai: 227 checks, 0 failures, 2452 ms",
+      "sha256": "f81814e6f660e58102706468edbc6e330c9ca2bab229a7da1f57f856778fdc0d"
+    },
+    {
+      "suite": "naval_voyage",
+      "summary": "naval voyage: 8 checks, 0 failures",
+      "sha256": "95ceba847039cd2343efc25bbc62ed2a702713e622fd9a6329e6adfdec86a093"
+    },
+    {
+      "suite": "trade_intel",
+      "summary": "ALL TRADE INTEL TESTS PASSED (67 checks in 16 ms)",
+      "sha256": "f8e0970ecd39cd4427dd5f36780866604f7e5b8dd46ea4f719690f0202dbd844"
+    },
+    {
+      "suite": "reactive_trade",
+      "summary": "reactive trade: 9 checks, 0 failures",
+      "sha256": "f274308ffa44b417d811225fbaee4dfa233ceefce891278da9f77201ac9f38db"
+    },
+    {
+      "suite": "fleet_identity",
+      "summary": "fleet_identity: 55 checks, 0 failures",
+      "sha256": "d2940273d5cbf180d3d8aa375592e82d5f8f0eeaa7acaa3c0e28beaeb5718ed5"
+    },
+    {
+      "suite": "support_voyage",
+      "summary": "support voyage: 17 checks, 0 failures",
+      "sha256": "8097b5f008bcbc262a09f23e2435241ee8bae2b3153b77e62a7c3e629ef029a9"
+    },
+    {
+      "suite": "naval_recovery",
+      "summary": "naval recovery: 11 checks, 0 failures",
+      "sha256": "b2fc521f405825c05c50893a017a7afb4112c7bc724da741bf060d87276b2861"
+    },
+    {
+      "suite": "coastal_stories",
+      "summary": "coastal_stories: 109 checks, 0 failures",
+      "sha256": "714de8dd89dc4d401bbf95aeca16ccf1baa5395cdf6c0052b25a764cecf551af"
+    },
+    {
+      "suite": "story_voyage",
+      "summary": "story voyage: 18 checks, 0 failures",
+      "sha256": "41d2731875033d6a3d9f5a7b36bad396427ccb07d48d2ff41841403d05ff38d8"
+    },
+    {
+      "suite": "home_harbor",
+      "summary": "home_harbor: 74 checks, 0 failures",
+      "sha256": "7f091b0a82ff5c0d4d5d514dabe208394f402942e2653807bc7fb71464094922"
+    },
+    {
+      "suite": "home_voyage",
+      "summary": "home voyage: 17 checks, 0 failures",
+      "sha256": "d539b03e155250b04c3474d6607bb1a779deba97c7935ef9109cc0cf079057ff"
+    },
+    {
+      "suite": "regional_campaigns",
+      "summary": "regional campaigns: 64 checks, 0 failures",
+      "sha256": "87459cb45dc6528f30f104346d8d7b233dc174d71ba103cfc45e7279ff0b027c"
+    },
+    {
+      "suite": "regional_voyage",
+      "summary": "regional voyage: 24 checks, 0 failures",
+      "sha256": "0f3ecdac9b7c92c9b39606389a62e19b521ca9acfc8af734d61fe236ea5edce0"
+    },
+    {
+      "suite": "campaign_endurance",
+      "summary": "campaign endurance: 2168 checks, 0 failures, 15291 ms, 8 worker lanes",
+      "sha256": "046f57dd8047a687c9904e5951134cb96f3a5bbabe2523f724cdf43c4302f69e"
+    },
+    {
+      "suite": "crew_training",
+      "summary": "crew training: 20 checks, 0 failures",
+      "sha256": "761e731bf289584f243b159bd3ededdfd6413d6b69ba40d0b25ebbd2a414d012"
+    },
+    {
+      "suite": "training_voyage",
+      "summary": "training voyage: 14 checks, 0 failures",
+      "sha256": "b350512536c9c216fb4ee3091338d0507110fa5bafcb6b315e5a85bd124f604a"
+    },
+    {
+      "suite": "harbor_reserves",
+      "summary": "PASS: harbor reserve invariants",
+      "sha256": "55788dc63c89c270a485eb333e286423b6c1bf8db631af422de4369fe0885029"
+    },
+    {
+      "suite": "supply_voyage",
+      "summary": "supply voyage: 12 checks, 0 failures",
+      "sha256": "1af1c0dc725daa49a293b5bf22caeb4dec7957f414728d436d6098ce346b0bc7"
+    },
+    {
+      "suite": "industrial_tooling",
+      "summary": "PASS industrial_tooling",
+      "sha256": "070813eb07accc874d45d1b24e804eeef7d79e212a57bd84459fe8a2881bb027"
+    },
+    {
+      "suite": "industrial_voyage",
+      "summary": "industrial voyage: 35 checks, 0 failures",
+      "sha256": "ebe4383b7ef16bf2efd3c63aaa15787d484f14bd2354a10c6c9fb2ca957da9ac"
+    },
+    {
+      "suite": "worker_conditions",
+      "summary": "worker_conditions: 54 checks, 0 failures",
+      "sha256": "56ca368f1010188571f949d3d604dae2f72a1c290a5c1fadc2b7d6b8f97f5128"
+    },
+    {
+      "suite": "conditions_voyage",
+      "summary": "conditions voyage: 21 checks, 0 failures",
+      "sha256": "685cf4b30fb9487991c7509bf92f0e61f58f4d82a07fffd808b0db475b765454"
+    },
+    {
+      "suite": "regional_goods",
+      "summary": "REGIONAL_GOODS_TESTS_PASS",
+      "sha256": "60b83c42be8a28b1d126805403ac807fd02441f5156374f34fee33b370c4b7b5"
+    },
+    {
+      "suite": "civilian_voyage",
+      "summary": "civilian voyage: 53 checks, 0 failures",
+      "sha256": "fcb704a1df0db6255d096399723526f9ed86c672780eeb421b2f128f78f56049"
+    },
+    {
+      "suite": "shipping_companies",
+      "summary": "shipping: 0 failures",
+      "sha256": "7746ce4743ee738a02b60027c18f469a8aa22830d88e5aa7a9c15e9be251a9cd"
+    },
+    {
+      "suite": "company_voyage",
+      "summary": "company voyage: 30 checks, 0 failures",
+      "sha256": "3c7c2a62dcdf41c6732a132e4c7625c3eff297d4732d70f02eb542dcb3e0f905"
+    },
+    {
+      "suite": "trade_law",
+      "summary": "trade law: 49 checks, 0 failures; native candidate",
+      "sha256": "c4f5ac0e72ffcc9a5fdb68375cbe97babe5f45435901d95926a4aa6d75ac3165"
+    },
+    {
+      "suite": "customs_voyage",
+      "summary": "customs voyage: 25 checks, 0 failures",
+      "sha256": "e31869eca6e72a3b81d5587c2cf5580e1c6b2fc93e8033ddafadbfade61a36b4"
+    },
+    {
+      "suite": "boarding",
+      "summary": "boarding: 115 checks, 0 failures",
+      "sha256": "3501600e624b600ec049c6d0a0f7a00dfca633331a5a7dac736f095b16bde2ff"
+    },
+    {
+      "suite": "boarding_voyage",
+      "summary": "boarding voyage: 28 checks, 0 failures",
+      "sha256": "327a0a4736a83f81fc9aeecb935a0557beb8c1bcbe053e963e8be27f4086abcb"
+    },
+    {
+      "suite": "regional_crises",
+      "summary": "regional_crises: 103 checks; 0 failures",
+      "sha256": "e7483d5f99b757fcab7ee50bd153c369c667aec2ec5c26256ceaf57add88072c"
+    },
+    {
+      "suite": "crisis_voyage",
+      "summary": "crisis voyage: 30 checks, 0 failures",
+      "sha256": "38ef6e9bfac6bc4a002a9dc3e063c7f229ba8876210aa01766fc574647ef1964"
+    },
+    {
+      "suite": "campaign_guidance",
+      "summary": "campaign guidance: 287 checks, 0 failures",
+      "sha256": "5e722e554995735112b730fb940c79278c0764ec0d3bd13e5c3fbdba525654a0"
+    },
+    {
+      "suite": "campaign_systems",
+      "summary": "campaign systems: 97 checks, 0 failures",
+      "sha256": "155d2c4bac8d736b28e5ec4a9b5bcb33be582a3a85bde242ec629d4ca30e191f"
+    },
+    {
+      "suite": "workshop",
+      "summary": "Workshop: 85 checks, 0 failures",
+      "sha256": "919c938c253f194c61c582c7f082b31d917c5795598c916b7521d479c8b3437a"
+    },
+    {
+      "suite": "art_workshop",
+      "summary": "ART WORKSHOP: 2343 checks, 0 failures; max 738 near / 219 far primitives",
+      "sha256": "022c65f0d10b05ad2f02426594a771801022949eada52ff50d4cadc459c2d78a"
+    },
+    {
+      "suite": "workshop_voyage",
+      "summary": "workshop voyage: 154 checks, 0 failures",
+      "sha256": "f485bc4c632dd1e474048223fd5468bc92f452d24c90e007f62e9f05345b6e97"
+    },
+    {
+      "suite": "workshop_ui",
+      "summary": "workshop UI: 69 checks, 0 failures; native controls only, background/headless/silent",
+      "sha256": "636d5c655212fd2edaf5305214f32c314ca8d029c68fef88b8ea96aadfb91016"
+    }
+  ]
+}

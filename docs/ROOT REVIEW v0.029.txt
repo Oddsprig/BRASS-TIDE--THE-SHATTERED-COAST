@@ -1,0 +1,63 @@
+BRASS TIDE v0.029 — INDEPENDENT LEAD REVIEW
+23 October 2026 | Codex root | Source acceptance; Windows delivery separate
+
+DECISION
+Accept the integrated fleet workshop, paid fitting transaction, saved knowledge
+library and presentation changes for v0.029. This is source acceptance only;
+exact-tag Windows export/menu/campaign-save/battle/archive and launcher have
+separate required receipts. Later versions remain authorized and unfinished.
+
+REVIEWED IMPLEMENTATION
+Root read the complete new deck-detail module and art diffs, workshop transaction
+and UI, shared paid Refits calculations, Campaign live-reference publication,
+template preflight/restore, actual Main hooks and portrait arc/socket integration.
+Root read the new unit, UI and voyage fixtures and recorder/tool changes. Templates
+are knowledge only. Removed modules enter a shared physical pool before swaps;
+actual materials, workers, experts, business/household/expert/government purses
+reconcile once. Stale quotes fail without mutation. Paid fits preserve the same
+state/harbor/stocks/hull objects and all existing damage, crew and working stores.
+
+Root visually inspected the actual 24-hull gallery, empty/fitted representatives,
+battle-scale sheet, weapon-family sheet and eight cannon recoil frames from A's
+native drawing captures. Added planking, cabin glazing, hatches, cleats, cleared
+rails, receivers/breeches/feeds/racks/tubes and motor detail remain original,
+share actual mount origins and remove work at distance. No GPU/FPS, human audio,
+subjective parity or complete future AI achievement is inferred from those views.
+
+EVIDENCE
+C's integrated 70 native suites passed: original 66 plus workshop 85,
+art_workshop 2343, workshop_ui 69 and workshop_voyage 154 checks. Root independently
+read positive completion from every actual log, checked for fatal/failure markers
+and matched frozen functional input hashes. C's integration inventory ties each
+fixture/log to the actual source/engine/owned process. Original66 assertions are
+unchanged. All engine work was serialized, headless, hidden and Dummy-audio in
+isolated synthetic profiles; no owner save, music, mouse, keyboard or focus used.
+Godot 4.7.2.stable.official.ed1daf0bf is the existing local engine.
+
+The voyage fixture initially expected a 23,983-coin engine on a 15,000-coin starter.
+That bad fixture assumption was corrected to an actual affordable paid second
+gun, with an explicit affordability assertion; prices and production stayed intact.
+The original failure is retained. Existing passed suites were reused unchanged.
+Import certificate-store failure and external-engine guard waits are retained
+separately from the authorized successful import, not reported as passes.
+Raw Windows log hashes and LF-normalized transcript hashes are distinguished.
+
+POST-TEST DOCUMENTS AND TOOLS
+Only in-game development-note status text changed after native runs. Maps/current
+records and source acceptance notes were updated, with existing .028 history
+preserved. Explicit Dummy audio was added to exported smoke arguments; map groups
+and Python tools received static checks. Final clean-tag exported checks must
+verify the actual packaged source including these document/tool updates.
+
+FOLLOW-ON
+Tactical .030 is still pending. Future per-module condition must replace the
+current protective refusal for unsupported opaque equipment metadata without
+creating repair-by-refit. Preserve 24 hull IDs, 300 DP admission distinct from
+ownership, paid resources/people and physical sockets. GitHub remains pending the
+known Windows credential-context failure; no remote publication is claimed.
+Raw Bridge reports remain verbatim; this is the separate root acceptance verdict.
+
+Integrated candidate: 87664a8f1c4361d1fd0642090d36833cb2cd17c5.
+Tested functional source: b83c9d6d100b9439222f337d8c7fbe58ac3dd051.
+Source proof: docs/INTEGRATION v0.029.json; raw reports: docs/helper-reports/.
+Lead log review: docs/ROOT LOG REVIEW v0.029.json.
