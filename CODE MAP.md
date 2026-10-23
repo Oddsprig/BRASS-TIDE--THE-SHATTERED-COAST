@@ -18,7 +18,7 @@ The native Godot game is game/. Generated maps/ contains current symbols/line nu
 - fleet_lab.gd, lab_ui.gd, dev_tools.gd:24hulls/compatible fittings,300DPbuilder, deterministic fixtures/replay/results, career isolation and explicit opt-in short-test tools.
 - sound.gd, combat_art.gd: six CC0 recording families/three cuts each, bounded32voice spatial pool, short distinct muzzle/impact/water effects and staged sinking. Quiet engine bed is original/procedural.
 - music.gd, preferences.gd:18owner-supplied Lyria tracks in eight roles, complete variation cycles, live portable/Desktop scan and separate persistent presentation settings.
-- game/tests/:46 native suites. tools/check_game.py serializes them with isolated APPDATA and per-suite timeouts; script errors fail even on exit0.
+- game/tests/:66 native suites. tools/check_game.py serializes them with isolated APPDATA and per-suite timeouts; script errors fail even on exit0.
 - tools/qa_brass.py, fleet_bench.gd, bench_scenarios.json: seven short isolated CPU benchmarks including40boats at300DPper side and physical outward-arc coverage.
 - tools/check_visuals.py, feedback_gallery.gd, render_feedback_gallery.py, presentation_bench.gd: short cached-render animation captures, mesh/impact/sinking geometry checks and actual Main CPU timings.
 - tools/boat_gallery.gd, render_boat_gallery.py, audit_boat_geometry.gd: exact code drawing capture/software PNG/GIF and360heading native polygon checks.
@@ -26,7 +26,7 @@ The native Godot game is game/. Generated maps/ contains current symbols/line nu
 - tools/release_game.py: clean exact-tag native Windows export, icon/PCK/menu/campaign/save/battle checks, RELEASE.json and portable ZIP.
 - tools/publish_github.py: verified exact repository, clean main/tag ancestry, atomic non-forced publish of all playable tags and exact remote verification. No interactive sign-in UI.
 
-Read BUILD PLAN.txt, version notes/verdicts and delivery receipts for actual changes and verification. ROADMAP.md summarizes the planned v0.019–v0.028 economy stage; docs/ECONOMY VERSION MAP v0.019-v0.028.txt records its costs, dependencies and exit gates. The previous roadmap is preserved in docs/archive/2026-10-22 before economy version map ROADMAP.md; docs/CAMPAIGN ROADMAP.txt retains the original v0.008–v0.018 design. docs/CAPTAINS CAMPAIGN GUIDE.txt describes the delivered campaign. Source captures and numerical/codec checks do not substitute for voluntary foreground play or listening.
+Read BUILD PLAN.txt, version notes/verdicts and delivery receipts for actual changes and verification. ROADMAP.md and docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt record the next ten PLANNED versions; game remains v0.028. The completed economy-stage record is docs/ECONOMY DEVELOPMENT v0.019-v0.028.txt. Original planning/code-map snapshots are retained in docs/history/2026-10-23 before v0.029-v0.038 planning/. New future modules do not exist merely because this plan names them. Source captures and numerical/codec checks do not substitute for actual visual review, voluntary play or listening.
 
 - v0.011: voyage_jobs.gd owns finite side-job escrow and freight; contacts.gd owns harbor trust and dated observations; voyage_ui.gd presents these books. Campaign wrappers allocate sealed cargo and record actual visits/settlements. test_voyage_flow.gd covers lost cargo, once-only payment and the real menu.
 

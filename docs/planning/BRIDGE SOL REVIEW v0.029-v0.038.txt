@@ -1,0 +1,45 @@
+status: ok
+final model: gpt-6.1-sol via codex at max
+speed: standard
+cost: $0.0000
+tokens: 60,480 in / 7,217 out
+attempt 1: gpt-6.1-sol via codex (max, pinned, 60,480 in / 7,217 out) ok
+  note: pool: ChatGPT plan
+  note: tools used: command_execution
+check format: passed
+high usage: Max on Sol 6.1 is the second of its three levels above high; Ultra is above it. It thinks as long as Sol allows without handing work to extra agents, and uses much more of your ChatGPT plan than high.
+
+--- output ---
+Version | Player outcome | Concrete enhancements | Dependency | Proposed acceptance scenario
+
+v0.029 | Choose an affordable fleet with a clear purpose. | Compare known hull and fitting plans using existing physical sockets; preview combined yard costs, crew obligations and return stores; retain reusable design plans as knowledge, separate from owned equipment. | v0.028 refit, expedition and fleet identity. | Compare cargo and combat variants of an owned boat at a legal yard. Apply one affordable fit through existing transactions; an unavailable component produces an explained block without consuming payment.
+
+v0.030 | Understand what boats are doing during combat. | Enhance selected-mount displays with actual firing arcs, aim and ammunition reasons; connect localized damage reports to lost capabilities and repair priorities; prioritize distinct, bounded visual and sound cues. | Existing battle/damage systems and v0.029 fitted-stat presentation. | A moving target crosses a mount’s firing arc before its magazine empties. Displayed reasons, actual projectiles and damage remain consistent through pause, orders and resumed simulation.
+
+v0.031 | Carry out a coordinated tactic with fewer repeated orders. | Extend existing orders with screening a named deployed ally and conditional withdrawal to a rally point; allow a short bounded sequence of order legs; show intent, cancellation and manual override clearly. | v0.030 and existing tactical orders. | In a 300DP engagement, an escort screens its ally, withdraws at the selected damage threshold and immediately respects manual override. Existing deployment and reserve boundaries remain enforced.
+
+v0.032 | Recognize opponents and choose a counter. | Add two bounded doctrine profiles to existing naval AI, emphasizing close approach or supporting distance; constrain decisions by actual fittings, damage and working stores; expose observed tendencies through dated contact reports. | v0.030–v0.031 and existing naval recovery. | Repeat the same roster fixture under each doctrine and observe distinct approaches. An ammunition-depleted opponent enters physical recovery and resupply; changing doctrine grants neither stores nor combat bonuses.
+
+v0.033 | Explore toward a useful fleet decision. | Add two compact story branches connecting existing sites, salvage and rights; annotate discovered leads with known crew, tools and travel requirements; recognize already completed surveys and exhausted discoveries. | v0.029 planning and existing survey/story infrastructure. | Two branches lead toward the same finite machinery item. Recovering it resolves both leads appropriately; a previously surveyed or exhausted site never issues another copy during migration or reload.
+
+v0.034 | Fight for a practical objective. | Extend existing escort and blockade objectives with damaged-vessel extraction and convoy breakout; display physical exits, deadlines and partial outcomes; settle surviving hulls, freight and funded contracts through existing accounts. | v0.031–v0.032 and existing battle objectives. | One of two freight carriers escapes while the other sinks. Each job settles under its stated terms, the lost carrier leaves its persistent wreck, and cargo losses are recorded once.
+
+v0.035 | Make informed decisions about prizes and recovery. | Unify existing aftermath choices in a target-linked triage view; compare tow speed, spare hands, captive provisions and repair-to-service costs; connect the chosen outcome to existing boat service histories. | v0.034 plus delivered boarding, towing and salvage. | Choose towing over stripping a damaged prize. The flotilla travels with the actual penalty, feeds its captives and pays for repairs and staffing before the same hull enters service. The abandoned stripping option yields nothing.
+
+v0.036 | See local consequences of successful voyages. | Author two bounded harbor reaction chains using existing crisis, faction and regional records; let observed deliveries and victories change priorities for existing supplied patrols and trade; show dated causes and conditions for each response. | v0.033–v0.035 and existing political/naval ledgers. | Relief and blockade defeat enable a local patrol to protect an actual passage. If that patrol has been destroyed or cannot provision, the response remains unavailable with an explained reason. Reload preserves the resulting state.
+
+v0.037 | Pursue a fleet expedition with several viable approaches. | Extend regional goals with one authored three-leg expedition; support an armed escort route and an exploration-led negotiated route using existing permissions; conclude with a finite funded award or useful service right. | v0.033–v0.036. | Complete either route from the same controlled starting state using different fleet compositions. Both close the same award once. Abandonment preserves losses and spent supplies while leaving ordinary campaign play available.
+
+v0.038 | Complete a coherent local voyage with less friction. | Simplify preparation, order editing and aftermath screens where voluntary play reveals problems; improve two existing local voyage loops within real sponsor budgets; resolve measured presentation and pacing problems across the preceding releases. | v0.029–v0.037. | An uncoached voluntary session outfits a flotilla, resolves an encounter, follows a survey lead and returns to harbor. Record control blocks, unclear consequences and pacing complaints; use those observations to determine remaining work rather than declaring fun from automation.
+
+Five strongest scope and implementation warnings:
+
+1. Protect the delivered foundation. These are enhancements to existing systems. The supplied guides and source map establish capabilities but do not replace source inspection. Before each implementation, check the owning modules and choose the smallest extension; avoid a parallel fleet planner, combat engine, political director or inventory ledger.
+
+2. Make the early versions useful aboard the starting boat. A new career has 15,000 coins, while the quoted ready Tinwake costs 41,581 before crew advances and stores. Requiring another purchase would put the proposed combat and exploration improvements behind substantial earning. Offer meaningful outfitting and short funded voyages using existing assets; preserve the wage anchor and finite sponsor budgets.
+
+3. Keep tactical variety inside physical limits. Doctrine and encounter scripting must use existing boats, people, weapons, stores and recovery paths. Preserve numerical crews, 300DP deployment, physical support capacity and prize repair requirements. Start with two doctrines and two objective variants; a generalized scripting framework would consume the stage without proving better play.
+
+4. Preserve ownership, history and publication rules. Plans own no equipment. Every prize, cargo transfer, casualty, reward and consequence needs stable identity and once-only settlement. Migrations must preserve exhausted sites and completed outcomes. Fleet, law, passenger and UI transactions remain on the main thread after worker joins; copied harbor jobs must not mutate these shared records.
+
+5. Require appropriate evidence throughout. Use reproducible, isolated background fixtures for orders, objectives, conservation, migration and NPC recovery. Retain inexpensive water, bounded effects and numerical crews. CPU timings establish only measured CPU behavior. Combat readability needs actual visual checks, sound priorities need listening, and enjoyment needs voluntary play beginning with the first combat enhancement.

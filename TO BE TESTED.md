@@ -1,3 +1,11 @@
+PLANNING UPDATE — 23 October 2026
+v0.029-v0.038 are planned, not implemented or tested. Their future acceptance
+scenarios are in docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt.
+This documentation task performed no engine/gameplay tests. Existing v0.028
+native/export evidence remains in its original reports and delivery receipts.
+Earlier open play/listening questions are preserved below and are not silently
+marked complete by this plan.
+
 v0.028 voluntary play: Campaign balance guidance and performance
 Assess readability and usefulness of: Captain priorities provide five career views, actual readiness and return budgets, and direct links to existing campaign systems without changing game state. Paid physical companies, academy courses, customs expiry, defenses and civilian reception pass a combined60-day campaign; civilian wreck cargo and surviving-flagship restoration preserve exact accounting. Secured-prize sinking, manual-control exclusion and capture-capacity checks preserve actual people and wrecks. Bounded route reuse and charter records keep campaign work finite. Current portable play guides, native24-hull/20-good bills, scoped CPU measurements and original historical notes accompany the Windows build.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

@@ -1,30 +1,51 @@
-# v0.028 delivered — authorized economy sequence complete
+# Brass Tide: v0.028 delivered, v0.029-v0.038 planned
 
-All ten builds v0.019-v0.028 have separate verified Windows/source archives and annotated tags. Exact current game: 2b11d4d1af69b62a2f8436bcdee4a5675432bd98. Launcher, original-save preservation and remote publication have separate receipts. Read docs/ECONOMY QUICK START.txt and current maps for the completed systems. No additional playable increment has been started.
+23 October 2026. The owner requested a map of ten more versions using Bridge.
+The plan is complete. **No later game build has been started.**
 
-# v0.028 — Campaign balance guidance and performance
+Current game remains v0.028, exact tagged source
+`2b11d4d1af69b62a2f8436bcdee4a5675432bd98`. All ten sequential economy builds
+v0.019-v0.028 have independent local delivery receipts, Windows/source archives
+and annotated tags. The desktop launcher at Desktop/game-launchers/Brass Tide.lnk
+points to v0.028. Original saves/music and earlier releases are preserved.
 
-SOURCE ACCEPTED: 66 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+Read ROADMAP.md, VERSION MAP.txt and
+`docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt` for the proposed next stage.
+It begins with starter-boat fitting/art, tactical doctrine, damageable fittings
+and physical convoy/recovery objectives; then sightings, geography, expeditions,
+rivals and a supplied faction operation; finally career/presentation/performance
+polish. Each row has a concrete acceptance scenario. Implementation needs a
+subsequent owner instruction; earlier completed-range authorizations do not
+turn this planning request into ten new builds.
 
-- Captain priorities provide five career views, actual readiness and return budgets, and direct links to existing campaign systems without changing game state.
-- Paid physical companies, academy courses, customs expiry, defenses and civilian reception pass a combined60-day campaign; civilian wreck cargo and surviving-flagship restoration preserve exact accounting.
-- Secured-prize sinking, manual-control exclusion and capture-capacity checks preserve actual people and wrecks. Bounded route reuse and charter records keep campaign work finite.
-- Current portable play guides, native24-hull/20-good bills, scoped CPU measurements and original historical notes accompany the Windows build.
+One bounded Bridge advisor: gpt-6.1-sol via Codex/ChatGPT plan at Max, run
+c74659fa4ebb. Preserve docs/planning/BRIDGE SOL REVIEW v0.029-v0.038.txt verbatim.
+Root's separate verdict is docs/PLANNING REVIEW v0.029-v0.038.txt. Full payload,
+usage/route evidence and baseline/static checks live in work/roadmap-v029-v038/.
+No native helpers, engine launches or new gameplay tests were used for the plan.
 
-Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.028.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+Use maps/PROJECT MAP.txt, CODE MAP.md and targeted system maps before source.
+Authoritative runtime is game/ using Godot4.7.2, BUILD28. Current play guide is
+docs/ECONOMY QUICK START.txt; actual existing verification is
+`docs/TEST RESULTS v0.028.md` plus portable RELEASE.json and delivery receipts.
+There are66 native suites and7 battle CPU fixtures in the recorded .028 evidence;
+that does not establish rendered FPS, human listening quality or subjective fun.
 
-# Brass Tide v0.028 — final economy review
+Keep finite coin/worker/stock custody and stable hull/mount IDs. Existing
+large central scripts need small hooks and focused modules. Pure copied-port
+workers are capped8 on verified24logical processors; join before canonical
+main-thread transfers and UI. Rendering remains Separate; water is cheap2D.
+Default autopilot, WASD camera and300DP battle deployment stay intact.
 
-The owner authorized v0.019-v0.028 sequentially, with up to three Sol6.1 Max helpers through Bridge. All three helper projects finished. No additional helpers or later version has been started. Versions 0.019-0.027 have complete local delivery receipts; v0.028 source is undergoing its final full checks and export.
+All future tests remain hidden/background and serialized, one engine at a time.
+No desktop input/focus, audible automatic tests, global installs/settings,
+old-release removal or owner-save overwrite. New versions require their own
+schema migration, actual flow checks and exact-tag export/archive evidence.
 
-Current authoritative game is game/, using Godot 4.7.2 and version.gd integer BUILD/1000. The desktop launcher lives at Desktop/game-launchers/Brass Tide.lnk and must change only after a verified native export. Preserve all older releases, music and owner saves. Tests remain serialized, hidden/headless; never use desktop input/focus. The engine path is supplied to tools/check_game.py. Developer records and historical snapshots remain in docs/history/.
+GitHub publication remains a separate fact. The last local publication status
+reports saved-credential access denial; a normal Windows-session publish launcher
+is prepared in outputs/. Check its later receipt before claiming an upload.
+This planning task does not attempt any publication or alter existing tags.
 
-Read maps/PROJECT MAP.txt, CODE MAP.md, the relevant generated system map and docs/ECONOMY QUICK START.txt. In-game notes: game/data/DEVELOPER NOTES.txt; full previous notes: game/data/DEVELOPMENT HISTORY through v0.027.txt. Raw helper reports are retained unchanged in docs/ with separate root acceptance notes. Full raw Bridge payloads and adapted scratch remain in the parent task work/helper-results/ and work/economy-future/.
-
-Implemented economy adapters are training_ops, reserve_ops, tooling_ops, yard_development, worker_ops, civilian_goods_ops, company_ops, law_ops, boarding_ops and crisis_ops. regional_ops remains the earlier regional-campaign adapter; do not replace it with civilian goods. Pure passenger_manifest reads keep hold accounting independent of main-thread transport transactions. Route caching belongs to each Campaign outside saved data, has at most 128 exact endpoint entries, returns detached paths and clears on new_game/restore. Pure Navigation and copied-port workers are unchanged by that cache.
-
-Finite coins: Money.total counts harbor, crew, owner, company/business, course, yard, contact/job and passenger escrow/savings exactly once. Regional lost savings remain a counted estate purse. Qualification subsets are real worker eligibility, not extra people. Crews are numerical. Boat ownership, traveling cargo and 300-point deployment remain separate. Default combat control is autopilot with WASD camera. Captured prizes retain damage/fittings, require real paid harbor repair and do not participate as combatants while secured.
-
-Root has reviewed all four final helper payloads and added actual game voyages for customs, boarding/defenses and crises. Final guidance uses actual law/labor/tooling fields and read-only readiness. The 60-day combined campaign and civilian wreck/flagship-loss regression pass targeted checks; full source and exact-checkout evidence belongs in docs/TEST RESULTS v0.028.md and portable RELEASE.json. Headless CPU timings do not establish GPU FPS or listening quality.
-
-Use tools/finalize_campaign_release.py only with reviewed explicit paths and complete source logs. It checks a clean checkout before creating the annotated tag, then exports, hashes and archives. Post-delivery record commits may advance main while game/ stays identical to its exact tag. tools/publish_github.py verifies the owner's exact repository, ancestry and remote refs without force or sign-in UI. Local delivery and GitHub publication are separate facts.
+Previous roadmap/version map/handoff/code map/test notes/AGENTS/development log
+are retained verbatim under docs/history/2026-10-23 before v0.029-v0.038 planning/.
