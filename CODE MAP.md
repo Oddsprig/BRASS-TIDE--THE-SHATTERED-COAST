@@ -36,7 +36,7 @@ verify_legacy_save.gd (read-only migration), sync_music.py (owner audio manifest
 update_maps.py (static maps), advance_series.py (sequential source metadata and
 actual-log recording), release_game.py (clean exact-tag Windows packaging),
 update_launcher.* and publish_github.* (separately evidenced delivery actions).
-Use docs/BUILD AND TEST.md and FAST DEV TOOLS.txt; source tools remain unchanged.
+Use docs/BUILD AND TEST.md and FAST DEV TOOLS.txt for current source/release scopes.
 
 Current proof: docs/VERIFICATION INDEX.txt. Integration pitfalls: DEVELOPER LESSONS.
 Future scope: ROADMAP.md and the .029-.038 main/AI/civilian contracts. Current simple

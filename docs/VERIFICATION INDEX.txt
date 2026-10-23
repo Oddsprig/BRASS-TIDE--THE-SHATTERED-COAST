@@ -1,3 +1,30 @@
+<!-- brass-tide-series:29:start -->
+BRASS TIDE ? v0.029 SOURCE CANDIDATE
+23 October 2026 | Actual70 native suites passed; root acceptance and delivery pending
+
+Delivered Windows game remains v0.028 until a separate clean exact-tag .029 receipt.
+Tested source: b83c9d6d100b9439222f337d8c7fbe58ac3dd051, descended from accepted art847e66.
+Current evidence: docs/TEST RESULTS v0.029.md and docs/INTEGRATION v0.029.json.
+All70 current logs: qa/v029-integrated-source in the C verification worktree under
+work/series-v029-v038. Same existing Godot4.7.2 ed1daf0bf, hidden/headless/Dummy audio,
+isolated APPDATA, serialized owned processes with60-second suite limits.
+New suites: workshop85, art_workshop2343, workshop_voyage154, workshop_ui69 checks;
+original66 test sources/assertions remain unchanged. First3 new suites passed at
+6f7b5db; only C's voyage fixture changed atb83c9d6 before its accepted rerun and66.
+All production/metadata/asset inputs stayed identical across the accepted70 logs.
+The unaffordable23983-coin starter-engine fixture failure is preserved with its
+correction under failures/workshop-voyage-01; prices and production were unchanged.
+Import03 certificate-store access ERROR is retained as failed evidence; import04
+passed outside sandbox. External engine guards waited; no outside process kills.
+
+Developer-note status text and explicitly authorized map/export-smoke tools were
+updated after native checks; no additional game/engine run is claimed for those.
+C ENGINE LEASE RELEASED. Root owns acceptance/tagging; clean exact-tag Windows,
+launcher, archive identities, listening and remote hashes require separate proof.
+.030-.038 remain authorized and pending; r1 AI budgets are targets, not measurements.
+Earlier .028 delivery/cleanup evidence follows as historical records.
+<!-- brass-tide-series:29:end -->
+
 BRASS TIDE — CURRENT VERIFICATION INDEX
 23 October 2026 | Reuse evidence only for unchanged matching inputs
 

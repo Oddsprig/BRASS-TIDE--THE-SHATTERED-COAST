@@ -1,9 +1,9 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.028)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.029)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/sound.gd: 5525 bytes; extends Node2D
+game/scripts/sound.gd: 5664 bytes; extends Node2D
   game/scripts/sound.gd:52 reset_battle()
   game/scripts/sound.gd:65 priority()
   game/scripts/sound.gd:70 consume()
@@ -21,7 +21,7 @@ game/scripts/music.gd: 4480 bytes; extends Node
   game/scripts/music.gd:18 _ready()
   game/scripts/music.gd:29 _scan()
   game/scripts/music.gd:98 _process()
-game/scripts/combat_art.gd: 39055 bytes; extends RefCounted
+game/scripts/combat_art.gd: 39781 bytes; extends RefCounted
   game/scripts/combat_art.gd:211 effect()
   game/scripts/combat_art.gd:584 wreck()
   game/scripts/combat_art.gd:108 _num()
@@ -47,14 +47,18 @@ game/scripts/combat_events.gd: 38412 bytes; extends RefCounted
   game/scripts/combat_events.gd:159 record_mount_shot()
   game/scripts/combat_events.gd:177 mount_shot_time()
   game/scripts/combat_events.gd:195 mount_shot_age()
-game/scripts/weapon_art.gd: 6685 bytes; extends RefCounted
+game/scripts/weapon_art.gd: 9333 bytes; extends RefCounted
   game/scripts/weapon_art.gd:7 draw()
-  game/scripts/weapon_art.gd:67 _p()
-  game/scripts/weapon_art.gd:73 _face()
-  game/scripts/weapon_art.gd:81 _line()
-  game/scripts/weapon_art.gd:85 _box()
-  game/scripts/weapon_art.gd:96 _pad()
-  game/scripts/weapon_art.gd:105 _tube()
+  game/scripts/weapon_art.gd:28 _machine_gun()
+  game/scripts/weapon_art.gd:55 _cannon()
+  game/scripts/weapon_art.gd:79 _rocket()
+  game/scripts/weapon_art.gd:99 _torpedo()
+  game/scripts/weapon_art.gd:116 _p()
+  game/scripts/weapon_art.gd:122 _face()
+  game/scripts/weapon_art.gd:130 _line()
+  game/scripts/weapon_art.gd:134 _box()
+  game/scripts/weapon_art.gd:145 _pad()
+  game/scripts/weapon_art.gd:154 _tube()
 
 TESTS (game/tests/*.gd)
 test_audio, test_combat_events; tools/audit_boat_geometry.gd and tools/boat_gallery.gd

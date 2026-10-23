@@ -1,4 +1,4 @@
-BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.028)
+BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.029)
 
 Chosen real ports/factions and physical receipts -> sustained watches, paid development, survey achievements, optional finite treaties and bounded history.
 
@@ -16,7 +16,7 @@ game/scripts/regional_campaigns.gd: 25272 bytes; extends RefCounted
   game/scripts/regional_campaigns.gd:249 _ready_cause()
   game/scripts/regional_campaigns.gd:253 _complete()
   game/scripts/regional_campaigns.gd:267 _touch()
-game/scripts/regional_rules.gd: 7773 bytes; extends RefCounted
+game/scripts/regional_rules.gd: 7899 bytes; extends RefCounted
   game/scripts/regional_rules.gd:13 today()
   game/scripts/regional_rules.gd:16 local_port()
   game/scripts/regional_rules.gd:24 may_deliver()
@@ -28,11 +28,11 @@ game/scripts/regional_rules.gd: 7773 bytes; extends RefCounted
   game/scripts/regional_rules.gd:96 relief_ready()
   game/scripts/regional_rules.gd:99 peace_conditions()
   game/scripts/regional_rules.gd:118 expire()
-game/scripts/regional_orders.gd: 1465 bytes; extends RefCounted
+game/scripts/regional_orders.gd: 1488 bytes; extends RefCounted
   game/scripts/regional_orders.gd:5 operation()
   game/scripts/regional_orders.gd:9 arrival()
   game/scripts/regional_orders.gd:16 plan()
-game/scripts/regional_ops.gd: 3853 bytes; extends RefCounted
+game/scripts/regional_ops.gd: 3928 bytes; extends RefCounted
   game/scripts/regional_ops.gd:9 ensure()
   game/scripts/regional_ops.gd:24 start()
   game/scripts/regional_ops.gd:41 contribute()
@@ -40,7 +40,7 @@ game/scripts/regional_ops.gd: 3853 bytes; extends RefCounted
   game/scripts/regional_ops.gd:59 battle()
   game/scripts/regional_ops.gd:68 begin_day()
   game/scripts/regional_ops.gd:73 daily()
-game/scripts/regional_ui.gd: 7056 bytes; extends RefCounted
+game/scripts/regional_ui.gd: 7146 bytes; extends RefCounted
   game/scripts/regional_ui.gd:6 port_picker()
   game/scripts/regional_ui.gd:16 faction_picker()
   game/scripts/regional_ui.gd:25 open()

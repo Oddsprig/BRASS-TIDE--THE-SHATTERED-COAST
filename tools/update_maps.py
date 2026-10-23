@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "development": (["main", "preferences", "interface", "version"],
+                    "Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.",
+                    "test_runtime, test_commander, test_laboratory, test_workshop_ui; source evidence: docs/TEST RESULTS v0.029.md"),
     "shipping-companies": (["shipping_companies","company_ops","company_ui"],
                            "Actual player hulls, crews, purses and fixed physical routes -> shared-stock trade, material/hull basis, paid operation, real losses and physical recall.",
                            "test_shipping_companies, test_company_voyage"),
@@ -69,9 +72,12 @@ GROUPS = {
     "navigation": (["navigation", "coast_migration"],
                    "Original island polygons/endpoints -> bounded precomputed water grid and safe water paths.",
                    "test_navigation, test_runtime, test_voyage"),
-    "presentation": (["chart", "boat_art", "boat_portrait", "interface", "tactics_ui", "refit_ui", "finance_ui"],
+    "presentation": (["chart", "boat_art", "boat_portrait", "interface", "tactics_ui", "refit_ui", "finance_ui", "boat_deck_detail", "workshop_ui"],
                      "Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.",
-                     "test_runtime; play questions in TO BE TESTED.md"),
+                     "test_runtime, test_art_workshop, test_workshop_ui; play questions in TO BE TESTED.md"),
+    "workshop": (["fleet_workshop", "workshop_ui", "boat_portrait", "refit"],
+                 "Owned living hull and knowledge-only draft -> physical-socket preview, finite stock/workforce/coin bill, stale-quote refusal and atomic main-thread publication preserving live hull/harbor references. Templates survive career restore; UI drafts never become equipment.",
+                 "test_workshop, test_workshop_voyage, test_workshop_ui, test_art_workshop; unchanged test_refit, test_commander, test_save_validation, test_mount_layout"),
     "audio-effects": (["sound", "music", "combat_art", "combat_events", "weapon_art"],
                       "Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.",
                       "test_audio, test_combat_events; tools/audit_boat_geometry.gd and tools/boat_gallery.gd"),

@@ -1,9 +1,9 @@
-BRASS TIDE — EQUIPMENT-OPTIONS MAP (generated; v0.028)
+BRASS TIDE — EQUIPMENT-OPTIONS MAP (generated; v0.029)
 
 Shared physical chassis/equipment geometry and portable presentation preferences; canonical economic stats stay outside art.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/mount_layout.gd: 16374 bytes; extends RefCounted
+game/scripts/mount_layout.gd: 16608 bytes; extends RefCounted
   game/scripts/mount_layout.gd:28 hull_size()
   game/scripts/mount_layout.gd:35 mount_tier()
   game/scripts/mount_layout.gd:41 fitting_budget()
@@ -21,11 +21,11 @@ game/scripts/hull_profiles.gd: 21873 bytes; extends RefCounted
   game/scripts/hull_profiles.gd:128 has_hull()
   game/scripts/hull_profiles.gd:131 profile()
   game/scripts/hull_profiles.gd:138 stations()
-game/scripts/weapon_geometry.gd: 590 bytes; extends RefCounted
+game/scripts/weapon_geometry.gd: 601 bytes; extends RefCounted
   game/scripts/weapon_geometry.gd:3 unit()
   game/scripts/weapon_geometry.gd:6 muzzle()
   game/scripts/weapon_geometry.gd:9 height()
-game/scripts/preferences.gd: 1358 bytes; extends RefCounted
+game/scripts/preferences.gd: 1385 bytes; extends RefCounted
   game/scripts/preferences.gd:3 defaults()
   game/scripts/preferences.gd:6 sanitize()
   game/scripts/preferences.gd:17 load_options()

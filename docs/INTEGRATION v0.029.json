@@ -1,0 +1,973 @@
+{
+  "schema_version": 1,
+  "milestone": "v0.029",
+  "status": "SOURCE CHECKS PASSED; root acceptance and delivery remain pending",
+  "accepted_art_commit": "847e66ba90782ab3f8e89cd567ee0215e806f2b7",
+  "part1_original_commit": "fa60a0e5027a6822ff279ca1a168fc88902fb9da",
+  "part1_integrated_commit": "3154bbfbd5bd8bff11e1401a3ac531b0b524248d",
+  "frozen_workshop_manifest_sha256": "0dc8cfabf1ce5604476b901bc9e063a82d281068a792c298a389523d20ef8dda",
+  "workshop_source_base": "e870a2e9b904bee647778f85f0cbfef86fa8f5e8",
+  "workshop_source_root": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\series-v029-v038\\workshop",
+  "copied_files": [
+    {
+      "path": "game/scripts/fleet_workshop.gd",
+      "sha256": "87542cfc37a0ed596d76e272301bfdda40c4175a18ad5654c6a7f123324b02f3",
+      "bytes": 19038,
+      "target_before_sha256": null,
+      "target_after_sha256": "87542cfc37a0ed596d76e272301bfdda40c4175a18ad5654c6a7f123324b02f3"
+    },
+    {
+      "path": "game/scripts/workshop_ui.gd",
+      "sha256": "5f976c489a0a400c5db95f2a006652b35b9b0a6e0bbeec48357c357b362b4486",
+      "bytes": 18374,
+      "target_before_sha256": null,
+      "target_after_sha256": "5f976c489a0a400c5db95f2a006652b35b9b0a6e0bbeec48357c357b362b4486"
+    },
+    {
+      "path": "game/scripts/refit.gd",
+      "sha256": "0047195e243821cf65fcb17cffda7636aaef04efcbe7052217d720db69916054",
+      "bytes": 22923,
+      "target_before_sha256": "3a525cc8a71d3a00582e367a109ab54319bf0b952cb2761d46205733c5be389d",
+      "target_after_sha256": "0047195e243821cf65fcb17cffda7636aaef04efcbe7052217d720db69916054"
+    },
+    {
+      "path": "game/scripts/refit_ui.gd",
+      "sha256": "da29c7040d47398270f69329acff5318a5506865cab9cebd89d699b2ffbdbe83",
+      "bytes": 8021,
+      "target_before_sha256": "5388d4299e7b72d0b2dad4c99342dfc0ae9839cfd3642649d11cab2451a9948a",
+      "target_after_sha256": "da29c7040d47398270f69329acff5318a5506865cab9cebd89d699b2ffbdbe83"
+    },
+    {
+      "path": "game/scripts/campaign.gd",
+      "sha256": "1b697b419a40b456e145fe646196ffe853abe8e8a41ed536ee8d5f8f08d067ad",
+      "bytes": 50859,
+      "target_before_sha256": "77af1a4ca4fa58c007a3a8441c78af14686b2012069c350e207a6ba2584c5352",
+      "target_after_sha256": "1b697b419a40b456e145fe646196ffe853abe8e8a41ed536ee8d5f8f08d067ad"
+    },
+    {
+      "path": "game/scripts/campaign_state_validation.gd",
+      "sha256": "9a5728f159d2157293bb5b3340bbccdf5d5c80130c5f862ff811c920e3575318",
+      "bytes": 18608,
+      "target_before_sha256": "a4fc81a576065abe535913cf72226e9407adf32345eea984fa89aa57596c2fe7",
+      "target_after_sha256": "9a5728f159d2157293bb5b3340bbccdf5d5c80130c5f862ff811c920e3575318"
+    },
+    {
+      "path": "game/scripts/interface.gd",
+      "sha256": "3dfce448b7defa38ea321e78988bc9b6795c30413cedf9e779d4adae7228a144",
+      "bytes": 47527,
+      "target_before_sha256": "34dd2ebd38120f6bc0f793fa068af7ea81db852337ff7576d044bc5b211f94a2",
+      "target_after_sha256": "3dfce448b7defa38ea321e78988bc9b6795c30413cedf9e779d4adae7228a144"
+    },
+    {
+      "path": "game/scripts/main.gd",
+      "sha256": "61edc765c7ab7f795c063cb12c57f1b7ce0544789c68ef7781989c9ec1410e6e",
+      "bytes": 31224,
+      "target_before_sha256": "25ad14ddb306993c39f4dc64d55f1650f5c5fe7b4e6e09e862f128d2fa4bfbc8",
+      "target_after_sha256": "61edc765c7ab7f795c063cb12c57f1b7ce0544789c68ef7781989c9ec1410e6e"
+    },
+    {
+      "path": "game/scripts/boat_portrait.gd",
+      "sha256": "79764b9c2b8252537f0d516dcaa07a4dfbf85e48fcd3b0b4a05f6c16b72e2d04",
+      "bytes": 6147,
+      "target_before_sha256": "d2029041a6144b8f30dbb6ca4de52bc35ea6ec4c928822754e3c16de9be90b78",
+      "target_after_sha256": "79764b9c2b8252537f0d516dcaa07a4dfbf85e48fcd3b0b4a05f6c16b72e2d04"
+    },
+    {
+      "path": "game/tests/test_workshop.gd",
+      "sha256": "3cc050abf043e1021e81af1aeacc0404e4e2392bb0f12c8f2ca3b4ad60a4e4dd",
+      "bytes": 14783,
+      "target_before_sha256": null,
+      "target_after_sha256": "3cc050abf043e1021e81af1aeacc0404e4e2392bb0f12c8f2ca3b4ad60a4e4dd"
+    },
+    {
+      "path": "game/scripts/fleet_workshop.gd.uid",
+      "sha256": "3aca2dd25ea15ffeb137a2bf1b9adc33be2e1e4a698efe2ea84a1ba0ed3243c8",
+      "bytes": 20,
+      "target_before_sha256": null,
+      "target_after_sha256": "3aca2dd25ea15ffeb137a2bf1b9adc33be2e1e4a698efe2ea84a1ba0ed3243c8"
+    },
+    {
+      "path": "game/scripts/workshop_ui.gd.uid",
+      "sha256": "8f237efb52d87272cd703c81f8b962d789e1b5f7bafb12d91036206cb6988ac7",
+      "bytes": 19,
+      "target_before_sha256": null,
+      "target_after_sha256": "8f237efb52d87272cd703c81f8b962d789e1b5f7bafb12d91036206cb6988ac7"
+    },
+    {
+      "path": "game/tests/test_workshop.gd.uid",
+      "sha256": "78b19e0613535ef79e49859ea34e2fe836484a168156642f94f2e25a85cd8ef1",
+      "bytes": 20,
+      "target_before_sha256": null,
+      "target_after_sha256": "78b19e0613535ef79e49859ea34e2fe836484a168156642f94f2e25a85cd8ef1"
+    }
+  ],
+  "engine_lease": "All C-owned engine children stopped; no further launches assigned. ENGINE LEASE RELEASED.",
+  "native_logs": [
+    {
+      "suite": "damage",
+      "summary": "damage: all native tests passed",
+      "log": "qa/v029-integrated-source/damage.log",
+      "log_sha256": "b739e4617b4484c4acb0f47fbb293df1b2c19622353a96af5dbe6ec417dd04a2",
+      "fixture_sha256": "77c560f0c171c19546e7adcbbfebd7e858742b4b4de4e5aa6833bf018e39e51e",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 40488,
+      "returncode": 0
+    },
+    {
+      "suite": "battle",
+      "summary": "battle: all native tests passed",
+      "log": "qa/v029-integrated-source/battle.log",
+      "log_sha256": "0ffa9b311ac15d771dec7ccaf0f3e0ec8c14b744739e0560ed8a9d7ca6f67868",
+      "fixture_sha256": "bb96fb83ac8cd5ca8c5c5452ee99381b4ffd9ffc25d9bed4f719f84ac0ca822a",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 66696,
+      "returncode": 0
+    },
+    {
+      "suite": "navigation",
+      "summary": "navigation: direct, island detour, blocked targets, barriers, diagonal corners, shore connections, bounded finite graph, 10 ports and 19 routes passed",
+      "log": "qa/v029-integrated-source/navigation.log",
+      "log_sha256": "7338a6c9b6e6d5b1420d4077604e2215b8dad8ed774e3d52a1e38b53547e2417",
+      "fixture_sha256": "32c705d8ca3d939de5b4eff56e08aa3f2d518db26e9be3226da8a144736b5073",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 27768,
+      "returncode": 0
+    },
+    {
+      "suite": "economy",
+      "summary": "ALL NATIVE ECONOMY TESTS PASSED (86831 checks in 2822 ms)",
+      "log": "qa/v029-integrated-source/economy.log",
+      "log_sha256": "81ad1fa59de2b6b33155299b9c400d6510241898806ab425597fff88c7321116",
+      "fixture_sha256": "fa046ca3fbd31e2dce6839e5d2f032fd98728596887b7bc0181268b8e4dd7fa4",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 51808,
+      "returncode": 0
+    },
+    {
+      "suite": "construction",
+      "summary": "CONSTRUCTION PASS: 2827 checks in 16 ms",
+      "log": "qa/v029-integrated-source/construction.log",
+      "log_sha256": "10572b3e5cf56afa43cd0df011d3fe5a72248c0dee1759039b5e5eb7936b09aa",
+      "fixture_sha256": "32710db151b22b5334dea87b93fe9a8338abcd48e4ae16e8a4758b653ae4fdd3",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 124284,
+      "returncode": 0
+    },
+    {
+      "suite": "fleet_economy",
+      "summary": "fleet cash: 1266 checks, 0 failures, 3993 ms",
+      "log": "qa/v029-integrated-source/fleet_economy.log",
+      "log_sha256": "1b936237017bd5151afe9066f6677a87b728ad6fe65ef23d8117dd9bc7ec5e27",
+      "fixture_sha256": "bbd6fbf30aa8ed6f84731e98f68ca6ec7b147abbeec1b953d8c718464be09b74",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 32108,
+      "returncode": 0
+    },
+    {
+      "suite": "campaign_cash",
+      "summary": "campaign cash: 458 checks, 0 failures, 9428 ms",
+      "log": "qa/v029-integrated-source/campaign_cash.log",
+      "log_sha256": "c704921c602999bd07a3ca7682c74622ebbbb9a23ec94243aae2dab4f803e771",
+      "fixture_sha256": "f8d29c1aebca21c2617db823058ca9396ba88ee778f527ca2ccbfbe5cbc255ef",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 26708,
+      "returncode": 0
+    },
+    {
+      "suite": "save_validation",
+      "summary": "save validation: 89 checks, 0 failures, 852ms",
+      "log": "qa/v029-integrated-source/save_validation.log",
+      "log_sha256": "7abff06d74ab6d6358ea93436e412aa3ee828cbc5286cba78c6d0cc2c7140f0d",
+      "fixture_sha256": "c744d20002a4f0bca3205976a4ce85535c375172d97ee283c0a3ceaa943e84c6",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 65548,
+      "returncode": 0
+    },
+    {
+      "suite": "runtime",
+      "summary": "runtime: 124 checks, 0 failures, 2201ms; background/headless only",
+      "log": "qa/v029-integrated-source/runtime.log",
+      "log_sha256": "6ce3bccf7477c7255ec0d7ca03fd3d3708846f83274ff5045fcba382fcd8afbf",
+      "fixture_sha256": "f4d4b4b93800c5f2708ed4ebfc203848c68dc8f2c3890ca313f36c1920792bb1",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 32616,
+      "returncode": 0
+    },
+    {
+      "suite": "voyage",
+      "summary": "voyage: 68 checks, 0 failures, 9934ms; largest fleet14",
+      "log": "qa/v029-integrated-source/voyage.log",
+      "log_sha256": "19ae5f730ec5b263445a4a005ada3bfc2c20901ec1ef5127261f7bbbe7d32778",
+      "fixture_sha256": "d3551098db3afb91e7fe89333d1cafaee46151326cd7b569b7365ebc5a0ba65a",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-01.json",
+      "owned_engine_pid": 35788,
+      "returncode": 0
+    },
+    {
+      "suite": "tactics",
+      "summary": "tactics: 114 checks, 0 failures",
+      "log": "qa/v029-integrated-source/tactics.log",
+      "log_sha256": "b4ac1ec02d3fbaef3501307aa261fd613275837d134c4f548ff21bcec7b129bf",
+      "fixture_sha256": "d7db827e3b7df594c45098726df879d910f71036fc52caecb93150176ae5668e",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 40672,
+      "returncode": 0
+    },
+    {
+      "suite": "refit",
+      "summary": "refit: 348 checks, 0 failures",
+      "log": "qa/v029-integrated-source/refit.log",
+      "log_sha256": "67e16229d263ea8019b4b31625fe6c6dd8290729ef00a5a3f376955bb1b99739",
+      "fixture_sha256": "feb41f0933a6dbae7e5d097b2ea7f4e466bc44510bb33eda583f33efecf6e1b0",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 75588,
+      "returncode": 0
+    },
+    {
+      "suite": "fleet_points",
+      "summary": "fleet points: 99 checks, 0 failures, 1998ms",
+      "log": "qa/v029-integrated-source/fleet_points.log",
+      "log_sha256": "9ef11353eb8f8bade88cb38af9d8bc9bac604211f488c0ce0d6c6d4e5f08d42d",
+      "fixture_sha256": "edd7b5e5f234c9fdc7788fe42e57e6dc9d63188f14d949bf30b982f98fbf7724",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 111068,
+      "returncode": 0
+    },
+    {
+      "suite": "commander",
+      "summary": "commander: 24 checks, 0 failures; background only",
+      "log": "qa/v029-integrated-source/commander.log",
+      "log_sha256": "76ba0b7f9377afbd36cbdefaa7ca93f99c7d9e1c1739aa9ae45ab4a33a77b55f",
+      "fixture_sha256": "2351704e996dfa4eeb4420dacd4d6b152d49bfed86ac139b7c2bc79231026cd9",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 47404,
+      "returncode": 0
+    },
+    {
+      "suite": "autovoyage",
+      "summary": "voyage: 68 checks, 0 failures, 9608ms; largest fleet13",
+      "log": "qa/v029-integrated-source/autovoyage.log",
+      "log_sha256": "94998de0ef7176b014239a8022116d31d6f3b01c94b5e1b409d16750c2a40f22",
+      "fixture_sha256": "8a8b112e908ba17741b1c33930ec311f604364c4aec080b7b95712fb9d44ab4f",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 124584,
+      "returncode": 0
+    },
+    {
+      "suite": "laboratory",
+      "summary": "LABORATORY: 81 checks, 0 failures",
+      "log": "qa/v029-integrated-source/laboratory.log",
+      "log_sha256": "3e04e8a5ddc72eea91bf8b7c958984603e28d17738da4e1eb7c9cc87abe245dd",
+      "fixture_sha256": "aaf64e633b04a43409377a2372a80b7381422abbe3a250c9727bc2214da79ed1",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 50292,
+      "returncode": 0
+    },
+    {
+      "suite": "combat_events",
+      "summary": "combat_events: 10131 checks, 0 failures",
+      "log": "qa/v029-integrated-source/combat_events.log",
+      "log_sha256": "82fc26360bdce3336a603a3ab9829097a1f810ac90b113db66f59585ac7902b0",
+      "fixture_sha256": "9f24a006ff8599d67f06feaf8286f892158b5a7a5ed76380fe1a9e927e47f682",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 7132,
+      "returncode": 0
+    },
+    {
+      "suite": "audio",
+      "summary": "AUDIO: 1233 checks, 0 failures; decoding/scheduling only, no audition",
+      "log": "qa/v029-integrated-source/audio.log",
+      "log_sha256": "dc52ef60020901e63867ba8fcf753ac89998a82f7d4ff8e9e26b0b65af55e924",
+      "fixture_sha256": "a5bcdad0078b32042a6084429e105c7168716ea9be09b19bfad50675562d40a9",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 31760,
+      "returncode": 0
+    },
+    {
+      "suite": "map_revision",
+      "summary": "map revision: 361 checks, 0 failures, 3378ms",
+      "log": "qa/v029-integrated-source/map_revision.log",
+      "log_sha256": "2e63c1cee8587b10abf81caf1e6b46ccedf7348ba2f92b5e0b646395d12b00b9",
+      "fixture_sha256": "2a1feb090ee384e1880c4f910cec3e8431f0b52a2bc0d0876d8336861746bde3",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 92360,
+      "returncode": 0
+    },
+    {
+      "suite": "mount_layout",
+      "summary": "mount_layout: 1483 checks, 0 failures",
+      "log": "qa/v029-integrated-source/mount_layout.log",
+      "log_sha256": "b2e4acb76b13ab4b5d0bb1d7cd9b0b26b34f5ce2612782aa49c477ddeb07fec3",
+      "fixture_sha256": "81ce2511ea402eadd102ec5c75b0cbe64625e4d9590f54888026bb72cd6778ee",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 69952,
+      "returncode": 0
+    },
+    {
+      "suite": "presentation",
+      "summary": "PRESENTATION: 611 checks, 0 failures",
+      "log": "qa/v029-integrated-source/presentation.log",
+      "log_sha256": "03d72af6f25270b7c56ebef8063833419701d9bd04eb2863d76435002960ec3f",
+      "fixture_sha256": "f23d3545118fa67c64be7ccad0f8b0adc2349b824476338e8478a16563678d00",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 80072,
+      "returncode": 0
+    },
+    {
+      "suite": "feedback",
+      "summary": "FEEDBACK: 3952 checks, 0 failures",
+      "log": "qa/v029-integrated-source/feedback.log",
+      "log_sha256": "c27dee7d8df2bb1709b4381e6b69dac22682a52503c5b48720da17f9edc2dca2",
+      "fixture_sha256": "8cc5685baafa67d9967dc5c6c73960cc5f28961b8b95c29388358415a3a52f80",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 48548,
+      "returncode": 0
+    },
+    {
+      "suite": "expedition",
+      "summary": "expedition: 23 checks, 0 failures",
+      "log": "qa/v029-integrated-source/expedition.log",
+      "log_sha256": "6fe22d26ea63a3208412d99f503f871348788eb078a6504ec27520c60f193219",
+      "fixture_sha256": "1461e7d12a3e1de6bc6f7147423df8d172715bf246ccadda4dcb65a17262ecdd",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 39100,
+      "returncode": 0
+    },
+    {
+      "suite": "campaign_logistics",
+      "summary": "campaign logistics: 16 checks, 0 failures",
+      "log": "qa/v029-integrated-source/campaign_logistics.log",
+      "log_sha256": "cfe30045d9ed376defa3cc9ab89fdae1cfb2596438f10bf5bc6c182753e89536",
+      "fixture_sha256": "3c03b17f99dda5ab4dd83bb0d4239c126bc45f472625a9a44ccc1a17c4853a41",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 11344,
+      "returncode": 0
+    },
+    {
+      "suite": "exploration",
+      "summary": "exploration: 270 checks, 0 failures",
+      "log": "qa/v029-integrated-source/exploration.log",
+      "log_sha256": "9ee1c9b805e027cb9170b19c97761ddce58720c3caca9b0e701cd77997300dec",
+      "fixture_sha256": "cc5a177e4832b769dc9c1da07d2f3570c108d789c5e006975dc9da163c213766",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 119140,
+      "returncode": 0
+    },
+    {
+      "suite": "island_voyage",
+      "summary": "island voyage: 12 checks, 0 failures",
+      "log": "qa/v029-integrated-source/island_voyage.log",
+      "log_sha256": "c76c464cbccf27ce3f32525179bae55fc0c90d6a4a5cc27cc6e3659c7955d10e",
+      "fixture_sha256": "a27ffcc1284430158715ceff6ae69aab5fd85bb135d568b7afbf2570063ac1b1",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 35528,
+      "returncode": 0
+    },
+    {
+      "suite": "salvage",
+      "summary": "salvage: 70 checks, 0 failures",
+      "log": "qa/v029-integrated-source/salvage.log",
+      "log_sha256": "f13a4384383a3e0b0aaff49c4840d6263b9b4157cf6d41ded6da9010033d5f37",
+      "fixture_sha256": "1068ebd316de0aa20703e3a626421e513fd93ae49eff7074e187147a5e89e0cb",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 32360,
+      "returncode": 0
+    },
+    {
+      "suite": "salvage_voyage",
+      "summary": "salvage voyage: 14 checks, 0 failures",
+      "log": "qa/v029-integrated-source/salvage_voyage.log",
+      "log_sha256": "2a99bb81b3f30e46a535ca5dd0f75c7de164cb45695d4c0c56480c821f0af161",
+      "fixture_sha256": "0712833ed78d2ee023ad0c626b29a4eed8f1336554a2038bd4a17d562b196327",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 129472,
+      "returncode": 0
+    },
+    {
+      "suite": "voyage_jobs",
+      "summary": "voyage_jobs: 69 checks, 0 failures",
+      "log": "qa/v029-integrated-source/voyage_jobs.log",
+      "log_sha256": "0792645f46bb40b748b7e5836ac8cc4ae2a74b0dac439456c6331f20cb020530",
+      "fixture_sha256": "1f79e6eaa4fe831ebb3999ba5940bafc33a42689643e771aba8dacc5afc6e728",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 103172,
+      "returncode": 0
+    },
+    {
+      "suite": "voyage_flow",
+      "summary": "voyage flow: 12 checks, 0 failures",
+      "log": "qa/v029-integrated-source/voyage_flow.log",
+      "log_sha256": "1586992a5909617f76cece35b2b6853eba154197e1fa39ef59eb69eac94e0a36",
+      "fixture_sha256": "2deff42d719a09284b1f7568a6b0e3db5900c77892b804b382749d1ff8e07cec",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 121876,
+      "returncode": 0
+    },
+    {
+      "suite": "factions",
+      "summary": "ALL FACTION TESTS PASSED (193 checks in 5 ms)",
+      "log": "qa/v029-integrated-source/factions.log",
+      "log_sha256": "b74ae22407997ee909069ff23a8af451155c81a7009d6dcc3ec6cdf43047a4ea",
+      "fixture_sha256": "98262769952d19ad75212cbf089df8d393978f9867cd33010e472635f86a5763",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 52676,
+      "returncode": 0
+    },
+    {
+      "suite": "political_voyage",
+      "summary": "political voyage: 16 checks, 0 failures",
+      "log": "qa/v029-integrated-source/political_voyage.log",
+      "log_sha256": "92b0b8d54885f6179ad580794dab2cb9a1f3199f5af6edb1bf8096e589258e35",
+      "fixture_sha256": "9bb344c3503102ec9f84564b10e118abe93299a9595c5de14f6b52b0d2460ba3",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 82608,
+      "returncode": 0
+    },
+    {
+      "suite": "naval_ai",
+      "summary": "naval_ai: 227 checks, 0 failures, 2452 ms",
+      "log": "qa/v029-integrated-source/naval_ai.log",
+      "log_sha256": "f81814e6f660e58102706468edbc6e330c9ca2bab229a7da1f57f856778fdc0d",
+      "fixture_sha256": "250cb5c75b5d75c3620529dd2935ae17b81178aba574b62de59aedc225fb7e71",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 130688,
+      "returncode": 0
+    },
+    {
+      "suite": "naval_voyage",
+      "summary": "naval voyage: 8 checks, 0 failures",
+      "log": "qa/v029-integrated-source/naval_voyage.log",
+      "log_sha256": "95ceba847039cd2343efc25bbc62ed2a702713e622fd9a6329e6adfdec86a093",
+      "fixture_sha256": "8e5c1733f0046f4d7a1a670d115315acd676d68eda8798c7f1b29b4c19c1c6de",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 42868,
+      "returncode": 0
+    },
+    {
+      "suite": "trade_intel",
+      "summary": "ALL TRADE INTEL TESTS PASSED (67 checks in 16 ms)",
+      "log": "qa/v029-integrated-source/trade_intel.log",
+      "log_sha256": "f8e0970ecd39cd4427dd5f36780866604f7e5b8dd46ea4f719690f0202dbd844",
+      "fixture_sha256": "ed1d40509ee4d9050f2623a8bc21c98cc9713959e7a762e353ca2d4e27fb8621",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 113928,
+      "returncode": 0
+    },
+    {
+      "suite": "reactive_trade",
+      "summary": "reactive trade: 9 checks, 0 failures",
+      "log": "qa/v029-integrated-source/reactive_trade.log",
+      "log_sha256": "f274308ffa44b417d811225fbaee4dfa233ceefce891278da9f77201ac9f38db",
+      "fixture_sha256": "3b784af180bf90cdc925aca6cbbe877a5bec519bb247deb1c3028a1195e83121",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 72076,
+      "returncode": 0
+    },
+    {
+      "suite": "fleet_identity",
+      "summary": "fleet_identity: 55 checks, 0 failures",
+      "log": "qa/v029-integrated-source/fleet_identity.log",
+      "log_sha256": "d2940273d5cbf180d3d8aa375592e82d5f8f0eeaa7acaa3c0e28beaeb5718ed5",
+      "fixture_sha256": "3fba9993121c9f043adb9e4dd58d7b942ae062af5c5426c7725b0c8851f26c21",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 85800,
+      "returncode": 0
+    },
+    {
+      "suite": "support_voyage",
+      "summary": "support voyage: 17 checks, 0 failures",
+      "log": "qa/v029-integrated-source/support_voyage.log",
+      "log_sha256": "8097b5f008bcbc262a09f23e2435241ee8bae2b3153b77e62a7c3e629ef029a9",
+      "fixture_sha256": "c20f8c0444e9024d19a98e8585f5a1461b809961e3100eaab5514ffcb71af788",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 96120,
+      "returncode": 0
+    },
+    {
+      "suite": "naval_recovery",
+      "summary": "naval recovery: 11 checks, 0 failures",
+      "log": "qa/v029-integrated-source/naval_recovery.log",
+      "log_sha256": "b2fc521f405825c05c50893a017a7afb4112c7bc724da741bf060d87276b2861",
+      "fixture_sha256": "961dbe0ef8add492ec68eb40ac413da38fa03a212c18ca0ecdfb05a78b0208e6",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 84932,
+      "returncode": 0
+    },
+    {
+      "suite": "coastal_stories",
+      "summary": "coastal_stories: 109 checks, 0 failures",
+      "log": "qa/v029-integrated-source/coastal_stories.log",
+      "log_sha256": "714de8dd89dc4d401bbf95aeca16ccf1baa5395cdf6c0052b25a764cecf551af",
+      "fixture_sha256": "0b45fccd860677af2a4bf5587e1d07647c96f67dee2851630a67355649ee6a24",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 109348,
+      "returncode": 0
+    },
+    {
+      "suite": "story_voyage",
+      "summary": "story voyage: 18 checks, 0 failures",
+      "log": "qa/v029-integrated-source/story_voyage.log",
+      "log_sha256": "41d2731875033d6a3d9f5a7b36bad396427ccb07d48d2ff41841403d05ff38d8",
+      "fixture_sha256": "00361dd8978598167c941258155ea4b84cfa75d9a74d414a2c1b580f60f4995c",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 80940,
+      "returncode": 0
+    },
+    {
+      "suite": "home_harbor",
+      "summary": "home_harbor: 74 checks, 0 failures",
+      "log": "qa/v029-integrated-source/home_harbor.log",
+      "log_sha256": "7f091b0a82ff5c0d4d5d514dabe208394f402942e2653807bc7fb71464094922",
+      "fixture_sha256": "6a05ecba585cdbeb9db3307c31ae39996b52f321278c7eee1772cb2bfbdb5374",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 57372,
+      "returncode": 0
+    },
+    {
+      "suite": "home_voyage",
+      "summary": "home voyage: 17 checks, 0 failures",
+      "log": "qa/v029-integrated-source/home_voyage.log",
+      "log_sha256": "d539b03e155250b04c3474d6607bb1a779deba97c7935ef9109cc0cf079057ff",
+      "fixture_sha256": "a9b09acf7cf97e957305becb8d06220ab45e1b3937ca610e8ce681c73f20d728",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 103292,
+      "returncode": 0
+    },
+    {
+      "suite": "regional_campaigns",
+      "summary": "regional campaigns: 64 checks, 0 failures",
+      "log": "qa/v029-integrated-source/regional_campaigns.log",
+      "log_sha256": "87459cb45dc6528f30f104346d8d7b233dc174d71ba103cfc45e7279ff0b027c",
+      "fixture_sha256": "300c2eac9893678d28fc877bd0945eb2a4badc86f3a5d3a103e84f1c415a5faa",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 52188,
+      "returncode": 0
+    },
+    {
+      "suite": "regional_voyage",
+      "summary": "regional voyage: 24 checks, 0 failures",
+      "log": "qa/v029-integrated-source/regional_voyage.log",
+      "log_sha256": "0f3ecdac9b7c92c9b39606389a62e19b521ca9acfc8af734d61fe236ea5edce0",
+      "fixture_sha256": "a1a414033d70d8de77da7c1f75c3bba16aa35e4e2120a42c93bd38a93ead5a6e",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 3048,
+      "returncode": 0
+    },
+    {
+      "suite": "campaign_endurance",
+      "summary": "campaign endurance: 2168 checks, 0 failures, 15291 ms, 8 worker lanes",
+      "log": "qa/v029-integrated-source/campaign_endurance.log",
+      "log_sha256": "046f57dd8047a687c9904e5951134cb96f3a5bbabe2523f724cdf43c4302f69e",
+      "fixture_sha256": "938d63db6f5db40f9256fdea6510dcee36c7f92284b6ba58c0835b00596ca524",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 20280,
+      "returncode": 0
+    },
+    {
+      "suite": "crew_training",
+      "summary": "crew training: 20 checks, 0 failures",
+      "log": "qa/v029-integrated-source/crew_training.log",
+      "log_sha256": "761e731bf289584f243b159bd3ededdfd6413d6b69ba40d0b25ebbd2a414d012",
+      "fixture_sha256": "dbe6d7f5f514531accdbfb7230dc38a91254ca82755c7a3b7062fd1bd1da11bf",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 46280,
+      "returncode": 0
+    },
+    {
+      "suite": "training_voyage",
+      "summary": "training voyage: 14 checks, 0 failures",
+      "log": "qa/v029-integrated-source/training_voyage.log",
+      "log_sha256": "b350512536c9c216fb4ee3091338d0507110fa5bafcb6b315e5a85bd124f604a",
+      "fixture_sha256": "c5f72de81545e885c3c77c9715685c1cc5f49cd1cffb6f1e01e734ab146075e2",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 87932,
+      "returncode": 0
+    },
+    {
+      "suite": "harbor_reserves",
+      "summary": "PASS: harbor reserve invariants",
+      "log": "qa/v029-integrated-source/harbor_reserves.log",
+      "log_sha256": "55788dc63c89c270a485eb333e286423b6c1bf8db631af422de4369fe0885029",
+      "fixture_sha256": "2f8fe02ff5f6a7f771164ab516c1c63344a916c98d41e7605286f22861bc3539",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 51052,
+      "returncode": 0
+    },
+    {
+      "suite": "supply_voyage",
+      "summary": "supply voyage: 12 checks, 0 failures",
+      "log": "qa/v029-integrated-source/supply_voyage.log",
+      "log_sha256": "1af1c0dc725daa49a293b5bf22caeb4dec7957f414728d436d6098ce346b0bc7",
+      "fixture_sha256": "fd936afa0e936e95c9c6b7fd564cf90032f19746256ba5c392429ee14eed27cc",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 84676,
+      "returncode": 0
+    },
+    {
+      "suite": "industrial_tooling",
+      "summary": "PASS industrial_tooling",
+      "log": "qa/v029-integrated-source/industrial_tooling.log",
+      "log_sha256": "070813eb07accc874d45d1b24e804eeef7d79e212a57bd84459fe8a2881bb027",
+      "fixture_sha256": "e13b1d5ece965be3308a13cff78d2b7d1b992b523260466c55adeb5de23543d3",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 40576,
+      "returncode": 0
+    },
+    {
+      "suite": "industrial_voyage",
+      "summary": "industrial voyage: 35 checks, 0 failures",
+      "log": "qa/v029-integrated-source/industrial_voyage.log",
+      "log_sha256": "ebe4383b7ef16bf2efd3c63aaa15787d484f14bd2354a10c6c9fb2ca957da9ac",
+      "fixture_sha256": "9ef74aae9e70eb9951edaeb49d8c0c03269a9f6663ca2c5e6fa7de232670607e",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 20128,
+      "returncode": 0
+    },
+    {
+      "suite": "worker_conditions",
+      "summary": "worker_conditions: 54 checks, 0 failures",
+      "log": "qa/v029-integrated-source/worker_conditions.log",
+      "log_sha256": "56ca368f1010188571f949d3d604dae2f72a1c290a5c1fadc2b7d6b8f97f5128",
+      "fixture_sha256": "05763b15b75c9060962731f56fb31c07771927a04f9996aae84a1ef3b3b82a79",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 65532,
+      "returncode": 0
+    },
+    {
+      "suite": "conditions_voyage",
+      "summary": "conditions voyage: 21 checks, 0 failures",
+      "log": "qa/v029-integrated-source/conditions_voyage.log",
+      "log_sha256": "685cf4b30fb9487991c7509bf92f0e61f58f4d82a07fffd808b0db475b765454",
+      "fixture_sha256": "1fa2c1804e2cb35f26bdd61392b8379e28e9df324b723741cb17f9f8dc2be84c",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 55772,
+      "returncode": 0
+    },
+    {
+      "suite": "regional_goods",
+      "summary": "REGIONAL_GOODS_TESTS_PASS",
+      "log": "qa/v029-integrated-source/regional_goods.log",
+      "log_sha256": "60b83c42be8a28b1d126805403ac807fd02441f5156374f34fee33b370c4b7b5",
+      "fixture_sha256": "4e5e41fda07a8c289d7555818ec7bde437353167e2c2007db698fac9d2189a40",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 60792,
+      "returncode": 0
+    },
+    {
+      "suite": "civilian_voyage",
+      "summary": "civilian voyage: 53 checks, 0 failures",
+      "log": "qa/v029-integrated-source/civilian_voyage.log",
+      "log_sha256": "fcb704a1df0db6255d096399723526f9ed86c672780eeb421b2f128f78f56049",
+      "fixture_sha256": "fc962a909f0342d8d2e91636c17da6b6503014745f4a3f3437baea99e3ae1906",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 122400,
+      "returncode": 0
+    },
+    {
+      "suite": "shipping_companies",
+      "summary": "shipping: 0 failures",
+      "log": "qa/v029-integrated-source/shipping_companies.log",
+      "log_sha256": "7746ce4743ee738a02b60027c18f469a8aa22830d88e5aa7a9c15e9be251a9cd",
+      "fixture_sha256": "b096cab43f52787407f5112a9de94a74d5a8e41101379c9916500907e33349d7",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 129712,
+      "returncode": 0
+    },
+    {
+      "suite": "company_voyage",
+      "summary": "company voyage: 30 checks, 0 failures",
+      "log": "qa/v029-integrated-source/company_voyage.log",
+      "log_sha256": "3c7c2a62dcdf41c6732a132e4c7625c3eff297d4732d70f02eb542dcb3e0f905",
+      "fixture_sha256": "df80c85a0f77f382f670136cc5b3a5bbc627e94599bcbc1e433b8e35c16bee2a",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 105648,
+      "returncode": 0
+    },
+    {
+      "suite": "trade_law",
+      "summary": "trade law: 49 checks, 0 failures; native candidate",
+      "log": "qa/v029-integrated-source/trade_law.log",
+      "log_sha256": "c4f5ac0e72ffcc9a5fdb68375cbe97babe5f45435901d95926a4aa6d75ac3165",
+      "fixture_sha256": "d02f6ae0740513c91651c97b11e2317e222492b3f39171e503bc499fd106994d",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 33248,
+      "returncode": 0
+    },
+    {
+      "suite": "customs_voyage",
+      "summary": "customs voyage: 25 checks, 0 failures",
+      "log": "qa/v029-integrated-source/customs_voyage.log",
+      "log_sha256": "e31869eca6e72a3b81d5587c2cf5580e1c6b2fc93e8033ddafadbfade61a36b4",
+      "fixture_sha256": "464fed52e73be9cf3adf3f680eef8dcd379d9c567984dc22e203aa45e85e9ae7",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 57712,
+      "returncode": 0
+    },
+    {
+      "suite": "boarding",
+      "summary": "boarding: 115 checks, 0 failures",
+      "log": "qa/v029-integrated-source/boarding.log",
+      "log_sha256": "3501600e624b600ec049c6d0a0f7a00dfca633331a5a7dac736f095b16bde2ff",
+      "fixture_sha256": "b8e8f9430eb45fe4cf35b4ba2b761bb515d0915af2d7fdc1dddada1b48257912",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 110128,
+      "returncode": 0
+    },
+    {
+      "suite": "boarding_voyage",
+      "summary": "boarding voyage: 28 checks, 0 failures",
+      "log": "qa/v029-integrated-source/boarding_voyage.log",
+      "log_sha256": "327a0a4736a83f81fc9aeecb935a0557beb8c1bcbe053e963e8be27f4086abcb",
+      "fixture_sha256": "f6c3312cfa9c3ffb0a0f62a1d3969162346e08f76d31fc97901f6283bbfd57d6",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 116140,
+      "returncode": 0
+    },
+    {
+      "suite": "regional_crises",
+      "summary": "regional_crises: 103 checks; 0 failures",
+      "log": "qa/v029-integrated-source/regional_crises.log",
+      "log_sha256": "e7483d5f99b757fcab7ee50bd153c369c667aec2ec5c26256ceaf57add88072c",
+      "fixture_sha256": "d25c9a5b9d04cb2d6e64ddfec11abd9fe5890af508176878f5856ca2fa8c1758",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 117416,
+      "returncode": 0
+    },
+    {
+      "suite": "crisis_voyage",
+      "summary": "crisis voyage: 30 checks, 0 failures",
+      "log": "qa/v029-integrated-source/crisis_voyage.log",
+      "log_sha256": "38ef6e9bfac6bc4a002a9dc3e063c7f229ba8876210aa01766fc574647ef1964",
+      "fixture_sha256": "62812c457ea1e05eac0a893712854fef44c41c4a58abfa62498803aec90bc92f",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 60196,
+      "returncode": 0
+    },
+    {
+      "suite": "campaign_guidance",
+      "summary": "campaign guidance: 287 checks, 0 failures",
+      "log": "qa/v029-integrated-source/campaign_guidance.log",
+      "log_sha256": "5e722e554995735112b730fb940c79278c0764ec0d3bd13e5c3fbdba525654a0",
+      "fixture_sha256": "57bdcf0e547b49fb1d538f30fe02f2b128330c10ab0a2432a5e70d429c8d2a22",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 20588,
+      "returncode": 0
+    },
+    {
+      "suite": "campaign_systems",
+      "summary": "campaign systems: 97 checks, 0 failures",
+      "log": "qa/v029-integrated-source/campaign_systems.log",
+      "log_sha256": "155d2c4bac8d736b28e5ec4a9b5bcb33be582a3a85bde242ec629d4ca30e191f",
+      "fixture_sha256": "b2377ab74244aaed58620ab0bcec5142a03fec214108af1669f21c70ea93b0b5",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/remaining-02.json",
+      "owned_engine_pid": 76284,
+      "returncode": 0
+    },
+    {
+      "suite": "workshop",
+      "summary": "Workshop: 85 checks, 0 failures",
+      "log": "qa/v029-integrated-source/workshop.log",
+      "log_sha256": "919c938c253f194c61c582c7f082b31d917c5795598c916b7521d479c8b3437a",
+      "fixture_sha256": "3cc050abf043e1021e81af1aeacc0404e4e2392bb0f12c8f2ca3b4ad60a4e4dd",
+      "actual_source_commit": "6f7b5db1b1edb50ff440c065276cffad7f272bdb",
+      "receipt": "qa/v029-integrated-source/new-01.json",
+      "owned_engine_pid": 89496,
+      "returncode": 0
+    },
+    {
+      "suite": "art_workshop",
+      "summary": "ART WORKSHOP: 2343 checks, 0 failures; max 738 near / 219 far primitives",
+      "log": "qa/v029-integrated-source/art_workshop.log",
+      "log_sha256": "022c65f0d10b05ad2f02426594a771801022949eada52ff50d4cadc459c2d78a",
+      "fixture_sha256": "2134ea4b13a725a244b6362c3a33ccfcbb66e4d5724964499205b734a5df7b14",
+      "actual_source_commit": "6f7b5db1b1edb50ff440c065276cffad7f272bdb",
+      "receipt": "qa/v029-integrated-source/new-01.json",
+      "owned_engine_pid": 106384,
+      "returncode": 0
+    },
+    {
+      "suite": "workshop_voyage",
+      "summary": "workshop voyage: 154 checks, 0 failures",
+      "log": "qa/v029-integrated-source/workshop_voyage.log",
+      "log_sha256": "f485bc4c632dd1e474048223fd5468bc92f452d24c90e007f62e9f05345b6e97",
+      "fixture_sha256": "2ecc66bde320e13570e39118c8cc32c2e177f71b784262279477f9e845491c51",
+      "actual_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+      "receipt": "qa/v029-integrated-source/voyage-02.json",
+      "owned_engine_pid": 7292,
+      "returncode": 0
+    },
+    {
+      "suite": "workshop_ui",
+      "summary": "workshop UI: 69 checks, 0 failures; native controls only, background/headless/silent",
+      "log": "qa/v029-integrated-source/workshop_ui.log",
+      "log_sha256": "636d5c655212fd2edaf5305214f32c314ca8d029c68fef88b8ea96aadfb91016",
+      "fixture_sha256": "1c9d6ffe27154deb3bd5320ac8e765cfca298c8543de74218a2bff84209dda85",
+      "actual_source_commit": "6f7b5db1b1edb50ff440c065276cffad7f272bdb",
+      "receipt": "qa/v029-integrated-source/new-01.json",
+      "owned_engine_pid": 86472,
+      "returncode": 0
+    }
+  ],
+  "delivery_status": "pending; no tag/export/launcher/publication performed",
+  "workshop_raw_report_sha256": "699e97c8eec0d19de485627e116bd52e3aeee44c3be8f5729bfdafdfb4c88989",
+  "part1_raw_report_sha256": "89d237a4d7885a531a0cc1fd127bfb265035d731f8a7233cd94f6bc8be0c6690",
+  "candidate_source_commit": "a4a28f196e952e39831cf309c995ceaa85e4b803",
+  "candidate_source_tree": "c1c2dcff208ac030e85d44434137ba6dd3419a99",
+  "candidate_game_tree": "52d38b24f0fd3be61d7605520ebc01bb13674070",
+  "static_checks": {
+    "count": 108,
+    "receipt": "qa/v029-integrated-source/static-checks.json"
+  },
+  "tested_source_commit": "b83c9d6d100b9439222f337d8c7fbe58ac3dd051",
+  "tested_source_tree": "2051354e521f3915a239997ae07b9b3a3d661b8b",
+  "tested_game_tree": "246e1ab5b8171a76cc96eadd3933dcc1f1a9bd86",
+  "native_functional_input_sha256": "29466aedb3882e7237f47583cf446f80afd7e5d4eb4655d2c8cab3e803686f26",
+  "native_functional_input_inventory": "qa/v029-integrated-source/frozen-functional-inputs.json",
+  "native_functional_input_inventory_sha256": "3d28de5521312bcfcd5fe9e1f87d0137056217ce1c8f7032d967e8c56785ae07",
+  "predecessor_receipt_sha256": "dd02035e5143adc5031d0e3908d5dd9565a38ce123656d463174dced5c03b120",
+  "predecessor_tag_commit": "2b11d4d1af69b62a2f8436bcdee4a5675432bd98",
+  "engine": {
+    "identity": "4.7.2.stable.official.ed1daf0bf",
+    "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-09-25\\we-x20\\work\\engine\\Godot_v4.7.2-stable_win64_console.exe",
+    "sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+    "import_receipt": "qa/v029-integrated-source/import-04.json"
+  },
+  "native_passed": 70,
+  "native_failed": 0,
+  "log_hash_convention": "Native log SHA256 uses exact on-disk bytes. Optional suite_log_sha256 in runner receipts hashes the captured LF-normalized transcript; both are checked without changing raw evidence.",
+  "engine_receipts": [
+    {
+      "path": "qa/v029-integrated-source/import-01.json",
+      "sha256": "86717bf5d6c7783c98c63c4c9d4dcf074e2a58b9c64f4c30a187b071115b84f9",
+      "returncode": 1
+    },
+    {
+      "path": "qa/v029-integrated-source/import-02.json",
+      "sha256": "d7f8adabe69f39b853255365fa7f0fa0bb8293a49b6dd4f3996c830b93f30d7b",
+      "returncode": 1
+    },
+    {
+      "path": "qa/v029-integrated-source/import-03.json",
+      "sha256": "7055a6ad4d3528ee0bcbc33a2f396ef8dae4db5c97bca95af56819846e562d09",
+      "returncode": 1
+    },
+    {
+      "path": "qa/v029-integrated-source/import-04.json",
+      "sha256": "a09668cc25154ee5e5a7c142feaa9c4ef84caf54bf02271ee234b93fdf9d582e",
+      "returncode": 0
+    },
+    {
+      "path": "qa/v029-integrated-source/new-01.json",
+      "sha256": "48fa369997f4f6b5ffb33077a0fe341d9dd7b36a9727bb3070e5ec3e16480922",
+      "returncode": 1
+    },
+    {
+      "path": "qa/v029-integrated-source/remaining-01.json",
+      "sha256": "d34f8f4659615e8ce2a0bf81093239399dc37ce8e9fc8dda78c3bff156870f98",
+      "returncode": 1
+    },
+    {
+      "path": "qa/v029-integrated-source/remaining-02.json",
+      "sha256": "d6ab0a79c95317d9eb3aa2391c4fd292ed177e73033ee26eebfce1877cff9211",
+      "returncode": 0
+    },
+    {
+      "path": "qa/v029-integrated-source/voyage-02.json",
+      "sha256": "a57e663f3758e415d605049bc8bb01ca90fbc7c11042039ae77c72bab963422e",
+      "returncode": 0
+    }
+  ],
+  "source_correspondence": "All functional game/metadata/assets bytes stayed identical across every accepted suite. Three new suites passed at6f7b5db; only the voyage fixture changed atb83c9d6, before its accepted rerun and the original66. Each accepted log is matched to its actual source/fixture/engine/owned-PID receipt. No passed suite repeated.",
+  "deviations": [
+    "Global guard stopped import01/import02 before launch and remaining01 after10 passed suites. Later remaining attempts resume only unrun suites; external engines were never killed.",
+    "Import03 exited0 with Windows root-certificate access ERROR under sandbox and is failed evidence. Authorized outside-sandbox import04 passed.",
+    "Godot regenerated23 .import line endings; exact original pre-import byte hashes were restored before suite execution. No asset content changed.",
+    "C voyage fixture initially chose economy_drive23983 for starter15000. Commitb83c9d6 uses affordable paid rapid_gun and adds an affordability assertion; original failure retained under failures/workshop-voyage-01."
+  ],
+  "engine_lease_released": true,
+  "after_native_game_text_updates": [
+    {
+      "path": "game/data/DEVELOPER NOTES.txt",
+      "native_sha256": "dc1cb78aa51f3f7c1f1793cdefa47a5547743a017a4a8ce9f4bdc04e273eaeee",
+      "after_recording_sha256": "62fe6be9c0ba8d726a9ecb64e4f59b3ddf2413bb962c4a9c82ad1c98612f98b0",
+      "scope": "Developer status text only: record the actual70 source logs after testing. No native rerun for this text is claimed."
+    }
+  ],
+  "after_native_tools": [
+    {
+      "path": "tools/release_game.py",
+      "scope": "Explicit --audio-driver Dummy for the common exported menu/campaign/battle smoke command; AST/diff checked only; no export or smoke run."
+    },
+    {
+      "path": "tools/update_maps.py",
+      "scope": "Permanent named GROUPS include fleet_workshop/workshop_ui/boat_deck_detail and all4 new suites; static generation checked only."
+    }
+  ],
+  "after_native_context": "Current AGENTS/handoff/source records/maps updated to source candidate70 passed, delivered.028, future.030-.038 pending. No engine rerun solely for tools/docs."
+}

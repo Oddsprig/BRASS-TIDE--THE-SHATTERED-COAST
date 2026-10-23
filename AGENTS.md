@@ -1,8 +1,10 @@
 # Brass Tide — current working rules
 
-Authoritative source is this Git repository. Delivered game is **v0.028**, 24 original
-hulls; game tag commit `2b11d4d1af69b62a2f8436bcdee4a5675432bd98`. The .029–.038
-AI/civilian roadmap is now AUTHORIZED FOR IMPLEMENTATION by the owner on23October2026.
+Authoritative source is this Git repository. The **v0.029 source candidate passed
+all 70 actual native suites**; root acceptance/tagging and its separate Windows
+receipt remain pending. Delivered game is **v0.028**, 24 original hulls; game tag
+commit `2b11d4d1af69b62a2f8436bcdee4a5675432bd98`. The .029–.038 AI/civilian roadmap
+is AUTHORIZED FOR IMPLEMENTATION by the owner on23October2026; .030–.038 remain pending.
 Build .029 through .038 sequentially on the verified predecessor. Codex coordinates;
 majority implementation goes to up to THREE Sol6.1 MAX helpers THROUGH BRIDGE,
 ChatGPT plan. No native helpers or model substitutions. Current milestone is .029;

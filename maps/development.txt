@@ -1,31 +1,43 @@
-BRASS TIDE — DEVELOPMENT MAP (v0.006 cumulative source)
+BRASS TIDE — DEVELOPMENT MAP (generated; v0.029)
 
-BUILT RUNTIME
-fleet_lab.gd / lab_ui.gd: compatible300point fleets,24hulls, seeded replay and isolated results.
-dev_tools.gd: explicit opt-in F9 overlay, paused single-step, lab-only refill, reports.
-main.gd: --qa-battle / --qa-lab=<preset>, headless-safe options; no desktop input.
-music.gd:18owner tracks, eight contexts,10second rescan, role folders and complete variation cycle.
+Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 
-SHORT TOOLS
-tools/qa_brass.py: existing_game() guard; seven serial seeded fixtures,20second owned timeout.
-tools/fleet_bench.gd: actual Battle/Deployment/Refit/normal300DP, numeric integrity and CPU timing.
-tools/bench_scenarios.json: duel,all_weapons,mixed,full_300,reserve_boundary,torpedoes,rockets.
-tools/check_game.py:21native suites, isolated APPDATA,60second suite timeout, errors fail.
-tools/boat_gallery.gd: exact code-art recorder; canonical four-socket fitted example.
-tools/render_boat_gallery.py: software PNG/GIF, no game window.
-tools/audit_boat_geometry.gd: all24hulls,360headings,threeLODs, moving/still native triangulation.
-tools/verify_legacy_save.gd: read-only real old-save migration; original byte equality.
-tools/sync_music.py: preserve owner originals, copy audio to portable library, SHA256manifest.
-tools/release_game.py: clean exact-tag Windows export, native menu/campaign/battle, icon/PCK/manifest/ZIP.
-tools/update_maps.py: current symbols, bounded maps and source inventory.
+FILES AND VERIFIED SYMBOLS
+game/scripts/main.gd: 31224 bytes; extends Node2D
+  game/scripts/main.gd:263 toggle_pause()
+  game/scripts/main.gd:267 toggle_fullscreen()
+  game/scripts/main.gd:271 save_preferences()
+  game/scripts/main.gd:274 music_context()
+  game/scripts/main.gd:284 new_game()
+  game/scripts/main.gd:300 click_chart()
+  game/scripts/main.gd:332 sail_to()
+  game/scripts/main.gd:340 respond()
+  game/scripts/main.gd:346 trade()
+  game/scripts/main.gd:355 buy_boat()
+  game/scripts/main.gd:361 commission()
+  game/scripts/main.gd:367 collect_boat()
+game/scripts/preferences.gd: 1385 bytes; extends RefCounted
+  game/scripts/preferences.gd:3 defaults()
+  game/scripts/preferences.gd:6 sanitize()
+  game/scripts/preferences.gd:17 load_options()
+  game/scripts/preferences.gd:22 save_options()
+game/scripts/interface.gd: 47527 bytes; extends CanvasLayer
+  game/scripts/interface.gd:67 setup()
+  game/scripts/interface.gd:92 create_theme()
+  game/scripts/interface.gd:112 box()
+  game/scripts/interface.gd:124 clear()
+  game/scripts/interface.gd:129 label()
+  game/scripts/interface.gd:139 paragraph()
+  game/scripts/interface.gd:145 eyebrow()
+  game/scripts/interface.gd:150 button()
+  game/scripts/interface.gd:167 row()
+  game/scripts/interface.gd:172 column()
+  game/scripts/interface.gd:178 spacer()
+  game/scripts/interface.gd:183 rule()
+game/scripts/version.gd: 128 bytes; extends RefCounted
+  game/scripts/version.gd:5 text()
 
-HISTORICAL PLANNING
-tools/plan_territory.py intentionally accepts old2600x1800geometry; proposal() informed v0.005.
-Runtime now10400x7200; legacy geometry retained in world.LEGACY_MAP for migration.
-BUILD PLAN.txt preserves baseline findings and acceptance; release receipts prove delivery.
+TESTS (game/tests/*.gd)
+test_runtime, test_commander, test_laboratory, test_workshop_ui; source evidence: docs/TEST RESULTS v0.029.md
 
-EVIDENCE
-work/qa/v006-fast-final: seven passed, forty boats300per side,6sim seconds/1186ms CPU work.
-work/qa/v006-final:21passed numerical/runtime suites; exact-tag checks recorded separately.
-Software drawing captures and silent codec tests do not establish renderedFPS, control feel or human sound quality.
-All runs serialized/background. No real saves, foreground focus or mouse/keyboard taken by tests.
+Full symbols: rg -n '^func |^static func ' on named files.

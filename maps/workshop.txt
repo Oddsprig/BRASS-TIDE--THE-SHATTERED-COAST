@@ -1,0 +1,55 @@
+BRASS TIDE — WORKSHOP MAP (generated; v0.029)
+
+Owned living hull and knowledge-only draft -> physical-socket preview, finite stock/workforce/coin bill, stale-quote refusal and atomic main-thread publication preserving live hull/harbor references. Templates survive career restore; UI drafts never become equipment.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/fleet_workshop.gd: 19038 bytes; extends RefCounted
+  game/scripts/fleet_workshop.gd:41 validate_templates()
+  game/scripts/fleet_workshop.gd:74 template_list()
+  game/scripts/fleet_workshop.gd:82 save_template()
+  game/scripts/fleet_workshop.gd:104 delete_template()
+  game/scripts/fleet_workshop.gd:261 preview()
+  game/scripts/fleet_workshop.gd:264 apply()
+  game/scripts/fleet_workshop.gd:30 _no()
+  game/scripts/fleet_workshop.gd:33 _plain_name()
+  game/scripts/fleet_workshop.gd:47 _library_error()
+  game/scripts/fleet_workshop.gd:114 _spec()
+  game/scripts/fleet_workshop.gd:122 _empty_quote()
+  game/scripts/fleet_workshop.gd:125 _reserve_info()
+game/scripts/workshop_ui.gd: 18374 bytes; extends RefCounted
+  game/scripts/workshop_ui.gd:61 open()
+  game/scripts/workshop_ui.gd:115 draft_set()
+  game/scripts/workshop_ui.gd:125 choose()
+  game/scripts/workshop_ui.gd:178 review()
+  game/scripts/workshop_ui.gd:207 templates()
+  game/scripts/workshop_ui.gd:236 compare()
+  game/scripts/workshop_ui.gd:10 _prune_drafts()
+  game/scripts/workshop_ui.gd:18 _draft()
+  game/scripts/workshop_ui.gd:26 _portrait()
+  game/scripts/workshop_ui.gd:37 _spec_text()
+  game/scripts/workshop_ui.gd:40 _arc_text()
+  game/scripts/workshop_ui.gd:47 _picker()
+game/scripts/boat_portrait.gd: 6147 bytes; class_name BoatPortrait
+  game/scripts/boat_portrait.gd:48 set_spec()
+  game/scripts/boat_portrait.gd:43 _init()
+  game/scripts/boat_portrait.gd:51 _gui_input()
+  game/scripts/boat_portrait.gd:57 _draw()
+  game/scripts/boat_portrait.gd:112 _draw_socket_arc()
+game/scripts/refit.gd: 22923 bytes; extends RefCounted
+  game/scripts/refit.gd:25 catalog()
+  game/scripts/refit.gd:57 hardpoints()
+  game/scripts/refit.gd:60 defaults()
+  game/scripts/refit.gd:68 normalize()
+  game/scripts/refit.gd:97 effective_spec()
+  game/scripts/refit.gd:168 ensure()
+  game/scripts/refit.gd:218 fitting_bill()
+  game/scripts/refit.gd:242 opaque_condition()
+  game/scripts/refit.gd:256 quote()
+  game/scripts/refit.gd:292 install()
+  game/scripts/refit.gd:12 _number()
+  game/scripts/refit.gd:15 _whole()
+
+TESTS (game/tests/*.gd)
+test_workshop, test_workshop_voyage, test_workshop_ui, test_art_workshop; unchanged test_refit, test_commander, test_save_validation, test_mount_layout
+
+Full symbols: rg -n '^func |^static func ' on named files.

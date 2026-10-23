@@ -1,9 +1,18 @@
 BRASS TIDE — CURRENT FAST DEVELOPMENT TOOLS
-23 October 2026 | v0.028 baseline; consult VERIFICATION INDEX first
+23 October 2026 | v0.029 source candidate; delivered v0.028; consult VERIFICATION INDEX first
 
 Static map refresh: python tools/update_maps.py. No engine needed for context edits.
 Targeted native test: tools/check_game.py --only <suite...> --engine <Godot> --logs
-<task>/work/qa/current-<question>. All66 source suites remain in game/tests/.
+<task>/work/qa/current-<question>. All70 source suites remain in game/tests/;
+the original66 fixtures are unchanged. Current70 passed logs and exact provenance:
+qa/v029-integrated-source in the C verification worktree, docs/TEST RESULTS v0.029.md
+and docs/INTEGRATION v0.029.json. Root acceptance and separate Windows proof remain pending.
+
+Sequential .029-.038 source recording: tools/advance_series.py --build 29
+--previous-release <v028/RELEASE.json> --dry-run, then record only reviewed inputs.
+--accept-logs <actual current70-suite logs> validates/imports evidence; it does not
+run tests or establish export/publication. Preserve old notes/CHANGES and advance
+only the current or immediate successor integer build. Later stages stay pending.
 
 Short battle CPU fixtures: python tools/qa_brass.py --list
 python tools/qa_brass.py --scenario duel --engine <Godot> --logs <scratch>

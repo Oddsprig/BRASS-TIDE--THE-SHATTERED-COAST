@@ -1,4 +1,4 @@
-BRASS TIDE — EXPEDITIONS MAP (generated; v0.028)
+BRASS TIDE — EXPEDITIONS MAP (generated; v0.029)
 
 Traveling fleet/real stores -> cargo carriers, paid endurance, shore assignments, persistent discoveries and copied-port workers.
 
@@ -13,7 +13,7 @@ game/scripts/hold_manifest.gd: 3446 bytes; extends RefCounted
   game/scripts/hold_manifest.gd:8 carriers()
   game/scripts/hold_manifest.gd:11 allocate()
   game/scripts/hold_manifest.gd:50 losses()
-game/scripts/economy_workers.gd: 1558 bytes; extends RefCounted
+game/scripts/economy_workers.gd: 1600 bytes; extends RefCounted
   game/scripts/economy_workers.gd:11 start()
   game/scripts/economy_workers.gd:28 ready()
   game/scripts/economy_workers.gd:31 finish()
@@ -24,9 +24,9 @@ game/scripts/campaign_ui.gd: 6846 bytes; extends RefCounted
   game/scripts/campaign_ui.gd:40 islands()
   game/scripts/campaign_ui.gd:63 site()
   game/scripts/campaign_ui.gd:98 survey_day()
-game/scripts/campaign_state_validation.gd: 18429 bytes; extends RefCounted
-  game/scripts/campaign_state_validation.gd:4 number()
-  game/scripts/campaign_state_validation.gd:7 validate()
+game/scripts/campaign_state_validation.gd: 18608 bytes; extends RefCounted
+  game/scripts/campaign_state_validation.gd:5 number()
+  game/scripts/campaign_state_validation.gd:8 validate()
 game/scripts/exploration.gd: 18914 bytes; extends RefCounted
   game/scripts/exploration.gd:133 catalog_site()
   game/scripts/exploration.gd:152 ensure()
@@ -34,7 +34,7 @@ game/scripts/exploration.gd: 18914 bytes; extends RefCounted
   game/scripts/exploration.gd:213 discover_near()
   game/scripts/exploration.gd:243 spare_crew()
   game/scripts/exploration.gd:265 quote()
-game/scripts/island_site_art.gd: 1637 bytes; extends RefCounted
+game/scripts/island_site_art.gd: 1663 bytes; extends RefCounted
   game/scripts/island_site_art.gd:3 draw_site()
 
 TESTS (game/tests/*.gd)

@@ -70,7 +70,7 @@ def main():
     shutil.copy2(ROOT / "game/assets/Brass Tide.ico", dest / "Brass Tide.ico")
     print("Checking the exported game itself: menu, campaign/save and battle; no window/input.", flush=True)
     for name, hook in [("menu", []), ("campaign", ["--", "--qa-campaign"]), ("battle", ["--", "--qa-battle"])]:
-        output = run([executable, "--headless", "--quit-after", "30", *hook], logs / f"portable-{name}.log", env, 30)
+        output = run([executable, "--headless", "--audio-driver", "Dummy", "--quit-after", "30", *hook], logs / f"portable-{name}.log", env, 30)
         assert "BRASS TIDE v" + VERSION in output, f"No verified game startup in {name}"
     # Preserve the newly generated test save outside the shipped game. Never delete user saves.
     saves = dest / "saves"

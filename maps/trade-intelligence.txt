@@ -1,4 +1,4 @@
-BRASS TIDE — TRADE-INTELLIGENCE MAP (generated; v0.028)
+BRASS TIDE — TRADE-INTELLIGENCE MAP (generated; v0.029)
 
 Dated actual harbor observations and supplied fleets -> cargo-limited route estimates, physical shortages and blockades.
 
@@ -16,11 +16,11 @@ game/scripts/trade_intel.gd: 22748 bytes; extends RefCounted
   game/scripts/trade_intel.gd:305 _lift_cause()
   game/scripts/trade_intel.gd:316 _supplied()
   game/scripts/trade_intel.gd:332 _near_owner()
-game/scripts/trade_flow.gd: 966 bytes; extends RefCounted
+game/scripts/trade_flow.gd: 986 bytes; extends RefCounted
   game/scripts/trade_flow.gd:4 blockades()
   game/scripts/trade_flow.gd:13 daily()
   game/scripts/trade_flow.gd:18 observe()
-game/scripts/trade_ui.gd: 2548 bytes; extends RefCounted
+game/scripts/trade_ui.gd: 2578 bytes; extends RefCounted
   game/scripts/trade_ui.gd:3 open()
 
 TESTS (game/tests/*.gd)

@@ -1,0 +1,56 @@
+BRASS TIDE v0.029 — HELPER C PART 2 RAW INTEGRATION REPORT
+23 October 2026 | Source checks passed; root acceptance/delivery pending
+
+SOURCE AND PRESERVATION
+Only the assigned verification worktree was modified. Preserved Part1 commit:
+fa60a0e5027a6822ff279ca1a168fc88902fb9da. Detached onto accepted art847e66ba90782ab3f8e89cd567ee0215e806f2b7,
+then cherry-picked Part1 as3154bbfbd5bd8bff11e1401a3ac531b0b524248d.
+All13 explicit B paths and its raw report matched SYSTEMS FROZEN v0.029.json
+before copying; the integration manifest records each destination before/after
+SHA256. Part1/B reports remain verbatim under docs/helper-reports.
+Candidate a4a28f1 plus generated C fixture UIDs6f7b5db preceded native suites.
+Tested final source: b83c9d6d100b9439222f337d8c7fbe58ac3dd051.
+Tested source tree: 2051354e521f3915a239997ae07b9b3a3d661b8b.
+
+ACTUAL NATIVE RESULTS
+All70 suites passed: unchanged original66 plus workshop85, art_workshop2343,
+workshop_voyage154 and workshop_ui69 checks. Actual Campaign/Main/control/save/
+laboratory flows exercised paid starter fits, finite stock/workforce/purses,
+physical locker swaps, exact refusals, retained live references/condition/stores,
+knowledge-only templates, actual voyage fuel and preview-compatible lab mounts.
+Original66 scripts/assertions are byte-identical in Git to the assigned base.
+Godot4.7.2.stable.official.ed1daf0bf console, SHA256
+c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643.
+Hidden/headless/Dummy audio, isolated APPDATA/synthetic careers, sequential owned
+children with60-second bounds and global engine guards. Current evidence folder:
+qa/v029-integrated-source. Each suite has exact log/fixture/source/PID provenance
+in docs/INTEGRATION v0.029.json and docs/TEST RESULTS v0.029.md.
+
+DEVIATIONS AND FIXES
+My first voyage subscenario incorrectly assumed the23983-coin economy engine
+fit was affordable on a15000-coin starter. Production correctly refused it.
+The fixture-only b83c9d6 uses a useful affordable paid second gun and adds an
+explicit affordability assertion; no price/production/assertion weakening.
+Original failed log/receipt remain under failures/workshop-voyage-01. First3
+new suites were retained from6f7b5db; only changed voyage reran. All production,
+metadata and asset bytes stayed identical across the accepted70 suites.
+External Copper Oath processes caused guard waits and one partial regression
+batch; only unrun suites resumed. No outside process was killed. Import03 had
+a sandbox certificate-store ERROR despite exit0; authorized import04 passed.
+Godot regenerated23 import-record line endings; exact original hashes were
+restored before suites. Captured transcript hashes normalize LF; raw Windows
+log byte hashes are separately verified. No raw evidence was altered.
+
+RECORDS AND LIMITS
+Recorder dry-run verified exact .028 tag/Windows receipt/EXE/PCK hashes and
+consistent predecessor metadata. World data changed VERSION only; .028 notes,
+older CHANGES and historical records survive. Actual70 logs were imported with
+--accept-logs. Developer-note status text changed after native testing and is
+disclosed separately from tested code. Permanent map GROUPS/new workshop map,
+functional CODE MAP/current records, AGENTS/handoff and explicit Dummy export
+smoke arguments were updated after testing; tools received AST/diff checks only.
+R1 AI budgets remain pending targets; .030-.038 runtime remains unimplemented.
+No export/tag/push/publication, owner-save/settings/music mutation or new models/
+helpers. Windows/launcher/archive/remote, visual/motion and listening proof stay
+separate. Root owns source acceptance and later delivery authorization.
+All C-owned engine children stopped. ENGINE LEASE RELEASED.

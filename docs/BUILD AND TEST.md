@@ -1,7 +1,7 @@
 <!-- brass-tide-series:29:start -->
 # v0.029 source checks and release gates
 
-SOURCE CANDIDATE: no native validation, export or delivery is claimed.
+SOURCE CHECKS RECORDED: 70 native suites recorded from supplied logs. Feature acceptance requires lead review.
 
 Registered native suites: 70. Stage-specific minimum: workshop, art_workshop, workshop_voyage, workshop_ui.
 Use tools/check_game.py with an explicit existing Godot 4.7.2 path and isolated logs. One hidden/headless/silent engine at a time; no desktop input or owner saves.
