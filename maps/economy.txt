@@ -1,21 +1,21 @@
-BRASS TIDE — ECONOMY MAP (generated; v0.024)
+BRASS TIDE — ECONOMY MAP (generated; v0.025)
 
 Fixed civilian pools/recipes/stock/ownership -> payroll, production, finite trade and resident/owner purses.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/economy.gd: 56788 bytes; extends RefCounted
-  game/scripts/economy.gd:54 is_expert_occupation()
-  game/scripts/economy.gd:78 default_recruit_pool()
-  game/scripts/economy.gd:82 replenish_volunteers()
-  game/scripts/economy.gd:107 get_equilibrium_stock()
-  game/scripts/economy.gd:144 create_port()
-  game/scripts/economy.gd:300 clone_port()
-  game/scripts/economy.gd:304 clone_ports()
-  game/scripts/economy.gd:312 snapshot_ports()
-  game/scripts/economy.gd:323 port_coins()
-  game/scripts/economy.gd:343 total_coins()
-  game/scripts/economy.gd:401 price()
-  game/scripts/economy.gd:430 cargo_weight()
+game/scripts/economy.gd: 58327 bytes; extends RefCounted
+  game/scripts/economy.gd:55 is_expert_occupation()
+  game/scripts/economy.gd:79 default_recruit_pool()
+  game/scripts/economy.gd:83 replenish_volunteers()
+  game/scripts/economy.gd:108 get_equilibrium_stock()
+  game/scripts/economy.gd:145 create_port()
+  game/scripts/economy.gd:301 clone_port()
+  game/scripts/economy.gd:305 clone_ports()
+  game/scripts/economy.gd:313 snapshot_ports()
+  game/scripts/economy.gd:324 port_coins()
+  game/scripts/economy.gd:344 total_coins()
+  game/scripts/economy.gd:402 price()
+  game/scripts/economy.gd:431 cargo_weight()
 game/scripts/industry_data.gd: 13656 bytes; extends RefCounted
   game/scripts/industry_data.gd:261 get_equilibrium_stock()
   game/scripts/industry_data.gd:206 _is_num()
@@ -35,19 +35,19 @@ game/scripts/goods.gd: 4555 bytes; extends RefCounted
   game/scripts/goods.gd:47 cost()
   game/scripts/goods.gd:56 full_labor_days()
   game/scripts/goods.gd:63 definitions()
-game/scripts/fleet_economy.gd: 16004 bytes; extends RefCounted
-  game/scripts/fleet_economy.gd:24 normalize_owner()
-  game/scripts/fleet_economy.gd:45 upkeep()
-  game/scripts/fleet_economy.gd:55 total_coins()
-  game/scripts/fleet_economy.gd:61 create_owners()
-  game/scripts/fleet_economy.gd:127 subsidize()
-  game/scripts/fleet_economy.gd:170 dock()
-  game/scripts/fleet_economy.gd:295 tick()
-  game/scripts/fleet_economy.gd:8 _log()
-  game/scripts/fleet_economy.gd:13 _find()
-  game/scripts/fleet_economy.gd:19 _integer()
-  game/scripts/fleet_economy.gd:118 _trade_good()
-  game/scripts/fleet_economy.gd:137 _capacity()
+game/scripts/fleet_economy.gd: 16952 bytes; extends RefCounted
+  game/scripts/fleet_economy.gd:25 normalize_owner()
+  game/scripts/fleet_economy.gd:46 upkeep()
+  game/scripts/fleet_economy.gd:56 total_coins()
+  game/scripts/fleet_economy.gd:62 create_owners()
+  game/scripts/fleet_economy.gd:128 subsidize()
+  game/scripts/fleet_economy.gd:145 allowed_trade()
+  game/scripts/fleet_economy.gd:176 dock()
+  game/scripts/fleet_economy.gd:302 tick()
+  game/scripts/fleet_economy.gd:9 _log()
+  game/scripts/fleet_economy.gd:14 _find()
+  game/scripts/fleet_economy.gd:20 _integer()
+  game/scripts/fleet_economy.gd:119 _trade_good()
 
 TESTS (game/tests/*.gd)
 test_economy, test_fleet_economy, test_campaign_cash

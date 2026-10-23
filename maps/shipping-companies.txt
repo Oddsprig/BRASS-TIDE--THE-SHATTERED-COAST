@@ -1,4 +1,4 @@
-BRASS TIDE — SHIPPING-COMPANIES MAP (generated; v0.024)
+BRASS TIDE — SHIPPING-COMPANIES MAP (generated; v0.025)
 
 Actual player hulls, crews, purses and fixed physical routes -> shared-stock trade, material/hull basis, paid operation, real losses and physical recall.
 
@@ -16,19 +16,19 @@ game/scripts/shipping_companies.gd: 18047 bytes; extends RefCounted
   game/scripts/shipping_companies.gd:351 record()
   game/scripts/shipping_companies.gd:387 daily()
   game/scripts/shipping_companies.gd:398 validate()
-game/scripts/company_ops.gd: 12690 bytes; extends RefCounted
-  game/scripts/company_ops.gd:11 api()
-  game/scripts/company_ops.gd:15 ensure()
-  game/scripts/company_ops.gd:31 create()
-  game/scripts/company_ops.gd:62 owner()
-  game/scripts/company_ops.gd:65 book()
-  game/scripts/company_ops.gd:68 met()
-  game/scripts/company_ops.gd:72 capital()
-  game/scripts/company_ops.gd:78 pay_arrears()
-  game/scripts/company_ops.gd:87 recall()
-  game/scripts/company_ops.gd:95 collect()
-  game/scripts/company_ops.gd:104 record()
-  game/scripts/company_ops.gd:108 reconcile()
+game/scripts/company_ops.gd: 13110 bytes; extends RefCounted
+  game/scripts/company_ops.gd:12 api()
+  game/scripts/company_ops.gd:16 ensure()
+  game/scripts/company_ops.gd:32 create()
+  game/scripts/company_ops.gd:63 owner()
+  game/scripts/company_ops.gd:66 book()
+  game/scripts/company_ops.gd:69 met()
+  game/scripts/company_ops.gd:73 capital()
+  game/scripts/company_ops.gd:79 pay_arrears()
+  game/scripts/company_ops.gd:88 recall()
+  game/scripts/company_ops.gd:96 collect()
+  game/scripts/company_ops.gd:105 record()
+  game/scripts/company_ops.gd:109 reconcile()
 game/scripts/company_ui.gd: 5384 bytes; extends RefCounted
   game/scripts/company_ui.gd:4 result()
   game/scripts/company_ui.gd:8 number()

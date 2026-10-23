@@ -1,4 +1,4 @@
-BRASS TIDE — HOME-HARBORS MAP (generated; v0.024)
+BRASS TIDE — HOME-HARBORS MAP (generated; v0.025)
 
 Physical local materials/staff/coins -> paid shore stock, business payroll and earned-only dividends, private/public berths and arrears.
 

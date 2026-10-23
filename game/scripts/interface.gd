@@ -7,6 +7,7 @@ const Finance = preload("res://scripts/finance_ui.gd")
 const CampaignUI=preload("res://scripts/campaign_ui.gd")
 const RecoveryUI=preload("res://scripts/recovery_ui.gd")
 const HomeUI=preload("res://scripts/home_ui.gd")
+const LawUI=preload("res://scripts/law_ui.gd")
 const CompanyUI=preload("res://scripts/company_ui.gd")
 const RegionalGoodsUI=preload("res://scripts/regional_goods_ui.gd")
 const WorkerUI=preload("res://scripts/worker_ui.gd")
@@ -418,7 +419,10 @@ func open_port(tab: String = ""):
 	if not access.legal:
 		FactionUI.open(self)
 		return
-	Politics.inspect(host.core)
+	var inspection: Dictionary=Politics.inspect(host.core)
+	if inspection.get("fine",0)>0:toast(str(inspection.message),true)
+	p=host.core.current_port()
+	access=Politics.access(host.core,p)
 	host.core.TradeFlow.observe(host.core)
 	if not tab.is_empty():
 		port_tab = tab
@@ -438,6 +442,7 @@ func open_port(tab: String = ""):
 	button(body,"People, paid shifts & working conditions",func():WorkerUI.open(self))
 	button(body,"Regional goods & coastal trades",func():RegionalGoodsUI.open(self))
 	button(body,"Shipping companies & route accounts",func():CompanyUI.open(self))
+	button(body,"Cargo declarations, licences & customs",func():LawUI.open(self))
 	if p.industry=="shipyard":button(body,"Recovered drawings & design licenses",func():RecoveryUI.blueprints(self))
 	var tabs = row(body)
 	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
@@ -611,6 +616,7 @@ func open_cargo():
 		if not job.get("freight",{}).is_empty():paragraph(body,"Sealed %s: %.0f %s · %.0f space"%[job.title,job.freight.qty,job.freight.good,job.freight.qty*host.Economy.GOODS[job.freight.good].weight],14,GOLD)
 	button(body,"Recovered machinery & shore work",func():ToolingUI.open(self))
 	button(body,"Shipping companies & real routes",func():CompanyUI.open(self))
+	button(body,"Declarations & customs debts",func():LawUI.open(self))
 	button(body, "Load reserves into working stores", func(): host.core.use_reserves(); open_cargo(), true)
 	rule(body)
 	var costs = host.Economy.daily_upkeep(host.core.state.fleet)

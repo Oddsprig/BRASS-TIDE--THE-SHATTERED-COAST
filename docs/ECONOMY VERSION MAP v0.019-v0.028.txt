@@ -4,7 +4,8 @@ v0.020 DELIVERED | c9a3a8d4ae672fe50b2ef7eb7d3680fb7cd777da
 v0.021 DELIVERED | 877b080ee59dbe434bb15d8a954765a53f22f53a
 v0.022 DELIVERED | b342ee076efac65b044bbed56566ae448227ea8a
 v0.023 DELIVERED | 9c1845eda7f59228a986b5ad40f7504766f102aa
-Current delivered game: v0.023. Later steps remain authorized and unfinished until their own receipts exist.
+v0.024 DELIVERED | a626ad3567716eb2eb69394de19050c239920412
+Current delivered game: v0.024. Later steps remain authorized and unfinished until their own receipts exist.
 END LIVE RELEASE STATUS
 
 BRASS TIDE — THE SHATTER COAST

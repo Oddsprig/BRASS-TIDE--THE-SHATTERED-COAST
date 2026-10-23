@@ -1,5 +1,6 @@
 extends RefCounted
 ## Fleet-owned circulating bronze cash. All coins enter through explicit purse transfers.
+const TradeRules=preload("res://scripts/trade_rules.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Goods=preload("res://scripts/goods.gd")
@@ -141,8 +142,13 @@ static func _capacity(owner: Dictionary) -> float:
 			result+=float(boat.spec.get("cargo",0))
 	return result
 
+static func allowed_trade(owner: Dictionary,port: Dictionary,good: String,core=null) -> bool:
+	var bans: Array=owner.get("tradeBans",port.get("tradeBans",[])) if core==null else core.state.get("tradeLaw",{}).get("bans",[])
+	var day: float=float(owner.get("tradeLawDay",port.get("tradeLawDay",0))) if core==null else float(core.state.day)
+	return TradeRules.allowed(bans,str(owner.get("faction","")),str(port.get("faction","")),good,day)
+
 static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: int,crew_paid: bool=false,working: bool=false,core=null,commercial: bool=false) -> int:
-	if quantity<=0:
+	if quantity<=0 or not allowed_trade(owner,port,good,core):
 		return 0
 	var purse: String="crewPurse" if crew_paid else "coins"
 	var wallet: Dictionary={"coins":owner[purse],"cargo":owner.cargo}
@@ -181,6 +187,7 @@ static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 			var sale: int=mini(_integer(owner.cargo.get(good,0)),_integer(owner.tradeCargo))
 			if owner.get("playerCompany",false):
 				sale=mini(sale,mini(core.CompanyOps.market_limit(core,owner,port,false,good,Economy.price(port,good,"sell")),int(port.cash)/maxi(1,Economy.price(port,good,"sell"))))
+			if not allowed_trade(owner,port,good,core):sale=0
 			if sale>0:
 				var wallet: Dictionary={"coins":owner.coins,"cargo":owner.cargo}
 				var result: Dictionary=Economy.transact(port,wallet,good,sale,"sell",_capacity(owner))

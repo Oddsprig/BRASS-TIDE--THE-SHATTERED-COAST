@@ -1,3 +1,15 @@
+v0.025 SOURCE ACCEPTED | Smuggling and economic diplomacy
+60 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-22 | v0.025 CANDIDATE | Smuggling and economic diplomacy
+- Finite consignment licences and illicit counters use the same physical inventories, actual worker bills, named custody and finite coin purses.
+- Real nearby port or patrol witnesses inspect declared or deterministically concealed raw cargo; confiscation, affordable fines and remaining debts persist once per encounter.
+- Friendly governments can fund limited military-good embargo agreements against hostile faction carriers; ordinary independent trade remains subject to local access and consignment law.
+Root + up to three Sol6.1 Max helpers through Bridge. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.024 DELIVERED | exact game a626ad3567716eb2eb69394de19050c239920412
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.024 SOURCE ACCEPTED | Player shipping companies
 58 native suites passed; source report saved. Portable export and publication require separate receipts.
 

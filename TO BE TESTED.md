@@ -1,3 +1,7 @@
+v0.025 voluntary play: Smuggling and economic diplomacy
+Assess readability and usefulness of: Finite consignment licences and unregistered counters use shared physical stock, paid workers and actual coin purses. Real inspecting ports and nearby local patrols confiscate uncovered raw military cargo into named custody; fines and unpaid balances persist. Fifteen-day military trade agreements apply to faction carriers through actual transaction paths; staged customs commits preserve live hull, port and business identity.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.024 voluntary play: Player shipping companies
 Assess readability and usefulness of: Assign actual spare hulls, numerical crews and real operating capital to a fixed physical trade route while retaining a seaworthy flagship. Companies buy and sell shared inventory within chosen price, cargo, reserve and risk limits; pay wages, provisions and repairs; and keep capital separate from earned profit. Physical recall returns the same damaged hulls, fittings, cargo and purses only when both fleets meet at home; losses leave finite wrecks without public replacement subsidies.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

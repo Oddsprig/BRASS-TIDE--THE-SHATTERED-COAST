@@ -1,3 +1,23 @@
+# v0.025 — Smuggling and economic diplomacy
+
+SOURCE ACCEPTED: 60 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Finite consignment licences and unregistered counters use shared physical stock, paid workers and actual coin purses.
+- Real inspecting ports and nearby local patrols confiscate uncovered raw military cargo into named custody; fines and unpaid balances persist.
+- Fifteen-day military trade agreements apply to faction carriers through actual transaction paths; staged customs commits preserve live hull, port and business identity.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.025.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.025 — Smuggling and economic diplomacy
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Finite consignment licences and illicit counters use the same physical inventories, actual worker bills, named custody and finite coin purses.
+- Real nearby port or patrol witnesses inspect declared or deterministically concealed raw cargo; confiscation, affordable fines and remaining debts persist once per encounter.
+- Friendly governments can fund limited military-good embargo agreements against hostile faction carriers; ordinary independent trade remains subject to local access and consignment law.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.025.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.024 — Player shipping companies
 
 SOURCE ACCEPTED: 58 native suites pass; portable export evidence is recorded separately in RELEASE.json.

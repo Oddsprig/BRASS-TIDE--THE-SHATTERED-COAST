@@ -1,6 +1,14 @@
-## v0.024 — Player shipping companies
+## v0.025 — Smuggling and economic diplomacy
 
 Candidate; verified test/export records follow.
+
+- Finite consignment licences and illicit counters use the same physical inventories, actual worker bills, named custody and finite coin purses.
+- Real nearby port or patrol witnesses inspect declared or deterministically concealed raw cargo; confiscation, affordable fines and remaining debts persist once per encounter.
+- Friendly governments can fund limited military-good embargo agreements against hostile faction carriers; ordinary independent trade remains subject to local access and consignment law.
+
+## v0.024 — Player shipping companies
+
+Verified local Windows delivery; exact tagged game a626ad3567716eb2eb69394de19050c239920412. Native/export/archive evidence is in the delivery receipts.
 
 - Assign actual spare hulls, numerical crews and real operating capital to a fixed physical trade route while retaining a seaworthy flagship.
 - Companies buy and sell shared inventory within chosen price, cargo, reserve and risk limits; pay wages, provisions and repairs; and keep capital separate from earned profit.

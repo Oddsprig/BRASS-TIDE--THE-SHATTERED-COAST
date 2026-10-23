@@ -1,6 +1,7 @@
 extends RefCounted
 ## Main-thread physical fleet-company binding. Accounting metadata holds no purse.
 const Companies=preload("res://scripts/shipping_companies.gd")
+const TradeRules=preload("res://scripts/trade_rules.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Money=preload("res://scripts/money.gd")
@@ -128,6 +129,7 @@ static func daily(c) -> void:
 
 static func market_limit(c,o: Dictionary,p: Dictionary,buying: bool,good: String,price: int) -> int:
 	if c==null:return 0
+	if not TradeRules.allowed(c.state.get("tradeLaw",{}).get("bans",[]),str(o.faction),str(p.faction),good,float(c.state.day)):return 0
 	if Factions.relation(c.state,str(o.faction),str(p.faction))<=-20:return 0
 	if buying and good in Politics.access(c,p).restrictedGoods:return 0
 	return maxi(0,floori(float(api(c).trade_limit(c,o,buying,good,price))))

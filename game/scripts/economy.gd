@@ -3,6 +3,7 @@ extends RefCounted
 ## Pure RefCounted simulation: integer bronze cash purses, float physical stocks,
 ## paid occupation recipes from Goods, and strict atomic coin conservation.
 
+const TradeRules=preload("res://scripts/trade_rules.gd")
 const Goods = preload("res://scripts/goods.gd")
 const IndustryData = preload("res://scripts/industry_data.gd")
 
@@ -1249,6 +1250,7 @@ static func tick_ports(ports: Array, days: Variant = 1.0, options: Dictionary = 
 
 						var exporter: Dictionary = exp_entry["port"]
 						var importer: Dictionary = imp_entry["port"]
+						if not TradeRules.allowed(exporter.get("tradeBans",[]),str(exporter.get("faction","")),str(importer.get("faction","")),g,float(exporter.get("tradeLawDay",0))):continue
 						var exp_stock := int(floor(float(exporter["stocks"].get(g, 0.0))))
 						var imp_cash := int(importer.get("cash", 0))
 						if exp_stock < 3 or imp_cash < 400:

@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const LawOps=preload("res://scripts/law_ops.gd")
 const CompanyOps=preload("res://scripts/company_ops.gd")
 const RegionalGoodsOps=preload("res://scripts/civilian_goods_ops.gd")
 const WorkerOps=preload("res://scripts/worker_ops.gd")
@@ -160,6 +161,7 @@ func new_game(seed_value: int = 1):
 		Exploration.ensure(state,data)
 		Exploration.discover_near(state,state.position,1000.0)
 	else:state.exploration={"version":1,"catalog":[],"sites":{},"assignment":{},"leads":[],"log":[]}
+	LawOps.ensure(self)
 	Manifest.allocate(state)
 	log_entry("You inherited a Tinwake skiff, five sailors, and a debt-free start. The coast is yours to explore.")
 	events.clear()
@@ -327,7 +329,9 @@ func step(dt: float):
 	state.day += dt / DAY_SECONDS
 	if int(state.day) > old_day:
 		pending_days += int(state.day) - old_day
+	LawOps.clock(self)
 	NavalLifecycle.step(self,dt)
+	LawOps.check_patrols(self)
 
 func apply_economy(ports: Array, messages: Array, days: int):
 	state.ports = ports
@@ -376,6 +380,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		ReserveOps.refresh(self)
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
+		LawOps.daily(self)
 		state.econDay += 1
 	apply_morale()
 	Manifest.allocate(state)
@@ -516,18 +521,7 @@ func jettison(good: String,qty: int) -> Dictionary:
 	return ok("Cargo set on a marked float. It can be recovered later if space is available.")
 
 func trade(id: String, good: String, qty: int, side: String) -> Dictionary:
-	var permission: Dictionary=Politics.permit(self,"buy_good" if side=="buy" else "trade",good)
-	if not permission.ok:return permission
-	var p = current_port()
-	if p.is_empty() or p.id != id:
-		return fail("Enter this harbor to trade.")
-	var overflow: float=maxf(0,cargo_weight()-Economy.cargo_weight(state.cargo)-freight_weight())
-	var result: Dictionary=Economy.transact(p,state,good,qty,side,maxf(0,capacity()-freight_weight()-overflow))
-	Manifest.allocate(state)
-	if result.ok:
-		TradeFlow.observe(self)
-		if side=="sell":RegionalOps.delivered(self,id,float(result.qty),str(state.get("regionalOrigin","")))
-	return result
+	return LawOps.trade(self,id,good,qty,side)
 
 func ship_materials(h: Dictionary) -> Dictionary:
 	return Construction.blueprint(h).materials
@@ -1006,6 +1000,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	apply_morale()
 	if Money.total(state) != int(state.coinSupply):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
+	LawOps.ensure(self)
 	StoryOps.refresh(self)
 	return ok("Voyage restored.")
 

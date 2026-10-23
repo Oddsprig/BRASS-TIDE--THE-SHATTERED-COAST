@@ -26,7 +26,9 @@ def main():
     assert proof.is_file() and manifest["version"] == version
     target = folder / "Brass Tide.exe"
     assert sha(target) == manifest["sha256"][target.name]
-    link_path = Path.home() / "Desktop" / "Brass Tide.lnk"
+    desktop = Path.home() / "Desktop"
+    organized = desktop / "game-launchers" / "Brass Tide.lnk"
+    link_path = organized if organized.is_file() else desktop / "Brass Tide.lnk"
     shell = Dispatch("WScript.Shell")
     link = shell.CreateShortcut(str(link_path))
     link.TargetPath = str(target)
@@ -37,7 +39,7 @@ def main():
     readback = shell.CreateShortcut(str(link_path))
     assert Path(readback.TargetPath) == target
     receipt = {"version": version, "target": str(target), "icon": readback.IconLocation,
-               "launched": False, "ownerSaveCopied": False}
+               "launched": False, "ownerSaveCopied": False,"shortcut":str(link_path)}
     destination = folder / "saves"
     if not (destination / "voyage.json").exists():
         candidates = [child / "saves/voyage.json" for child in outputs.iterdir()

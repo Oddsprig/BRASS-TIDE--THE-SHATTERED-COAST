@@ -33,12 +33,8 @@ static func inspect(c) -> Dictionary:
 	var a: Dictionary=access(c,p)
 	if not a.legal:return c.fail(a.reason)
 	if not a.inspection:return c.ok("Clear harbor access.")
-	var key: String="%s:%d"%[p.id,int(c.state.day)]
-	if not c.state.relationships.inspections.has(key):
-		c.state.relationships.inspections[key]=true
-		while c.state.relationships.inspections.size()>80:c.state.relationships.inspections.erase(c.state.relationships.inspections.keys()[0])
-		c.log_entry("%s inspected the manifest: %.1f hold space of declared cargo; owned fittings and sealed cargo admitted. No confiscation or invented fee."%[p.name,c.cargo_weight()])
-	return c.ok("Inspection complete. Declared cargo admitted.")
+	var customs: Script=load("res://scripts/law_ops.gd")
+	return customs.inspect(c,p)
 
 static func parley(c) -> Dictionary:
 	var p: Dictionary=c.current_port()

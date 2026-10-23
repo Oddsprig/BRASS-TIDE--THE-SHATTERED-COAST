@@ -1,0 +1,18 @@
+v0.025 — Root acceptance and integration notes
+Helper: Bridge Sol6.1 Max supply project. Original inline report preserved separately.
+Root read all helper source/tests/report and adapted against the actual campaign.
+Changed: canonical coin/people adapters, actual StringName JSON compatibility,
+explicit failure reasons, two-person service capacity and cheap pure embargo checks.
+Integrated real port/patrol witnesses, finite licences, shared broker stock, confiscation,
+local debt payment, physical carrier execution, restore schema and native controls.
+The helper's unit test uses fixtures; root added an actual Main campaign voyage.
+Current targeted evidence: trade_law 49 checks; customs_voyage 25 checks; company_voyage
+30 checks; save_validation 89 checks, all zero failures. Full source and clean checkout
+results are recorded by the release tools, not inferred from these targeted checks.
+Limit: agreements concern guns or engines for an existing hostile faction pair, 15 days.
+Civilian safe conduct never bypasses military restrictions. No smuggler stock spawns.
+No listening, foreground interaction or rendering-performance claim.
+
+Root caught and repaired whole-state replacement that detached business/port/hull references.
+Atomic publication now preserves existing records; actual identity regression added.
+Seven affected voyage suites pass after repair. Original rejected run retained in work QA.

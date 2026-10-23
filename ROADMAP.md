@@ -1,3 +1,5 @@
+v0.025 SOURCE ACCEPTED — Smuggling and economic diplomacy. 60 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
+
 v0.024 SOURCE ACCEPTED — Player shipping companies. 58 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
 
 v0.023 SOURCE ACCEPTED — Regional goods and household demand. 56 native suites accepted; exact-tag export has separate receipts. Continue the authorized sequence after preserving this build. Earlier planning/release records follow.
