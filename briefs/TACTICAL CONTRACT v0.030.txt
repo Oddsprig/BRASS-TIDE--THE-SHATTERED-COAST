@@ -67,3 +67,21 @@ All engines remain serialized hidden/headless/Dummy-audio with isolated syntheti
 profiles, explicit owned children and bounded runs. Root owns integration/verdict
 and version tags; no helper exports/publishes/deletes/changes root source unless
 explicitly assigned. Keep original saves/music/older releases and raw evidence.
+
+ROOT PROTOCOL REVISION r3 — BEFORE ANY .030 NATIVE TIMING/TUNING
+Old .029 real seed83 stress ends37.333s with7 survivors; stock42 ends39.733s;
+synthetic74 ends52.1s. Synthetic60 reaches65s but retains60 for65/1800 measured
+ticks. Keep these actual finite traces and incomplete labels. Declared capacity
+needs a full-population measurement. R3 adds independent real-lab prefixes:
+150 real disposable warmup ticks/process, then fresh actual-stock windows <=180
+measured ticks each, stop after first lost/captured hull. Collect1800 total actual
+full-PRE-tick Battle.update samples/profile using fixed cyclic seeds [83,the8
+existing tuning seeds,83], <=40 windows and <=2/process,40s work/60s timeout.
+All adverse short prefixes count; no seed replacement, heal/refill/padding or
+continuing terminal state. This certifies capacity prefixes, never a continuous
+60s outcome battle. Complete A1-A5 behavior and later sustained campaign evidence
+stay separate. Exact new protocol fields are in JSON.protocol_revision.
+All numerical latency/cadence/work thresholds remain UNCHANGED. The old74-hull
+baseline already exceeds prospective24ms p95; optimize rather than relax it.
+AI timers must include snapshot/plan/certify/resolve plus helm/safety/fire gating,
+not only the scheduled planner. Total Battle.update timings remain independent.

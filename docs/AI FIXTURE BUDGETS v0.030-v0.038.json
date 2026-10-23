@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "manifest_id": "brass-tide-ai-fixtures-030-038-r2",
+  "manifest_id": "brass-tide-ai-fixtures-030-038-r3",
   "status": "ROOT FROZEN .030 engineering targets and detached tactical contract, before runtime implementation/tuning; no measurement or feature acceptance claim. Later-stage targets remain explicitly provisional.",
   "declared_on": "2026-10-23",
   "authority": [
@@ -910,7 +910,10 @@
       ],
       "targets": "cpu_targets_ms",
       "warmup_sim_seconds": 5,
-      "measured_sim_seconds": 60
+      "measured_sim_seconds": 60,
+      "measurement_protocol": "full-population-prefix-capacity-r3",
+      "measured_sim_seconds_scope": "60 cumulative actual full-population prefixes; separate finite outcome trace retained",
+      "warmup_scope": "150 real disposable warmup ticks per process, then fresh measured windows"
     },
     "later_goal": {
       "battle_p95_ms": 8,
@@ -1042,6 +1045,48 @@
     "proposal_sha256": "32e062f65906056e6280d4a38397e00834dd8c9e3015a489decae19c42f3336b",
     "contract": "briefs/TACTICAL CONTRACT v0.030.txt",
     "reason": "Preserve actual DP-valid admission and original30/37-hull API behavior; distinguish measured11.235ms .028 p95 reference from prospective .030 latency targets; bound certificates/geometry/rollouts/leases before code. Not a retrospective target relaxation.",
-    "runtime_gate": "Verified .029 Windows delivery receipt and explicit root role assignment; baseline measurements use unchanged .029. No .031 runtime until .030 accepted/preserved."
+    "runtime_gate": "Verified .029 Windows delivery receipt and explicit root role assignment; baseline measurements use unchanged .029. No .031 runtime until .030 accepted/preserved.",
+    "previous_manifest_sha256": "7102f6ae24472cf84d86b97e33e006d9546a4db9e67e70c9830aa072ef0a1181",
+    "protocol_revision_date": "2026-10-23",
+    "protocol_revision_reason": "Unchanged .029 seed83 stock40 ended37.333s;42 ended39.733s;74 ended52.1s.60 survived65s but only65/1800 measured ticks retained60. A variable-survivor average cannot certify declared full-hull capacity. This revision changes measurement protocol prospectively before any .030 native/timing run; numerical CPU/cadence/work targets are unchanged."
+  },
+  "protocol_revision": {
+    "id": "full-population-prefix-capacity-r3",
+    "reason": "Unchanged .029 seed83 stock40 ended37.333s;42 ended39.733s;74 ended52.1s.60 survived65s but only65/1800 measured ticks retained60. A variable-survivor average cannot certify declared full-hull capacity. This revision changes measurement protocol prospectively before any .030 native/timing run; numerical CPU/cadence/work targets are unchanged.",
+    "separate_scopes": [
+      "Retain original finite65s attempted outcome trace with early/incomplete status; never call a shortened battle continuous60s stress.",
+      "Measure full-population update capacity with detached real-lab prefixes; no outcome/continuous-campaign/GPU claim from those prefixes. A1-A5 complete behavior and later sustained campaign checks remain separate."
+    ],
+    "warmup_sim_ticks_per_process": 150,
+    "dt_seconds": 0.03333333333333333,
+    "fresh_window_tick_max": 180,
+    "required_full_pre_tick_samples_per_profile": 1800,
+    "measured_sim_seconds_cumulative": 60,
+    "seed_schedule_cyclic": [
+      83,
+      30011,
+      30029,
+      30047,
+      30059,
+      30071,
+      30089,
+      30103,
+      30119,
+      83
+    ],
+    "max_windows_per_profile": 40,
+    "max_windows_per_process": 2,
+    "process_work_bound_seconds": 40,
+    "native_process_timeout_seconds": 60,
+    "window_rule": "Each measured window starts an independent detached actual lab battle with exact profile stock fit, real hull HP/crew/stores/default terrain/formation. Keep canonical bench UIDs stable across windows, separate external window ID. Collect only Battle.update calls whose BEFORE live count equals the full declared profile count, including a first-loss tick. End window immediately after first sunk/captured loss, terminal outcome,180ticks or remaining sample allocation. Advance literal cyclic seed schedule for EVERY window, including short/adverse ones; never omit its samples or replace adverse seeds. Stop after1800 valid measured full-pre-tick calls or report incomplete after40windows/work limit. No padding/refill/healing/hidden buffs or continuing a settled battle. Fixture-defined fresh windows are synthetic laboratory cases, not resurrections of a campaign encounter.",
+    "warmup_rule": "Run150 real untimed fixed ticks as available in a separate disposable warmup battle before measured windows in each process; stop warmup on terminal and report actual warmup count. Then fresh measured battles. Record startup/create/reset/warmup and wall cost separately. Do not include warmup/no-op ticks in the1800.",
+    "report": [
+      "Every ordered raw Battle.update duration and its pre/post live counts,seed,window,sim time,peak projectiles/effects/condition/stores and exit reason.",
+      "Per-profile aggregate and per-window p50/p90/p95/p99/max, sample and full-population denominators.",
+      "All real AI snapshot/planning/certification/resolve/helm-control/safety/automatic-fire-gate work per step, including expiry/cache revalidation; do not time only scheduled planning. Legacy damage/movement/collision/projectile integration reported in total Battle.update, outside AI-only timer.",
+      "Pending decision/certificate/route age, dropped decisions, global work counters and memory; finite outcome behavior uses its independent named scenario results."
+    ],
+    "target_change": false,
+    "thresholds": "cpu_targets_ms .030 profiles unchanged:40/42 16/24/33.333ms total AIp95 3;60/74 24/30/33.333ms AIp95 5. Existing .029 api74 p95 25.974ms/max39.963ms shows optimization is necessary, not a passed gate."
   }
 }
