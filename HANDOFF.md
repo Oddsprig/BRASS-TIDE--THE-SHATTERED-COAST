@@ -1,3 +1,23 @@
+# v0.027 — Regional crises and resettlement
+
+SOURCE ACCEPTED: 64 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Three consecutive observed food, unrest or unpaid-wage days open a dated local crisis; adequate recorded recovery closes it.
+- Sponsored civilian passage moves existing people, skill subsets, savings and purchased food on named boats with actual berth and receiving limits.
+- Real sailing earns work, two paid reception days admit workers, and returns or carrier losses preserve finite people, provisions, escrow and savings.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.027.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
+# v0.027 — Regional crises and resettlement
+
+SOURCE CANDIDATE: implementation underway; no new test/export claim.
+
+- Dated shortages, unrest and unpaid actual obligations require three consecutive observations; verified recovery takes three adequate days.
+- Sponsored voyages move existing idle workers, skill subsets, savings and purchased provisions on actual boats with finite receiving capacity.
+- Actual sailing earns route work; two paid reception days precede workforce admission. Returns and carrier losses preserve people, goods and coin accounting.
+
+Continue the authorized sequential roadmap after verifying/preserving this version. Root + up to three Sol6.1 Max helpers through Bridge only. In-game notes: game/data/DEVELOPER NOTES.txt. Release checks: docs/TEST RESULTS v0.027.md and portable RELEASE.json. Preserve owner saves/music and all previous releases. Background-only tests, one engine at a time.
+
 # v0.026 — Boarding crews and coastal defenses
 
 SOURCE ACCEPTED: 62 native suites pass; portable export evidence is recorded separately in RELEASE.json.

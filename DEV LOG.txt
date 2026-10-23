@@ -1,3 +1,15 @@
+v0.027 SOURCE ACCEPTED | Regional crises and resettlement
+64 native suites passed; source report saved. Portable export and publication require separate receipts.
+
+2026-10-22 | v0.027 CANDIDATE | Regional crises and resettlement
+- Dated shortages, unrest and unpaid actual obligations require three consecutive observations; verified recovery takes three adequate days.
+- Sponsored voyages move existing idle workers, skill subsets, savings and purchased provisions on actual boats with finite receiving capacity.
+- Actual sailing earns route work; two paid reception days precede workforce admission. Returns and carrier losses preserve people, goods and coin accounting.
+Root + up to three Sol6.1 Max helpers through Bridge. Source checks and exact-tag export follow; no delivery claim yet.
+
+v0.026 DELIVERED | exact game 79705bcb10e271f932563912ec54a8084a035005
+Clean native Windows menu/campaign-save/battle/icon/PCK and archive CRC/SHA256 verified. All earlier releases and original owner saves/music remain preserved. No desktop input/focus. GitHub and latest desktop shortcut have separate receipts.
+
 v0.026 SOURCE ACCEPTED | Boarding crews and coastal defenses
 62 native suites passed; source report saved. Portable export and publication require separate receipts.
 

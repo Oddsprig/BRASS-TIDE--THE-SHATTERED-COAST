@@ -1,4 +1,5 @@
 extends RefCounted
+const PassengerManifest=preload("res://scripts/passenger_manifest.gd")
 ## v0.015 fleet identity: interior support conversions, paid specialists and
 ## bounded boat service history. Conversions are interior fittings only: they
 ## never touch weapon mounts, loadout, hardpoints or deck decoration, and
@@ -311,7 +312,7 @@ static func hire_specialist(core, uid: String, role: String) -> Dictionary:
 	var port: Dictionary = core.current_port() if core.has_method("current_port") else {}
 	if port.is_empty():
 		return _fail(core, "Hire specialists at a harbor.")
-	if _num(boat.get("crew", 0)) >= _num(boat.get("crewMax", 0)):
+	if _num(boat.get("crew", 0))+PassengerManifest.assigned(core.state,uid)+float(core.state.get("captiveBerths",{}).get(uid,0)) >= _num(boat.get("crewMax", 0)):
 		return _fail(core, "No free crew berth for another sailor.")
 	if int(_num(port.get("recruits", 0))) < 1 or int(_num(port.get("workforce", 0))) < 1:
 		return _fail(core, "This harbor has no sailor to spare.")

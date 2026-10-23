@@ -1,6 +1,14 @@
-## v0.026 — Boarding crews and coastal defenses
+## v0.027 — Regional crises and resettlement
 
 Candidate; verified test/export records follow.
+
+- Dated shortages, unrest and unpaid actual obligations require three consecutive observations; verified recovery takes three adequate days.
+- Sponsored voyages move existing idle workers, skill subsets, savings and purchased provisions on actual boats with finite receiving capacity.
+- Actual sailing earns route work; two paid reception days precede workforce admission. Returns and carrier losses preserve people, goods and coin accounting.
+
+## v0.026 — Boarding crews and coastal defenses
+
+Verified local Windows delivery; exact tagged game 79705bcb10e271f932563912ec54a8084a035005. Native/export/archive evidence is in the delivery receipts.
 
 - Paid boarder training and hiring use existing people, crew berths and ordinary wages; parties leave their source boat on contact.
 - Captures retain the actual damaged hull, fittings and stores; prize crews and captive custody persist through harbor recovery.

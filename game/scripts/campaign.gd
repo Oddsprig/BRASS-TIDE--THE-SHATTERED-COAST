@@ -18,6 +18,7 @@ const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const CrisisOps=preload("res://scripts/crisis_ops.gd")
 const BoardingOps=preload("res://scripts/boarding_ops.gd")
 const LawOps=preload("res://scripts/law_ops.gd")
 const CompanyOps=preload("res://scripts/company_ops.gd")
@@ -48,6 +49,7 @@ const MAX_TRAVELING: int=48
 const DAY_SECONDS = 45.0
 
 var shipping
+var crises
 var data: Dictionary
 var state: Dictionary = {}
 var nav: Dictionary = {}
@@ -163,6 +165,7 @@ func new_game(seed_value: int = 1):
 		Exploration.discover_near(state,state.position,1000.0)
 	else:state.exploration={"version":1,"catalog":[],"sites":{},"assignment":{},"leads":[],"log":[]}
 	BoardingOps.ensure(self)
+	CrisisOps.ensure(self)
 	LawOps.ensure(self)
 	Manifest.allocate(state)
 	log_entry("You inherited a Tinwake skiff, five sailors, and a debt-free start. The coast is yours to explore.")
@@ -291,6 +294,7 @@ func step(dt: float):
 		for site in Exploration.discover_near(state,state.position,620.0):
 			log_entry("Sighted %s. Open Island charts (I) to investigate."%site.name)
 	advance_surveys(dt/DAY_SECONDS)
+	var voyage_before: Dictionary=state.position.duplicate()
 	var moving: bool = not state.path.is_empty()
 	if moving:
 		var step_left = travel_speed() * dt
@@ -312,6 +316,7 @@ func step(dt: float):
 			state.lastPort = state.destination
 			events.append({"kind": "arrival", "port": state.destination})
 			state.destination = ""
+	CrisisOps.step(self,distance(voyage_before,state.position))
 	for s in state.fleet:
 		if s.sunk or not str(s.get("storedPort","")).is_empty():
 			continue
@@ -322,6 +327,7 @@ func step(dt: float):
 		if s.sunk:
 			log_entry("%s was lost to flooding." % s.name)
 	BoardingOps.step(self,dt)
+	CrisisOps.losses(self)
 	BoardingOps.reconcile(self)
 	FleetSupport.reconcile(self)
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
@@ -385,6 +391,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		VoyageJobs.ensure(self)
 		VoyageJobs._expire_overdue(self,state)
 		BoardingOps.daily(self)
+		CrisisOps.daily(self)
 		LawOps.daily(self)
 		state.econDay += 1
 	apply_morale()
@@ -612,6 +619,7 @@ func set_boat_active(uid: String, enabled: bool) -> Dictionary:
 	var b: Dictionary=find_boat(uid)
 	if b.is_empty() or not str(b.get("storedPort","")).is_empty():return fail("Collect this boat from its harbor first.")
 	if int(b.get("shoreCrew",0))>0:return fail("Recall the shore party before changing this boat's status.")
+	if CrisisOps.Transport.assigned(state,uid)>0:return fail("Keep the actual passenger boat active until safe discharge.")
 	if enabled and b.crew<b.crewMin:return fail("Hire the minimum crew before activation.")
 	if enabled and b.get("needsHarborRepair",false):return fail("This recovered hull needs paid harbor repairs before it can sail under its own power.")
 	if not enabled and b.uid==state.flagship:return fail("Choose another active flagship first.")
@@ -628,6 +636,7 @@ func toggle_storage(uid: String) -> Dictionary:
 	var p: Dictionary=current_port()
 	if b.is_empty() or p.is_empty() or not state.path.is_empty():return fail("Dock at a harbor to store or collect a boat.")
 	if int(b.get("shoreCrew",0))>0:return fail("Recall the shore party before storing its boat.")
+	if CrisisOps.Transport.assigned(state,uid)>0:return fail("Discharge passengers safely before storing their actual carrier.")
 	if int(state.get("captiveBerths",{}).get(uid,0))>0:return fail("Release this boat's captives safely before storing it.")
 	var stored: String=str(b.get("storedPort",""))
 	if not stored.is_empty():
@@ -758,6 +767,7 @@ func abandon_contract() -> Dictionary:
 	return Contracts.abandon(self)
 
 func battle_settled(result: String, enemy_specs: Array, context: Dictionary,physical_battle: Dictionary={}) -> Dictionary:
+	CrisisOps.losses(self)
 	var boarding_result: Dictionary=BoardingOps.settle(self,physical_battle)
 	if not boarding_result.ok:return boarding_result
 	FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),result)
@@ -776,6 +786,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 			var live: Dictionary=Salvage.find_wreck(state,record.id)
 			for good in state.get("cargoManifest",{}).get(record.uid,{}):
 				if Goods.ITEMS.has(good):live.stores[good]=float(live.stores.get(good,0))+float(state.cargoManifest[record.uid][good])*0.5
+	CrisisOps.losses(self)
 	BoardingOps.reconcile(self)
 	FleetSupport.reconcile(self)
 	for lost in Manifest.losses(state):log_entry("Lost %.1f %s aboard %s."%[lost.qty,lost.good,lost.boat])
@@ -1011,6 +1022,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	if Money.total(state) != int(state.coinSupply):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
 	BoardingOps.ensure(self)
+	CrisisOps.ensure(self)
 	LawOps.ensure(self)
 	StoryOps.refresh(self)
 	return ok("Voyage restored.")

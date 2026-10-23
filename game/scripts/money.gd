@@ -39,4 +39,7 @@ static func total(state: Dictionary) -> int:
 		amount+=int(project.get("escrow",0))
 	for business in state.get("businesses",[]):
 		amount+=int(business.get("coins",0))
+	amount+=int(state.get("regionalCrises",{}).get("lostPurse",0))
+	for cohort in state.get("regionalCrises",{}).get("jobs",[]):
+		amount+=int(cohort.get("escrow",0))+int(cohort.get("householdPurse",0))+int(cohort.get("expertPurse",0))
 	return amount

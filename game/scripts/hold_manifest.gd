@@ -1,5 +1,6 @@
 extends RefCounted
 ## Cargo is authoritative in state.cargo; this manifest assigns its real carriers.
+const Passengers=preload("res://scripts/passenger_manifest.gd")
 const Tooling=preload("res://scripts/industrial_tooling.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Expedition=preload("res://scripts/expedition.gd")
@@ -13,7 +14,7 @@ static func allocate(state: Dictionary) -> void:
 	var free: Dictionary={}
 	for b in boats:
 		manifest[b.uid]={}
-		free[b.uid]=maxf(0,float(b.spec.cargo)-Expedition.store_overflow(b)-maxf(0,float(state.get("captiveBerths",{}).get(str(b.uid),0))-maxf(0,float(b.crewMax)-float(b.crew))))
+		free[b.uid]=maxf(0,float(b.spec.cargo)-Passengers.food_weight(state,str(b.uid))-Expedition.store_overflow(b)-maxf(0,float(state.get("captiveBerths",{}).get(str(b.uid),0))-maxf(0,float(b.crewMax)-float(b.crew))))
 	var load: Dictionary=state.get("cargo",{}).duplicate(true)
 	var freight: Dictionary=state.get("freight",{})
 	if not freight.is_empty():load["@freight"]=float(freight.get("qty",0))

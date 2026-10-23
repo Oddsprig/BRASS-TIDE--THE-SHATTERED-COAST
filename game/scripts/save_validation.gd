@@ -4,6 +4,7 @@ const GOODS: Array=["food","logs","timber","ore","charcoal","iron","copper","sal
 const MAX_COINS: float=9007199254740991.0
 ## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
 const Refits=preload("res://scripts/refit.gd")
+const CrisisOps=preload("res://scripts/crisis_ops.gd")
 const BoardingOps=preload("res://scripts/boarding_ops.gd")
 const LawOps=preload("res://scripts/law_ops.gd")
 const CompanyOps=preload("res://scripts/company_ops.gd")
@@ -190,6 +191,7 @@ static func validate(saved: Dictionary,world: Dictionary) -> Dictionary:
 	if error.is_empty():error=CompanyOps.validate(saved,world)
 	if error.is_empty():error=LawOps.validate(saved,world)
 	if error.is_empty():error=BoardingOps.validate(saved,world)
+	if error.is_empty():error=CrisisOps.validate(saved,world)
 	if error.is_empty():
 		var hulls: Dictionary={}
 		for h in world.HULLS:hulls[h.id]=h

@@ -1,0 +1,208 @@
+v0.027 REGIONAL CRISES / OPTIONAL RESETTLEMENT
+Inline source payload only. No tools, file writes, engine runs, UI actions,
+publishing, other helpers, or changes to the preserved v0.022 payload.
+
+Verification status
+-------------------
+Tests supplied but NOT executed. Root must review, integrate, and run them
+headlessly and serially before accepting this code.
+
+Public API
+----------
+Instance module:
+  configure(callbacks)
+  ensure(core) -> bool
+  daily(core) -> core.ok/core.fail result
+  report(core) -> copied report Dictionary
+  offers(core) -> Array of read-only quotes
+  begin_resettlement(core, originId, destinationId, count)
+  arrive(core, id)
+  recall(core, id)
+  return_to_origin(core, id)
+  lose(core, id)
+  validate(state, canonicalWorld) -> Array of errors
+  passenger_count(state) -> currently aboard/returning people
+  held_people(state) -> all live cohorts, including reception holding
+  escrow_total(state) -> actual remaining reward escrow
+
+GDScript reserves "return"; return_to_origin is the return operation.
+Successful begin includes result.id when core.ok returns a Dictionary.
+
+Root configuration: all required, otherwise operations fail closed
+----------------------------------------------------------------
+wage:
+  Actual numerical Goods.WAGES value; this version requires 100 coins.
+
+berths(core) -> whole integer:
+  Total usable passenger berths in the EXISTING surviving fleet, distinct
+  from ordinary crew. Exclude normal crew occupancy, but do not subtract
+  regional passengers: this module subtracts its aboard passengers.
+
+site_room(core, port) -> whole integer:
+  Actual additional civilian places available at the local site.
+  Include all existing committed residents/workers in your calculation.
+  Exclude this module's incoming reservations; it subtracts those itself.
+  No guessed port capacity field is used.
+
+route_days(core, originId, destinationId) -> integer 1..30:
+  Honest fixed estimate from actual route rules. Missing/unusable routes
+  must return an invalid value, not an invented default.
+
+service(core, portId, "resettlement") -> bool:
+  Actual dock/service authority. Module also checks current_port().
+
+travel_day(core, job, day) -> bool:
+  True only for observed actual transport work for this manifest on that
+  day. Do not infer travel from mere elapsed time or a changed coordinate.
+  No mutation, yielding, or payment here.
+
+fleet_account(core) -> [actual_holder_dictionary, actual_purse_key]:
+  Existing fleet owner's real purse. Module never assumes a player cash
+  field or creates a separate reward currency.
+
+food_quote(core, originId, people, provisionDays) -> integer cost or -1:
+  Read-only quote for actual purchasable provisions, including their
+  physical cargo fit. No reservation, stock change, or payment on reads.
+  Quote covers 2*routeDays+2 person-days, allowing a bounded return reserve.
+  Cost must fit within the route-work portion of sponsor funding.
+
+atomic(core, moneyMoves, event) -> bool:
+  Critical main-thread, synchronous, ALL-OR-NOTHING integration hook.
+  Each moneyMove is:
+    [source_dictionary, source_key, target_dictionary, target_key, amount]
+  Use real Money.move. Preflight the WHOLE sequential ledger, including
+  credits to new escrow followed by food purchase. Check finite balances
+  and overflow. On false, neither money nor goods nor staff claims change.
+  Never yield. Never partially commit. Never modify cohort people,
+  progress, served count, IDs, or stage inside this hook.
+
+  Events:
+
+  buy:
+    event.job, event.port, event.days.
+    Revalidate the quote and cargo fit; purchase actual origin food stocks.
+    Pay actual seller(s) exactly job.foodCost from job.escrow.
+    Transfer real goods into job.food, an ordinary integer goods manifest.
+    These are actual carried cargo, not a duplicate of core cargo.
+    Any price, stock, payment, or capacity failure aborts every money move.
+
+  eat:
+    event.job, event.day.
+    Consume the real daily food requirement for job.n people from job.food.
+    Support both carried and ashore holding manifests.
+    Return false without partial consumption if the ration is unavailable.
+    Do not buy food or invent replacements in this event.
+
+  handle:
+    event.job, event.port, event.day.
+    Validate and claim job.handlers actual local handlers plus ONE actual
+    local foreman for this day. Respect other businesses, yard, defense,
+    training, and reception jobs. Persist shared daily labor claims.
+    Household/expert wage transfers are already in moneyMoves.
+    No staff means false with no wages or claims committed.
+
+  reload:
+    Actual destination-dock reloading of the existing ashore people and
+    their remaining real provisions. Check cargo weight and physical
+    access. Do not create food, crew, fleet, or population.
+
+  release:
+    Transfer every remaining provision in job.food into the actual
+    receiving port's government/public store, then empty that manifest.
+    This also applies to cancellation/return at the origin.
+    The food is not a free gift to the fleet owner.
+
+  lose:
+    Explicitly destroy/record the actual remaining job.food once.
+    Money moves preserve passenger savings in the saved lost purse.
+    Root supplies the actual sinking/death/destruction event; no random
+    mortality or crisis spawning exists here.
+
+Accounting and campaign integration
+-----------------------------------
+state.regionalCrises contains at most eight live jobs / 32 live people.
+Completed jobs are removed; monotonically increasing IDs prevent reuse.
+Unknown existing schemas are rejected and preserved, never reset.
+An old save with no regional state receives an empty state.
+
+People are withdrawn once from existing idle civilian pools. Specialist,
+recruit and qualification subsets move with them. Training.jobs and other
+people already outside workforce are untouched. Both specialist aliases
+stay synchronized when present.
+
+Root must confirm its qualified pools describe those civilian pools, not
+ordinary ship crew or workers already removed for commitments.
+
+Root Money.total must count, exactly once:
+  each live job.escrow
+  each live job.householdPurse and job.expertPurse
+  regionalCrises.lostPurse
+These replace money withdrawn from actual government/household/expert
+purses. householdSavings is never treated as another purse.
+
+Root population accounting:
+  include held_people for living population conservation;
+  include passenger_count in fleet manifests/berth enforcement;
+  include lostPeople/qualifications as explicit historical losses, not
+  living population.
+
+Root cargo accounting must include aboard job.food and its weight.
+Holding job.food is ashore. On recall it physically returns aboard.
+Route cohort food demand through the eat event once; do not also deduct
+the same cohort ration in ordinary fleet food consumption.
+
+Root sinking logic must call lose for affected ABOARD/RETURNING manifests.
+Do not kill ashore holding cohorts when the ship departs or sinks.
+The explicit lose API also permits an independently evidenced local loss.
+
+Ordinary fleet payroll remains authoritative and unchanged. This module
+does not pay crew wages again. It pays a sponsor transport bonus based on
+observed per-person route work, subtracting already purchased provisions.
+Actual local handlers/foremen receive two separately earned daily wages.
+
+Government reservation:
+  people * 100 * estimatedRouteDays
+  + 2 * (ceil(people/8) handlers + 1 foreman) * 100.
+Food is purchased from the route portion; no passenger savings fund fares.
+Unused handler budget and unearned transport escrow return to the sponsor.
+Unused provisions return to actual public stocks on discharge.
+
+Arrival requires actual destination dock, completed observed route work,
+and actual site room. Cohorts remain outside workforce during reception.
+Two different subsequent daily invocations, adequate actual food, actual
+staff and continuing capacity are required before one final admission.
+A failed final settlement leaves the cohort held; handler wages cannot
+repeat. Return likewise requires actual origin dock and room.
+
+daily is idempotent by econDay, falling back to day only when absent.
+A calendar jump processes one observed day, not invented past food,
+transport, wages, or reception. Root may process real campaign days in
+sequence if its normal catch-up has the required evidence.
+
+Crisis facts
+------------
+Only sustained verified food purchase ratios, unrest, and actual wage
+paid/due facts are used. Three consecutive bad observations open a crisis.
+Three consecutive good observations recover it. Missing evidence or a gap
+suspends intervention; it never fabricates hostile persistent conditions.
+
+Food uses existing lastFoodMet, threshold <0.85.
+Unrest uses conditions.unrest, threshold >=70.
+Wages require actual lastWagesDue >0 and actual lastWagesPaid.
+Root must publish those wage fields only from real completed accounting.
+No blockade default, random world event, health invention, or absent-field
+penalty exists. Each stable port/kind record includes dated instructions.
+
+Test payload
+------------
+Keep test_regional_crises.gd beside regional_crises.gd and invoke using
+the existing project/engine's headless script runner.
+
+Tests cover missing facts, consecutive evidence, gaps, recovery, wages,
+read/daily/save replay, insolvent sponsors, capacity, berths, counts,
+atomic rollback, real provisions, qualification/person/money conservation,
+two-day reception, real handler failure, recall, cancellation, return,
+loss custody, terminal replay, job/person caps, schema preservation,
+duplicate IDs/ports, nonfinite goods, and escrow drift.
+
+No native test, compile, export, release, or UI result is claimed.

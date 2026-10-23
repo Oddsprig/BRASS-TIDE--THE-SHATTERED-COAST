@@ -35,7 +35,7 @@ static func message(c,r: Dictionary,text: String) -> Dictionary:
 static func hire(c,uid: String,count: int) -> Dictionary:
 	ensure(c)
 	var b: Dictionary=c.find_boat(uid)
-	if not b.is_empty() and float(b.crew)+count+float(c.state.captiveBerths.get(uid,0))>float(b.crewMax):return c.fail("Captives occupy the remaining physical berths.")
+	if not b.is_empty() and float(b.crew)+count+float(c.state.captiveBerths.get(uid,0))+c.CrisisOps.Transport.assigned(c.state,uid)>float(b.crewMax):return c.fail("Captives occupy the remaining physical berths.")
 	var r: Dictionary=Boarding.hire_party(c,uid,count)
 	if r.ok:Economy.sync_workforce(c.current_port())
 	return message(c,r,"Hired %d trained boarders into existing berths; their wage advance is in the crew purse."%count)
@@ -78,7 +78,7 @@ static func allot_captives(c) -> bool:
 	var planned: Dictionary={}
 	for b in c.state.fleet+c.state.boardingPrizes:
 		if b.sunk or not str(b.get("storedPort","")).is_empty():continue
-		var n: int=mini(left,maxi(0,floori(float(b.crewMax)-float(b.crew))))
+		var n: int=mini(left,maxi(0,floori(float(b.crewMax)-float(b.crew))-c.CrisisOps.Transport.assigned(c.state,str(b.uid))))
 		if n>0:planned[str(b.uid)]=n;left-=n
 	if left>0:
 		for b in c.state.fleet+c.state.boardingPrizes:

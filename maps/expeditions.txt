@@ -1,18 +1,18 @@
-BRASS TIDE — EXPEDITIONS MAP (generated; v0.026)
+BRASS TIDE — EXPEDITIONS MAP (generated; v0.027)
 
 Traveling fleet/real stores -> cargo carriers, paid endurance, shore assignments, persistent discoveries and copied-port workers.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/expedition.gd: 4911 bytes; extends RefCounted
-  game/scripts/expedition.gd:8 traveling()
-  game/scripts/expedition.gd:11 capacity()
-  game/scripts/expedition.gd:16 cargo_weight()
-  game/scripts/expedition.gd:32 store_overflow()
-  game/scripts/expedition.gd:36 report()
-game/scripts/hold_manifest.gd: 3340 bytes; extends RefCounted
-  game/scripts/hold_manifest.gd:7 carriers()
-  game/scripts/hold_manifest.gd:10 allocate()
-  game/scripts/hold_manifest.gd:49 losses()
+game/scripts/expedition.gd: 5002 bytes; extends RefCounted
+  game/scripts/expedition.gd:9 traveling()
+  game/scripts/expedition.gd:12 capacity()
+  game/scripts/expedition.gd:17 cargo_weight()
+  game/scripts/expedition.gd:33 store_overflow()
+  game/scripts/expedition.gd:37 report()
+game/scripts/hold_manifest.gd: 3446 bytes; extends RefCounted
+  game/scripts/hold_manifest.gd:8 carriers()
+  game/scripts/hold_manifest.gd:11 allocate()
+  game/scripts/hold_manifest.gd:50 losses()
 game/scripts/economy_workers.gd: 1558 bytes; extends RefCounted
   game/scripts/economy_workers.gd:11 start()
   game/scripts/economy_workers.gd:28 ready()

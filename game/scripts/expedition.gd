@@ -1,5 +1,6 @@
 extends RefCounted
 ## Pure read-only expedition accounting; physical tank/rack overflow occupies holds.
+const Passengers=preload("res://scripts/passenger_manifest.gd")
 const Tooling=preload("res://scripts/industrial_tooling.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Damage=preload("res://scripts/damage.gd")
@@ -14,7 +15,7 @@ static func capacity(state: Dictionary) -> float:
 	return total
 
 static func cargo_weight(state: Dictionary) -> float:
-	var total: float=0.0
+	var total: float=Passengers.food_weight(state)
 	for item in state.get("tooling",{}).get("items",[]):
 		if item.get("location","")=="cargo":total+=float(Tooling.KINDS.get(item.get("kind",""),{"weight":0}).weight)
 	for key in Goods.ITEMS:total+=maxf(0,float(state.get("cargo",{}).get(key,0)))*float(Goods.ITEMS[key].weight)

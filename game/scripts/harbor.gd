@@ -122,7 +122,7 @@ static func recruit(core, uid: String, count: int) -> Dictionary:
 	if boat.is_empty() or p.is_empty():
 		return core.fail("Hire sailors at a harbor.")
 	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("Visit the harbor storing this hull before assigning crew.")
-	var captive_count: int=int(core.state.get("captiveBerths",{}).get(uid,0))
+	var captive_count: int=int(core.state.get("captiveBerths",{}).get(uid,0))+core.CrisisOps.Transport.assigned(core.state,uid)
 	var result: Dictionary = Economy.recruit(p,core.state,count,maxi(0,int(boat.crewMax-boat.crew)-captive_count))
 	if result.ok:
 		boat.crew += result.count
@@ -139,6 +139,7 @@ static func sell(core, uid: String) -> Dictionary:
 	if boat.is_empty() or p.is_empty() or core.state.fleet.size() <= 1:
 		return core.fail("Keep one boat. Hull sales require a harbor.")
 	if int(boat.get("shoreCrew",0))>0:return core.fail("Recall its shore party before selling the hull.")
+	if core.CrisisOps.Transport.assigned(core.state,uid)>0:return core.fail("Discharge passengers safely before selling their actual carrier.")
 	if int(core.state.get("captiveBerths",{}).get(uid,0))>0:return core.fail("Release captives safely before selling their carrier.")
 	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("Visit the harbor storing this hull before selling it.")
 	var lost_capacity: float=float(boat.spec.cargo) if core.active_fleet().has(boat) else 0.0

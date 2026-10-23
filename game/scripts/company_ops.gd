@@ -31,6 +31,7 @@ static func ensure(c) -> void:
 
 static func create(c,uids: Array,destination: String,good: String,capital: int,limits: Dictionary) -> Dictionary:
 	for uid in uids:
+		if c.CrisisOps.Transport.assigned(c.state,str(uid))>0:return c.fail("Discharge passengers before assigning their carrier to a company.")
 		if int(c.state.get("captiveBerths",{}).get(str(uid),0))>0:return c.fail("Release captives before assigning their carrier to a company.")
 	ensure(c)
 	var probe: Dictionary=c.state.duplicate(true)

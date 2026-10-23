@@ -1,3 +1,7 @@
+v0.027 voluntary play: Regional crises and resettlement
+Assess readability and usefulness of: Three consecutive observed food, unrest or unpaid-wage days open a dated local crisis; adequate recorded recovery closes it. Sponsored civilian passage moves existing people, skill subsets, savings and purchased food on named boats with actual berth and receiving limits. Real sailing earns work, two paid reception days admit workers, and returns or carrier losses preserve finite people, provisions, escrow and savings.
+Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.
+
 v0.026 voluntary play: Boarding crews and coastal defenses
 Assess readability and usefulness of: Six-day paid boarder courses and real hiring use existing residents, berths and crew wages; parties leave their source hull on contact. Capture keeps the actual damaged hull and fittings, finite prize crew and captive custody; paid harbor repair restores combat eligibility. Paid coastal watches consume real public materials, full labor bills, daily food and finite ammunition; visible projectiles use normal impacts and sound routing.
 Automated integrity/performance evidence does not establish human fun or GPU frame pacing. All automated tests remain background only.

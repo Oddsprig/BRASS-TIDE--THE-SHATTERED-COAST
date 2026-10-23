@@ -1,4 +1,16 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.027 — Regional crises and resettlement
+SOURCE ACCEPTED: 64 native suites pass; portable export evidence is recorded separately in RELEASE.json.
+
+- Three consecutive observed food, unrest or unpaid-wage days open a dated local crisis; adequate recorded recovery closes it.
+- Sponsored civilian passage moves existing people, skill subsets, savings and purchased food on named boats with actual berth and receiving limits.
+- Real sailing earns work, two paid reception days admit workers, and returns or carrier losses preserve finite people, provisions, escrow and savings.
+
+Team: Codex root + up to three Sol6.1 Max helpers through Bridge.
+Background tests only. Separate rendering; copied-state harbor workers adapt to CPU threads, capped at8 and reserving2 logical threads. Original content, numerical crews, finite coins/materials/people.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.026 — Boarding crews and coastal defenses
 SOURCE ACCEPTED: 62 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 
