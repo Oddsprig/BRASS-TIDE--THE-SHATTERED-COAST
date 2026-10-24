@@ -110,3 +110,14 @@ RESUMED QA — 24 OCTOBER2026
   validate the entire source/destination custody, not just the selected item.
 
 Native4.7 fixture constant Panel shadows the built-in Panel class: use EquipmentPanel. Preserve the failed parse and rename only the fixture binding; no product behavior change. Pure component allowance tests do not prove live payments.
+
+RESUMED API REVIEW TOOL - 24 OCTOBER2026
+Before handing off new GDScript, read the actual preloaded method and schema.
+Use tools/check_preload_calls.py game scripts/NAME.gd tests/NAME.gd for a cheap
+read-only advisory check of direct Script.method calls. It invokes no engine.
+It caught invented Refit.apply and Factions._key in an unrun fixture. It does
+not validate dynamic Campaign calls, argument types, schema, assertions or native
+parsing; native Godot and actual data remain authority. Current Refits return
+effective_spec directly, weapons is an Array and no utility family exists.
+Final new_game calls CompanyOps.ensure, so story UIDs are already assigned;
+read the whole constructor callchain before declaring an identity absent.
