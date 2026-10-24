@@ -1,3 +1,26 @@
+# Current owner stop - v0.030 build packaged, UNTESTED
+
+BRASS TIDE v0.030 - BUILD ONLY PACKAGED; STOPPED
+Windows executable/PCK, matching icon, clean Windows ZIP and exact-tag source ZIP
+are saved under task outputs/Brass Tide v0.030. Immutable game tag: v0.030.
+Exact compiled game source: 7492fb764d22c5cd4485a889f481bd27f3b9d795.
+Desktop launcher targets v0.030 and says UNTESTED. Game was not launched.
+Owner voyage/settings copies were added AFTER clean archives; originals intact.
+Previous verified v0.029 remains preserved. No GitHub upload was attempted.
+
+ALL TESTS DEFERRED AT OWNER REQUEST. No tests, benchmarks, smokes, game launch,
+UI/audio/motion/save compatibility/performance checks ran after the stop request.
+Necessary headless editor/compiler/import/export only completed successfully.
+Earlier planner350checks/1failure remains preserved; source correction NOT rerun.
+All helpers and build work STOPPED. .031-.038/design work and test execution must
+not resume automatically. A later owner instruction is required for more work.
+Deferred queue: docs/DEFERRED TEST QUEUE v0.030.txt.
+Actual build/engine/command/archive evidence: task outputs/Brass Tide v0.030 BUILD ONLY.json.
+Launcher metadata: task outputs/Brass Tide v0.030 LAUNCHER.json.
+This completion record is documentation only after the immutable game tag.
+
+The source-handoff record below predates packaging; its pending build is now complete.
+
 # Brass Tide - current owner stop instructions
 
 Current source build is **v0.030, UNTESTED**. Tests are deferred **AT OWNER REQUEST**.

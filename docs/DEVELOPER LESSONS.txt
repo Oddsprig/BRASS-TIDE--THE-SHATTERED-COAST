@@ -80,3 +80,19 @@ EVIDENCE AND DELIVERY
 Historical raw reports/failed runs/patches remain recoverable via ARCHIVE INDEX.
 Retain a small useful failure fixture or source regression, not every duplicate
 run, render-command dump or synthetic APPDATA profile.
+
+V0.030 OWNER STOP / BUILD-ONLY PACKAGING
+Owner explicitly deferred ALL tests. Do not invoke verified release/delivery
+scripts unchanged: they launch smokes or write verified claims. The separate
+package_untested.py runs editor/compiler/import/export only, then writes UNTESTED
+receipts and archives; no game launch. Disable Git hooks during source mutations
+so commit/checkout hooks cannot start tests. Current final game tag7492fb7/v0.030
+is immutable; later completion documentation is a separate commit.
+Godot left23 import files reported M by status although raw disk, index and HEAD
+bytes were identical and git diff --name-only was empty. Select explicit paths
+from status, compare exact bytes to HEAD, then git add ONLY those identical import
+paths with hooks disabled to refresh metadata. No source change or rerun needed.
+Four compiler-generated B UID sidecars are preserved under task
+work/build-logs-v030-owner-stop-1/generated-metadata/game/scripts. No unique file
+was discarded. Source/Windows archives exclude copied owner saves/settings;
+optional copies are added separately afterward. All further work/tests stopped.

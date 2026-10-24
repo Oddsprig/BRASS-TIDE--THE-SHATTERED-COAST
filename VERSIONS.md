@@ -1,3 +1,7 @@
+## v0.030 - packaged UNTESTED build, stopped
+
+Game tag v0.030: `7492fb764d22c5cd4485a889f481bd27f3b9d795`. Compiler/export and archives complete; no game launch or tests after owner stop. Desktop launcher updated. All further work stopped. See BUILD STATUS.txt.
+
 BRASS TIDE v0.030 - SOURCE CANDIDATE, UNTESTED
 Tests deferred AT OWNER REQUEST. Finish this Windows BUILD ONLY, then STOP.
 No tests, benchmarks, smokes, parser validation, game/UI/motion launches or future
