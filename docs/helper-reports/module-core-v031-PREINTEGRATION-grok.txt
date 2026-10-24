@@ -1,0 +1,93 @@
+BRASS TIDE — v0.031 EQUIPMENT CONDITION, PRE-INTEGRATION CORRECTION
+Workspace: systems-grok. Source only. No Godot process was started.
+Not integrated. Not a .031 build. Sol still owns the engine lease.
+The frozen prototype report, source history, and tactical reports were not edited.
+This is a new commit on that prototype, not an amendment.
+
+Parent: 2e61178f52fcb37f574afd0dcd81bf0aac87b234
+That parent remains the detached prototype handoff. Certification, boarding,
+fire control, battle, and runtime were not edited.
+
+================================================================================
+WHAT CHANGED
+================================================================================
+game/scripts/equipment_condition.gd
+game/tests/test_equipment_condition.gd
+briefs/MODULE CORE v0.031 PROTOTYPE.txt
+  Only the number rule and the repair-rate paragraph. The earlier schema text
+  is still in that brief. REPORT-module-core-v031-PROTOTYPE.txt is unchanged.
+
+No caller was wired. tools/check_game.py was not changed. The test is still
+outside the 70-suite list.
+
+================================================================================
+1. JSON WHOLE NUMBERS
+================================================================================
+version, nextItemSeq, lockerOrder, and mountCount now accept a finite whole
+number whether it is stored as an int or as a float. Godot JSON.parse_string
+restores whole counters as floats, and SaveValidation already treats that form
+as legitimate. Strings, bools, fractions, NaN, and infinity are refused.
+floor(n) == n is the whole test, so 1.5 is not truncated to 1 and a bad value
+is not rewritten into the dictionary. There is no separate normalizer.
+Refusal leaves the caller's dictionary as it was passed in. A corrupt saved
+owner is still not deleted or reseeded.
+
+The caps are unchanged and still exact in float64: serial and locker order
+1..1000000, mount count 0..4, locker 256, items 263. This does not accept a
+whole number above those bounds.
+
+================================================================================
+2. CUSTODY
+================================================================================
+collect_item_uids already walks every item key, locker and installed.
+The new test plants one restored UID in one hull's locker and the same UID
+on the other hull's mount1. Both owners are left unchanged, and the error is
+the shared-part refusal rather than a schema failure.
+acknowledge_hull_uid still does not store the new hull uid and does not
+change birthNamespace, nextItemSeq, or item UIDs. The test does that on a
+dictionary that has been through JSON.stringify / JSON.parse_string, then
+swap_exact, transfer_exact, and repair_installed on that same restored owner.
+Four mounts still seed. The 256 locker check in the older test is unchanged.
+
+================================================================================
+3. REPAIR RATES
+================================================================================
+Every suppliesPerHp entry must be a finite number strictly above zero.
+Zero, negative, boolean, NaN, and infinite rates are refused before any hp
+changes. A zero supply budget with a positive rate still heals nothing.
+Omitting a family still skips that family. Armor and locker parts are still
+not repaired. One work pool is still spent once.
+
+work * hpPerWork or supplies / rate may overflow for finite inputs. That
+overflow is treated as large enough to cover the remaining condition gap.
+The published debit is still gain / hpPerWork and gain * rate. Those debits
+must be finite, nonnegative, and no greater than the remaining budget apart
+from 0.000001 of float dust. If they are not, the call rolls the owner back
+and does not return NaN or infinity. A comfortable large case (1e20 budget,
+1e6 rates) must heal inside the 0.75 jury cap and publish a positive finite
+debit. The 1e308 case may either do the same or refuse with the owner unchanged.
+
+This operation is still material repair. It does not perform firefighting
+without supplies, and it still charges no coins.
+
+================================================================================
+HONEST LIMITS
+================================================================================
+Validation accepts a whole float in place. It does not convert it back to an
+int. A caller outside this module that still requires `is int` would reject
+the same saved owner. No such caller exists yet.
+The test was not executed here. Sol runs game/tests/test_equipment_condition.gd.
+No native pass is claimed. The module is still not called by Battle, Refit,
+Damage, Harbor, or the campaign.
+
+================================================================================
+HASHES
+================================================================================
+game/scripts/equipment_condition.gd
+  AB6103FDBC6B1AB8828E63F0FE3952B11B3F34591E8040FD9C3F04DE8FA6DC77
+game/tests/test_equipment_condition.gd
+  5FD05BA366155B21DDC09A02BB235CC467ADA9628BF0D402C9CDAE1BB8826EA2
+briefs/MODULE CORE v0.031 PROTOTYPE.txt
+  C0EE51DB259C6B3ACA798C58040F0D3E1E9AA75FB3CE48698E4E10D50A432227
+Prior prototype report, unchanged:
+  see REPORT-module-core-v031-PROTOTYPE.txt

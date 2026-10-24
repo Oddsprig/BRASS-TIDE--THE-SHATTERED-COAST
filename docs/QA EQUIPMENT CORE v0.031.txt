@@ -1,0 +1,34 @@
+BRASS TIDE — NUMERICAL EQUIPMENT CORE REVIEW
+24 October2026 UTC | Working source toward .031, no playable .031 build
+
+Root reviewed the pure-data core, helper correction, narrow root custody fixes,
+Sol compiler/fixture corrections and exact paired native logs. The same corrected
+enhanced fixture records89 checks/6 failures before the custody fixes and90/0
+afterward. One additional assertion follows a genuinely successful acquisition;
+no check was removed. Exact input, source, log and engine hashes are in the JSON.
+
+The accepted core owns stable physical item UIDs, condition, factory origin,
+installed/locker location and monotonic acquisition serial. It validates a
+bounded schema and cross-owner identity, migrates legacy descriptors only once,
+refuses unknown/corrupt condition data, permits whole-valued JSON numbers, and
+never heals through ensure/swap/transfer. Exact paid-part acquisition is a pure
+trusted-adapter operation, not proof of any actual payment in the live game.
+
+Finite material repair uses one work/supply pool, requires positive supply
+rates, refuses nonfinite/invalid input, preserves locker/armor damage at sea and
+caps jury repair at.75. The engine item owns hp; old scalar increases cannot heal.
+Current cap matches256 locker parts +4 mounts +engine/armor/integral pumps.
+
+Original helper source/test did not compile: `namespace` is a reserved identifier
+in installed Godot4.7.2. Sol applied the same birth_namespace rename to both
+comparison variants. Two locker descriptors were also incorrectly placed in
+installed fixture arrays; both variants now pass them as locker descriptors.
+All compiler and fixture failures remain preserved. Root's five demonstrated
+custody/API defects were fixed, not hidden: multi-item locker moves, idempotent
+registry/loadout validation, acquired descriptor metadata separation, and complete
+cross-owner duplicate checks. Helper raw reports are retained unchanged.
+
+LIMIT: This module is not called by live Battle, Damage, Refit, Harbor, Campaign,
+Salvage or Boarding yet. No individual gun/engine/pump feature or game save
+migration is accepted until those real adapters, UI and paid resource flows are
+implemented and independently checked. No .031 version/export/tag/launcher change.

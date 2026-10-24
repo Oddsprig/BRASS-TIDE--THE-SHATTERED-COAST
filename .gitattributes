@@ -71,3 +71,9 @@
 "tools/resume_game_checks.py" -text
 "docs/QA RESUME v0.030.controls.txt" -text
 "docs/QA RESUME v0.030.controls.manifest.json" -text
+"game/scripts/equipment_condition.gd" -text
+"game/tests/test_equipment_condition.gd" -text
+"docs/helper-reports/module-core-v031-PROTOTYPE-grok.txt" -text
+"docs/helper-reports/module-core-v031-PREINTEGRATION-grok.txt" -text
+"docs/QA EQUIPMENT CORE v0.031.txt" -text
+"docs/QA EQUIPMENT CORE v0.031.json" -text

@@ -96,3 +96,15 @@ Four compiler-generated B UID sidecars are preserved under task
 work/build-logs-v030-owner-stop-1/generated-metadata/game/scripts. No unique file
 was discarded. Source/Windows archives exclude copied owner saves/settings;
 optional copies are added separately afterward. All further work/tests stopped.
+
+RESUMED QA — 24 OCTOBER2026
+- Installed Godot4.7.2 treats `namespace` as reserved: use birth_namespace for
+  bare variables/arguments. New source and fixtures must compile before their
+  claimed numerical behavior can be interpreted. The JSON field is unchanged.
+- JSON numeric counters may be whole-valued floats. Refuse bool/string/fraction/
+  NaN/INF rather than requiring `is int` or truncating malformed saved data.
+- A locker contains many distinct physical parts; only installed slots have
+  exclusive occupancy. Idempotent ensure still validates caller loadout and
+  external UID ownership. Descriptor validation must receive descriptor fields,
+  not the operation's authorization/context metadata. Cross-owner transfers
+  validate the entire source/destination custody, not just the selected item.

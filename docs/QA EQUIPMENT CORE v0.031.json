@@ -1,0 +1,66 @@
+{
+  "status": "accepted numerical core only, live adapters NOT integrated",
+  "helperPrototype": "2e61178f52fcb37f574afd0dcd81bf0aac87b234",
+  "helperJSONCorrection": "3895c48d6d516d747336c3a4dd936db4b388fd50",
+  "files": {
+    "game/scripts/equipment_condition.gd": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+    "game/tests/test_equipment_condition.gd": "9b6a72a3fb8b96feb534f72c0cdd4bc1c5b150748ea5fc0ebb0b8c5a41ee5e1f"
+  },
+  "beforeEvidence": "work/resume-v030-v038/qa-sol/qa/equipment-before-complete-03",
+  "afterEvidence": "work/resume-v030-v038/qa-sol/qa/equipment-after-complete-02",
+  "nativeRecord": {
+    "suite": "equipment_condition",
+    "head": "101df814aeca9931b902712e39210ee66142b27c",
+    "gameInputSha256": "9a5fcecfe4bc4cebde27e88b59d059112a72fbafbc5ed1974da2bc1cb11c5035",
+    "engineSha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+    "runnerSha256": "ebe49bf70d884cd4693d8891a57a262b207bc19637c401d29b593873e24b832e",
+    "originalRegistrySha256": "69c49f51d7680257ba44f91f8241695af780d001e2c4f71684148b85345f7d67",
+    "scriptSha256": "9b6a72a3fb8b96feb534f72c0cdd4bc1c5b150748ea5fc0ebb0b8c5a41ee5e1f",
+    "hiddenRunnerSha256": "e826d26d62f3cb9ee50f0bebeb645d4b5979f4f3ef9a6667896b46cf1bb97755",
+    "command": [
+      "C:\\Users\\bligh\\Documents\\Codex\\2026-09-25\\we-x20\\work\\engine\\Godot_v4.7.2-stable_win64_console.exe",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\game",
+      "--script",
+      "res://tests/test_equipment_condition.gd",
+      "--",
+      "--out=C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\equipment-after-complete-02\\equipment_condition-observations.json"
+    ],
+    "timeoutSeconds": 60,
+    "priority": "BELOW_NORMAL",
+    "audio": "Dummy",
+    "profile": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\equipment-after-complete-02\\profiles\\equipment_condition\\roaming",
+    "externalBefore": [],
+    "guardPolicy": "Root-approved project-scoped background-only guard; sole Brass Tide lease; unknown/unreadable/windowed identities block",
+    "contention": "No external engine observed; idle host not established",
+    "startedUtc": "2026-10-24T04:26:18.649630+00:00",
+    "pid": 74532,
+    "status": "finished",
+    "exitCode": 0,
+    "timeout": false,
+    "wallSeconds": 0.28100000000085856,
+    "finishedUtc": "2026-10-24T04:26:18.930115+00:00",
+    "passed": true,
+    "gameInputAfterSha256": "9a5fcecfe4bc4cebde27e88b59d059112a72fbafbc5ed1974da2bc1cb11c5035",
+    "inputChanged": false,
+    "logSha256": "da54a33f56fae5f6fbe7462609d5379685a823bfce0c668a75eec59e7831d6ee",
+    "ownedChildExited": true,
+    "externalAfter": [],
+    "guardBlocksNext": false
+  },
+  "testCounts": {
+    "before": {
+      "checks": 89,
+      "failures": 6
+    },
+    "after": {
+      "checks": 90,
+      "failures": 0
+    }
+  },
+  "countDifference": "One additional meaningful condition/serial assertion runs only when actual acquisition succeeds. No assertion removed.",
+  "scope": "Pure numerical item custody, JSON and finite repair; no live combat/refit/save/harbor/salvage/capture adapters or performance/Windows acceptance."
+}

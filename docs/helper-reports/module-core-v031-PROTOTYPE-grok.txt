@@ -1,0 +1,99 @@
+BRASS TIDE — v0.031 EQUIPMENT CONDITION CORE, DETACHED PROTOTYPE
+Workspace: systems-grok. Source only. No Godot process was started.
+Not integrated. Not a .031 build. Sol still owns the engine lease.
+Prior tactical reports and commits were not edited.
+
+Parent at the time of this prototype: d13b547adf9c04cb74dc2d9d153bb7ab8964e083.
+Certification, boarding continuity, and the fire-horizon sweep are unchanged.
+
+================================================================================
+WHAT WAS ADDED
+================================================================================
+game/scripts/equipment_condition.gd
+  RefCounted, no preload of Battle, Refit, Damage, MountLayout, or Campaign.
+game/tests/test_equipment_condition.gd
+  SceneTree checks for Sol to run later. Not added to tools/check_game.py,
+  so the existing 70-suite list is unchanged.
+briefs/MODULE CORE v0.031 PROTOTYPE.txt
+  Frozen schema, bounds, and operation names.
+qa/module-core-v031-checkpoint.txt
+
+The test file preloads only the new module. It was not executed here.
+
+================================================================================
+ROOT DECISIONS THAT OVERRIDE THE r2 DRAFT
+================================================================================
+The caller passes a stable physical identity. The core never mints from the
+hull type, a missing id, or a generic spec id. Capture does not regenerate
+item UIDs. A known UID collision is refused. There is no process-global
+registry.
+
+Legacy seed takes explicit descriptors. It does not read the refit catalog.
+ship.engine, request.engineScalar, and an engine descriptor hp are combined
+by minimum once, so none of them can heal the others. After that, the engine
+item is authoritative and a higher scalar does nothing. The core does not
+write ship.engine or ship.refitLocker. project() returns the derived count
+and the engine hp for an adapter to copy.
+
+stock_primary, stock_engine, and stock_armor keep originHullType and cannot
+be installed on another hull design. stock_primary still fits only mount0,
+as in the current catalog. No default part is minted to fill a loadout hole.
+Pumps are created only from a descriptor and cannot leave their bay.
+
+Unknown legacy metadata, including moduleConditions and weapon-mount hp, is
+left in place. A corrupt moduleCondition is not deleted and not reseeded.
+
+Repair rates are arguments. The jury cap is 0.75. One work pool is spent in
+priority order. Locker parts and armor are not jury-repaired. Paid restoration
+requires confirmPaid and still does not charge coins or touch the locker.
+
+================================================================================
+BOUNDS
+================================================================================
+Locker cap is 256, the same Refit.MAX_LOCKER and SaveValidation.MAX_LOCKER.
+257 descriptors refuse the seed. They are not trimmed.
+Installed ceiling is 4 mounts + engine + armor + pumps, so 263 records.
+Mount indexes are only mount0..mount3, and only below the caller's mountCount.
+Strings, families, locations, and hp 0..1 are rejected rather than clamped
+when the value is the wrong shape. Loss in apply_component_damage is finite
+and the stored hp is then clamped to 0..1.
+
+UID form: it-%08x%08x-%d from two FNV-1a 32-bit hashes of the birth namespace
+plus the serial. A 32-bit pair can collide. The refusal is the caller's
+knownUids list plus the destination items. Two hulls that omit knownUids can
+repeat a UID if they reuse one birth namespace; the test covers the refusal
+when the list is supplied, and distinct namespaces for one hull type.
+
+================================================================================
+REMAINING SEPARATION
+================================================================================
+Nothing in the live game calls this module. Existing boats still use the
+scalar engine and the count locker. A damaged canonical engine therefore
+cannot yet stop Damage or a refit from seeing ship.engine == 1, because those
+callers were not switched. That is intentional for this detached step.
+
+Boarding can still lose a party that leaves contact. That behavior is in the
+unchanged boarding core and is not part of this prototype.
+
+A quote preview does not advance nextItemSeq. The caller may store the
+returned serial on its own clone. This core does not keep a second counter.
+
+================================================================================
+HASHES
+================================================================================
+game/scripts/equipment_condition.gd
+  2F5E02C57C0FC647F94B4360B679507E062B7EEDB1E26127E4088EEB22F72387
+game/tests/test_equipment_condition.gd
+  01493891895E1A4935149AF04087F542A4206F66BC90E10B935E45B7C13C593F
+briefs/MODULE CORE v0.031 PROTOTYPE.txt
+  7EF9D019B4C827BFD1939C6DCB505E181C44B22475FE47456070AD12BD7B18A4
+
+================================================================================
+TEST STATUS
+================================================================================
+No native pass. The checks encode damaged-scalar refusal, stable reseed,
+distinct UIDs for one hull type, corrupt and opaque records left unchanged,
+atomic occupied and duplicate-UID transfer, a damaged part leaving and
+returning, one finite work pool, zero resources, the 0.75 cap, re-enable
+below sound, and a 256-part locker against a refused 257th. Sol has to run
+them.

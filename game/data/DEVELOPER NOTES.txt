@@ -20,9 +20,9 @@ fixed-gun aiming and mixed batteries; sustained gun passes and remaining old
 assertions are still being resolved. The complete original70 batch, larger fleet
 capacity, Windows release, visual motion and listening have separate gates.
 
-V0.031 damageable equipment is a detached prototype under development. Its real
-combat, crew-repair, paid fitting, harbor, salvage/capture and save adapters are
-not yet integrated. Later .032-.038 work follows the approved version map.
+V0.031 equipment has a tested numerical ownership/condition core (90 checks).
+Its real combat, crew-repair, paid fitting, harbor, salvage/capture and game-save
+adapters are not yet integrated; individual equipment damage is not playable yet. Later .032-.038 work follows the approved version map.
 
 24 original hulls; 300 battle deployment points per side; finite coins, crew,
 materials and working stores; 100 coins per sailor-day. Tests remain silent,
