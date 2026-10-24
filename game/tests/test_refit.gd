@@ -1,4 +1,5 @@
 extends SceneTree
+const F=preload("res://tests/tactical_fixture.gd")
 const R=preload("res://scripts/refit.gd")
 const D=preload("res://scripts/damage.gd")
 const E=preload("res://scripts/economy.gd")
@@ -222,7 +223,7 @@ func autopilot_ahead(ship: Dictionary) -> Dictionary:
 	ship.angle=0.0
 	target.x=850.0
 	target.y=850.0
-	B.update(battle,1.0/30.0,{})
+	check(F.opening(battle).ok,"fitted forward opening has exact real event costs and cooldowns within <=0.2s")
 	return battle
 
 func autopilot_surrounded(ship: Dictionary) -> Dictionary:
@@ -236,7 +237,7 @@ func autopilot_surrounded(ship: Dictionary) -> Dictionary:
 	var positions: Array=[Vector2(850,850),Vector2(170,850),Vector2(500,520),Vector2(500,1180)]
 	for i in range(enemies.size()):
 		enemies[i].x=positions[i].x;enemies[i].y=positions[i].y
-	B.update(battle,1.0/30.0,{})
+	check(F.opening(battle).ok,"fitted surrounded opening has exact real event costs and cooldowns within <=0.2s")
 	return battle
 
 func test_fitted_autopilot() -> void:

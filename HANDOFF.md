@@ -15,7 +15,7 @@ Frozen tactical1f848630 passes firstseed40/40 motion, affected13 suites and
 authority44/0. Root independently checked477raw paths and Runtimef8caa59; see
 docs/ROOT PHASE EGRESS REVIEW.txt/.json. Full original70 completed67/70: voyage/autovoyage reached
 the60s child bound; obsolete private-fire presentation fixture needs correction. Capacity/heldout/full regression remain open. Keep
-the candidate separate until acceptance; old39/40 and rejected broad changes
+the preserved evidence separate; old39/40 and rejected broad changes
 are preserved. Current focused first40-hull paid-fire deadline passes3.7s.
 
 Detached Damage176 passes174/0 versus original174/11, plus legacy Damage; root
@@ -31,5 +31,6 @@ Finish real gates before the next.001 playable build, then continue032..038.
 
 Latest performance details: docs/ROOT CPU CHECKPOINT.txt and independent root
 receipt. Failed40/42capacity and guarded437/0 candidate evidence are separate;
-final guarded timing/focused gates and actual combined canonical performance
-remain open. Official Bridge APIs recovered; use current project memory/TEAM.
+guarded focused gates pass and its exact eight production files are integrated
+in WIP. CPU and actual combined canonical performance remain open. See ROOT
+GUARDED TACTICAL INTEGRATION.txt/.json. Official Bridge APIs recovered.

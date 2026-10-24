@@ -42,6 +42,10 @@ static func propose(view: Dictionary, memory: Dictionary) -> Array:
 		return []
 	return _planning(view, memory).candidates
 
+static func _prepare_begin(view: Dictionary, memory: Dictionary) -> Dictionary:
+	# Keep propose's validation before any same-begin planning work.
+	return _planning(view, memory) if _view_ok(view) else {}
+
 static func _planning(view: Dictionary, memory: Dictionary) -> Dictionary:
 	var context: Dictionary = Roles.ships_by_id(view)
 	var by_id: Dictionary = Roles.dictionary(memory.get("byId"))
@@ -74,7 +78,7 @@ static func _hex_key(value: Variant) -> bool:
 			return false
 	return true
 
-static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: Dictionary, certificate: Dictionary) -> String:
+static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: Dictionary, certificate: Dictionary, shortlisted_targets: Array = []) -> String:
 	for key: String in CERT_FIELDS:
 		if not certificate.has(key):
 			return "Waiting for a fully checked maneuver."
@@ -121,9 +125,50 @@ static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: D
 		return "Attack has no checked firing opportunity and exit."
 	if candidate.fireMountIds.is_empty() and (not window.mountIds.is_empty() or not is_equal_approx(float(window.from), float(window.until))):
 		return "Checking fire holds for this maneuver."
+	var context: Dictionary = Roles.ships_by_id(view)
+	var order: String = str(ship.get("order", "engage"))
+	var order_target_id: String = str(Roles.dictionary(ship.get("orderTarget")).get("shipId", ""))
+	var has_alt: bool = Stations.has_alt_targets(candidate)
+	if order in ["attack", "board"] and has_alt:
+		return "Explicit attack stays on the ordered target."
 	for mount_id: String in candidate.fireMountIds:
 		if not installed.has(mount_id):
 			return "Weapon fitting changed; checking fire."
+		var req_tid: String = Stations.mount_target_id(candidate, mount_id)
+		var req_target: Dictionary = Roles.dictionary(context.get(req_tid))
+		if req_target.is_empty() or req_target.get("team") == ship.get("team"):
+			return "Weapon target unavailable; checking fire."
+		if not shortlisted_targets.is_empty() and req_tid not in shortlisted_targets:
+			return "Weapon target assignment needs checking."
+		if order in ["attack", "board"] and not order_target_id.is_empty() and req_tid != order_target_id:
+			return "Explicit attack stays on the ordered target."
+	if has_alt and not window.has("mountTargets"):
+		return "Weapon target assignment needs checking."
+	if window.has("mountTargets"):
+		if not window.get("mountTargets") is Dictionary:
+			return "Weapon target assignment needs checking."
+		var w_targets: Dictionary = window.mountTargets
+		if candidate.fireMountIds.is_empty() and not w_targets.is_empty():
+			return "Checking fire holds for this maneuver."
+		if w_targets.size() != window.mountIds.size() or w_targets.size() > Roles.MAX_MOUNTS:
+			return "Weapon target assignment needs checking."
+		var distinct: Dictionary = {}
+		if not str(candidate.get("targetId", "")).is_empty():
+			distinct[str(candidate.targetId)] = true
+		for mount_id: Variant in window.mountIds:
+			if not w_targets.has(mount_id) or not Roles.id_ok(w_targets[mount_id]):
+				return "Weapon target assignment changed; checking fire."
+			var certified_tid: String = str(w_targets[mount_id])
+			if certified_tid != Stations.mount_target_id(candidate, str(mount_id)):
+				return "Weapon target assignment changed; checking fire."
+			var target_ship: Dictionary = Roles.dictionary(context.get(certified_tid))
+			if target_ship.is_empty() or target_ship.get("team") == ship.get("team"):
+				return "Weapon target unavailable; checking fire."
+			if not shortlisted_targets.is_empty() and certified_tid not in shortlisted_targets:
+				return "Weapon target assignment needs checking."
+			distinct[certified_tid] = true
+		if distinct.size() > Stations.MAX_MOUNT_TARGETS:
+			return "Weapon target assignment needs checking."
 	return ""
 
 static func _fire_gates(view: Dictionary, ship: Dictionary, state: Dictionary, candidate: Dictionary, certificate: Dictionary) -> Dictionary:
@@ -133,21 +178,31 @@ static func _fire_gates(view: Dictionary, ship: Dictionary, state: Dictionary, c
 		useful[str(mount.id)] = true
 	var window: Dictionary = Roles.dictionary(certificate.get("fireWindow"))
 	var window_ids: Array = Roles.array(window.get("mountIds"))
+	var has_window_targets: bool = window.has("mountTargets") and window.get("mountTargets") is Dictionary
+	var window_targets: Dictionary = Roles.dictionary(window.get("mountTargets"))
+	var alt_requested: bool = Stations.has_alt_targets(candidate)
 	var now: float = Roles.number(view.get("time"))
 	var time_ok: bool = not certificate.is_empty() and now >= Roles.number(window.get("from"), INF) and now <= Roles.number(window.get("until"), -INF)
 	var pass_spent: Dictionary = Roles.dictionary(state.get("passSpent"))
 	for mount: Dictionary in Roles.mounts(ship):
+		var mount_id: String = str(mount.id)
 		var fixed: bool = Roles.fixed_tube(mount)
-		var permit: bool = time_ok and str(mount.id) in Roles.array(candidate.get("fireMountIds")) and str(mount.id) in window_ids and useful.has(str(mount.id))
+		var expected_target: String = Stations.mount_target_id(candidate, mount_id) if not certificate.is_empty() else str(candidate.get("targetId", ""))
+		var target_verified: bool = (not alt_requested and not has_window_targets) or (has_window_targets and window_targets.has(mount_id) and str(window_targets.get(mount_id, "")) == expected_target)
+		var permit: bool = time_ok and mount_id in Roles.array(candidate.get("fireMountIds")) and mount_id in window_ids and useful.has(mount_id) and target_verified
+		# The primary phase aligns the hull, not an already-bearing secondary
+		# tube. Its distinct target/window is physically certified; the live Fire
+		# gate still rechecks the actual ray, and the same one-shot pass lease holds.
+		var secondary_window: bool = alt_requested and target_verified and expected_target != str(candidate.get("targetId", "")) and mount_id in window_ids
 		var reason: String = "Waiting for a usable firing window."
-		if not useful.has(str(mount.id)):
+		if not useful.has(mount_id):
 			reason = "Automatic fire held or ammunition reserved/unavailable."
-		if fixed and (bool(pass_spent.get(str(mount.id), false)) or str(state.get("phase", "")) != "launch-window"):
+		if fixed and (bool(pass_spent.get(mount_id, false)) or (str(state.get("phase", "")) != "launch-window" and not secondary_window)):
 			permit = false
-			reason = "Salvo spent; turn away." if pass_spent.get(str(mount.id), false) else "Aligning fixed tubes."
+			reason = "Salvo spent; turn away." if pass_spent.get(mount_id, false) else "Aligning fixed tubes."
 		if permit:
 			reason = "Firing at the assigned target."
-		result[str(mount.id)] = {"targetId": str(candidate.get("targetId", "")), "permit": permit, "shotLimit": 1 if fixed else 2147483647, "reason": reason, "leaseKind": "salvo" if fixed else "continuous", "firingPassId": str(state.get("firingPassId", "")) if fixed else ""}
+		result[mount_id] = {"targetId": expected_target, "permit": permit, "shotLimit": 1 if fixed else 2147483647, "reason": reason, "leaseKind": "salvo" if fixed else "continuous", "firingPassId": str(state.get("firingPassId", "")) if fixed else ""}
 	return result
 
 static func _intent(view: Dictionary, ship: Dictionary, state: Dictionary, candidate: Dictionary, certificate: Dictionary, reason: String = "") -> Dictionary:
@@ -155,16 +210,20 @@ static func _intent(view: Dictionary, ship: Dictionary, state: Dictionary, candi
 	return {"candidateId": str(candidate.get("candidateId", "")), "pathFingerprint": str(certificate.get("pathFingerprint", "")), "snapshotRevision": int(view.snapshotRevision), "orderRevision": int(Roles.number(ship.get("orderRevision"))), "role": str(state.role), "targetId": str(candidate.get("targetId", "")), "leaderId": str(candidate.get("leaderId", state.get("leaderId", ""))), "sector": int(Roles.number(candidate.get("sector"), -1.0)), "phase": str(state.phase) if accepted else "pending", "waypoints": (Roles.array(candidate.get("approach")) + Roles.array(candidate.get("pass"))).duplicate() if accepted else [], "exit": Roles.array(candidate.get("exit")).duplicate() if accepted else [], "fireGate": _fire_gates(view, ship, state, candidate, certificate), "reason": (str(state.reason) if reason.is_empty() else reason).substr(0, 128), "validUntil": minf(float(certificate.validUntil), float(view.time) + CERT_SECONDS) if accepted else float(view.time)}
 
 static func resolve(view: Dictionary, memory: Dictionary, offers: Array) -> Dictionary:
+	# Public r2 calls always plan afresh; only Runtime.begin owns the local seam.
+	return _resolve_planned(view, memory, offers, {})
+
+static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array, prepared: Dictionary) -> Dictionary:
 	var counters: Dictionary = {"due": 0, "proposed": 0, "scoredTargets": 0, "offers": 0, "accepted": 0, "rejected": 0, "pending": 0, "blocked": 0, "offerOverflow": 0, "reservationConflicts": 0, "clearanceTests": 0, "clearanceExhausted": 0}
 	var next_memory: Dictionary = memory.duplicate(true)
 	var by_id: Dictionary = {}
 	if not _view_ok(view):
 		return {"memory": next_memory, "byId": by_id, "counters": counters}
 	if not next_memory.get("byId") is Dictionary:
-		next_memory.byId = {}
+		next_memory["byId"] = {}
 	if not next_memory.get("reservations") is Dictionary:
-		next_memory.reservations = {}
-	var planning: Dictionary = _planning(view, memory)
+		next_memory["reservations"] = {}
+	var planning: Dictionary = _planning(view, memory) if prepared.is_empty() else prepared
 	var context: Dictionary = planning.context
 	var due_ids: Array = planning.dueIds
 	var decisions: Dictionary = planning.decisions
@@ -203,7 +262,7 @@ static func resolve(view: Dictionary, memory: Dictionary, offers: Array) -> Dict
 		if grouped[ship_id].size() >= MAX_OFFERS:
 			counters.offerOverflow = int(counters.offerOverflow) + 1
 			continue
-		var rejection: String = _certificate_reason(view, context[ship_id], candidate, certificate)
+		var rejection: String = _certificate_reason(view, context[ship_id], candidate, certificate, Roles.array(decisions[ship_id].get("targets")))
 		if not rejection.is_empty():
 			counters.rejected = int(counters.rejected) + 1
 			if certificate.get("status") == "pending":
@@ -260,14 +319,14 @@ static func resolve(view: Dictionary, memory: Dictionary, offers: Array) -> Dict
 			var certificate: Dictionary = chosen.certificate
 			var anchor: Vector2 = Stations.anchor(candidate)
 			if state.get("targetId") != candidate.targetId or state.get("sector") != candidate.sector or Roles.number(state.get("commitUntil")) <= float(view.time):
-				state.commitUntil = float(view.time) + Roles.COMMIT_SECONDS
-			state.targetId = str(candidate.targetId)
-			state.sector = int(candidate.sector)
-			state.anchor = anchor
-			state.waitSince = -1.0
-			state.blockedStation = false
+				state["commitUntil"] = float(view.time) + Roles.COMMIT_SECONDS
+			state["targetId"] = str(candidate.targetId)
+			state["sector"] = int(candidate.sector)
+			state["anchor"] = anchor
+			state["waitSince"] = -1.0
+			state["blockedStation"] = false
 			by_id[ship_id] = _intent(view, ship, state, candidate, certificate)
-			next_memory.reservations[ship_id] = Stations.reservation(candidate, ship, certificate, float(view.time))
+			next_memory["reservations"][ship_id] = Stations.reservation(candidate, ship, certificate, float(view.time))
 			counters.accepted = int(counters.accepted) + 1
 		else:
 			var reason: String = str(decision.get("rejection", "Waiting for a safe route and exit."))
@@ -275,19 +334,27 @@ static func resolve(view: Dictionary, memory: Dictionary, offers: Array) -> Dict
 				reason = "Station or swept lane is occupied; wait or choose another approach."
 			if int(counters.clearanceExhausted) > 0:
 				reason = "Planning clearance budget pending; wait for a checked maneuver."
-			state.blockedStation = true
-			state.commitUntil = 0.0
+			state["blockedStation"] = true
+			state["commitUntil"] = 0.0
 			if Roles.number(state.get("waitSince"), -1.0) < 0.0:
-				state.waitSince = float(view.time)
+				state["waitSince"] = float(view.time)
 			if float(view.time) - Roles.number(state.get("waitSince")) >= 3.0:
-				state.phase = "regroup"
-				state.reason = "No checked approach or exit; abandon this maneuver."
-				state.safeSince = float(view.time)
-				state.failedTargetId = str(state.get("targetId", ""))
-				state.failedUntil = float(view.time) + 4.0
-				reason = str(state.reason)
+				var prior: Dictionary = Roles.dictionary(Roles.dictionary(memory.get("byId")).get(ship_id))
+				# A rejected restart never became a published new phase. Age the
+				# actual retained regroup rather than resetting it on every offer.
+				if str(prior.get("phase", "")) == "regroup" and str(prior.get("role", "")) == str(state.role) and prior.get("orderRevision") == state.get("orderRevision"):
+					state["phaseSince"] = prior.get("phaseSince", float(view.time))
+					state["safeSince"] = prior.get("safeSince", float(view.time))
+				else:
+					state["phaseSince"] = float(view.time)
+					state["safeSince"] = float(view.time)
+				state["phase"] = "regroup"
+				state["reason"] = "No checked approach or exit; abandon this maneuver."
+				state["failedTargetId"] = str(state.get("targetId", ""))
+				state["failedUntil"] = float(view.time) + 4.0
+				reason = str(state["reason"])
 			by_id[ship_id] = _intent(view, ship, state, {}, {}, reason)
-			next_memory.reservations.erase(ship_id)
-		next_memory.byId[ship_id] = state
+			next_memory["reservations"].erase(ship_id)
+		next_memory["byId"][ship_id] = state
 	# No target/path caches or append-only histories. One record and reservation per hull.
 	return {"memory": next_memory, "byId": by_id, "counters": counters}

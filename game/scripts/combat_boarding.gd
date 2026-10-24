@@ -29,7 +29,8 @@ static func tick(st: Dictionary,dt: float) -> void:
 	for source in st.ships:
 		if source.sunk or source.get("captureSecured",false):continue
 		# A cautious doctrine can act on a nearby weak target; numerical crew only.
-		if not source.get("boardingOrder") is Dictionary and st.get("autoBoard",true) and source.team=="player" and int(source.get("boarders",0))>=2 and eligible(st,source,true):
+		var party_busy: bool=not Tactical._active_party_target(st,str(source.id)).is_empty()
+		if not party_busy and not source.get("boardingOrder") is Dictionary and st.get("autoBoard",true) and source.team=="player" and int(source.get("boarders",0))>=2 and eligible(st,source,true):
 			for target in st.ships:
 				if target.sunk or target.team!="enemy" or not Boarding._vulnerable(target):continue
 				if Vector2(source.x-target.x,source.y-target.y).length()>650:continue
@@ -37,8 +38,8 @@ static func tick(st: Dictionary,dt: float) -> void:
 				if count>=2 and float(target.crew-target.wounded)<=count*0.5:order(st,str(source.id),str(target.id),count,true);break
 		var plan: Dictionary=source.get("boardingOrder",{})
 		if plan.is_empty():continue
-		# Suspension/cancellation touches only an unlaunched plan; launched jobs
-		# below keep their real people, timers, casualties and existing recall API.
+		# A changed revision or a non-boarding order drops approach metadata only.
+		# The launched job keeps Boarding's own crew, timers and escape rule.
 		if not eligible(st,source):
 			if int(plan.get("orderRevision",-1))!=int(source.get("orderRevision",0)) or str(source.get("order","")) not in ["board","engage"]:source.erase("boardingOrder")
 			continue
@@ -46,11 +47,19 @@ static func tick(st: Dictionary,dt: float) -> void:
 		for b in st.ships:
 			if str(b.id)==str(plan.target):target=b;break
 		if target.is_empty() or target.sunk or target.team!="enemy":source.erase("boardingOrder");continue
-		if Boarding._near(source,target):
+		if Boarding._near(source,target) and not bool(plan.get("launched",false)):
 			var result: Dictionary=Boarding.launch(st,str(source.id),str(target.id),int(plan.count))
-			source.erase("boardingOrder")
-			if not result.ok:st.log.push_front("Boarding cancelled: "+str(result.get("reason","conditions changed")));st.log.resize(mini(30,st.log.size()))
+			if result.ok:
+				plan.launched=true
+				source.boardingOrder=plan
+			else:
+				source.erase("boardingOrder")
+				st.log.push_front("Boarding cancelled: "+str(result.get("reason","conditions changed")));st.log.resize(mini(30,st.log.size()))
 	Boarding.tick(st,dt)
+	for source in st.ships:
+		var finished: Dictionary=source.get("boardingOrder",{})
+		if finished.is_empty() or not bool(finished.get("launched",false)):continue
+		if Tactical._active_party_target(st,str(source.id)).is_empty():source.erase("boardingOrder")
 	for source in st.ships:
 		source.boarders=mini(int(source.get("boarders",0)),floori(float(source.crew)))
 		if source.get("captureSecured",false):source.vx=0.0;source.vy=0.0

@@ -15,7 +15,7 @@ Actual40-hull first-paid-fire3.7s meets the unchanged4s focused deadline. The
 original70 regression completed67/70: voyage/autovoyage hit60s child bounds,
 and presentation uses an obsolete private-fire fixture now queued for correction.
 Full regression, heldout seeds and sustained capacity remain OPEN. This source
-candidate is not yet integrated in main. No complete tactical acceptance.
+guarded successor is integrated in working source. No complete tactical acceptance.
 
 Corrected detached Damage176bc3d: identical fixture174/11 before ->174/0 after,
 plus legacy Damage pass. Root verified156raw. Exact Damage source is installed conditionally; current careers still need migration.
@@ -29,6 +29,7 @@ Tests hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus.
 Owner saves/music/releases protected. Coordination: task work/resume-v030-v038/
 CURRENT.txt, TEAM.json and ENGINE LEASE.txt. No new launcher or release yet.
 
+Exact guarded source/fixture integration: ROOT GUARDED TACTICAL INTEGRATION.
 CPU checkpoint24Oct: full40/42fleet capacity currently FAILS the frozen
 targets. Isolated profiling preserves exact wholeBattle/RNG state; local planning
 reuse shows9.63% short-prefix mean gain, still insufficient. Guarded437/0 proof

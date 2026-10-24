@@ -15,7 +15,8 @@ The combined AI candidate passes40 first-seed maneuver cases,13 affected suites
 and44 real movement-authority checks. Small boats make useful paid firing passes
 and physically break away; escorts screen allies. First40-boat fire passes its
 focused deadline. Full regression, other seeds and sustained fleet performance
-are still being checked; one voyage check reached its time bound. Candidate AI and Harbor/recovery are not yet installed with Damage in main.
+are still being checked; two voyage checks reached their time bounds. The tested
+guarded AI is now installed in working source. Harbor/recovery remain separate.
 
 24 original boats;300 battle deployment points per side distinct from ownership;
 finite people, supplies and coins;100coins per sailor-day. Crew remain numerical.
@@ -30,8 +31,8 @@ Versions advance.001 for actual playable builds, not prototype work.
 Latest CPU finding: the40/42boat tests are too slow. A first local-planning
 optimization keeps the exact combat state and improves the short mean about10%,
 but does not yet meet the sustained budget. The guarded candidate passes437
-focused checks; further speed and integration work remain. No tactical candidate
-is promoted into this working source by this note. See ROOT CPU CHECKPOINT.
+focused checks; further speed and integration work remain. See ROOT GUARDED
+TACTICAL INTEGRATION for exact source and the limits of the current evidence.
 
 HISTORICAL V0.030 BUILD-ONLY RECORD — ORIGINAL TEXT RETAINED BELOW
 

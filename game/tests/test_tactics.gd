@@ -3,6 +3,8 @@ extends SceneTree
 const B=preload("res://scripts/battle.gd")
 const D=preload("res://scripts/damage.gd")
 const DP=preload("res://scripts/deployment.gd")
+const F=preload("res://tests/tactical_fixture.gd")
+const PublicBattle=preload("res://tests/tactical_public_battle.gd")
 const SPEC={"id":"skiff","name":"Skiff","role":"skiff","tier":1,"hp":150,"armor":1,"crewMin":2,"crewOptimal":5,"crewMax":7,"size":16,"speed":100,"turn":2,"pumps":1,"weapon":"gun","damage":12,"fireRate":2,"range":550,"deploymentPoints":20}
 var checks: int=0
 var failures: int=0
@@ -172,7 +174,7 @@ func test_mounts() -> void:
 	check(fitted.armor==17.0 and fitted.hp==71.0 and fitted.ammo==7.0 and fitted.fuel==8.0 and fitted.supplies==3.0,"effective armor is authoritative without healing or refilling the boat")
 	var st: Dictionary=stationary(mounted_spec())
 	var s: Dictionary=st.ships[0]
-	B.update(st,1.0/30.0)
+	check(F.opening(st).ok,"opening <=0.2s ledger has unique mount shots, exact event costs and real cooldowns")
 	check(st.projectiles.size()==4 and s.ammo==70.0,"all four independently fitted families fire and consume shared integer ammo")
 	check(s.weaponCooldowns.size()==4 and is_equal_approx(s.cooldown,s.weaponCooldowns[0]),"primary timer remains compatible with legacy cooldown")
 	var kinds: Dictionary={}
@@ -183,7 +185,7 @@ func test_mounts() -> void:
 	if kinds.size()==4:
 		check(kinds.rocket.trail=="smoke" and kinds.torpedo.trail=="foam" and kinds.bullet.trail=="tracer","rocket/torpedo/gun trails are distinct")
 		check(kinds.rocket.incendiary and kinds.rocket.blastRadius>0.0 and kinds.torpedo.penetration>kinds.shell.penetration,"rockets carry blast/fire and torpedoes carry penetration")
-	advance(st,10)
+	advance(st,5) # Keep the original total eleven-frame repeat/cooldown deadline.
 	check(s.ammo==69.0 and s.weaponCooldowns[1]>0.5 and s.weaponCooldowns[2]>1.5,"rapid gun repeats while slower mounts cool independently")
 	var timers: Array=s.weaponCooldowns.duplicate()
 	s.ammo=0.0
@@ -194,13 +196,13 @@ func test_mounts() -> void:
 	st=stationary(mounted_spec())
 	s=st.ships[0]
 	s.ammo=5.0
-	B.update(st,1.0/30.0)
+	check(F.opening(st).ok,"affordable opening pays only emitted mounts; blocked mounts cannot start cooldowns")
 	check(s.ammo==2.0 and st.projectiles.size()==2 and s.weaponCooldowns[2]==0.0 and s.weaponCooldowns[3]==0.0,"unaffordable mounts neither fire nor start cooldown")
 	var fractional: Dictionary=SPEC.duplicate(true)
 	fractional.weaponMounts=[{"id":"metered","kind":"gun","ammoCost":1.2,"range":800.0}]
 	st=stationary(fractional)
 	st.ships[0].ammo=3.0
-	B.update(st,1.0/30.0)
+	check(F.opening(st).ok,"fractional-cost opening debits exact whole actual event costs within <=0.2s")
 	check(st.ships[0].ammo==1.0,"nonintegral mount ammo input is charged as whole rounds")
 	var fixed: Dictionary=SPEC.duplicate(true)
 	fixed.weaponMounts=[{"id":"broadside","kind":"torpedo","damage":12.0,"fireRate":1.0,"range":800.0,"speed":240.0,"ammoCost":1,"x":0.0,"y":0.0,"angle":PI/2.0,"arc":0.05}]
@@ -215,13 +217,9 @@ func test_mounts() -> void:
 	s=st.ships[0]
 	B._fire(st,s,Vector2(1000.0,850.0))
 	check(s.ammo==80.0 and st.projectiles.is_empty(),"even thin nearby land prevents firing and wasted ammo")
-	var leading: Dictionary=SPEC.duplicate(true)
-	leading.weaponMounts=[{"id":"lead","kind":"gun","range":800.0,"speed":300.0}]
-	st=stationary(leading)
-	st.ships[1].x=900.0
-	st.ships[1].vy=100.0
-	B._fire(st,st.ships[0],Vector2(900.0,850.0),st.ships[1])
-	check(not st.projectiles.is_empty() and st.projectiles[0].vy>50.0,"AI firing computes a moving-target intercept")
+	var interception: Dictionary=PublicBattle.moving_intercept(SPEC)
+	for requirement in interception.checks:check(bool(interception.checks[requirement]),"public Battle moving interception: "+str(requirement))
+	print("OBS public moving intercept "+JSON.stringify(interception))
 	var unarmed: Dictionary=SPEC.duplicate(true)
 	unarmed.weaponMounts=[]
 	st=stationary(unarmed)
@@ -265,32 +263,33 @@ func test_engagement_range() -> void:
 	var st: Dictionary=stationary(mixed)
 	ship=st.ships[0]
 	ship.spec.speed=100.0
-	B.update(st,1.0/30.0)
+	check(F.opening(st).ok,"mixed opening uses bounded real updates with exact emitted round accounting")
 	var fired_long: bool=false
 	var fired_short: bool=false
 	for p in st.projectiles:
 		if p.owner==ship.id and p.mountId=="long": fired_long=true
 		if p.owner==ship.id and p.mountId=="short": fired_short=true
 	check(fired_long and not fired_short,"AI takes long-range firing opportunity while still outside its preferred mixed range")
-	for frame in range(60):
+	for frame in range(55): # Preserve the original total sixty-one-frame short-gun deadline.
 		B.update(st,1.0/30.0)
 		for p in st.projectiles:
 			if p.owner==ship.id and p.mountId=="short": fired_short=true
 	check(fired_short,"actual mixed-range AI approaches and fires the secondary weapon")
-	st=B.create({"fleet":[D.create_ship(mixed)],"enemySpecs":[mixed],"seed":19})
-	st.ships[0].x=500.0
-	st.ships[0].y=850.0
-	st.ships[1].x=900.0
-	st.ships[1].y=850.0
-	B.update(st,1.0/30.0)
-	check(st.ships[0].vx>8.0 and st.ships[1].vx< -8.0 and is_equal_approx(st.ships[0].vx,-st.ships[1].vx),"player and enemy both close at full combat throttle for the same mixed battery")
-	st=stationary()
-	ship=st.ships[0]
-	ship.spec.speed=100.0
-	st.ships[1].x=850.0
-	B.update(st,1.0/30.0)
-	var original_velocity: float=100.0*0.18*(1.0-exp(-4.0/30.0))
-	check(is_equal_approx(ship.vx,original_velocity),"single-weapon AI keeps the original throttle at the original standoff distance")
+	var approaches: Array=[PublicBattle.fair_motion(mixed,false),PublicBattle.fair_motion(mixed,true)]
+	var matched: bool=true
+	for observation in approaches:
+		check(bool(observation.accounting_valid),"fair mixed-battery motion retains exact real event/ammunition/cooldown accounting")
+		check(observation.first_forward_motion.size()==2 and float(observation.time)<=0.2+0.000001,"both sides advance>8 within <=0.2s real fair scheduling")
+		check(observation.motion.left.size()>=2 and observation.motion.right.size()>=2,"both hulls receive multiple actual valid certification/motion opportunities")
+	for name in ["left","right"]:
+		if approaches[0].motion[name].size()<2 or approaches[1].motion[name].size()<2:matched=false;continue
+		for opportunity in range(2):
+			if absf(float(approaches[0].motion[name][opportunity].forward_velocity)-float(approaches[1].motion[name][opportunity].forward_velocity))>0.5:matched=false
+	check(matched,"team-swapped equal hulls have symmetric forward speed at matched actual certification opportunities")
+	print("OBS public fair mixed approach "+JSON.stringify(approaches))
+	var approach: Dictionary=PublicBattle.single_approach(SPEC)
+	for requirement in approach.checks:check(bool(approach.checks[requirement]),"public Battle single-weapon approach/braking: "+str(requirement))
+	print("OBS public single approach "+JSON.stringify(approach))
 
 func test_impacts() -> void:
 	var armor: Dictionary=SPEC.duplicate(true)

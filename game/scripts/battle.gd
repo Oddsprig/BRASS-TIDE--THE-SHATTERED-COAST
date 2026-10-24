@@ -399,19 +399,20 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 		if absf(angle_difference(s.angle+mount.angle,bearing))>mount.arc*0.5+0.00001:
 			continue
 		var kind: String="bullet" if mount.kind=="gun" else ("shell" if mount.kind=="cannon" else mount.kind)
-		var radius: float=5.0 if kind=="torpedo" else (3.0 if kind=="rocket" else 2.0)
+		var radius: float=FireControl.shot_radius(mount)
 		var distance: float=float(mount.muzzleDistance)
 		var muzzle: Vector2=origin+Vector2.from_angle(bearing)*distance
-		# Automatic gates just checked this exact current pose, barrel and actual
-		# inherited-velocity projectile path; no mutable scene work intervenes.
 		if not automatic and (not _clear_shot(st,origin,aim,radius) or _blocked(st,muzzle,radius)):
 			continue
-		if not automatic and not FireControl.manual_lane(st,s,mount,muzzle,bearing):continue
+		# One seeded scatter. This velocity is the segment that must be clear.
+		var angle: float=bearing+(st.rng.randf()-0.5)*FireControl.dispersion(mount)
+		var velocity: Vector2=Vector2.from_angle(angle)*mount.speed+Vector2(s.vx,s.vy)*0.2
+		var lane: Dictionary=FireControl.actual_lane(st,s,mount,muzzle,velocity,radius)
+		if not lane.ok:
+			continue
 		s.turretAngle=bearing
 		if not s.get("localAimAngles") is Dictionary:s.localAimAngles={}
 		s.localAimAngles[str(mount.id)]=angle_difference(float(s.angle),bearing)
-		var angle: float=bearing+(st.rng.randf()-0.5)*(0.025 if kind=="torpedo" else 0.045)
-		var velocity: Vector2=Vector2.from_angle(angle)*mount.speed+Vector2(s.vx,s.vy)*0.2
 		st.projectiles.append({"x":muzzle.x,"y":muzzle.y,"px":muzzle.x,"py":muzzle.y,"vx":velocity.x,"vy":velocity.y,"team":s.team,"damage":mount.damage*(1.8 if kind=="torpedo" else 1.0),"kind":kind,"family":mount.kind,"variant":CombatEvents.weapon_variant(mount.kind,mount),"moduleId":str(mount.get("moduleId","")),"size":int(mount.get("size",1)),"life":mount.range/mount.speed,"age":0.0,"owner":s.id,"sourceUid":str(s.get("uid",s.id)),"sourceHull":str(s.get("type",s.spec.get("id","boat"))),"mountId":mount.id,"mountIndex":i,"angle":angle,"radius":radius,"penetration":18.0 if kind=="torpedo" else (4.0 if kind=="shell" else 0.0),"blastRadius":36.0 if kind=="rocket" else 0.0,"incendiary":kind=="rocket","height":mount.barrelHeight,"trail":"foam" if kind=="torpedo" else ("smoke" if kind=="rocket" else "tracer")})
 		s.ammo=maxf(0.0,s.ammo-mount.ammoCost)
 		s.weaponCooldowns[i]=1.0/(mount.fireRate*maxf(0.15,status.weaponFactor))

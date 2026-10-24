@@ -1,6 +1,7 @@
 extends RefCounted
 ## Main-thread battle lifetime; detached A boundary and authoritative publication.
 const Planner=preload("res://scripts/tactical_planner.gd")
+const Stations=preload("res://scripts/tactical_stations.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
 const Certification=preload("res://scripts/tactical_certification.gd")
 const Fire=preload("res://scripts/tactical_fire_control.gd")
@@ -52,6 +53,40 @@ static func control_changed(st: Dictionary) -> void:
 	t.intents.erase(id);t.lastDecision[id]=-1.0
 	t.certificationAttempts[id]=-2.0
 	t.reasons[id]="Checking order after control change"
+
+static func _active_party_target(st: Dictionary,id: String) -> String:
+	# Job identity for duplicate-approach suppression and metadata cleanup.
+	# It is not a helm order. boarding.gd still records an escape if the source leaves.
+	for job in st.get("boarding",{}).get("jobs",[]):
+		if job is Dictionary and str(job.get("status",""))=="active" and str(job.get("source",""))==id:
+			return str(job.get("target",""))
+	return ""
+
+static func _survival_override(st: Dictionary,ship: Dictionary) -> bool:
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	if bool(t.get("safety",{}).get(id,{}).get("withdraw",false)):return true
+	var order: String=str(ship.get("order","engage"))
+	var conditional: bool=bool(t.options.byId.get(id,defaults()).get("conditionalWithdrawal",false))
+	# Explicit move/hold/withdraw/board already own the helm. Engage, and an
+	# explicit order with survival permission, still break for flood, dry guns, or no fuel.
+	if order!="engage" and not conditional:return false
+	if float(ship.get("fuel",0.0))<=0.0:return true
+	if float(Damage.get_status(ship).get("weaponFactor",1.0))<=0.01:return true
+	for mount in t.mountCache.get(id,{}).get("mounts",[]):
+		if float(ship.get("ammo",0.0))>=float(mount.get("ammoCost",1.0)) and float(mount.get("damage",0.0))>0.0:return false
+	return true
+
+static func _boarding_contact(st: Dictionary,ship: Dictionary) -> String:
+	# Continuity for one unchanged automatic engage revision. A new order, manual
+	# helm, or survival break is left exactly as stored on the live ship.
+	var plan: Dictionary=ship.get("boardingOrder",{})
+	if plan.is_empty() or not bool(plan.get("automatic",false)):return ""
+	if int(plan.get("orderRevision",-1))!=int(ship.get("orderRevision",0)):return ""
+	if str(ship.get("order","engage"))!="engage":return ""
+	if str(ship.id)==str(st.tactical.get("manualId","")) or _survival_override(st,ship):return ""
+	var target: String=str(plan.get("target",""))
+	return target if not target.is_empty() else ""
 
 static func _live(st: Dictionary,id: String) -> Dictionary:
 	for ship in st.get("ships",[]):
@@ -169,8 +204,9 @@ static func view(st: Dictionary,side: String,due: Array) -> Dictionary:
 			var own: Dictionary=_own(ship,mounts)
 			own.orderSince=float(t.orderTimes.get(id,0.0))
 			own.failedTargetIds=t.failures.get(id,[]).duplicate()
-			if own.get("boardingOrder") is Dictionary and not own.boardingOrder.is_empty() and int(own.boardingOrder.get("orderRevision",-1))==int(own.orderRevision):
-				own.order="board";own.orderTarget={"shipId":str(own.boardingOrder.get("target",""))}
+			var contact: String=_boarding_contact(st,ship)
+			if not contact.is_empty():
+				own.order="board";own.orderTarget={"shipId":contact}
 			# Preserve the targetless legacy attack API. Nearest is selected ONCE
 			# before planner/fire gating, not as a hidden per-mount fallback.
 			if own.order=="attack" and own.orderTarget.is_empty():
@@ -182,7 +218,22 @@ static func view(st: Dictionary,side: String,due: Array) -> Dictionary:
 					if distance<best:best=distance;own.orderTarget={"shipId":enemy_id}
 			ships.append(own)
 			choices[id]=t.options.byId.get(id,defaults()).duplicate(true)
-			if choices[id].rally.is_empty():choices[id].rally=t.home[id].duplicate(true)
+			# This contact is still the live automatic engage command. Retain its
+			# survival permission only in the detached planner view; explicit board
+			# choices and the launched crew job remain exactly as accepted.
+			if not contact.is_empty():choices[id].conditionalWithdrawal=true
+			if choices[id].rally.is_empty():
+				# A birth home already inside the completed pass is not an egress.
+				# Only that short post-shot breakaway uses the existing checked local
+				# rally geometry. Regroup/home and all explicit destinations stay intact.
+				var retained: Dictionary=t.memory[side].byId.get(id,{})
+				var departure: Variant=retained.get("launchPos",retained.get("breakawayFrom"))
+				var spent_pass: bool=int(retained.get("passShots",0))>0 or not retained.get("passSpent",{}).is_empty()
+				var home: Dictionary=t.home[id]
+				var local_radius: float=maxf(60.0,maxf(10.0,float(ship.spec.size))*2.0)
+				var short_home: bool=departure is Vector2 and departure.distance_to(Vector2(home.x,home.y))<local_radius
+				var local_egress: bool=str(retained.get("phase","")) in ["breakaway","turn-away"] and spent_pass and short_home
+				if own.order=="withdraw" or not local_egress:choices[id].rally=home.duplicate(true)
 			if own.order=="withdraw" and own.orderTarget.has("x"):choices[id].rally=own.orderTarget.duplicate(true)
 		else:ships.append(t.observed[id].duplicate(true))
 	var groups: Dictionary={1:[],2:[],3:[],4:[]}
@@ -273,6 +324,24 @@ static func safety_check(st: Dictionary,ship: Dictionary) -> void:
 		if not t.pending.has(id):t.pending[id]=now
 		t.reasons[id]="Fire or flooding danger; seeking a safe local rally"
 
+static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidate: Dictionary) -> String:
+	# Reject a known swept conflict BEFORE the one physical rollout. A still
+	# repeats its authoritative final check after B certifies the chosen route.
+	var t: Dictionary=st.tactical
+	var shape: Dictionary=Stations.reservation_shape(candidate,ship)
+	var counters: Dictionary={"clearanceTests":int(t.budget.clearanceTests),"clearanceExhausted":0}
+	var status: String="valid"
+	for other_id in t.memory[side].get("reservations",{}):
+		if str(other_id)==str(ship.id):continue
+		var other: Dictionary=t.memory[side].reservations[other_id]
+		if float(other.get("until",0.0))<=float(st.time):continue
+		if Stations.conflict(shape,other,counters,int(t.budget.clearanceLimit)):
+			status="pending" if int(counters.clearanceExhausted)>0 else "blocked"
+			break
+	t.budget.clearanceTests=int(counters.clearanceTests)
+	t.budget.exhaustions+=int(counters.clearanceExhausted)
+	return status
+
 static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 	var t: Dictionary=ensure(st)
 	t.dt=dt;t.snapshotRevision+=1
@@ -296,16 +365,16 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		t.manualId=new_manual_id
 	for ship in t.ships.values():safety_check(st,ship)
 	var queued: Array=t.ships.keys()
-	# Failed or completed REAL attempts rotate to the back. Budget-only deferral
-	# does not impersonate certification. Old pending/expired attempts across BOTH
-	# sides go first; planner age breaks untouched/pending ties without ID lockout.
+	# Oldest decisions across BOTH sides own the fixed due slots, preserving the
+	# <=0.2s observation cadence. Actual certification attempts break age ties;
+	# budget-only deferral still never impersonates physical certification.
 	queued.sort_custom(func(a,b):
 		var aa: float=float(t.certificationAttempts.get(a,-1.0))
 		var bb: float=float(t.certificationAttempts.get(b,-1.0))
-		if aa!=bb:return aa<bb
 		var ap: float=float(t.lastDecision.get(a,0.0))
 		var bp: float=float(t.lastDecision.get(b,0.0))
-		return ap<bp if ap!=bp else str(a)<str(b))
+		if ap!=bp:return ap<bp
+		return aa<bb if aa!=bb else str(a)<str(b))
 	var cap: int=maxi(1,ceili(float(queued.size())/6.0))
 	t.metrics.activeCount=queued.size();t.metrics.normalLimit=cap
 	var due: Array=[]
@@ -315,6 +384,10 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		t.metrics.certificationAges.append(certified_age)
 		if due.size()<cap:due.append(id)
 	var snapshots: Dictionary={}
+	# These detached bundles exist only during this synchronous begin.
+	# Certification changes clearanceRemaining, not planning observations.
+	var planning: Dictionary={}
+	var memories: Dictionary={}
 	var copies: Dictionary={}
 	var proposed: Dictionary={}
 	var offers: Dictionary={"player":[],"enemy":[]}
@@ -328,7 +401,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		snapshots[side]=snapshot
 		for ship in snapshot.ships:
 			if ship.team==side:copies[str(ship.id)]=ship
-		var candidates: Array=Planner.propose(snapshot,t.memory[side].duplicate(true))
+		memories[side]=t.memory[side].duplicate(true)
+		planning[side]=Planner._prepare_begin(snapshot,memories[side])
+		var candidates: Array=planning[side].get("candidates",[])
 		for raw in candidates:
 			if not raw is Dictionary:continue
 			var id: String=str(raw.get("shipId",""))
@@ -341,13 +416,21 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		var side: String=str(ship.team)
 		var snapshot: Dictionary=snapshots[side]
 		var real_attempt: bool=false
+		var membership: Array=Certification.detailed_targets(snapshot,ship,t.memory[side].get("byId",{}).get(id,{}))
 		for raw in proposed.get(id,[]):
-			if not Certification.candidate_valid(raw,snapshot,ship) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
+			if not Certification.candidate_valid(raw,snapshot,ship,membership) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
 			var refined: Dictionary=Routes.refine(st,t.geometry,ship,raw,t.budget)
 			var candidate: Dictionary=refined.candidate
+			if refined.status=="valid" and str(ship.get("order","engage"))=="engage" and candidate.fireMountIds.is_empty():
+				var reservation_status: String=_reserved_path(st,side,ship,candidate)
+				if reservation_status!="valid":
+					t.reasons[id]="Checking reserved escape geometry" if reservation_status=="pending" else "Reserved escape blocked; checking another exit"
+					if reservation_status=="pending":break
+					real_attempt=true
+					continue
 			var fingerprint: String=Planner.fingerprint(candidate)
 			var cert: Dictionary=Certification.base_certificate(snapshot,ship,candidate,fingerprint)
-			if refined.status=="valid":cert=Certification.certify(st,snapshot,ship,candidate,fingerprint,t.budget)
+			if refined.status=="valid":cert=Certification.certify(st,snapshot,ship,candidate,fingerprint,t.budget,membership)
 			else:
 				cert.status=refined.status
 				cert.reason="Checking a route around land" if refined.status=="pending" else "No clear route to this station"
@@ -364,7 +447,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		if not snapshots.has(side):continue
 		var snapshot: Dictionary=snapshots[side]
 		snapshot.options.clearanceRemaining=maxi(0,int(t.budget.clearanceLimit)-int(t.budget.clearanceTests))
-		var resolved: Dictionary=Planner.resolve(snapshot,t.memory[side].duplicate(true),offers[side])
+		var resolved: Dictionary=Planner._resolve_planned(snapshot,memories[side],offers[side],planning[side])
 		var spent: int=int(resolved.get("counters",{}).get("clearanceTests",0))
 		if spent<0 or spent>int(snapshot.options.clearanceRemaining):
 			t.counters.rejectedIntents+=1;continue
@@ -415,11 +498,23 @@ static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,of
 		var valid: bool=true
 		var installed: Array=[]
 		for mount in t.mountCache[id].mounts:installed.append(str(mount.id))
+		var window: Dictionary=cert.get("fireWindow",{}) if cert.get("fireWindow") is Dictionary else {}
+		var has_window_targets: bool=window.has("mountTargets")
+		var window_targets: Dictionary=window.get("mountTargets",{}) if window.get("mountTargets") is Dictionary else {}
+		if (candidate.has("fireMountTargets") and not window.get("mountTargets") is Dictionary) or (has_window_targets and (not window.get("mountTargets") is Dictionary or window_targets.size()!=window.get("mountIds",[]).size())):
+			t.counters.rejectedIntents+=1;continue
+		var distinct_targets: Dictionary={}
+		if not str(candidate.get("targetId","")).is_empty():distinct_targets[str(candidate.targetId)]=true
 		for mount_id in intent.get("fireGate",{}):
 			var gate=intent.fireGate[mount_id]
 			if not gate is Dictionary or not mount_id in installed or not gate.get("permit",false) is bool or not gate.get("shotLimit",0) is int or int(gate.get("shotLimit",0))<0 or str(gate.get("reason","")).length()>128 or str(gate.get("firingPassId","")).length()>128:valid=false;break
-			if bool(gate.get("permit",false)) and (not mount_id in candidate.fireMountIds or not mount_id in cert.fireWindow.mountIds or str(gate.get("targetId",""))!=str(candidate.targetId)):valid=false;break
-		if not valid:continue
+			if bool(gate.get("permit",false)):
+				var expected_target: String=Certification.mount_target(candidate,str(mount_id))
+				var live_target: Dictionary=t.ships.get(expected_target,{})
+				if not mount_id in candidate.fireMountIds or not mount_id in window.get("mountIds",[]) or str(gate.get("targetId",""))!=expected_target or live_target.is_empty() or str(live_target.get("team",""))==side:valid=false;break
+				if (candidate.has("fireMountTargets") or has_window_targets) and (not window_targets.has(mount_id) or str(window_targets.get(mount_id,""))!=expected_target):valid=false;break
+				distinct_targets[expected_target]=true
+		if not valid or distinct_targets.size()>4:t.counters.rejectedIntents+=1;continue
 		accepted[id]=intent.duplicate(true)
 	for id in accepted:
 		t.intents[id]=accepted[id]
@@ -463,6 +558,10 @@ static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dic
 	var target: Dictionary=ship.get("orderTarget",{})
 	var opts: Dictionary=snapshot.options.byId.get(str(ship.id),defaults())
 	var conditional: bool=bool(opts.conditionalWithdrawal)
+	if order in ["move","withdraw","board"] and (not candidate.get("fireMountIds",[]).is_empty() or candidate.has("fireMountTargets")):
+		return false
+	if order in ["attack","board"] and candidate.has("fireMountTargets"):
+		return false
 	if order in ["attack","board"] and target.has("shipId"):
 		if str(candidate.targetId)!=str(target.shipId) and not (conditional and candidate.fireMountIds.is_empty()):return false
 	if order=="escort" and target.has("shipId") and str(candidate.leaderId)!=str(target.shipId) and str(target.shipId)!=str(ship.id):return false
@@ -491,7 +590,7 @@ static func helm(st: Dictionary,ship: Dictionary) -> Dictionary:
 		return Certification.brake(st,ship,t.budget,"Target unavailable; reassessing")
 	var record: Dictionary=current.record
 	t.metrics.certificateAges.append(maxf(0.0,float(st.time)-float(record.certificate.checkedAt)))
-	var control: Dictionary=Certification.steering(ship,Certification.execution(record.candidate),int(record.get("index",0)),target,t.mountCache[id].mounts)
+	var control: Dictionary=Certification.steering(ship,Certification.execution(record.candidate),int(record.get("index",0)),target,Certification.primary_mounts(t.mountCache[id].mounts,record.candidate))
 	record.index=int(control.index)
 	var safe: Dictionary=Certification.safe_step(st,ship,control,t.budget)
 	if safe.get("blocked",false):

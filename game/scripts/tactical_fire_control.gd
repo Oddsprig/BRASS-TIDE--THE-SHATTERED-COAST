@@ -6,6 +6,15 @@ const Damage=preload("res://scripts/damage.gd")
 static func fixed(mount: Dictionary) -> bool:
 	return str(mount.kind) in ["rocket","torpedo"] and float(mount.arc)<PI*0.75
 
+static func shot_radius(mount: Dictionary) -> float:
+	return 5.0 if str(mount.kind)=="torpedo" else (3.0 if str(mount.kind)=="rocket" else 2.0)
+
+static func dispersion(mount: Dictionary) -> float:
+	return 0.025 if str(mount.kind)=="torpedo" else 0.045
+
+static func ally_clearance(radius: float,ally: Dictionary) -> float:
+	return radius+maxf(10.0,float(ally.spec.get("size",16)))+4.0
+
 static func intercept(ship: Dictionary,mount: Dictionary,target: Dictionary) -> Dictionary:
 	var origin: Vector2=Routes.point(ship)+Vector2(mount.x,mount.y).rotated(float(ship.angle))
 	var delta: Vector2=Routes.point(target)-origin
@@ -35,7 +44,7 @@ static func intercept(ship: Dictionary,mount: Dictionary,target: Dictionary) -> 
 	if (aim-origin).length()>float(mount.range):return {"ok":false,"reason":"Target is outside fitted range"}
 	var bearing: float=(aim-origin).angle()
 	if absf(angle_difference(float(ship.angle)+float(mount.angle),bearing))>float(mount.arc)*0.5+0.00001:return {"ok":false,"reason":"Aligning weapon"}
-	var radius: float=5.0 if mount.kind=="torpedo" else (3.0 if mount.kind=="rocket" else 2.0)
+	var radius: float=shot_radius(mount)
 	return {"ok":true,"reason":"Firing lane ready","aim":aim,"origin":origin,"muzzle":origin+Vector2.from_angle(bearing)*float(mount.muzzleDistance),"bearing":bearing,"time":time,"radius":radius}
 
 static func solution(st: Dictionary,ship: Dictionary,mount: Dictionary,target: Dictionary,budget: Dictionary,geometry: Dictionary,cells: Dictionary,check_stores: bool=true,ignore_projectile_cap: bool=false) -> Dictionary:
@@ -61,7 +70,7 @@ static func solution(st: Dictionary,ship: Dictionary,mount: Dictionary,target: D
 		var relative: Vector2=shot.muzzle-Routes.point(ally)
 		var travel: Vector2=(finish-shot.muzzle)-Vector2(ally.vx,ally.vy)*float(shot.time)
 		var t: float=clampf(-relative.dot(travel)/maxf(0.000001,travel.length_squared()),0.0,1.0)
-		if (relative+travel*t).length()<float(shot.radius)+maxf(10.0,float(ally.spec.get("size",16)))+4.0:return {"ok":false,"reason":"Ally in firing lane"}
+		if (relative+travel*t).length()<ally_clearance(float(shot.radius),ally):return {"ok":false,"reason":"Ally in firing lane"}
 	return shot
 
 static func pass_key(ship_id: String,mount_id: String,revision: int,pass_id: String) -> String:
@@ -74,8 +83,20 @@ static func gate(st: Dictionary,ship: Dictionary,mount: Dictionary,index: int,in
 	var plan: Dictionary=intent.get("fireGate",{}).get(mount_id,{})
 	var reason: String=str(plan.get("reason","Waiting for a firing opportunity"))
 	if plan.is_empty() or not plan.get("permit",false) or float(intent.get("validUntil",-1.0))<float(st.time):return {"ok":false,"reason":reason}
-	var window: Dictionary=t.predictions.get(str(intent.get("pathFingerprint","")),{}).get("certificate",{}).get("fireWindow",{})
-	if not mount_id in window.get("mountIds",[]) or float(st.time)<float(window.get("from",INF)) or float(st.time)>float(window.get("until",-INF)):return {"ok":false,"reason":"Waiting for a firing opportunity"}
+	var record: Dictionary=t.predictions.get(str(intent.get("pathFingerprint","")),{})
+	var candidate: Dictionary=record.get("candidate",{})
+	var window: Dictionary=record.get("certificate",{}).get("fireWindow",{})
+	if not mount_id in candidate.get("fireMountIds",[]) or not mount_id in window.get("mountIds",[]) or float(st.time)<float(window.get("from",INF)) or float(st.time)>float(window.get("until",-INF)):return {"ok":false,"reason":"Waiting for a firing opportunity"}
+	var req_targets: Dictionary=candidate.get("fireMountTargets",{}) if candidate.get("fireMountTargets") is Dictionary else {}
+	var expected_target: String=str(req_targets.get(mount_id,candidate.get("targetId","")))
+	if candidate.has("fireMountTargets") or window.has("mountTargets"):
+		var w_targets: Dictionary=window.get("mountTargets",{}) if window.get("mountTargets") is Dictionary else {}
+		if not w_targets.has(mount_id) or str(w_targets.get(mount_id,""))!=expected_target:return {"ok":false,"reason":"Waiting for a firing opportunity"}
+	var order: String=str(ship.get("order","engage"))
+	if order in ["move","withdraw","board"]:return {"ok":false,"reason":"Holding fire during maneuver"}
+	if order=="attack":
+		var ordered_id: String=str(ship.get("orderTarget",{}).get("shipId",""))
+		if (not ordered_id.is_empty() and expected_target!=ordered_id) or candidate.has("fireMountTargets"):return {"ok":false,"reason":"Aligning with ordered target"}
 	var choice: Dictionary=options.get("mounts",{}).get(mount_id,{})
 	if bool(choice.get("hold",false)):return {"ok":false,"reason":"Automatic fire held"}
 	if float(ship.ammo)-float(mount.ammoCost)<float(choice.get("reserve",0)):return {"ok":false,"reason":"Keeping working ammunition reserve"}
@@ -92,21 +113,50 @@ static func gate(st: Dictionary,ship: Dictionary,mount: Dictionary,index: int,in
 		if int(t.salvoSpent.get(key,0))>=mini(1,int(plan.get("shotLimit",0))):return {"ok":false,"reason":"Salvo spent; turning away"}
 	else:
 		if str(plan.get("leaseKind",""))!="continuous" or int(plan.get("shotLimit",0))<=0:return {"ok":false,"reason":"Automatic fire held"}
-	if str(plan.get("targetId",""))!=str(target.get("id","")):return {"ok":false,"reason":"Target unavailable"}
+	if str(plan.get("targetId",""))!=expected_target or expected_target!=str(target.get("id","")):return {"ok":false,"reason":"Target unavailable"}
 	return solution(st,ship,mount,target,budget,t.geometry,t.cells)
 
-static func manual_lane(st: Dictionary,ship: Dictionary,mount: Dictionary,muzzle: Vector2,bearing: float) -> bool:
-	# Direct aim is authoritative; crew/arc/terrain checks live in Battle._fire.
-	# Its complete real projectile travel must still keep allies out of the lane.
-	var life: float=float(mount.range)/float(mount.speed)
-	var travel: Vector2=(Vector2.from_angle(bearing)*float(mount.speed)+Vector2(ship.vx,ship.vy)*0.2)*life
-	for ally in st.get("ships",[]):
-		if ally.get("sunk",false) or ally.get("captureSecured",false) or ally.team!=ship.team or str(ally.id)==str(ship.id):continue
-		var relative: Vector2=muzzle-Routes.point(ally)
-		var delta: Vector2=travel-Vector2(ally.vx,ally.vy)*life
-		var at: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
-		if (relative+delta*at).length()<maxf(10.0,float(ally.spec.get("size",16)))+float(5 if mount.kind=="torpedo" else 3):return false
-	return true
+static func _hull_radius(ship: Dictionary) -> float:
+	return maxf(10.0,float(ship.spec.get("size",16)))
+
+static func _crossing_time(origin: Vector2,velocity: Vector2,other: Dictionary,life: float,reach: float) -> float:
+	# Closest approach of the scattered shot and one hull, both at the velocities
+	# observed now. Battle._projectiles uses this parameter, not circle entry, and
+	# removes the shot there when it falls inside boat radius + shot radius.
+	var relative: Vector2=origin-Routes.point(other)
+	var closing: Vector2=velocity-Vector2(float(other.vx),float(other.vy))
+	var speed2: float=closing.length_squared()
+	if speed2<=0.000001:return 0.0 if relative.length()<reach else INF
+	var time: float=clampf(-relative.dot(closing)/speed2,0.0,life)
+	if (relative+closing*time).length()<reach:return time
+	return INF
+
+static func actual_lane(st: Dictionary,ship: Dictionary,mount: Dictionary,muzzle: Vector2,velocity: Vector2,radius: float) -> Dictionary:
+	# One already-scattered velocity. Inherited shooter velocity is already inside
+	# velocity. Horizon is projectile life, clipped to the earliest hostile approach
+	# the live ray actually meets. A miss of every hostile keeps the full life.
+	# Land or an ally past that hit is not swept. Pending does not fire.
+	var t: Dictionary=st.get("tactical",{})
+	var geometry: Dictionary=t.get("geometry",{})
+	var cells: Dictionary=t.get("cells",{})
+	var budget: Dictionary=t.get("budget",{})
+	if not geometry.get("obstacles") is Array or budget.is_empty():return {"ok":false,"status":"pending","reason":"Checking projectile travel"}
+	var life: float=float(mount.range)/maxf(0.001,float(mount.speed))
+	var far: Vector2=muzzle+velocity*life
+	var extra: float=maxf(0.0,life-2.0)*float(cells.get("_maxSpeed",0.0))+90.0
+	var horizon: float=life
+	var allies: Array=[]
+	for other in Routes.neighbours(cells,muzzle,far,extra):
+		if str(other.id)==str(ship.id):continue
+		if not Routes.spend(budget):return {"ok":false,"status":"pending","reason":"Checking projectile travel"}
+		if other.team!=ship.team:horizon=minf(horizon,_crossing_time(muzzle,velocity,other,life,_hull_radius(other)+radius))
+		else:allies.append(other)
+	var finish: Vector2=muzzle+velocity*horizon
+	var clear: String=Routes.sweep(geometry,muzzle,finish,radius,budget)
+	if clear!="valid":return {"ok":false,"status":clear,"reason":"Checking projectile travel" if clear=="pending" else "Land blocks projectile travel"}
+	for ally in allies:
+		if _crossing_time(muzzle,velocity,ally,horizon,ally_clearance(radius,ally))<INF:return {"ok":false,"reason":"Ally in firing lane"}
+	return {"ok":true,"reason":"Firing lane ready"}
 
 static func emitted(st: Dictionary,ship: Dictionary,mount: Dictionary,intent: Dictionary,before: float,after: float) -> void:
 	if after<=before or not fixed(mount):return

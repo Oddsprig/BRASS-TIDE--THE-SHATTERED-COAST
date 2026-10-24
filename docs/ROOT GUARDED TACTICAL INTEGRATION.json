@@ -1,0 +1,136 @@
+{
+  "scope": "Reviewed exact guarded tactical sources integrated into working source only. No engine run or playable release.",
+  "parent": "5ebee9038cd691aa2cca685983bc780208ec5be1",
+  "productionBase": "1f8486303732c6566d545b7884d751d7b45923e9",
+  "testedGameInputSha256": "9c021eb65c49bdba044caa1e3661937ef1716232bac462533939aa6bf504ae82",
+  "sourceFreeze": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\SAME BEGIN GUARDED SOURCE FREEZE.json",
+  "independentRootEvidence": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\ROOT GUARDED SAME BEGIN VERIFIED.json",
+  "rawFilesChecked": 438,
+  "reportedFocusedResults": {
+    "savedInvalidation": "437/0 (verified, not rerun)",
+    "timingRuns": "4 x 369/0, all120 wholeBattle/RNG hashes exact",
+    "affectedSuites": 13,
+    "authority": "44/0",
+    "firstSeedMotion": "40/40",
+    "motionSeeds": [
+      30011
+    ]
+  },
+  "files": {
+    "game/scripts/battle.gd": {
+      "beforeSha256": "1851204228eabca9da52b44d88d19432f9a8cac35e3e076f39acdd4447f3f5bb",
+      "afterSha256": "726211c1c7cac225862cd732835749dd0af03f1380bafc9bcecdc05444901024"
+    },
+    "game/scripts/combat_boarding.gd": {
+      "beforeSha256": "1b49027ef789498252ead927b9b2b54f64bd65c445c937b9acdb8a5a7a4a1fdf",
+      "afterSha256": "486347301f14122dd62063349f34c4311c714997522269798c3c8ac9731478ec"
+    },
+    "game/scripts/tactical_certification.gd": {
+      "beforeSha256": "70ab8315aab1daf0c205c6f2e5766f2cffffa05a7b950e1a04caaa146427beb0",
+      "afterSha256": "88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8"
+    },
+    "game/scripts/tactical_fire_control.gd": {
+      "beforeSha256": "c2b24ad1b0962b026c6e45a8e3e055c077c1402f3d36808734e237241be39b02",
+      "afterSha256": "b256bfa558acc0ccc6d0fc30196cb384972a9c6aaf1b4799dc806c591cfdf32d"
+    },
+    "game/scripts/tactical_planner.gd": {
+      "beforeSha256": "ec8bba237422b5cc0007c5cb61090cf8c0e7fb2a8bdd032fbade268dc4ef4420",
+      "afterSha256": "ea46a08859184fe719217eb6d280a4a303882e30f4a41b076ef9fa59e599c7b0"
+    },
+    "game/scripts/tactical_role_plans.gd": {
+      "beforeSha256": "00d1b6641effaf73900d8bce0e1f009566ee7f10144c49f1e0f146010cb6eccb",
+      "afterSha256": "55f7c857c37aca13c420c289e5ce9b91a96dfe1e31a46bbb325c548e578751c3"
+    },
+    "game/scripts/tactical_runtime.gd": {
+      "beforeSha256": "a3c22d7ecb48447ae4335af12dd71fbae7733425a8e7ea7ddde4f6cd003cd3f4",
+      "afterSha256": "5722a8ab70bca74a61d71306888c4dec40d1e0dc01bf95ce99d4acfb3a7de0a2"
+    },
+    "game/scripts/tactical_stations.gd": {
+      "beforeSha256": "c455b46759701c53e272cd294cd7b102bebe816afb42a398a4c35090cd97bc7d",
+      "afterSha256": "24ea330f463dbfe940730e99685665708abc15853f30a017603d75ba8991700f"
+    }
+  },
+  "acceptedEquipmentAndControlsPreserved": true,
+  "remaining": [
+    "CPU gate",
+    "heldout seeds",
+    "full70 voyage/presentation",
+    "combined accepted Damage/fitting/lifecycle regression",
+    "Windows release"
+  ],
+  "rootRanEngine": false,
+  "fixtureManifestSha256": "2bf2e328f9590a6393e46360b692b3bc213f58585aecb9a137cba0e3b698f4d7",
+  "fixtureFiles": {
+    "game/tests/tactical_fixture.gd": {
+      "previousGitBlobSha256": null,
+      "afterSha256": "60cba43df8f405ea90a25c733a215a22883934633c2b8963ad3034a0f57407eb",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\tactical_fixture.gd"
+    },
+    "game/tests/tactical_fixture_r4.gd": {
+      "previousGitBlobSha256": null,
+      "afterSha256": "f5ab64ce369f9fdbf72e8af58d9b76c5ab13c0ecd9ac8d560342c190bae7232a",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\tactical_fixture_r4.gd"
+    },
+    "game/tests/tactical_public_battle.gd": {
+      "previousGitBlobSha256": null,
+      "afterSha256": "880463459978ea40fd17ed4a3627eb2f3ed3fda351b51ed60d6b067f8e410730",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\tactical_public_battle.gd"
+    },
+    "game/tests/test_combat_events.gd": {
+      "previousGitBlobSha256": "3e94fd905a02fe24297c516d3de6feeb24a5a5e9fd07fb82c51aaedc6ffa2e03",
+      "afterSha256": "0e6b5415bba012934ff61640885701ef88c2f619698dac5e264b1c74c20d1d4d",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\test_combat_events.gd"
+    },
+    "game/tests/test_refit.gd": {
+      "previousGitBlobSha256": "332c0877d30d1ca4b7b14718a7bed7d20804534f9197f26734ddcfbb9ba68fe2",
+      "afterSha256": "1daa24af98c560e8137fb1c3cc8538ad64de4d5cad822d4e8a5fbc89a204cf91",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\test_refit.gd"
+    },
+    "game/tests/test_tactical_ai.gd": {
+      "previousGitBlobSha256": null,
+      "afterSha256": "e2296c2dd0af14c49502e05244f39e8bf65d5ebf5bb0ee32d5f5eb2f8b7a5eea",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\test_tactical_ai.gd"
+    },
+    "game/tests/test_tactical_motion_r4.gd": {
+      "previousGitBlobSha256": null,
+      "afterSha256": "aaa1861b71cef8d34026694f745b829dd8f9bddda8d5a786c9c8c8ec775da399",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\test_tactical_motion_r4.gd"
+    },
+    "game/tests/test_tactical_planner.gd": {
+      "previousGitBlobSha256": "42f51edabac2e413d8b1d278dbd8195f61f986605ee5deed9f62cf3862f69116",
+      "afterSha256": "2850129b99ef9913e655cacc720c2f15bbdbaaf6ac0f4a1a076c51506ef1ef7b",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\test_tactical_planner.gd"
+    },
+    "game/tests/test_tactics.gd": {
+      "previousGitBlobSha256": "da2fe2662682a6366c0c1e50cc1f20d38c4daee8ba0139895ca4f534d96d7835",
+      "afterSha256": "203ab192ab5e9a4622f09e74adbe469376017087638f86d31547e6ac22d79ece",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\game\\tests\\test_tactics.gd"
+    },
+    "tools/tactical_scenarios.r4.json": {
+      "previousGitBlobSha256": null,
+      "afterSha256": "23759b2586e3106161bb6977d59991d10d726bd181c0f4fb0e77e50e19265038",
+      "testedPath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\same-begin-guarded-inputs\\candidate\\tools\\tactical_scenarios.r4.json"
+    }
+  },
+  "runtimeUidSidecars": {
+    "game/scripts/tactical_certification.gd.uid": "d4f7c61f62bf16b8c6d5d61fd4c3aee106f8d785d6bd72aaec7d2290f8df5f01",
+    "game/scripts/tactical_fire_control.gd.uid": "391be9c010211a91d8734dc5797a69fbfd8e1ef8158b55ef46fb0d203cf31045",
+    "game/scripts/tactical_routes.gd.uid": "6c130e0c18c220ec3bb1a5920e8f30dd9bf2f0e8ca67f574e63c50548b7e075a",
+    "game/scripts/tactical_runtime.gd.uid": "7125494ada7fc77d2da962b6520f5c8a45787eaa51d433186ce42cf8b818551a"
+  },
+  "unchangedDependenciesVerified": [
+    "tools/tactical_scenarios.json",
+    "game/tests/test_tactical_dt.gd",
+    "game/tests/test_tactical_memory.gd",
+    "game/tests/test_tactical_orders.gd",
+    "game/tests/test_tactical_ui.gd",
+    "game/tests/test_battle.gd",
+    "game/tests/test_commander.gd",
+    "game/tests/test_boarding.gd",
+    "game/tests/test_runtime.gd"
+  ],
+  "additionalMissingDependencyRestored": {
+    "tools/tactical_scenarios.json": "b6b63aa25a17383d7f1baeabb0da18a4c1ad552af7dde55285216087140ccb5e"
+  },
+  "firstCopyStoppedBeforeReceiptOnMissingDependency": "tools/tactical_scenarios.json; exact copied files retained and reverified; no engine run"
+}

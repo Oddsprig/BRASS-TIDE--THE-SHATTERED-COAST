@@ -1,7 +1,7 @@
 ROOT CPU CHECKPOINT - 24 OCTOBER2026
 This is working-source evidence, not a new playable version or performance pass.
-Frozen tactical1f848630 input6d63 remains separate from main's conditional
-Damage/fitting components. Main has not promoted the tactical experiment.
+Guarded tactical source over1f848630 is now integrated with main's conditional
+Damage/fitting components. Combined canonical/native performance remains open.
 
 Original70 source coverage finished67pass/3nonpass: voyage and autovoyage hit
 the60s owned-child bound; presentation used private_fire before geometry and
@@ -30,16 +30,19 @@ updates; four short ABBA runs369/0 each match all120states/finalbinary. Observed
 mean45.624->41.232ms,9.63% reduction; individualpairs16.09%/3.81% show variation.
 That is not sustained capacity acceptance or a renderedFPS measurement.
 A NEW guarded pack preserves _view_ok BEFORE planning; native437/0 includes
-malformedtime/dt/revision and all priorcases. Final guarded timing/focused
-coverage and further measured optimization are still pending at this checkpoint.
+malformedtime/dt/revision and all priorcases. Final guarded four369/0 timing
+runs preserve120wholeBattle/RNG states; mean47.544->42.257ms,11.12% in noisy,
+interrupted/contended short trials. Firstseed40/40,13affected and authority44/0
+pass. Sustained CPU targets and further measured optimization remain open.
 
 Bridge recovered official APIs at0806UTC; three existing projects resumed.
 Sol stream later disconnected with socket10013 after saving437/0. Same exact
 project/model resumed; no surviving engine/driver found, no kills. No provider
 substitution, newhelper, network/firewall change or owner input. Components stay
 in isolated queues: Recoveryf7, Harbor433, global597; NPC4624correction active.
-Grok597 source/fixture hashes independently verified but UNRUN; now lifecycle
-design only. Captures/parts must keep exactUID/condition and actual money flows.
+Grok implements lifecycle constructors/saves; Argon integrates equipment UI.
+Sol has new isolated Recovery319/0 and global629/0 corrections; root review
+and combined native integration remain pending. Keep exactUIDs and money flows.
 
 No full031 live integration, combined canonical performance, Windows release,
 visual/listening/Starsector parity or remote upload is claimed. Old portable030

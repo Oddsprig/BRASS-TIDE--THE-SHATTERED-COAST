@@ -3,7 +3,11 @@ extends RefCounted
 const Routes=preload("res://scripts/tactical_routes.gd")
 const Fire=preload("res://scripts/tactical_fire_control.gd")
 const Damage=preload("res://scripts/damage.gd")
+const Roles=preload("res://scripts/tactical_role_plans.gd")
 const STEP: float=1.0/30.0
+# Routes.occupied adds the other hull's radius+3. Match the full corridor's
+# seven-unit allied margin in actual curved prefixes and the final live step.
+const HULL_CLEARANCE_MARGIN: float=4.0
 
 static func pose(ship: Dictionary) -> Dictionary:
 	return {"x":float(ship.x),"y":float(ship.y),"vx":float(ship.vx),"vy":float(ship.vy),"angle":float(ship.angle)}
@@ -64,7 +68,31 @@ static func steering(ship: Dictionary,points: Array,index: int,target: Dictionar
 			heading=bearing-float(mount.angle) if float(mount.arc)<TAU-0.01 else bearing
 	return {"angle":heading,"throttle":throttle,"index":at}
 
-static func candidate_valid(candidate: Dictionary,view: Dictionary,ship: Dictionary) -> bool:
+static func mount_target(candidate: Dictionary,mount_id: String) -> String:
+	var map: Dictionary=candidate.get("fireMountTargets",{}) if candidate.get("fireMountTargets") is Dictionary else {}
+	if map.has(mount_id):return str(map[mount_id])
+	return str(candidate.get("targetId",""))
+
+static func primary_mounts(mounts: Array,candidate: Dictionary) -> Array:
+	if not candidate.has("fireMountTargets") or not candidate.get("fireMountTargets") is Dictionary:
+		return mounts
+	var fire_ids: Array=candidate.get("fireMountIds",[]) if candidate.get("fireMountIds") is Array else []
+	var primary_id: String=str(candidate.get("targetId",""))
+	var filtered: Array=[]
+	for mount in mounts:
+		var mid: String=str(mount.id)
+		if (fire_ids.is_empty() or mid in fire_ids) and mount_target(candidate,mid)==primary_id:
+			filtered.append(mount)
+	return filtered if not filtered.is_empty() else mounts
+
+static func detailed_targets(view: Dictionary,ship: Dictionary,previous: Dictionary={}) -> Array:
+	var context: Dictionary=Roles.ships_by_id(view)
+	var protected: Dictionary=Roles.protected_ally(view,ship,previous,context)
+	var ids: Array=[]
+	for entry in Roles.shortlist(view,ship,context,protected):ids.append(str(entry.id))
+	return ids
+
+static func candidate_valid(candidate: Dictionary,view: Dictionary,ship: Dictionary,membership: Array=[]) -> bool:
 	for field in ["candidateId","shipId","targetId","leaderId","role"]:
 		if not candidate.get(field,"") is String or str(candidate.get(field,"")).length()>128:return false
 	if str(candidate.get("candidateId","")).is_empty() or str(candidate.get("shipId",""))!=str(ship.id) or not str(ship.id) in view.dueIds:return false
@@ -75,22 +103,46 @@ static func candidate_valid(candidate: Dictionary,view: Dictionary,ship: Diction
 		for p in candidate[leg]:
 			if not p is Vector2 or not p.is_finite():return false
 		total+=candidate[leg].size()
-	if total>24 or not candidate.get("fireMountIds",[]) is Array:return false
+	if total>24 or not candidate.get("fireMountIds",[]) is Array or candidate.fireMountIds.size()>16:return false
 	var ids: Dictionary={}
 	for mount in ship.mounts:ids[str(mount.id)]=true
+	var fire_set: Dictionary={}
 	for id in candidate.get("fireMountIds",[]):
-		if not id is String or not ids.has(id):return false
+		if not id is String or not ids.has(id) or fire_set.has(id):return false
+		fire_set[id]=true
+	var hostiles: Dictionary={}
+	for raw in view.get("ships",[]):
+		if raw is Dictionary and str(raw.get("team",""))!=str(ship.get("team","")) and not raw.get("sunk",false) and not raw.get("captureSecured",false):
+			hostiles[str(raw.get("id",""))]=true
+	# Runtime independently builds this position-only set once per due hull,
+	# before any candidate can spend route, rollout or ballistic work.
+	var detailed: Array=membership if not membership.is_empty() else detailed_targets(view,ship)
+	if detailed.size()>16:return false
+	if not candidate.fireMountIds.is_empty() and (not hostiles.has(str(candidate.get("targetId",""))) or not str(candidate.targetId) in detailed):
+		return false
+	if candidate.has("fireMountTargets"):
+		if not candidate.get("fireMountTargets") is Dictionary:return false
+		var map: Dictionary=candidate.fireMountTargets
+		if map.is_empty() or map.size()>candidate.fireMountIds.size() or map.size()>16 or candidate.fireMountIds.is_empty() or str(candidate.get("targetId","")).is_empty():
+			return false
+		var distinct: Dictionary={str(candidate.get("targetId","")):true}
+		for mount_id in map:
+			if not mount_id is String or mount_id.length()>128 or not fire_set.has(mount_id):return false
+			var tid=map[mount_id]
+			if not tid is String or tid.is_empty() or tid.length()>128 or not hostiles.has(tid) or not tid in detailed:return false
+			distinct[tid]=true
+		if distinct.size()>4:return false
 	return true
 
 static func base_certificate(view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String) -> Dictionary:
-	return {"status":"pending","reachable":false,"exitReachable":false,"eta":0.0,"fireWindow":{"from":float(view.time),"until":float(view.time),"mountIds":[]},"risk":1.0,"checkedAt":float(view.time),"validUntil":float(view.time),"snapshotRevision":int(view.snapshotRevision),"orderRevision":int(ship.get("orderRevision",0)),"pathFingerprint":fingerprint,"terrainRevision":view.terrainRevision,"geometryKey":JSON.stringify([view.terrainRevision,maxf(10.0,float(ship.spec.get("size",16)))]).sha256_text(),"checkedPose":pose(ship),"dynamicsKey":dynamics_key(ship),"physicalHorizonEnd":float(view.time),"rolloutSamples":0,"scope":"complete-geometry+prefix-physical","reason":"Checking a safe route"}
+	return {"status":"pending","reachable":false,"exitReachable":false,"eta":0.0,"fireWindow":{"from":float(view.time),"until":float(view.time),"mountIds":[],"mountTargets":{}},"risk":1.0,"checkedAt":float(view.time),"validUntil":float(view.time),"snapshotRevision":int(view.snapshotRevision),"orderRevision":int(ship.get("orderRevision",0)),"pathFingerprint":fingerprint,"terrainRevision":view.terrainRevision,"geometryKey":JSON.stringify([view.terrainRevision,maxf(10.0,float(ship.spec.get("size",16)))]).sha256_text(),"checkedPose":pose(ship),"dynamicsKey":dynamics_key(ship),"physicalHorizonEnd":float(view.time),"rolloutSamples":0,"scope":"complete-geometry+prefix-physical","reason":"Checking a safe route"}
 
 static func corridor(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary) -> Dictionary:
 	var points: Array=paths(candidate)
 	var previous: Vector2=Routes.point(ship)
 	var elapsed: float=0.0
 	var speed: float=maxf(1.0,float(ship.spec.get("speed",90))*float(ship.status.speedFactor)*(1.0 if float(ship.fuel)>0.0 else 0.2)*0.8)
-	var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+4.0
+	var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
 	for goal in points:
 		var result: String=Routes.sweep(st.tactical.geometry,previous,goal,radius,budget)
 		if result!="valid":return {"status":result,"eta":elapsed,"reason":"Checking a safe route" if result=="pending" else "Land blocks this route"}
@@ -100,8 +152,10 @@ static func corridor(st: Dictionary,ship: Dictionary,candidate: Dictionary,budge
 		elapsed=until;previous=goal
 	return {"status":"valid","eta":elapsed,"reason":"Route clear"}
 
-static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary) -> Dictionary:
+static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array=[]) -> Dictionary:
 	var cert: Dictionary=base_certificate(view,ship,candidate,fingerprint)
+	if not candidate_valid(candidate,view,ship,membership):
+		cert.status="blocked";cert.reason="Weapon assignment outside bounded observed targets";return cert
 	var full: Dictionary=corridor(st,ship,candidate,budget)
 	cert.eta=full.eta
 	if full.status!="valid":cert.status=full.status;cert.reason=full.reason;return cert
@@ -126,11 +180,12 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 	var predicted: Array=[pose(copy)]
 	var capabilities: Array=[capability(copy)]
 	var target: Dictionary=st.tactical.observed.get(str(candidate.get("targetId","")),{})
+	var primary: Array=primary_mounts(ship.mounts,candidate)
 	var chunk: Array=[Routes.point(copy)]
 	var start_time: float=0.0
 	for step in range(60):
 		for _part in range(parts):
-			var control: Dictionary=steering(copy,points,index,target,ship.mounts)
+			var control: Dictionary=steering(copy,points,index,target,primary)
 			index=int(control.index)
 			var next: Dictionary=motion(copy,sub_dt,float(control.angle),float(control.throttle))
 			copy.merge(next,true)
@@ -147,7 +202,7 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 		if (step+1)%10==0:
 			var a: Vector2=chunk[0]
 			var b: Vector2=chunk[-1]
-			var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+2.0
+			var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
 			var deviation: float=0.0
 			for p in chunk:deviation=maxf(deviation,Routes.distance(p,a,b))
 			radius+=deviation
@@ -158,8 +213,10 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 	# Firing access at the proposed station is geometric/observed prediction;
 	# current live fire gates still require a fresh physical intercept every tick.
 	var firing: Array=[]
+	var certified_targets: Dictionary={}
 	var arrival: float=0.0
 	var current_window: bool=false
+	var station_window: bool=false
 	# Route checks carry pending provenance from the active planning limit; a
 	# failed budget debit is not evidence that a firing lane is obstructed.
 	var fire_pending: bool=false
@@ -169,22 +226,31 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 		arrival=Routes.point(ship).distance_to(station)/maxf(1.0,float(ship.spec.get("speed",90))*float(ship.status.speedFactor))
 		var at_station: Dictionary=ship.duplicate(true)
 		at_station.x=station.x;at_station.y=station.y
+		if Routes.point(ship).distance_to(station)<14.0:
+			at_station.angle=float(predicted[-1].angle)
+		else:
+			at_station.angle=wrapf(float(steering(at_station,[],0,target,primary).angle),-PI,PI)
 		for mount in ship.mounts:
-			if not str(mount.id) in candidate.fireMountIds:continue
-			var now_shot: Dictionary=Fire.solution(st,ship,mount,target,budget,st.tactical.geometry,st.tactical.cells,true,true)
+			var mount_id: String=str(mount.id)
+			if not mount_id in candidate.fireMountIds:continue
+			var mount_target_id: String=mount_target(candidate,mount_id)
+			var mount_target_ship: Dictionary=st.tactical.observed.get(mount_target_id,{})
+			var now_shot: Dictionary=Fire.solution(st,ship,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true)
 			if now_shot.ok:current_window=true
 			elif str(now_shot.get("status",""))=="pending":fire_pending=true
-			at_station.angle=(Routes.point(target)-station).angle()-float(mount.angle)
-			var shot: Dictionary=Fire.solution(st,at_station,mount,target,budget,st.tactical.geometry,st.tactical.cells,true,true)
-			if shot.ok:firing.append(str(mount.id))
+			var shot: Dictionary=Fire.solution(st,at_station,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true)
+			if shot.ok:station_window=true
 			elif str(shot.get("status",""))=="pending":fire_pending=true
+			if now_shot.ok or shot.ok:
+				firing.append(mount_id)
+				certified_targets[mount_id]=mount_target_id
 		if firing.is_empty():
 			cert.status="pending" if fire_pending else "blocked"
 			cert.reason="Checking firing lanes" if cert.status=="pending" else "No usable firing lane at this station"
 			return cert
 	cert.status="valid";cert.reachable=true;cert.exitReachable=true
 	cert.validUntil=float(view.time)+0.2;cert.physicalHorizonEnd=float(view.time)+2.0
-	cert.fireWindow={"from":float(view.time)+arrival,"until":float(view.time)+arrival+1.2 if not firing.is_empty() else float(view.time)+arrival,"mountIds":firing}
+	cert.fireWindow={"from":float(view.time)+arrival,"until":float(view.time)+arrival+(1.2 if station_window else 0.0),"mountIds":firing,"mountTargets":certified_targets}
 	cert.risk=clampf(float(ship.water)/maxf(1.0,float(ship.capacity)),0.0,1.0)
 	cert.reason="Route and immediate maneuver checked"
 	if current_window:cert.fireWindow["from"]=float(view.time);cert.fireWindow.until=maxf(float(view.time)+0.2,float(cert.fireWindow.until))
@@ -218,7 +284,7 @@ static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offs
 
 static func safe_step(st: Dictionary,ship: Dictionary,control: Dictionary,budget: Dictionary) -> Dictionary:
 	var next: Dictionary=motion(ship,float(st.tactical.dt),float(control.angle),float(control.throttle))
-	var r: float=maxf(10.0,float(ship.spec.get("size",16)))+2.0
+	var r: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
 	var clear: String=Routes.sweep(st.tactical.geometry,Routes.point(ship),Routes.point(next),r,budget)
 	if clear=="valid":clear=Routes.occupied(st.tactical.cells,ship,Routes.point(ship),Routes.point(next),r,0.0,float(st.tactical.dt),budget)
 	if clear=="valid":return control

@@ -291,13 +291,22 @@ func test_commitments_holds_and_formations() -> void:
 	var escorted: Dictionary = view([ship("a"), ship("ally", "player", Vector2(650, 850)), ship("enemy", "enemy", Vector2(1050, 850))])
 	get_ship(escorted, "a").order = "escort"
 	get_ship(escorted, "a").orderTarget = {"shipId": "ally"}
-	escorted.options.byId.a = {"formation": "line"}
-	var line: Array = P.propose(escorted, {})
-	escorted.options.byId.a.formation = "column"
-	var column: Array = P.propose(escorted, {})
-	escorted.options.byId.a.formation = "screen"
-	var screen: Array = P.propose(escorted, {})
+	# Preserve distinct formation stations in clear transit, outside the
+	# hostile's real weapon/protection zone. The original nearby case remains.
+	var transit: Dictionary = escorted.duplicate(true)
+	get_ship(transit, "enemy").x = 2200.0
+	transit.options.byId.a = {"formation": "line"}
+	var line: Array = P.propose(transit, {})
+	transit.options.byId.a.formation = "column"
+	var column: Array = P.propose(transit, {})
+	transit.options.byId.a.formation = "screen"
+	var screen: Array = P.propose(transit, {})
 	check(line[0]["pass"][0] != column[0]["pass"][0] and column[0]["pass"][0] != screen[0]["pass"][0], "line, column and screen request distinct physical stations")
+	for formation: String in ["line", "column", "screen"]:
+		escorted.options.byId.a = {"formation": formation}
+		var requests: Array = P.propose(escorted, {})
+		var offset: Vector2 = requests[0]["pass"][0] - Vector2(650, 850)
+		check(requests.size() <= 8 and str(requests[0].targetId) == "enemy" and offset.x > 0.0 and offset.length() <= 600.0, "original nearby real hostile requests threat-facing interception inside the leash for " + formation)
 	var screened: Dictionary = view()
 	var denied: Array = offers(screened)
 	for offer: Dictionary in denied:
@@ -349,7 +358,11 @@ func test_time_window_and_detailed_shortlist() -> void:
 	own.order = "attack"
 	own.orderTarget = {"shipId": "ally-threat"}
 	var ordered: Array = R.shortlist(crowded, own, context, protected)
-	check(ordered.size() == 1 and ordered[0].id == "ally-threat", "explicit target survives the all-context cheap shortlist")
+	var forced: Dictionary = R.decide(crowded, own, {}, context)
+	var ordered_ids: Dictionary = {}
+	for entry: Dictionary in ordered:
+		ordered_ids[str(entry.id)] = true
+	check(ordered.size() == 16 and ordered_ids.size() == 16 and ordered[0].id == "ally-threat" and forced.detailedIds.size() == 16 and forced.state.targetId == "ally-threat" and forced.targets == ["ally-threat"], "explicit target stays mandatory and strict without erasing the bounded nearby danger shortlist")
 
 func _initialize() -> void:
 	test_detachment_and_authorship()

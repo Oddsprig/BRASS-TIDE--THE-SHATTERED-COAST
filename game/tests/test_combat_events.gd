@@ -6,6 +6,7 @@ const B = preload("res://scripts/battle.gd")
 const D = preload("res://scripts/damage.gd")
 const E = preload("res://scripts/combat_events.gd")
 const R = preload("res://scripts/refit.gd")
+const F = preload("res://tests/tactical_fixture.gd")
 
 const WOOD_SPEC = {
 	"id": "tin_skiff", "name": "Tinwake Skiff", "faction": "compact", "role": "skiff", "tier": 1,
@@ -75,8 +76,7 @@ func test_pop_drain_and_determinism() -> void:
 	for s in [a.ships[1], b.ships[1]]:
 		s.x = 760.0
 		s.y = 850.0
-	B.update(a, 1.0 / 30.0)
-	B.update(b, 1.0 / 30.0)
+	check(F.opening(a).ok and F.opening(b).ok, "bounded opening retains exact event debit, mount timestamps and cooldowns")
 	var batch_a1: Array = B.pop_events(a)
 	var batch_b1: Array = B.pop_events(b)
 	check(not batch_a1.is_empty() and batch_a1 == batch_b1, "identical seeds emit identical combat events")
@@ -108,7 +108,8 @@ func test_both_teams_and_family_coverage() -> void:
 	e_ship.x = 920.0
 	e_ship.y = 850.0
 	e_ship.angle = PI
-	B.update(st, 1.0 / 30.0)
+	var opening: Dictionary = F.opening(st)
+	check(opening.ok, "both opening salvos occur within <=0.2s with exact actual event debit and individual timers")
 	var events: Array = B.pop_events(st)
 	check(events.size() == 8, "both 4-mount boats emit fire events on opening salvo")
 	var player_families: Dictionary = {}
@@ -130,9 +131,9 @@ func test_both_teams_and_family_coverage() -> void:
 		check(player_families.has(fam), "player emitted fire event for family " + fam)
 		check(enemy_families.has(fam), "enemy emitted fire event for family " + fam)
 	check(player_variants.has("light") and enemy_variants.has("heavy"), "light and heavy weapon variants distinguished")
-	check(st.effects.size() == 8, "each mount shot creates a structured muzzle/launch effect")
+	check(opening.effects.size() == 8, "each actual mount shot creates a structured muzzle/launch effect on its emission frame")
 	var effect_families: Dictionary = {}
-	for ef in st.effects:
+	for ef in opening.effects:
 		check_effect_schema(ef, "salvo_effect")
 		effect_families[ef.family] = true
 		if ef.family == "cannon":
@@ -155,15 +156,15 @@ func test_mount_shot_timestamps() -> void:
 	e_ship.y = 850.0
 	for m_id in ["m_gun", "m_cannon", "m_rocket", "m_torpedo"]:
 		check(B.mount_shot_time(p_ship, m_id) < 0.0 and not is_finite(B.mount_shot_age(p_ship, m_id)), "unfired mount has negative timestamp and infinite age: " + m_id)
-	B.update(st, 1.0 / 30.0)
+	check(F.opening(st).ok, "timestamp opening observes actual emitted events within <=0.2s")
 	B.pop_events(st)
-	var first_time: float = st.time
+	var first_time: float = B.mount_shot_time(p_ship,"m_gun")
 	for idx in range(4):
 		var m_id: String = ["m_gun", "m_cannon", "m_rocket", "m_torpedo"][idx]
 		check(is_equal_approx(B.mount_shot_time(p_ship, m_id), first_time), "mount timestamp recorded by ID for " + m_id)
 		check(is_equal_approx(B.mount_shot_time(p_ship, idx), first_time), "mount timestamp recorded by index for " + m_id)
-		check(is_equal_approx(B.mount_shot_age(p_ship, m_id), 0.0), "mount shot age is zero on firing frame for " + m_id)
-	for step in range(9):
+		check(is_equal_approx(B.mount_shot_age(p_ship, m_id),float(st.time)-first_time), "mount shot age equals real elapsed time since its emitted event for " + m_id)
+	for step in range(4): # Retain the original total ten-frame repeat deadline.
 		B.update(st, 1.0 / 30.0)
 	B.pop_events(st)
 	check(B.mount_shot_time(p_ship, "m_gun") > first_time, "rapid gun mount updates its shot timestamp on second shot")
