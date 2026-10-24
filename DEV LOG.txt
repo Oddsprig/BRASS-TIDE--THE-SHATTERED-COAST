@@ -1,3 +1,14 @@
+2026-10-24 | Resumed source checkpoints ba6e5a9 and c77520e
+Reviewed and integrated retained tactical memory, exact native60Hz predictions
+and current/mixed fleet tactics UI. Focused proof: planner350, memory31, paired
+timing34, runtime124, orders77, Main/UI127 and workshopUI69 on recorded inputs.
+Independent combined planner/physical candidates remain under review:11 targeted
+suites completed,7 pass/4 fail; sustained fire and other assertions still open.
+All failures retained. Full original70, actual AI/motion/capacity and clean-tag
+Windows delivery remain separate pending gates. Detached .031 equipment core
+is not yet integrated. Updated in-game working notes; historical .030 package
+and tags remain immutable. No desktop input, owner save edit or remote upload.
+
 BRASS TIDE - RESUMED DEVELOPMENT / TESTING
 23 October 2026. Owner restarted Bridge and restored testing and development.
 Current artifact v0.0307492fb7 remains preserved as the originally UNTESTED build.

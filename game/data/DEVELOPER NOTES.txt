@@ -1,3 +1,41 @@
+BRASS TIDE — WORKING SOURCE NOTES
+24 October 2026 | Resumed tactical fixes toward v0.031
+
+Development and background testing are active again at the owner's request.
+The preserved portable v0.030 package remains its original UNTESTED build. No
+new playable version, export or complete AI/performance acceptance is claimed.
+
+Reviewed components now in source:
+- Tactical role memory persists between real updates; bounded native textual
+  dictionary keys are accepted. Planner350 and memory31 checks pass.
+- Physical prediction follows both 30 Hz fixtures and normal 60 Hz updates;
+  paired timing34 and existing runtime124 checks pass on their recorded inputs.
+- Selected tactics display current and mixed choices; reopening the sheet does
+  not clear ammunition reserves or flatten differing roles. Real Main/UI127,
+  orders77 and existing workshop UI69 checks pass on their recorded inputs.
+
+The combined movement and firing candidates remain under independent review.
+Background checks confirm improvements to friendly-traffic passage, stationary
+fixed-gun aiming and mixed batteries; sustained gun passes and remaining old
+assertions are still being resolved. The complete original70 batch, larger fleet
+capacity, Windows release, visual motion and listening have separate gates.
+
+V0.031 damageable equipment is a detached prototype under development. Its real
+combat, crew-repair, paid fitting, harbor, salvage/capture and save adapters are
+not yet integrated. Later .032-.038 work follows the approved version map.
+
+24 original hulls; 300 battle deployment points per side; finite coins, crew,
+materials and working stores; 100 coins per sailor-day. Tests remain silent,
+headless and isolated, with no desktop input or focus. Original owner files,
+music and earlier releases stay preserved. Team: Sol6.1 Max, Grok4.7 and Argon
+High through Bridge; no nested helpers or model/provider fallback.
+
+Evidence: docs/ROOT TACTICAL REVIEW resumed v0.030.txt and the QA RESUME records
+beside the source. These working notes supersede the historical stop directive
+for new work only. Version numbers advance by .001 for each actual new build.
+
+HISTORICAL V0.030 BUILD-ONLY RECORD — ORIGINAL TEXT RETAINED BELOW
+
 BRASS TIDE — DEVELOPMENT NOTES
 v0.030 — Tactical fleet AI and command controls
 UNTESTED. Tests deferred AT OWNER REQUEST. Current Windows BUILD ONLY, then STOP.
