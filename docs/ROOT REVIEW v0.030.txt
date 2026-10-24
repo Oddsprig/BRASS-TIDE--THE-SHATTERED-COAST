@@ -1,0 +1,49 @@
+BRASS TIDE v0.030 - SOURCE REVIEW / UNTESTED BUILD
+Owner override: finish the current build and STOP. NO TESTS. 23 October 2026.
+
+This is a source/build-only delivery. It is not accepted native AI quality,
+performance, gameplay, UI, save compatibility or parity with another game.
+All subsequent versions (.031-.038), design work and automatic test queues stop.
+No test, benchmark, smoke, game launch or foreground input is authorized now.
+Only compiler/asset import/export and ordinary packaging finish the current build.
+
+Source review completed before and at the override:
+- Detached tactical planner, role plans and station selection read in full.
+- Physical movement/certification, routing, fire control and tactical runtime
+  read substantially in full; all changed Battle/Main/Chart/Boarding/Interface
+  integration and the tactical UI reviewed. Manual authority, finite stores,
+  actual arcs, per-shot gates, bounded work and snapshot ownership reviewed.
+- Changes to salvo lifetime, manual helm/fire, intercept math, fair certificate
+  scheduling and one shared damage/cooldown prepass were reviewed in source.
+  These are source conclusions, not measured battle behavior.
+- Root previously raised a stale WIP budget-threshold concern. Frozen B5c6a91
+  already used exhaustion deltas correctly. The final two-file status follow-up
+  is clarity of pending/blocked provenance, NOT a fix to a frozen budget defect.
+  Initial and follow-up raw helper reports remain separate and unchanged.
+
+Known earlier result (before the owner stopped testing):
+The planner component run recorded 350 checks and ONE FAILURE:
+  screen prioritizes a real incoming threat to its named vulnerable ally.
+No all-pass or v0.030 runtime claim is made. The log/receipt are preserved.
+A's narrow final source correction promotes the chosen screen protection target
+before fallback targets in BOTH station proposal and accepted-offer resolution.
+The root read that complete two-file diff. Risk/certificate/clearance/conflict
+rejection remains active and fallback targets remain available.
+Final tactical_planner.gd SHA256:
+ec8bba237422b5cc0007c5cb61090cf8c0e7fb2a8bdd032fbade268dc4ef4420
+Final tactical_stations.gd SHA256:
+c455b46759701c53e272cd294cd7b102bebe816afb42a398a4c35090cd97bc7d
+THIS CORRECTION HAS NOT BEEN RERUN. Final package remains UNTESTED.
+
+No .030 motion, fleet behavior, controls, regressions, capacity, timings,
+Windows startup, audio, save migration or human visual/feel acceptance follows
+from this build. Predecessor .029 proofs stay historical and separate.
+The previous verified .029 delivery is preserved as a fallback.
+Deferred checks must wait for new owner authorization/resource availability.
+See DEFERRED TEST QUEUE v0.030.txt and unchanged helper reports.
+
+Coordination: three existing Sol6.1 MAX Bridge helpers only. A/B stopped after
+source handoff; C source integration/docs only; root packaging only. All three
+reported no owned active test PIDs. No unrelated process was stopped.
+Final source/tag, build commands, engine identity and archive hashes are recorded
+in the BUILD ONLY receipt. No verified-release or GitHub publication claim.
