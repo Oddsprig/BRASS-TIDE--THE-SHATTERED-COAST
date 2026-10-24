@@ -1,6 +1,6 @@
 BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.030)
 
-Verified core/Records/panel and paid Refit/Workshop part custody. Legacy campaigns retain count fittings until explicit physical migration; live combat/Harbor/save/recovery and spare payload remain pending. Detached Damage proof is documented separately and its source is not installed here.
+Verified core/Records/panel and paid Refit/Workshop part custody. Legacy campaigns retain count fittings until explicit physical migration; live combat/Harbor/save/recovery and spare payload remain pending. Verified Damage/EquipmentDamage source is installed conditionally; actual live owners/battle/save/UI wiring and combined performance remain pending.
 
 FILES AND VERIFIED SYMBOLS
 game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
@@ -10,12 +10,6 @@ game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
   game/scripts/equipment_condition.gd:580 inspect_installed()
   game/scripts/equipment_condition.gd:597 list_locker()
   game/scripts/equipment_condition.gd:624 project()
-  game/scripts/equipment_condition.gd:641 move_exact()
-  game/scripts/equipment_condition.gd:699 swap_exact()
-  game/scripts/equipment_condition.gd:736 transfer_exact()
-  game/scripts/equipment_condition.gd:785 note_engine_scalar()
-  game/scripts/equipment_condition.gd:811 apply_component_damage()
-  game/scripts/equipment_condition.gd:853 repair_installed()
 game/scripts/equipment_records.gd: 21293 bytes; extends RefCounted
   game/scripts/equipment_records.gd:271 initialize()
   game/scripts/equipment_records.gd:383 absorb_legacy_damage()
@@ -23,12 +17,6 @@ game/scripts/equipment_records.gd: 21293 bytes; extends RefCounted
   game/scripts/equipment_records.gd:421 snapshot()
   game/scripts/equipment_records.gd:15 _fail()
   game/scripts/equipment_records.gd:18 _validate_catalog()
-  game/scripts/equipment_records.gd:49 _validate_base()
-  game/scripts/equipment_records.gd:88 _validate_identity()
-  game/scripts/equipment_records.gd:104 _same_loadout()
-  game/scripts/equipment_records.gd:117 _validate_loadout()
-  game/scripts/equipment_records.gd:163 _parse_legacy_locker()
-  game/scripts/equipment_records.gd:234 _validate_condition_catalog()
 game/scripts/equipment_ui.gd: 10099 bytes; extends RefCounted
   game/scripts/equipment_ui.gd:15 open()
   game/scripts/equipment_ui.gd:74 _surface()
@@ -36,12 +24,6 @@ game/scripts/equipment_ui.gd: 10099 bytes; extends RefCounted
   game/scripts/equipment_ui.gd:115 _quote()
   game/scripts/equipment_ui.gd:129 _part()
   game/scripts/equipment_ui.gd:154 _num()
-  game/scripts/equipment_ui.gd:160 _text()
-  game/scripts/equipment_ui.gd:172 _list_parts()
-  game/scripts/equipment_ui.gd:185 _materials()
-  game/scripts/equipment_ui.gd:195 _bind_priority()
-  game/scripts/equipment_ui.gd:198 _bind_repair()
-  game/scripts/equipment_ui.gd:203 _bind_plain()
 game/scripts/equipment_fitting.gd: 23353 bytes; extends RefCounted
   game/scripts/equipment_fitting.gd:40 classify()
   game/scripts/equipment_fitting.gd:53 fingerprint()
@@ -49,14 +31,22 @@ game/scripts/equipment_fitting.gd: 23353 bytes; extends RefCounted
   game/scripts/equipment_fitting.gd:86 matches()
   game/scripts/equipment_fitting.gd:98 wants_initialize()
   game/scripts/equipment_fitting.gd:101 wants_new()
-  game/scripts/equipment_fitting.gd:104 request_error()
-  game/scripts/equipment_fitting.gd:165 socket_error()
-  game/scripts/equipment_fitting.gd:175 asks_exact()
-  game/scripts/equipment_fitting.gd:245 plan_slot()
-  game/scripts/equipment_fitting.gd:254 plan_whole()
-  game/scripts/equipment_fitting.gd:468 commit()
+game/scripts/equipment_damage.gd: 29043 bytes; extends RefCounted
+  game/scripts/equipment_damage.gd:40 number()
+  game/scripts/equipment_damage.gd:54 empty_task_map()
+  game/scripts/equipment_damage.gd:57 inspect_owner()
+  game/scripts/equipment_damage.gd:93 is_canonical_owner()
+  game/scripts/equipment_damage.gd:96 is_corrupt_owner()
+  game/scripts/equipment_damage.gd:99 set_repair_priority()
+game/scripts/damage.gd: 15143 bytes; extends RefCounted
+  game/scripts/damage.gd:7 number()
+  game/scripts/damage.gd:12 create_ship()
+  game/scripts/damage.gd:42 sum_areas()
+  game/scripts/damage.gd:48 set_policy()
+  game/scripts/damage.gd:53 set_repair_priority()
+  game/scripts/damage.gd:61 get_status()
 
 TESTS (game/tests/*.gd)
-test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49), test_equipment_fitting (324 plus unchanged refit352/workshop85); recorded native receipts under docs/. These counts do not prove a live feature.
+test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49), test_equipment_fitting (324 plus refit352/workshop85), test_equipment_damage (174 plus legacy Damage); recorded native receipts under docs/. These counts do not prove a live feature.
 
 Full symbols: rg -n '^func |^static func ' on named files.

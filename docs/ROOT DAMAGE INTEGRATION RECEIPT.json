@@ -1,0 +1,27 @@
+{
+  "scope": "Exact numerical Damage component integration, not full031 lifecycle/battle/release acceptance",
+  "parentMain": "35c7d18bc3767355cd9e5eae9c6aa0cd90611157",
+  "frozenProductionCommit": "176bc3d73ce3a9e3388fe3d55a6fa7088d8f742d",
+  "nativeEvidenceCommit": "190687fe0586f8617eed00b29b0a2c7de56ea74b",
+  "exactPromotedFiles": {
+    "game/scripts/damage.gd": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+    "game/scripts/equipment_damage.gd": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+    "game/tests/test_equipment_damage.gd": "05950d68c513bed13cb1bc8b13dfb376ec9f5c8823bfecf61cb80fb5422d0fa0"
+  },
+  "nativeComparison": {
+    "identicalFixture": "05950d68c513bed13cb1bc8b13dfb376ec9f5c8823bfecf61cb80fb5422d0fa0",
+    "before": "174 checks / 11 failures",
+    "after": "174 checks / 0 failures",
+    "legacyDamage": "PASS"
+  },
+  "priorRootEvidenceReceipt": "docs/ROOT DAMAGE AND SCREEN RECEIPT.json",
+  "priorRawFilesIndependentlyRehashed": 156,
+  "rootRanEngine": false,
+  "remaining": [
+    "actual canonical new/legacy owners",
+    "battle per-mount/physical hit/certification adapters",
+    "paid Harbor/recovery/save/capture/NPC/UI",
+    "combined native regression/performance",
+    "Windows exact-tag release"
+  ]
+}

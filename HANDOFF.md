@@ -19,7 +19,7 @@ the candidate separate until acceptance; old39/40 and rejected broad changes
 are preserved. Current focused first40-hull paid-fire deadline passes3.7s.
 
 Detached Damage176 passes174/0 versus original174/11, plus legacy Damage; root
-verified156raw. Not live main yet. PaidHarbor43373fa/recoveryf7cacdd are frozen,
+verified156raw. Exact source is now installed conditionally; actual canonical career wiring remains. PaidHarbor43373fa/recoveryf7cacdd are frozen,
 reviewed and queued for native proof. Argon now implements owner-funded NPC
 maintenance; Grok implements a PURE whole-campaign ownership preflight. Actual
 Campaign/Save/battle/capture/Harbor/recovery/UI integration still needs wiring.

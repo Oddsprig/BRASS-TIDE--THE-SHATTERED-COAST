@@ -18,7 +18,7 @@ Full regression, heldout seeds and sustained capacity remain OPEN. This source
 candidate is not yet integrated in main. No complete tactical acceptance.
 
 Corrected detached Damage176bc3d: identical fixture174/11 before ->174/0 after,
-plus legacy Damage pass. Root verified156raw. Not installed in live main yet.
+plus legacy Damage pass. Root verified156raw. Exact Damage source is installed conditionally; current careers still need migration.
 PaidHarbor43373fa and recoveryf7cacdd are frozen, reviewed and queued for native
 proof, not accepted live features. Argon builds paid NPC equipment maintenance;
 Grok builds a pure whole-campaign ownership preflight. Actual031 combat,

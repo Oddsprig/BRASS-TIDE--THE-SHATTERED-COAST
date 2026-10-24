@@ -1,3 +1,11 @@
+24 October2026 - exact verified numerical equipment damage integrated
+Damage88694a78/EquipmentDamageed3c6efd and identical174-check fixture05950d68
+are copied from the native after pack. Earlier174/11 ->174/0 and legacy pass
+remain the proof; root ran no engine. Current careers stay legacy until explicit
+owner migration; battle/certification/Harbor/recovery/save/UI and combined
+regression/performance remain open. Receipt: docs/ROOT DAMAGE INTEGRATION RECEIPT.
+Preserved030 and029, version integer, launcher and owner files unchanged.
+
 2026-10-24 | Verified paid part-custody adapter integration
 Root accepted exact final native fitting pack e181112:324/0 and unchanged
 legacyrefit352/workshop85; original parse/runtime and324/1 failures preserved.

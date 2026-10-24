@@ -1,8 +1,8 @@
 ROOT REVIEW — DETACHED EQUIPMENT DAMAGE, 24 OCTOBER2026
 
 Verdict: the corrected numerical Damage/EquipmentDamage component is verified
-for its recorded scope and ready for later integration. It is NOT installed in
-the live main game yet. Tactical baseline and all031adapter acceptance remain.
+for its recorded scope. Exact native source is now installed conditionally in
+main; current careers still lack explicit canonical migration. Tactical baseline and all031adapter acceptance remain.
 
 Frozen production176bc3d73ce3a9e3388fe3d55a6fa7088d8f742d:
 Damage88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f

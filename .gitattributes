@@ -122,3 +122,9 @@
 "docs/ROOT PAID FITTING v0.031.txt" -text
 
 "briefs/PAID FITTING NATIVE API v0.031.txt" -text
+
+"game/scripts/damage.gd" -text
+
+"game/scripts/equipment_damage.gd" -text
+
+"game/tests/test_equipment_damage.gd" -text

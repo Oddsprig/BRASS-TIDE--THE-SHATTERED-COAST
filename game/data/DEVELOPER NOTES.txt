@@ -8,14 +8,14 @@ Paid interchangeable fittings now preserve actual part IDs, condition and
 locker custody while paying real material and worker costs. Focused fitting324
 and legacy refit/workshop checks pass. Existing careers still use count fittings
 until the full equipment lifecycle is integrated. Core90/Records89/catalogue651/
-panel49 and detached Damage174 are verified components, not full031 acceptance.
+panel49 and Damage174 are verified components, not full031 acceptance. Exact Damage
+source is now installed conditionally; actual career/battle/save wiring remains.
 
 The combined AI candidate passes40 first-seed maneuver cases,13 affected suites
 and44 real movement-authority checks. Small boats make useful paid firing passes
 and physically break away; escorts screen allies. First40-boat fire passes its
 focused deadline. Full regression, other seeds and sustained fleet performance
-are still being checked; one voyage check reached its time bound. Candidate AI
-and detached damage/Harbor/recovery are not yet installed together in main.
+are still being checked; one voyage check reached its time bound. Candidate AI and Harbor/recovery are not yet installed with Damage in main.
 
 24 original boats;300 battle deployment points per side distinct from ownership;
 finite people, supplies and coins;100coins per sailor-day. Crew remain numerical.
