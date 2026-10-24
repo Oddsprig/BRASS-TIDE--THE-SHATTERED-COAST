@@ -1,0 +1,112 @@
+BRASS TIDE - RESUMED DEVELOPMENT / TESTING
+23 October 2026. Owner restarted Bridge and restored testing and development.
+Current artifact v0.0307492fb7 remains preserved as the originally UNTESTED build.
+Current source base6f492d2. Verified fallback .02944e2a46 remains preserved.
+
+Current phase: finish .030 deferred QA, then sequential .031-.038 roadmap.
+The unchanged planner now passes350 checks /0failures, including prior screen
+priority assertion. Actual raw evidence: task work/resume-v030-v038/qa-sol/qa/
+phase1-planner-03. The original failed350/1 proof remains untouched.
+Legacy70 regressions are in progress. Actual motion/controls/capacity and Windows
+startup/save evidence remain pending; no complete AI/performance acceptance.
+
+Active Bridge team: Sol6.1MAX sole engine/QA; Grok4.7 physical systems;
+Gemini4ArgonHIGH planner and next module-condition contract. Max3, no nested
+helpers or provider/model fallback. Exact workspaces/briefs and engine lease:
+task work/resume-v030-v038/TEAM.json, CURRENT.txt and ENGINE LEASE.txt.
+All tests remain hidden/headless/Dummy/isolated; no mouse, keyboard or focus.
+Preserve original owner saves/settings/music and all historical artifacts/tags.
+This status supersedes older stop language for NEW work, not historical evidence.
+
+HISTORICAL RECORDS FOLLOW
+
+v0.030 BUILD ONLY PACKAGED - UNTESTED | 7492fb764d22c5cd4485a889f481bd27f3b9d795
+Tests deferred AT OWNER REQUEST. Desktop launcher updated; all work/helpers stopped.
+.031-.038 and test queues do not resume automatically. See BUILD STATUS.txt.
+
+BRASS TIDE v0.030 - SOURCE CANDIDATE, UNTESTED
+Tests deferred AT OWNER REQUEST. Finish this Windows BUILD ONLY, then STOP.
+No tests, benchmarks, smokes, parser validation, game/UI/motion launches or future
+implementation. Root owns final merge, build-only exporter, annotated tag,
+compiler/required asset import/export, archives and launcher. C ran none of them.
+.031-.038 are STOPPED and must not resume automatically.
+
+Exact A FINAL component and B owner-stop ten-file source bundle are integrated
+on root c90438a. A's narrow screen-priority source correction is UNTESTED; its
+assertion is unchanged. Previous native evidence remains 350 checks / 1 failure,
+not a pass. No integrated .030 regression or behavior acceptance is claimed.
+Previous verified delivered game: v0.029, exact tag
+44e2a46b55bd56b52998eeb1d4cdc681c5091482. Old releases and owner files preserved.
+Deferred queue: docs/DEFERRED TEST QUEUE v0.030.txt.
+Source/provenance: docs/SOURCE INTEGRATION v0.030.txt and SOURCE MANIFEST v0.030.json.
+
+HISTORICAL RECORDS - superseded for current authorization/status
+
+LIVE BRASS TIDE SERIES DELIVERY
+v0.029 DELIVERED | 44e2a46b55bd56b52998eeb1d4cdc681c5091482
+Current delivered: v0.029. Active .030 tactical AI; later .031-.038 authorized and unfinished.
+END LIVE BRASS TIDE SERIES DELIVERY
+
+<!-- brass-tide-series:29:start -->
+CURRENT SOURCE VERSION
+
+v0.029 — Fleet workshop and boat presentation
+SOURCE CHECKS RECORDED: 70 native suites recorded from supplied logs. Feature acceptance requires lead review.
+
+Compare and prepare a purposeful fit on an existing owned hull, review its real bill and install it using paid work and physical equipment.
+
+Implemented behavior to review:
+- Fleet fitting workspace with numbered sockets, physical arcs and before/after capacity, deployment, stores and daily obligations.
+- Knowledge-only named templates and atomic paid fitting using real lockers, harbor materials, workers, experts and purses.
+- Original hull and equipment detail across the existing 24 hulls, sharing stable socket origins with aim and effects.
+
+Continue only after lead acceptance, preserved annotated tag and a separately verified clean exact-tag Windows release. Later stages remain pending; do not reuse tags or overwrite older releases.
+
+Exact-tag Windows export/startup/save/battle, archive hashes, launcher, remote publication, visual/motion review and listening require their own evidence. Source logs establish none of those outcomes.
+
+Roadmap: docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt
+Earlier records follow unchanged.
+<!-- brass-tide-series:29:end -->
+
+BRASS TIDE — CURRENT DELIVERY AND NEXT TEN VERSIONS
+23 October 2026 | AI / CIVILIAN SCOPE AMENDMENT | PLAN ONLY
+
+CURRENT DELIVERED: v0.028; 24 existing original hulls
+Exact game commit: 2b11d4d1af69b62a2f8436bcdee4a5675432bd98
+v0.019-v0.028 completed in sequence; prior builds/saves/music remain preserved.
+Current desktop launcher remains v0.028; publication has its own separate status.
+No new game build, tag or launcher change is made by this planning amendment.
+
+REQUIRED TARGET
+Owner requires the depth/polish they admire in Starsector across campaign/battle
+AI: autonomous pirate/hostile-faction conflict, coordinated encirclement and
+harassment, sensible retreat and paid recovery. Quality is not already achieved.
+Civilian progression includes fishing, small-to-galleon transport, fuel tankers
+and high-ranking yachts. Target 12 new designs only; current roster is not 36.
+
+v0.029 | NEXT / PLANNED | Fleet workshop and boat presentation
+v0.030 | PLANNED | Tactical roles, encirclement and harassment
+v0.031 | PLANNED | Damageable weapons and machinery
+v0.032 | PLANNED | Convoy breakthroughs and recovery battles
+v0.033 | PLANNED | Autonomous fleet conflict, sightings and pursuit
+v0.034 | PLANNED | Coastal geography and large-hull navigation
+v0.035 | PLANNED | Civilian hull progression
+v0.036 | PLANNED | Working civilian voyages, piracy and rivals
+v0.037 | PLANNED | Supplied faction operations
+v0.038 | PLANNED | AI quality, progression, polish and performance
+
+Scope/dependencies/gates: docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt
+AI behavior/scenarios: docs/AI BEHAVIOR STANDARD v0.029-v0.038.txt
+Civilian hulls/costs/jobs: docs/CIVILIAN FLEET PLAN v0.029-v0.038.txt
+Bridge evidence/root verdict: docs/PLANNING REVIEW v0.029-v0.038.txt
+
+.030-.033 establish tactical quality and independent campaign encounters.
+.034 prepares terrain/scale; .035 delivers civilian designs and .036 their
+working economy, traffic/piracy and captain histories. .037/.038 integrate and
+prove supplied operations and long-term careers. Extra expedition story content
+moves after .038; the existing four chains and exploration are preserved.
+If implementation needs splitting, move later targets forward; never skip/reuse
+versions or reduce required behavior to mark a build complete.
+
+Previous maps and completed campaign/economy stage records are preserved verbatim
+in the consolidation cold archive. See docs/ARCHIVE INDEX.txt for exact entries.

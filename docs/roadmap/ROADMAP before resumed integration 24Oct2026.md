@@ -1,0 +1,100 @@
+BRASS TIDE v0.030 - SOURCE CANDIDATE, UNTESTED
+Tests deferred AT OWNER REQUEST. Finish this Windows BUILD ONLY, then STOP.
+No tests, benchmarks, smokes, parser validation, game/UI/motion launches or future
+implementation. Root owns final merge, build-only exporter, annotated tag,
+compiler/required asset import/export, archives and launcher. C ran none of them.
+.031-.038 are STOPPED and must not resume automatically.
+
+Exact A FINAL component and B owner-stop ten-file source bundle are integrated
+on root c90438a. A's narrow screen-priority source correction is UNTESTED; its
+assertion is unchanged. Previous native evidence remains 350 checks / 1 failure,
+not a pass. No integrated .030 regression or behavior acceptance is claimed.
+Previous verified delivered game: v0.029, exact tag
+44e2a46b55bd56b52998eeb1d4cdc681c5091482. Old releases and owner files preserved.
+Deferred queue: docs/DEFERRED TEST QUEUE v0.030.txt.
+Source/provenance: docs/SOURCE INTEGRATION v0.030.txt and SOURCE MANIFEST v0.030.json.
+
+HISTORICAL RECORDS - superseded for current authorization/status
+
+LIVE BRASS TIDE SERIES DELIVERY
+v0.029 DELIVERED | 44e2a46b55bd56b52998eeb1d4cdc681c5091482
+Current delivered: v0.029. Active .030 tactical AI; later .031-.038 authorized and unfinished.
+END LIVE BRASS TIDE SERIES DELIVERY
+
+<!-- brass-tide-series:29:start -->
+# Current authorized sequential stage
+
+v0.029 — Fleet workshop and boat presentation
+SOURCE CHECKS RECORDED: 70 native suites recorded from supplied logs. Feature acceptance requires lead review.
+
+Compare and prepare a purposeful fit on an existing owned hull, review its real bill and install it using paid work and physical equipment.
+
+Implemented behavior to review:
+- Fleet fitting workspace with numbered sockets, physical arcs and before/after capacity, deployment, stores and daily obligations.
+- Knowledge-only named templates and atomic paid fitting using real lockers, harbor materials, workers, experts and purses.
+- Original hull and equipment detail across the existing 24 hulls, sharing stable socket origins with aim and effects.
+
+Continue only after lead acceptance, preserved annotated tag and a separately verified clean exact-tag Windows release. Later stages remain pending; do not reuse tags or overwrite older releases.
+
+Exact-tag Windows export/startup/save/battle, archive hashes, launcher, remote publication, visual/motion review and listening require their own evidence. Source logs establish none of those outcomes.
+
+Roadmap: docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt
+Earlier records follow unchanged.
+<!-- brass-tide-series:29:end -->
+
+# Brass Tide: the next ten versions
+
+23 October 2026. Updated for the owner's campaign/battle AI, encirclement,
+fishing/transport/tanker and high-ranking yacht requirements.
+Current delivered game remains **v0.028**, exact game commit
+`2b11d4d1af69b62a2f8436bcdee4a5675432bd98`. All rows below are **planned**.
+Each playable release builds on its verified predecessor and advances 0.001.
+
+The minimum design target is the depth and polish the owner admires in
+Starsector: purposeful boat roles and coordinated combat, plus fleets that pursue
+their own work and wars without player participation. This target is not yet met;
+AI behavior, readable motion and practical careers need evidence of their own.
+
+| Version | Focus | What becomes playable |
+| --- | --- | --- |
+| **0.029** | Fleet workshop and boat presentation | Compare real fits and costs; improve existing boat and weapon models. |
+| **0.030** | Tactical roles, encirclement and harassment | Light boats flank and make coordinated attack runs; escorts and heavies counter. |
+| **0.031** | Damageable weapons and machinery | System damage changes firing, repair priorities and survival decisions. |
+| **0.032** | Convoy breakthroughs and recovery battles | Protect or intercept actual vulnerable carriers and extract real prizes. |
+| **0.033** | Autonomous fleet conflict, sightings and pursuit | Pirates, patrols and hostile factions fight independently using observed information. |
+| **0.034** | Coastal geography and large-hull navigation | Reachable flanks, passages, ports and escape routes fit real boat dimensions. |
+| **0.035** | Civilian hull progression | Fishing boats, cargo launches through galleon-scale motor ships, tankers and elite yachts. |
+| **0.036** | Working civilian voyages, piracy and rivals | Real fishing, trade, fuel transfer and passenger charters create traffic worth protecting or raiding. |
+| **0.037** | Supplied faction operations | Coordinate actual friendly fleets and civilian supply against opposing faction objectives. |
+| **0.038** | AI quality, progression, polish and performance | Prove coordinated combat and six viable careers with honest motion, cost and performance evidence. |
+
+The [detailed TXT version map](docs/FLEET%20CAMPAIGN%20VERSION%20MAP%20v0.029-v0.038.txt)
+sets scope, dependencies, presentation work and completion scenarios for each step.
+Two required supporting plans make the owner's priorities explicit:
+
+- [AI behavior standard](docs/AI%20BEHAVIOR%20STANDARD%20v0.029-v0.038.txt): coordinated
+  encirclement/harassment, counterplay, role-aware targets, retreat, imperfect
+  knowledge, autonomous pirate/faction conflict, three-party hostility, exclusive
+  encounter participation, persistent losses and paid recovery.
+- [Civilian fleet plan](docs/CIVILIAN%20FLEET%20PLAN%20v0.029-v0.038.txt): a target of
+  twelve additional original designs, from fishing skiffs and small transports
+  to galleon-sized motor merchantmen, tankers and high-status yachts. Real holds,
+  fuel tanks, guest cabins, owners, costs and vulnerable manifests underpin trade,
+  fishing, refuelling, passenger service and piracy. Current roster is still 24.
+
+Light boats must choose useful firing passes and reachable flanking stations,
+break off under pressure and regroup; heavy ships/screens need credible counters.
+Pirates, hostile factions, merchants and their escorts operate while the player
+stays docked elsewhere. Support designations cannot make civilian cargo immune
+to interception. Finite people, purses, stores and paid replacements apply to all.
+
+The extra expedition-story expansion from the earlier draft moves after .038.
+Existing exploration and its four chains remain supported. Captain memories
+continue within .036; early .030/.033 AI requirements are not deferred to the
+later authored faction operation. Read the [lead review](docs/PLANNING%20REVIEW%20v0.029-v0.038.txt)
+for Bridge evidence and accepted amendments. Raw advisory reports are unchanged.
+
+Retain original content, cheap water, numerical crews, WASD camera, default
+flagship autopilot and 300 DP deployment. No game/build/tag/save/music/launcher
+change or engine test was made for this plan. Prior planning records are preserved
+in the consolidation cold archive; see docs/ARCHIVE INDEX.txt.
