@@ -1,5 +1,15 @@
 # Brass Tide - resumed development and background testing
 
+LATEST TEST ORDER (24 October2026), owner: "check other godot or unity apps
+running and queue tests behind it - add to game testing rules."
+Before EVERY Godot test, benchmark, import/export, render or game smoke, check
+for other Godot OR Unity apps. Queue behind any such app, including known other
+projects, headless jobs and editors. The former unrelated-headless exceptions
+are revoked. An unreadable process identity/query also queues; do not assume idle.
+Continue source/review work and retry at a later safe boundary. Record queued
+work and blockers separately from test results. Never stop/control another app,
+take input/focus, or discard completed evidence to clear the queue.
+
 LATEST OWNER INSTRUCTION (23 October 2026): "ok bridge should be back up - keep going - sol 6.1 max and grok 4.7 - google 4.0 argon high helping you. testing is back on. ty. app restarted - keep going"
 This explicitly revokes the previous stop/test deferment for ongoing work and
 resumes the authorized sequential roadmap through .038. Earlier stop receipts,

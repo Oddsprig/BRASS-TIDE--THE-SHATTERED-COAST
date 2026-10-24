@@ -1,4 +1,9 @@
 BRASS TIDE — CURRENT FAST DEVELOPMENT TOOLS
+24 October2026 TEST QUEUE OVERRIDE: every other Godot OR Unity app blocks the
+next engine launch, including known headless jobs/editors. No former exemptions.
+Unclear process state queues; never stop/control another app. Source/review work
+continues. See current AGENTS.md and CODEX PORTABLE BUILD RULES section7.
+The older source/delivery checkpoint below is historical; consult BUILD STATUS.
 23 October 2026 | v0.029 source candidate; delivered v0.028; consult VERIFICATION INDEX first
 
 Static map refresh: python tools/update_maps.py. No engine needed for context edits.

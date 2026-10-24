@@ -1,3 +1,13 @@
+CURRENT TESTING ORDER - 24 OCTOBER2026
+Development/testing resumed. Before EVERY engine test, benchmark, render,
+import/export or smoke, check for other Godot OR Unity apps. Queue behind all
+of them, including known projects, editors and headless jobs. Previous exceptions
+are revoked. Unreadable discovery also queues. Continue source/review work;
+never stop/control another app or take input/focus. Sol holds the sole Brass
+engine lease. Preserve completed evidence; queue pending work separately.
+Current source/evidence: BUILD STATUS.txt, VERIFICATION INDEX and task TEAM.
+
+HISTORICAL BUILD-ONLY RECORD FOLLOWS
 BRASS TIDE v0.030 - SOURCE CANDIDATE, UNTESTED
 Tests deferred AT OWNER REQUEST. Finish this Windows BUILD ONLY, then STOP.
 No tests, benchmarks, smokes, parser validation, game/UI/motion launches or future

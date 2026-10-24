@@ -24,10 +24,10 @@ from hidden_check import run_hidden
 
 DEFAULT_ENGINE = Path("C:/Users/bligh/Documents/Codex/2026-09-25/we-x20/work/engine/Godot_v4.7.2-stable_win64_console.exe")
 DEFAULT_ENGINE_SHA = "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643"
-# Reviewed non-headless automation proof, always revalidated from live identity.
-# No PID/start-time exemption; a window or unreadable identity always blocks.
+# Historical identity constants retained for diagnostic-tool compatibility.
+# They authorize no launch: all Godot/Unity apps now block, even headless.
 LATE_BARGE_ENGINE = Path("C:/Users/bligh/Documents/Codex/2026-09-17/referenced-chatgpt-conversation-this-is-an/work/tools/godot/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64.exe")
-GUARD_POLICY = "Root-approved project-scoped background-only guard; sole Brass Tide lease; unknown/unreadable/windowed identities block"
+GUARD_POLICY = "Owner24Oct: queue behind ANY other Godot/Unity app, including known headless jobs/editors; unreadable discovery queues"
 BRASS_ROOT = next((parent for parent in [ROOT, *ROOT.parents]
                    if (parent / "work/resume-v030-v038").is_dir()), ROOT)
 LATE_BARGE_ROOT = Path("C:/Users/bligh/Desktop/The Late Barge")
@@ -61,51 +61,15 @@ def command_args(command):
 
 
 def classify(row):
+    # Owner24Oct: every other Godot/Unity app blocks, even a known headless job.
+    # Keep the old field for receipt/runner compatibility; it is never an exemption.
     row = dict(row)
-    row.update(permittedUnrelated=False, projectClassification="BLOCKED", backgroundProof="")
-    try:
-        if not all(row.get(key) for key in ["Id", "StartUtc", "Path", "CommandLine"]):
-            raise ValueError("Missing process identity")
-        if row.get("MainWindowHandle") != 0:
-            raise ValueError("Windowed/foreground or unreadable window identity")
-        command = str(row["CommandLine"])
-        identity = normalized(row["Path"]) + " " + normalized(command)
-        if any(term in identity for term in ["brass tide", "brass-tide", "brass_tide", "resume-v030-v038", "series-v029-v038", normalized(BRASS_ROOT)]):
-            raise ValueError("Brass Tide source/release/helper identity")
-        args = command_args(command)
-        separator = args.index("--") if "--" in args else len(args)
-        engine_args, user_args = args[:separator], args[separator + 1:]
-        engine = Path(row["Path"]).resolve(strict=True)
-        if not args or normalized(Path(args[0]).resolve(strict=True)) != normalized(engine):
-            raise ValueError("Executable/command identity mismatch")
-        if not engine.is_file() or "godot" not in engine.name.casefold() or engine.suffix.casefold() != ".exe":
-            raise ValueError("Unverified engine executable")
-        positions = [index for index, arg in enumerate(engine_args) if arg == "--path"]
-        if len(positions) != 1 or positions[0] + 1 >= len(engine_args):
-            raise ValueError("Missing/ambiguous project path")
-        supplied = Path(engine_args[positions[0] + 1])
-        if not supplied.is_absolute():
-            raise ValueError("Relative project identity is not provable")
-        project = supplied.resolve(strict=True)
-        if within(project, BRASS_ROOT) or within(engine, BRASS_ROOT):
-            raise ValueError("Resolved Brass Tide root")
-        config = project / "project.godot"
-        with config.open("r", encoding="utf-8-sig") as source:
-            header = source.read(40000)
-        name_match = re.search(r'^config/name="([^"\r\n]+)"', header, re.M)
-        if not name_match or "brass" in name_match[1].casefold():
-            raise ValueError("Unknown/Brass Tide native project identity")
-        row.update(projectPath=str(supplied), projectResolvedPath=str(project), projectName=name_match[1])
-        if "--headless" in engine_args:
-            proof = "explicit --headless, zero window, exact native project and executable"
-        elif (normalized(engine) == normalized(LATE_BARGE_ENGINE) and within(project, LATE_BARGE_ROOT)
-              and "--autotest" in user_args and "late barge" in name_match[1].casefold()):
-            proof = "previously verified Late Barge --autotest, zero window, exact project/executable"
-        else:
-            raise ValueError("No verified background/headless automation proof")
-        row.update(permittedUnrelated=True, projectClassification="VERIFIED_OTHER_PROJECT_BACKGROUND", backgroundProof=proof)
-    except (OSError, ValueError, TypeError, IndexError) as error:
-        row["blockReason"] = str(error)
+    row.update(permittedUnrelated=False,
+               projectClassification="QUEUED_OTHER_ENGINE_APP",
+               backgroundProof="",
+               blockReason="Other Godot/Unity app running; wait before the next Brass engine launch")
+    if not all(row.get(key) for key in ["Id", "StartUtc", "Path"]):
+        row["blockReason"] = "Engine app identity unreadable; keep tests queued"
     return row
 
 
@@ -120,7 +84,7 @@ def write_json(path, value):
 def inventory():
     # Read current command lines on EVERY launch, so PID churn cannot turn an old
     # exception into a blanket Godot exemption. Host query needs approved access.
-    query = "Get-CimInstance Win32_Process -Filter \"Name LIKE '%godot%' OR Name LIKE '%Brass%'\" | ForEach-Object { $row = $_; $p = Get-Process -Id $row.ProcessId -ErrorAction Stop; [pscustomobject]@{Id=$p.Id;ProcessName=$p.ProcessName;Path=$p.Path;MainWindowHandle=$p.MainWindowHandle;StartUtc=$p.StartTime.ToUniversalTime().ToString('o');CommandLine=$row.CommandLine} } | ConvertTo-Json -Compress"
+    query = "Get-CimInstance Win32_Process -Filter \"Name LIKE '%godot%' OR Name LIKE '%unity%' OR Name LIKE '%Brass%' OR ExecutablePath LIKE '%Godot%' OR ExecutablePath LIKE '%Unity%'\" | ForEach-Object { $row = $_; $p = Get-Process -Id $row.ProcessId -ErrorAction Stop; [pscustomobject]@{Id=$p.Id;ProcessName=$p.ProcessName;Path=$p.Path;MainWindowHandle=$p.MainWindowHandle;StartUtc=$p.StartTime.ToUniversalTime().ToString('o');CommandLine=$row.CommandLine} } | ConvertTo-Json -Compress"
     result = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", query],
         capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=10,
         creationflags=subprocess.CREATE_NO_WINDOW)

@@ -3,6 +3,8 @@ BRASS TIDE - WORKING SOURCE NOTES
 
 Portable030 remains its original UNTESTED build; verified029 is preserved.
 Background testing is active. No new playable build or complete quality claim.
+Tests queue behind other Godot or Unity apps, including headless jobs and
+editors. Each engine launch rechecks; source work can continue while waiting.
 
 Paid interchangeable fittings now preserve actual part IDs, condition and
 locker custody while paying real material and worker costs. Focused fitting324

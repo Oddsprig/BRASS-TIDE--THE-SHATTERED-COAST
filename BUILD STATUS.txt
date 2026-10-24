@@ -1,40 +1,32 @@
 BRASS TIDE - CURRENT WORKING STATUS, 24 OCTOBER2026
-Development and silent background testing are active by the owner's resume.
-Preserved playable030/tag7492fb7 remains its original UNTESTED build; verified029/
-44e2a46 fallback is preserved. No031+ playable version or remote upload exists.
+Development and silent background testing are active. Portable030/tag7492fb7
+remains UNTESTED; verified029/44e2a46 and owner files are preserved.
 
-Mainc98433c contains memory/60Hz prediction, selected/mixed fleet controls,
-equipment core90/Records89/catalogue651/panel49 and paid fitting324. Legacy
-refit352/workshop85 pass on its final native pack. Current campaigns retain
-count fittings until explicit physical migration. Fitting proof: ROOT PAID FITTING.
+Main working source now includes exact guarded tactical8production files and
+their tested fixture closure. Root independently verified438raw proof files.
+Focused results: firstseed40/40,13affected suites, authority44/0, invalidation
+437/0. Four369/0 short timings preserve120wholeBattle/RNG hashes;11.12%mean
+gain under interruption/contention does not pass sustained CPU targets.
+See ROOT GUARDED TACTICAL INTEGRATION.txt/.json and ROOT CPU CHECKPOINT.
 
-Frozen tactical1f848630 now passes first-seed r4 motion40/40, affected13 suites
-and explicit/default rally/withdraw authority44/0. Root rehashed477raw files and
-exact Runtime bytes. The old39/40 and rejected broad change remain preserved.
-Actual40-hull first-paid-fire3.7s meets the unchanged4s focused deadline. The
-original70 regression completed67/70: voyage/autovoyage hit60s child bounds,
-and presentation uses an obsolete private-fire fixture now queued for correction.
-Full regression, heldout seeds and sustained capacity remain OPEN. This source
-candidate is not yet integrated in main. No complete tactical acceptance.
+Accepted conditional Damage174, paid physical fitting324, legacyRefit352/
+Workshop85, Core90/Records89/all24catalogue651/panel49 remain. Existing careers
+need lifecycle migration before canonical equipment becomes ordinary play.
+Grok builds/reviews11path constructors/saves/captures; Argon builds9path UI.
+Sol verifies exact detached components using the sole engine lease. New Recovery
+319/0 and global629/0 are pending root source/raw review, not live acceptance.
+Harbor/NPC paid maintenance and actual battle integration remain incomplete.
 
-Corrected detached Damage176bc3d: identical fixture174/11 before ->174/0 after,
-plus legacy Damage pass. Root verified156raw. Exact Damage source is installed conditionally; current careers still need migration.
-PaidHarbor43373fa and recoveryf7cacdd are frozen, reviewed and queued for native
-proof, not accepted live features. Argon builds paid NPC equipment maintenance;
-Grok builds a pure whole-campaign ownership preflight. Actual031 combat,
-Harbor/career/save/capture/recovery/controller integration remains incomplete.
+Full40/42 fleet CPU capacity currently fails. Original70 completed67pass with
+two60s voyage timeouts and obsolete presentation fixture; no failures waived.
+Heldout seeds, remaining regression, combined canonical equipment performance
+and clean Windows delivery stay open. No031+ tag/export/launcher or GitHub upload.
 
-Only three Bridge helpers: Sol6.1MAX sole engine/QA, Google4ArgonHIGH and Grok4.7.
-Tests hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus.
-Owner saves/music/releases protected. Coordination: task work/resume-v030-v038/
-CURRENT.txt, TEAM.json and ENGINE LEASE.txt. No new launcher or release yet.
-
-CPU checkpoint24Oct: full40/42fleet capacity currently FAILS the frozen
-targets. Isolated profiling preserves exact wholeBattle/RNG state; local planning
-reuse shows9.63% short-prefix mean gain, still insufficient. Guarded437/0 proof
-is saved; broader/finalcombined performance remains open. See docs/ROOT CPU
-CHECKPOINT.txt and receipt. No new playable build, sourcepromotion of tactical
-candidate or performance/parity claim. Three existing Bridge helpers continue.
+Three existing Bridge helpers: Sol6.1MAX, Grok4.7, Google4ArgonHIGH. All testing
+hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus. Current task
+work/resume-v030-v038/CURRENT.txt and TEAM.json supersede old handoff memories.
+Owner24Oct: queue ALL engine work behind any other Godot or Unity app,
+including known headless jobs/editors. Unreadable discovery queues too.
 
 HISTORICAL RECORDS FOLLOW
 
