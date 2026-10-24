@@ -86,3 +86,11 @@ never claim a remote upload without remote hashes. Current upload remains pendin
 Native checks: tools/check_game.py. Short fixtures: tools/qa_brass.py. Static maps:
 tools/update_maps.py. Export: tools/release_game.py. Retain all current game/tests/.
 Historical prototype dist/, root tests/ and build_data.cjs are cold archived.
+
+Before handing off new GDScript, read actual preloaded API declarations and the
+current data schema. tools/check_preload_calls.py GAME RELATIVE_FILE... gives a
+cheap read-only advisory check for direct Script.method calls without an engine.
+It does not prove native parsing, dynamic calls, argument types or assertions.
+Current Refits use weapons:Array and effective_spec returns the spec directly.
+Read complete constructor callchains: CompanyOps.ensure already assigns missing
+story/NPC hull UIDs by the end of new_game. Preserve those actual identities.
