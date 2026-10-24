@@ -17,7 +17,7 @@ game/scripts/equipment_records.gd: 21293 bytes; extends RefCounted
   game/scripts/equipment_records.gd:421 snapshot()
   game/scripts/equipment_records.gd:15 _fail()
   game/scripts/equipment_records.gd:18 _validate_catalog()
-game/scripts/equipment_ui.gd: 10099 bytes; extends RefCounted
+game/scripts/equipment_ui.gd: 10067 bytes; extends RefCounted
   game/scripts/equipment_ui.gd:15 open()
   game/scripts/equipment_ui.gd:74 _surface()
   game/scripts/equipment_ui.gd:82 _accepted()

@@ -1,0 +1,2918 @@
+{
+  "scope": "Verified equipment UI and paid NPC/company component integration only; full canonical career/live battle/CPU/release remain pending.",
+  "parent": "b11ac282dbe62ae5291774e4394e7907b5ef1d22",
+  "productionUnchangedDuringFixtureCorrections": true,
+  "runs": [
+    {
+      "run": "root-npc-equipment-01",
+      "pack": "npc-service-root-inputs/candidate",
+      "checksFailures": [
+        140,
+        23
+      ],
+      "passed": false,
+      "pid": 33944,
+      "seconds": 9.969000000000051,
+      "inputSha256": "c759746a8d40b91d07b0e1f63922df27b81a91cf5dadaff626cf9eb6889f2ab8",
+      "sourceFilesRehashed": 275,
+      "sharedLaneJob": "8bc3f76ee4754299871e2349121edd5a",
+      "laneStatus": "failed",
+      "logSha256": "6b5cbadde3c4b3563bd49067c91e72a7f28d7000305aed5af62b325db5e07c85",
+      "rawFiles": {
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-01\\inputs-after.json": "b2909f59a8fd9046566de95a24afb91150dea854d521ba3cac0af7c72273c0e7",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-01\\inputs-before.json": "b2909f59a8fd9046566de95a24afb91150dea854d521ba3cac0af7c72273c0e7",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-01\\native.log": "6b5cbadde3c4b3563bd49067c91e72a7f28d7000305aed5af62b325db5e07c85",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-01\\receipt.json": "f5f6ba7bd0c90c2805ed3e5fb7eba3f39c6e1189bbcbcc2df8a4ab569331e764",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\candidate\\inputs.json": "903c34cf4c837cdcef9c31cd9ace770175f58ca470efabf97f743e4622c96835",
+        "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\8bc3f76ee4754299871e2349121edd5a.json": "ca29588d3c5faa3f5490929ebd48210df6402a354e33e814e91c00d291135a46"
+      }
+    },
+    {
+      "run": "root-npc-equipment-api-03",
+      "pack": "npc-service-root-inputs/fixture-diagnostic",
+      "checksFailures": [
+        140,
+        0
+      ],
+      "passed": true,
+      "pid": 55252,
+      "seconds": 10.936999999999898,
+      "inputSha256": "e0b7772ad7c8273baddb0436e86f7057aaf51fac0b142a753aa0e944438a0cad",
+      "sourceFilesRehashed": 275,
+      "sharedLaneJob": "1ec77e1c021042ca96f28715c96b231f",
+      "laneStatus": "complete",
+      "logSha256": "d59169c06fd712b868d9fe5c094d899fb2d6e7cde98b5bf225ce70e7e881f781",
+      "rawFiles": {
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-api-03\\inputs-after.json": "1aee6d8d1882e37d833532788bada2284692bf844266834479c146c5151ed997",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-api-03\\inputs-before.json": "1aee6d8d1882e37d833532788bada2284692bf844266834479c146c5151ed997",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-api-03\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-api-03\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-api-03\\native.log": "d59169c06fd712b868d9fe5c094d899fb2d6e7cde98b5bf225ce70e7e881f781",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-equipment-api-03\\receipt.json": "6401428cf8fd7ff282c496dc126d4877ef43c04e5bf669a2e3aea36c0a847f78",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\fixture-diagnostic\\inputs.json": "d896ca9bc732a9d5f93b7fc12d50168af1a1912778f4b9ee404236f0551067f1",
+        "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\1ec77e1c021042ca96f28715c96b231f.json": "de07f9d23a60a425199f29b734a861aef838de2896c0136eb76c1b6f2f6463ce"
+      }
+    },
+    {
+      "run": "root-npc-legacy-fleet_economy-01",
+      "pack": "npc-service-root-inputs/legacy",
+      "checksFailures": [
+        1266,
+        0
+      ],
+      "passed": true,
+      "pid": 5420,
+      "seconds": 7.265999999999622,
+      "inputSha256": "f3a5873e81522562650166f7c3743bec43e96e6d671b0fb49b4e87716046bf1a",
+      "sourceFilesRehashed": 278,
+      "sharedLaneJob": "184051087bda49d4bdaba7da91bcae99",
+      "laneStatus": "complete",
+      "logSha256": "e11ea2877ec6598d4cb31d6eaa8c6ec144e89867c8df8bf9925185ee1af31606",
+      "rawFiles": {
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-fleet_economy-01\\inputs-after.json": "601d4fe110bba6c49c4bfc7bd196424d6c1806e4ed9da55c52f0b308c70cfbab",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-fleet_economy-01\\inputs-before.json": "601d4fe110bba6c49c4bfc7bd196424d6c1806e4ed9da55c52f0b308c70cfbab",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-fleet_economy-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-fleet_economy-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-fleet_economy-01\\native.log": "e11ea2877ec6598d4cb31d6eaa8c6ec144e89867c8df8bf9925185ee1af31606",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-fleet_economy-01\\receipt.json": "6f3bac09a761134fe35854b7d98b042ea2cc65f450707a83de64e63a0e341aa5",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\legacy\\inputs.json": "6f795b1966cf0fe05767966bdc07b497cb55fa9d1ab3874428b7fa8730be988e",
+        "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\184051087bda49d4bdaba7da91bcae99.json": "4e3ce0660d99ad0d4d7aec0118139d5d857065b9217c9650b6438b57169c2b0d"
+      }
+    },
+    {
+      "run": "root-npc-legacy-naval_ai-01",
+      "pack": "npc-service-root-inputs/legacy",
+      "checksFailures": [
+        227,
+        0
+      ],
+      "passed": true,
+      "pid": 35428,
+      "seconds": 5.078000000000429,
+      "inputSha256": "f3a5873e81522562650166f7c3743bec43e96e6d671b0fb49b4e87716046bf1a",
+      "sourceFilesRehashed": 278,
+      "sharedLaneJob": "e457e2284c484d7d900521bc9381f2d7",
+      "laneStatus": "complete",
+      "logSha256": "d45ab531d7163e2b4842bc9c7522c4132c8258830d16b7d8de0f6396533a73f5",
+      "rawFiles": {
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-naval_ai-01\\inputs-after.json": "601d4fe110bba6c49c4bfc7bd196424d6c1806e4ed9da55c52f0b308c70cfbab",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-naval_ai-01\\inputs-before.json": "601d4fe110bba6c49c4bfc7bd196424d6c1806e4ed9da55c52f0b308c70cfbab",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-naval_ai-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-naval_ai-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-naval_ai-01\\native.log": "d45ab531d7163e2b4842bc9c7522c4132c8258830d16b7d8de0f6396533a73f5",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-naval_ai-01\\receipt.json": "c8fcbc0a3ef7bd4c8e79e0dd8cad4b716f4228e731a2616f4dc7f598f1407401",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\legacy\\inputs.json": "6f795b1966cf0fe05767966bdc07b497cb55fa9d1ab3874428b7fa8730be988e",
+        "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\e457e2284c484d7d900521bc9381f2d7.json": "c83f582a9a393f2fff9657e20be4f1183b67b5982b33c76558e019422b89cc25"
+      }
+    },
+    {
+      "run": "root-npc-legacy-shipping_companies-01",
+      "pack": "npc-service-root-inputs/legacy",
+      "checksFailures": null,
+      "passed": true,
+      "pid": 20512,
+      "seconds": 0.3280000000004293,
+      "inputSha256": "f3a5873e81522562650166f7c3743bec43e96e6d671b0fb49b4e87716046bf1a",
+      "sourceFilesRehashed": 278,
+      "sharedLaneJob": "876ce07f9dac4989a1d5aea340655d66",
+      "laneStatus": "complete",
+      "logSha256": "501edd877fdc69175308e9ba67e6399c7388db53ad2df13ab3805d055df9af0d",
+      "rawFiles": {
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-shipping_companies-01\\inputs-after.json": "601d4fe110bba6c49c4bfc7bd196424d6c1806e4ed9da55c52f0b308c70cfbab",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-shipping_companies-01\\inputs-before.json": "601d4fe110bba6c49c4bfc7bd196424d6c1806e4ed9da55c52f0b308c70cfbab",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-shipping_companies-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-shipping_companies-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-shipping_companies-01\\native.log": "501edd877fdc69175308e9ba67e6399c7388db53ad2df13ab3805d055df9af0d",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-npc-legacy-shipping_companies-01\\receipt.json": "f00ca460e46360ec00a499b6b8cbf1685ec2f3acf688743d75f14d0e041b372f",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\legacy\\inputs.json": "6f795b1966cf0fe05767966bdc07b497cb55fa9d1ab3874428b7fa8730be988e",
+        "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\876ce07f9dac4989a1d5aea340655d66.json": "09e825f5d22533889114424e2ddd6e6718c9eec44efb901fbe9ba30951a87d5f"
+      }
+    },
+    {
+      "run": "root-equipment-ui-01",
+      "pack": "ui-root-inputs/candidate",
+      "checksFailures": [
+        168,
+        7
+      ],
+      "passed": false,
+      "pid": 52264,
+      "seconds": 5.375,
+      "inputSha256": "5864b8e9bf77b75d38aab9015cb69f3fb0a1756953a9fd71b71c06cb9ad45c58",
+      "sourceFilesRehashed": 325,
+      "sharedLaneJob": "31894bb5be7d464d829660ee9c4bd5a7",
+      "laneStatus": "failed",
+      "logSha256": "a9fa72c7044c820d0fa6a5fc75502e7fdd29d582de4f53b47f0622ddfaf23358",
+      "rawFiles": {
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-01\\inputs-after.json": "d2115a748dff563e03c70f74f20af367ddbbba0b5713e4ddecf811101c68b939",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-01\\inputs-before.json": "d2115a748dff563e03c70f74f20af367ddbbba0b5713e4ddecf811101c68b939",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-01\\native.log": "a9fa72c7044c820d0fa6a5fc75502e7fdd29d582de4f53b47f0622ddfaf23358",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-01\\receipt.json": "418295a832b60bb421bddae10f051de3c12826b9db53393d797cf7d5ce6f3c8b",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\candidate\\inputs.json": "d58538fe524a288e40c27e5488cab25d5039935be4c8b69443aa83964e445bc8",
+        "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\31894bb5be7d464d829660ee9c4bd5a7.json": "bbf5664ea886d9ff90bf5b3a849b3b1e1114ed7a02154e237a3957ae13b07dec"
+      }
+    },
+    {
+      "run": "root-equipment-ui-api-03",
+      "pack": "ui-root-inputs/fixture-corrected",
+      "checksFailures": [
+        168,
+        2
+      ],
+      "passed": false,
+      "pid": 58100,
+      "seconds": 5.344000000000051,
+      "inputSha256": "cd7d0181cdb35d0036e2331d09bba9dbdf26f832dc484b812a9036767034dfc5",
+      "sourceFilesRehashed": 325,
+      "sharedLaneJob": "8e7db6b7fb824408a5e8eaa73099cc64",
+      "laneStatus": "failed",
+      "logSha256": "7e46e3709de12410c19ba63bdfa79f95ad7e2484b4953a3005f0dfe3fdc244e7",
+      "rawFiles": {
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-api-03\\inputs-after.json": "ea9bf290dfc914a3e55834968fcdcd8eaed0328bfbd948ef6dbd294b8900f1f5",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-api-03\\inputs-before.json": "ea9bf290dfc914a3e55834968fcdcd8eaed0328bfbd948ef6dbd294b8900f1f5",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-api-03\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-api-03\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-api-03\\native.log": "7e46e3709de12410c19ba63bdfa79f95ad7e2484b4953a3005f0dfe3fdc244e7",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-api-03\\receipt.json": "53aa7898c92480aac40e222ce1e3cf5f06831038e072be622f0be78acad8fe03",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\fixture-corrected\\inputs.json": "ce3181b8dc51ad31806e010c2e96923d0fc9185f5fcc671a2aba338c3b46db89",
+        "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\8e7db6b7fb824408a5e8eaa73099cc64.json": "3d873f880e726a21d5c3eae4b80d4f3a2d8d499851880fc7e424232a7807a73b"
+      }
+    },
+    {
+      "run": "root-equipment-ui-contract-04",
+      "pack": "ui-root-inputs/public-contract",
+      "checksFailures": [
+        168,
+        0
+      ],
+      "passed": true,
+      "pid": 3416,
+      "seconds": 5.796999999999571,
+      "inputSha256": "f20735606f6b1078589619f526f031f451ea0784aa01bb99e5cf3f78f5e58511",
+      "sourceFilesRehashed": 325,
+      "sharedLaneJob": "13f72b6ca88649ebbcceacb9b6d719ef",
+      "laneStatus": "complete",
+      "logSha256": "5e3c1f06c53b935b3bc71532e47772213d310c9b700df78d3baf0584e1ee560a",
+      "rawFiles": {
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-contract-04\\inputs-after.json": "f4c4d5519e10825b3103eef2b9c93460ccd6d1ea58d9af1ba5656e26ee36a1fb",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-contract-04\\inputs-before.json": "f4c4d5519e10825b3103eef2b9c93460ccd6d1ea58d9af1ba5656e26ee36a1fb",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-contract-04\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-contract-04\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-contract-04\\native.log": "5e3c1f06c53b935b3bc71532e47772213d310c9b700df78d3baf0584e1ee560a",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\root-equipment-ui-contract-04\\receipt.json": "da16f0efc1db2b47adad8759191aafd87c6cb443c0c729d397fe5b356f163308",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\public-contract\\inputs.json": "f58d33a1b9c9ed447d63412ac10c2f7911299522b52115541a9c7107f0473bf7",
+        "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\13f72b6ca88649ebbcceacb9b6d719ef.json": "b91c13ed572042ea760667f3f37dded14199c7864f7898e9a469755f2dab9129"
+      }
+    }
+  ],
+  "currentMainDependencies": {
+    "npc": {
+      "scripts/battle.gd": {
+        "native": "726211c1c7cac225862cd732835749dd0af03f1380bafc9bcecdc05444901024",
+        "currentMain": "726211c1c7cac225862cd732835749dd0af03f1380bafc9bcecdc05444901024",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/battle.gd.uid": {
+        "native": "47b272647c479559a1b62ca566e3be130942a611bb16b14deaad06d54fc516c1",
+        "currentMain": "47b272647c479559a1b62ca566e3be130942a611bb16b14deaad06d54fc516c1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/battle_objectives.gd": {
+        "native": "6052f01c0fa9cdba0c156d506589cc3ce5c38e9b0d62c209f1d3b68f96395224",
+        "currentMain": "6052f01c0fa9cdba0c156d506589cc3ce5c38e9b0d62c209f1d3b68f96395224",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/battle_objectives.gd.uid": {
+        "native": "06767ed7f45dc39615494f5b6e4fd7a189d22e824ae24d45c2c08184795fdfe3",
+        "currentMain": "06767ed7f45dc39615494f5b6e4fd7a189d22e824ae24d45c2c08184795fdfe3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding.gd": {
+        "native": "1596f979b13ca3db6fb079382a116605019b22cffc41bb89959d217e742cc36a",
+        "currentMain": "1596f979b13ca3db6fb079382a116605019b22cffc41bb89959d217e742cc36a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding.gd.uid": {
+        "native": "43a8b7f06f8b897a0ddb5f9a6aa378417286c9480e09db1058ae5d0841a6922b",
+        "currentMain": "43a8b7f06f8b897a0ddb5f9a6aa378417286c9480e09db1058ae5d0841a6922b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding_ops.gd": {
+        "native": "7db93815899b9913d0f42555ef1b052a2108497a9799cd2afd2edc0a1dbfb258",
+        "currentMain": "7db93815899b9913d0f42555ef1b052a2108497a9799cd2afd2edc0a1dbfb258",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding_ops.gd.uid": {
+        "native": "678ae827146307f5d16935d8be21f2b09ddff628ce02b404db76ac74eb4d9751",
+        "currentMain": "678ae827146307f5d16935d8be21f2b09ddff628ce02b404db76ac74eb4d9751",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding_ui.gd": {
+        "native": "fd2b9c6279e3831fc663ddeebf82f68ff6d6a92b94bbc67d1e01536254673fa8",
+        "currentMain": "fd2b9c6279e3831fc663ddeebf82f68ff6d6a92b94bbc67d1e01536254673fa8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding_ui.gd.uid": {
+        "native": "a825440fa52f578f36bbb7d9b72af29b8376473d2dac8c80c317b07bea2d47a4",
+        "currentMain": "a825440fa52f578f36bbb7d9b72af29b8376473d2dac8c80c317b07bea2d47a4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_art.gd": {
+        "native": "e8ac9c535f68010be48dcda5b3a6e8d993377ee9be3ce8814a0e49498c6663b6",
+        "currentMain": "e8ac9c535f68010be48dcda5b3a6e8d993377ee9be3ce8814a0e49498c6663b6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_art.gd.uid": {
+        "native": "b4d2f66516d65b3279d68cf28461d7b685c8f13d4cec8b2d8d4322215d2e53e5",
+        "currentMain": "b4d2f66516d65b3279d68cf28461d7b685c8f13d4cec8b2d8d4322215d2e53e5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_deck_detail.gd": {
+        "native": "e267343fe9a0de1253e563f0d568da058f50fc09004b3405f91ddacc90642873",
+        "currentMain": "e267343fe9a0de1253e563f0d568da058f50fc09004b3405f91ddacc90642873",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_deck_detail.gd.uid": {
+        "native": "cb7fa5ecd510d1f89dc23e504ca78feb2a3ee228f41070e235b7b0f94031f25e",
+        "currentMain": "cb7fa5ecd510d1f89dc23e504ca78feb2a3ee228f41070e235b7b0f94031f25e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_mesh_cache.gd": {
+        "native": "35c27e5125325d159830bb1396d0bb9d150d5bbb0747de0b12331e8162af7640",
+        "currentMain": "35c27e5125325d159830bb1396d0bb9d150d5bbb0747de0b12331e8162af7640",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_mesh_cache.gd.uid": {
+        "native": "0cb6dbec36ff3e4c159aa90f098215dc00466d9f42427116d732620f41024522",
+        "currentMain": "0cb6dbec36ff3e4c159aa90f098215dc00466d9f42427116d732620f41024522",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_portrait.gd": {
+        "native": "79764b9c2b8252537f0d516dcaa07a4dfbf85e48fcd3b0b4a05f6c16b72e2d04",
+        "currentMain": "79764b9c2b8252537f0d516dcaa07a4dfbf85e48fcd3b0b4a05f6c16b72e2d04",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_portrait.gd.uid": {
+        "native": "3f38bf8565d6f3cb711678a40355ad4ea9ec41976708e38ee4907d8b41ab530c",
+        "currentMain": "3f38bf8565d6f3cb711678a40355ad4ea9ec41976708e38ee4907d8b41ab530c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/build_icon.gd": {
+        "native": "72dc7de6fd9a1968128b7481e58a99ea6d516b6751fffd218ca1c40abd2e3e07",
+        "currentMain": "72dc7de6fd9a1968128b7481e58a99ea6d516b6751fffd218ca1c40abd2e3e07",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/build_icon.gd.uid": {
+        "native": "cb891b8ff65c7e96b45c38d0fc1588e7edafafe8a4bb7dd4339510e65831d35e",
+        "currentMain": "cb891b8ff65c7e96b45c38d0fc1588e7edafafe8a4bb7dd4339510e65831d35e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/build_notices.gd": {
+        "native": "989475570773dedef931fd39343f7e19228a28375ae0c062a4e246c99c86c234",
+        "currentMain": "989475570773dedef931fd39343f7e19228a28375ae0c062a4e246c99c86c234",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/build_notices.gd.uid": {
+        "native": "ee489e90d5417d57cec9cdc4dba5406f17796a5de935d1b8b1702d7bc60ee862",
+        "currentMain": "ee489e90d5417d57cec9cdc4dba5406f17796a5de935d1b8b1702d7bc60ee862",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign.gd": {
+        "native": "1b697b419a40b456e145fe646196ffe853abe8e8a41ed536ee8d5f8f08d067ad",
+        "currentMain": "1b697b419a40b456e145fe646196ffe853abe8e8a41ed536ee8d5f8f08d067ad",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign.gd.uid": {
+        "native": "afbb9015ef1d6c9b9e2275a537f12fe28823e82a29e41a443d14c9db61a2df77",
+        "currentMain": "afbb9015ef1d6c9b9e2275a537f12fe28823e82a29e41a443d14c9db61a2df77",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_guidance.gd": {
+        "native": "b0d2e92bb7c9efc954278ac8c30036105ea1aea80e074f62d6201bb0381db074",
+        "currentMain": "b0d2e92bb7c9efc954278ac8c30036105ea1aea80e074f62d6201bb0381db074",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_guidance.gd.uid": {
+        "native": "4b0b732fba1371ecad3c695e0c37921ad6f0f858152a6bc421413153343cfecd",
+        "currentMain": "4b0b732fba1371ecad3c695e0c37921ad6f0f858152a6bc421413153343cfecd",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_state_validation.gd": {
+        "native": "9a5728f159d2157293bb5b3340bbccdf5d5c80130c5f862ff811c920e3575318",
+        "currentMain": "9a5728f159d2157293bb5b3340bbccdf5d5c80130c5f862ff811c920e3575318",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_state_validation.gd.uid": {
+        "native": "7f5b81bd000106b8227966f21fa53f53572170d47bcc60d094366183890c3f0a",
+        "currentMain": "7f5b81bd000106b8227966f21fa53f53572170d47bcc60d094366183890c3f0a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_ui.gd": {
+        "native": "b45b29cc6e771c458b4695bf7a4b63e3fcaa6300900ea07c46fccf7bcf24ad19",
+        "currentMain": "b45b29cc6e771c458b4695bf7a4b63e3fcaa6300900ea07c46fccf7bcf24ad19",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_ui.gd.uid": {
+        "native": "a977d2ae429f38997e246c2678fbeb17b67c9d6caee158bde2617863b57c592b",
+        "currentMain": "a977d2ae429f38997e246c2678fbeb17b67c9d6caee158bde2617863b57c592b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/chart.gd": {
+        "native": "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5",
+        "currentMain": "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/chart.gd.uid": {
+        "native": "0e6156d52dfef2db29a8404659ad7b948f336248469acf8f9a1778914d5d4afe",
+        "currentMain": "0e6156d52dfef2db29a8404659ad7b948f336248469acf8f9a1778914d5d4afe",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/civilian_goods_ops.gd": {
+        "native": "c8740ce1c2cb105fe987c59dffa7980595f4d975bc104787f670464190863912",
+        "currentMain": "c8740ce1c2cb105fe987c59dffa7980595f4d975bc104787f670464190863912",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/civilian_goods_ops.gd.uid": {
+        "native": "75b3bebfbde484a2dc8f6b02181337fbaa087ebaf416206c9e5662f3614e94f8",
+        "currentMain": "75b3bebfbde484a2dc8f6b02181337fbaa087ebaf416206c9e5662f3614e94f8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/coastal_stories.gd": {
+        "native": "67614e899720546ad53bd193b7233ae1e42b8e61eac637013747952fb0b1c5f2",
+        "currentMain": "67614e899720546ad53bd193b7233ae1e42b8e61eac637013747952fb0b1c5f2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/coastal_stories.gd.uid": {
+        "native": "a0809bbae3100dde6be15cc485dc7971512c04fbd29cd06b242d85be9e1eb3d2",
+        "currentMain": "a0809bbae3100dde6be15cc485dc7971512c04fbd29cd06b242d85be9e1eb3d2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/coast_migration.gd": {
+        "native": "75f0f6ee4f0ceb80077cc16f50201a280f13c60b6ee47ff754d1e024aebc3a11",
+        "currentMain": "75f0f6ee4f0ceb80077cc16f50201a280f13c60b6ee47ff754d1e024aebc3a11",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/coast_migration.gd.uid": {
+        "native": "9f0506c55ae8fa1c39af1ad4e0eef540067169a1c0e552186be1790b7f30095f",
+        "currentMain": "9f0506c55ae8fa1c39af1ad4e0eef540067169a1c0e552186be1790b7f30095f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_art.gd": {
+        "native": "f43fdba6cf3850b5cd7d802900fe342b3c3ce4b3b8675531994ccf7f74135a4b",
+        "currentMain": "f43fdba6cf3850b5cd7d802900fe342b3c3ce4b3b8675531994ccf7f74135a4b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_art.gd.uid": {
+        "native": "a86302b9c650751dd175cdd9e227baedde6ffc4cf6f91e1dfc43d7dc50da5a91",
+        "currentMain": "a86302b9c650751dd175cdd9e227baedde6ffc4cf6f91e1dfc43d7dc50da5a91",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_boarding.gd": {
+        "native": "486347301f14122dd62063349f34c4311c714997522269798c3c8ac9731478ec",
+        "currentMain": "486347301f14122dd62063349f34c4311c714997522269798c3c8ac9731478ec",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_boarding.gd.uid": {
+        "native": "755655dfb9d786f55f3393e70e69f909c44019b09e1d68e7aceeaf84ed9a584b",
+        "currentMain": "755655dfb9d786f55f3393e70e69f909c44019b09e1d68e7aceeaf84ed9a584b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_events.gd": {
+        "native": "a8ea52ed60774965272127b2355ac52ae45f9e55600797c2215f4104d71b29d1",
+        "currentMain": "a8ea52ed60774965272127b2355ac52ae45f9e55600797c2215f4104d71b29d1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_events.gd.uid": {
+        "native": "9995331692113527efb635d222785c966fce687a5fab45c6aa77671efb83e7dc",
+        "currentMain": "9995331692113527efb635d222785c966fce687a5fab45c6aa77671efb83e7dc",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/company_ops.gd": {
+        "native": "7705037e7984ef3a3ff6d59c21f3611a6f57aea22a23f94ce813baaf83596d05",
+        "currentMain": "7705037e7984ef3a3ff6d59c21f3611a6f57aea22a23f94ce813baaf83596d05",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/company_ops.gd.uid": {
+        "native": "d7608b749c476b7a72718ee01c53342805399dcfc32b23a69a3c986efecd5168",
+        "currentMain": "d7608b749c476b7a72718ee01c53342805399dcfc32b23a69a3c986efecd5168",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/company_ui.gd": {
+        "native": "d3e5178df5c57aa405a9543bea001e7e815dff0d2182563174a93f4b237556e6",
+        "currentMain": "d3e5178df5c57aa405a9543bea001e7e815dff0d2182563174a93f4b237556e6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/company_ui.gd.uid": {
+        "native": "4bd5a3132d35e6c32c4544a2befb9c487ff08c9ca9a5a04e6d18238a79460445",
+        "currentMain": "4bd5a3132d35e6c32c4544a2befb9c487ff08c9ca9a5a04e6d18238a79460445",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/construction.gd": {
+        "native": "4653d63a045f8d70c90c07960912481a6e28fddf1b308816c910d7c95ea98d8c",
+        "currentMain": "4653d63a045f8d70c90c07960912481a6e28fddf1b308816c910d7c95ea98d8c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/construction.gd.uid": {
+        "native": "68534a7b069944958fbbc80513e735e1635c1c0d821fe476ba50a3769fc42a50",
+        "currentMain": "68534a7b069944958fbbc80513e735e1635c1c0d821fe476ba50a3769fc42a50",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/contacts.gd": {
+        "native": "d6a31e040ba98fb847f2e26719a7b7436de94705745444f7d1141bf1451ac19f",
+        "currentMain": "d6a31e040ba98fb847f2e26719a7b7436de94705745444f7d1141bf1451ac19f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/contacts.gd.uid": {
+        "native": "a499565307942ae173f2b4143424cfe9c08a22cbd9ec45feb0a9464fdff00336",
+        "currentMain": "a499565307942ae173f2b4143424cfe9c08a22cbd9ec45feb0a9464fdff00336",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/contracts.gd": {
+        "native": "2f7290cde21eac5a49db5a2bb7ea60bfcec06e2f0eaf352d709c49ea5b5d0024",
+        "currentMain": "2f7290cde21eac5a49db5a2bb7ea60bfcec06e2f0eaf352d709c49ea5b5d0024",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/contracts.gd.uid": {
+        "native": "d2452ccd59abd4e4171d2340c6ffe20459cd64e08ffdde4ec57fbfcd7ce973ca",
+        "currentMain": "d2452ccd59abd4e4171d2340c6ffe20459cd64e08ffdde4ec57fbfcd7ce973ca",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crew_training.gd": {
+        "native": "9f3d0d22614e25422a69dc84f7721089b26b947da64b088012499343bc2ca697",
+        "currentMain": "9f3d0d22614e25422a69dc84f7721089b26b947da64b088012499343bc2ca697",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crew_training.gd.uid": {
+        "native": "fd18b523aa4d2ea4ebc0836135380eb11c5cddfae220f106552c6e366114c442",
+        "currentMain": "fd18b523aa4d2ea4ebc0836135380eb11c5cddfae220f106552c6e366114c442",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crisis_ops.gd": {
+        "native": "14daa89c54850d276adc394a7db2648cd3bdba6fc657db15315940d9d39d20ef",
+        "currentMain": "14daa89c54850d276adc394a7db2648cd3bdba6fc657db15315940d9d39d20ef",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crisis_ops.gd.uid": {
+        "native": "713296e46ec2b3327605a96eabbc1da642b6149a9dbecc52a35bec1c831304b6",
+        "currentMain": "713296e46ec2b3327605a96eabbc1da642b6149a9dbecc52a35bec1c831304b6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crisis_ui.gd": {
+        "native": "7be903062aae9c11623c81eb0af5177c4505566d7ef82b6736059250d0f21291",
+        "currentMain": "7be903062aae9c11623c81eb0af5177c4505566d7ef82b6736059250d0f21291",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crisis_ui.gd.uid": {
+        "native": "888d89866516087e95f0d36feaf003ba303931c96c4d367b291ae573a4725766",
+        "currentMain": "888d89866516087e95f0d36feaf003ba303931c96c4d367b291ae573a4725766",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/damage.gd": {
+        "native": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+        "currentMain": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/damage.gd.uid": {
+        "native": "1035ee43e10cc17e9505accc7c2984e923100a09f177a9f0e2d65aa0529cbf29",
+        "currentMain": "1035ee43e10cc17e9505accc7c2984e923100a09f177a9f0e2d65aa0529cbf29",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/deployment.gd": {
+        "native": "1bf705086f3c02e15cfb83370a28ab15709440ac3c39b594825536180450f42a",
+        "currentMain": "1bf705086f3c02e15cfb83370a28ab15709440ac3c39b594825536180450f42a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/deployment.gd.uid": {
+        "native": "0ab71bbccf8ca75f76f72a5e10f63f0d470b55839d16d075659eb5ae372211ed",
+        "currentMain": "0ab71bbccf8ca75f76f72a5e10f63f0d470b55839d16d075659eb5ae372211ed",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/dev_tools.gd": {
+        "native": "72cbd8c0320f3d1726697c681d352f98705660a00d579ed00ebdde83c271a9e6",
+        "currentMain": "72cbd8c0320f3d1726697c681d352f98705660a00d579ed00ebdde83c271a9e6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/dev_tools.gd.uid": {
+        "native": "0199fe1282f89f2c155aaa0c77c8b0a6b7016ea49448b1c3aad98bef2a52ef5d",
+        "currentMain": "0199fe1282f89f2c155aaa0c77c8b0a6b7016ea49448b1c3aad98bef2a52ef5d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economic_ui.gd": {
+        "native": "f4958e5a9456658e100720d55f9003ad4d2ed6a62956d7c072a571499c980724",
+        "currentMain": "f4958e5a9456658e100720d55f9003ad4d2ed6a62956d7c072a571499c980724",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economic_ui.gd.uid": {
+        "native": "42c857c7b55edacfa4bed656a52337cf9be396304fda499835ea3288c95f9e8a",
+        "currentMain": "42c857c7b55edacfa4bed656a52337cf9be396304fda499835ea3288c95f9e8a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economy.gd": {
+        "native": "71e8a8ab0ad5eb4918db3675b44a4fee23393beb0d20d3c75668861b156750c5",
+        "currentMain": "71e8a8ab0ad5eb4918db3675b44a4fee23393beb0d20d3c75668861b156750c5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economy.gd.uid": {
+        "native": "2dff1c36a9f5fb60e8b39f018054c0d680e1e5b01e7b184bf74e28a1e9c779a4",
+        "currentMain": "2dff1c36a9f5fb60e8b39f018054c0d680e1e5b01e7b184bf74e28a1e9c779a4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economy_workers.gd": {
+        "native": "3b7c10ef887933a53fe6edfddf1b0a9f2a543f809085ffa8aef9408a97fd4f20",
+        "currentMain": "3b7c10ef887933a53fe6edfddf1b0a9f2a543f809085ffa8aef9408a97fd4f20",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economy_workers.gd.uid": {
+        "native": "cbada2bddb94dbdaa17b062037a57bb386a66cf3f13949c08328e8a034c391ce",
+        "currentMain": "cbada2bddb94dbdaa17b062037a57bb386a66cf3f13949c08328e8a034c391ce",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_campaign.gd": {
+        "native": "51a8536d2b83de79c601bdbb921165b0833b1255f9270e550260e21884547f17",
+        "currentMain": "51a8536d2b83de79c601bdbb921165b0833b1255f9270e550260e21884547f17",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_condition.gd": {
+        "native": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+        "currentMain": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_damage.gd": {
+        "native": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+        "currentMain": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_fitting.gd": {
+        "native": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+        "currentMain": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_records.gd": {
+        "native": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+        "currentMain": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_recovery.gd": {
+        "native": "3ec4b431abfc5edc3da44f9efeab34d38f6dd63f64eac69ae1fd71b875190457",
+        "currentMain": "3ec4b431abfc5edc3da44f9efeab34d38f6dd63f64eac69ae1fd71b875190457",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_service.gd": {
+        "native": "d873779f96acbdebf7d7672a6ef637f9ff5fe0e504e988035180776f015b32d7",
+        "currentMain": "d873779f96acbdebf7d7672a6ef637f9ff5fe0e504e988035180776f015b32d7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_ui.gd": {
+        "native": "48af7b4c0cef44adc309569bd096b3865cfb7220d949e811ad14c5bf83393864",
+        "currentMain": "48af7b4c0cef44adc309569bd096b3865cfb7220d949e811ad14c5bf83393864",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/escort_ops.gd": {
+        "native": "c799b232b39b93ecaaa1d1e97f5a25ced1ce7e1642e55e28539db9ac5c21dbea",
+        "currentMain": "c799b232b39b93ecaaa1d1e97f5a25ced1ce7e1642e55e28539db9ac5c21dbea",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/escort_ops.gd.uid": {
+        "native": "b51f7ca6a6ca9a064c522cc3b039b7abb28f1c764ed7869451dec474b59da59a",
+        "currentMain": "b51f7ca6a6ca9a064c522cc3b039b7abb28f1c764ed7869451dec474b59da59a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/expedition.gd": {
+        "native": "4e5be640060b50bf3dcc98e9fd9a41983cd62aea603381498faad6fa377f5332",
+        "currentMain": "4e5be640060b50bf3dcc98e9fd9a41983cd62aea603381498faad6fa377f5332",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/expedition.gd.uid": {
+        "native": "75c90dc478152c656608e77825a4d8a793b5a8181242a6fc7a505dda8e7e07c1",
+        "currentMain": "75c90dc478152c656608e77825a4d8a793b5a8181242a6fc7a505dda8e7e07c1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/exploration.gd": {
+        "native": "a7507df67bd0a1eb2ef4d30d6eeb8aaf789a61f5bac2ce98952218299285088f",
+        "currentMain": "a7507df67bd0a1eb2ef4d30d6eeb8aaf789a61f5bac2ce98952218299285088f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/exploration.gd.uid": {
+        "native": "328fa7800a7ff92a0fa3400d0ea9a0f85754b67cb02a55be9c4770f4a0bf1da3",
+        "currentMain": "328fa7800a7ff92a0fa3400d0ea9a0f85754b67cb02a55be9c4770f4a0bf1da3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/factions.gd": {
+        "native": "2bae22809af2eeff17e7d424a26234c194bc9e56f94da2a24b4e51fd27f3c880",
+        "currentMain": "2bae22809af2eeff17e7d424a26234c194bc9e56f94da2a24b4e51fd27f3c880",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/factions.gd.uid": {
+        "native": "6f747b1836506e178642f7b9f72b5fb714f2b2a74f53aca6c48a4a8bac74ef7a",
+        "currentMain": "6f747b1836506e178642f7b9f72b5fb714f2b2a74f53aca6c48a4a8bac74ef7a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/faction_ui.gd": {
+        "native": "685e10c01b48c8f3b49aec5c7b4f7498a5d4061abe5442fab68aead5f0dfcc7f",
+        "currentMain": "685e10c01b48c8f3b49aec5c7b4f7498a5d4061abe5442fab68aead5f0dfcc7f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/faction_ui.gd.uid": {
+        "native": "29c29c88c90f0b00298748a8f82bc171bfccf675afe00e30b165f95fb1300705",
+        "currentMain": "29c29c88c90f0b00298748a8f82bc171bfccf675afe00e30b165f95fb1300705",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/finance_ui.gd": {
+        "native": "fc4939c5b4416dfde16aaf00d1cec09d33fac022a84a81066806a8e3cc19f09e",
+        "currentMain": "fc4939c5b4416dfde16aaf00d1cec09d33fac022a84a81066806a8e3cc19f09e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/finance_ui.gd.uid": {
+        "native": "401f75dce01b6655decfd83f01656060b943292b81bfc95efc35bd3e580208d0",
+        "currentMain": "401f75dce01b6655decfd83f01656060b943292b81bfc95efc35bd3e580208d0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_economy.gd.uid": {
+        "native": "6cda10b73a8c25445b698f4c1330a04bd1ddbd8d5d8f43fe02b79568f5b94ffd",
+        "currentMain": "6cda10b73a8c25445b698f4c1330a04bd1ddbd8d5d8f43fe02b79568f5b94ffd",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_identity.gd": {
+        "native": "84473a53c210f0446919f42a9c040a4c2da293f1833392a8217cd6bc0b8a803a",
+        "currentMain": "84473a53c210f0446919f42a9c040a4c2da293f1833392a8217cd6bc0b8a803a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_identity.gd.uid": {
+        "native": "a6bc544e297e3077ac598f3d151f87fec02b3c7aaa9da5501b1ed4649e291513",
+        "currentMain": "a6bc544e297e3077ac598f3d151f87fec02b3c7aaa9da5501b1ed4649e291513",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_lab.gd": {
+        "native": "f4214dc543682ac85c5668ec2664ef867c43709082f8d0fab4a2187e6886f78a",
+        "currentMain": "f4214dc543682ac85c5668ec2664ef867c43709082f8d0fab4a2187e6886f78a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_lab.gd.uid": {
+        "native": "01bea4488682816ed1a16935e2e6b1ddf35f0a239d972e299cc0947aaa723666",
+        "currentMain": "01bea4488682816ed1a16935e2e6b1ddf35f0a239d972e299cc0947aaa723666",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_support.gd": {
+        "native": "444bfe786103d16eeba569a4c89898e871604eac53ff967d3fff02ac5d8ef332",
+        "currentMain": "444bfe786103d16eeba569a4c89898e871604eac53ff967d3fff02ac5d8ef332",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_support.gd.uid": {
+        "native": "891c768be61f70d4e8bb4c343f104a542cfc89ef42ee04eb4d9861e2a46001ce",
+        "currentMain": "891c768be61f70d4e8bb4c343f104a542cfc89ef42ee04eb4d9861e2a46001ce",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_workshop.gd": {
+        "native": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+        "currentMain": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_workshop.gd.uid": {
+        "native": "9f49b6cc24ae4ec58ed4e277317351adc06e0507f42a6d4ed3f323bd326c52db",
+        "currentMain": "9f49b6cc24ae4ec58ed4e277317351adc06e0507f42a6d4ed3f323bd326c52db",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/goods.gd": {
+        "native": "b2f7f52d278e3accd6aca90edb4885c8705704e4708806369635311505fee0e5",
+        "currentMain": "b2f7f52d278e3accd6aca90edb4885c8705704e4708806369635311505fee0e5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/goods.gd.uid": {
+        "native": "64ef060ab2b610af627e8386edf5089fdaa6653921da89b0d4e7ec621c4cf9ee",
+        "currentMain": "64ef060ab2b610af627e8386edf5089fdaa6653921da89b0d4e7ec621c4cf9ee",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/guidance_ui.gd": {
+        "native": "2cc4e3b65b31f428f3e0bba81ba84caf1de6f4cd29044c290f4545bed992f87f",
+        "currentMain": "2cc4e3b65b31f428f3e0bba81ba84caf1de6f4cd29044c290f4545bed992f87f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/guidance_ui.gd.uid": {
+        "native": "8a32eb6b22e3444c63c9822f96c713aa2c7d01def19bd900c587b2df36495806",
+        "currentMain": "8a32eb6b22e3444c63c9822f96c713aa2c7d01def19bd900c587b2df36495806",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/harbor.gd": {
+        "native": "66344ef2a417798c8f0794911ff1a3cda8dc61b863f48d458d28419f78e148fa",
+        "currentMain": "66344ef2a417798c8f0794911ff1a3cda8dc61b863f48d458d28419f78e148fa",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/harbor.gd.uid": {
+        "native": "cd9eadbd95abce45ac1d3d8864c1e53b4ee12b340d2fa43735b0e4c20c117018",
+        "currentMain": "cd9eadbd95abce45ac1d3d8864c1e53b4ee12b340d2fa43735b0e4c20c117018",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/harbor_reserves.gd": {
+        "native": "7ae8f562ca287e144037077c62e7d8f124b7f6c650ef7d8645fd62d7f7224bc9",
+        "currentMain": "7ae8f562ca287e144037077c62e7d8f124b7f6c650ef7d8645fd62d7f7224bc9",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/harbor_reserves.gd.uid": {
+        "native": "0592accbda77449019bcbcea9b60872e519002f35043dce6f216aa10bbeb774f",
+        "currentMain": "0592accbda77449019bcbcea9b60872e519002f35043dce6f216aa10bbeb774f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hardware.gd": {
+        "native": "02a6432901557f4d3f51e669b2dd72f488cd7b55c73581eaf306992916aeb191",
+        "currentMain": "02a6432901557f4d3f51e669b2dd72f488cd7b55c73581eaf306992916aeb191",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hardware.gd.uid": {
+        "native": "c606143906ea51bb5b66099a542f24e98f04374a725d017401c1d4fcfd8ef07e",
+        "currentMain": "c606143906ea51bb5b66099a542f24e98f04374a725d017401c1d4fcfd8ef07e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hold_manifest.gd": {
+        "native": "f93937bf76480a884977a0a261075c404c206f5317a6badd9916174fb0b3bc01",
+        "currentMain": "f93937bf76480a884977a0a261075c404c206f5317a6badd9916174fb0b3bc01",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hold_manifest.gd.uid": {
+        "native": "eca935461a75988d2f9912fbb223ee47171d569ccf5eff973f29fb42a61d65ca",
+        "currentMain": "eca935461a75988d2f9912fbb223ee47171d569ccf5eff973f29fb42a61d65ca",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_harbor.gd": {
+        "native": "7bf09856a533d871daf965b2b79be6618c92ad14350e55ca607702f1afdc2787",
+        "currentMain": "7bf09856a533d871daf965b2b79be6618c92ad14350e55ca607702f1afdc2787",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_harbor.gd.uid": {
+        "native": "159a40871b89ac57789e2533aa5558727bf3901ef653ff8325be1044ed339c4b",
+        "currentMain": "159a40871b89ac57789e2533aa5558727bf3901ef653ff8325be1044ed339c4b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_ops.gd": {
+        "native": "7633b6c2f5abc6ab6188d7991b5fe067c2e4b400308905e96bca5e2d93c5271d",
+        "currentMain": "7633b6c2f5abc6ab6188d7991b5fe067c2e4b400308905e96bca5e2d93c5271d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_ops.gd.uid": {
+        "native": "726f6fc492a380a4bea7616eeb8b82b6830f1e4a310e1e29769e9cc29cbd6a8a",
+        "currentMain": "726f6fc492a380a4bea7616eeb8b82b6830f1e4a310e1e29769e9cc29cbd6a8a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_ui.gd": {
+        "native": "1d2d7a8be103a7dd491ccd61a42faa2c5f3587bc8de5fa345548a3157db7de87",
+        "currentMain": "1d2d7a8be103a7dd491ccd61a42faa2c5f3587bc8de5fa345548a3157db7de87",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_ui.gd.uid": {
+        "native": "f39d84265d53bdc14cc2488d06d0520e9385c6a9f84bcc72d081f2dce1576366",
+        "currentMain": "f39d84265d53bdc14cc2488d06d0520e9385c6a9f84bcc72d081f2dce1576366",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hull_feedback.gd": {
+        "native": "c6910426c19e9896c5c44df87c43129cc7ec1f56627b074b27fd65d2318d954c",
+        "currentMain": "c6910426c19e9896c5c44df87c43129cc7ec1f56627b074b27fd65d2318d954c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hull_feedback.gd.uid": {
+        "native": "333dfdb4d561ab70b62a829d5a1eab8015dc2177c12e09162bc825f3cbcc238a",
+        "currentMain": "333dfdb4d561ab70b62a829d5a1eab8015dc2177c12e09162bc825f3cbcc238a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hull_profiles.gd": {
+        "native": "094e006bb14b69f3345ade993098193bc9402d87416ba001ee1b11401db4e236",
+        "currentMain": "094e006bb14b69f3345ade993098193bc9402d87416ba001ee1b11401db4e236",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hull_profiles.gd.uid": {
+        "native": "a8a2e00c4bc65531f492d26d58e3f8642d4c7bd81533fa6a79e5c25a221a40a1",
+        "currentMain": "a8a2e00c4bc65531f492d26d58e3f8642d4c7bd81533fa6a79e5c25a221a40a1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/identity_ui.gd": {
+        "native": "31c5cbbf137f1d3ab2aebe85ba0705589b06fea9e0b79278aaa750161bbf120c",
+        "currentMain": "31c5cbbf137f1d3ab2aebe85ba0705589b06fea9e0b79278aaa750161bbf120c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/identity_ui.gd.uid": {
+        "native": "7f2d2c24f31a51db40ac29513e674c30e5d5361a8a6791b891dadb025a31f877",
+        "currentMain": "7f2d2c24f31a51db40ac29513e674c30e5d5361a8a6791b891dadb025a31f877",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/industrial_tooling.gd": {
+        "native": "0792849d0a92114b9bfb1ba4c12ab8ca7f797108974b934b9dc95299724c7745",
+        "currentMain": "0792849d0a92114b9bfb1ba4c12ab8ca7f797108974b934b9dc95299724c7745",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/industrial_tooling.gd.uid": {
+        "native": "1f3aab4f1f9ba0dbfbd9ca3e9626859e2f237caae390c1055216f48b3c912667",
+        "currentMain": "1f3aab4f1f9ba0dbfbd9ca3e9626859e2f237caae390c1055216f48b3c912667",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/industry_data.gd": {
+        "native": "18ff0fccccb96dfe9715a46bb7aead516a590f76a765e800b021d3d51442c623",
+        "currentMain": "18ff0fccccb96dfe9715a46bb7aead516a590f76a765e800b021d3d51442c623",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/industry_data.gd.uid": {
+        "native": "ddd0374ade318ba01adc3352206f0a441beeb0d7f95a418fcb758d71f3224e97",
+        "currentMain": "ddd0374ade318ba01adc3352206f0a441beeb0d7f95a418fcb758d71f3224e97",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/interface.gd": {
+        "native": "33453db3e72c19320b3c9dd58aef957e40330ff0c0ecf1f5fa91a92e5650c57f",
+        "currentMain": "33453db3e72c19320b3c9dd58aef957e40330ff0c0ecf1f5fa91a92e5650c57f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/interface.gd.uid": {
+        "native": "81b25736d98bafd5a8e3e99d2633fe51189de2fa5338101da3168f8894a9ad59",
+        "currentMain": "81b25736d98bafd5a8e3e99d2633fe51189de2fa5338101da3168f8894a9ad59",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/island_site_art.gd": {
+        "native": "d68c23b0eeac26e9ea659f7808e9a92704471867db59ae8851e6c1ec0ef038ef",
+        "currentMain": "d68c23b0eeac26e9ea659f7808e9a92704471867db59ae8851e6c1ec0ef038ef",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/island_site_art.gd.uid": {
+        "native": "f272547642a8bb56013259f46f323ae76290c77ad555e0a7da4755c715c34ccd",
+        "currentMain": "f272547642a8bb56013259f46f323ae76290c77ad555e0a7da4755c715c34ccd",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/lab_ui.gd": {
+        "native": "7d9c36fd672189035dbf1abd6b4ddfdb65c6f1640d750404a063c3fe9463626a",
+        "currentMain": "7d9c36fd672189035dbf1abd6b4ddfdb65c6f1640d750404a063c3fe9463626a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/lab_ui.gd.uid": {
+        "native": "95ca4028f9d98cf7ca990d572bf64a69269902b0f95e479ddf8ed4bf57d4ddd7",
+        "currentMain": "95ca4028f9d98cf7ca990d572bf64a69269902b0f95e479ddf8ed4bf57d4ddd7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/law_ops.gd": {
+        "native": "c780f34973483652985d3e39db08c688b22b6b0f927a7431bf1bf9cceb27a2a7",
+        "currentMain": "c780f34973483652985d3e39db08c688b22b6b0f927a7431bf1bf9cceb27a2a7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/law_ops.gd.uid": {
+        "native": "db7c8f4294bffad239de6003f1fccb348d7155a7373190c97ec630bddb4f21e4",
+        "currentMain": "db7c8f4294bffad239de6003f1fccb348d7155a7373190c97ec630bddb4f21e4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/law_ui.gd": {
+        "native": "17173967c026888441ee9036cdf2079928cbb606676879394f074824c8a745c5",
+        "currentMain": "17173967c026888441ee9036cdf2079928cbb606676879394f074824c8a745c5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/law_ui.gd.uid": {
+        "native": "8a2fcf8110a8f2584a02cd85a7ad855c1363ae6019852ec2f6869fd93cd4229b",
+        "currentMain": "8a2fcf8110a8f2584a02cd85a7ad855c1363ae6019852ec2f6869fd93cd4229b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/main.gd": {
+        "native": "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe",
+        "currentMain": "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/main.gd.uid": {
+        "native": "5815261ba195bf62aefb8c39921bfb42b596e11893832bd5da46ac15e4868b85",
+        "currentMain": "5815261ba195bf62aefb8c39921bfb42b596e11893832bd5da46ac15e4868b85",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/money.gd": {
+        "native": "6a50bb27de4fb26b6490d749ab0105f3bafe26e540b5bdac2a238c2c2625c53b",
+        "currentMain": "6a50bb27de4fb26b6490d749ab0105f3bafe26e540b5bdac2a238c2c2625c53b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/money.gd.uid": {
+        "native": "8ba48805c19dda91c36e4cad486cd3561bdc649e41d1ad09cc42aa0b08d14cef",
+        "currentMain": "8ba48805c19dda91c36e4cad486cd3561bdc649e41d1ad09cc42aa0b08d14cef",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/motor_art.gd": {
+        "native": "d6f34c60f6c20ebf01291a73074d36c112475a726cdf861e169ff333b625ac28",
+        "currentMain": "d6f34c60f6c20ebf01291a73074d36c112475a726cdf861e169ff333b625ac28",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/motor_art.gd.uid": {
+        "native": "991d95baeb32c6acfc999ec74dc339a7b7549740d886441ae2601363cf559d35",
+        "currentMain": "991d95baeb32c6acfc999ec74dc339a7b7549740d886441ae2601363cf559d35",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/mount_layout.gd": {
+        "native": "7b2b07b64c30ad1d57cf847cddd35f1befdcf168354e46a5a53835e079f840cf",
+        "currentMain": "7b2b07b64c30ad1d57cf847cddd35f1befdcf168354e46a5a53835e079f840cf",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/mount_layout.gd.uid": {
+        "native": "5f851a3b199f02f42a04af29d0714415bba63bd2a320d2d60371b957782f7f61",
+        "currentMain": "5f851a3b199f02f42a04af29d0714415bba63bd2a320d2d60371b957782f7f61",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/music.gd": {
+        "native": "59dc6178f73b5ac0790bf5895b8882087064f2c301eb0cc51d9dd179b5748c68",
+        "currentMain": "59dc6178f73b5ac0790bf5895b8882087064f2c301eb0cc51d9dd179b5748c68",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/music.gd.uid": {
+        "native": "1cfa6bd4c48badb457704fd35b44764e3467bfacbf9d8bf2c67e1553846aa829",
+        "currentMain": "1cfa6bd4c48badb457704fd35b44764e3467bfacbf9d8bf2c67e1553846aa829",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_ai.gd": {
+        "native": "a8ef8019598ef3b5706f3a139a0ed34ad7a7e001099c63b5b80c75a6d71a74c6",
+        "currentMain": "a8ef8019598ef3b5706f3a139a0ed34ad7a7e001099c63b5b80c75a6d71a74c6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_ai.gd.uid": {
+        "native": "ff3863907bf052e66a7bddeb605c9dc003a5252cf198df0e2bb33ebf90db0ea0",
+        "currentMain": "ff3863907bf052e66a7bddeb605c9dc003a5252cf198df0e2bb33ebf90db0ea0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_combat.gd.uid": {
+        "native": "1d050daf0ec273fc20b0119881e2a96e7c1060890d3e3ce658cf19b92e65cbc0",
+        "currentMain": "1d050daf0ec273fc20b0119881e2a96e7c1060890d3e3ce658cf19b92e65cbc0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_lifecycle.gd": {
+        "native": "c4d6cdd506ead46cabc4bade8b641ee2f94632189697a19b2bd2fe8294e6a5b2",
+        "currentMain": "c4d6cdd506ead46cabc4bade8b641ee2f94632189697a19b2bd2fe8294e6a5b2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_lifecycle.gd.uid": {
+        "native": "8be0505a55cbac0c2365ca83bc15251b00a66b8b7703bbfc94a3eaf6130bfd15",
+        "currentMain": "8be0505a55cbac0c2365ca83bc15251b00a66b8b7703bbfc94a3eaf6130bfd15",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_orders.gd": {
+        "native": "5fd4dc282f57ac12955f4e8c05d5e93e7f41f412d67d6057b3a4c5442ec45d9a",
+        "currentMain": "5fd4dc282f57ac12955f4e8c05d5e93e7f41f412d67d6057b3a4c5442ec45d9a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_orders.gd.uid": {
+        "native": "846607739391bc471c9b6640989ac7e5ce68c5f794749a22dc8ac0e3696614c9",
+        "currentMain": "846607739391bc471c9b6640989ac7e5ce68c5f794749a22dc8ac0e3696614c9",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_replacements.gd": {
+        "native": "c2dc57205706036a731ad9289f93b8c300f4e379e82933476649bc1af70f6cd5",
+        "currentMain": "c2dc57205706036a731ad9289f93b8c300f4e379e82933476649bc1af70f6cd5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_replacements.gd.uid": {
+        "native": "8f694a87eb90002082d40d7b7eacd38e9fc4ce6c519f72c7683aa9944cdb6021",
+        "currentMain": "8f694a87eb90002082d40d7b7eacd38e9fc4ce6c519f72c7683aa9944cdb6021",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_ui.gd": {
+        "native": "8066aa0c02d782fd25b8ed2c58ae7cfa3754de5cbab0a0800b365549bbd7912a",
+        "currentMain": "8066aa0c02d782fd25b8ed2c58ae7cfa3754de5cbab0a0800b365549bbd7912a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_ui.gd.uid": {
+        "native": "308826fe664806cec917549bb7cffa5e639d86d1884471310d92bcaf3e228246",
+        "currentMain": "308826fe664806cec917549bb7cffa5e639d86d1884471310d92bcaf3e228246",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/navigation.gd": {
+        "native": "ddc59ae14c9c5998437686efcfe0819135df32ac6a5e16ad3e2672e2f60bf5db",
+        "currentMain": "ddc59ae14c9c5998437686efcfe0819135df32ac6a5e16ad3e2672e2f60bf5db",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/navigation.gd.uid": {
+        "native": "668b2a12e7ac41b553194ba465f2a0abd5da360c0ad58b62ef9ec7e30b7722c9",
+        "currentMain": "668b2a12e7ac41b553194ba465f2a0abd5da360c0ad58b62ef9ec7e30b7722c9",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/passenger_manifest.gd": {
+        "native": "34f5c99727ce247269539173aa7c0de6a5aa018492fda1bd396b49021dd6dc8a",
+        "currentMain": "34f5c99727ce247269539173aa7c0de6a5aa018492fda1bd396b49021dd6dc8a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/passenger_manifest.gd.uid": {
+        "native": "bda285c53a2c811e3de91ac5a05adc698ddffa5984f9f77ef25b987505914739",
+        "currentMain": "bda285c53a2c811e3de91ac5a05adc698ddffa5984f9f77ef25b987505914739",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/passenger_transport.gd": {
+        "native": "e0c1fa1c05212314de336478c2c7bd08d2c511c477bd8a6eebf6baf926687921",
+        "currentMain": "e0c1fa1c05212314de336478c2c7bd08d2c511c477bd8a6eebf6baf926687921",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/passenger_transport.gd.uid": {
+        "native": "f24c2efbd32de83bf36e3f0a9e5a7b10eb3bafaedda8f430ef74e9129b622527",
+        "currentMain": "f24c2efbd32de83bf36e3f0a9e5a7b10eb3bafaedda8f430ef74e9129b622527",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/politics.gd": {
+        "native": "332ef261e2e1bd0c73d5f87779b787c2ff8a3ac072b7674a753c263b35f2ccef",
+        "currentMain": "332ef261e2e1bd0c73d5f87779b787c2ff8a3ac072b7674a753c263b35f2ccef",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/politics.gd.uid": {
+        "native": "d73e0482b1c2f0020077e0c45787eb10734eb10bd8db931f65f4cef204feb762",
+        "currentMain": "d73e0482b1c2f0020077e0c45787eb10734eb10bd8db931f65f4cef204feb762",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/preferences.gd": {
+        "native": "5e61019bdddea9068ebcf6633c613024b3f0879747169ba4ecbfd3cf5f1515f8",
+        "currentMain": "5e61019bdddea9068ebcf6633c613024b3f0879747169ba4ecbfd3cf5f1515f8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/preferences.gd.uid": {
+        "native": "d3bcf68b28359a01f582e053cd4d25f1e34340cf89d038d89765081d9437d063",
+        "currentMain": "d3bcf68b28359a01f582e053cd4d25f1e34340cf89d038d89765081d9437d063",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/recovery_ui.gd": {
+        "native": "60cf9a0a755b747784b7a98c23971271fab2dcd69c0d2e551b573d5c5cb986c0",
+        "currentMain": "60cf9a0a755b747784b7a98c23971271fab2dcd69c0d2e551b573d5c5cb986c0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/recovery_ui.gd.uid": {
+        "native": "4be1ba613bf0bcb85ed70cdbc92ebf08e640f129d0d6a00be7196f26e7690cb3",
+        "currentMain": "4be1ba613bf0bcb85ed70cdbc92ebf08e640f129d0d6a00be7196f26e7690cb3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/refit.gd": {
+        "native": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+        "currentMain": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/refit.gd.uid": {
+        "native": "5bbbf0458704dc635edfe70162c8d9b8675c319a416fb4748c9ecb0cebddace3",
+        "currentMain": "5bbbf0458704dc635edfe70162c8d9b8675c319a416fb4748c9ecb0cebddace3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/refit_ui.gd": {
+        "native": "da29c7040d47398270f69329acff5318a5506865cab9cebd89d699b2ffbdbe83",
+        "currentMain": "da29c7040d47398270f69329acff5318a5506865cab9cebd89d699b2ffbdbe83",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/refit_ui.gd.uid": {
+        "native": "c82ca18c304ad5593c95ca0fbe0d8297f9938b625b6562e2041d30e5b10a7dd2",
+        "currentMain": "c82ca18c304ad5593c95ca0fbe0d8297f9938b625b6562e2041d30e5b10a7dd2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_campaigns.gd": {
+        "native": "51bd75ba49841ef9f11b93b1d63bf58dd274d5eb0905cce9c13e75d4142f83c0",
+        "currentMain": "51bd75ba49841ef9f11b93b1d63bf58dd274d5eb0905cce9c13e75d4142f83c0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_campaigns.gd.uid": {
+        "native": "5782dbd50335f13a6f46958b0e336b069670445d85e9c6cb08dee40ddc1d8d3f",
+        "currentMain": "5782dbd50335f13a6f46958b0e336b069670445d85e9c6cb08dee40ddc1d8d3f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_crises.gd": {
+        "native": "a37c357ae7372278d62e264b6e727511930304030787a65110ea93e23837f6e2",
+        "currentMain": "a37c357ae7372278d62e264b6e727511930304030787a65110ea93e23837f6e2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_crises.gd.uid": {
+        "native": "d8310efebb6cdd323bbb4c87efd47f8794338081a58ef371b72fdecd9b79db97",
+        "currentMain": "d8310efebb6cdd323bbb4c87efd47f8794338081a58ef371b72fdecd9b79db97",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_goods.gd": {
+        "native": "ac7a4349804bd6ee3ced782008a6969708d0584611443bdc73486d4c4327fb56",
+        "currentMain": "ac7a4349804bd6ee3ced782008a6969708d0584611443bdc73486d4c4327fb56",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_goods.gd.uid": {
+        "native": "5f471913b1669ad33521884b88d164451d6454dbfdaa2159f118c24721b5f9b6",
+        "currentMain": "5f471913b1669ad33521884b88d164451d6454dbfdaa2159f118c24721b5f9b6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_goods_ui.gd": {
+        "native": "ddf1fac9b7a1f98a5a09caf71b9ad8fe19fbb9b4d57f3bec5a3c7a0ab3dff073",
+        "currentMain": "ddf1fac9b7a1f98a5a09caf71b9ad8fe19fbb9b4d57f3bec5a3c7a0ab3dff073",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_goods_ui.gd.uid": {
+        "native": "730dbc6cb619a6311c4046381bffefafb48ed65918ecd91bb1b5cded443ae85f",
+        "currentMain": "730dbc6cb619a6311c4046381bffefafb48ed65918ecd91bb1b5cded443ae85f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_ops.gd": {
+        "native": "1e220cd4cf563cbd628411c341b28852f1bdb2c055ed883bac35fb4a2ec59a9d",
+        "currentMain": "1e220cd4cf563cbd628411c341b28852f1bdb2c055ed883bac35fb4a2ec59a9d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_ops.gd.uid": {
+        "native": "d78a13917eb66a0c346a4553cd5e345f9235e87b642f20bcaa791f62e3fa8cff",
+        "currentMain": "d78a13917eb66a0c346a4553cd5e345f9235e87b642f20bcaa791f62e3fa8cff",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_orders.gd": {
+        "native": "01cc539e3423429b0a33ac3ac8ac6c607b0976888182838bd6d268526e5f0705",
+        "currentMain": "01cc539e3423429b0a33ac3ac8ac6c607b0976888182838bd6d268526e5f0705",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_orders.gd.uid": {
+        "native": "e2330a69d3cdfd416ae24ae19473fce060f01fc98600160bcafb41b9704ebfac",
+        "currentMain": "e2330a69d3cdfd416ae24ae19473fce060f01fc98600160bcafb41b9704ebfac",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_rules.gd": {
+        "native": "a483a30df65a926e299bff3554a792bb778ffe5ee422fe74cfe4e43d658ca338",
+        "currentMain": "a483a30df65a926e299bff3554a792bb778ffe5ee422fe74cfe4e43d658ca338",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_rules.gd.uid": {
+        "native": "47ae44be2c6136dbfe3acae10dab8601e6d08927b45c7a2f313cecb73faddd81",
+        "currentMain": "47ae44be2c6136dbfe3acae10dab8601e6d08927b45c7a2f313cecb73faddd81",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_ui.gd": {
+        "native": "946385dc4770e58a638db297b7ff524be5bccaa2d89715a6bf2fd2c26c509959",
+        "currentMain": "946385dc4770e58a638db297b7ff524be5bccaa2d89715a6bf2fd2c26c509959",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_ui.gd.uid": {
+        "native": "9150e305ecc10c3da127cc204b5443ad6533287082b1974a324087b142c6a89f",
+        "currentMain": "9150e305ecc10c3da127cc204b5443ad6533287082b1974a324087b142c6a89f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/reserve_ops.gd": {
+        "native": "d786e742e2ba660001e38399c3a483767c39fa887d1b14830753b3788bd536ca",
+        "currentMain": "d786e742e2ba660001e38399c3a483767c39fa887d1b14830753b3788bd536ca",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/reserve_ops.gd.uid": {
+        "native": "f377fa5269642a976cb02d0bde6f2b9e1b1d1ab424c870759d19d746333816f7",
+        "currentMain": "f377fa5269642a976cb02d0bde6f2b9e1b1d1ab424c870759d19d746333816f7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/route_cache.gd": {
+        "native": "9072a5465bcf167e5ebbed4d8fb8e9f7a9c22215d77af4cdc766719e915d69e0",
+        "currentMain": "9072a5465bcf167e5ebbed4d8fb8e9f7a9c22215d77af4cdc766719e915d69e0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/route_cache.gd.uid": {
+        "native": "b86598c128d61649ca6fb3fd38bbadc58690b912f10ee91902ed1fe3c751b24f",
+        "currentMain": "b86598c128d61649ca6fb3fd38bbadc58690b912f10ee91902ed1fe3c751b24f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/salvage.gd": {
+        "native": "d0c0fc2ee3fe4ac3ddd4db22940ea8059a5778839eee0c979f493ae04fd3c637",
+        "currentMain": "d0c0fc2ee3fe4ac3ddd4db22940ea8059a5778839eee0c979f493ae04fd3c637",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/salvage.gd.uid": {
+        "native": "9e6151c2955c916b9aa223125fe880f613fe41d06c848b97532e6cea271a044d",
+        "currentMain": "9e6151c2955c916b9aa223125fe880f613fe41d06c848b97532e6cea271a044d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/save_validation.gd": {
+        "native": "fd6b4722cbbc36795c567372022a7f37d25b6963fafe5eb690934673b57b5b49",
+        "currentMain": "fd6b4722cbbc36795c567372022a7f37d25b6963fafe5eb690934673b57b5b49",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/save_validation.gd.uid": {
+        "native": "9e8e475366ea3ceaa1e9f7ec824aec8ef558f55b1c92cde22117ea8eaeb13353",
+        "currentMain": "9e8e475366ea3ceaa1e9f7ec824aec8ef558f55b1c92cde22117ea8eaeb13353",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/shipping_companies.gd": {
+        "native": "f6ae30778ae02ace73ac8acb65cac68039a1d482d88bf5d0da38d009002d3c7a",
+        "currentMain": "f6ae30778ae02ace73ac8acb65cac68039a1d482d88bf5d0da38d009002d3c7a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/shipping_companies.gd.uid": {
+        "native": "af81a700f81687c40e8eb26b594eb760a7af1cf519f9f159a5dcb70697ba2322",
+        "currentMain": "af81a700f81687c40e8eb26b594eb760a7af1cf519f9f159a5dcb70697ba2322",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/sound.gd": {
+        "native": "310fbaa0c9ceedc397492351aaa6603a2249b9e8af25b5ea12b6e9b37d78c7dc",
+        "currentMain": "310fbaa0c9ceedc397492351aaa6603a2249b9e8af25b5ea12b6e9b37d78c7dc",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/sound.gd.uid": {
+        "native": "d6e4caf88c1693de998a11946f65c2829b1429080340991bfdd0436174c57469",
+        "currentMain": "d6e4caf88c1693de998a11946f65c2829b1429080340991bfdd0436174c57469",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_offers.gd": {
+        "native": "199fbd15161b12d89adb2073e3e9e8f2b56a1ea971eaaa8f7de9de2c8e65acfc",
+        "currentMain": "199fbd15161b12d89adb2073e3e9e8f2b56a1ea971eaaa8f7de9de2c8e65acfc",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_offers.gd.uid": {
+        "native": "54ff62fc4875c4b8e028b349ae65eaa46a351630e5729f4f7df6ac28944594b1",
+        "currentMain": "54ff62fc4875c4b8e028b349ae65eaa46a351630e5729f4f7df6ac28944594b1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_ops.gd": {
+        "native": "43aaca9ce4e1b763c0544564ae51564843d5d152c68e0891dec61aab56bffb7c",
+        "currentMain": "43aaca9ce4e1b763c0544564ae51564843d5d152c68e0891dec61aab56bffb7c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_ops.gd.uid": {
+        "native": "9d787e5738625860997ec499d68b669a4fd899f9e99ce3f6f7a09d66bda5701a",
+        "currentMain": "9d787e5738625860997ec499d68b669a4fd899f9e99ce3f6f7a09d66bda5701a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_ui.gd": {
+        "native": "47664f8c688d19947c704ca61b9f62cefaefa37fa795dd841a3c15f934a32ad6",
+        "currentMain": "47664f8c688d19947c704ca61b9f62cefaefa37fa795dd841a3c15f934a32ad6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_ui.gd.uid": {
+        "native": "f36e2446f5e3a4da07b3ec6a42038b57e85becc07b54828379688311fc8b31d1",
+        "currentMain": "f36e2446f5e3a4da07b3ec6a42038b57e85becc07b54828379688311fc8b31d1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/supply_ui.gd": {
+        "native": "7152fa45d5266b7acd72cbe603df3f7e40e2852a14707b3693bd94cb015f8f14",
+        "currentMain": "7152fa45d5266b7acd72cbe603df3f7e40e2852a14707b3693bd94cb015f8f14",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/supply_ui.gd.uid": {
+        "native": "bcc7f8a360aa3870347e3aa1986d8ed24539057d2c63a17057ebc95de5fd1f2a",
+        "currentMain": "bcc7f8a360aa3870347e3aa1986d8ed24539057d2c63a17057ebc95de5fd1f2a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_certification.gd": {
+        "native": "88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8",
+        "currentMain": "88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_certification.gd.uid": {
+        "native": "d4f7c61f62bf16b8c6d5d61fd4c3aee106f8d785d6bd72aaec7d2290f8df5f01",
+        "currentMain": "d4f7c61f62bf16b8c6d5d61fd4c3aee106f8d785d6bd72aaec7d2290f8df5f01",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_fire_control.gd": {
+        "native": "b256bfa558acc0ccc6d0fc30196cb384972a9c6aaf1b4799dc806c591cfdf32d",
+        "currentMain": "b256bfa558acc0ccc6d0fc30196cb384972a9c6aaf1b4799dc806c591cfdf32d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_fire_control.gd.uid": {
+        "native": "391be9c010211a91d8734dc5797a69fbfd8e1ef8158b55ef46fb0d203cf31045",
+        "currentMain": "391be9c010211a91d8734dc5797a69fbfd8e1ef8158b55ef46fb0d203cf31045",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_planner.gd": {
+        "native": "ea46a08859184fe719217eb6d280a4a303882e30f4a41b076ef9fa59e599c7b0",
+        "currentMain": "ea46a08859184fe719217eb6d280a4a303882e30f4a41b076ef9fa59e599c7b0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_planner.gd.uid": {
+        "native": "2546c7911d5645381c47cfac0f2164e7b7982568ec3ccdf02218e03bb3ba2039",
+        "currentMain": "2546c7911d5645381c47cfac0f2164e7b7982568ec3ccdf02218e03bb3ba2039",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_role_plans.gd": {
+        "native": "55f7c857c37aca13c420c289e5ce9b91a96dfe1e31a46bbb325c548e578751c3",
+        "currentMain": "55f7c857c37aca13c420c289e5ce9b91a96dfe1e31a46bbb325c548e578751c3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_role_plans.gd.uid": {
+        "native": "5e3eb2eb9482dc568730599932d46911bfce6da4ac047a7575d39ae53e26ad7e",
+        "currentMain": "5e3eb2eb9482dc568730599932d46911bfce6da4ac047a7575d39ae53e26ad7e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_routes.gd": {
+        "native": "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2",
+        "currentMain": "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_routes.gd.uid": {
+        "native": "6c130e0c18c220ec3bb1a5920e8f30dd9bf2f0e8ca67f574e63c50548b7e075a",
+        "currentMain": "6c130e0c18c220ec3bb1a5920e8f30dd9bf2f0e8ca67f574e63c50548b7e075a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_runtime.gd": {
+        "native": "5722a8ab70bca74a61d71306888c4dec40d1e0dc01bf95ce99d4acfb3a7de0a2",
+        "currentMain": "5722a8ab70bca74a61d71306888c4dec40d1e0dc01bf95ce99d4acfb3a7de0a2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_runtime.gd.uid": {
+        "native": "7125494ada7fc77d2da962b6520f5c8a45787eaa51d433186ce42cf8b818551a",
+        "currentMain": "7125494ada7fc77d2da962b6520f5c8a45787eaa51d433186ce42cf8b818551a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_stations.gd": {
+        "native": "24ea330f463dbfe940730e99685665708abc15853f30a017603d75ba8991700f",
+        "currentMain": "24ea330f463dbfe940730e99685665708abc15853f30a017603d75ba8991700f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_stations.gd.uid": {
+        "native": "8e5d3b891150345c0dfba7877094b799f8a78473d6dd76e8614c7fd78b7751fb",
+        "currentMain": "8e5d3b891150345c0dfba7877094b799f8a78473d6dd76e8614c7fd78b7751fb",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactics_ui.gd": {
+        "native": "b53fb28bf1808fedcc739808376d5f7874ba791cbf15bf2a5389baf95e2865b0",
+        "currentMain": "b53fb28bf1808fedcc739808376d5f7874ba791cbf15bf2a5389baf95e2865b0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactics_ui.gd.uid": {
+        "native": "71aced61f6471c10224e7ecea6658ae6b32dc31374cb833a47427faf3c56005b",
+        "currentMain": "71aced61f6471c10224e7ecea6658ae6b32dc31374cb833a47427faf3c56005b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tooling_ops.gd": {
+        "native": "61b6fb419541dcf12bd46171d9d687bbcfdb68507466968bde3b8069e3c14acd",
+        "currentMain": "61b6fb419541dcf12bd46171d9d687bbcfdb68507466968bde3b8069e3c14acd",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tooling_ops.gd.uid": {
+        "native": "7bdeb8059c5cd6820a44fe1c14fdde5aabf4729f349e0984e406574878b95be0",
+        "currentMain": "7bdeb8059c5cd6820a44fe1c14fdde5aabf4729f349e0984e406574878b95be0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tooling_ui.gd": {
+        "native": "8126e25ff3ba0db9792b17b44fe13ae9bb777f5093abfaf51f26282ff8626a6d",
+        "currentMain": "8126e25ff3ba0db9792b17b44fe13ae9bb777f5093abfaf51f26282ff8626a6d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tooling_ui.gd.uid": {
+        "native": "3cd82cb0cb8726c0e6e0a3b1d103df5704d7f444e0a065d66c5b7c11ee4519cf",
+        "currentMain": "3cd82cb0cb8726c0e6e0a3b1d103df5704d7f444e0a065d66c5b7c11ee4519cf",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_flow.gd": {
+        "native": "f273af14275c15a1f870a3a984f9ede7211854f0872b2bf0f7b1eb3a15f1c6ca",
+        "currentMain": "f273af14275c15a1f870a3a984f9ede7211854f0872b2bf0f7b1eb3a15f1c6ca",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_flow.gd.uid": {
+        "native": "50a9fa5ca195bd21cd72362c5c37552e5fa2a4ade14697b2fb9b56f7c55d0fa9",
+        "currentMain": "50a9fa5ca195bd21cd72362c5c37552e5fa2a4ade14697b2fb9b56f7c55d0fa9",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_intel.gd": {
+        "native": "ab559acc1e936460e98f27b60981e88e6927cff3a07f0c3c687fdfb965d0fbde",
+        "currentMain": "ab559acc1e936460e98f27b60981e88e6927cff3a07f0c3c687fdfb965d0fbde",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_intel.gd.uid": {
+        "native": "7b176f806110fd84db7bc3ab36d7cf17befb19edd389cbffdc745bf3a0034479",
+        "currentMain": "7b176f806110fd84db7bc3ab36d7cf17befb19edd389cbffdc745bf3a0034479",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_law.gd": {
+        "native": "a59a52950e173317d0aeb94234294ed9a82db038e8409a404d3671c38e668405",
+        "currentMain": "a59a52950e173317d0aeb94234294ed9a82db038e8409a404d3671c38e668405",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_law.gd.uid": {
+        "native": "f5e9fad4c36c5a8917d7216767977d03189c3ee04452dddf759041d79f900da3",
+        "currentMain": "f5e9fad4c36c5a8917d7216767977d03189c3ee04452dddf759041d79f900da3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_rules.gd": {
+        "native": "58664dd139b97c61b61bc2d0686888fa9e4f7fdb8602ae33f1eb6fb7f2cb337e",
+        "currentMain": "58664dd139b97c61b61bc2d0686888fa9e4f7fdb8602ae33f1eb6fb7f2cb337e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_rules.gd.uid": {
+        "native": "1f67816003a29fc29f0de0be7ed41ccee7c7e0c5faf6ed020b154db31ee828fa",
+        "currentMain": "1f67816003a29fc29f0de0be7ed41ccee7c7e0c5faf6ed020b154db31ee828fa",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_ui.gd": {
+        "native": "aa916a3bc8e52c1d7d6f6ff27b681a280ae31215a992326f18fc4c16a4ebb271",
+        "currentMain": "aa916a3bc8e52c1d7d6f6ff27b681a280ae31215a992326f18fc4c16a4ebb271",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_ui.gd.uid": {
+        "native": "332f4a3fbde8adacbc086f3bf0f0978c59983e39fad73c7a3d878de2832533f4",
+        "currentMain": "332f4a3fbde8adacbc086f3bf0f0978c59983e39fad73c7a3d878de2832533f4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/training_ops.gd": {
+        "native": "a67c13ada669381b35c9685858f62ab8533528ef5c76ff7bb8c96890a7d94dd4",
+        "currentMain": "a67c13ada669381b35c9685858f62ab8533528ef5c76ff7bb8c96890a7d94dd4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/training_ops.gd.uid": {
+        "native": "6d0324dbce27741d12656e52604c3203c565335048bf58d80fbbe0ed702a45a7",
+        "currentMain": "6d0324dbce27741d12656e52604c3203c565335048bf58d80fbbe0ed702a45a7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/version.gd": {
+        "native": "470f6eca8a41cdcd6fe1439b576434637fcae2ceb7ad12e02fc5b9e5330b292d",
+        "currentMain": "470f6eca8a41cdcd6fe1439b576434637fcae2ceb7ad12e02fc5b9e5330b292d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/version.gd.uid": {
+        "native": "0d3cee75770698039f3982f002bcbf548f6d5cfac1506655c24778e6b262bee1",
+        "currentMain": "0d3cee75770698039f3982f002bcbf548f6d5cfac1506655c24778e6b262bee1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/voyage_jobs.gd": {
+        "native": "7933c31c8331b608844908338b1ba2d6d5272e4a053c1d688589602d12af5b59",
+        "currentMain": "7933c31c8331b608844908338b1ba2d6d5272e4a053c1d688589602d12af5b59",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/voyage_jobs.gd.uid": {
+        "native": "aa49478f135e57b1031e5238863db7684df1888fe3714282cbe976b941110218",
+        "currentMain": "aa49478f135e57b1031e5238863db7684df1888fe3714282cbe976b941110218",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/voyage_ui.gd": {
+        "native": "df46fbed9b0e347b221b9d21cbdac145bb9170ef0ba8b3bcf12baf599294f9c7",
+        "currentMain": "df46fbed9b0e347b221b9d21cbdac145bb9170ef0ba8b3bcf12baf599294f9c7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/voyage_ui.gd.uid": {
+        "native": "f0178c47fab64688f04bf4a748fd0e831d0b389e45491acd4e499a5f85fbee4f",
+        "currentMain": "f0178c47fab64688f04bf4a748fd0e831d0b389e45491acd4e499a5f85fbee4f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/weapon_art.gd": {
+        "native": "e55806e7e011082ffbf03c4e20f4075cc4a31022730899871dee176c6ad9b43a",
+        "currentMain": "e55806e7e011082ffbf03c4e20f4075cc4a31022730899871dee176c6ad9b43a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/weapon_art.gd.uid": {
+        "native": "9d47c80826ca6559243342dbccf53956075e040c0100155f385cb86b6cc1b70d",
+        "currentMain": "9d47c80826ca6559243342dbccf53956075e040c0100155f385cb86b6cc1b70d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/weapon_geometry.gd": {
+        "native": "ffc6d54770e3ca5942ec904b003d7d998982ef0cd3ed7a446e98f8a98a306a40",
+        "currentMain": "ffc6d54770e3ca5942ec904b003d7d998982ef0cd3ed7a446e98f8a98a306a40",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/weapon_geometry.gd.uid": {
+        "native": "3c9bd0ec52c5991af133be189e5c17414df387f4b901d028aa65368dbf0574d8",
+        "currentMain": "3c9bd0ec52c5991af133be189e5c17414df387f4b901d028aa65368dbf0574d8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_conditions.gd": {
+        "native": "e0c280fb0646f179f056b5dc556f8e62ca1e7f0a530ee7a60824850a85c73bd6",
+        "currentMain": "e0c280fb0646f179f056b5dc556f8e62ca1e7f0a530ee7a60824850a85c73bd6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_conditions.gd.uid": {
+        "native": "22d59ada439d8da810e5b7f5908b9fc39c7b4029776c5e92a1e3676a86dad607",
+        "currentMain": "22d59ada439d8da810e5b7f5908b9fc39c7b4029776c5e92a1e3676a86dad607",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_ops.gd": {
+        "native": "75512eefaf73fcad73ed39c482d9af8b682555d2e591f53b62e629c4fd02a74c",
+        "currentMain": "75512eefaf73fcad73ed39c482d9af8b682555d2e591f53b62e629c4fd02a74c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_ops.gd.uid": {
+        "native": "96d1f39bbf19ffbf70726641021a89a6488e5f663f5173b4288273e89244b7cb",
+        "currentMain": "96d1f39bbf19ffbf70726641021a89a6488e5f663f5173b4288273e89244b7cb",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_ui.gd": {
+        "native": "73a5a723f9af426633e93a7258ced8a476cd0c0d809da14b43be362c30142e5c",
+        "currentMain": "73a5a723f9af426633e93a7258ced8a476cd0c0d809da14b43be362c30142e5c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_ui.gd.uid": {
+        "native": "a801c16203a235797b661636e69e9a208cc46af92da39686542feb51b3858062",
+        "currentMain": "a801c16203a235797b661636e69e9a208cc46af92da39686542feb51b3858062",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/workshop_ui.gd": {
+        "native": "ea49da6032ef37992261e97a80a590a588a4dffa9e1a78155339bd2bf66b6592",
+        "currentMain": "ea49da6032ef37992261e97a80a590a588a4dffa9e1a78155339bd2bf66b6592",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/workshop_ui.gd.uid": {
+        "native": "86466a089c28b2f32d718b47e43d60fe18a0a12d18fcaf3919d10c0348c9694a",
+        "currentMain": "86466a089c28b2f32d718b47e43d60fe18a0a12d18fcaf3919d10c0348c9694a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/yard_development.gd": {
+        "native": "0b5ac50f03520016c900c4bd4c84973d2cf534ec1153f42fb472663a89332889",
+        "currentMain": "0b5ac50f03520016c900c4bd4c84973d2cf534ec1153f42fb472663a89332889",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/yard_development.gd.uid": {
+        "native": "e3468a9b27c2a5be452e3f3c72af2a882087e0d761660d279a76ac5beca97b2f",
+        "currentMain": "e3468a9b27c2a5be452e3f3c72af2a882087e0d761660d279a76ac5beca97b2f",
+        "equalIgnoringCRLF": true
+      }
+    },
+    "ui": {
+      "scripts/battle.gd": {
+        "native": "726211c1c7cac225862cd732835749dd0af03f1380bafc9bcecdc05444901024",
+        "currentMain": "726211c1c7cac225862cd732835749dd0af03f1380bafc9bcecdc05444901024",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/battle.gd.uid": {
+        "native": "47b272647c479559a1b62ca566e3be130942a611bb16b14deaad06d54fc516c1",
+        "currentMain": "47b272647c479559a1b62ca566e3be130942a611bb16b14deaad06d54fc516c1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/battle_objectives.gd": {
+        "native": "6052f01c0fa9cdba0c156d506589cc3ce5c38e9b0d62c209f1d3b68f96395224",
+        "currentMain": "6052f01c0fa9cdba0c156d506589cc3ce5c38e9b0d62c209f1d3b68f96395224",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/battle_objectives.gd.uid": {
+        "native": "06767ed7f45dc39615494f5b6e4fd7a189d22e824ae24d45c2c08184795fdfe3",
+        "currentMain": "06767ed7f45dc39615494f5b6e4fd7a189d22e824ae24d45c2c08184795fdfe3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding.gd": {
+        "native": "1596f979b13ca3db6fb079382a116605019b22cffc41bb89959d217e742cc36a",
+        "currentMain": "1596f979b13ca3db6fb079382a116605019b22cffc41bb89959d217e742cc36a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding.gd.uid": {
+        "native": "43a8b7f06f8b897a0ddb5f9a6aa378417286c9480e09db1058ae5d0841a6922b",
+        "currentMain": "43a8b7f06f8b897a0ddb5f9a6aa378417286c9480e09db1058ae5d0841a6922b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding_ops.gd": {
+        "native": "7db93815899b9913d0f42555ef1b052a2108497a9799cd2afd2edc0a1dbfb258",
+        "currentMain": "7db93815899b9913d0f42555ef1b052a2108497a9799cd2afd2edc0a1dbfb258",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding_ops.gd.uid": {
+        "native": "678ae827146307f5d16935d8be21f2b09ddff628ce02b404db76ac74eb4d9751",
+        "currentMain": "678ae827146307f5d16935d8be21f2b09ddff628ce02b404db76ac74eb4d9751",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding_ui.gd": {
+        "native": "fd2b9c6279e3831fc663ddeebf82f68ff6d6a92b94bbc67d1e01536254673fa8",
+        "currentMain": "fd2b9c6279e3831fc663ddeebf82f68ff6d6a92b94bbc67d1e01536254673fa8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boarding_ui.gd.uid": {
+        "native": "a825440fa52f578f36bbb7d9b72af29b8376473d2dac8c80c317b07bea2d47a4",
+        "currentMain": "a825440fa52f578f36bbb7d9b72af29b8376473d2dac8c80c317b07bea2d47a4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_art.gd": {
+        "native": "e8ac9c535f68010be48dcda5b3a6e8d993377ee9be3ce8814a0e49498c6663b6",
+        "currentMain": "e8ac9c535f68010be48dcda5b3a6e8d993377ee9be3ce8814a0e49498c6663b6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_art.gd.uid": {
+        "native": "b4d2f66516d65b3279d68cf28461d7b685c8f13d4cec8b2d8d4322215d2e53e5",
+        "currentMain": "b4d2f66516d65b3279d68cf28461d7b685c8f13d4cec8b2d8d4322215d2e53e5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_deck_detail.gd": {
+        "native": "e267343fe9a0de1253e563f0d568da058f50fc09004b3405f91ddacc90642873",
+        "currentMain": "e267343fe9a0de1253e563f0d568da058f50fc09004b3405f91ddacc90642873",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_deck_detail.gd.uid": {
+        "native": "cb7fa5ecd510d1f89dc23e504ca78feb2a3ee228f41070e235b7b0f94031f25e",
+        "currentMain": "cb7fa5ecd510d1f89dc23e504ca78feb2a3ee228f41070e235b7b0f94031f25e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_mesh_cache.gd": {
+        "native": "35c27e5125325d159830bb1396d0bb9d150d5bbb0747de0b12331e8162af7640",
+        "currentMain": "35c27e5125325d159830bb1396d0bb9d150d5bbb0747de0b12331e8162af7640",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_mesh_cache.gd.uid": {
+        "native": "0cb6dbec36ff3e4c159aa90f098215dc00466d9f42427116d732620f41024522",
+        "currentMain": "0cb6dbec36ff3e4c159aa90f098215dc00466d9f42427116d732620f41024522",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_portrait.gd": {
+        "native": "79764b9c2b8252537f0d516dcaa07a4dfbf85e48fcd3b0b4a05f6c16b72e2d04",
+        "currentMain": "79764b9c2b8252537f0d516dcaa07a4dfbf85e48fcd3b0b4a05f6c16b72e2d04",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/boat_portrait.gd.uid": {
+        "native": "3f38bf8565d6f3cb711678a40355ad4ea9ec41976708e38ee4907d8b41ab530c",
+        "currentMain": "3f38bf8565d6f3cb711678a40355ad4ea9ec41976708e38ee4907d8b41ab530c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/build_icon.gd": {
+        "native": "72dc7de6fd9a1968128b7481e58a99ea6d516b6751fffd218ca1c40abd2e3e07",
+        "currentMain": "72dc7de6fd9a1968128b7481e58a99ea6d516b6751fffd218ca1c40abd2e3e07",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/build_icon.gd.uid": {
+        "native": "cb891b8ff65c7e96b45c38d0fc1588e7edafafe8a4bb7dd4339510e65831d35e",
+        "currentMain": "cb891b8ff65c7e96b45c38d0fc1588e7edafafe8a4bb7dd4339510e65831d35e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/build_notices.gd": {
+        "native": "989475570773dedef931fd39343f7e19228a28375ae0c062a4e246c99c86c234",
+        "currentMain": "989475570773dedef931fd39343f7e19228a28375ae0c062a4e246c99c86c234",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/build_notices.gd.uid": {
+        "native": "ee489e90d5417d57cec9cdc4dba5406f17796a5de935d1b8b1702d7bc60ee862",
+        "currentMain": "ee489e90d5417d57cec9cdc4dba5406f17796a5de935d1b8b1702d7bc60ee862",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign.gd": {
+        "native": "1b697b419a40b456e145fe646196ffe853abe8e8a41ed536ee8d5f8f08d067ad",
+        "currentMain": "1b697b419a40b456e145fe646196ffe853abe8e8a41ed536ee8d5f8f08d067ad",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign.gd.uid": {
+        "native": "afbb9015ef1d6c9b9e2275a537f12fe28823e82a29e41a443d14c9db61a2df77",
+        "currentMain": "afbb9015ef1d6c9b9e2275a537f12fe28823e82a29e41a443d14c9db61a2df77",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_guidance.gd": {
+        "native": "b0d2e92bb7c9efc954278ac8c30036105ea1aea80e074f62d6201bb0381db074",
+        "currentMain": "b0d2e92bb7c9efc954278ac8c30036105ea1aea80e074f62d6201bb0381db074",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_guidance.gd.uid": {
+        "native": "4b0b732fba1371ecad3c695e0c37921ad6f0f858152a6bc421413153343cfecd",
+        "currentMain": "4b0b732fba1371ecad3c695e0c37921ad6f0f858152a6bc421413153343cfecd",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_state_validation.gd": {
+        "native": "9a5728f159d2157293bb5b3340bbccdf5d5c80130c5f862ff811c920e3575318",
+        "currentMain": "9a5728f159d2157293bb5b3340bbccdf5d5c80130c5f862ff811c920e3575318",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_state_validation.gd.uid": {
+        "native": "7f5b81bd000106b8227966f21fa53f53572170d47bcc60d094366183890c3f0a",
+        "currentMain": "7f5b81bd000106b8227966f21fa53f53572170d47bcc60d094366183890c3f0a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_ui.gd": {
+        "native": "b45b29cc6e771c458b4695bf7a4b63e3fcaa6300900ea07c46fccf7bcf24ad19",
+        "currentMain": "b45b29cc6e771c458b4695bf7a4b63e3fcaa6300900ea07c46fccf7bcf24ad19",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/campaign_ui.gd.uid": {
+        "native": "a977d2ae429f38997e246c2678fbeb17b67c9d6caee158bde2617863b57c592b",
+        "currentMain": "a977d2ae429f38997e246c2678fbeb17b67c9d6caee158bde2617863b57c592b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/chart.gd": {
+        "native": "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5",
+        "currentMain": "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/chart.gd.uid": {
+        "native": "0e6156d52dfef2db29a8404659ad7b948f336248469acf8f9a1778914d5d4afe",
+        "currentMain": "0e6156d52dfef2db29a8404659ad7b948f336248469acf8f9a1778914d5d4afe",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/civilian_goods_ops.gd": {
+        "native": "c8740ce1c2cb105fe987c59dffa7980595f4d975bc104787f670464190863912",
+        "currentMain": "c8740ce1c2cb105fe987c59dffa7980595f4d975bc104787f670464190863912",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/civilian_goods_ops.gd.uid": {
+        "native": "75b3bebfbde484a2dc8f6b02181337fbaa087ebaf416206c9e5662f3614e94f8",
+        "currentMain": "75b3bebfbde484a2dc8f6b02181337fbaa087ebaf416206c9e5662f3614e94f8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/coastal_stories.gd": {
+        "native": "67614e899720546ad53bd193b7233ae1e42b8e61eac637013747952fb0b1c5f2",
+        "currentMain": "67614e899720546ad53bd193b7233ae1e42b8e61eac637013747952fb0b1c5f2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/coastal_stories.gd.uid": {
+        "native": "a0809bbae3100dde6be15cc485dc7971512c04fbd29cd06b242d85be9e1eb3d2",
+        "currentMain": "a0809bbae3100dde6be15cc485dc7971512c04fbd29cd06b242d85be9e1eb3d2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/coast_migration.gd": {
+        "native": "75f0f6ee4f0ceb80077cc16f50201a280f13c60b6ee47ff754d1e024aebc3a11",
+        "currentMain": "75f0f6ee4f0ceb80077cc16f50201a280f13c60b6ee47ff754d1e024aebc3a11",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/coast_migration.gd.uid": {
+        "native": "9f0506c55ae8fa1c39af1ad4e0eef540067169a1c0e552186be1790b7f30095f",
+        "currentMain": "9f0506c55ae8fa1c39af1ad4e0eef540067169a1c0e552186be1790b7f30095f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_art.gd": {
+        "native": "f43fdba6cf3850b5cd7d802900fe342b3c3ce4b3b8675531994ccf7f74135a4b",
+        "currentMain": "f43fdba6cf3850b5cd7d802900fe342b3c3ce4b3b8675531994ccf7f74135a4b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_art.gd.uid": {
+        "native": "a86302b9c650751dd175cdd9e227baedde6ffc4cf6f91e1dfc43d7dc50da5a91",
+        "currentMain": "a86302b9c650751dd175cdd9e227baedde6ffc4cf6f91e1dfc43d7dc50da5a91",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_boarding.gd": {
+        "native": "486347301f14122dd62063349f34c4311c714997522269798c3c8ac9731478ec",
+        "currentMain": "486347301f14122dd62063349f34c4311c714997522269798c3c8ac9731478ec",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_boarding.gd.uid": {
+        "native": "755655dfb9d786f55f3393e70e69f909c44019b09e1d68e7aceeaf84ed9a584b",
+        "currentMain": "755655dfb9d786f55f3393e70e69f909c44019b09e1d68e7aceeaf84ed9a584b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_events.gd": {
+        "native": "a8ea52ed60774965272127b2355ac52ae45f9e55600797c2215f4104d71b29d1",
+        "currentMain": "a8ea52ed60774965272127b2355ac52ae45f9e55600797c2215f4104d71b29d1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/combat_events.gd.uid": {
+        "native": "9995331692113527efb635d222785c966fce687a5fab45c6aa77671efb83e7dc",
+        "currentMain": "9995331692113527efb635d222785c966fce687a5fab45c6aa77671efb83e7dc",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/company_ops.gd": {
+        "native": "7705037e7984ef3a3ff6d59c21f3611a6f57aea22a23f94ce813baaf83596d05",
+        "currentMain": "7705037e7984ef3a3ff6d59c21f3611a6f57aea22a23f94ce813baaf83596d05",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/company_ops.gd.uid": {
+        "native": "d7608b749c476b7a72718ee01c53342805399dcfc32b23a69a3c986efecd5168",
+        "currentMain": "d7608b749c476b7a72718ee01c53342805399dcfc32b23a69a3c986efecd5168",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/company_ui.gd": {
+        "native": "d3e5178df5c57aa405a9543bea001e7e815dff0d2182563174a93f4b237556e6",
+        "currentMain": "d3e5178df5c57aa405a9543bea001e7e815dff0d2182563174a93f4b237556e6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/company_ui.gd.uid": {
+        "native": "4bd5a3132d35e6c32c4544a2befb9c487ff08c9ca9a5a04e6d18238a79460445",
+        "currentMain": "4bd5a3132d35e6c32c4544a2befb9c487ff08c9ca9a5a04e6d18238a79460445",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/construction.gd": {
+        "native": "4653d63a045f8d70c90c07960912481a6e28fddf1b308816c910d7c95ea98d8c",
+        "currentMain": "4653d63a045f8d70c90c07960912481a6e28fddf1b308816c910d7c95ea98d8c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/construction.gd.uid": {
+        "native": "68534a7b069944958fbbc80513e735e1635c1c0d821fe476ba50a3769fc42a50",
+        "currentMain": "68534a7b069944958fbbc80513e735e1635c1c0d821fe476ba50a3769fc42a50",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/contacts.gd": {
+        "native": "d6a31e040ba98fb847f2e26719a7b7436de94705745444f7d1141bf1451ac19f",
+        "currentMain": "d6a31e040ba98fb847f2e26719a7b7436de94705745444f7d1141bf1451ac19f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/contacts.gd.uid": {
+        "native": "a499565307942ae173f2b4143424cfe9c08a22cbd9ec45feb0a9464fdff00336",
+        "currentMain": "a499565307942ae173f2b4143424cfe9c08a22cbd9ec45feb0a9464fdff00336",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/contracts.gd": {
+        "native": "2f7290cde21eac5a49db5a2bb7ea60bfcec06e2f0eaf352d709c49ea5b5d0024",
+        "currentMain": "2f7290cde21eac5a49db5a2bb7ea60bfcec06e2f0eaf352d709c49ea5b5d0024",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/contracts.gd.uid": {
+        "native": "d2452ccd59abd4e4171d2340c6ffe20459cd64e08ffdde4ec57fbfcd7ce973ca",
+        "currentMain": "d2452ccd59abd4e4171d2340c6ffe20459cd64e08ffdde4ec57fbfcd7ce973ca",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crew_training.gd": {
+        "native": "9f3d0d22614e25422a69dc84f7721089b26b947da64b088012499343bc2ca697",
+        "currentMain": "9f3d0d22614e25422a69dc84f7721089b26b947da64b088012499343bc2ca697",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crew_training.gd.uid": {
+        "native": "fd18b523aa4d2ea4ebc0836135380eb11c5cddfae220f106552c6e366114c442",
+        "currentMain": "fd18b523aa4d2ea4ebc0836135380eb11c5cddfae220f106552c6e366114c442",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crisis_ops.gd": {
+        "native": "14daa89c54850d276adc394a7db2648cd3bdba6fc657db15315940d9d39d20ef",
+        "currentMain": "14daa89c54850d276adc394a7db2648cd3bdba6fc657db15315940d9d39d20ef",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crisis_ops.gd.uid": {
+        "native": "713296e46ec2b3327605a96eabbc1da642b6149a9dbecc52a35bec1c831304b6",
+        "currentMain": "713296e46ec2b3327605a96eabbc1da642b6149a9dbecc52a35bec1c831304b6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crisis_ui.gd": {
+        "native": "7be903062aae9c11623c81eb0af5177c4505566d7ef82b6736059250d0f21291",
+        "currentMain": "7be903062aae9c11623c81eb0af5177c4505566d7ef82b6736059250d0f21291",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/crisis_ui.gd.uid": {
+        "native": "888d89866516087e95f0d36feaf003ba303931c96c4d367b291ae573a4725766",
+        "currentMain": "888d89866516087e95f0d36feaf003ba303931c96c4d367b291ae573a4725766",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/damage.gd": {
+        "native": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+        "currentMain": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/damage.gd.uid": {
+        "native": "1035ee43e10cc17e9505accc7c2984e923100a09f177a9f0e2d65aa0529cbf29",
+        "currentMain": "1035ee43e10cc17e9505accc7c2984e923100a09f177a9f0e2d65aa0529cbf29",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/deployment.gd": {
+        "native": "1bf705086f3c02e15cfb83370a28ab15709440ac3c39b594825536180450f42a",
+        "currentMain": "1bf705086f3c02e15cfb83370a28ab15709440ac3c39b594825536180450f42a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/deployment.gd.uid": {
+        "native": "0ab71bbccf8ca75f76f72a5e10f63f0d470b55839d16d075659eb5ae372211ed",
+        "currentMain": "0ab71bbccf8ca75f76f72a5e10f63f0d470b55839d16d075659eb5ae372211ed",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/dev_tools.gd": {
+        "native": "72cbd8c0320f3d1726697c681d352f98705660a00d579ed00ebdde83c271a9e6",
+        "currentMain": "72cbd8c0320f3d1726697c681d352f98705660a00d579ed00ebdde83c271a9e6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/dev_tools.gd.uid": {
+        "native": "0199fe1282f89f2c155aaa0c77c8b0a6b7016ea49448b1c3aad98bef2a52ef5d",
+        "currentMain": "0199fe1282f89f2c155aaa0c77c8b0a6b7016ea49448b1c3aad98bef2a52ef5d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economic_ui.gd": {
+        "native": "f4958e5a9456658e100720d55f9003ad4d2ed6a62956d7c072a571499c980724",
+        "currentMain": "f4958e5a9456658e100720d55f9003ad4d2ed6a62956d7c072a571499c980724",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economic_ui.gd.uid": {
+        "native": "42c857c7b55edacfa4bed656a52337cf9be396304fda499835ea3288c95f9e8a",
+        "currentMain": "42c857c7b55edacfa4bed656a52337cf9be396304fda499835ea3288c95f9e8a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economy.gd": {
+        "native": "71e8a8ab0ad5eb4918db3675b44a4fee23393beb0d20d3c75668861b156750c5",
+        "currentMain": "71e8a8ab0ad5eb4918db3675b44a4fee23393beb0d20d3c75668861b156750c5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economy.gd.uid": {
+        "native": "2dff1c36a9f5fb60e8b39f018054c0d680e1e5b01e7b184bf74e28a1e9c779a4",
+        "currentMain": "2dff1c36a9f5fb60e8b39f018054c0d680e1e5b01e7b184bf74e28a1e9c779a4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economy_workers.gd": {
+        "native": "3b7c10ef887933a53fe6edfddf1b0a9f2a543f809085ffa8aef9408a97fd4f20",
+        "currentMain": "3b7c10ef887933a53fe6edfddf1b0a9f2a543f809085ffa8aef9408a97fd4f20",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/economy_workers.gd.uid": {
+        "native": "cbada2bddb94dbdaa17b062037a57bb386a66cf3f13949c08328e8a034c391ce",
+        "currentMain": "cbada2bddb94dbdaa17b062037a57bb386a66cf3f13949c08328e8a034c391ce",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_campaign.gd": {
+        "native": "51a8536d2b83de79c601bdbb921165b0833b1255f9270e550260e21884547f17",
+        "currentMain": "51a8536d2b83de79c601bdbb921165b0833b1255f9270e550260e21884547f17",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_condition.gd": {
+        "native": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+        "currentMain": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_damage.gd": {
+        "native": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+        "currentMain": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_fitting.gd": {
+        "native": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+        "currentMain": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_records.gd": {
+        "native": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+        "currentMain": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_recovery.gd": {
+        "native": "3ec4b431abfc5edc3da44f9efeab34d38f6dd63f64eac69ae1fd71b875190457",
+        "currentMain": "3ec4b431abfc5edc3da44f9efeab34d38f6dd63f64eac69ae1fd71b875190457",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/equipment_service.gd": {
+        "native": "d873779f96acbdebf7d7672a6ef637f9ff5fe0e504e988035180776f015b32d7",
+        "currentMain": "d873779f96acbdebf7d7672a6ef637f9ff5fe0e504e988035180776f015b32d7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/escort_ops.gd": {
+        "native": "c799b232b39b93ecaaa1d1e97f5a25ced1ce7e1642e55e28539db9ac5c21dbea",
+        "currentMain": "c799b232b39b93ecaaa1d1e97f5a25ced1ce7e1642e55e28539db9ac5c21dbea",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/escort_ops.gd.uid": {
+        "native": "b51f7ca6a6ca9a064c522cc3b039b7abb28f1c764ed7869451dec474b59da59a",
+        "currentMain": "b51f7ca6a6ca9a064c522cc3b039b7abb28f1c764ed7869451dec474b59da59a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/expedition.gd": {
+        "native": "4e5be640060b50bf3dcc98e9fd9a41983cd62aea603381498faad6fa377f5332",
+        "currentMain": "4e5be640060b50bf3dcc98e9fd9a41983cd62aea603381498faad6fa377f5332",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/expedition.gd.uid": {
+        "native": "75c90dc478152c656608e77825a4d8a793b5a8181242a6fc7a505dda8e7e07c1",
+        "currentMain": "75c90dc478152c656608e77825a4d8a793b5a8181242a6fc7a505dda8e7e07c1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/exploration.gd": {
+        "native": "a7507df67bd0a1eb2ef4d30d6eeb8aaf789a61f5bac2ce98952218299285088f",
+        "currentMain": "a7507df67bd0a1eb2ef4d30d6eeb8aaf789a61f5bac2ce98952218299285088f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/exploration.gd.uid": {
+        "native": "328fa7800a7ff92a0fa3400d0ea9a0f85754b67cb02a55be9c4770f4a0bf1da3",
+        "currentMain": "328fa7800a7ff92a0fa3400d0ea9a0f85754b67cb02a55be9c4770f4a0bf1da3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/factions.gd": {
+        "native": "2bae22809af2eeff17e7d424a26234c194bc9e56f94da2a24b4e51fd27f3c880",
+        "currentMain": "2bae22809af2eeff17e7d424a26234c194bc9e56f94da2a24b4e51fd27f3c880",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/factions.gd.uid": {
+        "native": "6f747b1836506e178642f7b9f72b5fb714f2b2a74f53aca6c48a4a8bac74ef7a",
+        "currentMain": "6f747b1836506e178642f7b9f72b5fb714f2b2a74f53aca6c48a4a8bac74ef7a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/faction_ui.gd": {
+        "native": "685e10c01b48c8f3b49aec5c7b4f7498a5d4061abe5442fab68aead5f0dfcc7f",
+        "currentMain": "685e10c01b48c8f3b49aec5c7b4f7498a5d4061abe5442fab68aead5f0dfcc7f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/faction_ui.gd.uid": {
+        "native": "29c29c88c90f0b00298748a8f82bc171bfccf675afe00e30b165f95fb1300705",
+        "currentMain": "29c29c88c90f0b00298748a8f82bc171bfccf675afe00e30b165f95fb1300705",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/finance_ui.gd": {
+        "native": "fc4939c5b4416dfde16aaf00d1cec09d33fac022a84a81066806a8e3cc19f09e",
+        "currentMain": "fc4939c5b4416dfde16aaf00d1cec09d33fac022a84a81066806a8e3cc19f09e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/finance_ui.gd.uid": {
+        "native": "401f75dce01b6655decfd83f01656060b943292b81bfc95efc35bd3e580208d0",
+        "currentMain": "401f75dce01b6655decfd83f01656060b943292b81bfc95efc35bd3e580208d0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_economy.gd": {
+        "native": "8492d769c3574860a3f5c8ac2f9dfbf618fe7f2a2e8cf8524d7ff29a2c08b7de",
+        "currentMain": "8492d769c3574860a3f5c8ac2f9dfbf618fe7f2a2e8cf8524d7ff29a2c08b7de",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_economy.gd.uid": {
+        "native": "6cda10b73a8c25445b698f4c1330a04bd1ddbd8d5d8f43fe02b79568f5b94ffd",
+        "currentMain": "6cda10b73a8c25445b698f4c1330a04bd1ddbd8d5d8f43fe02b79568f5b94ffd",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_identity.gd": {
+        "native": "84473a53c210f0446919f42a9c040a4c2da293f1833392a8217cd6bc0b8a803a",
+        "currentMain": "84473a53c210f0446919f42a9c040a4c2da293f1833392a8217cd6bc0b8a803a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_identity.gd.uid": {
+        "native": "a6bc544e297e3077ac598f3d151f87fec02b3c7aaa9da5501b1ed4649e291513",
+        "currentMain": "a6bc544e297e3077ac598f3d151f87fec02b3c7aaa9da5501b1ed4649e291513",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_lab.gd": {
+        "native": "f4214dc543682ac85c5668ec2664ef867c43709082f8d0fab4a2187e6886f78a",
+        "currentMain": "f4214dc543682ac85c5668ec2664ef867c43709082f8d0fab4a2187e6886f78a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_lab.gd.uid": {
+        "native": "01bea4488682816ed1a16935e2e6b1ddf35f0a239d972e299cc0947aaa723666",
+        "currentMain": "01bea4488682816ed1a16935e2e6b1ddf35f0a239d972e299cc0947aaa723666",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_support.gd": {
+        "native": "444bfe786103d16eeba569a4c89898e871604eac53ff967d3fff02ac5d8ef332",
+        "currentMain": "444bfe786103d16eeba569a4c89898e871604eac53ff967d3fff02ac5d8ef332",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_support.gd.uid": {
+        "native": "891c768be61f70d4e8bb4c343f104a542cfc89ef42ee04eb4d9861e2a46001ce",
+        "currentMain": "891c768be61f70d4e8bb4c343f104a542cfc89ef42ee04eb4d9861e2a46001ce",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_workshop.gd": {
+        "native": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+        "currentMain": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/fleet_workshop.gd.uid": {
+        "native": "9f49b6cc24ae4ec58ed4e277317351adc06e0507f42a6d4ed3f323bd326c52db",
+        "currentMain": "9f49b6cc24ae4ec58ed4e277317351adc06e0507f42a6d4ed3f323bd326c52db",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/goods.gd": {
+        "native": "b2f7f52d278e3accd6aca90edb4885c8705704e4708806369635311505fee0e5",
+        "currentMain": "b2f7f52d278e3accd6aca90edb4885c8705704e4708806369635311505fee0e5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/goods.gd.uid": {
+        "native": "64ef060ab2b610af627e8386edf5089fdaa6653921da89b0d4e7ec621c4cf9ee",
+        "currentMain": "64ef060ab2b610af627e8386edf5089fdaa6653921da89b0d4e7ec621c4cf9ee",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/guidance_ui.gd": {
+        "native": "2cc4e3b65b31f428f3e0bba81ba84caf1de6f4cd29044c290f4545bed992f87f",
+        "currentMain": "2cc4e3b65b31f428f3e0bba81ba84caf1de6f4cd29044c290f4545bed992f87f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/guidance_ui.gd.uid": {
+        "native": "8a32eb6b22e3444c63c9822f96c713aa2c7d01def19bd900c587b2df36495806",
+        "currentMain": "8a32eb6b22e3444c63c9822f96c713aa2c7d01def19bd900c587b2df36495806",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/harbor.gd": {
+        "native": "66344ef2a417798c8f0794911ff1a3cda8dc61b863f48d458d28419f78e148fa",
+        "currentMain": "66344ef2a417798c8f0794911ff1a3cda8dc61b863f48d458d28419f78e148fa",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/harbor.gd.uid": {
+        "native": "cd9eadbd95abce45ac1d3d8864c1e53b4ee12b340d2fa43735b0e4c20c117018",
+        "currentMain": "cd9eadbd95abce45ac1d3d8864c1e53b4ee12b340d2fa43735b0e4c20c117018",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/harbor_reserves.gd": {
+        "native": "7ae8f562ca287e144037077c62e7d8f124b7f6c650ef7d8645fd62d7f7224bc9",
+        "currentMain": "7ae8f562ca287e144037077c62e7d8f124b7f6c650ef7d8645fd62d7f7224bc9",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/harbor_reserves.gd.uid": {
+        "native": "0592accbda77449019bcbcea9b60872e519002f35043dce6f216aa10bbeb774f",
+        "currentMain": "0592accbda77449019bcbcea9b60872e519002f35043dce6f216aa10bbeb774f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hardware.gd": {
+        "native": "02a6432901557f4d3f51e669b2dd72f488cd7b55c73581eaf306992916aeb191",
+        "currentMain": "02a6432901557f4d3f51e669b2dd72f488cd7b55c73581eaf306992916aeb191",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hardware.gd.uid": {
+        "native": "c606143906ea51bb5b66099a542f24e98f04374a725d017401c1d4fcfd8ef07e",
+        "currentMain": "c606143906ea51bb5b66099a542f24e98f04374a725d017401c1d4fcfd8ef07e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hold_manifest.gd": {
+        "native": "f93937bf76480a884977a0a261075c404c206f5317a6badd9916174fb0b3bc01",
+        "currentMain": "f93937bf76480a884977a0a261075c404c206f5317a6badd9916174fb0b3bc01",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hold_manifest.gd.uid": {
+        "native": "eca935461a75988d2f9912fbb223ee47171d569ccf5eff973f29fb42a61d65ca",
+        "currentMain": "eca935461a75988d2f9912fbb223ee47171d569ccf5eff973f29fb42a61d65ca",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_harbor.gd": {
+        "native": "7bf09856a533d871daf965b2b79be6618c92ad14350e55ca607702f1afdc2787",
+        "currentMain": "7bf09856a533d871daf965b2b79be6618c92ad14350e55ca607702f1afdc2787",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_harbor.gd.uid": {
+        "native": "159a40871b89ac57789e2533aa5558727bf3901ef653ff8325be1044ed339c4b",
+        "currentMain": "159a40871b89ac57789e2533aa5558727bf3901ef653ff8325be1044ed339c4b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_ops.gd": {
+        "native": "7633b6c2f5abc6ab6188d7991b5fe067c2e4b400308905e96bca5e2d93c5271d",
+        "currentMain": "7633b6c2f5abc6ab6188d7991b5fe067c2e4b400308905e96bca5e2d93c5271d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_ops.gd.uid": {
+        "native": "726f6fc492a380a4bea7616eeb8b82b6830f1e4a310e1e29769e9cc29cbd6a8a",
+        "currentMain": "726f6fc492a380a4bea7616eeb8b82b6830f1e4a310e1e29769e9cc29cbd6a8a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_ui.gd": {
+        "native": "1d2d7a8be103a7dd491ccd61a42faa2c5f3587bc8de5fa345548a3157db7de87",
+        "currentMain": "1d2d7a8be103a7dd491ccd61a42faa2c5f3587bc8de5fa345548a3157db7de87",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/home_ui.gd.uid": {
+        "native": "f39d84265d53bdc14cc2488d06d0520e9385c6a9f84bcc72d081f2dce1576366",
+        "currentMain": "f39d84265d53bdc14cc2488d06d0520e9385c6a9f84bcc72d081f2dce1576366",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hull_feedback.gd": {
+        "native": "c6910426c19e9896c5c44df87c43129cc7ec1f56627b074b27fd65d2318d954c",
+        "currentMain": "c6910426c19e9896c5c44df87c43129cc7ec1f56627b074b27fd65d2318d954c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hull_feedback.gd.uid": {
+        "native": "333dfdb4d561ab70b62a829d5a1eab8015dc2177c12e09162bc825f3cbcc238a",
+        "currentMain": "333dfdb4d561ab70b62a829d5a1eab8015dc2177c12e09162bc825f3cbcc238a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hull_profiles.gd": {
+        "native": "094e006bb14b69f3345ade993098193bc9402d87416ba001ee1b11401db4e236",
+        "currentMain": "094e006bb14b69f3345ade993098193bc9402d87416ba001ee1b11401db4e236",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/hull_profiles.gd.uid": {
+        "native": "a8a2e00c4bc65531f492d26d58e3f8642d4c7bd81533fa6a79e5c25a221a40a1",
+        "currentMain": "a8a2e00c4bc65531f492d26d58e3f8642d4c7bd81533fa6a79e5c25a221a40a1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/identity_ui.gd": {
+        "native": "31c5cbbf137f1d3ab2aebe85ba0705589b06fea9e0b79278aaa750161bbf120c",
+        "currentMain": "31c5cbbf137f1d3ab2aebe85ba0705589b06fea9e0b79278aaa750161bbf120c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/identity_ui.gd.uid": {
+        "native": "7f2d2c24f31a51db40ac29513e674c30e5d5361a8a6791b891dadb025a31f877",
+        "currentMain": "7f2d2c24f31a51db40ac29513e674c30e5d5361a8a6791b891dadb025a31f877",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/industrial_tooling.gd": {
+        "native": "0792849d0a92114b9bfb1ba4c12ab8ca7f797108974b934b9dc95299724c7745",
+        "currentMain": "0792849d0a92114b9bfb1ba4c12ab8ca7f797108974b934b9dc95299724c7745",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/industrial_tooling.gd.uid": {
+        "native": "1f3aab4f1f9ba0dbfbd9ca3e9626859e2f237caae390c1055216f48b3c912667",
+        "currentMain": "1f3aab4f1f9ba0dbfbd9ca3e9626859e2f237caae390c1055216f48b3c912667",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/industry_data.gd": {
+        "native": "18ff0fccccb96dfe9715a46bb7aead516a590f76a765e800b021d3d51442c623",
+        "currentMain": "18ff0fccccb96dfe9715a46bb7aead516a590f76a765e800b021d3d51442c623",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/industry_data.gd.uid": {
+        "native": "ddd0374ade318ba01adc3352206f0a441beeb0d7f95a418fcb758d71f3224e97",
+        "currentMain": "ddd0374ade318ba01adc3352206f0a441beeb0d7f95a418fcb758d71f3224e97",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/interface.gd.uid": {
+        "native": "81b25736d98bafd5a8e3e99d2633fe51189de2fa5338101da3168f8894a9ad59",
+        "currentMain": "81b25736d98bafd5a8e3e99d2633fe51189de2fa5338101da3168f8894a9ad59",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/island_site_art.gd": {
+        "native": "d68c23b0eeac26e9ea659f7808e9a92704471867db59ae8851e6c1ec0ef038ef",
+        "currentMain": "d68c23b0eeac26e9ea659f7808e9a92704471867db59ae8851e6c1ec0ef038ef",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/island_site_art.gd.uid": {
+        "native": "f272547642a8bb56013259f46f323ae76290c77ad555e0a7da4755c715c34ccd",
+        "currentMain": "f272547642a8bb56013259f46f323ae76290c77ad555e0a7da4755c715c34ccd",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/lab_ui.gd": {
+        "native": "7d9c36fd672189035dbf1abd6b4ddfdb65c6f1640d750404a063c3fe9463626a",
+        "currentMain": "7d9c36fd672189035dbf1abd6b4ddfdb65c6f1640d750404a063c3fe9463626a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/lab_ui.gd.uid": {
+        "native": "95ca4028f9d98cf7ca990d572bf64a69269902b0f95e479ddf8ed4bf57d4ddd7",
+        "currentMain": "95ca4028f9d98cf7ca990d572bf64a69269902b0f95e479ddf8ed4bf57d4ddd7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/law_ops.gd": {
+        "native": "c780f34973483652985d3e39db08c688b22b6b0f927a7431bf1bf9cceb27a2a7",
+        "currentMain": "c780f34973483652985d3e39db08c688b22b6b0f927a7431bf1bf9cceb27a2a7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/law_ops.gd.uid": {
+        "native": "db7c8f4294bffad239de6003f1fccb348d7155a7373190c97ec630bddb4f21e4",
+        "currentMain": "db7c8f4294bffad239de6003f1fccb348d7155a7373190c97ec630bddb4f21e4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/law_ui.gd": {
+        "native": "17173967c026888441ee9036cdf2079928cbb606676879394f074824c8a745c5",
+        "currentMain": "17173967c026888441ee9036cdf2079928cbb606676879394f074824c8a745c5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/law_ui.gd.uid": {
+        "native": "8a2fcf8110a8f2584a02cd85a7ad855c1363ae6019852ec2f6869fd93cd4229b",
+        "currentMain": "8a2fcf8110a8f2584a02cd85a7ad855c1363ae6019852ec2f6869fd93cd4229b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/main.gd": {
+        "native": "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe",
+        "currentMain": "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/main.gd.uid": {
+        "native": "5815261ba195bf62aefb8c39921bfb42b596e11893832bd5da46ac15e4868b85",
+        "currentMain": "5815261ba195bf62aefb8c39921bfb42b596e11893832bd5da46ac15e4868b85",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/money.gd": {
+        "native": "6a50bb27de4fb26b6490d749ab0105f3bafe26e540b5bdac2a238c2c2625c53b",
+        "currentMain": "6a50bb27de4fb26b6490d749ab0105f3bafe26e540b5bdac2a238c2c2625c53b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/money.gd.uid": {
+        "native": "8ba48805c19dda91c36e4cad486cd3561bdc649e41d1ad09cc42aa0b08d14cef",
+        "currentMain": "8ba48805c19dda91c36e4cad486cd3561bdc649e41d1ad09cc42aa0b08d14cef",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/motor_art.gd": {
+        "native": "d6f34c60f6c20ebf01291a73074d36c112475a726cdf861e169ff333b625ac28",
+        "currentMain": "d6f34c60f6c20ebf01291a73074d36c112475a726cdf861e169ff333b625ac28",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/motor_art.gd.uid": {
+        "native": "991d95baeb32c6acfc999ec74dc339a7b7549740d886441ae2601363cf559d35",
+        "currentMain": "991d95baeb32c6acfc999ec74dc339a7b7549740d886441ae2601363cf559d35",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/mount_layout.gd": {
+        "native": "7b2b07b64c30ad1d57cf847cddd35f1befdcf168354e46a5a53835e079f840cf",
+        "currentMain": "7b2b07b64c30ad1d57cf847cddd35f1befdcf168354e46a5a53835e079f840cf",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/mount_layout.gd.uid": {
+        "native": "5f851a3b199f02f42a04af29d0714415bba63bd2a320d2d60371b957782f7f61",
+        "currentMain": "5f851a3b199f02f42a04af29d0714415bba63bd2a320d2d60371b957782f7f61",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/music.gd": {
+        "native": "59dc6178f73b5ac0790bf5895b8882087064f2c301eb0cc51d9dd179b5748c68",
+        "currentMain": "59dc6178f73b5ac0790bf5895b8882087064f2c301eb0cc51d9dd179b5748c68",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/music.gd.uid": {
+        "native": "1cfa6bd4c48badb457704fd35b44764e3467bfacbf9d8bf2c67e1553846aa829",
+        "currentMain": "1cfa6bd4c48badb457704fd35b44764e3467bfacbf9d8bf2c67e1553846aa829",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_ai.gd": {
+        "native": "a8ef8019598ef3b5706f3a139a0ed34ad7a7e001099c63b5b80c75a6d71a74c6",
+        "currentMain": "a8ef8019598ef3b5706f3a139a0ed34ad7a7e001099c63b5b80c75a6d71a74c6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_ai.gd.uid": {
+        "native": "ff3863907bf052e66a7bddeb605c9dc003a5252cf198df0e2bb33ebf90db0ea0",
+        "currentMain": "ff3863907bf052e66a7bddeb605c9dc003a5252cf198df0e2bb33ebf90db0ea0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_combat.gd": {
+        "native": "f12a1ac19174438040d8bb428bb4c0c9b43339676b293940d5dcc6b7de346d7a",
+        "currentMain": "f12a1ac19174438040d8bb428bb4c0c9b43339676b293940d5dcc6b7de346d7a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_combat.gd.uid": {
+        "native": "1d050daf0ec273fc20b0119881e2a96e7c1060890d3e3ce658cf19b92e65cbc0",
+        "currentMain": "1d050daf0ec273fc20b0119881e2a96e7c1060890d3e3ce658cf19b92e65cbc0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_lifecycle.gd": {
+        "native": "c4d6cdd506ead46cabc4bade8b641ee2f94632189697a19b2bd2fe8294e6a5b2",
+        "currentMain": "c4d6cdd506ead46cabc4bade8b641ee2f94632189697a19b2bd2fe8294e6a5b2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_lifecycle.gd.uid": {
+        "native": "8be0505a55cbac0c2365ca83bc15251b00a66b8b7703bbfc94a3eaf6130bfd15",
+        "currentMain": "8be0505a55cbac0c2365ca83bc15251b00a66b8b7703bbfc94a3eaf6130bfd15",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_orders.gd": {
+        "native": "5fd4dc282f57ac12955f4e8c05d5e93e7f41f412d67d6057b3a4c5442ec45d9a",
+        "currentMain": "5fd4dc282f57ac12955f4e8c05d5e93e7f41f412d67d6057b3a4c5442ec45d9a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_orders.gd.uid": {
+        "native": "846607739391bc471c9b6640989ac7e5ce68c5f794749a22dc8ac0e3696614c9",
+        "currentMain": "846607739391bc471c9b6640989ac7e5ce68c5f794749a22dc8ac0e3696614c9",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_replacements.gd": {
+        "native": "c2dc57205706036a731ad9289f93b8c300f4e379e82933476649bc1af70f6cd5",
+        "currentMain": "c2dc57205706036a731ad9289f93b8c300f4e379e82933476649bc1af70f6cd5",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_replacements.gd.uid": {
+        "native": "8f694a87eb90002082d40d7b7eacd38e9fc4ce6c519f72c7683aa9944cdb6021",
+        "currentMain": "8f694a87eb90002082d40d7b7eacd38e9fc4ce6c519f72c7683aa9944cdb6021",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_ui.gd": {
+        "native": "8066aa0c02d782fd25b8ed2c58ae7cfa3754de5cbab0a0800b365549bbd7912a",
+        "currentMain": "8066aa0c02d782fd25b8ed2c58ae7cfa3754de5cbab0a0800b365549bbd7912a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/naval_ui.gd.uid": {
+        "native": "308826fe664806cec917549bb7cffa5e639d86d1884471310d92bcaf3e228246",
+        "currentMain": "308826fe664806cec917549bb7cffa5e639d86d1884471310d92bcaf3e228246",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/navigation.gd": {
+        "native": "ddc59ae14c9c5998437686efcfe0819135df32ac6a5e16ad3e2672e2f60bf5db",
+        "currentMain": "ddc59ae14c9c5998437686efcfe0819135df32ac6a5e16ad3e2672e2f60bf5db",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/navigation.gd.uid": {
+        "native": "668b2a12e7ac41b553194ba465f2a0abd5da360c0ad58b62ef9ec7e30b7722c9",
+        "currentMain": "668b2a12e7ac41b553194ba465f2a0abd5da360c0ad58b62ef9ec7e30b7722c9",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/passenger_manifest.gd": {
+        "native": "34f5c99727ce247269539173aa7c0de6a5aa018492fda1bd396b49021dd6dc8a",
+        "currentMain": "34f5c99727ce247269539173aa7c0de6a5aa018492fda1bd396b49021dd6dc8a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/passenger_manifest.gd.uid": {
+        "native": "bda285c53a2c811e3de91ac5a05adc698ddffa5984f9f77ef25b987505914739",
+        "currentMain": "bda285c53a2c811e3de91ac5a05adc698ddffa5984f9f77ef25b987505914739",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/passenger_transport.gd": {
+        "native": "e0c1fa1c05212314de336478c2c7bd08d2c511c477bd8a6eebf6baf926687921",
+        "currentMain": "e0c1fa1c05212314de336478c2c7bd08d2c511c477bd8a6eebf6baf926687921",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/passenger_transport.gd.uid": {
+        "native": "f24c2efbd32de83bf36e3f0a9e5a7b10eb3bafaedda8f430ef74e9129b622527",
+        "currentMain": "f24c2efbd32de83bf36e3f0a9e5a7b10eb3bafaedda8f430ef74e9129b622527",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/politics.gd": {
+        "native": "332ef261e2e1bd0c73d5f87779b787c2ff8a3ac072b7674a753c263b35f2ccef",
+        "currentMain": "332ef261e2e1bd0c73d5f87779b787c2ff8a3ac072b7674a753c263b35f2ccef",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/politics.gd.uid": {
+        "native": "d73e0482b1c2f0020077e0c45787eb10734eb10bd8db931f65f4cef204feb762",
+        "currentMain": "d73e0482b1c2f0020077e0c45787eb10734eb10bd8db931f65f4cef204feb762",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/preferences.gd": {
+        "native": "5e61019bdddea9068ebcf6633c613024b3f0879747169ba4ecbfd3cf5f1515f8",
+        "currentMain": "5e61019bdddea9068ebcf6633c613024b3f0879747169ba4ecbfd3cf5f1515f8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/preferences.gd.uid": {
+        "native": "d3bcf68b28359a01f582e053cd4d25f1e34340cf89d038d89765081d9437d063",
+        "currentMain": "d3bcf68b28359a01f582e053cd4d25f1e34340cf89d038d89765081d9437d063",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/recovery_ui.gd": {
+        "native": "60cf9a0a755b747784b7a98c23971271fab2dcd69c0d2e551b573d5c5cb986c0",
+        "currentMain": "60cf9a0a755b747784b7a98c23971271fab2dcd69c0d2e551b573d5c5cb986c0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/recovery_ui.gd.uid": {
+        "native": "4be1ba613bf0bcb85ed70cdbc92ebf08e640f129d0d6a00be7196f26e7690cb3",
+        "currentMain": "4be1ba613bf0bcb85ed70cdbc92ebf08e640f129d0d6a00be7196f26e7690cb3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/refit.gd": {
+        "native": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+        "currentMain": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/refit.gd.uid": {
+        "native": "5bbbf0458704dc635edfe70162c8d9b8675c319a416fb4748c9ecb0cebddace3",
+        "currentMain": "5bbbf0458704dc635edfe70162c8d9b8675c319a416fb4748c9ecb0cebddace3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/refit_ui.gd.uid": {
+        "native": "c82ca18c304ad5593c95ca0fbe0d8297f9938b625b6562e2041d30e5b10a7dd2",
+        "currentMain": "c82ca18c304ad5593c95ca0fbe0d8297f9938b625b6562e2041d30e5b10a7dd2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_campaigns.gd": {
+        "native": "51bd75ba49841ef9f11b93b1d63bf58dd274d5eb0905cce9c13e75d4142f83c0",
+        "currentMain": "51bd75ba49841ef9f11b93b1d63bf58dd274d5eb0905cce9c13e75d4142f83c0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_campaigns.gd.uid": {
+        "native": "5782dbd50335f13a6f46958b0e336b069670445d85e9c6cb08dee40ddc1d8d3f",
+        "currentMain": "5782dbd50335f13a6f46958b0e336b069670445d85e9c6cb08dee40ddc1d8d3f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_crises.gd": {
+        "native": "a37c357ae7372278d62e264b6e727511930304030787a65110ea93e23837f6e2",
+        "currentMain": "a37c357ae7372278d62e264b6e727511930304030787a65110ea93e23837f6e2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_crises.gd.uid": {
+        "native": "d8310efebb6cdd323bbb4c87efd47f8794338081a58ef371b72fdecd9b79db97",
+        "currentMain": "d8310efebb6cdd323bbb4c87efd47f8794338081a58ef371b72fdecd9b79db97",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_goods.gd": {
+        "native": "ac7a4349804bd6ee3ced782008a6969708d0584611443bdc73486d4c4327fb56",
+        "currentMain": "ac7a4349804bd6ee3ced782008a6969708d0584611443bdc73486d4c4327fb56",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_goods.gd.uid": {
+        "native": "5f471913b1669ad33521884b88d164451d6454dbfdaa2159f118c24721b5f9b6",
+        "currentMain": "5f471913b1669ad33521884b88d164451d6454dbfdaa2159f118c24721b5f9b6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_goods_ui.gd": {
+        "native": "ddf1fac9b7a1f98a5a09caf71b9ad8fe19fbb9b4d57f3bec5a3c7a0ab3dff073",
+        "currentMain": "ddf1fac9b7a1f98a5a09caf71b9ad8fe19fbb9b4d57f3bec5a3c7a0ab3dff073",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_goods_ui.gd.uid": {
+        "native": "730dbc6cb619a6311c4046381bffefafb48ed65918ecd91bb1b5cded443ae85f",
+        "currentMain": "730dbc6cb619a6311c4046381bffefafb48ed65918ecd91bb1b5cded443ae85f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_ops.gd": {
+        "native": "1e220cd4cf563cbd628411c341b28852f1bdb2c055ed883bac35fb4a2ec59a9d",
+        "currentMain": "1e220cd4cf563cbd628411c341b28852f1bdb2c055ed883bac35fb4a2ec59a9d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_ops.gd.uid": {
+        "native": "d78a13917eb66a0c346a4553cd5e345f9235e87b642f20bcaa791f62e3fa8cff",
+        "currentMain": "d78a13917eb66a0c346a4553cd5e345f9235e87b642f20bcaa791f62e3fa8cff",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_orders.gd": {
+        "native": "01cc539e3423429b0a33ac3ac8ac6c607b0976888182838bd6d268526e5f0705",
+        "currentMain": "01cc539e3423429b0a33ac3ac8ac6c607b0976888182838bd6d268526e5f0705",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_orders.gd.uid": {
+        "native": "e2330a69d3cdfd416ae24ae19473fce060f01fc98600160bcafb41b9704ebfac",
+        "currentMain": "e2330a69d3cdfd416ae24ae19473fce060f01fc98600160bcafb41b9704ebfac",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_rules.gd": {
+        "native": "a483a30df65a926e299bff3554a792bb778ffe5ee422fe74cfe4e43d658ca338",
+        "currentMain": "a483a30df65a926e299bff3554a792bb778ffe5ee422fe74cfe4e43d658ca338",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_rules.gd.uid": {
+        "native": "47ae44be2c6136dbfe3acae10dab8601e6d08927b45c7a2f313cecb73faddd81",
+        "currentMain": "47ae44be2c6136dbfe3acae10dab8601e6d08927b45c7a2f313cecb73faddd81",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_ui.gd": {
+        "native": "946385dc4770e58a638db297b7ff524be5bccaa2d89715a6bf2fd2c26c509959",
+        "currentMain": "946385dc4770e58a638db297b7ff524be5bccaa2d89715a6bf2fd2c26c509959",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/regional_ui.gd.uid": {
+        "native": "9150e305ecc10c3da127cc204b5443ad6533287082b1974a324087b142c6a89f",
+        "currentMain": "9150e305ecc10c3da127cc204b5443ad6533287082b1974a324087b142c6a89f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/reserve_ops.gd": {
+        "native": "d786e742e2ba660001e38399c3a483767c39fa887d1b14830753b3788bd536ca",
+        "currentMain": "d786e742e2ba660001e38399c3a483767c39fa887d1b14830753b3788bd536ca",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/reserve_ops.gd.uid": {
+        "native": "f377fa5269642a976cb02d0bde6f2b9e1b1d1ab424c870759d19d746333816f7",
+        "currentMain": "f377fa5269642a976cb02d0bde6f2b9e1b1d1ab424c870759d19d746333816f7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/route_cache.gd": {
+        "native": "9072a5465bcf167e5ebbed4d8fb8e9f7a9c22215d77af4cdc766719e915d69e0",
+        "currentMain": "9072a5465bcf167e5ebbed4d8fb8e9f7a9c22215d77af4cdc766719e915d69e0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/route_cache.gd.uid": {
+        "native": "b86598c128d61649ca6fb3fd38bbadc58690b912f10ee91902ed1fe3c751b24f",
+        "currentMain": "b86598c128d61649ca6fb3fd38bbadc58690b912f10ee91902ed1fe3c751b24f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/salvage.gd": {
+        "native": "d0c0fc2ee3fe4ac3ddd4db22940ea8059a5778839eee0c979f493ae04fd3c637",
+        "currentMain": "d0c0fc2ee3fe4ac3ddd4db22940ea8059a5778839eee0c979f493ae04fd3c637",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/salvage.gd.uid": {
+        "native": "9e6151c2955c916b9aa223125fe880f613fe41d06c848b97532e6cea271a044d",
+        "currentMain": "9e6151c2955c916b9aa223125fe880f613fe41d06c848b97532e6cea271a044d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/save_validation.gd": {
+        "native": "fd6b4722cbbc36795c567372022a7f37d25b6963fafe5eb690934673b57b5b49",
+        "currentMain": "fd6b4722cbbc36795c567372022a7f37d25b6963fafe5eb690934673b57b5b49",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/save_validation.gd.uid": {
+        "native": "9e8e475366ea3ceaa1e9f7ec824aec8ef558f55b1c92cde22117ea8eaeb13353",
+        "currentMain": "9e8e475366ea3ceaa1e9f7ec824aec8ef558f55b1c92cde22117ea8eaeb13353",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/shipping_companies.gd": {
+        "native": "f6ae30778ae02ace73ac8acb65cac68039a1d482d88bf5d0da38d009002d3c7a",
+        "currentMain": "f6ae30778ae02ace73ac8acb65cac68039a1d482d88bf5d0da38d009002d3c7a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/shipping_companies.gd.uid": {
+        "native": "af81a700f81687c40e8eb26b594eb760a7af1cf519f9f159a5dcb70697ba2322",
+        "currentMain": "af81a700f81687c40e8eb26b594eb760a7af1cf519f9f159a5dcb70697ba2322",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/sound.gd": {
+        "native": "310fbaa0c9ceedc397492351aaa6603a2249b9e8af25b5ea12b6e9b37d78c7dc",
+        "currentMain": "310fbaa0c9ceedc397492351aaa6603a2249b9e8af25b5ea12b6e9b37d78c7dc",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/sound.gd.uid": {
+        "native": "d6e4caf88c1693de998a11946f65c2829b1429080340991bfdd0436174c57469",
+        "currentMain": "d6e4caf88c1693de998a11946f65c2829b1429080340991bfdd0436174c57469",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_offers.gd": {
+        "native": "199fbd15161b12d89adb2073e3e9e8f2b56a1ea971eaaa8f7de9de2c8e65acfc",
+        "currentMain": "199fbd15161b12d89adb2073e3e9e8f2b56a1ea971eaaa8f7de9de2c8e65acfc",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_offers.gd.uid": {
+        "native": "54ff62fc4875c4b8e028b349ae65eaa46a351630e5729f4f7df6ac28944594b1",
+        "currentMain": "54ff62fc4875c4b8e028b349ae65eaa46a351630e5729f4f7df6ac28944594b1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_ops.gd": {
+        "native": "43aaca9ce4e1b763c0544564ae51564843d5d152c68e0891dec61aab56bffb7c",
+        "currentMain": "43aaca9ce4e1b763c0544564ae51564843d5d152c68e0891dec61aab56bffb7c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_ops.gd.uid": {
+        "native": "9d787e5738625860997ec499d68b669a4fd899f9e99ce3f6f7a09d66bda5701a",
+        "currentMain": "9d787e5738625860997ec499d68b669a4fd899f9e99ce3f6f7a09d66bda5701a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_ui.gd": {
+        "native": "47664f8c688d19947c704ca61b9f62cefaefa37fa795dd841a3c15f934a32ad6",
+        "currentMain": "47664f8c688d19947c704ca61b9f62cefaefa37fa795dd841a3c15f934a32ad6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/story_ui.gd.uid": {
+        "native": "f36e2446f5e3a4da07b3ec6a42038b57e85becc07b54828379688311fc8b31d1",
+        "currentMain": "f36e2446f5e3a4da07b3ec6a42038b57e85becc07b54828379688311fc8b31d1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/supply_ui.gd": {
+        "native": "7152fa45d5266b7acd72cbe603df3f7e40e2852a14707b3693bd94cb015f8f14",
+        "currentMain": "7152fa45d5266b7acd72cbe603df3f7e40e2852a14707b3693bd94cb015f8f14",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/supply_ui.gd.uid": {
+        "native": "bcc7f8a360aa3870347e3aa1986d8ed24539057d2c63a17057ebc95de5fd1f2a",
+        "currentMain": "bcc7f8a360aa3870347e3aa1986d8ed24539057d2c63a17057ebc95de5fd1f2a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_certification.gd": {
+        "native": "88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8",
+        "currentMain": "88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_certification.gd.uid": {
+        "native": "d4f7c61f62bf16b8c6d5d61fd4c3aee106f8d785d6bd72aaec7d2290f8df5f01",
+        "currentMain": "d4f7c61f62bf16b8c6d5d61fd4c3aee106f8d785d6bd72aaec7d2290f8df5f01",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_fire_control.gd": {
+        "native": "b256bfa558acc0ccc6d0fc30196cb384972a9c6aaf1b4799dc806c591cfdf32d",
+        "currentMain": "b256bfa558acc0ccc6d0fc30196cb384972a9c6aaf1b4799dc806c591cfdf32d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_fire_control.gd.uid": {
+        "native": "391be9c010211a91d8734dc5797a69fbfd8e1ef8158b55ef46fb0d203cf31045",
+        "currentMain": "391be9c010211a91d8734dc5797a69fbfd8e1ef8158b55ef46fb0d203cf31045",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_planner.gd": {
+        "native": "ea46a08859184fe719217eb6d280a4a303882e30f4a41b076ef9fa59e599c7b0",
+        "currentMain": "ea46a08859184fe719217eb6d280a4a303882e30f4a41b076ef9fa59e599c7b0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_planner.gd.uid": {
+        "native": "2546c7911d5645381c47cfac0f2164e7b7982568ec3ccdf02218e03bb3ba2039",
+        "currentMain": "2546c7911d5645381c47cfac0f2164e7b7982568ec3ccdf02218e03bb3ba2039",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_role_plans.gd": {
+        "native": "55f7c857c37aca13c420c289e5ce9b91a96dfe1e31a46bbb325c548e578751c3",
+        "currentMain": "55f7c857c37aca13c420c289e5ce9b91a96dfe1e31a46bbb325c548e578751c3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_role_plans.gd.uid": {
+        "native": "5e3eb2eb9482dc568730599932d46911bfce6da4ac047a7575d39ae53e26ad7e",
+        "currentMain": "5e3eb2eb9482dc568730599932d46911bfce6da4ac047a7575d39ae53e26ad7e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_routes.gd": {
+        "native": "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2",
+        "currentMain": "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_routes.gd.uid": {
+        "native": "6c130e0c18c220ec3bb1a5920e8f30dd9bf2f0e8ca67f574e63c50548b7e075a",
+        "currentMain": "6c130e0c18c220ec3bb1a5920e8f30dd9bf2f0e8ca67f574e63c50548b7e075a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_runtime.gd": {
+        "native": "5722a8ab70bca74a61d71306888c4dec40d1e0dc01bf95ce99d4acfb3a7de0a2",
+        "currentMain": "5722a8ab70bca74a61d71306888c4dec40d1e0dc01bf95ce99d4acfb3a7de0a2",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_runtime.gd.uid": {
+        "native": "7125494ada7fc77d2da962b6520f5c8a45787eaa51d433186ce42cf8b818551a",
+        "currentMain": "7125494ada7fc77d2da962b6520f5c8a45787eaa51d433186ce42cf8b818551a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_stations.gd": {
+        "native": "24ea330f463dbfe940730e99685665708abc15853f30a017603d75ba8991700f",
+        "currentMain": "24ea330f463dbfe940730e99685665708abc15853f30a017603d75ba8991700f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactical_stations.gd.uid": {
+        "native": "8e5d3b891150345c0dfba7877094b799f8a78473d6dd76e8614c7fd78b7751fb",
+        "currentMain": "8e5d3b891150345c0dfba7877094b799f8a78473d6dd76e8614c7fd78b7751fb",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactics_ui.gd": {
+        "native": "b53fb28bf1808fedcc739808376d5f7874ba791cbf15bf2a5389baf95e2865b0",
+        "currentMain": "b53fb28bf1808fedcc739808376d5f7874ba791cbf15bf2a5389baf95e2865b0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tactics_ui.gd.uid": {
+        "native": "71aced61f6471c10224e7ecea6658ae6b32dc31374cb833a47427faf3c56005b",
+        "currentMain": "71aced61f6471c10224e7ecea6658ae6b32dc31374cb833a47427faf3c56005b",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tooling_ops.gd": {
+        "native": "61b6fb419541dcf12bd46171d9d687bbcfdb68507466968bde3b8069e3c14acd",
+        "currentMain": "61b6fb419541dcf12bd46171d9d687bbcfdb68507466968bde3b8069e3c14acd",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tooling_ops.gd.uid": {
+        "native": "7bdeb8059c5cd6820a44fe1c14fdde5aabf4729f349e0984e406574878b95be0",
+        "currentMain": "7bdeb8059c5cd6820a44fe1c14fdde5aabf4729f349e0984e406574878b95be0",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tooling_ui.gd": {
+        "native": "8126e25ff3ba0db9792b17b44fe13ae9bb777f5093abfaf51f26282ff8626a6d",
+        "currentMain": "8126e25ff3ba0db9792b17b44fe13ae9bb777f5093abfaf51f26282ff8626a6d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/tooling_ui.gd.uid": {
+        "native": "3cd82cb0cb8726c0e6e0a3b1d103df5704d7f444e0a065d66c5b7c11ee4519cf",
+        "currentMain": "3cd82cb0cb8726c0e6e0a3b1d103df5704d7f444e0a065d66c5b7c11ee4519cf",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_flow.gd": {
+        "native": "f273af14275c15a1f870a3a984f9ede7211854f0872b2bf0f7b1eb3a15f1c6ca",
+        "currentMain": "f273af14275c15a1f870a3a984f9ede7211854f0872b2bf0f7b1eb3a15f1c6ca",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_flow.gd.uid": {
+        "native": "50a9fa5ca195bd21cd72362c5c37552e5fa2a4ade14697b2fb9b56f7c55d0fa9",
+        "currentMain": "50a9fa5ca195bd21cd72362c5c37552e5fa2a4ade14697b2fb9b56f7c55d0fa9",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_intel.gd": {
+        "native": "ab559acc1e936460e98f27b60981e88e6927cff3a07f0c3c687fdfb965d0fbde",
+        "currentMain": "ab559acc1e936460e98f27b60981e88e6927cff3a07f0c3c687fdfb965d0fbde",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_intel.gd.uid": {
+        "native": "7b176f806110fd84db7bc3ab36d7cf17befb19edd389cbffdc745bf3a0034479",
+        "currentMain": "7b176f806110fd84db7bc3ab36d7cf17befb19edd389cbffdc745bf3a0034479",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_law.gd": {
+        "native": "a59a52950e173317d0aeb94234294ed9a82db038e8409a404d3671c38e668405",
+        "currentMain": "a59a52950e173317d0aeb94234294ed9a82db038e8409a404d3671c38e668405",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_law.gd.uid": {
+        "native": "f5e9fad4c36c5a8917d7216767977d03189c3ee04452dddf759041d79f900da3",
+        "currentMain": "f5e9fad4c36c5a8917d7216767977d03189c3ee04452dddf759041d79f900da3",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_rules.gd": {
+        "native": "58664dd139b97c61b61bc2d0686888fa9e4f7fdb8602ae33f1eb6fb7f2cb337e",
+        "currentMain": "58664dd139b97c61b61bc2d0686888fa9e4f7fdb8602ae33f1eb6fb7f2cb337e",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_rules.gd.uid": {
+        "native": "1f67816003a29fc29f0de0be7ed41ccee7c7e0c5faf6ed020b154db31ee828fa",
+        "currentMain": "1f67816003a29fc29f0de0be7ed41ccee7c7e0c5faf6ed020b154db31ee828fa",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_ui.gd": {
+        "native": "aa916a3bc8e52c1d7d6f6ff27b681a280ae31215a992326f18fc4c16a4ebb271",
+        "currentMain": "aa916a3bc8e52c1d7d6f6ff27b681a280ae31215a992326f18fc4c16a4ebb271",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/trade_ui.gd.uid": {
+        "native": "332f4a3fbde8adacbc086f3bf0f0978c59983e39fad73c7a3d878de2832533f4",
+        "currentMain": "332f4a3fbde8adacbc086f3bf0f0978c59983e39fad73c7a3d878de2832533f4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/training_ops.gd": {
+        "native": "a67c13ada669381b35c9685858f62ab8533528ef5c76ff7bb8c96890a7d94dd4",
+        "currentMain": "a67c13ada669381b35c9685858f62ab8533528ef5c76ff7bb8c96890a7d94dd4",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/training_ops.gd.uid": {
+        "native": "6d0324dbce27741d12656e52604c3203c565335048bf58d80fbbe0ed702a45a7",
+        "currentMain": "6d0324dbce27741d12656e52604c3203c565335048bf58d80fbbe0ed702a45a7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/version.gd": {
+        "native": "470f6eca8a41cdcd6fe1439b576434637fcae2ceb7ad12e02fc5b9e5330b292d",
+        "currentMain": "470f6eca8a41cdcd6fe1439b576434637fcae2ceb7ad12e02fc5b9e5330b292d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/version.gd.uid": {
+        "native": "0d3cee75770698039f3982f002bcbf548f6d5cfac1506655c24778e6b262bee1",
+        "currentMain": "0d3cee75770698039f3982f002bcbf548f6d5cfac1506655c24778e6b262bee1",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/voyage_jobs.gd": {
+        "native": "7933c31c8331b608844908338b1ba2d6d5272e4a053c1d688589602d12af5b59",
+        "currentMain": "7933c31c8331b608844908338b1ba2d6d5272e4a053c1d688589602d12af5b59",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/voyage_jobs.gd.uid": {
+        "native": "aa49478f135e57b1031e5238863db7684df1888fe3714282cbe976b941110218",
+        "currentMain": "aa49478f135e57b1031e5238863db7684df1888fe3714282cbe976b941110218",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/voyage_ui.gd": {
+        "native": "df46fbed9b0e347b221b9d21cbdac145bb9170ef0ba8b3bcf12baf599294f9c7",
+        "currentMain": "df46fbed9b0e347b221b9d21cbdac145bb9170ef0ba8b3bcf12baf599294f9c7",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/voyage_ui.gd.uid": {
+        "native": "f0178c47fab64688f04bf4a748fd0e831d0b389e45491acd4e499a5f85fbee4f",
+        "currentMain": "f0178c47fab64688f04bf4a748fd0e831d0b389e45491acd4e499a5f85fbee4f",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/weapon_art.gd": {
+        "native": "e55806e7e011082ffbf03c4e20f4075cc4a31022730899871dee176c6ad9b43a",
+        "currentMain": "e55806e7e011082ffbf03c4e20f4075cc4a31022730899871dee176c6ad9b43a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/weapon_art.gd.uid": {
+        "native": "9d47c80826ca6559243342dbccf53956075e040c0100155f385cb86b6cc1b70d",
+        "currentMain": "9d47c80826ca6559243342dbccf53956075e040c0100155f385cb86b6cc1b70d",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/weapon_geometry.gd": {
+        "native": "ffc6d54770e3ca5942ec904b003d7d998982ef0cd3ed7a446e98f8a98a306a40",
+        "currentMain": "ffc6d54770e3ca5942ec904b003d7d998982ef0cd3ed7a446e98f8a98a306a40",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/weapon_geometry.gd.uid": {
+        "native": "3c9bd0ec52c5991af133be189e5c17414df387f4b901d028aa65368dbf0574d8",
+        "currentMain": "3c9bd0ec52c5991af133be189e5c17414df387f4b901d028aa65368dbf0574d8",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_conditions.gd": {
+        "native": "e0c280fb0646f179f056b5dc556f8e62ca1e7f0a530ee7a60824850a85c73bd6",
+        "currentMain": "e0c280fb0646f179f056b5dc556f8e62ca1e7f0a530ee7a60824850a85c73bd6",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_conditions.gd.uid": {
+        "native": "22d59ada439d8da810e5b7f5908b9fc39c7b4029776c5e92a1e3676a86dad607",
+        "currentMain": "22d59ada439d8da810e5b7f5908b9fc39c7b4029776c5e92a1e3676a86dad607",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_ops.gd": {
+        "native": "75512eefaf73fcad73ed39c482d9af8b682555d2e591f53b62e629c4fd02a74c",
+        "currentMain": "75512eefaf73fcad73ed39c482d9af8b682555d2e591f53b62e629c4fd02a74c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_ops.gd.uid": {
+        "native": "96d1f39bbf19ffbf70726641021a89a6488e5f663f5173b4288273e89244b7cb",
+        "currentMain": "96d1f39bbf19ffbf70726641021a89a6488e5f663f5173b4288273e89244b7cb",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_ui.gd": {
+        "native": "73a5a723f9af426633e93a7258ced8a476cd0c0d809da14b43be362c30142e5c",
+        "currentMain": "73a5a723f9af426633e93a7258ced8a476cd0c0d809da14b43be362c30142e5c",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/worker_ui.gd.uid": {
+        "native": "a801c16203a235797b661636e69e9a208cc46af92da39686542feb51b3858062",
+        "currentMain": "a801c16203a235797b661636e69e9a208cc46af92da39686542feb51b3858062",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/workshop_ui.gd.uid": {
+        "native": "86466a089c28b2f32d718b47e43d60fe18a0a12d18fcaf3919d10c0348c9694a",
+        "currentMain": "86466a089c28b2f32d718b47e43d60fe18a0a12d18fcaf3919d10c0348c9694a",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/yard_development.gd": {
+        "native": "0b5ac50f03520016c900c4bd4c84973d2cf534ec1153f42fb472663a89332889",
+        "currentMain": "0b5ac50f03520016c900c4bd4c84973d2cf534ec1153f42fb472663a89332889",
+        "equalIgnoringCRLF": true
+      },
+      "scripts/yard_development.gd.uid": {
+        "native": "e3468a9b27c2a5be452e3f3c72af2a882087e0d761660d279a76ac5beca97b2f",
+        "currentMain": "e3468a9b27c2a5be452e3f3c72af2a882087e0d761660d279a76ac5beca97b2f",
+        "equalIgnoringCRLF": true
+      }
+    }
+  },
+  "installed": {
+    "game/scripts/fleet_economy.gd": {
+      "sha256": "93c97965a103ea398a7d0e24e30025709afa3b0a2c918ce06d2acc9f5b8da55b",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\fixture-diagnostic\\game\\scripts\\fleet_economy.gd",
+      "previousMainSha256": "8492d769c3574860a3f5c8ac2f9dfbf618fe7f2a2e8cf8524d7ff29a2c08b7de"
+    },
+    "game/scripts/naval_combat.gd": {
+      "sha256": "4fa5ac9af4e858a528ba6f11ecb911574b164a68fb1871e809fccfb4bc7476f5",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\fixture-diagnostic\\game\\scripts\\naval_combat.gd",
+      "previousMainSha256": "f12a1ac19174438040d8bb428bb4c0c9b43339676b293940d5dcc6b7de346d7a"
+    },
+    "game/scripts/equipment_owner_service.gd": {
+      "sha256": "18b2fc8bd6401d454295f2a2d36a8be9901961dabdd717aa2717d609b9954909",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\fixture-diagnostic\\game\\scripts\\equipment_owner_service.gd",
+      "previousMainSha256": null
+    },
+    "game/tests/test_equipment_owner_service.gd": {
+      "sha256": "52e8a9b5c4b1c7224f3d989bc367a2e7af1f518b5dcd3fb6d44e0f7f5c11fe18",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\npc-service-root-inputs\\fixture-diagnostic\\game\\tests\\test_equipment_owner_service.gd",
+      "previousMainSha256": null
+    },
+    "game/scripts/equipment_ui_controller.gd": {
+      "sha256": "27ee5350091da051797f892587b8b3190b678f73f364db91e48032905cf85b48",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\public-contract\\game\\scripts\\equipment_ui_controller.gd",
+      "previousMainSha256": null
+    },
+    "game/scripts/equipment_picker.gd": {
+      "sha256": "1f06c1d1bdda03a29ac50a94bd37cc0119675de26623559b005bfc687102b6ac",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\public-contract\\game\\scripts\\equipment_picker.gd",
+      "previousMainSha256": null
+    },
+    "game/scripts/equipment_ui.gd": {
+      "sha256": "b99f807256e55657f4ecab5944a0822001297fb0451b500b1a06ae9ec8a8046a",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\public-contract\\game\\scripts\\equipment_ui.gd",
+      "previousMainSha256": "48af7b4c0cef44adc309569bd096b3865cfb7220d949e811ad14c5bf83393864"
+    },
+    "game/scripts/interface.gd": {
+      "sha256": "61c7d02ab894334d9076e91c8b410e17ea73c9aa48fec21e06d72339f453598f",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\public-contract\\game\\scripts\\interface.gd",
+      "previousMainSha256": "33453db3e72c19320b3c9dd58aef957e40330ff0c0ecf1f5fa91a92e5650c57f"
+    },
+    "game/scripts/workshop_ui.gd": {
+      "sha256": "ff1c639bd5b5fdef3b2d6f0b212a1a6e6c301d1ba03ea8efba23057512fb0df1",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\public-contract\\game\\scripts\\workshop_ui.gd",
+      "previousMainSha256": "ea49da6032ef37992261e97a80a590a588a4dffa9e1a78155339bd2bf66b6592"
+    },
+    "game/scripts/refit_ui.gd": {
+      "sha256": "c46255653a9070a2d194cd2d5d68a8e52f5f8a45257ab6f5aa8fb3f4cde58274",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\public-contract\\game\\scripts\\refit_ui.gd",
+      "previousMainSha256": "da29c7040d47398270f69329acff5318a5506865cab9cebd89d699b2ffbdbe83"
+    },
+    "game/tests/test_equipment_ui_integration.gd": {
+      "sha256": "39a3c7e6762ec1e3d33d099255e20c6c933b776796bf6d48695365114dc74e9c",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\ui-root-inputs\\public-contract\\game\\tests\\test_equipment_ui_integration.gd",
+      "previousMainSha256": null
+    }
+  },
+  "fixtureCorrections": [
+    "Top-level accept_acquired_item itemUid",
+    "Native duplicate(true) snapshots with exact recursive type/value comparison and before-operation JSON defect control",
+    "Actual equipmentCount/disabledCount quote fields and equipmentCondition foreign marker",
+    "Actual WorkshopUI.draft_set updates draft/request together; changes:Array proves the real quoted swap"
+  ],
+  "execution": "Root drives preserved Sol controller via shared machine FIFO; one bounded headless/Dummy/synthetic/lowpriority child at a time. No app input/control.",
+  "remaining": [
+    "Lifecycle capture custody review",
+    "Combined canonical careers, UI, NPC and live battle",
+    "Recovery callers",
+    "Full regression/CPU/visual/listening/Windows delivery"
+  ]
+}

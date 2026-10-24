@@ -4,6 +4,7 @@ const TradeRules=preload("res://scripts/trade_rules.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Goods=preload("res://scripts/goods.gd")
+const EquipmentOwnerService=preload("res://scripts/equipment_owner_service.gd")
 const SAILOR_WAGE: int=100
 
 static func _log(owner: Dictionary,message: String) -> void:
@@ -231,6 +232,9 @@ static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 	return messages
 
 static func _repair(owner: Dictionary,port: Dictionary,boat: Dictionary,core=null) -> void:
+	if EquipmentOwnerService.is_canonical_or_foreign_boat(boat) or EquipmentOwnerService.is_foreign_owner(owner):
+		EquipmentOwnerService.repair_owner_boat(owner,port,boat,core)
+		return
 	# One dock visit buys at most one worker-day, paid into residents' purse.
 	# No idle civilian worker, kits or affordable pay means no repair.
 	var idle: float=maxf(0.0,float(port.get("availableWorkers",0))-float(port.get("_yardWorkersUsed",0)))

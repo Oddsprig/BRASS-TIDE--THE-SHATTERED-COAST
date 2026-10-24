@@ -23,13 +23,13 @@ game/scripts/boat_portrait.gd: 6147 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:51 _gui_input()
   game/scripts/boat_portrait.gd:57 _draw()
   game/scripts/boat_portrait.gd:112 _draw_socket_arc()
-game/scripts/interface.gd: 47566 bytes; extends CanvasLayer
-  game/scripts/interface.gd:68 setup()
-  game/scripts/interface.gd:93 create_theme()
-  game/scripts/interface.gd:113 box()
-  game/scripts/interface.gd:125 clear()
-  game/scripts/interface.gd:130 label()
-  game/scripts/interface.gd:140 paragraph()
+game/scripts/interface.gd: 48042 bytes; extends CanvasLayer
+  game/scripts/interface.gd:71 setup()
+  game/scripts/interface.gd:96 create_theme()
+  game/scripts/interface.gd:116 box()
+  game/scripts/interface.gd:128 clear()
+  game/scripts/interface.gd:133 label()
+  game/scripts/interface.gd:143 paragraph()
 game/scripts/tactics_ui.gd: 14493 bytes; extends RefCounted
   game/scripts/tactics_ui.gd:4 build()
   game/scripts/tactics_ui.gd:61 update()
@@ -37,13 +37,13 @@ game/scripts/tactics_ui.gd: 14493 bytes; extends RefCounted
   game/scripts/tactics_ui.gd:90 selected_choices()
   game/scripts/tactics_ui.gd:102 apply_choices()
   game/scripts/tactics_ui.gd:105 number_choice()
-game/scripts/refit_ui.gd: 8021 bytes; extends RefCounted
-  game/scripts/refit_ui.gd:6 module_name()
-  game/scripts/refit_ui.gd:15 roster()
-  game/scripts/refit_ui.gd:30 preview()
-  game/scripts/refit_ui.gd:40 open()
-  game/scripts/refit_ui.gd:75 choose()
-  game/scripts/refit_ui.gd:101 review()
+game/scripts/refit_ui.gd: 11882 bytes; extends RefCounted
+  game/scripts/refit_ui.gd:7 module_name()
+  game/scripts/refit_ui.gd:16 roster()
+  game/scripts/refit_ui.gd:34 preview()
+  game/scripts/refit_ui.gd:44 open()
+  game/scripts/refit_ui.gd:95 choose()
+  game/scripts/refit_ui.gd:152 review()
 game/scripts/finance_ui.gd: 7750 bytes; extends RefCounted
   game/scripts/finance_ui.gd:5 boat_quote()
   game/scripts/finance_ui.gd:24 good_recipe()
@@ -56,13 +56,13 @@ game/scripts/boat_deck_detail.gd: 13547 bytes; extends RefCounted
   game/scripts/boat_deck_detail.gd:122 cabin()
   game/scripts/boat_deck_detail.gd:183 draw_items()
   game/scripts/boat_deck_detail.gd:9 _model()
-game/scripts/workshop_ui.gd: 18644 bytes; extends RefCounted
-  game/scripts/workshop_ui.gd:61 open()
-  game/scripts/workshop_ui.gd:115 draft_set()
-  game/scripts/workshop_ui.gd:125 choose()
-  game/scripts/workshop_ui.gd:178 review()
-  game/scripts/workshop_ui.gd:207 templates()
-  game/scripts/workshop_ui.gd:236 compare()
+game/scripts/workshop_ui.gd: 21533 bytes; extends RefCounted
+  game/scripts/workshop_ui.gd:60 open()
+  game/scripts/workshop_ui.gd:125 draft_set()
+  game/scripts/workshop_ui.gd:136 choose()
+  game/scripts/workshop_ui.gd:216 review()
+  game/scripts/workshop_ui.gd:248 templates()
+  game/scripts/workshop_ui.gd:277 compare()
 
 TESTS (game/tests/*.gd)
 test_runtime, test_art_workshop, test_workshop_ui; play questions in TO BE TESTED.md

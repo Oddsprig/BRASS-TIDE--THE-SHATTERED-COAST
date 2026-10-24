@@ -9,6 +9,7 @@ const Goods = preload("res://scripts/goods.gd")
 const Money = preload("res://scripts/money.gd")
 const Fleets = preload("res://scripts/fleet_economy.gd")
 const NavalOrders = preload("res://scripts/naval_orders.gd")
+const EquipmentOwnerService = preload("res://scripts/equipment_owner_service.gd")
 
 const CELL_SIZE: float = 240.0
 const ENCOUNTER_RADIUS: float = 165.0
@@ -160,6 +161,14 @@ static func _alive_defenders(defenders: Array) -> Array:
 	return out
 
 
+static func boat_weapon_power(boat: Dictionary, perf_factor: float = 1.0) -> Dictionary:
+	return EquipmentOwnerService.boat_weapon_power(boat, perf_factor)
+
+
+static func fleet_firepower(owner: Dictionary) -> float:
+	return EquipmentOwnerService.fleet_firepower(owner)
+
+
 static func _fire_salvo_side(rng: RandomNumberGenerator, attackers: Array, defenders: Array, perf_factor: float, dt: float) -> Dictionary:
 	var shots_fired: int = 0
 	var hits_landed: int = 0
@@ -178,29 +187,38 @@ static func _fire_salvo_side(rng: RandomNumberGenerator, attackers: Array, defen
 		var wf: float = float(st.get("weaponFactor", 0.0)) * perf_factor
 		if wf <= 0.02:
 			continue
-		var spec_d: Dictionary = s.get("spec", {}) if s.get("spec") is Dictionary else {}
 		var mounts: Array = []
-		if spec_d.get("weaponMounts") is Array:
-			var wm: Array = spec_d["weaponMounts"]
-			if not wm.is_empty():
-				mounts = wm
-		if mounts.is_empty():
-			mounts = [{
-				"kind": str(spec_d.get("weapon", "gun")),
-				"damage": float(spec_d.get("damage", 10.0)),
-				"fireRate": float(s.get("economyBaseFireRate", spec_d.get("fireRate", 1.5))),
-				"ammoCost": 1
-			}]
+		if EquipmentOwnerService.is_canonical_or_foreign_boat(s):
+			var wp: Dictionary = boat_weapon_power(s, perf_factor)
+			if not bool(wp.get("ok", false)) or float(wp.get("firepower", 0.0)) <= 0.0:
+				continue
+			mounts = wp.get("activeMounts", [])
+		else:
+			var spec_d: Dictionary = s.get("spec", {}) if s.get("spec") is Dictionary else {}
+			if spec_d.get("weaponMounts") is Array:
+				var wm: Array = spec_d["weaponMounts"]
+				if not wm.is_empty():
+					mounts = wm
+			if mounts.is_empty():
+				mounts = [{
+					"kind": str(spec_d.get("weapon", "gun")),
+					"damage": float(spec_d.get("damage", 10.0)),
+					"fireRate": float(s.get("economyBaseFireRate", spec_d.get("fireRate", 1.5))),
+					"ammoCost": 1
+				}]
 		for m_var in mounts:
 			if not (m_var is Dictionary):
 				continue
 			var m: Dictionary = m_var
+			var mount_wf: float = float(m.get("effectiveWf", wf))
+			if not is_finite(mount_wf) or mount_wf <= 0.02:
+				continue
 			var ammo_cost: int = maxi(1, int(ceil(float(m.get("ammoCost", 1.0)))))
 			var avail_shots: int = int(floor(float(s.get("ammo", 0.0)) / float(ammo_cost)))
 			if avail_shots <= 0:
 				continue
 			var fr: float = clampf(float(m.get("fireRate", 1.0)), 0.1, 12.0)
-			var salvo_shots: int = mini(avail_shots, maxi(1, int(round(fr * wf * dt * 0.42))))
+			var salvo_shots: int = mini(avail_shots, maxi(1, int(round(fr * mount_wf * dt * 0.42))))
 			s["ammo"] = maxf(0.0, float(s.get("ammo", 0.0)) - float(salvo_shots * ammo_cost))
 			shots_fired += salvo_shots
 
@@ -250,7 +268,8 @@ static func _should_withdraw_side(owner: Dictionary, initial_boats: int, enemy_f
 	var min_eng: float = float(res.get("minEngine", 1.0))
 	if hp_ratio < 0.56 or min_eng < 0.52:
 		return true
-	if str(owner.get("kind", "")) == "trader" and hp_ratio < 0.82 and enemy_firepower > float(perf.get("firepower", 0.0)) * 1.1:
+	var own_firepower: float = fleet_firepower(owner) if EquipmentOwnerService.has_canonical_or_foreign_boat(owner) else float(perf.get("firepower", 0.0))
+	if str(owner.get("kind", "")) == "trader" and hp_ratio < 0.82 and enemy_firepower > own_firepower * 1.1:
 		return true
 	return false
 
@@ -286,9 +305,13 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 			break
 		var perf_a: Dictionary = NavalOrders.fleet_performance(owner_a)
 		var perf_b: Dictionary = NavalOrders.fleet_performance(owner_b)
+		var fp_a: float = fleet_firepower(owner_a) if EquipmentOwnerService.has_canonical_or_foreign_boat(owner_a) else float(perf_a.get("firepower", 0.0))
+		var fp_b: float = fleet_firepower(owner_b) if EquipmentOwnerService.has_canonical_or_foreign_boat(owner_b) else float(perf_b.get("firepower", 0.0))
+		perf_a["firepower"] = fp_a
+		perf_b["firepower"] = fp_b
 		if salvo >= 1:
-			var a_retreat: bool = _should_withdraw_side(owner_a, init_a, float(perf_b.get("firepower", 0.0)))
-			var b_retreat: bool = _should_withdraw_side(owner_b, init_b, float(perf_a.get("firepower", 0.0)))
+			var a_retreat: bool = _should_withdraw_side(owner_a, init_a, fp_b)
+			var b_retreat: bool = _should_withdraw_side(owner_b, init_b, fp_a)
 			if a_retreat or b_retreat:
 				retreated = str(owner_a.get("id", "")) if (a_retreat and not b_retreat) else (str(owner_b.get("id", "")) if (b_retreat and not a_retreat) else "both")
 				break

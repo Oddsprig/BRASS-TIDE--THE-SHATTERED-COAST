@@ -6,21 +6,20 @@ const RefitUI=preload("res://scripts/refit_ui.gd")
 const Portrait=preload("res://scripts/boat_portrait.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const Layout=preload("res://scripts/mount_layout.gd")
+const EquipmentPicker=preload("res://scripts/equipment_picker.gd")
 
 static func _prune_drafts(ui) -> Dictionary:
-	var living: Dictionary={}
-	for boat in ui.host.core.state.get("fleet",[]):
-		if boat is Dictionary and not boat.get("sunk",false):living[str(boat.get("uid",""))]=true
-	for uid in ui.workshop_drafts.keys():
-		if not living.has(uid):ui.workshop_drafts.erase(uid)
-	return living
+	return EquipmentPicker.prune_requests(ui)
 
 static func _draft(ui,uid: String,provided: Dictionary={}) -> Dictionary:
 	if not _prune_drafts(ui).has(uid):return {}
+	EquipmentPicker.bind_boat(ui,uid)
 	if not provided.is_empty():ui.workshop_drafts[uid]=provided.duplicate(true)
 	if not ui.workshop_drafts.has(uid):
 		var boat: Dictionary=ui.host.core.find_boat(uid)
 		ui.workshop_drafts[uid]=boat.get("loadout",Refits.defaults(ui.host.core.hull(str(boat.get("type",""))))).duplicate(true)
+		EquipmentPicker.bind_boat(ui,uid)
+	EquipmentPicker.prune_requests(ui)
 	return ui.workshop_drafts[uid].duplicate(true)
 
 static func _portrait(ui,parent: Node,ship: Dictionary,spec: Dictionary,selected: int=0,action: Callable=Callable()):
@@ -64,7 +63,8 @@ static func open(ui,uid: String,draft: Dictionary={},selected: int=0):
 	var ship: Dictionary=ui.host.core.find_boat(uid)
 	if ship.is_empty() or ship.get("sunk",false):return
 	draft=_draft(ui,uid,draft)
-	var q: Dictionary=Workshop.preview(ui.host.core,uid,draft)
+	var q: Dictionary=EquipmentPicker.preview_workshop(ui,uid,draft)
+	var canonical: bool=EquipmentPicker.is_canonical(ship)
 	ui.modal_kind="refit"
 	var body=ui.modal(ship.name,"FITTING BAY · FLEET WORKSHOP · CURRENT FIT & DRAFT",1160,890)
 	_picker(ui,body,uid,draft)
@@ -89,17 +89,25 @@ static func open(ui,uid: String,draft: Dictionary={},selected: int=0):
 	ui.eyebrow(body,"PHYSICAL SOCKETS")
 	for i in range(sockets.size()):
 		var index: int=i
+		var slot_key: String="weapon:%d"%index
 		var slot: Dictionary=sockets[i]
 		var id: String=str(draft.get("weapons",[])[i]) if i<draft.get("weapons",[]).size() else ""
 		var line=ui.row(body)
 		var details=ui.column(line)
 		ui.label(details,"%d · %s · size %d · %s"%[i+1,slot.label,slot.size,RefitUI.module_name(id)],16,ui.GOLD)
 		ui.paragraph(details,_arc_text(draft_spec,slot),12)
-		ui.button(line,"Change weapon draft %d"%(i+1),func():choose(ui,uid,draft,"weapon:%d"%index))
+		if canonical:
+			var sum_text: String=EquipmentPicker.slot_summary_text(ui,ship,draft,slot_key,q)
+			if not sum_text.is_empty():ui.paragraph(details,sum_text,13,ui.TEAL)
+		ui.button(line,"Change weapon draft %d"%(i+1),func():choose(ui,uid,draft,slot_key))
 	for pair in [["engine","Propulsion"],["armor","Hull protection"]]:
 		var slot: String=pair[0]
 		var line=ui.row(body)
-		ui.paragraph(line,"%s · %s"%[pair[1],RefitUI.module_name(str(draft.get(slot,"")))],16,ui.TEXT)
+		var details=ui.column(line)
+		ui.paragraph(details,"%s · %s"%[pair[1],RefitUI.module_name(str(draft.get(slot,"")))],16,ui.TEXT)
+		if canonical:
+			var pkg_sum: String=EquipmentPicker.slot_summary_text(ui,ship,draft,slot,q)
+			if not pkg_sum.is_empty():ui.paragraph(details,pkg_sum,13,ui.TEAL)
 		ui.button(line,"Change package draft · "+slot,func():choose(ui,uid,draft,slot))
 	ui.rule(body)
 	ui.paragraph(body,"Purse: %s coins · Living owned fleet: %d DP · Battle deployment limit: 300 DP per side. Ownership is separate from battle deployment."%[ui.money(ui.host.core.state.coins),ui.host.core.fleet_points()],14,ui.TEAL)
@@ -108,11 +116,13 @@ static func open(ui,uid: String,draft: Dictionary={},selected: int=0):
 		for reason in q.reasons:ui.paragraph(body,str(reason),13,ui.GOLD)
 	var actions=ui.row(body)
 	ui.button(actions,"Review whole-fit quote · %s coins"%ui.money(q.cost),func():review(ui,uid,draft),true).disabled=not q.validDraft or q.changes.is_empty()
-	ui.button(actions,"Reset draft to current",func():ui.workshop_drafts.erase(uid);open(ui,uid))
+	ui.button(actions,"Reset draft to current",func():EquipmentPicker.clear_workshop_state(ui,uid);open(ui,uid))
 	ui.button(actions,"Single-slot refit",func():ui.open_single_refit(uid))
+	if ui.has_method("open_equipment"):
+		ui.button(actions,"Equipment & condition",func():ui.open_equipment(uid))
 	ui.button(body,"Back to fleet",ui.open_fleet)
 
-static func draft_set(ui,uid: String,draft: Dictionary,slot: String,module_id: String):
+static func draft_set(ui,uid: String,draft: Dictionary,slot: String,module_id: String,choice: Dictionary={}):
 	if not _prune_drafts(ui).has(uid):return
 	var next: Dictionary=draft.duplicate(true)
 	var position: Dictionary=Refits._slot(next,slot)
@@ -120,6 +130,7 @@ static func draft_set(ui,uid: String,draft: Dictionary,slot: String,module_id: S
 	if position.index>=0:next.weapons[position.index]=module_id
 	else:next[position.key]=module_id
 	ui.workshop_drafts[uid]=next.duplicate(true)
+	EquipmentPicker.set_workshop_slot_choice(ui,uid,slot,module_id,choice)
 	open(ui,uid,next,maxi(0,int(position.index)))
 
 static func choose(ui,uid: String,draft: Dictionary,slot: String):
@@ -131,7 +142,12 @@ static func choose(ui,uid: String,draft: Dictionary,slot: String):
 	var position: Dictionary=Refits._slot(draft,slot)
 	if not position.ok:ui.toast(str(position.message),true);return
 	var selected: int=maxi(0,int(position.index))
-	var q: Dictionary=Workshop.preview(ui.host.core,uid,draft)
+	var q: Dictionary=EquipmentPicker.preview_workshop(ui,uid,draft)
+	var canonical: bool=EquipmentPicker.is_canonical(ship)
+	var show_uid: bool=EquipmentPicker.dev_enabled(ui)
+	var slot_requests: Dictionary=EquipmentPicker.workshop_slot_map(ui,uid,draft)
+	var current_slot_req: Dictionary=slot_requests.get(slot,{}) if slot_requests.get(slot,{}) is Dictionary else {}
+	var installed_item: Dictionary=EquipmentPicker.installed_at(ship,slot)
 	ui.modal_kind="refit"
 	var slot_label: String="Propulsion" if slot=="engine" else "Hull protection"
 	if position.index>=0:slot_label="Socket %d · %s"%[position.index+1,Refits.hardpoints(base)[position.index].label]
@@ -140,6 +156,8 @@ static func choose(ui,uid: String,draft: Dictionary,slot: String):
 	if position.index>=0:
 		var socket: Dictionary=Refits.hardpoints(base)[position.index]
 		ui.paragraph(body,"Socket %d · %s · maximum size %d\n%s"%[position.index+1,socket.label,socket.size,_arc_text(q.afterSpec if not q.afterSpec.is_empty() else ship.spec,socket)],15,ui.TEAL)
+	if canonical:
+		ui.paragraph(body,EquipmentPicker.slot_summary_text(ui,ship,draft,slot,q),14,ui.TEAL)
 	ui.paragraph(body,"This changes the draft only. The final bill pools removed modules and locker stock before buying any yard inputs. Installation always pays ordinary and expert workers.",14)
 	var options: Dictionary=Refits.catalog()[position.group]
 	for key in options:
@@ -161,8 +179,28 @@ static func choose(ui,uid: String,draft: Dictionary,slot: String):
 		else:next[position.key]=id
 		var fit: Dictionary=Refits.normalize(base,next)
 		if compatible and not fit.ok:ui.paragraph(body,"Draft adjustment needed: "+str(fit.message),13,ui.GOLD)
-		var button=ui.button(body,"Already in draft" if position.old==id else "Use in draft" if compatible else "Too large or incompatible with this socket",func():draft_set(ui,uid,draft,slot,id))
-		button.disabled=not compatible or position.old==id
+		if not canonical or id.is_empty():
+			var button=ui.button(body,"Already in draft" if str(position.old)==id else "Use in draft" if compatible else "Too large or incompatible with this socket",func():draft_set(ui,uid,draft,slot,id,{}))
+			button.disabled=not compatible or str(position.old)==id
+		else:
+			var same_draft_mod: bool=(str(position.old)==id)
+			var default_kept: bool=same_draft_mod and current_slot_req.is_empty()
+			var b_default=ui.button(body,"Already in draft" if default_kept else "Use in draft" if compatible else "Too large or incompatible with this socket",func():draft_set(ui,uid,draft,slot,id,{}))
+			b_default.disabled=not compatible or default_kept
+			var new_selected: bool=same_draft_mod and bool(current_slot_req.get("new",false))
+			var b_new=ui.button(body,"New yard unit in draft" if new_selected else ("Buy new in draft (100%)" if compatible else "Too large or incompatible with this socket"),func():draft_set(ui,uid,draft,slot,id,{"new":true}))
+			b_new.disabled=not compatible or new_selected
+			var spares: Array=EquipmentPicker.spare_choices(ship,base,slot,id,slot_requests,q)
+			for s_idx in range(spares.size()):
+				var spare: Dictionary=spares[s_idx]
+				var spare_uid: String=str(spare.itemUid)
+				var spare_selected: bool=same_draft_mod and str(current_slot_req.get("itemUid",""))==spare_uid
+				ui.paragraph(body,"Owned spare #%d in locker: %s"%[s_idx+1,EquipmentPicker.describe_part(spare,show_uid)],13,ui.TEAL if spare.compatible else ui.MUTED)
+				if not spare.compatible and not str(spare.reason).is_empty():
+					ui.paragraph(body,str(spare.reason),12,ui.GOLD)
+				var spare_label: String="Spare #%d selected in draft"%(s_idx+1) if spare_selected else ("Draft spare #%d (%s · %s)"%[s_idx+1,EquipmentPicker.status_word(str(spare.status)),EquipmentPicker.percent_text(float(spare.hp))] if spare.compatible else "Spare #%d unavailable"%(s_idx+1))
+				var b_spare=ui.button(body,spare_label,func():draft_set(ui,uid,draft,slot,id,{"itemUid":spare_uid}))
+				b_spare.disabled=not compatible or not bool(spare.compatible) or spare_selected
 		ui.rule(body)
 	ui.button(body,"Back to whole fitting",func():open(ui,uid,draft,selected))
 
@@ -180,7 +218,7 @@ static func review(ui,uid: String,draft: Dictionary):
 	draft=_draft(ui,uid,draft)
 	var ship: Dictionary=ui.host.core.find_boat(uid)
 	if ship.is_empty():return
-	var q: Dictionary=Workshop.preview(ui.host.core,uid,draft)
+	var q: Dictionary=EquipmentPicker.preview_workshop(ui,uid,draft)
 	ui.modal_kind="refit"
 	var body=ui.modal("Review the complete fitting","EXACT PREVIEW · STOCK · WORKERS · COINS",1120,880)
 	if not q.afterSpec.is_empty():_portrait(ui,body,ship,q.afterSpec)
@@ -189,6 +227,9 @@ static func review(ui,uid: String,draft: Dictionary):
 	for change in q.changes:
 		ui.label(body,str(change.label),17,ui.GOLD)
 		ui.paragraph(body,"%s → %s\nSource: %s · %s coins · %.2f ordinary + %.2f expert days"%[RefitUI.module_name(str(change.oldModule)),RefitUI.module_name(str(change.moduleId)),{"yard":"physical yard materials","locker":"boat locker","moved":"removed module reused in this fit","removal":"returned to boat locker"}.get(change.source,change.source),ui.money(change.bill.cost),float(change.bill.workerDays),float(change.bill.expertDays)],14)
+		var sel_note: String=EquipmentPicker.change_selection_note(ui,change)
+		if not sel_note.is_empty():
+			ui.paragraph(body,sel_note,13,ui.TEAL)
 	ui.rule(body)
 	ui.paragraph(body,"Physical materials: %s coins\nOrdinary fitter wages: %s coins\nExpert wages: %s coins\nYard overhead & margin: %s coins\nRegistry duty: %s coins\nTotal ordinary worker-days: %.2f · Expert-days: %.2f"%[ui.money(q.materialCost),ui.money(q.workerWages),ui.money(q.expertWages),ui.money(q.margin),ui.money(q.tax),float(q.workerDays),float(q.expertDays)],16,ui.TEXT)
 	if q.materials.is_empty():ui.paragraph(body,"No new materials: this draft uses already owned modules or removals. Fitting labor is still paid.",14,ui.TEAL)
@@ -201,7 +242,7 @@ static func review(ui,uid: String,draft: Dictionary):
 	_reserve(ui,body,q)
 	for reason in q.reasons:ui.paragraph(body,str(reason),14,ui.GOLD)
 	ui.paragraph(body,"The apply button authorizes this complete bill once. If the hull, stock, workforce, permission or purse changes, the yard requires a fresh review.",13)
-	ui.button(body,"Apply reviewed fitting · %s coins"%ui.money(q.cost),func():ui.host.workshop_apply(uid,draft,q),true).disabled=not q.applicable or q.changes.is_empty()
+	ui.button(body,"Apply reviewed fitting · %s coins"%ui.money(q.cost),func():EquipmentPicker.apply_workshop(ui,uid,draft,q),true).disabled=not q.applicable or q.changes.is_empty()
 	ui.button(body,"Back to draft",func():open(ui,uid,draft))
 
 static func templates(ui,uid: String,draft: Dictionary):
@@ -225,7 +266,7 @@ static func templates(ui,uid: String,draft: Dictionary):
 		var saved: Dictionary=entry
 		ui.label(body,str(saved.name),23,ui.GOLD,true)
 		var row=ui.row(body)
-		ui.button(row,"Load into draft",func():open(ui,uid,saved.loadout))
+		ui.button(row,"Load into draft",func():EquipmentPicker.clear_workshop_state(ui,uid);open(ui,uid,saved.loadout))
 		ui.button(row,"Forget template",func():
 			var result: Dictionary=ui.host.workshop_delete_template(str(saved.id))
 			if result.ok:templates(ui,uid,draft))
@@ -239,7 +280,7 @@ static func compare(ui,uid: String,draft: Dictionary,hull_id: String,known_fit: 
 	var ship: Dictionary=ui.host.core.find_boat(uid)
 	var base: Dictionary=ui.host.core.hull(hull_id)
 	if ship.is_empty() or base.is_empty():return
-	var q: Dictionary=Workshop.preview(ui.host.core,uid,draft)
+	var q: Dictionary=EquipmentPicker.preview_workshop(ui,uid,draft)
 	var normalized: Dictionary=Refits.normalize(base,known_fit)
 	if not normalized.ok:return
 	var spec: Dictionary=Refits.effective_spec(base,normalized.loadout)

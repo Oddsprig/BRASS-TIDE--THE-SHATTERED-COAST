@@ -17,13 +17,13 @@ game/scripts/naval_orders.gd: 32945 bytes; extends RefCounted
   game/scripts/naval_orders.gd:50 find_port()
   game/scripts/naval_orders.gd:62 find_owner()
   game/scripts/naval_orders.gd:74 find_patrol()
-game/scripts/naval_combat.gd: 20682 bytes; extends RefCounted
-  game/scripts/naval_combat.gd:20 spatial_index()
-  game/scripts/naval_combat.gd:60 are_hostile()
-  game/scripts/naval_combat.gd:78 nearby_hostile_pairs()
-  game/scripts/naval_combat.gd:258 resolve_encounter()
-  game/scripts/naval_combat.gd:74 _compare_pair_priority()
-  game/scripts/naval_combat.gd:153 _alive_defenders()
+game/scripts/naval_combat.gd: 21879 bytes; extends RefCounted
+  game/scripts/naval_combat.gd:21 spatial_index()
+  game/scripts/naval_combat.gd:61 are_hostile()
+  game/scripts/naval_combat.gd:79 nearby_hostile_pairs()
+  game/scripts/naval_combat.gd:164 boat_weapon_power()
+  game/scripts/naval_combat.gd:168 fleet_firepower()
+  game/scripts/naval_combat.gd:277 resolve_encounter()
 game/scripts/naval_replacements.gd: 16458 bytes; extends RefCounted
   game/scripts/naval_replacements.gd:17 quote_at_port()
   game/scripts/naval_replacements.gd:26 can_materials()

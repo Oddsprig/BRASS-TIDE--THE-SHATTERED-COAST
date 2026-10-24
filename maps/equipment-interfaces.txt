@@ -1,0 +1,66 @@
+BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.030)
+
+Physical part condition and exact spare/new selection -> real refit/repair UI and96-hull drafts. NPC/company owners pay conserved coins, finite materials and workers; installed condition affects offscreen power. Canonical career/live battle integration remains separate.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/equipment_ui_controller.gd: 15513 bytes; extends RefCounted
+  game/scripts/equipment_ui_controller.gd:94 translate_service_quote()
+  game/scripts/equipment_ui_controller.gd:186 build_model()
+  game/scripts/equipment_ui_controller.gd:248 set_priority_action()
+  game/scripts/equipment_ui_controller.gd:272 repair_action()
+  game/scripts/equipment_ui_controller.gd:298 workshop_action()
+  game/scripts/equipment_ui_controller.gd:306 open()
+game/scripts/equipment_picker.gd: 25446 bytes; extends RefCounted
+  game/scripts/equipment_picker.gd:18 inspect_boat()
+  game/scripts/equipment_picker.gd:21 is_canonical()
+  game/scripts/equipment_picker.gd:24 dev_enabled()
+  game/scripts/equipment_picker.gd:27 slot_to_location()
+  game/scripts/equipment_picker.gd:38 location_to_slot()
+  game/scripts/equipment_picker.gd:45 slot_family()
+game/scripts/equipment_ui.gd: 10067 bytes; extends RefCounted
+  game/scripts/equipment_ui.gd:15 open()
+  game/scripts/equipment_ui.gd:74 _surface()
+  game/scripts/equipment_ui.gd:82 _accepted()
+  game/scripts/equipment_ui.gd:115 _quote()
+  game/scripts/equipment_ui.gd:129 _part()
+  game/scripts/equipment_ui.gd:154 _num()
+game/scripts/workshop_ui.gd: 21533 bytes; extends RefCounted
+  game/scripts/workshop_ui.gd:60 open()
+  game/scripts/workshop_ui.gd:125 draft_set()
+  game/scripts/workshop_ui.gd:136 choose()
+  game/scripts/workshop_ui.gd:216 review()
+  game/scripts/workshop_ui.gd:248 templates()
+  game/scripts/workshop_ui.gd:277 compare()
+game/scripts/refit_ui.gd: 11882 bytes; extends RefCounted
+  game/scripts/refit_ui.gd:7 module_name()
+  game/scripts/refit_ui.gd:16 roster()
+  game/scripts/refit_ui.gd:34 preview()
+  game/scripts/refit_ui.gd:44 open()
+  game/scripts/refit_ui.gd:95 choose()
+  game/scripts/refit_ui.gd:152 review()
+game/scripts/equipment_owner_service.gd: 38551 bytes; extends RefCounted
+  game/scripts/equipment_owner_service.gd:85 is_canonical_or_foreign_boat()
+  game/scripts/equipment_owner_service.gd:91 is_foreign_owner()
+  game/scripts/equipment_owner_service.gd:97 has_canonical_or_foreign_boat()
+  game/scripts/equipment_owner_service.gd:138 allowed_port_service()
+  game/scripts/equipment_owner_service.gd:323 owner_service_quote()
+  game/scripts/equipment_owner_service.gd:347 repair_owner_boat()
+game/scripts/fleet_economy.gd: 17220 bytes; extends RefCounted
+  game/scripts/fleet_economy.gd:26 normalize_owner()
+  game/scripts/fleet_economy.gd:47 upkeep()
+  game/scripts/fleet_economy.gd:57 total_coins()
+  game/scripts/fleet_economy.gd:63 create_owners()
+  game/scripts/fleet_economy.gd:129 subsidize()
+  game/scripts/fleet_economy.gd:146 allowed_trade()
+game/scripts/naval_combat.gd: 21879 bytes; extends RefCounted
+  game/scripts/naval_combat.gd:21 spatial_index()
+  game/scripts/naval_combat.gd:61 are_hostile()
+  game/scripts/naval_combat.gd:79 nearby_hostile_pairs()
+  game/scripts/naval_combat.gd:164 boat_weapon_power()
+  game/scripts/naval_combat.gd:168 fleet_firepower()
+  game/scripts/naval_combat.gd:277 resolve_encounter()
+
+TESTS (game/tests/*.gd)
+Actual Main/Interface UI168/0; NPC140/0; unchanged legacy fleet economy1266/0, naval AI227/0, shipping0failures. Exact source/input/shared-lane receipts: docs/ROOT EQUIPMENT INTERFACES INTEGRATION.
+
+Full symbols: rg -n '^func |^static func ' on named files.

@@ -101,3 +101,9 @@ Background tests only. Separate rendering; copied-state harbor workers adapt to 
 PREVIOUS BUILD NOTES
 Full earlier development notes: res://data/DEVELOPMENT HISTORY through v0.027.txt
 Current play guide: docs/ECONOMY QUICK START.txt beside the source/build records.
+
+24 OCTOBER2026 - WIP .031 equipment interfaces and paid NPC upkeep
+Exact spare/new selection, condition/repair panels and96-hull draft handling integrated.
+NPC/company maintenance consumes real materials/workers and owner coins; company expenses
+are staged. NativeNPC140/0, UI168/0, legacyfleet1266/0/naval227/0/shipping0failures.
+All checks use the shared background test lane. Full career/battle/CPU/release not accepted.

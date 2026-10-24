@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "equipment-interfaces": (["equipment_ui_controller", "equipment_picker", "equipment_ui", "workshop_ui", "refit_ui", "equipment_owner_service", "fleet_economy", "naval_combat"],
+                             "Physical part condition and exact spare/new selection -> real refit/repair UI and96-hull drafts. NPC/company owners pay conserved coins, finite materials and workers; installed condition affects offscreen power. Canonical career/live battle integration remains separate.",
+                             "Actual Main/Interface UI168/0; NPC140/0; unchanged legacy fleet economy1266/0, naval AI227/0, shipping0failures. Exact source/input/shared-lane receipts: docs/ROOT EQUIPMENT INTERFACES INTEGRATION."),
     "equipment-service": (["equipment_service", "harbor"],
                           "Paid installed-part and hull restoration: detached quote/validation/staging, real kits/materials/purses/workers, in-place commit, stable UIDs and untouched locker spares. Normal career migration and combined battle/UI remain separate.",
                           "test_equipment_service: same enhanced fixture133/9 before to133/0 after; existing campaign_cash458/0 on final native pack. Shared machine lane receipts: docs/ROOT PAID HARBOR INTEGRATION."),

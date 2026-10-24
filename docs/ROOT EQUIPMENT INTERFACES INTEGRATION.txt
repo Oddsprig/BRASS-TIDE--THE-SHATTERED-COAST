@@ -1,0 +1,23 @@
+EQUIPMENT INTERFACES AND NPC UPKEEP - COMPONENT ACCEPTANCE,24 OCTOBER2026
+Accepted source in the working tree: equipment condition panels/controllers,
+exact damaged/new spare selection, persistent draft requests across the96-hull
+roster, and paid installed-equipment repair for NPC/company owners. Hull crews,
+fuel, ammunition, physical part UIDs, birth serials and locker damage persist.
+NPC upkeep uses its own purse, actual harbor materials/workers/specialists and
+the conserved coin journal. Company repair expense is staged before publication.
+Offscreen weapon power uses installed condition; disabled/locker parts add none.
+
+Actual native results: NPC140/0; existing fleet economy1266/0, naval AI227/0,
+shipping0failures; actual Main/Interface equipment UI168/0. The old NPC140/23,
+UI168/7 and UI168/2 failed fixtures remain preserved. Corrections changed fixture
+API usage only, not production. Native before-operation control proves the old
+JSON-roundtripped snapshot already differed before quote. The new comparator
+checks exact native types and values. Required assertions were retained.
+
+All runs used the mandatory shared machine FIFO, one bounded headless/silent
+synthetic child per lease. Root rehashed every native input and raw receipt/log,
+and compared all non-overridden script dependencies against current Main.
+The accompanying JSON binds source hashes, raw evidence and shared job records.
+This is not full-game .031 acceptance, sustained CPU, rendered quality or audio
+verification. Ordinary career lifecycle, capture/recovery and actual battle
+integration still need combined proof. No release tag/export/launcher changed.

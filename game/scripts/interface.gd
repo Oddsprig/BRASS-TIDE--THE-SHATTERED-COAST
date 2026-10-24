@@ -26,6 +26,8 @@ const NavalUI=preload("res://scripts/naval_ui.gd")
 const FactionUI=preload("res://scripts/faction_ui.gd")
 const Politics=preload("res://scripts/politics.gd")
 const VoyageUI=preload("res://scripts/voyage_ui.gd")
+const EquipmentController=preload("res://scripts/equipment_ui_controller.gd")
+const EquipmentPicker=preload("res://scripts/equipment_picker.gd")
 
 const INK = Color("102731")
 const LINE = Color("3b5a60")
@@ -44,6 +46,7 @@ var title_root: Control
 var modal_open = false
 var modal_kind = ""
 var workshop_drafts: Dictionary={}
+var workshop_requests: Dictionary={}
 var hud_mode = ""
 var port_tab = "Market"
 var trade_qty = 5
@@ -203,6 +206,7 @@ func progress(parent: Node, color: Color = TEAL) -> ProgressBar:
 
 func title_screen():
 	close_modal()
+	EquipmentPicker.clear_all(self)
 	clear(chrome)
 	clear(title_root)
 	title_root.visible = true
@@ -251,6 +255,7 @@ func build_hud():
 	title_root.visible = false
 	clear(chrome)
 	policy_buttons.clear()
+	EquipmentPicker.prune_requests(self)
 	var size = root.get_viewport_rect().size
 	var top = panel(chrome, Vector2.ZERO, Vector2(size.x, 76))
 	var top_row = row(top)
@@ -543,6 +548,7 @@ func open_catalog():
 
 func open_fleet():
 	host.sync_economy()
+	EquipmentPicker.prune_requests(self)
 	modal_kind = "fleet"
 	var body = modal("Your flotilla", "FLEET · CREW · DAMAGE CONTROL")
 	fleet_view(body, not host.core.current_port().is_empty())
@@ -577,6 +583,7 @@ func fleet_view(body: Node, docked: bool):
 			b.add_theme_color_override("font_color", GOLD if s.policy == policy else TEXT)
 		var actions = row(card)
 		label(card, "%d deployment points · %d weapon mounts" % [Deployment.cost(s), s.spec.get("weaponMounts", []).size()], 13, TEAL)
+		button(actions, "Equipment & condition", func(): open_equipment(uid)).disabled = s.get("sunk",false)
 		button(actions, "Fleet workshop & fitting templates", func(): open_refit(uid)).disabled = s.get("sunk",false)
 		button(card,"Support conversion, specialists & service history",func():IdentityUI.open(self,uid))
 		button(actions, "Set flagship", func(): host.core.state.flagship = uid; refresh_fleet()).disabled = s.crew < s.crewMin
@@ -601,6 +608,9 @@ func open_refit(uid: String):
 
 func open_single_refit(uid: String):
 	RefitUI.open(self, uid)
+
+func open_equipment(uid: String):
+	EquipmentController.open(self, uid)
 
 func refresh_fleet():
 	if modal_kind == "port":

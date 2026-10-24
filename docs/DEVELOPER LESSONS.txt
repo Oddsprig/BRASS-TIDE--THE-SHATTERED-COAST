@@ -126,3 +126,9 @@ The advisory checker also flags bare namespace declarations after native4.7.2
 rejected that parameter in whole-campaign preflight. Rename the identifier in
 a new candidate; preserve the failed source and unchanged numerical fixture.
 This narrow warning is not a substitute for native parsing or behavior checks.
+
+24 OCTOBER2026 - Fixture contracts and exact state snapshots
+Core.accept_acquired_item returns itemUid at the top level. Workshop previews report
+changes:Array; UI draft_set updates loadout and request together. Preserve exact native
+snapshots with duplicate(true), not JSON roundtrip. Compare native type/value recursively
+for atomicity and control the old comparator before blaming a read-only operation.

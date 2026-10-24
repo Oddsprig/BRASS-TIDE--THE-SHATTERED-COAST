@@ -33,10 +33,10 @@ static func open(ui, model: Dictionary, actions: Dictionary) -> void:
 			pumps_listed = true
 	ui.modal_kind = "equipment"
 	var body: VBoxContainer = ui.modal(str(model.name), "FITTINGS · CONDITION · REPAIR", 1100, 850)
-	ui.paragraph(body, "Installed parts and loose spares are listed as they are. Nothing here buys, installs, or repairs on its own.", 15)
+	ui.paragraph(body, "Check this boat's mounted guns, machinery, armor, and spare parts.", 15)
 	ui.paragraph(body, "Repair kits %s · current repair effort %s · jury repairs stop at %s." % [_amount(float(model.supplies)), _amount(float(model.repairCrew)), _percent(float(model.juryCap))], 16, ui.TEAL)
-	ui.paragraph(body, "Armor and loose spares need the yard. This list does not repair them.", 14)
-	ui.paragraph(body, "This order is for this boat's machinery. It does not change the crew duty for guns, bailing, and patching.", 14)
+	ui.paragraph(body, "Armor and loose spares need the yard for full restoration.", 14)
+	ui.paragraph(body, "Choose which damaged machinery your repair hands tend first; crew duty for guns, bailing, and patching stays on the fleet card.", 14)
 	var priorities: HBoxContainer = ui.row(body)
 	for value in PRIORITY_ORDER:
 		var chosen: String = str(value)
