@@ -13,8 +13,10 @@ Accepted conditional Damage174, paid physical fitting324, legacyRefit352/
 Workshop85, Core90/Records89/all24catalogue651/panel49 remain. Existing careers
 need lifecycle migration before canonical equipment becomes ordinary play.
 Grok builds/reviews11path constructors/saves/captures; Argon builds9path UI.
-Sol verifies exact detached components using the sole engine lease. New Recovery
-319/0 and global629/0 are pending root source/raw review, not live acceptance.
+Pureglobal629+Recovery library are integrated; Root verified95inputs twice.
+RecoverySalvage callers remain pending. Root temporarily drives bounded QA
+through the mandatory shared FIFO while Sol's local tools fail afterrestart.
+Harbor fixture is QUEUED behind other leases; no completed result yet.
 Harbor/NPC paid maintenance and actual battle integration remain incomplete.
 
 Full40/42 fleet CPU capacity currently fails. Original70 completed67pass with
@@ -27,6 +29,8 @@ hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus. Current task
 work/resume-v030-v038/CURRENT.txt and TEAM.json supersede old handoff memories.
 Owner24Oct: queue ALL engine work behind any other Godot or Unity app,
 including known headless jobs/editors. Unreadable discovery queues too.
+Use computer-wide GAME TESTING RULES.md and Invoke-GameTestLane.ps1, including
+renamed-game detection and other agents' leases. Per-project guards do not suffice.
 
 HISTORICAL RECORDS FOLLOW
 

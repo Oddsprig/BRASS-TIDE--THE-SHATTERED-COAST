@@ -90,8 +90,13 @@ def inventory():
         creationflags=subprocess.CREATE_NO_WINDOW)
     if result.returncode or result.stderr.strip():
         raise RuntimeError("Process guard unreadable; no engine launched: " + result.stderr)
-    rows = json.loads(result.stdout) if result.stdout.strip() else []
+    try:
+        rows = json.loads(result.stdout) if result.stdout.strip() else []
+    except (ValueError, TypeError) as error:
+        raise RuntimeError("Process discovery unreadable; keep tests queued") from error
     rows = rows if isinstance(rows, list) else [rows]
+    if not all(isinstance(row, dict) for row in rows):
+        raise RuntimeError("Process identities unreadable; keep tests queued")
     return [classify(row) for row in rows]
 
 

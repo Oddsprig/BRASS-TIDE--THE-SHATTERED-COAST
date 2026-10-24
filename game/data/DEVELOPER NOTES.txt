@@ -5,6 +5,9 @@ Portable030 remains its original UNTESTED build; verified029 is preserved.
 Background testing is active. No new playable build or complete quality claim.
 Tests queue behind other Godot or Unity apps, including headless jobs and
 editors. Each engine launch rechecks; source work can continue while waiting.
+The computer-wide test lane also detects renamed exports and queues other
+agents. The next Harbor check is queued, not passed. Root temporarily drives
+the existing QA tools while the Sol helper's local connection is unavailable.
 
 Paid interchangeable fittings now preserve actual part IDs, condition and
 locker custody while paying real material and worker costs. Focused fitting324

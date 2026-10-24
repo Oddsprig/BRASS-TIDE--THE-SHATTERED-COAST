@@ -1,5 +1,20 @@
 # Brass Tide - resumed development and background testing
 
+<!-- GAME TEST LANE -->
+## Game and GPU test scheduling
+
+Follow [Game testing rules](C:/Users/bligh/Documents/Codex/GAME%20TESTING%20RULES.md) on this computer.
+Before engine, game or GPU tests, use the read-only Windows process detector and
+claim C:/Users/bligh/Documents/Codex/tools/game-testing/Invoke-GameTestLane.ps1.
+Queue behind existing Godot/Unity editors, players and renamed exported games,
+and behind another agent's test lease. Never close or control an existing app.
+One bounded engine/GPU test per shared FIFO lease. Keep queued/interrupted work
+distinct from passed results; yield only our own test if another game starts.
+Preserve user GPU/download authorization. Source/static work may continue.
+The shared detector and lease supersede project-only scheduling. Launchers or
+crash reporters alone are not engine workloads, as the shared rules specify.
+<!-- END GAME TEST LANE -->
+
 LATEST TEST ORDER (24 October2026), owner: "check other godot or unity apps
 running and queue tests behind it - add to game testing rules."
 Before EVERY Godot test, benchmark, import/export, render or game smoke, check

@@ -1,0 +1,24 @@
+{
+  "scope": "No-engine regression of three actual queue functions with synthetic process discovery; distinct from native game tests and shared lane authorization",
+  "checks": 48,
+  "failures": 0,
+  "engineLaunched": false,
+  "gpuUsed": false,
+  "files": {
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\tools\\resume_game_checks.py": "9141140c59f30b8b070ec5160c5709fcd212e7cd7a0e52a7da2a0e0364609c0e",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\tools\\resume_game_checks.py": "3a538d52a26789e072dcb3fc1f03d5803cfb634d2558e259aba29cf367c4ebf9",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\run_resume_checks.py": "4f5a7cdae83a578e20f67e0ceaf5535e39ee2acba230b9b99393da95e8a50838",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\tools\\test_engine_queue_guard.py": "0422fc0b155b144ab5590ea7ba3baa167a8f792bf5f5cef16322ace2c768ee11"
+  },
+  "sharedRules": "C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md",
+  "sharedRunner": "C:/Users/bligh/Documents/Codex/tools/game-testing/Invoke-GameTestLane.ps1",
+  "sharedCheckOnlyObserved": {
+    "processesInspected": 680,
+    "engines": [],
+    "testLaneAvailable": true,
+    "inspectionSucceeded": true,
+    "computerControlUsed": false
+  },
+  "queuedHarborJob": "124d2be90f7c4b589ab9eb8e31984a9a",
+  "remaining": "Harbor native job queued, not passed. Root temporary engine execution role; helpers no engine."
+}

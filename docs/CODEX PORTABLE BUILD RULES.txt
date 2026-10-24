@@ -44,6 +44,8 @@ The working folders fit Codex and its tools. The build, review, record-keeping, 
   Push main and the release tag to the verified intended GitHub repository when authorized and accessible. A missing repository/account permission is reported precisely, not bypassed by choosing an unrelated repository.
 
 7. TESTS
+  Follow C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md. Its renamed-export detector and shared machine-wide FIFO lane are authoritative: C:/Users/bligh/Documents/Codex/tools/game-testing/Invoke-GameTestLane.ps1. Claim it for ONE bounded engine/game/GPU check, with executable, arguments and working directory. Never use a project-only lock to bypass it.
+  Queue behind another agent's lease and existing Godot/Unity editors, players and renamed exports. A launcher/crash reporter alone does not count. If another game starts, yield only our own test at a safe checkpoint, preserve partial evidence and requeue. A lease never adds GPU/download authorization. Static/source work may continue.
   Owner's 24 October2026 rule: check other Godot OR Unity apps before every engine launch and queue this game's tests behind them. Known projects, editors and headless runs also block. Previous exceptions are revoked.
   Recheck before each test, benchmark, render, import/export and smoke. If process discovery fails or identity is unreadable, retain the queue and do source work. Never stop or control another app to make room.
   Keep pending jobs and blockers separate from results; preserve completed checks and resume only the missing work. Background, silent, isolated profiles and no mouse/keyboard/focus remain required.

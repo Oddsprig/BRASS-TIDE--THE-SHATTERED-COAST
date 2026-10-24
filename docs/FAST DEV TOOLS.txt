@@ -1,4 +1,8 @@
 BRASS TIDE — CURRENT FAST DEVELOPMENT TOOLS
+SHARED MACHINE LANE: follow C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md
+and tools/game-testing/Invoke-GameTestLane.ps1 there. Its detector covers renamed
+exports; its FIFO lease queues other agents. One bounded suite per lease.
+Project guards below are supplementary, never permission to bypass that lane.
 24 October2026 TEST QUEUE OVERRIDE: every other Godot OR Unity app blocks the
 next engine launch, including known headless jobs/editors. No former exemptions.
 Unclear process state queues; never stop/control another app. Source/review work

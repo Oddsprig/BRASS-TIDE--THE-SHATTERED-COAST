@@ -1,36 +1,47 @@
-# Active: finish tactical verification, then .031-.038
+# Active: finish .031 integration and tactical gates, then .032-.038
 
-Owner restored development/testing. Read task work/resume-v030-v038/CURRENT.txt,
-TEAM.json and ENGINE LEASE.txt for current helper tasks/offsets. Three Bridge
-subscription helpers only; Sol6.1MAX sole engine, Google4ArgonHIGH and Grok4.7.
-All tests hidden/headless/Dummy/lowpriority/isolated; no mouse/keyboard/focus.
+Owner resumed work after restart. The same three Bridge projects remain:
+Sol6.1MAX, Grok4.7medium, Google4ArgonHIGH. No new/nested helpers or provider
+substitutions. Current task coordination is work/resume-v030-v038/CURRENT.txt,
+TEAM.json and exact briefs. Earlier snapshots remain in coordination-history.
 
-Mainc98433c accepts paid physical fitting324 plus legacyRefit352/Workshop85 on
-the final native pack. Earlier memory/60Hz/controls/core90/Records89/catalog651/
-UI49 remain. Existing careers retain count fitting until lifecycle migration.
-Root rehashed457fitting evidence paths; exact receipts are in docs/ROOT PAID
-FITTING v0.031.txt and its JSON receipt. No whole031 acceptance.
+Follow C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md and the shared
+tools/game-testing/Invoke-GameTestLane.ps1 there. Its renamed-game detector and
+FIFO lease are mandatory for each bounded engine/game/GPU job; a project-only
+guard is not scheduling permission. Never control another app to clear the lane.
+No mouse/keyboard/focus. Preserve GPU/download consent and owner files.
 
-Frozen tactical1f848630 passes firstseed40/40 motion, affected13 suites and
-authority44/0. Root independently checked477raw paths and Runtimef8caa59; see
-docs/ROOT PHASE EGRESS REVIEW.txt/.json. Full original70 completed67/70: voyage/autovoyage reached
-the60s child bound; obsolete private-fire presentation fixture needs correction. Capacity/heldout/full regression remain open. Keep
-the preserved evidence separate; old39/40 and rejected broad changes
-are preserved. Current focused first40-hull paid-fire deadline passes3.7s.
+Root temporarily drives existing isolated QA controllers while Sol's local
+shell/Node connection fails after restart. All helpers are source/read-only
+until Root returns the execution role. Silent/headless/Dummy/lowpriority, <=60s
+owned child. Harbor fixture job124d2be90f7c4b589ab9eb8e31984a9a is queued in the
+shared lane, PTY17291; check its actual job/receipt before claiming a result.
 
-Detached Damage176 passes174/0 versus original174/11, plus legacy Damage; root
-verified156raw. Exact source is now installed conditionally; actual canonical career wiring remains. PaidHarbor43373fa/recoveryf7cacdd are frozen,
-reviewed and queued for native proof. Argon now implements owner-funded NPC
-maintenance; Grok implements a PURE whole-campaign ownership preflight. Actual
-Campaign/Save/battle/capture/Harbor/recovery/UI integration still needs wiring.
-See root integration draft and exact current task briefs, not old task memories.
+Main includes exact guarded tactical8production files and tested fixture closure.
+Focused proof: firstseed40/40,13affected suites, authority44/0, invalidation437/0.
+Root verified438raw files. Short four369/0 timings retain120wholeBattle/RNG states;
+11.12% mean gain under interruption/contention is not sustained CPU acceptance.
+Full40/42 capacity fails; original70 completed67pass/two60s voyage timeouts/obsolete
+presentation fixture. Heldout/full combined/performance gates remain open.
 
-Portable0307492fb7 remains original UNTESTED; verified02944e2a46 and all owner
-files are protected. No031+ release/tag/export/new launcher or remote upload.
-Finish real gates before the next.001 playable build, then continue032..038.
+Accepted conditional Damage174, paid physical fitting324, legacyRefit352/Workshop85,
+Core90/Records89/all24catalogue651/panel49 remain. Pureglobal preflight51a plus
+corrected Recovery library3ec and unchanged629fixture are integrated. Root rehashed
+all95native inputs for each629 run and compared7current dependencies (CRLF only).
+Actual career/save/Salvage/Harbor/NPC/battle wiring remains incomplete.
 
-Latest performance details: docs/ROOT CPU CHECKPOINT.txt and independent root
-receipt. Failed40/42capacity and guarded437/0 candidate evidence are separate;
-guarded focused gates pass and its exact eight production files are integrated
-in WIP. CPU and actual combined canonical performance remain open. See ROOT
-GUARDED TACTICAL INTEGRATION.txt/.json. Official Bridge APIs recovered.
+Grok: lifecycle11path24af510 nativeUNRUN, active multi-capture/custodian followup.
+Argon: UI9path handoff frozen/root9hashverified at task frozen-ui-9path; nativeUNRUN.
+Active narrow followup fixes the legitimate65th hull being hidden by a64draft cap.
+NPC9a93 remains frozen/nativequeued. Live equipment-combat task is prepared only.
+Root Harbor fixturef2b08 corrects demonstrated API mistakes on unchanged433source;
+earlier failed diagnostics remain intact. No paid service pass has been claimed.
+
+Guard functions passed48synthetic no-engine checks (16each main/twoQA entrypoints).
+Raw older runners are retained; the shared lane remains the scheduling authority.
+See ROOT TEST QUEUE POLICY, ROOT GLOBAL EQUIPMENT PREFLIGHT, ROOT GUARDED TACTICAL
+INTEGRATION and ROOT CPU CHECKPOINT under docs for exact scopes/receipts.
+
+Portable030/tag7492fb7 remains its original UNTESTED build; verified029/44e2a46,
+owner saves/settings/music, releases and launcher are protected. No031+ tag,
+Windows export/launcher switch, full quality/parity claim or GitHub upload.

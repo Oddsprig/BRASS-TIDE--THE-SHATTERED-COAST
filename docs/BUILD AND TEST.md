@@ -1,4 +1,15 @@
 CURRENT TESTING ORDER - 24 OCTOBER2026
+Authoritative computer-wide rules: C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md.
+Use its renamed-game detector and shared FIFO lease, not only a project guard:
+C:/Users/bligh/Documents/Codex/tools/game-testing/Invoke-GameTestLane.ps1.
+Run ONE bounded suite per lease, passing the existing Python single-suite
+controller as FilePath with its arguments and working directory. Use PowerShell7.
+Do not wrap a whole long batch or create a parallel per-project scheduling lane.
+Queue behind other leases/editors/players/renamed exports. Yield only our own
+test if another game starts, retain partial evidence and requeue. A launcher or
+crash reporter alone does not count. Preserve GPU/download authorizations.
+Historical direct-command examples below are internal tooling examples; engine
+launches now require the shared lane. Small non-engine/static checks may continue.
 Development/testing resumed. Before EVERY engine test, benchmark, render,
 import/export or smoke, check for other Godot OR Unity apps. Queue behind all
 of them, including known projects, editors and headless jobs. Previous exceptions
