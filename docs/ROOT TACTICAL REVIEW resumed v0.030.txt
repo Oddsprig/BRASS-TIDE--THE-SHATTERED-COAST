@@ -64,3 +64,17 @@ Root independently rehashed the four final native logs and checked their zero-
 failure output: orders77, UI127, paired timestep34, workshop UI69. The controls
 component is accepted. No new engine run was duplicated; no A/B behavior, full
 batch or release acceptance follows. No candidate physical/planner bytes copied.
+
+ROOT CANDIDATE REVIEW — 24 OCTOBER2026,203fc79
+Root read complete8production-file diff (battle,boarding,roles,stations,planner,
+certification,runtime,fire), bounded-opening legacy fixture deltas and actual
+mount fixture. Rehashed135 raw receipts from mount manifest and frozen8named
+source/brief/test entries: all match. Exact ref evidence-mount-targets-203fc79.
+Native final7-suite closure passes; paidrefit352 and mount1449 pass separately.
+Source remains a candidate until larger behavior/performance/full regressions.
+Root authorized a prospective r4 fixture correction: safe55%screened input with
+real repairs does not prove necessary flight; add actual40%threshold escape,
+retain recovery and actual screen motion. Old36/38 remains failure history.
+The stronger actor screen currently fails; no product guarantee was waived.
+Actual early40-hull firing also still fails, no event-drain assertion waiver.
+Unused Records/UI components and incomplete live031adapters are separate scopes.

@@ -1,22 +1,25 @@
-BRASS TIDE - RESUMED DEVELOPMENT / TESTING
-23 October 2026. Owner restarted Bridge and restored testing and development.
-Current artifact v0.0307492fb7 remains preserved as the originally UNTESTED build.
-Current source base6f492d2. Verified fallback .02944e2a46 remains preserved.
+BRASS TIDE — CURRENT WORKING STATUS, 24 OCTOBER2026
+Development and silent background testing are active by the owner's resume.
+Preserved playable030/tag7492fb7 is the original UNTESTED build; verified029/
+44e2a46 remains the fallback. No031+ playable version or remote upload exists.
 
-Current phase: finish .030 deferred QA, then sequential .031-.038 roadmap.
-The unchanged planner now passes350 checks /0failures, including prior screen
-priority assertion. Actual raw evidence: task work/resume-v030-v038/qa-sol/qa/
-phase1-planner-03. The original failed350/1 proof remains untouched.
-Legacy70 regressions are in progress. Actual motion/controls/capacity and Windows
-startup/save evidence remain pending; no complete AI/performance acceptance.
+Root source7519033 accepts memory/60Hz prediction, selected fleet controls and
+unused90-check equipment core. Combined tactical candidate203fc79 is preserved
+under evidence-mount-targets-203fc79; root read production changes and verified
+135raw evidence hashes. Native candidate: AI2462, mount-target1449, unchanged
+paidrefit352, planner350, orders77, UI127, timing34, memory31 and Battle pass.
+This is focused proof: full70 regressions, larger-fleet capacity, heldout motion
+and Windows delivery remain open. Old r3 motion36/38 remains recorded; separate
+prospective r4 tests protected recovery and genuine below-threshold escape.
+An actor-screen motion failure and early40-hull emission are under diagnosis.
 
-Active Bridge team: Sol6.1MAX sole engine/QA; Grok4.7 physical systems;
-Gemini4ArgonHIGH planner and next module-condition contract. Max3, no nested
-helpers or provider/model fallback. Exact workspaces/briefs and engine lease:
-task work/resume-v030-v038/TEAM.json, CURRENT.txt and ENGINE LEASE.txt.
-All tests remain hidden/headless/Dummy/isolated; no mouse, keyboard or focus.
-Preserve original owner saves/settings/music and all historical artifacts/tags.
-This status supersedes older stop language for NEW work, not historical evidence.
+Three Bridge helpers: Sol6.1Max QA/integration/sole engine, Gemini4ArgonHigh live
+Damage/crew labor adapter, Grok4.7 convoy deadline/replay correction. Frozen
+Records21fe613 and repair-panel2a23bd7 components await native tests. Actual
+031combat/repair/paid fitting/save/capture/wreck integration is incomplete.
+All tests headless/Dummy, lowpriority, isolated; no desktop input/focus. Preserve
+owner saves/music/releases. Full source/feature/quality acceptance is separate.
+Current coordinator files: task work/resume-v030-v038/CURRENT.txt and TEAM.json.
 
 HISTORICAL RECORDS FOLLOW
 

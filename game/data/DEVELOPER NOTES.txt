@@ -1,38 +1,28 @@
 BRASS TIDE — WORKING SOURCE NOTES
-24 October 2026 | Resumed tactical fixes toward v0.031
+24 October2026 | Resumed work toward v0.031
 
-Development and background testing are active again at the owner's request.
-The preserved portable v0.030 package remains its original UNTESTED build. No
-new playable version, export or complete AI/performance acceptance is claimed.
+The preserved portable030 is its original UNTESTED build. Background testing is
+active again; no new playable version or complete quality/performance claim.
 
-Reviewed components now in source:
-- Tactical role memory persists between real updates; bounded native textual
-  dictionary keys are accepted. Planner350 and memory31 checks pass.
-- Physical prediction follows both 30 Hz fixtures and normal 60 Hz updates;
-  paired timing34 and existing runtime124 checks pass on their recorded inputs.
-- Selected tactics display current and mixed choices; reopening the sheet does
-  not clear ammunition reserves or flatten differing roles. Real Main/UI127,
-  orders77 and existing workshop UI69 checks pass on their recorded inputs.
+Reviewed source components: retained tactical memory; correct30/60Hz physical
+prediction; selected/mixed fleet tactics controls; unused numerical equipment
+condition and exact ownership core (90 native checks). Equipment damage still
+needs live combat, paid fitting, repair, save and recovery integration.
 
-The combined movement and firing candidates remain under independent review.
-Background checks confirm improvements to friendly-traffic passage, stationary
-fixed-gun aiming and mixed batteries; sustained gun passes and remaining old
-assertions are still being resolved. The complete original70 batch, larger fleet
-capacity, Windows release, visual motion and listening have separate gates.
+The combined AI candidate now demonstrates useful gun bursts, physical exits
+and second passes, mixed guns/rockets/torpedoes choosing checked targets within
+their own arcs, strict player attack orders and actual scattered projectile
+lanes. Focused native AI2462/mount1449/paidrefit352 checks pass on recorded inputs.
+Larger-fleet behavior/performance and full regression remain under test. A real
+escort-screen failure and early40-hull firing are being investigated.
 
-V0.031 equipment has a tested numerical ownership/condition core (90 checks).
-Its real combat, crew-repair, paid fitting, harbor, salvage/capture and game-save
-adapters are not yet integrated; individual equipment damage is not playable yet. Later .032-.038 work follows the approved version map.
-
-24 original hulls; 300 battle deployment points per side; finite coins, crew,
-materials and working stores; 100 coins per sailor-day. Tests remain silent,
-headless and isolated, with no desktop input or focus. Original owner files,
-music and earlier releases stay preserved. Team: Sol6.1 Max, Grok4.7 and Argon
-High through Bridge; no nested helpers or model/provider fallback.
-
-Evidence: docs/ROOT TACTICAL REVIEW resumed v0.030.txt and the QA RESUME records
-beside the source. These working notes supersede the historical stop directive
-for new work only. Version numbers advance by .001 for each actual new build.
+24 original hulls;300 battle deployment points per side distinct from ownership;
+finite people, supplies and coins;100coins per sailor-day. Crew remain numerical.
+No031+ release, extra civilian hulls or Starsector-level quality claimed yet.
+Team: Sol6.1Max, Grok4.7 and ArgonHigh through Bridge. Tests silent/headless/
+isolated, with no mouse/keyboard/focus. Owner files and earlier releases preserved.
+Current evidence: docs/ROOT TACTICAL REVIEW resumed v0.030.txt and verification
+index. Versions advance .001 for each actual playable build, not prototype work.
 
 HISTORICAL V0.030 BUILD-ONLY RECORD — ORIGINAL TEXT RETAINED BELOW
 

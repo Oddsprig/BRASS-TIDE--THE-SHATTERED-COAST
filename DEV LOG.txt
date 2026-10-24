@@ -1,3 +1,13 @@
+2026-10-24 | Tactical candidate203fc79 and equipment adapter staging
+Root read complete combined production diff and verified135 raw receipt hashes;
+preserved local evidence ref. Focused actualAI2462/mount1449/paidrefit352 pass.
+Original r3 36/38 is retained; prospective r4 records real recovery and finds a
+screen motion failure. Early40hull fire/capacity/full70 remain open. No release.
+Argon records21fe613 and Grok UI2a23bd7 await native verification. Helpers now
+implement real Damage/one repair labor pool and convoy deadline/replay fixes.
+Updated current in-game/source notes and handoff; historical030 build preserved.
+No engine launched by root, desktop input, owner-save edit or remote upload.
+
 2026-10-24 | Resumed source checkpoints ba6e5a9 and c77520e
 Reviewed and integrated retained tactical memory, exact native60Hz predictions
 and current/mixed fleet tactics UI. Focused proof: planner350, memory31, paired
