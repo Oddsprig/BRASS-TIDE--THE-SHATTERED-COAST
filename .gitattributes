@@ -61,3 +61,7 @@
 "TO BE TESTED.md" -text
 "VERSION MAP.txt" -text
 "VERSIONS.md" -text
+"game/tests/test_tactical_memory.gd" -text
+"docs/helper-reports/resume-030-sol-baseline.txt" -text
+"docs/helper-reports/resume-030-sol-connector.txt" -text
+"docs/helper-reports/resume-030-sol-certification.txt" -text

@@ -1,0 +1,98 @@
+QA SOL - MEMORY + CERTIFICATION CANDIDATE, 23 October 2026
+Bounded task complete; root review/integration and broader acceptance remain.
+No .030 retag, version increment, export, publication or quality/parity label.
+
+PROVENANCE AND EXACT INPUTS
+Memory-only correction/evidence saved FIRST at2657088551459f9deb7c7754c70167c0ecee399f.
+Its report docs/QA RESUME v0.030.connector.txt and exact-byte archive remain intact.
+Then copied ONLY game/scripts/tactical_certification.gd from root-approved Grok
+commit6f9af13197eaeb13545d41194d44c3895c411e3c. Did not copy Grok runtime/boarding.
+CertificationSHA25670ab8315aab1daf0c205c6f2e5766f2cffffa05a7b950e1a04caaa146427beb0.
+Memory runtimeSHA256a3c22d7ecb48447ae4335af12dd71fbae7733425a8e7ea7ddde4f6cd003cd3f4.
+Certification-only diff qa/certification-only-source.diff SHA256
+e70a2bbcfd21041cca9ff871ae3aece5950bc6ea17d51b2989ec19a150494e10.
+Frozen combined game-input SHA256 before/after EVERY accepted run:
+65a5b1d02085ef7583bc2b906bb9cc05319573a13c7aa967ffc649294b6b9f38.
+qa/certification-candidate-freeze.json holds all individual input hashes.
+Automated comparison to original frozen .030 baseline proves changes limited to
+runtime connector, certification and new tactical_memory regression. All original
+test/asset/data bytes match. No production edit occurred during any child run.
+
+PAIRED ACTUAL 1/30 AND 1/60 CORRECTNESS
+Unchanged qa/probe_certification_dt.gd SHA256
+c58e1b819b8270bacd1d2bef690d1f1d449a1a900b7a6d1455193616832ae595.
+Before certification copy:34checks/8failures, all at60Hz, PID46200.
+After copy:34checks/0failures, PID82952, exit0,2.235s, CONTENDED.
+Full 30Hz rows and old battle90frame observations are EXACTLY EQUAL before/after.
+- 30Hz:1real shot,139.834381px travel,89valid post-motion frames in3s;
+  full prefix charges60actual integrations, stores61poses/capabilities,2s horizon.
+- 60Hz:1real shot,140.411118px travel,179valid post-motion frames in3s;
+  full prefix charges120ACTUAL integrations, stores121poses/capabilities.
+  rolloutSamples60 denotes COARSE prefixes; it does not mean60actual steps.
+- At each dt, real hull repair spends finite supplies, water/fire decline before
+  impact, and evolving capability matches physical prefix with maxerror0.0.
+  Existing .0001 capability and pose/velocity/heading tolerances are unchanged.
+- A real swept projectile damages the hull; the previously current certificate
+  then rejects with Damage or capability changed; reassessing at BOTH dt.
+Raw after observationsSHA256
+df3e00321d02a61f5f0f01b2c9926ba57b730156bf11d406a1f6c2f83a5bb020.
+Observer/raw receipts in qa/certification-dt-{before-02,after-01}/.
+This is correctness at the two tested rates. Canonical frozenr3 capacity/timing
+remains1/30. No full-budget,60Hz large-fleet cadence/performance or GPU claim.
+
+AFFECTED UNCHANGED SOURCE SUITES -9/9 ATTEMPTED,5PASS/4FAIL
+qa/certification-candidate-01 retains every PID/log/input/other-project receipt.
+PASS tactical_memory31/0 PID73592, unchanged planner350/0 PID73336,
+commander24/0 PID3476, boarding115/0 PID59780, runtime124/0 PID42656.
+Runtime55.109s wall, CONTENDED, within60s bound: actual inherited opening fight,
+campaign/after-action/cash/save/Main flow now passes after its memory-only failure.
+FAIL battle PID37212 at Player repeats firing; tactics108/10 PID85300;
+refit348/4 PID20684; combat_events896/21 PID33236. All assertions unchanged.
+Opening frame and old throttle assertions remain as recorded; no blanket decision
+that every old failure is obsolete. Actual unresolved outcomes follow.
+
+ORIGINAL SMALL TEN-CASE DIAGNOSTIC RERUN UNCHANGED
+qa/diagnose_frozen_battle.gd SHA256
+eb7800609847be555dac581c11f199639e75871cd7a091dcbc7960b50d727979.
+PID42340,exit0,5.672s,CONTENDED;9cases90real ticks,selectedmove150real ticks.
+Raw qa/certification-legacy-diagnostic-01/observations.json SHA256
+bc954f81612c0e2e3b7f75dd9f00dfeda323a83decc9f4bbf432e671240ec80c.
+All2730posttick6 observed hullframes have retained memory (old baseline empty).
+Scheduling-only misses still resolve playertick2 and aftrocket/torpedotick5.
+Finite affordable/fractional ammo works across real frames; no store refill.
+Persistent failures remain for Argon's separately owned planning work:
+- Stationary fixed broadside:0shots/3s,ammo80,final heading+.279878rad rather than
+  required-PI/2. Memory is now present; key publication alone does not fix aim.
+- Mixed long/short battery:long cannon1shot tick2;short0shots/3s. The hull actually
+  retreats to362.875/836.318 and regroup phase after useful long shot, leaving
+  secondary unused. Real short-range coverage remains missing.
+- Selectedmove:still stalls581.850708/891.768188 by5s,essentiallyzero velocity;
+  held ally remains a clearance obstacle. Memory now ages into regroup but no
+  physical recovery occurs. Do not weaken occupancy certificates to pass this.
+- Paid surrounded battery:mount0/1firetick5,mount3torpedotick40;side rocket
+  mount2 never fires in3s. Per-mount target/arc coverage remains unresolved.
+Exact legacy battle90frame case:player1shot/ammo79,enemyammo74,actualenemy damage;
+retained fire-pass -> breakaway.1333 -> regroup2.1333. Old >=4shots/3s check is
+a specific sustained-fire assumption, and remains unedited for root review.
+qa/certification-comparison.json has both old and combined selected trace values.
+No full70 rerun or large phase2 harness; original20/70 and remaining50 status
+unchanged. Original reports, failures and two earlier exact-byte archives intact.
+
+GUARD, ISOLATION AND LIMITS
+Root reviewed project-scoped guard policy BEFORE use;15 safety classifications
+pass. Native Win32_Process/GetProcess and Windows argument parse record exact
+PID/start/path/command/window/project/config identity. Brass source/release/helper
+roots, unknown/unreadable identity and any window block. Other verified headless
+projects may coexist; known LateBarge automation requires window0 and proven
+engine/project. Final read-only process-name filter was additionally widened
+from spaced Brass Tide to all Brass variants; classification/lease unchanged.
+Actual candidate receipts name their exact tested runner hash; this final query
+coverage adjustment needs no game rerun. Guard classification checks rerun.
+All tests hidden/headless/Dummy/BELOW_NORMAL, isolated synthetic profiles,<=60s per
+fixture, owned msvcrt lease. No unrelated process touched and no UI input/focus.
+Concurrent other-project workload is labeledCONTENDED in receipts. Empty snapshots
+do not establish an idle host. All owned engines exited; no scheduled job remains.
+No owner saves/settings/music, original release/tag, root/other worktree, launcher,
+install, app setting or publication changed. No listening/rendered-motion/FPS or
+Starsector claim. Root owns next separate ray-legality/boarding/planner candidates,
+integration, complete acceptance and sequential release work.

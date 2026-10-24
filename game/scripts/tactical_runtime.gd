@@ -445,7 +445,8 @@ static func bounded_value(value: Variant,count: Dictionary,depth: int=0) -> bool
 	if value is Dictionary:
 		if value.size()>64:return false
 		for key in value:
-			if not key is String or key.length()>128 or not bounded_value(value[key],count,depth+1):return false
+			# Native Dictionary dot assignments create StringName textual keys.
+			if not (key is String or key is StringName) or str(key).length()>128 or not bounded_value(value[key],count,depth+1):return false
 		return true
 	if value is Array:
 		if value.size()>64:return false

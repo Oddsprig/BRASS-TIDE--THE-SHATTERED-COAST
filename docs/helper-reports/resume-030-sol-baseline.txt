@@ -1,0 +1,79 @@
+BRASS TIDE v0.030 RESUMED QA - INCOMPLETE, NOT ACCEPTED
+23 October 2026 | QA SOL, sole owned Brass Tide engine lease
+
+Owner explicitly resumed testing. Historical STOP and 350-check/1-failure
+receipts remain unchanged. Current original planner assertion passed350/0.
+Source logic frozen at6f492d2d33acff673870adef30c92f5257366b03 (same game logic
+as preserved .030). QA checkpoint commit1dcd216 adds runner/evidence and four
+generated UID companions only. No runtime logic or legacy assertion edited.
+
+IDENTITY
+Godot4.7.2 stable official ed1daf0bf, existing Windows console binary.
+EngineSHA256 c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643.
+Imported on-disk game-input manifest SHA256
+aa530c4e4c9082a957f3a1cd6afde25ffa89f2dccde52acb89728e961d174c66.
+Per-file manifests qa/phase1-planner-03/inputs-before.json and inputs-after.json;
+same hash in every completed legacy receipt. Excludes .godot generated caches.
+23 .import files changed CRLF to LF during import; Git content diff is empty.
+Four new .gd.uid files came from the actual engine import and are retained.
+
+PLANNER
+Unchanged test_tactical_planner.gd SHA256
+42f51edabac2e413d8b1d278dbd8195f61f986605ee5deed9f62cf3862f69116.
+Accepted run qa/phase1-planner-03:350checks,0failures,PID40328,exit0,0.594s.
+LogSHA2561530f848a9a34c604be00f48e56b63101206fbbdfa2a8cf438aa17377cc51538.
+Original screen-priority assertion is intact. This proves the pure fixture only.
+
+LEGACY70 - PARTIAL20 ATTEMPTED,50 UNLAUNCHED; ROOT TRIAGE PRIORITY
+qa/phase1-native70-01 has19 completed native receipts:15pass,4fail.
+Pass: battle,commander24/0,boarding115/0,boarding_voyage28/0,runtime124/0,
+workshop_ui69/0,voyage_flow12/0,damage,navigation,economy86831,
+construction2827,fleet_economy1266/0,campaign_cash458/0,save_validation89/0,
+fleet_points99/0. A numeric assertion count is not invented for suites whose
+output does not emit one; all raw logs are preserved.
+Fail: tactics108checks/10failures; refit348/4; combat_events819/21;
+voyage60.05s timeout,PID27584,owned child terminated by its runner handle.
+voyage actually completed first6 paid campaign contract battles before timeout;
+its eight-contract final assertion was not reached. No full voyage pass claimed.
+Twentieth attempt autovoyage:PID40924,60s bound,raw log explicitly records
+owned-child timeout. Driver then guard-aborted in AFTER inventory, before saving
+the completed receipt; original started receipt remains unchanged. Exact native
+exitcode and monotonic elapsed were not persisted. See GUARD-ABORT.txt. Do not
+present its stale running label as a live child; explicit PID check found none.
+
+Root changed work order after these failures: leave remaining50 unlaunched,
+diagnose real Battle motion/fire now, full70 on corrected candidate later.
+Current outcomes are failures/incomplete proof, never a green .030 acceptance.
+No75-suite registration, full behavior battery or frozen r3 capacity run claimed.
+
+RUN SAFETY AND HOST CONTENTION
+Every owned engine was hidden/headless, explicit Dummy audio, BELOW_NORMAL,
+60s case bound, isolated synthetic APPDATA/LOCALAPPDATA. No OS input/focus,
+owner saves/settings, sound playback, install/export/publication, global kills
+or external-process termination. Root alone integrates runtime fixes.
+Before/after engine snapshots are empty for all19 saved native receipts. Other
+project Godot workloads appeared between runs and during autovoyage; unknown
+Anvil/Crown exportPID55896 caused the AFTER guard abort. Earlier Late Barge and
+Burning Brood identities were verified by read-only host command-line queries.
+Exceptions are now restricted to root-approved exact unrelated identity tuple;
+unknown engines and every Brass Tide process still block new launches.
+No idle-host, GPU/FPS, rendered motion, listening, human-play or AI-parity claim.
+
+PRESERVED FAILURES / NARROW TOOL CORRECTIONS
+Import01 PID13460 and planner01 PID42116 ran inside sandbox and returned Windows
+certificate-store ERROR; rejected despite exit0 and planner350/0. Import03
+PID54444 passed outside sandbox. Raw failures and guard-blocked retries remain.
+tools/hidden_check.py now records PID via optional callback, closes stdin and
+sets low priority; its normal/fatal/runtime/timeout self-check passed.
+qa/run_resume_checks.py adds exact input manifests, a process/file lease, strict
+external identity guard and per-child receipts without changing any assertion.
+After the autovoyage reporting abort, it was narrowly corrected to retain the
+finished native result before refusing the NEXT launch on an unknown engine.
+
+NEXT
+Bounded real-Battle diagnostic uses exact legacy fixture setup helpers and real
+Battle.update only, records every frame through0.2s/3s (original move case5s),
+actual emitted shots/ammo, positions/headings, intentions and certificate/gate
+reasons. No synthesized certificates, direct _fire calls or runtime edits.
+Separate diagnostic evidence/verdict will distinguish first-frame scheduling
+assumptions from actual persistent movement/fire regressions.

@@ -1,0 +1,99 @@
+NARROW MEMORY CONNECTOR CORRECTION - QA SOL, 23 October 2026
+Parent e82d1a2e0810d6ecd98d68c94faea940e912b737; next .031 repair candidate.
+No version/tag/export/publication change and no .030 acceptance claim.
+
+ROOT CAUSE / EXACT POINTER
+Actual Battle.update2ticks left both sides st.tactical.memory[side].byId empty.
+New exact P.resolve waiting-state -> actual T._publish probe verifies the pointer
+resolved.memory.byId[actualShipId] and unchanged bounded_value rejects atnode1.
+First field phaseSince has native StringName key and finite float value. Native
+dot assignments also create StringName passSince,pursuitSince,progressAt,
+progressPos(Vector2),commitUntil,passSequence,firingPassId,blockedStation,waitSince
+keys. A detached copy changing only keys to String passes the same guard27nodes.
+That copy never supplies helm/fire/certificate authority. Raw proof PID24248,
+exit0, .485s: qa/connector-proof-before-03/observations.json SHA256
+50005a94161c25b18a2062086e28a57cec11dd33c2d1b6f360665f4aa578a7b0.
+
+SOURCE CHANGE
+Only game/scripts/tactical_runtime.gd: StringName keys are textual identifiers
+alongside String; length is measured using str(key). All value types, key128,
+value256, container64, depth8, nodes2048 and finite scalar/Vector2 guards remain.
+StringName VALUES, numeric keys and objects remain rejected. No planner algorithm,
+physical certificate, bounds, Fire gates, original assertion or budget changed.
+Source diff qa/connector-source.diff SHA256
+54c2f21406ca1fae57b15bfad0c9d0acaa2b0feb2403f96e5abc0104e2d90624.
+Runtime SHA256 a3c22d7ecb48447ae4335af12dd71fbae7733425a8e7ea7ddde4f6cd003cd3f4.
+Original frozen production + new regression gameSHA before sourcefix:
+6e0d653bf8a924adaf8ead75b4dcf8d1281d9ec9abc219d9db6b385f34bd49d3.
+Memory-only frozen candidate gameSHA:
+acf18d9d825c4c278570ae80f8bdab85c86a7f85636fd0ed0c93c828f3ca4ac3.
+Freeze manifest asserts ONLY runtime changed between those two inputs.
+
+MEANINGFUL ACTUAL INTEGRATION
+game/tests/test_tactical_memory.gd SHA256
+1a5cbabcfaa18e8979a3924a8d1d68304f62ad9789c0d46505acaa066bd055a3.
+Same31 checks before fix PID69860:12failures; after PID43596:0failures.
+No assertion changed between these runs. Rejection cases cover all retained
+validator limits and forbidden key/value types. Actual Battle creates its own
+certificates and gates; no direct _publish/_fire, fakecert, refill or timer edits.
+Both opposing hulls retain memory on every posttick6 frame across5real seconds.
+Real launch -> observed turn-away at.1333/.10s -> timed regroup at2.1333/2.10s;
+phaseSince ages, pass identity/spending persists, one actual shot and one paid
+round each, real hull travel222.73/326.08px with finite fuel consumption.
+Clear-water move travels140.79px to9.21px fromgoal, auto-holds; progressAt records
+advance from actual travel; ammo80 unchanged, fuel spent. This proves the narrow
+connector/phase/observation path, not complete A1-A5 or motion quality acceptance.
+
+FROZEN MEMORY-ONLY AFFECTED CHECKS (all raw receipts retained)
+qa/connector-candidate-02:
+- tactical_memory31/0 PID43596; unchanged planner350/0 PID45544.
+- battle PID52028 fails unchanged Player repeats firing assertion.
+- tactics108/10 PID64272; refit348/4 PID57964; combat_events896/21 PID6808.
+- commander24/0 PID16800. External engine appeared; remaining2 not launched here.
+qa/connector-candidate-remaining-01:boarding115/0 PID64236; external guard stopped
+before runtime. qa/connector-candidate-runtime-02:runtime PID75676 exit1/41.47s:
+real inherited-skiff opening fight not won, then existing settlement called with
+nil result and fatal type error. Full log retained; no follow-on green claim.
+Original20/70 batch and its archives/failures remain byte-for-byte unchanged.
+
+OLD ASSERTION ATTRIBUTION; NO TEST EDIT AUTHORITY ASSUMED
+Opening single-tick misses were already observed resolving tick2 (aft tick5).
+Move/rotation/mixed-short coverage failures remain real and separate planner work.
+New exact battle90tick observer qa/certification-dt-before-02 shows ammo79/1shot,
+actual enemy damage, fire-pass -> breakaway.1333 -> regroup2.1333. Source line39
+requires >=4rounds in3seconds; the observed retained skirmisher pass deliberately
+peels away after a useful shot. This is a specific old sustained-fire assumption,
+not proof all combat is correct. Old throttle/mount/frame assertions stay intact.
+
+60Hz BASELINE BEFORE CERTIFICATION COPY
+Paired real-Battle probe34checks/8failures, ALL at1/60, PID46200 exit1/1.843s.
+qa/certification-dt-before-02, observer c58e1b819b8270bacd1d2bef690d1f1d449a1a900b7a6d1455193616832ae595.
+1/30:1shot,139.83px,89valid frames,60charged integrations/61poses, conditionerror0.
+1/60:0shots,32.77px,0valid frames,wrong60integrations/61poses; capabilityerror
+.0524166. Actual repair/bailing/fire evolve; real swept projectile hits invalidate
+the old certificate. At60 the prehit certificate is already invalid. This is the
+separate concrete correctness defect root approved certification-only to repair.
+No canonicalr3 timing/capacity claim or tolerance relaxation follows.
+
+EXECUTION / GUARD
+Exact engine Godot4.7.2 SHA256
+c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643.
+All hidden/headless/Dummy/BELOW_NORMAL, synthetic APPDATA/LOCALAPPDATA, <=60s per
+fixture; msvcrt sole engine lease unchanged. All owned children exited. No mouse,
+keyboard, focus, owner saves/settings/music, unrelated kills or installs.
+Root explicitly approved the project-scoped guard before use: native Windows
+argument parse, live CIM/GetProcess PID/start/path/command/window plus actual
+resolved native project/config identity. Brass roots/names, any window, unknown,
+relative, missing or unreadable identity block. Verified unrelated headless
+projects may coexist; known LateBarge autotest requires its exact engine/root/
+native name and window0.15 safety classifications pass with no engine launch.
+Receipts retain exact other-process identities/classification; concurrent Anvil
+Crown/BurningBrood runs are CONTENDED. No idle host/CPU acceptance/FPS claim.
+Historical blocked attempts remain, including denied sandbox CIM with no launch;
+supported host escalation succeeded. One later probe was blocked by this task's
+still-owned runtime engine; no overlapping engine was launched.
+
+NEXT: archive/commit this memory-only evidence, then copy ONLY certification.gd
+from6f9af13197eaeb13545d41194d44c3895c411e3c into own candidate. Never copy Grok
+runtime/boarding wholesale. Freeze combined bytes and rerun paired observer plus
+affected cases; no full70/phase2. Root owns review/integration/release acceptance.

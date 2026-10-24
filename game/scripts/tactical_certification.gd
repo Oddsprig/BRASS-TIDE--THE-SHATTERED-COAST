@@ -106,7 +106,18 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 	cert.eta=full.eta
 	if full.status!="valid":cert.status=full.status;cert.reason=full.reason;return cert
 	var id: String=str(ship.id)
-	if budget.rolled.has(id) or int(budget.rollouts)>=16 or int(budget.samples)+60>840:
+	# Physics is 60Hz and Battle.update keeps that dt. A 30Hz sample rounded to
+	# the nearest pose is already a full step ahead after one 1/60 tick, so the
+	# velocity check fails and helm brakes. Two closed-loop half-steps still
+	# publish exactly 60 samples across the required 2s prefix. Any other dt
+	# keeps the single 1/30 sample, which matches a 1/30 caller exactly.
+	var sub_dt: float=float(st.tactical.get("dt",STEP))
+	var parts: int=1
+	if absf(sub_dt*2.0-STEP)<0.0000001:
+		parts=2
+	else:
+		sub_dt=STEP
+	if budget.rolled.has(id) or int(budget.rollouts)>=16 or int(budget.samples)+60*parts>840:
 		budget.exhaustions+=1;cert.reason="Checking the next safe maneuver";return cert
 	budget.rolled[id]=true;budget.rollouts+=1
 	var copy: Dictionary=ship.duplicate(true)
@@ -118,17 +129,19 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 	var chunk: Array=[Routes.point(copy)]
 	var start_time: float=0.0
 	for step in range(60):
-		var control: Dictionary=steering(copy,points,index,target,ship.mounts)
-		index=int(control.index)
-		var next: Dictionary=motion(copy,STEP,float(control.angle),float(control.throttle))
-		copy.merge(next,true)
-		budget.samples+=1;cert.rolloutSamples+=1
-		predicted.append(pose(copy));chunk.append(Routes.point(copy))
-		# Advance copied condition for the NEXT tick exactly as Battle's shared
-		# damage prepass will. No live resources change. Capability tolerance below
-		# is numerical error only; actual incoming hits are never predicted away.
-		Damage.tick_ship(copy,STEP,{"inCombat":true})
-		capabilities.append(capability(copy))
+		for _part in range(parts):
+			var control: Dictionary=steering(copy,points,index,target,ship.mounts)
+			index=int(control.index)
+			var next: Dictionary=motion(copy,sub_dt,float(control.angle),float(control.throttle))
+			copy.merge(next,true)
+			budget.samples+=1
+			predicted.append(pose(copy));chunk.append(Routes.point(copy))
+			# Advance copied condition for the NEXT tick exactly as Battle's shared
+			# damage prepass will. No live resources change. Capability tolerance below
+			# is numerical error only; actual incoming hits are never predicted away.
+			Damage.tick_ship(copy,sub_dt,{"inCombat":true})
+			capabilities.append(capability(copy))
+		cert.rolloutSamples+=1
 		# A conservative capsule contains ALL ten integrated positions, including
 		# curved turning and braking drift. Six swept envelopes cover the prefix.
 		if (step+1)%10==0:
@@ -177,7 +190,7 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 	if current_window:cert.fireWindow["from"]=float(view.time);cert.fireWindow.until=maxf(float(view.time)+0.2,float(cert.fireWindow.until))
 	var motion_key: String=dynamics_key(ship)
 	cert.dynamicsKey=JSON.stringify([motion_key,capabilities]).sha256_text()
-	st.tactical.predictions[fingerprint]={"poses":predicted,"capabilities":capabilities,"motionKey":motion_key,"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)}
+	st.tactical.predictions[fingerprint]={"poses":predicted,"capabilities":capabilities,"motionKey":motion_key,"sampleDt":sub_dt,"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)}
 	return cert
 
 static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offset: float=0.0) -> Dictionary:
@@ -189,12 +202,14 @@ static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offs
 	if str(intent.get("candidateId",""))!=str(record.candidate.candidateId) or int(intent.get("snapshotRevision",-1))!=int(cert.snapshotRevision) or int(intent.get("orderRevision",-1))!=int(ship.get("orderRevision",0)):return {"ok":false,"reason":"Following the new order"}
 	if st.tactical.terrainRevision!=cert.terrainRevision or dynamics_key(ship)!=str(record.motionKey):return {"ok":false,"reason":"Conditions changed; checking maneuver"}
 	var age: float=maxf(0.0,float(st.time)-float(cert.checkedAt))
-	var at: int=clampi(roundi((age+pose_offset)/STEP),0,record.poses.size()-1)
+	var sample_dt: float=float(record.get("sampleDt",STEP))
+	if sample_dt<=0.0:sample_dt=STEP
+	var at: int=clampi(roundi((age+pose_offset)/sample_dt),0,record.poses.size()-1)
 	var predicted: Dictionary=record.poses[at]
 	if Routes.point(ship).distance_to(Routes.point(predicted))>2.0 or Vector2(ship.vx,ship.vy).distance_to(Vector2(predicted.vx,predicted.vy))>2.0 or absf(angle_difference(float(ship.angle),float(predicted.angle)))>deg_to_rad(1.0):return {"ok":false,"reason":"Traffic changed; checking approach"}
 	# Fire follows this tick's movement before the next damage prepass. Its
 	# capability belongs to age, while its position belongs to age+dt.
-	var condition_at: int=clampi(roundi(age/STEP),0,record.capabilities.size()-1)
+	var condition_at: int=clampi(roundi(age/sample_dt),0,record.capabilities.size()-1)
 	var actual: Dictionary=capability(ship)
 	var expected: Dictionary=record.capabilities[condition_at]
 	for key in expected:
