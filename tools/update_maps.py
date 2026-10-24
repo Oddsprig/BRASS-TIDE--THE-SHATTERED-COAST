@@ -6,8 +6,8 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
-    "equipment-condition": (["equipment_condition", "equipment_records", "equipment_ui", "equipment_fitting", "equipment_damage", "damage"],
-                            "Verified core/Records/panel and paid Refit/Workshop part custody. Legacy campaigns retain count fittings until explicit physical migration; live combat/Harbor/save/recovery and spare payload remain pending. Verified Damage/EquipmentDamage source is installed conditionally; actual live owners/battle/save/UI wiring and combined performance remain pending.",
+    "equipment-condition": (["equipment_condition", "equipment_records", "equipment_ui", "equipment_fitting", "equipment_damage", "damage", "equipment_campaign", "equipment_recovery"],
+                            "Verified core/Records/panel, paid fitting, conditional damage and pure whole-campaign custody preflight with corrected Recovery library. Legacy campaigns retain count fittings until lifecycle migration; actual battle/Harbor/save/recovery callers/UI and combined performance remain pending.",
                             "test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49), test_equipment_fitting (324 plus refit352/workshop85), test_equipment_damage (174 plus legacy Damage); recorded native receipts under docs/. These counts do not prove a live feature."),
     "development": (["main", "preferences", "interface", "version"],
                     "Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.",

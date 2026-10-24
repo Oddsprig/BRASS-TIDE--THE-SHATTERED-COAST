@@ -1,0 +1,19 @@
+WHOLE-CAMPAIGN EQUIPMENT PREFLIGHT - VERIFIED COMPONENT,24 OCTOBER2026
+Exact module51a8536d and fixture6472acf1 integrated into WIP. Root rehashed
+all95 native input files and bound the completed629checks/0failures log,
+fixture, stable before/after input, engine and process receipt. No root
+engine launch. Earlier596/4 fixture failures and reserved-name parse failure
+remain preserved. Final source correction only renames namespace parameter.
+Pure prepare/check scan player/stored/support/NPC/prize/wreck custody and
+reject duplicate part/birth ownership. A detached legacy migration keeps
+actual final hull UIDs and retained damage, without paying or replenishing.
+This is not yet normal new-game/save migration. Lifecycle constructors,
+paid service, recovery/capture callers and combined canonical battle/source
+verification remain separate. No031 playable release or CPU/parity claim.
+
+The identical629 fixture also passes with NEW Recovery library3ec4b431.
+Root rehashed all95 inputs for that completed run as well. That exact
+library is included to complete the preflight dependency closure.
+Its7 Damage/Core/Records/fitting dependencies match current main after
+CRLF-only normalization. This is not combined whole-game native proof.
+Current Salvage callers are not replaced by this library integration.

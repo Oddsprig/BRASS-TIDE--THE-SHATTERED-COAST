@@ -10,7 +10,7 @@ Historical JS prototype is archived. Planned modules do not exist until implemen
 | Fleet ownership, voyage budgets, cargo | expedition, deployment, hold_manifest, fleet_support, fleet_identity | expeditions, fleet-identity |
 | Tactical planning and physical gates | tactical_planner, tactical_role_plans, tactical_stations, tactical_runtime, tactical_routes, tactical_certification, tactical_fire_control, tactics_ui | tactical |
 | Damage and combat | damage, battle, combat_events, combat_boarding, battle_objectives | combat, boat-feedback |
-| Equipment custody and numerical part damage (migration pending) | equipment_condition, equipment_records, equipment_ui, equipment_fitting, equipment_damage | equipment-condition |
+| Equipment custody and numerical part damage (migration pending) | equipment_condition, equipment_records, equipment_ui, equipment_fitting, equipment_damage, equipment_campaign, equipment_recovery | equipment-condition |
 | Paid fitting, knowledge templates and physical sockets | fleet_workshop, workshop_ui, refit, refit_ui, mount_layout, weapon_geometry | workshop, equipment-options |
 | Boat/weapon/motor visuals | hull_profiles, boat_art, boat_deck_detail, weapon_art, motor_art, hull_feedback, boat_mesh_cache, combat_art | presentation, boat-feedback |
 | Chart and routing | chart, navigation, route_cache, coast_migration | navigation |

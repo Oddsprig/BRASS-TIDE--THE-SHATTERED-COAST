@@ -1,0 +1,73 @@
+{
+  "scope": "Pure whole-campaign equipment preflight only; legacy constructors in tested closure. No live career/save publication or combined new Damage proof.",
+  "checks": 629,
+  "failures": 0,
+  "sourceInputFilesRehashed": 95,
+  "mismatches": [],
+  "nativeGameInputSha256": "a2457690d9efe353ef8a22273961dea7204cd25aeb740d6570d21b00bdaf6972",
+  "sourceHead": "05c55b4e4bc2a8210ddeef6c45fbae6c5742febb",
+  "source": {
+    "game/scripts/equipment_campaign.gd": "51a8536d2b83de79c601bdbb921165b0833b1255f9270e550260e21884547f17",
+    "game/tests/test_equipment_campaign.gd": "6472acf1822ee7451b710e51d77f5c095534c20deb3dace743f71889b1323cde",
+    "game/scripts/equipment_recovery.gd": "3ec4b431abfc5edc3da44f9efeab34d38f6dd63f64eac69ae1fd71b875190457"
+  },
+  "correction": "Mechanical reserved parameter namespace -> birth_scope; corrected6472 fixture unchanged. Earlier596/4 and reserved-name parser failure preserved.",
+  "rootReadOriginalSourceAndCorrection": true,
+  "rootRanEngine": false,
+  "rawFiles": {
+    "qa\\global-new-recovery-01\\inputs-after.json": "3e2ccd0b53e835117874f05a48677b451049f425d11e4a2da88be9f064d6b030",
+    "qa\\global-new-recovery-01\\inputs-before.json": "3e2ccd0b53e835117874f05a48677b451049f425d11e4a2da88be9f064d6b030",
+    "qa\\global-new-recovery-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\global-new-recovery-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\global-new-recovery-01\\native.log": "f36e856a2249891caf1d51742d3a36db6af39e4b50b50a55c70097c90d2ed32c",
+    "qa\\global-new-recovery-01\\receipt.json": "5c370ef76f658f6ab554853403f0a92fd9026538f967ad7755cc0fef88a0f9ec",
+    "qa\\global-with-recovery-inputs\\final\\inputs.json": "7286ef9c375a429bc81a4bb3868ba087cc52fe68c66424e6be889403e058a583",
+    "qa\\global-parser-native-inputs\\provenance.json": "72972e5aa6d46836bd2cdfb8a0aa3a56a9bccb3a01f52300c594b1e9c15cb6dc",
+    "qa\\global-parser-native-inputs\\reserved-name.diff": "dc0893c688b5108a23c8885975feb5ec5bea66d706e87e917aff85da59ebea86"
+  },
+  "remaining": [
+    "Actual constructors/save hooks",
+    "Combined current Damage/fitting/battle",
+    "Full regression and CPU targets",
+    "Windows playable release"
+  ],
+  "combinedCorrectedRecovery": true,
+  "action": "Pure preflight and corrected Recovery library dependency integrated in WIP. Salvage callers and normal constructors/save migration remain separate.",
+  "componentDependenciesCompared": {
+    "game/scripts/damage.gd": {
+      "testedRawSha256": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+      "mainRawSha256": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+      "sameIgnoringCRLFOnly": true
+    },
+    "game/scripts/equipment_damage.gd": {
+      "testedRawSha256": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+      "mainRawSha256": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+      "sameIgnoringCRLFOnly": true
+    },
+    "game/scripts/equipment_condition.gd": {
+      "testedRawSha256": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+      "mainRawSha256": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+      "sameIgnoringCRLFOnly": true
+    },
+    "game/scripts/equipment_records.gd": {
+      "testedRawSha256": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+      "mainRawSha256": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+      "sameIgnoringCRLFOnly": true
+    },
+    "game/scripts/equipment_fitting.gd": {
+      "testedRawSha256": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+      "mainRawSha256": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+      "sameIgnoringCRLFOnly": true
+    },
+    "game/scripts/refit.gd": {
+      "testedRawSha256": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+      "mainRawSha256": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+      "sameIgnoringCRLFOnly": true
+    },
+    "game/scripts/fleet_workshop.gd": {
+      "testedRawSha256": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+      "mainRawSha256": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+      "sameIgnoringCRLFOnly": true
+    }
+  }
+}

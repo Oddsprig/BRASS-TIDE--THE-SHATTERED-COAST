@@ -19,7 +19,7 @@ from check_game import SUITES as ORIGINAL_SUITES
 # Original 70 stay separate. Only completed tactical suites enter this registry.
 TACTICAL_SUITES = ["tactical_planner", "tactical_memory", "tactical_dt",
                    "tactical_orders", "tactical_ui"]
-DETACHED_SUITES = ["equipment_condition", "equipment_records", "equipment_ui", "equipment_catalog", "equipment_fitting", "equipment_damage"]
+DETACHED_SUITES = ["equipment_condition", "equipment_records", "equipment_ui", "equipment_catalog", "equipment_fitting", "equipment_damage", "equipment_campaign"]
 from hidden_check import run_hidden
 
 DEFAULT_ENGINE = Path("C:/Users/bligh/Documents/Codex/2026-09-25/we-x20/work/engine/Godot_v4.7.2-stable_win64_console.exe")

@@ -1,6 +1,6 @@
 BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.030)
 
-Verified core/Records/panel and paid Refit/Workshop part custody. Legacy campaigns retain count fittings until explicit physical migration; live combat/Harbor/save/recovery and spare payload remain pending. Verified Damage/EquipmentDamage source is installed conditionally; actual live owners/battle/save/UI wiring and combined performance remain pending.
+Verified core/Records/panel, paid fitting, conditional damage and pure whole-campaign custody preflight with corrected Recovery library. Legacy campaigns retain count fittings until lifecycle migration; actual battle/Harbor/save/recovery callers/UI and combined performance remain pending.
 
 FILES AND VERIFIED SYMBOLS
 game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
@@ -45,6 +45,20 @@ game/scripts/damage.gd: 15143 bytes; extends RefCounted
   game/scripts/damage.gd:48 set_policy()
   game/scripts/damage.gd:53 set_repair_priority()
   game/scripts/damage.gd:61 get_status()
+game/scripts/equipment_campaign.gd: 20453 bytes; extends RefCounted
+  game/scripts/equipment_campaign.gd:85 prepare_state()
+  game/scripts/equipment_campaign.gd:96 check_state()
+  game/scripts/equipment_campaign.gd:34 _fail()
+  game/scripts/equipment_campaign.gd:37 _remember()
+  game/scripts/equipment_campaign.gd:45 _boat_lists()
+  game/scripts/equipment_campaign.gd:57 _clone_boats()
+game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
+  game/scripts/equipment_recovery.gd:37 prepare()
+  game/scripts/equipment_recovery.gd:216 registry()
+  game/scripts/equipment_recovery.gd:226 refusal()
+  game/scripts/equipment_recovery.gd:260 is_active()
+  game/scripts/equipment_recovery.gd:271 is_store_good()
+  game/scripts/equipment_recovery.gd:276 retain()
 
 TESTS (game/tests/*.gd)
 test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49), test_equipment_fitting (324 plus refit352/workshop85), test_equipment_damage (174 plus legacy Damage); recorded native receipts under docs/. These counts do not prove a live feature.
