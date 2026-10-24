@@ -17,7 +17,9 @@ def check_runner(path):
 
     def fake_discovery(command, **kwargs):
         assert command[0] == 'powershell.exe'
-        assert '%godot%' in command[-1].lower() and '%unity%' in command[-1].lower()
+        assert command[-1] == '-CheckOnly' and '-File' in command
+        assert command[-2].endswith('/tools/game-testing/Invoke-GameTestLane.ps1')
+        assert '-Hold' not in command and '-FilePath' not in command
         assert kwargs['timeout'] <= 10 and kwargs['capture_output']
         calls.append(command)
         return reply
@@ -40,13 +42,30 @@ def check_runner(path):
         actual = classify(row)
         assert actual['permittedUnrelated'] is False and actual.get('blockReason'), actual
         assert row.get('permittedUnrelated', True), 'Classifier changed supplied process data'
+    clean = {'inspectionSucceeded': True, 'processesInspected': 25,
+             'engines': [], 'testLaneAvailable': False}
+    # A nested read-only check can see the caller's already-held outer mutex.
+    # It reports engines; this function never treats it as a scheduling lease.
+    reply.stdout = json.dumps(clean)
     assert inventory() == []
-    reply.stdout = json.dumps(rows[:3])
+    engines = [
+        {'id': 123, 'engine': 'Godot', 'name': 'Godot.exe', 'path': 'C:/synthetic/Godot.exe'},
+        {'id': 456, 'engine': 'Unity', 'name': 'Unity.exe', 'path': 'C:/synthetic/Unity.exe'},
+        {'id': 789, 'engine': 'Godot', 'name': 'RenamedGame.exe', 'path': 'C:/synthetic/RenamedGame.exe'}]
+    reply.stdout = json.dumps(dict(clean, engines=engines))
     found = inventory()
     assert len(found) == 3 and all(not row['permittedUnrelated'] for row in found)
     checks = len(rows) + 2
-    for output, error, code in [('garbage', '', 0), ('null', '', 0), ('[null]', '', 0),
-                                ('', 'Access denied', 0), ('', '', 1)]:
+    malformed = [dict(clean, inspectionSucceeded=False),
+                 dict(clean, processesInspected=1), dict(clean, processesInspected=True),
+                 dict(clean, engines=None), dict(clean, engines=[None]),
+                 dict(clean, engines=[dict(engines[0], id=True)]),
+                 dict(clean, engines=[dict(engines[0], path='')]),
+                 dict(clean, engines=[dict(engines[0], engine='unknown')])]
+    replies = [('garbage', '', 0), ('null', '', 0), ('[null]', '', 0),
+               ('', '', 0), ('', 'Access denied', 0), ('', '', 1)]
+    replies += [(json.dumps(value), '', 0) for value in malformed]
+    for output, error, code in replies:
         reply.stdout, reply.stderr, reply.returncode = output, error, code
         try:
             inventory()

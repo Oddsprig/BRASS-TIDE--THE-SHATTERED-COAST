@@ -1,0 +1,40 @@
+{
+  "atUtc": "2026-10-24T11:03:45.851726+00:00",
+  "scope": "75 focused synthetic scheduling checks; no engine/GPU. Canonical read-only detector plus mandatory outer shared lane.",
+  "checks": [
+    {
+      "runner": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\tools\\resume_game_checks.py",
+      "checks": 25,
+      "failures": 0,
+      "discoveryCallsMocked": 16,
+      "engineLaunched": false
+    },
+    {
+      "runner": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\tools\\resume_game_checks.py",
+      "checks": 25,
+      "failures": 0,
+      "discoveryCallsMocked": 16,
+      "engineLaunched": false
+    },
+    {
+      "runner": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\run_resume_checks.py",
+      "checks": 25,
+      "failures": 0,
+      "discoveryCallsMocked": 16,
+      "engineLaunched": false
+    }
+  ],
+  "engineLaunched": false,
+  "gpuUsed": false,
+  "files": {
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\tools\\resume_game_checks.py": "d91d84158e8559163257dbc5343a94ae4a021504dbcd53c9cec5d45dc1cb9819",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\tools\\resume_game_checks.py": "33a49fb0fc2f535096fd02c1324191c0ec3d9a698f982b811d2ab6decc11c7b1",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\run_resume_checks.py": "47adc423abf91ac671774b812efbf618086ba24b986a6055db54b7a08441cc9c",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\tools\\test_engine_queue_guard.py": "f30e2a0b32e6513a6034d985bdc0cbcf1efeaeb7f51f0ca3a3c9b6fb4e4366a6",
+    "C:\\Users\\bligh\\Documents\\Codex\\GAME TESTING RULES.md": "276c3294e0368214110bd3d392d084ad0ba5faeeda1d0a0ea98d52f14e0b2067",
+    "C:\\Users\\bligh\\Documents\\Codex\\tools\\game-testing\\Invoke-GameTestLane.ps1": "677f53b334f205d0d830c81bfb992b645cd353c7c7ee8d87d7ced6cd1e555998"
+  },
+  "historicalProof": "docs/ROOT TEST QUEUE POLICY.json records prior48checks and the then-queued Harbor job, not current job status.",
+  "observed": "Read-only snapshot found Unity editor PID53228 at10:51UTC. Later shared leases launched only after detector and actual per-test guard were clear. Three earlier wrapper attempts did not launch engines because their old private substring guard saw leftover Roslyn compiler PID42972.",
+  "policy": "Other editors/players/renamed games and other agents leases block. No close/control of existing apps; one bounded silent synthetic child per lease. Failed/unreadable discovery queues. Source work continues."
+}

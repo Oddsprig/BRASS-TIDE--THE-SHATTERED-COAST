@@ -82,22 +82,38 @@ def write_json(path, value):
 
 
 def inventory():
-    # Read current command lines on EVERY launch, so PID churn cannot turn an old
-    # exception into a blanket Godot exemption. Host query needs approved access.
-    query = "Get-CimInstance Win32_Process -Filter \"Name LIKE '%godot%' OR Name LIKE '%unity%' OR Name LIKE '%Brass%' OR ExecutablePath LIKE '%Godot%' OR ExecutablePath LIKE '%Unity%'\" | ForEach-Object { $row = $_; $p = Get-Process -Id $row.ProcessId -ErrorAction Stop; [pscustomobject]@{Id=$p.Id;ProcessName=$p.ProcessName;Path=$p.Path;MainWindowHandle=$p.MainWindowHandle;StartUtc=$p.StartTime.ToUniversalTime().ToString('o');CommandLine=$row.CommandLine} } | ConvertTo-Json -Compress"
-    result = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", query],
+    # Scheduling permission still comes from an outer shared FIFO lease. This
+    # read-only check uses its canonical detector rather than treating every
+    # compiler/launcher in a Unity installation as a running editor or game.
+    detector = "C:/Users/bligh/Documents/Codex/tools/game-testing/Invoke-GameTestLane.ps1"
+    result = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive",
+        "-ExecutionPolicy", "Bypass", "-File", detector, "-CheckOnly"],
         capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=10,
         creationflags=subprocess.CREATE_NO_WINDOW)
     if result.returncode or result.stderr.strip():
-        raise RuntimeError("Process guard unreadable; no engine launched: " + result.stderr)
+        raise RuntimeError("Shared process detector unreadable; keep tests queued: " + result.stderr)
     try:
-        rows = json.loads(result.stdout) if result.stdout.strip() else []
+        snapshot = json.loads(result.stdout)
     except (ValueError, TypeError) as error:
-        raise RuntimeError("Process discovery unreadable; keep tests queued") from error
-    rows = rows if isinstance(rows, list) else [rows]
-    if not all(isinstance(row, dict) for row in rows):
-        raise RuntimeError("Process identities unreadable; keep tests queued")
-    return [classify(row) for row in rows]
+        raise RuntimeError("Shared process detector unreadable; keep tests queued") from error
+    if not isinstance(snapshot, dict) or snapshot.get("inspectionSucceeded") is not True:
+        raise RuntimeError("Shared process inspection did not succeed; keep tests queued")
+    inspected = snapshot.get("processesInspected")
+    engines = snapshot.get("engines")
+    if not isinstance(inspected, int) or isinstance(inspected, bool) or inspected < 2 or not isinstance(engines, list):
+        raise RuntimeError("Shared process snapshot incomplete; keep tests queued")
+    rows = []
+    for engine in engines:
+        if (not isinstance(engine, dict) or not isinstance(engine.get("id"), int)
+            or isinstance(engine.get("id"), bool) or engine["id"] <= 0
+            or engine.get("engine") not in ["Godot", "Unity"]
+            or not isinstance(engine.get("name"), str) or not engine["name"]
+            or not isinstance(engine.get("path"), str) or not engine["path"]):
+            raise RuntimeError("Engine identity unreadable; keep tests queued")
+        rows.append(classify({"Id": engine["id"], "ProcessName": engine["name"],
+            "Path": engine["path"], "StartUtc": engine.get("startUtc", ""),
+            "discovery": "Shared machine read-only detector; every returned engine blocks"}))
+    return rows
 
 
 def inputs():

@@ -1,0 +1,19 @@
+SHARED GAME TEST SCHEDULING - 24 OCTOBER2026
+The computer-wide rules and shared FIFO lane are mandatory for every engine,
+game or GPU check. All existing Godot/Unity editors, players and renamed games
+have priority. Another agent's shared test lease also blocks. Never close or
+control another app, take focus, mouse or keyboard, or treat failed inspection
+as clearance. Keep queued/interrupted results separate from passed checks.
+
+The actual detector found Unity editor PID53228. Root queued work; later leases
+were granted only after the editor exited. The old extra project guard then
+refused three attempts without starting Godot because a leftover Roslyn compiler
+was installed under Unity. All three Brass guards now call the canonical shared
+read-only detector. A read-only check does not replace the required outer lease.
+The central runner was not changed by this alignment. Prior failure/queue records
+and old guard bytes remain preserved. This guard change passes75 synthetic
+checks across3 actual runners; it is not a native game or performance result.
+
+Current rules: C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md
+Shared lane: C:/Users/bligh/Documents/Codex/tools/game-testing/Invoke-GameTestLane.ps1
+Exact guard/rule/runner hashes and mock outputs are in the accompanying JSON.
