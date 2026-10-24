@@ -121,3 +121,8 @@ parsing; native Godot and actual data remain authority. Current Refits return
 effective_spec directly, weapons is an Array and no utility family exists.
 Final new_game calls CompanyOps.ensure, so story UIDs are already assigned;
 read the whole constructor callchain before declaring an identity absent.
+
+The advisory checker also flags bare namespace declarations after native4.7.2
+rejected that parameter in whole-campaign preflight. Rename the identifier in
+a new candidate; preserve the failed source and unchanged numerical fixture.
+This narrow warning is not a substitute for native parsing or behavior checks.

@@ -19,6 +19,9 @@ issues = []
 for relative in args.files:
     path = args.game / relative
     source = path.read_text(encoding='utf-8')
+    for match in re.finditer(r'\b(?:var|const)\s+namespace\b|\bnamespace\s*:', source):
+        issues.append({'file': relative, 'line': source.count('\n', 0, match.start()) + 1,
+                       'issue': 'namespace is reserved in the current Godot parser; review the declaration'})
     for alias, target in preload.findall(source):
         dependency = args.game / target
         if not dependency.is_file():
