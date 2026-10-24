@@ -1,0 +1,52 @@
+REPORT — paid physical fitting correction v0.031
+No Godot process was started. The fixture was not executed. No native pass is claimed.
+Original source and fixture remain in b5232817a69cb039af4048a9ef5ddd3e94fa65a7.
+Recovery 6f59e47 and convoy 5a183f4 were not edited. Core and Records were not edited.
+equipment_condition.gd was already dirty and is not part of this correction.
+equipment_records.gd stayed untracked. Cargo spare weight is still not applied.
+
+FOUR CORRECTIONS
+1. The fixture compares the omitted same-type refusal to saved_condition. The assertion remains.
+2. Refit._publish_held writes paid good counts into the existing port.stocks dictionary.
+   _publish_payment and the legacy count publish both use it. The stock object is not replaced.
+3. Refit.quote and FleetWorkshop._plan call Fitting.request_error before classify.
+   install and apply go through those. Omitted and null stay {}.
+   initialize and new must be bool. 0, 1, strings, and arrays refuse.
+   paid and confirmPaid are unknown fields. They are not payment.
+   Money.move, harbor stocks, and the yard reservation remain the only settlement.
+4. Fitting.socket_error allows only this hull's weapon:0..n-1, engine, and armor.
+   A typo, a negative index, or a weird suffix refuses before either purchase path.
+   initialize true on an existing physical record is idempotent. It does not reseed and it does not refuse.
+
+FIXTURE
+Legacy and physical public calls cover malformed flags, malformed slots, and unknown sockets.
+Each refusal compares a deep career snapshot and the live stock object.
+A funded weapon:1 rapid_gun purchase holds state, boat, port, and stocks, then checks the preview uid, hp 1, ammo, purses, materials, and yard time.
+An empty purse and a numeric new flag leave that snapshot unchanged.
+The legacy boost_drive scalar case is unchanged. The paid same-type engine case remains separate.
+
+APIS READ, NOT INVENTED
+Refit.quote(port, ship, slot, module_id, request=null)
+Refit.install(state, port, ship, slot, module_id, request=null)
+Refit.fitting_bill, Refit.ensure, Refit._slot, Refit.hardpoints
+FleetWorkshop.preview(core, uid, loadout, request=null)
+FleetWorkshop.apply(core, uid, loadout, expected_quote={}, request=null)
+Fitting.request_error, socket_error, wants_initialize, wants_new, classify, plan_whole, commit
+Core._uid, _known_set, _records, validate, mint_uid, accept_acquired_item
+Records.initialize, absorb_legacy_damage, publish
+Money.move, Money.total, Money.port_total
+Construction.begin_day, Construction._record_yard_reservation
+No caller paid flag is accepted. Core has no confirmPaid call on this path.
+
+HASHES
+game/scripts/equipment_fitting.gd
+  B9384419288B22A437E098542268CD6447FD44815B26820B45BFD50F70CC2F71
+game/scripts/refit.gd
+  317B1CA233B65EF0D600A4B6133B61F9F27857F3A37BF4C3275DA632E7478A4E
+game/scripts/fleet_workshop.gd
+  F4CFBB3326F4C2C60628DF79F4BB43F89940AADB20FEB05CC50B103C27DB849D
+game/tests/test_equipment_fitting.gd
+  9268F506CA9D5B9129CF6269CE3829412B54B213E99104DDA6CF126416011CFB
+briefs/PAID PHYSICAL FITTING v0.031.txt
+  662EC2F60F4EC7B31CB4CDA8123C66082034D0D9C0271F46F66DF190DA36981A
+The report hash is the hash of this file after these lines. It is stated in the handoff.

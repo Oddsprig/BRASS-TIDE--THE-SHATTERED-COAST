@@ -6,6 +6,7 @@ const Goods=preload("res://scripts/goods.gd")
 const Money=preload("res://scripts/money.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const Construction=preload("res://scripts/construction.gd")
+const Fitting=preload("res://scripts/equipment_fitting.gd")
 const MAX_LOCKER: int=256
 const MAX_COINS: float=9007199254740991.0
 
@@ -166,8 +167,27 @@ static func _locker(value) -> Dictionary:
 	return {"ok":true,"locker":counts}
 
 static func ensure(ship: Dictionary,base: Dictionary={}) -> void:
+	var kind: String=Fitting.classify(ship)
+	if kind=="corrupt" or kind=="foreign": return
 	var original: Dictionary=base if not base.is_empty() else ship.get("baseSpec",ship.get("spec",{}))
 	if original.is_empty(): return
+	if kind=="physical":
+		var loadout_now=ship.get("loadout",{})
+		if loadout_now is Dictionary:
+			var fit_now: Dictionary=normalize(original,loadout_now)
+			var hull_type: String=str(original.get("id",ship.get("type","")))
+			if fit_now.ok and Fitting.matches(ship,hull_type,hardpoints(original).size(),fit_now.loadout):
+				var spec_now: Dictionary=effective_spec(original,fit_now.loadout)
+				var old_max_now: float=maxf(1.0,_number(ship.get("maxHp"),spec_now.hp))
+				var old_hp_now: float=clampf(_number(ship.get("hp"),old_max_now),0.0,old_max_now)
+				ship.baseSpec=original.duplicate(true)
+				ship.loadout=fit_now.loadout
+				ship.spec=spec_now
+				ship.maxHp=spec_now.hp
+				ship.hp=old_hp_now if is_equal_approx(old_max_now,spec_now.hp) else minf(old_hp_now,spec_now.hp*(old_hp_now/old_max_now))
+				ship.armor=spec_now.armor
+		Fitting.write_projection(ship)
+		return
 	var loadout=ship.get("loadout",defaults(original))
 	if not loadout is Dictionary: return
 	var fit: Dictionary=normalize(original,loadout)
@@ -240,20 +260,71 @@ static func fitting_bill(port: Dictionary,base: Dictionary,group: String,old_id:
 ## verbatim, and refuse a swap until its owning schema can transfer it safely.
 ## Hull/engine damage fields themselves are always retained by normal fitting.
 static func opaque_condition(ship: Dictionary) -> bool:
-	for key in ship:
-		var text: String=str(key).to_lower()
-		if (text.contains("module") or text.contains("fitting") or text.contains("equipment") or text.contains("weapon") or text.contains("engine") or text.contains("armor") or text.contains("pump")) and (text.contains("condition") or text.contains("state")):
-			return true
-	var spec=ship.get("spec",{})
-	if spec is Dictionary and spec.get("weaponMounts",[]) is Array:
-		for mount in spec.get("weaponMounts",[]):
-			if not mount is Dictionary:continue
-			for key in mount:
-				var field: String=str(key).to_lower()
-				if field.contains("condition") or field.contains("state") or field in ["disabled","serial","health","hp"]:return true
-	return false
+	var kind: String=Fitting.classify(ship)
+	return kind=="corrupt" or kind=="foreign"
 
-static func quote(port: Dictionary,ship: Dictionary,slot: String,module_id: String) -> Dictionary:
+static func _hull_base(ship: Dictionary) -> Dictionary:
+	var base=ship.get("baseSpec",{})
+	if base is Dictionary and not base.is_empty(): return base
+	base=ship.get("spec",{})
+	return base if base is Dictionary else {}
+
+static func _apply_spec(ship: Dictionary,spec: Dictionary) -> void:
+	var old_max: float=maxf(1.0,_number(ship.get("maxHp"),spec.hp))
+	var old_hp: float=clampf(_number(ship.get("hp"),old_max),0.0,old_max)
+	var new_max: float=maxf(1.0,_number(spec.get("hp"),old_max))
+	ship.spec=spec
+	ship.maxHp=new_max
+	ship.hp=old_hp if is_equal_approx(old_max,new_max) else minf(old_hp,new_max*(old_hp/old_max))
+	ship.armor=spec.armor
+
+static func _quote_physical(port: Dictionary,ship: Dictionary,slot: String,module_id: String,request: Dictionary) -> Dictionary:
+	if ship.get("sunk",false) or not ship.get("spec") is Dictionary or not port.get("stocks") is Dictionary:
+		return _fail("A living boat and a harbor with physical stocks are required.")
+	var shape: String=Fitting.request_error(request,false)
+	if not shape.is_empty(): return _fail(shape)
+	var base: Dictionary=_hull_base(ship)
+	if base.is_empty() or not ship.get("loadout") is Dictionary: return _fail("The boat's fitting is malformed.")
+	var old_fit: Dictionary=normalize(base,ship.loadout)
+	if not old_fit.ok: return old_fit
+	var position: Dictionary=_slot(old_fit.loadout,slot)
+	if not position.ok: return position
+	var cat: Dictionary=catalog()
+	if not cat[position.group].has(module_id): return _fail("Unknown module for this slot.")
+	var explicit: bool=request.has("itemUid") or Fitting.wants_new(request)
+	if str(position.old)==module_id and not explicit: return _fail("That module is already installed.")
+	var next: Dictionary=old_fit.loadout.duplicate(true)
+	if position.index>=0: next.weapons[position.index]=module_id
+	else: next[position.key]=module_id
+	var normalized: Dictionary=normalize(base,next)
+	if not normalized.ok: return normalized
+	var sockets: Array=hardpoints(base)
+	var planned: Dictionary=Fitting.plan_slot(ship,base,old_fit.loadout,normalized.loadout,slot,module_id,str(position.old),request,sockets,_size(base),cat)
+	if not planned.ok: return planned
+	var row: Dictionary=planned.changes[0]
+	var q: Dictionary=fitting_bill(port,base,position.group,str(position.old),module_id,row.owned)
+	q.merge({"newLoadout":normalized.loadout,"newSpec":effective_spec(base,normalized.loadout),"usedPoints":normalized.usedPoints,"maxPoints":normalized.maxPoints,"selection":row.selection,"fittingPlan":planned.plan,"lockerAfter":planned.lockerAfter})
+	for good in q.materials:
+		if _number(port.stocks.get(good),-1.0)+0.000001<float(q.materials[good]):
+			q.ok=false
+			q.message="The yard lacks physical "+str(Goods.ITEMS[good].name)+" for this refit."
+	var workers: Dictionary=_workforce(port)
+	if workers.free+0.000001<q.workerDays+q.expertDays or workers.freeExperts+0.000001<q.expertDays:
+		q.ok=false
+		q.message="The shared yard has insufficient available workers or specialists today."
+	return q
+
+static func quote(port: Dictionary,ship: Dictionary,slot: String,module_id: String,request=null) -> Dictionary:
+	if request==null: request={}
+	elif not request is Dictionary: return _fail("Fitting request is malformed.")
+	# Schema before legacy versus physical. A bad flag must not fall through into a count purchase.
+	var shape: String=Fitting.request_error(request,false)
+	if not shape.is_empty(): return _fail(shape)
+	var kind: String=Fitting.classify(ship)
+	if kind=="physical" or (kind=="legacy" and Fitting.wants_initialize(request)):
+		return _quote_physical(port,ship,slot,module_id,request)
+	if kind=="legacy" and Fitting.asks_exact(request):
+		return _fail("This boat has no physical equipment record.")
 	if ship.get("sunk",false) or not ship.get("spec") is Dictionary or not port.get("stocks") is Dictionary:
 		return _fail("A living boat and a harbor with physical stocks are required.")
 	var probe: Dictionary=ship.duplicate(true)
@@ -289,8 +360,43 @@ static func quote(port: Dictionary,ship: Dictionary,slot: String,module_id: Stri
 		q.message="The yard cannot safely transfer this boat's equipment. Keep its current fitting."
 	return q
 
-static func install(state: Dictionary,port: Dictionary,ship: Dictionary,slot: String,module_id: String) -> Dictionary:
-	var q: Dictionary=quote(port,ship,slot,module_id)
+static func _stage_payment(state: Dictionary,port: Dictionary,q: Dictionary,reason: String) -> Dictionary:
+	var dock: Dictionary=port.duplicate(true)
+	var wallet: Dictionary={"coins":int(state.coins)}
+	var ledger: Array=state.get("moneyLog",[]).duplicate(true) if state.get("moneyLog",[]) is Array else []
+	for payment in [["cash",q.businessIncome,reason+" parts and yard margin"],["householdPurse",q.workerWages,reason+" shipwright wages"],["expertPurse",q.expertWages,reason+" engineer wages"],["governmentPurse",q.tax,reason+" duty"]]:
+		if not Money.move(wallet,"coins",dock,payment[0],int(payment[1]),payment[2],ledger): return _fail("The refit payment could not be reconciled.")
+	for good in q.materials: dock.stocks[good]=maxf(0.0,float(dock.stocks[good])-float(q.materials[good]))
+	var workers: Dictionary=_workforce(port)
+	dock._yardWorkersUsed=workers.used
+	dock._yardSpecialistsUsed=workers.expertsUsed
+	dock._yardOrdinaryUsed=maxf(_number(port.get("_yardOrdinaryUsed")),_number(port.get("yardOrdinaryReserved")))
+	Construction._record_yard_reservation(dock,workers.total,workers.specialists,q.workerDays+q.expertDays,q.workerDays,q.expertDays)
+	if int(wallet.coins)+Money.port_total(dock)!=int(state.coins)+Money.port_total(port): return _fail("The refit payment could not be reconciled.")
+	return {"ok":true,"dock":dock,"wallet":wallet,"ledger":ledger}
+
+static func _publish_held(port: Dictionary,dock: Dictionary) -> void:
+	for key in ["cash","householdPurse","expertPurse","governmentPurse","_yardWorkersUsed","_yardOrdinaryUsed","_yardSpecialistsUsed","yardWorkersReserved","yardOrdinaryReserved","yardSpecialistsReserved","yardAvailableWorkers","yardAvailableSpecialists"]:
+		port[key]=dock[key]
+	var live=port.get("stocks")
+	var nxt=dock.get("stocks")
+	if live is Dictionary and nxt is Dictionary:
+		if is_same(live,nxt): return
+		for good in nxt.keys(): live[good]=nxt[good]
+		var drop: Array=[]
+		for good in live.keys():
+			if not nxt.has(good): drop.append(good)
+		for good in drop: live.erase(good)
+		return
+	port.stocks=nxt
+
+static func _publish_payment(state: Dictionary,port: Dictionary,staged: Dictionary) -> void:
+	state.coins=staged.wallet.coins
+	state.moneyLog=staged.ledger
+	_publish_held(port,staged.dock)
+
+static func install(state: Dictionary,port: Dictionary,ship: Dictionary,slot: String,module_id: String,request=null) -> Dictionary:
+	var q: Dictionary=quote(port,ship,slot,module_id,request)
 	if not q.ok: return q
 	if not _whole(state.get("coins")) or float(state.coins)<q.cost: return _fail("The refit needs %d coins."%q.cost)
 	for key in ["cash","householdPurse","expertPurse","governmentPurse"]:
@@ -305,6 +411,26 @@ static func install(state: Dictionary,port: Dictionary,ship: Dictionary,slot: St
 		var points: int=Deployment.total(living)
 		var future: int=points-Deployment.cost(ship)+Deployment.cost(q.newSpec)
 		if future>Deployment.LIMIT and future>points: return _fail("This refit would exceed the fleet's 300 deployment points.")
+	if q.has("fittingPlan"):
+		var staged: Dictionary=_stage_payment(state,port,q,"Refit")
+		if not staged.ok: return staged
+		var staged_ship: Dictionary=ship.duplicate(true)
+		var committed: Dictionary=Fitting.commit(staged_ship,q.fittingPlan,catalog(),_hull_base(ship))
+		if not committed.ok: return _fail(str(committed.get("message",committed.get("error","The fitting could not be completed."))))
+		staged_ship.loadout=q.newLoadout.duplicate(true)
+		if ship.get("baseSpec") is Dictionary:
+			staged_ship.baseSpec=ship.baseSpec.duplicate(true)
+		elif not staged_ship.get("baseSpec") is Dictionary:
+			var recovered: Dictionary=_hull_base(ship)
+			if recovered.is_empty(): return _fail("The boat's fitting is malformed.")
+			staged_ship.baseSpec=recovered.duplicate(true)
+		_apply_spec(staged_ship,q.newSpec)
+		for key in ["baseSpec","loadout","refitLocker","spec","maxHp","hp","armor","moduleCondition","engine"]:
+			if not staged_ship.has(key): return _fail("The fitting could not be completed.")
+		_publish_payment(state,port,staged)
+		for key in ["baseSpec","loadout","refitLocker","spec","maxHp","hp","armor","moduleCondition","engine"]: ship[key]=staged_ship[key]
+		q.message="Installed "+str(catalog()[_slot(ship.loadout,slot).group][module_id].name)+" for %d coins. Removed equipment keeps its own condition."%q.cost
+		return q
 	var probe: Dictionary=ship.duplicate(true)
 	ensure(probe)
 	var stored: Dictionary=_locker(probe.refitLocker)
@@ -333,7 +459,7 @@ static func install(state: Dictionary,port: Dictionary,ship: Dictionary,slot: St
 	# Commit after every possible refusal; retain the original boat/port objects.
 	state.coins=wallet.coins
 	state.moneyLog=ledger
-	for key in ["cash","householdPurse","expertPurse","governmentPurse","stocks","_yardWorkersUsed","_yardOrdinaryUsed","_yardSpecialistsUsed","yardWorkersReserved","yardOrdinaryReserved","yardSpecialistsReserved","yardAvailableWorkers","yardAvailableSpecialists"]: port[key]=dock[key]
+	_publish_held(port,dock)
 	for key in ["baseSpec","loadout","refitLocker","spec","maxHp","hp","armor"]: ship[key]=probe[key]
 	q.message="Installed "+str(catalog()[_slot(ship.loadout,slot).group][module_id].name)+" for %d coins. Removed equipment stays in this boat's locker."%q.cost
 	return q

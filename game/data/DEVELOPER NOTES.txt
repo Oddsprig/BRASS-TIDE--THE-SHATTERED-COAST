@@ -10,7 +10,9 @@ condition and exact ownership core (90 native checks). Equipment records (89),
 all 24 hulls and JSON (651), and panel callbacks (49) are verified components.
 The detached damage/repair adapter passes174 focused checks and the existing
 damage suite. Live combat, paid fitting/Harbor, save and recovery integration
-remain. These components are not yet called by the live main game.
+remain. Paid fitting now has a verified part-custody adapter (324 checks plus
+legacy refit/workshop), but current careers retain count fittings until explicit
+physical migration. Full combat/Harbor/save/recovery integration is pending.
 
 The combined AI candidate now demonstrates useful gun bursts, physical exits
 and second passes, mixed guns/rockets/torpedoes choosing checked targets within

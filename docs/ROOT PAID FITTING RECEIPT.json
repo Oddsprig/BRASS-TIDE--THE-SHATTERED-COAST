@@ -1,0 +1,27 @@
+{
+  "scope": "Root review and source/evidence hash verification; accepted paid fitting component for integration only; not031 feature or release acceptance",
+  "nativeCommit": "e181112db15cd8f76a6b5416f9230cc007b44084",
+  "manifests": [
+    {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\docs\\QA RESUME v0.031.detached-fitting.manifest.json",
+      "sha256": "a6f89adf3097757c85ccbd370a6a2ad77dce7e2fa0e7098f03546316bf3b069b",
+      "entries": 341,
+      "issues": []
+    },
+    {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\docs\\QA RESUME v0.031.fitting-refusal.manifest.json",
+      "sha256": "6d11ae428f1c45f4f4f24a0e3a72118f300987cce1422bbcb897f087931e71f6",
+      "entries": 116,
+      "issues": []
+    }
+  ],
+  "uniqueRehashedPaths": 457,
+  "sourceStage": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\paid-fitting-inputs\\after-native\\game",
+  "sourceHashes": {
+    "scripts/equipment_fitting.gd": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+    "scripts/refit.gd": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+    "scripts/fleet_workshop.gd": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+    "tests/test_equipment_fitting.gd": "9268f506ca9d5b9129cf6269ce3829412b54b213e99104dda6cf126416011cfb"
+  },
+  "timeUTC": "2026-10-24T07:14:16.313331+00:00"
+}

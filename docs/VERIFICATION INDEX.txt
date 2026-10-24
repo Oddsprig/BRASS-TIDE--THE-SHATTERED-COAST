@@ -4,7 +4,9 @@ Preserved playable030/tag7492fb7 remains its original UNTESTED build; verified02
 44e2a46 is preserved. No031+ playable version or remote upload exists.
 
 Main contains accepted memory/60Hz prediction, selected/mixed fleet controls,
-unused equipment core90/Records89/catalogue651/panel49. Frozen tactical source
+equipment core90/Records89/catalogue651/panel49 and paid fitting324. Legacy
+refit352/workshop85 pass on the final native fitting pack. Current campaigns
+retain count fittings until explicit physical migration. Frozen tactical source
 203fc79 and df6b479/190687f has focused AI2462, mount1449, paidrefit352 and public
 Battle137 proof. Closest motion12/12 and escape/recovery8/8 pass. Prospective
 formation353/0 preserves original350/1. Full70, heldout/capacity and actual
@@ -17,8 +19,10 @@ is ready for integration but not live. See ROOT DETACHED DAMAGE v0.031.txt,
 QA DETACHED DAMAGE v0.031.txt/.json and ROOT DAMAGE AND SCREEN RECEIPT.json.
 
 Three Bridge helpers only: Sol6.1MAX sole engine/QA, Gemini4ArgonHIGH paidHarbor,
-Grok4.7 wreck/tow custody. Fittingb523281 queued for native correction/review.
-Actual031combat/repair/payment/save/capture integration remains incomplete.
+Grok4.7 wreck/tow custody. Grok recovery and Argon Harbor correction candidates remain unrun.
+Actual031combat/Harbor/career/save/capture integration remains incomplete.
+Paid fitting source accepted from native e181112 after full457-file evidence
+rehash; see ROOT PAID FITTING v0.031.txt and receipt. No full031 acceptance.
 All tests hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus.
 Owner saves/music/releases protected. Current coordination is task
 work/resume-v030-v038/CURRENT.txt and TEAM.json.

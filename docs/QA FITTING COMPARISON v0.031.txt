@@ -1,0 +1,50 @@
+Detached paid fitting comparison,24 October2026
+
+NOT accepted: corrected0230731 completes324checks with1real refusal failure.
+Original b523281 unchanged fixture fails native parse: undefined saved variable.
+The SAME corrected enhanced fixture on original production aborts on invalid
+numeric/String/float-versus-bool operations. No completed count is claimed for
+either aborted run. All original bytes/logs are retained unchanged.
+
+Native runs (headless/Dummy/BELOW_NORMAL,fresh profiles,<=60s,serial):
+  fitting-original-b523-01: parse failure,PID78940.
+  fitting-enhanced-before-01: native runtime failure,PID17704.
+  fitting-enhanced-after-01:324checks/1failure,PID66224,2.765s.
+  fitting-corrected-legacy-refit-01:352/0,PID39472,0.750s.
+  fitting-corrected-legacy-workshop-01:85/0,PID25644,0.532s.
+All5owned children exited. No external engine observed;idle host not established.
+Live game and detached input hashes remained identical during every child.
+
+Remaining failure: test_equipment_fitting.gd341 requires an ordinary unchanged
+Workshop.preview to refuse a boat with extra unknown moduleConditions schema.
+Fitting.classify correctly returns foreign. Workshop._plan around181 refuses
+foreign/corrupt only for initialize/exact-item requests; an ordinary request
+falls through the legacy count path and returns ok. The full career snapshot
+stays unchanged in this test. This is not a permission to accept unknown state.
+Root decision requested at meeting c5bb3dea; no local production/test change.
+
+Sources reconstructed ONLY from immutable Git objects,not moving helper files:
+original b5232817a69cb039af4048a9ef5ddd3e94fa65a7;
+corrected0230731cf5abe75f39d05c54599aa6339e933bdc.
+Git LF and native working CRLF representations,blob IDs and SHA256 are indexed.
+Only exact line-ending reconstruction was needed to match root's working hashes.
+The corrected enhanced fixture is IDENTICAL in before/after detached projects:
+9268f506ca9d5b9129cf6269ce3829412b54b213e99104dda6cf126416011cfb.
+Corrected production SHA256:
+  equipment_fitting b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71
+  refit 317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e
+  fleet_workshop f4cfbb3326f4c2c60628df79f4bb43f89940aadb20feb05cc50b103c27db849d
+Locked Corec8358f69/Records56d92a48 remain exact in all packs.
+Current reviewed world/Campaign dependency closure is frozen per-stage.
+
+The separate component runner adds equipment_fitting/refit/workshop choices;
+original70 sources/registry remain untouched. No component overwrites live
+Refit,Damage,Campaign or tactical source. No live fitting/Save/UI/Harbor/spare
+payload/.031 feature acceptance,publication or performance claim follows.
+
+Tactical source remains d37c447. Its13affected suites and first20closest r4
+motion cases passed. The other20 first-seed cases return19/20: total39/40.
+A3.fast_target.teams_swapped still lacks observed physical breakaway/counter
+defeat despite3actor shots,1hit,retained memory and finite real movement.
+Raw failure qa/local-matrix-A3-fast-target-teams-swapped-01 is unchanged.
+Full original70,held-out motion seeds and capacity remain pending;no full77 pass.

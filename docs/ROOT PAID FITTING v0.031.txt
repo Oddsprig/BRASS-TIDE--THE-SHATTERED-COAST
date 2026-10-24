@@ -1,0 +1,41 @@
+ROOT VERDICT — VERIFIED PAID FITTING COMPONENT, 24 OCTOBER2026
+
+Accepted for source integration: exact physical part custody in Refit and
+FleetWorkshop, with preserved legacy count behavior. This does NOT complete031.
+No new version, Windows package, launcher or whole-game acceptance is claimed.
+Campaign physical-owner migration, actual combat/repair/Save/capture/recovery/
+UI integration and loose-spare payload remain required. Current campaigns with
+no moduleCondition retain the legacy path; no automatic birth/migration here.
+
+Root read complete original502-line module and both production adapter diffs,
+then all correction deltas and meaningful324-check native fixture. Original
+b523281 and corrected0230731 refs are preserved. Original fixture failed native
+parse (undefined saved), enhanced-original aborted on actual operand errors,
+023 completed324/1. No completed pass is claimed for aborted original runs.
+
+The remaining native failure correctly caught an ordinary unchanged Workshop
+preview succeeding with a present unknown moduleConditions record. Root kept
+the assertion and authorized one SOURCE branch: corrupt/foreign owners refuse
+unconditionally, including no-op preview/apply. Exact same enhanced fixture then
+passes324/0. Unchanged legacy Workshop85/0 and Refit352/0 also pass on that pack.
+Engine4.7.2 ed1daf0bf,headless/Dummy/BELOW_NORMAL,isolated,serial,owned exits.
+Native checkpoint e181112db15cd8f76a6b5416f9230cc007b44084 pinned locally.
+
+Root rehashed all457 indexed raw evidence paths, exact final source and fixture.
+Source native hashes are in ROOT PAID FITTING RECEIPT.json. Reports/manifests
+copied unchanged. Source is copied byte-for-byte from the final native pack,
+not moving helper work. Native raw logs remain in qa-sol/qa, indexed by hash.
+No root engine process or desktop control was used for this source promotion.
+
+Verified behavior: actual part UID/origin/HP/cause/serial survives remove and
+reinstall; paid NEW replacement can have1HP while old damage remains in its
+locker part. Preview does not mint/absorb/publish. Staged coins, materials,
+ordinary wages, engineers and yard time publish once, preserving live stock/
+port/hull objects. Numeric/truthy flags, caller-paid flags, unknown sockets,
+missing/foreign/wrong spare, corrupt owner, stale quote and256-locker overflow
+refuse unchanged. Existing initialize is idempotent and never reseeds.
+
+Evidence boundaries: finite standalone financial/identity tests are not proof
+of a complete new career/save/capture loop or CPU/GPU/audio quality. Tactical
+d37c447 remains a separately reviewed candidate (first matrix39/40 before its
+new local-egress correction); full original regression/heldout/capacity remains.

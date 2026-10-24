@@ -1,0 +1,33 @@
+Detached fitting refusal correction,24 October2026
+
+Root-authorized one-branch source correction passes unchanged324/0 PID78812,
+2.782s. Unchanged legacy Workshop85/0 PID78380,0.547s and Refit352/0 PID21536,
+0.734s. No fixture assertions changed. Prior0230731 enhanced324/1,original
+undefined-saved parse and enhanced-original native operand errors remain raw.
+
+Separate qa/paid-fitting-inputs/after-native/game preserves the exact0230731
+three production modules plus enhanced fixture. ONLY fleet_workshop.gd changed:
+Workshop._plan unconditionally refuses PRESENT foreign/corrupt equipment owners,
+including ordinary unchanged preview/apply. The prior guard refused these only
+for initialize/exact-item requests and otherwise fell into legacy count logic.
+The public refusal dictionary/message contract and raw owner/state are retained.
+Payment/cost/stocks/people/UID code is unchanged. Core/Records remain exact.
+
+Native source freeze SHA256:
+equipment_fitting b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71
+refit 317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e
+fleet_workshop f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d
+test_equipment_fitting 9268f506ca9d5b9129cf6269ce3829412b54b213e99104dda6cf126416011cfb
+Core c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8
+Records 56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08
+
+All3children serialized,headless/Dummy/BELOW_NORMAL,fresh synthetic profiles,
+<=60s and exited. Detached/live input hashes and runner bytes unchanged during
+children. No external engine observed;idle host not established. Native engine
+SHA c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643.
+Exact before/after source diff and root Git LF/working CRLF provenance retained.
+
+This is detached paid-fitting component evidence only. Current tactical Game,
+Refit,Workshop,Damage and Campaign are not overwritten. No live Campaign/Save/
+UI/Harbor/spare payload/.031 feature or release acceptance follows. Root reviews
+the exact named candidate bytes; original70/tactical tests remain separate.

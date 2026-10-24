@@ -1,6 +1,6 @@
 # Active: finish resumed tactical verification, then .031–.038
 
-Owner restarted Bridge and restored development/testing. Main source ee11fc8 contains accepted memory/60Hz prediction, selected fleet
+Owner restarted Bridge and restored development/testing. Main contains accepted memory/60Hz prediction, selected fleet
 controls and unused equipment core90/Records89/catalogue651/panel49 components. Preserved0307492fb7 remains its originally
 UNTESTED portable; verified02944e2a46 fallback and owner files are protected.
 
@@ -23,9 +23,12 @@ Records89/catalogue651/panel49 are accepted unused components. Corrected
 Damage176bc3d now passes174/0 versus original174/11 with the identical corrected
 fixture, plus unchanged legacy Damage. Root rehashed exact production and156
 raw proof files. See docs/ROOT DETACHED DAMAGE v0.031.txt. This verified component
-is not installed in live main yet. Argon implements paid Harbor service; Grok
-implements wreck/tow custody. Fittingb523281 is frozen and queued for native
-review, including root-found stock-object/request-validation issues. Corrected
+is not installed in live main yet. Argon corrects paid Harbor service; Grok
+corrects global wreck/tow custody and atomic settlement. Paid fitting is now integrated from exact native e181112 pack:324/0 plus
+legacyrefit352/workshop85. Root rehashed457 raw evidence paths. Original
+parse/runtime and324/1 failures are preserved; final foreign-schema refusal
+fix kept the fixture unchanged. Current careers still use legacy count fitting
+until explicit physical migration. See ROOT PAID FITTING v0.031.txt. Corrected
 pure032convoy observer5a183f4 remains unrun/unintegrated.
 Root EQUIPMENT ADAPTER INTEGRATION DRAFT.txt identifies actual live campaign/
 save/harbor/capture/wreck adapters. Pure components are not completed031.

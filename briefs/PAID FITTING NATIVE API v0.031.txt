@@ -1,0 +1,44 @@
+PAID FITTING — NATIVE VERIFIED COMPONENT API
+24 October2026 | Live Campaign/Save migration and complete031 remain pending.
+
+Refit.quote(port,ship,slot,module_id,request=null)
+Refit.install(state,port,ship,slot,module_id,request=null)
+FleetWorkshop.preview(core,uid,loadout,request=null)
+FleetWorkshop.apply(core,uid,loadout,expected_quote={},request=null)
+All return their existing quote/action dictionaries. No argument proves payment.
+
+Single request fields: initialize(bool),knownUids(Array),itemUid(String),new(bool).
+Whole request: initialize,knownUids,slots(Dictionary keyed by actual sockets).
+Each slots entry permits itemUid or new. The two together refuse. Unknown keys,
+numeric/string/array flags and unknown/noncanonical socket names refuse BEFORE
+legacy/physical selection. Omitted/null remains the old compatible call.
+KnownUids is other owners' item IDs, excluding this owner; Core validates it.
+
+Absent moduleCondition keeps the count locker unless explicit initialize is
+requested. New births require a real stable boat.uid and actual base/catalog/
+normalized fitting. Existing physical initialize is idempotent, never a reseed.
+Present corrupt/foreign metadata refuses, including unchanged Workshop preview.
+
+No explicit item/new on an installed same type means already installed.
+itemUid selects that exact owned fitting/spare; wrong/missing/foreign factory
+origin/size/family refuses without buying a fallback. new:true funds a new unit.
+Ordinary type changes may use a fitting being removed elsewhere in the same
+bill or a compatible locker item; templates are knowledge, not stock.
+
+Fitting.commit acts only on the caller's staged boat after actual payment and
+material/workforce preflight. It absorbs downward old engine damage BEFORE
+moving items, remaps every non-pump part once, accepts funded new units, checks
+the final loadout and publishes afterward. Never downsync the removed scalar
+onto a new engine. Pumps stay integral; at most4mounts/256locker parts.
+Removed/reinstalled parts keep UID,origin,HP,status,cause. A full locker permits
+a one-for-one exchange; an extra removal that needs257parts refuses.
+
+The existing recursive fitting_bill prices material, shipwrights, engineers,
+tax and margin. Money moves to actual harbor purses; stocks and shared yard
+time are real. The same stock/hull/port objects survive successful publication.
+Refused operations preserve the complete career. Workshop quoteId binds request
+and physical condition; apply replans and ignores a client-supplied fittingPlan.
+
+Native324/0 +legacyWorkshop85/0 +legacyRefit352/0. Exact frozen source/fixture/
+engine/PID/log receipts: docs/ROOT PAID FITTING v0.031.txt and QA FITTING*.json.
+Loose-spare cargo weight is not applied by this component. No full031 claim.

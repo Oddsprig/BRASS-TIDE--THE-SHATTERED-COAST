@@ -98,3 +98,27 @@
 "docs/ROOT DETACHED DAMAGE v0.031.txt" -text
 
 "docs/ROOT DAMAGE AND SCREEN RECEIPT.json" -text
+
+"game/scripts/equipment_fitting.gd" -text
+
+"game/scripts/refit.gd" -text
+
+"game/scripts/fleet_workshop.gd" -text
+
+"game/tests/test_equipment_fitting.gd" -text
+
+"docs/QA FITTING COMPARISON v0.031.txt" -text
+
+"docs/QA FITTING COMPARISON v0.031.json" -text
+
+"docs/QA FITTING REFUSAL v0.031.txt" -text
+
+"docs/QA FITTING REFUSAL v0.031.json" -text
+
+"docs/ROOT PAID FITTING RECEIPT.json" -text
+
+"docs/helper-reports/paid-fitting-PROTOTYPE-grok.txt" -text
+
+"docs/ROOT PAID FITTING v0.031.txt" -text
+
+"briefs/PAID FITTING NATIVE API v0.031.txt" -text

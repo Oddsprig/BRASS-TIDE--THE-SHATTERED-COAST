@@ -1,6 +1,6 @@
 BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.030)
 
-Unused verified components: exact part custody/condition, bounded jury repair, caller-owned migration/projection and repair-panel callbacks. Live combat/payment/save/recovery adapters remain pending. Detached Damage proof is documented separately and its source is not installed here.
+Verified core/Records/panel and paid Refit/Workshop part custody. Legacy campaigns retain count fittings until explicit physical migration; live combat/Harbor/save/recovery and spare payload remain pending. Detached Damage proof is documented separately and its source is not installed here.
 
 FILES AND VERIFIED SYMBOLS
 game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
@@ -42,8 +42,21 @@ game/scripts/equipment_ui.gd: 10099 bytes; extends RefCounted
   game/scripts/equipment_ui.gd:195 _bind_priority()
   game/scripts/equipment_ui.gd:198 _bind_repair()
   game/scripts/equipment_ui.gd:203 _bind_plain()
+game/scripts/equipment_fitting.gd: 23353 bytes; extends RefCounted
+  game/scripts/equipment_fitting.gd:40 classify()
+  game/scripts/equipment_fitting.gd:53 fingerprint()
+  game/scripts/equipment_fitting.gd:71 write_projection()
+  game/scripts/equipment_fitting.gd:86 matches()
+  game/scripts/equipment_fitting.gd:98 wants_initialize()
+  game/scripts/equipment_fitting.gd:101 wants_new()
+  game/scripts/equipment_fitting.gd:104 request_error()
+  game/scripts/equipment_fitting.gd:165 socket_error()
+  game/scripts/equipment_fitting.gd:175 asks_exact()
+  game/scripts/equipment_fitting.gd:245 plan_slot()
+  game/scripts/equipment_fitting.gd:254 plan_whole()
+  game/scripts/equipment_fitting.gd:468 commit()
 
 TESTS (game/tests/*.gd)
-test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49); recorded native receipts under docs/. These counts do not prove a live feature.
+test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49), test_equipment_fitting (324 plus unchanged refit352/workshop85); recorded native receipts under docs/. These counts do not prove a live feature.
 
 Full symbols: rg -n '^func |^static func ' on named files.
