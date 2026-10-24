@@ -28,3 +28,8 @@ See root integration draft and exact current task briefs, not old task memories.
 Portable0307492fb7 remains original UNTESTED; verified02944e2a46 and all owner
 files are protected. No031+ release/tag/export/new launcher or remote upload.
 Finish real gates before the next.001 playable build, then continue032..038.
+
+Latest performance details: docs/ROOT CPU CHECKPOINT.txt and independent root
+receipt. Failed40/42capacity and guarded437/0 candidate evidence are separate;
+final guarded timing/focused gates and actual combined canonical performance
+remain open. Official Bridge APIs recovered; use current project memory/TEAM.

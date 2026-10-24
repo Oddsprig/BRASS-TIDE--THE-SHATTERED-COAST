@@ -29,6 +29,13 @@ Tests hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus.
 Owner saves/music/releases protected. Coordination: task work/resume-v030-v038/
 CURRENT.txt, TEAM.json and ENGINE LEASE.txt. No new launcher or release yet.
 
+CPU checkpoint24Oct: full40/42fleet capacity currently FAILS the frozen
+targets. Isolated profiling preserves exact wholeBattle/RNG state; local planning
+reuse shows9.63% short-prefix mean gain, still insufficient. Guarded437/0 proof
+is saved; broader/finalcombined performance remains open. See docs/ROOT CPU
+CHECKPOINT.txt and receipt. No new playable build, sourcepromotion of tactical
+candidate or performance/parity claim. Three existing Bridge helpers continue.
+
 HISTORICAL RECORDS FOLLOW
 
 BRASS TIDE - RESUMED DEVELOPMENT / TESTING

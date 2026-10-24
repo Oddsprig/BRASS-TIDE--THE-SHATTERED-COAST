@@ -1,0 +1,46 @@
+ROOT CPU CHECKPOINT - 24 OCTOBER2026
+This is working-source evidence, not a new playable version or performance pass.
+Frozen tactical1f848630 input6d63 remains separate from main's conditional
+Damage/fitting components. Main has not promoted the tactical experiment.
+
+Original70 source coverage finished67pass/3nonpass: voyage and autovoyage hit
+the60s owned-child bound; presentation used private_fire before geometry and
+has an authorized stronger public-update fixture correction. No waived failure.
+Firstseed r4 motion40/40,13 affected suites and authority44 pass at frozen scopes.
+
+Actual fullpopulation capacity failed with1800pre-tick samples in each profile:
+40hulls Battlep9550.593ms,p9961.818,max482.699; AIp9548.094ms.
+42hulls Battlep9548.85ms,AIp9546.35ms. Work/cadence/drop bounds held.
+IntelUltra9 275HX24logical CPUs observed. No external engine observed, but
+idle host was not established. 60/74profiles deferred for hotspot diagnosis.
+Targets, real2s prefix, clearance, finite stores and decision cadence stay fixed.
+
+Separate120tick baseline/timing/clone experiments each369checks/0failures.
+Root independently rehashed9rawpaths and confirmed every wholeBattle/RNG state
+hash and final binary match across all3. Only real-time aiUs was excluded.
+Instrumentation increased mean time30.9%; function self-times are perturbed.
+The clone audit counted115158explicitcalls/69341deepcopies,1,513,950source entry
+visits. Those are not allocatedRAM. Repeated same-begin planning is confirmed.
+Native sources/receipts: taskqa-sol/qa/tactical-hotpath-v2-inputs/analysis.json,
+SHAc8a3f460f97866f758ca2ea4cefaf12ccd6d39e66ba39fc117cabba4bfe75914.
+
+First detached3file optimization reuses only synchronous local planning data
+and invariant hostile descriptors. Native378/0 includes180exact wholeBattle/RNG
+updates; four short ABBA runs369/0 each match all120states/finalbinary. Observed
+mean45.624->41.232ms,9.63% reduction; individualpairs16.09%/3.81% show variation.
+That is not sustained capacity acceptance or a renderedFPS measurement.
+A NEW guarded pack preserves _view_ok BEFORE planning; native437/0 includes
+malformedtime/dt/revision and all priorcases. Final guarded timing/focused
+coverage and further measured optimization are still pending at this checkpoint.
+
+Bridge recovered official APIs at0806UTC; three existing projects resumed.
+Sol stream later disconnected with socket10013 after saving437/0. Same exact
+project/model resumed; no surviving engine/driver found, no kills. No provider
+substitution, newhelper, network/firewall change or owner input. Components stay
+in isolated queues: Recoveryf7, Harbor433, global597; NPC4624correction active.
+Grok597 source/fixture hashes independently verified but UNRUN; now lifecycle
+design only. Captures/parts must keep exactUID/condition and actual money flows.
+
+No full031 live integration, combined canonical performance, Windows release,
+visual/listening/Starsector parity or remote upload is claimed. Old portable030
+and verified029, owner saves/settings/music and launcher remain preserved.

@@ -27,6 +27,12 @@ headless and isolated with no mouse/keyboard/focus. Owner files are preserved.
 See current BUILD STATUS and VERIFICATION INDEX for exact evidence/limitations.
 Versions advance.001 for actual playable builds, not prototype work.
 
+Latest CPU finding: the40/42boat tests are too slow. A first local-planning
+optimization keeps the exact combat state and improves the short mean about10%,
+but does not yet meet the sustained budget. The guarded candidate passes437
+focused checks; further speed and integration work remain. No tactical candidate
+is promoted into this working source by this note. See ROOT CPU CHECKPOINT.
+
 HISTORICAL V0.030 BUILD-ONLY RECORD — ORIGINAL TEXT RETAINED BELOW
 
 BRASS TIDE — DEVELOPMENT NOTES

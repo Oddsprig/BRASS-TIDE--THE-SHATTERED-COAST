@@ -1,0 +1,20 @@
+{
+  "scope": "Read-only independent root hash/equivalence audit, diagnostic120ticks only",
+  "analysisSha256": "c8a3f460f97866f758ca2ea4cefaf12ccd6d39e66ba39fc117cabba4bfe75914",
+  "rawPathsChecked": [
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-baseline-02\\profiles\\roaming\\Godot\\app_userdata\\Brass Tide frozen1f hotpath QA\\hotpath.json",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-baseline-02\\receipt.json",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-baseline-02\\profiles\\roaming\\Godot\\app_userdata\\Brass Tide frozen1f hotpath QA\\hotpath-final.bin",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-timing-01\\profiles\\roaming\\Godot\\app_userdata\\Brass Tide frozen1f hotpath QA\\hotpath.json",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-timing-01\\receipt.json",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-timing-01\\profiles\\roaming\\Godot\\app_userdata\\Brass Tide frozen1f hotpath QA\\hotpath-final.bin",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-clones-01\\profiles\\roaming\\Godot\\app_userdata\\Brass Tide frozen1f hotpath QA\\hotpath.json",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-clones-01\\receipt.json",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\hotpath-clones-01\\profiles\\roaming\\Godot\\app_userdata\\Brass Tide frozen1f hotpath QA\\hotpath-final.bin"
+  ],
+  "all120SemanticHashesEqual": true,
+  "finalBinaryHashesEqual": true,
+  "instrumentationMeanOverheadRatio": 1.3088637537983112,
+  "rootRanEngine": false,
+  "capacityAccepted": false
+}
