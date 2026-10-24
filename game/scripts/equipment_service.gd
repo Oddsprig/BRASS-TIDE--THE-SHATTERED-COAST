@@ -605,15 +605,27 @@ static func _check_policy_detached(core, service_name: String) -> Dictionary:
 	var view := DetachedCampaignView.new(state_copy, data_copy, p.duplicate(true))
 	return Politics.permit(view, service_name)
 
+static func journal_error(state: Dictionary) -> String:
+	var journal = state.get("moneyLog")
+	if not journal is Array or journal.size() > 4096:
+		return "Payment journal is unreadable; no payment was made."
+	for entry in journal:
+		if not entry is Dictionary or not entry.get("reason") is String or str(entry.reason).strip_edges().is_empty() or not _is_whole_coin(entry.get("cash")) or int(entry.cash) <= 0:
+			return "Payment journal row is unreadable; no payment was made."
+		# Exact historical summary from the original commission producer. This
+		# is metadata only; no balance, receipt or transaction is rewritten.
+		if entry.size() == 2 and entry.reason == "Commission: materials, wages in escrow, yard income and duty":
+			continue
+		if not entry.get("from") is String or str(entry.from).strip_edges().is_empty() or not entry.get("to") is String or str(entry.to).strip_edges().is_empty():
+			return "Payment journal endpoints are unreadable; no payment was made."
+	return ""
+
 static func _validate_ledger_and_overflow(state: Dictionary, p: Dictionary, q: Dictionary) -> String:
 	if not state.has("coinSupply"):
 		return "World coinSupply is required before harbor service."
-	var journal = state.get("moneyLog")
-	if not journal is Array or journal.size() > 4096:
-		return "Payment journal is unreadable; no harbor service was paid."
-	for entry in journal:
-		if not entry is Dictionary or not entry.get("reason") is String or not entry.get("from") is String or not entry.get("to") is String or not _is_whole_coin(entry.get("cash")):
-			return "Payment journal row is unreadable; no harbor service was paid."
+	var journal_problem: String = journal_error(state)
+	if not journal_problem.is_empty():
+		return journal_problem
 	if not _is_whole_coin(state.get("coins")):
 		return "Captain coin balance is not a valid finite integer."
 	if state.has("crewPurse") and not _is_whole_coin(state.get("crewPurse")):

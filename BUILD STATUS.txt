@@ -1,36 +1,25 @@
-BRASS TIDE - CURRENT WORKING STATUS, 24 OCTOBER2026
-Development and silent background testing are active. Portable030/tag7492fb7
-remains UNTESTED; verified029/44e2a46 and owner files are preserved.
+CURRENT WORKING STATUS -24 OCTOBER2026
+Shared machine test rules and FIFO lane are mandatory. All3 Brass wrappers use
+the canonical read-only detector. Other Godot/Unity editors, players, renamed
+games and agents' leases have priority. No mouse, keyboard, focus or app control.
+Queue records and interrupted work never count as passing tests.
 
-Main working source now includes exact guarded tactical8production files and
-their tested fixture closure. Root independently verified438raw proof files.
-Focused results: firstseed40/40,13affected suites, authority44/0, invalidation
-437/0. Four369/0 short timings preserve120wholeBattle/RNG hashes;11.12%mean
-gain under interruption/contention does not pass sustained CPU targets.
-See ROOT GUARDED TACTICAL INTEGRATION.txt/.json and ROOT CPU CHECKPOINT.
+Merged canonical equipment source verified: lifecycle75/0, UI167/0, save89/0,
+naval227/0, paid player service204/0, NPC/company140/0 and original full campaign
+coin suite458/0. Focused unchanged save23/1 before ->23/0 after; whole-state
+refresh purity24/0. Root verified14native runs and268 unaffected dependencies.
+Exact custody, original damaged parts, finite wages/materials/stores and real
+coin transfers remain. Historical commissioning receipts are narrowly supported.
+See ROOT COMBINED EQUIPMENT VERIFICATION.txt/.json for source and raw proof.
 
-Accepted conditional Damage174, paid physical fitting324, legacyRefit352/
-Workshop85, Core90/Records89/all24catalogue651/panel49 remain. Existing careers
-need lifecycle migration before canonical equipment becomes ordinary play.
-Grok builds/reviews11path constructors/saves/captures; Argon builds9path UI.
-Pureglobal629+Recovery library are integrated; Root verified95inputs twice.
-RecoverySalvage callers remain pending. Root temporarily drives bounded QA
-through the mandatory shared FIFO while Sol's local tools fail afterrestart.
-Harbor fixture is QUEUED behind other leases; no completed result yet.
-Harbor/NPC paid maintenance and actual battle integration remain incomplete.
-
-Full40/42 fleet CPU capacity currently fails. Original70 completed67pass with
-two60s voyage timeouts and obsolete presentation fixture; no failures waived.
-Heldout seeds, remaining regression, combined canonical equipment performance
-and clean Windows delivery stay open. No031+ tag/export/launcher or GitHub upload.
-
-Three existing Bridge helpers: Sol6.1MAX, Grok4.7, Google4ArgonHIGH. All testing
-hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus. Current task
-work/resume-v030-v038/CURRENT.txt and TEAM.json supersede old handoff memories.
-Owner24Oct: queue ALL engine work behind any other Godot or Unity app,
-including known headless jobs/editors. Unreadable discovery queues too.
-Use computer-wide GAME TESTING RULES.md and Invoke-GameTestLane.ps1, including
-renamed-game detection and other agents' leases. Per-project guards do not suffice.
+Live-combat Argon8 remains separate and unaccepted: corrected fixture timed
+out60.016s. Family segmentation/progress work is active; no quality/budget cuts.
+Live recovery/tow callers, original030 full70/CPU/heldout/presentation failures,
+visual/listening checks and Windows release remain open. Full40/42 CPU fails.
+Desktop030/7492fb7 remains UNTESTED; verified029 fallback and owner data preserved.
+No031+tag/export/launcher/upload. Root temporarily owns all background native
+execution; same3 Bridge helpers remain source/read-only. TaskCURRENT/TEAM files
+supersede older checkpoints and retain exact outstanding work.
 
 HISTORICAL RECORDS FOLLOW
 

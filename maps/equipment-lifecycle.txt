@@ -1,0 +1,66 @@
+BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.030)
+
+Constructors and saved careers -> immutable physical births, global custody checks and preserved equipment on capture. Multiple prizes stage without duplicate custody; source payload cannot forge condition or increase an actual donor hull's HP. Harbor merges paid service, commission journal compatibility and lifecycle purchases.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/equipment_lifecycle.gd: 18177 bytes; extends RefCounted
+  game/scripts/equipment_lifecycle.gd:210 stage_birth()
+  game/scripts/equipment_lifecycle.gd:291 materialize()
+  game/scripts/equipment_lifecycle.gd:312 retain_wrecks()
+  game/scripts/equipment_lifecycle.gd:323 rehearse_captures()
+  game/scripts/equipment_lifecycle.gd:410 install_legacy()
+  game/scripts/equipment_lifecycle.gd:18 _fail()
+game/scripts/equipment_campaign.gd: 20453 bytes; extends RefCounted
+  game/scripts/equipment_campaign.gd:85 prepare_state()
+  game/scripts/equipment_campaign.gd:96 check_state()
+  game/scripts/equipment_campaign.gd:34 _fail()
+  game/scripts/equipment_campaign.gd:37 _remember()
+  game/scripts/equipment_campaign.gd:45 _boat_lists()
+  game/scripts/equipment_campaign.gd:57 _clone_boats()
+game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
+  game/scripts/equipment_recovery.gd:37 prepare()
+  game/scripts/equipment_recovery.gd:216 registry()
+  game/scripts/equipment_recovery.gd:226 refusal()
+  game/scripts/equipment_recovery.gd:260 is_active()
+  game/scripts/equipment_recovery.gd:271 is_store_good()
+  game/scripts/equipment_recovery.gd:276 retain()
+game/scripts/campaign.gd: 52835 bytes; extends RefCounted
+  game/scripts/campaign.gd:72 cached_path()
+  game/scripts/campaign.gd:87 hull()
+  game/scripts/campaign.gd:93 port()
+  game/scripts/campaign.gd:99 faction()
+  game/scripts/campaign.gd:105 new_game()
+  game/scripts/campaign.gd:212 port_position()
+game/scripts/save_validation.gd: 20646 bytes; extends RefCounted
+  game/scripts/save_validation.gd:184 validate()
+  game/scripts/save_validation.gd:23 _number()
+  game/scripts/save_validation.gd:29 _text()
+  game/scripts/save_validation.gd:32 _numbers()
+  game/scripts/save_validation.gd:38 _cargo()
+  game/scripts/save_validation.gd:49 _point()
+game/scripts/harbor.gd: 13017 bytes; extends RefCounted
+  game/scripts/harbor.gd:10 quote()
+  game/scripts/harbor.gd:18 buy()
+  game/scripts/harbor.gd:49 commission()
+  game/scripts/harbor.gd:80 collect()
+  game/scripts/harbor.gd:103 tick_yards()
+  game/scripts/harbor.gd:134 recruit()
+game/scripts/naval_replacements.gd: 17561 bytes; extends RefCounted
+  game/scripts/naval_replacements.gd:17 quote_at_port()
+  game/scripts/naval_replacements.gd:26 can_materials()
+  game/scripts/naval_replacements.gd:35 consume_materials()
+  game/scripts/naval_replacements.gd:42 owner_has_queued_replacement()
+  game/scripts/naval_replacements.gd:59 attach_new_boat()
+  game/scripts/naval_replacements.gd:97 advance_unstepped_npc_orders()
+game/scripts/boarding_ops.gd: 9677 bytes; extends RefCounted
+  game/scripts/boarding_ops.gd:8 rules()
+  game/scripts/boarding_ops.gd:10 price()
+  game/scripts/boarding_ops.gd:11 capacity()
+  game/scripts/boarding_ops.gd:16 prepare()
+  game/scripts/boarding_ops.gd:23 ensure()
+  game/scripts/boarding_ops.gd:32 message()
+
+TESTS (game/tests/*.gd)
+Custody75/7 before to75/0 after; commission/repair204/9 before to204/0 after. Merged life75/UI167/save89/naval227/service204/NPC140/campaigncoins458 all pass. Final-fitting order-stat refresh purity24/0. Exact evidence: docs/ROOT COMBINED EQUIPMENT VERIFICATION. Live salvage/combat and CPU remain pending.
+
+Full symbols: rg -n '^func |^static func ' on named files.

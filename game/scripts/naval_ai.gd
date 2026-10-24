@@ -87,6 +87,26 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 	return NavalReplacements.request_replacement(core, owner, port, hull_id)
 
 
+static func refresh_order_stats(owner: Dictionary, cur: Dictionary) -> void:
+	# Derived observations only. Preserve order intent, route, logs and purses.
+	var res: Dictionary = NavalOrders.fleet_reserves(owner)
+	var perf: Dictionary = NavalOrders.fleet_performance(owner)
+	cur["reserves"] = res
+	cur["performance"] = perf
+	cur["coins"] = int(res.get("coins", 0))
+	cur["crew"] = int(res.get("crew", 0))
+	cur["boats"] = int(res.get("boats", 0))
+	cur["hpRatio"] = float(res.get("hpRatio", 0.0))
+	cur["fuel"] = float(res.get("fuel", 0.0))
+	cur["food"] = float(res.get("food", 0.0))
+	cur["ammo"] = float(res.get("ammo", 0.0))
+	cur["supplies"] = float(res.get("supplies", 0.0))
+	cur["speed"] = float(perf.get("speed", 0.0))
+	cur["firepower"] = float(perf.get("firepower", 0.0))
+	cur["performanceFactor"] = float(perf.get("performanceFactor", 1.0))
+	cur["morale"] = float(perf.get("morale", 85.0))
+
+
 static func ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary:
 	if state.is_empty():
 		return {}
@@ -160,22 +180,7 @@ static func ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary:
 				NavalOrders.assign_post_dock_order(state, owner, dock_port)
 		else:
 			var cur: Dictionary = cur_ord_check
-			var res: Dictionary = NavalOrders.fleet_reserves(owner)
-			var perf: Dictionary = NavalOrders.fleet_performance(owner)
-			cur["reserves"] = res
-			cur["performance"] = perf
-			cur["coins"] = int(res.get("coins", 0))
-			cur["crew"] = int(res.get("crew", 0))
-			cur["boats"] = int(res.get("boats", 0))
-			cur["hpRatio"] = float(res.get("hpRatio", 0.0))
-			cur["fuel"] = float(res.get("fuel", 0.0))
-			cur["food"] = float(res.get("food", 0.0))
-			cur["ammo"] = float(res.get("ammo", 0.0))
-			cur["supplies"] = float(res.get("supplies", 0.0))
-			cur["speed"] = float(perf.get("speed", 0.0))
-			cur["firepower"] = float(perf.get("firepower", 0.0))
-			cur["performanceFactor"] = float(perf.get("performanceFactor", 1.0))
-			cur["morale"] = float(perf.get("morale", 85.0))
+			refresh_order_stats(owner, cur)
 			if not cur.has("purpose") or str(cur.get("purpose", "")).is_empty():
 				cur["purpose"] = "blockade" if NavalOrders.is_story_owner(owner) else str(owner.get("kind", "patrol"))
 			if not cur.has("destination") or NavalOrders.find_port(state, str(cur.get("destination", ""))).is_empty():

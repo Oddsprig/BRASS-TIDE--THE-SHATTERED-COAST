@@ -15,6 +15,7 @@ const ToolingOps=preload("res://scripts/tooling_ops.gd")
 const Reserves=preload("res://scripts/harbor_reserves.gd")
 const Training=preload("res://scripts/crew_training.gd")
 const CampaignState=preload("res://scripts/campaign_state_validation.gd")
+const Preflight=preload("res://scripts/equipment_campaign.gd")
 ## Roster safety cap, not an ownership rule: 300 DP of 8-DP hulls is 37 boats, plus margin.
 const MAX_ROSTER: int=96
 const MAX_LOCKER: int=256
@@ -198,7 +199,12 @@ static func validate(saved: Dictionary,world: Dictionary) -> Dictionary:
 		for b in saved.get("boardingPrizes",[]):
 			error=_boat(b,hulls,"held prize",true,_module_ids())
 			if not error.is_empty():break
-	return {"ok":error.is_empty(),"message":"Save schema is valid." if error.is_empty() else error,"state":saved}
+	if not error.is_empty():
+		return {"ok":false,"message":error,"state":saved}
+	var prepared: Dictionary=Preflight.prepare_state(saved,world)
+	if not prepared.ok:
+		return {"ok":false,"message":str(prepared.get("message","Equipment preflight refused this career.")),"state":saved}
+	return {"ok":true,"message":"Save schema is valid.","state":prepared.state}
 
 static func _validate(s: Dictionary,world: Dictionary) -> String:
 	if not world.get("PORTS") is Array or not world.get("HULLS") is Array: return "World definitions are unavailable."

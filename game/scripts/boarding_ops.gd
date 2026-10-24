@@ -4,6 +4,7 @@ const Combat=preload("res://scripts/combat_boarding.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Politics=preload("res://scripts/politics.gd")
 const Factions=preload("res://scripts/factions.gd")
+const Lifecycle=preload("res://scripts/equipment_lifecycle.gd")
 static func rules(c,p: Dictionary) -> Dictionary:
 	return {"here":c.current_port().get("id","")==p.id and c.state.path.is_empty(),"service":bool(Politics.permit(c,"service").ok),"friendly":int(Factions.standing(c.state,str(p.faction)).score)>=20}
 static func price(_c,p: Dictionary,good: String) -> int:return Economy.price(p,good,"buy")
@@ -88,9 +89,26 @@ static func allot_captives(c) -> bool:
 	if left>0:return false
 	c.state.captiveBerths=planned
 	return true
+static func _capture_ready(b) -> bool:
+	return b is Dictionary and b.get("sunk", false) != true and b.get("captureSecured", false) == true and b.get("supportOnly", false) == true and b.get("needsHarborRepair", false) == true
+
 static func settle(c,battle: Dictionary) -> Dictionary:
 	ensure(c)
 	if battle.is_empty():return {"ok":true,"added":0}
+	var ready: Array=[]
+	var blocked:=false
+	for b in battle.get("captured", []):
+		if b is Dictionary and b.get("sunk", false) == true:
+			continue
+		if not _capture_ready(b):
+			blocked=true
+			break
+		ready.append(b)
+	var planned: Dictionary={"ok":true,"rows":[]}
+	if not blocked:
+		planned=Lifecycle.rehearse_captures(c.state, c.data, ready)
+		if not planned.ok:
+			return c.fail(str(planned.get("message", "Captured equipment was refused.")))
 	# Securing a prize does not make a flooded hull immortal. Lost parties and
 	# defenders cannot strand the victory screen or become living prize crew.
 	var survivors: Array=[]
@@ -106,6 +124,9 @@ static func settle(c,battle: Dictionary) -> Dictionary:
 	if battle.has("captured"):battle.captured=survivors
 	var r: Dictionary=Boarding.settle(c,battle)
 	if not r.ok:return message(c,r,"")
+	for row in planned.get("rows", []):
+		if row is Dictionary and row.get("boat") is Dictionary and not bool(row.get("physical", false)):
+			Lifecycle.install_legacy(row.boat, row.get("staged", {}))
 	for owner in c.state.fleetOwners:
 		owner.boats=owner.boats.filter(func(b):return not b.get("captureSecured",false))
 		if owner.boats.is_empty():owner.active=false

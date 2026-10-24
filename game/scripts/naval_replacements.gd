@@ -2,13 +2,13 @@ extends RefCounted
 ## Funded NPC hull replacements: ready stock purchases, shipyard slip commissions, and collection (v0.013).
 ## Preloads NavalOrders and core damage/economy/money/construction scripts only (no preload cycles).
 
-const Damage = preload("res://scripts/damage.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Goods = preload("res://scripts/goods.gd")
 const Money = preload("res://scripts/money.gd")
 const Construction = preload("res://scripts/construction.gd")
 const Fleets = preload("res://scripts/fleet_economy.gd")
 const NavalOrders = preload("res://scripts/naval_orders.gd")
+const Lifecycle = preload("res://scripts/equipment_lifecycle.gd")
 
 const MAX_SLIPS_PER_PORT: int = 2
 const MAX_EVENT_LOG: int = 24
@@ -56,19 +56,20 @@ static func owner_has_queued_replacement(state: Dictionary, owner_id: String) ->
 	return false
 
 
-static func attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictionary, h: Dictionary, crew_count: int) -> Dictionary:
+static func attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictionary, h: Dictionary, crew_count: int, staged: Dictionary = {}, core = null) -> Dictionary:
+	if staged.is_empty() or not bool(staged.get("ok", false)):
+		return {}
 	var was_empty: bool=NavalOrders.living_boats(owner).is_empty()
 	var boats_arr: Array = owner.get("boats", []) if owner.get("boats") is Array else []
 	var default_seq: int = boats_arr.size() + 1
 	var seq: int = int(owner.get("nextBoatSeq", default_seq))
-	owner["nextBoatSeq"] = seq + 1
-	var boat: Dictionary = Damage.create_ship(h, {
-		"crew": float(crew_count),
-		"fuel": 0.0,
-		"ammo": 0.0,
-		"supplies": 0.0
-	})
-	boat["uid"] = "%s-r%d" % [str(owner.get("id", "npc")), seq]
+	var boat: Dictionary = Lifecycle.materialize(h, crew_count, staged, true)
+	if core != null and core.has_method("fit_boat"):
+		core.fit_boat(boat, true)
+	boat.fuel = 0.0
+	boat.ammo = 0.0
+	boat.supplies = 0.0
+	boat.crew = float(crew_count)
 	boat["economySpecOwned"] = true
 	boat["initialStores"] = {"fuel": 0.0, "ammo": 0.0, "supplies": 0.0}
 	for i in range(boats_arr.size()):
@@ -79,6 +80,7 @@ static func attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictiona
 				break
 	boats_arr.append(boat)
 	owner["boats"] = boats_arr
+	owner["nextBoatSeq"] = seq + 1
 	owner["active"] = true
 	owner["atPort"] = str(port.get("id", owner.get("homePort", "")))
 	Fleets._performance(owner)
@@ -162,13 +164,21 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 			var hire_count: int = opt_crew if (avail_pool >= opt_crew and owner_coins >= opt_cost) else min_crew
 			if avail_pool < min_crew or owner_coins < min_cost:
 				continue
+			var boats_now: Array = owner.get("boats", []) if owner.get("boats") is Array else []
+			var seq_now: int = int(owner.get("nextBoatSeq", boats_now.size() + 1))
+			var birth_uid := "%s-r%d" % [npc_id, seq_now]
+			var staged: Dictionary = Lifecycle.stage_birth(state, world, h, birth_uid, {})
+			if not staged.ok:
+				continue
+			if int(owner.get("nextBoatSeq", boats_now.size() + 1)) != seq_now:
+				continue
 			var wallet: Dictionary = {"coins": owner_coins, "crewPurse": int(owner.get("crewPurse", 0))}
 			var hired: Dictionary = Economy.recruit(p, wallet, hire_count, max_crew)
 			if not bool(hired.get("ok", false)):
 				continue
 			owner["coins"] = int(wallet.get("coins", 0))
 			owner["crewPurse"] = int(wallet.get("crewPurse", 0))
-			var boat: Dictionary = attach_new_boat(state, owner, p, h, int(hired.get("count", hire_count)))
+			var boat: Dictionary = attach_new_boat(state, owner, p, h, int(hired.get("count", hire_count)), staged, core)
 			completed_orders.append(ord)
 			var msg: String = "%s collected completed %s at %s with %d recruited sailors." % [
 				str(owner.get("name", npc_id)),
@@ -270,6 +280,16 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 		if not bool(probe_hire.get("ok", false)):
 			last_reason = "recruit_preflight_failed"
 			continue
+		var boats_now: Array = owner.get("boats", []) if owner.get("boats") is Array else []
+		var seq_now: int = int(owner.get("nextBoatSeq", boats_now.size() + 1))
+		var birth_uid := "%s-r%d" % [owner_id, seq_now]
+		var staged: Dictionary = Lifecycle.stage_birth(state, world, h, birth_uid, {})
+		if not staged.ok:
+			last_reason = "equipment_birth_refused"
+			continue
+		if int(owner.get("nextBoatSeq", boats_now.size() + 1)) != seq_now:
+			last_reason = "equipment_birth_refused"
+			continue
 
 		var tax: int = mini(price, int(q.get("tax", 0)) + int(q.get("readyStorageTax", 0)))
 		Money.move(owner, "coins", p, "cash", price - tax, "NPC ready hull purchase", m_log)
@@ -281,7 +301,7 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 		var hired: Dictionary = Economy.recruit(p, wallet, hire_count, max_crew)
 		owner["coins"] = int(wallet.get("coins", 0))
 		owner["crewPurse"] = int(wallet.get("crewPurse", 0))
-		var boat: Dictionary = attach_new_boat(state, owner, p, h, int(hired.get("count", hire_count)))
+		var boat: Dictionary = attach_new_boat(state, owner, p, h, int(hired.get("count", hire_count)), staged, core)
 		var msg: String = "%s purchased ready %s at %s (%d coins + %d crew advance)." % [
 			str(owner.get("name", owner_id)),
 			str(boat.get("name", cid)),

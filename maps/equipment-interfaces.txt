@@ -38,13 +38,13 @@ game/scripts/refit_ui.gd: 11882 bytes; extends RefCounted
   game/scripts/refit_ui.gd:44 open()
   game/scripts/refit_ui.gd:95 choose()
   game/scripts/refit_ui.gd:152 review()
-game/scripts/equipment_owner_service.gd: 38551 bytes; extends RefCounted
+game/scripts/equipment_owner_service.gd: 37514 bytes; extends RefCounted
   game/scripts/equipment_owner_service.gd:85 is_canonical_or_foreign_boat()
   game/scripts/equipment_owner_service.gd:91 is_foreign_owner()
   game/scripts/equipment_owner_service.gd:97 has_canonical_or_foreign_boat()
   game/scripts/equipment_owner_service.gd:138 allowed_port_service()
-  game/scripts/equipment_owner_service.gd:323 owner_service_quote()
-  game/scripts/equipment_owner_service.gd:347 repair_owner_boat()
+  game/scripts/equipment_owner_service.gd:305 owner_service_quote()
+  game/scripts/equipment_owner_service.gd:329 repair_owner_boat()
 game/scripts/fleet_economy.gd: 17220 bytes; extends RefCounted
   game/scripts/fleet_economy.gd:26 normalize_owner()
   game/scripts/fleet_economy.gd:47 upkeep()

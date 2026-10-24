@@ -44,6 +44,8 @@ const Factions=preload("res://scripts/factions.gd")
 const Deployment = preload("res://scripts/deployment.gd")
 const Refits = preload("res://scripts/refit.gd")
 const Workshop = preload("res://scripts/fleet_workshop.gd")
+const Preflight = preload("res://scripts/equipment_campaign.gd")
+const Lifecycle = preload("res://scripts/equipment_lifecycle.gd")
 # Ownership and traveling roster safety bounds are independent of battle deployment.
 const MAX_FLEET = SaveValidation.MAX_ROSTER
 const MAX_TRAVELING: int=48
@@ -100,7 +102,10 @@ func faction(id: String) -> Dictionary:
 			return f
 	return {}
 
-func new_game(seed_value: int = 1):
+func new_game(seed_value: int = 1) -> Dictionary:
+	var prior_state: Dictionary = state
+	var prior_pending: int = pending_days
+	var prior_events: Array = events.duplicate(true)
 	route_cache.clear();route_hits=0;route_misses=0
 	var start = data.START
 	var ports: Array = []
@@ -188,9 +193,21 @@ func new_game(seed_value: int = 1):
 	BoardingOps.ensure(self)
 	CrisisOps.ensure(self)
 	LawOps.ensure(self)
+	var built: Dictionary = state
+	var published: Dictionary = publish_career(built, prior_state, prior_pending, prior_events)
+	if not published.ok:
+		return published
+	# Orders were initialized before final canonical fittings. Refresh only
+	# their derived observations; do not repeat routes, payroll or AI setup.
+	var by_owner: Dictionary = state.navalAi.ordersByOwner
+	for owner in state.fleetOwners:
+		if owner is Dictionary and owner.get("order") is Dictionary and not owner.order.is_empty():
+			NavalAI.refresh_order_stats(owner, owner.order)
+			by_owner[str(owner.get("id", ""))] = owner.order
 	Manifest.allocate(state)
 	log_entry("You inherited a Tinwake skiff, five sailors, and a debt-free start. The coast is yours to explore.")
 	events.clear()
+	return published
 
 func port_position(id: String) -> Dictionary:
 	for p in data.PORTS:
@@ -579,15 +596,63 @@ func find_boat(uid: String) -> Dictionary:
 			return boat
 	return {}
 
-func add_boat(h: Dictionary, crew: int = 0) -> Dictionary:
-	var boat: Dictionary = Damage.create_ship(h,{"crew":crew,"fuel":0.0,"ammo":0.0,"supplies":0.0})
-	boat.uid = "boat-%d"%state.nextUid
-	state.nextUid += 1
-	boat.mothballed = crew < boat.crewMin
-	boat.storedPort=""
-	fit_boat(boat,true)
+## Empty staged is only Salvage._publish_tow, which still calls add_boat(spec, 0).
+## That shell does not seed. A paid caller passes an accepted stage_birth result.
+func add_boat(h: Dictionary, crew: int = 0, staged: Dictionary = {}) -> Dictionary:
+	if staged.is_empty():
+		return _legacy_tow_shell(h, crew)
+	if not bool(staged.get("ok", false)):
+		return {}
+	var fresh := bool(staged.get("fresh", true))
+	var boat: Dictionary = Lifecycle.materialize(h, crew, staged, fresh)
+	if str(boat.uid) == "boat-%d" % int(state.nextUid):
+		state.nextUid += 1
+	boat.mothballed = float(boat.crew) < float(boat.crewMin)
+	boat.storedPort = ""
+	fit_boat(boat, fresh)
+	boat.fuel = 0.0
+	boat.ammo = 0.0
+	boat.supplies = 0.0
+	if not fresh:
+		boat.hp = clampf(float(staged.get("hullHp", boat.hp)), 0.0, float(boat.maxHp))
 	state.fleet.append(boat)
 	return boat
+
+## Unseeded boat-N shell. Caller: Salvage._publish_tow until root passes adopt_staged.
+func _legacy_tow_shell(h: Dictionary, crew: int) -> Dictionary:
+	var boat: Dictionary = Damage.create_ship(h, {"crew": crew, "fuel": 0.0, "ammo": 0.0, "supplies": 0.0})
+	boat.uid = "boat-%d" % state.nextUid
+	state.nextUid += 1
+	boat.mothballed = crew < boat.crewMin
+	boat.storedPort = ""
+	fit_boat(boat, true)
+	state.fleet.append(boat)
+	return boat
+
+## One publication. Failure puts the previous career back and does not save.
+func publish_career(candidate: Dictionary, prior_state: Dictionary, prior_pending: int, prior_events: Array) -> Dictionary:
+	var prepared: Dictionary = Preflight.prepare_state(candidate, data)
+	if not prepared.ok:
+		state = prior_state
+		pending_days = prior_pending
+		events = prior_events
+		return fail(str(prepared.get("message", "New career was refused.")))
+	state = prepared.state
+	_refit_published()
+	return ok("Career published.")
+
+func _refit_published() -> void:
+	for s in state.get("fleet", []):
+		if s is Dictionary:
+			fit_boat(s, false)
+	for b in state.get("boardingPrizes", []):
+		if b is Dictionary:
+			fit_boat(b, false)
+	for owner in state.get("fleetOwners", []):
+		if owner is Dictionary:
+			for b in owner.get("boats", []):
+				if b is Dictionary:
+					canonical_npc_boat(b, bool(owner.get("playerCompany", false)))
 
 ## v0.002 fittings. The base hull is always rebuilt from world data; the loadout is the only
 ## fitting input. Never heals damage, refills stores, recruits or moves coins.
@@ -687,7 +752,7 @@ func toggle_storage(uid: String) -> Dictionary:
 	Manifest.allocate(state)
 	return ok("Hull stored at %s; sailors and their savings returned ashore. Stores and fittings stay with the hull."%p.name)
 
-func refit_boat(uid: String, slot: String, module_id: String) -> Dictionary:
+func refit_boat(uid: String, slot: String, module_id: String, request: Dictionary = {}) -> Dictionary:
 	var boat: Dictionary=find_boat(uid)
 	if boat.is_empty():return fail("That boat is not in your flotilla.")
 	var fit: Dictionary=Refits.normalize(hull(str(boat.type)),boat.get("loadout",{}))
@@ -697,13 +762,13 @@ func refit_boat(uid: String, slot: String, module_id: String) -> Dictionary:
 	var next: Dictionary=fit.loadout.duplicate(true)
 	if position.index>=0:next.weapons[position.index]=module_id
 	else:next[position.key]=module_id
-	return workshop_apply(uid,next)
+	return workshop_apply(uid,next,{},request)
 
-func workshop_preview(uid: String,loadout: Dictionary) -> Dictionary:
-	return Workshop.preview(self,uid,loadout)
+func workshop_preview(uid: String,loadout: Dictionary,request: Dictionary={}) -> Dictionary:
+	return Workshop.preview(self,uid,loadout,request)
 
-func workshop_apply(uid: String,loadout: Dictionary,expected_quote: Dictionary={}) -> Dictionary:
-	var result: Dictionary=Workshop.apply(self,uid,loadout,expected_quote)
+func workshop_apply(uid: String,loadout: Dictionary,expected_quote: Dictionary={},request: Dictionary={}) -> Dictionary:
+	var result: Dictionary=Workshop.apply(self,uid,loadout,expected_quote,request)
 	if result.ok and result.get("changed",false):log_entry(str(result.message))
 	return result
 
@@ -872,12 +937,18 @@ func salvage_boat(id: String) -> Dictionary:
 	var q: Dictionary = salvage_quote(id)
 	if state.coins < q.total:
 		return fail("Recovery needs %d coins for tug labor, inspection and the company fee."%q.total)
+	var birth_uid := "boat-%d" % int(state.nextUid)
+	var staged: Dictionary = Lifecycle.stage_birth(state, data, h, birth_uid, {})
+	if not staged.ok:
+		return fail(str(staged.get("message", "Equipment birth was refused.")))
+	if birth_uid != "boat-%d" % int(state.nextUid):
+		return fail("The hull register changed before payment.")
 	var base: Dictionary = port(state.lastPort)
 	Money.move(state,"coins",base,"householdPurse",q.ordinary,"Salvage tug crew wages",state.moneyLog)
 	Money.move(state,"coins",base,"expertPurse",q.expert,"Salvage engineer inspection",state.moneyLog)
 	Money.move(state,"coins",base,"cash",q.fee,"Salvage company fee",state.moneyLog)
 	state.recoverable.claimed = true
-	var boat: Dictionary = add_boat(h,0)
+	var boat: Dictionary = add_boat(h, 0, staged)
 	boat.hp = boat.maxHp*0.35
 	return ok("%s recovered. Hire a crew, repair it and buy stores."%boat.name)
 
@@ -924,6 +995,14 @@ func rescue() -> Dictionary:
 	var borrowed: int = hull_cost+hiring+int(repair.cost)+store_cost+rations*Economy.price(home,"food")+wanted_crew*Goods.SAILOR_WAGE*5
 	if home.governmentPurse < borrowed:
 		return fail("The harbor treasury cannot fund another rescue. Load a saved voyage or start a new campaign.")
+	var staged: Dictionary = {}
+	if existing.is_empty():
+		var birth_uid := "boat-%d" % int(state.nextUid)
+		staged = Lifecycle.stage_birth(state, data, candidate, birth_uid, {})
+		if not staged.ok:
+			return fail(str(staged.get("message", "Equipment birth was refused.")))
+		if birth_uid != "boat-%d" % int(state.nextUid):
+			return fail("The hull register changed before the rescue.")
 	state.position = port_position(home.id)
 	state.lastPort = home.id
 	stop_sailing()
@@ -935,7 +1014,7 @@ func rescue() -> Dictionary:
 		Money.move(state,"coins",home,"cash",hull_cost-tax,"Real replacement hull from yard stock",state.moneyLog)
 		Money.move(state,"coins",home,"governmentPurse",tax,"Replacement hull registry duty",state.moneyLog)
 		home.shipStock[candidate.id] -= 1
-		starter = add_boat(candidate,0)
+		starter = add_boat(candidate, 0, staged)
 	else:
 		starter = existing
 		starter.sunk = false
@@ -979,34 +1058,27 @@ func restore(saved: Dictionary) -> Dictionary:
 	var validation: Dictionary = SaveValidation.validate(saved,data)
 	if not validation.ok:
 		return fail("Save refused: "+str(validation.message)+" Use your backup.")
-	if saved.get("format", 0) != 2 or not saved.get("fleet", null) is Array or saved.fleet.size() > MAX_FLEET:
+	var incoming: Dictionary = validation.get("state", saved)
+	if incoming.get("format", 0) != 2 or not incoming.get("fleet", null) is Array or incoming.fleet.size() > MAX_FLEET:
 		return fail("This save is not a Brass Tide v0.001 campaign.")
-	if not saved.get("position", null) is Dictionary or not saved.get("ports", null) is Array:
+	if not incoming.get("position", null) is Dictionary or not incoming.get("ports", null) is Array:
 		return fail("The save has missing world data.")
-	if saved.ports.size() != data.PORTS.size():
+	if incoming.ports.size() != data.PORTS.size():
 		return fail("The save has the wrong coast layout.")
-	for s in saved.fleet:
+	for s in incoming.fleet:
 		if not s is Dictionary or hull(str(s.get("type", ""))).is_empty():
 			return fail("The save contains an unknown boat.")
-	if Money.total(saved) != int(saved.get("coinSupply",-1)):
+	if Money.total(incoming) != int(incoming.get("coinSupply",-1)):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
-	saved=validation.get("state",saved)
-	var incoming: Dictionary = saved.duplicate(true)
-	new_game(int(saved.get("seed", 1)))
-	for key in state.keys():
-		if incoming.has(key):
-			state[key] = incoming[key]
+	route_cache.clear();route_hits=0;route_misses=0
+	pending_days = 0
+	state = incoming
+	_refit_published()
 	state.coins = maxi(0, int(state.coins))
 	state.day = maxf(1.0, float(state.day))
 	state.missionIndex = clampi(int(state.missionIndex), 0, data.MISSIONS.size())
 	for s in state.fleet:
-		# Canonical base + validated loadout; serialized combat stats are not trusted.
-		fit_boat(s)
 		Damage.tick_ship(s, 0.0)
-	for b in state.get("boardingPrizes",[]):fit_boat(b)
-	for owner in state.fleetOwners:
-		for b in owner.boats:
-			canonical_npc_boat(b,bool(owner.get("playerCompany",false)))
 	for patrol in state.patrols:
 		# Saved chart position is authoritative; recompute a safe remaining route from there.
 		var saved_position: Dictionary={"x":patrol.x,"y":patrol.y}
@@ -1019,7 +1091,12 @@ func restore(saved: Dictionary) -> Dictionary:
 	Manifest.allocate(state)
 	pending_days = 0
 	Exploration.ensure(state,data)
+	var raw_wrecks: Array = []
+	for wreck in state.get("wrecks", []):
+		if wreck is Dictionary:
+			raw_wrecks.append(wreck.duplicate(true))
 	Salvage.ensure(state)
+	Lifecycle.retain_wrecks(raw_wrecks, state)
 	VoyageJobs.ensure(self)
 	Contacts.ensure(state,data)
 	Politics.ensure(self)
@@ -1053,26 +1130,18 @@ func restore(saved: Dictionary) -> Dictionary:
 	StoryOps.refresh(self)
 	return ok("Voyage restored.")
 
-func canonical_npc_boat(boat: Dictionary,player_owned: bool=false) -> void:
-	if player_owned:
-		var performance: float=clampf(float(boat.get("economyFactor",1)),0.35,1)
-		fit_boat(boat)
-		boat.economyBaseSpeed=float(boat.spec.speed);boat.economyBaseFireRate=float(boat.spec.fireRate)
-		boat.spec.speed*=performance;boat.spec.fireRate*=performance
-		return
+func canonical_npc_boat(boat: Dictionary, _player_owned: bool = false) -> void:
 	var base: Dictionary = hull(str(boat.get("type","")))
-	if base.is_empty():
+	if base.is_empty() or boat.has("equipmentRetiredTo"):
 		return
-	var factor: float = clampf(float(boat.get("economyFactor",1.0)),0.35,1.0)
-	boat.spec = base.duplicate(true)
-	boat.maxHp = maxf(1.0,float(base.hp))
-	boat.hp = clampf(float(boat.hp),0.0,boat.maxHp)
-	boat.armor = maxf(0.0,float(base.get("armor",0.0)))
-	if boat.has("economyBaseSpeed"):
-		boat.economyBaseSpeed = float(base.speed)
-		boat.economyBaseFireRate = float(base.fireRate)
-		boat.spec.speed = float(base.speed)*factor
-		boat.spec.fireRate = float(base.fireRate)*factor
+	var factor: float = clampf(float(boat.get("economyFactor", 1.0)), 0.35, 1.0)
+	fit_boat(boat, false)
+	if not boat.get("spec") is Dictionary:
+		return
+	boat.economyBaseSpeed = float(boat.spec.speed)
+	boat.economyBaseFireRate = float(boat.spec.fireRate)
+	boat.spec.speed *= factor
+	boat.spec.fireRate *= factor
 
 func ok(message: String) -> Dictionary:
 	return {"ok": true, "message": message}

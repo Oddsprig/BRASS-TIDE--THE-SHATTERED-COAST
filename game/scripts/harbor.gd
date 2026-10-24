@@ -1,4 +1,5 @@
 extends RefCounted
+const Lifecycle = preload("res://scripts/equipment_lifecycle.gd")
 const Politics=preload("res://scripts/politics.gd")
 const Goods = preload("res://scripts/goods.gd")
 const Economy = preload("res://scripts/economy.gd")
@@ -30,12 +31,18 @@ static func buy(core, id: String) -> Dictionary:
 	var hire: Dictionary = Economy.recruit(p.duplicate(true), probe_wallet, int(h.crewMin), int(h.crewMax))
 	if not hire.ok:
 		return core.fail("The hull and minimum crew advance exceed your purse or the available workforce.")
+	var birth_uid := "boat-%d" % int(core.state.nextUid)
+	var staged: Dictionary = Lifecycle.stage_birth(core.state, core.data, h, birth_uid, {})
+	if not staged.ok:
+		return core.fail(str(staged.get("message", "Equipment birth was refused.")))
+	if birth_uid != "boat-%d" % int(core.state.nextUid):
+		return core.fail("The hull register changed before payment.")
 	var tax: int = mini(price, int(q.get("tax", 0))+int(q.get("readyStorageTax",0)))
 	Money.move(core.state,"coins",p,"cash",price-tax,"Completed hull purchase",core.state.moneyLog)
 	Money.move(core.state,"coins",p,"governmentPurse",tax,"Hull sales duty",core.state.moneyLog)
 	p.shipStock[id] -= 1
 	var recruited: Dictionary = Economy.recruit(p, core.state, int(h.crewMin), int(h.crewMax))
-	var boat: Dictionary = core.add_boat(h, recruited.count)
+	var boat: Dictionary = core.add_boat(h, int(recruited.get("count", 0)), staged)
 	core.log_entry("Purchased %s. Crew advance is in the sailors' purse; buy working stores before sailing." % boat.name)
 	return core.ok("%s joined your flotilla with %d sailors." % [boat.name,boat.crew])
 
@@ -59,12 +66,15 @@ static func commission(core, id: String) -> Dictionary:
 	var tax: int = int(q.get("tax",0))
 	if wages+tax > q.commissionPrice:
 		return core.fail("The yard quote could not be reconciled.")
+	var journal_problem: String = EquipmentService.journal_error(core.state)
+	if not journal_problem.is_empty():return core.fail(journal_problem)
 	core.consume_materials(p,q.materials)
 	core.state.coins -= int(q.commissionPrice)
 	p.cash += int(q.commissionPrice)-wages-tax
 	p.governmentPurse += tax
 	p.buildQueue.append(order)
-	core.state.moneyLog.push_front({"reason":"Commission: materials, wages in escrow, yard income and duty","cash":int(q.commissionPrice)})
+	core.state.moneyLog.push_front({"reason":"Commission: materials, wages in escrow, yard income and duty","cash":int(q.commissionPrice),"from":"coins","to":"yard construction"})
+	if core.state.moneyLog.size()>60:core.state.moneyLog.resize(60)
 	return core.ok("%s booked. Wages are held in escrow and paid as the workforce builds it." % h.name)
 
 static func collect(core, index: int) -> Dictionary:
@@ -80,7 +90,13 @@ static func collect(core, index: int) -> Dictionary:
 	if not core.can_add_boat(h):
 		# The finished hull stays safely on the slip until points are free.
 		return core.fail(core.points_refusal(h))
-	var boat: Dictionary = core.add_boat(h,0)
+	var birth_uid := "boat-%d" % int(core.state.nextUid)
+	var staged: Dictionary = Lifecycle.stage_birth(core.state, core.data, h, birth_uid, {})
+	if not staged.ok:
+		return core.fail(str(staged.get("message", "Equipment birth was refused.")))
+	if birth_uid != "boat-%d" % int(core.state.nextUid):
+		return core.fail("The hull register changed before collection.")
+	var boat: Dictionary = core.add_boat(h, 0, staged)
 	p.buildQueue.remove_at(index)
 	return core.ok("%s launched. Hire sailors and buy fuel, ammunition and repair kits." % boat.name)
 

@@ -107,3 +107,10 @@ Exact spare/new selection, condition/repair panels and96-hull draft handling int
 NPC/company maintenance consumes real materials/workers and owner coins; company expenses
 are staged. NativeNPC140/0, UI168/0, legacyfleet1266/0/naval227/0/shipping0failures.
 All checks use the shared background test lane. Full career/battle/CPU/release not accepted.
+
+24 OCTOBER2026 - WIP .031 combined equipment systems
+Canonical career/save constructors, guarded capture custody and legacy commission
+receipts are integrated with paid upkeep and fitting UI. Merged native results:
+lifecycle75/0, UI167/0, save89/0, naval227/0, service204/0, NPC140/0, campaigncoins458/0.
+Fixed final-fitting order-stat cache without repeating AI setup; purity24/0.
+Live combat candidate timed out and is not accepted. Recovery callers, CPU and release remain open.

@@ -104,6 +104,10 @@ func _make_loadout_for_mounts(base: Dictionary, mount_weapons: Dictionary, engin
 
 func _seed_canonical_boat(c, boat: Dictionary, identity_override: String = "", custom_loadout: Dictionary = {}) -> Dictionary:
 	var ident: String = str(boat.get("uid", "")) if identity_override.is_empty() else identity_override
+	# Fresh careers now already own their immutable physical birth. Reinitializing
+	# the same fixture must preserve it rather than request a new test identity.
+	if boat.get("moduleCondition") is Dictionary:
+		ident = str(boat.moduleCondition.get("birthNamespace", ""))
 	var base: Dictionary = c.hull(str(boat.get("type", "tin_skiff")))
 	var load_src: Dictionary = custom_loadout if not custom_loadout.is_empty() else (boat.get("loadout") if boat.get("loadout") is Dictionary else Refit.defaults(base))
 	var norm: Dictionary = Refit.normalize(base, load_src)
@@ -610,10 +614,14 @@ func test_offscreen_canonical_weapon_availability_and_power() -> void:
 		owner_b.boats.pop_back()
 
 	var skiff_base: Dictionary = c.hull("tin_skiff")
-	var boat_a: Dictionary = owner_a.boats[0]
-	var boat_b: Dictionary = owner_b.boats[0]
-	boat_a["type"] = "tin_skiff"
-	boat_b["type"] = "tin_skiff"
+	# These are isolated power fixtures, not conversions of already registered
+	# boats. A real refit must not change an existing hull's immutable origin.
+	var boat_a: Dictionary = Damage.create_ship(skiff_base, {"crew": 5, "ammo": 60.0, "fuel": 5.0, "supplies": 2.0})
+	var boat_b: Dictionary = Damage.create_ship(skiff_base, {"crew": 5, "ammo": 60.0, "fuel": 5.0, "supplies": 2.0})
+	boat_a.uid = "combat:single:a"
+	boat_b.uid = "combat:single:b"
+	owner_a.boats = [boat_a]
+	owner_b.boats = [boat_b]
 	boat_a["ammo"] = 60.0
 	boat_b["ammo"] = 60.0
 	owner_a["morale"] = 85.0

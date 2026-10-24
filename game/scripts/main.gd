@@ -291,7 +291,10 @@ func music_context() -> String:
 func new_game():
 	_leave_lab()
 	sync_economy()
-	core.new_game(int(Time.get_unix_time_from_system()))
+	var begun: Dictionary = core.new_game(int(Time.get_unix_time_from_system()))
+	if not begun.get("ok", false):
+		ui.toast(str(begun.get("message", "New career was refused. The previous voyage is unchanged.")), true)
+		return
 	ui.workshop_drafts.clear()
 	mode = "campaign"
 	quick_mode = false
@@ -687,18 +690,21 @@ func order_at(position: Vector2):
 		var point = chart.world_at(position)
 		command_selected("move", {"x":point.x,"y":point.y})
 
-func refit_boat(uid: String, slot: String, module_id: String):
+func refit_boat(uid: String, slot: String, module_id: String, request: Dictionary = {}):
 	sync_economy()
-	var result = core.refit_boat(uid, slot, module_id)
+	var result = core.refit_boat(uid, slot, module_id, request)
 	respond(result)
 	if result.ok:
 		ui.workshop_drafts.erase(uid)
 		save_game(false)
 	ui.open_refit(uid)
 
-func workshop_apply(uid: String,loadout: Dictionary,expected_quote: Dictionary={}):
+func workshop_preview(uid: String, loadout: Dictionary, request: Dictionary = {}) -> Dictionary:
+	return core.workshop_preview(uid, loadout, request)
+
+func workshop_apply(uid: String,loadout: Dictionary,expected_quote: Dictionary={},request: Dictionary={}):
 	sync_economy()
-	var result: Dictionary=core.workshop_apply(uid,loadout,expected_quote)
+	var result: Dictionary=core.workshop_apply(uid,loadout,expected_quote,request)
 	respond(result)
 	if result.ok:
 		ui.workshop_drafts.erase(uid)

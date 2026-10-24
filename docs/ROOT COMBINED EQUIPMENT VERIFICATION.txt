@@ -1,0 +1,34 @@
+MERGED EQUIPMENT VERIFICATION -24 OCTOBER2026
+Working source now combines canonical new careers and save validation, immutable
+part births, guarded capture custody, paid harbor/NPC/company maintenance and
+exact spare/new equipment UI. Harbor constructor and payment-journal changes
+were merged explicitly, then tested together.
+
+Actual merged native results: lifecycle75/0, UI167/0, save validation89/0,
+naval AI227/0, player service204/0, NPC service140/0. The original complete
+campaign coin fixture passed458/0 after a real cache correction. Its100-day
+construction/economy section remained intact. Focused unchanged save23/1
+before ->23/0 after; direct full-state refresh purity24/0. All prior failed
+merged/fixture runs remain preserved. Root rehashed14native runs, every input,
+raw logs/receipts and shared lane records and compared unaffected dependencies.
+
+The save bug was a stale AI order firepower estimate computed before final
+fittings:90.0 at creation versus105.8 after loading. Final publication now
+refreshes derived observations with the same calculation used by restoration.
+It does not repeat wider AI setup. Actual purses, stores, morale, routes, logs,
+fittings and people remain unchanged when the refresh is repeated.
+
+Fixture corrections preserve ordinary canonical births. Legacy repair tests
+explicitly construct old-schema hulls, and isolated firepower fixtures build
+matching designs instead of changing the origin of registered equipment.
+
+All engine checks used the shared machine FIFO and canonical detector, one
+bounded hidden/headless/Dummy/synthetic child at a time. Other Godot/Unity apps
+and agents' leases have priority. No mouse, keyboard, focus or other app control.
+
+Live-combat candidate8 is NOT integrated or accepted: its corrected native
+fixture timed out60.016s without a completed check count. Exact source/log/input
+proof is preserved; Argon is adding independent family selection and progress
+markers. No AI budget, prediction horizon, assertion or RNG shortcut accepted.
+Live recovery/tow callers, existing030 CPU/full regression/visual/listening and
+Windows delivery remain open. Desktop030 and verified029 fallback unchanged.

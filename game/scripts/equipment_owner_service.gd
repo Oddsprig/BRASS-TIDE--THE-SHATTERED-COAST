@@ -169,25 +169,7 @@ static func allowed_port_service(owner: Dictionary, port: Dictionary, core = nul
 
 
 static func _validate_money_log(state: Dictionary) -> String:
-	if not state.has("moneyLog") or not (state.get("moneyLog") is Array):
-		return "Campaign moneyLog must be an array."
-	if state.moneyLog.size() > 4096:
-		return "Campaign moneyLog exceeds maximum length."
-	for entry in state.moneyLog:
-		if not (entry is Dictionary):
-			return "Campaign moneyLog contains a non-dictionary entry."
-		for key in ["reason", "cash", "from", "to"]:
-			if not entry.has(key):
-				return "Campaign moneyLog entry is missing %s." % key
-		if not (entry.get("reason") is String) or str(entry.get("reason", "")).strip_edges().is_empty():
-			return "Campaign moneyLog entry reason is invalid."
-		if not (entry.get("from") is String) or str(entry.get("from", "")).strip_edges().is_empty():
-			return "Campaign moneyLog entry from field is invalid."
-		if not (entry.get("to") is String) or str(entry.get("to", "")).strip_edges().is_empty():
-			return "Campaign moneyLog entry to field is invalid."
-		if not EquipmentService._is_whole_coin(entry.get("cash")) or int(entry.get("cash", 0)) <= 0:
-			return "Campaign moneyLog entry cash amount is invalid."
-	return ""
+	return EquipmentService.journal_error(state)
 
 
 static func _validate_owner_dock_and_hull(state: Dictionary, owner: Dictionary, port: Dictionary, boat: Dictionary) -> Dictionary:

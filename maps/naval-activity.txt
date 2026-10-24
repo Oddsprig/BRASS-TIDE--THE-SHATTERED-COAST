@@ -3,7 +3,7 @@ BRASS TIDE — NAVAL-ACTIVITY MAP (generated; v0.030)
 Existing companies, spatial positions, stores and shipyards -> actual trade, escorts/intercepts, paid combat, recovery and replacements.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/naval_ai.gd: 14729 bytes; extends RefCounted
+game/scripts/naval_ai.gd: 14888 bytes; extends RefCounted
   game/scripts/naval_ai.gd:19 is_story_owner()
   game/scripts/naval_ai.gd:51 fleet_reserves()
   game/scripts/naval_ai.gd:55 fleet_performance()
@@ -24,13 +24,13 @@ game/scripts/naval_combat.gd: 21879 bytes; extends RefCounted
   game/scripts/naval_combat.gd:164 boat_weapon_power()
   game/scripts/naval_combat.gd:168 fleet_firepower()
   game/scripts/naval_combat.gd:277 resolve_encounter()
-game/scripts/naval_replacements.gd: 16458 bytes; extends RefCounted
+game/scripts/naval_replacements.gd: 17561 bytes; extends RefCounted
   game/scripts/naval_replacements.gd:17 quote_at_port()
   game/scripts/naval_replacements.gd:26 can_materials()
   game/scripts/naval_replacements.gd:35 consume_materials()
   game/scripts/naval_replacements.gd:42 owner_has_queued_replacement()
   game/scripts/naval_replacements.gd:59 attach_new_boat()
-  game/scripts/naval_replacements.gd:95 advance_unstepped_npc_orders()
+  game/scripts/naval_replacements.gd:97 advance_unstepped_npc_orders()
 game/scripts/naval_lifecycle.gd: 5797 bytes; extends RefCounted
   game/scripts/naval_lifecycle.gd:11 hire()
   game/scripts/naval_lifecycle.gd:22 route()

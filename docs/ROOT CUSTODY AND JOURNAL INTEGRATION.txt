@@ -1,0 +1,24 @@
+CUSTODY AND COMMISSION JOURNALS - COMPONENT INTEGRATION,24 OCTOBER2026
+Same enhanced native fixtures: custody75/7 before ->75/0 after; payment journal
+204/9 before ->204/0 after. All actual children exited, source/tool inputs stayed
+stable and every manifest/log/shared-lane record was independently rehashed.
+
+The capture planner now moves custody in its private planning copy, rejects a
+repeated birth, and binds preserved parts to the actual source condition, cause,
+counter, fitting and design. Public preserved adoption requires a custodian.
+A preserved hull cannot increase its source HP; deliberate tow degradation is
+allowed. Live campaign state stays untouched during planning/refusal. Career
+constructors/save migration use the reviewed global preflight and immutable part
+births. Source comes from Grok24af plus Bridge Sol's reviewed focused correction.
+
+Boat commissions now produce complete receipts with a bounded journal. Player
+and NPC repairs share strict payment-history validation, accepting only the
+exact historical two-key commission summary as metadata. Historical receipts
+are not rewritten and balances still have to conserve actual world coins.
+Near-match reasons, extra keys, booleans and missing endpoints refuse atomically.
+The fixture actually books a funded commission and then pays player/NPC repairs.
+
+Harbor integration explicitly combines the tested lifecycle buy/collect regions
+with the tested journal/Service Harbor. Combined native regression is still
+required. Wreck hull provenance/live salvage adoption, live battle integration
+and CPU/full release gates remain open. No tag/export/launcher was changed.

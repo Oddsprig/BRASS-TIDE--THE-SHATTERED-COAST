@@ -9,6 +9,7 @@ const Records = preload("res://scripts/equipment_records.gd")
 const Damage = preload("res://scripts/damage.gd")
 const Refit = preload("res://scripts/refit.gd")
 const Economy = preload("res://scripts/economy.gd")
+const OwnerService = preload("res://scripts/equipment_owner_service.gd")
 const Money = preload("res://scripts/money.gd")
 const EPS: float = 0.0001
 
@@ -74,6 +75,7 @@ func _initialize() -> void:
 	test_atomic_refusals_leave_career_unchanged()
 	test_legacy_without_schema_supported()
 	test_malformed_payment_records_refuse_before_payment()
+	test_commission_then_repair()
 	print("equipment_service: %d checks, %d failures" % [checks, failures])
 	quit(1 if failures > 0 else 0)
 
@@ -437,7 +439,9 @@ func test_legacy_without_schema_supported() -> void:
 	var boat: Dictionary = c.state.fleet[0]
 	_fund_from_treasury(c, p, 4000)
 
-	check(not boat.has("moduleCondition"), "Fresh campaign boat starts as legacy without moduleCondition schema")
+	# Explicitly model the old schema; ordinary new careers are now canonical.
+	boat.erase("moduleCondition")
+	check(not boat.has("moduleCondition"), "Explicit older hull fixture has no moduleCondition schema")
 	boat.hp = float(boat.maxHp) - 20.0
 	boat.breaches = [{"area": 15.0, "section": "mid"}]
 	boat.water = 30.0
@@ -467,6 +471,10 @@ func test_malformed_payment_records_refuse_before_payment() -> void:
 		{"name": "missing row fields", "log": [{}]},
 		{"name": "fractional row coins", "log": [{"reason": "old", "cash": 1.5, "from": "coins", "to": "cash"}]},
 		{"name": "bad payer field", "log": [{"reason": "old", "cash": 1, "from": 7, "to": "cash"}]},
+		{"name": "near historical reason", "log": [{"reason": "Commission: materials, wages in escrow, yard income and duty changed", "cash": 100}]},
+		{"name": "historical extra key", "log": [{"reason": "Commission: materials, wages in escrow, yard income and duty", "cash": 100, "extra": true}]},
+		{"name": "historical boolean coins", "log": [{"reason": "Commission: materials, wages in escrow, yard income and duty", "cash": true}]},
+		{"name": "historical one endpoint", "log": [{"reason": "Commission: materials, wages in escrow, yard income and duty", "cash": 100, "from": "coins"}]},
 		{"name": "missing log", "omitLog": true},
 		{"name": "missing world supply", "omitSupply": true}
 	]
@@ -490,3 +498,60 @@ func test_malformed_payment_records_refuse_before_payment() -> void:
 		var before: Dictionary = c.state.duplicate(true)
 		var denied: Dictionary = Harbor.repair(c, str(boat.uid))
 		check(not denied.ok and same(before, c.state), "Unreadable payment record refuses before coins, parts, materials or labor change: " + str(setup.name))
+
+func test_commission_then_repair() -> void:
+	for mode in ["modern", "legacy", "npc-legacy"]:
+		var c = _new_campaign(950)
+		var p: Dictionary = c.current_port()
+		var boat: Dictionary = c.state.fleet[0]
+		var spec: Dictionary = c.hull(str(p.shipIds[0]))
+		var quote: Dictionary = Harbor.quote(c, spec, p)
+		# Controlled initial fixture stock is finite; the commission must consume
+		# its exact bill, and repair cannot borrow material from another harbor.
+		for good in quote.materials:
+			p.stocks[good] = maxf(float(p.stocks.get(good, 0.0)), float(quote.materials[good]) + 50.0)
+		quote = Harbor.quote(c, spec, p)
+		var remaining: int = maxi(0, int(quote.commissionPrice) + 20000 - int(c.state.coins))
+		for donor in c.state.ports:
+			var amount: int = mini(remaining, int(donor.governmentPurse))
+			if amount > 0:
+				check(Money.move(donor, "governmentPurse", c.state, "coins", amount, "Fixture funded commission advance", c.state.moneyLog), "commission fixture advances actual treasury coins")
+				remaining -= amount
+			if remaining == 0:
+				break
+		check(remaining == 0 and Money.total(c.state) == int(c.state.coinSupply), "commission budget comes from existing purses")
+		var stocks_before: Dictionary = p.stocks.duplicate(true)
+		var coins_before: int = int(c.state.coins)
+		var booked: Dictionary = Harbor.commission(c, str(spec.id))
+		check(booked.get("ok", false), "real funded hull commission books before %s repair" % mode)
+		if not booked.get("ok", false):
+			continue
+		check(int(c.state.coins) == coins_before - int(quote.commissionPrice) and Money.total(c.state) == int(c.state.coinSupply), "commission moves exact coins to yard, government and worker escrow")
+		for good in quote.materials:
+			check(_approx(float(p.stocks[good]), float(stocks_before[good]) - float(quote.materials[good])), "commission consumes exact %s bill" % good)
+		var receipt: Dictionary = c.state.moneyLog[0]
+		check(str(receipt.get("from", "")) == "coins" and str(receipt.get("to", "")) == "yard construction", "future commission receipt identifies its payer and aggregate destination")
+		if mode != "modern":
+			receipt.erase("from")
+			receipt.erase("to")
+		var historical: Dictionary = receipt.duplicate(true)
+		var npc: Dictionary = {}
+		if mode == "npc-legacy":
+			npc = c.fleet_owner("patrol-1")
+			npc.atPort = str(p.id)
+			boat = npc.boats[0]
+			check(Money.move(c.state, "coins", npc, "coins", 6000, "Fixture company repair advance", c.state.moneyLog), "NPC repair budget is transferred, never created")
+		check(_seed_canonical_boat(c, boat).get("ok", false), "commission repair uses actual canonical machinery")
+		check(_damage_at(boat, "engine", 0.50, "Commission voyage wear").get("ok", false) and Records.publish(boat).get("ok", false), "commission repair has genuinely damaged installed engine")
+		boat.hp = float(boat.maxHp) - 10.0
+		var repair_quote: Dictionary = Harbor.service_quote(c, boat, p)
+		var payer: Dictionary = c.state if npc.is_empty() else npc
+		var payer_before: int = int(payer.coins)
+		var repaired: Dictionary = Harbor.repair(c, str(boat.uid)) if npc.is_empty() else OwnerService.repair_owner_boat(npc, p, boat, c)
+		check(repaired.get("ok", false), "paid %s repair accepts actual commission history" % mode)
+		check(int(payer.coins) == payer_before - int(repair_quote.cost) and Money.total(c.state) == int(c.state.coinSupply), "post-commission repair pays exact quote and conserves world coins")
+		var kept: bool = false
+		for entry in c.state.moneyLog:
+			if entry is Dictionary and entry == historical:
+				kept = true
+		check(kept, "repair retains commission receipt unchanged as historical metadata")
