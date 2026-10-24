@@ -63,6 +63,7 @@ var objective_label: Label
 var battle_points_label: Label
 var battle_control_label: Label
 var autopilot_button: Button
+var tactical_intent_label: Label
 
 func setup(game_host):
 	host = game_host
@@ -359,7 +360,7 @@ func update_hud():
 		voyage_label.text = "%d HOSTILE · %d SELECTED · %s" % [enemies, host.selected_battle_ids.size(), "AUTOPILOT" if host.battle.get("autopilot", true) else "MANUAL FLAGSHIP"]
 		TacticsUI.update(self)
 		if host.battle.retreatTimer != null:
-			voyage_label.text = "WITHDRAWING · %.0f seconds" % host.battle.retreatTimer
+			voyage_label.text = "Fleet withdrawal · %.0f seconds" % host.battle.retreatTimer
 	else:
 		flagship_label.text = "%d %s. One captain." % [w.fleet.size(),"boat" if w.fleet.size() == 1 else "boats"]
 		var p = host.core.current_port()

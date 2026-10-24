@@ -1,3 +1,26 @@
+BRASS TIDE v0.030 - CURRENT SOURCE CONTROLS; UNTESTED
+Tests deferred AT OWNER REQUEST. Finish Windows BUILD ONLY, then STOP.
+These controls describe the saved source; no new gameplay/UI acceptance is claimed.
+
+Combat starts on autopilot. WASD pans the camera; Shift speeds panning. Scroll
+zooms and Home centers. Click/drag selects boats; Shift adds to the selection.
+Right-click issues move, attack or escort. 1/2/3 issue engage/escort/hold.
+Space pauses; Tab opens tactical overview and restores prior pause/control mode
+on exit. U toggles manual flagship control; arrows and mouse steer/fire manually.
+U/manual can retake the flagship even after fleet withdrawal is queued.
+
+Open Selected tactics & weapon groups for doctrine, role, formation, protected
+ally, rally, local withdrawal and per-mount automatic hold/reserve choices.
+Manual fire bypasses voluntary automatic hold/reserve but still needs actual
+crew, ammunition, cooldown and physical aim/clearance. Ctrl+F1-F4 saves a selected
+group and F1-F4 recalls it during that battle. No new battle-save promise.
+
+Withdraw fleet uses the legacy 12-second compatibility escape timer. Local
+rally/survival movement is physical and does not settle fleet retreat. Further
+physical objective exits and .031-.038 work are stopped. Previous guide follows.
+
+HISTORICAL RECORDS - superseded for current authorization/status
+
 v0.020 — HARBOR RESERVES AND USEFUL TRADE
 Enter a harbor and choose Supply coverage & protected stocks. Coverage is days of actual household/recipe/home-fleet use. Commercial stock, public stores and inbound physical cargo remain distinct. A modest operating buffer is kept for essentials, while actual surplus is available to both captains and NPC companies. Incoming cargo is not already in stock.
 A Friendly harbor partner can advise commercial or supply-security policy. A paid granary request transfers up to one day of actual public food into the commercial store;25clerk+22oversight coins go to the people doing the work. It does not put free food into your fleet. Essential production gets bounded feasible priority within existing paid labor and available materials.

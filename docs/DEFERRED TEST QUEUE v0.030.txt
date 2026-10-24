@@ -1,0 +1,57 @@
+BRASS TIDE v0.030 - EXPLICIT DEFERRED QUEUE; UNTESTED
+Tests deferred AT OWNER REQUEST. This file is a record, not an executable queue
+or authorization. No test, benchmark, smoke, parser-validation, game/UI/motion
+process may start. Finish current Windows BUILD ONLY, then STOP. .031-.038 STOPPED.
+Only root's necessary compiler/asset import/export/archive/launcher packaging is
+currently authorized. A later owner instruction is required to resume any QA.
+
+KNOWN PRIOR FAILURE - KEEP VISIBLE
+- Frozen A f008525d component at C 3eb5e94: tactical_planner 350 checks, 1 failure,
+  'screen prioritizes a real incoming threat to its named vulnerable ally'.
+- Exact prior log/receipt: docs/helper-reports/v0.030-owner-stop/C-prior-*. PID
+  99744 exited 1; stopped=true. Original qa/v030-native/planner-component-01 kept.
+- A changed only planner/stations source to retain chosen screen-target priority
+  during proposal and resolution. Original assertion unchanged. Correction and
+  combined runtime are UNTESTED. No fixed/passed/accepted result is asserted.
+
+DEFERRED; NONE EXECUTED FOR THIS INTEGRATION
+1. Planner regression after the screen-priority source correction; unchanged
+   legacy70 native suites, affected battle/manual/boarding/Main cases and source
+   correspondence. No integrated native suite has been accepted for this source.
+2. Independent actual A1-A5 role motion in both orientations and adverse variants:
+   separated ingress, useful legal firing passes, breakaway/regroup, protective
+   screen and heavy counters. No guaranteed light-boat win or cosmetic orbit.
+3. Real bailing/repair/fire condition evolution followed by abrupt damage, fuel/
+   crew/propulsion loss; physical certificate expiry/invalidation and actual helm
+   progress. Check emitted muzzle-offset intercepts and inherited-velocity rays.
+4. Finite fixed-tube salvos across refresh/phase churn/hold/move; explicit attack
+   reset, actual paid rounds/cooldowns/arcs/crew/terrain/allied-lane legality.
+5. Real Main command/selection/groups/formation/protected-ally/rally/withdrawal/
+   automatic hold/reserve controls, next-tick authority and manual retake after
+   fleet withdrawal; pause/control restoration and untouched career ownership.
+6. New orders cancel only unlaunched boarding; launched crew/prize custody,
+   captured-flagship exclusion, timers and finite people/stores remain conserved.
+7. Per-ID real certification progress/fairness at40/74 mildly hurt/flooding hulls,
+   both orientations, command interrupts, private-mission whitelist and actual
+   multi-attacker focus damage. Planner timestamps alone are not physical proof.
+8. Frozen tuning/held-out behavior protocol and complete applicable seed/variant
+   batches. Original8 tuning/24 held-out design remains unexecuted for this source.
+   Finish independent AI/motion fixture design only if later reauthorized; no
+   incomplete batch or missing fixture may be represented as a pass.
+9. Full-population40/42/60/74 and overflow-reserve conservation, real cadence/work
+   counters and raw timing quantiles under frozen r3. Old .029 finite-battle and
+   reference-prefix results retain their limited scope; no .030 CPU claim exists.
+10. Windows menu/campaign/save/battle/game smokes, actual owner-save compatibility,
+    motion captures, rendered performance, listening and human tactical/UI review.
+    These remain separate from a successful compiler/export/archive operation.
+
+SOURCE DRAFTS AND LIMITS
+C shared/orders/UI drafts: qa/v030-owner-stop/partial-fixtures, outside game/ and
+excluded from candidate. Original bytes also remain in the UNTESTED C draft ZIP.
+Independent AI/motion suites and integrated75-suite registration were unfinished;
+no new C fixture is delivered or accepted. Exact A planner fixture remains supplied.
+Fleet withdrawal retains its legacy12-second compatibility escape timer. Physical
+objective exits and .031-.038 design/implementation are STOPPED, not queued here.
+
+CURRENT OWNED TEST PIDS: NONE. No C test process launched or killed during this
+source integration. No automated job is scheduled by this record.

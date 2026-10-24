@@ -1,0 +1,490 @@
+{
+    "kind":  "Brass Tide v0.030 owner-stop source handoff",
+    "status":  "UNTESTED; tests deferred AT OWNER REQUEST",
+    "build":  30,
+    "version":  "0.030",
+    "base_commit":  "c90438a3ecb05f7e6e0cce3232964048b64f5678",
+    "candidate_commit":  "Containing Git commit; final commit/tree receipt is in qa/v030-final-source",
+    "scope":  "Exact A+B source, version metadata, current stop docs and raw provenance only",
+    "source_identity":  "SHA256 and byte comparison only; no code/parser/test validation",
+    "author_archives":  [
+                            {
+                                "owner":  "A",
+                                "archive":  "Brass Tide v0.030 - A planner SOURCE UNTESTED FINAL.zip",
+                                "bytes":  33695,
+                                "sha256":  "2a4957cd3423894a39aeafa027f0041739201b6aee65c1b835c1d9b7053bb378"
+                            },
+                            {
+                                "owner":  "B",
+                                "archive":  "Brass-Tide-v0.030-B-source-UNTESTED.zip",
+                                "bytes":  87831,
+                                "sha256":  "2bc2bd8d243e4a57511fdcfdcc16c7e627230343aa7135840127f14973ebab9c",
+                                "git_metadata_repaired":  false
+                            }
+                        ],
+    "exact_author_source":  [
+                                {
+                                    "path":  "game/scripts/tactical_planner.gd",
+                                    "owner":  "A",
+                                    "bytes":  18181,
+                                    "sha256":  "ec8bba237422b5cc0007c5cb61090cf8c0e7fb2a8bdd032fbade268dc4ef4420"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_planner.gd.uid",
+                                    "owner":  "A",
+                                    "bytes":  21,
+                                    "sha256":  "2546c7911d5645381c47cfac0f2164e7b7982568ec3ccdf02218e03bb3ba2039"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_role_plans.gd",
+                                    "owner":  "A",
+                                    "bytes":  24559,
+                                    "sha256":  "00d1b6641effaf73900d8bce0e1f009566ee7f10144c49f1e0f146010cb6eccb"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_role_plans.gd.uid",
+                                    "owner":  "A",
+                                    "bytes":  21,
+                                    "sha256":  "5e3eb2eb9482dc568730599932d46911bfce6da4ac047a7575d39ae53e26ad7e"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_stations.gd",
+                                    "owner":  "A",
+                                    "bytes":  18082,
+                                    "sha256":  "c455b46759701c53e272cd294cd7b102bebe816afb42a398a4c35090cd97bc7d"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_stations.gd.uid",
+                                    "owner":  "A",
+                                    "bytes":  21,
+                                    "sha256":  "8e5d3b891150345c0dfba7877094b799f8a78473d6dd76e8614c7fd78b7751fb"
+                                },
+                                {
+                                    "path":  "game/tests/test_tactical_planner.gd",
+                                    "owner":  "A",
+                                    "bytes":  24157,
+                                    "sha256":  "42f51edabac2e413d8b1d278dbd8195f61f986605ee5deed9f62cf3862f69116"
+                                },
+                                {
+                                    "path":  "game/tests/test_tactical_planner.gd.uid",
+                                    "owner":  "A",
+                                    "bytes":  21,
+                                    "sha256":  "da3e69047c6e051f58058d14b0b75ff36aedb23285b01d2a9f346439f0d46806"
+                                },
+                                {
+                                    "path":  "game/scripts/battle.gd",
+                                    "owner":  "B",
+                                    "bytes":  30458,
+                                    "sha256":  "1851204228eabca9da52b44d88d19432f9a8cac35e3e076f39acdd4447f3f5bb"
+                                },
+                                {
+                                    "path":  "game/scripts/chart.gd",
+                                    "owner":  "B",
+                                    "bytes":  38974,
+                                    "sha256":  "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5"
+                                },
+                                {
+                                    "path":  "game/scripts/combat_boarding.gd",
+                                    "owner":  "B",
+                                    "bytes":  6714,
+                                    "sha256":  "1b49027ef789498252ead927b9b2b54f64bd65c445c937b9acdb8a5a7a4a1fdf"
+                                },
+                                {
+                                    "path":  "game/scripts/interface.gd",
+                                    "owner":  "B",
+                                    "bytes":  47566,
+                                    "sha256":  "33453db3e72c19320b3c9dd58aef957e40330ff0c0ecf1f5fa91a92e5650c57f"
+                                },
+                                {
+                                    "path":  "game/scripts/main.gd",
+                                    "owner":  "B",
+                                    "bytes":  32885,
+                                    "sha256":  "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_certification.gd",
+                                    "owner":  "B",
+                                    "bytes":  14922,
+                                    "sha256":  "b779dde6c1ad714fe2800961104e38c78a463304abfd2e42f9aeb15864896645"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_fire_control.gd",
+                                    "owner":  "B",
+                                    "bytes":  10802,
+                                    "sha256":  "c2b24ad1b0962b026c6e45a8e3e055c077c1402f3d36808734e237241be39b02"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_routes.gd",
+                                    "owner":  "B",
+                                    "bytes":  8781,
+                                    "sha256":  "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2"
+                                },
+                                {
+                                    "path":  "game/scripts/tactical_runtime.gd",
+                                    "owner":  "B",
+                                    "bytes":  34562,
+                                    "sha256":  "44dce667ec26b3d2fa3636c0926777ad4cae207d4f9312b0acb884721ecc2572"
+                                },
+                                {
+                                    "path":  "game/scripts/tactics_ui.gd",
+                                    "owner":  "B",
+                                    "bytes":  11423,
+                                    "sha256":  "51515fe8f40d064bcfa322ebeaab30ad5e212b8ae9142aeb171e5e5b80e5fba5"
+                                }
+                            ],
+    "prior_native_result":  {
+                                "checks":  350,
+                                "failures":  1,
+                                "assertion":  "screen prioritizes a real incoming threat to its named vulnerable ally",
+                                "correction":  "Source-only; UNTESTED; assertion unchanged",
+                                "owned_pid":  99744,
+                                "stopped":  true
+                            },
+    "execution":  {
+                      "new_test_processes":  0,
+                      "parser_validation":  0,
+                      "game_launches":  0,
+                      "compiler_import_export":  0,
+                      "owned_active_test_pids":  [
+
+                                                 ],
+                      "killed_pids":  [
+
+                                      ]
+                  },
+    "future_stages":  ".031-.038 STOPPED",
+    "root_owns":  [
+                      "merge",
+                      "separate build-only exporter/verdict",
+                      "annotated tag",
+                      "necessary compiler/import/export",
+                      "archives",
+                      "launcher"
+                  ],
+    "preserved_c_ref":  "c-v030-source-preserved-3eb5e94",
+    "excluded_partial_fixtures":  [
+                                      {
+                                          "preserved_path":  "qa/v030-owner-stop/partial-fixtures/tactical_fixture.gd",
+                                          "bytes":  18027,
+                                          "sha256":  "15045d18c38d140ea0dbf8e83d60114e7d8b52eaf992b53b1623b0f3fb962383",
+                                          "included_in_game_or_commit":  false
+                                      },
+                                      {
+                                          "preserved_path":  "qa/v030-owner-stop/partial-fixtures/test_tactical_orders.gd",
+                                          "bytes":  8276,
+                                          "sha256":  "441a4ff79dbff6bdd1182dcd5f9919e7af723c1f61ee675f6e69805d66bc708f",
+                                          "included_in_game_or_commit":  false
+                                      },
+                                      {
+                                          "preserved_path":  "qa/v030-owner-stop/partial-fixtures/test_tactical_ui.gd",
+                                          "bytes":  7994,
+                                          "sha256":  "a7efe45abac699162729c462b957b0db81941d3c45945f61c9d1293cafff3e53",
+                                          "included_in_game_or_commit":  false
+                                      }
+                                  ],
+    "changed_file_count":  61,
+    "files":  [
+                  {
+                      "path":  ".gitattributes",
+                      "bytes":  2668,
+                      "sha256":  "ae4e3430743ddfd58e79a8748e3003c9ce292fa33083e99fb38a5a25475ca531"
+                  },
+                  {
+                      "path":  "AGENTS.md",
+                      "bytes":  5293,
+                      "sha256":  "e54d042c991b4b8c57ac687fff00e66130b36a818e1b4381f19ed4d278eb889a"
+                  },
+                  {
+                      "path":  "BUILD PLAN.txt",
+                      "bytes":  1475,
+                      "sha256":  "414baa3e00cf20ba406f88f50986b84004e904ecd4318242bd19cd76ee29ece9"
+                  },
+                  {
+                      "path":  "BUILD STATUS.txt",
+                      "bytes":  1011,
+                      "sha256":  "c4b815d2177ec37fbf5f5b4ea21f4b870868420a99e4bbf9196c180df9dd1a0f"
+                  },
+                  {
+                      "path":  "CHANGES v0.030.md",
+                      "bytes":  839,
+                      "sha256":  "7f99ee6889f0ea36a02cd3fe866787a470f642f21af82c57c611920314112543"
+                  },
+                  {
+                      "path":  "CODE MAP.md",
+                      "bytes":  4706,
+                      "sha256":  "e68a129bf70e45a9afcffaac802e7ae348e3c056b68421409f1f609685c6daa5"
+                  },
+                  {
+                      "path":  "DEV LOG.txt",
+                      "bytes":  4441,
+                      "sha256":  "8461cd2bf0446b81144b558e9799e73eb0dcc422c6f5d68173dfee71cff384ce"
+                  },
+                  {
+                      "path":  "docs/BUILD AND TEST.md",
+                      "bytes":  5856,
+                      "sha256":  "d1859eeac27ff80de622f81de4097c04b8a48c4a21f6620af347e24ce189fcdc"
+                  },
+                  {
+                      "path":  "docs/CAPTAINS CAMPAIGN GUIDE.txt",
+                      "bytes":  17706,
+                      "sha256":  "1c56eb4aa09b1dc09e3b34145809be55cea53f0fcac1059fc684d4752b05967e"
+                  },
+                  {
+                      "path":  "docs/DEFERRED TEST QUEUE v0.030.txt",
+                      "bytes":  4096,
+                      "sha256":  "686bc87f7820647bc1efe566de1137469eca5746aaf67226f099b4fa3ff8e007"
+                  },
+                  {
+                      "path":  "docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt",
+                      "bytes":  29020,
+                      "sha256":  "7f7d1ac690912c55a34adad3b66979079c34b35dacbe4a7ee0a3a3b9a7d260a3"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/A-component-manifest.json",
+                      "bytes":  3880,
+                      "sha256":  "e9a92a1e80edeb2e82a989c691f19632dcfe0103148f98f5d632b6030d3e9196"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/A-FINAL PACKAGE.json",
+                      "bytes":  4480,
+                      "sha256":  "0e9c8b92e387683c75f41e294024aa8bc011d8e38c4479b0fcb4b7e97020fa29"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/A-screen-priority-over-f008525.diff",
+                      "bytes":  3648,
+                      "sha256":  "525594f6dba69d59b2c91237f79cd804c15bae089c2a222b7ea8d837f271215c"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/B-final-git-receipt.json",
+                      "bytes":  1129,
+                      "sha256":  "bc8536c20b64165e52f9e5dee8201b6740f2e57f4910029bb1c36f465d1ad20d"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/B-followup-source.json",
+                      "bytes":  2900,
+                      "sha256":  "ee13f0193724b0e25cd3648c4f7745191ac83c37b4071923975d91af1cdb23f9"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/B-OWNER-STOP.txt",
+                      "bytes":  1670,
+                      "sha256":  "6f2f6fbe24162d9afe502d2b5115978bbcabc584b11466461457cee528d53990"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/B-PACKAGE-RECEIPT.json",
+                      "bytes":  559,
+                      "sha256":  "750965cee55fe5bc6a1d9cdccd2b7f6b50e183d4b99d3ab530f152f8337297c5"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/B-SCHEMA AND HANDOFF.txt",
+                      "bytes":  10675,
+                      "sha256":  "6b0c7a3eabb6e3e1e31d6b8f44720262d1802421b7273fa4b8b0c2174203143d"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/B-SOURCE-HANDOFF.json",
+                      "bytes":  4585,
+                      "sha256":  "7fe4492d02feeea02be384d2ce24fbf1ad394155c3db4f8eccf446c364e70bcf"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/B-static-source.json",
+                      "bytes":  2517,
+                      "sha256":  "b6db9fc598bff31917ede92dc3a00d7916427d4f2cb72b1cf165583c5112331f"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/C-prior-receipt.json",
+                      "bytes":  2986,
+                      "sha256":  "cbfa9204b1bef61f07e90ddc36a01bbce6417bc62e0df45349c84ef128ec9d2b"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v0.030-owner-stop/C-prior-tactical_planner.log",
+                      "bytes":  588,
+                      "sha256":  "54512a2878aa7bc3b6a68f8a6d50f481e4383ac9b3f98546573b1b0daf43e48d"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v030-planner.txt",
+                      "bytes":  4363,
+                      "sha256":  "fd672dd914c84a9e6e8baa9550e6f9181e06932558020c88d57ed686062eae24"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v030-tactics.txt",
+                      "bytes":  4303,
+                      "sha256":  "e89091a88b0a43880900d3da83f7e3fbc9897db8379ef8cbcf30f1744bc7420e"
+                  },
+                  {
+                      "path":  "docs/helper-reports/v030-tactics-followup.txt",
+                      "bytes":  2004,
+                      "sha256":  "ed9412d78982dcdb91c8626f67562f180cb9815f3520a6fcf38c55f6ba4ae42d"
+                  },
+                  {
+                      "path":  "docs/SOURCE INTEGRATION v0.030.txt",
+                      "bytes":  3146,
+                      "sha256":  "012c77815f506974017df07f29f6fcf3d40709d9e516402fb68650d951d19dc8"
+                  },
+                  {
+                      "path":  "docs/TEST RESULTS v0.030.md",
+                      "bytes":  1177,
+                      "sha256":  "d341ab4182d293a516c3aa5d39b8909998f3b7965a06e5ff96de0b2446458366"
+                  },
+                  {
+                      "path":  "docs/VERIFICATION INDEX.txt",
+                      "bytes":  6180,
+                      "sha256":  "41c81f6d90579801448b4c87f8068a0002b2b2a0d026c2b80a0866f45ba728d1"
+                  },
+                  {
+                      "path":  "game/data/DEVELOPER NOTES.txt",
+                      "bytes":  3927,
+                      "sha256":  "5556e9187b2b263e5ea81d236ae58a440dd53658a1455cf8f41fe00fb58f0573"
+                  },
+                  {
+                      "path":  "game/data/world.json",
+                      "bytes":  39914,
+                      "sha256":  "49be4291967e7b966d2668079cfa58440ef91ada0f5515c207bd955605559bd8"
+                  },
+                  {
+                      "path":  "game/export_presets.cfg",
+                      "bytes":  1413,
+                      "sha256":  "024e66a099cf38387bb4dc7c2c3c95ff8b753b850db05ccbf186026003ea9fef"
+                  },
+                  {
+                      "path":  "game/project.godot",
+                      "bytes":  1405,
+                      "sha256":  "5b174a3c60d3db5d52dbc3e33a2a4d19ce5db426064624144d47fe3af58f5d20"
+                  },
+                  {
+                      "path":  "game/scripts/battle.gd",
+                      "bytes":  30458,
+                      "sha256":  "1851204228eabca9da52b44d88d19432f9a8cac35e3e076f39acdd4447f3f5bb"
+                  },
+                  {
+                      "path":  "game/scripts/chart.gd",
+                      "bytes":  38974,
+                      "sha256":  "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5"
+                  },
+                  {
+                      "path":  "game/scripts/combat_boarding.gd",
+                      "bytes":  6714,
+                      "sha256":  "1b49027ef789498252ead927b9b2b54f64bd65c445c937b9acdb8a5a7a4a1fdf"
+                  },
+                  {
+                      "path":  "game/scripts/interface.gd",
+                      "bytes":  47566,
+                      "sha256":  "33453db3e72c19320b3c9dd58aef957e40330ff0c0ecf1f5fa91a92e5650c57f"
+                  },
+                  {
+                      "path":  "game/scripts/main.gd",
+                      "bytes":  32885,
+                      "sha256":  "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_certification.gd",
+                      "bytes":  14922,
+                      "sha256":  "b779dde6c1ad714fe2800961104e38c78a463304abfd2e42f9aeb15864896645"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_fire_control.gd",
+                      "bytes":  10802,
+                      "sha256":  "c2b24ad1b0962b026c6e45a8e3e055c077c1402f3d36808734e237241be39b02"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_planner.gd",
+                      "bytes":  18181,
+                      "sha256":  "ec8bba237422b5cc0007c5cb61090cf8c0e7fb2a8bdd032fbade268dc4ef4420"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_planner.gd.uid",
+                      "bytes":  21,
+                      "sha256":  "2546c7911d5645381c47cfac0f2164e7b7982568ec3ccdf02218e03bb3ba2039"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_role_plans.gd",
+                      "bytes":  24559,
+                      "sha256":  "00d1b6641effaf73900d8bce0e1f009566ee7f10144c49f1e0f146010cb6eccb"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_role_plans.gd.uid",
+                      "bytes":  21,
+                      "sha256":  "5e3eb2eb9482dc568730599932d46911bfce6da4ac047a7575d39ae53e26ad7e"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_routes.gd",
+                      "bytes":  8781,
+                      "sha256":  "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_runtime.gd",
+                      "bytes":  34562,
+                      "sha256":  "44dce667ec26b3d2fa3636c0926777ad4cae207d4f9312b0acb884721ecc2572"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_stations.gd",
+                      "bytes":  18082,
+                      "sha256":  "c455b46759701c53e272cd294cd7b102bebe816afb42a398a4c35090cd97bc7d"
+                  },
+                  {
+                      "path":  "game/scripts/tactical_stations.gd.uid",
+                      "bytes":  21,
+                      "sha256":  "8e5d3b891150345c0dfba7877094b799f8a78473d6dd76e8614c7fd78b7751fb"
+                  },
+                  {
+                      "path":  "game/scripts/tactics_ui.gd",
+                      "bytes":  11423,
+                      "sha256":  "51515fe8f40d064bcfa322ebeaab30ad5e212b8ae9142aeb171e5e5b80e5fba5"
+                  },
+                  {
+                      "path":  "game/scripts/version.gd",
+                      "bytes":  128,
+                      "sha256":  "470f6eca8a41cdcd6fe1439b576434637fcae2ceb7ad12e02fc5b9e5330b292d"
+                  },
+                  {
+                      "path":  "game/tests/test_tactical_planner.gd",
+                      "bytes":  24157,
+                      "sha256":  "42f51edabac2e413d8b1d278dbd8195f61f986605ee5deed9f62cf3862f69116"
+                  },
+                  {
+                      "path":  "game/tests/test_tactical_planner.gd.uid",
+                      "bytes":  21,
+                      "sha256":  "da3e69047c6e051f58058d14b0b75ff36aedb23285b01d2a9f346439f0d46806"
+                  },
+                  {
+                      "path":  "HANDOFF.md",
+                      "bytes":  2679,
+                      "sha256":  "1860ee60de932247ba7acada68457f14a36373ff1b13ccc9d4b5549a218a43a3"
+                  },
+                  {
+                      "path":  "maps/tactical.txt",
+                      "bytes":  1330,
+                      "sha256":  "75f8c28f07482d05a95f6f370bfb96a1da8d48c32282924d8cdbd3a4d36c0fa3"
+                  },
+                  {
+                      "path":  "README.md",
+                      "bytes":  1945,
+                      "sha256":  "b95d4551d971f300e5536bdd46d190cfb965d7c8e8d8bbb8ef72221903c7485e"
+                  },
+                  {
+                      "path":  "ROADMAP.md",
+                      "bytes":  6972,
+                      "sha256":  "10d50a36bb7da922d5ec410badc70e797d548424fe805559f9475dc02c4a85cb"
+                  },
+                  {
+                      "path":  "START HERE.txt",
+                      "bytes":  1020,
+                      "sha256":  "cc8c03051aeffa1ffb6641bdd22022fd5b08a7a36acaec2d1d3e49371897d465"
+                  },
+                  {
+                      "path":  "TO BE TESTED.md",
+                      "bytes":  1306,
+                      "sha256":  "74a6294fabd0b0b2ae9f4cd9f25bbcd41653a6a6e373dbde76b55c6d04359b22"
+                  },
+                  {
+                      "path":  "VERSION MAP.txt",
+                      "bytes":  5116,
+                      "sha256":  "4eac054875c28a6a14b570ccedb51a24c06246d24ce19b59ce33103fc833be39"
+                  },
+                  {
+                      "path":  "VERSIONS.md",
+                      "bytes":  6053,
+                      "sha256":  "6d650affc025227338c687029c6609ee17c5516e9c7b177d6de8900f4cc90a9d"
+                  }
+              ],
+    "manifest_self":  "This manifest is identified by its containing Git blob; omitted from self-hash list",
+    "line_endings":  "Narrow .gitattributes -text entries preserve these physical source/proof bytes through staging/checkout; no global settings changed"
+}

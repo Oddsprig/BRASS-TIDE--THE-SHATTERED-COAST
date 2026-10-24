@@ -1,0 +1,564 @@
+extends RefCounted
+## Main-thread battle lifetime; detached A boundary and authoritative publication.
+const Planner=preload("res://scripts/tactical_planner.gd")
+const Routes=preload("res://scripts/tactical_routes.gd")
+const Certification=preload("res://scripts/tactical_certification.gd")
+const Fire=preload("res://scripts/tactical_fire_control.gd")
+const Damage=preload("res://scripts/damage.gd")
+
+static func defaults() -> Dictionary:
+	return {"doctrine":"steady","role":"auto","group":0,"formation":"line","protectedAllyId":"","rally":{},"leash":600.0,"conditionalWithdrawal":false,"mounts":{}}
+
+static func ensure(st: Dictionary) -> Dictionary:
+	if not st.get("tactical") is Dictionary:
+		st.tactical={"snapshotRevision":0,"terrainRevision":0,"terrainKey":"","options":{"byId":{}},"groups":{1:[],2:[],3:[],4:[]},"memory":{"player":{"byId":{},"reservations":{}},"enemy":{"byId":{},"reservations":{}}},"intents":{},"predictions":{},"mountCache":{},"pending":{},"lastDecision":{},"lastSafety":{},"orderTimes":{},"reasons":{},"fireReasons":{},"passes":{},"salvoSpent":{},"home":{},"trace":[],"counters":{"droppedDecisions":0,"decisions":0,"lateDecisions":0,"lateSafety":0,"rejectedIntents":0,"oldestDecisionAge":0.0,"oldestSafetyAge":0.0,"oldestPendingAge":0.0,"orderAcks":[]},"ships":{},"observed":{},"cells":{},"geometry":{},"dt":1.0/30.0,"manualId":"","routeCache":{},"budget":{},"failures":{}}
+	if not st.tactical.has("certificationAttempts"):
+		st.tactical.certificationAttempts={};st.tactical.lastCertified={};st.tactical.safety={}
+	return st.tactical
+
+static func register(st: Dictionary,ship: Dictionary,mounts: Array) -> void:
+	var t: Dictionary=ensure(st)
+	var id: String=str(ship.id)
+	t.mountCache[id]={"source":ship.spec.get("weaponMounts",ship.spec).duplicate(true),"mounts":mounts.duplicate(true)}
+	if not t.options.byId.has(id):t.options.byId[id]=defaults()
+	if not t.home.has(id):t.home[id]={"x":clampf(float(ship.x)+( -260.0 if ship.team=="player" else 260.0),50.0,2250.0),"y":clampf(float(ship.y),50.0,1650.0)}
+	if not ship.has("orderRevision"):ship.orderRevision=0
+	if not t.orderTimes.has(id):t.orderTimes[id]=float(st.time)
+
+static func accept_command(st: Dictionary,ship: Dictionary,order: String,target: Dictionary={},automatic: bool=false) -> void:
+	var t: Dictionary=ensure(st)
+	var id: String=str(ship.id)
+	var previous_revision: int=int(ship.get("orderRevision",0))
+	ship.orderRevision=previous_revision+1
+	ship.order=order;ship.orderTarget=target.duplicate(true)
+	# Only approach metadata is cancelled. Launched parties/jobs own real crew
+	# independently in Boarding and are deliberately never recalled here.
+	ship.erase("boardingOrder")
+	t.intents.erase(id);t.pending[id]=float(st.time)
+	t.lastDecision[id]=-1.0;t.orderTimes[id]=float(st.time)
+	t.certificationAttempts[id]=-2.0
+	t.reasons[id]="Order received: "+order.capitalize()
+	if order=="attack":t.passes.erase(id)
+	else:Fire.carry_revision(st,ship,previous_revision)
+	for side in t.memory:
+		if order=="attack":t.memory[side].get("byId",{}).erase(id)
+		t.memory[side].get("reservations",{}).erase(id)
+	t.counters.orderAcks.append({"shipId":id,"revision":int(ship.orderRevision),"time":float(st.time),"age":0.0,"automatic":automatic})
+	if t.counters.orderAcks.size()>512:t.counters.orderAcks.pop_front()
+
+static func control_changed(st: Dictionary) -> void:
+	var t: Dictionary=ensure(st)
+	var id: String=str(st.get("playerId",""))
+	t.intents.erase(id);t.lastDecision[id]=-1.0
+	t.certificationAttempts[id]=-2.0
+	t.reasons[id]="Checking order after control change"
+
+static func _live(st: Dictionary,id: String) -> Dictionary:
+	for ship in st.get("ships",[]):
+		if str(ship.id)==id and not ship.sunk and not ship.get("captureSecured",false):return ship
+	return {}
+
+static func set_options(st: Dictionary,ids: Array,patch: Dictionary) -> bool:
+	if st.get("result")!=null or ids.is_empty() or patch.is_empty():return false
+	var allowed: Array=["doctrine","role","group","formation","protectedAllyId","rally","leash","conditionalWithdrawal","mounts","mountGroup"]
+	for key in patch:
+		if not key in allowed:return false
+	if patch.has("doctrine") and not patch.doctrine in ["cautious","steady","aggressive"]:return false
+	if patch.has("role") and not patch.role in ["auto","skirmisher","striker","heavy","screen","support"]:return false
+	if patch.has("formation") and not patch.formation in ["line","screen","column"]:return false
+	if patch.has("group") and (not patch.group is int or int(patch.group)<0 or int(patch.group)>4):return false
+	if patch.has("leash") and (not (patch.leash is int or patch.leash is float) or not is_finite(float(patch.leash)) or float(patch.leash)<80.0 or float(patch.leash)>2300.0):return false
+	if patch.has("conditionalWithdrawal") and not patch.conditionalWithdrawal is bool:return false
+	if patch.has("protectedAllyId"):
+		if not patch.protectedAllyId is String:return false
+		if not str(patch.protectedAllyId).is_empty():
+			var protected: Dictionary=_live(st,str(patch.protectedAllyId))
+			if protected.is_empty() or protected.team!="player":return false
+	if patch.has("rally"):
+		if not patch.rally is Dictionary:return false
+		if not patch.rally.is_empty():
+			if patch.rally.size()!=2 or not patch.rally.has("x") or not patch.rally.has("y"):return false
+			for key in ["x","y"]:
+				if not (patch.rally[key] is float or patch.rally[key] is int) or not is_finite(float(patch.rally[key])):return false
+	if patch.has("mounts"):
+		if not patch.mounts is Dictionary or patch.mounts.size()>16:return false
+		for id in patch.mounts:
+			if not id is String or id.length()>128 or not patch.mounts[id] is Dictionary:return false
+			for key in patch.mounts[id]:
+				var value=patch.mounts[id][key]
+				if key=="hold":
+					if not value is bool:return false
+				elif key=="reserve":
+					if not value is int or value<0 or value>1000000:return false
+				else:return false
+	if patch.has("mountGroup"):
+		if not patch.mountGroup is Dictionary or not patch.mountGroup.get("kind","") in ["all","gun","cannon","rocket","torpedo"]:return false
+		for key in patch.mountGroup:
+			if key=="kind":continue
+			if key=="hold":
+				if not patch.mountGroup[key] is bool:return false
+			elif key=="reserve":
+				if not patch.mountGroup[key] is int or int(patch.mountGroup[key])<0 or int(patch.mountGroup[key])>1000000:return false
+			else:return false
+	var t: Dictionary=ensure(st)
+	var staged: Dictionary={}
+	for id in ids:
+		if not (id is String or id is StringName):return false
+		var ship: Dictionary=_live(st,str(id))
+		if ship.is_empty() or ship.team!="player" or not t.mountCache.has(str(id)):return false
+		var next: Dictionary=t.options.byId.get(str(id),defaults()).duplicate(true)
+		for key in patch:
+			if key=="mountGroup":
+				for mount in t.mountCache[str(id)].mounts:
+					if str(patch.mountGroup.kind)!="all" and str(mount.kind)!=str(patch.mountGroup.kind):continue
+					var choice: Dictionary=next.mounts.get(str(mount.id),{"hold":false,"reserve":0}).duplicate(true)
+					for field in ["hold","reserve"]:
+						if patch.mountGroup.has(field):choice[field]=patch.mountGroup[field]
+					next.mounts[str(mount.id)]=choice
+			elif key=="mounts":
+				var installed: Array=[]
+				for mount in t.mountCache[str(id)].mounts:installed.append(str(mount.id))
+				for mount_id in patch.mounts:
+					if not mount_id in installed:return false
+					var choice: Dictionary=next.mounts.get(mount_id,{"hold":false,"reserve":0}).duplicate(true)
+					choice.merge(patch.mounts[mount_id],true);next.mounts[mount_id]=choice
+			else:next[key]=patch[key].duplicate(true) if patch[key] is Dictionary else patch[key]
+		staged[str(id)]=next
+	# No live option or order changes until every recipient and mount validates.
+	for id in staged:
+		t.options.byId[id]=staged[id]
+		t.intents.erase(id);t.lastDecision[id]=-1.0;t.pending[id]=float(st.time)
+		t.reasons[id]="Tactical choices updated"
+	t.groups={1:[],2:[],3:[],4:[]}
+	for id in t.options.byId:
+		var group: int=int(t.options.byId[id].group)
+		if group>0 and not _live(st,id).is_empty():t.groups[group].append(id)
+	return true
+
+static func _observed(ship: Dictionary,mounts: Array) -> Dictionary:
+	var out: Dictionary={}
+	for key in ["id","uid","team","name","x","y","vx","vy","angle","hp","maxHp","water","capacity","fire","engine","sunk","captureSecured"]:
+		if ship.has(key):out[key]=ship[key]
+	out.spec={}
+	for key in ["id","size","speed","turn","fuelUse","armor","role","tier","hp"]:
+		if ship.spec.has(key):out.spec[key]=ship.spec[key]
+	out.mounts=mounts.duplicate(true)
+	out.mountShotTimes=ship.get("mountShotTimes",{}).duplicate(true)
+	return out
+
+static func _own(ship: Dictionary,mounts: Array) -> Dictionary:
+	var out: Dictionary=_observed(ship,mounts)
+	for key in ["crew","wounded","crewMin","crewOptimal","crewMax","supplies","ammo","fuel","cooldown","policy","shoreCrew","order","orderTarget","orderRevision","formationIndex","boardingOrder","breaches","supportRepairFactor"]:
+		if ship.has(key):out[key]=ship[key].duplicate(true) if ship[key] is Dictionary or ship[key] is Array else ship[key]
+	# Keep only numerical movement/crew/pump inputs, never the full catalogue fit.
+	out.spec={}
+	for key in ["id","size","speed","turn","fuelUse","armor","role","tier","hp","pumps","repairFactor"]:
+		if ship.spec.has(key):out.spec[key]=ship.spec[key]
+	out.weaponCooldowns=ship.get("weaponCooldowns",[]).duplicate()
+	out.status=Damage.get_status(ship).duplicate(true)
+	return out
+
+static func view(st: Dictionary,side: String,due: Array) -> Dictionary:
+	var t: Dictionary=st.tactical
+	var ships: Array=[]
+	var choices: Dictionary={}
+	for id in t.ships:
+		var ship: Dictionary=t.ships[id]
+		var mounts: Array=t.mountCache[id].mounts
+		if ship.team==side:
+			var own: Dictionary=_own(ship,mounts)
+			own.orderSince=float(t.orderTimes.get(id,0.0))
+			own.failedTargetIds=t.failures.get(id,[]).duplicate()
+			if own.get("boardingOrder") is Dictionary and not own.boardingOrder.is_empty() and int(own.boardingOrder.get("orderRevision",-1))==int(own.orderRevision):
+				own.order="board";own.orderTarget={"shipId":str(own.boardingOrder.get("target",""))}
+			# Preserve the targetless legacy attack API. Nearest is selected ONCE
+			# before planner/fire gating, not as a hidden per-mount fallback.
+			if own.order=="attack" and own.orderTarget.is_empty():
+				var best: float=INF
+				for enemy_id in t.observed:
+					var enemy: Dictionary=t.observed[enemy_id]
+					if enemy.team==side:continue
+					var distance: float=Routes.point(ship).distance_squared_to(Routes.point(enemy))
+					if distance<best:best=distance;own.orderTarget={"shipId":enemy_id}
+			ships.append(own)
+			choices[id]=t.options.byId.get(id,defaults()).duplicate(true)
+			if choices[id].rally.is_empty():choices[id].rally=t.home[id].duplicate(true)
+			if own.order=="withdraw" and own.orderTarget.has("x"):choices[id].rally=own.orderTarget.duplicate(true)
+		else:ships.append(t.observed[id].duplicate(true))
+	var groups: Dictionary={1:[],2:[],3:[],4:[]}
+	for group in t.groups:
+		for id in t.groups[group]:
+			if choices.has(id):groups[group].append(id)
+	return {"snapshotRevision":int(t.snapshotRevision),"terrainRevision":t.terrainRevision,"time":float(st.time),"dt":float(t.dt),"side":side,"dueIds":due.duplicate(),"ships":ships,"groups":groups,"options":{"byId":choices,"clearanceRemaining":maxi(0,int(t.budget.get("clearanceLimit",4096))-int(t.budget.clearanceTests))},"mission":public_mission(st)}
+
+static func public_mission(st: Dictionary) -> Dictionary:
+	var source: Dictionary=st.get("mission",{})
+	var result: Dictionary={"kind":str(source.get("kind","")).left(128),"duration":maxf(0.0,Damage.number(source.get("duration"))),"allyUids":[]}
+	if source.get("allyUids",[]) is Array:
+		for id in source.get("allyUids",[]):
+			if id is String and id.length()<=128:result.allyUids.append(id)
+	return result
+
+static func _order_lifetime(st: Dictionary,ship: Dictionary) -> void:
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	var order: String=str(ship.get("order","engage"))
+	var target: Dictionary=ship.get("orderTarget",{})
+	if order in ["move","withdraw"]:
+		var goal: Dictionary=target if target.has("x") else t.options.byId.get(id,defaults()).get("rally",{})
+		if goal.is_empty() and order=="withdraw":goal=t.home.get(id,{})
+		if goal.has("x") and Routes.point(ship).distance_to(Vector2(goal.x,goal.y))<14.0 and Vector2(ship.vx,ship.vy).length()<8.0:
+			accept_command(st,ship,"hold",{"x":float(ship.x),"y":float(ship.y)},true)
+			t.reasons[id]="Holding at destination" if order=="move" else "Holding at rally point"
+	elif order=="escort" and target.has("shipId") and _live(st,str(target.shipId)).is_empty():
+		accept_command(st,ship,"hold",{"x":float(ship.x),"y":float(ship.y)},true)
+		t.reasons[id]="Escort leader lost; holding position"
+	elif order=="attack":
+		var target_id: String=str(target.get("shipId",""))
+		var lost: bool=not target_id.is_empty() and _live(st,target_id).is_empty()
+		var latest: float=-INF
+		for value in ship.get("mountShotTimes",{}).values():latest=maxf(latest,float(value))
+		var since: float=float(t.orderTimes.get(id,st.time))
+		if lost or (float(st.time)-maxf(since,latest)>18.0):
+			if not target_id.is_empty():t.failures[id]=[target_id]
+			accept_command(st,ship,"engage",{},true)
+			t.reasons[id]="Attack complete; target unavailable" if lost else "Attack could not reach a firing lane; regrouping"
+
+static func _prune(t: Dictionary,live: Dictionary,now: float) -> void:
+	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety"]:
+		for id in t[key].keys():
+			if not live.has(id):t[key].erase(id)
+	for id in t.options.byId.keys():
+		if not live.has(id):t.options.byId.erase(id)
+	for side in t.memory:
+		for key in ["byId","reservations"]:
+			for id in t.memory[side].get(key,{}).keys():
+				if not live.has(id):t.memory[side][key].erase(id)
+	for key in t.predictions.keys():
+		if float(t.predictions[key].certificate.validUntil)<now-0.001:t.predictions.erase(key)
+	# Spent counters need only current live passes, never an ever-growing history.
+	var retained: Dictionary={}
+	for id in t.passes:
+		if not live.has(id):continue
+		for mount in t.mountCache.get(id,{}).get("mounts",[]):
+			var key: String=Fire.pass_key(id,str(mount.id),int(live[id].get("orderRevision",0)),str(t.passes[id].id))
+			if t.salvoSpent.has(key):retained[key]=t.salvoSpent[key]
+	t.salvoSpent=retained
+
+static func safety_check(st: Dictionary,ship: Dictionary) -> void:
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	var now: float=float(st.time)
+	var previous: Dictionary=t.safety.get(id,{})
+	var age: float=now-float(t.lastSafety.get(id,0.0))
+	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-0.01)
+	if age<0.1-0.000001 and not abrupt and not previous.is_empty():return
+	var status: Dictionary=Damage.get_status(ship)
+	var opts: Dictionary=t.options.byId.get(id,defaults())
+	var doctrine: String=str(opts.doctrine)
+	var hp_limit: float=0.60 if doctrine=="cautious" else (0.30 if doctrine=="aggressive" else 0.45)
+	var flood_limit: float=0.30 if doctrine=="cautious" else (0.60 if doctrine=="aggressive" else 0.45)
+	var net: float=float(status.inflow)-float(status.bailing)
+	var sinking: bool=net>0.0 and (float(ship.capacity)-float(ship.water))/net<8.0
+	var danger: bool=float(ship.hp)/maxf(1.0,float(ship.maxHp))<=hp_limit or float(ship.water)/maxf(1.0,float(ship.capacity))>=flood_limit or float(ship.fire)>=25.0 or sinking
+	var allowed: bool=str(ship.get("order","engage"))=="engage" or bool(opts.conditionalWithdrawal)
+	t.safety[id]={"checkedAt":now,"hp":float(ship.hp),"crew":float(ship.crew),"engine":float(ship.engine),"water":float(ship.water),"netFlood":net,"danger":danger,"withdraw":danger and allowed,"speedFactor":float(status.speedFactor)}
+	t.lastSafety[id]=now;t.metrics.safetyAges.append(age)
+	t.counters.oldestSafetyAge=maxf(float(t.counters.oldestSafetyAge),age)
+	if age>0.1+0.000001:t.counters.lateSafety+=1
+	# This is an actual condition/authority reevaluation, separate from the fair
+	# physical-certification queue. It cannot invent an unchecked escape path.
+	if danger and allowed and id!=str(t.manualId) and not bool(previous.get("withdraw",false)):
+		t.intents.erase(id);t.certificationAttempts[id]=-2.0
+		if not t.pending.has(id):t.pending[id]=now
+		t.reasons[id]="Fire or flooding danger; seeking a safe local rally"
+
+static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
+	var t: Dictionary=ensure(st)
+	t.dt=dt;t.snapshotRevision+=1
+	t.metrics={"aiUs":0,"activeCount":0,"normalLimit":0,"decisionAges":[],"safetyAges":[],"certificateAges":[],"certificationAges":[],"certificationAttemptAges":[],"orderApplyAges":[],"pendingAges":[],"droppedDecisions":0}
+	t.budget={"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":2900}
+	t.geometry=Routes.terrain(st)
+	t.ships={};t.observed={}
+	for ship in st.ships:
+		if ship.sunk or ship.get("captureSecured",false):continue
+		var id: String=str(ship.id)
+		t.ships[id]=ship
+		_order_lifetime(st,ship)
+		t.observed[id]=_observed(ship,t.mountCache[id].mounts)
+	_prune(t,t.ships,float(st.time))
+	t.cells=Routes.grid(t.observed.values())
+	var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
+	var new_manual_id: String=str(st.get("playerId","")) if manual else ""
+	if new_manual_id!=str(t.manualId):
+		if not str(t.manualId).is_empty():t.certificationAttempts[t.manualId]=-2.0
+		if not new_manual_id.is_empty():t.intents.erase(new_manual_id)
+		t.manualId=new_manual_id
+	for ship in t.ships.values():safety_check(st,ship)
+	var queued: Array=t.ships.keys()
+	# Failed or completed REAL attempts rotate to the back. Budget-only deferral
+	# does not impersonate certification. Old pending/expired attempts across BOTH
+	# sides go first; planner age breaks untouched/pending ties without ID lockout.
+	queued.sort_custom(func(a,b):
+		var aa: float=float(t.certificationAttempts.get(a,-1.0))
+		var bb: float=float(t.certificationAttempts.get(b,-1.0))
+		if aa!=bb:return aa<bb
+		var ap: float=float(t.lastDecision.get(a,0.0))
+		var bp: float=float(t.lastDecision.get(b,0.0))
+		return ap<bp if ap!=bp else str(a)<str(b))
+	var cap: int=maxi(1,ceili(float(queued.size())/6.0))
+	t.metrics.activeCount=queued.size();t.metrics.normalLimit=cap
+	var due: Array=[]
+	for id in queued:
+		if id==t.manualId:continue
+		var certified_age: float=float(st.time)-float(t.lastCertified.get(id,0.0))
+		t.metrics.certificationAges.append(certified_age)
+		if due.size()<cap:due.append(id)
+	var snapshots: Dictionary={}
+	var copies: Dictionary={}
+	var proposed: Dictionary={}
+	var offers: Dictionary={"player":[],"enemy":[]}
+	# Snapshot and propose both sides BEFORE certification spends the shared pool.
+	for side in ["player","enemy"]:
+		var side_due: Array=[]
+		for id in due:
+			if t.ships[id].team==side:side_due.append(id)
+		if side_due.is_empty():continue
+		var snapshot: Dictionary=view(st,side,side_due)
+		snapshots[side]=snapshot
+		for ship in snapshot.ships:
+			if ship.team==side:copies[str(ship.id)]=ship
+		var candidates: Array=Planner.propose(snapshot,t.memory[side].duplicate(true))
+		for raw in candidates:
+			if not raw is Dictionary:continue
+			var id: String=str(raw.get("shipId",""))
+			if not id in side_due:continue
+			if not proposed.has(id):proposed[id]=[]
+			if proposed[id].size()<8:proposed[id].append(raw)
+	# Actual physical work follows GLOBAL fair order, never player-first batches.
+	for id in due:
+		var ship: Dictionary=copies[id]
+		var side: String=str(ship.team)
+		var snapshot: Dictionary=snapshots[side]
+		var real_attempt: bool=false
+		for raw in proposed.get(id,[]):
+			if not Certification.candidate_valid(raw,snapshot,ship) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
+			var refined: Dictionary=Routes.refine(st,t.geometry,ship,raw,t.budget)
+			var candidate: Dictionary=refined.candidate
+			var fingerprint: String=Planner.fingerprint(candidate)
+			var cert: Dictionary=Certification.base_certificate(snapshot,ship,candidate,fingerprint)
+			if refined.status=="valid":cert=Certification.certify(st,snapshot,ship,candidate,fingerprint,t.budget)
+			else:
+				cert.status=refined.status
+				cert.reason="Checking a route around land" if refined.status=="pending" else "No clear route to this station"
+			if cert.status=="blocked" or int(cert.rolloutSamples)>0:real_attempt=true
+			offers[side].append({"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)})
+			t.reasons[id]=str(cert.reason)
+			if cert.status=="valid":break
+		if real_attempt or proposed.get(id,[]).is_empty():
+			t.metrics.certificationAttemptAges.append(maxf(0.0,float(st.time)-maxf(0.0,float(t.certificationAttempts.get(id,0.0)))))
+			t.certificationAttempts[id]=float(st.time)
+	# Alternate resolution priority too: reservation accounting has the same cap.
+	var side_order: Array=["player","enemy"] if int(t.snapshotRevision)%2==1 else ["enemy","player"]
+	for side in side_order:
+		if not snapshots.has(side):continue
+		var snapshot: Dictionary=snapshots[side]
+		snapshot.options.clearanceRemaining=maxi(0,int(t.budget.clearanceLimit)-int(t.budget.clearanceTests))
+		var resolved: Dictionary=Planner.resolve(snapshot,t.memory[side].duplicate(true),offers[side])
+		var spent: int=int(resolved.get("counters",{}).get("clearanceTests",0))
+		if spent<0 or spent>int(snapshot.options.clearanceRemaining):
+			t.counters.rejectedIntents+=1;continue
+		t.budget.clearanceTests+=spent
+		_publish(st,snapshot,resolved,offers[side])
+		for id in snapshot.dueIds:
+			var previous_time: float=float(t.lastDecision.get(id,0.0))
+			if previous_time<0.0:previous_time=float(t.orderTimes.get(id,st.time))
+			var age: float=float(st.time)-previous_time
+			t.metrics.decisionAges.append(age)
+			t.counters.oldestDecisionAge=maxf(float(t.counters.oldestDecisionAge),age)
+			if age>0.2+0.000001:t.counters.lateDecisions+=1
+			t.lastDecision[id]=float(st.time);t.counters.decisions+=1
+			var intent: Dictionary=t.intents.get(id,{})
+			if not intent.is_empty() and int(intent.get("snapshotRevision",-1))==int(t.snapshotRevision) and Certification.current(st,t.ships[id],intent).ok:
+				t.lastCertified[id]=float(st.time);t.pending.erase(id)
+			elif not t.pending.has(id):t.pending[id]=float(st.time)
+	for id in t.pending:
+		var age: float=float(st.time)-float(t.pending[id])
+		t.metrics.pendingAges.append(age)
+		t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
+	t.budget.clearanceLimit=4096 # Reserved current helm/fire legality work.
+
+static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,offers: Array) -> void:
+	var t: Dictionary=st.tactical
+	var side: String=str(snapshot.side)
+	var accepted: Dictionary={}
+	var offered: Dictionary={}
+	if not resolved.get("byId",{}) is Dictionary:return
+	for offer in offers:
+		if offer.certificate.status=="valid":offered[str(offer.candidate.candidateId)]=offer
+	for id in resolved.get("byId",{}):
+		var intent=resolved.byId[id]
+		if not id in snapshot.dueIds or not t.ships.has(id) or not intent is Dictionary:continue
+		var offer: Dictionary=offered.get(str(intent.get("candidateId","")),{})
+		if offer.is_empty():
+			if str(intent.get("phase",""))=="pending" and str(intent.get("reason","")).length()<=128:t.reasons[id]=str(intent.reason)
+			else:t.counters.rejectedIntents+=1
+			continue
+		var candidate: Dictionary=offer.candidate
+		var cert: Dictionary=offer.certificate
+		if str(candidate.shipId)!=str(id) or str(intent.get("pathFingerprint",""))!=Planner.fingerprint(candidate) or str(intent.get("pathFingerprint",""))!=str(cert.pathFingerprint) or int(intent.get("snapshotRevision",-1))!=int(snapshot.snapshotRevision) or int(intent.get("orderRevision",-1))!=int(t.ships[id].get("orderRevision",0)):t.counters.rejectedIntents+=1;continue
+		if not intent.get("waypoints",[]) is Array or not intent.get("exit",[]) is Array or intent.waypoints.size()+intent.exit.size()>24:continue
+		var combined: Array=intent.waypoints.duplicate();combined.append_array(intent.exit)
+		if combined!=Certification.paths(candidate) or str(intent.get("targetId",""))!=str(candidate.targetId) or str(intent.get("leaderId",""))!=str(candidate.leaderId) or str(intent.get("role",""))!=str(candidate.role) or int(intent.get("sector",-2))!=int(candidate.sector):t.counters.rejectedIntents+=1;continue
+		if not (intent.get("validUntil") is int or intent.get("validUntil") is float) or not is_finite(float(intent.validUntil)) or float(intent.validUntil)>float(cert.validUntil) or float(intent.validUntil)<float(st.time):continue
+		if str(intent.get("reason","")).length()>128 or not intent.get("fireGate",{}) is Dictionary:continue
+		var valid: bool=true
+		var installed: Array=[]
+		for mount in t.mountCache[id].mounts:installed.append(str(mount.id))
+		for mount_id in intent.get("fireGate",{}):
+			var gate=intent.fireGate[mount_id]
+			if not gate is Dictionary or not mount_id in installed or not gate.get("permit",false) is bool or not gate.get("shotLimit",0) is int or int(gate.get("shotLimit",0))<0 or str(gate.get("reason","")).length()>128 or str(gate.get("firingPassId","")).length()>128:valid=false;break
+			if bool(gate.get("permit",false)) and (not mount_id in candidate.fireMountIds or not mount_id in cert.fireWindow.mountIds or str(gate.get("targetId",""))!=str(candidate.targetId)):valid=false;break
+		if not valid:continue
+		accepted[id]=intent.duplicate(true)
+	for id in accepted:
+		t.intents[id]=accepted[id]
+		t.reasons[id]=str(accepted[id].get("reason","Following maneuver"))
+		Fire.accept_pass(st,t.ships[id],accepted[id])
+		t.trace.append({"time":float(st.time),"shipId":id,"order":str(t.ships[id].order),"phase":str(accepted[id].get("phase","")),"reason":t.reasons[id],"targetId":str(accepted[id].get("targetId",""))})
+		if t.trace.size()>512:t.trace.pop_front()
+	# dueIds alone can publish per-hull memory/reservations; non-due state stays.
+	var memory: Dictionary=resolved.get("memory",{})
+	for key in ["byId","reservations"]:
+		for id in snapshot.dueIds:
+			if not memory.get(key,{}) is Dictionary:continue
+			# Waiting observations/phase ages must survive a blocked route. They
+			# grant no helm/fire permission; only an accepted intent can reserve it.
+			if memory[key].has(id) and (key=="byId" or accepted.has(id)):
+				var count: Dictionary={"nodes":0}
+				if memory[key][id] is Dictionary and bounded_value(memory[key][id],count):t.memory[side][key][id]=memory[key][id].duplicate(true)
+			elif not memory[key].has(id):t.memory[side][key].erase(id)
+
+static func bounded_value(value: Variant,count: Dictionary,depth: int=0) -> bool:
+	count.nodes+=1
+	if depth>8 or int(count.nodes)>2048:return false
+	if value is Dictionary:
+		if value.size()>64:return false
+		for key in value:
+			if not key is String or key.length()>128 or not bounded_value(value[key],count,depth+1):return false
+		return true
+	if value is Array:
+		if value.size()>64:return false
+		for child in value:
+			if not bounded_value(child,count,depth+1):return false
+		return true
+	if value is Vector2:return value.is_finite()
+	if value is String:return value.length()<=256
+	if value is float:return is_finite(value)
+	return value==null or value is int or value is bool
+
+static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dictionary) -> bool:
+	var order: String=str(ship.get("order","engage"))
+	var target: Dictionary=ship.get("orderTarget",{})
+	var opts: Dictionary=snapshot.options.byId.get(str(ship.id),defaults())
+	var conditional: bool=bool(opts.conditionalWithdrawal)
+	if order in ["attack","board"] and target.has("shipId"):
+		if str(candidate.targetId)!=str(target.shipId) and not (conditional and candidate.fireMountIds.is_empty()):return false
+	if order=="escort" and target.has("shipId") and str(candidate.leaderId)!=str(target.shipId) and str(target.shipId)!=str(ship.id):return false
+	if order in ["move","hold","withdraw"] and not conditional:
+		var goal: Dictionary=opts.rally if order=="withdraw" else target
+		if goal.has("x") and (candidate.approach.is_empty() or candidate.approach[-1].distance_to(Vector2(goal.x,goal.y))>0.000001):return false
+	return true
+
+static func helm(st: Dictionary,ship: Dictionary) -> Dictionary:
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	var intent: Dictionary=t.intents.get(id,{})
+	var current: Dictionary=Certification.current(st,ship,intent)
+	if not t.get("appliedRevisions") is Dictionary:t.appliedRevisions={}
+	if int(t.appliedRevisions.get(id,-1))!=int(ship.get("orderRevision",0)):
+		t.metrics.orderApplyAges.append(maxf(0.0,float(st.time)-float(t.orderTimes.get(id,st.time))))
+		t.appliedRevisions[id]=int(ship.get("orderRevision",0))
+	if not current.ok:
+		if not t.pending.has(id):t.pending[id]=float(st.time)
+		if not intent.is_empty() or not t.reasons.has(id):t.reasons[id]=str(current.reason)
+		return Certification.brake(st,ship,t.budget,str(t.reasons[id]))
+	var target_id: String=str(intent.get("targetId",""))
+	var target: Dictionary=t.observed.get(target_id,{})
+	if not target_id.is_empty() and (target.is_empty() or target.team==ship.team):
+		t.intents.erase(id);t.lastDecision[id]=-1.0
+		return Certification.brake(st,ship,t.budget,"Target unavailable; reassessing")
+	var record: Dictionary=current.record
+	t.metrics.certificateAges.append(maxf(0.0,float(st.time)-float(record.certificate.checkedAt)))
+	var control: Dictionary=Certification.steering(ship,Certification.execution(record.candidate),int(record.get("index",0)),target,t.mountCache[id].mounts)
+	record.index=int(control.index)
+	var safe: Dictionary=Certification.safe_step(st,ship,control,t.budget)
+	if safe.get("blocked",false):
+		t.reasons[id]=str(safe.reason);t.intents.erase(id)
+		if not t.pending.has(id):t.pending[id]=float(st.time)
+	return safe
+
+static func finish(st: Dictionary,ai_us: int) -> void:
+	var t: Dictionary=st.tactical
+	t.metrics.aiUs=ai_us
+	t.metrics.work={}
+	for key in ["fullRoutes","cacheHits","rollouts","samples","clearanceTests","exhaustions"]:t.metrics.work[key]=int(t.budget[key])
+	t.metrics.work.cacheEntries=t.routeCache.size()
+	for id in t.ships:
+		var ship: Dictionary=t.ships[id]
+		var intent: Dictionary=t.intents.get(id,{})
+		t.trace.append({"sim_time":float(st.time),"hull_uid":str(ship.get("uid",id)),"shipId":id,"encounter_id":str(st.get("mission",{}).get("id","")),"party":str(ship.team),"order":str(ship.order),"intent_reason":str(t.reasons.get(id,"Checking a safe maneuver")),"observed_target":str(intent.get("targetId","")),"role":str(intent.get("role","")),"station":int(intent.get("sector",-1)),"approach_path":intent.get("waypoints",[]).duplicate(),"exit_path":intent.get("exit",[]).duplicate(),"weapon_opportunity":ship.get("mountShotTimes",{}).duplicate(true),"withheld_reason":t.fireReasons.get(id,{}).duplicate(true),"withdrawal_reason":str(t.reasons.get(id,"")) if str(intent.get("phase","")) in ["withdraw","breakaway","regroup","turn-away"] else "","condition":{"hp":float(ship.hp),"water":float(ship.water),"fire":float(ship.fire),"engine":float(ship.engine)},"stores":{"fuel":float(ship.fuel),"ammo":float(ship.ammo),"supplies":float(ship.supplies)},"objective_state":st.get("mission",{}).get("status","")})
+		if t.trace.size()>512:t.trace.pop_front()
+
+static func after_motion(st: Dictionary) -> void:
+	# All real helm movement publishes before ANY automatic fire target lookup.
+	st.tactical.cells=Routes.grid(st.tactical.ships.values())
+
+static func fire_gates(st: Dictionary,ship: Dictionary) -> Dictionary:
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	var intent: Dictionary=t.intents.get(id,{})
+	var out: Dictionary={}
+	t.fireReasons[id]={}
+	if not Certification.current(st,ship,intent,float(t.dt)).ok:
+		for mount in t.mountCache[id].mounts:t.fireReasons[id][str(mount.id)]="Checking the firing maneuver"
+		return out
+	var mounts: Array=t.mountCache[id].mounts
+	for index in range(mounts.size()):
+		var mount: Dictionary=mounts[index]
+		var target_id: String=str(intent.get("fireGate",{}).get(str(mount.id),{}).get("targetId",""))
+		var target: Dictionary=t.ships.get(target_id,{})
+		var result: Dictionary=Fire.gate(st,ship,mount,index,intent,t.options.byId.get(id,defaults()),target,t.budget)
+		t.fireReasons[id][str(mount.id)]=str(result.reason)
+		if result.ok:result.target=target;out[str(mount.id)]=result
+	return out
+
+static func status(st: Dictionary,id: String) -> Dictionary:
+	var t: Dictionary=ensure(st)
+	var ship: Dictionary=_live(st,id)
+	if ship.is_empty() or ship.team!="player":return {}
+	var intent: Dictionary=t.intents.get(id,{})
+	var manual: bool=id==str(st.get("playerId","")) and (not st.get("autopilot",true) or id==str(t.manualId))
+	var paths: Array=[]
+	var exits: Array=[]
+	var reason: String=str(t.reasons.get(id,"Choosing a safe maneuver"))
+	if not manual and not intent.is_empty():
+		var checked: Dictionary=Certification.current(st,ship,intent,float(t.dt))
+		if checked.ok:paths=intent.get("waypoints",[]).duplicate();exits=intent.get("exit",[]).duplicate()
+		else:reason=str(checked.reason)
+	var target: Dictionary=_live(st,str(intent.get("targetId","")))
+	var weapons: Dictionary=t.fireReasons.get(id,{}).duplicate(true)
+	var mounts: Array=t.mountCache.get(id,{}).get("mounts",[])
+	for index in range(mounts.size()):
+		var mount: Dictionary=mounts[index]
+		var mount_id: String=str(mount.id)
+		if manual:
+			weapons[mount_id]="Out of ammunition" if float(ship.ammo)<float(mount.ammoCost) else ("Reloading" if index<ship.weaponCooldowns.size() and float(ship.weaponCooldowns[index])>0.0 else "Manual aim and trigger")
+		else:weapons[mount_id]=player_reason(str(weapons.get(mount_id,"Waiting for a firing opportunity")))
+	return {"order":str(ship.order),"reason":"Manual helm and fire; queued order suspended" if manual else player_reason(reason),"role":str(intent.get("role",t.options.byId.get(id,defaults()).role)),"phase":str(intent.get("phase","")),"targetName":str(target.get("name","")),"path":paths,"exit":exits,"weapons":weapons,"options":t.options.byId.get(id,defaults()).duplicate(true),"mounts":mounts.duplicate(true)}
+
+static func player_reason(value: String) -> String:
+	var lower: String=value.to_lower()
+	for word in ["revision","fingerprint","snapshot","certificate","sector","budget"]:
+		if word in lower:return "Holding while a safe approach is checked"
+	return value.replace("certified","clear").left(180)

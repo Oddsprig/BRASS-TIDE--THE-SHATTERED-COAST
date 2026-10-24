@@ -1,0 +1,28 @@
+{
+  "commit": "5c6a91acdba64e5625c626f5be9029710381d628",
+  "tree": "680f081eff4162d712c9810c30b78db148b679ca",
+  "base": "4f6cfa68ec69df808a1535f1dbee9b3962a37cfb",
+  "preserved_029": "ac01058855765abadcfab29934cdddfe30b4264a",
+  "preservation_ref": "ac01058855765abadcfab29934cdddfe30b4264a",
+  "changed_files": [
+    "REPORT-v030-tactics.txt",
+    "game/scripts/battle.gd",
+    "game/scripts/chart.gd",
+    "game/scripts/combat_boarding.gd",
+    "game/scripts/interface.gd",
+    "game/scripts/main.gd",
+    "game/scripts/tactical_certification.gd",
+    "game/scripts/tactical_fire_control.gd",
+    "game/scripts/tactical_routes.gd",
+    "game/scripts/tactical_runtime.gd",
+    "game/scripts/tactics_ui.gd",
+    "qa/v030-tactics/SCHEMA AND HANDOFF.txt",
+    "qa/v030-tactics/check_static.py",
+    "qa/v030-tactics/static-source.json"
+  ],
+  "source_manifest": "qa/v030-tactics/static-source.json",
+  "manifest_sha256": "b6db9fc598bff31917ede92dc3a00d7916427d4f2cb72b1cf165583c5112331f",
+  "working_status": "?? .bigbridge/",
+  "engine_work": "NOT RUN; C keeps sole lease",
+  "source_frozen": true
+}

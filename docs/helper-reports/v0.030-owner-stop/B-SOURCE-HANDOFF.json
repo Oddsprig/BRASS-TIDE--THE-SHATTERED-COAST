@@ -1,0 +1,118 @@
+{
+  "kind": "Brass Tide helper B .030 source-only owner-stop handoff",
+  "created_utc": "20261024T012208Z",
+  "version_scope": "0.030 ONLY",
+  "status": "UNTESTED; tests deferred at owner request",
+  "owner_steering": [
+    "finish ur current build version and stop please",
+    "no tests please - we have a lot running right now need to queue tests on projects."
+  ],
+  "frozen_predecessor_commit": "5c6a91acdba64e5625c626f5be9029710381d628",
+  "followup": "Existing two-file explicit pending/blocked provenance followup; source unchanged during stop turn.",
+  "source_identity": "All ten production files match saved followup-source.json bytes/SHA256.",
+  "files": {
+    "game/scripts/battle.gd": {
+      "bytes": 30458,
+      "sha256": "1851204228eabca9da52b44d88d19432f9a8cac35e3e076f39acdd4447f3f5bb"
+    },
+    "game/scripts/chart.gd": {
+      "bytes": 38974,
+      "sha256": "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5"
+    },
+    "game/scripts/combat_boarding.gd": {
+      "bytes": 6714,
+      "sha256": "1b49027ef789498252ead927b9b2b54f64bd65c445c937b9acdb8a5a7a4a1fdf"
+    },
+    "game/scripts/interface.gd": {
+      "bytes": 47566,
+      "sha256": "33453db3e72c19320b3c9dd58aef957e40330ff0c0ecf1f5fa91a92e5650c57f"
+    },
+    "game/scripts/main.gd": {
+      "bytes": 32885,
+      "sha256": "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe"
+    },
+    "game/scripts/tactical_certification.gd": {
+      "bytes": 14922,
+      "sha256": "b779dde6c1ad714fe2800961104e38c78a463304abfd2e42f9aeb15864896645"
+    },
+    "game/scripts/tactical_fire_control.gd": {
+      "bytes": 10802,
+      "sha256": "c2b24ad1b0962b026c6e45a8e3e055c077c1402f3d36808734e237241be39b02"
+    },
+    "game/scripts/tactical_routes.gd": {
+      "bytes": 8781,
+      "sha256": "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2"
+    },
+    "game/scripts/tactical_runtime.gd": {
+      "bytes": 34562,
+      "sha256": "44dce667ec26b3d2fa3636c0926777ad4cae207d4f9312b0acb884721ecc2572"
+    },
+    "game/scripts/tactics_ui.gd": {
+      "bytes": 11423,
+      "sha256": "51515fe8f40d064bcfa322ebeaab30ad5e212b8ae9142aeb171e5e5b80e5fba5"
+    },
+    "REPORT-v030-tactics.txt": {
+      "bytes": 4303,
+      "sha256": "e89091a88b0a43880900d3da83f7e3fbc9897db8379ef8cbcf30f1744bc7420e"
+    },
+    "REPORT-v030-tactics-followup.txt": {
+      "bytes": 2004,
+      "sha256": "ed9412d78982dcdb91c8626f67562f180cb9815f3520a6fcf38c55f6ba4ae42d"
+    },
+    "qa/v030-tactics/SCHEMA AND HANDOFF.txt": {
+      "bytes": 10675,
+      "sha256": "6b0c7a3eabb6e3e1e31d6b8f44720262d1802421b7273fa4b8b0c2174203143d"
+    },
+    "qa/v030-tactics/static-source.json": {
+      "bytes": 2517,
+      "sha256": "b6db9fc598bff31917ede92dc3a00d7916427d4f2cb72b1cf165583c5112331f"
+    },
+    "qa/v030-tactics/followup-source.json": {
+      "bytes": 2900,
+      "sha256": "ee13f0193724b0e25cd3648c4f7745191ac83c37b4071923975d91af1cdb23f9"
+    },
+    "qa/v030-tactics/final-git-receipt.json": {
+      "bytes": 1129,
+      "sha256": "bc8536c20b64165e52f9e5dee8201b6740f2e57f4910029bb1c36f465d1ad20d"
+    }
+  },
+  "worktree_git": {
+    "readable_by_git": false,
+    "issue": "git status/log: not a git repository at recorded worktree gitdir",
+    "head_bytes": 41,
+    "head_all_zero_bytes": true,
+    "metadata_repaired": false
+  },
+  "owned_active_test_pids": [],
+  "pids_killed": [],
+  "process_snapshot": "No Godot or Brass Tide test/benchmark Python runners present at initial stop inventory.",
+  "work_executed_this_turn": [
+    "Read-only process inventory and source/history reads",
+    "Exact saved-source hashing and source-only ZIP packaging"
+  ],
+  "not_executed_this_turn": [
+    "tests",
+    "benchmarks",
+    "import validation",
+    "GDScript parsing",
+    "compiler/export",
+    "game/smoke/UI/motion/CPU runs"
+  ],
+  "deferred": [
+    "All .030 compilation/native regression/functional/behavior/motion/CPU acceptance",
+    "Root integration and final combined candidate/package"
+  ],
+  "dependencies": [
+    "A-owned tactical_planner.gd",
+    "A-owned tactical_role_plans.gd",
+    "A-owned tactical_stations.gd",
+    "No new B .uid companions generated"
+  ],
+  "excluded": [
+    "Untracked draft qa/v030-tactics/check_clearance_pending.gd: preserved in worktree, never executed by B",
+    "All original saves/settings/music/releases",
+    "Sibling and root source changes"
+  ],
+  "future_work": ".031-.038 STOPPED; no future design or implementation begun in this turn",
+  "next_owner": "Codex root coordinates combined .030 candidate packaging; B stops after this handoff."
+}

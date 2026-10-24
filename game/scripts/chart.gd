@@ -306,6 +306,14 @@ func _selected_battle_ids(battle: Dictionary) -> Array:
 	return out
 
 func _draw_order_indicator(battle: Dictionary, boat: Dictionary):
+	var intent: Dictionary=host.Battle.tactical_status(battle,str(boat.id))
+	var path: Array=intent.get("path",[])
+	if not path.is_empty():
+		var previous: Vector2=Vector2(boat.x,boat.y)
+		for next in path:
+			if next is Vector2:draw_line(project(previous),project(next),Color(GOLD,0.68),1.5,true);previous=next
+		for next in intent.get("exit",[]):
+			if next is Vector2:draw_dashed_line(project(previous),project(next),Color(FRIEND,0.35),1.2,5.0,true);previous=next
 	var order: String = str(boat.get("order", "engage"))
 	var target_data: Dictionary = boat.get("orderTarget", {})
 	var target = Vector2.INF
@@ -319,7 +327,7 @@ func _draw_order_indicator(battle: Dictionary, boat: Dictionary):
 	if target == Vector2.INF:
 		return
 	var color = ENEMY if order == "attack" else FRIEND if order == "escort" else GOLD
-	draw_dashed_line(project(Vector2(boat.x, boat.y)), project(target), Color(color, 0.55), 1.2, 5.0, true)
+	# Destination marks are orders, never an invented straight navigable path.
 	var point = project(target)
 	draw_line(point-Vector2(6,6), point+Vector2(6,6), Color(color,0.9),1.4,true)
 	draw_line(point+Vector2(6,-6), point+Vector2(-6,6), Color(color,0.9),1.4,true)

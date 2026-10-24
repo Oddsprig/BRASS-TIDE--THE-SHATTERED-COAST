@@ -1,0 +1,62 @@
+{
+  "source_commit": "3eb5e941f3445199e66f36a2152629c019cebc9a",
+  "source_tree": "17912553ec3baa5215c5c1f8779022f682c09d0e",
+  "engine": "C:\\Users\\bligh\\Documents\\Codex\\2026-09-25\\we-x20\\work\\engine\\Godot_v4.7.2-stable_win64_console.exe",
+  "engine_sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+  "suites": [
+    "tactical_planner"
+  ],
+  "wrapper_sha256": "12917088a3b8b17c044caca2df6a798efc6dd5777390225a4a44e12bb34d7549",
+  "checker_sha256": "69c49f51d7680257ba44f91f8241695af780d001e2c4f71684148b85345f7d67",
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-09-25\\we-x20\\work\\engine\\Godot_v4.7.2-stable_win64_console.exe",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--path",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\series-v029-v038\\verification\\game",
+        "--script",
+        "res://tests/test_tactical_planner.gd"
+      ],
+      "timeout": 60,
+      "appdata": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\series-v029-v038\\verification\\qa\\v030-native\\planner-component-01\\appdata"
+    }
+  ],
+  "owned_processes": [
+    {
+      "pid": 99744,
+      "command": [
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-09-25\\we-x20\\work\\engine\\Godot_v4.7.2-stable_win64_console.exe",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--path",
+        "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\series-v029-v038\\verification\\game",
+        "--script",
+        "res://tests/test_tactical_planner.gd"
+      ],
+      "returncode": 1,
+      "stopped": true
+    }
+  ],
+  "started_utc": "2026-10-23T22:30:21Z",
+  "pure_planner_dependency_sha256": {
+    "game\\scripts\\tactical_planner.gd": "1bcb3c3b1a24bcfbdbf434dde8e40778055cf77b5a9eb3e87c2603868fd40cd0",
+    "game\\scripts\\tactical_planner.gd.uid": "2546c7911d5645381c47cfac0f2164e7b7982568ec3ccdf02218e03bb3ba2039",
+    "game\\scripts\\tactical_role_plans.gd": "00d1b6641effaf73900d8bce0e1f009566ee7f10144c49f1e0f146010cb6eccb",
+    "game\\scripts\\tactical_role_plans.gd.uid": "5e3eb2eb9482dc568730599932d46911bfce6da4ac047a7575d39ae53e26ad7e",
+    "game\\scripts\\tactical_stations.gd": "79fda6d4d20fdb1e3d79b90920d1c1ef3b761836c9cfaca01a8e525d9404c9fc",
+    "game\\scripts\\tactical_stations.gd.uid": "8e5d3b891150345c0dfba7877094b799f8a78473d6dd76e8614c7fd78b7751fb",
+    "game\\tests\\test_tactical_planner.gd": "42f51edabac2e413d8b1d278dbd8195f61f986605ee5deed9f62cf3862f69116",
+    "game\\tests\\test_tactical_planner.gd.uid": "da3e69047c6e051f58058d14b0b75ff36aedb23285b01d2a9f346439f0d46806"
+  },
+  "result": "FAIL",
+  "import_eol_restorations": [],
+  "elapsed_seconds": 112.51600000000326,
+  "logs_sha256": {
+    "tactical_planner.log": "54512a2878aa7bc3b6a68f8a6d50f481e4383ac9b3f98546573b1b0daf43e48d"
+  },
+  "ended_utc": "2026-10-23T22:32:14Z"
+}

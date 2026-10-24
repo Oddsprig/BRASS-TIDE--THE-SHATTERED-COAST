@@ -1,0 +1,63 @@
+# Frozen .030 owner-stop handoff: preserve exact source and raw-proof bytes.
+# Scoped to this candidate; no global Git/settings change.
+".gitattributes" -text
+"AGENTS.md" -text
+"BUILD PLAN.txt" -text
+"BUILD STATUS.txt" -text
+"CHANGES v0.030.md" -text
+"CODE MAP.md" -text
+"DEV LOG.txt" -text
+"docs/BUILD AND TEST.md" -text
+"docs/CAPTAINS CAMPAIGN GUIDE.txt" -text
+"docs/DEFERRED TEST QUEUE v0.030.txt" -text
+"docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt" -text
+"docs/helper-reports/v0.030-owner-stop/A-component-manifest.json" -text
+"docs/helper-reports/v0.030-owner-stop/A-FINAL PACKAGE.json" -text
+"docs/helper-reports/v0.030-owner-stop/A-screen-priority-over-f008525.diff" -text
+"docs/helper-reports/v0.030-owner-stop/B-final-git-receipt.json" -text
+"docs/helper-reports/v0.030-owner-stop/B-followup-source.json" -text
+"docs/helper-reports/v0.030-owner-stop/B-OWNER-STOP.txt" -text
+"docs/helper-reports/v0.030-owner-stop/B-PACKAGE-RECEIPT.json" -text
+"docs/helper-reports/v0.030-owner-stop/B-SCHEMA AND HANDOFF.txt" -text
+"docs/helper-reports/v0.030-owner-stop/B-SOURCE-HANDOFF.json" -text
+"docs/helper-reports/v0.030-owner-stop/B-static-source.json" -text
+"docs/helper-reports/v0.030-owner-stop/C-prior-receipt.json" -text
+"docs/helper-reports/v0.030-owner-stop/C-prior-tactical_planner.log" -text
+"docs/helper-reports/v030-planner.txt" -text
+"docs/helper-reports/v030-tactics.txt" -text
+"docs/helper-reports/v030-tactics-followup.txt" -text
+"docs/SOURCE INTEGRATION v0.030.txt" -text
+"docs/SOURCE MANIFEST v0.030.json" -text
+"docs/TEST RESULTS v0.030.md" -text
+"docs/VERIFICATION INDEX.txt" -text
+"game/data/DEVELOPER NOTES.txt" -text
+"game/data/world.json" -text
+"game/export_presets.cfg" -text
+"game/project.godot" -text
+"game/scripts/battle.gd" -text
+"game/scripts/chart.gd" -text
+"game/scripts/combat_boarding.gd" -text
+"game/scripts/interface.gd" -text
+"game/scripts/main.gd" -text
+"game/scripts/tactical_certification.gd" -text
+"game/scripts/tactical_fire_control.gd" -text
+"game/scripts/tactical_planner.gd" -text
+"game/scripts/tactical_planner.gd.uid" -text
+"game/scripts/tactical_role_plans.gd" -text
+"game/scripts/tactical_role_plans.gd.uid" -text
+"game/scripts/tactical_routes.gd" -text
+"game/scripts/tactical_runtime.gd" -text
+"game/scripts/tactical_stations.gd" -text
+"game/scripts/tactical_stations.gd.uid" -text
+"game/scripts/tactics_ui.gd" -text
+"game/scripts/version.gd" -text
+"game/tests/test_tactical_planner.gd" -text
+"game/tests/test_tactical_planner.gd.uid" -text
+"HANDOFF.md" -text
+"maps/tactical.txt" -text
+"README.md" -text
+"ROADMAP.md" -text
+"START HERE.txt" -text
+"TO BE TESTED.md" -text
+"VERSION MAP.txt" -text
+"VERSIONS.md" -text

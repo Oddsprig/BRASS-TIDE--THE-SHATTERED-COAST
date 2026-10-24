@@ -1,31 +1,16 @@
-BRASS TIDE: THE SHATTER COAST — CURRENT SOURCE v0.028
-23 October 2026 | Workspace consolidated; gameplay unchanged
+BRASS TIDE - CURRENT SOURCE v0.030, UNTESTED
+Tests deferred AT OWNER REQUEST. Finish Windows BUILD ONLY, then STOP.
+.031-.038 STOPPED. No tests, smokes, parser validation or game launches.
 
-This is the authoritative editable Git repository. Play the separate portable
-Windows release in ../Brass Tide v0.028/ or use the existing desktop Brass Tide icon.
-The exact v0.028 game commit is 2b11d4d1af69b62a2f8436bcdee4a5675432bd98.
+AGENTS.md / HANDOFF.md: current owner override and frozen source context.
+BUILD STATUS.txt: source/build distinction; root owns final Windows packaging.
+docs/SOURCE INTEGRATION v0.030.txt + SOURCE MANIFEST v0.030.json: exact provenance.
+docs/DEFERRED TEST QUEUE v0.030.txt: explicit deferred work; no automatic jobs.
+CODE MAP.md + maps/tactical.txt: current tactical source locations.
+docs/CAPTAINS CAMPAIGN GUIDE.txt: current source controls, marked untested.
+CHANGES v0.030.md + game/data/DEVELOPER NOTES.txt: current source notes.
 
-READ TO RESUME
-AGENTS.md                 Current owner constraints and development rules.
-HANDOFF.md                Current baseline, next scope and unresolved limits.
-CODE MAP.md + maps/        Functional file map and generated symbols/inventory.
-docs/VERIFICATION INDEX.txt  Accepted tests/evidence and when to rerun.
-docs/DEVELOPER LESSONS.txt   Prior failures, fixes and accounting invariants.
-ROADMAP.md + VERSION MAP.txt  Next ten PLANNED versions (.029-.038).
-
-FOLDERS
-game/     Native Godot project, assets, canonical world data and 66 test suites.
-tools/    Current native test, preview, build, release, map and music tools.
-music/    Owner-supplied music with provenance/manifest; preserve.
-docs/     Current system guides, evidence, credits/legal/audio and future plans.
-briefs/   Current finite-economy, native-module and save-validation contracts.
-maps/     Short system maps; regenerate with tools/update_maps.py.
-
-Scratch and retained logs are ../../work/; recovery archives are ../../archives/.
-Old helper/release checkouts and duplicate test output were retired. The historical
-JavaScript prototype and generator are archived; game/data/world.json is native
-authority. Do not recreate current data by running the old prototype generator.
-
-Current changes: CHANGES v0.028.md. Delivery: BUILD STATUS.txt and the portable
-RELEASE.json/receipts. Cleanup details: docs/WORKSPACE MAINTENANCE.txt and
-ARCHIVE INDEX.txt. This documentation cleanup creates no new playable version.
+The previous verified delivered game is v0.029, exact game tag
+44e2a46b55bd56b52998eeb1d4cdc681c5091482. Its historical receipts are separate
+from this untested source. Do not overwrite any older release or original
+save/settings/music. Root will hand back the concrete .030 build-only package.

@@ -1,17 +1,29 @@
-# Brass Tide — current working rules
+# Brass Tide - current owner stop instructions
 
-Authoritative source is this Git repository. Delivered game is **v0.029**, 24 original
-hulls; exact game tag commit `44e2a46b55bd56b52998eeb1d4cdc681c5091482`. All70 native
-suites and separate clean-tag Windows/menu/save/battle/archive/launcher checks passed.
-See docs/ROOT REVIEW v0.029.txt and docs/ROOT DELIVERY REVIEW v0.029.json.
-The owner authorized all ten .029–.038 builds sequentially on23October2026.
-Current milestone is **.030 tactical AI**; A/B implementation uses accepted4f6cfa6
-base in isolated Bridge worktrees. Later .031–.038 remain authorized and unfinished.
-Codex coordinates; majority implementation goes to up to THREE Sol6.1 MAX helpers
-THROUGH BRIDGE, ChatGPT plan. No native/nested helpers or model substitutions.
-Read briefs/V0.029-V0.038 TEAM CONTRACT.txt and briefs/TACTICAL CONTRACT v0.030.txt.
-Use accepted r2 budgets, not the conflicting raw r1/proposal. No benchmark hull cap.
+Current source build is **v0.030, UNTESTED**. Tests are deferred **AT OWNER REQUEST**.
+Finish this Windows BUILD ONLY and STOP. These latest owner instructions override
+all older QA, release-gate, roadmap and delegation language below: no tests,
+benchmarks, smokes, parser validation, game/UI/motion launches or extra helpers.
+Only root's required compiler/asset import/export/archive/launcher packaging is
+allowed. Root owns merge, annotated tag and final build-only Windows packaging.
+**.031-.038 are STOPPED**; do not continue future design or implementation.
 
+This candidate descends root c90438a and integrates exact A FINAL corrected planner
+bytes plus B's physical ten-file owner-stop bundle. B Git metadata is not repaired.
+A's screen-priority correction is UNTESTED; its existing assertion is unchanged.
+The preserved earlier planner result was 350 checks, 1 failure. No integrated
+.030 pass or verified delivery is claimed. The previous verified delivered game
+is v0.029, 24 original hulls, immutable tag
+44e2a46b55bd56b52998eeb1d4cdc681c5091482. Its 70 native suites and separate delivery
+receipts remain historical .029 proof only. Original saves/settings/music/releases
+are protected. No owned test PIDs remain; no test lease or queued C test job.
+
+Read docs/DEFERRED TEST QUEUE v0.030.txt, docs/SOURCE INTEGRATION v0.030.txt and
+SOURCE MANIFEST v0.030.json. Partial C fixtures are preserved outside game/ under
+qa/v030-owner-stop/partial-fixtures, excluded from the frozen candidate. Do not
+call release_game.py or complete_campaign_delivery.py unchanged for this build.
+
+The following standing engineering rules remain subject to the owner stop above.
 Read HANDOFF.md, CODE MAP.md and the relevant generated system map. Read
 `docs/VERIFICATION INDEX.txt` before repeating checks and `docs/DEVELOPER LESSONS.txt`
 before changing accounting, saves, combat or navigation. Use targeted searches;

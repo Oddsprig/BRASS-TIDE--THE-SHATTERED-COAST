@@ -1,0 +1,55 @@
+{
+    "status":  "SOURCE-ONLY CANDIDATE - UNTESTED AFTER CORRECTION",
+    "version_scope":  "0.030 ONLY",
+    "base_commit":  "f008525d442e89ebfcc6d60466a8123838ca6dbc",
+    "created_utc":  "2026-10-24T01:22:41.2968954Z",
+    "owner_tests_deferred":  true,
+    "owned_active_test_pids":  [
+
+                               ],
+    "tests_launched_this_turn":  0,
+    "prior_native_result":  "350 checks, 1 failure; preserved unchanged; predates correction",
+    "changed_production":  [
+                               "game/scripts/tactical_planner.gd",
+                               "game/scripts/tactical_stations.gd"
+                           ],
+    "files":  {
+                  "game/scripts/tactical_planner.gd":  {
+                                                           "bytes":  18181,
+                                                           "sha256":  "ec8bba237422b5cc0007c5cb61090cf8c0e7fb2a8bdd032fbade268dc4ef4420"
+                                                       },
+                  "game/scripts/tactical_planner.gd.uid":  {
+                                                               "bytes":  21,
+                                                               "sha256":  "2546c7911d5645381c47cfac0f2164e7b7982568ec3ccdf02218e03bb3ba2039"
+                                                           },
+                  "game/scripts/tactical_role_plans.gd":  {
+                                                              "bytes":  24559,
+                                                              "sha256":  "00d1b6641effaf73900d8bce0e1f009566ee7f10144c49f1e0f146010cb6eccb"
+                                                          },
+                  "game/scripts/tactical_role_plans.gd.uid":  {
+                                                                  "bytes":  21,
+                                                                  "sha256":  "5e3eb2eb9482dc568730599932d46911bfce6da4ac047a7575d39ae53e26ad7e"
+                                                              },
+                  "game/scripts/tactical_stations.gd":  {
+                                                            "bytes":  18082,
+                                                            "sha256":  "c455b46759701c53e272cd294cd7b102bebe816afb42a398a4c35090cd97bc7d"
+                                                        },
+                  "game/scripts/tactical_stations.gd.uid":  {
+                                                                "bytes":  21,
+                                                                "sha256":  "8e5d3b891150345c0dfba7877094b799f8a78473d6dd76e8614c7fd78b7751fb"
+                                                            },
+                  "game/tests/test_tactical_planner.gd":  {
+                                                              "bytes":  24157,
+                                                              "sha256":  "42f51edabac2e413d8b1d278dbd8195f61f986605ee5deed9f62cf3862f69116"
+                                                          },
+                  "game/tests/test_tactical_planner.gd.uid":  {
+                                                                  "bytes":  21,
+                                                                  "sha256":  "da3e69047c6e051f58058d14b0b75ff36aedb23285b01d2a9f346439f0d46806"
+                                                              },
+                  "REPORT-v030-planner.txt":  {
+                                                  "bytes":  4363,
+                                                  "sha256":  "fd672dd914c84a9e6e8baa9550e6f9181e06932558020c88d57ed686062eae24"
+                                              }
+              },
+    "scope":  "Helper A planner component overlay; root owns combined version/package; not accepted or playable export"
+}

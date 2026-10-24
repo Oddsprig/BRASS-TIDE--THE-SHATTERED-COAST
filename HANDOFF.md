@@ -1,55 +1,40 @@
-# Current delivery and active implementation
+# v0.030 source candidate - UNTESTED; owner stop
 
-Brass Tide **v0.029** is delivered, with24 original hulls. Exact immutable game tag:
-`44e2a46b55bd56b52998eeb1d4cdc681c5091482`. Source and Windows archives, clean-tag
-menu/campaign-save/battle smokes, icon/PCK hashes and desktop launcher are verified.
-Root independently checked106 manifested files, both archives, actual shortcut
-readback and original/copied owner voyage identity. No foreground game test ran.
+Finish the current Windows BUILD ONLY, then STOP. Tests deferred **AT OWNER
+REQUEST**. No tests, benchmarks, smokes, parser validation or game/UI/motion
+launches. Root owns final merge, separate build-only exporter/verdict, annotated
+tag, required compiler/asset import/export, archives and launcher. .031-.038 are
+STOPPED. No extra helpers, fixture work or feature expansion.
 
-Current work is **v0.030 tactical AI**. The owner authorized all ten .029–.038
-increments; .031–.038 remain pending their accepted predecessors. Majority code
-work is delegated to the same three pinned Sol6.1 Max Bridge projects, no extras:
-A detached planner, B physical/runtime/controls integration, C independent fixtures,
-old-.029 CPU baseline and later integrated native/release checks. A/B verified the
-.029 Windows receipt before starting .030. No .030 game is delivered yet.
+The candidate descends root main c90438a. Exact input identities are preserved in
+`docs/helper-reports/v0.030-owner-stop/` and `docs/SOURCE MANIFEST v0.030.json`:
 
-Read AGENTS.md, CODE MAP.md, relevant maps/, the common team contract and
-briefs/TACTICAL CONTRACT v0.030.txt. docs/AI FIXTURE BUDGETS v0.030-v0.038.json r2
-is root-frozen before .030 tuning; older proposals remain raw historical inputs.
-It preserves300DP admission and40/42/60/74-hull coverage, real arcs/stores/crew,
-manual authority, bounded decision work and executable ingress/firing/exit tests.
-Actual Stage0 .029 timings are being collected separately; no GPU/FPS/AI-parity
-claim follows from source counts or a historical11.235ms p95. C alone has the
-engine lease. Every test is background/headless/Dummy-audio, isolated and bounded.
+- A FINAL archive SHA256 `2a4957cd3423894a39aeafa027f0041739201b6aee65c1b835c1d9b7053bb378`.
+  Corrected planner/stations retain screen priority through proposal and resolve;
+  no schema, budget or assertion changes. This correction is UNTESTED.
+- B owner-stop archive SHA256 `2bc2bd8d243e4a57511fdcfdcc16c7e627230343aa7135840127f14973ebab9c`.
+  Its ten production files were copied from physical ZIP entries exactly; saved
+  followup provenance is preserved. B Git metadata was not repaired or relied on.
+- Prior C log/receipt remain unchanged: `tactical_planner: 350 checks, 1 failures`;
+  screen-priority assertion failed before A's correction. PID 99744 exited 1 and
+  stopped. No later rerun/pass, integrated behavior or performance proof exists.
 
-Current proof:
-- docs/TEST RESULTS v0.029.md and INTEGRATION v0.029.json:70 actual native suites,
-  unchanged original66 plus workshop85/art2343/UI69/voyage154 checks; source/engine/
-  fixture/log/PID correspondence. Live detailed logs remain in verification/qa.
-- docs/ROOT REVIEW v0.029.txt: independent source/art verdict; raw reports unchanged.
-- docs/ROOT DELIVERY REVIEW v0.029.json: independent106-file/archive/launcher check.
-- task outputs/Brass Tide v0.029/RELEASE.json, DELIVERY VERIFIED and LAUNCHER VERIFIED
-  receipts; work/qa/export-v029-series actual clean-tag process evidence.
-- Earlier .028 CPU/endurance and cleanup proof: docs/VERIFICATION INDEX.txt.
+The original 70 registered suites and A's supplied planner fixture/assertions are
+unchanged. C's unfinished shared/orders/UI drafts are preserved outside game/ in
+`qa/v030-owner-stop/partial-fixtures` and the earlier UNTESTED draft ZIP. No new
+C AI/motion suites or 75-suite completion is claimed. Earlier C tools/components
+remain recoverable at local ref `c-v030-source-preserved-3eb5e94`; they are omitted
+from this narrow candidate. See the explicit deferred queue before any later QA.
 
-Current working source is outputs/brass-tide. Active series worktrees, briefs and
-live coordinator state are under task work/series-v029-v038; clean release worktree
-is task work/release-series-v029-v038. Do not edit another helper or old delivery.
-Preserve source/Windows archives, original saves/settings/music and desktop link.
-Native world.json is authority; obsolete JS prototype/history is cold archived.
-Context cleanup was completed before this series; recovery pointers and reusable
-lessons remain in ARCHIVE INDEX, WORKSPACE MAINTENANCE and DEVELOPER LESSONS.
+Version is integer BUILD30 = 0.030 across world, project and Windows resources.
+Current notes/manual describe source controls without claiming accepted behavior.
+Fleet withdrawal retains the legacy 12-second escape timer; local rally/survival
+movement is physical and does not settle fleet retreat. No physical objective
+exit implementation or further roadmap stage is claimed.
 
-.029 workshop templates are knowledge only. Quotes/stale refusal/paid full-fit
-apply preserve actual module ownership, materials, shared workers, finite purses
-and live hull/harbor references. Future .031 individual module condition must
-replace the protective opaque-condition refusal without repair-by-refit.
-
-Complete roadmap: docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt with related
-AI BEHAVIOR STANDARD and CIVILIAN FLEET PLAN. .035 adds twelve future civilian
-designs; current roster remains24. Existing four story chains stay; extra authored
-stories follow .038. No delivered36-hull roster or complete Starsector AI parity.
-
-GitHub upload remains pending the recorded Windows credential/vault failure.
-Local source/tag/delivery evidence is separate from remote hashes. Do not retry
-without an authentication-context change, force-push or claim an unverified upload.
+Previous verified delivery remains v0.029 at immutable tag
+`44e2a46b55bd56b52998eeb1d4cdc681c5091482`, 24 original hulls, 70 native suites and
+separate Windows/save/battle/archive/launcher receipts. Do not repeat or overwrite
+it. Preserve original saves/settings/music. No C engine/test/build/tag/export,
+launcher or remote action is part of this source handoff. All owned test PIDs:
+NONE. Source byte/hash comparison is packaging provenance, not code validation.

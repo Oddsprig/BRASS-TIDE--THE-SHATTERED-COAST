@@ -7,6 +7,9 @@ const WeaponGeometry=preload("res://scripts/weapon_geometry.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const CombatEvents=preload("res://scripts/combat_events.gd")
+const Tactical=preload("res://scripts/tactical_runtime.gd")
+const Certification=preload("res://scripts/tactical_certification.gd")
+const FireControl=preload("res://scripts/tactical_fire_control.gd")
 const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
 const MAX_MOUNTS: int=16
@@ -82,6 +85,7 @@ static func create(options: Dictionary) -> Dictionary:
 	random.seed=int(options.get("seed",1))
 	var st: Dictionary={"ships":[],"projectiles":[],"effects":[],"wrecks":[],"events":[],"eventSeq":0,"droppedEvents":0,"_stepEvents":0,"_engineTracker":{},"_hitTracker":{},"time":0.0,"result":null,"playerId":null,"order":"engage","autopilot":true,"rng":random,"location":options.get("location",{"name":"Open water"}),"islands":[],"log":[],"retreatTimer":null,"reserves":{"player":[],"enemy":[]},"deployment":{"player":0,"enemy":0,"limit":Deployment.LIMIT}}
 	st.mission=options.get("mission",{}).duplicate(true)
+	Tactical.ensure(st)
 	for island in options.get("islands",[]):
 		var points: Array=island.get("points",[]) if island is Dictionary else island
 		if points.size()>=3:
@@ -137,6 +141,8 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: 
 	s.selected=false
 	s.order="engage"
 	s.orderTarget={}
+	s.orderRevision=0
+	s.erase("boardingOrder") # A new arena never inherits an unlaunched approach.
 	s.formationIndex=index
 	s._wreckRecorded=false
 	if not _spawn_clear(st,s,_pos(s)):
@@ -147,6 +153,7 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: 
 				s.y=p.y
 				break
 	st.ships.append(s)
+	Tactical.register(st,s,mounts)
 
 static func _spawn_clear(st: Dictionary,s: Dictionary,p: Vector2) -> bool:
 	if _blocked(st,p,_radius(s)):
@@ -172,12 +179,13 @@ static func select_flagship(st: Dictionary,id) -> bool:
 	return false
 
 static func set_autopilot(st: Dictionary,enabled: bool) -> bool:
+	if bool(st.get("autopilot",true))!=enabled:Tactical.control_changed(st)
 	st.autopilot=enabled
 	return enabled
 
 static func _ship_with_id(st: Dictionary,id: String) -> Dictionary:
 	for s in st.ships:
-		if str(s.id)==id and not s.sunk:
+		if str(s.id)==id and not s.sunk and not s.get("captureSecured",false):
 			return s
 	return {}
 
@@ -217,11 +225,23 @@ static func issue_order(st: Dictionary,ids: Array,order: String,target: Dictiona
 				return false
 			clean.shipId=target_id
 	for boat in boats:
-		boat.order=order
-		boat.orderTarget=clean.duplicate()
+		Tactical.accept_command(st,boat,order,clean)
 		if order=="hold" and not clean.has("x"):
 			boat.orderTarget={"x":float(boat.x),"y":float(boat.y)}
 	return true
+
+static func set_tactical_options(st: Dictionary,ids: Array,options: Dictionary) -> bool:
+	if options.get("rally") is Dictionary and not options.rally.is_empty():
+		var x: float=Damage.number(options.rally.get("x"),NAN)
+		var y: float=Damage.number(options.rally.get("y"),NAN)
+		if not is_finite(x) or not is_finite(y):return false
+		for id in ids:
+			var ship: Dictionary=_ship_with_id(st,str(id))
+			if ship.is_empty() or _blocked(st,Vector2(x,y),_radius(ship)+4.0):return false
+	return Tactical.set_options(st,ids,options)
+
+static func tactical_status(st: Dictionary,id: String) -> Dictionary:
+	return Tactical.status(st,id)
 
 static func set_order(st: Dictionary,order: String,target: Dictionary={}) -> String:
 	var ids: Array=[]
@@ -236,8 +256,16 @@ static func retreat(st: Dictionary) -> void:
 	if st.result!=null or st.retreatTimer!=null:
 		return
 	st.retreatTimer=12.0
+	set_autopilot(st,true)
 	set_order(st,"withdraw")
-	_log(st,"Fleet withdrawing — 12 seconds to escape")
+	_log(st,"Fleet withdrawal — 12 seconds")
+
+static func _combat_mounts(st: Dictionary,s: Dictionary) -> Array:
+	var t: Dictionary=Tactical.ensure(st)
+	var id: String=str(s.id)
+	var source=s.spec.get("weaponMounts",s.spec)
+	if not t.mountCache.has(id) or t.mountCache[id].source!=source:Tactical.register(st,s,_mounts(s))
+	return t.mountCache[id].mounts
 
 static func _mounts(s: Dictionary) -> Array:
 	var raw_mounts: Array=[]
@@ -270,8 +298,8 @@ static func _sync_cooldowns(s: Dictionary,count: int) -> void:
 	if s.weaponCooldowns.size()>count:
 		s.weaponCooldowns.resize(count)
 
-static func _tick_cooldowns(s: Dictionary,dt: float) -> void:
-	var mounts: Array=_mounts(s)
+static func _tick_cooldowns(s: Dictionary,dt: float,known_mounts: Array=[]) -> void:
+	var mounts: Array=known_mounts if not known_mounts.is_empty() else _mounts(s)
 	_sync_cooldowns(s,mounts.size())
 	CombatEvents.sync_mount_shots(s,mounts)
 	for i in range(s.weaponCooldowns.size()):
@@ -345,10 +373,10 @@ static func _target_for_mount(st: Dictionary,s: Dictionary,mount: Dictionary,pre
 		if score<best:best=score;result=candidate
 	return result
 
-static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dictionary={}) -> void:
+static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dictionary={},automatic: bool=false,gates: Dictionary={}) -> void:
 	if s.sunk or s.get("captureSecured",false) or st.projectiles.size()>=400:
 		return
-	var mounts: Array=_mounts(s)
+	var mounts: Array=_combat_mounts(st,s)
 	_sync_cooldowns(s,mounts.size())
 	CombatEvents.sync_mount_shots(s,mounts)
 	var status: Dictionary=Damage.get_status(s)
@@ -356,12 +384,14 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 		return
 	for i in range(mounts.size()):
 		var mount: Dictionary=mounts[i]
+		var gate: Dictionary=gates.get(str(mount.id),{})
+		if automatic and not gate.get("ok",false):continue
 		if s.weaponCooldowns[i]>0.0 or (i==0 and s.cooldown>0.0) or s.ammo<mount.ammoCost or st.projectiles.size()>=400:
 			continue
-		var mount_target: Dictionary=_target_for_mount(st,s,mount,target_ship) if not target_ship.is_empty() else {}
+		var mount_target: Dictionary=gate.get("target",{}) if automatic else (_target_for_mount(st,s,mount,target_ship) if not target_ship.is_empty() else {})
 		if not target_ship.is_empty() and mount_target.is_empty():continue
 		var origin: Vector2=_mount_origin(s,mount)
-		var aim: Vector2=_lead(s,mount,mount_target) if not mount_target.is_empty() else target
+		var aim: Vector2=gate.aim if automatic else (_lead(s,mount,mount_target) if not mount_target.is_empty() else target)
 		var delta: Vector2=aim-origin
 		if delta.length()>mount.range or delta.length()<0.001:
 			continue
@@ -372,8 +402,11 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 		var radius: float=5.0 if kind=="torpedo" else (3.0 if kind=="rocket" else 2.0)
 		var distance: float=float(mount.muzzleDistance)
 		var muzzle: Vector2=origin+Vector2.from_angle(bearing)*distance
-		if not _clear_shot(st,origin,aim,radius) or _blocked(st,muzzle,radius):
+		# Automatic gates just checked this exact current pose, barrel and actual
+		# inherited-velocity projectile path; no mutable scene work intervenes.
+		if not automatic and (not _clear_shot(st,origin,aim,radius) or _blocked(st,muzzle,radius)):
 			continue
+		if not automatic and not FireControl.manual_lane(st,s,mount,muzzle,bearing):continue
 		s.turretAngle=bearing
 		if not s.get("localAimAngles") is Dictionary:s.localAimAngles={}
 		s.localAimAngles[str(mount.id)]=angle_difference(float(s.angle),bearing)
@@ -384,7 +417,9 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 		s.weaponCooldowns[i]=1.0/(mount.fireRate*maxf(0.15,status.weaponFactor))
 		if i==0:
 			s.cooldown=s.weaponCooldowns[0]
+		var before_shot: float=mount_shot_time(s,str(mount.id))
 		CombatEvents.emit_fire(st,s,mount,i,muzzle,angle,mount_target)
+		if automatic:FireControl.emitted(st,s,mount,st.tactical.intents.get(str(s.id),{}),before_shot,mount_shot_time(s,str(mount.id)))
 
 static func _nearest(st: Dictionary,s: Dictionary) -> Dictionary:
 	var best: Dictionary={}
@@ -398,11 +433,10 @@ static func _nearest(st: Dictionary,s: Dictionary) -> Dictionary:
 	return best
 
 static func _move(st: Dictionary,s: Dictionary,dt: float,desired: float,throttle: float,boost: bool) -> void:
-	var turn: float=maxf(0.0,Damage.number(s.spec.get("turn"),1.8))
-	s.angle=wrapf(s.angle+clampf(angle_difference(s.angle,desired),-turn*dt,turn*dt),-PI,PI)
-	var speed: float=maxf(0.0,Damage.number(s.spec.get("speed"),90.0))*Damage.get_status(s).speedFactor*(1.0 if s.fuel>0.0 else 0.2)*throttle*(1.2 if boost else 1.0)
-	var velocity: Vector2=Vector2(s.vx,s.vy).lerp(Vector2.from_angle(s.angle)*speed,1.0-exp(-dt*4.0))
-	var point: Vector2=_pos(s)+velocity*dt
+	var next: Dictionary=Certification.motion(s,dt,desired,throttle,boost)
+	s.angle=next.angle
+	var velocity: Vector2=Vector2(next.vx,next.vy)
+	var point: Vector2=Vector2(next.x,next.y)
 	if not _blocked(st,point,_radius(s)):
 		s.x=point.x
 		s.y=point.y
@@ -468,54 +502,13 @@ static func _avoid_land(st: Dictionary,s: Dictionary,desired: float,throttle: fl
 	return desired
 
 static func _ai(st: Dictionary,s: Dictionary,dt: float) -> void:
-	if s.get("captureSecured",false):return
-	var boarding: Dictionary=BoardingCombat.approach(st,s,dt)
-	if not boarding.is_empty():
-		_move(st,s,dt,_avoid_land(st,s,float(boarding.angle),float(boarding.throttle)),float(boarding.throttle),false)
-		return
-	var target: Dictionary=_nearest(st,s)
-	var order: String=str(s.get("order",st.order if s.team=="player" else "engage"))
-	var order_target: Dictionary=s.get("orderTarget",{})
-	if order=="attack" and order_target.has("shipId"):
-		var chosen: Dictionary=_ship_with_id(st,str(order_target.shipId))
-		if not chosen.is_empty() and chosen.team!=s.team:
-			target=chosen
-	var desired: float=s.angle
-	var throttle: float=0.0
-	var weapon_range: float=_weapon_range(s)
-	var engagement_range: float=_engagement_range(s)
-	var distance: float=INF
-	if not target.is_empty():
-		distance=_pos(s).distance_to(_pos(target))
-		desired=_combat_heading(s,target)
-		throttle=0.9 if distance>engagement_range*0.72 else (-0.25 if distance<engagement_range*0.35 else 0.18)
-		if not _clear_shot(st,_pos(s),_pos(target),3.0):
-			desired=(_pos(target)-_pos(s)).angle()
-			throttle=0.9
-	if order=="withdraw":
-		desired=PI if s.team=="player" else 0.0
-		throttle=1.0
-	elif order in ["move","hold"] or (order=="attack" and not order_target.has("shipId") and order_target.has("x") and distance>weapon_range):
-		var goal: Vector2=Vector2(order_target.get("x",s.x),order_target.get("y",s.y))
-		var gap: float=_pos(s).distance_to(goal)
-		throttle=clampf(gap/140.0,0.2,0.95) if gap>12.0 else 0.0
-		if gap>12.0:
-			desired=(goal-_pos(s)).angle()
-	elif order=="escort":
-		var leader: Dictionary=_ship_with_id(st,str(order_target.shipId)) if order_target.has("shipId") else get_flagship(st)
-		if not leader.is_empty() and leader.id!=s.id:
-			var side: float=1.0 if int(s.formationIndex)%2==0 else -1.0
-			var goal: Vector2=_pos(leader)+Vector2(-105.0,side*90.0).rotated(leader.angle)
-			var gap: float=_pos(s).distance_to(goal)
-			throttle=clampf(gap/160.0,0.15,1.0) if gap>40.0 else 0.0
-			if gap>75.0:
-				desired=(goal-_pos(s)).angle()
-	desired=_avoid_land(st,s,desired,throttle)
-	_move(st,s,dt,desired,throttle,false)
-	if not target.is_empty():
-		s.turretAngle=(_pos(target)-_pos(s)).angle()
-		if distance<=weapon_range:
-			_fire(st,s,_pos(target),target)
+	# Compatibility entry for internal callers. The shared update uses all-helm,
+	# all-move, all-fire phases instead of this single-hull convenience wrapper.
+	if s.get("sunk",false) or s.get("captureSecured",false):return
+	var control: Dictionary=Tactical.helm(st,s)
+	_move(st,s,dt,float(control.angle),float(control.throttle),false)
+	Tactical.after_motion(st)
+	_fire(st,s,Vector2.ZERO,{},true,Tactical.fire_gates(st,s))
 
 static func _collisions(st: Dictionary) -> void:
 	for i in range(st.ships.size()):
@@ -630,23 +623,49 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			if s.team=="player" and not s.sunk and not s.get("captureSecured",false):
 				select_flagship(st,s.id)
 				break
-	var flagship: Dictionary=get_flagship(st)
+	var ai_us: int=0
+	# One complete prepass precedes either side's snapshot or helm. In particular
+	# the manual flagship never receives a second damage/cooldown decrement.
 	for s in st.ships:
 		s.battleTime=st.time
 		if s.sunk:
 			continue
 		# Exactly one decrement of each timer, including the manual flagship.
 		Damage.tick_ship(s,dt,{"inCombat":true})
-		_tick_cooldowns(s,dt)
+		var mount_started: int=Time.get_ticks_usec()
+		var cached_mounts: Array=_combat_mounts(st,s)
+		ai_us+=Time.get_ticks_usec()-mount_started
+		_tick_cooldowns(s,dt,cached_mounts)
 		CombatEvents.check_ship_engine(st,s)
+	var planning_started: int=Time.get_ticks_usec()
+	Tactical.begin(st,dt,input)
+	var controls: Dictionary={}
+	var manual_id: String=str(st.tactical.manualId)
+	var active_ids: Array=st.tactical.ships.keys()
+	active_ids.sort()
+	# Every helm observes the same post-damage/pre-movement snapshot. Stable ID
+	# order also keeps real emission/RNG order independent of st.ships iteration.
+	for id in active_ids:
+		var s: Dictionary=st.tactical.ships[id]
 		if s.sunk or s.get("captureSecured",false):
 			continue
-		var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
-		if manual and not flagship.is_empty() and s.id==flagship.id and s.order!="withdraw":
+		if id==manual_id:
 			var steer: float=(1.0 if input.get("right",false) else 0.0)-(1.0 if input.get("left",false) else 0.0)
 			var desired: float=s.angle+steer*float(s.spec.get("turn",1.8))*dt
 			var throttle: float=(1.0 if input.get("forward",false) else 0.0)-(0.55 if input.get("backward",false) else 0.0)
-			_move(st,s,dt,desired,throttle,input.get("boost",false))
+			controls[id]={"angle":desired,"throttle":throttle,"boost":input.get("boost",false)}
+		else:controls[id]=Tactical.helm(st,s)
+	ai_us+=Time.get_ticks_usec()-planning_started
+	for id in active_ids:
+		var s: Dictionary=st.tactical.ships[id]
+		var control: Dictionary=controls.get(id,{"angle":s.angle,"throttle":0.0})
+		_move(st,s,dt,float(control.angle),float(control.throttle),bool(control.get("boost",false)))
+	var lanes_started: int=Time.get_ticks_usec()
+	Tactical.after_motion(st)
+	ai_us+=Time.get_ticks_usec()-lanes_started
+	for id in active_ids:
+		var s: Dictionary=st.tactical.ships[id]
+		if id==manual_id:
 			var aim_x: float=Damage.number(input.get("aimX"),NAN)
 			var aim_y: float=Damage.number(input.get("aimY"),NAN)
 			if is_finite(aim_x) and is_finite(aim_y):
@@ -655,10 +674,16 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 				if input.get("fire",false):
 					_fire(st,s,aim)
 		else:
-			_ai(st,s,dt)
+			var fire_started: int=Time.get_ticks_usec()
+			var gates: Dictionary=Tactical.fire_gates(st,s)
+			_fire(st,s,Vector2.ZERO,{},true,gates)
+			ai_us+=Time.get_ticks_usec()-fire_started
 	BoardingCombat.tick(st,dt)
 	_collisions(st)
 	_projectiles(st,dt)
+	var finish_started: int=Time.get_ticks_usec()
+	Tactical.finish(st,ai_us)
+	st.tactical.metrics.aiUs+=Time.get_ticks_usec()-finish_started
 	_age_effects(st,dt)
 	var players: Array=[]
 	var enemies: Array=[]

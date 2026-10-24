@@ -1,0 +1,150 @@
+BRASS TIDE .030 -- B INTEGRATION SEAM / SOURCE HANDOFF
+23 October 2026. Engineering implementation, NOT native acceptance.
+Own accepted base:4f6cfa68ec69df808a1535f1dbee9b3962a37cfb.
+Own original .029 preservation commit:ac01058855765abadcfab29934cdddfe30b4264a
+(source, local AGENTS.md, report). Raw .029 proof/.bigbridge left intact.
+
+Delivery gate PASS: actual outputs/Brass Tide v0.029 DELIVERY VERIFIED.json
+version0.029/source44e2a46b55bd56b52998eeb1d4cdc681c5091482, Windows menu,
+campaign/portable-save and battle smoke receipt. Actual RELEASE.json SHA256
+3702b4d96b7faf38ddce25784d4d3b2a1f70bb2d5f336bde8b9dca9ae7625561.
+EXE f264105bed08f39487946a57fbef2e20fc64c5cab57819ee309d7b59941f4abb;
+PCK 4cb000134ccd29a299ae81b1e24d5dfc46b039ba1a421955293942bc62e8bebf.
+Both actual source/Windows archives also matched their recorded receipt hashes.
+No .029 artifact, owner save/settings/music, root or sibling file was edited.
+
+READ contracts: root frozen briefs/TACTICAL CONTRACT v0.030.txt and full r2 JSON;
+later read c90438a root protocol_revision plus entire appended r3 contract.
+Keep numerical targets unchanged. C owns the actual old baseline, full-population
+prefix capacity recorder, behavior fixtures, engine import/native and motion proof.
+B has NO ENGINE LEASE and ran no engine, import, syntax/compiler, game or capture.
+
+DEPENDENCIES: A owns tactical_planner.gd, tactical_role_plans.gd and
+tactical_stations.gd. B does not copy/change them. C combines the named source
+commits before running. No new B helper imports Battle; dependencies are acyclic.
+
+Planner.propose(view,memory)->Array of candidate dictionaries.
+B offers are [{candidate,certificate}]; A owns Planner.fingerprint(candidate),
+deterministic canonical complete SHA256. Routes may replace legs with a real
+collision-free polyline before fingerprinting; same identity/revision/role/target.
+Intent.waypoints=certified approach+pass exactly, intent.exit=certified exit.
+Helm executes approach+pass. Exit is fully checked/reserved geometry, but becomes
+physical helm authority only through a later certified breakaway/regroup candidate.
+One short active prefix never certifies a whole long curved maneuver's physics.
+
+view={snapshotRevision:int,terrainRevision:int,time,dt,side,dueIds,ships,groups,
+options,mission}. terrainRevision is monotonically incremented per battle whenever
+the SHA256 of exact terrain changes. Private terrainKey carries that SHA256;
+route cache keys exact terrainKey/radius/start/end, max128 static corridors.
+All active tactically visible ships are included; no population/admission cap.
+Mission is ONLY kind/duration/allyUids; no hidden manifests/private owners/resources
+or unapproved objective data crosses the planner boundary.
+Own ships: native x/y/vx/vy/angle, minimal spec, hp/maxHp/water/capacity/fire/engine,
+crew/wounded/crewMin/crewOptimal/crewMax, own ammo/fuel/supplies/policy/cooldown,
+breaches/shoreCrew/supportRepairFactor needed for copied real condition prediction,
+order/orderTarget/orderRevision/orderSince/formationIndex/boardingOrder,
+failedTargetIds, normalized mounts, weaponCooldowns, mountShotTimes and Damage status.
+Opponents: observed pose/fittings/condition/shots, no orders/stores/private crew.
+An accepted automatic boarding approach is detached order=board for A while live
+order stays engage. Legacy targetless attack selects nearest once in the view,
+then pins it before mount gating; canonical orderTarget remains empty.
+
+options={byId:{id:{doctrine:'steady',role:'auto',group:0,formation:'line',
+protectedAllyId:'',rally:{x,y} or{},leash:600,conditionalWithdrawal:false,
+mounts:{mountId:{hold:false,reserve:0}}}},clearanceRemaining:int}.
+Doctrine cautious/steady/aggressive; role auto/skirmisher/striker/heavy/screen/support;
+formation line/screen/column. groups={1:[ids],2:[ids],3:[ids],4:[ids]}, side filtered.
+Mount fields match Battle._mounts: id,moduleId,size,kind,damage,fireRate,range,speed,
+ammoCost,x,y,arc,angle,legacy,muzzleDistance,barrelHeight. Fixed strike tubes match
+A: rocket/torpedo with arc<PI*.75. Status is actual Damage.get_status fields.
+
+Certificates use EXACT frozen r2 fields, scope='complete-geometry+prefix-physical',
+checkedPose={x,y,vx,vy,angle}, reachable/exitReachable true only after complete
+ingress/pass/exit swept geometry, predicted allied occupancy, and60 physical
+integration samples at1/30s. physicalHorizonEnd=checkedAt+2; expiry<=checkedAt+.2.
+Private predictions remain in st.tactical, never campaign hulls or A memory.
+Runtime checks exact candidateId/fingerprint/revisions/target/role/leader/paths,
+current terrain/order/availability, predicted position<=2px,velocity<=2px/s,
+heading<=1degree and current local legality every helm/fire tick.
+
+DYNAMICS ENVELOPE, root amendment: motionKey hashes immutable size/speed/turn/
+fuelUse/pumps/repairFactor/supportRepairFactor/crewMin/crewOptimal/capacity/policy/
+shoreCrew plus fuel>0,engine>0,able>=crewMin availability. It does NOT hash raw
+water/engine values. The copied rollout advances real Damage.tick_ship between
+successive helm samples, predicts hp/water/engine/crew/wounded/fire/speedFactor/
+weaponFactor, and hashes [motionKey,capabilitySamples] as opaque dynamicsKey.
+Current condition must match the age-indexed predicted capability within0.0001
+numerical error; abrupt hit/crew/fuel loss, policy/spec change or envelope escape
+invalidates. Fire uses post-motion pose and current pre-next-damage capability.
+Real condition/stores are neither frozen nor repaired by planning. Actual .029
+Damage defines what repair can do; no invented module/engine repair is added.
+
+GLOBAL per-update budget across both sides, urgent/failed/cache revalidation:
+4 graph route searches,128 cache entries,16 rollouts AND840 samples,60/rollout,
+1/hull,4096 clearance primitive tests. A resolve receives remaining clearance
+and returns counters.clearanceTests, deducted before publish. Planning reserves
+clearance headroom for every-tick helm/fire; exhaustion is an explained pending
+brake/hold, including obstructed braking drift, never a made-up safe route.
+Normal physical queue ceil(activeHulls/6) is GLOBAL across both sides, ordered by
+actual certification-attempt age, then planner age/stable ID. Both side snapshots
+and proposals are created BEFORE shared-budget certification; actual work follows
+global hull order. A completed blocked proof/real rollout advances attempt age;
+budget-only deferral does not. Resolution priority alternates between sides.
+Cheap urgent safety is SEPARATE: actual condition/doctrine/net-flood/sinking and
+command-authority reevaluation <=.1s, abrupt hits sooner, newly dangerous intent
+invalidated without an unchecked escape. It does not enqueue every hurt hull ahead
+of the fair queue or impersonate a physical certificate. lastCertified and actual
+pending ages remain separate from a planner attempt/lastDecision timestamp.
+Commands govern next tick; actual helm/projectiles30Hz. No population cap added.
+
+Automatic fire has no nearest fallback. Each installed mount receives a current
+gate; absent/expired/denied/unsafe gates close. The quadratic includes muzzle L:
+a=vRelative^2-speed^2,b=2(delta dot vRelative-L*speed),c=delta^2-L^2.
+Positive finite t must fit actual projectile life and fitted range. Clearance
+checks the barrel plus ACTUAL inherited-velocity muzzle-to-impact trajectory and
+allied lane, and retains crew/ammo/cooldown/arc/muzzle/cap400. Real stochastic
+spread stays in Battle._fire. Manual direct aim bypasses voluntary hold/reserve,
+while retaining physical crew/arc/range/muzzle/terrain/allied-lane/ammo/cooldown.
+Normal gun leases renew. Fixed-tube actual emissions consume one salvo allowance;
+new candidates/refreshes/nonattack commands cannot mint one. Nonattack revisions
+carry spent counters AND A byId pass identity. New pass allowance requires observed
+breakaway/regroup/rally travel>=max(60px,2r) and>=.5s; stationary phase churn fails.
+Only a NEW explicit attack command is an intentional immediate reset.
+
+APIs: existing Battle commands/Combat.order4args remain; Combat.order optional
+automatic=false. New shared Tactical.accept_command updates revision, cancels
+UNLAUNCHED approach only, preserves launched party custody/timers. Explicit board
+has order=board/revision. Conflicting/manual orders block discovery/approach/launch.
+New arena clears stale unlaunched boardingOrder. Secured prizes remain excluded.
+Battle.set_tactical_options(st,ids,patch)->bool atomically validates all recipients;
+patch-only mountGroup={kind:all|gun|cannon|rocket|torpedo,hold?:bool,reserve?:int}
+expands to actual per-mount options. Battle.tactical_status(st,id) is detached.
+Main set_selected_tactical_options/save_selection_group/recall_selection_group/
+withdraw_fleet and TacticsUI.options expose real controls. Four selections persist
+for the battle; no new battle-save promise/schema. F1-F4/Ctrl+F1-F4 preserve1/2/3.
+Tactical view restores pause AND control mode. Fleet retreat may engage autopilot;
+U/manual retakes direct flagship authority even with queued withdrawal.
+
+ROOT DEVELOPER NOTES addition still needed outside B allowlist:
+"Fleet withdrawal currently uses the legacy12-second compatibility escape timer.
+Local rally/survival movement is physical and does not settle fleet retreat;
+physical objective exits are planned for .032." Ordinary UI says Fleet withdrawal
+and remaining time, never revision/sector/certificate terminology.
+
+Instrumentation: st.tactical.metrics per step has aiUs,activeCount,normalLimit,
+decisionAges,safetyAges,certificateAges,certificationAges,certificationAttemptAges,
+orderApplyAges,pendingAges,droppedDecisions,
+work={fullRoutes,cacheHits,rollouts,samples,clearanceTests,exhaustions,cacheEntries}.
+AI timer includes snapshot/plan/cert/resolve, helm/safety, post-motion lane index,
+automatic fire gating/emission and bounded diagnostic work; total Battle.update
+must be timed independently by C. C aggregates exact r3 raw quantiles/denominators;
+these source fields are not measured performance proof. Trace is bounded512.
+
+Focused C requests: gradual real bailing/repair motion then abrupt hit/fuel/crew
+loss; moving-shooter/target muzzle quadratic and inherited-ray land obstruction;
+stationary pass/phase churn plus hold/move cannot refill a spent tube; explicit
+new attack can. All40/74 mildly hurt/flooding, open exits, both orientations and
+command interrupts must show no side/ID subset starved of real certification.
+Preserve all existing tactics/manual/DP/commander assertions.
+Actual compile/import/behavior/regression/motion/load/export acceptance remains
+PENDING C/root. No .031 runtime, version bump, tags, export or publication by B.

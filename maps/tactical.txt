@@ -1,0 +1,21 @@
+BRASS TIDE v0.030 - TACTICAL SOURCE MAP; UNTESTED
+Manual source-location record only; no code/parser/behavior validation performed.
+
+A planner: game/scripts/tactical_planner.gd exposes propose/resolve/fingerprint;
+tactical_role_plans.gd selects role/phase/target; tactical_stations.gd generates
+stations, trajectories and reservations. Corrected screen priority is untested.
+
+B runtime: tactical_runtime.gd owns detached views, command revisions, shared
+work budget, fair certification scheduling and live intent/helm/fire authority.
+tactical_routes.gd owns bounded route/clearance work; tactical_certification.gd
+owns copied physical-prefix/capability certification; tactical_fire_control.gd
+owns physical mount gates/intercepts and finite pass/salvo state.
+
+battle.gd integrates updates/commands/projectiles; combat_boarding.gd preserves
+launched crew custody. main.gd, interface.gd, chart.gd and tactics_ui.gd connect
+selection, groups, tactics sheet, manual authority and camera behavior on main.
+
+game/tests/test_tactical_planner.gd remains the exact A fixture. The original70
+registered suites are unchanged. C's incomplete shared/orders/UI drafts are in
+qa/v030-owner-stop/partial-fixtures, outside game/. No new C suites were registered.
+Tests deferred AT OWNER REQUEST; .031-.038 STOPPED. Root owns build-only packaging.

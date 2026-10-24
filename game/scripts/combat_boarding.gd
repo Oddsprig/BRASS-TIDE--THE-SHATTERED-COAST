@@ -1,30 +1,47 @@
 extends RefCounted
 const Boarding=preload("res://scripts/boarding.gd")
 const Events=preload("res://scripts/combat_events.gd")
-static func order(st: Dictionary,source_id: String,target_id: String,count: int) -> Dictionary:
+const Tactical=preload("res://scripts/tactical_runtime.gd")
+
+static func eligible(st: Dictionary,source: Dictionary,automatic: bool=false) -> bool:
+	if source.get("sunk",false) or source.get("captureSecured",false) or source.get("supportOnly",false):return false
+	var manual: bool=str(source.id)==str(st.get("playerId","")) and (not st.get("autopilot",true) or str(st.get("tactical",{}).get("manualId",""))==str(source.id))
+	if manual:return false
+	if automatic:return str(source.get("order","engage"))=="engage"
+	var plan: Dictionary=source.get("boardingOrder",{})
+	return not plan.is_empty() and int(plan.get("orderRevision",-1))==int(source.get("orderRevision",0)) and (str(source.get("order",""))=="board" or (plan.get("automatic",false) and str(source.get("order",""))=="engage"))
+
+static func order(st: Dictionary,source_id: String,target_id: String,count: int,automatic: bool=false) -> Dictionary:
 	var committed: int=st.get("captured",[]).size()+st.get("boarding",{}).get("jobs",[]).filter(func(job):return job.status=="active").size()
 	if committed>=int(st.get("captureSlots",64)):return {"ok":false,"message":"Recover existing saved prizes before attempting another capture."}
 	var source: Dictionary={};var target: Dictionary={}
 	for b in st.ships:
 		if str(b.id)==source_id:source=b
 		if str(b.id)==target_id:target=b
-	if source.is_empty() or target.is_empty() or source.sunk or target.sunk or source.team!="player" or target.team!="enemy" or source.get("supportOnly",false):return {"ok":false,"message":"Choose your live boat and an enemy boat."}
+	if source.is_empty() or target.is_empty() or source.sunk or target.sunk or source.get("captureSecured",false) or target.get("captureSecured",false) or source.team!="player" or target.team!="enemy" or source.get("supportOnly",false):return {"ok":false,"message":"Choose your live boat and an enemy boat."}
+	if automatic and not eligible(st,source,true):return {"ok":false,"message":"The current command takes priority over automatic boarding."}
 	if not Boarding._vulnerable(target):return {"ok":false,"message":"Disable the engine or weaken the hull before boarding."}
 	if count<1 or count>int(source.get("boarders",0))-ceili(float(source.wounded)) or float(source.crew)-float(source.wounded)-count<float(source.crewMin):return {"ok":false,"message":"Keep the minimum working crew aboard; train and hire additional boarders."}
-	source.boardingOrder={"target":target_id,"count":count}
+	if not automatic:Tactical.accept_command(st,source,"board",{"shipId":target_id})
+	source.boardingOrder={"target":target_id,"count":count,"orderRevision":int(source.get("orderRevision",0)),"automatic":automatic}
 	return {"ok":true,"message":"Approaching the disabled target. The party boards only on physical contact."}
 static func tick(st: Dictionary,dt: float) -> void:
 	for source in st.ships:
 		if source.sunk or source.get("captureSecured",false):continue
 		# A cautious doctrine can act on a nearby weak target; numerical crew only.
-		if not source.get("boardingOrder") is Dictionary and st.get("autoBoard",true) and source.team=="player" and int(source.get("boarders",0))>=2:
+		if not source.get("boardingOrder") is Dictionary and st.get("autoBoard",true) and source.team=="player" and int(source.get("boarders",0))>=2 and eligible(st,source,true):
 			for target in st.ships:
 				if target.sunk or target.team!="enemy" or not Boarding._vulnerable(target):continue
 				if Vector2(source.x-target.x,source.y-target.y).length()>650:continue
 				var count: int=mini(int(source.get("boarders",0))-ceili(float(source.wounded)),floori(float(source.crew)-float(source.wounded)-float(source.crewMin)))
-				if count>=2 and float(target.crew-target.wounded)<=count*0.5:order(st,str(source.id),str(target.id),count);break
+				if count>=2 and float(target.crew-target.wounded)<=count*0.5:order(st,str(source.id),str(target.id),count,true);break
 		var plan: Dictionary=source.get("boardingOrder",{})
 		if plan.is_empty():continue
+		# Suspension/cancellation touches only an unlaunched plan; launched jobs
+		# below keep their real people, timers, casualties and existing recall API.
+		if not eligible(st,source):
+			if int(plan.get("orderRevision",-1))!=int(source.get("orderRevision",0)) or str(source.get("order","")) not in ["board","engage"]:source.erase("boardingOrder")
+			continue
 		var target: Dictionary={}
 		for b in st.ships:
 			if str(b.id)==str(plan.target):target=b;break
@@ -55,6 +72,7 @@ static func tick(st: Dictionary,dt: float) -> void:
 		var visual: Dictionary={"id":"shore:"+str(fort.port.id),"type":"coastal_battery","team":fort.team,"spec":{"id":"coastal_battery","material":"iron"}}
 		Events.emit_fire(st,visual,{"id":"shore","kind":"cannon","damage":shot.damage,"barrelHeight":12.0},0,origin,angle,target)
 static func approach(st: Dictionary,source: Dictionary,dt: float) -> Dictionary:
+	if not eligible(st,source):return {}
 	var plan: Dictionary=source.get("boardingOrder",{})
 	if plan.is_empty():return {}
 	for target in st.ships:

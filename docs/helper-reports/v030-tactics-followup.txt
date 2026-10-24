@@ -1,0 +1,30 @@
+BRASS TIDE .030 -- B TACTICAL PROVENANCE FOLLOW-UP RAW REPORT
+23 October 2026. Frozen predecessor 5c6a91acdba64e5625c626f5be9029710381d628.
+
+Frozen 5c6a91 was ALREADY CORRECT: Certification.certify used the
+before_fire_exhaustions delta, not a hardcoded 4096 threshold. Root confirmed
+the review flag came from an earlier WIP snapshot. This is explicit status
+provenance clarity, NOT a budget bug fix. Future review comments bind the exact
+frozen SHA. The original REPORT-v030-tactics.txt remains byte-for-byte unchanged.
+
+Only two production files change: tactical_fire_control.gd now preserves the
+Routes.sweep pending/blocked status for barrel, muzzle and projectile checks,
+and returns pending when the allied-lane debit fails. tactical_certification.gd
+accumulates those explicit pending results from current/station fire solutions;
+an empty firing set is pending if any check deferred, otherwise blocked.
+Routes.spend already honors the current clearanceLimit, including 2900 and a
+two-test debit at 2899; its code and all work limits remain unchanged.
+
+Static check PASS using local Python312 and the existing lexical checker without
+calling its manifest-writing main: UTF-8, delimiters, unique functions, module
+size, absence of Battle preload cycles, exact source status propagation, current
+Routes limit expression, named-file scope, git diff --check and SHA256 integrity.
+All ten current source hashes are in qa/v030-tactics/followup-source.json.
+The other eight source files match the frozen manifest exactly; the initial
+manifest and raw report hashes also match. AGENTS.md/.bigbridge remain unstaged.
+
+A draft QA fixture prepared before root's correction remains untracked and
+unexecuted, excluded from this follow-up commit. No further test work followed
+the correction. NO engines, syntax/import/native tests, motion, timing, exports,
+tags, pushes, UI changes or unrelated production edits. C retains the sole
+engine lease; final native/functional/quality acceptance remains C/root work.

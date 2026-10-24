@@ -1,15 +1,30 @@
-# Brass Tide: The Shatter Coast — v0.028
+# Brass Tide: The Shatter Coast — v0.030, UNTESTED
 
-An original portable Windows motorboat fleet campaign built in Godot. Start with an inherited Tinwake skiff, earn bronze coins, pay sailors and build a fleet from 24 original hull designs. Fit interchangeable machine guns, cannons, rockets, torpedoes, engines and armor. Numerical crews fight fires, patch breaches, bail water and keep damaged boats afloat.
+Tests deferred **AT OWNER REQUEST**. Finish this Windows BUILD ONLY, then STOP.
+.031-.038 are stopped. Root owns final build-only packaging; no .030 game launch,
+native regression, smoke, behavior, performance or audio acceptance is claimed.
+The prior planner run had **350 checks / 1 failure**. The narrow screen-priority
+source correction is untested and leaves its original assertion unchanged.
 
-Launch the verified Windows build with Brass Tide.exe or the existing desktop Brass Tide icon. The game needs no editor, Python or Node installation. Keep the executable, PCK, music and portable files together. Move or copy the whole release folder. Saves and settings belong beside the build; the launcher updater preserves original voyages and copies them only after clean export/archive verification.
+An original Godot motorboat fleet campaign for Windows with 24 original hulls,
+physical interchangeable fittings, numerical crews, finite stores and real coin
+budgets. Sailors earn 100 coins per day. Normal battle admission is 300 deployment
+points per side, separate from fleet ownership and traveling support.
 
-Choose **Captain's priorities** on the coastal chart for readiness, return budgets and explorer, merchant, privateer or harbormaster suggestions. **WASD** pans the camera. Combat starts on **autopilot**; select boats and use tactical orders, or choose manual flagship control. **Space** pauses and **Escape** opens the menu. Fleet Laboratory on the title screen provides isolated engagement tests. Battle deployment is 300 points per side; ownership, stored boats and traveling support are separate.
+This source adds tactical role/station planning, bounded physical maneuver/fire
+gates and selected tactics controls. Combat starts on autopilot. WASD pans the
+camera; Space pauses; U toggles manual flagship control. See the current
+[captain guide](docs/CAPTAINS%20CAMPAIGN%20GUIDE.txt) for source controls and limits.
 
-The completed v0.019-v0.028 sequence adds paid crew training, harbor stock reserves, recoverable machinery and yard development, worker conditions and stoppages, regional civilian goods, physical shipping companies, customs and military trade agreements, boarding and paid coastal defenses, dated crises and funded civilian passage, then captain guidance and combined campaign verification. Existing exploration, salvage, contacts, faction relations, trade, story chains, home businesses and regional campaigns remain integrated.
+Start with [HANDOFF](HANDOFF.md), [source integration](docs/SOURCE%20INTEGRATION%20v0.030.txt),
+[deferred queue](docs/DEFERRED%20TEST%20QUEUE%20v0.030.txt) and [changes](CHANGES%20v0.030.md).
+Exact author bundles and prior failure evidence are preserved under
+`docs/helper-reports/v0.030-owner-stop/`. Source hash comparison is packaging
+provenance; it does not validate code or behavior.
 
-The economy moves finite coins between households, specialists, businesses, governments, sailors and fleet owners. A sailor earns 100 coins per day. Material prices include their input labor; hull bills include actual materials, assembly, supervision and yard costs. Cargo capacity, food, fuel, wages, repair kits and crew availability constrain voyages. A deficit is recorded rather than hidden as new coins or invested capital.
-
-For development, start with [START HERE](START%20HERE.txt), [the current handoff](HANDOFF.md) and [the verification index](docs/VERIFICATION%20INDEX.txt). Historical context and old helper work are cold archived; see docs/ARCHIVE INDEX.txt. Read [the economy play guide](docs/ECONOMY%20QUICK%20START.txt), current development notes, CHANGES v0.028.md and the generated maps. Exact source-suite results are in docs/TEST RESULTS v0.028.md; each portable release has its own RELEASE.json, delivery receipt and source/Windows archive hashes. CPU measurements are background/headless results, not a claim of GPU frame rate or human sound assessment.
-
-Source: the owner's BRASS-TIDE--THE-SHATTERED-COAST repository. The game uses original boats, geography, factions and stories inspired by fleet campaigns and motorboat combat. Earlier releases and historical records are preserved. Source publishing, the desktop shortcut and local delivery each have separate verification receipts.
+The previous verified delivered game is v0.029 at immutable tag
+`44e2a46b55bd56b52998eeb1d4cdc681c5091482`. Preserve that release, older builds,
+original voyages/settings and owner music. Keep any portable EXE/PCK/music/files
+together. Root owns the final .030 annotated tag, build-only Windows export,
+archives and launcher. Remote publication remains pending separate authorization
+and authenticated remote hashes. Boats, geography, factions and stories are original.

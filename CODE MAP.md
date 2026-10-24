@@ -1,4 +1,9 @@
-# Brass Tide v0.029 source map
+Current owner instruction: .030 Windows BUILD ONLY, then STOP. .031-.038 stopped.
+No tests/parser validation/game launches. The earlier planner result was 350
+checks / 1 failure; its source correction and combined runtime are untested.
+A planner fixture is supplied unchanged; partial C fixtures are outside game/.
+No 75-suite completion is claimed. See docs/DEFERRED TEST QUEUE v0.030.txt.
+# Brass Tide v0.030 source map - UNTESTED
 
 Native project: game/. Canonical catalogue/geography: game/data/world.json. See
 maps/PROJECT MAP.txt for sizes and targeted maps/ files for actual symbols/lines.
@@ -8,6 +13,7 @@ Historical JS prototype is archived. Planned modules do not exist until implemen
 | --- | --- | --- |
 | Lifetime, input, save/options | main, campaign, preferences, interface | development, campaign |
 | Fleet ownership, voyage budgets, cargo | expedition, deployment, hold_manifest, fleet_support, fleet_identity | expeditions, fleet-identity |
+| Tactical planning and physical gates | tactical_planner, tactical_role_plans, tactical_stations, tactical_runtime, tactical_routes, tactical_certification, tactical_fire_control, tactics_ui | tactical |
 | Damage and combat | damage, battle, combat_events, combat_boarding, battle_objectives | combat, boat-feedback |
 | Paid fitting, knowledge templates and physical sockets | fleet_workshop, workshop_ui, refit, refit_ui, mount_layout, weapon_geometry | workshop, equipment-options |
 | Boat/weapon/motor visuals | hull_profiles, boat_art, boat_deck_detail, weapon_art, motor_art, hull_feedback, boat_mesh_cache, combat_art | presentation, boat-feedback |
@@ -25,7 +31,7 @@ Historical JS prototype is archived. Planned modules do not exist until implemen
 Related *_ui scripts present module results on main. Worker tasks own copies;
 join before publishing. Mount IDs/arcs/geometry are shared by fitting and combat.
 
-Delivered source: v0.029; .030 tactical implementation is isolated in helpers. Current tests:
+Current source: v0.030, UNTESTED; tests deferred AT OWNER REQUEST. Previous verified delivery: v0.029. Current tests:
 game/tests/ (70 named suites in tools/check_game.py; native results are recorded in
 docs/TEST RESULTS v0.029.md). The original 66 fixtures retain their assertions;
 workshop, art_workshop, workshop_voyage and workshop_ui cover the new milestone.

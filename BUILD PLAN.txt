@@ -1,48 +1,21 @@
-<!-- brass-tide-series:29:start -->
-CURRENT AUTHORIZED SERIES STAGE
+BRASS TIDE v0.030 - SOURCE CANDIDATE, UNTESTED
+Tests deferred AT OWNER REQUEST. Finish this Windows BUILD ONLY, then STOP.
+No tests, benchmarks, smokes, parser validation, game/UI/motion launches or future
+implementation. Root owns final merge, build-only exporter, annotated tag,
+compiler/required asset import/export, archives and launcher. C ran none of them.
+.031-.038 are STOPPED and must not resume automatically.
 
-v0.029 — Fleet workshop and boat presentation
-SOURCE CHECKS RECORDED: 70 native suites recorded from supplied logs. Feature acceptance requires lead review.
-
-Compare and prepare a purposeful fit on an existing owned hull, review its real bill and install it using paid work and physical equipment.
-
-Implemented behavior to review:
-- Fleet fitting workspace with numbered sockets, physical arcs and before/after capacity, deployment, stores and daily obligations.
-- Knowledge-only named templates and atomic paid fitting using real lockers, harbor materials, workers, experts and purses.
-- Original hull and equipment detail across the existing 24 hulls, sharing stable socket origins with aim and effects.
-
-Continue only after lead acceptance, preserved annotated tag and a separately verified clean exact-tag Windows release. Later stages remain pending; do not reuse tags or overwrite older releases.
-
-Exact-tag Windows export/startup/save/battle, archive hashes, launcher, remote publication, visual/motion review and listening require their own evidence. Source logs establish none of those outcomes.
-
-Roadmap: docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt
-Earlier records follow unchanged.
-<!-- brass-tide-series:29:end -->
-
-BRASS TIDE — CURRENT BUILD PLAN
-23 October 2026 | Delivered v0.028; next build .029 is PLANNED
-
-The owner’s present task is context/logistics consolidation without gameplay edits.
-Current runtime/native tests and all delivered versions remain intact. Cleanup
-verification is byte/tree/tag/archive identity, not another engine regression.
-
-NEXT IMPLEMENTATION SCOPE (when requested): v0.029 Fleet workshop and presentation.
-Use the detailed .029 entry/gates in docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt.
-Keep physical hull/socket/fitting identity consistent, preview the actual fitted
-boat, and fund upgrades through existing materials, workers and purses. Preserve
-old saves and the complete 24-hull catalogue. No feature is complete from advice
-or a static illustration alone. Do not start all ten planned builds at once.
-
-Dependencies: .030 tactical roles/harassment -> .031 damage-aware systems -> .032
-physical objectives -> .033 independent sighting-led conflict -> .034 geography
-and large-hull routes -> .035 civilian hulls -> .036 working voyages/piracy ->
-.037 supplied operations -> .038 measured behavior/careers/polish/performance.
-Full requirements: ROADMAP.md, VERSION MAP.txt, AI BEHAVIOR STANDARD and CIVILIAN
-FLEET PLAN. Required gates remain in those contracts; this summary does not narrow
-or mark them delivered.
-
-Before editing: HANDOFF.md, relevant code map, VERIFICATION INDEX and DEVELOPER
-LESSONS. Run targeted tests for actual changes; required release regressions and
-clean exact-tag Windows export still apply. Update in-game developer notes only
-when changing gameplay. Background only, no desktop control, one engine at a time.
-Completed build plans and raw helper reports remain recoverable in the archive.
+Exact A FINAL component and B owner-stop ten-file source bundle are integrated
+on root c90438a. A's narrow screen-priority source correction is UNTESTED; its
+assertion is unchanged. Previous native evidence remains 350 checks / 1 failure,
+not a pass. No integrated .030 regression or behavior acceptance is claimed.
+Previous verified delivered game: v0.029, exact tag
+44e2a46b55bd56b52998eeb1d4cdc681c5091482. Old releases and owner files preserved.
+Deferred queue: docs/DEFERRED TEST QUEUE v0.030.txt.
+Source/provenance: docs/SOURCE INTEGRATION v0.030.txt and SOURCE MANIFEST v0.030.json.
+ONLY REMAINING BUILD WORK: root merges this frozen source, adds its separate
+build-only packager/verdict, records the final source/tag, and performs compiler,
+required asset import/export, archive and launcher packaging without launching
+the game. Do not call release_game.py or complete_campaign_delivery.py unchanged:
+their smoke/verification paths do not represent this owner-authorized build.
+No more helpers, features, fixture authoring or automatic QA jobs.

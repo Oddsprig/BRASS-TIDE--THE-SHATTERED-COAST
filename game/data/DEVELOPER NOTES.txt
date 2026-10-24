@@ -1,4 +1,30 @@
 BRASS TIDE — DEVELOPMENT NOTES
+v0.030 — Tactical fleet AI and command controls
+UNTESTED. Tests deferred AT OWNER REQUEST. Current Windows BUILD ONLY, then STOP.
+
+This source adds detached tactical roles and station planning, bounded physical
+maneuver/fire certification, selected tactics, groups, formations, protected
+allies, rally/withdrawal choices and per-mount automatic hold/reserve controls.
+Manual helm/fire keeps physical authority; crews, ammunition and paid stores
+remain finite. These are implemented source changes awaiting deferred review,
+not a claim of measured AI quality, performance or accepted behavior.
+
+The earlier planner component run recorded 350 checks and 1 screen-priority
+failure. Its assertion is unchanged. A narrow source correction now keeps the
+selected protection threat first during screen proposal and resolution; this
+correction and the integrated build are UNTESTED. No later pass is claimed.
+
+Fleet withdrawal currently uses the legacy 12-second compatibility escape timer.
+Local rally/survival movement is physical and does not settle fleet retreat.
+Physical objective exits are not part of this build. .031-.038 are STOPPED.
+Original 24 hulls, 300 deployment points per side, finite coins/material/people,
+and 100 coins per sailor-day remain. Preserve existing saves/settings/music.
+
+Root owns final build-only Windows packaging; this source record does not claim
+Windows execution, native regressions, motion/CPU/UI acceptance or audio review.
+
+PREVIOUS BUILD NOTES
+BRASS TIDE — DEVELOPMENT NOTES
 v0.029 — Fleet workshop and boat presentation
 SOURCE CHECKS RECORDED: 70 native suites recorded from supplied logs. Feature acceptance requires lead review.
 

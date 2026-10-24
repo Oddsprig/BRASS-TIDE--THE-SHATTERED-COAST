@@ -1,0 +1,50 @@
+BRASS TIDE v0.030 - FROZEN SOURCE INTEGRATION; UNTESTED
+Tests deferred AT OWNER REQUEST. Windows BUILD ONLY, then STOP. .031-.038 STOPPED.
+
+BASE AND SCOPE
+Candidate branch candidate-v030-owner-stop starts directly at root c90438a.
+The containing Git commit identifies the complete frozen source; SOURCE MANIFEST
+v0.030.json names changed inputs and SHA256. No C exporter/delivery-tool changes,
+new fixtures, extra helpers or future implementation enter this candidate.
+
+EXACT AUTHOR INPUTS
+A FINAL: art/qa/v030-planner/owner-stop-20261024T012241Z/
+Brass Tide v0.030 - A planner SOURCE UNTESTED FINAL.zip; 33695 bytes;
+SHA256 2a4957cd3423894a39aeafa027f0041739201b6aee65c1b835c1d9b7053bb378.
+All8 game component files and the original raw report copied exactly. The two
+corrected source files are planner ec8bba237422b5cc0007c5cb61090cf8c0e7fb2a8bdd032fbade268dc4ef4420
+and stations c455b46759701c53e272cd294cd7b102bebe816afb42a398a4c35090cd97bc7d.
+Chosen protection threat stays first during screen proposal/resolution sorting;
+existing rejection/fallback gates remain. Schema/caps/assertions unchanged.
+
+B: workshop/qa/v030-tactics/owner-stop-20261024T012208Z/
+Brass-Tide-v0.030-B-source-UNTESTED.zip; 87831 bytes;
+SHA256 2bc2bd8d243e4a57511fdcfdcc16c7e627230343aa7135840127f14973ebab9c.
+All10 game files and6 raw report/schema/provenance payloads copied exactly.
+Physical bytes and saved followup manifest are authority; B Git metadata is
+unreadable and was not repaired or represented as a new source commit.
+Four new B helper scripts have no generated UID companions; C did not run asset import.
+
+PRESERVED EVIDENCE, NOT ACCEPTANCE
+The prior planner component log/receipt remain unchanged:350 checks,1 failure,
+screen priority for a named vulnerable ally; PID99744 exited1/stopped. Copies
+under docs/helper-reports/v0.030-owner-stop retain exact bytes. A's correction
+and the combined runtime are UNTESTED; no rerun/pass or integrated proof claimed.
+No test, parser validation, compiler/import/export/game process launched here.
+Owned active test PIDs NONE; no PIDs killed. Packaging SHA comparisons establish
+file identity only. Original70 fixtures/registry and A assertion remain unchanged.
+
+C partial shared/orders/UI fixtures are safe outside game/ under
+qa/v030-owner-stop/partial-fixtures and in the earlier UNTESTED draft ZIP.
+Previous C tools/source remain at ref c-v030-source-preserved-3eb5e94. Neither
+unfinished C fixtures nor runner/delivery-tool expansion enters this candidate.
+All raw reports, failed logs, old releases and owner saves/settings/music remain.
+
+BUILD HANDOFF
+BUILD30/world/project/Windows resources and current notes/manual/status agree on
+0.030 UNTESTED/tests deferred AT OWNER REQUEST. Fleet withdrawal retains its
+legacy12-second timer. Explicit deferred queue is a record, not an automated job.
+Root merges, adds its separate build-only exporter/verdict, creates the final
+annotated tag, then owns required compiler/import/export/archive/launcher work.
+C does not call release_game.py or complete_campaign_delivery.py, tag, export,
+alter the desktop, publish remotely or proceed beyond this source handoff.

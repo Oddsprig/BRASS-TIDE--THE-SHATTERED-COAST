@@ -1,0 +1,50 @@
+diff --git a/game/scripts/tactical_planner.gd b/game/scripts/tactical_planner.gd
+index 42364c6..b63835e 100644
+--- a/game/scripts/tactical_planner.gd
++++ b/game/scripts/tactical_planner.gd
+@@ -223,14 +223,21 @@ static func resolve(view: Dictionary, memory: Dictionary, offers: Array) -> Dict
+ 			score += 1.0
+ 		if candidate.sector == state.get("sector") and Roles.number(state.get("commitUntil")) > float(view.time):
+ 			score += 2.0
+-		grouped[ship_id].append({"candidate": candidate, "certificate": certificate, "score": score})
++		var primary_screen: bool = str(state.role) == "screen" and str(state.phase) == "screen" and candidate.targetId == state.get("targetId")
++		grouped[ship_id].append({"candidate": candidate, "certificate": certificate, "score": score, "primaryScreen": primary_screen})
+ 	var remaining: int = clampi(int(Roles.number(Roles.dictionary(view.get("options")).get("clearanceRemaining"), MAX_CLEARANCE)), 0, MAX_CLEARANCE)
+ 	for ship_id: String in due_ids:
+ 		var ship: Dictionary = context[ship_id]
+ 		var decision: Dictionary = decisions[ship_id]
+ 		var state: Dictionary = decision.state
+ 		var candidates: Array = grouped[ship_id]
+-		candidates.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return float(a.score) > float(b.score) if not is_equal_approx(float(a.score), float(b.score)) else str(a.candidate.candidateId) < str(b.candidate.candidateId))
++		# Preserve the screen's chosen protection target after B certifies offers.
++		# Risk/certificate gates above and swept conflicts below still reject it.
++		candidates.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
++			if bool(a.primaryScreen) != bool(b.primaryScreen):
++				return bool(a.primaryScreen)
++			return float(a.score) > float(b.score) if not is_equal_approx(float(a.score), float(b.score)) else str(a.candidate.candidateId) < str(b.candidate.candidateId)
++		)
+ 		var chosen: Dictionary = {}
+ 		for offer: Dictionary in candidates:
+ 			var reservation: Dictionary = Stations.reservation(offer.candidate, ship, offer.certificate, float(view.time))
+diff --git a/game/scripts/tactical_stations.gd b/game/scripts/tactical_stations.gd
+index ef7b373..530135b 100644
+--- a/game/scripts/tactical_stations.gd
++++ b/game/scripts/tactical_stations.gd
+@@ -237,8 +237,15 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
+ 			if str(other_id) != str(ship.id) and Roles.number(occupied.get("until")) > Roles.number(view.get("time")) and occupied.get("targetId") == candidate.targetId and occupied.get("sector") == candidate.sector:
+ 				rank += 100.0
+ 				break
+-		ranked.append({"candidate": candidate, "rank": rank})
+-	ranked.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return float(a.rank) < float(b.rank) if not is_equal_approx(float(a.rank), float(b.rank)) else str(a.candidate.candidateId) < str(b.candidate.candidateId))
++		# A screen must try its chosen protection target before incidental targets.
++		# Keep alternatives for genuinely blocked, rejected or occupied offers.
++		var primary_screen: bool = str(state.role) == "screen" and phase == "screen" and candidate.targetId == str(state.get("targetId", ""))
++		ranked.append({"candidate": candidate, "rank": rank, "primaryScreen": primary_screen})
++	ranked.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
++		if bool(a.primaryScreen) != bool(b.primaryScreen):
++			return bool(a.primaryScreen)
++		return float(a.rank) < float(b.rank) if not is_equal_approx(float(a.rank), float(b.rank)) else str(a.candidate.candidateId) < str(b.candidate.candidateId)
++	)
+ 	result = []
+ 	for entry: Dictionary in ranked:
+ 		result.append(entry.candidate)

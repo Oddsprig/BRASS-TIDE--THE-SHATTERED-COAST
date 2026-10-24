@@ -1,0 +1,13 @@
+{
+  "archive": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\series-v029-v038\\workshop\\qa\\v030-tactics\\owner-stop-20261024T012208Z\\Brass-Tide-v0.030-B-source-UNTESTED.zip",
+  "bytes": 87831,
+  "sha256": "2bc2bd8d243e4a57511fdcfdcc16c7e627230343aa7135840127f14973ebab9c",
+  "payload_files": 16,
+  "production_files": 10,
+  "archive_readback": "Exact payload bytes match saved source",
+  "status": "UNTESTED; tests deferred per owner",
+  "owned_active_test_pids": [],
+  "pids_killed": [],
+  "version": "0.030",
+  "stop_after_handoff": true
+}

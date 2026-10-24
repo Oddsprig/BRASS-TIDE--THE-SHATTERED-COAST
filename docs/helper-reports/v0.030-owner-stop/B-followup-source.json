@@ -1,0 +1,72 @@
+{
+  "scope": "Static UTF-8/delimiter/function/dependency-boundary/size/source-provenance/whitespace/hash checks only. No GDScript parsing or runtime proof.",
+  "frozen_predecessor": "5c6a91acdba64e5625c626f5be9029710381d628",
+  "assessment": "Frozen 5c6a91 already correctly used an exhaustion delta. This two-file change is explicit provenance clarity, not a budget bug fix.",
+  "engine_work": "NOT RUN; C retains the serialized engine lease",
+  "files": {
+    "game/scripts/battle.gd": {
+      "bytes": 30458,
+      "sha256": "1851204228eabca9da52b44d88d19432f9a8cac35e3e076f39acdd4447f3f5bb",
+      "changed_from_5c6a91": false
+    },
+    "game/scripts/chart.gd": {
+      "bytes": 38974,
+      "sha256": "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5",
+      "changed_from_5c6a91": false
+    },
+    "game/scripts/combat_boarding.gd": {
+      "bytes": 6714,
+      "sha256": "1b49027ef789498252ead927b9b2b54f64bd65c445c937b9acdb8a5a7a4a1fdf",
+      "changed_from_5c6a91": false
+    },
+    "game/scripts/interface.gd": {
+      "bytes": 47566,
+      "sha256": "33453db3e72c19320b3c9dd58aef957e40330ff0c0ecf1f5fa91a92e5650c57f",
+      "changed_from_5c6a91": false
+    },
+    "game/scripts/main.gd": {
+      "bytes": 32885,
+      "sha256": "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe",
+      "changed_from_5c6a91": false
+    },
+    "game/scripts/tactical_certification.gd": {
+      "bytes": 14922,
+      "sha256": "b779dde6c1ad714fe2800961104e38c78a463304abfd2e42f9aeb15864896645",
+      "changed_from_5c6a91": true
+    },
+    "game/scripts/tactical_fire_control.gd": {
+      "bytes": 10802,
+      "sha256": "c2b24ad1b0962b026c6e45a8e3e055c077c1402f3d36808734e237241be39b02",
+      "changed_from_5c6a91": true
+    },
+    "game/scripts/tactical_routes.gd": {
+      "bytes": 8781,
+      "sha256": "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2",
+      "changed_from_5c6a91": false
+    },
+    "game/scripts/tactical_runtime.gd": {
+      "bytes": 34562,
+      "sha256": "44dce667ec26b3d2fa3636c0926777ad4cae207d4f9312b0acb884721ecc2572",
+      "changed_from_5c6a91": false
+    },
+    "game/scripts/tactics_ui.gd": {
+      "bytes": 11423,
+      "sha256": "51515fe8f40d064bcfa322ebeaab30ad5e212b8ae9142aeb171e5e5b80e5fba5",
+      "changed_from_5c6a91": false
+    }
+  },
+  "changed_production_files": [
+    "game/scripts/tactical_certification.gd",
+    "game/scripts/tactical_fire_control.gd"
+  ],
+  "unchanged_production_files": 8,
+  "preserved_raw_report": {
+    "path": "REPORT-v030-tactics.txt",
+    "sha256": "e89091a88b0a43880900d3da83f7e3fbc9897db8379ef8cbcf30f1744bc7420e"
+  },
+  "preserved_original_manifest": {
+    "path": "qa/v030-tactics/static-source.json",
+    "sha256": "b6db9fc598bff31917ede92dc3a00d7916427d4f2cb72b1cf165583c5112331f"
+  },
+  "result": "PASS"
+}

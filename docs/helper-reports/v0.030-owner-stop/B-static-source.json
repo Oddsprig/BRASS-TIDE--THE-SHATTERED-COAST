@@ -1,0 +1,54 @@
+{
+  "scope": "Static UTF-8/delimiter/dependency/allowlist/size/whitespace checks only; not GDScript parsing or runtime proof",
+  "base": "4f6cfa68ec69df808a1535f1dbee9b3962a37cfb",
+  "preserved_029": "ac01058855765abadcfab29934cdddfe30b4264a",
+  "engine_work": "NOT RUN; C owns the serialized engine lease",
+  "files": {
+    "game/scripts/battle.gd": {
+      "bytes": 30458,
+      "sha256": "1851204228eabca9da52b44d88d19432f9a8cac35e3e076f39acdd4447f3f5bb"
+    },
+    "game/scripts/chart.gd": {
+      "bytes": 38974,
+      "sha256": "8c2bb9383be2db6522373e9bd80cde236593b4a4cfb1803a04211f4d816b38e5"
+    },
+    "game/scripts/combat_boarding.gd": {
+      "bytes": 6714,
+      "sha256": "1b49027ef789498252ead927b9b2b54f64bd65c445c937b9acdb8a5a7a4a1fdf"
+    },
+    "game/scripts/interface.gd": {
+      "bytes": 47566,
+      "sha256": "33453db3e72c19320b3c9dd58aef957e40330ff0c0ecf1f5fa91a92e5650c57f"
+    },
+    "game/scripts/main.gd": {
+      "bytes": 32885,
+      "sha256": "f1f05ddfb1afcad42de6e0bf1a166ca2ead005d3ceccadcd27f898cd4c709efe"
+    },
+    "game/scripts/tactical_certification.gd": {
+      "bytes": 14705,
+      "sha256": "611fa1d4e903b0666a397347a28c68ec2da677e1d76811d243a840cbe8e93e9d"
+    },
+    "game/scripts/tactical_fire_control.gd": {
+      "bytes": 10738,
+      "sha256": "1edc61eb2f9bff19152e486108bc811fd37705ce3c22690581f8cf9f40b7bb8a"
+    },
+    "game/scripts/tactical_routes.gd": {
+      "bytes": 8781,
+      "sha256": "a911bd76d591fe858d5022a94c025f67eeb93d14f6f4a97fbe0287c677a355f2"
+    },
+    "game/scripts/tactical_runtime.gd": {
+      "bytes": 34562,
+      "sha256": "44dce667ec26b3d2fa3636c0926777ad4cae207d4f9312b0acb884721ecc2572"
+    },
+    "game/scripts/tactics_ui.gd": {
+      "bytes": 11423,
+      "sha256": "51515fe8f40d064bcfa322ebeaab30ad5e212b8ae9142aeb171e5e5b80e5fba5"
+    }
+  },
+  "read_only_A_dependencies": {
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\series-v029-v038\\art\\game\\scripts\\tactical_planner.gd": "1bcb3c3b1a24bcfbdbf434dde8e40778055cf77b5a9eb3e87c2603868fd40cd0",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\series-v029-v038\\art\\game\\scripts\\tactical_role_plans.gd": "7db6a4371dc52cee927d39caf2e292545b0c97630189cb40894e97d0498a7865",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\series-v029-v038\\art\\game\\scripts\\tactical_stations.gd": "3dae5a1756cc98dbd3586e27993b0fb0d45d564b8a5106e180f05a2d62e1d0c3"
+  },
+  "result": "PASS"
+}

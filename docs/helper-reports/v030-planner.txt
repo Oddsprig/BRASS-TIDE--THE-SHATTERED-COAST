@@ -1,0 +1,66 @@
+BRASS TIDE v0.030 — A DETACHED PLANNER RAW REPORT
+23 October 2026. Implementation handback for C/root; native acceptance PENDING.
+
+Gate/base/preservation
+Read actual .029 DELIVERY VERIFIED.json and RELEASE.json; verified version0.029,
+source44e2a46b55bd56b52998eeb1d4cdc681c5091482, smoke declarations, both archive
+hashes, actual EXE/PCK and Windows ZIP's RELEASE/EXE/PCK bytes. Gate PASS.
+Own .029 source/UID/report/AGENTS preserved in2471c8003366c13ba700813ea76806251e65922c,
+branch helper-a-preserve-v029-art. Exact AGENTS bytes/diff and original raw report
+hash retained under qa/v030-planner; existing qa/v029-art evidence retained.
+Then detached4f6cfa68ec69df808a1535f1dbee9b3962a37cfb. Read full frozen contract/r2
+and prospective root r3 protocol amendment; kept base/API/numeric limits unchanged.
+
+Exact deliverable files
+game/scripts/tactical_planner.gd + .uid
+game/scripts/tactical_role_plans.gd + .uid
+game/scripts/tactical_stations.gd + .uid
+game/tests/test_tactical_planner.gd + .uid
+REPORT-v030-planner.txt
+Own qa/v030-planner contains gate/preservation/source-check records, scripts,
+INTEGRATION.txt and final source-manifest.json with exact per-file SHA256/commit.
+No existing art/runtime/UI/campaign/schema/world/version/test changes.
+
+API and behavior
+Planner.propose(view,memory)->Array, resolve(view,memory,offers)->{memory,byId,counters}
+and fingerprint(candidate)->String. Detached read-only input; no Battle/callback/
+RNG/scene/file/worker access. Source author/target/role/mount/revision binding
+survives B path refinement; full canonical candidate SHA256 binds certification.
+Resolve checks complete r2 certificate/window/pose/expiry/prefix fields, never
+creates reachability or extends permission. geometry/dynamics keys stay B-opaque.
+DueIds alone author memory, intent and one reservation/hull; other entries survive.
+
+Roles use actual fits/speed/size/status/stores: separated skirmish approaches,
+useful fire passes, breakaway/regroup; fixed-tube staging/alignment and turn-away
+after observed shot; named-ally screens/leashes, heavy arc pressure/counters,
+protected support, real line/column/screen escort stations. Explicit orders,
+completion/lost leader/pursuit limits and conditional rallies are explained.
+Doctrine affects risk/withdrawal only. No statistics or stores bonuses.
+At most8 total candidates/hull,16 scored targets,8 points/leg,24 total; bounded
+eight-time-bucket/sixteen-mount state and no A path cache. HP history uses actual
+peak/last observations, a two-second cutoff and fixed one-third-second coalescing,
+not the last eight decisions; no interpolated HP or danger-threshold change.
+All-context shortlist uses cheap poses/velocity only; <=16 unique opponents enter
+any detailed scoring/focus/arc work, including protected-ally threats. Swept reservation
+occupancy spends shared clearanceRemaining before tests and returns clearanceTests.
+No20-hull admission cap. Pending/blocked/occupied/trapped cases receive no path
+permission; B handles safe braking, route work and all real physical checks.
+
+Every installed automatic mount has a gate. Guns renew continuous leases; fixed
+tubes have one-shot salvo leases with stable pass identity/spending across refresh
+and nonattack orders. Actual observed shot, travel and regroup govern a new pass;
+new explicit attack may reset. No automatic target fallback. Manual remains B-owned.
+
+Verification and limits
+PASS: read-only delivery/hash gate, frozen field-order/cap agreement, lexical
+balance, explicit local types, forbidden-API/input-assignment/UID/source-scope
+checks and git whitespace audit. These are source checks, NOT a GDScript parser.
+Meaningful pure fixtures cover immutability, due isolation, malformed/expired/
+rebound certs, refined paths, station separation/quota exhaustion, real-shot phase
+changes, stable salvo/gun leases, command interruption, held/reserved mounts,
+formations, screens, slower/blocked/trapped cases, bounded repeated memory and
+identical two-second focus reaction at .2s,1/15s,1/30s decision cadences.
+NOT RUN: Godot syntax/import, the new native unit suite, any engine/game/test,
+actual motion/UI/fire, performance/timing, Windows export or release/publication.
+NO ENGINE LEASE used, no new helpers/models, no tuning/held-out runs. C owns those
+executions; root owns final integration/verdict. No .031 work or AI-parity claim.

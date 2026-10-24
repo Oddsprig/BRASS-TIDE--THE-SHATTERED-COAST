@@ -36,6 +36,8 @@ var fire_held = false
 var auto_gunners = true
 var tactical_mode = false
 var pre_tactical_paused = false
+var pre_tactical_autopilot = true
+var battle_selection_groups: Dictionary={1:[],2:[],3:[],4:[]}
 var selected_battle_ids: Array = []
 var selection_start = Vector2.ZERO
 var selection_box = Rect2()
@@ -229,6 +231,11 @@ func _unhandled_input(event):
 			KEY_1: command_selected("engage") if mode == "battle" else null
 			KEY_2: command_selected("escort") if mode == "battle" else null
 			KEY_3: command_selected("hold") if mode == "battle" else null
+			KEY_F1, KEY_F2, KEY_F3, KEY_F4:
+				if mode=="battle":
+					var group: int=int(event.keycode)-int(KEY_F1)+1
+					if event.ctrl_pressed:save_selection_group(group)
+					else:recall_selection_group(group)
 	elif event is InputEventMouseButton and not ui.modal_open:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
 			chart.zoom = clampf(chart.zoom * 1.12, 0.10 if mode=="campaign" else 0.45, 3.0)
@@ -528,6 +535,7 @@ func _enter_battle():
 	battle_last_wrecks = 0
 	selection_dragging = false
 	selected_battle_ids = [battle.playerId] if battle.playerId != null else []
+	battle_selection_groups={1:[],2:[],3:[],4:[]}
 	chart.zoom = 1.0
 	chart.set_tactical(false)
 	chart.center_camera()
@@ -536,7 +544,7 @@ func _enter_battle():
 	ui.toast("Autopilot engaged. WASD camera · Space pause · select boats, right-click orders · Tab tactical view.")
 
 func switch_flagship():
-	var fleet = battle.ships.filter(func(s): return s.team == "player" and not s.sunk)
+	var fleet = battle.ships.filter(func(s): return s.team == "player" and not s.sunk and not s.get("captureSecured",false))
 	if fleet.is_empty():
 		return
 	var index = 0
@@ -552,6 +560,7 @@ func toggle_autopilot():
 	if mode != "battle" or battle.is_empty():
 		return
 	Battle.set_autopilot(battle, not bool(battle.get("autopilot", true)))
+	if tactical_mode:pre_tactical_autopilot=bool(battle.autopilot)
 	fire_held = false
 	ui.toast("Flagship autopilot engaged." if battle.autopilot else "Manual flagship: arrow keys steer, mouse aims/fires. WASD still moves the camera.")
 	ui.update_hud()
@@ -562,16 +571,18 @@ func toggle_tactical():
 	tactical_mode = not tactical_mode
 	if tactical_mode:
 		pre_tactical_paused = paused
+		pre_tactical_autopilot=bool(battle.get("autopilot",true))
 		paused = true
 		Battle.set_autopilot(battle, true)
 	else:
 		paused = pre_tactical_paused
+		Battle.set_autopilot(battle,pre_tactical_autopilot)
 	chart.set_tactical(tactical_mode)
 	fire_held = false
 	ui.update_hud()
 
 func select_battle_boat(id: String, additive: bool = false):
-	if not battle.ships.any(func(boat):return str(boat.id)==id and boat.team=="player" and not boat.sunk):
+	if not battle.ships.any(func(boat):return str(boat.id)==id and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)):
 		return
 	if not additive:
 		selected_battle_ids.clear()
@@ -579,10 +590,47 @@ func select_battle_boat(id: String, additive: bool = false):
 		selected_battle_ids.append(id)
 	ui.update_hud()
 
+func set_selected_tactical_options(options: Dictionary) -> bool:
+	if mode!="battle" or battle.is_empty():return false
+	var ok: bool=Battle.set_tactical_options(battle,selected_battle_ids.duplicate(),options)
+	if not ok:ui.toast("Choose living owned boats and valid tactical choices.",true)
+	else:ui.toast("Selected boats' tactical choices updated.")
+	ui.update_hud()
+	return ok
+
+func save_selection_group(group: int) -> bool:
+	if mode!="battle" or group<1 or group>4 or selected_battle_ids.is_empty():return false
+	var ids: Array=[]
+	for id in selected_battle_ids:
+		if battle.ships.any(func(boat):return str(boat.id)==str(id) and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)):ids.append(str(id))
+	if ids.is_empty():return false
+	if not Battle.set_tactical_options(battle,ids,{"group":group}):return false
+	battle_selection_groups[group]=ids.duplicate()
+	ui.toast("Selection saved to group %d for this battle."%group)
+	return true
+
+func recall_selection_group(group: int) -> bool:
+	if mode!="battle" or group<1 or group>4:return false
+	var ids: Array=[]
+	for id in battle_selection_groups.get(group,[]):
+		if battle.ships.any(func(boat):return str(boat.id)==str(id) and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)):ids.append(str(id))
+	if ids.is_empty():ui.toast("Group %d has no living boats saved."%group);return false
+	selected_battle_ids=ids
+	ui.update_hud()
+	return true
+
+func withdraw_fleet():
+	if mode!="battle" or battle.is_empty():return
+	Battle.retreat(battle)
+	if tactical_mode:pre_tactical_autopilot=true
+	fire_held=false
+	ui.toast("Fleet withdrawal ordered; autopilot engaged. U retakes manual control.")
+	ui.update_hud()
+
 func select_all_boats():
 	selected_battle_ids.clear()
 	for boat in battle.get("ships", []):
-		if boat.team == "player" and not boat.sunk:
+		if boat.team == "player" and not boat.sunk and not boat.get("captureSecured",false):
 			selected_battle_ids.append(boat.id)
 	ui.update_hud()
 
@@ -593,7 +641,7 @@ func finish_battle_selection(position: Vector2, additive: bool = false):
 		var nearest = ""
 		var distance = 42.0
 		for boat in battle.ships:
-			if boat.team == "player" and not boat.sunk:
+			if boat.team == "player" and not boat.sunk and not boat.get("captureSecured",false):
 				var d = chart.project(Vector2(boat.x, boat.y)).distance_to(position)
 				if d < distance:
 					distance = d
@@ -604,7 +652,7 @@ func finish_battle_selection(position: Vector2, additive: bool = false):
 		if not additive:
 			selected_battle_ids.clear()
 		for boat in battle.ships:
-			if boat.team == "player" and not boat.sunk and rectangle.has_point(chart.project(Vector2(boat.x, boat.y))) and not boat.id in selected_battle_ids:
+			if boat.team == "player" and not boat.sunk and not boat.get("captureSecured",false) and rectangle.has_point(chart.project(Vector2(boat.x, boat.y))) and not boat.id in selected_battle_ids:
 				selected_battle_ids.append(boat.id)
 	selection_box = Rect2()
 	ui.update_hud()
@@ -614,7 +662,7 @@ func command_selected(order: String, target: Dictionary = {}):
 		return
 	if order == "escort" and target.is_empty():
 		target = {"shipId":str(battle.playerId)}
-	selected_battle_ids = selected_battle_ids.filter(func(id):return battle.ships.any(func(boat):return boat.id==id and boat.team=="player" and not boat.sunk))
+	selected_battle_ids = selected_battle_ids.filter(func(id):return battle.ships.any(func(boat):return boat.id==id and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)))
 	if selected_battle_ids.is_empty():
 		select_all_boats()
 	if not Battle.issue_order(battle, selected_battle_ids, order, target):
@@ -627,7 +675,7 @@ func order_at(position: Vector2):
 	var target: Dictionary = {}
 	var closest = 42.0
 	for boat in battle.ships:
-		if boat.sunk:
+		if boat.sunk or boat.get("captureSecured",false):
 			continue
 		var distance = chart.project(Vector2(boat.x, boat.y)).distance_to(position)
 		if distance < closest:

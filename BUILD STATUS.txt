@@ -1,8 +1,15 @@
-BRASS TIDE v0.029 — VERIFIED LOCAL WINDOWS DELIVERY
+BRASS TIDE v0.030 - SOURCE CANDIDATE, UNTESTED
+Tests deferred AT OWNER REQUEST. Finish this Windows BUILD ONLY, then STOP.
+No tests, benchmarks, smokes, parser validation, game/UI/motion launches or future
+implementation. Root owns final merge, build-only exporter, annotated tag,
+compiler/required asset import/export, archives and launcher. C ran none of them.
+.031-.038 are STOPPED and must not resume automatically.
 
-Exact game source: 44e2a46b55bd56b52998eeb1d4cdc681c5091482
-Native Windows menu, campaign/save and battle startup: PASS in background/headless mode.
-Executable icon/PCK, manifest hashes, Windows ZIP and exact-tag source ZIP CRC/SHA256: PASS.
-All prior releases and original owner saves/music remain preserved. No desktop input/focus.
-Development notes are available in the title/Escape menus and DEVELOPER NOTES.txt beside the game.
-GitHub upload and latest desktop shortcut have separate receipts.
+Exact A FINAL component and B owner-stop ten-file source bundle are integrated
+on root c90438a. A's narrow screen-priority source correction is UNTESTED; its
+assertion is unchanged. Previous native evidence remains 350 checks / 1 failure,
+not a pass. No integrated .030 regression or behavior acceptance is claimed.
+Previous verified delivered game: v0.029, exact tag
+44e2a46b55bd56b52998eeb1d4cdc681c5091482. Old releases and owner files preserved.
+Deferred queue: docs/DEFERRED TEST QUEUE v0.030.txt.
+Source/provenance: docs/SOURCE INTEGRATION v0.030.txt and SOURCE MANIFEST v0.030.json.
