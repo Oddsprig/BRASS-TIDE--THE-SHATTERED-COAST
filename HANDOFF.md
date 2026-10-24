@@ -1,6 +1,7 @@
 BRASS TIDE - CURRENT CHECKPOINT 2026-10-24T11:45:10.895185+00:00
-Main parent: 866eeed9e134250b7de2bd85189bd273883746b2; verified combined source changes await the next local
-checkpoint commit. No new playable version has been accepted.
+Source checkpoint: e43997bcf2cb979a59f4d3c46fca8645d659538c. Combined equipment source is
+committed locally. Later coordination-only commits may follow. No new playable
+version has been accepted.
 
 USER AND TEST SCHEDULING
 Continue the authorized roadmap through .038, building on each accepted version.
