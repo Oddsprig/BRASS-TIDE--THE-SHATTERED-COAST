@@ -1,31 +1,33 @@
-BRASS TIDE — CURRENT WORKING STATUS, 24 OCTOBER2026
+BRASS TIDE - CURRENT WORKING STATUS, 24 OCTOBER2026
 Development and silent background testing are active by the owner's resume.
 Preserved playable030/tag7492fb7 remains its original UNTESTED build; verified029/
-44e2a46 is preserved. No031+ playable version or remote upload exists.
+44e2a46 fallback is preserved. No031+ playable version or remote upload exists.
 
-Main contains accepted memory/60Hz prediction, selected/mixed fleet controls,
+Mainc98433c contains memory/60Hz prediction, selected/mixed fleet controls,
 equipment core90/Records89/catalogue651/panel49 and paid fitting324. Legacy
-refit352/workshop85 pass on the final native fitting pack. Current campaigns
-retain count fittings until explicit physical migration. Frozen tactical source
-203fc79 and df6b479/190687f has focused AI2462, mount1449, paidrefit352 and public
-Battle137 proof. Closest motion12/12 and escape/recovery8/8 pass. Prospective
-formation353/0 preserves original350/1. Full70, heldout/capacity and actual
-40-hull first-shot deadline remain open; no complete tactical acceptance.
+refit352/workshop85 pass on its final native pack. Current campaigns retain
+count fittings until explicit physical migration. Fitting proof: ROOT PAID FITTING.
 
-Corrected Damage176bc3d: identical fixture before174/11 ->after174/0; unchanged
-legacy Damage also passes. Root independently verified156Damage and124screen
-raw files; exact source and CRLF/LF bindings recorded separately. This component
-is ready for integration but not live. See ROOT DETACHED DAMAGE v0.031.txt,
-QA DETACHED DAMAGE v0.031.txt/.json and ROOT DAMAGE AND SCREEN RECEIPT.json.
+Frozen tactical1f848630 now passes first-seed r4 motion40/40, affected13 suites
+and explicit/default rally/withdraw authority44/0. Root rehashed477raw files and
+exact Runtime bytes. The old39/40 and rejected broad change remain preserved.
+Actual40-hull first-paid-fire3.7s meets the unchanged4s focused deadline. The
+original70 regression completed67/70: voyage/autovoyage hit60s child bounds,
+and presentation uses an obsolete private-fire fixture now queued for correction.
+Full regression, heldout seeds and sustained capacity remain OPEN. This source
+candidate is not yet integrated in main. No complete tactical acceptance.
 
-Three Bridge helpers only: Sol6.1MAX sole engine/QA, Gemini4ArgonHIGH paidHarbor,
-Grok4.7 wreck/tow custody. Grok recovery and Argon Harbor correction candidates remain unrun.
-Actual031combat/Harbor/career/save/capture integration remains incomplete.
-Paid fitting source accepted from native e181112 after full457-file evidence
-rehash; see ROOT PAID FITTING v0.031.txt and receipt. No full031 acceptance.
-All tests hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus.
-Owner saves/music/releases protected. Current coordination is task
-work/resume-v030-v038/CURRENT.txt and TEAM.json.
+Corrected detached Damage176bc3d: identical fixture174/11 before ->174/0 after,
+plus legacy Damage pass. Root verified156raw. Not installed in live main yet.
+PaidHarbor43373fa and recoveryf7cacdd are frozen, reviewed and queued for native
+proof, not accepted live features. Argon builds paid NPC equipment maintenance;
+Grok builds a pure whole-campaign ownership preflight. Actual031 combat,
+Harbor/career/save/capture/recovery/controller integration remains incomplete.
+
+Only three Bridge helpers: Sol6.1MAX sole engine/QA, Google4ArgonHIGH and Grok4.7.
+Tests hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus.
+Owner saves/music/releases protected. Coordination: task work/resume-v030-v038/
+CURRENT.txt, TEAM.json and ENGINE LEASE.txt. No new launcher or release yet.
 
 HISTORICAL RECORDS FOLLOW
 

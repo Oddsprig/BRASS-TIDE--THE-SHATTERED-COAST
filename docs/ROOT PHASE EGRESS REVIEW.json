@@ -1,0 +1,20 @@
+{
+  "scope": "Firstseed40/40 and affected13+authority44; full70/capacity/heldouts pending",
+  "commit": "1f8486303732c6566d545b7884d751d7b45923e9",
+  "manifest": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\docs\\QA RESUME v0.030.phase-egress.manifest.json",
+  "manifestSha256": "96aa9fd1104f50a6277a38cfb7a0e53a932a3a1739851922dd842270baf06eb8",
+  "rawFilesChecked": 477,
+  "rawMismatches": [],
+  "runtimeWorkingSha256": "f8caa59fedea60a4c4502c4ffea7ac88dc6b65f0ad4d1b3b9db1f4a485b2e805",
+  "runtimeGitSha256": "f8caa59fedea60a4c4502c4ffea7ac88dc6b65f0ad4d1b3b9db1f4a485b2e805",
+  "runtimeMatchesCommittedBytesOrCRLFBinding": true,
+  "inputFingerprint": "6d63aeb48a6d00964d69cb8cb7102beed5fbc2bce816128b924c4951a46c5d91",
+  "rootRanEngine": false,
+  "notAccepted": [
+    "full70",
+    "heldout motion",
+    "capacity",
+    "Windows release",
+    "complete tactical quality"
+  ]
+}

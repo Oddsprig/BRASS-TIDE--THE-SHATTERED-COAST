@@ -1,34 +1,31 @@
-BRASS TIDE — WORKING SOURCE NOTES
+BRASS TIDE - WORKING SOURCE NOTES
 24 October2026 | Resumed work toward v0.031
 
-The preserved portable030 is its original UNTESTED build. Background testing is
-active again; no new playable version or complete quality/performance claim.
+Portable030 remains its original UNTESTED build; verified029 is preserved.
+Background testing is active. No new playable build or complete quality claim.
 
-Reviewed source components: retained tactical memory; correct30/60Hz physical
-prediction; selected/mixed fleet tactics controls; unused numerical equipment
-condition and exact ownership core (90 native checks). Equipment records (89),
-all 24 hulls and JSON (651), and panel callbacks (49) are verified components.
-The detached damage/repair adapter passes174 focused checks and the existing
-damage suite. Live combat, paid fitting/Harbor, save and recovery integration
-remain. Paid fitting now has a verified part-custody adapter (324 checks plus
-legacy refit/workshop), but current careers retain count fittings until explicit
-physical migration. Full combat/Harbor/save/recovery integration is pending.
+Paid interchangeable fittings now preserve actual part IDs, condition and
+locker custody while paying real material and worker costs. Focused fitting324
+and legacy refit/workshop checks pass. Existing careers still use count fittings
+until the full equipment lifecycle is integrated. Core90/Records89/catalogue651/
+panel49 and detached Damage174 are verified components, not full031 acceptance.
 
-The combined AI candidate now demonstrates useful gun bursts, physical exits
-and second passes, mixed guns/rockets/torpedoes choosing checked targets within
-their own arcs, strict player attack orders and actual scattered projectile
-lanes. Focused native AI2462/mount1449/paidrefit352 checks pass on recorded inputs.
-Larger-fleet behavior/performance and full regression remain under test. A real
-early40-hull firing delay remains under correction. Closest screen/motion
-cases12/12 and protected escape/recovery8/8 now pass at recorded source scopes.
+The combined AI candidate passes40 first-seed maneuver cases,13 affected suites
+and44 real movement-authority checks. Small boats make useful paid firing passes
+and physically break away; escorts screen allies. First40-boat fire passes its
+focused deadline. Full regression, other seeds and sustained fleet performance
+are still being checked; one voyage check reached its time bound. Candidate AI
+and detached damage/Harbor/recovery are not yet installed together in main.
 
-24 original hulls;300 battle deployment points per side distinct from ownership;
+24 original boats;300 battle deployment points per side distinct from ownership;
 finite people, supplies and coins;100coins per sailor-day. Crew remain numerical.
-No031+ release, extra civilian hulls or Starsector-level quality claimed yet.
-Team: Sol6.1Max, Grok4.7 and ArgonHigh through Bridge. Tests silent/headless/
-isolated, with no mouse/keyboard/focus. Owner files and earlier releases preserved.
-Current evidence: docs/ROOT TACTICAL REVIEW resumed v0.030.txt and verification
-index. Versions advance .001 for each actual playable build, not prototype work.
+NPC maintenance and whole-world physical equipment ownership are under active
+development. No extra civilian boats or Starsector-level quality claimed yet.
+
+Three Bridge helpers: Sol6.1Max, Grok4.7 and Google4ArgonHigh. Tests are silent,
+headless and isolated with no mouse/keyboard/focus. Owner files are preserved.
+See current BUILD STATUS and VERIFICATION INDEX for exact evidence/limitations.
+Versions advance.001 for actual playable builds, not prototype work.
 
 HISTORICAL V0.030 BUILD-ONLY RECORD — ORIGINAL TEXT RETAINED BELOW
 

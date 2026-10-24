@@ -1,0 +1,21 @@
+ROOT REVIEW: PHASE EGRESS CHECKPOINT, NOT FULL TACTICAL ACCEPTANCE
+Frozen local evidence ref evidence-phase-egress-1f84863:
+1f8486303732c6566d545b7884d751d7b45923e9.
+Runtimef8caa59fedea60a4c4502c4ffea7ac88dc6b65f0ad4d1b3b9db1f4a485b2e805.
+Root read the narrow source delta and independently rehashed all477indexed
+raw files plus exact committed Runtime. Manifest96aa9fd1104f50a6277a38cfb7a0e53a932a3a1739851922dd842270baf06eb8.
+
+Default home used to override real post-shot egress when the boat fired near
+its generated home. A narrow projection change allows the existing away
+fallback only in that case, preserving regroup and player rally/withdrawal.
+No extra queries/rollouts, bigger budgets, changed radii or waived assertions.
+The original failed case now actually travels67.25 units away from its shot
+position with108.84 units/s away velocity. Same3torpedoes/1hit/0loss.
+
+Focused evidence: firstseed40/40 r4 motion;13 affected suites pass;44 native
+30/60Hz movement-authority assertions pass. Old39/40 and the broad rejected
+candidate remain raw. Actual40-hull first-paid-fire3.7s passes unchanged4s gate.
+Original70 runs separately; voyage reached60s child timeout and is incomplete.
+Full regression, heldout seeds, capacity, rendered/listening quality and clean
+Windows release are NOT accepted. Root did not run an engine. Candidate source
+is pinned locally for evidence but is not promoted into main by this record.

@@ -1,40 +1,30 @@
-# Active: finish resumed tactical verification, then .031–.038
+# Active: finish tactical verification, then .031-.038
 
-Owner restarted Bridge and restored development/testing. Main contains accepted memory/60Hz prediction, selected fleet
-controls and unused equipment core90/Records89/catalogue651/panel49 components. Preserved0307492fb7 remains its originally
-UNTESTED portable; verified02944e2a46 fallback and owner files are protected.
+Owner restored development/testing. Read task work/resume-v030-v038/CURRENT.txt,
+TEAM.json and ENGINE LEASE.txt for current helper tasks/offsets. Three Bridge
+subscription helpers only; Sol6.1MAX sole engine, Google4ArgonHIGH and Grok4.7.
+All tests hidden/headless/Dummy/lowpriority/isolated; no mouse/keyboard/focus.
 
-Exact active team, tasks, channels, offsets and engine lease live in task
-work/resume-v030-v038/CURRENT.txt, TEAM.json and ENGINE LEASE.txt. Three Bridge
-subscription helpers only: Sol6.1MAX, Grok4.7, Gemini4ArgonHIGH. No native/nested
-helpers or provider substitution. Sol holds the sole Brass Tide engine lease.
-Tests hidden/headless/Dummy/lowpriority/isolated; no input/focus or unrelated kills.
+Mainc98433c accepts paid physical fitting324 plus legacyRefit352/Workshop85 on
+the final native pack. Earlier memory/60Hz/controls/core90/Records89/catalog651/
+UI49 remain. Existing careers retain count fitting until lifecycle migration.
+Root rehashed457fitting evidence paths; exact receipts are in docs/ROOT PAID
+FITTING v0.031.txt and its JSON receipt. No whole031 acceptance.
 
-Frozen tactical203fc79 and df6b479/190687f checkpoints are pinned locally.
-Root reviewed production changes and verified135 prior raw files plus280 newer
-Damage/screen raw files. Closest motion12/12 and protected escape/recovery8/8
-pass on recorded inputs. Prospective formation353/0 preserves original350/1.
-Native AI2462, mount targets1449, paidrefit352 and stronger public Battle137
-pass at recorded scopes. Full70, largerfleet capacity, heldout motion and
-clean-tag Windows gates remain open. Real early40-hull emission is still under
-source correction. Do not claim complete AI acceptance.
+Frozen tactical1f848630 passes firstseed40/40 motion, affected13 suites and
+authority44/0. Root independently checked477raw paths and Runtimef8caa59; see
+docs/ROOT PHASE EGRESS REVIEW.txt/.json. Full original70 completed67/70: voyage/autovoyage reached
+the60s child bound; obsolete private-fire presentation fixture needs correction. Capacity/heldout/full regression remain open. Keep
+the candidate separate until acceptance; old39/40 and rejected broad changes
+are preserved. Current focused first40-hull paid-fire deadline passes3.7s.
 
-Records89/catalogue651/panel49 are accepted unused components. Corrected
-Damage176bc3d now passes174/0 versus original174/11 with the identical corrected
-fixture, plus unchanged legacy Damage. Root rehashed exact production and156
-raw proof files. See docs/ROOT DETACHED DAMAGE v0.031.txt. This verified component
-is not installed in live main yet. Argon corrects paid Harbor service; Grok
-corrects global wreck/tow custody and atomic settlement. Paid fitting is now integrated from exact native e181112 pack:324/0 plus
-legacyrefit352/workshop85. Root rehashed457 raw evidence paths. Original
-parse/runtime and324/1 failures are preserved; final foreign-schema refusal
-fix kept the fixture unchanged. Current careers still use legacy count fitting
-until explicit physical migration. See ROOT PAID FITTING v0.031.txt. Corrected
-pure032convoy observer5a183f4 remains unrun/unintegrated.
-Root EQUIPMENT ADAPTER INTEGRATION DRAFT.txt identifies actual live campaign/
-save/harbor/capture/wreck adapters. Pure components are not completed031.
+Detached Damage176 passes174/0 versus original174/11, plus legacy Damage; root
+verified156raw. Not live main yet. PaidHarbor43373fa/recoveryf7cacdd are frozen,
+reviewed and queued for native proof. Argon now implements owner-funded NPC
+maintenance; Grok implements a PURE whole-campaign ownership preflight. Actual
+Campaign/Save/battle/capture/Harbor/recovery/UI integration still needs wiring.
+See root integration draft and exact current task briefs, not old task memories.
 
-Next: finish tactical gates and paid fitting/Harbor, integrate real031equipment
-and paid custody/save/recovery; clean exact-tag031 release. Continue032..038 in
-order. Keep in-game TXT/maps/notes current and historical failures unchanged.
-No remote upload proved; prior credential failure not retried. No foreground
-launch, owner-save change, new playable version or new desktop launcher yet.
+Portable0307492fb7 remains original UNTESTED; verified02944e2a46 and all owner
+files are protected. No031+ release/tag/export/new launcher or remote upload.
+Finish real gates before the next.001 playable build, then continue032..038.
