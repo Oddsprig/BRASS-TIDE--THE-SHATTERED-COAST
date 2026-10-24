@@ -1,0 +1,26 @@
+ROOT EQUIPMENT RECORDS/PANEL COMPONENT REVIEW — 24 OCTOBER 2026
+Accepted scope: two unused dictionary/UI components and their native fixtures.
+Frozen QA1d6504b476a8eca7882365990e17b0104ea8a631. Root read complete production
+Records495lines/UI253lines, catalogue fixture, renamed UI fixture and native
+receipt. Verified all50 raw receipt hashes and five exact frozen code/test blobs.
+Core stays accepted c8358f69 unchanged. Root launched no duplicate engine.
+
+Unchanged records89 checks; actual24-hull/JSON catalogue651; nativeMain/button
+UI49 pass. Original UI parse failures preserved; only fixture constant Panel
+renamed EquipmentPanel. Condition0.25 stays disabled, raw scalar0.25/factor0;
+identity/serial/damage survive detached JSON/custody changes. UI callbacks leave
+paused model/career/purse/save unchanged in that fixture. Pending economy and
+actual game payments/capture/wreck/save adapters are not proved by these tests.
+
+Raw helper reports/contracts copied unchanged; they are provenance. The pure
+confirmPaid/acquired allowance tests do not prove material/labor/coin payment.
+Live Damage/paid fitting/Harbor/Campaign/save/recovery wiring remains pending.
+No031feature/version/export/tag acceptance; old030UNTESTED package untouched.
+
+Main test runner adds ONLY detached registry choices to the previously accepted
+runner. It keeps its existing five tactical entries and engine guard unchanged;
+it is not byte-identical to the QA runner that also registers unfinished motion
+suites. CLI help verifies the named component choices without engine execution.
+Native exact source scopes are the copied code/test hashes in adjacent receipt.
+UI explanatory prose will be polished before live use; any later revision is
+separately identified. All final031gates still remain. No visual/audio/parity proof.

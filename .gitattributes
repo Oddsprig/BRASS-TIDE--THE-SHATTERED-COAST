@@ -77,3 +77,14 @@
 "docs/helper-reports/module-core-v031-PREINTEGRATION-grok.txt" -text
 "docs/QA EQUIPMENT CORE v0.031.txt" -text
 "docs/QA EQUIPMENT CORE v0.031.json" -text
+"game/scripts/equipment_records.gd" -text
+"game/scripts/equipment_ui.gd" -text
+"game/tests/test_equipment_records.gd" -text
+"game/tests/test_equipment_ui.gd" -text
+"game/tests/test_equipment_catalog.gd" -text
+"docs/QA EQUIPMENT RECORDS AND PANEL v0.031.txt" -text
+"docs/QA EQUIPMENT RECORDS AND PANEL v0.031.json" -text
+"briefs/EQUIPMENT RECORD API v0.031.txt" -text
+"briefs/EQUIPMENT UI CONTRACT v0.031.txt" -text
+"docs/helper-reports/records-v031-PROTOTYPE-argon.txt" -text
+"docs/helper-reports/equipment-ui-v031-PROTOTYPE-grok.txt" -text

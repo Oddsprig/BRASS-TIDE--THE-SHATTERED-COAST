@@ -1,0 +1,65 @@
+BRASS TIDE v0.031 DETACHED EQUIPMENT RECORD ADAPTER API CONTRACT
+Status: PROTOTYPE DETACHED COMPONENT (UNRUN BY PLANNER-ARGON; QA-SOL OWNS ENGINE LEASE)
+Accepted Read-Only Core: `game/scripts/equipment_condition.gd` (`7519033`, SHA256 `c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8`, 1082 lines)
+Adapter Module: `game/scripts/equipment_records.gd` (SHA256 `56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08`, 495 lines)
+Unrun Fixture: `game/tests/test_equipment_records.gd` (SHA256 `759e80aae24661192b3faaa1f09be690c3503411e2778fbee45470c919fbbe0b`, 392 lines)
+
+================================================================================
+1. DEPENDENCY & ISOLATION BOUNDARY
+================================================================================
+- `game/scripts/equipment_records.gd` preloads ONLY:
+  - `const Core = preload("res://scripts/equipment_condition.gd")` (`L6`)
+  - `const Layout = preload("res://scripts/mount_layout.gd")` (`L7`)
+- Zero preloads of `refit.gd`, `damage.gd`, `battle.gd`, `harbor.gd`, `salvage.gd`, `boarding.gd`, or `campaign.gd` (preventing dependency cycles).
+- Nothing in the live game calls `equipment_records.gd` yet.
+- No bare `namespace` variable or parameter identifier is used anywhere (reserved in Godot 4.7.2).
+
+================================================================================
+2. FROZEN PUBLIC API SIGNATURES (`game/scripts/equipment_records.gd`)
+================================================================================
+
+2.1 `static func initialize(boat: Dictionary, context: Dictionary) -> Dictionary` (`L271-L381`)
+- Required `context` keys (`CONTEXT_KEYS` at `L9`):
+  - `"base": Dictionary` — Base hull specification (`id`, `size` in `8..48`, optional `tier` in `1..4`, optional `pumps >= 0.0`).
+  - `"loadout": Dictionary` — Already-normalized loadout (`{"weapons": Array, "engine": String, "armor": String}`).
+  - `"catalog": Dictionary` — Actual `Refit.catalog()` dictionary (`{"weapons": Dictionary, "engines": Dictionary, "armor": Dictionary}`).
+  - `"identity": String` — Explicit stable hull identity supplied by caller (`1..128` chars in `[A-Za-z0-9_.:@-]`). Never defaulted to `base.id`, `boat.type`, `boat.spec.id`, `boat.baseSpec.id`, `"boat"`, or generic `boat.id`.
+  - `"knownUids": Array` *(optional, defaults to `[]`)* — Item UIDs already owned by other hulls/wrecks.
+- Validation & Seeding Rules:
+  - Refuses unknown `context` keys, unknown/foreign condition fields on `boat` or `boat.spec.weaponMounts` (`Core._foreign(boat)`), malformed catalog/loadout/base, hardpoint count outside `1..4` (`Layout.hardpoints(base)`), fitting point overloads (`Layout.fitting_budget(base)`), or `refitLocker` exceeding `256` total spares (`Core.MAX_LOCKER = 256`).
+  - Accepts whole-valued float counts (`0.0..256.0`) in legacy `boat.refitLocker` (from `JSON.parse_string`), refusing fractional, negative, boolean, string, NaN/INF, or condition-bearing locker entries without truncating valid spares.
+  - Seeds explicit descriptors via `Core.legacy_seed`:
+    - Stock and fitted gear preserve `originHullType = str(base.id)`.
+    - Installed weapons, armor, and integral pumps seed with `hp = 1.0` (existing physical gear, never a free replacement).
+    - Installed engine seeds birth `hp` from `boat.engine` via `Core.legacy_seed`.
+    - Integral pumps descriptor (`{"family": "pumps", "typeId": "hull_pumps", "originHullType": hull_type, "location": "pumps", "hp": 1.0}`) is seeded ONLY when `base.has("pumps") and float(base.pumps) > 0.0`.
+  - Missing `boat.moduleCondition` seeds once (`changed: true, idempotent: false`) and calls `publish(boat)` to project `boat.engine` and `boat.refitLocker`, leaving `loadout`, `spec`, `baseSpec`, `hp`, `maxHp`, `water`, `fire`, `stores`, `crew`, `wounded`, `breaches`, and purses unchanged.
+  - Existing `boat.moduleCondition` only validates (`changed: false, idempotent: true`) against `Core.legacy_seed` and `_validate_condition_catalog`: it never reseeds absent installed records (`mount0..3`, `engine`, `armor`, or `pumps` when `base.pumps > 0`) and never heals damaged items.
+
+2.2 `static func absorb_legacy_damage(boat: Dictionary) -> Dictionary` (`L383-L392`)
+- Explicit entry-point downward sync of `boat.engine` onto the canonical installed engine record via `Core.note_engine_scalar(boat.moduleCondition, boat.get("engine"))`.
+- Lowers canonical installed engine `hp` and `legacyEngineSynced` only when `boat.engine < engine.hp - 0.0001`; upward scalar values are ignored (`changed: false`).
+- Refuses if `boat` has foreign condition fields, missing/corrupt `moduleCondition`, missing/non-unit `boat.engine`, or no installed engine.
+
+2.3 `static func publish(boat: Dictionary) -> Dictionary` (`L394-L414`)
+- Validates `Core.project(boat.moduleCondition)` and writes ONLY:
+  - `boat.engine`: raw installed engine `hp` (`float(projected.engineHp)` if `hasEngine`, else `0.0`). A disabled engine at `hp = 0.25` (`0.25 < REENABLE_HP = 0.30`) projects raw `boat.engine = 0.25`, not `0.0`.
+  - `boat.refitLocker`: derived locker counts (`projected.refitLocker.duplicate(true)`).
+- Retains live `boat` Dictionary reference and does not alter `loadout`, `spec`, hull damage, crew, stores, or wallet.
+- Returns `{"ok": true, "hasEngine": bool, "engine": float, "engineHp": float, "refitLocker": Dictionary}` (or `{"ok": false, "error": String}` on invalid canonical state).
+
+2.4 `static func snapshot(boat: Dictionary) -> Dictionary` (`L421-L495`)
+- Read-only derived inspection of installed records and factors:
+  - Disabled status (`item.status == "disabled"`) maps to factor `0.0`; otherwise factor equals `clampf(float(item.hp), 0.0, 1.0)`.
+  - Returns detached copies (`duplicate(true)`) of `installed` (keyed by location), `installedItems` (ordered array), `factors = {"engineHp", "engineFactor", "pumpFactor", "armorFactor", "weaponFactors"}` (with `weaponFactors` keyed by occupied `"mount0".."mount3"`), plus top-level `engineHp`, `engineFactor`, `pumpFactor`, `armorFactor`, `weaponFactors`, `repairPriority`, and `juryCap` (`0.75`).
+  - Legacy boat without `moduleCondition`: returns `{"ok": true, "needsInitialize": true, "installed": {}, "installedItems": [], ...}` without fabricating installed parts or mutating `boat`.
+  - Corrupt existing `moduleCondition` or foreign condition metadata: fails closed (`{"ok": false, "error": ...}`) without erasing or mutating `boat`.
+
+================================================================================
+3. CRITICAL CALL ORDERING
+================================================================================
+1. Before canonical mutation (hit damage, repair, or slot replacement): call `absorb_legacy_damage(boat)` if external code may have lowered `boat.engine`.
+2. Perform canonical `EquipmentCondition` operations (`apply_component_damage`, `repair_installed`, `restore_installed_paid`, `move_exact`, `swap_exact`, `transfer_exact`, `accept_acquired_item`).
+3. After canonical mutation: call `publish(boat)` to project `boat.engine` and `boat.refitLocker`.
+4. Never call `absorb_legacy_damage(boat)` between a canonical repair/paid engine installation and `publish(boat)`, as the pre-mutation `boat.engine` scalar would damage the newly repaired or newly installed engine.
+5. Read-only previews must run on `boat.duplicate(true)` so `nextItemSeq` is never advanced on the live hull.

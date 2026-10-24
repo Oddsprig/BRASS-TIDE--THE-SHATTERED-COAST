@@ -1,0 +1,82 @@
+BRASS TIDE — DETACHED .031 EQUIPMENT RECORD ADAPTER PROTOTYPE REPORT
+Workspace: C:\Users\bligh\Documents\Codex\2026-10-20\how\work\resume-v030-v038\planner-argon
+Parent Commit: 5c6394d (frozen secondary-target candidate; untouched)
+Engine Execution Status: UNRUN / UNVERIFIED IN ENGINE (qa-sol holds sole engine lease; zero Godot processes launched)
+
+================================================================================
+1. EXACT FILE PROVENANCE & SHA256 HASHES
+================================================================================
+Copied Read-Only Core (from accepted main 7519033):
+- game/scripts/equipment_condition.gd
+  SHA256: c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8
+  Lines:  1082
+  Status: Read-only copy from main commit 7519033 (verified exact byte match)
+
+New Allowlisted Files:
+- game/scripts/equipment_records.gd
+  SHA256: 56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08
+  Lines:  495
+- game/tests/test_equipment_records.gd
+  SHA256: 759e80aae24661192b3faaa1f09be690c3503411e2778fbee45470c919fbbe0b
+  Lines:  392
+- briefs/EQUIPMENT RECORD API v0.031.txt
+  SHA256: 6c436cef5bfd8f22fa66d22c33b2330856388a165d1e53c62be7ce19b6aabbde
+  Lines:  65
+- REPORT-equipment-records-PROTOTYPE.txt
+  (this report)
+
+All existing files in `planner-argon` (`tactical_stations.gd`, `tactical_planner.gd`, `tactical_certification.gd`, `tactical_runtime.gd`, `tactical_fire_control.gd`, `refit.gd`, `mount_layout.gd`, `damage.gd`, `battle.gd`, prior reports, and tests) remain completely untouched at their `5c6394d` hashes.
+
+================================================================================
+2. EXACT STATIC API SYMBOLS IN `game/scripts/equipment_records.gd`
+================================================================================
+Preloads & Constants:
+- `const Core = preload("res://scripts/equipment_condition.gd")` (`L6`)
+- `const Layout = preload("res://scripts/mount_layout.gd")` (`L7`)
+- `const CONTEXT_KEYS: Array = ["base", "loadout", "catalog", "identity", "knownUids"]` (`L9`)
+- `const LOADOUT_KEYS: Array = ["weapons", "engine", "armor"]` (`L10`)
+- `const CATALOG_FAMILIES: Array = ["weapons", "engines", "armor"]` (`L11`)
+- `const MOUNT_LOCATIONS: Array = ["mount0", "mount1", "mount2", "mount3"]` (`L12`)
+- `const PUMP_TYPE_ID: String = "hull_pumps"` (`L13`)
+
+Frozen Public Functions:
+1. `static func initialize(boat: Dictionary, context: Dictionary) -> Dictionary` (`L271-L381`)
+2. `static func absorb_legacy_damage(boat: Dictionary) -> Dictionary` (`L383-L392`)
+3. `static func publish(boat: Dictionary) -> Dictionary` (`L394-L414`)
+4. `static func snapshot(boat: Dictionary) -> Dictionary` (`L421-L495`)
+
+Internal Static Helpers:
+- `static func _fail(message: String) -> Dictionary` (`L15-L16`)
+- `static func _validate_catalog(catalog) -> Dictionary` (`L18-L47`)
+- `static func _validate_base(base, boat: Dictionary) -> Dictionary` (`L49-L86`)
+- `static func _validate_identity(identity, hull_type: String, boat: Dictionary) -> Dictionary` (`L88-L102`)
+- `static func _same_loadout(a, b: Dictionary) -> bool` (`L104-L115`)
+- `static func _validate_loadout(loadout, catalog: Dictionary, hull_info: Dictionary, boat: Dictionary) -> Dictionary` (`L117-L161`)
+- `static func _parse_legacy_locker(boat: Dictionary, family_by_type: Dictionary, hull_type: String) -> Dictionary` (`L163-L232`)
+- `static func _validate_condition_catalog(condition: Dictionary, catalog: Dictionary, family_by_type: Dictionary, hull_info: Dictionary) -> Dictionary` (`L234-L269`)
+- `static func _factor_for(item: Dictionary) -> float` (`L416-L419`)
+
+================================================================================
+3. EXACT TEST FUNCTIONS IN `game/tests/test_equipment_records.gd` (UNRUN)
+================================================================================
+Preloads:
+- `const Records = preload("res://scripts/equipment_records.gd")` (`L6`)
+- `const Core = preload("res://scripts/equipment_condition.gd")` (`L7`)
+- `const Refit = preload("res://scripts/refit.gd")` (`L8`)
+- `const Damage = preload("res://scripts/damage.gd")` (`L9`)
+- `const Layout = preload("res://scripts/mount_layout.gd")` (`L10`)
+
+Test Functions (called from `func _initialize() -> void` at `L374-L392` using `res://data/world.json` and `Refit.catalog()`):
+1. `func test_stable_once_initialization_and_identity_rules() -> void` (`L54-L95`)
+2. `func test_no_pump_invention_on_pump_free_base() -> void` (`L97-L118`)
+3. `func test_full_256_legacy_spares_retained_and_bound() -> void` (`L120-L143`)
+4. `func test_unknown_condition_refused_unchanged() -> void` (`L145-L171`)
+5. `func test_json_float_migration() -> void` (`L173-L196`)
+6. `func test_duplicate_registry_refusal() -> void` (`L198-L212`)
+7. `func test_absent_installed_record_cannot_regenerate() -> void` (`L214-L231`)
+8. `func test_disabled_engine_raw_projection_and_factors() -> void` (`L233-L271`)
+9. `func test_readonly_snapshot_detached_and_legacy_absent_owner() -> void` (`L273-L295`)
+10. `func test_explicit_downward_sync_and_repair_publish_order() -> void` (`L297-L325`)
+11. `func test_exact_paid_replacement_ordering_and_custody() -> void` (`L327-L372`)
+
+Note: These tests exercise the detached adapter and core only; they are not live-game or actual-payment proof and have not been executed in Godot yet.

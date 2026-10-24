@@ -1,0 +1,67 @@
+Detached records/UI native verification, 24 October 2026
+
+Outcome: unchanged records89/0; additional actual24-hull/JSON fixture651/0;
+native equipment UI49/0 after ONE mechanical fixture constant rename. Final
+registered detached entrypoints repeat89/0,49/0,651/0 with identical source.
+No live adapter, game feature/.031 acceptance, payment, release/export/tag or
+tactical acceptance follows. Existing tactical production is unchanged since
+203fc79; old r336/38, prospective r45/8 and real early40 deadline failure remain.
+
+Exact copied candidates
+-----------------------
+Argon21fe613f9dc806015f74c1a34bd6b77295d9411f: copied ONLY
+equipment_records.gd SHA25656d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08
+and test_equipment_records.gd759e80aae24661192b3faaa1f09be690c3503411e2778fbee45470c919fbbe0b.
+Accepted equipment_condition.gd stays EXACT
+c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8.
+No incoming core/tactical whole source was copied. Records preloads only Core
+and Layout. Raw incoming contract/report and Git blobs saved under
+qa/component-queue/records; they are source provenance, not native authority.
+
+Grok2a23bd7d4ae926088770f67bcf30092a505e635a: copied ONLY
+equipment_ui.gd48af7b4c0cef44adc309569bd096b3865cfb7220d949e811ad14c5bf83393864
+and test_equipment_ui.gd09013b24a0bb8af110b6ff280b3255824434322497eb211e3f9472f91368f6b7.
+UI production source is unchanged and has no preload. Raw contract/report and
+exact original fixture are saved under qa/component-queue/ui.
+
+Native details and honest limits
+--------------------------------
+Original UI first failed parse, not behavioral assertions. Inherited one-line
+test wrapper reported unresolved class; IDENTICAL original fixture bytes run
+directly exposed "member Panel shadows a native class". Renamed ONLY const
+Panel and its6 references to EquipmentPanel; all original assertions retained.
+Native49/0 now uses actual Main/Interface modal nodes, pressed signals, disabled
+quote, enabled repair/workshop/refresh/priority, close, sea quote, debug part ID,
+missing callbacks and nonfinite rejection. Actual0.25 engine remains disabled
+and is displayed unavailable. Paused career, model, purse and isolated save
+remain unchanged in this fixture. Buttons really call Interface's existing
+sync_economy then supplied spy callback; no pending-economy scenario was added.
+No foreground input, focus/OS automation or visual-quality claim.
+
+Unchanged records89/0 covers stable seeding,256 real loose parts/257 refusal,
+no pump/installed regeneration, corrupt/foreign/duplicate refusal, JSON whole
+floats, engine downsync, raw0.25/disabled factor0, pure repair/publish and exact
+removed/acquired UID custody. Its confirmPaid/acquired transactions do NOT
+prove actual coins/materials/labor were paid by a live harbor adapter.
+
+Additional native catalogue651/0: all24 actual world hulls, actual Refit.catalog
+and normalized defaults; actual JSON canonical roundtrips; unchanged hull HP,
+water/fire/people/stores/loadout/spec/purse on initialization; stable UID/serial;
+actual canonical damage; idempotent raised legacy scalar cannot heal; explicit
+0.35 downward sync then pure supplied allowance to0.50 and publish; corrupt,
+missing installed, duplicate registry, mismatched fit all refuse intact.
+Changed hull custody label acknowledges original birth namespace/item UID/serial;
+using a new owner label as birth identity refuses. This is the DETACHED capture
+identity API boundary, not proof that live Battle capture calls the new module.
+Pure allowance is recorded explicitly, and original boat supplies/coins remain
+unchanged because no live payment adapter is wired.
+
+Completed records/UI/catalogue entrypoints registered ONLY in DETACHED_SUITES,
+separate from unchanged original70 and the seven tactical entries. No rerun of
+completed tactical suites merely because unused component files were added.
+All17 process guard classifications pass, same sole lease/<=60s/hidden/Dummy/
+BELOW_NORMAL/fresh profiles; every owned child exited with unchanged inputs.
+Exact per-child inputs/PIDs/log/source hashes and rename diff indexed in the
+adjacent manifest. Raw logs remain QA work, no duplicate ZIP tree or broad add.
+Next source task: actual escort interception and conservative7-unit live swept
+clearance, diagnose from frozen r4 failures before narrowing production changes.

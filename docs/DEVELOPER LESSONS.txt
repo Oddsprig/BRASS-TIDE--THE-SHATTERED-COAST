@@ -108,3 +108,5 @@ RESUMED QA — 24 OCTOBER2026
   external UID ownership. Descriptor validation must receive descriptor fields,
   not the operation's authorization/context metadata. Cross-owner transfers
   validate the entire source/destination custody, not just the selected item.
+
+Native4.7 fixture constant Panel shadows the built-in Panel class: use EquipmentPanel. Preserve the failed parse and rename only the fixture binding; no product behavior change. Pure component allowance tests do not prove live payments.

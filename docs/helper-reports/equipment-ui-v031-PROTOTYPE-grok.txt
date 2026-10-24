@@ -1,0 +1,132 @@
+BRASS TIDE — v0.031 EQUIPMENT CONDITION PANEL, DETACHED PROTOTYPE
+Workspace: systems-grok. Source only. No Godot process was started.
+Not integrated. Not a .031 build. Sol still owns the engine lease.
+The convoy observer, the equipment core, battle, fire, boarding,
+certification, refit, fleet, and tactical files were not edited.
+tools/check_game.py was not edited. The fixture is not registered there.
+
+There is no game/scripts/fleet_ui.gd. Crew duty remains the four buttons
+in interface.gd fleet_view: balanced, bail, repair, fight. This panel
+does not call Damage.set_policy and does not draw those duties.
+
+================================================================================
+API
+================================================================================
+game/scripts/equipment_ui.gd extends RefCounted. It has no preload.
+
+static func open(ui, model: Dictionary, actions: Dictionary) -> void
+
+The live Interface must provide modal, row, column, label, paragraph,
+eyebrow, rule, button, money, toast, and close_modal. Every command
+button is ui.button, so host.sync_economy still runs before the callable.
+This panel never writes coins, hulls, supplies, or the equipment owner.
+
+model fields, all required:
+uid, name, priority, rows, spares, supplies, repairCrew, juryCap,
+inPort, quote, debug.
+
+priority is one of auto, hull, pumps, engine, weapons.
+rows is 0..7 installed records. spares is 0..256 locker records.
+An installed slot is mount0, mount1, mount2, mount3, engine, armor, or
+pumps. A spare's slot is locker. A record is
+{slot, name, hp, status, cause, itemUid}.
+status is ok, damaged, or disabled. hp is a finite 0..1 number.
+inPort and debug are bools. An integer 1 is refused.
+juryCap is a finite number from 0.30 through 0.75.
+supplies, repairCrew, and the quote amounts are finite numbers from
+0 through 1e12. Strings, bools, fractions of a condition, NaN, and
+infinity are refused and are not rounded. Over-long lists are refused
+whole; nothing is truncated.
+
+quote is {ok, message, cost, materials, ordinary, expert, fee}.
+materials has at most 32 string keys. Extra model keys are left in
+place and are not shown.
+
+actions must each be a valid Callable:
+setPriority(canonical string), repair(), workshop(), refresh().
+One invalid callable refuses the whole panel. Refusal does not call
+modal. It toasts "These fittings could not be shown." and leaves both
+dictionaries unchanged.
+
+On accept, modal_kind is "equipment". The header "×" and
+"Return to voyage" call ui.close_modal.
+
+Priority labels are As needed, Hull first, Pumps first, Engine first,
+and Guns first. The callable receives the canonical string, not the label.
+A sentence states that this order does not change crew duty.
+
+Installed rows show the slot, the supplied part name, Operational /
+Damaged / Disabled, "Condition N%", and available / limited / not
+available. A non-empty cause is shown as "Last damage: ...".
+0.25 is shown as Condition 25%. The stored hp is not rewritten.
+Loose spares are a separate list and keep their own condition.
+Item ids are drawn only when debug is true, with no caption.
+Repair kits, current repair effort, and the jury percent are the
+supplied numbers. No repair time or supply rate is invented.
+Armor and locker parts are described as yard work. If no installed
+row uses slot pumps, the panel says no mechanical pump is aboard and
+hand bailing is unchanged.
+
+In harbor the supplied bill is shown whether or not quote.ok is true:
+the coin total through Interface.money (int truncation, model not
+rewritten), each material amount, shipwright wages from ordinary,
+mechanic wages from expert, and the fee. quote.message is shown
+unchanged when it is not empty. The repair button is enabled only
+when quote.ok is true. Its harbor text is
+"Repair installed parts · N coins". At sea that price is omitted and
+no yard total is drawn. The repair callable is not invoked when the
+quote is not ok, including if the button signal is forced.
+Workshop and refresh call only their own actions.
+
+================================================================================
+FIXTURE
+================================================================================
+game/tests/test_equipment_ui.gd instantiates res://main.tscn, disables
+audio and music, sets process off, and saves the new career under a
+private equipment-ui-* folder in user data. It does not use OS input.
+
+Rows come from EquipmentCondition on a detached dictionary, not the
+career boat. The seed is a launch with stock_primary, stock_engine,
+stock_armor, and a rapid_gun spare at 0.4. The engine is damaged to
+disabled, then repair_installed with work 0.05 leaves it disabled at
+0.25 with cause "Shell splinter". Display names come from Refit.catalog.
+Spy callables record the four actions. The fixture checks the disabled
+0.25 line, the spare's own condition, one "pumps" priority call, a
+disabled repair button on a failed quote, one repair call and one
+workshop call on a successful quote, close through the modal "×",
+hidden ids unless debug is true, no yard total at sea, refusal of a
+non-finite kit count and of missing actions, and an unchanged model,
+coin balance, career dictionary, and voyage.json.
+
+These are control and callback checks. They do not perform a yard
+payment or a canonical repair. The fixture was not executed here.
+
+================================================================================
+ASSUMPTIONS
+================================================================================
+The integrator builds the model. This panel does not read
+moduleCondition, ship.engine, or ship.refitLocker.
+Coin text uses the existing money() truncation. A fractional coin in
+the quote is displayed as its integer part and the quote is not edited.
+sync_economy runs only because ui.button already does that. With no
+pending campaign days it should not move purses. The fixture treats any
+career change as a failure.
+The 7-row cap is the real installed set: four mounts, engine, armor,
+and pumps. The 256-spare cap matches the core locker cap.
+No save field, chart button, or fleet button was added. Nothing calls
+open() yet.
+
+================================================================================
+SOURCE HASHES
+================================================================================
+SHA256 of the files below, except this report, which is hashed after
+this file is written:
+
+game/scripts/equipment_ui.gd
+48AF7B4C0CEF44ADC309569BD096B3865CFB7220D949E811AD14C5BF83393864
+
+game/tests/test_equipment_ui.gd
+09013B24A0BB8AF110B6FF280B3255824434322497EB211E3F9472F91368F6B7
+
+briefs/EQUIPMENT UI CONTRACT v0.031.txt
+EA72D8D1C78CF7B636CF7B31C6B6BC2A8A871BF84B4D442AE1BF972A15CDB850

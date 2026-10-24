@@ -1,0 +1,117 @@
+BRASS TIDE v0.031 EQUIPMENT CONDITION PANEL — DETACHED CONTRACT
+Status: SOURCE PROTOTYPE ONLY. Not integrated. Not a .031 build.
+The accepted equipment core and the convoy-exit observer are not modified.
+No live Battle, Refit, Fleet, Damage, or Campaign file is modified.
+tools/check_game.py is not modified. Sol runs the fixture later.
+
+There is no game/scripts/fleet_ui.gd. The flotilla screen is
+interface.gd open_fleet / fleet_view. Its crew-duty buttons remain
+balanced, bail, repair, and fight through Damage.set_policy. This panel
+does not call that API and does not draw those four duties.
+
+Refit bills stay in refit_ui.gd and workshop_ui.gd. This panel does not
+preload them, EquipmentCondition, Battle, or Campaign.
+
+================================================================================
+API
+================================================================================
+static func open(ui, model: Dictionary, actions: Dictionary) -> void
+
+ui is the live Interface. The panel uses modal, row, column, label,
+paragraph, eyebrow, rule, button, money, toast, and close_modal.
+ui.button remains the action boundary: it calls host.sync_economy, then
+the supplied callable. This panel adds no second payment path.
+
+On success, modal_kind is "equipment". The header control "×" and
+"Return to voyage" both call ui.close_modal. Close does not take the
+battle-outcome path.
+
+On refusal, open does not call modal and does not leave a repair,
+priority, workshop, or refresh button. It toasts "These fittings could
+not be shown." The model and actions dictionaries are not written.
+Refusal does not close some other modal that was already open.
+
+================================================================================
+MODEL
+================================================================================
+Required fields:
+
+uid            string, 1..96 printable characters, not shown
+name           string, 1..80, used as the modal title
+priority       auto | hull | pumps | engine | weapons
+rows           array, 0..7 installed parts
+spares         array, 0..256 loose parts
+supplies       finite number, 0..1e12, shown as repair kits
+repairCrew     finite number, 0..1e12, shown as current repair effort
+juryCap        finite number, 0.30..0.75 inclusive, shown as a percent
+inPort         bool. An integer 1 is refused.
+quote          dictionary below
+debug          bool. Only true shows each part's itemUid, with no label.
+
+An installed row is {slot, name, hp, status, cause, itemUid}.
+slot is mount0, mount1, mount2, mount3, engine, armor, or pumps.
+A spare uses the same fields and its slot must be locker.
+hp is finite, 0..1. status is ok, damaged, or disabled.
+name is 1..80. cause is 0..80 and may be empty. itemUid is 1..96.
+Duplicate itemUid values are refused. Duplicate installed slots are refused.
+Strings, bools, fractions, NaN, and infinity are not coerced into range.
+A value outside these bounds refuses the whole panel. Rows are not truncated.
+Extra keys are ignored and left in place. They are not displayed.
+
+Displayed state, from the supplied status, not from a new threshold:
+ok         Operational · available
+damaged    Damaged · limited
+disabled   Disabled · not available
+Condition percent is round(hp * 100) when that is within 0.05 of a whole
+number, otherwise one decimal. 0.25 is shown as Condition 25%. The stored
+hp is not rewritten.
+
+quote fields:
+ok          bool
+message     string, 0..240, shown unchanged when not empty
+cost        finite number, 0..1e12
+materials   dictionary, at most 32 string keys, finite amounts 0..1e12
+ordinary    finite number, shown as shipwright wages
+expert      finite number, shown as mechanic wages
+fee         finite number, shown as the fee
+
+In harbor, the bill is shown even when ok is false. Coin figures use
+Interface.money, which displays int(value). The quote dictionary is not
+rewritten. The repair button is enabled only when ok is true. In harbor
+its text is "Repair installed parts · N coins". At sea its text is
+"Repair installed parts" and no yard total is drawn. A disabled repair
+button's callable is also guarded, so a forced signal does not call it.
+
+No repair time, supply rate, or coin price is invented here. Armor and
+locker parts are named as yard work. If no installed row has slot pumps,
+the panel says no mechanical pump is aboard and hand bailing is unchanged.
+
+Priority labels, in order, calling setPriority with the canonical string:
+auto      As needed
+hull      Hull first
+pumps     Pumps first
+engine    Engine first
+weapons   Guns first
+
+================================================================================
+ACTIONS
+================================================================================
+setPriority(canonical_string) -> void
+repair() -> void
+workshop() -> void
+refresh() -> void
+
+Each must be a valid Callable. One missing or invalid callable refuses
+the panel. The panel does not call Campaign, Refit, Damage, or the
+equipment core. It does not write hp, supplies, coins, crew, or cargo.
+
+================================================================================
+FIXTURE
+================================================================================
+game/tests/test_equipment_ui.gd instantiates res://main.tscn, silences
+audio, points saves at a private user-data folder, and starts one career.
+It builds rows from EquipmentCondition on a detached dictionary: seed,
+damage the engine to disabled, then a 0.05 repair that leaves it disabled
+at 0.25. Names come from Refit.catalog. The career boat is not seeded.
+Spy callables record priority, repair, workshop, and refresh.
+The fixture was not executed in this workspace.

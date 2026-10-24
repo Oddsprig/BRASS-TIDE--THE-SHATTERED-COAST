@@ -19,6 +19,7 @@ from check_game import SUITES as ORIGINAL_SUITES
 # Original 70 stay separate. Only completed tactical suites enter this registry.
 TACTICAL_SUITES = ["tactical_planner", "tactical_memory", "tactical_dt",
                    "tactical_orders", "tactical_ui"]
+DETACHED_SUITES = ["equipment_condition", "equipment_records", "equipment_ui", "equipment_catalog"]
 from hidden_check import run_hidden
 
 DEFAULT_ENGINE = Path("C:/Users/bligh/Documents/Codex/2026-09-25/we-x20/work/engine/Godot_v4.7.2-stable_win64_console.exe")
@@ -142,7 +143,7 @@ def inputs():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--import-only", action="store_true")
-    parser.add_argument("--only", nargs="+", choices=ORIGINAL_SUITES + TACTICAL_SUITES)
+    parser.add_argument("--only", nargs="+", choices=ORIGINAL_SUITES + TACTICAL_SUITES + DETACHED_SUITES)
     parser.add_argument("--script", type=Path, help="Unregistered work-in-progress fixture in game/tests")
     parser.add_argument("--engine", type=Path, default=DEFAULT_ENGINE)
     parser.add_argument("--engine-sha256", default=DEFAULT_ENGINE_SHA)
