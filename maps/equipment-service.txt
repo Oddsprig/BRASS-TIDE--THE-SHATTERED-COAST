@@ -1,0 +1,35 @@
+BRASS TIDE — EQUIPMENT-SERVICE MAP (generated; v0.030)
+
+Paid installed-part and hull restoration: detached quote/validation/staging, real kits/materials/purses/workers, in-place commit, stable UIDs and untouched locker spares. Normal career migration and combined battle/UI remain separate.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/equipment_service.gd: 39241 bytes; extends RefCounted
+  game/scripts/equipment_service.gd:238 inspect_service_owner()
+  game/scripts/equipment_service.gd:325 item_restoration_bill()
+  game/scripts/equipment_service.gd:458 workforce_status()
+  game/scripts/equipment_service.gd:474 service_quote()
+  game/scripts/equipment_service.gd:652 repair()
+  game/scripts/equipment_service.gd:44 _fail_quote()
+  game/scripts/equipment_service.gd:75 _fail_action()
+  game/scripts/equipment_service.gd:83 _ok_action()
+  game/scripts/equipment_service.gd:91 _is_finite_number()
+  game/scripts/equipment_service.gd:94 _is_whole_coin()
+  game/scripts/equipment_service.gd:103 _has_same_dict()
+  game/scripts/equipment_service.gd:109 _stored_harbor_label()
+game/scripts/harbor.gd: 11950 bytes; extends RefCounted
+  game/scripts/harbor.gd:9 quote()
+  game/scripts/harbor.gd:17 buy()
+  game/scripts/harbor.gd:42 commission()
+  game/scripts/harbor.gd:70 collect()
+  game/scripts/harbor.gd:87 tick_yards()
+  game/scripts/harbor.gd:118 recruit()
+  game/scripts/harbor.gd:135 sell()
+  game/scripts/harbor.gd:171 service_quote()
+  game/scripts/harbor.gd:174 repair()
+  game/scripts/harbor.gd:177 resupply()
+  game/scripts/harbor.gd:205 use_reserves()
+
+TESTS (game/tests/*.gd)
+test_equipment_service: same enhanced fixture133/9 before to133/0 after; existing campaign_cash458/0 on final native pack. Shared machine lane receipts: docs/ROOT PAID HARBOR INTEGRATION.
+
+Full symbols: rg -n '^func |^static func ' on named files.

@@ -1,0 +1,16 @@
+PAID HARBOR EQUIPMENT SERVICE - COMPONENT INTEGRATION,24 OCTOBER2026
+Exact tested Service/Harbor source and enhanced fixture installed in WIP.
+Harbor.service_quote/repair delegate to the paid adapter. Real materials,
+repair kits, shipwright/expert wages, finite workforce and coin transfers
+are staged and validated before in-place publication. Installed item UIDs,
+serials and damaged locker spares survive; crew/fuel/ammo are not refilled.
+Corrected API fixture97/0 on unchanged433 source. Enhanced133/9 before
+to133/0 after on IDENTICAL fixture5bd1d40f; new read-only preflight refuses
+malformed/missing payment journals and missing coinSupply before payment.
+Existing campaign coin/Harbor flow458/0. All runs used the required SHARED
+machine FIFO, one bounded headless/Dummy/synthetic child per lease. The
+first job genuinely queued behind other projects; all owned children exited.
+Root rehashed all96 input files per run and compared7 current component
+dependencies (only CRLF differences). JSON receipt binds raw logs and lanes.
+This is not whole-game/canonical-career/battle/UI/CPU acceptance. Old failed
+parse/API/fixture evidence remains preserved. No031 tag/export/launcher.

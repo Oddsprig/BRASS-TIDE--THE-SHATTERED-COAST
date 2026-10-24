@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "equipment-service": (["equipment_service", "harbor"],
+                          "Paid installed-part and hull restoration: detached quote/validation/staging, real kits/materials/purses/workers, in-place commit, stable UIDs and untouched locker spares. Normal career migration and combined battle/UI remain separate.",
+                          "test_equipment_service: same enhanced fixture133/9 before to133/0 after; existing campaign_cash458/0 on final native pack. Shared machine lane receipts: docs/ROOT PAID HARBOR INTEGRATION."),
     "equipment-condition": (["equipment_condition", "equipment_records", "equipment_ui", "equipment_fitting", "equipment_damage", "damage", "equipment_campaign", "equipment_recovery"],
                             "Verified core/Records/panel, paid fitting, conditional damage and pure whole-campaign custody preflight with corrected Recovery library. Legacy campaigns retain count fittings until lifecycle migration; actual battle/Harbor/save/recovery callers/UI and combined performance remain pending.",
                             "test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49), test_equipment_fitting (324 plus refit352/workshop85), test_equipment_damage (174 plus legacy Damage); recorded native receipts under docs/. These counts do not prove a live feature."),

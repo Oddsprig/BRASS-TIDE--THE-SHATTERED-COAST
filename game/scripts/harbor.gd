@@ -4,6 +4,7 @@ const Goods = preload("res://scripts/goods.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Construction = preload("res://scripts/construction.gd")
 const Money = preload("res://scripts/money.gd")
+const EquipmentService = preload("res://scripts/equipment_service.gd")
 
 static func quote(core, h: Dictionary, at: Dictionary = {}) -> Dictionary:
 	var p: Dictionary = core.current_port() if at.is_empty() else at
@@ -168,53 +169,10 @@ static func sell(core, uid: String) -> Dictionary:
 	return core.ok("Sold %s for %d coins; sailors and their savings returned ashore." % [boat.name,value])
 
 static func service_quote(core, boat: Dictionary, p: Dictionary) -> Dictionary:
-	var damage: float = maxf(0.0,boat.maxHp-boat.hp)
-	var area: float = core.Damage.sum_areas(boat)
-	var material: float = damage*0.20+area*0.018+(1.0-boat.engine)*4.0
-	var own: float = minf(boat.supplies,material)
-	var purchase: float = maxf(0.0,material-own)
-	var ordinary: int = ceili((damage*0.08+area*0.002+boat.water*0.0001)*Goods.WAGES.shipwright)
-	var expert: int = ceili(((1.0-boat.engine)*12.0+boat.wounded+boat.fire*0.002)*Goods.WAGES.mechanic)
-	var materials: int = ceili(purchase*Economy.price(p,"supplies"))
-	var fee: int = ceili((ordinary+expert)*0.10)
-	return {"cost":materials+ordinary+expert+fee,"material":material,"own":own,"purchase":purchase,"ordinary":ordinary,"expert":expert,"materials":materials,"fee":fee}
+	return EquipmentService.service_quote(core, boat, p)
 
 static func repair(core, uid: String) -> Dictionary:
-	var permission: Dictionary=Politics.permit(core,"repair")
-	if not permission.ok:return permission
-	var boat: Dictionary = core.find_boat(uid)
-	var p: Dictionary = core.current_port()
-	if boat.is_empty() or p.is_empty():
-		return core.fail("Enter harbor for paid drydock service.")
-	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=p.id:return core.fail("This hull is stored at another harbor.")
-	var q: Dictionary = service_quote(core,boat,p)
-	if core.state.coins < q.cost or p.stocks.supplies < q.purchase:
-		return core.fail("Drydock needs the quoted coins and repair kits.")
-	var ordinary_days: float = (maxf(0.0,boat.maxHp-boat.hp)*0.08+core.Damage.sum_areas(boat)*0.002+boat.water*0.0001)
-	var expert_days: float = ((1.0-boat.engine)*12.0+boat.wounded+boat.fire*0.002)
-	var free_workers: float = maxf(0.0,float(p.get("availableWorkers",0))-float(p.get("_yardWorkersUsed",0)))
-	var free_specialists: float = maxf(0.0,float(p.get("availableSpecialists",p.get("specialistWorkers",0)))-float(p.get("_yardSpecialistsUsed",0)))
-	if free_workers+0.000001 < ceili(ordinary_days+expert_days) or free_specialists+0.000001 < ceili(expert_days):
-		return core.fail("The yard has no available workforce or specialist.")
-	Money.move(core.state,"coins",p,"cash",q.materials+q.fee,"Repair materials and yard fee",core.state.moneyLog)
-	Money.move(core.state,"coins",p,"householdPurse",q.ordinary,"Drydock shipwright wages",core.state.moneyLog)
-	Money.move(core.state,"coins",p,"expertPurse",q.expert,"Mechanics and treatment specialists",core.state.moneyLog)
-	p.workers += ceili(ordinary_days+expert_days)
-	p.availableWorkers = maxi(0,int(p.availableWorkers)-ceili(ordinary_days+expert_days))
-	p.availableSpecialists = maxi(0,int(p.get("availableSpecialists",p.get("specialistWorkers",0)))-ceili(expert_days))
-	p.stocks.supplies -= q.purchase
-	boat.supplies = maxf(0.0,boat.supplies-q.own)
-	boat.hp = boat.maxHp
-	boat.breaches = []
-	boat.water = 0.0
-	boat.engine = 1.0
-	boat.fire = 0.0
-	boat.wounded = 0.0
-	if boat.get("captureSecured",false):boat.supportOnly=false;boat.captureSecured=false
-	boat.needsHarborRepair=false
-	boat.towed=false
-	boat.towSpeedFactor=1.0
-	return core.ok("%s repaired for %d coins, paid to suppliers, shipwrights and specialists." % [boat.name,q.cost])
+	return EquipmentService.repair(core, uid)
 
 static func resupply(core, uid: String, profile: String = "full") -> Dictionary:
 	var permission: Dictionary=Politics.permit(core,"service")

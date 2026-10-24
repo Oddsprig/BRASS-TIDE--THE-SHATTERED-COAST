@@ -15,6 +15,10 @@ and legacy refit/workshop checks pass. Existing careers still use count fittings
 until the full equipment lifecycle is integrated. Core90/Records89/catalogue651/
 panel49 and Damage174 are verified components, not full031 acceptance. Exact Damage
 source is now installed conditionally; actual career/battle/save wiring remains.
+Paid Harbor restoration is now integrated: actual iron, copper, timber, kits,
+workers, experts and coins are required. Parts keep their IDs and locker spares
+keep their damage. Enhanced repair checks pass133/0; existing coin flow458/0.
+This remains component proof; full new-career/battle/UI integration is pending.
 
 The combined AI candidate passes40 first-seed maneuver cases,13 affected suites
 and44 real movement-authority checks. Small boats make useful paid firing passes

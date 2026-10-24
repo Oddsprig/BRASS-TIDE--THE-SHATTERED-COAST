@@ -1,0 +1,147 @@
+{
+  "scope": "Paid Harbor adapter installed; ordinary legacy flows and canonical component service verified, not complete .031 lifecycle/battle/UI acceptance.",
+  "parent": "e427888228550ca6fb51974ebdf9e5cfd99cb904",
+  "runs": [
+    {
+      "run": "root-harbor-fixture-01",
+      "inputSha256": "56242db59151ec84a7f5725bd57a7fa3149ea4fd1587ad069f665d5fd62d650b",
+      "checks": 97,
+      "failures": 0,
+      "passed": true,
+      "sourceFilesRehashed": 96,
+      "pid": 57252,
+      "sharedLaneJob": "124d2be90f7c4b589ab9eb8e31984a9a",
+      "sharedLaneStatus": "complete",
+      "logSha256": "817e75cf590e1f3c2fbf6d2438cdf043a0e366b6df463fb3a84a63755f12205e"
+    },
+    {
+      "run": "root-harbor-ledger-before-01",
+      "inputSha256": "743dec1167b84de7b9fb3796f08d5409a36660a4d2fe8e87ebe095238bf6f157",
+      "checks": 133,
+      "failures": 9,
+      "passed": false,
+      "sourceFilesRehashed": 96,
+      "pid": 54384,
+      "sharedLaneJob": "709ceae8c9144559815154764488bd5e",
+      "sharedLaneStatus": "failed",
+      "logSha256": "0a9766f99a03302fa02f5fc631f259b31374024c578338caa671e9a6d73e5ff4"
+    },
+    {
+      "run": "root-harbor-ledger-after-01",
+      "inputSha256": "42be0172d2bb49df66915885b1527d5eb8452bb9af293dcff714c747746bf3ec",
+      "checks": 133,
+      "failures": 0,
+      "passed": true,
+      "sourceFilesRehashed": 96,
+      "pid": 18792,
+      "sharedLaneJob": "89d764fb463e4ae49c235a1dd9d4cb80",
+      "sharedLaneStatus": "complete",
+      "logSha256": "df4619a72197f062bb01e83b41d7a5c2f647720f6999126ad636beef3c2aded7"
+    },
+    {
+      "run": "root-harbor-campaign-coins-01",
+      "inputSha256": "42be0172d2bb49df66915885b1527d5eb8452bb9af293dcff714c747746bf3ec",
+      "checks": 458,
+      "failures": 0,
+      "passed": true,
+      "sourceFilesRehashed": 96,
+      "pid": 32912,
+      "sharedLaneJob": "20ca0664dac646cb9950650c4888fc5c",
+      "sharedLaneStatus": "complete",
+      "logSha256": "49a9c25f368d6c265cc84b88a4d76d6c262cf587795c519ed7a33fb527f09b8b"
+    }
+  ],
+  "sameEnhancedFixtureBeforeAfter": true,
+  "dependencies": {
+    "game/scripts/damage.gd": {
+      "nativeSha256": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+      "mainSha256": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+      "equalIgnoringCRLF": true
+    },
+    "game/scripts/equipment_damage.gd": {
+      "nativeSha256": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+      "mainSha256": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+      "equalIgnoringCRLF": true
+    },
+    "game/scripts/equipment_condition.gd": {
+      "nativeSha256": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+      "mainSha256": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+      "equalIgnoringCRLF": true
+    },
+    "game/scripts/equipment_records.gd": {
+      "nativeSha256": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+      "mainSha256": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+      "equalIgnoringCRLF": true
+    },
+    "game/scripts/equipment_fitting.gd": {
+      "nativeSha256": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+      "mainSha256": "b9384419288b22a437e098542268cd6447fd44815b26820b45bfd50f70cc2f71",
+      "equalIgnoringCRLF": true
+    },
+    "game/scripts/refit.gd": {
+      "nativeSha256": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+      "mainSha256": "317b1ca233b65ef0d600a4b6133b61f9f27857f3a37bf4c3275da632e7478a4e",
+      "equalIgnoringCRLF": true
+    },
+    "game/scripts/fleet_workshop.gd": {
+      "nativeSha256": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+      "mainSha256": "f4cd2a5d17b04b5cd72aa6f4d1bdbcfa09e896b621d2ed4299647d47973ea17d",
+      "equalIgnoringCRLF": true
+    }
+  },
+  "installed": {
+    "game/scripts/equipment_service.gd": {
+      "sha256": "d873779f96acbdebf7d7672a6ef637f9ff5fe0e504e988035180776f015b32d7",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\service-ledger-root-inputs\\after\\game\\scripts\\equipment_service.gd"
+    },
+    "game/scripts/harbor.gd": {
+      "sha256": "66344ef2a417798c8f0794911ff1a3cda8dc61b863f48d458d28419f78e148fa",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\service-ledger-root-inputs\\after\\game\\scripts\\harbor.gd"
+    },
+    "game/tests/test_equipment_service.gd": {
+      "sha256": "5bd1d40f36f578367458d994f44bfeb1405deb3b3f06903714c8a29a25e520d3",
+      "nativePath": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\service-ledger-root-inputs\\after\\game\\tests\\test_equipment_service.gd"
+    }
+  },
+  "rawFiles": {
+    "qa\\root-harbor-fixture-01\\inputs-after.json": "5c477e0021e14e07f66b6c9f11e5904194b0d4563e784e199d0bd97b68097e74",
+    "qa\\root-harbor-fixture-01\\inputs-before.json": "5c477e0021e14e07f66b6c9f11e5904194b0d4563e784e199d0bd97b68097e74",
+    "qa\\root-harbor-fixture-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\root-harbor-fixture-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\root-harbor-fixture-01\\native.log": "817e75cf590e1f3c2fbf6d2438cdf043a0e366b6df463fb3a84a63755f12205e",
+    "qa\\root-harbor-fixture-01\\receipt.json": "38f63b16683ab86fdc016f76f711845ba1a6c6fe90ac1a2bcca0a9c29ac53c07",
+    "qa\\service-fixture-root-inputs\\corrected\\inputs.json": "478e5011bde6306a27722804dc6bc9a737547fed78112417ce3213c6f71dcedf",
+    "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\124d2be90f7c4b589ab9eb8e31984a9a.json": "fefb58b61b7e3ff9ac94fc963fc946c6aab1d8c26addbc4a88509ec742e37d01",
+    "qa\\root-harbor-ledger-before-01\\inputs-after.json": "b064b0b1bb4d33a41bec978d338fb952fe26535da6cae03fab42e6b706df54ef",
+    "qa\\root-harbor-ledger-before-01\\inputs-before.json": "b064b0b1bb4d33a41bec978d338fb952fe26535da6cae03fab42e6b706df54ef",
+    "qa\\root-harbor-ledger-before-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\root-harbor-ledger-before-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\root-harbor-ledger-before-01\\native.log": "0a9766f99a03302fa02f5fc631f259b31374024c578338caa671e9a6d73e5ff4",
+    "qa\\root-harbor-ledger-before-01\\receipt.json": "9ab6c233295cb3ac75781cd1337f7ffbb65a94aae4ac6d2cb13183d8e0fba740",
+    "qa\\service-ledger-root-inputs\\before\\inputs.json": "4fa050036c9e619df67b98f20c8ef2083ab0afdb441a87fb96402b8607fdebb2",
+    "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\709ceae8c9144559815154764488bd5e.json": "4ffc5f8a60543691bdbbcb25d102c8d1cf249cffec78daf1e9d97f49bedb5ef0",
+    "qa\\root-harbor-ledger-after-01\\inputs-after.json": "ae6e1aade45da7e4372cbe3538bd6873b8ec91f37043bade2eb7fdd9fc3a79ff",
+    "qa\\root-harbor-ledger-after-01\\inputs-before.json": "ae6e1aade45da7e4372cbe3538bd6873b8ec91f37043bade2eb7fdd9fc3a79ff",
+    "qa\\root-harbor-ledger-after-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\root-harbor-ledger-after-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\root-harbor-ledger-after-01\\native.log": "df4619a72197f062bb01e83b41d7a5c2f647720f6999126ad636beef3c2aded7",
+    "qa\\root-harbor-ledger-after-01\\receipt.json": "c5e469c4ba4978def38562415533a779b3dbc3f9e9284300029e8a1635bc634f",
+    "qa\\service-ledger-root-inputs\\after\\inputs.json": "242975c0a2da18354cd65cfa410a7c3593863f30a671432040ff3961b3a8e96d",
+    "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\89d764fb463e4ae49c235a1dd9d4cb80.json": "8b24647e7e5a55c3470b85828fbc67914f2f298ecb2b1d26fecad27a92d1e470",
+    "qa\\root-harbor-campaign-coins-01\\inputs-after.json": "ae6e1aade45da7e4372cbe3538bd6873b8ec91f37043bade2eb7fdd9fc3a79ff",
+    "qa\\root-harbor-campaign-coins-01\\inputs-before.json": "ae6e1aade45da7e4372cbe3538bd6873b8ec91f37043bade2eb7fdd9fc3a79ff",
+    "qa\\root-harbor-campaign-coins-01\\live-inputs-after.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\root-harbor-campaign-coins-01\\live-inputs-before.json": "090e81e9e04d3a12d1a96b52d517a6374e0c11295f4213480b12fc31564a45d2",
+    "qa\\root-harbor-campaign-coins-01\\native.log": "49a9c25f368d6c265cc84b88a4d76d6c262cf587795c519ed7a33fb527f09b8b",
+    "qa\\root-harbor-campaign-coins-01\\receipt.json": "9ce068e298f3a7784f8d66a1196bedb737c39120cd87bec1cd5c7a6ab091b9b9",
+    "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-testing\\jobs\\20ca0664dac646cb9950650c4888fc5c.json": "d78777f93a6d0d0e7858ff5bfcf12805916282df6508116d28165bf17ca1df5f"
+  },
+  "execution": "Root temporarily drives existing Sol controllers via required shared machine FIFO; headless/Dummy/lowpriority/synthetic <=60s child; no other app control.",
+  "remaining": [
+    "Lifecycle/save/capture/recovery callers",
+    "UI actual combined integration",
+    "NPC maintenance",
+    "Live battle condition/certificates",
+    "CPU/full regression/Windows release"
+  ]
+}
