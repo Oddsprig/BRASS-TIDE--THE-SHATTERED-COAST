@@ -1,39 +1,39 @@
-BRASS TIDE — DEVELOPMENT MAP (generated; v0.029)
+BRASS TIDE — DEVELOPMENT MAP (generated; v0.030)
 
 Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 31224 bytes; extends Node2D
-  game/scripts/main.gd:263 toggle_pause()
-  game/scripts/main.gd:267 toggle_fullscreen()
-  game/scripts/main.gd:271 save_preferences()
-  game/scripts/main.gd:274 music_context()
-  game/scripts/main.gd:284 new_game()
-  game/scripts/main.gd:300 click_chart()
-  game/scripts/main.gd:332 sail_to()
-  game/scripts/main.gd:340 respond()
-  game/scripts/main.gd:346 trade()
-  game/scripts/main.gd:355 buy_boat()
-  game/scripts/main.gd:361 commission()
-  game/scripts/main.gd:367 collect_boat()
-game/scripts/preferences.gd: 1385 bytes; extends RefCounted
+game/scripts/main.gd: 32885 bytes; extends Node2D
+  game/scripts/main.gd:270 toggle_pause()
+  game/scripts/main.gd:274 toggle_fullscreen()
+  game/scripts/main.gd:278 save_preferences()
+  game/scripts/main.gd:281 music_context()
+  game/scripts/main.gd:291 new_game()
+  game/scripts/main.gd:307 click_chart()
+  game/scripts/main.gd:339 sail_to()
+  game/scripts/main.gd:347 respond()
+  game/scripts/main.gd:353 trade()
+  game/scripts/main.gd:362 buy_boat()
+  game/scripts/main.gd:368 commission()
+  game/scripts/main.gd:374 collect_boat()
+game/scripts/preferences.gd: 1358 bytes; extends RefCounted
   game/scripts/preferences.gd:3 defaults()
   game/scripts/preferences.gd:6 sanitize()
   game/scripts/preferences.gd:17 load_options()
   game/scripts/preferences.gd:22 save_options()
-game/scripts/interface.gd: 47527 bytes; extends CanvasLayer
-  game/scripts/interface.gd:67 setup()
-  game/scripts/interface.gd:92 create_theme()
-  game/scripts/interface.gd:112 box()
-  game/scripts/interface.gd:124 clear()
-  game/scripts/interface.gd:129 label()
-  game/scripts/interface.gd:139 paragraph()
-  game/scripts/interface.gd:145 eyebrow()
-  game/scripts/interface.gd:150 button()
-  game/scripts/interface.gd:167 row()
-  game/scripts/interface.gd:172 column()
-  game/scripts/interface.gd:178 spacer()
-  game/scripts/interface.gd:183 rule()
+game/scripts/interface.gd: 47566 bytes; extends CanvasLayer
+  game/scripts/interface.gd:68 setup()
+  game/scripts/interface.gd:93 create_theme()
+  game/scripts/interface.gd:113 box()
+  game/scripts/interface.gd:125 clear()
+  game/scripts/interface.gd:130 label()
+  game/scripts/interface.gd:140 paragraph()
+  game/scripts/interface.gd:146 eyebrow()
+  game/scripts/interface.gd:151 button()
+  game/scripts/interface.gd:168 row()
+  game/scripts/interface.gd:173 column()
+  game/scripts/interface.gd:179 spacer()
+  game/scripts/interface.gd:184 rule()
 game/scripts/version.gd: 128 bytes; extends RefCounted
   game/scripts/version.gd:5 text()
 

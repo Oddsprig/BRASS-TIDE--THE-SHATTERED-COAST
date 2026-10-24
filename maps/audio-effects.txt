@@ -1,9 +1,9 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.029)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.030)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/sound.gd: 5664 bytes; extends Node2D
+game/scripts/sound.gd: 5525 bytes; extends Node2D
   game/scripts/sound.gd:52 reset_battle()
   game/scripts/sound.gd:65 priority()
   game/scripts/sound.gd:70 consume()
@@ -21,7 +21,7 @@ game/scripts/music.gd: 4480 bytes; extends Node
   game/scripts/music.gd:18 _ready()
   game/scripts/music.gd:29 _scan()
   game/scripts/music.gd:98 _process()
-game/scripts/combat_art.gd: 39781 bytes; extends RefCounted
+game/scripts/combat_art.gd: 39055 bytes; extends RefCounted
   game/scripts/combat_art.gd:211 effect()
   game/scripts/combat_art.gd:584 wreck()
   game/scripts/combat_art.gd:108 _num()

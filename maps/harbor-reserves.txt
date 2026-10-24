@@ -1,9 +1,9 @@
-BRASS TIDE — HARBOR-RESERVES MAP (generated; v0.029)
+BRASS TIDE — HARBOR-RESERVES MAP (generated; v0.030)
 
 Actual consumption, route times and paid workers -> separate coverage, protected operating lots, feasible allocation floors and real public release.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/harbor_reserves.gd: 14883 bytes; extends RefCounted
+game/scripts/harbor_reserves.gd: 14484 bytes; extends RefCounted
   game/scripts/harbor_reserves.gd:21 ensure()
   game/scripts/harbor_reserves.gd:25 report()
   game/scripts/harbor_reserves.gd:112 exportable()

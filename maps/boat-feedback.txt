@@ -1,4 +1,4 @@
-BRASS TIDE — BOAT-FEEDBACK MAP (generated; v0.029)
+BRASS TIDE — BOAT-FEEDBACK MAP (generated; v0.030)
 
 Actual transom / bounded hit records -> visible machinery, localized damage and cheap colored meshes; live weapons keep their firing plane.
 
@@ -16,7 +16,7 @@ game/scripts/motor_art.gd: 33152 bytes; extends RefCounted
   game/scripts/motor_art.gd:88 _aft_socket_clearance()
   game/scripts/motor_art.gd:374 _palette()
   game/scripts/motor_art.gd:409 _model()
-game/scripts/hull_feedback.gd: 7157 bytes; extends RefCounted
+game/scripts/hull_feedback.gd: 7040 bytes; extends RefCounted
   game/scripts/hull_feedback.gd:7 record()
   game/scripts/hull_feedback.gd:47 draw()
   game/scripts/hull_feedback.gd:23 _beam()
@@ -25,7 +25,7 @@ game/scripts/hull_feedback.gd: 7157 bytes; extends RefCounted
   game/scripts/hull_feedback.gd:39 _line()
   game/scripts/hull_feedback.gd:43 _circle()
   game/scripts/hull_feedback.gd:111 _smoke()
-game/scripts/boat_mesh_cache.gd: 3569 bytes; extends RefCounted
+game/scripts/boat_mesh_cache.gd: 3503 bytes; extends RefCounted
   game/scripts/boat_mesh_cache.gd:37 heading()
   game/scripts/boat_mesh_cache.gd:39 density()
   game/scripts/boat_mesh_cache.gd:44 draw()

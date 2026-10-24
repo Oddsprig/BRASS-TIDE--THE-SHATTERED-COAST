@@ -1,9 +1,9 @@
-BRASS TIDE — NAVIGATION MAP (generated; v0.029)
+BRASS TIDE — NAVIGATION MAP (generated; v0.030)
 
 Original island polygons/endpoints -> bounded precomputed water grid and safe water paths.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/navigation.gd: 11535 bytes; extends RefCounted
+game/scripts/navigation.gd: 11151 bytes; extends RefCounted
   game/scripts/navigation.gd:62 is_water()
   game/scripts/navigation.gd:97 isWater()
   game/scripts/navigation.gd:136 create()

@@ -1,0 +1,23 @@
+BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.030)
+
+Unused numerical component: exact physical item custody, condition, bounded jury repair and legacy projection. Live damage, paid fitting, harbor, save and recovery adapters remain pending.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
+  game/scripts/equipment_condition.gd:109 mint_uid()
+  game/scripts/equipment_condition.gd:347 validate()
+  game/scripts/equipment_condition.gd:448 legacy_seed()
+  game/scripts/equipment_condition.gd:580 inspect_installed()
+  game/scripts/equipment_condition.gd:597 list_locker()
+  game/scripts/equipment_condition.gd:624 project()
+  game/scripts/equipment_condition.gd:641 move_exact()
+  game/scripts/equipment_condition.gd:699 swap_exact()
+  game/scripts/equipment_condition.gd:736 transfer_exact()
+  game/scripts/equipment_condition.gd:785 note_engine_scalar()
+  game/scripts/equipment_condition.gd:811 apply_component_damage()
+  game/scripts/equipment_condition.gd:853 repair_installed()
+
+TESTS (game/tests/*.gd)
+test_equipment_condition (90 native checks on recorded inputs); docs/QA EQUIPMENT CORE v0.031.txt. No live feature acceptance.
+
+Full symbols: rg -n '^func |^static func ' on named files.

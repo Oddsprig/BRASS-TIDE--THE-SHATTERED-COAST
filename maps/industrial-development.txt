@@ -1,9 +1,9 @@
-BRASS TIDE — INDUSTRIAL-DEVELOPMENT MAP (generated; v0.029)
+BRASS TIDE — INDUSTRIAL-DEVELOPMENT MAP (generated; v0.030)
 
 Actual surveyed sources, crews, owned workshops and paid teams -> finite transported machinery, recipe labor bottlenecks and chartered drydock bays.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/industrial_tooling.gd: 37301 bytes; extends RefCounted
+game/scripts/industrial_tooling.gd: 36314 bytes; extends RefCounted
   game/scripts/industrial_tooling.gd:29 ensure()
   game/scripts/industrial_tooling.gd:38 list_items()
   game/scripts/industrial_tooling.gd:45 cargo_weight()
@@ -16,7 +16,7 @@ game/scripts/industrial_tooling.gd: 37301 bytes; extends RefCounted
   game/scripts/industrial_tooling.gd:365 production_factor()
   game/scripts/industrial_tooling.gd:382 validate()
   game/scripts/industrial_tooling.gd:515 _source_error()
-game/scripts/tooling_ops.gd: 13776 bytes; extends RefCounted
+game/scripts/tooling_ops.gd: 13568 bytes; extends RefCounted
   game/scripts/tooling_ops.gd:15 ensure()
   game/scripts/tooling_ops.gd:19 offer()
   game/scripts/tooling_ops.gd:32 begin()
@@ -29,14 +29,14 @@ game/scripts/tooling_ops.gd: 13776 bytes; extends RefCounted
   game/scripts/tooling_ops.gd:127 cancel_batch()
   game/scripts/tooling_ops.gd:137 staff()
   game/scripts/tooling_ops.gd:171 validate()
-game/scripts/yard_development.gd: 8970 bytes; extends RefCounted
+game/scripts/yard_development.gd: 8849 bytes; extends RefCounted
   game/scripts/yard_development.gd:12 ensure()
   game/scripts/yard_development.gd:16 bays()
   game/scripts/yard_development.gd:22 quote()
   game/scripts/yard_development.gd:53 begin()
   game/scripts/yard_development.gd:73 daily()
   game/scripts/yard_development.gd:94 validate()
-game/scripts/tooling_ui.gd: 6636 bytes; extends RefCounted
+game/scripts/tooling_ui.gd: 6535 bytes; extends RefCounted
   game/scripts/tooling_ui.gd:8 act()
   game/scripts/tooling_ui.gd:31 open()
 

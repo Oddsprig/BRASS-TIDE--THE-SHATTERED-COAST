@@ -1,21 +1,21 @@
-BRASS TIDE — COMBAT MAP (generated; v0.029)
+BRASS TIDE — COMBAT MAP (generated; v0.030)
 
 Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/battle.gd: 29690 bytes; extends RefCounted
-  game/scripts/battle.gd:60 pop_events()
-  game/scripts/battle.gd:63 mount_shot_time()
-  game/scripts/battle.gd:66 mount_shot_age()
-  game/scripts/battle.gd:69 hull_material()
-  game/scripts/battle.gd:72 weapon_family()
-  game/scripts/battle.gd:80 create()
-  game/scripts/battle.gd:159 get_flagship()
-  game/scripts/battle.gd:165 select_flagship()
-  game/scripts/battle.gd:174 set_autopilot()
-  game/scripts/battle.gd:184 issue_order()
-  game/scripts/battle.gd:226 set_order()
-  game/scripts/battle.gd:235 retreat()
+game/scripts/battle.gd: 30458 bytes; extends RefCounted
+  game/scripts/battle.gd:63 pop_events()
+  game/scripts/battle.gd:66 mount_shot_time()
+  game/scripts/battle.gd:69 mount_shot_age()
+  game/scripts/battle.gd:72 hull_material()
+  game/scripts/battle.gd:75 weapon_family()
+  game/scripts/battle.gd:83 create()
+  game/scripts/battle.gd:166 get_flagship()
+  game/scripts/battle.gd:172 select_flagship()
+  game/scripts/battle.gd:181 set_autopilot()
+  game/scripts/battle.gd:192 issue_order()
+  game/scripts/battle.gd:233 set_tactical_options()
+  game/scripts/battle.gd:243 tactical_status()
 game/scripts/damage.gd: 8674 bytes; extends RefCounted
   game/scripts/damage.gd:6 number()
   game/scripts/damage.gd:11 create_ship()
