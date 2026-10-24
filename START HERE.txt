@@ -1,16 +1,20 @@
-BRASS TIDE - CURRENT SOURCE v0.030, UNTESTED
-Tests deferred AT OWNER REQUEST. Finish Windows BUILD ONLY, then STOP.
-.031-.038 STOPPED. No tests, smokes, parser validation or game launches.
+BRASS TIDE — ACTIVE DEVELOPMENT AND BACKGROUND TESTING
+24 October2026 | Latest owner resume overrides the historical stop/test deferral.
 
-AGENTS.md / HANDOFF.md: current owner override and frozen source context.
-BUILD STATUS.txt: source/build distinction; root owns final Windows packaging.
-docs/SOURCE INTEGRATION v0.030.txt + SOURCE MANIFEST v0.030.json: exact provenance.
-docs/DEFERRED TEST QUEUE v0.030.txt: explicit deferred work; no automatic jobs.
-CODE MAP.md + maps/tactical.txt: current tactical source locations.
-docs/CAPTAINS CAMPAIGN GUIDE.txt: current source controls, marked untested.
-CHANGES v0.030.md + game/data/DEVELOPER NOTES.txt: current source notes.
+HANDOFF.md and AGENTS.md: current work, constraints and three Bridge helpers.
+BUILD STATUS.txt and docs/VERIFICATION INDEX.txt: exact evidence boundaries.
+CODE MAP.md and maps/: actual implemented files, symbols and sizes.
+VERSION MAP.txt and ROADMAP.md: sequential031–038 work, not completed releases.
+game/data/DEVELOPER NOTES.txt: current in-game notes.
 
-The previous verified delivered game is v0.029, exact game tag
-44e2a46b55bd56b52998eeb1d4cdc681c5091482. Its historical receipts are separate
-from this untested source. Do not overwrite any older release or original
-save/settings/music. Root will hand back the concrete .030 build-only package.
+The preserved Windows030/tag7492fb7 remains its original UNTESTED portable.
+Verified029/tag44e2a46 is preserved. No031+ playable release or remote upload.
+Tests are authorized again, hidden/headless/silent/isolated, one owned engine at
+a time. Never take mouse/keyboard/focus or modify original saves/settings/music.
+Sol6.1MAX holds the engine lease; Grok4.7 and Gemini4ArgonHIGH implement assigned
+systems through Bridge. Root coordinates/reviews/integrates. No extra helpers.
+
+Immediate gate: actual crowded-fleet behavior, unchanged original regressions,
+heldout motion and measured capacity. Verified equipment components are staged;
+paid repairs/fitting/save/capture/recovery integration is still required.
+Earlier stop/build-only receipts describe historical actions, not current work.

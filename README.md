@@ -1,30 +1,29 @@
-# Brass Tide: The Shatter Coast — v0.030, UNTESTED
+# Brass Tide: The Shatter Coast
 
-Tests deferred **AT OWNER REQUEST**. Finish this Windows BUILD ONLY, then STOP.
-.031-.038 are stopped. Root owns final build-only packaging; no .030 game launch,
-native regression, smoke, behavior, performance or audio acceptance is claimed.
-The prior planner run had **350 checks / 1 failure**. The narrow screen-priority
-source correction is untested and leaves its original assertion unchanged.
+Original Godot motorboat fleet campaign for Windows: 24 hulls, interchangeable
+fittings, numerical crews, finite stores and real coin budgets. Sailors earn
+100 coins per day. Battle admission is 300 deployment points per side,
+separate from total fleet ownership, stored hulls and traveling support.
 
-An original Godot motorboat fleet campaign for Windows with 24 original hulls,
-physical interchangeable fittings, numerical crews, finite stores and real coin
-budgets. Sailors earn 100 coins per day. Normal battle admission is 300 deployment
-points per side, separate from fleet ownership and traveling support.
+Development and silent background testing have resumed. The preserved v0.030
+portable is its original **UNTESTED** build; verified v0.029 remains available.
+There is no v0.031+ playable release or complete AI/performance acceptance yet.
 
-This source adds tactical role/station planning, bounded physical maneuver/fire
-gates and selected tactics controls. Combat starts on autopilot. WASD pans the
-camera; Space pauses; U toggles manual flagship control. See the current
-[captain guide](docs/CAPTAINS%20CAMPAIGN%20GUIDE.txt) for source controls and limits.
+Combat starts on autopilot. WASD pans the camera, Space pauses, and U toggles
+manual flagship control. Original boats, geography, factions and stories are
+inspired by the requested naval combat and fleet campaign ideas.
 
-Start with [HANDOFF](HANDOFF.md), [source integration](docs/SOURCE%20INTEGRATION%20v0.030.txt),
-[deferred queue](docs/DEFERRED%20TEST%20QUEUE%20v0.030.txt) and [changes](CHANGES%20v0.030.md).
-Exact author bundles and prior failure evidence are preserved under
-`docs/helper-reports/v0.030-owner-stop/`. Source hash comparison is packaging
-provenance; it does not validate code or behavior.
+Start with [HANDOFF](HANDOFF.md), [current verification](docs/VERIFICATION%20INDEX.txt),
+[source map](CODE%20MAP.md) and [version map](VERSION%20MAP.txt). The current work
+closes tactical verification and integrates persistent equipment damage, finite
+crew repairs and paid part custody. Pure component checks are not live features.
 
-The previous verified delivered game is v0.029 at immutable tag
-`44e2a46b55bd56b52998eeb1d4cdc681c5091482`. Preserve that release, older builds,
-original voyages/settings and owner music. Keep any portable EXE/PCK/music/files
-together. Root owns the final .030 annotated tag, build-only Windows export,
-archives and launcher. Remote publication remains pending separate authorization
-and authenticated remote hashes. Boats, geography, factions and stories are original.
+Tests stay hidden/headless/silent with isolated profiles. Original voyages,
+settings, music and earlier releases are protected. Keep portable EXE/PCK/music
+files together. Windows export, launcher, visual/audio quality and remote upload
+have separate proof. No authenticated remote publication has been established.
+
+Historical v0.030 build-only provenance remains unchanged under
+`docs/SOURCE INTEGRATION v0.030.txt`, `docs/SOURCE MANIFEST v0.030.json` and
+`docs/helper-reports/v0.030-owner-stop/`. Historical test deferral is superseded
+by the owner's resume instruction in [AGENTS](AGENTS.md).

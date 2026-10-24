@@ -1,8 +1,3 @@
-Current owner instruction: .030 Windows BUILD ONLY, then STOP. .031-.038 stopped.
-No tests/parser validation/game launches. The earlier planner result was 350
-checks / 1 failure; its source correction and combined runtime are untested.
-A planner fixture is supplied unchanged; partial C fixtures are outside game/.
-No 75-suite completion is claimed. See docs/DEFERRED TEST QUEUE v0.030.txt.
 # Brass Tide working source map — toward v0.031
 
 Native project: game/. Canonical catalogue/geography: game/data/world.json. See
@@ -15,7 +10,7 @@ Historical JS prototype is archived. Planned modules do not exist until implemen
 | Fleet ownership, voyage budgets, cargo | expedition, deployment, hold_manifest, fleet_support, fleet_identity | expeditions, fleet-identity |
 | Tactical planning and physical gates | tactical_planner, tactical_role_plans, tactical_stations, tactical_runtime, tactical_routes, tactical_certification, tactical_fire_control, tactics_ui | tactical |
 | Damage and combat | damage, battle, combat_events, combat_boarding, battle_objectives | combat, boat-feedback |
-| Equipment custody (unused component) | equipment_condition | equipment-condition |
+| Equipment custody (unused component) | equipment_condition, equipment_records, equipment_ui | equipment-condition |
 | Paid fitting, knowledge templates and physical sockets | fleet_workshop, workshop_ui, refit, refit_ui, mount_layout, weapon_geometry | workshop, equipment-options |
 | Boat/weapon/motor visuals | hull_profiles, boat_art, boat_deck_detail, weapon_art, motor_art, hull_feedback, boat_mesh_cache, combat_art | presentation, boat-feedback |
 | Chart and routing | chart, navigation, route_cache, coast_migration | navigation |
@@ -34,7 +29,8 @@ join before publishing. Mount IDs/arcs/geometry are shared by fitting and combat
 
 The preserved v0.030 build remains untested. Development and background testing
 have resumed; focused evidence and remaining failures are in the verification
-index. The numerical equipment core is verified but has no live adapters yet.
+index. The numerical core, Records and panel components are verified; detached Damage
+proof is preserved, but live payment/save/combat adapters remain incomplete.
 Previous verified delivery: v0.029. Current tests:
 game/tests/ (70 named suites in tools/check_game.py; native results are recorded in
 docs/TEST RESULTS v0.029.md). The original 66 fixtures retain their assertions;

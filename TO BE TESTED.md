@@ -1,21 +1,26 @@
-# v0.030 deferred review queue - UNTESTED
+# Active verification queue
 
-Tests deferred **AT OWNER REQUEST**. This is a written queue, not permission to
-start or schedule any process. Finish the current Windows BUILD ONLY, then STOP.
-.031-.038 are stopped. No tests, benchmarks, smokes, parser validation, game/UI/
-motion launches or more fixture work. Root owns final build-only packaging.
+The owner restored background testing. Sol6.1MAX is the sole Brass Tide engine
+holder; all jobs are silent/headless/Dummy/lowpriority, bounded and use synthetic
+profiles. No desktop control, foreground game or original-save mutation.
 
-The earlier A planner component run recorded **350 checks, 1 failure**: screen
-priority for a vulnerable ally. Its original log/receipt and assertion remain
-unchanged. A's narrow source correction is untested; no later pass is claimed.
+- Close actual 40-hull first-shot behavior, screens, protected recovery, orders,
+  manual authority, firing lanes and finite stores at the frozen tactical source.
+- Run the original suites and heldout motion/capacity matrix. Record actual
+  population, contention, timings, engine/source hashes and owned child cleanup.
+- Verify paid physical fitting and Harbor repair with actual materials, workers,
+  experts, purse movements, stock identity and atomic refusal.
+- Integrate and verify Campaign identity/migration, saves, equipment failures,
+  repair priorities, capture/wreck/tow custody and the real player interface.
+- Verify a clean exact-tag Windows build and launcher separately after source
+  acceptance. Source checks do not prove graphical/audio quality or GPU FPS.
 
-The explicit queue is [DEFERRED TEST QUEUE v0.030](docs/DEFERRED%20TEST%20QUEUE%20v0.030.txt).
-It includes planner/regressions, physical tactics and finite shots, command/UI/
-boarding authority, evolving damage/certification fairness, held-out behavior,
-full-population CPU evidence, separate Windows flows and human visual/audio review.
-All require a later owner instruction before execution.
+Verified components: equipment core90, Records89, actual24-hull/JSON catalogue651,
+panel49, detached Damage174 plus unchanged legacy Damage. These components do
+not complete031. Closest tactical motion12/12 and recovery8/8 pass at recorded
+scopes; complete tactical/regression/performance acceptance is still open.
 
-C's incomplete shared/orders/UI drafts remain outside game/; independent AI/
-motion fixtures and the 75-suite registration were unfinished. The original70
-registered fixtures and A's supplied planner fixture are preserved unchanged.
-The old .029 accepted evidence applies only to its matching source and inputs.
+Use [verification index](docs/VERIFICATION%20INDEX.txt) and exact native receipts
+before repeating checks. Preserve failures and lessons. The old deferred queue
+in docs/DEFERRED TEST QUEUE v0.030.txt is historical evidence, now authorized for
+execution by the newer resume; it must not be treated as a current stop order.

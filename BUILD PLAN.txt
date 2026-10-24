@@ -1,21 +1,24 @@
-BRASS TIDE v0.030 - SOURCE CANDIDATE, UNTESTED
-Tests deferred AT OWNER REQUEST. Finish this Windows BUILD ONLY, then STOP.
-No tests, benchmarks, smokes, parser validation, game/UI/motion launches or future
-implementation. Root owns final merge, build-only exporter, annotated tag,
-compiler/required asset import/export, archives and launcher. C ran none of them.
-.031-.038 are STOPPED and must not resume automatically.
+BRASS TIDE — CURRENT BUILD PLAN, 24 OCTOBER2026
+Owner restored development and background testing. Continue versions in order.
+Preserved030 remains UNTESTED; verified029 is protected. No new build claimed.
 
-Exact A FINAL component and B owner-stop ten-file source bundle are integrated
-on root c90438a. A's narrow screen-priority source correction is UNTESTED; its
-assertion is unchanged. Previous native evidence remains 350 checks / 1 failure,
-not a pass. No integrated .030 regression or behavior acceptance is claimed.
-Previous verified delivered game: v0.029, exact tag
-44e2a46b55bd56b52998eeb1d4cdc681c5091482. Old releases and owner files preserved.
-Deferred queue: docs/DEFERRED TEST QUEUE v0.030.txt.
-Source/provenance: docs/SOURCE INTEGRATION v0.030.txt and SOURCE MANIFEST v0.030.json.
-ONLY REMAINING BUILD WORK: root merges this frozen source, adds its separate
-build-only packager/verdict, records the final source/tag, and performs compiler,
-required asset import/export, archive and launcher packaging without launching
-the game. Do not call release_game.py or complete_campaign_delivery.py unchanged:
-their smoke/verification paths do not represent this owner-authorized build.
-No more helpers, features, fixture authoring or automatic QA jobs.
+1. Finish030 tactical source acceptance: real movement/fire/orders/screens,
+original regression suites, adverse heldout cases, finite stores/people and
+capacity at actual full population. Keep all failed inputs/results intact.
+2. Integrate031 equipment into actual Campaign, Battle, paid fitting/Harbor,
+Save/capture/wreck recovery and UI. Core90/Records89/catalogue651/panel49 and
+detached Damage174 are component proof only; actual adapters need native checks.
+3. Update current in-game TXT, developer lessons, maps and precise verification
+receipts. Root reviews exact source, commits named paths and advances .001 only
+for an actual playable version. Never retag preserved builds.
+4. Export a clean exact-tag Windows build, isolated background menu/save/battle
+smoke, archive hashes and launcher proof. Preserve all owner files/older builds.
+5. Continue032–038 as in VERSION MAP.txt. Shipping/civilian/faction features must
+move real cargo, fuel, coins, crew and materials; no fabricated replacements.
+
+Sol is sole engine holder. All tests silent/headless/Dummy/lowpriority, bounded,
+synthetic profiles; no foreground/input. UI/resources publish only on main;
+workers own copies. Remote publication remains pending actual authentication
+and remote hashes; old credential failure is not an upload.
+Historical build-only receipts: docs/SOURCE INTEGRATION v0.030.txt and
+SOURCE MANIFEST v0.030.json. They remain unchanged.

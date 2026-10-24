@@ -1,3 +1,11 @@
+2026-10-24 | Current context consolidation and detached Damage proof
+Main3e484a0 preserves verified174Damage component/native comparison, original
+failures and280rehash receipts. Current entry docs now consistently follow the
+owner's resume; historical stop/build-only receipts remain unchanged. Equipment
+map includes accepted Core/Records/UI files, not planned adapters. No gameplay
+source/version/export/launcher change from this consolidation. Tactical early40,
+full regression/heldout/capacity and actual031integration remain open.
+
 2026-10-24 | Tactical candidate203fc79 and equipment adapter staging
 Root read complete combined production diff and verified135 raw receipt hashes;
 preserved local evidence ref. Focused actualAI2462/mount1449/paidrefit352 pass.

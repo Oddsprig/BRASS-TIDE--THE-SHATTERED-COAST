@@ -6,9 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
-    "equipment-condition": (["equipment_condition"],
-                            "Unused numerical component: exact physical item custody, condition, bounded jury repair and legacy projection. Live damage, paid fitting, harbor, save and recovery adapters remain pending.",
-                            "test_equipment_condition (90 native checks on recorded inputs); docs/QA EQUIPMENT CORE v0.031.txt. No live feature acceptance."),
+    "equipment-condition": (["equipment_condition", "equipment_records", "equipment_ui"],
+                            "Unused verified components: exact part custody/condition, bounded jury repair, caller-owned migration/projection and repair-panel callbacks. Live combat/payment/save/recovery adapters remain pending. Detached Damage proof is documented separately and its source is not installed here.",
+                            "test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49); recorded native receipts under docs/. These counts do not prove a live feature."),
     "development": (["main", "preferences", "interface", "version"],
                     "Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.",
                     "test_runtime, test_commander, test_laboratory, test_workshop_ui; source evidence: docs/TEST RESULTS v0.029.md"),

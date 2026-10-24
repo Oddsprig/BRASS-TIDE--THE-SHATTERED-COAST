@@ -4,8 +4,8 @@ BRASS TIDE — CURRENT SEQUENTIAL VERSION MAP
 0.029 | DELIVERED/VERIFIED | Workshop,24 boat/equipment detail, paid fittings.
 0.030 | PRESERVED UNTESTED BUILD | Tactical AI source; fixes/verification active.
 0.031 | DOING | Damageable equipment plus reviewed0.030 runtime fixes. Numerical
-condition and custody core verified; records/panel native checks and live damage,
-one crew-time repair pool,paid refit/harbor,save/capture/wreck adapters pending.
+condition core90/Records89/catalogue651/panel49 and detached Damage174 verified;
+live combat, one crew-time pool,paid refit/Harbor,save/capture/wreck still pending.
 0.032 | NEXT | Real loaded convoy/recovery boats must physically reach exits.
 Choose tow/strip/abandon; no duplicate cargo/modules. Pure exit observer is a
 prototype under deadline/replayed-frame correction, not a completed feature.

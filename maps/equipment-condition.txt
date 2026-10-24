@@ -1,6 +1,6 @@
 BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.030)
 
-Unused numerical component: exact physical item custody, condition, bounded jury repair and legacy projection. Live damage, paid fitting, harbor, save and recovery adapters remain pending.
+Unused verified components: exact part custody/condition, bounded jury repair, caller-owned migration/projection and repair-panel callbacks. Live combat/payment/save/recovery adapters remain pending. Detached Damage proof is documented separately and its source is not installed here.
 
 FILES AND VERIFIED SYMBOLS
 game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
@@ -16,8 +16,34 @@ game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
   game/scripts/equipment_condition.gd:785 note_engine_scalar()
   game/scripts/equipment_condition.gd:811 apply_component_damage()
   game/scripts/equipment_condition.gd:853 repair_installed()
+game/scripts/equipment_records.gd: 21293 bytes; extends RefCounted
+  game/scripts/equipment_records.gd:271 initialize()
+  game/scripts/equipment_records.gd:383 absorb_legacy_damage()
+  game/scripts/equipment_records.gd:394 publish()
+  game/scripts/equipment_records.gd:421 snapshot()
+  game/scripts/equipment_records.gd:15 _fail()
+  game/scripts/equipment_records.gd:18 _validate_catalog()
+  game/scripts/equipment_records.gd:49 _validate_base()
+  game/scripts/equipment_records.gd:88 _validate_identity()
+  game/scripts/equipment_records.gd:104 _same_loadout()
+  game/scripts/equipment_records.gd:117 _validate_loadout()
+  game/scripts/equipment_records.gd:163 _parse_legacy_locker()
+  game/scripts/equipment_records.gd:234 _validate_condition_catalog()
+game/scripts/equipment_ui.gd: 10099 bytes; extends RefCounted
+  game/scripts/equipment_ui.gd:15 open()
+  game/scripts/equipment_ui.gd:74 _surface()
+  game/scripts/equipment_ui.gd:82 _accepted()
+  game/scripts/equipment_ui.gd:115 _quote()
+  game/scripts/equipment_ui.gd:129 _part()
+  game/scripts/equipment_ui.gd:154 _num()
+  game/scripts/equipment_ui.gd:160 _text()
+  game/scripts/equipment_ui.gd:172 _list_parts()
+  game/scripts/equipment_ui.gd:185 _materials()
+  game/scripts/equipment_ui.gd:195 _bind_priority()
+  game/scripts/equipment_ui.gd:198 _bind_repair()
+  game/scripts/equipment_ui.gd:203 _bind_plain()
 
 TESTS (game/tests/*.gd)
-test_equipment_condition (90 native checks on recorded inputs); docs/QA EQUIPMENT CORE v0.031.txt. No live feature acceptance.
+test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49); recorded native receipts under docs/. These counts do not prove a live feature.
 
 Full symbols: rg -n '^func |^static func ' on named files.
