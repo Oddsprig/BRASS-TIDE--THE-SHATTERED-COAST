@@ -1,0 +1,36 @@
+ROOT REVIEW — DETACHED EQUIPMENT DAMAGE, 24 OCTOBER2026
+
+Verdict: the corrected numerical Damage/EquipmentDamage component is verified
+for its recorded scope and ready for later integration. It is NOT installed in
+the live main game yet. Tactical baseline and all031adapter acceptance remain.
+
+Frozen production176bc3d73ce3a9e3388fe3d55a6fa7088d8f742d:
+Damage88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f
+EquipmentDamageed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f
+Accepted Corec8358f69 and Records56d92a48 unchanged.
+QA freeze190687fe0586f8617eed00b29b0a2c7de56ea74b is pinned locally.
+
+Root rehashed all156raw files in the detached Damage manifest and124raw files
+in the screen-clearance manifest. Three frozen test/tool files are CRLF on the
+native checkout and LF in Git; both hashes and exact normalized equality are
+recorded in ROOT DAMAGE AND SCREEN VERIFIED.json. Raw reports remain unchanged.
+
+Native comparison used IDENTICAL fixture05950d68c513bed13cb1bc8b13dfb376ec9f5c8823bfecf61cb80fb5422d0fa0:
+Original source174checks/11failures; corrected174/0. Original legacy Damage
+suite also passes unchanged against corrected source. Earlier raw149/1 and
+174/12 ->174/6 remain preserved. The new fixture corrects actual current skiff
+maxHP150 and compares dry no-kit HP with the actual preceding fire result;
+labor/material requirements and assertions were retained. No root engine run.
+
+Confirmed correction: normalized local impact coordinates keep one unit;
+ambiguous/invalid coordinate descriptors refuse before mutation. Hull-first
+repair passes unused real crew time to machinery after actual hull needs;
+supplies/work are finite, jury repair cap0.75, disabled re-enable0.30, raw engine
+HP preserved, armor/locker remain yard-only. No free canonical port repair.
+
+Not proved here: live physical hits/disabled gun gates, real and predicted
+turning/certification, paid Harbor/refit, Campaign identity/migration, saves,
+capture/wreck/tow, NPC maintenance, UI integration, spare payload, whole-game
+regression/performance, Windows build/audio/render quality. These are required
+before claiming031 complete. Do not use the original hallucinated API report;
+the native API brief and actual source are authority.

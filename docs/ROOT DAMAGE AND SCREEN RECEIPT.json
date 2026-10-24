@@ -1,0 +1,69 @@
+{
+  "scope": "Root evidence rehash and frozen-source review only; no new engine launch; no live031 or tactical capacity acceptance",
+  "timeUTC": "2026-10-24T06:24:44.649676+00:00",
+  "previousAudit": "ROOT DAMAGE AND SCREEN REVIEW.json records strict byte-to-Git mismatch; all three are CRLF-only checkout differences resolved here without hiding either hash",
+  "reports": [
+    {
+      "manifest": "QA RESUME v0.031.detached-damage.manifest.json",
+      "manifestSHA256": "26e48d90e69e4b11f3d7a0ab0c90a47f09d28d12166dc778b849cd4e4d10f268",
+      "commit": "190687fe0586f8617eed00b29b0a2c7de56ea74b",
+      "rawCount": 156,
+      "frozenInputs": []
+    },
+    {
+      "manifest": "QA RESUME v0.030.screen-clearance.manifest.json",
+      "manifestSHA256": "d924fe5332a5005544b541ffafaacaf90a106f4e4986db4bd38787c546783f61",
+      "commit": "df6b479a5a4c2cf5e5e1fdff2b79731e3673217c",
+      "rawCount": 124,
+      "frozenInputs": [
+        {
+          "path": "game/scripts/tactical_certification.gd",
+          "nativeSHA256": "88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8",
+          "gitSHA256": "88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8",
+          "binding": "exact Git blob"
+        },
+        {
+          "path": "game/scripts/tactical_stations.gd",
+          "nativeSHA256": "eef6f98b3838cdafaf7c3f18f8386c983e37fb772b250aa1d096ddbd22b9acdb",
+          "gitSHA256": "eef6f98b3838cdafaf7c3f18f8386c983e37fb772b250aa1d096ddbd22b9acdb",
+          "binding": "exact Git blob"
+        },
+        {
+          "path": "game/scripts/tactical_runtime.gd",
+          "nativeSHA256": "d10b0bcc0c5d2bc8b5e4f7c124ace8a8eec7471a52a8185cb7a62a96c168728e",
+          "gitSHA256": "d10b0bcc0c5d2bc8b5e4f7c124ace8a8eec7471a52a8185cb7a62a96c168728e",
+          "binding": "exact Git blob"
+        },
+        {
+          "path": "game/tests/tactical_fixture_r4.gd",
+          "nativeSHA256": "f5ab64ce369f9fdbf72e8af58d9b76c5ab13c0ecd9ac8d560342c190bae7232a",
+          "gitSHA256": "a05ab33c8fc91caf09a3b596d53316217d74ed47232ff90dfc0ab55c8014506d",
+          "binding": "native exact CRLF disk bytes; Git LF normalized; preserve both distinct hashes"
+        },
+        {
+          "path": "tools/tactical_scenarios.r4.json",
+          "nativeSHA256": "23759b2586e3106161bb6977d59991d10d726bd181c0f4fb0e77e50e19265038",
+          "gitSHA256": "71544b8995019bbe1f83d556ca3e21c78b8e0c639a2f372753bc855cbd65e20d",
+          "binding": "native exact CRLF disk bytes; Git LF normalized; preserve both distinct hashes"
+        },
+        {
+          "path": "game/tests/test_tactical_planner.gd",
+          "nativeSHA256": "2d61675879cfa109516abe313de5b01deaa6dc01a3b5dce553a420aca064474f",
+          "gitSHA256": "2d61675879cfa109516abe313de5b01deaa6dc01a3b5dce553a420aca064474f",
+          "binding": "exact Git blob"
+        },
+        {
+          "path": "tools/resume_game_checks.py",
+          "nativeSHA256": "d4b6ad3581c7f5c61c4f946bdc1d480d19eb9c07cd55c2bd0ba0f7b44060bdd6",
+          "gitSHA256": "d2969d0c2dd3313b4a4272f0ddcc70d6c6cbfee09a42883fee0f3630de2d4573",
+          "binding": "native exact CRLF disk bytes; Git LF normalized; preserve both distinct hashes"
+        }
+      ]
+    }
+  ],
+  "verifiedDamageProduction": {
+    "damage.gd": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+    "equipment_damage.gd": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f"
+  },
+  "identicalComparisonFixtureSHA256": "05950d68c513bed13cb1bc8b13dfb376ec9f5c8823bfecf61cb80fb5422d0fa0"
+}

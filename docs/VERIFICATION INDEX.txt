@@ -1,25 +1,27 @@
 BRASS TIDE — CURRENT WORKING STATUS, 24 OCTOBER2026
 Development and silent background testing are active by the owner's resume.
-Preserved playable030/tag7492fb7 is the original UNTESTED build; verified029/
-44e2a46 remains the fallback. No031+ playable version or remote upload exists.
+Preserved playable030/tag7492fb7 remains its original UNTESTED build; verified029/
+44e2a46 is preserved. No031+ playable version or remote upload exists.
 
-Root source7519033 accepts memory/60Hz prediction, selected fleet controls and
-unused90-check equipment core. Combined tactical candidate203fc79 is preserved
-under evidence-mount-targets-203fc79; root read production changes and verified
-135raw evidence hashes. Native candidate: AI2462, mount-target1449, unchanged
-paidrefit352, planner350, orders77, UI127, timing34, memory31 and Battle pass.
-This is focused proof: full70 regressions, larger-fleet capacity, heldout motion
-and Windows delivery remain open. Old r3 motion36/38 remains recorded; separate
-prospective r4 tests protected recovery and genuine below-threshold escape.
-An actor-screen motion failure and early40-hull emission are under diagnosis.
+Main contains accepted memory/60Hz prediction, selected/mixed fleet controls,
+unused equipment core90/Records89/catalogue651/panel49. Frozen tactical source
+203fc79 and df6b479/190687f has focused AI2462, mount1449, paidrefit352 and public
+Battle137 proof. Closest motion12/12 and escape/recovery8/8 pass. Prospective
+formation353/0 preserves original350/1. Full70, heldout/capacity and actual
+40-hull first-shot deadline remain open; no complete tactical acceptance.
 
-Three Bridge helpers: Sol6.1Max QA/integration/sole engine, Gemini4ArgonHigh live
-Damage/crew labor adapter, Grok4.7 convoy deadline/replay correction. Frozen
-Records21fe613 and repair-panel2a23bd7 components await native tests. Actual
-031combat/repair/paid fitting/save/capture/wreck integration is incomplete.
-All tests headless/Dummy, lowpriority, isolated; no desktop input/focus. Preserve
-owner saves/music/releases. Full source/feature/quality acceptance is separate.
-Current coordinator files: task work/resume-v030-v038/CURRENT.txt and TEAM.json.
+Corrected Damage176bc3d: identical fixture before174/11 ->after174/0; unchanged
+legacy Damage also passes. Root independently verified156Damage and124screen
+raw files; exact source and CRLF/LF bindings recorded separately. This component
+is ready for integration but not live. See ROOT DETACHED DAMAGE v0.031.txt,
+QA DETACHED DAMAGE v0.031.txt/.json and ROOT DAMAGE AND SCREEN RECEIPT.json.
+
+Three Bridge helpers only: Sol6.1MAX sole engine/QA, Gemini4ArgonHIGH paidHarbor,
+Grok4.7 wreck/tow custody. Fittingb523281 queued for native correction/review.
+Actual031combat/repair/payment/save/capture integration remains incomplete.
+All tests hidden/headless/Dummy/lowpriority/isolated; no desktop input/focus.
+Owner saves/music/releases protected. Current coordination is task
+work/resume-v030-v038/CURRENT.txt and TEAM.json.
 
 HISTORICAL RECORDS FOLLOW
 

@@ -1,0 +1,46 @@
+Detached numerical component: native-verified API,24 October2026
+
+Sources: root corrected176bc3d; EquipmentConditionc8358f69 and
+EquipmentRecords56d92a48 unchanged. No live Battle/campaign wiring implied.
+
+Damage.create_ship(spec,overrides={}) creates a legacy numerical dictionary.
+It does not initialize moduleCondition. Real current tin_skiff maxHp is150.
+Refit.ensure prepares its loadout; Records.initialize receives base/loadout/
+catalog/identity/knownUids context and creates canonical equipment explicitly.
+
+Damage.get_status(ship) is read-only and returns equipmentOk,equipmentMode,
+needsInitialize,engineHp,engineFactor,pumpFactor,armorFactor,effectiveArmor,
+weaponFactors,speedFactor,turnFactor and crewGuns/crewBail/crewRepair.
+Canonical corrupt/foreign/missing installed records fail closed without reseed.
+
+Damage.apply_hit(ship,hit,rng=null) returns actual textual events.
+EquipmentDamage.resolve_hit_locations(ship,hit,mach_roll=1.0) returns
+ok,usedGeometry,localNorm,locations. Attacker mountId is not a victim socket.
+impactX/impactY are world coordinates; localX/localY are normalized hull units.
+Do not guess pixels from local-coordinate magnitude. Layout.hardpoints has
+normalized localX/localY and world-scale x/y offsets. World impact conversion
+subtracts ship position,rotates by -angle,then divides by Layout.hull_size.
+blastRadius uses world units and is normalized internally. Coordinates must
+be paired,finite and exclusively local or world; invalid hits do not mutate.
+Explicit section names provide the fallback when no coordinates are supplied.
+
+Damage.set_repair_priority(ship,priority) accepts auto/hull/pumps/engine/weapons.
+Damage.tick_ship(ship,dt,options={}) uses one actual crew-second work pool for
+fire/patch/machinery/hull. Available/used work and supplies plus per-task maps
+are returned. Work and supplies cannot be spent twice. Fire can be suppressed
+without material; patch/hull/machinery need real finite supplies. Hull-first
+passes unused labor to machinery after actual hull/fire/patch needs are met.
+Machinery jury repair stops at0.75; disabled hysteresis retains raw HP,with
+re-enable at0.30. Armor and locker spares are not repaired at sea.
+
+Canonical ticks absorb downward legacy damage before repair and publish after.
+UIDs,nextItemSeq,crew and detached returned dictionaries remain conserved.
+Damage.repair_at_port refuses scalar paid restoration of canonical equipment;
+actual harbor payment/construction/capture/save integration remains separate.
+
+Native comparison uses the SAME174-check fixture against both source pairs.
+Root's raw628-line fixture first ran unchanged; native-proven corrections use
+actual150 maximum/149.78 partial hull and preserve post-fire119.97342 HP during
+a subsequent dry zero-kit tick. No work/material assertion was removed.
+Original source11failures; corrected0. Legacy test_damage also passes unchanged.
+Real30/60Hz six-second comparisons and finite repair/supply checks pass.

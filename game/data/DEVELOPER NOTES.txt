@@ -6,15 +6,19 @@ active again; no new playable version or complete quality/performance claim.
 
 Reviewed source components: retained tactical memory; correct30/60Hz physical
 prediction; selected/mixed fleet tactics controls; unused numerical equipment
-condition and exact ownership core (90 native checks). Equipment damage still
-needs live combat, paid fitting, repair, save and recovery integration.
+condition and exact ownership core (90 native checks). Equipment records (89),
+all 24 hulls and JSON (651), and panel callbacks (49) are verified components.
+The detached damage/repair adapter passes174 focused checks and the existing
+damage suite. Live combat, paid fitting/Harbor, save and recovery integration
+remain. These components are not yet called by the live main game.
 
 The combined AI candidate now demonstrates useful gun bursts, physical exits
 and second passes, mixed guns/rockets/torpedoes choosing checked targets within
 their own arcs, strict player attack orders and actual scattered projectile
 lanes. Focused native AI2462/mount1449/paidrefit352 checks pass on recorded inputs.
 Larger-fleet behavior/performance and full regression remain under test. A real
-escort-screen failure and early40-hull firing are being investigated.
+early40-hull firing delay remains under correction. Closest screen/motion
+cases12/12 and protected escape/recovery8/8 now pass at recorded source scopes.
 
 24 original hulls;300 battle deployment points per side distinct from ownership;
 finite people, supplies and coins;100coins per sailor-day. Crew remain numerical.

@@ -1,0 +1,58 @@
+Detached Damage native comparison,24 October2026
+
+Accepted components Corec8358f69/Records56d92a48 remain exact. Live tactical
+game/scripts/damage.gd is unchanged. All component tests ran in separate own
+qa/damage-native-inputs projects with a minimal project and exact current
+world/refit/layout dependencies; no stale tactical or Refit source imported.
+This is component evidence,not .031 live feature/payment/campaign acceptance.
+
+Original37c unchanged three-file fixture:149checks/1failure,PID72960.
+Root identical enhanced628-line fixture:
+  original source174/12 PID55892; corrected source174/6 PID30872.
+All raw source/test bytes,parse/runtime logs and actual counts are retained.
+No native parse failure occurred. The raw fixture prints a false0-failure line
+after quit(1); the runner correctly rejects actual errors and nonzero exit.
+
+Native read-only observation PID69164 proves the six remaining fixture defects:
+zero kits preceding fire tick changes HP120 ->119.97342; subsequent dry tick
+keeps119.97342,uses0work/0supplies,keeps18breach area. The assertion incorrectly
+expected120 again. The real current skiff maximum is150; root's "healthy"140
+and "partial"139.78 setups both still need substantial hull repair. Both pairs
+therefore correctly spend2.5crew-s on hull before machinery in that setup.
+
+New local comparison fixture changes ONLY these setups/expected actual maximum,
+captures prior HP for no-healing/no-damage check,and returns after quit(1) to
+prevent a contradictory success line. Every assertion/work/material threshold
+remains. Both sources use IDENTICAL corrected fixture05950d68c513bed13cb1bc8b13
+dfb376ec9f5c8823bfecf61cb80fb5422d0fa0; exact unified diff retained.
+  BEFORE174/11 PID84124,7.281s.
+  AFTER 174/0 PID59668,7.422s.
+  Original legacy damage suitePASS PID31040,1.281s against corrected pair.
+
+Before failures now expose real defects: normalized local3.0 guessed as pixels;
+mixed/partial/invalid coordinate descriptors accepted or mutate; healthy-hull
+priority suppresses machinery crew/work; partial hull stops working after
+completion rather than passing remaining labor to machinery. Corrected pair
+resolves these without local production edits. Healthy hull150 preserves HP,
+spends2.5crew-s and0.15supplies for engine0.40->0.50. Partial149.78 completes
+0.22HP with1crew-s/0.077supplies,then engine0.40->0.46 with1.5crew-s/0.09;
+total2.5crew-s/0.167supplies.30/60Hz,UID/status/disabled/rawengine/armor/mount/
+pump/locker/corruption/refusal/finite-material/no-free-port checks also pass.
+
+Corrected Damage SHA256
+88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f.
+Corrected EquipmentDamage SHA256
+ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f.
+No source pair was altered locally; root raw manifest hashes match Git blobs.
+
+New tools/resume_component_checks.py uses the existing project guard and same
+ENGINE-QA.lease,exact engine hash,headless/Dummy/BELOW_NORMAL,fresh profiles,
+<=60s and owned PID cleanup. It validates each detached input manifest and
+hashes live game before/after,so component tests cannot silently mutate tactics.
+All7children exited; no external engine observed,idle host not established.
+Original70 and tactical registry are untouched. This is not CPU capacity proof.
+
+The formation fixture correction also passed353/0 PID16540 after root approved
+its exact prospective diff. Original350/1 remains preserved. Closest native
+motion12/12 passes unchanged at df6b479 production. Tactical early40 event
+failure remains open; next work returns to that diagnosis and frozen gates.
