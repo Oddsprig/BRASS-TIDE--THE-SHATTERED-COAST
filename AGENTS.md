@@ -1,52 +1,40 @@
-# Current owner stop - v0.030 build packaged, UNTESTED
+# Brass Tide - resumed development and background testing
 
-BRASS TIDE v0.030 - BUILD ONLY PACKAGED; STOPPED
-Windows executable/PCK, matching icon, clean Windows ZIP and exact-tag source ZIP
-are saved under task outputs/Brass Tide v0.030. Immutable game tag: v0.030.
-Exact compiled game source: 7492fb764d22c5cd4485a889f481bd27f3b9d795.
-Desktop launcher targets v0.030 and says UNTESTED. Game was not launched.
-Owner voyage/settings copies were added AFTER clean archives; originals intact.
-Previous verified v0.029 remains preserved. No GitHub upload was attempted.
+LATEST OWNER INSTRUCTION (23 October 2026): "ok bridge should be back up - keep going - sol 6.1 max and grok 4.7 - google 4.0 argon high helping you. testing is back on. ty. app restarted - keep going"
+This explicitly revokes the previous stop/test deferment for ongoing work and
+resumes the authorized sequential roadmap through .038. Earlier stop receipts,
+logs and untested release labels remain historical evidence; do not rewrite them.
 
-ALL TESTS DEFERRED AT OWNER REQUEST. No tests, benchmarks, smokes, game launch,
-UI/audio/motion/save compatibility/performance checks ran after the stop request.
-Necessary headless editor/compiler/import/export only completed successfully.
-Earlier planner350checks/1failure remains preserved; source correction NOT rerun.
-All helpers and build work STOPPED. .031-.038/design work and test execution must
-not resume automatically. A later owner instruction is required for more work.
-Deferred queue: docs/DEFERRED TEST QUEUE v0.030.txt.
-Actual build/engine/command/archive evidence: task outputs/Brass Tide v0.030 BUILD ONLY.json.
-Launcher metadata: task outputs/Brass Tide v0.030 LAUNCHER.json.
-This completion record is documentation only after the immutable game tag.
+Current playable artifact: v0.030 UNTESTED, immutable tag7492fb7. Source work starts
+at8b1d5b8 plus this resume record. Verified fallback .029/44e2a46 remains preserved.
+First close the deferred .030 correctness/behavior/controls/performance checks;
+then build .031-.038 one on top of the accepted predecessor. Never retag or
+replace a preserved artifact. Runtime fixes ship in the next .001 build; keep
+exact tested input hashes with every result, including failures.
 
-The source-handoff record below predates packaging; its pending build is now complete.
+Bridge team: one Sol6.1MAX (QA/integration and sole engine lease), one Grok4.7
+(physical tactical/campaign systems), one Gemini4ArgonHIGH (planner/equipment
+contracts and implementation when assigned). Majority work goes through Bridge;
+root coordinates, reviews, integrates, versions and delivers. No native/nested
+helpers, other models or paid-API fallback. Exact isolated workspaces/briefs live
+in task work/resume-v030-v038. Always read the current brief before old memories.
 
-# Brass Tide - current owner stop instructions
+Tests are authorized again but remain silent/headless/background. Never take
+mouse, keyboard, focus or launch a foreground game. One owned game/test engine
+at a time for Brass Tide; coordinate with other project workloads, never kill
+unrelated processes. Use bounded jobs, exact owned PIDs and synthetic APPDATA/
+saves; owner voyages/settings/music and all earlier releases are protected.
+Performance evidence must state contention and measured workload; no GPU/FPS,
+human motion, sound-quality or Starsector parity claim from source/unit counts.
 
-Current source build is **v0.030, UNTESTED**. Tests are deferred **AT OWNER REQUEST**.
-Finish this Windows BUILD ONLY and STOP. These latest owner instructions override
-all older QA, release-gate, roadmap and delegation language below: no tests,
-benchmarks, smokes, parser validation, game/UI/motion launches or extra helpers.
-Only root's required compiler/asset import/export/archive/launcher packaging is
-allowed. Root owns merge, annotated tag and final build-only Windows packaging.
-**.031-.038 are STOPPED**; do not continue future design or implementation.
+Read docs/DEFERRED TEST QUEUE v0.030.txt as a historical checklist, now authorized
+to execute by the newer owner message. Preserve prior350checks/1failure and test
+the unchanged screen assertion against the corrected final source first. Recover
+partial fixtures/tools only from the named preserved paths/ref after API review.
+Read briefs/TACTICAL CONTRACT v0.030.txt and frozen r3 budgets (API remains r2).
+Finish .030 evidence before expanding tactical scope. Do not skip meaningful
+motion, finite stores/crew/custody, manual authority or capacity checks.
 
-This candidate descends root c90438a and integrates exact A FINAL corrected planner
-bytes plus B's physical ten-file owner-stop bundle. B Git metadata is not repaired.
-A's screen-priority correction is UNTESTED; its existing assertion is unchanged.
-The preserved earlier planner result was 350 checks, 1 failure. No integrated
-.030 pass or verified delivery is claimed. The previous verified delivered game
-is v0.029, 24 original hulls, immutable tag
-44e2a46b55bd56b52998eeb1d4cdc681c5091482. Its 70 native suites and separate delivery
-receipts remain historical .029 proof only. Original saves/settings/music/releases
-are protected. No owned test PIDs remain; no test lease or queued C test job.
-
-Read docs/DEFERRED TEST QUEUE v0.030.txt, docs/SOURCE INTEGRATION v0.030.txt and
-SOURCE MANIFEST v0.030.json. Partial C fixtures are preserved outside game/ under
-qa/v030-owner-stop/partial-fixtures, excluded from the frozen candidate. Do not
-call release_game.py or complete_campaign_delivery.py unchanged for this build.
-
-The following standing engineering rules remain subject to the owner stop above.
 Read HANDOFF.md, CODE MAP.md and the relevant generated system map. Read
 `docs/VERIFICATION INDEX.txt` before repeating checks and `docs/DEVELOPER LESSONS.txt`
 before changing accounting, saves, combat or navigation. Use targeted searches;
@@ -74,9 +62,9 @@ then publish once on main. Rendering is Separate; current economy reserves two
 logical CPUs and caps worker lanes at eight on the observed 24-thread machine.
 Profile actual work before increasing concurrency. No expensive fluid simulation.
 
-If helpers are needed and authorized, latest owner preference is up to three
-Sol 6.1 Max helpers **through Bridge** for tracked usage; no silent model/provider
-substitution. The owner now requests majority delegation for implementation. Lead owns taste,
+If helpers are needed and authorized, latest owner preference is three helpers through Bridge: Sol 6.1 MAX,
+Grok 4.7 and Gemini 4 Argon HIGH on their subscription plans; no model/provider
+substitution or nested helpers. The owner now requests majority delegation for implementation. Lead owns taste,
 integration, review and acceptance. Give each helper exact current inputs, its
 own worktree and a file allowlist; no helper deletions or competing engine tests.
 Preserve raw reports unchanged and write a separate lead verdict.
