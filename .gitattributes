@@ -65,3 +65,9 @@
 "docs/helper-reports/resume-030-sol-baseline.txt" -text
 "docs/helper-reports/resume-030-sol-connector.txt" -text
 "docs/helper-reports/resume-030-sol-certification.txt" -text
+"game/tests/test_tactical_dt.gd" -text
+"game/tests/test_tactical_orders.gd" -text
+"game/tests/test_tactical_ui.gd" -text
+"tools/resume_game_checks.py" -text
+"docs/QA RESUME v0.030.controls.txt" -text
+"docs/QA RESUME v0.030.controls.manifest.json" -text

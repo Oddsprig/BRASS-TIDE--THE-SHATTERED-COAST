@@ -1,0 +1,90 @@
+BRASS TIDE v0.030 - BOUNDED CONTROLS QA CHECKPOINT
+2026-10-23 owner continuation; base ed72d1b3d5f0fe86b2b26c4fc81ddcdb8927f311.
+Root independently integrated prior components at ba6e5a9. This checkpoint
+precedes every new Argon/Grok A/B test-candidate copy. No release acceptance.
+
+PRODUCTION CHANGE AND PROOF
+Only game/scripts/tactics_ui.gd changed. Actual Main/UI baseline before-02:
+103 checks / 5 failures, PID63260. Reopening a boat with a 7-round reserve
+displayed 0; applying that unchanged control cleared the real reserve. Mixed
+roles displayed the first boat's role and untouched apply flattened recipients.
+The identical 103-check source passes after-01, PID39272, with the focused fix.
+The sheet now reads current choices, shows mixed roles/allies/numbers/weapon
+states, preserves untouched mixed fields and refreshes after explicit changes
+or group recall. Family-specific hold/reserve still patches only matching IDs.
+No Main, Interface, planner, physical gate, certification or runtime edit here.
+Source SHA256 b53fb28bf1808fedcc739808376d5f7874ba791cbf15bf2a5389baf95e2865b0.
+Review diff: qa/controls-ui-source.diff; prior source retained locally beside it.
+
+FINAL FROZEN TARGETED RUN - qa/controls-final-01
+Game input 65f7f6a3c092fa9da15dd252c117832644673979795aa6a75e052f8bfda532d2.
+Production-only input 62104fcd91c5378d6c56dccba79b6dfef9255e446783a659ba4aa9378fc32e11.
+orders       77 checks / 0 failures, PID37208, 1.125s.
+UI          127 checks / 0 failures, PID57200, 3.828s.
+dt           34 checks / 0 failures, PID2228,  2.312s.
+workshop UI  69 checks / 0 failures, PID41000, 4.750s.
+Every case's game input was identical before/after. Every owned engine exited.
+Native hidden/headless/Dummy, BELOW_NORMAL, isolated synthetic APPDATA/local
+profiles, <=60s per child. Other verified Anvil & Crown headless work overlapped
+UI/dt/workshop; orders saw no engine, which does not establish an idle host.
+These are correctness observations, not performance/capacity/GPU measurements.
+
+MEANINGFUL COVERAGE
+Orders: all six canonical orders invalidate stale intents and acknowledge the
+exact revision next tick; invalid recipients/targets refuse atomically. Actual
+manual helm moves/turns despite queued withdrawal, spends fuel, retakes after
+fleet retreat, and cannot reset its 12s compatibility timer. Independent gun /
+cannon hold and reserve produce exactly one real gun event / one round debit.
+Unlaunched boarding cancels; launched job identity, real crew and deadline stay
+exact on new commands and during free manual helm. No forced boarding helm.
+UI: real Main scene, native buttons, field signals and synthetic Main callbacks;
+F1-F4/Ctrl groups, additive/projected selection, actual destroyed-hull pruning;
+role/doctrine/formation/protected ally/leash/rally/conditional withdrawal;
+per-family mount choices; current/mixed settings across a native frame;
+Main modal/pause gates and Tab/manual restoration; actual automatic then manual
+shots with exact event debits, real movement, bailing and finite-kit repair.
+Laboratory actions preserve the paid career Dictionary identity and contents.
+The timestep fixture is byte-identical to the earlier paired probe c58e1b81...
+and retains all 34 assertions, real certificates/condition/hit invalidation.
+
+REUSABLE RUNNER
+tools/resume_game_checks.py: engine argument/current 4.7.2 default + exact SHA,
+owned local lease, bounded jobs/PIDs/receipts, before/after game hashes, separate
+runner/dependency hashes, fresh project-scoped process guard, low priority/Dummy
+and independent profiles. No historical PID exception. Unknown, unreadable,
+windowed and all Brass Tide identities block. Headless flags are accepted only
+before the engine's -- separator. 17 guard classifications pass; underlying
+hidden runner's normal/fatal-compile/fatal-runtime/owned-timeout checks pass.
+--only names targeted completed suites; --original-all explicitly names only
+the unchanged original 70. Five completed tactical suites have a separate list.
+AI/motion are not registered yet; no full75/full77 batch or acceptance claimed.
+
+PRESERVED FAILURES AND LIMITS
+Every earlier raw report, partial20/70 result, diagnostic and three archives is
+unchanged. New controls failures remain locally, with exact input hashes/logs:
+- orders-01: 77/1 fixture mistake; native never-fired timestamps are -1 rather
+  than absent. Corrected to compare the unchanged native timestamp; orders-02
+  and final both 77/0. No runtime/assertion relaxation.
+- UI-before-01: 102/7; five real UI defects plus two fixture assumptions. The
+  700/850 water click was within the actual 42px ally-picking radius; 1100/850
+  tests open water. U inside overview chooses manual, not automatic. The
+  corrected before-02 isolates the same five real failures, 103/5.
+- UI-after-02: expanded 127/4. Three blank mixed SpinBoxes were initialized
+  before native attachment; initializing their display after attachment fixes
+  them. Remaining firing fixture steered out of the fitted 340px range while
+  repair duty imposed a real cooldown. after-03/04 preserve 127/1 and actual
+  traces (ready at t2.5667, center distance332.539 plus forward mount origin;
+  later368.239). after-05 uses ordinary directional inputs toward the target,
+  without changing timers/ranges/gates/stores, and passes127/0; final repeats it.
+Old battle/tactics/refit/combat_events failures remain unedited and unaccepted
+pending separate A/B candidates. No legacy first-frame assertion was adapted.
+No AI behavior, capacity, rendered motion, listening, Windows build, tag, export,
+publication or original-owner-save claim. No helpers, desktop input or focus.
+
+REVIEW / NEXT BOUNDARY
+Compact receipt: docs/QA RESUME v0.030.controls.manifest.json indexes exact final
+source/tool hashes, all new local raw evidence and preserved archive hashes.
+Raw logs/profiles stay in this workspace's qa/, without a duplicate ZIP tree.
+Root next authorizes A8f4d125 three planner files and Bd13b547 three physical
+files plus only its boarding runtime delta over the memory fix. Certification
+70ab8315 remains frozen. Those are future TEST candidates, not this checkpoint.

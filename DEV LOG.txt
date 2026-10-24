@@ -1,3 +1,25 @@
+BRASS TIDE - RESUMED DEVELOPMENT / TESTING
+23 October 2026. Owner restarted Bridge and restored testing and development.
+Current artifact v0.0307492fb7 remains preserved as the originally UNTESTED build.
+Current source base6f492d2. Verified fallback .02944e2a46 remains preserved.
+
+Current phase: finish .030 deferred QA, then sequential .031-.038 roadmap.
+The unchanged planner now passes350 checks /0failures, including prior screen
+priority assertion. Actual raw evidence: task work/resume-v030-v038/qa-sol/qa/
+phase1-planner-03. The original failed350/1 proof remains untouched.
+Legacy70 regressions are in progress. Actual motion/controls/capacity and Windows
+startup/save evidence remain pending; no complete AI/performance acceptance.
+
+Active Bridge team: Sol6.1MAX sole engine/QA; Grok4.7 physical systems;
+Gemini4ArgonHIGH planner and next module-condition contract. Max3, no nested
+helpers or provider/model fallback. Exact workspaces/briefs and engine lease:
+task work/resume-v030-v038/TEAM.json, CURRENT.txt and ENGINE LEASE.txt.
+All tests remain hidden/headless/Dummy/isolated; no mouse, keyboard or focus.
+Preserve original owner saves/settings/music and all historical artifacts/tags.
+This status supersedes older stop language for NEW work, not historical evidence.
+
+HISTORICAL RECORDS FOLLOW
+
 v0.030 BUILD ONLY PACKAGED - UNTESTED | 7492fb764d22c5cd4485a889f481bd27f3b9d795
 Tests deferred AT OWNER REQUEST. Desktop launcher updated; all work/helpers stopped.
 .031-.038 and test queues do not resume automatically. See BUILD STATUS.txt.

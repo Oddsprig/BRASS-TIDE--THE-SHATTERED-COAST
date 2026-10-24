@@ -1,0 +1,430 @@
+{
+  "stage": "controls-only before A/B test candidate",
+  "base": "ed72d1b3d5f0fe86b2b26c4fc81ddcdb8927f311",
+  "files": {
+    "game/scripts/tactics_ui.gd": "b53fb28bf1808fedcc739808376d5f7874ba791cbf15bf2a5389baf95e2865b0",
+    "game/tests/test_tactical_orders.gd": "c13de0ee9c026586ce1f115b385dc90de5fdda49bf47dbcf96a05e20ba791a78",
+    "game/tests/test_tactical_ui.gd": "2e78e40dd39801d6a3328287428d44b359f889c1c1082f5bd6b7c5936ac1efec",
+    "game/tests/test_tactical_dt.gd": "c58e1b819b8270bacd1d2bef690d1f1d449a1a900b7a6d1455193616832ae595",
+    "tools/resume_game_checks.py": "27b6cbc2d806d471624c6714f820e1ab7775cf94583b6909825081bd77b9df98",
+    "tools/hidden_check.py": "e826d26d62f3cb9ee50f0bebeb645d4b5979f4f3ef9a6667896b46cf1bb97755",
+    "tools/check_game.py": "69c49f51d7680257ba44f91f8241695af780d001e2c4f71684148b85345f7d67"
+  },
+  "productionInput": {
+    "sha256": "62104fcd91c5378d6c56dccba79b6dfef9255e446783a659ba4aa9378fc32e11",
+    "fileCount": 315
+  },
+  "gameInputSha256": "65f7f6a3c092fa9da15dd252c117832644673979795aa6a75e052f8bfda532d2",
+  "finalTargetedRun": {
+    "sourceHead": "ed72d1b3d5f0fe86b2b26c4fc81ddcdb8927f311",
+    "scope": "native source assertions and numerical outcomes only; no rendered/GPU/listening/human-motion/parity claim",
+    "originalRegistryCount": 70,
+    "tacticalRegistry": [
+      "tactical_planner",
+      "tactical_memory",
+      "tactical_dt",
+      "tactical_orders",
+      "tactical_ui"
+    ],
+    "unregisteredScript": null,
+    "passed": 4,
+    "failed": 0,
+    "expected": 4,
+    "complete": true,
+    "blocked": false,
+    "cases": [
+      {
+        "suite": "tactical_orders",
+        "pid": 37208,
+        "exitCode": 0,
+        "passed": true,
+        "wallSeconds": 1.125,
+        "gameInputSha256": "65f7f6a3c092fa9da15dd252c117832644673979795aa6a75e052f8bfda532d2",
+        "runnerSha256": "27b6cbc2d806d471624c6714f820e1ab7775cf94583b6909825081bd77b9df98",
+        "logSha256": "0cab30971e6594de0bcaddf767eb63f95573e9f27f8a016c60a1700ab50cc3d7",
+        "ownedChildExited": true,
+        "contention": "No external engine observed; idle host not established",
+        "inputChanged": false
+      },
+      {
+        "suite": "tactical_ui",
+        "pid": 57200,
+        "exitCode": 0,
+        "passed": true,
+        "wallSeconds": 3.82799999999952,
+        "gameInputSha256": "65f7f6a3c092fa9da15dd252c117832644673979795aa6a75e052f8bfda532d2",
+        "runnerSha256": "27b6cbc2d806d471624c6714f820e1ab7775cf94583b6909825081bd77b9df98",
+        "logSha256": "03f1a76578b73c8f490fcabdd077e7aacc4097ae26328f4e1a55c0c67a703e84",
+        "ownedChildExited": true,
+        "contention": "CONTENDED",
+        "inputChanged": false
+      },
+      {
+        "suite": "tactical_dt",
+        "pid": 2228,
+        "exitCode": 0,
+        "passed": true,
+        "wallSeconds": 2.311999999999898,
+        "gameInputSha256": "65f7f6a3c092fa9da15dd252c117832644673979795aa6a75e052f8bfda532d2",
+        "runnerSha256": "27b6cbc2d806d471624c6714f820e1ab7775cf94583b6909825081bd77b9df98",
+        "logSha256": "e83d7869c7850a06bccb7aa2019206dd40b180aa00db8c86e312aa5cc2221ece",
+        "ownedChildExited": true,
+        "contention": "CONTENDED",
+        "inputChanged": false
+      },
+      {
+        "suite": "workshop_ui",
+        "pid": 41000,
+        "exitCode": 0,
+        "passed": true,
+        "wallSeconds": 4.75,
+        "gameInputSha256": "65f7f6a3c092fa9da15dd252c117832644673979795aa6a75e052f8bfda532d2",
+        "runnerSha256": "27b6cbc2d806d471624c6714f820e1ab7775cf94583b6909825081bd77b9df98",
+        "logSha256": "bedd21b8393b3b02d2e497bdc0299d7d4ad04559770ad706ef6c9a123fb5f84c",
+        "ownedChildExited": true,
+        "contention": "CONTENDED",
+        "inputChanged": false
+      }
+    ]
+  },
+  "rawLocalEvidence": {
+    "qa/CONTROLS-CHECKPOINT.txt": {
+      "sha256": "e4ec9a1697ed7a8472174e03cb4728d8bd687e61c8549361845977c70e27133b",
+      "bytes": 730
+    },
+    "qa/controls-dt-01/inputs-after.json": {
+      "sha256": "55b23277ea38034703e6eba2c9db5fe75328a44e309bed2657d3759181236534",
+      "bytes": 49943
+    },
+    "qa/controls-dt-01/inputs-before.json": {
+      "sha256": "55b23277ea38034703e6eba2c9db5fe75328a44e309bed2657d3759181236534",
+      "bytes": 49943
+    },
+    "qa/controls-dt-01/summary.json": {
+      "sha256": "0d6744676239d0aefa83a6cfcc0ca4ecb4b15cf77aba5bb002f2195c904a38c4",
+      "bytes": 4864
+    },
+    "qa/controls-dt-01/tactical_dt-observations.json": {
+      "sha256": "df3e00321d02a61f5f0f01b2c9926ba57b730156bf11d406a1f6c2f83a5bb020",
+      "bytes": 2316
+    },
+    "qa/controls-dt-01/tactical_dt.json": {
+      "sha256": "65fada1a722d67f3b6f6cfda3b6ba91f660863d21be0ec0235b06f930a0f641a",
+      "bytes": 4157
+    },
+    "qa/controls-dt-01/tactical_dt.log": {
+      "sha256": "e83d7869c7850a06bccb7aa2019206dd40b180aa00db8c86e312aa5cc2221ece",
+      "bytes": 2761
+    },
+    "qa/controls-final-01/inputs-after.json": {
+      "sha256": "d678b00a6bd45356d31c3654f57489ba2aefd694e28a4a475f5abd79f1f8ffb0",
+      "bytes": 49943
+    },
+    "qa/controls-final-01/inputs-before.json": {
+      "sha256": "d678b00a6bd45356d31c3654f57489ba2aefd694e28a4a475f5abd79f1f8ffb0",
+      "bytes": 49943
+    },
+    "qa/controls-final-01/summary.json": {
+      "sha256": "42374a48bde31913b4404da9c2263f5c9463cd5963bdbeddf353be8348877466",
+      "bytes": 15552
+    },
+    "qa/controls-final-01/tactical_dt-observations.json": {
+      "sha256": "df3e00321d02a61f5f0f01b2c9926ba57b730156bf11d406a1f6c2f83a5bb020",
+      "bytes": 2316
+    },
+    "qa/controls-final-01/tactical_dt.json": {
+      "sha256": "e175385565da693497bc0ed7cf1e3a7621e46b8480886364210a1bc728c0dc06",
+      "bytes": 4316
+    },
+    "qa/controls-final-01/tactical_dt.log": {
+      "sha256": "e83d7869c7850a06bccb7aa2019206dd40b180aa00db8c86e312aa5cc2221ece",
+      "bytes": 2761
+    },
+    "qa/controls-final-01/tactical_orders-observations.json": {
+      "sha256": "860a14dca44506b0b39afb6ee4603988ffa24179942eeb74faafee8c4a5b5c3d",
+      "bytes": 1941
+    },
+    "qa/controls-final-01/tactical_orders.json": {
+      "sha256": "03b42e5c6d96fca5b6c236bb3efec4bd50af6d1ce3d282ed135326bc36aadda1",
+      "bytes": 2256
+    },
+    "qa/controls-final-01/tactical_orders.log": {
+      "sha256": "0cab30971e6594de0bcaddf767eb63f95573e9f27f8a016c60a1700ab50cc3d7",
+      "bytes": 543
+    },
+    "qa/controls-final-01/tactical_ui-observations.json": {
+      "sha256": "e39544d617d7c91ccd5e17fc803a141fa007dd71f09ea9ad8ff926ab7c72f8bd",
+      "bytes": 4002
+    },
+    "qa/controls-final-01/tactical_ui.json": {
+      "sha256": "5113dcbb882d23532bda2b8f24bcd0e87439fe0d8e8e0ec14b8a574e9792a718",
+      "bytes": 3261
+    },
+    "qa/controls-final-01/tactical_ui.log": {
+      "sha256": "03f1a76578b73c8f490fcabdd077e7aacc4097ae26328f4e1a55c0c67a703e84",
+      "bytes": 603
+    },
+    "qa/controls-final-01/workshop_ui.json": {
+      "sha256": "536d420c0d06a9ae0ce6e86b0bf6e34222f10b603305c4b79d4cb6f6e5e1c39e",
+      "bytes": 4211
+    },
+    "qa/controls-final-01/workshop_ui.log": {
+      "sha256": "bedd21b8393b3b02d2e497bdc0299d7d4ad04559770ad706ef6c9a123fb5f84c",
+      "bytes": 614
+    },
+    "qa/controls-final-freeze.json": {
+      "sha256": "2d810f6ceff9ef2597d9c5d24d7e77ee5f4fcd49e523e42c31e7870cecb3cdf8",
+      "bytes": 717
+    },
+    "qa/controls-orders-01/inputs-after.json": {
+      "sha256": "55b23277ea38034703e6eba2c9db5fe75328a44e309bed2657d3759181236534",
+      "bytes": 49943
+    },
+    "qa/controls-orders-01/inputs-before.json": {
+      "sha256": "55b23277ea38034703e6eba2c9db5fe75328a44e309bed2657d3759181236534",
+      "bytes": 49943
+    },
+    "qa/controls-orders-01/summary.json": {
+      "sha256": "0ba8e26af3b90058a3860e820ecc22ecdc5594cac29c243a0bdcd43ab854612a",
+      "bytes": 5009
+    },
+    "qa/controls-orders-01/tactical_orders-observations.json": {
+      "sha256": "bc28d904989fd6d0c733029be9d196ce0fb7da27534b8edae6e47911c9e7f65c",
+      "bytes": 1941
+    },
+    "qa/controls-orders-01/tactical_orders.json": {
+      "sha256": "12a02fcc5ac11ca459cd5672995d114f7c0b0d5ea57aa39ec1287ea6550b3ace",
+      "bytes": 4183
+    },
+    "qa/controls-orders-01/tactical_orders.log": {
+      "sha256": "edcd686688b3b08ce45e45a5858d5f4fda4eb2279569f05f6a42a827799dfd11",
+      "bytes": 606
+    },
+    "qa/controls-orders-02/inputs-after.json": {
+      "sha256": "219ebd8ef9c2e74a6763e541077e94f3d133a8c550a8c15178b69dbfbec7baed",
+      "bytes": 49943
+    },
+    "qa/controls-orders-02/inputs-before.json": {
+      "sha256": "219ebd8ef9c2e74a6763e541077e94f3d133a8c550a8c15178b69dbfbec7baed",
+      "bytes": 49943
+    },
+    "qa/controls-orders-02/summary.json": {
+      "sha256": "ab6c1034c9bcbc2035ece91a33153a395068c5e4e50338fd268efe8e662e7c88",
+      "bytes": 2793
+    },
+    "qa/controls-orders-02/tactical_orders-observations.json": {
+      "sha256": "860a14dca44506b0b39afb6ee4603988ffa24179942eeb74faafee8c4a5b5c3d",
+      "bytes": 1941
+    },
+    "qa/controls-orders-02/tactical_orders.json": {
+      "sha256": "afba829ddfd122ca4140fbadd0362553270dd09a7b3177d2c5feb5864dd4e965",
+      "bytes": 2087
+    },
+    "qa/controls-orders-02/tactical_orders.log": {
+      "sha256": "0cab30971e6594de0bcaddf767eb63f95573e9f27f8a016c60a1700ab50cc3d7",
+      "bytes": 543
+    },
+    "qa/controls-ui-after-01/inputs-after.json": {
+      "sha256": "76244c3058a7c3f306bae95ae93123f4898422f341c53e716a1d41856db08ed4",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-01/inputs-before.json": {
+      "sha256": "76244c3058a7c3f306bae95ae93123f4898422f341c53e716a1d41856db08ed4",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-01/summary.json": {
+      "sha256": "5209ab56785dfb843e3b28bb4eeb10b1d1c356dfd147b85f3f363062544abced",
+      "bytes": 5229
+    },
+    "qa/controls-ui-after-01/tactical_ui-observations.json": {
+      "sha256": "c793ab2b7782a409bc70ed7f314b172cb1955ec261d910d086a2ce521f5b405c",
+      "bytes": 1601
+    },
+    "qa/controls-ui-after-01/tactical_ui.json": {
+      "sha256": "872614a6381912736c3d346e12be137e1eed1f1138697c56ef55578c86c1f115",
+      "bytes": 4407
+    },
+    "qa/controls-ui-after-01/tactical_ui.log": {
+      "sha256": "599252029739671d11c596b9d14c16b704e78195613859ffc9150c8a4f7d0e25",
+      "bytes": 603
+    },
+    "qa/controls-ui-after-02/inputs-after.json": {
+      "sha256": "be4ef06c51e66b72264010c7d62a89f9e88740fe387fe646806437460b8370ae",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-02/inputs-before.json": {
+      "sha256": "be4ef06c51e66b72264010c7d62a89f9e88740fe387fe646806437460b8370ae",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-02/summary.json": {
+      "sha256": "82c5929c16f56382c0485d936bef60bcdfdd3911c7b3d59b6a05e3084e91a66c",
+      "bytes": 4961
+    },
+    "qa/controls-ui-after-02/tactical_ui-observations.json": {
+      "sha256": "992dd38859646983fdcf320b48a6eab0992e1cd19d05ca1a4a3b0cd600b8b51a",
+      "bytes": 1706
+    },
+    "qa/controls-ui-after-02/tactical_ui.json": {
+      "sha256": "e485afda85391610a09e7bd0e22cdb91164f5057ac21ff969e58de37cbca4d37",
+      "bytes": 4139
+    },
+    "qa/controls-ui-after-02/tactical_ui.log": {
+      "sha256": "59f93dd82fa25cf39f0d3ab4cad79fc10c0a2686f2d53db0cd3105707f26296d",
+      "bytes": 1012
+    },
+    "qa/controls-ui-after-03/inputs-after.json": {
+      "sha256": "c7b036f6efaf16855374e3c8ab4e08173253112d5e1697bb4bd05a38af6e3be5",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-03/inputs-before.json": {
+      "sha256": "c7b036f6efaf16855374e3c8ab4e08173253112d5e1697bb4bd05a38af6e3be5",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-03/summary.json": {
+      "sha256": "32f6e3ebfff6054ba3b971a78294fa4148f68e0754db40e136740afad77b8b92",
+      "bytes": 4960
+    },
+    "qa/controls-ui-after-03/tactical_ui-observations.json": {
+      "sha256": "9cfa82e4a6e6de1d333753bc1f7457312bbf95c8688b73b0915dc174a4e546a9",
+      "bytes": 1749
+    },
+    "qa/controls-ui-after-03/tactical_ui.json": {
+      "sha256": "0d61b59c11b7dc323e2ef849fefd4c2de3c5ff070723a61b9ea27debe92abe44",
+      "bytes": 4138
+    },
+    "qa/controls-ui-after-03/tactical_ui.log": {
+      "sha256": "013530d5aab897271d6782bde6329ce5eb42d26ddc02446ee21b26aafc5fac9c",
+      "bytes": 717
+    },
+    "qa/controls-ui-after-04/inputs-after.json": {
+      "sha256": "95842784a2ac5cc2adf5e8a45e692bfab5b5e9cfd8bba9481d07f9ddcb6125ea",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-04/inputs-before.json": {
+      "sha256": "95842784a2ac5cc2adf5e8a45e692bfab5b5e9cfd8bba9481d07f9ddcb6125ea",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-04/summary.json": {
+      "sha256": "6a19070f13e24b321cf6aed3a51c8d44ad22b430e72db5d49701d42b21eee2b7",
+      "bytes": 5220
+    },
+    "qa/controls-ui-after-04/tactical_ui-observations.json": {
+      "sha256": "9e1b68c5f7b1be15c2b4539406cffb8a2e2acf1f04334cd0cc81fb000525f6d3",
+      "bytes": 2967
+    },
+    "qa/controls-ui-after-04/tactical_ui.json": {
+      "sha256": "fd86df011ad123e1a37ae1106e0a4ba94107621bfb2d7c1a1f1f12f584ae059a",
+      "bytes": 4398
+    },
+    "qa/controls-ui-after-04/tactical_ui.log": {
+      "sha256": "013530d5aab897271d6782bde6329ce5eb42d26ddc02446ee21b26aafc5fac9c",
+      "bytes": 717
+    },
+    "qa/controls-ui-after-05/inputs-after.json": {
+      "sha256": "d678b00a6bd45356d31c3654f57489ba2aefd694e28a4a475f5abd79f1f8ffb0",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-05/inputs-before.json": {
+      "sha256": "d678b00a6bd45356d31c3654f57489ba2aefd694e28a4a475f5abd79f1f8ffb0",
+      "bytes": 49943
+    },
+    "qa/controls-ui-after-05/summary.json": {
+      "sha256": "2a15aedb98337596ff227bbdb60355b47a1b1db41d2c12b5b9d00b9982968694",
+      "bytes": 2777
+    },
+    "qa/controls-ui-after-05/tactical_ui-observations.json": {
+      "sha256": "e39544d617d7c91ccd5e17fc803a141fa007dd71f09ea9ad8ff926ab7c72f8bd",
+      "bytes": 4002
+    },
+    "qa/controls-ui-after-05/tactical_ui.json": {
+      "sha256": "19ab7e9c5d0860735dd8b2402efe026791dfe2937afe4e5c3c94b794e49f2c82",
+      "bytes": 2075
+    },
+    "qa/controls-ui-after-05/tactical_ui.log": {
+      "sha256": "03f1a76578b73c8f490fcabdd077e7aacc4097ae26328f4e1a55c0c67a703e84",
+      "bytes": 603
+    },
+    "qa/controls-ui-before-01/inputs-after.json": {
+      "sha256": "219ebd8ef9c2e74a6763e541077e94f3d133a8c550a8c15178b69dbfbec7baed",
+      "bytes": 49943
+    },
+    "qa/controls-ui-before-01/inputs-before.json": {
+      "sha256": "219ebd8ef9c2e74a6763e541077e94f3d133a8c550a8c15178b69dbfbec7baed",
+      "bytes": 49943
+    },
+    "qa/controls-ui-before-01/summary.json": {
+      "sha256": "1f9dcd53f047bc44c6389768ef10e22919ae98394eb845608ae7afa22fa6044d",
+      "bytes": 2767
+    },
+    "qa/controls-ui-before-01/tactical_ui-observations.json": {
+      "sha256": "56610bf2ef83cd61381c452b0a9b2c7554f62b56de7db35cbf277a6fb83f5a64",
+      "bytes": 1601
+    },
+    "qa/controls-ui-before-01/tactical_ui.json": {
+      "sha256": "514b3236b7da93c2147534c1e24967ead240715e3854801922fd44eee4cbb7ee",
+      "bytes": 2065
+    },
+    "qa/controls-ui-before-01/tactical_ui.log": {
+      "sha256": "bdd55f237ba5619c939b7c317b6366dea96b1730d03a201a0e0e4cba6f5833ad",
+      "bytes": 1184
+    },
+    "qa/controls-ui-before-02/inputs-after.json": {
+      "sha256": "a128b75deccfcf0957a960ecdd1cba86a1abec1c7fffa59a71dfd2842b684a2c",
+      "bytes": 49943
+    },
+    "qa/controls-ui-before-02/inputs-before.json": {
+      "sha256": "a128b75deccfcf0957a960ecdd1cba86a1abec1c7fffa59a71dfd2842b684a2c",
+      "bytes": 49943
+    },
+    "qa/controls-ui-before-02/summary.json": {
+      "sha256": "319f05e90005bd4b9850afe8c6d2a639cb080a5bf6c18c99c79a4e0dd2195adc",
+      "bytes": 2779
+    },
+    "qa/controls-ui-before-02/tactical_ui-observations.json": {
+      "sha256": "3b4f14ddcec4f10ec6a1a8845bf8620c78fd1550160513b5328c2ae17d02abf7",
+      "bytes": 1601
+    },
+    "qa/controls-ui-before-02/tactical_ui.json": {
+      "sha256": "2eea43361bab1f682017f46a0afcd51c06f8b9e30d852cb03865ac7bbcbdde18",
+      "bytes": 2077
+    },
+    "qa/controls-ui-before-02/tactical_ui.log": {
+      "sha256": "f3eaeb656de8a5826b3d0928cfe2f7a2ae1aedfc312539809e6ed462ca1a6781",
+      "bytes": 1045
+    },
+    "qa/controls-ui-source-before.gd": {
+      "sha256": "51515fe8f40d064bcfa322ebeaab30ad5e212b8ae9142aeb171e5e5b80e5fba5",
+      "bytes": 11423
+    },
+    "qa/controls-ui-source.diff": {
+      "sha256": "ffadb860535725fcfe5d91b086916f8732d35576bd425c681d971825b45d4c5e",
+      "bytes": 11086
+    }
+  },
+  "preservedEarlierArchives": {
+    "qa/RESUME-030-RAW-EVIDENCE.zip": "c33f5cac9796172227621388756967cb827a56292119bd98caaaa35f08acf74a",
+    "qa/MEMORY-CONNECTOR-EVIDENCE.zip": "3c34da05b92be60e94318f6cea07219204fd60dd3fb56248a2fc211641755969",
+    "qa/CERTIFICATION-EVIDENCE.zip": "a9fca891e7eca4bb66844a06c30c68e37e09ab514e3d8017763bbc737b2cb119"
+  },
+  "registry": {
+    "original": 70,
+    "completedTactical": [
+      "tactical_planner",
+      "tactical_memory",
+      "tactical_dt",
+      "tactical_orders",
+      "tactical_ui"
+    ],
+    "notYetRegistered": [
+      "tactical_ai",
+      "tactical_motion"
+    ],
+    "notAFullBatch": true
+  },
+  "guardChecks": {
+    "count": 17,
+    "source": "qa/test_controls_runner.py",
+    "sourceSha256": "abe82ea88120472595f3e20ee5c6450ab1829ad5494c9847bbb1acc7c10c9d14"
+  },
+  "scope": "headless native controls and numerical Battle outcomes only; no AI quality/capacity/render/audio/release acceptance"
+}

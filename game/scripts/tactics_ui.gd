@@ -87,29 +87,58 @@ static func update(ui):
 static func plain(value: String) -> String:
 	return value.replace("certified launch","clear shot").replace("certified","checked").replace("certificate","maneuver check").left(180)
 
-static func options(ui) -> void:
+static func selected_choices(ui) -> Dictionary:
+	var states: Array=[]
+	for id in ui.host.selected_battle_ids:
+		var status: Dictionary=ui.host.Battle.tactical_status(ui.host.battle,str(id))
+		if not status.is_empty():states.append(status)
+	var current: Dictionary=states[0].options if not states.is_empty() else {}
+	var mixed: Array=[]
+	for state in states:
+		for key in current:
+			if state.options.get(key)!=current[key] and not key in mixed:mixed.append(key)
+	return {"states":states,"current":current,"mixed":mixed}
+
+static func apply_choices(ui,patch: Dictionary) -> void:
+	if ui.host.set_selected_tactical_options(patch):options(ui,str(patch.get("mountGroup",{}).get("kind","all")))
+
+static func number_choice(control: SpinBox,mixed: bool) -> Array:
+	# An untouched mixed field must not publish the first boat's value to others.
+	var edited: Array=[not mixed]
+	if mixed:
+		control.get_line_edit().text=""
+		control.get_line_edit().placeholder_text="Mixed"
+	control.value_changed.connect(func(_value):edited[0]=true)
+	control.get_line_edit().text_changed.connect(func(_text):edited[0]=true)
+	return edited
+
+static func options(ui,weapon_kind: String="all") -> void:
 	ui.modal_kind="tactical_options"
 	var body=ui.modal("Selected fleet tactics","ORDERS · FORMATIONS · AUTOMATIC FIRE",1040,850)
 	ui.paragraph(body,"These choices apply together to the selected living boats. Direct manual helm and fire take priority. Hold and reserve apply to automatic fire. Manual fire uses your aim and available rounds.",16)
+	var selection: Dictionary=selected_choices(ui)
+	var current: Dictionary=selection.current
+	var mixed: Array=selection.mixed
+	if not mixed.is_empty():ui.paragraph(body,"Mixed choices across selected boats. Choose a value to change it; untouched mixed fields keep each boat's choices.",14,ui.GOLD)
 	ui.label(body,"Courage and survival",21,ui.GOLD,true)
 	var profiles=ui.row(body)
 	for item in [["cautious","Cautious"],["steady","Steady"],["aggressive","Aggressive"]]:
 		var doctrine: String=item[0]
-		ui.button(profiles,item[1],func():ui.host.set_selected_tactical_options({"doctrine":doctrine}))
+		ui.button(profiles,item[1],func():apply_choices(ui,{"doctrine":doctrine}),not "doctrine" in mixed and current.get("doctrine","")==doctrine)
 	ui.paragraph(body,"Cautious boats leave danger sooner. Steady balances pressure and survival. Aggressive stays longer; crew, fuel, damage and weapon performance remain physical.",13)
-	var current: Dictionary={}
-	if not ui.host.selected_battle_ids.is_empty():current=ui.host.Battle.tactical_status(ui.host.battle,str(ui.host.selected_battle_ids[0])).get("options",{})
 	var role_ids: Array=["auto","skirmisher","striker","heavy","screen","support"]
 	var roles=OptionButton.new();roles.name="TacticalRole"
 	for title in ["Choose role automatically","Light skirmisher","Fixed-tube striker","Heavy gunboat","Protecting screen","Support"]:roles.add_item(title)
 	roles.selected=maxi(0,role_ids.find(str(current.get("role","auto"))))
+	if "role" in mixed:roles.add_item("Mixed roles");roles.selected=role_ids.size()
 	var role_row=ui.row(body);role_row.add_child(roles)
-	ui.button(role_row,"Assign role",func():ui.host.set_selected_tactical_options({"role":str(role_ids[roles.selected])}))
+	ui.button(role_row,"Assign role",func():
+		if roles.selected<role_ids.size():apply_choices(ui,{"role":str(role_ids[roles.selected])}))
 	ui.label(body,"Formation and protected ally",21,ui.GOLD,true)
 	var formation_row=ui.row(body)
 	for kind in ["line","screen","column"]:
 		var formation: String=kind
-		ui.button(formation_row,formation.capitalize(),func():ui.host.set_selected_tactical_options({"formation":formation}))
+		ui.button(formation_row,formation.capitalize(),func():apply_choices(ui,{"formation":formation}),not "formation" in mixed and current.get("formation","")==formation)
 	var allies=OptionButton.new();allies.name="ProtectedAlly"
 	var ally_ids: Array=[""]
 	allies.add_item("Choose ally automatically")
@@ -117,37 +146,67 @@ static func options(ui) -> void:
 		if boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false):
 			ally_ids.append(str(boat.id));allies.add_item(str(boat.name))
 	allies.selected=maxi(0,ally_ids.find(str(current.get("protectedAllyId",""))))
+	if "protectedAllyId" in mixed:allies.add_item("Mixed protected allies");allies.selected=ally_ids.size()
 	var ally_row=ui.row(body);ally_row.add_child(allies)
-	ui.button(ally_row,"Protect this ally",func():ui.host.set_selected_tactical_options({"protectedAllyId":str(ally_ids[allies.selected])}))
+	ui.button(ally_row,"Protect this ally",func():
+		if allies.selected<ally_ids.size():apply_choices(ui,{"protectedAllyId":str(ally_ids[allies.selected])}))
 	var leash=SpinBox.new();leash.name="TacticalLeash";leash.min_value=80;leash.max_value=2300;leash.step=20;leash.value=float(current.get("leash",600))
 	var leash_row=ui.row(body);ui.label(leash_row,"Stay within",14);leash_row.add_child(leash)
-	ui.button(leash_row,"Set escort distance",func():ui.host.set_selected_tactical_options({"leash":float(leash.value)}))
+	var leash_edited: Array=number_choice(leash,"leash" in mixed)
+	ui.button(leash_row,"Set escort distance",func():
+		if leash_edited[0]:apply_choices(ui,{"leash":float(leash.value)}))
 	ui.label(body,"Rally and conditional withdrawal",21,ui.GOLD,true)
 	var flagship: Dictionary=ui.host.Battle.get_flagship(ui.host.battle)
 	var rally: Dictionary=current.get("rally",{})
 	var x=SpinBox.new();x.name="RallyX";x.min_value=30;x.max_value=2270;x.value=float(rally.get("x",flagship.get("x",300)))
 	var y=SpinBox.new();y.name="RallyY";y.min_value=30;y.max_value=1670;y.value=float(rally.get("y",flagship.get("y",850)))
 	var rally_row=ui.row(body);ui.label(rally_row,"Water position",14);rally_row.add_child(x);rally_row.add_child(y)
-	ui.button(rally_row,"Set rally",func():ui.host.set_selected_tactical_options({"rally":{"x":float(x.value),"y":float(y.value)}}))
+	var x_edited: Array=number_choice(x,"rally" in mixed)
+	var y_edited: Array=number_choice(y,"rally" in mixed)
+	ui.button(rally_row,"Set rally",func():
+		if x_edited[0] and y_edited[0]:apply_choices(ui,{"rally":{"x":float(x.value),"y":float(y.value)}}))
 	ui.button(rally_row,"Withdraw selected to rally",func():ui.host.command_selected("withdraw"))
 	var conditional=CheckButton.new();conditional.name="ConditionalWithdrawal";conditional.text="Allow survival withdrawal during explicit orders";conditional.button_pressed=bool(current.get("conditionalWithdrawal",false));body.add_child(conditional)
-	conditional.toggled.connect(func(value: bool):ui.host.set_selected_tactical_options({"conditionalWithdrawal":value}))
+	if "conditionalWithdrawal" in mixed:conditional.text+=" (Mixed)"
+	conditional.toggled.connect(func(value: bool):apply_choices(ui,{"conditionalWithdrawal":value}))
 	ui.paragraph(body,"A rally is a local water position. A blocked approach may force a boat to brake and hold. Pale selected route lines show a planned exit. Fleet withdrawal is a separate fleet command.",13)
 	ui.label(body,"Automatic weapon groups and working ammunition",21,ui.GOLD,true)
 	var groups=OptionButton.new();groups.name="WeaponGroup"
 	var kinds: Array=["all","gun","cannon","rocket","torpedo"]
 	for title in ["All fitted weapons","Machine guns","Cannons","Rockets","Torpedo tubes"]:groups.add_item(title)
+	groups.selected=maxi(0,kinds.find(weapon_kind))
 	var weapon_row=ui.row(body);weapon_row.add_child(groups)
-	ui.button(weapon_row,"Fire automatically",func():ui.host.set_selected_tactical_options({"mountGroup":{"kind":str(kinds[groups.selected]),"hold":false}}))
-	ui.button(weapon_row,"Hold automatic fire",func():ui.host.set_selected_tactical_options({"mountGroup":{"kind":str(kinds[groups.selected]),"hold":true}}))
+	ui.button(weapon_row,"Fire automatically",func():apply_choices(ui,{"mountGroup":{"kind":str(kinds[groups.selected]),"hold":false}}))
+	ui.button(weapon_row,"Hold automatic fire",func():apply_choices(ui,{"mountGroup":{"kind":str(kinds[groups.selected]),"hold":true}}))
+	var weapon_state=ui.paragraph(body,"",14,ui.GOLD);weapon_state.name="AutomaticWeaponState"
 	var reserve=SpinBox.new();reserve.name="WorkingAmmoReserve";reserve.min_value=0;reserve.max_value=1000000;reserve.step=1
+	var reserve_edited: Array=number_choice(reserve,false)
 	var reserve_row=ui.row(body);ui.label(reserve_row,"Keep aboard after automatic shots",14);reserve_row.add_child(reserve)
-	ui.button(reserve_row,"Set round reserve",func():ui.host.set_selected_tactical_options({"mountGroup":{"kind":str(kinds[groups.selected]),"reserve":int(reserve.value)}}))
+	var refresh_weapons=func(_index: int=0):
+		var values: Array=[]
+		for state in selected_choices(ui).states:
+			for mount in state.mounts:
+				if kinds[groups.selected]=="all" or str(mount.kind)==str(kinds[groups.selected]):values.append(state.options.mounts.get(str(mount.id),{"hold":false,"reserve":0}))
+		var same_reserve: bool=not values.is_empty()
+		var same_hold: bool=not values.is_empty()
+		for value in values:
+			if value.reserve!=values[0].reserve:same_reserve=false
+			if value.hold!=values[0].hold:same_hold=false
+		reserve.value=float(values[0].reserve) if same_reserve else 0.0
+		reserve.get_line_edit().placeholder_text="Mixed" if not values.is_empty() else "No fitted weapons"
+		if not same_reserve:reserve.get_line_edit().text=""
+		reserve_edited[0]=same_reserve
+		weapon_state.text=("Automatic fire: "+("held" if values[0].hold else "active") if same_hold else "Automatic fire: Mixed") if not values.is_empty() else "No fitted weapons in this group."
+	groups.item_selected.connect(refresh_weapons)
+	refresh_weapons.call()
+	ui.button(reserve_row,"Set round reserve",func():
+		if reserve_edited[0]:apply_choices(ui,{"mountGroup":{"kind":str(kinds[groups.selected]),"reserve":int(reserve.value)}}))
 	ui.label(body,"Four saved selections",21,ui.GOLD,true)
 	ui.paragraph(body,"Selections last for this battle. F1–F4 selects a group; Ctrl+F1–F4 saves the current selection. Number keys 1, 2 and 3 keep their existing orders.",13)
 	for number in range(1,5):
 		var slot: int=number
 		var line=ui.row(body)
 		ui.button(line,"Save group %d"%slot,func():ui.host.save_selection_group(slot))
-		ui.button(line,"Select group %d"%slot,func():ui.host.recall_selection_group(slot))
+		ui.button(line,"Select group %d"%slot,func():
+			if ui.host.recall_selection_group(slot):options(ui))
 	ui.button(body,"Close",ui.close_modal,true)

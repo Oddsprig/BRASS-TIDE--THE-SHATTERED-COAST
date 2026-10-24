@@ -1,0 +1,43 @@
+BRASS TIDE .031 - NATIVE PHYSICS COMPATIBILITY / EVIDENCE SCOPE
+23 October 2026. Prospective source-correctness addendum, NOT a measured pass.
+
+Observed actual callers: Main._physics_process invokes Battle.update(dt) at the
+project's60Hz physics rate. Canonical frozenr3 CPU fixtures explicitly use1/30.
+The original certification prefix stores1/30 poses. Rounding one1/60 real step
+onto that grid selects a future pose/velocity and can invalidate real helm/fire.
+A source correction must match BOTH actual callers, including condition evolution.
+
+Certification-only candidate6f9af13 uses2 physical1/60 half steps per coarse1/30
+slot when the actual caller is1/60. All midpoint poses/capabilities are stored;
+reader uses recorded sampleDt.1/30 behavior remains unchanged. Full horizon2s,
+60 coarse slots/6 swept envelopes, certificate lifetime<=0.2s, numerical tolerances,
+complete route geometry and actual live per-mount fire checks remain unchanged.
+No forged reachability, teleporting, withheld work counters or relaxed tolerances.
+
+WORK ACCOUNTING BEFORE ACCEPTANCE/TIMING
+- Canonical1/30:60 real integrations/prefix,61 stored poses, originalr3 scope.
+- Actual1/60:120 real integrations/prefix,121 stored poses. Do NOT describe these
+  as60 physical integration steps. Certificate.rolloutSamples remains60 coarse
+  slots for the existing detached interface; budget.samples bills ALL120 steps.
+- The actual global840 integration-step cap stays unchanged: at most14 full
+  prefixes at1/30 or7 at1/60 in one update. Existing max16rollouts/hull-once,
+  route4/cache128/target16/offers8/path24/clearance4096 limits remain unchanged.
+- This does not certify the original per-hull60-step statement at1/60. Native60Hz
+  evidence has separate units/scope. Canonicalr3 capacities/seeds/quantile targets
+  remain unchanged and must still run at1/30; do not relabel them as60Hz/GPU FPS.
+- Any new60Hz capacity/performance claim needs explicit prospective workload,
+  measured predecessor and comparable contention records before tuning. Current
+  source-correctness candidate makes NO such claim or threshold relaxation.
+
+Required native evidence: paired actual Battle progression/firing at1/30 &1/60;
+real bailing/fire/repair/capability prediction, abrupt incoming-damage invalidation,
+proper pose-offset at fire after movement, real integration counts/work caps and
+original350planner + retained regressions. All remain hidden/silent/isolated and
+serialized within Brass Tide. Unknown/foreground/our duplicate engines block;
+verified unrelated background engines may coexist with contention explicitly noted.
+
+Root rejected Grok's initial unconditional active-party board-order override:
+new explicit move/withdraw/manual control must retain helm authority. Narrow
+same-order boarding continuity is a separate revised candidate, not accepted here.
+Root also requires actual scattered projectile lane checks BEFORE debit/cooldown;
+central-ray checks alone do not prove legality of the emitted shot.

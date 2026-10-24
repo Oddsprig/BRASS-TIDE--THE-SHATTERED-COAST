@@ -1,0 +1,66 @@
+BRASS TIDE — ROOT REVIEW OF RESUMED TACTICAL WORK
+24 October 2026 UTC | Source checkpoint ba6e5a9 | No new playable release yet
+
+Accepted, focused production components
+- Native tactical memory now permits bounded StringName dictionary keys. All
+  existing size, depth, numeric, value and node limits remain. Actual-memory
+  regression: 31 checks, zero failures. Unchanged pure planner: 350/350.
+- Normal 60 Hz simulation now uses exact half-step physical predictions. Paired
+  30/60 Hz fixture: 34/34. Existing runtime fixture: 124/124. These are component
+  results, not a complete campaign, rendering, sound or capacity acceptance.
+- The separate compatibility note states actual 120 integration steps for one
+  normal-rate rollout; it does not mislabel those as 60 or raise the 840 cap.
+
+Current independent candidate review
+- Argon 8f4d125dc23c8fdee890cfc776374816593a3762 changes only the three
+  assigned planner modules. Root read the complete diff and confirmed exact
+  source SHA256 values against its Git blobs. Weighted battery range, bounded
+  friendly detours and stationary aiming may be tested. The entry-point and
+  swept-reservation clearance changes also require native motion evidence.
+- Argon's raw report states zero engine runs but describes exact future tick,
+  shot and position results. Those values are analytical predictions and are
+  NOT accepted observations. Some certification signatures are stale or wrong.
+  The raw report is retained; root requested a separate correction. Actual
+  source and independent Sol fixtures decide acceptance.
+- Grok d13b547adf9c04cb74dc2d9d153bb7ab8964e083 adds one seeded scattered
+  projectile-path check before any debit and limits its sweep at the earliest
+  predicted hostile closest approach. Root read the whole diff. This remains
+  a test candidate: before/behind-target terrain and allies, inherited velocity,
+  manual/automatic fire, finite budgets and exact debits require native proof.
+- Grok's revised boarding continuity applies only to an unchanged automatic
+  engage revision. It must not force helm control after manual or new orders.
+  Real launched-party escape/casualty rules remain. Test recent damage/focus
+  survival as well as absolute hull/flood thresholds before acceptance.
+- Sol's current native controls work reports 77 orders and 127 Main/UI checks
+  passing, including a demonstrated settings-preservation defect and focused UI
+  fix. Root has not yet accepted its frozen source/report checkpoint.
+
+Outstanding behavior
+The earlier original-70 run stopped after 20 attempted suites: 15 pass, three
+assertion failures and two timeouts. The remaining 50 were not run. On the two
+accepted fixes, battle/tactics/refit/combat-events still have failures. First-
+frame expectations need actual bounded-event proof before any update; mixed
+batteries, traffic stalls and inadequate sustained fire remain product issues.
+A skirmisher must not treat one machinegun bullet as an entire useful gun pass.
+Side-mounted weapons also need a bounded, independently checked secondary-target
+contract rather than a hidden nearest-enemy fallback. No test failure is hidden.
+
+Current authority and delivery
+The owner restored testing and continuation through .038. All tests stay silent,
+headless, low priority and isolated; Sol holds the sole Brass Tide engine lease.
+Verified other-project background work is recorded as contention, never stopped.
+v0.030 tag 7492fb7 and its UNTESTED package remain immutable. v0.029 remains the
+verified fallback. No .031 feature build, new export, desktop launch or remote
+publication has been claimed. New game features will advance by exactly .001.
+
+ROOT CONTROLS ACCEPTANCE ADDENDUM
+Root read the focused UI diff, complete orders fixture, actual Main/UI fixture
+and reusable Windows guard/runner. Source content matches Sol checkpoint
+101df814aeca9931b902712e39210ee66142b27c. Its Python runner Git blob normalized CRLF to LF;
+root instead preserved the exact tested on-disk CRLF bytes, verified against
+the frozen manifest, with scoped -text attributes. This is an ending-only
+difference, not a source-code patch. All copied source hashes match tested files.
+Root independently rehashed the four final native logs and checked their zero-
+failure output: orders77, UI127, paired timestep34, workshop UI69. The controls
+component is accepted. No new engine run was duplicated; no A/B behavior, full
+batch or release acceptance follows. No candidate physical/planner bytes copied.
