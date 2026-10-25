@@ -560,6 +560,7 @@ func _initialize() -> void:
 	core.state.coins = maxi(int(core.state.coins), 1000000)
 	ship = core.find_boat("boat-1")
 	port = core.current_port()
+	if not ship.is_empty() and ship.has("moduleCondition"): ship.erase("moduleCondition")
 	check(not ship.is_empty() and not port.is_empty(), "the career flagship is alongside a real harbor")
 	if ship.is_empty() or port.is_empty():
 		print("Fitting: %d checks, %d failures" % [checks, failures])

@@ -1,0 +1,148 @@
+{
+  "status": "Working integration candidate; targeted combined UI/save/service/coin gates queued, no release acceptance",
+  "createdUtc": "2026-10-25T12:27:43.307349+00:00",
+  "main": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide",
+  "baseHead": "af1ab82aea79571c003d0851d75b6ab9b3f0ef5f",
+  "sourceProjectSha256": "6ebd09c6df333db16421c41f14877739b89bd7afe72aee91fd7b7cf0caa6cdd4",
+  "runtimeModules": 14,
+  "fixtures": 6,
+  "files": [
+    {
+      "path": "game/scripts/battle.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\battle.gd",
+      "newSha256": "3175deafbb93d62d877096032b3e5e9e87dbb8e555964d471cc6fa31a506fa29",
+      "oldSha256": "726211c1c7cac225862cd732835749dd0af03f1380bafc9bcecdc05444901024",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\726211c1c7cac225862cd732835749dd0af03f1380bafc9bcecdc05444901024\\game\\scripts\\battle.gd"
+    },
+    {
+      "path": "game/scripts/damage.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\damage.gd",
+      "newSha256": "1f35ee482f13edae20f614d228f6a42887765a5c91ea98b0436ed986f9bec19c",
+      "oldSha256": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f\\game\\scripts\\damage.gd"
+    },
+    {
+      "path": "game/scripts/equipment_combat.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\equipment_combat.gd",
+      "newSha256": "ebf9fed89cc080e151fe7a99d619c456d8ae8e304c5e139b10a100d7b80084b3",
+      "oldSha256": null
+    },
+    {
+      "path": "game/scripts/equipment_condition.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\equipment_condition.gd",
+      "newSha256": "af402820ad1b79a22e9ff077323148a13006534c39b9b05e9ecd22e4b8d78e70",
+      "oldSha256": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8\\game\\scripts\\equipment_condition.gd"
+    },
+    {
+      "path": "game/scripts/equipment_damage.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\equipment_damage.gd",
+      "newSha256": "87808d3cad92e59e213a471521f44dd19db9ac7a7212d03dce4064f152bd6588",
+      "oldSha256": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f\\game\\scripts\\equipment_damage.gd"
+    },
+    {
+      "path": "game/scripts/equipment_lifecycle.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\equipment_lifecycle.gd",
+      "newSha256": "60bf8f7a4a933c7161282bfed026d1f61f60ae66be9cf69147cc338d78d400a4",
+      "oldSha256": "42302e890effe7cbf48f889afb48695d8f9fa0ce1d46cd186312a7908e16e6ba",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\42302e890effe7cbf48f889afb48695d8f9fa0ce1d46cd186312a7908e16e6ba\\game\\scripts\\equipment_lifecycle.gd"
+    },
+    {
+      "path": "game/scripts/equipment_records.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\equipment_records.gd",
+      "newSha256": "6d392621229888b8ee92707e49d97623b633ac5a92234d4a4e1b3628a1b54253",
+      "oldSha256": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08\\game\\scripts\\equipment_records.gd"
+    },
+    {
+      "path": "game/scripts/equipment_rollout.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\equipment_rollout.gd",
+      "newSha256": "b0e9b4b1ad4735004aa757fe441c883eea2d611944c5a0492f8e627e4d7fa26e",
+      "oldSha256": null
+    },
+    {
+      "path": "game/scripts/equipment_tow.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\equipment_tow.gd",
+      "newSha256": "1957e7bc765f36fcc69c253dde56a316be96e84b9dac1ed94c3c662691089bb5",
+      "oldSha256": null
+    },
+    {
+      "path": "game/scripts/fleet_lab.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\fleet_lab.gd",
+      "newSha256": "bc080dfb51c3c136d221299f76e7e8742a51c7aedaedfd45c491a6f094b98f49",
+      "oldSha256": "f4214dc543682ac85c5668ec2664ef867c43709082f8d0fab4a2187e6886f78a",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\f4214dc543682ac85c5668ec2664ef867c43709082f8d0fab4a2187e6886f78a\\game\\scripts\\fleet_lab.gd"
+    },
+    {
+      "path": "game/scripts/salvage.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\salvage.gd",
+      "newSha256": "03efbbdbce329f5df92429da75d5d4e34dd40490fc021c91c2c443c301ef8748",
+      "oldSha256": "d0c0fc2ee3fe4ac3ddd4db22940ea8059a5778839eee0c979f493ae04fd3c637",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\d0c0fc2ee3fe4ac3ddd4db22940ea8059a5778839eee0c979f493ae04fd3c637\\game\\scripts\\salvage.gd"
+    },
+    {
+      "path": "game/scripts/tactical_certification.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\tactical_certification.gd",
+      "newSha256": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49",
+      "oldSha256": "88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\88b31d2a2be8b4323522056335dcdd4934ab121071addab841e71177613132e8\\game\\scripts\\tactical_certification.gd"
+    },
+    {
+      "path": "game/scripts/tactical_fire_control.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\tactical_fire_control.gd",
+      "newSha256": "ef98eccc50c544e28e919ef827c6d4cb3cccbd7540feaab6682a72cea4491023",
+      "oldSha256": "b256bfa558acc0ccc6d0fc30196cb384972a9c6aaf1b4799dc806c591cfdf32d",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\b256bfa558acc0ccc6d0fc30196cb384972a9c6aaf1b4799dc806c591cfdf32d\\game\\scripts\\tactical_fire_control.gd"
+    },
+    {
+      "path": "game/scripts/tactical_runtime.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\scripts\\tactical_runtime.gd",
+      "newSha256": "b5d0d4ff39e0c16df8f796aa2af4875801e53e940039f5821237e510d2cbefb5",
+      "oldSha256": "5722a8ab70bca74a61d71306888c4dec40d1e0dc01bf95ce99d4acfb3a7de0a2",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\5722a8ab70bca74a61d71306888c4dec40d1e0dc01bf95ce99d4acfb3a7de0a2\\game\\scripts\\tactical_runtime.gd"
+    },
+    {
+      "path": "game/tests/test_equipment_combat.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\tests\\test_equipment_combat.gd",
+      "newSha256": "aa0242014e9c5898ff12fa7a09eaf394740be3267619d376a9a7feddaa195e7e",
+      "oldSha256": null
+    },
+    {
+      "path": "game/tests/test_equipment_fitting.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\tests\\test_equipment_fitting.gd",
+      "newSha256": "7bb451ca3b2d2bebed348ccc922e0614847f5fec72a95ada5cb65f2c1b6cd941",
+      "oldSha256": "9268f506ca9d5b9129cf6269ce3829412b54b213e99104dda6cf126416011cfb",
+      "backup": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\integration-source-history\\9268f506ca9d5b9129cf6269ce3829412b54b213e99104dda6cf126416011cfb\\game\\tests\\test_equipment_fitting.gd"
+    },
+    {
+      "path": "game/tests/test_equipment_lab.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\tests\\test_equipment_lab.gd",
+      "newSha256": "4159736941c25ae84c21cfcdc2ee2bec2b723e6fc5ec9962de52c17e21d009f6",
+      "oldSha256": null
+    },
+    {
+      "path": "game/tests/test_equipment_recovery.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\tests\\test_equipment_recovery.gd",
+      "newSha256": "894152bba4eeb064f6f152883cc4e67a8310e77ffb603a9dfee3b5458ac7e664",
+      "oldSha256": null
+    },
+    {
+      "path": "game/tests/test_equipment_strip_custody.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\tests\\test_equipment_strip_custody.gd",
+      "newSha256": "5d95ec9be0dd5b5ee1aea91d17bbabae2a84e3ae325789b2ad605a23af65be01",
+      "oldSha256": null
+    },
+    {
+      "path": "game/tests/test_equipment_voyage.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game\\tests\\test_equipment_voyage.gd",
+      "newSha256": "4704a1422db0a2d3c8ab9b6f6abce42f67ce96c501e68bd6cab96e296b00a2c4",
+      "oldSha256": null
+    }
+  ],
+  "engineLaunched": false,
+  "versionAdvanced": false,
+  "tagCreated": false,
+  "exportsChanged": false,
+  "ownerFilesChanged": false
+}

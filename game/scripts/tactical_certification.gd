@@ -4,35 +4,31 @@ const Routes=preload("res://scripts/tactical_routes.gd")
 const Fire=preload("res://scripts/tactical_fire_control.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Roles=preload("res://scripts/tactical_role_plans.gd")
+const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
+const EquipmentRollout=preload("res://scripts/equipment_rollout.gd")
 const STEP: float=1.0/30.0
 # Routes.occupied adds the other hull's radius+3. Match the full corridor's
 # seven-unit allied margin in actual curved prefixes and the final live step.
 const HULL_CLEARANCE_MARGIN: float=4.0
 
 static func pose(ship: Dictionary) -> Dictionary:
-	return {"x":float(ship.x),"y":float(ship.y),"vx":float(ship.vx),"vy":float(ship.vy),"angle":float(ship.angle)}
+	return EquipmentRollout.pose(ship)
 
 static func dynamics_key(ship: Dictionary) -> String:
 	# Gradual bailing/repair is predicted, not byte-hashed into immutable inputs.
 	return JSON.stringify([ship.spec.get("size",16),ship.spec.get("speed",90),ship.spec.get("turn",1.8),ship.spec.get("fuelUse",1),ship.spec.get("pumps",0),ship.spec.get("repairFactor",1),ship.get("supportRepairFactor",1),ship.crewMin,ship.crewOptimal,ship.capacity,ship.policy,ship.get("shoreCrew",0),float(ship.fuel)>0.0,float(ship.engine)>0.0,float(ship.crew)-float(ship.wounded)>=float(ship.crewMin)]).sha256_text()
 
-static func capability(ship: Dictionary) -> Dictionary:
-	var result: Dictionary={}
-	var status: Dictionary=Damage.get_status(ship)
-	for key in ["hp","water","engine","crew","wounded","fire"]:result[key]=float(ship[key])
-	result.speedFactor=float(status.speedFactor);result.weaponFactor=float(status.weaponFactor)
-	return result
+static func capability(ship: Dictionary,mask_override: float=NAN) -> Dictionary:
+	return _capability_with_status(ship,Damage.get_status(ship),mask_override)
+
+static func _capability_with_status(ship: Dictionary,status: Dictionary,mask_override: float=NAN) -> Dictionary:
+	return EquipmentRollout.capability_with_status(ship,status,mask_override)
 
 static func motion(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool=false) -> Dictionary:
-	# Shared by the real Battle._move and detached rollouts. Damage/cooldown are
-	# advanced by Battle exactly once; a rollout never repairs or spends live stores.
-	var angle: float=wrapf(float(ship.angle)+clampf(angle_difference(float(ship.angle),desired),-maxf(0.0,Damage.number(ship.spec.get("turn"),1.8))*dt,maxf(0.0,Damage.number(ship.spec.get("turn"),1.8))*dt),-PI,PI)
-	var speed: float=maxf(0.0,Damage.number(ship.spec.get("speed"),90.0))*Damage.get_status(ship).speedFactor*(1.0 if float(ship.fuel)>0.0 else 0.2)*throttle*(1.2 if boost else 1.0)
-	var velocity: Vector2=Vector2(ship.vx,ship.vy).lerp(Vector2.from_angle(angle)*speed,1.0-exp(-dt*4.0))
-	var p: Vector2=Routes.point(ship)+velocity*dt
-	var fuel: float=float(ship.fuel)
-	if velocity.length()>5.0:fuel=maxf(0.0,fuel-dt*(0.018 if boost else 0.01)*maxf(0.0,Damage.number(ship.spec.get("fuelUse"),1.0)))
-	return {"x":p.x,"y":p.y,"vx":velocity.x,"vy":velocity.y,"angle":angle,"fuel":fuel}
+	return _motion_with_status(ship,dt,desired,throttle,boost,Damage.get_status(ship))
+
+static func _motion_with_status(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool,status: Dictionary) -> Dictionary:
+	return EquipmentRollout.motion_with_status(ship,dt,desired,throttle,boost,status)
 
 static func paths(candidate: Dictionary) -> Array:
 	var result: Array=[]
@@ -40,50 +36,16 @@ static func paths(candidate: Dictionary) -> Array:
 	return result
 
 static func execution(candidate: Dictionary) -> Array:
-	# Exit geometry is reserved and checked; the planner must explicitly enter a
-	# breakaway/regroup phase before a newly certified exit becomes helm authority.
-	var result: Array=candidate.get("approach",[]).duplicate()
-	result.append_array(candidate.get("pass",[]))
-	return result
+	return EquipmentRollout.execution(candidate)
 
 static func steering(ship: Dictionary,points: Array,index: int,target: Dictionary={},mounts: Array=[]) -> Dictionary:
-	var at: int=index
-	var p: Vector2=Routes.point(ship)
-	while at<points.size() and p.distance_to(points[at])<14.0:at+=1
-	var heading: float=float(ship.angle)
-	var throttle: float=0.0
-	if at<points.size():
-		var delta: Vector2=points[at]-p
-		heading=delta.angle()
-		var turn: float=absf(angle_difference(float(ship.angle),heading))
-		throttle=clampf(delta.length()/140.0,0.2,0.95)*clampf(cos(turn),0.12,1.0)
-	else:
-		var weight: float=-1.0
-		for mount in mounts:
-			if target.is_empty() or float(ship.ammo)<float(mount.ammoCost):continue
-			var value: float=float(mount.damage)*float(mount.fireRate)
-			if value<=weight:continue
-			weight=value
-			var bearing: float=(Routes.point(target)-p).angle()
-			heading=bearing-float(mount.angle) if float(mount.arc)<TAU-0.01 else bearing
-	return {"angle":heading,"throttle":throttle,"index":at}
+	return EquipmentRollout.steering(ship,points,index,target,mounts)
 
 static func mount_target(candidate: Dictionary,mount_id: String) -> String:
-	var map: Dictionary=candidate.get("fireMountTargets",{}) if candidate.get("fireMountTargets") is Dictionary else {}
-	if map.has(mount_id):return str(map[mount_id])
-	return str(candidate.get("targetId",""))
+	return EquipmentRollout.mount_target(candidate,mount_id)
 
 static func primary_mounts(mounts: Array,candidate: Dictionary) -> Array:
-	if not candidate.has("fireMountTargets") or not candidate.get("fireMountTargets") is Dictionary:
-		return mounts
-	var fire_ids: Array=candidate.get("fireMountIds",[]) if candidate.get("fireMountIds") is Array else []
-	var primary_id: String=str(candidate.get("targetId",""))
-	var filtered: Array=[]
-	for mount in mounts:
-		var mid: String=str(mount.id)
-		if (fire_ids.is_empty() or mid in fire_ids) and mount_target(candidate,mid)==primary_id:
-			filtered.append(mount)
-	return filtered if not filtered.is_empty() else mounts
+	return EquipmentRollout.primary_mounts(mounts,candidate)
 
 static func detailed_targets(view: Dictionary,ship: Dictionary,previous: Dictionary={}) -> Array:
 	var context: Dictionary=Roles.ships_by_id(view)
@@ -174,42 +136,13 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 	if budget.rolled.has(id) or int(budget.rollouts)>=16 or int(budget.samples)+60*parts>840:
 		budget.exhaustions+=1;cert.reason="Checking the next safe maneuver";return cert
 	budget.rolled[id]=true;budget.rollouts+=1
-	var copy: Dictionary=ship.duplicate(true)
-	var points: Array=execution(candidate)
-	var index: int=0
-	var predicted: Array=[pose(copy)]
-	var capabilities: Array=[capability(copy)]
+	var live_ship: Dictionary=st.get("tactical",{}).get("ships",{}).get(id,ship)
+	var prefix: Dictionary=EquipmentRollout.prefix(st,ship,candidate,budget,cert,sub_dt,parts)
+	if not prefix.ok:return cert
+	var predicted: Array=prefix.poses
+	var capabilities: Array=prefix.capabilities
+	var primary: Array=prefix.primary
 	var target: Dictionary=st.tactical.observed.get(str(candidate.get("targetId","")),{})
-	var primary: Array=primary_mounts(ship.mounts,candidate)
-	var chunk: Array=[Routes.point(copy)]
-	var start_time: float=0.0
-	for step in range(60):
-		for _part in range(parts):
-			var control: Dictionary=steering(copy,points,index,target,primary)
-			index=int(control.index)
-			var next: Dictionary=motion(copy,sub_dt,float(control.angle),float(control.throttle))
-			copy.merge(next,true)
-			budget.samples+=1
-			predicted.append(pose(copy));chunk.append(Routes.point(copy))
-			# Advance copied condition for the NEXT tick exactly as Battle's shared
-			# damage prepass will. No live resources change. Capability tolerance below
-			# is numerical error only; actual incoming hits are never predicted away.
-			Damage.tick_ship(copy,sub_dt,{"inCombat":true})
-			capabilities.append(capability(copy))
-		cert.rolloutSamples+=1
-		# A conservative capsule contains ALL ten integrated positions, including
-		# curved turning and braking drift. Six swept envelopes cover the prefix.
-		if (step+1)%10==0:
-			var a: Vector2=chunk[0]
-			var b: Vector2=chunk[-1]
-			var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
-			var deviation: float=0.0
-			for p in chunk:deviation=maxf(deviation,Routes.distance(p,a,b))
-			radius+=deviation
-			var result: String=Routes.sweep(st.tactical.geometry,a,b,radius,budget)
-			if result=="valid":result=Routes.occupied(st.tactical.cells,ship,a,b,radius,start_time,float(step+1)*STEP,budget)
-			if result!="valid":cert.status=result;cert.reason="Checking turning clearance" if result=="pending" else "Cannot turn or brake safely on this approach";return cert
-			chunk=[b];start_time=float(step+1)*STEP
 	# Firing access at the proposed station is geometric/observed prediction;
 	# current live fire gates still require a fresh physical intercept every tick.
 	var firing: Array=[]
@@ -224,7 +157,8 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 		var station: Vector2=Routes.point(ship)
 		if not candidate.get("approach",[]).is_empty():station=candidate.approach[-1]
 		arrival=Routes.point(ship).distance_to(station)/maxf(1.0,float(ship.spec.get("speed",90))*float(ship.status.speedFactor))
-		var at_station: Dictionary=ship.duplicate(true)
+		var at_station: Dictionary=live_ship.duplicate(true)
+		at_station.mounts=ship.mounts.duplicate(true)
 		at_station.x=station.x;at_station.y=station.y
 		if Routes.point(ship).distance_to(station)<14.0:
 			at_station.angle=float(predicted[-1].angle)
@@ -235,7 +169,7 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 			if not mount_id in candidate.fireMountIds:continue
 			var mount_target_id: String=mount_target(candidate,mount_id)
 			var mount_target_ship: Dictionary=st.tactical.observed.get(mount_target_id,{})
-			var now_shot: Dictionary=Fire.solution(st,ship,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true)
+			var now_shot: Dictionary=Fire.solution(st,live_ship,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true)
 			if now_shot.ok:current_window=true
 			elif str(now_shot.get("status",""))=="pending":fire_pending=true
 			var shot: Dictionary=Fire.solution(st,at_station,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true)

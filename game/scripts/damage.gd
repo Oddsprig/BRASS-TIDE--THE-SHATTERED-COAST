@@ -61,15 +61,20 @@ static func set_repair_priority(s: Dictionary, priority: String) -> String:
 static func get_status(s: Dictionary) -> Dictionary:
 	if not s is Dictionary:
 		return EquipmentDamage.status_for({}, 0.0, 0.0, 0.0, [0.5, 0.28, 0.22])
-	var info: Dictionary = EquipmentDamage.inspect_owner(s)
+	return _status_for_info(s, EquipmentDamage.inspect_owner(s))
+
+static func _get_status_numeric(s: Dictionary) -> Dictionary:
+	return _status_for_info(s, EquipmentDamage._numeric_info(s))
+
+static func _status_for_info(s: Dictionary, info: Dictionary) -> Dictionary:
 	if str(info.get("mode", "invalid")) == "invalid":
-		return EquipmentDamage.status_for(s, 0.0, 0.0, 0.0, [0.5, 0.28, 0.22])
+		return EquipmentDamage._status_from_info(s, 0.0, 0.0, 0.0, [0.5, 0.28, 0.22], info)
 	var able: float=maxf(0.0,number(s.get("crew"))-number(s.get("wounded"))-maxf(0.0,number(s.get("shoreCrew",0))))
 	var area: float=sum_areas(s)
 	var cap: float=maxf(1.0,number(s.get("capacity"),200.0))
 	var inflow: float=area*CONSTANTS.inflowPerArea*(1.0+number(s.get("water"))/cap*0.45)
 	var weights: Array={"balanced":[0.5,0.28,0.22],"bail":[0.15,0.65,0.2],"repair":[0.15,0.2,0.65],"fight":[0.85,0.1,0.05]}.get(s.get("policy","balanced"),[0.5,0.28,0.22])
-	return EquipmentDamage.status_for(s, able, area, inflow, weights)
+	return EquipmentDamage._status_from_info(s, able, area, inflow, weights, info)
 
 static func _roll(rng: RandomNumberGenerator) -> float:
 	# No global RNG state: callers normally supply their battle-owned seeded RNG.
@@ -194,75 +199,7 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}) -> Di
 	var events: Array=[]
 
 	if mode == "canonical":
-		if _options is Dictionary and _options.has("priority") and not str(_options.get("priority")) in EquipmentDamage.Core.PRIORITIES:
-			var bad_status: Dictionary = get_status(s)
-			bad_status.equipmentOk = false
-			bad_status.equipmentError = "Repair priority is unknown."
-			return bad_status
-		var absorbed: Dictionary = EquipmentDamage.Records.absorb_legacy_damage(s)
-		if not absorbed.ok:
-			return get_status(s)
-		EquipmentDamage.Records.publish(s)
-		var total_avail_work: float = 0.0
-		var total_used_work: float = 0.0
-		var total_used_supplies: float = 0.0
-		var total_hull_hp: float = 0.0
-		var total_module_hp: float = 0.0
-		var total_fire_supp: float = 0.0
-		var work_by_task: Dictionary = EquipmentDamage.empty_task_map()
-		var supplies_by_task: Dictionary = EquipmentDamage.empty_task_map()
-		var module_changes: Array = []
-		var step_cap: float = 1.0 / 60.0
-		while dt>0.00000001 and not s.sunk:
-			var h_can: float = dt if dt <= step_cap + 0.0000001 else step_cap
-			if absf(dt - 2.0 * step_cap) <= 0.0000001:
-				h_can = dt * 0.5
-			var t_can: Dictionary = get_status(s)
-			var before_can: float = s.water
-			s.water = clampf(s.water + (t_can.inflow - t_can.bailing) * h_can, 0.0, s.capacity)
-			total_in += t_can.inflow * h_can
-			total_bail += minf(t_can.bailing * h_can, before_can + t_can.inflow * h_can)
-			var step_res: Dictionary = EquipmentDamage.tick_repair_step(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {})
-			if not step_res.ok:
-				break
-			total_repair += float(step_res.patchedArea)
-			total_avail_work += float(step_res.availableWork)
-			total_used_work += float(step_res.usedWork)
-			total_used_supplies += float(step_res.usedSupplies)
-			total_hull_hp += float(step_res.repairedHullHp)
-			total_module_hp += float(step_res.repairedModuleHp)
-			total_fire_supp += float(step_res.suppressedFire)
-			for k in ["fire", "patch", "machinery", "hull"]:
-				work_by_task[k] = float(work_by_task[k]) + float(step_res.workByTask[k])
-				supplies_by_task[k] = float(supplies_by_task[k]) + float(step_res.suppliesByTask[k])
-			for ch in step_res.moduleChanges:
-				module_changes.append(ch)
-			if s.fuel>0.0 and (s.water>0.0 or absf(s.vx)+absf(s.vy)>1.0):
-				s.fuel-=0.006*h_can
-			s.cooldown=maxf(0.0,number(s.cooldown)-h_can)
-			_sanitize(s)
-			EquipmentDamage.Records.publish(s)
-			dt-=h_can
-			elapsed+=h_can
-			if s.sunk:
-				events.append("Ship sunk")
-		var status_can: Dictionary = get_status(s)
-		if elapsed>0.0:
-			status_can.inflow=total_in/elapsed
-			status_can.bailing=total_bail/elapsed
-			status_can.repair=total_repair/elapsed
-		status_can.availableWork = total_avail_work
-		status_can.usedWork = total_used_work
-		status_can.usedSupplies = total_used_supplies
-		status_can.workByTask = work_by_task
-		status_can.suppliesByTask = supplies_by_task
-		status_can.repairedPatchArea = total_repair
-		status_can.repairedHullHp = total_hull_hp
-		status_can.repairedModuleHp = total_module_hp
-		status_can.suppressedFire = total_fire_supp
-		status_can.moduleChanges = module_changes
-		status_can.events = events
-		return status_can
+		return _tick_canonical_with(s, dt, _options, get_status, EquipmentDamage.tick_repair_step, EquipmentDamage.Records.publish, EquipmentDamage.Records.absorb_legacy_damage)
 
 	while dt>0.00000001 and not s.sunk:
 		var h: float=minf(0.25,dt)
@@ -302,6 +239,86 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}) -> Di
 		status.repair=total_repair/elapsed
 	status.events=events
 	return status
+
+
+static func _tick_canonical_numeric(s: Dictionary, dt: float, options: Dictionary) -> Dictionary:
+	return _tick_canonical_with(s, dt, options, _get_status_numeric, EquipmentDamage._tick_repair_numeric, EquipmentDamage.Records._publish_numeric, EquipmentDamage.Records._absorb_legacy_numeric)
+
+static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable) -> Dictionary:
+	var total_in: float=0.0
+	var total_bail: float=0.0
+	var total_repair: float=0.0
+	var elapsed: float=0.0
+	var events: Array=[]
+	if _options is Dictionary and _options.has("priority") and not str(_options.get("priority")) in EquipmentDamage.Core.PRIORITIES:
+		var bad_status: Dictionary = status_fn.call(s)
+		bad_status.equipmentOk = false
+		bad_status.equipmentError = "Repair priority is unknown."
+		return bad_status
+	var absorbed: Dictionary = absorb_fn.call(s)
+	if not absorbed.ok:
+		return status_fn.call(s)
+	publish_fn.call(s)
+	var total_avail_work: float = 0.0
+	var total_used_work: float = 0.0
+	var total_used_supplies: float = 0.0
+	var total_hull_hp: float = 0.0
+	var total_module_hp: float = 0.0
+	var total_fire_supp: float = 0.0
+	var work_by_task: Dictionary = EquipmentDamage.empty_task_map()
+	var supplies_by_task: Dictionary = EquipmentDamage.empty_task_map()
+	var module_changes: Array = []
+	var step_cap: float = 1.0 / 60.0
+	while dt>0.00000001 and not s.sunk:
+		var h_can: float = dt if dt <= step_cap + 0.0000001 else step_cap
+		if absf(dt - 2.0 * step_cap) <= 0.0000001:
+			h_can = dt * 0.5
+		var t_can: Dictionary = status_fn.call(s)
+		var before_can: float = s.water
+		s.water = clampf(s.water + (t_can.inflow - t_can.bailing) * h_can, 0.0, s.capacity)
+		total_in += t_can.inflow * h_can
+		total_bail += minf(t_can.bailing * h_can, before_can + t_can.inflow * h_can)
+		var step_res: Dictionary = repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {})
+		if not step_res.ok:
+			break
+		total_repair += float(step_res.patchedArea)
+		total_avail_work += float(step_res.availableWork)
+		total_used_work += float(step_res.usedWork)
+		total_used_supplies += float(step_res.usedSupplies)
+		total_hull_hp += float(step_res.repairedHullHp)
+		total_module_hp += float(step_res.repairedModuleHp)
+		total_fire_supp += float(step_res.suppressedFire)
+		for k in ["fire", "patch", "machinery", "hull"]:
+			work_by_task[k] = float(work_by_task[k]) + float(step_res.workByTask[k])
+			supplies_by_task[k] = float(supplies_by_task[k]) + float(step_res.suppliesByTask[k])
+		for ch in step_res.moduleChanges:
+			module_changes.append(ch)
+		if s.fuel>0.0 and (s.water>0.0 or absf(s.vx)+absf(s.vy)>1.0):
+			s.fuel-=0.006*h_can
+		s.cooldown=maxf(0.0,number(s.cooldown)-h_can)
+		_sanitize(s)
+		publish_fn.call(s)
+		dt-=h_can
+		elapsed+=h_can
+		if s.sunk:
+			events.append("Ship sunk")
+	var status_can: Dictionary = status_fn.call(s)
+	if elapsed>0.0:
+		status_can.inflow=total_in/elapsed
+		status_can.bailing=total_bail/elapsed
+		status_can.repair=total_repair/elapsed
+	status_can.availableWork = total_avail_work
+	status_can.usedWork = total_used_work
+	status_can.usedSupplies = total_used_supplies
+	status_can.workByTask = work_by_task
+	status_can.suppliesByTask = supplies_by_task
+	status_can.repairedPatchArea = total_repair
+	status_can.repairedHullHp = total_hull_hp
+	status_can.repairedModuleHp = total_module_hp
+	status_can.suppressedFire = total_fire_supp
+	status_can.moduleChanges = module_changes
+	status_can.events = events
+	return status_can
 
 static func repair_at_port(s: Dictionary, budget: float) -> Dictionary:
 	if EquipmentDamage.is_corrupt_owner(s):

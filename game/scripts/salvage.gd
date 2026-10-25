@@ -5,12 +5,21 @@ extends RefCounted
 ## (Array, bounded) with a monotonic state["wreckSeq"] id counter. Every
 ## record is plain JSON: no object references, no engine types.
 ## A wreck settles exactly once: stripped XOR towed, never both, never twice.
+## sourceModuleCondition, when present, is the only active copy of that hull's parts.
+## An active tow stages that birth before payment.
+## A legacy or site tow stages disabled gear and its uid before payment. add_boat only publishes.
+## A tow reads the requested wreck's raw status and loadout before ensure.
+## An accepted sunk hull keeps equipmentRetiredTo set to that wreck id. The marker
+## stays after transfer and after wreck pruning. It is not a second owner. Save must
+## retain it with the hull and must not reseed a hull that still has it.
 
 const Goods = preload("res://scripts/goods.gd")
 const Money = preload("res://scripts/money.gd")
 const Construction = preload("res://scripts/construction.gd")
 const Damage = preload("res://scripts/damage.gd")
 const Refits=preload("res://scripts/refit.gd")
+const Recovery=preload("res://scripts/equipment_recovery.gd")
+const Tow=preload("res://scripts/equipment_tow.gd")
 
 const MAX_WRECKS := 128
 const MODE_STRIP := "strip"
@@ -22,6 +31,7 @@ const TOW_HP_FRACTION := 0.35
 # Root multiplies traveling fleet speed by the smallest towSpeedFactor among
 # towed boats it is moving; the field is stamped on the recovered boat.
 const TOW_SPEED_FACTOR := 0.55
+const _COIN_LIMIT := 9223372036854775807
 # Site-seeded wrecks use one fixed recoverable fraction: no rolls, no rerolls.
 const SITE_FRACTION := 0.30
 
@@ -73,7 +83,7 @@ static func _sanitize_wreck(raw) -> Dictionary:
 	var status := str(raw.get("status", STATUS_UNCLAIMED))
 	if not status in [STATUS_UNCLAIMED, STATUS_STRIPPED, STATUS_TOWED]:
 		status = STATUS_UNCLAIMED
-	return {
+	var wreck := {
 		"id": str(raw["id"]), "sourceId": str(raw.get("sourceId", "")),
 		"shipId": str(raw.get("shipId", "")), "uid": str(raw.get("uid", "")),
 		"hull": str(raw.get("hull", "")), "name": str(raw.get("name", "Wreck")),
@@ -88,6 +98,8 @@ static func _sanitize_wreck(raw) -> Dictionary:
 		"hullStripped":bool(raw.get("hullStripped",false)),
 		"sourceLoadout":raw.get("sourceLoadout",{}).duplicate(true) if raw.get("sourceLoadout",{}) is Dictionary else {},
 	}
+	Recovery.retain(raw, wreck)
+	return wreck
 
 
 static func _prune(state: Dictionary) -> void:
@@ -198,6 +210,63 @@ static func _stores_for(ship: Dictionary) -> Dictionary:
 	return out
 
 
+# Plans one sunk hull without writing it. prepare() absorbs a lower engine scalar
+# on its own detached copy. The caller's hull is unchanged until _apply_equipment.
+# A hull already marked equipmentRetiredTo is not snapshotted again.
+static func _plan_equipment(state: Dictionary, ship: Dictionary, base: Dictionary, reserved: Dictionary) -> Dictionary:
+	if not ship is Dictionary:
+		return {"ok": false, "message": "The hull record is missing."}
+	if ship.has("equipmentRetiredTo"):
+		if ship.has("moduleCondition"):
+			return {"ok": false, "message": "A retired hull still carries equipment."}
+		return {"ok": true, "mode": "skip"}
+	if not ship.has("moduleCondition"):
+		return {"ok": true, "mode": "legacy"}
+	var known: Dictionary = Recovery.registry(state, "", ship)
+	if not known.ok:
+		return {"ok": false, "message": str(known.get("message", "This equipment is already recorded on another hull."))}
+	if ship.moduleCondition is Dictionary and ship.moduleCondition.get("items") is Dictionary:
+		var owned: Dictionary = {}
+		for uid in known.get("uids", []):
+			owned[str(uid)] = true
+		for part_id in ship.moduleCondition.items.keys():
+			if owned.has(str(part_id)):
+				return {"ok": false, "message": "Two hulls share one physical part."}
+	var captured: Dictionary = Recovery.prepare(ship, base, known.get("uids", []))
+	if bool(captured.get("accepted", false)):
+		for uid in captured.get("itemUids", []):
+			if reserved.has(str(uid)):
+				return {"ok": false, "message": "Two hulls share one physical part."}
+		return {"ok": true, "mode": "accepted", "captured": captured}
+	var raw = captured.get("raw", ship.get("moduleCondition", null))
+	return {"ok": true, "mode": "refused", "raw": raw}
+
+
+static func _apply_equipment(ship: Dictionary, wreck: Dictionary, plan: Dictionary) -> void:
+	if str(plan.get("mode", "")) == "accepted":
+		var captured: Dictionary = plan.captured
+		wreck.sourceModuleCondition = captured.condition
+		wreck.equipmentCustody = "wreck"
+		wreck.retiredSourceUid = str(ship.get("uid", ""))
+		ship.equipmentRetiredTo = str(wreck.get("id", ""))
+		ship.erase("moduleCondition")
+		return
+	if str(plan.get("mode", "")) != "refused":
+		return
+	wreck.equipmentCustody = "refused"
+	var raw = plan.get("raw", null)
+	if raw is Dictionary or raw is Array:
+		wreck.sourceModuleCondition = raw.duplicate(true)
+	else:
+		wreck.sourceModuleCondition = raw
+
+
+static func _repair_from_max(max_hp: float) -> Dictionary:
+	var missing := max_hp * (1.0 - TOW_HP_FRACTION)
+	var supplies := missing * float(Damage.CONSTANTS.get("hullSupplyPerHp", 0.35))
+	return {"missingHp": _round2(missing), "supplies": _round2(supplies)}
+
+
 # Records every actually destroyed boat in a finished battle, friendly and
 # enemy alike, from the battle's own ships (sunk == true) enriched with its
 # combat_events wreck records (cause). Live, retreated and reserve boats are
@@ -223,6 +292,8 @@ static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
 	var chart_y: float=float(xy[1]) if xy.size()==2 else 0.0
 	var created: Array = []
 	var seen_ships := {}
+	var pending: Array = []
+	var reserved: Dictionary = {}
 	for ship in battle.get("ships", []) if battle.get("ships") is Array else []:
 		if not (ship is Dictionary) or not bool(ship.get("sunk", false)):
 			continue
@@ -232,20 +303,38 @@ static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
 		seen_ships[ship_key] = true
 		var spec: Dictionary = ship.get("spec", {}) if ship.get("spec") is Dictionary else {}
 		var hull_id := str(ship.get("type", spec.get("id", "")))
+		var base_hull: Dictionary = spec
+		if core.has_method("hull"):
+			var looked: Dictionary = core.hull(hull_id)
+			if not looked.is_empty():
+				base_hull = looked
+		var plan: Dictionary = _plan_equipment(state, ship, base_hull, reserved)
+		if not bool(plan.get("ok", false)):
+			return []
+		if str(plan.get("mode", "")) == "accepted":
+			for uid in plan.captured.get("itemUids", []):
+				reserved[str(uid)] = true
+		pending.append({"ship": ship, "spec": spec, "hull": hull_id, "key": ship_key, "plan": plan})
+	for item in pending:
+		if str(item.plan.get("mode", "")) == "skip":
+			continue
+		var sunk: Dictionary = item.ship
+		var sunk_spec: Dictionary = item.spec
 		var wreck := {
 			"id": _next_id(state), "sourceId": source_id,
-			"shipId": str(ship.get("id", "")), "uid": str(ship.get("uid", ship.get("id", ""))),
-			"hull": hull_id, "name": str(ship.get("name", spec.get("name", "Wreck"))),
-			"team": str(ship.get("team", "")), "friendly": str(ship.get("team", "")) == "player",
+			"shipId": str(sunk.get("id", "")), "uid": str(sunk.get("uid", sunk.get("id", ""))),
+			"hull": str(item.hull), "name": str(sunk.get("name", sunk_spec.get("name", "Wreck"))),
+			"team": str(sunk.get("team", "")), "friendly": str(sunk.get("team", "")) == "player",
 			"x": chart_x, "y": chart_y,
-			"battleX": _num(ship.get("x", 0.0)), "battleY": _num(ship.get("y", 0.0)),
-			"cause": str(causes.get(str(ship.get("id", "")), causes.get(ship_key, ""))),
+			"battleX": _num(sunk.get("x", 0.0)), "battleY": _num(sunk.get("y", 0.0)),
+			"cause": str(causes.get(str(sunk.get("id", "")), causes.get(str(item.key), ""))),
 			"day": _num(state.get("day", 0.0)),
-			"stores": _stores_for(ship),
-			"components": _components_for(spec, _recoverable_fraction(ship)),
-			"sourceLoadout":ship.get("loadout",Refits.defaults(spec)).duplicate(true),
+			"stores": _stores_for(sunk),
+			"components": _components_for(sunk_spec, _recoverable_fraction(sunk)),
+			"sourceLoadout":sunk.get("loadout",Refits.defaults(sunk_spec)).duplicate(true),
 			"status": STATUS_UNCLAIMED, "claimedMode": "", "towedBoatUid": "", "hullStripped":false,
 		}
+		_apply_equipment(sunk, wreck, item.plan)
 		state["wrecks"].append(wreck)
 		created.append(wreck.duplicate(true))
 	_prune(state)
@@ -346,14 +435,28 @@ static func _tow_fees(spec: Dictionary) -> Dictionary:
 # missing 65% of hull points at hullSupplyPerHp supply kits per hp. This is a
 # finite liability estimate for harbor repair, never charged here.
 static func _repair_liability(spec: Dictionary) -> Dictionary:
-	var max_hp := maxf(1.0, _num(spec.get("hp", 100.0), 100.0))
-	var missing := max_hp * (1.0 - TOW_HP_FRACTION)
-	var supplies := missing * float(Damage.CONSTANTS.get("hullSupplyPerHp", 0.35))
-	return {"missingHp": _round2(missing), "supplies": _round2(supplies)}
+	return _repair_from_max(maxf(1.0, _num(spec.get("hp", 100.0), 100.0)))
+
+
+# Read-only. Explicit corrupt status or a non-dictionary loadout is refused
+# before ensure can rewrite the requested wreck. Missing and empty stay put.
+static func _raw_tow_preflight(state: Dictionary, wreck_id: String) -> String:
+	var rows = state.get("wrecks", [])
+	if not rows is Array or wreck_id.is_empty():
+		return ""
+	var allowed: Array = [STATUS_UNCLAIMED, STATUS_STRIPPED, STATUS_TOWED]
+	for raw in rows:
+		if not raw is Dictionary or str(raw.get("id", "")) != wreck_id:
+			continue
+		if raw.has("status") and not allowed.has(str(raw.get("status", ""))):
+			return "Wreck status is not a salvage settlement."
+		if raw.has("sourceLoadout") and not raw.get("sourceLoadout") is Dictionary:
+			return "Wreck loadout is unreadable."
+	return ""
 
 
 # Read-only quote for both modes. Never mutates cargo, coins, fleet or the
-# wreck beyond ensure() normalization.
+# wreck beyond ensure() normalization. Tow preflight runs before that.
 static func quote(core, wreck_id: String, mode) -> Dictionary:
 	var key := str(mode)
 	var base := {"ok": false, "wreckId": wreck_id, "mode": key, "message": ""}
@@ -361,6 +464,11 @@ static func quote(core, wreck_id: String, mode) -> Dictionary:
 		base["message"] = "No campaign state."
 		return base
 	var state: Dictionary = core.state
+	if key == MODE_TOW:
+		var raw_problem := _raw_tow_preflight(state, str(wreck_id))
+		if not raw_problem.is_empty():
+			base["message"] = raw_problem
+			return base
 	var wreck := find_wreck(state, wreck_id)
 	if wreck.is_empty():
 		base["message"] = "No such wreck."
@@ -370,6 +478,10 @@ static func quote(core, wreck_id: String, mode) -> Dictionary:
 	base["status"] = str(wreck["status"])
 	if str(wreck["status"]) != STATUS_UNCLAIMED:
 		base["message"] = "Already %s; a wreck settles once." % str(wreck["status"])
+		return base
+	var blocked := Recovery.refusal(wreck)
+	if not blocked.is_empty():
+		base["message"] = blocked
 		return base
 	if key == MODE_STRIP:
 		var items := _strip_items(wreck)
@@ -385,44 +497,41 @@ static func quote(core, wreck_id: String, mode) -> Dictionary:
 			base["message"] = "Strip %d lots (%.1f hold space)." % [items.size(), weight]
 		return base
 	if key == MODE_TOW:
-		if wreck.get("hullStripped",false):
-			base.message="Structural parts have already been removed; only further stripping is possible."
-			return base
-		var spec: Dictionary = core.hull(str(wreck["hull"])) if core.has_method("hull") else {}
-		if spec.is_empty():
-			base["message"] = "Unknown hull design; cannot tow."
-			return base
-		var fees := _tow_fees(spec)
-		var harbor: Dictionary = core.port(str(state.get("lastPort", ""))) if core.has_method("port") else {}
-		base.merge({"ordinary": int(fees["ordinary"]), "expert": int(fees["expert"]),
-			"fee": int(fees["fee"]), "total": int(fees["total"]), "coins": int(fees["total"]),
-			"repairLiability": _repair_liability(spec), "towSpeedFactor": TOW_SPEED_FACTOR,
-			"hpFraction": TOW_HP_FRACTION, "harbor": str(harbor.get("id", ""))}, true)
-		if harbor.is_empty():
-			base["message"] = "No home harbor to pay the tug and inspector."
-		elif float(harbor.get("availableWorkers",0))<3 or float(harbor.get("availableSpecialists",harbor.get("specialistWorkers",0)))<1:
-			base.message="The last harbor lacks an available tug crew or inspection specialist today."
-		elif core.has_method("can_add_boat") and not bool(core.can_add_boat(spec)):
-			base["message"] = str(core.points_refusal(spec)) if core.has_method("points_refusal") else "No roster room for another hull."
-		elif int(state.get("coins", 0)) < int(fees["total"]):
-			base["message"] = "Recovery needs %d coins for tug labor, inspection and the company fee." % int(fees["total"])
-		else:
-			base["ok"] = true
-			base["message"] = "Tow to harbor for %d coins; hull returns damaged, uncrewed and empty." % int(fees["total"])
+		var staged := _tow_stage(core, state, wreck)
+		if staged.has("fees"):
+			var fees: Dictionary = staged.fees
+			var harbor: Dictionary = staged.harbor if staged.get("harbor", {}) is Dictionary else {}
+			var priced: Dictionary = staged.contract if staged.get("contract") is Dictionary else {}
+			var fitted_max := float(priced.get("maxHp", 0.0))
+			var recovered := float(priced.get("hullHp", 0.0))
+			base.merge({"ordinary": int(fees["ordinary"]), "expert": int(fees["expert"]),
+				"fee": int(fees["fee"]), "total": int(fees["total"]), "coins": int(fees["total"]),
+				"repairLiability": _repair_from_max(fitted_max), "towSpeedFactor": TOW_SPEED_FACTOR,
+				"hpFraction": TOW_HP_FRACTION, "recoveredHp": recovered,
+				"fittedMaxHp": fitted_max, "harbor": str(harbor.get("id", ""))}, true)
+		base["message"] = str(staged.get("message", ""))
+		base["ok"] = bool(staged.get("ok", false))
 		return base
 	base["message"] = "Unknown recovery mode."
 	return base
 
 
 # Settles one wreck. Returns the refused quote (with ok=false) and changes
-# nothing when ineligible: capacity, roster, harbor and coin checks all run
-# inside quote() before any cargo, purse or fleet write below.
+# nothing when ineligible. Tow stages every fallible check again and only then
+# pays, books workers, and adds the hull. It does not return failure after that.
 static func recover(core, wreck_id: String, mode) -> Dictionary:
 	var q := quote(core, wreck_id, mode)
 	if not bool(q["ok"]):
 		return q
 	var state: Dictionary = core.state
 	var wreck := find_wreck(state, wreck_id)
+	if str(q["mode"]) == MODE_TOW:
+		var staged := _tow_stage(core, state, wreck)
+		if not bool(staged.get("ok", false)):
+			q["ok"] = false
+			q["message"] = str(staged.get("message", "This wreck's equipment record cannot be read, so nothing was taken."))
+			return q
+		return _publish_tow(core, state, wreck, staged, q)
 	if str(q["mode"]) == MODE_STRIP:
 		var items: Dictionary = q["items"]
 		var cargo: Dictionary = state.get("cargo", {}) if state.get("cargo") is Dictionary else {}
@@ -431,29 +540,196 @@ static func recover(core, wreck_id: String, mode) -> Dictionary:
 		state["cargo"] = cargo
 		wreck["stores"] = {}
 		wreck["components"] = {}
+		if Recovery.is_active(wreck):
+			Recovery.release(wreck, "retired")
 		wreck["status"] = STATUS_STRIPPED
 		wreck["claimedMode"] = MODE_STRIP
 		var out := q.duplicate(true)
 		out["message"] = "Stripped %s into the hold." % str(wreck["name"])
 		return out
-	# Tow: pay the last harbor's existing purses exactly as the proven
-	# campaign salvage_boat does, then add the physical hull back damaged.
-	var harbor: Dictionary = core.port(str(state.get("lastPort", "")))
-	var ledger: Array = state.get("moneyLog", []) if state.get("moneyLog") is Array else []
-	Money.move(state, "coins", harbor, "householdPurse", int(q["ordinary"]), "Salvage tug crew wages", ledger)
-	Money.move(state, "coins", harbor, "expertPurse", int(q["expert"]), "Salvage engineer inspection", ledger)
-	Money.move(state, "coins", harbor, "cash", int(q["fee"]), "Salvage company fee", ledger)
-	harbor.availableWorkers=maxi(0,int(harbor.get("availableWorkers",0))-3)
-	harbor.availableSpecialists=maxi(0,int(harbor.get("availableSpecialists",harbor.get("specialistWorkers",0)))-1)
-	harbor.workers=int(harbor.get("workers",0))+3
-	state["moneyLog"] = ledger
-	var spec: Dictionary = core.hull(str(wreck["hull"]))
-	var boat: Dictionary = core.add_boat(spec, 0)
-	var old_loadout: Dictionary=wreck.get("sourceLoadout",{})
-	if not old_loadout.is_empty():
-		boat.loadout=old_loadout.duplicate(true)
-		core.fit_boat(boat,true)
-	boat["hp"] = float(boat.get("maxHp", 1.0)) * TOW_HP_FRACTION
+	q["ok"] = false
+	q["message"] = "Unknown recovery mode."
+	return q
+
+
+static func _whole_nonneg(value) -> bool:
+	if value is bool:
+		return false
+	if value is int:
+		return value >= 0
+	if value is float and is_finite(value) and value >= 0.0 and value <= float(_COIN_LIMIT) and floor(value) == value:
+		return true
+	return false
+
+
+## Read-only validation of the purses actually included by Money.total.
+## Missing moneyLog/coinSupply refuses; supported saved careers contain both.
+static func _coin_whole(value) -> bool:
+	return _whole_nonneg(value) and value <= 9007199254740991
+
+static func _tow_ledger(state: Dictionary) -> bool:
+	if not _coin_whole(state.get("coinSupply")) or not state.get("moneyLog") is Array:
+		return false
+	for entry in state.moneyLog:
+		if not entry is Dictionary:
+			return false
+	var holders: Array = [{"record": state, "keys": ["coins", "crewPurse"]}]
+	if not state.get("ports", []) is Array:
+		return false
+	for port in state.get("ports", []):
+		if not port is Dictionary or not port.get("training", {}) is Dictionary:
+			return false
+		holders.append({"record": port, "keys": ["cash", "householdPurse", "expertPurse", "governmentPurse"]})
+		var training: Dictionary = port.get("training", {})
+		for raw in [training.get("jobs", []), port.get("buildQueue", [])]:
+			if not raw is Array:
+				return false
+			for row in raw:
+				if not row is Dictionary:
+					return false
+				holders.append({"record": row, "keys": ["escrow"]})
+	for entry in [["fleetOwners", ["coins", "crewPurse"]], ["voyageJobs", ["escrow"]], ["specialists", ["coins"]], ["yardProjects", ["escrow"]], ["businesses", ["coins"]]]:
+		var rows = state.get(entry[0], [])
+		if not rows is Array:
+			return false
+		for row in rows:
+			if not row is Dictionary:
+				return false
+			holders.append({"record": row, "keys": entry[1]})
+	var contract = state.get("activeContract", {})
+	var crises = state.get("regionalCrises", {})
+	if not contract is Dictionary or not crises is Dictionary or not crises.get("jobs", []) is Array:
+		return false
+	holders.append({"record": contract, "keys": ["escrow"]})
+	holders.append({"record": crises, "keys": ["lostPurse"]})
+	for cohort in crises.get("jobs", []):
+		if not cohort is Dictionary:
+			return false
+		holders.append({"record": cohort, "keys": ["escrow", "householdPurse", "expertPurse"]})
+	var total: int = 0
+	for holder in holders:
+		for key in holder["keys"]:
+			var value = holder.record.get(key, 0)
+			if not _coin_whole(value) or int(value) > 9007199254740991 - total:
+				return false
+			total += int(value)
+	# Also bind to the actual accounting API, not only this shape preflight.
+	return total == int(state.coinSupply) and Money.total(state) == total
+
+
+static func _fits(left: int, right: int) -> bool:
+	if left < 0 or right < 0:
+		return false
+	return left <= _COIN_LIMIT - right
+
+
+static func _purse_room(holder: Dictionary, key: String, amount: int) -> bool:
+	if not holder.has(key):
+		return _fits(0, amount)
+	if not _coin_whole(holder[key]) or amount < 0:
+		return false
+	return int(holder[key]) <= 9007199254740991 - amount
+
+
+static func _worker_count(harbor: Dictionary, key: String, fallback: String = "") -> int:
+	if harbor.has(key):
+		if not _whole_nonneg(harbor[key]):
+			return -1
+		return int(harbor[key])
+	if not fallback.is_empty() and harbor.has(fallback):
+		if not _whole_nonneg(harbor[fallback]):
+			return -1
+		return int(harbor[fallback])
+	if key == "workers":
+		return 0
+	return -1
+
+
+# Read-only. Proves hull, custody, harbor, workforce, roster, coins, purse room,
+# and the detached equipment publish before any live write.
+static func _tow_stage(core, state: Dictionary, wreck: Dictionary) -> Dictionary:
+	if wreck.get("hullStripped", false):
+		return {"ok": false, "message": "Structural parts have already been removed; only further stripping is possible."}
+	var spec: Dictionary = core.hull(str(wreck.get("hull", ""))) if core != null and core.has_method("hull") else {}
+	if spec.is_empty():
+		return {"ok": false, "message": "Unknown hull design; cannot tow."}
+	var priced: Dictionary = Tow.contract(spec, wreck.get("sourceLoadout", {}))
+	if not bool(priced.get("ok", false)):
+		return {"ok": false, "message": str(priced.get("message", "Preserved loadout is unreadable."))}
+	var fees := _tow_fees(spec)
+	var ordinary := int(fees.ordinary)
+	var expert := int(fees.expert)
+	var fee := int(fees.fee)
+	if not _fits(ordinary, expert) or not _fits(ordinary + expert, fee):
+		return {"ok": false, "message": "The harbor ledger cannot take this tow payment."}
+	var total := ordinary + expert + fee
+	var harbor: Dictionary = core.port(str(state.get("lastPort", ""))) if core != null and core.has_method("port") else {}
+	var staged := {"ok": false, "message": "", "fees": fees, "spec": spec, "harbor": harbor, "restoring": false, "contract": priced}
+	if harbor.is_empty():
+		staged.message = "No home harbor to pay the tug and inspector."
+		return staged
+	var live_port := false
+	for port in state.get("ports", []) if state.get("ports", []) is Array else []:
+		if is_same(port, harbor):
+			live_port = true
+	if not live_port:
+		staged.message = "No home harbor to pay the tug and inspector."
+		return staged
+	if not _tow_ledger(state):
+		staged.message = "The world coin ledger or money log cannot be reconciled for this tow."
+		return staged
+	var workers := _worker_count(harbor, "availableWorkers")
+	var specialists := _worker_count(harbor, "availableSpecialists", "specialistWorkers")
+	var yard := _worker_count(harbor, "workers")
+	var workforce: Dictionary = Refits._workforce(harbor)
+	if workers < 3 or specialists < 1 or float(workforce.free) < 3.0 or float(workforce.freeExperts) < 1.0:
+		staged.message = "The last harbor lacks an available tug crew or inspection specialist today."
+		return staged
+	if not _fits(yard, 3):
+		staged.message = "The harbor ledger cannot take this tow payment."
+		return staged
+	if core.has_method("can_add_boat") and not bool(core.can_add_boat(spec)):
+		staged.message = str(core.points_refusal(spec)) if core.has_method("points_refusal") else "No roster room for another hull."
+		return staged
+	if not _coin_whole(state.get("coins", null)) or int(state.get("coins", 0)) < total:
+		staged.message = "Recovery needs %d coins for tug labor, inspection and the company fee." % total
+		return staged
+	if not _purse_room(harbor, "householdPurse", ordinary) or not _purse_room(harbor, "expertPurse", expert) or not _purse_room(harbor, "cash", fee):
+		staged.message = "The harbor ledger cannot take this tow payment."
+		return staged
+	var ready: Dictionary = Tow.stage(core, state, wreck, spec)
+	if not bool(ready.get("ok", false)):
+		staged.message = str(ready.get("message", "This wreck's equipment record cannot be read, so nothing was taken."))
+		return staged
+	if not ready.get("contract") is Dictionary or not bool(ready.contract.get("ok", false)) or not ready.contract.has("hullHp") or not ready.contract.has("maxHp"):
+		staged.message = str(ready.get("message", "Preserved loadout is unreadable."))
+		return staged
+	staged.contract = ready.contract
+	staged.ok = true
+	staged.restoring = bool(ready.get("restoring", false))
+	staged.prepared = ready
+	staged.message = "Tow to harbor for %d coins; hull returns damaged, uncrewed and empty." % total
+	return staged
+
+
+# Live publish. Every check in _tow_stage has already passed. No failure return.
+static func _publish_tow(core, state: Dictionary, wreck: Dictionary, staged: Dictionary, q: Dictionary) -> Dictionary:
+	var harbor: Dictionary = staged.harbor
+	var fees: Dictionary = staged.fees
+	var ledger: Array = state.get("moneyLog", []) if state.get("moneyLog", []) is Array else []
+	Money.move(state, "coins", harbor, "householdPurse", int(fees.ordinary), "Salvage tug crew wages", ledger)
+	Money.move(state, "coins", harbor, "expertPurse", int(fees.expert), "Salvage engineer inspection", ledger)
+	Money.move(state, "coins", harbor, "cash", int(fees.fee), "Salvage company fee", ledger)
+	harbor.availableWorkers = int(harbor.availableWorkers) - 3
+	var specialists := int(harbor.availableSpecialists) if harbor.has("availableSpecialists") else int(harbor.get("specialistWorkers", 0))
+	harbor.availableSpecialists = specialists - 1
+	harbor.workers = int(harbor.get("workers", 0)) + 3
+	state.moneyLog = ledger
+	var restoring: bool = bool(staged.restoring)
+	var prepared: Dictionary = staged.prepared if staged.get("prepared") is Dictionary else {}
+	var boat: Dictionary = core.add_boat(staged.spec, 0, prepared)
+	var recovered := float(staged.contract.hullHp) if staged.get("contract") is Dictionary and staged.contract.has("hullHp") else float(q.get("recoveredHp", 0.0))
+	boat["hp"] = clampf(recovered, 0.0, float(boat.get("maxHp", 1.0)))
 	boat["crew"] = 0.0
 	boat["fuel"] = 0.0
 	boat["ammo"] = 0.0
@@ -461,11 +737,15 @@ static func recover(core, wreck_id: String, mode) -> Dictionary:
 	boat["mothballed"] = true
 	boat["towed"] = true
 	boat["towSpeedFactor"] = TOW_SPEED_FACTOR
-	boat["salvageWreckId"] = wreck_id
+	boat["salvageWreckId"] = str(wreck.get("id", ""))
 	boat["needsHarborRepair"] = true
+	# Boarding.validate refuses a saved unrepaired hull that is not support-only.
+	boat["supportOnly"] = true
 	boat["repairLiability"] = (q["repairLiability"] as Dictionary).duplicate(true)
 	wreck["stores"] = {}
 	wreck["components"] = {}
+	if restoring:
+		Recovery.release(wreck, "transferred")
 	wreck["status"] = STATUS_TOWED
 	wreck["claimedMode"] = MODE_TOW
 	wreck["towedBoatUid"] = str(boat.get("uid", ""))
@@ -474,9 +754,13 @@ static func recover(core, wreck_id: String, mode) -> Dictionary:
 	out["message"] = "%s towed in. Hire a crew, repair it at a harbor and buy stores." % str(boat.get("name", wreck["name"]))
 	return out
 
+
 static func strip_good(core,wreck_id: String,good: String,qty: float) -> Dictionary:
 	var wreck: Dictionary=find_wreck(core.state,wreck_id)
 	if wreck.is_empty() or wreck.status!=STATUS_UNCLAIMED or not Goods.ITEMS.has(good) or not is_finite(qty) or qty<=0:return {"ok":false,"message":"No recoverable lot of that kind."}
+	var blocked := Recovery.refusal(wreck)
+	if not blocked.is_empty():
+		return {"ok":false,"message":blocked}
 	var amount: float=minf(qty,float(_strip_items(wreck).get(good,0)))
 	if amount<=0 or amount*float(Goods.ITEMS[good].weight)>_free_capacity(core)+0.00001:return {"ok":false,"message":"Choose a smaller lot; the traveling hold has insufficient space."}
 	var left: float=amount
@@ -485,6 +769,9 @@ static func strip_good(core,wreck_id: String,good: String,qty: float) -> Diction
 		wreck[key][good]=maxf(0,float(wreck[key].get(good,0))-take)
 		left-=take
 	core.state.cargo[good]=float(core.state.cargo.get(good,0))+amount
-	if good not in ["fuel","ammo","supplies","food"]:wreck.hullStripped=true
-	if _strip_items(wreck).is_empty():wreck.status=STATUS_STRIPPED;wreck.claimedMode=MODE_STRIP
+	if not Recovery.is_store_good(good):
+		wreck.hullStripped=true
+		if Recovery.is_active(wreck):
+			Recovery.release(wreck, "retired")
+	if _strip_items(wreck).is_empty() and not Recovery.is_active(wreck):wreck.status=STATUS_STRIPPED;wreck.claimedMode=MODE_STRIP
 	return {"ok":true,"message":"Recovered %.2f %s from %s."%[amount,good,wreck.name],"weight":amount*float(Goods.ITEMS[good].weight)}

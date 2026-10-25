@@ -1,14 +1,15 @@
 BRASS TIDE — CURRENT SEQUENTIAL VERSION MAP
-24 October 2026 | Owner restored development/testing; three Bridge helpers
+25 October 2026 | Current component proof; three existing Bridge projects
 
 0.029 | DELIVERED/VERIFIED | Workshop,24 boat/equipment detail, paid fittings.
 0.030 | PRESERVED UNTESTED BUILD | Tactical AI source; fixes/verification active.
-0.031 | DOING | Damageable equipment plus reviewed0.030 runtime fixes. Numerical
-condition core90/Records89/catalogue651/panel49 and detached Damage174 verified;
-live combat, one crew-time pool,paid refit/Harbor,save/capture/wreck still pending.
-0.032 | NEXT | Real loaded convoy/recovery boats must physically reach exits.
-Choose tow/strip/abandon; no duplicate cargo/modules. Pure exit observer is a
-prototype under deadline/replayed-frame correction, not a completed feature.
+0.031 | WORKING CANDIDATE | Fourteen runtime modules integrated; Lab99/0,
+equipment voyage67/0, salvage voyage14/0 verified. Panel49/NPC140 pass; legacy campaign619/17 failed, player service incomplete;
+actualUI167/save89, coins and canonical capacity gates remain open. Canonical40/42, remaining030/held-out/motion/audio/Windows proof open.
+No031 release or tag.
+0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
+Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.
+Choose tow/strip/abandon with finite cargo/modules and actual custody.
 0.033 | PLANNED | Independent pirate/patrol/faction pursuit and conflict,dated
 sightings,survivor retreats,paid repair/replacement,multi-party arrival/custody.
 0.034 | PLANNED | Distinct coasts/passages/reefs,battle terrain from location,

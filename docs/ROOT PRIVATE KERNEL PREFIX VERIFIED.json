@@ -1,0 +1,247 @@
+{
+  "reviewedUtc": "2026-10-25T09:02:26.530300+00:00",
+  "pairs": [
+    {
+      "hz": 30,
+      "old": {
+        "jobId": "8bc3c3198a064b3ebfbc350e289942b6",
+        "family": "installed30",
+        "inputSha256": "e29c5284286d7998d3e9b44b57b8871d6576e84c9ec59bcae96644be8d772b87",
+        "inputs": 281,
+        "checks": 119,
+        "failures": 0,
+        "samples": 600,
+        "certificates": 10,
+        "nativeWallSeconds": 4.0,
+        "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\8bc3c3198a064b3ebfbc350e289942b6\\attempt-001",
+        "artifactHashes": {
+          "bridge-result.json": "3d40336fb9a5f9e70620889199150ac3f84d9fccca1994b38a8634b7670706d2",
+          "execution.json": "fa033cfdeb25d11182a95b27c8ccab1c40742f1012583f7b75565c5ff88e9e9f",
+          "inputs-after.json": "0ef52cd43d140a7bae5a90d198b0846901f893061a1f88236ed975798225318d",
+          "inputs-before.json": "0ef52cd43d140a7bae5a90d198b0846901f893061a1f88236ed975798225318d",
+          "lane.log": "275f1fed5ab1a27ffb0a5283e2e6b640024611972feca84888c7cb91ea9fcaea",
+          "native-receipt.json": "3d445ef769a98b41af967c6f8d05e0a14397518f16d004421cb3c65aab7fa551",
+          "native.log": "eb4cda45e22c22e258dd8a62441cf3b499e423c2122dfa1728c7414645fbb098",
+          "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+          "process.json": "19581fa58fbe3994e5b7a1a2402f571114fca2fa8c9dea269b3ced22036b7cc5",
+          "request.json": "48b73cf27a2629d3b0e0349a8db9fd12834ea0b3cdbfc28e0c417b0c4e00cb7b",
+          "result.json": "e7a16588633ac63dc0eff7043f1bac4f24d9d81c340385a47aa967e1cec7cd02",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "a16f96f157bbbc90787739947c2cd57f8093172d8c901e0c65b9861e4fa056fc",
+          "verified-report.json": "e7a16588633ac63dc0eff7043f1bac4f24d9d81c340385a47aa967e1cec7cd02"
+        },
+        "instrumentation": {
+          "file": "scripts/tactical_certification.gd",
+          "originalSha256": "ad52e2d1251b656a27f4024db934d3b0d130d6d1829ac1bb3462ee81b5d9daf8",
+          "instrumentedSha256": "8e2a5498abddeb77e9dae77ec2d46f66fc7a21bba44d91d6795e7f343a3a1b91",
+          "observations": [
+            {
+              "before": "\t\t\tDamage.tick_ship(copy,sub_dt,{\"inCombat\":true})",
+              "after": "\t\t\tvar qa_tick_report: Dictionary=Damage.tick_ship(copy,sub_dt,{\"inCombat\":true})"
+            },
+            {
+              "before": "\t\t\tcapabilities.append(capability(copy,init_mask))\n",
+              "after": "\t\t\tcapabilities.append(capability(copy,init_mask))\n\t\t\tprint(\"ROLLOUT_PREFIX \" + Marshalls.raw_to_base64(var_to_bytes({\"state\":copy,\"motion\":next,\"capability\":capabilities[-1],\"tickReport\":qa_tick_report,\"rng\":int(st.rng.state),\"sample\":predicted.size()-1,\"budget\":budget})))\n"
+            }
+          ]
+        },
+        "productionHashes": {
+          "scripts/damage.gd": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+          "scripts/equipment_combat.gd": "5cb626d420a82c95ab22010416184d170a442da3a10aacd57d88eff99a2a1b59",
+          "scripts/equipment_condition.gd": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+          "scripts/equipment_damage.gd": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+          "scripts/equipment_records.gd": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+          "scripts/equipment_rollout.gd": null,
+          "scripts/tactical_certification.gd": "ad52e2d1251b656a27f4024db934d3b0d130d6d1829ac1bb3462ee81b5d9daf8"
+        }
+      },
+      "new": {
+        "jobId": "0a391a1e5af2473bbbf94191ad23e01f",
+        "family": "installed30",
+        "inputSha256": "c60ffd82fcd99b0327800c3bca5162dda04ad3c5d98e2c36f20f1c566ec47691",
+        "inputs": 282,
+        "checks": 119,
+        "failures": 0,
+        "samples": 600,
+        "certificates": 10,
+        "nativeWallSeconds": 1.7810000000026776,
+        "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\0a391a1e5af2473bbbf94191ad23e01f\\attempt-001",
+        "artifactHashes": {
+          "bridge-result.json": "85414018b23a76de2822905518775c49c68f4e264da3a91c0a885316817cd185",
+          "execution.json": "d6893eb2767a690b16a94f56fb61b490367a26325fd5b93958fd95317b8d9fb3",
+          "inputs-after.json": "5415042551a4421c7f21b70d5ef1428614b5ccde2d1e8ed51cf7e7b9d6459230",
+          "inputs-before.json": "5415042551a4421c7f21b70d5ef1428614b5ccde2d1e8ed51cf7e7b9d6459230",
+          "lane.log": "cc62633b46e778b56fa9dfc45fdd41c18ea1d492cc6c02b4fa60f0e6c09bd3a4",
+          "native-receipt.json": "495caec9ce58fe289766528bf5206b362660b3bdbec59998d62c49f10d41c7ef",
+          "native.log": "eb4cda45e22c22e258dd8a62441cf3b499e423c2122dfa1728c7414645fbb098",
+          "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+          "process.json": "794b3e45839f6b6720737605ceda20dfbbccd21e610d21c295b735d2251b3b09",
+          "request.json": "c4cb3a2120ceef13c59ffedb52448d711dde72fde4f1863837b687217a4cb3e3",
+          "result.json": "f755b826e041f8d6754ab293e2030baacc4785b4375b5326bf7a872775abfad3",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "a16f96f157bbbc90787739947c2cd57f8093172d8c901e0c65b9861e4fa056fc",
+          "verified-report.json": "f755b826e041f8d6754ab293e2030baacc4785b4375b5326bf7a872775abfad3"
+        },
+        "instrumentation": {
+          "file": "scripts/equipment_rollout.gd",
+          "originalSha256": "b0e9b4b1ad4735004aa757fe441c883eea2d611944c5a0492f8e627e4d7fa26e",
+          "instrumentedSha256": "b6bc8ef90f50a609fd93c460ddb78895e9006707c5f7b93fb0db5018247003ae",
+          "observations": [
+            {
+              "before": "\t\t\tcapabilities.append(_capability_from_fields(copy,rollout_status,EquipmentCombat._canonical_capability_fields(copy,rollout_status,init_mask)) if is_canonical else capability_with_status(copy,rollout_status,init_mask))\n",
+              "after": "\t\t\tcapabilities.append(_capability_from_fields(copy,rollout_status,EquipmentCombat._canonical_capability_fields(copy,rollout_status,init_mask)) if is_canonical else capability_with_status(copy,rollout_status,init_mask))\n\t\t\tprint(\"ROLLOUT_PREFIX \" + Marshalls.raw_to_base64(var_to_bytes({\"state\":copy,\"motion\":next,\"capability\":capabilities[-1],\"tickReport\":rollout_status,\"rng\":int(st.rng.state),\"sample\":predicted.size()-1,\"budget\":budget})))\n"
+            }
+          ]
+        },
+        "productionHashes": {
+          "scripts/damage.gd": "1f35ee482f13edae20f614d228f6a42887765a5c91ea98b0436ed986f9bec19c",
+          "scripts/equipment_combat.gd": "ebf9fed89cc080e151fe7a99d619c456d8ae8e304c5e139b10a100d7b80084b3",
+          "scripts/equipment_condition.gd": "af402820ad1b79a22e9ff077323148a13006534c39b9b05e9ecd22e4b8d78e70",
+          "scripts/equipment_damage.gd": "87808d3cad92e59e213a471521f44dd19db9ac7a7212d03dce4064f152bd6588",
+          "scripts/equipment_records.gd": "6d392621229888b8ee92707e49d97623b633ac5a92234d4a4e1b3628a1b54253",
+          "scripts/equipment_rollout.gd": "b0e9b4b1ad4735004aa757fe441c883eea2d611944c5a0492f8e627e4d7fa26e",
+          "scripts/tactical_certification.gd": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49"
+        }
+      },
+      "exactCompleteLogSha256": "eb4cda45e22c22e258dd8a62441cf3b499e423c2122dfa1728c7414645fbb098",
+      "sourceChanges": [
+        "scripts/damage.gd",
+        "scripts/equipment_combat.gd",
+        "scripts/equipment_condition.gd",
+        "scripts/equipment_damage.gd",
+        "scripts/equipment_records.gd",
+        "scripts/equipment_rollout.gd",
+        "scripts/tactical_certification.gd"
+      ],
+      "rootVerdict": "All lossless actual production-prefix output bytes identical across separate old/new dependency graphs"
+    },
+    {
+      "hz": 60,
+      "old": {
+        "jobId": "5e8d6a408fff44ce993c3017228f38ff",
+        "family": "installed60",
+        "inputSha256": "e29c5284286d7998d3e9b44b57b8871d6576e84c9ec59bcae96644be8d772b87",
+        "inputs": 281,
+        "checks": 119,
+        "failures": 0,
+        "samples": 1200,
+        "certificates": 10,
+        "nativeWallSeconds": 5.9689999999973224,
+        "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\5e8d6a408fff44ce993c3017228f38ff\\attempt-001",
+        "artifactHashes": {
+          "bridge-result.json": "a61b428fcba281286b333722d9c6adfb5954f5bfdb056c8a57b5f02fc93f070a",
+          "execution.json": "3ba7867211ad02c463150eb45bb09ce71476e5c7f1e7ce49343b68ccd1cf8b5e",
+          "inputs-after.json": "0ef52cd43d140a7bae5a90d198b0846901f893061a1f88236ed975798225318d",
+          "inputs-before.json": "0ef52cd43d140a7bae5a90d198b0846901f893061a1f88236ed975798225318d",
+          "lane.log": "19bc056508658432ab1dd8a3daf31938535ba39b03a7e45e60127aa2ee2be51d",
+          "native-receipt.json": "b68c73b1eea69e57eaae997a87b7f00d0af202616e110dae4dd96ba66869e15c",
+          "native.log": "013835380a4e3f47821ffc9bf738e353831c6f6278d72ab792fe446c31ed5e49",
+          "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+          "process.json": "5392940b67a7aa9e2db6481555ef110559920dd5728337c4a394f2d624307b8a",
+          "request.json": "51bc93c308e59df3b1d97996ce121fa65557c027f724c6b5ddab5e844a574d0b",
+          "result.json": "fa873116e7e21731245b8d3d2603a71faf4011d7697039792e5bbe5862778acf",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "076fdb3316a8b7a68a36291dc9aa1c9b4a26e9a2fa47e763448639466ba60e33",
+          "verified-report.json": "fa873116e7e21731245b8d3d2603a71faf4011d7697039792e5bbe5862778acf"
+        },
+        "instrumentation": {
+          "file": "scripts/tactical_certification.gd",
+          "originalSha256": "ad52e2d1251b656a27f4024db934d3b0d130d6d1829ac1bb3462ee81b5d9daf8",
+          "instrumentedSha256": "8e2a5498abddeb77e9dae77ec2d46f66fc7a21bba44d91d6795e7f343a3a1b91",
+          "observations": [
+            {
+              "before": "\t\t\tDamage.tick_ship(copy,sub_dt,{\"inCombat\":true})",
+              "after": "\t\t\tvar qa_tick_report: Dictionary=Damage.tick_ship(copy,sub_dt,{\"inCombat\":true})"
+            },
+            {
+              "before": "\t\t\tcapabilities.append(capability(copy,init_mask))\n",
+              "after": "\t\t\tcapabilities.append(capability(copy,init_mask))\n\t\t\tprint(\"ROLLOUT_PREFIX \" + Marshalls.raw_to_base64(var_to_bytes({\"state\":copy,\"motion\":next,\"capability\":capabilities[-1],\"tickReport\":qa_tick_report,\"rng\":int(st.rng.state),\"sample\":predicted.size()-1,\"budget\":budget})))\n"
+            }
+          ]
+        },
+        "productionHashes": {
+          "scripts/damage.gd": "88694a78d3fc7f5bc7d9d6b50308578680db1c9f3431f59e6271874c218e3b7f",
+          "scripts/equipment_combat.gd": "5cb626d420a82c95ab22010416184d170a442da3a10aacd57d88eff99a2a1b59",
+          "scripts/equipment_condition.gd": "c8358f693889223aaa4a2cc7f1c9a0d060a3aef52158945e3da49db0f16225c8",
+          "scripts/equipment_damage.gd": "ed3c6efdf7e675d8f77dd4b8c016cc7621088b24e4e32969c83e9cd101703f7f",
+          "scripts/equipment_records.gd": "56d92a483c164a749f1f08428d4efd7d82942408742ac0933d3c9d4780206f08",
+          "scripts/equipment_rollout.gd": null,
+          "scripts/tactical_certification.gd": "ad52e2d1251b656a27f4024db934d3b0d130d6d1829ac1bb3462ee81b5d9daf8"
+        }
+      },
+      "new": {
+        "jobId": "ec7e822408a243bfbc4d1bbc37ce1e7c",
+        "family": "installed60",
+        "inputSha256": "c60ffd82fcd99b0327800c3bca5162dda04ad3c5d98e2c36f20f1c566ec47691",
+        "inputs": 282,
+        "checks": 119,
+        "failures": 0,
+        "samples": 1200,
+        "certificates": 10,
+        "nativeWallSeconds": 1.3910000000032596,
+        "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\ec7e822408a243bfbc4d1bbc37ce1e7c\\attempt-001",
+        "artifactHashes": {
+          "bridge-result.json": "fa559791bd0a6009ccf0f4e2acbc8bda5369791d1e2b9fee196b1a2343907a54",
+          "execution.json": "e4527adb25b2d2f2d170137e122194fa7212036d97bf73af97c26aceef538fe6",
+          "inputs-after.json": "5415042551a4421c7f21b70d5ef1428614b5ccde2d1e8ed51cf7e7b9d6459230",
+          "inputs-before.json": "5415042551a4421c7f21b70d5ef1428614b5ccde2d1e8ed51cf7e7b9d6459230",
+          "lane.log": "510da1c18467fc423e2e08dcbf58f9a7ba00806eaec6d4e0f2bb017ffce0232a",
+          "native-receipt.json": "d0521e297aaa66b678160bd5fccd81728bd2f41a2cc901c140e1ff26feb66aa4",
+          "native.log": "013835380a4e3f47821ffc9bf738e353831c6f6278d72ab792fe446c31ed5e49",
+          "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+          "process.json": "73a86a2472625c068f6390e319427e5afb940f0f4e8745ebcbfb09241929557d",
+          "request.json": "88cdca52cce107ca12701d049b65a8db84129b5bf72d9ce7dc6c9aff8c7b01b6",
+          "result.json": "d63acad7b13c5c63b0593af919889aa908f27b344ee33b281bff9a9cbdbabb50",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "076fdb3316a8b7a68a36291dc9aa1c9b4a26e9a2fa47e763448639466ba60e33",
+          "verified-report.json": "d63acad7b13c5c63b0593af919889aa908f27b344ee33b281bff9a9cbdbabb50"
+        },
+        "instrumentation": {
+          "file": "scripts/equipment_rollout.gd",
+          "originalSha256": "b0e9b4b1ad4735004aa757fe441c883eea2d611944c5a0492f8e627e4d7fa26e",
+          "instrumentedSha256": "b6bc8ef90f50a609fd93c460ddb78895e9006707c5f7b93fb0db5018247003ae",
+          "observations": [
+            {
+              "before": "\t\t\tcapabilities.append(_capability_from_fields(copy,rollout_status,EquipmentCombat._canonical_capability_fields(copy,rollout_status,init_mask)) if is_canonical else capability_with_status(copy,rollout_status,init_mask))\n",
+              "after": "\t\t\tcapabilities.append(_capability_from_fields(copy,rollout_status,EquipmentCombat._canonical_capability_fields(copy,rollout_status,init_mask)) if is_canonical else capability_with_status(copy,rollout_status,init_mask))\n\t\t\tprint(\"ROLLOUT_PREFIX \" + Marshalls.raw_to_base64(var_to_bytes({\"state\":copy,\"motion\":next,\"capability\":capabilities[-1],\"tickReport\":rollout_status,\"rng\":int(st.rng.state),\"sample\":predicted.size()-1,\"budget\":budget})))\n"
+            }
+          ]
+        },
+        "productionHashes": {
+          "scripts/damage.gd": "1f35ee482f13edae20f614d228f6a42887765a5c91ea98b0436ed986f9bec19c",
+          "scripts/equipment_combat.gd": "ebf9fed89cc080e151fe7a99d619c456d8ae8e304c5e139b10a100d7b80084b3",
+          "scripts/equipment_condition.gd": "af402820ad1b79a22e9ff077323148a13006534c39b9b05e9ecd22e4b8d78e70",
+          "scripts/equipment_damage.gd": "87808d3cad92e59e213a471521f44dd19db9ac7a7212d03dce4064f152bd6588",
+          "scripts/equipment_records.gd": "6d392621229888b8ee92707e49d97623b633ac5a92234d4a4e1b3628a1b54253",
+          "scripts/equipment_rollout.gd": "b0e9b4b1ad4735004aa757fe441c883eea2d611944c5a0492f8e627e4d7fa26e",
+          "scripts/tactical_certification.gd": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49"
+        }
+      },
+      "exactCompleteLogSha256": "013835380a4e3f47821ffc9bf738e353831c6f6278d72ab792fe446c31ed5e49",
+      "sourceChanges": [
+        "scripts/damage.gd",
+        "scripts/equipment_combat.gd",
+        "scripts/equipment_condition.gd",
+        "scripts/equipment_damage.gd",
+        "scripts/equipment_records.gd",
+        "scripts/equipment_rollout.gd",
+        "scripts/tactical_certification.gd"
+      ],
+      "rootVerdict": "All lossless actual production-prefix output bytes identical across separate old/new dependency graphs"
+    }
+  ],
+  "samplesPerGraph": 1800,
+  "certificatePairs": 20,
+  "sourceScope": [
+    "scripts/damage.gd",
+    "scripts/equipment_combat.gd",
+    "scripts/equipment_condition.gd",
+    "scripts/equipment_damage.gd",
+    "scripts/equipment_records.gd",
+    "scripts/equipment_rollout.gd",
+    "scripts/tactical_certification.gd"
+  ],
+  "verdict": "Independent production-prefix equivalence accepted for this exact seven-module kernel candidate only. Public regressions/performance/integration/release still require separate proof.",
+  "timingClaim": false,
+  "engineLaunchedByAudit": false
+}

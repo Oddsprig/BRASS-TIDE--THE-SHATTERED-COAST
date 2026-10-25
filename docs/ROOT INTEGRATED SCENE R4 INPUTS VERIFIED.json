@@ -1,0 +1,17 @@
+{
+  "game": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\integrated-equipment-scene-r4-baseline\\candidate\\game",
+  "projectFiles": 521,
+  "componentFiles": 498,
+  "componentSha256": "3903aadcfbe2a1771e061a97769b3370553f0fa8c33ef2d9cbde6f571a1b1a5b",
+  "projectSha256": "6ebd09c6df333db16421c41f14877739b89bd7afe72aee91fd7b7cf0caa6cdd4",
+  "sourceModules": 14,
+  "fixtureSha256": "4159736941c25ae84c21cfcdc2ee2bec2b723e6fc5ec9962de52c17e21d009f6",
+  "onlyChangedFile": [
+    "tests/test_equipment_lab.gd"
+  ],
+  "parentManifestSha256": "cc755d836d17ea60fa074d13e0230b638fa8d732610cae793fdd2c02fee35de3",
+  "sceneManifestSha256": "7c6a3d5ea5cde02eca2d1f2ae0e9d1067ea7f370672d83e489b13a3e212cf2f6",
+  "status": "Static source/import/external validation passed; native unrun",
+  "engineLaunched": false,
+  "mainWrites": false
+}

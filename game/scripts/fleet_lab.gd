@@ -2,6 +2,7 @@ extends RefCounted
 ## Isolated fixtures using the actual fitting, deployment and damage rules.
 const Damage=preload("res://scripts/damage.gd")
 const Refit=preload("res://scripts/refit.gd")
+const Records=preload("res://scripts/equipment_records.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const Battle=preload("res://scripts/battle.gd")
 
@@ -50,14 +51,21 @@ static func inspect(world: Dictionary,config: Dictionary) -> Dictionary:
 static func create(world: Dictionary,config: Dictionary,seed_value: int) -> Dictionary:
 	var checked: Dictionary=inspect(world,config)
 	if not checked.ok: return checked
+	var catalog: Dictionary=Refit.catalog()
+	var known_uids: Array=[]
 	var fleets: Dictionary={"player":[],"enemy":[]}
 	for team in fleets:
 		for item in config[team]:
 			var spec: Dictionary=hull(world,item.hull)
+			var fit: Dictionary=Refit.normalize(spec,item.get("loadout",{}))
+			if not fit.ok: return {"ok":false,"error":spec.name+": "+fit.message}
 			for n in range(item.count):
 				var ship: Dictionary=Damage.create_ship(spec)
 				ship.uid="lab-%s-%d"%[team,fleets[team].size()]
-				ship.loadout=item.loadout.duplicate(true)
+				ship.loadout=fit.loadout.duplicate(true)
+				var seeded: Dictionary=Records.initialize(ship,{"base":spec.duplicate(true),"loadout":ship.loadout.duplicate(true),"catalog":catalog,"identity":ship.uid,"knownUids":known_uids})
+				if not seeded.ok: return {"ok":false,"error":str(seeded.get("error","Laboratory equipment initialization failed."))}
+				known_uids.append_array(seeded.get("itemUids",[]))
 				Refit.ensure(ship,spec)
 				ship.ammo=float(ship.spec.ammoCapacity)
 				ship.fuel=120.0

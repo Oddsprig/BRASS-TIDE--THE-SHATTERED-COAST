@@ -1,0 +1,28 @@
+{
+  "status": "Root accepted exact two-line metadata contract change; native integrity unchanged",
+  "originalSha256": "400d5fb82763982c7a761cd3e91790fc035bc90c34b9a9e6947312efa39b34a0",
+  "executedSha256": "105cb166e2ee13fe95d5b6d0505c7f3be933a7b5fde63f105b2724989584af29",
+  "changedLines": [
+    61,
+    62
+  ],
+  "sameAllOtherBytes": true,
+  "engineLaunchedByRoot": false,
+  "sourceReview": "Complete current194lineadapter read; current source bindsCPU-r2 10/0 and bothRoot-audited scene gates",
+  "provenanceHashes": {
+    "adapter-exact.diff": "cf2390048fdad37447342b9816eaa2214a2c1b293e2e566a39d1646fcb4d7348",
+    "authoring-line-167.json": "78e72be955e8333b1ae645930a1c0833cf8e7694eb0a3bad6cdda5e7c3593ae7",
+    "authoring-line-253.json": "ce99f047396a7b565914fbd873b86b8a8e5298352236e927368c17cd8786ad81",
+    "authoring-line-432.json": "346f7525066dbf23685341e0cb4a34a397823b8cb2ae4ea0d160d351d91f2d06",
+    "cpu-r1-result.json": "7258f50dc5c3e5842607757b1d8512462cb78761445cce8533cb20546f4d362e",
+    "cpu-r2-result.json": "d3385b07c0c09c224fc8b9faeb9496cce80c171c8cdb7cd78b4c3f4677f74713",
+    "cpu-test-source.py": "b975bdc9a99a8cd9880750825835c9576711fe29b5ceec70a53a3b70cfee9b95",
+    "executed-105cb.py": "105cb166e2ee13fe95d5b6d0505c7f3be933a7b5fde63f105b2724989584af29",
+    "original-400d.py": "400d5fb82763982c7a761cd3e91790fc035bc90c34b9a9e6947312efa39b34a0",
+    "provenance.json": "75ce76ed7a06805fe1d58ec9eb573965c70c28e03ae053249aa35cc8c2173f98",
+    "REPORT.txt": "54661e2984a68de717f70b149b35d348f446f442a2171b7cbbe79cc8bf362b9f",
+    "root-r3-proof.json": "323f63c7a3838df306c06aa8ff46365fcf6974faacfe3ede47ec9af673bb6832",
+    "support-plan-original.json": "fe4dfdb5399c4e4fb566af90adcda9336fa4fd104a6022eae865e504b80d0494"
+  },
+  "rootCheckerNote": "First ad-hoc equality assertion guessed replacement error wording and failed; exact194line diff then read; corrected exact line comparisons above passed. Noengine orproduction change."
+}

@@ -1,0 +1,23 @@
+BRASS TIDE - ROOT PRIVATE KERNEL PREFIX REVIEW
+25 October2026 | Independent source/simulation gate, no performance acceptance
+
+Root rehashed all4nativejobs,281/282isolatedinputs,engine/tools/rawlogs/bridge
+reports andsharedlane records. Eachjob119/0, ownedchildrenexited, no timeout,
+input/toolchanges or competingengine observed. Hidden/headless/Dummy/synthetic.
+
+Both original/fullad52 graph and new7module graph retain separate res:// roots.
+Root recoveredcompressed originalsource, replayedall test-onlyinstrumentation,
+reversed it to exactoriginalbytes and confirmed ALLoldruntime/data/config files
+match frozenoriginal. ONLYapproved7production modules differ; sameprobe file.
+Root decoded1800typedactualprefixpayloads pergraph with ordered60/120substeps,
+budgetcounters, full ship/motion/damage/capability/RNG state.20certpairs match.
+Complete original/new native logs are byte-identical separately at30and60Hz.
+No same-changed-dependency reference was used. Raw hashes and original/inserted
+source observations are in ROOT PRIVATE KERNEL PREFIX VERIFIED.json.
+
+Accept this exactkernel's independentproduction-prefix equivalence only.
+Shared public/legacy regressions, actual battle families, sustained fullfleet
+CPU, rendered/listening and clean031Windows release remain separate gates.
+Native source is frozen under task/frozen-private-kernel-r1; noMain integration,
+newversion/tag/export/launcher/publication or ownerfile changes are claimed.
+Sol remains sole native submitter via mandatoryshared GameTestBridge lane.

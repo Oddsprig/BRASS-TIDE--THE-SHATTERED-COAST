@@ -1,0 +1,59 @@
+{
+  "status": "Root approved ONE bounded canonical tactical40 capacity observation; not full capacity acceptance",
+  "engineLaunchedByRoot": false,
+  "inputCount": 288,
+  "inputSha256": "19f513e7cddb668f9c8ef9f3b32390e4504a3a3a6646b108178bcad9d3aca7eb",
+  "sourceProof": {
+    "verified": true,
+    "probePath": "tests/probe_equipment_capacity.gd",
+    "probeSha256": "f7074c8cbd1705e792e4de6d2552af9a9d46f4cc3368321c51fa4c91b9fb4eb0",
+    "configPath": "tests/tactical_scenarios.json",
+    "configSha256": "b6b63aa25a17383d7f1baeabb0da18a4c1ad552af7dde55285216087140ccb5e",
+    "rejectedPrototypeAbsent": true,
+    "markersVerified": [
+      "const Records=preload(\"res://scripts/equipment_records.gd\")",
+      "const EquipmentDamage=preload(\"res://scripts/equipment_damage.gd\")",
+      "Records.initialize(ship,",
+      "EquipmentDamage.is_canonical_owner(ship)",
+      "canonical_refused"
+    ],
+    "runtime14Sha256": {
+      "scripts/damage.gd": "1f35ee482f13edae20f614d228f6a42887765a5c91ea98b0436ed986f9bec19c",
+      "scripts/equipment_combat.gd": "ebf9fed89cc080e151fe7a99d619c456d8ae8e304c5e139b10a100d7b80084b3",
+      "scripts/equipment_condition.gd": "af402820ad1b79a22e9ff077323148a13006534c39b9b05e9ecd22e4b8d78e70",
+      "scripts/equipment_damage.gd": "87808d3cad92e59e213a471521f44dd19db9ac7a7212d03dce4064f152bd6588",
+      "scripts/equipment_records.gd": "6d392621229888b8ee92707e49d97623b633ac5a92234d4a4e1b3628a1b54253",
+      "scripts/equipment_rollout.gd": "b0e9b4b1ad4735004aa757fe441c883eea2d611944c5a0492f8e627e4d7fa26e",
+      "scripts/tactical_certification.gd": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49",
+      "scripts/battle.gd": "3175deafbb93d62d877096032b3e5e9e87dbb8e555964d471cc6fa31a506fa29",
+      "scripts/tactical_runtime.gd": "b5d0d4ff39e0c16df8f796aa2af4875801e53e940039f5821237e510d2cbefb5",
+      "scripts/tactical_fire_control.gd": "ef98eccc50c544e28e919ef827c6d4cb3cccbd7540feaab6682a72cea4491023",
+      "scripts/salvage.gd": "03efbbdbce329f5df92429da75d5d4e34dd40490fc021c91c2c443c301ef8748",
+      "scripts/equipment_lifecycle.gd": "60bf8f7a4a933c7161282bfed026d1f61f60ae66be9cf69147cc338d78d400a4",
+      "scripts/equipment_tow.gd": "1957e7bc765f36fcc69c253dde56a316be96e84b9dac1ed94c3c662691089bb5",
+      "scripts/fleet_lab.gd": "bc080dfb51c3c136d221299f76e7e8742a51c7aedaedfd45c491a6f094b98f49"
+    }
+  },
+  "toolHashes": {
+    "run_testbridge_capacity_prefix.py": "49e64b80a1af759f954b257fc175cbef6dec7712b385d09fc92a7f4fb941c93b",
+    "capacity_prefix_report.py": "56ce147e7e8bcc419d470c45858aa65012481bf5a15f87d4a8363e49cf255747",
+    "test_capacity_prefix_report.py": "441d398209700452afd6c33ad4d37c9db52124c849071aa28a349892ba0f0d87"
+  },
+  "rootCpuTests": {
+    "tests": 11,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 0.269,
+    "engineLaunched": false,
+    "previousTemporaryDirectorySetupErrorsRemainHistorical": true
+  },
+  "nativeRequest": {
+    "profile": "tactical_40",
+    "window": 0,
+    "windows": 1,
+    "remaining": 1800,
+    "timeout": 60
+  },
+  "capacityAccepted": false,
+  "nativeOwner": "existing QA Sol Bridge project only"
+}

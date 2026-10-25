@@ -6,6 +6,7 @@ const Routes=preload("res://scripts/tactical_routes.gd")
 const Certification=preload("res://scripts/tactical_certification.gd")
 const Fire=preload("res://scripts/tactical_fire_control.gd")
 const Damage=preload("res://scripts/damage.gd")
+const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 
 static func defaults() -> Dictionary:
 	return {"doctrine":"steady","role":"auto","group":0,"formation":"line","protectedAllyId":"","rally":{},"leash":600.0,"conditionalWithdrawal":false,"mounts":{}}
@@ -20,11 +21,25 @@ static func ensure(st: Dictionary) -> Dictionary:
 static func register(st: Dictionary,ship: Dictionary,mounts: Array) -> void:
 	var t: Dictionary=ensure(st)
 	var id: String=str(ship.id)
-	t.mountCache[id]={"source":ship.spec.get("weaponMounts",ship.spec).duplicate(true),"mounts":mounts.duplicate(true)}
+	var base_mounts: Array=mounts.duplicate(true)
+	t.mountCache[id]={"source":ship.spec.get("weaponMounts",ship.spec).duplicate(true),"baseMounts":base_mounts,"conditionKey":EquipmentCombat.mount_cache_key(ship),"mounts":EquipmentCombat.apply_mount_condition(ship,base_mounts)}
 	if not t.options.byId.has(id):t.options.byId[id]=defaults()
 	if not t.home.has(id):t.home[id]={"x":clampf(float(ship.x)+( -260.0 if ship.team=="player" else 260.0),50.0,2250.0),"y":clampf(float(ship.y),50.0,1650.0)}
 	if not ship.has("orderRevision"):ship.orderRevision=0
 	if not t.orderTimes.has(id):t.orderTimes[id]=float(st.time)
+
+static func refresh_mounts(st: Dictionary,ship: Dictionary) -> Array:
+	var t: Dictionary=ensure(st)
+	var id: String=str(ship.id)
+	if not t.mountCache.has(id):return []
+	var entry: Dictionary=t.mountCache[id]
+	var cond_key: String=EquipmentCombat.mount_cache_key(ship)
+	if str(entry.get("conditionKey",""))!=cond_key:
+		var base_mounts: Array=entry.get("baseMounts",entry.get("mounts",[]))
+		entry.conditionKey=cond_key
+		entry.mounts=EquipmentCombat.apply_mount_condition(ship,base_mounts)
+		t.mountCache[id]=entry
+	return entry.mounts
 
 static func accept_command(st: Dictionary,ship: Dictionary,order: String,target: Dictionary={},automatic: bool=false) -> void:
 	var t: Dictionary=ensure(st)
@@ -302,7 +317,8 @@ static func safety_check(st: Dictionary,ship: Dictionary) -> void:
 	var now: float=float(st.time)
 	var previous: Dictionary=t.safety.get(id,{})
 	var age: float=now-float(t.lastSafety.get(id,0.0))
-	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-0.01)
+	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,previous)
+	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-0.01 or equip_abrupt)
 	if age<0.1-0.000001 and not abrupt and not previous.is_empty():return
 	var status: Dictionary=Damage.get_status(ship)
 	var opts: Dictionary=t.options.byId.get(id,defaults())
@@ -313,7 +329,10 @@ static func safety_check(st: Dictionary,ship: Dictionary) -> void:
 	var sinking: bool=net>0.0 and (float(ship.capacity)-float(ship.water))/net<8.0
 	var danger: bool=float(ship.hp)/maxf(1.0,float(ship.maxHp))<=hp_limit or float(ship.water)/maxf(1.0,float(ship.capacity))>=flood_limit or float(ship.fire)>=25.0 or sinking
 	var allowed: bool=str(ship.get("order","engage"))=="engage" or bool(opts.conditionalWithdrawal)
-	t.safety[id]={"checkedAt":now,"hp":float(ship.hp),"crew":float(ship.crew),"engine":float(ship.engine),"water":float(ship.water),"netFlood":net,"danger":danger,"withdraw":danger and allowed,"speedFactor":float(status.speedFactor)}
+	var equip_mask: float=EquipmentCombat.working_mask(ship,status)
+	var prio_code: float=EquipmentCombat.priority_code(status)
+	var discrete_equip: bool=not previous.is_empty() and ((previous.has("equipMask") and absf(equip_mask-float(previous.get("equipMask",equip_mask)))>0.001) or (previous.has("repairPriorityCode") and absf(prio_code-float(previous.get("repairPriorityCode",prio_code)))>0.001))
+	t.safety[id]={"checkedAt":now,"hp":float(ship.hp),"crew":float(ship.crew),"engine":float(ship.engine),"water":float(ship.water),"netFlood":net,"danger":danger,"withdraw":danger and allowed,"speedFactor":float(status.speedFactor),"equipMask":equip_mask,"repairPriorityCode":prio_code,"moduleHpSum":EquipmentCombat.module_hp_sum(ship)}
 	t.lastSafety[id]=now;t.metrics.safetyAges.append(age)
 	t.counters.oldestSafetyAge=maxf(float(t.counters.oldestSafetyAge),age)
 	if age>0.1+0.000001:t.counters.lateSafety+=1
@@ -323,6 +342,9 @@ static func safety_check(st: Dictionary,ship: Dictionary) -> void:
 		t.intents.erase(id);t.certificationAttempts[id]=-2.0
 		if not t.pending.has(id):t.pending[id]=now
 		t.reasons[id]="Fire or flooding danger; seeking a safe local rally"
+	elif discrete_equip and id!=str(t.manualId):
+		t.certificationAttempts[id]=-2.0
+		if not t.pending.has(id):t.pending[id]=now
 
 static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidate: Dictionary) -> String:
 	# Reject a known swept conflict BEFORE the one physical rollout. A still
@@ -354,7 +376,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		var id: String=str(ship.id)
 		t.ships[id]=ship
 		_order_lifetime(st,ship)
-		t.observed[id]=_observed(ship,t.mountCache[id].mounts)
+		t.observed[id]=_observed(ship,refresh_mounts(st,ship))
 	_prune(t,t.ships,float(st.time))
 	t.cells=Routes.grid(t.observed.values())
 	var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
@@ -648,12 +670,15 @@ static func status(st: Dictionary,id: String) -> Dictionary:
 		else:reason=str(checked.reason)
 	var target: Dictionary=_live(st,str(intent.get("targetId","")))
 	var weapons: Dictionary=t.fireReasons.get(id,{}).duplicate(true)
-	var mounts: Array=t.mountCache.get(id,{}).get("mounts",[])
+	var mounts: Array=refresh_mounts(st,ship)
 	for index in range(mounts.size()):
 		var mount: Dictionary=mounts[index]
 		var mount_id: String=str(mount.id)
 		if manual:
-			weapons[mount_id]="Out of ammunition" if float(ship.ammo)<float(mount.ammoCost) else ("Reloading" if index<ship.weaponCooldowns.size() and float(ship.weaponCooldowns[index])>0.0 else "Manual aim and trigger")
+			if EquipmentCombat.mount_factor(ship,mount,index)<=0.01 or float(mount.get("damage",1.0))<=0.0:
+				weapons[mount_id]="Weapon disabled"
+			else:
+				weapons[mount_id]="Out of ammunition" if float(ship.ammo)<float(mount.ammoCost) else ("Reloading" if index<ship.weaponCooldowns.size() and float(ship.weaponCooldowns[index])>0.0 else "Manual aim and trigger")
 		else:weapons[mount_id]=player_reason(str(weapons.get(mount_id,"Waiting for a firing opportunity")))
 	return {"order":str(ship.order),"reason":"Manual helm and fire; queued order suspended" if manual else player_reason(reason),"role":str(intent.get("role",t.options.byId.get(id,defaults()).role)),"phase":str(intent.get("phase","")),"targetName":str(target.get("name","")),"path":paths,"exit":exits,"weapons":weapons,"options":t.options.byId.get(id,defaults()).duplicate(true),"mounts":mounts.duplicate(true)}
 

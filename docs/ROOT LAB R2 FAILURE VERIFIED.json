@@ -1,0 +1,32 @@
+{
+  "jobId": "ef522203af4c4871b8d76f3b9d4d9499",
+  "suite": "equipment_lab",
+  "family": "",
+  "outcome": "failed",
+  "checks": 99,
+  "failures": 1,
+  "inputSha256": "bd9e673e50e1a40af35d211c21cd42a68a2b30fe4a89fe30e51ab0a3c5ed4f71",
+  "inputCount": 286,
+  "nativeWallSeconds": 6.547000000005937,
+  "timeout": false,
+  "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\ef522203af4c4871b8d76f3b9d4d9499\\attempt-001",
+  "errors": [
+    "ERROR: EQUIPMENT LAB TEST FAIL: sandbox battles never mutate world hull or equipment catalogues"
+  ],
+  "artifactHashes": {
+    "bridge-result.json": "79913897e1889fd87ea61a9b0def686fa0b8c370b2219d41366bee723376c058",
+    "execution.json": "ba2a9b5a98a2121a47f4f5d43e404b298dccbcc1ad46fe5b91b2a56a674768ed",
+    "inputs-after.json": "141c3809d2f1c295c4c11a5b2c32d6fd74bec9e1836e580fcc13c9462ed75e0b",
+    "inputs-before.json": "141c3809d2f1c295c4c11a5b2c32d6fd74bec9e1836e580fcc13c9462ed75e0b",
+    "lane.log": "01e64ffff5437f9f20b2ba935a2a940e33ab053c575a0d9c90371a9dab51e8b9",
+    "native-receipt.json": "32075e0680370f1cdb6a8fcb08c037985eaa4d55cddebcf08da5da42f3095d92",
+    "native.log": "bf033cf53ac4197bd25337cbf5b615592b2d5fb2a70e11c110a1858eb04c7796",
+    "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+    "process.json": "14ec9678a96f1dcb0091f94284916ed626a3ed4865fd1ed870127040be7b4dd2",
+    "request.json": "938e689295d9cebeb5491da78fb6c9ecb04585c43874522b13aaac99bde3680d",
+    "result.json": "8fd21a35b04becf6363d81d1e7c7bbc05ef8b98d283e9954907cffefa6b837bc",
+    "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.log": "2f3644aaff3a7455ae68bc24dda972271ad3d02e00c8e445d9382bade587b90c",
+    "verified-report.json": "8fd21a35b04becf6363d81d1e7c7bbc05ef8b98d283e9954907cffefa6b837bc"
+  }
+}

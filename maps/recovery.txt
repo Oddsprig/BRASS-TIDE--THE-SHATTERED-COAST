@@ -3,19 +3,19 @@ BRASS TIDE — RECOVERY MAP (generated; v0.030)
 Actual destroyed hulls/site provenance -> persistent finite wrecks, selectable lots, paid tow and recovered blueprints.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/salvage.gd: 21900 bytes; extends RefCounted
-  game/scripts/salvage.gd:107 ensure()
-  game/scripts/salvage.gd:135 find_wreck()
-  game/scripts/salvage.gd:208 record_battle()
-  game/scripts/salvage.gd:260 seed_site_wreck()
-  game/scripts/salvage.gd:295 nearby()
-  game/scripts/salvage.gd:357 quote()
-  game/scripts/salvage.gd:420 recover()
-  game/scripts/salvage.gd:477 strip_good()
-  game/scripts/salvage.gd:29 _is_num()
-  game/scripts/salvage.gd:33 _num()
-  game/scripts/salvage.gd:37 _round2()
-  game/scripts/salvage.gd:41 _position_xy()
+game/scripts/salvage.gd: 34005 bytes; extends RefCounted
+  game/scripts/salvage.gd:119 ensure()
+  game/scripts/salvage.gd:147 find_wreck()
+  game/scripts/salvage.gd:277 record_battle()
+  game/scripts/salvage.gd:349 seed_site_wreck()
+  game/scripts/salvage.gd:384 nearby()
+  game/scripts/salvage.gd:460 quote()
+  game/scripts/salvage.gd:522 recover()
+  game/scripts/salvage.gd:758 strip_good()
+  game/scripts/salvage.gd:39 _is_num()
+  game/scripts/salvage.gd:43 _num()
+  game/scripts/salvage.gd:47 _round2()
+  game/scripts/salvage.gd:51 _position_xy()
 game/scripts/recovery_ui.gd: 3799 bytes; extends RefCounted
   game/scripts/recovery_ui.gd:3 open()
   game/scripts/recovery_ui.gd:41 recover()

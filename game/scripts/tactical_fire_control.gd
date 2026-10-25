@@ -2,6 +2,7 @@ extends RefCounted
 ## Current physical solutions and battle-local, persistent salvo spending.
 const Routes=preload("res://scripts/tactical_routes.gd")
 const Damage=preload("res://scripts/damage.gd")
+const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 
 static func fixed(mount: Dictionary) -> bool:
 	return str(mount.kind) in ["rocket","torpedo"] and float(mount.arc)<PI*0.75
@@ -52,7 +53,9 @@ static func solution(st: Dictionary,ship: Dictionary,mount: Dictionary,target: D
 	if check_stores:
 		if not ignore_projectile_cap and st.get("projectiles",[]).size()>=400:return {"ok":false,"reason":"Waiting for a clear firing cycle"}
 		if float(ship.ammo)<float(mount.ammoCost):return {"ok":false,"reason":"Out of ammunition"}
-		if Damage.get_status(ship).weaponFactor<=0.01:return {"ok":false,"reason":"Guns need working crew"}
+		var status: Dictionary=EquipmentCombat.status_of(ship)
+		if not bool(status.get("equipmentOk",true)) or EquipmentCombat.mount_factor(ship,mount,int(mount.get("mountIndex",0)),status)<=0.01 or float(mount.get("damage",1.0))<=0.0:return {"ok":false,"reason":"Weapon disabled"}
+		if status.weaponFactor<=0.01:return {"ok":false,"reason":"Guns need working crew"}
 	var shot: Dictionary=intercept(ship,mount,target)
 	if not shot.ok:return shot
 	var clear: String=Routes.sweep(geometry,shot.origin,shot.muzzle,float(shot.radius),budget)
@@ -80,6 +83,7 @@ static func gate(st: Dictionary,ship: Dictionary,mount: Dictionary,index: int,in
 	var t: Dictionary=st.tactical
 	var id: String=str(ship.id)
 	var mount_id: String=str(mount.id)
+	if EquipmentCombat.mount_factor(ship,mount,index)<=0.01 or float(mount.get("damage",1.0))<=0.0:return {"ok":false,"reason":"Weapon disabled"}
 	var plan: Dictionary=intent.get("fireGate",{}).get(mount_id,{})
 	var reason: String=str(plan.get("reason","Waiting for a firing opportunity"))
 	if plan.is_empty() or not plan.get("permit",false) or float(intent.get("validUntil",-1.0))<float(st.time):return {"ok":false,"reason":reason}

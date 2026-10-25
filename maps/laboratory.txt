@@ -3,14 +3,14 @@ BRASS TIDE — LABORATORY MAP (generated; v0.030)
 Title builder -> isolated normal300point battle, seeded replay/results and opt-in developer metrics.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/fleet_lab.gd: 4176 bytes; extends RefCounted
-  game/scripts/fleet_lab.gd:8 hull()
-  game/scripts/fleet_lab.gd:13 entry()
-  game/scripts/fleet_lab.gd:16 presets()
-  game/scripts/fleet_lab.gd:19 preset()
-  game/scripts/fleet_lab.gd:30 inspect()
-  game/scripts/fleet_lab.gd:50 create()
-  game/scripts/fleet_lab.gd:71 configure_formation()
+game/scripts/fleet_lab.gd: 4809 bytes; extends RefCounted
+  game/scripts/fleet_lab.gd:9 hull()
+  game/scripts/fleet_lab.gd:14 entry()
+  game/scripts/fleet_lab.gd:17 presets()
+  game/scripts/fleet_lab.gd:20 preset()
+  game/scripts/fleet_lab.gd:31 inspect()
+  game/scripts/fleet_lab.gd:51 create()
+  game/scripts/fleet_lab.gd:79 configure_formation()
 game/scripts/lab_ui.gd: 7474 bytes; extends RefCounted
   game/scripts/lab_ui.gd:6 picker()
   game/scripts/lab_ui.gd:18 open()

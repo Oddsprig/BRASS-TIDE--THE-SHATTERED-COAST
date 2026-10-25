@@ -126,7 +126,9 @@ static func _installed_uid_at(condition: Dictionary, location: String) -> String
 	return ""
 
 static func status_for(boat: Dictionary, able: float, area: float, inflow: float, weights: Array) -> Dictionary:
-	var info: Dictionary = inspect_owner(boat)
+	return _status_from_info(boat, able, area, inflow, weights, inspect_owner(boat))
+
+static func _status_from_info(boat: Dictionary, able: float, area: float, inflow: float, weights: Array, info: Dictionary) -> Dictionary:
 	var mode: String = str(info.get("mode", "invalid"))
 	if mode == "invalid":
 		return {
@@ -527,7 +529,12 @@ static func apply_hit_equipment(boat: Dictionary, hit: Dictionary, impact: float
 	}
 
 static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, options: Dictionary = {}) -> Dictionary:
-	var info: Dictionary = inspect_owner(boat)
+	return _repair_step_from_info(boat, h, crew_repair, options, inspect_owner(boat), Core.repair_installed, Core.apply_component_damage, Records.publish)
+
+static func _tick_repair_numeric(boat: Dictionary, h: float, crew_repair: float, options: Dictionary = {}) -> Dictionary:
+	return _repair_step_from_info(boat, h, crew_repair, options, _numeric_info(boat), Core._repair_installed_numeric, Core._apply_component_damage_numeric, Records._publish_numeric)
+
+static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, repair_parts: Callable, damage_part: Callable, publish: Callable) -> Dictionary:
 	if not info.ok or str(info.mode) != "canonical":
 		return _fail(str(info.get("error", "Equipment condition is not initialized.")))
 	h = maxf(0.0, number(h))
@@ -588,7 +595,7 @@ static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, opt
 			if work_left > Core.EPS and supplies_left > Core.EPS:
 				var hp_per_work: float = MODULE_HP_PER_CREW_SEC * repair_mult
 				var mach_priority: String = "auto" if priority == "hull" else priority
-				var mod_res: Dictionary = Core.repair_installed(boat.moduleCondition, {
+				var mod_res: Dictionary = repair_parts.call(boat.moduleCondition, {
 					"work": work_left,
 					"supplies": supplies_left,
 					"hpPerWork": hp_per_work,
@@ -637,7 +644,7 @@ static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, opt
 		var eng_uid: String = _installed_uid_at(boat.moduleCondition, "engine")
 		if not eng_uid.is_empty():
 			var fire_eng_loss: float = avg_fire * FIRE_ENGINE_LOSS_PER_SEC * h
-			var fire_dmg: Dictionary = Core.apply_component_damage(boat.moduleCondition, {
+			var fire_dmg: Dictionary = damage_part.call(boat.moduleCondition, {
 				"itemUid": eng_uid,
 				"loss": fire_eng_loss,
 				"cause": "Fire aboard"
@@ -645,7 +652,7 @@ static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, opt
 			if not fire_dmg.ok:
 				return fire_dmg
 
-	var published: Dictionary = Records.publish(boat)
+	var published: Dictionary = publish.call(boat)
 	if not published.ok:
 		return published
 
@@ -664,3 +671,10 @@ static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, opt
 		"suppressedFire": suppressed_fire,
 		"moduleChanges": module_changes
 	}
+
+static func _numeric_info(boat: Dictionary) -> Dictionary:
+	# Only the closed private prefix may call this after strict owner validation.
+	var snap: Dictionary = Records._snapshot_numeric(boat)
+	if not snap.ok:
+		return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": str(snap.get("error", "Invalid numerical equipment state."))}
+	return {"ok": true, "mode": "canonical", "needsInitialize": false, "snapshot": snap}

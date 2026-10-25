@@ -3,13 +3,13 @@ BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.030)
 Constructors and saved careers -> immutable physical births, global custody checks and preserved equipment on capture. Multiple prizes stage without duplicate custody; source payload cannot forge condition or increase an actual donor hull's HP. Harbor merges paid service, commission journal compatibility and lifecycle purchases.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/equipment_lifecycle.gd: 18177 bytes; extends RefCounted
-  game/scripts/equipment_lifecycle.gd:210 stage_birth()
-  game/scripts/equipment_lifecycle.gd:291 materialize()
-  game/scripts/equipment_lifecycle.gd:312 retain_wrecks()
-  game/scripts/equipment_lifecycle.gd:323 rehearse_captures()
-  game/scripts/equipment_lifecycle.gd:410 install_legacy()
-  game/scripts/equipment_lifecycle.gd:18 _fail()
+game/scripts/equipment_lifecycle.gd: 24648 bytes; extends RefCounted
+  game/scripts/equipment_lifecycle.gd:127 tow_contract()
+  game/scripts/equipment_lifecycle.gd:150 next_hull_uid()
+  game/scripts/equipment_lifecycle.gd:170 stage_legacy_recovery()
+  game/scripts/equipment_lifecycle.gd:332 stage_birth()
+  game/scripts/equipment_lifecycle.gd:419 materialize()
+  game/scripts/equipment_lifecycle.gd:440 retain_wrecks()
 game/scripts/equipment_campaign.gd: 20453 bytes; extends RefCounted
   game/scripts/equipment_campaign.gd:85 prepare_state()
   game/scripts/equipment_campaign.gd:96 check_state()
@@ -61,6 +61,6 @@ game/scripts/boarding_ops.gd: 9677 bytes; extends RefCounted
   game/scripts/boarding_ops.gd:32 message()
 
 TESTS (game/tests/*.gd)
-Custody75/7 before to75/0 after; commission/repair204/9 before to204/0 after. Merged life75/UI167/save89/naval227/service204/NPC140/campaigncoins458 all pass. Final-fitting order-stat refresh purity24/0. Exact evidence: docs/ROOT COMBINED EQUIPMENT VERIFICATION. Live salvage/combat and CPU remain pending.
+Custody75/7 before to75/0 after; commission/repair204/9 before to204/0 after. Merged life75/UI167/save89/naval227/service204/NPC140/campaigncoins458 all pass. Final-fitting order-stat refresh purity24/0. Exact evidence: docs/ROOT COMBINED EQUIPMENT VERIFICATION. Working live/tow union has Lab99/0, equipment voyage67/0 and salvage voyage14/0; remaining integration and capacity gates stay open.
 
 Full symbols: rg -n '^func |^static func ' on named files.

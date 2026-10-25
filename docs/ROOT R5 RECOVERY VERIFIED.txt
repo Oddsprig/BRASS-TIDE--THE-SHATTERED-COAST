@@ -1,0 +1,16 @@
+ROOT R5 PURE RECOVERY COMPONENT - VERIFIED
+386 recovery,36 strip custody and70 unchanged salvage checks, zero failures.
+Root rehashed each exact282-input frozen graph, native log, engine, runner,
+receipt, required reports and shared-lane lifecycle. No Root engine execution.
+The first recovery attempt produced no native result and remains incomplete;
+read-only inspection found its recorded PID absent before the one fresh retry.
+No failure was rewritten as a pass. Exact job IDs/hashes are in the JSON proof.
+
+Known wreck parts retain their IDs and condition. Legacy/site recoveries stage
+disabled machinery before payment,35% fitted hull, zero crew and stores. Actual
+SaveValidation/Campaign.restore retain condition and support role. Real paid
+repair restores the same parts; the player can then return the boat to combat.
+Store-only stripping retains active hardware custody and later paid tow.
+
+This accepts the pure component only. The separate private kernel/live battle
+union, full scene flows, canonical40/42 performance and Windows release are open.

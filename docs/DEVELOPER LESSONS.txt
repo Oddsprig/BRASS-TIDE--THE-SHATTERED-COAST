@@ -160,3 +160,30 @@ for atomicity and control the old comparator before blaming a read-only operatio
   two caps serve different callers. Equipment custody preflight is not a ledger
   validator. Canonical and legacy tow must both refuse before spending on bad
   history; exact historical commissioning summaries remain supported.
+
+25 OCTOBER2026 - EXACT PROOF AND FIXTURE BOUNDARIES
+- Kernel R1 independent proof is four119/0 jobs. The earlier4976/9836/161
+  counts belong to status reuse86665a only. Identify graph, fixture and review
+  time; keep failed historical reviews and later corrections as separate proof.
+- Pure R5 recovery386/strip36/salvage70 all pass; original e864 has no native
+  count. PID absence is an inspection result, not proof of its cleanup cause.
+  Preserve pre-read inspector syntax failures; do not relabel them as native tests.
+- apply_component_damage takes (condition, request Dictionary), with itemUid,
+  loss and cause. Four positional arguments do not compile. Use actual ok
+  status/forward input and isolate supplies when testing disabled machinery.
+- Extend the actual capacity probe minimally. Missing invented preloads, wrong
+  Battle.update arity or changed config/protocol invalidate an unrun prototype.
+  Seed and verify canonical boats before timing; legacy timings cannot stand in.
+- Pure Lab, full scene/assets/imports, UI flow, canonical40/42 CPU, held-out,
+  rendered/listening and Windows release are separate gates. Locker-part cargo
+  mass remains unimplemented and outside the accepted component proofs.
+- Host calls are intermittent while Bridge controls answer. Stop stalled retries;
+  use only an authorized supported source fallback, never an approval bypass.
+  Never run/recreate checkpoint_current_work.py or an UNKNOWN signature-fix script.
+
+25 OCTOBER - SCENE BASELINES AND QUEUED EVIDENCE
+- Campaign construction quotes mutate world hull prices during initialization.
+  Snapshot catalogue isolation after career setup and before Lab calls.
+- Bind scenes to source, import products and external font/music file hashes.
+- Queued/interrupted jobs are not passes. One capacity prefix remains data only;
+  never pad terminal ticks or missing samples into full-profile acceptance.

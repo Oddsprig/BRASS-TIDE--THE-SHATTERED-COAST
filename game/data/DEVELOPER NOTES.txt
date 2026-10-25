@@ -1,33 +1,49 @@
-BRASS TIDE - WORKING SOURCE NOTES
-25 October2026 | Continuing toward v0.031, no new accepted playable build
+BRASS TIDE - WORKING INTEGRATION CANDIDATE TOWARD v0.031
+2026-10-25T12:36:02.621233+00:00
 
-24 original boats, interchangeable physical mount IDs/positions/arcs, numerical
-crew, default flagship autopilot, WASD camera and300 battle points per side.
-Finite people/materials/coins;100coins per sailor-day. Cheap2D water retained.
-Portable030 is its preserved UNTESTED artifact; verified029 fallback is intact.
+Main contains the exact fourteen runtime modules and six fixtures from the
+Root-reviewed R4 union. All Main runtime/test .gd bytes match that frozen stage.
+No .031 release/tag/export/launcher update is accepted. .030/tag7492fb7 remains
+preserved UNTESTED; verified .029/44e2a46 remains available. Still 24 boats.
 
-Canonical equipment births/save migration/custody, actual condition in refits,
-paid Harbor/NPC/company repairs and UI are integrated into working source.
-Merged evidence: lifecycle75,UI167,save89,NavalAI227,player-service204,NPC140,
-original full campaign-coins458 checks all pass. Final-stat refresh purity24.
-Parts retain exact identity/damage; labor/material/coin costs and stores remain.
+COMBINED NATIVE PROOF
+Lab99/0 (914827db), equipment voyage67/0 (bc4ededb), salvage voyage14/0 (12ffd6b1).
+Source/cache/font/music inputs, tools and engine remained stable; synthetic
+profiles and exited owned children were checked independently. Damaged parts,
+identities, finite crew repairs and wreck custody survive the voyage/save/load.
+The earlier Lab99/1 snapshot preceded Campaign construction-price initialization.
+Moving only the snapshot after career setup preserved all99 original assertions;
+previous failures and original bytes remain preserved.
 
-Live battle wiring remains an isolated candidate. Weapon/ammo checks27/0 pass;
-corrected meaningful AIrange-switch checks16/0 now pass; original16/1 retained.
-Private prediction reuse matches1800lossless substeps and20certificatepairs.
-The same91tick weapon scenario fell from38.812s to27.110s (onecomparison30.15%).
-Still too slow for large battles; sharedprivate numerical kernel is being built,
-with publicvalidation preserved and separate frozen old/new state proof required.
-Physical towR1 preserves original parts/loadout and fitted35%HP at paid recovery;
-it is unrun and under review. No integrated031/performance/quality claim.
+OPEN AND QUEUED
+Combined panel49/0 (34035045) and NPC service140/0 (df9b1e6a) completed.
+The wrong campaign fixture (28fd2027) failed619/17; it assumes new careers are
+legacy/unseeded. Those failures are preserved and are not save89 evidence.
+Actual equipment_ui_integration167 (92b5a220) and save_validation89 (721d50f4)
+are queued with unchanged fixtures. Player service has one controlled retry
+authorized after independent confirmation of all13 old PIDs absent.
+Player service2dc8ea9e ended incomplete with no native log/count; ownership/PID
+audit confirms all13 recorded PIDs absent. Coins535e00cf yielded to another game and was queued again.
+Canonical forty-boat prefix70834bb3 remains queued; its11 CPU adapter checks pass,
+but fleet timing/capacity is unverified. Original150
+warmup/180-window/1800-profile protocol remains. Full40/42 timing, held-out AI,
+remaining .030 regressions, motion/listening and clean Windows proof stay open.
+Locker cargo mass and physical convoy exits are future .032 source work.
 
-Same three Bridge helpers: Sol6.1Max,Grok4.7,Google4ArgonHigh. Sol alone submits
-native tests through shared Game Test Bridge. Existing Godot/Unity apps and
-leases have priority; no input/focus, foreground tests or owner-save changes.
-Headless/Dummy/synthetic tests stay bounded. A queued/interrupted test is not a
-pass. Notes and raw evidence are kept in current BUILD STATUS/VERIFICATION INDEX
-and ROOT COMBINED EQUIPMENT VERIFICATION / ROOT LIVE FAMILY BASELINES VERIFIED.
-More civilian designs and032-.038 remain future versions, each built on the last.
+EXACT PROOF
+docs/MAIN EQUIPMENT INTEGRATION CANDIDATE.json lists all20 copied file hashes.
+ROOT LAB R3 VERIFIED.json and ROOT SCENE VOYAGES VERIFIED.json bind native jobs.
+Prior Kernel R1 binary/public proof, live families and pure R5 recovery386/0,
+strip36/0 and salvage70/0 remain accepted components. VERIFICATION INDEX links
+the proofs. Each immutable proof retains its original review-time scope.
+No source/unit proof establishes rendered FPS, sound quality or Starsector parity.
+
+Root owns Main integration/notes. Bridge Sol6.1MAX alone submits native jobs;
+Grok4.7 and ArgonHIGH own isolated source work. No new/nested helper/provider.
+Tests stay hidden/headless/Dummy/BelowNormal, synthetic and serialized through
+shared FIFO behind other Godot/Unity apps and leases. Never take input/focus or
+stop an existing app. Owner saves/music, old releases and launcher are preserved.
+GitHub publication remains pending.
 
 HISTORICAL V0.030 BUILD-ONLY RECORD â€” ORIGINAL TEXT RETAINED BELOW
 

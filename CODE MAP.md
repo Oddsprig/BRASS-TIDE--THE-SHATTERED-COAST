@@ -10,7 +10,7 @@ Historical JS prototype is archived. Planned modules do not exist until implemen
 | Fleet ownership, voyage budgets, cargo | expedition, deployment, hold_manifest, fleet_support, fleet_identity | expeditions, fleet-identity |
 | Tactical planning and physical gates | tactical_planner, tactical_role_plans, tactical_stations, tactical_runtime, tactical_routes, tactical_certification, tactical_fire_control, tactics_ui | tactical |
 | Damage and combat | damage, battle, combat_events, combat_boarding, battle_objectives | combat, boat-feedback |
-| Equipment custody, career migration and numerical part damage | equipment_condition, equipment_records, equipment_ui, equipment_fitting, equipment_damage, equipment_campaign, equipment_recovery | equipment-condition |
+| Equipment custody, career migration and numerical part damage | equipment_condition, equipment_records, equipment_ui, equipment_fitting, equipment_damage, equipment_campaign, equipment_recovery, equipment_combat, equipment_rollout, equipment_tow | equipment-condition |
 | Paid Harbor part restoration and material/worker bills | equipment_service, harbor | equipment-service |
 | Paid fitting, knowledge templates and physical sockets | fleet_workshop, workshop_ui, refit, refit_ui, mount_layout, weapon_geometry | workshop, equipment-options |
 | Boat/weapon/motor visuals | hull_profiles, boat_art, boat_deck_detail, weapon_art, motor_art, hull_feedback, boat_mesh_cache, combat_art | presentation, boat-feedback |
@@ -28,17 +28,12 @@ Historical JS prototype is archived. Planned modules do not exist until implemen
 Related *_ui scripts present module results on main. Worker tasks own copies;
 join before publishing. Mount IDs/arcs/geometry are shared by fitting and combat.
 
-The preserved v0.030 build remains untested. Development and background testing
-have resumed; focused evidence and remaining failures are in the verification
-index. Canonical equipment constructors, save migration, custody, UI and paid
-Harbor/NPC/company service are integrated and verified as combined working
-components. Live combat and physical salvage/tow remain separate candidates.
-The isolated combat weapon family passes27/0. The corrected AI-range fixture
-passes16/0 while its original16/1 failure is retained. Private prediction reuse
-matches1800 lossless substeps and20 certificate pairs; its single measured
-workload improves30.15% but remains too slow. Exact input/queue proof is in ROOT
-ROLLOUT STATUS REUSE VERIFIED; these results do not accept a new playable version.
-Previous verified delivery: v0.029. Current tests:
+Main now contains the exact14-module working R4 union, including new
+equipment_combat, equipment_rollout and equipment_tow. Lab99/0, equipment
+voyage67/0 and salvage voyage14/0 pass. Panel49/NPC140 pass; legacy campaign619/17 failed, player service incomplete.
+Actual UI167/save89, coins and canonical capacity gates remain open; full .031, CPU and release acceptance remain open. Integration
+manifest and VERIFICATION INDEX bind exact sources/results.
+Current tests:
 game/tests/ (70 named suites in tools/check_game.py; native results are recorded in
 docs/TEST RESULTS v0.029.md). The original 66 fixtures retain their assertions;
 workshop, art_workshop, workshop_voyage and workshop_ui cover the new milestone.

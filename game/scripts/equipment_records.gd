@@ -401,6 +401,15 @@ static func publish(boat: Dictionary) -> Dictionary:
 	var projected: Dictionary = Core.project(boat.moduleCondition)
 	if not projected.ok:
 		return projected
+	return _publish_projection(boat, projected)
+
+static func _publish_numeric(boat: Dictionary) -> Dictionary:
+	var projected: Dictionary = Core._project_numeric(boat.moduleCondition)
+	if not projected.ok:
+		return projected
+	return _publish_projection(boat, projected)
+
+static func _publish_projection(boat: Dictionary, projected: Dictionary) -> Dictionary:
 	var raw_engine_hp: float = float(projected.engineHp) if bool(projected.hasEngine) else 0.0
 	var locker_counts: Dictionary = projected.refitLocker.duplicate(true)
 	boat.engine = raw_engine_hp
@@ -453,6 +462,15 @@ static func snapshot(boat: Dictionary) -> Dictionary:
 	var projected: Dictionary = Core.project(boat.moduleCondition)
 	if not projected.ok:
 		return projected
+	return _snapshot_from_projection(boat, projected)
+
+static func _snapshot_numeric(boat: Dictionary) -> Dictionary:
+	var projected: Dictionary = Core._project_numeric(boat.moduleCondition)
+	if not projected.ok:
+		return projected
+	return _snapshot_from_projection(boat, projected)
+
+static func _snapshot_from_projection(boat: Dictionary, projected: Dictionary) -> Dictionary:
 	var by_location: Dictionary = {}
 	var items_list: Array = []
 	for item in projected.installed:
@@ -493,3 +511,6 @@ static func snapshot(boat: Dictionary) -> Dictionary:
 		"armorFactor": armor_factor,
 		"weaponFactors": weapon_factors.duplicate(true)
 	}
+
+static func _absorb_legacy_numeric(boat: Dictionary) -> Dictionary:
+	return Core._note_engine_scalar_numeric(boat.moduleCondition, boat.get("engine"))

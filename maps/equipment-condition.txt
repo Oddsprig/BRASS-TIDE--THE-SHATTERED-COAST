@@ -1,20 +1,20 @@
 BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.030)
 
-Core/Records, paid physical fitting/damage and whole-campaign custody preflight feed integrated constructors/save migration/UI and paid Harbor/NPC service. Live combat candidate and physical salvage/tow still require acceptance; legacy counts cannot create free perfect parts.
+Core/Records, paid physical fitting/damage and whole-campaign custody preflight feed integrated constructors/save migration/UI and paid Harbor/NPC service. Working live combat/tow has Lab99/0, equipment voyage67/0 and salvage voyage14/0; remaining gates stay open; legacy counts cannot create free perfect parts.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
+game/scripts/equipment_condition.gd: 52217 bytes; extends RefCounted
   game/scripts/equipment_condition.gd:109 mint_uid()
-  game/scripts/equipment_condition.gd:347 validate()
-  game/scripts/equipment_condition.gd:448 legacy_seed()
-  game/scripts/equipment_condition.gd:580 inspect_installed()
-  game/scripts/equipment_condition.gd:597 list_locker()
-  game/scripts/equipment_condition.gd:624 project()
-game/scripts/equipment_records.gd: 21293 bytes; extends RefCounted
+  game/scripts/equipment_condition.gd:381 validate()
+  game/scripts/equipment_condition.gd:482 legacy_seed()
+  game/scripts/equipment_condition.gd:614 inspect_installed()
+  game/scripts/equipment_condition.gd:634 list_locker()
+  game/scripts/equipment_condition.gd:661 project()
+game/scripts/equipment_records.gd: 22176 bytes; extends RefCounted
   game/scripts/equipment_records.gd:271 initialize()
   game/scripts/equipment_records.gd:383 absorb_legacy_damage()
   game/scripts/equipment_records.gd:394 publish()
-  game/scripts/equipment_records.gd:421 snapshot()
+  game/scripts/equipment_records.gd:430 snapshot()
   game/scripts/equipment_records.gd:15 _fail()
   game/scripts/equipment_records.gd:18 _validate_catalog()
 game/scripts/equipment_ui.gd: 10067 bytes; extends RefCounted
@@ -31,14 +31,14 @@ game/scripts/equipment_fitting.gd: 23353 bytes; extends RefCounted
   game/scripts/equipment_fitting.gd:86 matches()
   game/scripts/equipment_fitting.gd:98 wants_initialize()
   game/scripts/equipment_fitting.gd:101 wants_new()
-game/scripts/equipment_damage.gd: 29043 bytes; extends RefCounted
+game/scripts/equipment_damage.gd: 30253 bytes; extends RefCounted
   game/scripts/equipment_damage.gd:40 number()
   game/scripts/equipment_damage.gd:54 empty_task_map()
   game/scripts/equipment_damage.gd:57 inspect_owner()
   game/scripts/equipment_damage.gd:93 is_canonical_owner()
   game/scripts/equipment_damage.gd:96 is_corrupt_owner()
   game/scripts/equipment_damage.gd:99 set_repair_priority()
-game/scripts/damage.gd: 15143 bytes; extends RefCounted
+game/scripts/damage.gd: 16019 bytes; extends RefCounted
   game/scripts/damage.gd:7 number()
   game/scripts/damage.gd:12 create_ship()
   game/scripts/damage.gd:42 sum_areas()

@@ -4,6 +4,9 @@ extends RefCounted
 ## adopt copies an accepted boat. It does not initialize, attach, or refuse.
 ## A preserved birth keeps its namespace, item ids, part hp, cause, and serial.
 ## The new hull uid is the only identity that changes. Hull hp is not raised.
+## A wreck source must use the fitted 0.35 tow contract, not a requested hp.
+## A new legacy or site recovery is staged disabled, before payment, on a private blank.
+## Older careers that still have no moduleCondition keep the normal migration.
 ## Source exclusion is the wreck or the one boat that actually holds these parts.
 ## An unknown uid is not skipped, so a live custodian cannot be cloned.
 ## Frozen preflight and recovery are called, not edited.
@@ -14,6 +17,11 @@ const Recovery = preload("res://scripts/equipment_recovery.gd")
 const Refits = preload("res://scripts/refit.gd")
 const Core = preload("res://scripts/equipment_condition.gd")
 const Preflight = preload("res://scripts/equipment_campaign.gd")
+
+## Same fraction Salvage stamps on a paid tow. Effective fitted max HP, not a request.
+const TOW_HP_FRACTION := 0.35
+const NEXT_UID_LIMIT := 9007199254740991
+const LEGACY_RECOVERY_CAUSE := "Legacy wreck recovery"
 
 static func _fail(message: String) -> Dictionary:
 	return {"ok": false, "message": message, "error": message}
@@ -112,6 +120,120 @@ static func _loadout_for(spec: Dictionary, supplied) -> Dictionary:
 	if normal.ok:
 		return normal.loadout
 	return {}
+
+## Read-only. Hull points a tow may restore: 0.35 of the fitted design maximum.
+## Empty loadout keeps the hull defaults. A provided loadout is normalized alone.
+## Other births still use _loadout_for, which may fall back to those defaults.
+static func tow_contract(spec: Dictionary, loadout) -> Dictionary:
+	var fitted_loadout: Dictionary = {}
+	if not loadout is Dictionary:
+		return _fail("Preserved loadout is unreadable.")
+	if loadout.is_empty():
+		var defaults: Dictionary = Refits.normalize(spec, {})
+		if not bool(defaults.get("ok", false)):
+			return _fail("Preserved loadout is unreadable.")
+		fitted_loadout = defaults.loadout
+	else:
+		var given: Dictionary = Refits.normalize(spec, loadout)
+		if not bool(given.get("ok", false)):
+			return _fail("Preserved loadout is unreadable.")
+		fitted_loadout = given.loadout
+	if fitted_loadout.is_empty():
+		return _fail("Preserved loadout is unreadable.")
+	var fitted: Dictionary = Refits.effective_spec(spec, fitted_loadout)
+	if fitted.is_empty():
+		return _fail("Preserved loadout is unreadable.")
+	var max_hp := maxf(1.0, float(fitted.get("hp", 1.0)))
+	return {"ok": true, "maxHp": max_hp, "hullHp": max_hp * TOW_HP_FRACTION}
+
+## Read-only. The next boat-N must be a positive whole uid that nobody holds.
+static func next_hull_uid(state: Dictionary) -> Dictionary:
+	var raw = state.get("nextUid", null)
+	if raw is bool or not (raw is int or raw is float):
+		return _fail("The next hull uid is not a positive whole number.")
+	if raw is int:
+		if raw < 1 or raw > NEXT_UID_LIMIT:
+			return _fail("The next hull uid is not a positive whole number.")
+	else:
+		var n := float(raw)
+		if not is_finite(n) or n < 1.0 or n > float(NEXT_UID_LIMIT) or floor(n) != n:
+			return _fail("The next hull uid is not a positive whole number.")
+	var uid := "boat-%d" % int(raw)
+	if _uid_taken(state, uid):
+		return _fail("Two hulls share one uid.")
+	if _birth_owner(state, uid, "", "") != null:
+		return _fail("Two owners share one birth namespace.")
+	return {"ok": true, "uid": uid}
+
+## Private blank only. Fresh part ids exist because a legacy wreck had none.
+## Installed gear is disabled at 0 hp before the caller pays or publishes.
+static func stage_legacy_recovery(state: Dictionary, world: Dictionary, spec: Dictionary, identity: String, loadout) -> Dictionary:
+	if not state is Dictionary or not world is Dictionary or not spec is Dictionary:
+		return _fail("Birth inputs are missing.")
+	if not Core._identity(identity) or _spec_id(spec).is_empty():
+		return _fail("Birth identity is malformed.")
+	var contract: Dictionary = tow_contract(spec, loadout)
+	if not bool(contract.get("ok", false)):
+		return contract
+	if not loadout is Dictionary:
+		return _fail("Preserved loadout is unreadable.")
+	var fitted: Dictionary = Refits.normalize(spec, {} if loadout.is_empty() else loadout)
+	if not bool(fitted.get("ok", false)) or not fitted.get("loadout") is Dictionary or fitted.loadout.is_empty():
+		return _fail("Preserved loadout is unreadable.")
+	if _uid_taken(state, identity) or _birth_owner(state, identity, "", "") != null:
+		return _fail("Two owners share one birth namespace.")
+	var scan: Dictionary = Recovery.registry(state, "", null)
+	if not bool(scan.get("ok", false)):
+		return _fail(str(scan.get("message", scan.get("error", "Equipment birth was refused."))))
+	var boat: Dictionary = _blank(spec, identity, float(contract.hullHp))
+	boat.maxHp = float(contract.maxHp)
+	boat.hp = float(contract.hullHp)
+	if boat.has("refitLocker"):
+		boat.erase("refitLocker")
+	boat.loadout = fitted.loadout.duplicate(true)
+	boat.engine = 1.0
+	var seeded: Dictionary = Records.initialize(boat, {
+		"base": spec.duplicate(true),
+		"loadout": boat.loadout,
+		"catalog": Refits.catalog(),
+		"identity": identity,
+		"knownUids": _known(scan)
+	})
+	if not bool(seeded.get("ok", false)):
+		return _fail(str(seeded.get("error", seeded.get("message", "Equipment birth was refused."))))
+	if str(boat.moduleCondition.birthNamespace) != identity:
+		return _fail("A new hull keeps the birth it was given.")
+	var own: Array = _uids_of(boat.moduleCondition)
+	if own.is_empty():
+		return _fail("Legacy wreck gear could not be prepared.")
+	for uid in own:
+		var item: Dictionary = boat.moduleCondition.items[str(uid)]
+		if str(item.get("location", "")) == "locker":
+			return _fail("A legacy wreck recovery does not mint locker parts.")
+		var loss := float(item.get("hp", 0.0))
+		if loss <= 0.000001:
+			loss = 1.0
+		var damaged: Dictionary = Core.apply_component_damage(boat.moduleCondition, {"itemUid": str(uid), "loss": loss, "cause": LEGACY_RECOVERY_CAUSE})
+		if not bool(damaged.get("ok", false)):
+			return _fail(str(damaged.get("error", damaged.get("message", "Legacy wreck gear could not be disabled."))))
+		if float(item.hp) > 0.0001 or str(item.status) != "disabled" or str(item.cause) != LEGACY_RECOVERY_CAUSE:
+			return _fail("Legacy wreck gear did not stay disabled.")
+	var published: Dictionary = Records.publish(boat)
+	if not bool(published.get("ok", false)):
+		return _fail(str(published.get("error", published.get("message", "Equipment birth was refused."))))
+	if float(boat.get("engine", 1.0)) > 0.0001:
+		return _fail("Legacy wreck engine did not stay at zero.")
+	if not boat.get("refitLocker") is Dictionary or not boat.refitLocker.is_empty():
+		return _fail("A legacy wreck recovery does not mint locker parts.")
+	boat.hp = float(contract.hullHp)
+	boat.fuel = 0.0
+	boat.ammo = 0.0
+	boat.supplies = 0.0
+	boat.crew = 0.0
+	var agreed: Dictionary = _confirms(state, world, boat, "", "", false)
+	if not bool(agreed.get("ok", false)):
+		return agreed
+	return {"ok": true, "fresh": false, "hullHp": float(contract.hullHp), "boat": boat, "message": "Legacy wreck recovery accepted."}
 
 static func _blank(spec: Dictionary, uid: String, hull_hp: float) -> Dictionary:
 	var boat: Dictionary = Damage.create_ship(spec, {"crew": 0.0, "fuel": 0.0, "ammo": 0.0, "supplies": 0.0, "hp": hull_hp})
@@ -254,10 +376,16 @@ static func _stage_preserved(state: Dictionary, world: Dictionary, spec: Diction
 		return _fail("Preserved loadout is missing.")
 	if not (preserved.get("hullHp") is float or preserved.get("hullHp") is int) or not is_finite(float(preserved.hullHp)) or float(preserved.hullHp) <= 0.0:
 		return _fail("Preserved hull hp is missing.")
+	var hull_hp := float(preserved.hullHp)
 	var own: Array = _uids_of(condition)
 	var source: Dictionary = _source_of(state, preserved, spec)
 	if not source.ok:
 		return source
+	if not str(source.get("skip_wreck", "")).is_empty():
+		var contract := tow_contract(spec, preserved.get("loadout", {}))
+		if not contract.ok or not is_equal_approx(hull_hp, float(contract.hullHp)):
+			return _fail("Preserved hull hp is not the tow recovery contract.")
+		hull_hp = float(contract.hullHp)
 	var birth := str(condition.birthNamespace)
 	var holder = _birth_owner(state, birth, str(source.skip_uid), str(source.skip_wreck))
 	if holder != null:
@@ -269,7 +397,7 @@ static func _stage_preserved(state: Dictionary, world: Dictionary, spec: Diction
 		return _fail(str(scan.get("message", scan.get("error", "Equipment birth was refused."))))
 	if _overlaps(_known(scan), own):
 		return _fail("Two hulls share one physical part.")
-	var boat: Dictionary = _blank(spec, identity, float(preserved.hullHp))
+	var boat: Dictionary = _blank(spec, identity, hull_hp)
 	var loadout: Dictionary = _loadout_for(spec, preserved.loadout)
 	if loadout.is_empty():
 		return _fail("Preserved loadout is unreadable.")
@@ -282,11 +410,11 @@ static func _stage_preserved(state: Dictionary, world: Dictionary, spec: Diction
 	var agreed: Dictionary = _confirms(state, world, boat, str(source.skip_uid), str(source.skip_wreck), allow_taken_uid)
 	if not agreed.ok:
 		return agreed
-	boat.hp = float(preserved.hullHp)
+	boat.hp = hull_hp
 	boat.fuel = 0.0
 	boat.ammo = 0.0
 	boat.supplies = 0.0
-	return {"ok": true, "fresh": false, "hullHp": float(preserved.hullHp), "boat": boat, "message": "Preserved birth accepted."}
+	return {"ok": true, "fresh": false, "hullHp": hull_hp, "boat": boat, "message": "Preserved birth accepted."}
 
 static func materialize(spec: Dictionary, crew: int, staged: Dictionary, fresh: bool) -> Dictionary:
 	var source: Dictionary = staged.get("boat", {}) if staged.get("boat") is Dictionary else {}

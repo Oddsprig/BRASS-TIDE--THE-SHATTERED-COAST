@@ -10,6 +10,7 @@ const CombatEvents=preload("res://scripts/combat_events.gd")
 const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Certification=preload("res://scripts/tactical_certification.gd")
 const FireControl=preload("res://scripts/tactical_fire_control.gd")
+const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
 const MAX_MOUNTS: int=16
@@ -118,7 +119,10 @@ static func create(options: Dictionary) -> Dictionary:
 	return st
 
 static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: int) -> void:
-	if not s.spec.get("weaponMounts") is Array:
+	var corrupt_equip: bool=EquipmentCombat.is_corrupt_owner(s)
+	if not corrupt_equip and not s.spec.get("weaponMounts") is Array:
+		if EquipmentCombat.is_canonical_owner(s) and not s.get("baseSpec") is Dictionary:
+			s.baseSpec=s.spec.duplicate(true)
 		if not s.get("loadout") is Dictionary:s.loadout=Refit.defaults(s.spec)
 		s.spec=Refit.effective_spec(s.spec,s.loadout)
 	s.supportRepairFactor=1.0
@@ -131,9 +135,11 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: 
 	s.turretAngle=s.angle
 	s.vx=0.0
 	s.vy=0.0
-	s.armor=maxf(0.0,Damage.number(s.spec.get("armor"),Damage.number(s.get("armor"))))
+	if not corrupt_equip:
+		s.armor=maxf(0.0,Damage.number(s.spec.get("armor"),Damage.number(s.get("armor"))))
 	s.cooldown=0.0
-	var mounts: Array=_mounts(s)
+	var base_mounts: Array=_base_mounts(s)
+	var mounts: Array=EquipmentCombat.apply_mount_condition(s,base_mounts)
 	s.weaponCooldowns=[]
 	for mount in mounts:
 		s.weaponCooldowns.append(0.0)
@@ -153,7 +159,7 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: 
 				s.y=p.y
 				break
 	st.ships.append(s)
-	Tactical.register(st,s,mounts)
+	Tactical.register(st,s,base_mounts)
 
 static func _spawn_clear(st: Dictionary,s: Dictionary,p: Vector2) -> bool:
 	if _blocked(st,p,_radius(s)):
@@ -264,10 +270,13 @@ static func _combat_mounts(st: Dictionary,s: Dictionary) -> Array:
 	var t: Dictionary=Tactical.ensure(st)
 	var id: String=str(s.id)
 	var source=s.spec.get("weaponMounts",s.spec)
-	if not t.mountCache.has(id) or t.mountCache[id].source!=source:Tactical.register(st,s,_mounts(s))
-	return t.mountCache[id].mounts
+	if not t.mountCache.has(id) or t.mountCache[id].source!=source:Tactical.register(st,s,_base_mounts(s))
+	return Tactical.refresh_mounts(st,s)
 
 static func _mounts(s: Dictionary) -> Array:
+	return EquipmentCombat.apply_mount_condition(s,_base_mounts(s))
+
+static func _base_mounts(s: Dictionary) -> Array:
 	var raw_mounts: Array=[]
 	var legacy: bool=not (s.spec.get("weaponMounts") is Array)
 	if legacy:
@@ -380,12 +389,14 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 	_sync_cooldowns(s,mounts.size())
 	CombatEvents.sync_mount_shots(s,mounts)
 	var status: Dictionary=Damage.get_status(s)
-	if status.weaponFactor<=0.01:
+	if not bool(status.get("equipmentOk",true)) or status.weaponFactor<=0.01:
 		return
 	for i in range(mounts.size()):
 		var mount: Dictionary=mounts[i]
 		var gate: Dictionary=gates.get(str(mount.id),{})
 		if automatic and not gate.get("ok",false):continue
+		if EquipmentCombat.mount_factor(s,mount,i,status)<=0.01 or float(mount.get("damage",0.0))<=0.0:
+			continue
 		if s.weaponCooldowns[i]>0.0 or (i==0 and s.cooldown>0.0) or s.ammo<mount.ammoCost or st.projectiles.size()>=400:
 			continue
 		var mount_target: Dictionary=gate.get("target",{}) if automatic else (_target_for_mount(st,s,mount,target_ship) if not target_ship.is_empty() else {})
@@ -544,6 +555,7 @@ static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String
 		if distance<radius+_radius(s) and _clear_shot(st,point,_pos(s),1.0):
 			var before_hp: float=Damage.number(s.get("hp"))
 			var events: Array=Damage.apply_hit(s,{"damage":p.damage*0.45*clampf(1.0-distance/(radius+_radius(s)),0.0,1.0),"kind":"rocket","incendiary":true,"section":"deck"},st.rng)
+			if EquipmentCombat.is_canonical_owner(s):_combat_mounts(st,s)
 			if not events.is_empty():
 				CombatEvents.emit_hit(st,p,s,_pos(s),"deck",events,maxf(0.0,before_hp-Damage.number(s.get("hp"))),false)
 
@@ -579,9 +591,14 @@ static func _projectiles(st: Dictionary,dt: float) -> void:
 				break
 		if not hit.is_empty() and first<land_t:
 			var point: Vector2=start+delta*first
-			var section: String="waterline" if p.kind=="torpedo" else ("engine" if st.rng.randf()<0.25 else "bow")
+			var eng_roll: bool=false
+			if p.kind!="torpedo":eng_roll=st.rng.randf()<0.25
+			var section: String="waterline" if p.kind=="torpedo" else ("engine" if eng_roll else "bow")
+			if EquipmentCombat.is_canonical_owner(hit):
+				section=str(p.get("section","")) if not str(p.get("section","")).is_empty() else EquipmentCombat.canonical_hit_section(hit,point,str(p.kind),eng_roll)
 			var before_hp: float=Damage.number(hit.get("hp"))
 			var events: Array=Damage.apply_hit(hit,{"damage":p.damage,"kind":p.kind,"penetration":p.get("penetration",0.0),"incendiary":p.get("incendiary",false),"section":section},st.rng)
+			if EquipmentCombat.is_canonical_owner(hit):_combat_mounts(st,hit)
 			CombatEvents.emit_hit(st,p,hit,point,section,events,maxf(0.0,before_hp-Damage.number(hit.get("hp"))),true)
 			_blast(st,p,point,str(hit.id))
 			if not events.is_empty():
@@ -652,7 +669,8 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			continue
 		if id==manual_id:
 			var steer: float=(1.0 if input.get("right",false) else 0.0)-(1.0 if input.get("left",false) else 0.0)
-			var desired: float=s.angle+steer*float(s.spec.get("turn",1.8))*dt
+			var turn_step: float=float(s.spec.get("turn",1.8))*clampf(Damage.number(Damage.get_status(s).get("turnFactor"),1.0),0.0,1.0)
+			var desired: float=s.angle+steer*turn_step*dt
 			var throttle: float=(1.0 if input.get("forward",false) else 0.0)-(0.55 if input.get("backward",false) else 0.0)
 			controls[id]={"angle":desired,"throttle":throttle,"boost":input.get("boost",false)}
 		else:controls[id]=Tactical.helm(st,s)

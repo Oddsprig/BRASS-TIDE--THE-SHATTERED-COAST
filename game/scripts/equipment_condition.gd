@@ -344,6 +344,40 @@ static func _records(condition: Dictionary) -> Dictionary:
 		return _fail("Engine watermark exists without an engine part.")
 	return {"ok": true, "hasEngine": has_engine, "engineHp": engine_hp, "locations": seen_location, "locker": locker}
 
+static func _records_numeric(condition: Dictionary) -> Dictionary:
+	# Internal to EquipmentRollout.prefix's strictly validated private copy.
+	# Only hp/status/cause/watermark can change in its shared numeric kernels.
+	# Full immutable schema is checked at entry and again before publication.
+	if not condition.get("items") is Dictionary or not condition.get("repairPriority") in PRIORITIES:
+		return _fail("Equipment numerical context is malformed.")
+	var has_engine: bool = false
+	var engine_hp: float = -1.0
+	var locations: Dictionary = {}
+	var locker: int = 0
+	for key in condition.items.keys():
+		var item = condition.items[key]
+		if not item is Dictionary:
+			return _fail("An equipment item is incomplete.")
+		if not _unit(item.get("hp")) or not _cause(item.get("cause")) or not str(item.get("status", "")) in ["ok", "damaged", "disabled"]:
+			return _fail("An equipment item has an invalid condition.")
+		if str(item.status) != _status_for(float(item.hp), str(item.status)):
+			return _fail("Stored status does not match condition.")
+		if str(item.status) == "ok" and not str(item.cause).is_empty():
+			return _fail("A sound part is carrying a damage cause.")
+		if str(item.location) == "locker": locker += 1
+		else: locations[str(item.location)] = str(key)
+		if str(item.location) == "engine":
+			has_engine = true
+			engine_hp = float(item.hp)
+	if has_engine:
+		if not _unit(condition.get("legacyEngineSynced")):
+			return _fail("Engine projection watermark is missing.")
+		if absf(float(condition.legacyEngineSynced) - engine_hp) > 0.0001:
+			return _fail("Engine projection watermark does not match the engine part.")
+	elif condition.has("legacyEngineSynced"):
+		return _fail("Engine watermark exists without an engine part.")
+	return {"ok": true, "hasEngine": has_engine, "engineHp": engine_hp, "locations": locations, "locker": locker}
+
 static func validate(condition: Dictionary, context: Dictionary) -> Dictionary:
 	if not context is Dictionary or not _keys_only(context, ["mountCount", "hullType", "knownUids", "loadout"]):
 		return _fail("Condition context is malformed.")
@@ -581,6 +615,9 @@ static func inspect_installed(condition: Dictionary) -> Dictionary:
 	var records: Dictionary = _records(condition)
 	if not records.ok:
 		return records
+	return _installed_rows(condition)
+
+static func _installed_rows(condition: Dictionary) -> Dictionary:
 	var rows: Array = []
 	for key in _uid_list(condition):
 		var item: Dictionary = condition.items[key]
@@ -625,7 +662,16 @@ static func project(condition: Dictionary) -> Dictionary:
 	var records: Dictionary = _records(condition)
 	if not records.ok:
 		return records
-	var installed: Dictionary = inspect_installed(condition)
+	return _project_from_records(condition, records)
+
+static func _project_numeric(condition: Dictionary) -> Dictionary:
+	var records: Dictionary = _records_numeric(condition)
+	if not records.ok:
+		return records
+	return _project_from_records(condition, records)
+
+static func _project_from_records(condition: Dictionary, records: Dictionary) -> Dictionary:
+	var installed: Dictionary = _installed_rows(condition)
 	var projected: Dictionary = {"ok": true, "refitLocker": _locker_counts(condition), "hasEngine": records.hasEngine, "installed": installed.items}
 	if records.hasEngine:
 		projected.engineHp = records.engineHp
@@ -783,7 +829,13 @@ static func transfer_exact(source: Dictionary, dest: Dictionary, request: Dictio
 	return {"ok": true, "changed": true, "itemUid": uid, "hp": float(moving.hp), "status": str(moving.status), "location": str(moving.location)}
 
 static func note_engine_scalar(condition: Dictionary, scalar) -> Dictionary:
-	var records: Dictionary = _records(condition)
+	return _note_engine_scalar_with(condition, scalar, _records)
+
+static func _note_engine_scalar_numeric(condition: Dictionary, scalar) -> Dictionary:
+	return _note_engine_scalar_with(condition, scalar, _records_numeric)
+
+static func _note_engine_scalar_with(condition: Dictionary, scalar, validate: Callable) -> Dictionary:
+	var records: Dictionary = validate.call(condition)
 	if not records.ok:
 		return records
 	if not _unit(scalar):
@@ -802,20 +854,26 @@ static func note_engine_scalar(condition: Dictionary, scalar) -> Dictionary:
 	var cause: String = str(engine.cause) if not str(engine.cause).is_empty() else "Legacy engine scalar"
 	_set_hp(engine, observed, cause, str(engine.cause).is_empty())
 	condition.legacyEngineSynced = float(engine.hp)
-	var after: Dictionary = _records(condition)
+	var after: Dictionary = validate.call(condition)
 	if not after.ok:
 		_rollback(condition, snap)
 		return after
 	return {"ok": true, "changed": true, "engineHp": float(engine.hp), "status": str(engine.status)}
 
 static func apply_component_damage(condition: Dictionary, request: Dictionary) -> Dictionary:
+	return _apply_component_damage_with(condition, request, _records)
+
+static func _apply_component_damage_numeric(condition: Dictionary, request: Dictionary) -> Dictionary:
+	return _apply_component_damage_with(condition, request, _records_numeric)
+
+static func _apply_component_damage_with(condition: Dictionary, request: Dictionary, validate: Callable) -> Dictionary:
 	if not request is Dictionary or not _keys_only(request, ["itemUid", "loss", "cause"]):
 		return _fail("Damage request is malformed.")
 	if not _uid(request.get("itemUid")) or not _number(request.get("loss")) or float(request.loss) < 0.0:
 		return _fail("Damage requires an exact part and a finite loss.")
 	if request.has("cause") and not _cause(request.cause):
 		return _fail("Damage cause is invalid.")
-	var records: Dictionary = _records(condition)
+	var records: Dictionary = validate.call(condition)
 	if not records.ok:
 		return records
 	var uid: String = str(request.itemUid)
@@ -830,7 +888,7 @@ static func apply_component_damage(condition: Dictionary, request: Dictionary) -
 	_set_hp(item, float(item.hp) - float(request.loss), cause, request.has("cause"))
 	if str(item.location) == "engine":
 		condition.legacyEngineSynced = float(item.hp)
-	var after: Dictionary = _records(condition)
+	var after: Dictionary = validate.call(condition)
 	if not after.ok:
 		_rollback(condition, snap)
 		return after
@@ -851,6 +909,12 @@ static func _affordable_hp(budget: float, factor: float, limit: float, budget_ti
 	return span
 
 static func repair_installed(condition: Dictionary, request: Dictionary) -> Dictionary:
+	return _repair_installed_with(condition, request, _records)
+
+static func _repair_installed_numeric(condition: Dictionary, request: Dictionary) -> Dictionary:
+	return _repair_installed_with(condition, request, _records_numeric)
+
+static func _repair_installed_with(condition: Dictionary, request: Dictionary, validate: Callable) -> Dictionary:
 	if not request is Dictionary or not _keys_only(request, ["work", "supplies", "hpPerWork", "suppliesPerHp", "priority", "juryCap"]):
 		return _fail("Repair request is malformed.")
 	for key in ["work", "supplies", "hpPerWork"]:
@@ -868,7 +932,7 @@ static func repair_installed(condition: Dictionary, request: Dictionary) -> Dict
 		if not _number(rate) or float(rate) <= 0.0:
 			return _fail("A repair supply rate must be a finite amount above zero.")
 		rates[str(family)] = float(rate)
-	var records: Dictionary = _records(condition)
+	var records: Dictionary = validate.call(condition)
 	if not records.ok:
 		return records
 	var priority: String = str(request.get("priority", condition.repairPriority))
@@ -954,7 +1018,7 @@ static func repair_installed(condition: Dictionary, request: Dictionary) -> Dict
 	if guard >= MAX_ITEMS and work_left > EPS:
 		_rollback(condition, snap)
 		return _fail("Repair stopped on its part bound.")
-	var after: Dictionary = _records(condition)
+	var after: Dictionary = validate.call(condition)
 	if not after.ok:
 		_rollback(condition, snap)
 		return after

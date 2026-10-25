@@ -1,0 +1,30 @@
+{
+  "jobId": "914827db72a7405b92d79a751ec4c8f5",
+  "suite": "equipment_lab",
+  "family": "",
+  "outcome": "passed",
+  "checks": 99,
+  "failures": 0,
+  "inputSha256": "3cba30d99a85f3091f66b79680f69b931f6bbbeed42fe6033af9016b2eeb9088",
+  "inputCount": 286,
+  "nativeWallSeconds": 6.5,
+  "timeout": false,
+  "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\914827db72a7405b92d79a751ec4c8f5\\attempt-001",
+  "errors": [],
+  "artifactHashes": {
+    "bridge-result.json": "6b1be527835cdb85df6477db6311aabdd61aba7047a514dbf7d4b4cd9324abd7",
+    "execution.json": "5b6e9728245b74dfebbbabb7b507200565136323cec5d3ac6811296ccc3e72c9",
+    "inputs-after.json": "d99e5ae508a4ba88453601966ed8f92d9230a13b7f6a0a6a82667dbead2e1b55",
+    "inputs-before.json": "d99e5ae508a4ba88453601966ed8f92d9230a13b7f6a0a6a82667dbead2e1b55",
+    "lane.log": "22ad9514d1c327d2c5c86f1fd166761507cfac268d63591e0ced38cfb44088f5",
+    "native-receipt.json": "317fa8dbe8d53d87e9b5f94e231941e37d2cd7a28dcc02e3a874daff1faa5ab5",
+    "native.log": "2381d972d1ee1a213cfa1cdf85f319601232a9ace81b230496eea783f6e7980e",
+    "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+    "process.json": "e9b27e19178f4cd9dd824909efc00b0157c932192973bcc5b0db527ef9abf8d7",
+    "request.json": "22f72f0f7d589aceacb2ba33de135750e57d25e8c524f6cc9c8c9fa3291fa682",
+    "result.json": "7d8eddd9c896d7fd1c897ec61cada1834f6f77d2bf0409e8e2cdc6c4793a1224",
+    "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.log": "e9515c5d04e3916dee3874a6eaeec1621684dcfe1a941daf8af9fa2ff54ffb5a",
+    "verified-report.json": "7d8eddd9c896d7fd1c897ec61cada1834f6f77d2bf0409e8e2cdc6c4793a1224"
+  }
+}
