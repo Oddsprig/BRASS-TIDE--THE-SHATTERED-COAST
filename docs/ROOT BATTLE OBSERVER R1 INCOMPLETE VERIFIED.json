@@ -1,0 +1,46 @@
+{
+  "kind": "Root incomplete OLD recorder audit",
+  "job": {
+    "jobId": "1d60120154f9470cb5ee620a59a1b3c3",
+    "suite": "equipment_combat",
+    "family": "pump_and_armor",
+    "outcome": "failed",
+    "checks": null,
+    "failures": null,
+    "inputSha256": "b3f5457eb3e3c45c483c270fdafb74d97bfa4771c64d5ec1933ecb80af07b596",
+    "inputCount": 500,
+    "nativeWallSeconds": 60.046999999991385,
+    "timeout": true,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\1d60120154f9470cb5ee620a59a1b3c3\\attempt-001",
+    "errors": [
+      "ERROR: BFRP observer: Finite byte bound exceeded; trace INCOMPLETE"
+    ],
+    "artifactHashes": {
+      "bridge-result.json": "447994758ccc8b8fd6986c78c5837d45829ddd94e0e560b11f8cddf2b8e4ce24",
+      "execution.json": "d8de9d875db7c7d59169c4bcccefebaa80d67a266d67f33c7c5dfad7400acc71",
+      "inputs-after.json": "9cbb93d8fec37654bfedd0f9e208f34440014d27c35a6857edf8cbcb7ce7a5f1",
+      "inputs-before.json": "9cbb93d8fec37654bfedd0f9e208f34440014d27c35a6857edf8cbcb7ce7a5f1",
+      "lane.log": "9d40176dde03d986eb7c0f4893ce07662f23c1931d97c420ed63bedbe5b3dc0a",
+      "native-receipt.json": "60823fa8c24fbfacdd4e011a24971cb3edceb71b45e346dcbefc2ac5636ec38d",
+      "native.log": "d479eeb211505180e2a3dc4942f3e86f4f2aae6c5effa2caef8d90552cc380ce",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "f73b47b95eb7c5346fbbc231724d2209dd2a58581e2f66f7d36946fe24e1d5f3",
+      "request.json": "2b4310d870d0ec3d7d643eaac2b727d28a2a829cf18bf2a1fc416f463f46dec9",
+      "result.json": "8de4ac2467107e3c027f197ec10c0b90c4e15079097b2cd3a96476bf589bbfd2",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "e2a99529fe4eff113c6066245d5dacdd721da75deca0fda7db4cfafed4f5514d",
+      "trace.bin": "072b927516a11c0ad78c300a44eb505449f7c3a0ab0d8cfa4e93bc7f740bf576",
+      "verified-report.json": "8de4ac2467107e3c027f197ec10c0b90c4e15079097b2cd3a96476bf589bbfd2"
+    }
+  },
+  "classification": "Observer byte resource bound followed by native60s timeout; no terminal assertion count",
+  "traceBytes": 268255232,
+  "maxTraceBytes": 268435456,
+  "terminalManifestPresent": false,
+  "nativePidAbsent": 42972,
+  "sourceToolEngineInputsStable": true,
+  "gameAssertionFailureCountKnown": false,
+  "oldRecorderAccepted": false,
+  "sourceProofPreserved": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\ROOT BATTLE OBSERVER SOURCE VERIFIED.json",
+  "scope": "Failure is in test observation resource/overhead. No whole-game performance, assertion pass or OLD/NEW equivalence claim. No unchanged retry or bound increase authorized."
+}

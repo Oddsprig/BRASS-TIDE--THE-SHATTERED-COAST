@@ -1,0 +1,20 @@
+{
+  "kind": "Verified working private-copy optimization merge",
+  "recordedUtc": "2026-10-25T15:17:37.347627+00:00",
+  "sourceFiles": {
+    "game/scripts/equipment_condition.gd": {
+      "before": "af402820ad1b79a22e9ff077323148a13006534c39b9b05e9ecd22e4b8d78e70",
+      "after": "a9c26f8e1c003314389b57914c1883e77647ce9e7b2b2e10d4a9094c4cd3b44e"
+    },
+    "game/scripts/equipment_damage.gd": {
+      "before": "87808d3cad92e59e213a471521f44dd19db9ac7a7212d03dce4064f152bd6588",
+      "after": "a892a7b062632524625b678c07cdcd77c8274bdd236da3628d188a65c8f584d9"
+    }
+  },
+  "prefixProof": "ROOT PRIVATE REPAIR GUARD R1 VERIFIED.json",
+  "publicProof": "ROOT PRIVATE OPTIMIZATION PUBLIC VERIFIED.json",
+  "sourceScopes": "Only CoreA9 and private repair guard. No live-frame cache, convoy or cargo-weight integration.",
+  "performanceMeasured": false,
+  "buildStill30": true,
+  "releaseAccepted": false
+}

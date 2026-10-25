@@ -51,3 +51,7 @@ Future scope: ROADMAP.md and the .029-.038 main/AI/civilian contracts. Current s
 battle/NPC logic is not proof of future coordinated or multi-party AI behavior.
 Recovery and retired context: docs/ARCHIVE INDEX.txt. Keep raw advisory reports
 separate from code acceptance and actual run evidence.
+
+Current verified copy changes: equipment_condition delays internal backups;
+equipment_damage uses a small private repair guard. Shared math/status/publish
+remain. See docs/MAIN PRIVATE OPTIMIZATION INTEGRATION.json for exact scope.

@@ -204,3 +204,11 @@ for atomicity and control the old comparator before blaming a read-only operatio
   AI295.339ms / other112.468ms; it proves neither steady-state capacity nor FPS.
 - Tick flow values are averages. Never reuse them for instantaneous flood safety.
   Local live status reuse must not reach same-ID prediction copies or public reads.
+
+PRIVATE COPY OPTIMIZATION
+- Remove unused snapshots only after tracing actual consumers and refusal paths.
+  Preserve unconditional repair/math/publish. Validate full prefix bytes and
+  public freshness/transactions separately. Equal bytes do not prove equal aliases.
+- RecorderR1 exceeded256MiB and60s before terminal assertions. This is incomplete
+  observation, not a game assertion pass. Preserve it; use lossless compression
+  and bounded streaming without dropping history or changing fixture workload.

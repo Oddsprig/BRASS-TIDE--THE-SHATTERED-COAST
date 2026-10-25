@@ -842,10 +842,10 @@ static func _note_engine_scalar_with(condition: Dictionary, scalar, validate: Ca
 		return _fail("The legacy engine scalar is not a finite condition.")
 	if not records.hasEngine:
 		return _fail("There is no engine part to project.")
-	var snap: Dictionary = condition.duplicate(true)
 	var observed: float = float(scalar)
 	if observed >= float(records.engineHp) - 0.0001:
 		return {"ok": true, "changed": false, "engineHp": float(records.engineHp)}
+	var snap: Dictionary = condition.duplicate(true)
 	var engine: Dictionary = {}
 	for key in condition.items.keys():
 		if str(condition.items[key].location) == "engine":
@@ -945,7 +945,8 @@ static func _repair_installed_with(condition: Dictionary, request: Dictionary, v
 		jury_cap = float(request.juryCap)
 	if priority == "hull":
 		return {"ok": true, "changed": false, "usedWork": 0.0, "usedSupplies": 0.0, "changes": []}
-	var snap: Dictionary = condition.duplicate(true)
+	var snap = null
+	var armed: bool = false
 	var work_left: float = float(request.work)
 	var supplies_left: float = float(request.supplies)
 	var used_work: float = 0.0
@@ -988,11 +989,13 @@ static func _repair_installed_with(condition: Dictionary, request: Dictionary, v
 		var by_work: float = _affordable_hp(work_left, hp_per, limit, true)
 		var by_supply: float = _affordable_hp(supplies_left, rate, limit, false)
 		if by_work < 0.0 or by_supply < 0.0:
-			_rollback(condition, snap)
+			if armed:
+				_rollback(condition, snap)
 			return _fail("Repair debit is not a finite nonnegative amount.")
 		var gain: float = minf(limit, minf(by_work, by_supply))
 		if not is_finite(gain) or gain < 0.0:
-			_rollback(condition, snap)
+			if armed:
+				_rollback(condition, snap)
 			return _fail("Repair debit is not a finite nonnegative amount.")
 		if gain <= EPS:
 			skipped[best_uid] = true
@@ -1000,11 +1003,16 @@ static func _repair_installed_with(condition: Dictionary, request: Dictionary, v
 		var spent_work: float = gain / hp_per
 		var spent_supplies: float = gain * rate
 		if not is_finite(spent_work) or not is_finite(spent_supplies) or spent_work < 0.0 or spent_supplies < 0.0:
-			_rollback(condition, snap)
+			if armed:
+				_rollback(condition, snap)
 			return _fail("Repair debit is not a finite nonnegative amount.")
 		if spent_work > work_left + 0.000001 or spent_supplies > supplies_left + 0.000001:
-			_rollback(condition, snap)
+			if armed:
+				_rollback(condition, snap)
 			return _fail("Repair debit is not a finite nonnegative amount.")
+		if not armed:
+			snap = condition.duplicate(true)
+			armed = true
 		_set_hp(target, hp0 + gain, str(target.cause), false)
 		if str(target.location) == "engine":
 			condition.legacyEngineSynced = float(target.hp)
@@ -1016,21 +1024,27 @@ static func _repair_installed_with(condition: Dictionary, request: Dictionary, v
 			_rollback(condition, snap)
 			return _fail("Repair debit is not a finite nonnegative amount.")
 	if guard >= MAX_ITEMS and work_left > EPS:
-		_rollback(condition, snap)
+		if armed:
+			_rollback(condition, snap)
 		return _fail("Repair stopped on its part bound.")
 	var after: Dictionary = validate.call(condition)
 	if not after.ok:
-		_rollback(condition, snap)
+		if armed:
+			_rollback(condition, snap)
 		return after
 	if not is_finite(used_work) or not is_finite(used_supplies) or used_work < 0.0 or used_supplies < 0.0:
-		_rollback(condition, snap)
+		if armed:
+			_rollback(condition, snap)
 		return _fail("Repair debit is not a finite nonnegative amount.")
 	var changes: Array = []
 	for key in _uid_list(condition):
 		var now: Dictionary = condition.items[key]
-		var was: Dictionary = snap.items[key]
+		var was: Dictionary = now
+		if armed:
+			was = snap.items[key]
 		if not is_finite(float(now.hp)) or not is_finite(float(was.hp)):
-			_rollback(condition, snap)
+			if armed:
+				_rollback(condition, snap)
 			return _fail("Repair debit is not a finite nonnegative amount.")
 		if absf(float(now.hp) - float(was.hp)) <= EPS and str(now.status) == str(was.status):
 			continue

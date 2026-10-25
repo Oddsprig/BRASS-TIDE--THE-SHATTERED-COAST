@@ -532,7 +532,19 @@ static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, opt
 	return _repair_step_from_info(boat, h, crew_repair, options, inspect_owner(boat), Core.repair_installed, Core.apply_component_damage, Records.publish)
 
 static func _tick_repair_numeric(boat: Dictionary, h: float, crew_repair: float, options: Dictionary = {}) -> Dictionary:
-	return _repair_step_from_info(boat, h, crew_repair, options, _numeric_info(boat), Core._repair_installed_numeric, Core._apply_component_damage_numeric, Records._publish_numeric)
+	return _repair_step_from_info(boat, h, crew_repair, options, _repair_guard_numeric(boat), Core._repair_installed_numeric, Core._apply_component_damage_numeric, Records._publish_numeric)
+
+static func _repair_guard_numeric(boat: Dictionary) -> Dictionary:
+	# Same Core._records_numeric refusal as the numeric snapshot. Fresh dict; no item or factor copies.
+	var records: Dictionary = Core._records_numeric(boat.moduleCondition)
+	if not records.ok:
+		return {
+			"ok": false,
+			"mode": "invalid",
+			"needsInitialize": false,
+			"error": str(records.get("error", "Invalid numerical equipment state."))
+		}
+	return {"ok": true, "mode": "canonical", "needsInitialize": false}
 
 static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, repair_parts: Callable, damage_part: Callable, publish: Callable) -> Dictionary:
 	if not info.ok or str(info.mode) != "canonical":

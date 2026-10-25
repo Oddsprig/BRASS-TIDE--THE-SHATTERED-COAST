@@ -20,14 +20,14 @@ Current work:
 - Show clear part status/repair priorities and real material/labor/coin bills.
   Crew stay numerical;rendering/assets use existing shared physical sockets.
 
-BRASS TIDE - VERIFIED WORKING INTEGRATION; RELEASE STILL OPEN
+BRASS TIDE - VERIFIED COMPONENTS; CURRENT SCENE/PERFORMANCE OPEN
 2026-10-25T14:06:42.577268+00:00
-Runtime14 matches frozenR4; legacy fixture setup separately verified629/0.
+Two numerical modules now avoid unused copies; other runtime stays R4. Legacy629/0.
 Fourteen runtime modules and six fixtures integrated. Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
 No .031 version bump, release tag, export, launcher change or upload.
 
-COMBINED GAME FLOW VERIFIED
+PRE-OPTIMIZATION R4 COMBINED FLOW
 Lab99/0, equipment voyage67/0, salvage voyage14/0. Full Main UI167/0, save89/0,
 player repairs204/0, NPC repairs140/0 and coin accounting458/0 also pass.
 Root independently checked exact source/import/external/tool/engine hashes,
@@ -35,6 +35,9 @@ raw logs/reports, shared-lane completion and exited owned children. Condition,
 part identity, finite crew supplies, paid labor and custody survive the voyage.
 ROOT COMBINED R4 GATES VERIFIED.json and ROOT SCENE VOYAGES VERIFIED.json bind
 actual jobs; MAIN EQUIPMENT INTEGRATION CANDIDATE.json lists copied file hashes.
+Those exact R4 results remain historical baseline proof. The current two-module
+optimization has its own component proofs below; current full-scene gates await
+the final combined candidate. Do not transfer old whole-tree passes to new code.
 
 PERFORMANCE IS NOT ACCEPTED
 Canonical40 retry b144fdc5 completed only88/150 warmup updates within40s work
@@ -42,11 +45,22 @@ bound:40.594s update time, about461.3ms per warmup update. All40 remained afloat
 no measured windows or1800-profile samples were produced. This is incomplete
 capacity, not stable FPS/quantiles. Root proof: ROOT CANONICAL40 PARTIAL VERIFIED.
 Native scope was headless CPU; no idle-host, render or Starsector-parity claim.
-Cold24-update diagnostic b1d21209 passed51/0: mean407.807ms whole,
+PRE-OPTIMIZATION R4: cold24-update diagnostic b1d21209 passed51/0: mean407.807ms whole,
 295.339ms AI and112.468ms other. These are cold diagnostics, not FPS or
 steady-state capacity. Same-frame reuse is isolated source work. Public status
 stays fresh. ROOT COST DIAGNOSTIC VERIFIED.json binds this data.
 Do not repeat unchanged capacity/cost runs.
+
+VERIFIED PRIVATE SIMULATION COPIES - 25 OCTOBER2026
+CoreA9 delays backup copies until an actual change. Private repair guarda892
+validates the same numerical records without building unused snapshots. All
+actual repair, water, crew, supplies, fuel and publication calculations stay.
+Paired30/60 logs are entirely byte-equal to AF40 gold:1800 samples,20 certificates.
+Freshness29 and public condition90/records89/damage174 pass. Root independently
+checked exact sources/tools/engine/lane and exited owned children. Private
+pre-write refusals retain nested references rather than restoring equal clones;
+byte equality is not an alias-identity claim. Live-frame reuse is still separate
+unmerged source. Full battle, performance and release gates remain open.
 
 PRESERVED FAILURES AND LESSONS
 Lab99/1 snapshot preceded constructor price initialization; corrected setup
