@@ -233,3 +233,11 @@ NATIVE RESULTS, OBSERVATION COST AND PROCESS IDENTITY
   cleanup. Cost PID50448 was later reused; its newer process was left untouched.
 - componentOnly belongs to the exact detached-stage declaration. Correct metadata
   in a new stage without editing frozen game bytes or calling a pre-launch fail a pass.
+
+TEST API RETURN VALUES AND RESTARTS - 25 OCTOBER 2026
+- Battle.set_autopilot returns the resulting enabled state. Passing false must
+  be checked through st.autopilot, not asserted as a successful Boolean return.
+  Review fixture calls against actual engine/game APIs before spending a lane.
+- A queue handoff with request+failure receipt+empty lane.log and no execution
+  artifacts is not a native pass. Preserve it separately; prove launch state,
+  recheck frozen sources and current shared lane, then recover only owned work.

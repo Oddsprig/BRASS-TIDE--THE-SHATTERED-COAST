@@ -1,5 +1,5 @@
 BRASS TIDE - VERIFIED COMPONENTS; CURRENT SCENE/PERFORMANCE OPEN
-2026-10-25T17:18:11.469Z
+2026-10-25T23:16:42.738Z
 Two numerical modules now avoid unused copies; other runtime stays R4. Legacy629/0.
 Fourteen runtime modules and six fixtures integrated. Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
@@ -18,9 +18,18 @@ clearance tests and normalLimit7. This is cold data, not FPS or capacity.
 Full R2 recorder463f9bac hit60s with12777415B partial trace and no terminal
 manifest/count. Preserve it; no unchanged retry, raised bound or NEW full-family
 run. Corrected metadata followed an earlier pre-launch rejection, not a test pass.
-A smaller complete integration-fixture plan and finer hotspot measurement are
-source work. Original battle regressions remain intact. Physical motion adapter
-work uses original legacy-only scenarios and does not certify canonical gear.
+Original R4 protected-recovery case bcf0718f passes3/0 over1350 ticks.
+Its legacy-only screen moved40.7165 units; damaged ally gained53.3434 hull HP,
+spent20 supplies and bailed347.2 water to0. No danger/retreat event occurred.
+This proves that one recovery case, not canonical equipment or the wider matrix.
+Proof: ROOT PHYSICAL R4 PROTECTED RECOVERY AUTHORED VERIFIED.json.
+The queued mirror1c3c1253, hotspot89bf74f5 and original pump/equipment e12a5a50
+ended without execution evidence (empty lane logs; request and failure receipt
+only). They are FAILED queue handoffs, not native failures or passes. Root and
+QA are checking safe resubmission through the same shared lane.
+The smaller complete integration fixture remains source-only. Root caught an
+autopilot return-value assertion error before native execution; Grok is creating
+a new revision, with Argon reviewing. Original battle regressions stay intact.
 Proofs: ROOT FRAME REPAIR R1 NATIVE VERIFIED OUTER FAILED.json,
 ROOT FRAME COST R3B NATIVE VERIFIED.json and
 ROOT BATTLE OBSERVER R2 INCOMPLETE VERIFIED.json. No performance/release acceptance.
