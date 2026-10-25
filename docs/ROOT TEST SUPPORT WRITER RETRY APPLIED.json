@@ -1,0 +1,43 @@
+{
+  "classification": "ROOT_APPLIED_REVERSIBLE_TEST_SUPPORT_FIX",
+  "createdAt": "2026-10-25T23:48:27.912Z",
+  "target": "C:/Users/bligh/Documents/Codex/2026-10-24/al/outputs/GameTestBridge/testbridge/winjob.py",
+  "baseSha256": "cccbdc448dafaeb35e4a869cc670e8e78584c8e1916b0de272bd432a4ee650ed",
+  "candidateSha256": "30410d709b6174b631cf8317a3f9152206af51747ec09c856e7def7356907396",
+  "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/test-support-history/cccbdc448dafaeb35e4a869cc670e8e78584c8e1916b0de272bd432a4ee650ed/winjob.py",
+  "diffSha256": "c1bb79175e95ba7d4c716e9fb92709c8f73f907a549a7b9d05a2e056fe821662",
+  "cpuProofSha256": "1f0921711cc7d730e45c952a67c2bd0c3f201f454a906663cebbc385b60ff1dc",
+  "cpuCases": [
+    {
+      "case": "released-reader",
+      "status": "passed",
+      "checks": 11,
+      "failures": 0,
+      "attempts": 5,
+      "elapsedSeconds": 0.06299999999828287
+    },
+    {
+      "case": "permanently-held-reader",
+      "status": "passed",
+      "checks": 9,
+      "failures": 0,
+      "attempts": 20,
+      "elapsedSeconds": 0.25
+    },
+    {
+      "case": "noneligible-error-guard",
+      "status": "passed",
+      "checks": 8,
+      "failures": 0,
+      "attempts": 1,
+      "elapsedSeconds": 0.014999999999417923
+    }
+  ],
+  "changed": "Atomic JSON replacement retries only WinError5/32 within 250ms; preserves complete old and temporary images on refusal. Initial assigned process ownership records precede resume.",
+  "schedulingPolicyChanged": false,
+  "laneDetectorChanged": false,
+  "processControlPolicyChanged": false,
+  "engineRunsByRoot": 0,
+  "historicalCausation": "Unknown; controlled reproduction validates the changed mechanism, not incident attribution.",
+  "nativeEndToEndVerified": false
+}

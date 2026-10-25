@@ -1,0 +1,512 @@
+{
+  "schema": 1,
+  "profile_valid": true,
+  "issues": [],
+  "diagnostic_only": true,
+  "capacityAccepted": false,
+  "samples": [
+    {
+      "actual_tick": 1,
+      "whole_update_us": 251354,
+      "buckets": {
+        "AI": {
+          "timer_us": 165973,
+          "measured_union_us": 147770,
+          "unmeasured_residual_us": 18203
+        },
+        "OTHER": {
+          "timer_us": 85381,
+          "measured_union_us": 67239,
+          "unmeasured_residual_us": 18142
+        }
+      },
+      "observer_hook_body_us": 2665
+    },
+    {
+      "actual_tick": 2,
+      "whole_update_us": 251978,
+      "buckets": {
+        "AI": {
+          "timer_us": 141160,
+          "measured_union_us": 121399,
+          "unmeasured_residual_us": 19761
+        },
+        "OTHER": {
+          "timer_us": 110818,
+          "measured_union_us": 85828,
+          "unmeasured_residual_us": 24990
+        }
+      },
+      "observer_hook_body_us": 2095
+    },
+    {
+      "actual_tick": 3,
+      "whole_update_us": 238884,
+      "buckets": {
+        "AI": {
+          "timer_us": 142598,
+          "measured_union_us": 123388,
+          "unmeasured_residual_us": 19210
+        },
+        "OTHER": {
+          "timer_us": 96286,
+          "measured_union_us": 75216,
+          "unmeasured_residual_us": 21070
+        }
+      },
+      "observer_hook_body_us": 2251
+    },
+    {
+      "actual_tick": 4,
+      "whole_update_us": 283664,
+      "buckets": {
+        "AI": {
+          "timer_us": 177028,
+          "measured_union_us": 154391,
+          "unmeasured_residual_us": 22637
+        },
+        "OTHER": {
+          "timer_us": 106636,
+          "measured_union_us": 83263,
+          "unmeasured_residual_us": 23373
+        }
+      },
+      "observer_hook_body_us": 2391
+    },
+    {
+      "actual_tick": 5,
+      "whole_update_us": 230019,
+      "buckets": {
+        "AI": {
+          "timer_us": 142147,
+          "measured_union_us": 114494,
+          "unmeasured_residual_us": 27653
+        },
+        "OTHER": {
+          "timer_us": 87872,
+          "measured_union_us": 69467,
+          "unmeasured_residual_us": 18405
+        }
+      },
+      "observer_hook_body_us": 1824
+    },
+    {
+      "actual_tick": 6,
+      "whole_update_us": 313719,
+      "buckets": {
+        "AI": {
+          "timer_us": 196501,
+          "measured_union_us": 164595,
+          "unmeasured_residual_us": 31906
+        },
+        "OTHER": {
+          "timer_us": 117218,
+          "measured_union_us": 94567,
+          "unmeasured_residual_us": 22651
+        }
+      },
+      "observer_hook_body_us": 2576
+    },
+    {
+      "actual_tick": 7,
+      "whole_update_us": 304263,
+      "buckets": {
+        "AI": {
+          "timer_us": 192422,
+          "measured_union_us": 165785,
+          "unmeasured_residual_us": 26637
+        },
+        "OTHER": {
+          "timer_us": 111841,
+          "measured_union_us": 88065,
+          "unmeasured_residual_us": 23776
+        }
+      },
+      "observer_hook_body_us": 3358
+    },
+    {
+      "actual_tick": 8,
+      "whole_update_us": 275446,
+      "buckets": {
+        "AI": {
+          "timer_us": 169482,
+          "measured_union_us": 131011,
+          "unmeasured_residual_us": 38471
+        },
+        "OTHER": {
+          "timer_us": 105964,
+          "measured_union_us": 83039,
+          "unmeasured_residual_us": 22925
+        }
+      },
+      "observer_hook_body_us": 3567
+    },
+    {
+      "actual_tick": 9,
+      "whole_update_us": 315221,
+      "buckets": {
+        "AI": {
+          "timer_us": 199514,
+          "measured_union_us": 166379,
+          "unmeasured_residual_us": 33135
+        },
+        "OTHER": {
+          "timer_us": 115707,
+          "measured_union_us": 91654,
+          "unmeasured_residual_us": 24053
+        }
+      },
+      "observer_hook_body_us": 3480
+    },
+    {
+      "actual_tick": 10,
+      "whole_update_us": 327582,
+      "buckets": {
+        "AI": {
+          "timer_us": 230064,
+          "measured_union_us": 195388,
+          "unmeasured_residual_us": 34676
+        },
+        "OTHER": {
+          "timer_us": 97518,
+          "measured_union_us": 77517,
+          "unmeasured_residual_us": 20001
+        }
+      },
+      "observer_hook_body_us": 3090
+    },
+    {
+      "actual_tick": 11,
+      "whole_update_us": 268085,
+      "buckets": {
+        "AI": {
+          "timer_us": 168732,
+          "measured_union_us": 135866,
+          "unmeasured_residual_us": 32866
+        },
+        "OTHER": {
+          "timer_us": 99353,
+          "measured_union_us": 78152,
+          "unmeasured_residual_us": 21201
+        }
+      },
+      "observer_hook_body_us": 2362
+    },
+    {
+      "actual_tick": 12,
+      "whole_update_us": 275061,
+      "buckets": {
+        "AI": {
+          "timer_us": 180999,
+          "measured_union_us": 151848,
+          "unmeasured_residual_us": 29151
+        },
+        "OTHER": {
+          "timer_us": 94062,
+          "measured_union_us": 73918,
+          "unmeasured_residual_us": 20144
+        }
+      },
+      "observer_hook_body_us": 2436
+    },
+    {
+      "actual_tick": 13,
+      "whole_update_us": 289247,
+      "buckets": {
+        "AI": {
+          "timer_us": 196175,
+          "measured_union_us": 163630,
+          "unmeasured_residual_us": 32545
+        },
+        "OTHER": {
+          "timer_us": 93072,
+          "measured_union_us": 73952,
+          "unmeasured_residual_us": 19120
+        }
+      },
+      "observer_hook_body_us": 2783
+    },
+    {
+      "actual_tick": 14,
+      "whole_update_us": 277295,
+      "buckets": {
+        "AI": {
+          "timer_us": 168481,
+          "measured_union_us": 131555,
+          "unmeasured_residual_us": 36926
+        },
+        "OTHER": {
+          "timer_us": 108814,
+          "measured_union_us": 84182,
+          "unmeasured_residual_us": 24632
+        }
+      },
+      "observer_hook_body_us": 2491
+    },
+    {
+      "actual_tick": 15,
+      "whole_update_us": 252372,
+      "buckets": {
+        "AI": {
+          "timer_us": 160775,
+          "measured_union_us": 129156,
+          "unmeasured_residual_us": 31619
+        },
+        "OTHER": {
+          "timer_us": 91597,
+          "measured_union_us": 72356,
+          "unmeasured_residual_us": 19241
+        }
+      },
+      "observer_hook_body_us": 2276
+    },
+    {
+      "actual_tick": 16,
+      "whole_update_us": 309765,
+      "buckets": {
+        "AI": {
+          "timer_us": 211806,
+          "measured_union_us": 178332,
+          "unmeasured_residual_us": 33474
+        },
+        "OTHER": {
+          "timer_us": 97959,
+          "measured_union_us": 76532,
+          "unmeasured_residual_us": 21427
+        }
+      },
+      "observer_hook_body_us": 3039
+    },
+    {
+      "actual_tick": 17,
+      "whole_update_us": 309415,
+      "buckets": {
+        "AI": {
+          "timer_us": 185713,
+          "measured_union_us": 155088,
+          "unmeasured_residual_us": 30625
+        },
+        "OTHER": {
+          "timer_us": 123702,
+          "measured_union_us": 94331,
+          "unmeasured_residual_us": 29371
+        }
+      },
+      "observer_hook_body_us": 2703
+    },
+    {
+      "actual_tick": 18,
+      "whole_update_us": 263390,
+      "buckets": {
+        "AI": {
+          "timer_us": 170871,
+          "measured_union_us": 144452,
+          "unmeasured_residual_us": 26419
+        },
+        "OTHER": {
+          "timer_us": 92519,
+          "measured_union_us": 72267,
+          "unmeasured_residual_us": 20252
+        }
+      },
+      "observer_hook_body_us": 2167
+    },
+    {
+      "actual_tick": 19,
+      "whole_update_us": 267942,
+      "buckets": {
+        "AI": {
+          "timer_us": 180910,
+          "measured_union_us": 151428,
+          "unmeasured_residual_us": 29482
+        },
+        "OTHER": {
+          "timer_us": 87032,
+          "measured_union_us": 69256,
+          "unmeasured_residual_us": 17776
+        }
+      },
+      "observer_hook_body_us": 2358
+    },
+    {
+      "actual_tick": 20,
+      "whole_update_us": 271207,
+      "buckets": {
+        "AI": {
+          "timer_us": 176396,
+          "measured_union_us": 146739,
+          "unmeasured_residual_us": 29657
+        },
+        "OTHER": {
+          "timer_us": 94811,
+          "measured_union_us": 75223,
+          "unmeasured_residual_us": 19588
+        }
+      },
+      "observer_hook_body_us": 2349
+    },
+    {
+      "actual_tick": 21,
+      "whole_update_us": 242472,
+      "buckets": {
+        "AI": {
+          "timer_us": 148564,
+          "measured_union_us": 120392,
+          "unmeasured_residual_us": 28172
+        },
+        "OTHER": {
+          "timer_us": 93908,
+          "measured_union_us": 74668,
+          "unmeasured_residual_us": 19240
+        }
+      },
+      "observer_hook_body_us": 2062
+    },
+    {
+      "actual_tick": 22,
+      "whole_update_us": 315649,
+      "buckets": {
+        "AI": {
+          "timer_us": 208735,
+          "measured_union_us": 172743,
+          "unmeasured_residual_us": 35992
+        },
+        "OTHER": {
+          "timer_us": 106914,
+          "measured_union_us": 83596,
+          "unmeasured_residual_us": 23318
+        }
+      },
+      "observer_hook_body_us": 3239
+    },
+    {
+      "actual_tick": 23,
+      "whole_update_us": 269220,
+      "buckets": {
+        "AI": {
+          "timer_us": 166039,
+          "measured_union_us": 134632,
+          "unmeasured_residual_us": 31407
+        },
+        "OTHER": {
+          "timer_us": 103181,
+          "measured_union_us": 80317,
+          "unmeasured_residual_us": 22864
+        }
+      },
+      "observer_hook_body_us": 3100
+    },
+    {
+      "actual_tick": 24,
+      "whole_update_us": 318867,
+      "buckets": {
+        "AI": {
+          "timer_us": 219400,
+          "measured_union_us": 187838,
+          "unmeasured_residual_us": 31562
+        },
+        "OTHER": {
+          "timer_us": 99467,
+          "measured_union_us": 74743,
+          "unmeasured_residual_us": 24724
+        }
+      },
+      "observer_hook_body_us": 2637
+    }
+  ],
+  "seam_totals": {
+    "AI": {
+      "tactical_runtime.begin": {
+        "count": 24,
+        "inclusive_us": 3405864,
+        "exclusive_us": 740531,
+        "max_us": 187366
+      },
+      "equipment_rollout.prefix": {
+        "count": 85,
+        "inclusive_us": 2519910,
+        "exclusive_us": 287427,
+        "max_us": 56823
+      },
+      "damage._tick_canonical_with": {
+        "count": 5100,
+        "inclusive_us": 2230062,
+        "exclusive_us": 1933351,
+        "max_us": 4838
+      },
+      "damage._status_for_info": {
+        "count": 23388,
+        "inclusive_us": 465450,
+        "exclusive_us": 465450,
+        "max_us": 3884
+      },
+      "damage._cache_entry_valid": {
+        "count": 6203,
+        "inclusive_us": 161540,
+        "exclusive_us": 161540,
+        "max_us": 2299
+      },
+      "battle._move": {
+        "count": 0,
+        "inclusive_us": 0,
+        "exclusive_us": 0,
+        "max_us": 0
+      }
+    },
+    "OTHER": {
+      "tactical_runtime.begin": {
+        "count": 0,
+        "inclusive_us": 0,
+        "exclusive_us": 0,
+        "max_us": 0
+      },
+      "equipment_rollout.prefix": {
+        "count": 0,
+        "inclusive_us": 0,
+        "exclusive_us": 0,
+        "max_us": 0
+      },
+      "damage._tick_canonical_with": {
+        "count": 960,
+        "inclusive_us": 1828758,
+        "exclusive_us": 1762379,
+        "max_us": 8384
+      },
+      "damage._status_for_info": {
+        "count": 3840,
+        "inclusive_us": 87569,
+        "exclusive_us": 87569,
+        "max_us": 896
+      },
+      "damage._cache_entry_valid": {
+        "count": 960,
+        "inclusive_us": 28741,
+        "exclusive_us": 28741,
+        "max_us": 249
+      },
+      "battle._move": {
+        "count": 960,
+        "inclusive_us": 70590,
+        "exclusive_us": 20659,
+        "max_us": 910
+      }
+    }
+  },
+  "observer_hook_body_us_total": 63299,
+  "baseline_comparison": "Exact saved per-tick resources/work/ages/budgets; only diagnostic ai_us and metrics.aiUs omitted",
+  "rng_scope": "Lossless current before/after states and continuity only; saved original cost has no RNG state or pose baseline",
+  "timing_scope": "Raw original timers and disjoint unions. Residuals include unmeasured gameplay and observer overhead; no exact correction",
+  "claims": "Cold24 only; no causal/FPS/capacity/full-state equivalence or idle-host claim",
+  "separate_calibration_estimate": {
+    "empty_pair_mean_us": 0.8074,
+    "clock_pair_mean_us": 0.0293,
+    "entered_pairs": 41520,
+    "estimated_empty_pair_us_for_entries": 33523.248,
+    "subtracted_from_timings": false
+  },
+  "input_sha256": {
+    "hotspot": "428462e4fdb8568e18a7b844d5d676ab11158449774ecf3fb63d1836e68bfe57",
+    "cost": "4ac858a30d66a8581be824c0b942656e52adb6ea4da5a3be44ccceeaee9bdcd7",
+    "baseline": "7e185f25efc1c1d425a305fb6f732e03ee5d03db24c843060afb70f97e98029a"
+  }
+}

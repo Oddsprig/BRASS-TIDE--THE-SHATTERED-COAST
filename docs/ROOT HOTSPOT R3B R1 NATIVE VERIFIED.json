@@ -1,0 +1,109 @@
+{
+  "classification": "ACTUAL_24_COLD_UPDATES_PROFILE_ONLY",
+  "createdAt": "2026-10-25T23:29:49.109Z",
+  "reviewer": "Root",
+  "jobId": "ee93a8c122774013ad2321fc1eaf0356",
+  "artifactFolder": "C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/ee93a8c122774013ad2321fc1eaf0356/attempt-001",
+  "checks": 51,
+  "failures": 0,
+  "inputCount": 291,
+  "inputSha256": "ddf5c84522ea6894eddb7885f112b0ba65170d13957e508c9439103e3968fa0c",
+  "hotspotSha256": "428462e4fdb8568e18a7b844d5d676ab11158449774ecf3fb63d1836e68bfe57",
+  "costSha256": "4ac858a30d66a8581be824c0b942656e52adb6ea4da5a3be44ccceeaee9bdcd7",
+  "analyzerSha256": "14bc8cdfcd8a92ba72d8e78b29f6edc8892a18e6400736a72c27371c3b59e7a3",
+  "baselineSha256": "7e185f25efc1c1d425a305fb6f732e03ee5d03db24c843060afb70f97e98029a",
+  "analysisSha256": "9f8df3b18c9a0c532d7ef7644d213439b3b6c8914874f3e346357da18d246edd",
+  "profileValid": true,
+  "issues": [],
+  "actualUpdates": 24,
+  "warmupUpdates": 0,
+  "boats": 40,
+  "seed": 83,
+  "dt": 0.03333333333333333,
+  "seamTotals": {
+    "AI": {
+      "tactical_runtime.begin": {
+        "count": 24,
+        "inclusive_us": 3405864,
+        "exclusive_us": 740531,
+        "max_us": 187366
+      },
+      "equipment_rollout.prefix": {
+        "count": 85,
+        "inclusive_us": 2519910,
+        "exclusive_us": 287427,
+        "max_us": 56823
+      },
+      "damage._tick_canonical_with": {
+        "count": 5100,
+        "inclusive_us": 2230062,
+        "exclusive_us": 1933351,
+        "max_us": 4838
+      },
+      "damage._status_for_info": {
+        "count": 23388,
+        "inclusive_us": 465450,
+        "exclusive_us": 465450,
+        "max_us": 3884
+      },
+      "damage._cache_entry_valid": {
+        "count": 6203,
+        "inclusive_us": 161540,
+        "exclusive_us": 161540,
+        "max_us": 2299
+      },
+      "battle._move": {
+        "count": 0,
+        "inclusive_us": 0,
+        "exclusive_us": 0,
+        "max_us": 0
+      }
+    },
+    "OTHER": {
+      "tactical_runtime.begin": {
+        "count": 0,
+        "inclusive_us": 0,
+        "exclusive_us": 0,
+        "max_us": 0
+      },
+      "equipment_rollout.prefix": {
+        "count": 0,
+        "inclusive_us": 0,
+        "exclusive_us": 0,
+        "max_us": 0
+      },
+      "damage._tick_canonical_with": {
+        "count": 960,
+        "inclusive_us": 1828758,
+        "exclusive_us": 1762379,
+        "max_us": 8384
+      },
+      "damage._status_for_info": {
+        "count": 3840,
+        "inclusive_us": 87569,
+        "exclusive_us": 87569,
+        "max_us": 896
+      },
+      "damage._cache_entry_valid": {
+        "count": 960,
+        "inclusive_us": 28741,
+        "exclusive_us": 28741,
+        "max_us": 249
+      },
+      "battle._move": {
+        "count": 960,
+        "inclusive_us": 70590,
+        "exclusive_us": 20659,
+        "max_us": 910
+      }
+    }
+  },
+  "observerHookBodyUs": 63299,
+  "rawTimingsIncludeObserver": true,
+  "nativeReceiptAudit": "Root native_evidence.review passed: all source/tool/engine hashes, shared lane, profiles, raw log and both outcomes.",
+  "capacityAccepted": false,
+  "fpsAccepted": false,
+  "causalClaim": false,
+  "fullStateOrRngBaselineEquivalence": false,
+  "nativeLaunchedByRoot": false
+}

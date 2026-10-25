@@ -10,8 +10,12 @@ warmup updates in40s and0 measured samples. Cold diagnostic:407.807ms whole,
 Private copy pair now matches1800 gold samples/20certificates; freshness29 and
 public90/89/174 pass. Isolated weapons27/0 and native repair67/0; repair outer
 supervision failed separately. New cold40 whole274.9235ms/AI179.2996/other95.6239;
-performance remains unaccepted. Full recorder60s timeout preserved. Profile before release;
-remaining030/held-out/motion/audio/Windows proof also open. No031tag/export.
+performance remains unaccepted. Full recorder60s timeout preserved. Validated24-tick
+profile identifies canonical condition/repair tick work as the main measured cost.
+Protected-recovery passes3/0 in both orientations (legacy-only; no retreat proof).
+Pump/armor remains open after supervisor WinError5; no terminal test count.
+Small integration fixture is source-only pending its family-boundary correction.
+Remaining030/held-out/motion/audio/Windows proof stays open. No031tag/export.
 0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
 Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.
 Choose tow/strip/abandon with finite cargo/modules and actual custody.

@@ -17,9 +17,37 @@ clearance tests and normalLimit7. This is cold data, not FPS or capacity.
 Full R2 recorder463f9bac hit60s with12777415B partial trace and no terminal
 manifest/count. Preserve it; no unchanged retry, raised bound or NEW full-family
 run. Corrected metadata followed an earlier pre-launch rejection, not a test pass.
-A smaller complete integration-fixture plan and finer hotspot measurement are
-source work. Original battle regressions remain intact. Physical motion adapter
-work uses original legacy-only scenarios and does not certify canonical gear.
+Original R4 protected recovery passes3/0 in BOTH orientations over1350 ticks
+each: authored bcf0718f and swapped8608046b. Paid hull gains53.3434/50.4778,
+20 supplies spent each and water347.2 to0. Swept allied hull gaps45.6739/23.6348
+exceed original6.8 threshold. Legacy-only; no danger/retreat event, canonical
+equipment or wider matrix claim. Authored/swapped ROOT PHYSICAL R4 proofs bind it.
+Profiler replacement ee93a8c1 passes51/0. Both QA and Root independently ran
+frozen analyzer14bc on actual24 cold updates against exact734be351 baseline:
+profile_valid=true, no issues, identical analysis SHA9f8df3b1. Most measured cost
+is canonical tick work: AI private5100 calls2.230s inclusive/1.933s exclusive;
+OTHER960 calls1.829s/1.762s. Raw times include observer overhead. No FPS, capacity,
+causal or whole-state/RNG-baseline claim. Grok owns isolated measured optimization.
+ROOT HOTSPOT R3B R1 NATIVE VERIFIED.json and ANALYSIS.json preserve findings.
+Original prelaunch1c3c/89bf/e12a failures remain distinct. Pump/armor replacement
+4db4c554 attempt001 yielded to another Godot app and was automatically requeued;
+attempt002 failed supervisor owned.json.tmp replacement (WinError5), with no
+terminal native count. It remains OPEN; no blind repeat. A reader-only draft
+failed its isolated proof and was rejected. A changed bounded writer retry passed
+28 CPU checks across release, permanent-lock and noneligible-error cases. Root
+reviewed/applied only winjob.py30410d70, backed up originalcccbdc44. It retries
+WinError5/32 within250ms and records assigned ownership before resume; existing
+FIFO/detector/cleanup policy stays intact. Historical cause remains unknown;
+next native end-to-end evidence is pending. ROOT TEST SUPPORT WRITER RETRY APPLIED.
+Small-complete r1/r2 source is preserved; Root found the autopilot return-value
+assertion error, then Argon found an assertion outside its recorded family.
+R3 fixes both; Root reviewed and verified the builder and staged exact OLD503/
+dcf8e2ff and NEW504/ea84b759. Only ONE OLD feasibility native is authorized,
+through the same lane; NEW remains unapproved pending actual complete evidence.
+Grok's next tick candidate69b01f77 removes one redundant successful publication
+per60Hz step, keeping the raw published engine float across sanitize. Source
+review only; unmerged, with no state/timing acceptance yet.
+Original full battle regressions stay intact.
 Proofs: ROOT FRAME REPAIR R1 NATIVE VERIFIED OUTER FAILED.json,
 ROOT FRAME COST R3B NATIVE VERIFIED.json and
 ROOT BATTLE OBSERVER R2 INCOMPLETE VERIFIED.json. No performance/release acceptance.
