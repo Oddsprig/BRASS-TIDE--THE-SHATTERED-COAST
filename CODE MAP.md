@@ -5,23 +5,24 @@ maps/PROJECT MAP.txt for sizes and targeted maps/ files for actual symbols/lines
 Historical JS prototype is archived. Planned modules do not exist until implemented.
 
 LIVE-FRAME CANDIDATE CHECKPOINT - 25 OCTOBER 2026
-The five live-frame modules remain isolated; Main still contains only the two
-accepted private-copy changes. Original weapons-cadence job58762011 passes27/0
-on exact R3B inputs3f89395f. Root checked native logs, all499 inputs, tool and
-engine receipts, hidden/profile/lane settings and the empty ownership ledger.
-The two isolation64/1 receipts remain: repair reached the jury cap, then ongoing
-fire reduced final engine HP. Corrected fixture549f uses a separate canonical
-engine at0.50 with no fire and retains strict HP gain plus actual supply debit.
-Its new499-input stage92f012d3 preserves all other source and23 import files.
-Native isolation3cf177bd and OLD recorderf1300c87 are QUEUED at this checkpoint.
-Cold cost52a013 remains conditional on a verified isolation pass and exit audit.
-R2 recorder source reverses all521 originals through112 edits. Preserved CPU
-checks67/0 validate lossless bounded gzip; native feasibility is still pending.
-The isolated NEW source overlay is not battle equivalence. Its actual adapted
-builder hash needs a separately reviewed provenance verifier; never fake shared
-builder identity or rewrite OLD evidence to satisfy the frozen comparator.
-Root proof files: ROOT FRAME WEAPONS R3B VERIFIED.json and
-ROOT BATTLE OBSERVER R2 SOURCE VERIFIED.json. No performance/release acceptance.
+The five live-frame modules remain isolated; Main keeps only the two accepted
+private-copy changes. Weapons-cadence58762011 passes27/0. Corrected repair
+3cf177bd produced native67/0 with unchanged inputs and exited original children.
+Its outer supervisor FAILED after native completion; that failure and unknown
+cause remain separate. Original isolation64/1 records are preserved.
+Cold diagnostic734be351 passes51/0:24 actual updates,40 canonical boats afloat,
+300DP per side. Mean whole274.9235ms / AI179.2996ms / other95.6239ms; prior R4
+cold means407.8069/295.3393/112.4676ms. Same last work4rollouts/240samples/3077
+clearance tests and normalLimit7. This is cold data, not FPS or capacity.
+Full R2 recorder463f9bac hit60s with12777415B partial trace and no terminal
+manifest/count. Preserve it; no unchanged retry, raised bound or NEW full-family
+run. Corrected metadata followed an earlier pre-launch rejection, not a test pass.
+A smaller complete integration-fixture plan and finer hotspot measurement are
+source work. Original battle regressions remain intact. Physical motion adapter
+work uses original legacy-only scenarios and does not certify canonical gear.
+Proofs: ROOT FRAME REPAIR R1 NATIVE VERIFIED OUTER FAILED.json,
+ROOT FRAME COST R3B NATIVE VERIFIED.json and
+ROOT BATTLE OBSERVER R2 INCOMPLETE VERIFIED.json. No performance/release acceptance.
 
 
 | Area | Current files under game/scripts/ | Targeted map |

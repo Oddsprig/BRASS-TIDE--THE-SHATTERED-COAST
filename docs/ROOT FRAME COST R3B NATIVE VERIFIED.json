@@ -1,0 +1,57 @@
+{
+  "classification": "COMPLETE_COLD_24_UPDATE_DIAGNOSTIC_ONLY",
+  "row": {
+    "jobId": "734be3513eb241eaa326fdaa0fed733f",
+    "suite": "equipment_cost_diagnostic",
+    "family": "",
+    "outcome": "passed",
+    "checks": 51,
+    "failures": 0,
+    "inputSha256": "52a01331795351e79e9be3ddac13ce1cf1f74a85868d84d92c3c9c1795cd1197",
+    "inputCount": 289,
+    "nativeWallSeconds": 8.171999999991385,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\734be3513eb241eaa326fdaa0fed733f\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "5459270571dbfc9e2e0999e64d76a2536e5a28455e634b3a6eacfa7cff9e2f13",
+      "cost-diagnostic.json": "7e185f25efc1c1d425a305fb6f732e03ee5d03db24c843060afb70f97e98029a",
+      "execution.json": "36ec2c37c9f106b9550e8dec7e8ec45be5543caf21759bd006f4f724aef19036",
+      "inputs-after.json": "294c92e0b1e6e17d5b659868a8d249b80222ad0b815aa6103064520584a670e4",
+      "inputs-before.json": "294c92e0b1e6e17d5b659868a8d249b80222ad0b815aa6103064520584a670e4",
+      "lane.log": "349954eee22538287d90efda42780c1a0f3e524a3e8655a4253392e61decb8c1",
+      "native-receipt.json": "f48a716e0781bdd267ee5fb18fb59e71f8fa76cf7f3149606ebcf788952d9b58",
+      "native.log": "e380b795e0e9740d33e705377ab924616f21747e557b85067b7128c357e004da",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "c2ad734b61df19066bd7a531ba1dca2bb798e3cbe57f923acdc68e9df6a2d938",
+      "request.json": "e8a58c9387a5cb80c4a08292b4e0783b7cbd5d79acfc5c997bee12d120e27d45",
+      "result.json": "8dc644fa1d6f2625f949d59efd4b996fcd0e02a59524d903d98fadc853f70559",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "c4cc9fb4c069b6d2f95026f617fc3c19ddbc553ba03b667e792ec69246e54e12",
+      "verified-report.json": "8dc644fa1d6f2625f949d59efd4b996fcd0e02a59524d903d98fadc853f70559"
+    }
+  },
+  "meansMs": {
+    "whole_update_us": 274.9235,
+    "ai_us": 179.299625,
+    "other_update_us": 95.623875
+  },
+  "fortyCanonicalAfloatEverySample": true,
+  "deploymentPointsPerSide": 300,
+  "lastWork": {
+    "cacheEntries": 0,
+    "cacheHits": 0,
+    "clearanceTests": 3077,
+    "exhaustions": 0,
+    "fullRoutes": 0,
+    "rollouts": 4,
+    "samples": 240
+  },
+  "normalLimit": 7,
+  "publicCalls": 40,
+  "publicMeanUs": 216.475,
+  "capacityAccepted": false,
+  "fpsClaim": false,
+  "idleHostEstablished": false,
+  "nativeLaunchedByRoot": false
+}

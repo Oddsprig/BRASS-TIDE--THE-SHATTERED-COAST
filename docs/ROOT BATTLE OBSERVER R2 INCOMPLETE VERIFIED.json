@@ -1,0 +1,91 @@
+{
+  "classification": "RECORDER_INCOMPLETE_NATIVE_TIMEOUT_NOT_GAME_PASS",
+  "row": {
+    "jobId": "463f9bac73e7497ebedcfc2bc0e624b2",
+    "suite": "equipment_combat",
+    "family": "pump_and_armor",
+    "outcome": "failed",
+    "checks": null,
+    "failures": null,
+    "inputSha256": "c6d36f0b9a2b7241ba6f1e71fb7fa613a0363338be04056de42ac3f2901c8000",
+    "inputCount": 502,
+    "nativeWallSeconds": 60.046999999991385,
+    "timeout": true,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\463f9bac73e7497ebedcfc2bc0e624b2\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "55018909d689833dd4266de356ea70bd4059d74b2f84c236bff43c2ef1c5bdb0",
+      "execution.json": "6016a72d37b02fd9e1b7b960b5886e6f1909f4f1442f5a6a1076cef22b4a1afa",
+      "inputs-after.json": "670c426960070c62ee713fed091ee7483801ab08d6875997b7f8ce76ba288e2c",
+      "inputs-before.json": "670c426960070c62ee713fed091ee7483801ab08d6875997b7f8ce76ba288e2c",
+      "lane.log": "ea2c96c14f54de9b0ca2adaa4829b63cf043c1b9f1c180cc8b3de272e217e639",
+      "native-receipt.json": "45c46ec69ba55f50ebc44c87bc2105e8b12b855af088abe298fd80909c55cba4",
+      "native.log": "99022de456a92592c6cda1dfeb4568c7eb2287284b8b3dd5fad9f8a380015104",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "f3699939259a2f71fb39b5322fc43b514159ff4ba43a67dac3adc9759144157f",
+      "request.json": "57f62238ee295e266ea42c27886e1d60a21ed5c1ce2570a14513b47d84d600e1",
+      "result.json": "39d2bda247fd20232068e8ac75097279aaeea68a3f82c433d66d6e9258a613af",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "839761ef91ab7f51bd4e161366d6c1f595fd07b73828b14ab6a07d1a08a3346f",
+      "trace.bin": "275554457bca7ba4eb6f276e2e4267fb4b31763df6c60b82bc664245fc8c11bb",
+      "verified-report.json": "39d2bda247fd20232068e8ac75097279aaeea68a3f82c433d66d6e9258a613af"
+    }
+  },
+  "traceBytes": 12777415,
+  "traceSha256": "275554457bca7ba4eb6f276e2e4267fb4b31763df6c60b82bc664245fc8c11bb",
+  "terminalManifestPresent": false,
+  "actualTerminalChecks": null,
+  "actualTerminalFailures": null,
+  "nativeCompatibilityCompleted": false,
+  "oldNewEquivalence": false,
+  "timingEvidence": false,
+  "pidQueries": {
+    "734be3513eb241eaa326fdaa0fed733f": [
+      {
+        "pid": 50448,
+        "presentNow": true,
+        "lastError": 0,
+        "originalInstanceAbsent": true,
+        "currentCreationUtc": "2026-10-25T17:06:03.257616+00:00",
+        "originalFinishedUtc": "2026-10-25T16:53:25.604765+00:00",
+        "pidReused": true,
+        "currentInstancePreserved": true
+      },
+      {
+        "pid": 51152,
+        "presentNow": false,
+        "lastError": 87,
+        "originalInstanceAbsent": true
+      },
+      {
+        "pid": 63416,
+        "presentNow": false,
+        "lastError": 87,
+        "originalInstanceAbsent": true
+      }
+    ],
+    "463f9bac73e7497ebedcfc2bc0e624b2": [
+      {
+        "pid": 42308,
+        "presentNow": false,
+        "lastError": 87,
+        "originalInstanceAbsent": true
+      },
+      {
+        "pid": 55088,
+        "presentNow": false,
+        "lastError": 87,
+        "originalInstanceAbsent": true
+      },
+      {
+        "pid": 56616,
+        "presentNow": false,
+        "lastError": 87,
+        "originalInstanceAbsent": true
+      }
+    ]
+  },
+  "nativeLaunchedByRoot": false,
+  "unchangedRetryAuthorized": false,
+  "boundsRaised": false
+}

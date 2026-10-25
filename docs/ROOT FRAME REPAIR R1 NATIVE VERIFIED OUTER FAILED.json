@@ -1,0 +1,81 @@
+{
+  "classification": "COMPLETE_NATIVE_SUITE_WITH_FAILED_OUTER_SUPERVISION",
+  "createdAt": "2026-10-25T16:51:15.777Z",
+  "reviewer": "Root",
+  "rootEngineLaunched": false,
+  "jobId": "3cf177bdfda544acbef84057adb6a746",
+  "artifacts": "C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/3cf177bdfda544acbef84057adb6a746/attempt-001",
+  "artifactHashes": {
+    "bridge-result.json": "f49c745ce0d07604b4f196dec6494b012c686cb1664b9e928690d989bc3bb2d4",
+    "inputs-after.json": "e3b274ef8d2ca02c3fa74d66e89deb20ff5d7045d78c351c04281a48f4bd34ec",
+    "inputs-before.json": "e3b274ef8d2ca02c3fa74d66e89deb20ff5d7045d78c351c04281a48f4bd34ec",
+    "lane.log": "ecf09ddbf600ec6d205b46853c657578be5e8cc05254a95aa98f99ebf8c9f14c",
+    "native-receipt.json": "367cb6402074442839b0cd4f1f95de042c886cdc1dc6881060e66f91402a0a0e",
+    "native.log": "47f92ead28a489a9b1b684e8c1b097490469bca42d87c991a88fde91ca48999b",
+    "owned.json": "9085fb2918e09f9008cd2f24ab0e9785050985938476d795b3c8fc9b88ce5110",
+    "owned.json.tmp": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+    "process.json": "85828ef6dcef01cac0755bbdef5910b248e2881a82382431272f535c6b52616e",
+    "request.json": "93425e04becee7ac229d8bafcd94ab27cc26222293878a5e2951f53df8642eb0",
+    "result.json": "bbfdae11ac951146aaeb3272dd20a9baf8911edf41d9cc48c722cd1e4de8d88a",
+    "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.log": "27ab67fab91142141735d3e14d4fee1b0c79c394108abc490d710d645a510922"
+  },
+  "native": {
+    "outcome": "passed",
+    "checks": 67,
+    "failures": 0,
+    "exitCode": 0,
+    "wallSeconds": 0.8439999999973224,
+    "timeout": false,
+    "inputCount": 499,
+    "inputSha256": "92f012d375e9d38e2ddd045937865bdc69dd8419d7d1a7a3067dbaedad48d94c",
+    "engineSha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+    "logSha256": "47f92ead28a489a9b1b684e8c1b097490469bca42d87c991a88fde91ca48999b",
+    "hidden": true,
+    "audio": "Dummy",
+    "priority": "BELOW_NORMAL",
+    "profile": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\3cf177bdfda544acbef84057adb6a746\\attempt-001\\profiles\\roaming",
+    "noNestedLane": true,
+    "childExitedRecorded": true
+  },
+  "supervision": {
+    "outcome": "failed",
+    "summary": "Exit code 1",
+    "executionJsonPresent": false,
+    "verifiedReportPresent": false,
+    "ownedLedgerContainsStalePids": true,
+    "ownedTmpEmpty": true,
+    "cause": "UNKNOWN; no explicit outer exception in saved stdout/stderr. Do not infer the old WinError5 cause.",
+    "passed": false
+  },
+  "pidQuery": {
+    "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/ROOT FRAME REPAIR R1 PID QUERY.json",
+    "sha256": "ed37192a83fb176d2ed66266f705b9966a1992b7527ac8495ec957ff8539985b",
+    "actualOwnedPids": [
+      7320,
+      26328,
+      12016,
+      53048,
+      49516
+    ],
+    "allOwnedAbsent": true,
+    "persistentSharedController": 33356,
+    "controllerExcludedFromOwnedPids": true,
+    "controllerAlsoInEarlierPassingJob": true
+  },
+  "runtime7": {
+    "scripts/battle.gd": "71361d92fbad1ffeae9e2722999700e25a2f0c6b13a557d010d024464af50b57",
+    "scripts/damage.gd": "bdc178c46878f5934bd90eb9b92cab929db96ba604d0c4cd200df5f985db8bdc",
+    "scripts/equipment_combat.gd": "4bd7d34118d23e1b943fef53e0eb15fab8270970c5e517866a4c023d3c694283",
+    "scripts/equipment_condition.gd": "a9c26f8e1c003314389b57914c1883e77647ce9e7b2b2e10d4a9094c4cd3b44e",
+    "scripts/equipment_damage.gd": "a892a7b062632524625b678c07cdcd77c8274bdd236da3628d188a65c8f584d9",
+    "scripts/tactical_fire_control.gd": "b057973b8308006ca0bdb7f700fa111eef6fdfa0e19007dfb1bf3b2b546fd7b9",
+    "scripts/tactical_runtime.gd": "bf76431c9f7b5b3108b8b1dad7be22090da82c39dad0c2bbd22d818b9d25622a"
+  },
+  "fullSourceAfterSha256": "9b44878c16c24aaf6c105f1929474a203fc3bdd027854fb7352392e3d25a0700",
+  "fullSourceMatchesBefore": true,
+  "original64_1ResultsPreserved": true,
+  "wholeTreeAcceptance": false,
+  "performanceAcceptance": false,
+  "repeatNativeRequired": false
+}

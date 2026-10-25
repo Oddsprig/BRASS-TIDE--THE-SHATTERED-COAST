@@ -222,3 +222,14 @@ LIVE-FRAME REPAIR AND TRACE PROVENANCE
   a common hash or rewrite completed OLD evidence. Packet parity stays exact.
 - Static source work may proceed while engines queue. Cancel only our obsolete
   queued source jobs, retain their cancelled status, and preserve every other lease.
+
+NATIVE RESULTS, OBSERVATION COST AND PROCESS IDENTITY
+- Keep native67/0 and failed outer supervision separate when both actual records
+  exist. Audit source/log/exit/ownership before advancing; do not rerun for a green
+  queue badge or infer an exception absent from the saved logs.
+- A recorder timeout is incomplete observation. Preserve it and scope a NEW small
+  complete fixture; leave original full regression assertions and bounds intact.
+- PIDs are reused. Verify creation identity or an owned process handle before
+  cleanup. Cost PID50448 was later reused; its newer process was left untouched.
+- componentOnly belongs to the exact detached-stage declaration. Correct metadata
+  in a new stage without editing frozen game bytes or calling a pre-launch fail a pass.
