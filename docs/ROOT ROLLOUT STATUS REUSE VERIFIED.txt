@@ -1,0 +1,38 @@
+BRASS TIDE - ROOT ROLLOUT STATUS REUSE REVIEW
+25 October2026 | Correctness component accepted; performance and release open
+
+Exact candidate86665a over frozen Argon combat5; one production file changes.
+Public motion/capability still query fresh status. Private certify reuses only
+instantaneous factors returned by the last copied Damage.tick_ship. Averaged
+inflow/bailing/repair are never used as fresh instantaneous status. No cross-call
+cache, public validation bypass, reduced work, stores or live-state mutation.
+
+Root independently rehashed5 finished native jobs,281 fixed inputs per job,
+engine/tools/logs/reports/shared-lane records. Root decoded all1800 full lossless
+Godot Variant samples: recomputed state hashes, byte-equal motion/capability/
+repair reports and seeded RNG;10 cases at30/60Hz with full60/120 substeps each.
+All20 actual certificate/prediction pairs also matched byte for byte, with
+unchanged sample/geometry budgets. Trace30=4976/0,trace60=9836/0; certificates
+161/0 at each rate. Includes damage/disable/reenable, priority/hits, flood/sink,
+crew/fuel/supplies exhaustion, legacy and corrupt cases. No native result omitted.
+
+Unchanged weapons family27/0;91ticks/91rollouts/5460prediction samples.
+One native run27.110s versus prior38.812s:30.1505% lower wall time. This is a
+single paired workload comparison, not sustained-fleet performance or FPS proof.
+Still too slow. Longer families paused while Sol scopes a shared private kernel.
+The fixture auto-priority exhaustion failure is preserved as4975/1; setup was
+corrected to engine priority and the exact exhaustion assertion was retained.
+Original mixed-loadout AI-range16/1 remains separate and is not counted as passed.
+
+Files frozen under task/frozen-rollout-status-reuse; Root decoded receipt and
+raw hashes are in ROOT ROLLOUT STATUS REUSE VERIFIED.json. Candidate is NOT yet
+Main/live combat or a new031 playable release. Other performance, recovery,
+full030, rendered/listening and clean Windows delivery gates remain open.
+Sol remains sole native submitter; shared Game Test Bridge queues other apps.
+
+CORRECTED RANGE FAMILY - INDEPENDENT ROOT REVIEW
+Job80940e69d0ec4a17ba4e52cdf48d233b:16/0,4ticks/4rollouts/240samples,2.266s.
+Root rehashed all281inputs/logs/tools/reports/sharedlane bytes, confirmed only
+fixturecc2differs fromR3 pack. The new meaningful working0.22HP secondary gives
+the original intended480->420 range/role/station/certificate transition. No AI
+algorithm changed. Original16/1 preserved; nativepump and otherfamilies open.

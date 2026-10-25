@@ -1,6 +1,6 @@
 BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.030)
 
-Verified core/Records/panel, paid fitting, conditional damage and pure whole-campaign custody preflight with corrected Recovery library. Legacy campaigns retain count fittings until lifecycle migration; actual battle/Harbor/save/recovery callers/UI and combined performance remain pending.
+Core/Records, paid physical fitting/damage and whole-campaign custody preflight feed integrated constructors/save migration/UI and paid Harbor/NPC service. Live combat candidate and physical salvage/tow still require acceptance; legacy counts cannot create free perfect parts.
 
 FILES AND VERIFIED SYMBOLS
 game/scripts/equipment_condition.gd: 48850 bytes; extends RefCounted
@@ -61,6 +61,6 @@ game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
   game/scripts/equipment_recovery.gd:276 retain()
 
 TESTS (game/tests/*.gd)
-test_equipment_condition (90), test_equipment_records (89), test_equipment_catalog (651 across24hulls/JSON), test_equipment_ui (49), test_equipment_fitting (324 plus refit352/workshop85), test_equipment_damage (174 plus legacy Damage); recorded native receipts under docs/. These counts do not prove a live feature.
+Core90, Records89, catalogue651/24hulls, panel49, fitting324/refit352/workshop85 and Damage174 are prior proof. Merged lifecycle75/UI167/save89/naval227/service204/NPC140/campaigncoins458: ROOT COMBINED EQUIPMENT VERIFICATION. Isolated weapons27/0, corrected AI-role16/0 (old16/1 retained),1800 exact private-prediction samples; performance open: ROOT ROLLOUT STATUS REUSE VERIFIED.
 
 Full symbols: rg -n '^func |^static func ' on named files.

@@ -1,52 +1,38 @@
 BRASS TIDE - WORKING SOURCE NOTES
-24 October2026 | Resumed work toward v0.031
+25 October2026 | Continuing toward v0.031, no new accepted playable build
 
-Portable030 remains its original UNTESTED build; verified029 is preserved.
-Background testing is active. No new playable build or complete quality claim.
-Tests queue behind other Godot or Unity apps, including headless jobs and
-editors. Each engine launch rechecks; source work can continue while waiting.
-The computer-wide test lane also detects renamed exports and queues other
-agents. The next Harbor check is queued, not passed. Root temporarily drives
-the existing QA tools while the Sol helper's local connection is unavailable.
+24 original boats, interchangeable physical mount IDs/positions/arcs, numerical
+crew, default flagship autopilot, WASD camera and300 battle points per side.
+Finite people/materials/coins;100coins per sailor-day. Cheap2D water retained.
+Portable030 is its preserved UNTESTED artifact; verified029 fallback is intact.
 
-Paid interchangeable fittings now preserve actual part IDs, condition and
-locker custody while paying real material and worker costs. Focused fitting324
-and legacy refit/workshop checks pass. Existing careers still use count fittings
-until the full equipment lifecycle is integrated. Core90/Records89/catalogue651/
-panel49 and Damage174 are verified components, not full031 acceptance. Exact Damage
-source is now installed conditionally; actual career/battle/save wiring remains.
-Paid Harbor restoration is now integrated: actual iron, copper, timber, kits,
-workers, experts and coins are required. Parts keep their IDs and locker spares
-keep their damage. Enhanced repair checks pass133/0; existing coin flow458/0.
-This remains component proof; full new-career/battle/UI integration is pending.
+Canonical equipment births/save migration/custody, actual condition in refits,
+paid Harbor/NPC/company repairs and UI are integrated into working source.
+Merged evidence: lifecycle75,UI167,save89,NavalAI227,player-service204,NPC140,
+original full campaign-coins458 checks all pass. Final-stat refresh purity24.
+Parts retain exact identity/damage; labor/material/coin costs and stores remain.
 
-The combined AI candidate passes40 first-seed maneuver cases,13 affected suites
-and44 real movement-authority checks. Small boats make useful paid firing passes
-and physically break away; escorts screen allies. First40-boat fire passes its
-focused deadline. Full regression, other seeds and sustained fleet performance
-are still being checked; two voyage checks reached their time bounds. The tested
-guarded AI is now installed in working source. Harbor/recovery remain separate.
+Live battle wiring remains an isolated candidate. Weapon/ammo checks27/0 pass;
+corrected meaningful AIrange-switch checks16/0 now pass; original16/1 retained.
+Private prediction reuse matches1800lossless substeps and20certificatepairs.
+The same91tick weapon scenario fell from38.812s to27.110s (onecomparison30.15%).
+Still too slow for large battles; sharedprivate numerical kernel is being built,
+with publicvalidation preserved and separate frozen old/new state proof required.
+Physical towR1 preserves original parts/loadout and fitted35%HP at paid recovery;
+it is unrun and under review. No integrated031/performance/quality claim.
 
-24 original boats;300 battle deployment points per side distinct from ownership;
-finite people, supplies and coins;100coins per sailor-day. Crew remain numerical.
-NPC maintenance and whole-world physical equipment ownership are under active
-development. No extra civilian boats or Starsector-level quality claimed yet.
+Same three Bridge helpers: Sol6.1Max,Grok4.7,Google4ArgonHigh. Sol alone submits
+native tests through shared Game Test Bridge. Existing Godot/Unity apps and
+leases have priority; no input/focus, foreground tests or owner-save changes.
+Headless/Dummy/synthetic tests stay bounded. A queued/interrupted test is not a
+pass. Notes and raw evidence are kept in current BUILD STATUS/VERIFICATION INDEX
+and ROOT COMBINED EQUIPMENT VERIFICATION / ROOT LIVE FAMILY BASELINES VERIFIED.
+More civilian designs and032-.038 remain future versions, each built on the last.
 
-Three Bridge helpers: Sol6.1Max, Grok4.7 and Google4ArgonHigh. Tests are silent,
-headless and isolated with no mouse/keyboard/focus. Owner files are preserved.
-See current BUILD STATUS and VERIFICATION INDEX for exact evidence/limitations.
-Versions advance.001 for actual playable builds, not prototype work.
+HISTORICAL V0.030 BUILD-ONLY RECORD â€” ORIGINAL TEXT RETAINED BELOW
 
-Latest CPU finding: the40/42boat tests are too slow. A first local-planning
-optimization keeps the exact combat state and improves the short mean about10%,
-but does not yet meet the sustained budget. The guarded candidate passes437
-focused checks; further speed and integration work remain. See ROOT GUARDED
-TACTICAL INTEGRATION for exact source and the limits of the current evidence.
-
-HISTORICAL V0.030 BUILD-ONLY RECORD — ORIGINAL TEXT RETAINED BELOW
-
-BRASS TIDE — DEVELOPMENT NOTES
-v0.030 — Tactical fleet AI and command controls
+BRASS TIDE â€” DEVELOPMENT NOTES
+v0.030 â€” Tactical fleet AI and command controls
 UNTESTED. Tests deferred AT OWNER REQUEST. Current Windows BUILD ONLY, then STOP.
 
 This source adds detached tactical roles and station planning, bounded physical
@@ -71,8 +57,8 @@ Root owns final build-only Windows packaging; this source record does not claim
 Windows execution, native regressions, motion/CPU/UI acceptance or audio review.
 
 PREVIOUS BUILD NOTES
-BRASS TIDE — DEVELOPMENT NOTES
-v0.029 — Fleet workshop and boat presentation
+BRASS TIDE â€” DEVELOPMENT NOTES
+v0.029 â€” Fleet workshop and boat presentation
 SOURCE CHECKS RECORDED: 70 native suites recorded from supplied logs. Feature acceptance requires lead review.
 
 Compare and prepare a purposeful fit on an existing owned hull, review its real bill and install it using paid work and physical equipment.
@@ -86,8 +72,8 @@ Finite coins, equipment and people; 100 coins per sailor-day. Templates contain 
 Exact-tag Windows export/startup/save/battle, archive hashes, launcher, remote publication, visual/motion review and listening require their own evidence. Source logs establish none of those outcomes.
 
 PREVIOUS BUILD NOTES
-BRASS TIDE — DEVELOPMENT NOTES
-v0.028 — Campaign balance guidance and performance
+BRASS TIDE â€” DEVELOPMENT NOTES
+v0.028 â€” Campaign balance guidance and performance
 SOURCE ACCEPTED: 66 native suites pass; portable export evidence is recorded separately in RELEASE.json.
 
 - Captain priorities provide five career views, actual readiness and return budgets, and direct links to existing campaign systems without changing game state.

@@ -1,6 +1,6 @@
 BRASS TIDE — EQUIPMENT-SERVICE MAP (generated; v0.030)
 
-Paid installed-part and hull restoration: detached quote/validation/staging, real kits/materials/purses/workers, in-place commit, stable UIDs and untouched locker spares. Normal career migration and combined battle/UI remain separate.
+Paid installed-part and hull restoration: detached quote/validation/staging, real kits/materials/purses/workers, in-place commit, stable UIDs and untouched locker spares. Combined career/save/UI service is integrated; live battle remains separate.
 
 FILES AND VERIFIED SYMBOLS
 game/scripts/equipment_service.gd: 39905 bytes; extends RefCounted
@@ -30,6 +30,6 @@ game/scripts/harbor.gd: 13017 bytes; extends RefCounted
   game/scripts/harbor.gd:221 use_reserves()
 
 TESTS (game/tests/*.gd)
-test_equipment_service: same enhanced fixture133/9 before to133/0 after; existing campaign_cash458/0 on final native pack. Shared machine lane receipts: docs/ROOT PAID HARBOR INTEGRATION.
+Current merged player service204/0, NPC/company140/0 and campaign_cash458/0: docs/ROOT COMBINED EQUIPMENT VERIFICATION. Prior enhanced fixture133/9 before to133/0 after: ROOT PAID HARBOR INTEGRATION.
 
 Full symbols: rg -n '^func |^static func ' on named files.

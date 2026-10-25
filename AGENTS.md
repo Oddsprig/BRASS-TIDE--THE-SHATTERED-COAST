@@ -15,6 +15,14 @@ The shared detector and lease supersede project-only scheduling. Launchers or
 crash reporters alone are not engine workloads, as the shared rules specify.
 <!-- END GAME TEST LANE -->
 
+25 October2026 continuation: owner says "ALRIGHT KEEP GOING". For queued native
+work, use the Game Test Bridge app described by the shared rules. Submit a raw
+executable/argument list or adapter; the app claims the SAME central lane. Never
+nest another lane lease inside its job. QA Sol again owns every Brass native
+submission (meeting8130d776/211f2f28); Root, Grok and Argon are source/review only.
+Keep job IDs, actual required reports and failed/interrupted evidence. Latest
+TaskCURRENT/TEAM and HANDOFF supersede historical temporary Root execution notes.
+
 LATEST TEST ORDER (24 October2026), owner: "check other godot or unity apps
 running and queue tests behind it - add to game testing rules."
 Before EVERY Godot test, benchmark, import/export, render or game smoke, check

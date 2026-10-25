@@ -1,79 +1,69 @@
-BRASS TIDE - CURRENT CHECKPOINT 2026-10-24T11:45:10.895185+00:00
-Source checkpoint: e43997bcf2cb979a59f4d3c46fca8645d659538c. Combined equipment source is
-committed locally. Later coordination-only commits may follow. No new playable
-version has been accepted.
+BRASS TIDE - CURRENT CHECKPOINT 2026-10-25T08:45:11.990453+00:00
+Owner: "ALRIGHT KEEP GOING". Authorized sequential roadmap through .038 active.
+Current gameplay source e43997bc; initial HEAD097d4ee includes coordination only.
+No new playable build accepted. Desktop030/tag7492fb7 remains UNTESTED; verified
+029/44e2a46 fallback and all owner saves/settings/music/releases/launcher intact.
+No031+tag/export/launcher/upload. Current24boats; extra12civilian designs035 future.
 
-USER AND TEST SCHEDULING
-Continue the authorized roadmap through .038, building on each accepted version.
-Latest user: check other Godot/Unity apps, queue tests and add the testing rules.
-Follow C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md and its shared FIFO
-runner tools/game-testing/Invoke-GameTestLane.ps1. Renamed players, editors and
-other agents' leases block. Failed inspection also queues. Never close/control
-another app or take mouse, keyboard or focus. One bounded silent test per lease.
-All three Brass guards now call the canonical read-only detector (75 synthetic
-checks). Actual Unity activity and other leases delayed tests. Three old-wrapper
-attempts launched no engine because of a leftover Unity Roslyn compiler; those
-records are not native failures. Exact guard and rules proof is preserved.
+ACCEPTED WORKING COMPONENTS IN MAIN
+Constructors/save/custody/UI/NPC/paidservice: lifecycle75/0,UI167/0,save89/0,
+NavalAI227/0,player-service204/0,NPC/company140/0,fullcampaign-coins458/0 with
+100-day construction/economy. Focusedsave23/1before->23/0after; purederived-stat
+refresh24/0. Root verified14native runs and268unaffected scripts. Immutable
+partbirths and actual condition/custody, finite wages/materials/people/stores.
+Exact proof: docs/ROOT COMBINED EQUIPMENT VERIFICATION.txt/.json.
 
-PLAYABLE ARTIFACTS
-Desktop030/tag7492fb7 stays UNTESTED and unchanged; verified029/44e2a46 fallback
-remains. No031+ tag, Windows export, launcher change or remote publication.
-Owner saves, settings, music and existing releases remain protected.
+NEW ACCEPTED COMPONENT PROOF - SEPARATE FROZEN CANDIDATES
+Private status-reuse certification86665a over original Argon5: Root rehashed
+6finished nativejobs and281isolated inputs/job, tools/engine/logs/reports/lane.
+Root independently decoded all1800lossless substeps, recomputed state hashes and
+compared motion/capability/repair/RNG bytes;20certificate/predictionpairs match.
+Trace30=4976/0,trace60=9836/0; certificates161/0 atboth30/60Hz. Actualreenabling,
+flood/sink, crew/fuel/supply exhaustion, priority/hits, legacy/corrupt covered.
+Unchanged weapons27/0:91ticks/91rollouts/5460samples took27.110s vs38.812s.
+Single paired workload wall reduction30.1505%; STILL TOO SLOW, no fullCPU pass.
+Source frozen task/frozen-rollout-status-reuse; Root verified JSON/TXT in docs.
 
-ACCEPTED WORKING COMPONENTS
-See docs/ROOT COMBINED EQUIPMENT VERIFICATION.txt/.json for current proof.
-Merged results: lifecycle75/0, actual UI167/0, save validation89/0, naval AI227/0,
-paid player service204/0 and NPC/company service140/0. Original full campaign
-coin suite458/0, including its100-day construction/economy checks. Focused save
-23/1 before ->23/0 after on the same fixture; direct refresh purity24/0.
-Root rehashed14 merged native runs, all inputs/logs/shared lane receipts and268
-unaffected scripts. Earlier failed merged and fixture runs remain preserved.
+Corrected range-switch fixturecc2fe90 native job80940e69d0ec4a17ba4e52cdf48d233b:
+16/0,4ticks/4rollouts/240samples,2.266s. Only fixturechanged from866candidate;
+working0.22HP secondary gives actual480->420 range/role/station/certificate switch.
+Original06dda16/1 and earlier4975/1 fixtureexhaustion run preserved. Pump setup
+also source-corrected to meaningful differential flooding; native pump unrun.
+Earlier combined60.016s timeout remains. No all-family/livebattle acceptance.
 
-Current source combines immutable equipment births, constructors/save migration,
-private capture custody rehearsal, actual source payload binding, paid repairs,
-exact damaged/new spare selection and96-hull UI drafts. Harbor buy/collect and
-journal changes were explicitly merged. Historical two-key commission receipts
-are accepted only by their exact old schema; near-matches refuse atomically.
-Final-fitting order observations now refresh after successful new-career
-publication. This fixes stale90.0 versus105.8 weapon-power cache on save/load
-without repeating AI setup. No free stores, crew, repairs or coin creation.
+BRIDGE TEAM - SAME3, NO NATIVE/NESTED/NEW HELPERS
+Sol6.1MAX brass-tide-resume-sol-qa-c46f4a: tools recovered, sole native submitter.
+Root approved shared private numerical kernel scope25Oct08:43UTC: exact6current
+equipment/damage/certification modules plus new equipment_rollout leaf and probe.
+Only OWN qa-sol absolute paths. Freeze oldfull dependencygraph; separate old/new
+nativeprocess lossless comparisons are mandatory when sharedmath changes. Public
+validation stays fresh; no publicskipflags, persistentcaches, copiedformulae,
+newthreads, changedRNG/horizon/caps/work. Full scope saved in task QA PRIVATE
+KERNEL IMPLEMENTATION.txt. Native exactstate proof before further timing.
+Grok4.7 brass-tide-resume-grok-systems-2be508: physical towR1 sourcecompleted,
+UNRUN.6exactfiles preserved task/frozen-physical-tow-r1;3oldunique OWNfiles archived.
+Its accidental6MainWIPpaths were restored byRoot, allunrelatedsource/docs intact.
+R1 is now in systems-grok; R2 OWN-only adds shared strictjournalpreflight before
+legacy/canonical tow, small actual atomicrefusal/commissioncompat coverage.
+Google4ArgonHIGH brass-tide-resume-argon-planner-efff19: cc2fixture done; now
+read-only review of immutableR1 tow source with actualMainAPI contracts.
+Root coordinates/reviews/integrates. No source-only helper engine, provider
+substitution, paidfallback, apprestart, installs or owner app/input control.
 
-Earlier proofs remain: paidHarbor133/0 plus original campaign458/0; pure global
-preflight629/0; Core90/Records89/catalog651/panel49; paid fitting324/legacy refit352/
-workshop85; conditional damage174. Guarded tactical source is in Main, but its
-11.12% short measured gain did not pass full CPU targets.
+SHARED BACKGROUND TEST QUEUE
+Follow C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md and canonical detector.
+Sol submits raw commands through Game Test Bridge, which claims the SAME shared
+Invoke-GameTestLane.ps1 FIFO/mutex. Never nest another lease/private lane.
+Queue otherGodot/Unity editors/players/renamedexports and otheragent leases;
+unknown process inspection alsoqueues. Never close/control anotherapp or take
+mouse/keyboard/focus. One <=60s native child, hidden/headless/Dummy/BELOW_NORMAL,
+syntheticprofiles. Retain IDs/reports and distinguish queued/interrupted/failed
+from passed. Sol owns upcoming submissions; no Rootnativejob pending.
 
-OPEN WORK
-Live-combat Argon8 is frozen and NOT integrated. Corrected fixture native run
-root-live-equipment-combat-01 timed out60.016s, PID59072 exited, stable inputs,
-no completed count. All5 production scripts remain frozen; Argon is adding
-independent family selection and progress markers in fixture/brief/report only.
-No prediction horizon, work cap, assertion, RNG or quality cut is authorized.
-Live salvage/tow callers remain pending; corrected Recovery3ec library is Main,
-new Salvage319/0/e186 caller proof exists but is not integrated. Wreck hull HP
-provenance must not be claimed complete. Convoy032 and12 civilian035 boats remain
-future work; current catalogue contains24 designs.
-Original70 has67 passing/3 nonpassing results (two60s voyage timeouts and old
-private-fire presentation fixture). Full40/42 fleet CPU targets fail. Heldout,
-combined live combat, rendered/listening checks and Windows release remain open.
-The separate rollout-status optimization is unrun; do not silently mix it in.
-
-BRIDGE TEAM AND EXECUTION
-Use only these existing subscription projects, no native/nested/new helpers:
-Sol6.1MAX: brass-tide-resume-sol-qa-c46f4a. Local file tools stalled after restart;
-pure-text reviews work. Root applies/reviews/tests patches and temporarily owns
-all engine launches until explicitly returning the role. Do not repeat failed
-Sol host reads or launch any helper engine.
-Grok4.7: brass-tide-resume-grok-systems-2be508. Lifecycle follow-up remains busy
-and stalled for over an hour; workspace/unique edits are preserved. Root used
-frozen24af plus Sol-reviewed custody correction. Do not restart apps or invent
-a stop run ID. Shared memory explains the accepted replacement.
-Google4ArgonHIGH: brass-tide-resume-argon-planner-efff19. Active fixture-only
-three-path live-combat segmentation; preserve frozen5 combat/9 UI/6 NPC files.
-Meeting: brass-tide-resume-030-038. Last claimed live handoff b67150f1 was closed
-with the actual timeout result. Native work remains hidden/headless/Dummy,
-BELOW_NORMAL and synthetic, at most60s and one child per shared lease.
-
-No known Root engine remains active after completed checks. Verify fresh process
-and shared-lane state before any new launch. Old PTY records may show completed
-sessions: inspect receipt/job status before retrying. Keep TXT notes/maps current.
+OPEN GATES
+Substantial privatekernel performance; remaining livecombat families; paidphysical
+salvage/tow; integrated031. Original030 full70:67pass/2voyage60stimeouts/older
+presentationfixture. Full40/42fleet CPU targets fail; short gains do not meetthem.
+Heldout, rendered/listening, clean exact-tag Windows proof and delivery remain.
+No Starsectorparity, GPUFPS, audio/visualquality or new031release claim.
+Finish these before032+ expansion. Keep current TXT notes/maps and rawfailures.

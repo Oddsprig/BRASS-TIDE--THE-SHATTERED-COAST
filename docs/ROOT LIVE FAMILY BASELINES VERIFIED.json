@@ -1,0 +1,77 @@
+{
+  "reviewedUtc": "2026-10-25T08:24:08.918665+00:00",
+  "scope": "Only frozen isolated Argon combat candidate over Main097. No Main integration or release acceptance.",
+  "jobs": [
+    {
+      "jobId": "930ead5ff944477c921859df3d3739b0",
+      "family": "ai_role_cert",
+      "outcome": "failed",
+      "checks": 16,
+      "failures": 1,
+      "nativeWallSeconds": 3.202999999994063,
+      "inputSha256": "ebd199b9c2d713727f9389b389075497a9ef0bbabffab73e36b27319277b1cc3",
+      "inputCount": 279,
+      "laneJobId": "d91db791bd0b4c94ad9df5792db4a14b",
+      "artifacts": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\930ead5ff944477c921859df3d3739b0\\attempt-001",
+      "artifactHashes": {
+        "bridge-result.json": "abfacb59d9a5086841e30982e67c02817b04df74600ed03eff3be4a6935ac1bc",
+        "execution.json": "b32f05151e60f290c9bde71fe71e91a2dcfc878b8bb192158463882976cb19d3",
+        "inputs-after.json": "011f7ddbfe4141d1fff6c64983082fc5f01628ac558e7faf5255731a26af11d0",
+        "inputs-before.json": "011f7ddbfe4141d1fff6c64983082fc5f01628ac558e7faf5255731a26af11d0",
+        "lane.log": "3578a05cd0a065d08f718a44130bb130111e07cb2a394252d3f6675791ec3076",
+        "native-receipt.json": "2a3af61ce301ada628ab1909ec91671f7daf078dae93b70e8b599072ca77de05",
+        "native.log": "71c1d99637b17df264dbae5666a58211be1874aaf0ff4c444db6af4b80dc08d9",
+        "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+        "process.json": "2a5092b4b4cf2a0b42ffc63a738860ebf6618e6d2244af7f4f7178881b95ed8e",
+        "request.json": "1dc13059b5f025cba093f6327eebee8cd04bfac668fc1b39681b0a33e34e619c",
+        "result.json": "5ad21fa3aed9236ad3c252d4dd7702aecfc0cafec7b1a83580cd4a902c415998",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "749abff28a4b62a018a51d632461d40d36736de65ff82d887f90b53e0deeac15",
+        "verified-report.json": "5ad21fa3aed9236ad3c252d4dd7702aecfc0cafec7b1a83580cd4a902c415998"
+      },
+      "errors": [
+        "ERROR: FAIL equipment_combat: intact torpedo striker useful_range is 480.0 (got 420.0)",
+        "ERROR: equipment_combat: 16 checks, 1 failures (families=[\"ai_role_cert\"] wallMs=2041.37)"
+      ],
+      "rootAudit": "Matched exact native, input, tool, report and shared-lane bytes"
+    },
+    {
+      "jobId": "99b5ba67ecd144ae8a3d1c1897c0fadd",
+      "family": "weapons_cadence",
+      "outcome": "passed",
+      "checks": 27,
+      "failures": 0,
+      "nativeWallSeconds": 38.812000000005355,
+      "inputSha256": "ebd199b9c2d713727f9389b389075497a9ef0bbabffab73e36b27319277b1cc3",
+      "inputCount": 279,
+      "laneJobId": "0cd3655fbb2e4e7cb59de770fa783fb1",
+      "artifacts": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\99b5ba67ecd144ae8a3d1c1897c0fadd\\attempt-001",
+      "artifactHashes": {
+        "bridge-result.json": "6c2825bec1d2af7b2f4d6d0ddb2b439c74c5241c602c12d68f66a19312b77628",
+        "execution.json": "7b8ccbea99648e7b425bcd754159be517459e440c5dba52b0973f9115b86edb7",
+        "inputs-after.json": "011f7ddbfe4141d1fff6c64983082fc5f01628ac558e7faf5255731a26af11d0",
+        "inputs-before.json": "011f7ddbfe4141d1fff6c64983082fc5f01628ac558e7faf5255731a26af11d0",
+        "lane.log": "e221120bc2e6cc47bb1c74d255f58e6cd0574b7efab8ee0624420be0e3dccfb2",
+        "native-receipt.json": "e2072c55c3c10ead8e3e79a19cb41425d69844f5b9ecc0245b76abbe98721d2c",
+        "native.log": "d33616e856acb79f8a6ce47b5d98c836d3fa8b1ed46fa5e64e006d710f9c9051",
+        "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+        "process.json": "6e3ec0a65d3775f15534bab1c6fd62f429ea0240fa1239de46085a16aae6ebcc",
+        "request.json": "745aeee013f5f0696c62d98b03ae1323d137eda2497e5b2b1dc5e10d658619af",
+        "result.json": "57f8fb1b678900371cac37629e15b35953f613cb574feea85bb505d762b15cee",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "14984d72fe4c164e429ede3dbf7c00b573457fdfd72074d4e3bbbf2fa78262d6",
+        "verified-report.json": "57f8fb1b678900371cac37629e15b35953f613cb574feea85bb505d762b15cee"
+      },
+      "errors": [],
+      "rootAudit": "Matched exact native, input, tool, report and shared-lane bytes"
+    }
+  ],
+  "verdict": "Weapons and ammunition component27/0 accepted for these exact inputs. AI-role family16/1 remains failed. No performance acceptance.",
+  "remaining": [
+    "Source-grounded range fixture diagnosis",
+    "Private rollout optimization with exact state/RNG parity",
+    "All other live-combat families",
+    "Physical salvage/tow",
+    "Full030 performance/correctness/heldout/presentation and031 delivery"
+  ]
+}

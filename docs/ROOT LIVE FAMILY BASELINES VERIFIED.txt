@@ -1,0 +1,21 @@
+BRASS TIDE - ROOT LIVE FAMILY BASELINE REVIEW
+25 October2026 | Exact isolated candidate, not an accepted playable version
+
+Root independently rehashed279 engine inputs in each finished job, original logs,
+runner/validator/hidden runner, engine, bridge reports and shared FIFO lane records.
+Inputs/tools stayed fixed, owned native children exited, synthetic saves and
+Dummy audio/headless/BELOW_NORMAL/60s limit were used. No competing engine observed.
+
+Weapons/cadence:27 checks,0 failures;91 ticks,5460 prediction samples,38.812s.
+AI-role/certificates:16 checks,1 failure;4 ticks,240 samples,3.203s.
+Only failing assertion expects intact torpedo useful_range480 but gets420.
+Actual useful_range selects the range covering80% of weighted working DPS;
+maximum weapon range is a different observation. Source-grounded audit pending.
+
+Successful weapon checks preserve per-mount disablement, ammunition and cadence
+for the exact staged candidate. The failed family and slow timings are retained.
+No live combat integration, performance/FPS, sound/visual quality or031 pass claim.
+Full machine records and hashes: ROOT LIVE FAMILY BASELINES VERIFIED.json.
+
+Sol again owns ALL native submissions through Game Test Bridge; Root/Grok/Argon
+are source/review only. Keep native children bounded and queue other apps first.

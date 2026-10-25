@@ -1,4 +1,4 @@
-BRASS TIDE — DEVELOPER LESSONS AND REGRESSION INVARIANTS
+BRASS TIDE â€” DEVELOPER LESSONS AND REGRESSION INVARIANTS
 23 October 2026 | Distilled from accepted root reviews and failure records
 Use alongside actual native code/tests; old rejected snapshots are not authority.
 
@@ -47,7 +47,7 @@ COMBAT, CUSTODY AND NAVIGATION
   hull-size eligibility belongs in cache keys as well as pathfinding.
 - Current role/nearest-range and coarse NPC results do not prove the advanced AI
   roadmap. Require observed executable motion, retreat/counters, encounter custody
-  and calibrated distant outcomes. Don’t mark features done from a green exit code.
+  and calibrated distant outcomes. Donâ€™t mark features done from a green exit code.
 
 PERFORMANCE AND TOOLS
 - On Windows, specify UTF-8 explicitly when reading/writing project text; default
@@ -61,7 +61,7 @@ PERFORMANCE AND TOOLS
 - Native game/data/world.json is authority. Retired tools/build_data.cjs imported
   legacy dist/content.js and could overwrite current world data. Never use it to
   regenerate the native game. Historical plan_territory.py deliberately targets
-  .002 geometry; don’t apply it as another expansion to the enlarged .005+ world.
+  .002 geometry; donâ€™t apply it as another expansion to the enlarged .005+ world.
 
 EVIDENCE AND DELIVERY
 - Source suites, exact-tag checkout, Windows menu/save/battle, icon/PCK, archive
@@ -75,7 +75,7 @@ EVIDENCE AND DELIVERY
   context is not a review. Preserve raw report; put root verdict in another file.
 - Owner-approved GitHub atomic publish was blocked by MSYS0xC0000022 / credential
   vault Access denied. No remote success was proved. Retry only when the supported
-  authentication context changes; don’t force, retag or replace history via API.
+  authentication context changes; donâ€™t force, retag or replace history via API.
 
 Historical raw reports/failed runs/patches remain recoverable via ARCHIVE INDEX.
 Retain a small useful failure fixture or source regression, not every duplicate
@@ -97,7 +97,7 @@ work/build-logs-v030-owner-stop-1/generated-metadata/game/scripts. No unique fil
 was discarded. Source/Windows archives exclude copied owner saves/settings;
 optional copies are added separately afterward. All further work/tests stopped.
 
-RESUMED QA — 24 OCTOBER2026
+RESUMED QA â€” 24 OCTOBER2026
 - Installed Godot4.7.2 treats `namespace` as reserved: use birth_namespace for
   bare variables/arguments. New source and fixtures must compile before their
   claimed numerical behavior can be interpreted. The JSON field is unchanged.
@@ -132,3 +132,31 @@ Core.accept_acquired_item returns itemUid at the top level. Workshop previews re
 changes:Array; UI draft_set updates loadout and request together. Preserve exact native
 snapshots with duplicate(true), not JSON roundtrip. Compare native type/value recursively
 for atomicity and control the old comparator before blaming a read-only operation.
+
+25 OCTOBER2026 - LIVE COMBAT AND SHARED QUEUE
+- Game Test Bridge already claims the central test lane. Submit raw executable
+  arguments/adapter; do not wrap queued jobs in a second lane or private lease.
+  Retain job IDs, exact input hashes, raw logs and verified required reports.
+- Break long combat fixtures into independently selected families with actual
+  phase/tick/sample progress. Keep original substantive assertions and budgets.
+  A completed failing family is useful evidence; a timeout is never a pass.
+- AI useful_range is the range covering80% of weighted useful working DPS,
+  with torpedoes weighted1.8; it does not always equal maximum weapon range.
+  Validate an intact/damaged range test against actual loadout DPS first.
+- Damage.tick_ship returns final factors but averaged tick flow. Private reuse
+  must not mistake averaged flow for instantaneous status. Prove full binary
+  ship state, RNG and capability sequence equality before performance timing.
+
+25 OCTOBER2026 - SHARED MATH AND HELPER WRITE TARGETS
+- If Damage/Core/Records change, a frozen reference certification that preloads
+  the changed modules cannot independently prove old simulation math. Preserve
+  complete separate old/new dependency graphs and compare lossless outputs.
+- Bridge edit tools can default to the configured Main directory even when a
+  worktree is named in chat. Use absolute helper-worktree edit paths. On a wrong
+  target, freeze/hash every owned candidate file, preserve unique helper bytes,
+  then restore only those exact owned WIP paths. Leave unrelated work intact.
+- Reuse EquipmentService.journal_error for strict payment history checks. Its
+  accepted source caps readable history at4096; Money.move retains60 rows. The
+  two caps serve different callers. Equipment custody preflight is not a ledger
+  validator. Canonical and legacy tow must both refuse before spending on bad
+  history; exact historical commissioning summaries remain supported.
