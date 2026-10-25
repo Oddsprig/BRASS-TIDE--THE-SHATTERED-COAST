@@ -212,3 +212,13 @@ PRIVATE COPY OPTIMIZATION
 - RecorderR1 exceeded256MiB and60s before terminal assertions. This is incomplete
   observation, not a game assertion pass. Preserve it; use lossless compression
   and bounded streaming without dropping history or changing fixture workload.
+
+LIVE-FRAME REPAIR AND TRACE PROVENANCE
+- Under fire, positive reported engine repair can be followed by larger heat wear.
+  Preserve the burning case; isolate a separate eligible no-fire engine when the
+  predicate requires net HP gain. Assert real supply consumption, not just ok.
+- A derived instrumentation builder has its own actual hash. A comparator that
+  requires equal builder hashes needs a reviewed derivation verifier; never forge
+  a common hash or rewrite completed OLD evidence. Packet parity stays exact.
+- Static source work may proceed while engines queue. Cancel only our obsolete
+  queued source jobs, retain their cancelled status, and preserve every other lease.

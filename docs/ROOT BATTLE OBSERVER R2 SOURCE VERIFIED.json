@@ -1,0 +1,72 @@
+{
+  "classification": "SOURCE_REVIEW_AND_PRESERVED_CPU_EVIDENCE_ONLY",
+  "createdAt": "2026-10-25T16:35:14.290Z",
+  "author": "Root",
+  "engineLaunchedByRoot": false,
+  "files": {
+    "build_trace_pack.py": "a9bbd11eb52796066fc243fd297ca57b55cec7a7996086a0f4b251954462ce50",
+    "compare_trace.py": "bf29a6f2125ac68e4515639f10bf1ca6cea0e4a31bf801edda61f7ae94734b10",
+    "trace_observer.gd": "6c5e33289888b52c844a9b3bb650538e09f3972ec6353a213a32134a0af93516",
+    "trace_recorder.gd": "081068487fd70009a5b0501565a654cbe0354d0a9caa3d9c09429bac3bf6d791",
+    "typed_codec.gd": "1da32cd773abf5fc86f39a9a83f98918fb194e41813632662c50c63295140245"
+  },
+  "sourceReviewed": [
+    "build_trace_pack.py complete",
+    "compare_trace.py complete",
+    "trace_observer.gd complete",
+    "trace_recorder.gd complete",
+    "typed_codec.gd complete",
+    "SOURCE CALL REVIEW.txt complete"
+  ],
+  "reverseOriginalFiles": 521,
+  "reverseEdits": 112,
+  "reverseProjectSha256": "6ebd09c6df333db16421c41f14877739b89bd7afe72aee91fd7b7cf0caa6cdd4",
+  "observedComponentCount": 502,
+  "observedComponentSha256": "c6d36f0b9a2b7241ba6f1e71fb7fa613a0363338be04056de42ac3f2901c8000",
+  "observedFullCount": 525,
+  "observedFullSha256": "3129039a95171bed901f03aae56e60ae2b4e94cf66c537349a1490954bac425c",
+  "changedOriginalPaths": [
+    "scripts/battle.gd",
+    "scripts/tactical_certification.gd",
+    "tests/test_equipment_combat.gd"
+  ],
+  "preservedCpuEvidence": {
+    "path": "cpu-fixtures-6b78b39268e949d9a333f2b7386a5a7a/cpu-result.json",
+    "sha256": "753f85b5723e2068490a1e1a867efeadc6df9ac354bf9d4e11778be0944bad41",
+    "checks": 67,
+    "failures": 0,
+    "sourceSha256": "bf29a6f2125ac68e4515639f10bf1ca6cea0e4a31bf801edda61f7ae94734b10",
+    "cumulativeHistoryTest": {
+      "rawBytes": 269628724,
+      "physicalBytes": 327882,
+      "peakRawBufferedBytes": 1049076,
+      "packets": 271
+    }
+  },
+  "earlierDraftEvidence": [
+    {
+      "path": "cpu-fixtures-3c3f785e2f1e49e29e41c9a374050193/cpu-result.json",
+      "sha256": "4fe7c120101269bdbda4f4cdfb53be139102de03919a97982007e1e504150c0d",
+      "checks": 65,
+      "failures": 0,
+      "sourceSha256": "df3e8a892326723c0a5b1cadee106a1d2f4d82c0c8f3f281ba5322136ab29bf5",
+      "cumulativeHistoryTest": {
+        "rawBytes": 269628724,
+        "physicalBytes": 327882,
+        "peakRawBufferedBytes": 1049076,
+        "packets": 271
+      }
+    }
+  ],
+  "cpuRerunByRoot": false,
+  "peer": {
+    "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/systems-grok/briefs/R2 RECORDER PEER.txt",
+    "sha256": "a43c2a94ff88719354610a50d1809aec74c63586ba90b01427e8260da70513b1"
+  },
+  "sourceBlockersForOldFeasibility": [],
+  "newComparisonBlocker": "Frozen comparator lines274-277 require matching actual builderSha256. A derived NEW builder must retain its actual hash; a separately reviewed derivation/provenance verifier is required before OLD/NEW comparison. No manifest forgery or OLD rewrite.",
+  "nativeAuthorization": "External coordinator authorization only: QA Sol ONE OLD pump_and_armor, shared Test Bridge FIFO, headless/Dummy/below-normal, child60s outer90s. No NEW native authorized.",
+  "nativeCompatibilityEstablished": false,
+  "gameplayEquivalenceEstablished": false,
+  "timingEvidence": false
+}

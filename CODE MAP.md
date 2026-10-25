@@ -4,6 +4,26 @@ Native project: game/. Canonical catalogue/geography: game/data/world.json. See
 maps/PROJECT MAP.txt for sizes and targeted maps/ files for actual symbols/lines.
 Historical JS prototype is archived. Planned modules do not exist until implemented.
 
+LIVE-FRAME CANDIDATE CHECKPOINT - 25 OCTOBER 2026
+The five live-frame modules remain isolated; Main still contains only the two
+accepted private-copy changes. Original weapons-cadence job58762011 passes27/0
+on exact R3B inputs3f89395f. Root checked native logs, all499 inputs, tool and
+engine receipts, hidden/profile/lane settings and the empty ownership ledger.
+The two isolation64/1 receipts remain: repair reached the jury cap, then ongoing
+fire reduced final engine HP. Corrected fixture549f uses a separate canonical
+engine at0.50 with no fire and retains strict HP gain plus actual supply debit.
+Its new499-input stage92f012d3 preserves all other source and23 import files.
+Native isolation3cf177bd and OLD recorderf1300c87 are QUEUED at this checkpoint.
+Cold cost52a013 remains conditional on a verified isolation pass and exit audit.
+R2 recorder source reverses all521 originals through112 edits. Preserved CPU
+checks67/0 validate lossless bounded gzip; native feasibility is still pending.
+The isolated NEW source overlay is not battle equivalence. Its actual adapted
+builder hash needs a separately reviewed provenance verifier; never fake shared
+builder identity or rewrite OLD evidence to satisfy the frozen comparator.
+Root proof files: ROOT FRAME WEAPONS R3B VERIFIED.json and
+ROOT BATTLE OBSERVER R2 SOURCE VERIFIED.json. No performance/release acceptance.
+
+
 | Area | Current files under game/scripts/ | Targeted map |
 | --- | --- | --- |
 | Lifetime, input, save/options | main, campaign, preferences, interface | development, campaign |

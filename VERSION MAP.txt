@@ -8,7 +8,8 @@ R4 baseline UI167/save89/player204/NPC140/coins458 passed. Canonical40 managed88
 warmup updates in40s and0 measured samples. Cold diagnostic:407.807ms whole,
 295.339ms AI /112.468ms other, not FPS. Legacy compatibility629/0 also passes.
 Private copy pair now matches1800 gold samples/20certificates; freshness29 and
-public90/89/174 pass. Live-frame reuse stays isolated; CPU gain unmeasured. Profile/optimize before release;
+public90/89/174 pass. Isolated live-frame weapons27/0; corrected repair and OLD
+recorder checks queued. CPU gain remains unmeasured. Profile/optimize before release;
 remaining030/held-out/motion/audio/Windows proof also open. No031tag/export.
 0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
 Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.
