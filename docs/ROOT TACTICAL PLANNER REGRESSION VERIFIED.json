@@ -1,0 +1,50 @@
+{
+  "kind": "Root original tactical planner regression review",
+  "job": {
+    "jobId": "c79c2002e94148da90e1d99fcac3fa59",
+    "suite": "tactical_planner",
+    "family": "",
+    "outcome": "passed",
+    "checks": 353,
+    "failures": 0,
+    "inputSha256": "3903aadcfbe2a1771e061a97769b3370553f0fa8c33ef2d9cbde6f571a1b1a5b",
+    "inputCount": 498,
+    "nativeWallSeconds": 3.75,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\c79c2002e94148da90e1d99fcac3fa59\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "3a6b5b134698ed8bba02b78ca265cf44f7916eb5aa7c6a9789323a553b456df3",
+      "execution.json": "55acc247123aea46d732cff353da01148a97b7f7773437b419f54f7ce5377379",
+      "inputs-after.json": "ea662446d624bf81798cb91a1af64e2853b770b529166d04ba1640df775820f9",
+      "inputs-before.json": "ea662446d624bf81798cb91a1af64e2853b770b529166d04ba1640df775820f9",
+      "lane.log": "505bf3932476df9fb998db0104181311a7de8347be459a08ec00be664f2694ac",
+      "native-receipt.json": "1a0b533afbb064c9b3b3de467b23104806e6738470c134a69133ca0f973766c4",
+      "native.log": "715d6ae7fc12ff1119fbaf7d72f3ae3fc130ca64d66774d556034f63bab36413",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "771aeaa41f3e2b3a1ba8cdf5046c1e47ead29ed32c41adfb75973da8dd702723",
+      "request.json": "56f43bf8330d8c40f40d399480b1f7e51a1b57c86070988bf6e4b98ddc606089",
+      "result.json": "4217b6dcfe7aedc25215114ec9a4f3ab50ebe6c53fce6897f0ae76d211439a40",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "6bee1ecb9dca4665dd00b6731af12a603aab0f957024d607cad67a0e5423b8a1",
+      "verified-report.json": "4217b6dcfe7aedc25215114ec9a4f3ab50ebe6c53fce6897f0ae76d211439a40"
+    }
+  },
+  "currentMainDependencyHashes": {
+    "tests/test_tactical_planner.gd": "2850129b99ef9913e655cacc720c2f15bbdbaaf6ac0f4a1a076c51506ef1ef7b",
+    "scripts/tactical_planner.gd": "ea46a08859184fe719217eb6d280a4a303882e30f4a41b076ef9fa59e599c7b0",
+    "scripts/tactical_role_plans.gd": "55f7c857c37aca13c420c289e5ce9b91a96dfe1e31a46bbb325c548e578751c3",
+    "scripts/tactical_stations.gd": "24ea330f463dbfe940730e99685665708abc15853f30a017603d75ba8991700f"
+  },
+  "nativePid": {
+    "pid": 42796,
+    "absent": true,
+    "openProcessError": 87
+  },
+  "actualCounts": [
+    353,
+    0
+  ],
+  "previous350checks1failurePreserved": true,
+  "scope": "Pure planner and synthetic contract certificates only. Closes current screen-priority regression; does not establish real maneuver, fire, fleet capacity, motion, audio or release quality."
+}

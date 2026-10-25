@@ -26,6 +26,13 @@ steady-state capacity. Same-frame reuse is isolated source work. Public status
 stays fresh. ROOT COST DIAGNOSTIC VERIFIED.json binds this data.
 Do not repeat unchanged capacity/cost runs.
 
+CURRENT PLANNER REGRESSION - 25 OCTOBER2026
+Original tactical_planner jobc79c2002 passes353/0 on frozenR4 inputs. Root
+independently checked all498 files/tools/lane plus nativePID absence; the four
+current Main pure dependencies match exactly. Prior350/1 remains historical.
+This is pure synthetic-contract proof, not real motion, fire, fleet capacity
+or release acceptance. ROOT TACTICAL PLANNER REGRESSION VERIFIED.json binds it.
+
 PRESERVED FAILURES AND LESSONS
 Lab99/1 snapshot preceded constructor price initialization; corrected setup
 retains all99 original assertions and passes. Extra legacy campaign619/17 assumes
