@@ -61,6 +61,6 @@ game/scripts/boarding_ops.gd: 9677 bytes; extends RefCounted
   game/scripts/boarding_ops.gd:32 message()
 
 TESTS (game/tests/*.gd)
-Custody75/7 before to75/0 after; commission/repair204/9 before to204/0 after. Merged life75/UI167/save89/naval227/service204/NPC140/campaigncoins458 all pass. Final-fitting order-stat refresh purity24/0. Exact evidence: docs/ROOT COMBINED EQUIPMENT VERIFICATION. Working live/tow union has Lab99/0, equipment voyage67/0 and salvage voyage14/0; remaining integration and capacity gates stay open.
+Custody75/7 before to75/0 after; commission/repair204/9 before to204/0 after. Merged life75/UI167/save89/naval227/service204/NPC140/campaigncoins458 all pass. Final-fitting order-stat refresh purity24/0. Exact evidence: docs/ROOT COMBINED EQUIPMENT VERIFICATION. Working live/tow union has Lab99/0, equipment voyage67/0 and salvage voyage14/0; MainUI167/save89/player204/owner140/coins458 pass; canonical40 performance and release remain open.
 
 Full symbols: rg -n '^func |^static func ' on named files.

@@ -1,0 +1,78 @@
+{
+  "jobId": "70834bb31b7344db8f401a8eef723d5f",
+  "classification": "Supervisor ownership-file atomic rename failed; native result and capacity artifact absent",
+  "execution": {
+    "started_at": 1792932358.4439182,
+    "exit_code": null,
+    "outcome": "failed",
+    "detail": "Could not run the supervised test: [WinError 5] Access is denied: 'C:\\\\Users\\\\bligh\\\\Documents\\\\Codex\\\\.runtime\\\\game-test-bridge\\\\jobs\\\\70834bb31b7344db8f401a8eef723d5f\\\\attempt-001\\\\owned.json.tmp' -> 'C:\\\\Users\\\\bligh\\\\Documents\\\\Codex\\\\.runtime\\\\game-test-bridge\\\\jobs\\\\70834bb31b7344db8f401a8eef723d5f\\\\attempt-001\\\\owned.json'",
+    "finished_at": 1792932360.472407
+  },
+  "recordedPidAbsent": 39208,
+  "inputsStillExact": "19f513e7cddb668f9c8ef9f3b32390e4504a3a3a6646b108178bcad9d3aca7eb",
+  "sourceProof": {
+    "verified": true,
+    "probePath": "tests/probe_equipment_capacity.gd",
+    "probeSha256": "f7074c8cbd1705e792e4de6d2552af9a9d46f4cc3368321c51fa4c91b9fb4eb0",
+    "configPath": "tests/tactical_scenarios.json",
+    "configSha256": "b6b63aa25a17383d7f1baeabb0da18a4c1ad552af7dde55285216087140ccb5e",
+    "rejectedPrototypeAbsent": true,
+    "markersVerified": [
+      "const Records=preload(\"res://scripts/equipment_records.gd\")",
+      "const EquipmentDamage=preload(\"res://scripts/equipment_damage.gd\")",
+      "Records.initialize(ship,",
+      "EquipmentDamage.is_canonical_owner(ship)",
+      "canonical_refused"
+    ],
+    "runtime14Sha256": {
+      "scripts/damage.gd": "1f35ee482f13edae20f614d228f6a42887765a5c91ea98b0436ed986f9bec19c",
+      "scripts/equipment_combat.gd": "ebf9fed89cc080e151fe7a99d619c456d8ae8e304c5e139b10a100d7b80084b3",
+      "scripts/equipment_condition.gd": "af402820ad1b79a22e9ff077323148a13006534c39b9b05e9ecd22e4b8d78e70",
+      "scripts/equipment_damage.gd": "87808d3cad92e59e213a471521f44dd19db9ac7a7212d03dce4064f152bd6588",
+      "scripts/equipment_records.gd": "6d392621229888b8ee92707e49d97623b633ac5a92234d4a4e1b3628a1b54253",
+      "scripts/equipment_rollout.gd": "b0e9b4b1ad4735004aa757fe441c883eea2d611944c5a0492f8e627e4d7fa26e",
+      "scripts/tactical_certification.gd": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49",
+      "scripts/battle.gd": "3175deafbb93d62d877096032b3e5e9e87dbb8e555964d471cc6fa31a506fa29",
+      "scripts/tactical_runtime.gd": "b5d0d4ff39e0c16df8f796aa2af4875801e53e940039f5821237e510d2cbefb5",
+      "scripts/tactical_fire_control.gd": "ef98eccc50c544e28e919ef827c6d4cb3cccbd7540feaab6682a72cea4491023",
+      "scripts/salvage.gd": "03efbbdbce329f5df92429da75d5d4e34dd40490fc021c91c2c443c301ef8748",
+      "scripts/equipment_lifecycle.gd": "60bf8f7a4a933c7161282bfed026d1f61f60ae66be9cf69147cc338d78d400a4",
+      "scripts/equipment_tow.gd": "1957e7bc765f36fcc69c253dde56a316be96e84b9dac1ed94c3c662691089bb5",
+      "scripts/fleet_lab.gd": "bc080dfb51c3c136d221299f76e7e8742a51c7aedaedfd45c491a6f094b98f49"
+    }
+  },
+  "toolHashes": {
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\run_testbridge_capacity_prefix.py": "49e64b80a1af759f954b257fc175cbef6dec7712b385d09fc92a7f4fb941c93b",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\capacity_prefix_report.py": "56ce147e7e8bcc419d470c45858aa65012481bf5a15f87d4a8363e49cf255747",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\run_registered_component.py": "49778b500053bad371fd2b505253ef7b859930e4ffe4aecd1b02536dd272adb8",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\tools\\hidden_check.py": "e826d26d62f3cb9ee50f0bebeb645d4b5979f4f3ef9a6667896b46cf1bb97755",
+    "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\tools\\resume_game_checks.py": "33a49fb0fc2f535096fd02c1324191c0ec3d9a698f982b811d2ab6decc11c7b1"
+  },
+  "capacityAccepted": false,
+  "nativeCount": null,
+  "engineLaunchedByRoot": false,
+  "profileLogs": [
+    {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\70834bb31b7344db8f401a8eef723d5f\\attempt-001\\profiles\\roaming\\Godot\\app_userdata\\Brass Tide independent equipment families\\logs\\godot.log",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "lastLines": [
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        ""
+      ]
+    }
+  ],
+  "artifactHashes": {
+    "bridge-result.json": "7a8c1ad2b12ea59d68d2f5aa5ec56e1ccf535f9a0ccd580c9d48bff364fab92e",
+    "execution.json": "1219f91b013646b54b9241ba0c458273e089b100d1df618c33fc86bf45dd5f08",
+    "inputs-before.json": "e2ff579e0cebb725d2c8d2cd1cdaeb0b33e323afd10940dd5d0794a07e6a97f8",
+    "lane.log": "ce4f6b8f1dd3340dfd60519501700efa38cfd3d36ae784eaefec4489fcbbd836",
+    "native-receipt.json": "758c56e28cd8c7c1571765614d8321600ea44a91af4c0ec1d17d9ea79268d0da",
+    "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+    "process.json": "3294f77df084bcf430bf4e9481b66f27c4a0fe669d671243390a58e35bdd9ac9",
+    "request.json": "2fcec0a49d10cac5c02b35e2885303d72c2ce56622a679f43a9287a2e45c92f3",
+    "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.log": "977ca2d74f3051038da0e9b59045aff72d5e18016c32d7df66533e1c43be92a4"
+  },
+  "infrastructureFixed": false
+}

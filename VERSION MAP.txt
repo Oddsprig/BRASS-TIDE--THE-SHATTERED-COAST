@@ -3,10 +3,10 @@ BRASS TIDE — CURRENT SEQUENTIAL VERSION MAP
 
 0.029 | DELIVERED/VERIFIED | Workshop,24 boat/equipment detail, paid fittings.
 0.030 | PRESERVED UNTESTED BUILD | Tactical AI source; fixes/verification active.
-0.031 | WORKING CANDIDATE | Fourteen runtime modules integrated; Lab99/0,
-equipment voyage67/0, salvage voyage14/0 verified. Panel49/NPC140 pass; legacy campaign619/17 failed, player service incomplete;
-actualUI167/save89, coins and canonical capacity gates remain open. Canonical40/42, remaining030/held-out/motion/audio/Windows proof open.
-No031 release or tag.
+0.031 | WORKING FLOW VERIFIED; PERFORMANCE OPEN | Lab99/voyage67/salvage14,
+MainUI167/save89/player204/NPC140/coins458 all pass. Canonical40 managed88/150
+warmup updates in40s and0 measured samples. Profile/optimizebefore release;
+remaining030/held-out/motion/audio/Windows proof also open. No031tag/export.
 0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
 Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.
 Choose tow/strip/abandon with finite cargo/modules and actual custody.

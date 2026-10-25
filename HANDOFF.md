@@ -1,49 +1,47 @@
-BRASS TIDE - WORKING INTEGRATION CANDIDATE TOWARD v0.031
-2026-10-25T12:36:02.621233+00:00
+BRASS TIDE - VERIFIED WORKING INTEGRATION; RELEASE STILL OPEN
+2026-10-25T13:16:29.916626+00:00
+Main checkpoint3946a9bc; current runtime/test GDScript matches frozenR4.
+Fourteen runtime modules and six fixtures integrated. Still24 boats.
+Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
+No .031 version bump, release tag, export, launcher change or upload.
 
-Main contains the exact fourteen runtime modules and six fixtures from the
-Root-reviewed R4 union. All Main runtime/test .gd bytes match that frozen stage.
-No .031 release/tag/export/launcher update is accepted. .030/tag7492fb7 remains
-preserved UNTESTED; verified .029/44e2a46 remains available. Still 24 boats.
+COMBINED GAME FLOW VERIFIED
+Lab99/0, equipment voyage67/0, salvage voyage14/0. Full Main UI167/0, save89/0,
+player repairs204/0, NPC repairs140/0 and coin accounting458/0 also pass.
+Root independently checked exact source/import/external/tool/engine hashes,
+raw logs/reports, shared-lane completion and exited owned children. Condition,
+part identity, finite crew supplies, paid labor and custody survive the voyage.
+ROOT COMBINED R4 GATES VERIFIED.json and ROOT SCENE VOYAGES VERIFIED.json bind
+actual jobs; MAIN EQUIPMENT INTEGRATION CANDIDATE.json lists copied file hashes.
 
-COMBINED NATIVE PROOF
-Lab99/0 (914827db), equipment voyage67/0 (bc4ededb), salvage voyage14/0 (12ffd6b1).
-Source/cache/font/music inputs, tools and engine remained stable; synthetic
-profiles and exited owned children were checked independently. Damaged parts,
-identities, finite crew repairs and wreck custody survive the voyage/save/load.
-The earlier Lab99/1 snapshot preceded Campaign construction-price initialization.
-Moving only the snapshot after career setup preserved all99 original assertions;
-previous failures and original bytes remain preserved.
+PERFORMANCE IS NOT ACCEPTED
+Canonical40 retry b144fdc5 completed only88/150 warmup updates within40s work
+bound:40.594s update time, about461.3ms per warmup update. All40 remained afloat;
+no measured windows or1800-profile samples were produced. This is incomplete
+capacity, not stable FPS/quantiles. Root proof: ROOT CANONICAL40 PARTIAL VERIFIED.
+Native scope was headless CPU; no idle-host, render or Starsector-parity claim.
+Source-only cost diagnostics are next; do not repeat the unchanged capacity run.
 
-OPEN AND QUEUED
-Combined panel49/0 (34035045) and NPC service140/0 (df9b1e6a) completed.
-The wrong campaign fixture (28fd2027) failed619/17; it assumes new careers are
-legacy/unseeded. Those failures are preserved and are not save89 evidence.
-Actual equipment_ui_integration167 (92b5a220) and save_validation89 (721d50f4)
-are queued with unchanged fixtures. Player service has one controlled retry
-authorized after independent confirmation of all13 old PIDs absent.
-Player service2dc8ea9e ended incomplete with no native log/count; ownership/PID
-audit confirms all13 recorded PIDs absent. Coins535e00cf yielded to another game and was queued again.
-Canonical forty-boat prefix70834bb3 remains queued; its11 CPU adapter checks pass,
-but fleet timing/capacity is unverified. Original150
-warmup/180-window/1800-profile protocol remains. Full40/42 timing, held-out AI,
-remaining .030 regressions, motion/listening and clean Windows proof stay open.
-Locker cargo mass and physical convoy exits are future .032 source work.
+PRESERVED FAILURES AND LESSONS
+Lab99/1 snapshot preceded constructor price initialization; corrected setup
+retains all99 original assertions and passes. Extra legacy campaign619/17 assumes
+new careers are unseeded; its explicit old-save setup is being corrected in an
+isolated fixture. It is separate from actual save89/0. Player-service2dc8 ended
+incomplete, then unchanged controlled retry108a passed204/0. Coins535e attempt001
+yielded correctly to another game; attempt002 passed458/0. Capacity708 failed
+supervisor owned.json.tmp rename (WinError5); its result is distinct from b144.
+All original artifacts and old source bytes remain preserved.
 
-EXACT PROOF
-docs/MAIN EQUIPMENT INTEGRATION CANDIDATE.json lists all20 copied file hashes.
-ROOT LAB R3 VERIFIED.json and ROOT SCENE VOYAGES VERIFIED.json bind native jobs.
-Prior Kernel R1 binary/public proof, live families and pure R5 recovery386/0,
-strip36/0 and salvage70/0 remain accepted components. VERIFICATION INDEX links
-the proofs. Each immutable proof retains its original review-time scope.
-No source/unit proof establishes rendered FPS, sound quality or Starsector parity.
-
-Root owns Main integration/notes. Bridge Sol6.1MAX alone submits native jobs;
-Grok4.7 and ArgonHIGH own isolated source work. No new/nested helper/provider.
-Tests stay hidden/headless/Dummy/BelowNormal, synthetic and serialized through
-shared FIFO behind other Godot/Unity apps and leases. Never take input/focus or
-stop an existing app. Owner saves/music, old releases and launcher are preserved.
-GitHub publication remains pending.
+NEXT GATES AND OWNERS
+Profile and improve canonical fleet CPU cost; finish remaining .030 regression,
+held-out behavior, motion/listening and clean Windows release proof. .032 convoy
+extraction and material-derived loose equipment cargo weight are isolated source
+work, not delivered features. Other .032-.038 stages remain sequential.
+Root owns Main/integration/notes. Same three Bridge helpers: QA Sol6.1MAX is sole
+native submitter; Grok4.7 and ArgonHIGH own isolated code. Tests use shared FIFO,
+hidden/headless/Dummy/BelowNormal and synthetic profiles; queue behind existing
+Godot/Unity apps and leases. Never take input/focus or control another app.
+Owner saves, music, previous releases and desktop launcher are preserved.
 
 HISTORICAL CHECKPOINT RECORD (AF1AB82 / 25 OCT 08:45-09:06 UTC) - SUPERSEDED ABOVE
 Prior 08:45Z checkpoint (af1ab82) recorded initial status-reuse certification

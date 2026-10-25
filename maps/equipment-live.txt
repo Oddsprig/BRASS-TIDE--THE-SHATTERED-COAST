@@ -43,6 +43,6 @@ game/scripts/salvage.gd: 34005 bytes; extends RefCounted
   game/scripts/salvage.gd:460 quote()
 
 TESTS (game/tests/*.gd)
-Root Lab99/0, equipment_voyage67/0, salvage_voyage14/0. Current combined panel49/0 and owner-service140/0 reported; actual UI167/save89 and player service remain open. Kernel public/binary and R5 component proofs: docs/VERIFICATION INDEX.txt.
+Root Lab99/0, equipment_voyage67/0, salvage_voyage14/0. Root accepted MainUI167/save89/player204/owner140/coins458, all0 failures. Canonical40 reached88/150 warmup ticks in40s; performance and release remain open. Kernel public/binary and R5 component proofs: docs/VERIFICATION INDEX.txt.
 
 Full symbols: rg -n '^func |^static func ' on named files.

@@ -187,3 +187,11 @@ for atomicity and control the old comparator before blaming a read-only operatio
 - Bind scenes to source, import products and external font/music file hashes.
 - Queued/interrupted jobs are not passes. One capacity prefix remains data only;
   never pad terminal ticks or missing samples into full-profile acceptance.
+
+25 OCTOBER - EXACT SUITE MAPPING AND CAPACITY
+- UI167 is equipment_ui_integration; panel49 is equipment_ui. Save89 is
+  save_validation; equipment_campaign619 has separate legacy setup assumptions.
+- Queue source metadata is limited to200 characters; HTTP400 need not be offline.
+- Supervisor owned.json rename failure is distinct from a completed slow run.
+- Canonical40 b144 reached88/150 warmup ticks in40s, no samples. Profile the
+  actual bottleneck; do not extend budgets or report incomplete warmup as capacity.

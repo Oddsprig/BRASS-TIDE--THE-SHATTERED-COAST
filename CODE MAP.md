@@ -28,11 +28,11 @@ Historical JS prototype is archived. Planned modules do not exist until implemen
 Related *_ui scripts present module results on main. Worker tasks own copies;
 join before publishing. Mount IDs/arcs/geometry are shared by fitting and combat.
 
-Main now contains the exact14-module working R4 union, including new
-equipment_combat, equipment_rollout and equipment_tow. Lab99/0, equipment
-voyage67/0 and salvage voyage14/0 pass. Panel49/NPC140 pass; legacy campaign619/17 failed, player service incomplete.
-Actual UI167/save89, coins and canonical capacity gates remain open; full .031, CPU and release acceptance remain open. Integration
-manifest and VERIFICATION INDEX bind exact sources/results.
+Main has the verified14-module R4 union: equipment_combat, equipment_rollout,
+equipment_tow plus11 updated existing modules. Lab99/voyage67/salvage14 and
+MainUI167/save89/player204/NPC140/coins458 pass. Canonical40 warmup reached
+88/150 in40s; performance remains open. See current BUILD STATUS, exact proof
+ROOT COMBINED R4 GATES VERIFIED and ROOT CANONICAL40 PARTIAL VERIFIED.
 Current tests:
 game/tests/ (70 named suites in tools/check_game.py; native results are recorded in
 docs/TEST RESULTS v0.029.md). The original 66 fixtures retain their assertions;
