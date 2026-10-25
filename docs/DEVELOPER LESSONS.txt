@@ -195,3 +195,12 @@ for atomicity and control the old comparator before blaming a read-only operatio
 - Supervisor owned.json rename failure is distinct from a completed slow run.
 - Canonical40 b144 reached88/150 warmup ticks in40s, no samples. Profile the
   actual bottleneck; do not extend budgets or report incomplete warmup as capacity.
+
+25 OCTOBER2026 - CURRENT EQUIPMENT/PERFORMANCE LESSONS
+- Campaign constructors seed canonical parts. Legacy migration fixtures must
+  explicitly construct detached pre-equipment inputs; preserve real assertions.
+  Corrected fixture629/0 does not erase original619/17 or replace save89 proof.
+- The40-hull bound ended during warmup. Cold24-update diagnostic identifies
+  AI295.339ms / other112.468ms; it proves neither steady-state capacity nor FPS.
+- Tick flow values are averages. Never reuse them for instantaneous flood safety.
+  Local live status reuse must not reach same-ID prediction copies or public reads.

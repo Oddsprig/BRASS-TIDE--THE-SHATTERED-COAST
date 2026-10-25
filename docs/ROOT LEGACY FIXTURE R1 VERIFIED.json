@@ -1,0 +1,61 @@
+{
+  "kind": "Root independent legacy fixture compatibility review",
+  "job": {
+    "jobId": "aa6f5400334e417088ec1a551f07d586",
+    "suite": "equipment_campaign",
+    "family": "",
+    "outcome": "passed",
+    "checks": 629,
+    "failures": 0,
+    "inputSha256": "0ff1b038367f1230d919b32147306af384ad7fbec966e6fefd09bd8cad42bc93",
+    "inputCount": 498,
+    "nativeWallSeconds": 13.906000000002678,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\aa6f5400334e417088ec1a551f07d586\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "00b40c364478cc83359cdcb97109655f67b519260867ba96081584501ea4eb2e",
+      "execution.json": "ba392ee963e17a3db2d97b0b5e1e42277a95c7b1f8703b1ef9978ed01eeba5d7",
+      "inputs-after.json": "2b0b15eff1c54ad85a87ab07d110af4f76f523439cb5b9dc9a04df20e83f63dc",
+      "inputs-before.json": "2b0b15eff1c54ad85a87ab07d110af4f76f523439cb5b9dc9a04df20e83f63dc",
+      "lane.log": "3224b8258cb80f2b4906d036279c16d469fe37513b2110d87fa8de0fef375998",
+      "native-receipt.json": "08180c44978ebd21e3193e964a3ec51f4d47bddff19acd0c564c00a53191dfc1",
+      "native.log": "070dab1afb523c0e9c8a6a3252b096d008237e4975e71d329d23c4c1d45f08e2",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "2ce978dd3649dfe4b9cf4267debb17ac6823fa990d20e32eb11784a72209e0e3",
+      "request.json": "de9552aae40abc28bc15266f8df6ba19064bdbce1c23ec42c2565c9975cf447c",
+      "result.json": "8b79aefc1ccec3485ba4ab616d9ba5ba61bdf23ab549bcd1fd5f00cdad398410",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "cfecd48ca30d0ab4f4c812ccc0cb33e3f3e6c0e2bdbb1fc4af4751394694078a",
+      "verified-report.json": "8b79aefc1ccec3485ba4ab616d9ba5ba61bdf23ab549bcd1fd5f00cdad398410"
+    }
+  },
+  "fixtureSha256": "9f976e89085a76eec6b6bd7a41cdfa88fcf43d18db8aa52eff4a8f25340ec058",
+  "onlyProductionDelta": false,
+  "runtime14Unchanged": true,
+  "pids": {
+    "62700": {
+      "absent": true,
+      "openProcessError": 87
+    },
+    "60156": {
+      "absent": true,
+      "openProcessError": 87
+    },
+    "52264": {
+      "absent": true,
+      "openProcessError": 87
+    }
+  },
+  "originalFailedJobPreserved": "28fd202733ec47a6ae173eddeda1855a",
+  "originalCounts": [
+    619,
+    17
+  ],
+  "actualCounts": [
+    629,
+    0
+  ],
+  "forecast628NotEnforced": true,
+  "scope": "Setup-only pre-equipment legacy baseline; production unchanged. No full-fleet performance/release claim."
+}

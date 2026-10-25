@@ -40,6 +40,22 @@ func find_uid(state: Dictionary, uid: String) -> Dictionary:
 				return boat
 	return {}
 
+func legacy_career() -> Dictionary:
+	var legacy: Dictionary = c.state.duplicate(true)
+	for boat in legacy.get("fleet", []):
+		if boat is Dictionary:
+			boat.erase("moduleCondition")
+	for boat in legacy.get("boardingPrizes", []):
+		if boat is Dictionary:
+			boat.erase("moduleCondition")
+	for owner in legacy.get("fleetOwners", []):
+		if not owner is Dictionary:
+			continue
+		for boat in owner.get("boats", []):
+			if boat is Dictionary:
+				boat.erase("moduleCondition")
+	return legacy
+
 func story_rows(state: Dictionary) -> Array:
 	var rows: Array = []
 	for owner in state.get("fleetOwners", []):
@@ -161,17 +177,18 @@ func _initialize() -> void:
 	quit(0 if failures == 0 else 1)
 
 func roundtrip() -> void:
-	var career: Dictionary = c.state.duplicate(true)
-	var looked: Dictionary = Preflight.check_state(c.state, world)
-	check(looked.ok and not looked.ready and int(looked.legacy) > 0 and int(looked.migrated) == 0, "a fresh career is readable and still legacy")
-	check(c.state == career, "check_state does not write the live career")
+	var legacy: Dictionary = legacy_career()
+	var career: Dictionary = legacy.duplicate(true)
+	var looked: Dictionary = Preflight.check_state(legacy, world)
+	check(looked.ok and not looked.ready and int(looked.legacy) > 0 and int(looked.migrated) == 0, "a synthetic pre-equipment career is readable and still legacy")
+	check(legacy == career, "check_state does not write the live career")
 	var hull_id: String = str(world.HULLS[0].id)
 	var hull_keys: int = world.HULLS[0].size()
-	var prepared: Dictionary = Preflight.prepare_state(c.state, world)
+	var prepared: Dictionary = Preflight.prepare_state(legacy, world)
 	check(prepared.ok and prepared.ready and int(prepared.migrated) > 0 and int(prepared.legacy) == 0, "prepare migrates the detached copy once")
-	check(c.state == career, "prepare_state does not write the live career")
+	check(legacy == career, "prepare_state does not write the live career")
 	check(str(world.HULLS[0].id) == hull_id and world.HULLS.size() == 24 and world.HULLS[0].size() == hull_keys, "the world catalogue is not written")
-	check(not c.state.fleet[0].has("moduleCondition") and prepared.state.fleet[0].has("moduleCondition"), "the published copy is the only migrated fleet")
+	check(not legacy.fleet[0].has("moduleCondition") and prepared.state.fleet[0].has("moduleCondition"), "the published copy is the only migrated fleet")
 	check(int(prepared.state.coins) == int(career.coins) and int(prepared.state.crewPurse) == int(career.crewPurse), "coins and the crew purse are not replenished")
 	check(int(prepared.state.nextUid) == int(career.nextUid), "prepare does not spend the hull uid counter")
 	check(is_equal_approx(float(prepared.state.fleet[0].hp), float(career.fleet[0].hp)), "hull hit points are not repaired")
@@ -191,7 +208,7 @@ func roundtrip() -> void:
 		check(same_ids(prepared.state.fleet[0].moduleCondition, restored.state.fleet[0].moduleCondition), "JSON roundtrip keeps fleet item ids and hit points")
 
 func ownership() -> void:
-	var saved: Dictionary = c.state.duplicate(true)
+	var saved: Dictionary = legacy_career()
 	saved.fleet[0].storedPort = "brass_haven"
 	saved.fleet[0].mothballed = true
 	saved.fleet[0].refitLocker = {"rapid_gun": 2}
@@ -217,7 +234,7 @@ func ownership() -> void:
 	var held: Dictionary = find_uid(prepared.state, "prize-1")
 	check(held.has("moduleCondition") and str(held.moduleCondition.birthNamespace) == "prize-1", "a held prize uses its own uid")
 	check(holder_ids(prepared.holders, "boat-1") == 1, "the player hull is one holder")
-	var aliased: Dictionary = c.state.duplicate(true)
+	var aliased: Dictionary = legacy_career()
 	aliased.fleet.append(aliased.fleet[0])
 	var alias_before: Dictionary = aliased.duplicate(true)
 	var alias_run: Dictionary = Preflight.prepare_state(aliased, world)
@@ -225,7 +242,8 @@ func ownership() -> void:
 	check(aliased.fleet[0] == alias_before.fleet[0], "the aliased caller hull is not rewritten")
 
 func story_identity() -> void:
-	var stories: Array = story_rows(c.state)
+	var legacy: Dictionary = legacy_career()
+	var stories: Array = story_rows(legacy)
 	check(stories.size() > 0 and str(stories[0].boat.get("uid", "")) == "legacy-story-0-0", "story-0 boat 0 keeps legacy-story-0-0")
 	var kept := true
 	for row in stories:
@@ -233,7 +251,7 @@ func story_identity() -> void:
 		if str(row.boat.get("uid", "")) != expected or row.boat.has("moduleCondition"):
 			kept = false
 	check(kept, "every final story uid is legacy-owner-ordinal and still has no parts")
-	var prepared: Dictionary = Preflight.prepare_state(c.state, world)
+	var prepared: Dictionary = Preflight.prepare_state(legacy, world)
 	check(prepared.ok, "final story identities prepare")
 	if not prepared.ok:
 		return
@@ -252,8 +270,8 @@ func story_identity() -> void:
 	check(same, "prepare keeps each story uid, birth namespace, and parts")
 	var again: Dictionary = Preflight.prepare_state(prepared.state, world)
 	check(again.ok and not prepared_rows.is_empty() and same_ids(prepared_rows[0].boat.moduleCondition, story_rows(again.state)[0].boat.moduleCondition), "story parts are not reminted")
-	check(str(story_rows(c.state)[0].boat.uid) == "legacy-story-0-0" and not story_rows(c.state)[0].boat.has("moduleCondition"), "the live story hull is not rewritten")
-	var detached: Dictionary = c.state.duplicate(true)
+	check(str(story_rows(legacy)[0].boat.uid) == "legacy-story-0-0" and not story_rows(legacy)[0].boat.has("moduleCondition"), "the live story hull is not rewritten")
+	var detached: Dictionary = legacy.duplicate(true)
 	var omitted: Dictionary = story_rows(detached)[0].boat
 	omitted.erase("uid")
 	var fallback: Dictionary = Preflight.prepare_state(detached, world)
@@ -262,8 +280,8 @@ func story_identity() -> void:
 		var named: Dictionary = story_rows(fallback.state)[0].boat
 		check(str(named.get("uid", "")) == "story-0-o0" and str(named.moduleCondition.birthNamespace) == "story-0-o0", "the missing-uid copy is story-0-o0")
 		check(Condition.mint_uid("story-0-o0", 1) in Condition._uid_list(named.moduleCondition), "that copy mints parts in the derived namespace")
-	check(str(story_rows(c.state)[0].boat.uid) == "legacy-story-0-0", "the live story uid stays legacy-story-0-0")
-	var blocked: Dictionary = c.state.duplicate(true)
+	check(str(story_rows(legacy)[0].boat.uid) == "legacy-story-0-0", "the live story uid stays legacy-story-0-0")
+	var blocked: Dictionary = legacy.duplicate(true)
 	story_rows(blocked)[0].boat.erase("uid")
 	var known: Array = []
 	var holder: Dictionary = seeded_boat("held-birth", "mint-held", known)
@@ -278,7 +296,7 @@ func story_identity() -> void:
 	refuses_birth(blocked, "a missing-uid story proposal that hits an existing birth namespace is refused")
 
 func capture_and_scalars() -> void:
-	var low: Dictionary = c.state.duplicate(true)
+	var low: Dictionary = legacy_career()
 	low.fleet[0].engine = 0.10
 	var low_run: Dictionary = Preflight.prepare_state(low, world)
 	check(low_run.ok, "a lower legacy scalar prepares")
@@ -286,7 +304,7 @@ func capture_and_scalars() -> void:
 		var born: Dictionary = item_at(low_run.state.fleet[0].moduleCondition, "engine")
 		check(is_equal_approx(float(born.hp), 0.10) and str(born.status) == "disabled", "migration keeps 0.10 and does not heal the engine")
 		check(is_equal_approx(float(low.fleet[0].engine), 0.10) and not low.fleet[0].has("moduleCondition"), "the lower-scalar caller is unchanged")
-	var base_run: Dictionary = Preflight.prepare_state(c.state, world)
+	var base_run: Dictionary = Preflight.prepare_state(legacy_career(), world)
 	check(base_run.ok, "canonical scalar cases start from one prepare")
 	if not base_run.ok:
 		return
@@ -322,7 +340,7 @@ func capture_and_scalars() -> void:
 		check(str(renamed.fleet[0].uid) == "prize-9" and same_ids(birth, renamed.fleet[0].moduleCondition), "the rename caller is otherwise unchanged")
 
 func retirement() -> void:
-	var saved: Dictionary = c.state.duplicate(true)
+	var saved: Dictionary = legacy_career()
 	var npc: Dictionary = find_uid(saved, "npc-0-0")
 	npc.sunk = true
 	var grave: Dictionary = Preflight.prepare_state(saved, world)
@@ -331,7 +349,7 @@ func retirement() -> void:
 		var quiet: Dictionary = find_uid(grave.state, "npc-0-0")
 		check(not quiet.has("moduleCondition") and not quiet.has("equipmentRetiredTo"), "a graveyard hull is not seeded")
 		check(grave.state.fleet[0].has("moduleCondition"), "living hulls still migrate beside a graveyard hull")
-	var marked: Dictionary = c.state.duplicate(true)
+	var marked: Dictionary = legacy_career()
 	var source: Dictionary = find_uid(marked, "npc-0-0")
 	source.sunk = true
 	source.equipmentRetiredTo = "wreck-4"
@@ -341,25 +359,25 @@ func retirement() -> void:
 	if pruned.ok:
 		var retired: Dictionary = find_uid(pruned.state, "npc-0-0")
 		check(str(retired.equipmentRetiredTo) == "wreck-4" and not retired.has("moduleCondition"), "pruning does not reseed or clear the marker")
-	var parked: Dictionary = c.state.duplicate(true)
+	var parked: Dictionary = legacy_career()
 	var held_source: Dictionary = find_uid(parked, "npc-0-0")
 	held_source.sunk = true
 	held_source.equipmentRetiredTo = "wreck-4"
 	parked.wrecks = [{"id": "wreck-4", "hull": str(held_source.type), "status": "towed", "equipmentCustody": "transferred"}]
 	var transferred: Dictionary = Preflight.prepare_state(parked, world)
 	check(transferred.ok and not find_uid(transferred.state, "npc-0-0").has("moduleCondition"), "transferred custody does not reseed the source")
-	var named_marker: Dictionary = c.state.duplicate(true)
+	var named_marker: Dictionary = legacy_career()
 	var marked_npc: Dictionary = find_uid(named_marker, "npc-0-0")
 	marked_npc.sunk = true
 	marked_npc.equipmentRetiredTo = "boat-1"
 	var marker_run: Dictionary = Preflight.prepare_state(named_marker, world)
 	check(marker_run.ok and str(find_uid(marker_run.state, "npc-0-0").equipmentRetiredTo) == "boat-1", "a retirement marker is not a birth namespace")
 	check(marker_run.ok and str(marker_run.state.fleet[0].moduleCondition.birthNamespace) == "boat-1", "the player namespace stays beside that marker")
-	var living: Dictionary = c.state.duplicate(true)
+	var living: Dictionary = legacy_career()
 	var live_npc: Dictionary = find_uid(living, "npc-0-0")
 	live_npc.equipmentRetiredTo = "wreck-4"
 	refuses(living, "a living hull cannot hide behind a retirement marker")
-	var bad_mark: Dictionary = c.state.duplicate(true)
+	var bad_mark: Dictionary = legacy_career()
 	var bad_npc: Dictionary = find_uid(bad_mark, "npc-0-0")
 	bad_npc.sunk = true
 	bad_npc.equipmentRetiredTo = 4
@@ -417,23 +435,23 @@ func birth_namespaces() -> void:
 	refuses_birth(with_wreck, "an active wreck that shares a birth namespace is refused")
 
 func rejections() -> void:
-	var twin: Dictionary = c.state.duplicate(true)
+	var twin: Dictionary = legacy_career()
 	var copy: Dictionary = twin.fleet[0].duplicate(true)
 	twin.fleet.append(copy)
 	refuses(twin, "two hulls with one uid are refused")
-	var corrupt: Dictionary = c.state.duplicate(true)
+	var corrupt: Dictionary = legacy_career()
 	corrupt.fleet[0].moduleCondition = {"version": 1}
 	refuses(corrupt, "a present corrupt record is not reseeded")
-	var foreign: Dictionary = c.state.duplicate(true)
+	var foreign: Dictionary = legacy_career()
 	foreign.fleet[0].equipmentCondition = {"hp": 1}
 	refuses(foreign, "foreign equipment metadata is left untouched")
-	var nan_engine: Dictionary = c.state.duplicate(true)
+	var nan_engine: Dictionary = legacy_career()
 	nan_engine.fleet[0].engine = NAN
 	var nan_coins: int = int(nan_engine.coins)
 	var nan_denied: Dictionary = Preflight.prepare_state(nan_engine, world)
 	check(not nan_denied.ok and not nan_engine.fleet[0].has("moduleCondition"), "a NaN engine scalar is refused")
 	check(int(nan_engine.coins) == nan_coins and is_nan(float(nan_engine.fleet[0].engine)), "the NaN caller career stays")
-	var ready: Dictionary = Preflight.prepare_state(c.state, world)
+	var ready: Dictionary = Preflight.prepare_state(legacy_career(), world)
 	check(ready.ok, "rejection fixtures can start from a prepared copy")
 	if not ready.ok:
 		return

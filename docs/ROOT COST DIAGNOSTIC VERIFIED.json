@@ -1,0 +1,80 @@
+{
+  "status": "Root accepted cost observation data only; actual performance target still failed/open",
+  "jobId": "b1d21209f03e41f59cb2990a7194947a",
+  "engineLaunchedByRoot": false,
+  "inputCount": 289,
+  "inputSha256": "bb765f0f5a7f1c832a08fa3c050894fe94fc2b5f43a9d7cf981a54b0c2906885",
+  "fixtureSha256": "d3386e02664cbdf1e77620df6772678d9408bea9eceec0f4d1f025fff66abf5e",
+  "actualColdUpdates": 24,
+  "warmup": 0,
+  "diagnosticChecks": 51,
+  "failures": 0,
+  "frameCostsMs": {
+    "whole_update_us": {
+      "mean": 407.80691666666667,
+      "minimum": 293.93,
+      "maximum": 969.78
+    },
+    "ai_us": {
+      "mean": 295.33933333333334,
+      "minimum": 217.856,
+      "maximum": 697.75
+    },
+    "other_update_us": {
+      "mean": 112.46758333333334,
+      "minimum": 76.074,
+      "maximum": 550.083
+    },
+    "pre_observation_us": {
+      "mean": 8.378041666666666,
+      "minimum": 6.926,
+      "maximum": 21.753
+    },
+    "post_observation_us": {
+      "mean": 0.5027916666666666,
+      "minimum": 0.435,
+      "maximum": 0.638
+    }
+  },
+  "publicStatusMeanMs": 0.18825,
+  "publicStatusDetached": true,
+  "publicStatusLiveResourcesUnchanged": true,
+  "all40CanonicalBeforeEachUpdate": true,
+  "all40StillAfloat": true,
+  "partUidSetsUnchangedAcrossAllRows": true,
+  "recordedPidAbsent": 52340,
+  "costJsonSha256": "186eae9b74e306d7343a51dbd7514ef3fd6b54d62f594fbd348282c7dd0c0f72",
+  "nativeReview": {
+    "jobId": "b1d21209f03e41f59cb2990a7194947a",
+    "suite": "equipment_cost_diagnostic",
+    "family": "",
+    "outcome": "passed",
+    "checks": 51,
+    "failures": 0,
+    "inputSha256": "bb765f0f5a7f1c832a08fa3c050894fe94fc2b5f43a9d7cf981a54b0c2906885",
+    "inputCount": 289,
+    "nativeWallSeconds": 10.889999999999418,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\b1d21209f03e41f59cb2990a7194947a\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "c3f65f33c973cf4d1eaffa5a97d4211498d1f164fdf3186fa8273ed3de879abd",
+      "cost-diagnostic.json": "186eae9b74e306d7343a51dbd7514ef3fd6b54d62f594fbd348282c7dd0c0f72",
+      "execution.json": "d5c326dba7830b886dcb3c5ef72fd58eabd17fd12082ef4463094643f0874b9d",
+      "inputs-after.json": "1373a5dee161e08288acb509d6c5dc590ce0334e32241629304d3fb6870d36c1",
+      "inputs-before.json": "1373a5dee161e08288acb509d6c5dc590ce0334e32241629304d3fb6870d36c1",
+      "lane.log": "4ed5e71ba6388c74142fc786e1d976279ee5a397d83d5103f3f41a8806c4ad76",
+      "native-receipt.json": "3f012209e0cfeffba3c9e8f0922a6d9acc93a51941d0a95bc44f7a7503f88052",
+      "native.log": "e380b795e0e9740d33e705377ab924616f21747e557b85067b7128c357e004da",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "2c65b1f7761011748865292f563f4915b961fe30100944a96cb57039a104d232",
+      "request.json": "9a22908c332ef8de4b06f6570418614f05dfe69e1205b5b4aa216c290770a9ef",
+      "result.json": "f7e4dbc116d4d258cdea5bece17da7c85057e5c6b40d17953efccedaa6ed6ae0",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "c4cc9fb4c069b6d2f95026f617fc3c19ddbc553ba03b667e792ec69246e54e12",
+      "verified-report.json": "f7e4dbc116d4d258cdea5bece17da7c85057e5c6b40d17953efccedaa6ed6ae0"
+    }
+  },
+  "capacityAccepted": false,
+  "noSteadyStateQuantilesRenderedFpsOrIdleHostClaim": true
+}

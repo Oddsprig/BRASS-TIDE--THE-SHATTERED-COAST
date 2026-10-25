@@ -21,8 +21,8 @@ Current work:
   Crew stay numerical;rendering/assets use existing shared physical sockets.
 
 BRASS TIDE - VERIFIED WORKING INTEGRATION; RELEASE STILL OPEN
-2026-10-25T13:16:29.916626+00:00
-Main checkpoint3946a9bc; current runtime/test GDScript matches frozenR4.
+2026-10-25T14:06:42.577268+00:00
+Runtime14 matches frozenR4; legacy fixture setup separately verified629/0.
 Fourteen runtime modules and six fixtures integrated. Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
 No .031 version bump, release tag, export, launcher change or upload.
@@ -42,13 +42,20 @@ bound:40.594s update time, about461.3ms per warmup update. All40 remained afloat
 no measured windows or1800-profile samples were produced. This is incomplete
 capacity, not stable FPS/quantiles. Root proof: ROOT CANONICAL40 PARTIAL VERIFIED.
 Native scope was headless CPU; no idle-host, render or Starsector-parity claim.
-Source-only cost diagnostics are next; do not repeat the unchanged capacity run.
+Cold24-update diagnostic b1d21209 passed51/0: mean407.807ms whole,
+295.339ms AI and112.468ms other. These are cold diagnostics, not FPS or
+steady-state capacity. Same-frame reuse is isolated source work. Public status
+stays fresh. ROOT COST DIAGNOSTIC VERIFIED.json binds this data.
+Do not repeat unchanged capacity/cost runs.
 
 PRESERVED FAILURES AND LESSONS
 Lab99/1 snapshot preceded constructor price initialization; corrected setup
 retains all99 original assertions and passes. Extra legacy campaign619/17 assumes
-new careers are unseeded; its explicit old-save setup is being corrected in an
-isolated fixture. It is separate from actual save89/0. Player-service2dc8 ended
+new careers are unseeded. Corrected fixture9f976e89 explicitly creates the
+pre-equipment legacy input and retains substantive assertions. Nativeaa6f5400
+passed629/0; Root independently verified498 inputs and exited PIDs. The628
+forecast was not enforced. Original619/17 and actual save89/0 stay separate.
+ROOT LEGACY FIXTURE R1 VERIFIED.json binds this result. Player-service2dc8 ended
 incomplete, then unchanged controlled retry108a passed204/0. Coins535e attempt001
 yielded correctly to another game; attempt002 passed458/0. Capacity708 failed
 supervisor owned.json.tmp rename (WinError5); its result is distinct from b144.
