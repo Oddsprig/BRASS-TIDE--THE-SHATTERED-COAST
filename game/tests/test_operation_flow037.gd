@@ -82,13 +82,18 @@ func _flow() -> void:
 	check(bought.ok,"player buys the nine actual fuel drums later delivered through the panel")
 	# A market transaction publishes into existing live objects; read them again.
 	owner=c.fleet_owner("patrol-5");p=Orders.find_patrol(c.state,str(owner.id));home=c.port(str(owner.homePort))
+	# The initial crew purse is empty: real payroll must fund its ordinary food purchase.
+	var provisioning_money: int=Money.total(c.state)
+	var provisioning_stock: float=float(home.stocks.food)
+	Fleets.tick([owner],c.state.ports,1.0,c)
+	check(float(owner.cargo.food)>=float(Fleets.upkeep(owner).food) and float(home.stocks.food)<provisioning_stock and Money.total(c.state)==provisioning_money,"funded crew payroll buys existing harbor food before supplied departure")
 	c.state.campaignFocus.fromPort=home.id;c.state.campaignFocus.toPort=other.id
 	var ids: Array=c.state.fleetOwners.map(func(o):return o.id)
 	var hulls: Array=owner.boats.map(func(b):return b.uid)
 	var money: int=Money.total(c.state)
 	var treasury: int=int(home.governmentPurse)
 	var begun: Dictionary=c.RegionalOps.start(c,"corridor")
-	check(begun.ok and begun.ownerId==owner.id and int(begun.funded)>0,"existing paid patrol receives the corridor assignment and finite grant")
+	check(begun.ok and begun.ownerId==owner.id and int(begun.funded)==0,"existing paid patrol receives the corridor assignment without a threat subsidy")
 	if not begun.ok or begun.ownerId!=owner.id:return
 	var op: Dictionary=c.state.regionalCampaigns.operations.corridor
 	check(int(home.governmentPurse)==treasury-int(begun.funded) and int(home.governmentPurse)>=int(home.publicWorkers)*int(c.Goods.WAGES.laborer)*2,"grant preserves the sponsor's two public-payroll days")
