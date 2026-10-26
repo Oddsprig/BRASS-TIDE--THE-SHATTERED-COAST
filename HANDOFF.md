@@ -1,12 +1,10 @@
-# Brass Tide continuation
+# Brass Tide v0.031
 
-Read [BUILD STATUS.txt](BUILD%20STATUS.txt) for the current checkpoint, verified scope,
-open release gates and next work. That is the single current status document.
-
-Read AGENTS.md and docs/RELEASE TEST CONTRACT v2.txt before native work. Tests use
-the shared Windows lane through Test Bridge, stay in the background, and finish
-within one119-second active deadline. Keep real failures and incomplete results.
-
-Current development is v0.031 with24 boats; no new release export or launcher.
-The task coordination file is work/resume-v030-v038/CURRENT.txt outside this repo.
-Earlier handoff text is preserved in the task integration backup and Git history.
+Owner narrowed this pass to damageable equipment, repair work, fitting and
+condition persistence. Stop full-game/performance fine-tuning. Do not start.032.
+Runtime features are integrated; the acquired-hull save fix passed637/0.
+Version metadata is31. Seven focused equipment fixtures and Windows packaging
+are pending. Sol is preparing the bounded existing-runner job; Root delivers.
+Broad C1 attempt69d917 remains incomplete; owned ledger is empty. No rerun.
+See docs/V0.031 FOCUSED SCOPE.txt and task CURRENT.txt. Old notes preserved in
+task coordination-history/owner-scope-reset-031.

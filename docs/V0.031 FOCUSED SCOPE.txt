@@ -1,0 +1,33 @@
+BRASS TIDE v0.031 - DAMAGEABLE EQUIPMENT
+26 October 2026 | Owner scope correction
+
+Owner: "0.031 do you think youre building the full game on this pass? stick to the fucking scope"
+
+THIS VERSION
+- Individual fitted guns, engines, armor and pumps have persistent condition.
+- Damage changes weapon, propulsion and pumping capability. Flooding, fire,
+  crew work, repair priorities and supplies use the current physical model.
+- Paid fittings/repairs retain equipment identity and real material/coin costs.
+- Refit, save/load, salvage, capture and recovered hulls retain condition.
+- New boats initialize their identity/home/boarding fields and morale before
+  entering the fleet, fixing the newly acquired boat save/load mismatch.
+
+VERIFICATION FOR THIS VERSION
+Run the seven existing equipment condition, records, damage, fitting, UI
+integration, campaign and service fixtures as one bounded background batch.
+Keep their assertions unchanged. Require actual successful terminals, zero exits
+and owned cleanup. Entire selected suite stays below120 seconds including setup.
+Then export Windows and check the portable title/campaign/save/battle entry.
+The completed campaign/publication regression is already637 checks/0 failures.
+This does not assert that the entire game's historical test inventory passed.
+
+DEFERRED
+Full-game regression/motion matrices, dense-fleet frame-time targets, additional
+micro-optimizations and the .032-.038 features belong to later scoped work.
+Preserve old failures and candidates; no relabeling or automatic reruns.
+The 44-case broad C1 attempt69d9175677544e9392677dec048469fc ended at its
+100-second native limit, remains incomplete, and has an empty owned PID ledger.
+Its failure does not become a pass through this scope correction.
+
+24 current boat designs. The12 civilian designs remain planned for0.035.
+Coins and100-coins-per-sailor-day remain. No full-game or Starsector-parity claim.

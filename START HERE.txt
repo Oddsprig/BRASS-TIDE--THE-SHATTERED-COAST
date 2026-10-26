@@ -1,20 +1,6 @@
-BRASS TIDE — ACTIVE DEVELOPMENT AND BACKGROUND TESTING
-24 October2026 | Latest owner resume overrides the historical stop/test deferral.
-
-HANDOFF.md and AGENTS.md: current work, constraints and three Bridge helpers.
-BUILD STATUS.txt and docs/VERIFICATION INDEX.txt: exact evidence boundaries.
-CODE MAP.md and maps/: actual implemented files, symbols and sizes.
-VERSION MAP.txt and ROADMAP.md: sequential031–038 work, not completed releases.
-game/data/DEVELOPER NOTES.txt: current in-game notes.
-
-The preserved Windows030/tag7492fb7 remains its original UNTESTED portable.
-Verified029/tag44e2a46 is preserved. No031+ playable release or remote upload.
-Tests are authorized again, hidden/headless/silent/isolated, one owned engine at
-a time. Never take mouse/keyboard/focus or modify original saves/settings/music.
-Sol6.1MAX holds the engine lease; Grok4.7 and Gemini4ArgonHIGH implement assigned
-systems through Bridge. Root coordinates/reviews/integrates. No extra helpers.
-
-Immediate gate: actual crowded-fleet behavior, unchanged original regressions,
-heldout motion and measured capacity. Verified equipment components are staged;
-paid repairs/fitting/save/capture/recovery integration is still required.
-Earlier stop/build-only receipts describe historical actions, not current work.
+BRASS TIDE - v0.031 RELEASE CANDIDATE
+Current step: damageable equipment and repairs.24 boat designs.
+Focused verification and Windows packaging are pending; build is not delivered yet.
+BUILD STATUS.txt and docs/V0.031 FOCUSED SCOPE.txt describe the actual scope.
+VERSION MAP.txt holds the later sequence. Preserve prior releases and owner saves.
+Background testing only; no mouse/keyboard/focus control.

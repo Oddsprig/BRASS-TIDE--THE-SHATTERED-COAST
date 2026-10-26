@@ -1,100 +1,35 @@
-26 OCTOBER 2026 - NEW-BOAT SAVE/LOAD FIX VERIFIED
-Newly bought/recovered hulls receive the same seven per-boat defaults and current
-morale scaling before publication that restore applies. New careers also publish
-their canonical morale spec immediately. Existing valid identity, berth arrears,
-boarders, equipment UIDs/condition, hull damage, crew and stores are preserved.
-The helper performs no payment, hiring, healing or restocking.
+BRASS TIDE v0.031 - DAMAGEABLE EQUIPMENT
+26 October 2026 | Owner scope correction
 
-Test Bridge job 431cfb6008184fa0bc9740cc47c33401:118 focused checks plus519 complete
-campaign checks,637/0. Original nine scenarios, full-fleet JSON equality and
-route/battle/construction/wage horizons remain. 44.816399s including charged
-setup; owned ledger empty; headless/Dummy/shared FIFO,512MiB8%two logical CPUs.
-The old campaign fixture is mapped to current coins, actual quotes, finite
-reward/advance/rescue purses and paid physical construction; obsolete credits
-expectations and every failed attempt remain preserved in task evidence.
+Owner: "0.031 do you think youre building the full game on this pass? stick to the fucking scope"
 
-Required coverage now103 functional fixtures/109 units and142 unique functional
-plus motion executions, with five supported-load gates. This is a scoped pass,
-not full-suite, performance, rendered/audio or release acceptance.
-Build30/24 boats;0.031 UNRELEASED. No export, launcher, tag or remote publication.
-C5 three-fixture pilot tooling is separately verified:212 numeric checks/0 plus
-harbor's success terminal. It does not certify every scene/resource fixture.
+THIS VERSION
+- Individual fitted guns, engines, armor and pumps have persistent condition.
+- Damage changes weapon, propulsion and pumping capability. Flooding, fire,
+  crew work, repair priorities and supplies use the current physical model.
+- Paid fittings/repairs retain equipment identity and real material/coin costs.
+- Refit, save/load, salvage, capture and recovered hulls retain condition.
+- New boats initialize their identity/home/boarding fields and morale before
+  entering the fleet, fixing the newly acquired boat save/load mismatch.
 
-BRASS TIDE — v0.031 DEVELOPMENT CHECKPOINT
-26 October 2026
+VERIFICATION FOR THIS VERSION
+Run the seven existing equipment condition, records, damage, fitting, UI
+integration, campaign and service fixtures as one bounded background batch.
+Keep their assertions unchanged. Require actual successful terminals, zero exits
+and owned cleanup. Entire selected suite stays below120 seconds including setup.
+Then export Windows and check the portable title/campaign/save/battle entry.
+The completed campaign/publication regression is already637 checks/0 failures.
+This does not assert that the entire game's historical test inventory passed.
 
-Current game: 24 boat designs. Build number is still30; v0.031 is unreleased.
-Preserve v0.030/tag7492fb7 as UNTESTED and v0.029/44e2a46 as the verified fallback.
-No new Windows export, desktop launcher, release tag or remote upload was made.
+DEFERRED
+Full-game regression/motion matrices, dense-fleet frame-time targets, additional
+micro-optimizations and the .032-.038 features belong to later scoped work.
+Preserve old failures and candidates; no relabeling or automatic reruns.
+The 44-case broad C1 attempt69d9175677544e9392677dec048469fc ended at its
+100-second native limit, remains incomplete, and has an empty owned PID ledger.
+Its failure does not become a pass through this scope correction.
 
-INTEGRATED SOURCE
-Private AI predictions reuse a guarded equipment status within their locally owned
-copy. Condition equality is proved within one synchronous prediction and reset at
-its boundaries and before condition writes. Foreign shared-condition publication
-and unusual repair-priority callbacks invalidate the proof before reuse.
-Predictions also reuse unchanged conditioned mounts and installed module HP
-totals, verified against the literal original prediction.
-The original physical sample count, substeps, fuel, cooldown, bailing, repair,
-crew work, supplies, projectile and global certification-budget math remain.
-Public damage callers retain their original default path. Economy/coins unchanged.
+24 current boat designs. The12 civilian designs remain planned for0.035.
+Coins and100-coins-per-sailor-day remain. No full-game or Starsector-parity claim.
 
-VERIFIED SCOPE
-1,992 checks passed across five scoped phases on the same runtime: private1,065;
-public735; scope/foreign-owner124; corrected priority callback17; cold battle51.
-The first batch stopped on two errors in a new test fixture and remains FAILED.
-Its three actual successful phases are retained. The corrected follow-up changed
-only test setup and an erased-key expectation; it passed the remaining17+51.
-All756 recorded comparisons across24 actual battle updates and40 public statuses
-match the three preserved baselines, excluding only two original diagnostic clocks.
-Shared FIFO, background headless rendering, silent audio, two logical CPUs,
-8% job CPU and512MiB aggregate limits; owned cleanup confirmed. No input control.
-
-STILL OPEN
-The complete release-v2 regression suite has not executed or passed. The inventory
-has104 original functional units plus four new prefix regressions,34 motion
-requirements (one overlap), seven retained regressions and five supported-load
-adapters. That is108 functional units and141 combined functional/motion executions. No partial batch is release acceptance.
-Latest24 cold observation:75.202ms whole/50.662ms AI mean. This does not
-establish a speedup, FPS or capacity. Supported-load timing remains failed/open.
-Rendered motion, controls, sound listening, Windows export and save/career acceptance
-also remain open. Do not claim Starsector parity or advance the release number yet.
-
-LATEST SCOPED RESULT
-R9B job742fa679a7f44976880d9fbd0986ec2f passes435 prefix differential checks
-and51 cold battle checks; all756 recorded comparisons match. Receipt plus8s
-setup:18.6653s; final owned ledger empty. FailedR9 remains failed: its raw-mount
-case allowed jury repair while expecting a fixed damaged factor. The correction
-sets only that case's supplies to0; repair cases and assertions remain.
-R8 private battle memo remains unmerged: its corrected combined R8B batch passes
-1,593/0 plus756 comparisons, but timing is essentially unchanged. Original R8
-269/2 failure remains preserved; explicit runtime type/bit witnesses now pass. The
-worker prototype's scoped137+51 checks passed; no timing gain, so it is unmerged.
-
-EXACT IDLE PREDICTION UPDATE
-R10 joba37cac4897c24e52ba29e4e20dd7ab3d passes435original/193focused/51cold
-checks,679/0 plus756 comparisons. Private dry/no-work substeps retain exact
-physical math and original fallbacks. Receipt plus10s setup22.4843s; finalowned
-ledger empty. See docs/QA EXACT IDLE PREDICTION v0.031.json/.txt.
-
-NEXT WORK
-Finish actual C1/C5 batching/isolation adapters and required native proof, then
-supported-load performance/behavior. Continue .032 through .038 sequentially on
-the accepted preceding version.12 civilian boats remain planned for .035.
-
-WHERE TO LOOK
-AGENTS.md: standing owner/test rules and current team.
-docs/RELEASE TEST CONTRACT v2.txt and docs/TEST SUITE RULES.txt: required coverage.
-game/data/DEVELOPER NOTES.txt: current in-game developer note.
-CODE MAP.md and system maps: code entry points.
-Task work/resume-v030-v038/CURRENT.txt: live coordination and exact candidate paths.
-Task root-candidates/main-integration-prefix-call-r2/INTEGRATION.json: source proof.
-Native jobs9feed82a73964c8c8bfb5f83c531877d and32ec7f5153af4c239124148d25b62258:
-failed original batch and corrected scoped follow-up respectively; never relabel them.
-
-OWNED IDLE PREDICTION / R13
-749/0 and756 recorded comparisons passed; all193 prior idle assertions remain.
-Closed private status reuse retains each physical step; public Damage unchanged.
-Receipt plus charged setup42.081978s; owned cleanup complete. See
-docs/QA OWNED IDLE PREDICTION v0.031.json/.txt. R12 broader batch remains failed
-on obsolete campaign-test contracts; its isolated correction is not yet tested.
-Full release/performance/presentation remain open. Build30/24boats unchanged.
+STATUS: release candidate; focused suite and Windows export pending.

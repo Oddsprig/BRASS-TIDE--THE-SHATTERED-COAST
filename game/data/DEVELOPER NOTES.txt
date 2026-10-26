@@ -1,84 +1,15 @@
-26 OCTOBER 2026 - NEW-BOAT SAVE/LOAD FIX VERIFIED
-Newly bought/recovered hulls receive the same seven per-boat defaults and current
-morale scaling before publication that restore applies. New careers also publish
-their canonical morale spec immediately. Existing valid identity, berth arrears,
-boarders, equipment UIDs/condition, hull damage, crew and stores are preserved.
-The helper performs no payment, hiring, healing or restocking.
+BRASS TIDE - v0.031 RELEASE CANDIDATE
+26 October2026 |24 boat designs
 
-Test Bridge job 431cfb6008184fa0bc9740cc47c33401:118 focused checks plus519 complete
-campaign checks,637/0. Original nine scenarios, full-fleet JSON equality and
-route/battle/construction/wage horizons remain. 44.816399s including charged
-setup; owned ledger empty; headless/Dummy/shared FIFO,512MiB8%two logical CPUs.
-The old campaign fixture is mapped to current coins, actual quotes, finite
-reward/advance/rescue purses and paid physical construction; obsolete credits
-expectations and every failed attempt remain preserved in task evidence.
+This step adds persistent condition to individual fitted weapons, engines,
+armor and pumps, with crew repair priorities, actual supplies and paid harbor
+work. Fittings, saves and recovered/captured equipment retain their condition.
+New boats also receive their current morale and bookkeeping defaults before
+their first save. The complete campaign/publication check passed637/0.
 
-Required coverage now103 functional fixtures/109 units and142 unique functional
-plus motion executions, with five supported-load gates. This is a scoped pass,
-not full-suite, performance, rendered/audio or release acceptance.
-Build30/24 boats;0.031 UNRELEASED. No export, launcher, tag or remote publication.
-C5 three-fixture pilot tooling is separately verified:212 numeric checks/0 plus
-harbor's success terminal. It does not certify every scene/resource fixture.
-
-26 OCTOBER2026 — R13 PRIVATE PREDICTION CHECKPOINT
-749checks/0failures plus756 preserved comparisons passed. All193 previous idle
-assertions remain;70 add closed-prefix and subsequent canonical status/boat tests.
-An admitted zero-work status is reused only inside its detached synchronous
-prediction; every physical step remains. Public damage/economy APIs unchanged.
-42.081978s including charged setup; all owned test processes exited.
-Broader R12 remains failed on old campaign-test contracts; correction untested.
-Full release/performance/presentation open; build30/24boats,0.031UNRELEASED.
-
-BRASS TIDE — DEVELOPER NOTES
-v0.031 in development | 26 October 2026 | 24 boat designs
-
-This checkpoint integrates guarded equipment-status reuse in private AI boat
-predictions. Each prediction owns its copied boat and cache; it closes that cache
-before returning. Equipment writes and foreign shared-condition callbacks clear
-the cached proof. A repair-priority value that invokes outside code uses the
-original path after the cache is invalidated.
-
-The physical prediction still uses the same60 samples and original substeps.
-Damage, fuel, cooldown, sinking, bailing, repair, crew work and supply costs use
-the original math. Public damage calls and the settlement economy are unchanged.
+The current check scope is equipment condition/records/damage/fitting/UI,
+campaign persistence and service, followed by a portable Windows startup check.
+Focused suite and export are pending. Background only; no mouse or key control.
+Broader performance tuning and future versions are deferred. This is an early
+game build, not a completed full-game or visual/audio-quality certification.
 Coins remain the currency; ordinary sailor wages remain100 coins per day.
-
-The scoped checks passed1,992 assertions across five phases. Two fixture errors
-stopped the first batch; that failed result is preserved. The corrected fixture
-passed its17 checks. All756 recorded battle comparisons still match the three
-baselines across24 updates and40 public equipment-status calls.
-
-Predictions now also reuse conditioned gun mounts and installed module totals
-when their complete inputs remain unchanged. The new differential fixture
-passes435 checks against the literal original prediction, including flooding,
-fire, fuel exhaustion, sinking and jury repair. The51-check battle diagnostic
-also passes, with756 preserved payload comparisons. Its original fixture failure
-is retained; only a no-repair test setup needed correction.
-
-Dry, intact predictions now have an exact no-work specialization. It retains
-every physical substep and falls back to the original calculation for real work
-or an inadmissible input.679focused assertions and756 recorded comparisons
-passed, including fuel/cooldown boundaries and the next normal tick.
-
-These are developer checks, not a completed release suite. The latest short cold
-observation averaged85.612ms per battle update,60.130ms in AI across24updates;
-sustained capacity and target frame times remain open. No causal speedup, rendered
-FPS, audio quality or Starsector parity is claimed from these results.
-
-All tests run silently in the background through the shared game test queue.
-Existing games/editors keep priority. One engine at a time, bounded work, owned
-cleanup and a119-second active suite deadline including setup and results.
-A partial, skipped, interrupted or timed-out required case is not a full pass.
-
-Still to finish: supported-load AI performance and behavior, the bounded complete
-release suite, presentation/controls/audio checks, and the Windows build. The
-multithreaded side-planning prototype passed its component checks but showed no
-timing gain and remains isolated. The private battle memo also remains isolated
-after all1,593 corrected checks passed without an observed timing gain; the
-original failed result is preserved. The next
-released version will advance by0.001 only after its required work is complete.
-No new export or launcher has been installed for this development checkpoint.
-
-Read BUILD STATUS.txt in the project folder for the current handoff. Historical
-reports and failures remain available; successful unchanged checks are reused
-only under their actual code and workload bindings.

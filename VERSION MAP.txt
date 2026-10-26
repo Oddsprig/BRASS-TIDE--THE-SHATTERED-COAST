@@ -1,29 +1,11 @@
-BRASS TIDE — CURRENT SEQUENTIAL VERSION MAP
-25 October 2026 | Current component proof; three existing Bridge projects
+BRASS TIDE - SEQUENTIAL VERSION MAP
+26October2026 | Current pass is0.031 only
 
 0.029 | DELIVERED/VERIFIED | Workshop,24 boat/equipment detail, paid fittings.
-0.030 | PRESERVED UNTESTED BUILD | Tactical AI source; fixes/verification active.
-0.031 | COMPONENTS VERIFIED; CURRENT SCENE/PERFORMANCE OPEN | Lab99/voyage67/salvage14,
-R4 baseline UI167/save89/player204/NPC140/coins458 passed. Canonical40 managed88/150
-warmup updates in40s and0 measured samples. Cold diagnostic:407.807ms whole,
-295.339ms AI /112.468ms other, not FPS. Legacy compatibility629/0 also passes.
-Private copy pair now matches1800 gold samples/20certificates; freshness29 and
-public90/89/174 pass. Isolated weapons27/0 and native repair67/0; repair outer
-supervision failed separately. New cold40 whole274.9235ms/AI179.2996/other95.6239;
-performance remains unaccepted. Full recorder60s timeout preserved. Validated24-tick
-profile identifies canonical condition/repair tick work as the main measured cost.
-Protected-recovery passes3/0 in both orientations (legacy-only; no retreat proof).
-Original pump supervisor failure preserved; changed tick69 pump/armor now passes
-12/0 over362 ticks with Root-verified inputs/tools/lane and both outcomes.
-R3 native57/0 pairs preserved with original timing-key comparison failure.
-Corrected R4 OLD5c38/NEWa04ff each pass57/0; Root complete301-packet and strict
-clock-absence gates pass. Frozen comparison passes301/301 exact typed bytes.
-The five-file clean integration is now in working source alongside private2.
-Tick69 cold diagnostic51/0 matches recorded work/resources; observed whole
-204.402ms versus274.924ms previously. Performance remains open; no FPS or
-capacity acceptance. Deeper9-seam profiler ad43 passes51/0 with Root-verified analysis valid/issues[];
-record-walk/snapshot costs identified. Two isolated source optimizations are in preparation.
-Remaining030/held-out/motion/audio/Windows proof stays open. No031tag/export.
+0.030 | PRESERVED UNTESTED BUILD | Tactical AI; later behavior/performance work remains.
+0.031 | RELEASE CANDIDATE | Damageable fitted equipment, crew/supply repairs,
+priorities, paid fitting, condition persistence and acquired-boat save fix.
+Focused equipment suite and portable Windows check pending. Full-game polish deferred.
 0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
 Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.
 Choose tow/strip/abandon with finite cargo/modules and actual custody.

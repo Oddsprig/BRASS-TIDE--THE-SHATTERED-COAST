@@ -1,51 +1,31 @@
-## Current source checkpoint - 26 October 2026
+# Current scope - v0.031 only
 
-New-boat publication initializes all restore-time per-hull defaults and current
-morale before the boat enters the fleet. Native637/0 covers118 focused checks
-and all519 checks across the original nine campaign scenarios; complete fleet
-JSON equality retained. Receipt+setup44.816399s, owned ledger empty.
-The earlier private prediction optimization passes749/0 plus756 comparisons.
-C5 pilot tooling separately passes212/0 plus harbor's original success terminal.
-146production scripts/24mutable statics;109functional/142combined executions.
-Build30/24boats;0.031 UNRELEASED. Full release/performance/presentation open.
-Historical failures remain failed. Latest task CURRENT.txt supersedes old notes.
-Only reviewed119s Test Bridge batches/new one-use controls may run. Shared lane,
-resource caps and owned cleanup unchanged; no automatic retries.
+The owner explicitly corrected the scope on26October2026:
+"0.031 do you think youre building the full game on this pass? stick to the fucking scope"
+Stop full-game acceptance work, speculative fine-tuning and new test frameworks.
+Finish damageable equipment, crew/supply repair, paid fitting and condition
+persistence; run focused checks and package this version. Do not start0.032
+automatically during this pass. See docs/V0.031 FOCUSED SCOPE.txt.
 
-## Crash recovery hold — 26 October 2026
+The former agent-authored109-unit/142-execution full-game release gate is
+DEFERRED to a milestone. Keep its historical definition/results without claiming
+it passed. Required for this step: seven unchanged focused equipment fixtures,
+then bounded portable Windows startup/campaign-save/battle checks. Each entire
+selected suite has a119-second active deadline including setup and cleanup.
+No performance threshold tuning, held-out matrix, privateBattlelease or worker
+prototype is required for this early version. Preserve every failed attempt.
 
-The owner reported a computer crash. Engine/GPU/render/build/heavy CPU tests are
-held while the bounded batch plan is reviewed. Continue source edits and small
-static checks only. Do not automatically restart or retry tests after a reboot.
-Do not change Windows, drivers or other apps. The cause is undetermined; see
-docs/TEST SUITE RULES.txt and the task crash-recovery-20261026 records. New worker
-candidates remain isolated until reviewed and actually verified.
+All engine work still uses the machine-wide detector/shared FIFO, background
+headless/Dummy audio, owned PID+creation/handle cleanup and bounded resource
+limits. Never close/control another app or take the owner's mouse/keyboard.
+No automatic retry. Review the actual command, not an expanding framework.
+Use the same3Bridge helpers only. Sol submits engine work; Root integrates and
+delivers. The broad full-game inventory is deferred to a milestone.
 
-## Owner hard rule — full suite under two minutes (26 October 2026)
-
-The owner requires the ENTIRE required automated game test suite to execute in
-LESS THAN 120 seconds. Run tests in batches and build developer scripts/tools
-that make this achievable. Treat 119 seconds as the runner deadline, including
-our own setup, engine startup, assertions and result collection; report the
-shared lane's external queue wait separately. Preserve the shared Godot/Unity
-queue and never close/control an existing app to meet the deadline.
-
-No partial, timed-out, interrupted or skipped required release coverage is a pass.
-Use docs/RELEASE TEST CONTRACT v2.txt for the bounded release suite. The prior
-1,088-case parameter/seed matrix and sustained research protocols remain intact
-as optional research; their old failures and incomplete results stay recorded.
-Keep every assertion, physical tick horizon and depth in selected fixtures.
-Retain known unresolved regression seeds. Do not silently change the contract,
-hide failing cases, or claim that optional research has passed. Report release
-regression, research, performance and visual/audio acceptance separately.
-If the bounded release suite cannot finish yet, report incomplete and fix it.
-Batch pure data work safely, keep scene/UI/resources on main, give workers owned
-data, preserve deterministic ordering and join every task. Never run concurrent
-engines or nest shared test-lane leases. Preserve all existing failures/evidence.
-
-This instruction supersedes the slow one-submission-per-fixture workflow.
-New native work needs the bounded suite/batch plan; finish only already-running
-owned work safely and preserve its real result. No extra retries or long runs.
+The PC crash cause remains undetermined. No crash-causation claim is justified.
+All old current-note text was preserved verbatim under task coordination-history/
+owner-scope-reset-031. The older context below is historical where it conflicts
+with this latest owner instruction.
 
 # Brass Tide - resumed development and background testing
 

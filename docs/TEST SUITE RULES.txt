@@ -1,3 +1,7 @@
+OWNER SCOPE CORRECTION26OCT2026: the broad full-game contract below is deferred.
+For v0.031 use docs/V0.031 FOCUSED SCOPE.txt; seven feature fixtures then portable
+entry checks, each selected suite below120s. Preserve all older evidence.
+
 BRASS TIDE — REQUIRED TEST SUITE CONTRACT
 26 October 2026
 
