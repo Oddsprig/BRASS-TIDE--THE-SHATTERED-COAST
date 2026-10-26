@@ -1,3 +1,33 @@
+## Crash recovery hold — 26 October 2026
+
+The owner reported a computer crash. Engine/GPU/render/build/heavy CPU tests are
+held while the bounded batch plan is reviewed. Continue source edits and small
+static checks only. Do not automatically restart or retry tests after a reboot.
+Do not change Windows, drivers or other apps. The cause is undetermined; see
+docs/TEST SUITE RULES.txt and the task crash-recovery-20261026 records. New worker
+candidates remain isolated until reviewed and actually verified.
+
+## Owner hard rule — full suite under two minutes (26 October 2026)
+
+The owner requires the ENTIRE required automated game test suite to execute in
+LESS THAN 120 seconds. Run tests in batches and build developer scripts/tools
+that make this achievable. Treat 119 seconds as the runner deadline, including
+our own setup, engine startup, assertions and result collection; report the
+shared lane's external queue wait separately. Preserve the shared Godot/Unity
+queue and never close/control an existing app to meet the deadline.
+
+No partial, timed-out, interrupted or skipped required coverage is a full pass.
+Do not weaken assertions, reduce seeds/ticks/depth/workloads or silently call a
+smoke/subset the full suite. Inventory and retain the actual required coverage.
+If full coverage cannot fit yet, report incomplete and fix runner/game overhead.
+Batch pure data work safely, keep scene/UI/resources on main, give workers owned
+data, preserve deterministic ordering and join every task. Never run concurrent
+engines or nest shared test-lane leases. Preserve all existing failures/evidence.
+
+This instruction supersedes the slow one-submission-per-fixture workflow.
+New native work needs the bounded suite/batch plan; finish only already-running
+owned work safely and preserve its real result. No extra retries or long runs.
+
 # Brass Tide - resumed development and background testing
 
 <!-- GAME TEST LANE -->

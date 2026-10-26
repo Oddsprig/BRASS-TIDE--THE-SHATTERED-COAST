@@ -1,0 +1,9 @@
+ACTIVE — 26 OCTOBER 2026
+Engine, GPU, build and heavy CPU tests are held after the owner reported a
+computer crash. Windows logged bugcheck0x00000001; the cause is undetermined.
+Do not automatically retry after a reboot. Source edits and small static checks
+may continue. Use the shared queue only after the bounded batch plan is reviewed.
+The entire required suite must execute under120s, with a119s runner deadline
+including setup/startup/results/cleanup; external queue waiting is separate.
+The new batch runner is a source prototype, not an accepted full-suite pass.
+This hold also blocks the active project's old direct engine test entrypoints.

@@ -6,6 +6,18 @@ Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
 No .031 version bump, release tag, export, launcher change or upload.
 
+CRASH RECOVERY AND TEST BUDGET — 26 OCTOBER 2026
+The owner reported a computer crash. Windows logged bugcheck0x00000001; its
+cause is undetermined. Engine/GPU/build/heavy CPU tests are held; source edits
+and small static checks continue. No automatic test retry after a reboot.
+Main gameplay source remains unchanged. The role-worker prototype is isolated,
+unrun and under source review. The entire required automated suite must execute
+in less than120 seconds, including its own setup/startup/result collection;
+the runner deadline is119 seconds, with external queue waiting reported apart.
+Skipped, timed-out or interrupted coverage is incomplete. The batching tools
+are being rebuilt; no partial run has been called a full pass. Read the current
+TEST SUITE RULES.txt for the shared queue and recovery hold.
+
 CONTROL AND PERFORMANCE UPDATE — 26 OCTOBER 2026
 Live tactical checks now receive the same validated per-tick equipment inspection
 used by steering and firing. Derived status stays fresh; fuel exhaustion, scalar

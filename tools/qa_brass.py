@@ -44,6 +44,10 @@ def main():
         for key, scenario in definitions.items():
             print(f"{key:20} {scenario['label']} ({scenario['seconds']} simulation seconds)")
         return 0
+    hold = ROOT / 'tools' / 'TEST EXECUTION HOLD.txt'
+    if hold.is_file():
+        print('INCOMPLETE: engine tests held; no engine started. ' + str(hold))
+        return 2
     if args.engine is None or not args.engine.is_file():
         parser.error('Supply --engine with the existing Godot console executable; nothing is installed automatically.')
     if args.seconds is not None and not 0 < args.seconds <= 180:

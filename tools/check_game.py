@@ -22,6 +22,10 @@ def main():
     parser.add_argument("--logs", type=Path, default=ROOT.parent.parent / "work" / "qa" / "final")
     parser.add_argument("--only", nargs="+", choices=SUITES)
     args = parser.parse_args()
+    hold = ROOT / "tools" / "TEST EXECUTION HOLD.txt"
+    if hold.is_file():
+        print("INCOMPLETE: engine tests held; no engine started. " + str(hold))
+        return 2
     args.logs = args.logs.resolve()
     args.logs.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
