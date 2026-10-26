@@ -106,9 +106,14 @@ static func palette(spec: Dictionary, accent: Color, enemy: bool) -> Dictionary:
 			side = Color("362f2c"); top = Color("715347"); deck = Color("87725e"); cabin = Color("c0b39a")
 		"yacht":
 			side = Color("24464b"); top = Color("dedbc6"); deck = Color("b79461"); cabin = Color("eee6ce")
+	# Armored warboats use painted steel decks. Light craft retain timber and
+	# civilian materials retain their own identity instead of every hull being brown.
+	if str(spec.get("civilianRole", "")).is_empty() and int(spec.get("armor",0))>=10:
+		deck=top.lightened(0.14)
+		if int(spec.get("armor",0))>=18:cabin=top.lightened(0.34)
 	if enemy:
-		deck = deck.lerp(Color("8a5f4c"), 0.45)
-		cabin = cabin.lerp(Color("a07a5e"), 0.4)
+		deck = deck.lerp(Color("8a5f4c"), 0.10)
+		cabin = cabin.lerp(Color("a07a5e"), 0.08)
 	return {
 		"side": side, "top": top, "deck": deck, "deck_dark": deck.darkened(0.22),
 		"seam": Color(0.08, 0.14, 0.16, 0.45), "plate": top.lightened(0.16),
