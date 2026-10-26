@@ -1,10 +1,18 @@
-# Brass Tide v0.039
+# Brass Tide v0.039 delivered
 
-Current candidate: Measured campaign and battle performance.
+BRASS TIDE v0.039 - Measured campaign and battle performance
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: ba0fbfe94a92c204aa40a2ba3d4189248b4c850a / v0.039
+Test Bridge: d458da03b8624b619400eb28c88a3448
+94 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 38.687s; owned cleanup verified.
 
 - Short repeatable measurements cover a representative campaign and 300-point battle using the existing bounded test tools.
 - Only demonstrated bottlenecks are changed, preserving current simulation behavior and inexpensive water.
 - The delivered notes retain measurements, workload and resource limits so future comparisons use the same conditions.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+Baseline48/0 job18e4659b; final94/0 jobd458da03. Exact workload/fixture/world hashes match. Paired mount query9096->5674us for256calls each. Battle median29068.5->27673.5us, P9557813->58612us; tail not improved. Recorded per-tick actor/fire/projectile/effect fields match. One bounded snapshot-factor reuse; no new cache or broad refactor. Headless capped sample, not sustained/GPU FPS.
+
+Continue with the next saved version scope after v0.039; preserve the shared lane and120-second limit.

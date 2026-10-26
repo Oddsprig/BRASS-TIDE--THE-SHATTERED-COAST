@@ -1,0 +1,10 @@
+BRASS TIDE v0.039 - OBSERVED COMPARISON
+Baseline18e4659b4d0046d4b17488174fcd1c1e source00b439a; finald458da03b8624b619400eb28c88a3448 sourceba0fbfe.
+Exact benchmark/world/workload hashes match.300DPper side,14boats,4warmup+24measured ticks,6shots both.
+Recorded per-tick actor/fire/projectile/effect sample fields match: True
+Mount query256calls each: old 9096us; new 5674us. Same inspection guards;46correctnesschecks passed.
+Battle median 29068.5 -> 27673.5us; P95 57813 -> 58612us.
+Total measured battle 737207 -> 732468us; AI aggregate 518796 -> 508415us.
+The full-sample improvement is modest; tail timing did not improve. No sustained FPS or GPU claim.
+One production change: mount_cache_key reads already-validated snapshot factors instead of rebuilding a full status report. No new cache or altered inspection/invalidation.
+Background/headless/Dummy;512MiBgame,8percent jobCPU,2logicalCPUs. Raw data and actual supervisor receipts retained.

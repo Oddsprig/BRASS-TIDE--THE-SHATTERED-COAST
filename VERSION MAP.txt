@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.038
+26 October 2026 | Authorized sequential builds; delivered v0.039
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -44,7 +44,7 @@ One bounded balance pass over explorer, merchant, escort, privateer, fisher and
 passenger starts. Clarify goals, operating costs, rewards and progression.
 Fix demonstrated dead ends; avoid an open-ended general polish pass.
 
-0.039 - PERFORMANCE MILESTONE
+0.039 - PERFORMANCE MILESTONE [DONE]
 Measure agreed representative campaign and300-point battle cases. Fix measured
 bottlenecks, preserve behavior and inexpensive water, and retain a short
 repeatable benchmark. Further optimization needs evidence of a real problem.

@@ -1,3 +1,5 @@
+v0.039 VERIFIED AND PACKAGED: 94/0 focused checks, selected batch 38.687s, TestBridge d458da03b8624b619400eb28c88a3448. Source ba0fbfe94a92c204aa40a2ba3d4189248b4c850a.
+
 26OCT2026 - v0.039 MEASURED CAMPAIGN AND BATTLE PERFORMANCE
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

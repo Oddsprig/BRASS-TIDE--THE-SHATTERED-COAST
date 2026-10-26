@@ -1,0 +1,12 @@
+{
+	"checks": 46,
+	"complete": true,
+	"failures": 0,
+	"fixture": "performance_hotpath039",
+	"probe": {
+		"callsPerVariant": 256,
+		"newUs": 5674,
+		"note": "Same stock canonical dreadnought and warmed Damage cache; includes unchanged inspection guards. Short CPU microprobe only; no battle speed or GPU claim.",
+		"oldUs": 9096
+	}
+}
