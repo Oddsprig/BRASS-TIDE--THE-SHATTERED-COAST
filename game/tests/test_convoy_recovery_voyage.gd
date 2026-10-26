@@ -1,7 +1,8 @@
 extends SceneTree
 ## Focused v0.032 fixture. Root runs it headlessly in the shared test lane.
-## Two actual Main encounters, then the same marked wrecks through leave/tow/strip/save.
+## Actual Main convoy outcomes, marked wreck choices, and finite captured cargo.
 const Battle=preload("res://scripts/battle.gd")
+const Boarding=preload("res://scripts/boarding.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const Recovery=preload("res://scripts/equipment_recovery.gd")
@@ -23,6 +24,13 @@ func text_in(node: Node,needle: String) -> bool:
 	for child in node.get_children():
 		if text_in(child,needle):return true
 	return false
+
+func button_in(node: Node,caption: String) -> Button:
+	if node is Button and node.text==caption:return node
+	for child in node.get_children():
+		var found: Button=button_in(child,caption)
+		if found!=null:return found
+	return null
 
 func convoy(c) -> Dictionary:
 	for p in c.state.patrols:
@@ -70,6 +78,8 @@ func _initialize() -> void:
 		_test_escort(scene)
 		scene.new_game()
 		_test_intercept_recovery(scene)
+		scene.new_game()
+		_test_captured_cargo(scene)
 	scene.queue_free()
 	await process_frame
 	print("convoy recovery voyage: %d checks, %d failures"%[checks,failures])
@@ -209,3 +219,89 @@ func _test_intercept_recovery(scene) -> void:
 	scene.save_game(false)
 	scene.load_game()
 	check(parts(c.find_boat(str(tow.boatUid)).moduleCondition)==final_parts and Salvage.find_wreck(c.state,strip_id).hullStripped,"actual Main save/load preserves towed condition and structural stripping")
+
+func _test_captured_cargo(scene) -> void:
+	var c=scene.core
+	c.use_reserves()
+	var chosen: Dictionary=convoy(c)
+	check(not chosen.is_empty(),"captured cargo starts with actual funded convoy goods")
+	if chosen.is_empty():return
+	scene.engage_patrol(chosen.patrol)
+	check(scene.mode=="battle" and scene.battle.mission.get("kind","")=="intercept","captured cargo enters the actual Main interception")
+	if scene.mode!="battle":return
+	var source: Dictionary=Battle.get_flagship(scene.battle)
+	# Qualify only existing spare sailors; boarding still transfers the actual people.
+	source.boarders=maxi(0,floori(float(source.crew)-float(source.crewMin)-float(source.wounded)))
+	for carrier_uid in scene.battle.mission.carrierUids:
+		var target: Dictionary=scene.battle.convoy.actors[str(carrier_uid)]
+		source.x=520.0;source.y=850.0;target.x=550.0;target.y=850.0
+		target.hp=target.maxHp*0.3;target.surrendering=true
+		var launch: Dictionary=Boarding.launch(scene.battle,str(source.id),str(target.id),1)
+		check(launch.ok,"actual boarding transfers one existing sailor to each carrier")
+		if not launch.ok:return
+		Boarding.tick(scene.battle,4.1)
+	Objectives.update(scene.battle)
+	check(scene.battle.result=="won","capturing every loaded carrier finishes the interception")
+	if scene.battle.result==null:return
+	scene.settle_battle()
+	var review: Button=button_in(scene.ui.overlay,"Review captured cargo")
+	check(Flow.wreck_ids(scene.battle_report).is_empty() and review!=null and not review.disabled,"all-captured outcome offers cargo review with no wrecks")
+	if review==null or review.disabled:return
+	review.pressed.emit()
+	var prizes: Array=scene.ui.RecoveryUI.captured_prizes(c)
+	check(scene.mode=="campaign" and scene.ui.modal_kind=="recovery" and not prizes.is_empty(),"outcome button opens actual held cargo after returning to campaign")
+	if prizes.is_empty():return
+	var prize: Dictionary=prizes[0]
+	var uid: String=str(prize.uid)
+	var good: String=""
+	for key in prize.convoyCargo:
+		if float(prize.convoyCargo[key])>0:good=str(key);break
+	var held: float=float(prize.convoyCargo[good])
+	var before: float=float(c.state.cargo.get(good,0))
+	var amount: float=minf(1.0,held)
+	var take: Button=button_in(scene.ui.overlay,"Take 1")
+	check(text_in(scene.ui.overlay,"%s · %.2f aboard prize"%[c.Goods.ITEMS[good].name,held]) and take!=null and not take.disabled and button_in(scene.ui.overlay,"Take what fits")!=null,"recovery displays actual good quantities and both transfer controls")
+	if take==null or take.disabled:return
+	take.pressed.emit()
+	check(is_equal_approx(float(prize.convoyCargo[good]),held-amount) and is_equal_approx(float(c.state.cargo[good]),before+amount),"Take 1 debits the actual held prize and credits campaign cargo exactly once")
+	var saved: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(scene.save_directory.path_join("voyage.json")))
+	check(saved.get("cargo",{})==c.state.cargo,"successful captured-cargo transfer saves immediately")
+	prizes=scene.ui.RecoveryUI.captured_prizes(c)
+	check(not prizes.is_empty(),"the real convoy has goods remaining after taking one")
+	if prizes.is_empty():return
+	var space_prize: Dictionary=prizes[0]
+	var space_good: String=""
+	for key in space_prize.convoyCargo:
+		if float(space_prize.convoyCargo[key])>0:space_good=str(key);break
+	# Keep actual goods aboard while temporarily removing all traveling hold capacity.
+	var traveling: Array=c.Expedition.traveling(c.state)
+	for boat in traveling:boat.mothballed=true
+	var unchanged: Dictionary=c.state.duplicate(true)
+	scene.ui.RecoveryUI.open(scene.ui)
+	var full: Button=button_in(scene.ui.overlay,"Take what fits")
+	check(full!=null and full.disabled and not scene.take_prize_cargo(str(space_prize.uid),space_good,minf(0.1,float(space_prize.convoyCargo[space_good]))).ok and c.state==unchanged,"full traveling holds disable transfer and the actual API refuses without changing custody")
+	for boat in traveling:boat.mothballed=false
+	scene.ui.RecoveryUI.open(scene.ui)
+	prizes=scene.ui.RecoveryUI.captured_prizes(c)
+	if not prizes.is_empty():
+		var remaining: Dictionary=prizes[0]
+		var next_good: String=""
+		for key in remaining.convoyCargo:
+			if float(remaining.convoyCargo[key])>0:next_good=str(key);break
+		var lot: float=float(remaining.convoyCargo[next_good])
+		var fits: float=minf(lot,maxf(0,c.capacity()-c.cargo_weight())/float(c.Goods.ITEMS[next_good].weight))
+		var prior: float=float(c.state.cargo.get(next_good,0))
+		var take_fits: Button=button_in(scene.ui.overlay,"Take what fits")
+		check(take_fits!=null and not take_fits.disabled,"restored real hold space enables Take what fits")
+		if take_fits!=null and not take_fits.disabled:
+			take_fits.pressed.emit()
+			check(is_equal_approx(float(remaining.convoyCargo[next_good]),lot-fits) and is_equal_approx(float(c.state.cargo[next_good]),prior+fits) and c.cargo_weight()<=c.capacity()+0.000001,"Take what fits moves only real available goods within actual hold capacity")
+	unchanged=c.state.duplicate(true)
+	check(not scene.take_prize_cargo(uid,good,held+1.0).ok and c.state==unchanged,"repeated overclaim cannot duplicate captured goods")
+	var cargo: Dictionary=c.state.cargo.duplicate(true)
+	var held_cargo: Dictionary=prize.convoyCargo.duplicate(true)
+	scene.load_game()
+	var restored: Dictionary={}
+	for boat in c.state.fleet+c.state.get("boardingPrizes",[]):
+		if str(boat.uid)==uid:restored=boat;break
+	check(not restored.is_empty() and restored.get("convoyCargo",{})==held_cargo and c.state.cargo==cargo and Money.total(c.state)==int(c.state.coinSupply),"actual save/load preserves both cargo owners with no duplicated goods or coin credit")

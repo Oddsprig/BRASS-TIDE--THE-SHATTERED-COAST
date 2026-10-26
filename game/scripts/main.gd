@@ -789,6 +789,14 @@ func open_battle_recovery():
 func recover_wreck(id: String,choice: String,good: String="",qty: float=0.0) -> Dictionary:
 	return RecoveryFlow.recover(self,id,choice,good,qty)
 
+func take_prize_cargo(uid: String,good: String,qty: float) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the coast before transferring prize cargo.")
+	sync_economy()
+	var result: Dictionary=core.EscortOps.take_prize_cargo(core,uid,good,qty)
+	respond(result)
+	if result.get("ok",false):save_game(false)
+	return result
+
 func recover_salvage(id: String):
 	sync_economy()
 	if salvage_claimed:

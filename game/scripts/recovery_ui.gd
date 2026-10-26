@@ -14,6 +14,23 @@ static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	if not encounter_ids.is_empty():ui.paragraph(body,"Wrecks from this engagement. Escaped boats keep their goods and are not recovery prizes.",15,ui.TEAL)
 	ui.button(body,"Abandon for now — leave wrecks marked",func():leave(ui))
 	ui.paragraph(body,"Leaving this board takes no cargo, pays no coins and does no recovery work. You may return to any unclaimed wreck later.",14)
+	var prizes: Array=captured_prizes(c)
+	if not prizes.is_empty():
+		ui.rule(body)
+		ui.label(body,"Captured prize cargo",24,ui.GOLD,true)
+		ui.paragraph(body,"These goods remain aboard your actual captured boats. Transfer only what your traveling holds can carry; any remainder stays on the prize. Moving cargo does not repair its hull or equipment.",15)
+	for prize in prizes:
+		var uid: String=str(prize.uid)
+		ui.label(body,str(prize.get("name",prize.get("spec",{}).get("name","Captured boat"))),20,ui.TEAL)
+		for key in prize.convoyCargo:
+			var good: String=str(key)
+			var qty: float=float(prize.convoyCargo[good])
+			if qty<=0 or not c.Goods.ITEMS.has(good):continue
+			var line=ui.row(body)
+			ui.label(line,"%s · %.2f aboard prize"%[c.Goods.ITEMS[good].name,qty],15).size_flags_horizontal=Control.SIZE_EXPAND_FILL
+			var fits: float=minf(qty,maxf(0,c.capacity()-c.cargo_weight())/float(c.Goods.ITEMS[good].weight))
+			ui.button(line,"Take 1",func():take_cargo(ui,uid,good,minf(1,qty),focus_id,encounter_ids)).disabled=fits+0.000001<minf(1,qty)
+			ui.button(line,"Take what fits",func():take_cargo(ui,uid,good,fits,focus_id,encounter_ids)).disabled=fits<=0
 	var count: int=0
 	for raw in c.state.get("wrecks",[]):
 		if raw.status!="unclaimed":continue
@@ -63,6 +80,20 @@ static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	if not focus_id.is_empty() or not encounter_ids.is_empty():ui.button(body,"All marked wrecks",func():open(ui))
 	ui.button(body,"Recovered drawings",func():blueprints(ui))
 
+static func captured_prizes(c) -> Array:
+	var prizes: Array=[]
+	for boat in c.state.get("fleet",[])+c.state.get("boardingPrizes",[]):
+		if boat.get("sunk",false):continue
+		for good in boat.get("convoyCargo",{}):
+			if c.Goods.ITEMS.has(good) and float(boat.convoyCargo[good])>0:
+				prizes.append(boat)
+				break
+	return prizes
+
+static func take_cargo(ui,uid: String,good: String,qty: float,focus_id: String="",encounter_ids: Array=[]) -> void:
+	ui.host.take_prize_cargo(uid,good,qty)
+	open(ui,focus_id,encounter_ids)
+
 static func leave(ui) -> void:
 	ui.close_modal()
 
@@ -92,11 +123,14 @@ static func outcome(ui,result: String,report: Dictionary) -> void:
 	if not ids.is_empty():
 		ui.paragraph(body,"%d wrecks marked at this encounter. Tow preserves recorded module condition; stripping takes finite material and gives up the hull. Leave wrecks marked if you want to return later."%ids.size(),16)
 		ui.button(body,"Return and choose recovery · %d marked wrecks"%ids.size(),ui.host.open_battle_recovery,true).disabled=ui.host.core.active_fleet().is_empty()
+	var prizes: Array=captured_prizes(ui.host.core)
+	if not prizes.is_empty():
+		ui.button(body,"Review captured cargo",ui.host.open_battle_recovery,ids.is_empty()).disabled=ui.host.core.active_fleet().is_empty()
 	if report.get("fleetLost",false):
 		ui.paragraph(body,"No crewed fleet remains. Harbor rescue uses an actual treasury loan. Marked wrecks remain for a later return.",16,ui.RED)
 		ui.button(body,"Accept harbor rescue",ui.host.accept_rescue,true)
 	else:
-		ui.button(body,"Return to coast — leave wrecks marked",ui.host.return_to_campaign,ids.is_empty())
+		ui.button(body,"Return to coast — leave wrecks marked",ui.host.return_to_campaign,ids.is_empty() and prizes.is_empty())
 
 static func blueprints(ui) -> void:
 	ui.modal_kind="blueprints"
