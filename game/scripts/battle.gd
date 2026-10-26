@@ -98,6 +98,10 @@ static func create(options: Dictionary) -> Dictionary:
 	if enemy_fleet.is_empty():
 		for spec in options.get("enemySpecs",[]):
 			enemy_fleet.append(Damage.create_ship(spec))
+	var mission_error: String=Objectives.deployment_error(fleet,enemy_fleet,st.mission)
+	if not mission_error.is_empty():
+		st.startError=mission_error;st.result="lost";st.objectiveSuccess=false
+		return st
 	var player_split: Dictionary=Deployment.split(fleet)
 	var enemy_split: Dictionary=Deployment.split(enemy_fleet)
 	st.reserves.player=player_split.reserve
@@ -108,15 +112,16 @@ static func create(options: Dictionary) -> Dictionary:
 		_deploy(st,player_split.deployed[i],i,"player",player_split.deployed.size())
 	for i in range(enemy_split.deployed.size()):
 		_deploy(st,enemy_split.deployed[i],i,"enemy",enemy_split.deployed.size())
-	for ship in st.ships:
-		if str(ship.get("uid","")) in st.mission.get("allyUids",[]):
-			ship.order="hold";ship.orderTarget={"x":ship.x,"y":ship.y}
+	Objectives.configure(st)
 	for ship in st.ships:
 		if ship.team=="player" and not ship.sunk and not str(ship.get("uid","")) in st.mission.get("allyUids",[]):
 			st.playerId=ship.id
 			ship.selected=true
 			break
 	return st
+
+static func objective_snapshot(st: Dictionary) -> Dictionary:
+	return Objectives.snapshot(st)
 
 static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: int) -> void:
 	var corrupt_equip: bool=EquipmentCombat.is_corrupt_owner(s)
@@ -151,6 +156,7 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: 
 	s.erase("boardingOrder") # A new arena never inherits an unlaunched approach.
 	s.formationIndex=index
 	s._wreckRecorded=false
+	s.erase("battleEscaped")
 	if not _spawn_clear(st,s,_pos(s)):
 		for k in range(128):
 			var p: Vector2=Vector2((260.0 if team=="player" else 1880.0)+(k%4)*80.0,90.0+floor(k/4.0)*48.0)
@@ -630,6 +636,7 @@ static func _age_effects(st: Dictionary,dt: float) -> void:
 
 static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionary:
 	CombatEvents.ensure_state(st)
+	Objectives.configure(st)
 	if st.result!=null:
 		return st
 	dt=clampf(Damage.number(dt),0.0,1.0/30.0)
@@ -658,6 +665,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		ai_us+=Time.get_ticks_usec()-mount_started
 		_tick_cooldowns(s,dt,cached_mounts)
 		CombatEvents.check_ship_engine(st,s)
+	Objectives.retarget(st,input)
 	var planning_started: int=Time.get_ticks_usec()
 	Tactical.begin(st,dt,input,frame_cache)
 	var controls: Dictionary={}
@@ -709,6 +717,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	Tactical.finish(st,ai_us)
 	st.tactical.metrics.aiUs+=Time.get_ticks_usec()-finish_started
 	_age_effects(st,dt)
+	Objectives.update(st)
 	var players: Array=[]
 	var enemies: Array=[]
 	for s in st.ships:
@@ -724,11 +733,10 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			enemies.append(s)
 	if get_flagship(st).is_empty() and not players.is_empty():
 		select_flagship(st,players[0].id)
-	Objectives.update(st)
 	if st.result!=null:return st
 	if players.is_empty():
 		st.result="lost"
-	elif enemies.is_empty():
+	elif enemies.is_empty() and not Objectives.is_convoy(st):
 		st.result="won"
 	elif st.retreatTimer!=null:
 		st.retreatTimer=maxf(0.0,st.retreatTimer-dt)

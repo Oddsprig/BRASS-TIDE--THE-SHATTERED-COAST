@@ -871,25 +871,43 @@ func abandon_contract() -> Dictionary:
 	return Contracts.abandon(self)
 
 func battle_settled(result: String, enemy_specs: Array, context: Dictionary,physical_battle: Dictionary={}) -> Dictionary:
+	if physical_battle.has("convoy") and physical_battle.get("settlementReport") is Dictionary:return physical_battle.settlementReport.duplicate(true)
+	if physical_battle.has("convoy"):
+		if result!=physical_battle.get("result"):return fail("The convoy result must match its physical encounter.")
+		var cargo_problem: String=EscortOps.cargo_error(self,physical_battle)
+		if not cargo_problem.is_empty():return fail(cargo_problem)
+		context=context.duplicate(true);context.objectiveOnly=true
 	CrisisOps.losses(self)
 	var boarding_result: Dictionary=BoardingOps.settle(self,physical_battle)
 	if not boarding_result.ok:return boarding_result
-	FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),result)
-	state.battleSeq=int(state.get("battleSeq",0))+1
+	if not physical_battle.has("convoy") or not physical_battle.has("convoyEngagementSource"):
+		FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),result)
+		state.battleSeq=int(state.get("battleSeq",0))+1
+		if physical_battle.has("convoy"):physical_battle.convoyEngagementSource="engagement:%d:%d"%[state.seed,state.battleSeq]
 	var physical_wrecks: Array=[]
 	if not physical_battle.is_empty():
-		var source: String="engagement:%d:%d"%[state.seed,state.battleSeq]
+		var source: String=str(physical_battle.get("convoyEngagementSource","engagement:%d:%d"%[state.seed,state.battleSeq]))
 		physical_wrecks=Salvage.record_battle(self,physical_battle,source)
 		for ship in physical_battle.get("ships",[]):
 			if ship.get("sunk",false):ship.wreckRecorded=true
-		if result!="won" or context.get("objectiveOnly",false):
+		var hostile_arena: bool=result!="won" or context.get("objectiveOnly",false)
+		if physical_battle.has("convoy"):
+			hostile_arena=physical_battle.get("ships",[]).any(func(b):return str(b.get("team",""))=="enemy" and not b.get("sunk",false) and not b.get("captureSecured",false))
+		if hostile_arena:
 			state.wreckHazards[source]=str(context.get("ownerId",""))
 			while state.wreckHazards.size()>256:state.wreckHazards.erase(state.wreckHazards.keys()[0])
 		for record in physical_wrecks:
+			if physical_battle.has("convoy") and physical_battle.get("convoyWreckCargoApplied",false):break
 			if not record.friendly:continue
 			var live: Dictionary=Salvage.find_wreck(state,record.id)
 			for good in state.get("cargoManifest",{}).get(record.uid,{}):
 				if Goods.ITEMS.has(good):live.stores[good]=float(live.stores.get(good,0))+float(state.cargoManifest[record.uid][good])*0.5
+		if physical_battle.has("convoy") and not physical_wrecks.is_empty():physical_battle.convoyWreckCargoApplied=true
+	var convoy_outcome: Dictionary=EscortOps.settle_cargo(self,physical_battle,physical_wrecks)
+	if convoy_outcome.get("ok",true)==false:return convoy_outcome
+	if not convoy_outcome.is_empty():
+		for index in range(physical_wrecks.size()):
+			physical_wrecks[index]=Salvage.find_wreck(state,str(physical_wrecks[index].id)).duplicate(true)
 	CrisisOps.losses(self)
 	BoardingOps.reconcile(self)
 	FleetSupport.reconcile(self)
@@ -903,7 +921,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	var salvage: Dictionary = {}
 	var owner: Dictionary = fleet_owner(str(context.get("ownerId","")))
 	RegionalOps.battle(self,owner,result,bool(context.get("objectiveOnly",false)))
-	EscortOps.settled(self,result,context)
+	EscortOps.settled(self,result,context,convoy_outcome)
 	if result == "won" and not context.get("objectiveOnly",false):
 		state.wins += 1
 		state.kills += enemy_specs.size()
@@ -931,7 +949,12 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	use_reserves()
 	apply_morale()
 	log_entry("Engagement %s. %d boats remain."%[result,state.fleet.size()])
-	return {"coins":loot,"salvage":salvage,"wrecks":physical_wrecks,"fleetLost":active_fleet().is_empty(),"completed":state.completed}
+	var report: Dictionary={"coins":loot,"salvage":salvage,"wrecks":physical_wrecks,"fleetLost":active_fleet().is_empty(),"completed":state.completed}
+	if not convoy_outcome.is_empty():
+		report.convoy=convoy_outcome
+		report.escapedUids=physical_battle.get("escapedShips",[]).map(func(b):return str(b.get("uid","")))
+	if physical_battle.has("convoy"):physical_battle.settlementReport=report.duplicate(true)
+	return report
 
 func salvage_quote(id: String) -> Dictionary:
 	var h: Dictionary = hull(id)
