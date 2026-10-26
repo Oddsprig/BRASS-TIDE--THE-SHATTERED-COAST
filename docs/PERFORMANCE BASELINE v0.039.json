@@ -1,0 +1,902 @@
+{
+	"battle": {
+		"aiTiming": {
+			"count": 24,
+			"maxUs": 54160,
+			"medianUs": 19028.5,
+			"p95Us": 48792,
+			"totalUs": 518796
+		},
+		"aiUs": [
+			23650,
+			12846,
+			16587,
+			21350,
+			17122,
+			21598,
+			16643,
+			17550,
+			21644,
+			13813,
+			22669,
+			17567,
+			20299,
+			48792,
+			14490,
+			21333,
+			19955,
+			18275,
+			54160,
+			19593,
+			26981,
+			16423,
+			16992,
+			18464
+		],
+		"createUs": 20783,
+		"deployment": {
+			"enemy": 300,
+			"limit": 300,
+			"player": 300
+		},
+		"droppedEvents": 0,
+		"dtSeconds": 0.0333333333333333,
+		"final": {
+			"enemy": {
+				"ammo": 556.0,
+				"boats": 7,
+				"crew": 106.0,
+				"hulls": {
+					"bilge_punt": 1,
+					"cinder_monitor": 1,
+					"gale_cutter": 1,
+					"lantern_skiff": 1,
+					"maiden_dreadnought": 1,
+					"manta_strike": 1,
+					"slag_gunboat": 1
+				},
+				"points": 300,
+				"weaponFamilies": {
+					"cannon": true,
+					"gun": true,
+					"rocket": true,
+					"torpedo": true
+				}
+			},
+			"player": {
+				"ammo": 558.0,
+				"boats": 7,
+				"crew": 106.0,
+				"hulls": {
+					"bilge_punt": 1,
+					"cinder_monitor": 1,
+					"gale_cutter": 1,
+					"lantern_skiff": 1,
+					"maiden_dreadnought": 1,
+					"manta_strike": 1,
+					"slag_gunboat": 1
+				},
+				"points": 300,
+				"weaponFamilies": {
+					"cannon": true,
+					"gun": true,
+					"rocket": true,
+					"torpedo": true
+				}
+			}
+		},
+		"fireByFamily": {
+			"cannon": 3,
+			"gun": 2,
+			"torpedo": 1
+		},
+		"fireEvents": 6,
+		"initial": {
+			"enemy": {
+				"ammo": 560.0,
+				"boats": 7,
+				"crew": 106.0,
+				"hulls": {
+					"bilge_punt": 1,
+					"cinder_monitor": 1,
+					"gale_cutter": 1,
+					"lantern_skiff": 1,
+					"maiden_dreadnought": 1,
+					"manta_strike": 1,
+					"slag_gunboat": 1
+				},
+				"points": 300,
+				"weaponFamilies": {
+					"cannon": true,
+					"gun": true,
+					"rocket": true,
+					"torpedo": true
+				}
+			},
+			"player": {
+				"ammo": 560.0,
+				"boats": 7,
+				"crew": 106.0,
+				"hulls": {
+					"bilge_punt": 1,
+					"cinder_monitor": 1,
+					"gale_cutter": 1,
+					"lantern_skiff": 1,
+					"maiden_dreadnought": 1,
+					"manta_strike": 1,
+					"slag_gunboat": 1
+				},
+				"points": 300,
+				"weaponFamilies": {
+					"cannon": true,
+					"gun": true,
+					"rocket": true,
+					"torpedo": true
+				}
+			}
+		},
+		"initialPoses": [
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-0",
+				"x": 820.0,
+				"y": 722.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-1",
+				"x": 905.0,
+				"y": 722.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-2",
+				"x": 820.0,
+				"y": 807.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-3",
+				"x": 905.0,
+				"y": 807.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-4",
+				"x": 820.0,
+				"y": 892.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-5",
+				"x": 905.0,
+				"y": 892.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-6",
+				"x": 820.0,
+				"y": 977.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-0",
+				"x": 1300.0,
+				"y": 722.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-1",
+				"x": 1385.0,
+				"y": 722.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-2",
+				"x": 1300.0,
+				"y": 807.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-3",
+				"x": 1385.0,
+				"y": 807.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-4",
+				"x": 1300.0,
+				"y": 892.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-5",
+				"x": 1385.0,
+				"y": 892.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-6",
+				"x": 1300.0,
+				"y": 977.5
+			}
+		],
+		"measuredCompleted": 24,
+		"measuredRequested": 24,
+		"memory": {
+			"engineStaticBytes": 66316328,
+			"engineStaticPeakBytes": 149131747,
+			"note": "Godot static allocations, not process RSS or GPU memory. Process limits are imposed and recorded by Test Bridge."
+		},
+		"peakActiveActors": 14,
+		"peakEffects": 4,
+		"peakProjectiles": 3,
+		"result": null,
+		"rosterUs": 15282,
+		"samples": [
+			{
+				"activeActors": 14,
+				"aiUs": 23650,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 1,
+				"time": 0.166666666666667,
+				"updateUs": 31723,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 459,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 3,
+					"samples": 180
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 12846,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 2,
+				"time": 0.2,
+				"updateUs": 20891,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 557,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 0,
+					"samples": 0
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 16587,
+				"effects": 3,
+				"fireEvents": 1,
+				"projectiles": 3,
+				"tick": 3,
+				"time": 0.233333333333333,
+				"updateUs": 24983,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 590,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 21350,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 4,
+				"time": 0.266666666666667,
+				"updateUs": 29474,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 691,
+					"exhaustions": 4,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 120
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 17122,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 5,
+				"time": 0.3,
+				"updateUs": 25533,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 601,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 21598,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 6,
+				"time": 0.333333333333333,
+				"updateUs": 29946,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 493,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 120
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 16643,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 7,
+				"time": 0.366666666666667,
+				"updateUs": 24857,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 619,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 17550,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 8,
+				"time": 0.4,
+				"updateUs": 26040,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 774,
+					"exhaustions": 4,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 21644,
+				"effects": 0,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 9,
+				"time": 0.433333333333333,
+				"updateUs": 30119,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 477,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 120
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 13813,
+				"effects": 0,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 10,
+				"time": 0.466666666666667,
+				"updateUs": 22011,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 690,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 0,
+					"samples": 0
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 22669,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 11,
+				"time": 0.5,
+				"updateUs": 33401,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 629,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 120
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 17567,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 12,
+				"time": 0.533333333333333,
+				"updateUs": 27354,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 539,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 20299,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 13,
+				"time": 0.566666666666667,
+				"updateUs": 29120,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 477,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 120
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 48792,
+				"effects": 2,
+				"fireEvents": 1,
+				"projectiles": 3,
+				"tick": 14,
+				"time": 0.6,
+				"updateUs": 57813,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 511,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 14490,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 15,
+				"time": 0.633333333333333,
+				"updateUs": 26263,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 765,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 0,
+					"samples": 0
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 21333,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 16,
+				"time": 0.666666666666667,
+				"updateUs": 30475,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 482,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 120
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 19955,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 17,
+				"time": 0.7,
+				"updateUs": 29176,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 525,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 120
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 18275,
+				"effects": 3,
+				"fireEvents": 1,
+				"projectiles": 3,
+				"tick": 18,
+				"time": 0.733333333333333,
+				"updateUs": 27332,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 583,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 54160,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 19,
+				"time": 0.766666666666667,
+				"updateUs": 63250,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 763,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 120
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 19593,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 20,
+				"time": 0.8,
+				"updateUs": 29017,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 716,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 26981,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 21,
+				"time": 0.833333333333333,
+				"updateUs": 36632,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 467,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 3,
+					"samples": 180
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 16423,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 22,
+				"time": 0.866666666666667,
+				"updateUs": 25550,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 533,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 16992,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 23,
+				"time": 0.9,
+				"updateUs": 25819,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 688,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiUs": 18464,
+				"effects": 4,
+				"fireEvents": 1,
+				"projectiles": 3,
+				"tick": 24,
+				"time": 0.933333333333333,
+				"updateUs": 30428,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 787,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 60
+				}
+			}
+		],
+		"simulatedSeconds": 0.933333333333333,
+		"tacticalCounters": {
+			"decisions": 84,
+			"droppedDecisions": 0,
+			"lateDecisions": 0,
+			"lateSafety": 0,
+			"oldestDecisionAge": 0.166666666666667,
+			"oldestPendingAge": 0.9,
+			"oldestSafetyAge": 0.1,
+			"orderAcks": [],
+			"rejectedIntents": 0
+		},
+		"ticksUs": [
+			31723,
+			20891,
+			24983,
+			29474,
+			25533,
+			29946,
+			24857,
+			26040,
+			30119,
+			22011,
+			33401,
+			27354,
+			29120,
+			57813,
+			26263,
+			30475,
+			29176,
+			27332,
+			63250,
+			29017,
+			36632,
+			25550,
+			25819,
+			30428
+		],
+		"timing": {
+			"count": 24,
+			"maxUs": 63250,
+			"medianUs": 29068.5,
+			"p95Us": 57813,
+			"totalUs": 737207
+		},
+		"warmupCompleted": 4,
+		"warmupRequested": 4,
+		"warmupUs": [
+			26248,
+			24683,
+			26798,
+			21691
+		]
+	},
+	"campaign": {
+		"coinsAfter": 172580000,
+		"coinsBefore": 172580000,
+		"constructorUs": 246526,
+		"dayAfter": 1.05555555555556,
+		"dayBefore": 1.0,
+		"dtSeconds": 0.25,
+		"independentOwnerIds": [
+			"patrol-0",
+			"patrol-1",
+			"patrol-2",
+			"patrol-3",
+			"patrol-4",
+			"patrol-5",
+			"patrol-6",
+			"patrol-7",
+			"patrol-8"
+		],
+		"measuredCompleted": 8,
+		"measuredRequested": 8,
+		"navalEncounterElapsed": 0.5,
+		"newGameUs": 208549,
+		"ownerCount": 17,
+		"pendingDays": 0,
+		"portCount": 10,
+		"routeCache": {
+			"entries": 19,
+			"hits": 0,
+			"misses": 19
+		},
+		"ticksUs": [
+			4380,
+			13578,
+			4433,
+			4405,
+			4914,
+			12015,
+			4546,
+			4454
+		],
+		"timing": {
+			"count": 8,
+			"maxUs": 13578,
+			"medianUs": 4500.0,
+			"p95Us": 13578,
+			"totalUs": 52725
+		},
+		"warmupCompleted": 2,
+		"warmupRequested": 2,
+		"warmupUs": [
+			4630,
+			5216
+		]
+	},
+	"checks": 48,
+	"complete": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"envelope": {
+		"admissionDeadlineUs": 24000000,
+		"audioDriverRequired": "Dummy in external invocation",
+		"enforcement": "Test Bridge owns job memory/CPU/affinity/deadline and records the actual envelope; this fixture does not change system settings.",
+		"externalProcessDeadlineSeconds": 30,
+		"externallyRequiredBuilderMiB": 1024,
+		"externallyRequiredGameMiB": 512,
+		"externallyRequiredJobCpuPercent": 8,
+		"externallyRequiredLogicalCpuLimit": 2,
+		"gpuMeasured": false,
+		"headless": true,
+		"minimumFinishMarginUs": 3000000,
+		"rendered": false
+	},
+	"failures": [],
+	"fixture": "performance039",
+	"fixtureSha256": "974b0b136a88375d3f2537e6b89680b5d5f998666801ca819c95d77754d43590",
+	"gameVersion": "0.039",
+	"guardStops": [],
+	"limits": "Short CPU simulation sample, not GPU FPS, long-run throughput, presentation, sound or full-game acceptance. AI aggregate clocks overlap the total update timing; other phases are not separately instrumented. Preload/import/engine startup and queue wait are outside the fixture wall clock; the owning batch records them separately.",
+	"logicalProcessorsObserved": 24,
+	"memoryAfter": {
+		"engineStaticBytes": 62926024,
+		"engineStaticPeakBytes": 149131747,
+		"note": "Godot static allocations, not process RSS or GPU memory. Process limits are imposed and recorded by Test Bridge."
+	},
+	"memoryBefore": {
+		"engineStaticBytes": 46343928,
+		"engineStaticPeakBytes": 149131747,
+		"note": "Godot static allocations, not process RSS or GPU memory. Process limits are imposed and recorded by Test Bridge."
+	},
+	"paidEconomy": {
+		"coinsAfter": 172580000,
+		"coinsBefore": 172580000,
+		"daysCompleted": 1,
+		"daysRequested": 1,
+		"econDayAfter": 2,
+		"econDayBefore": 1,
+		"note": "Same detached EconomyWorkers and main-thread Campaign.apply_economy path used by Main.sync_economy; one existing wait_day only.",
+		"paidWorkers": 15379,
+		"payroll": {
+			"business": 1623443,
+			"expert": 363785,
+			"household": 1323726,
+			"public": 145122,
+			"tax": 81054,
+			"total": 1768565
+		},
+		"portCount": 10,
+		"publicationUs": 249841,
+		"workerEvents": 10,
+		"workerLanes": 8,
+		"workerReportedUs": 5935,
+		"workerUs": 6843
+	},
+	"schema": 1,
+	"sourceBinding": "Root's exact-source Test Bridge receipt binds all res:// scripts. No measured code is preloaded outside the project.",
+	"status": "complete",
+	"wallUs": 1652125,
+	"workload": {
+		"battle": {
+			"contactShift": 300.0,
+			"dt": 0.0333333333333333,
+			"terrain": "Explicit open water: islands:[], coastalEncounter:true",
+			"ticks": 24,
+			"warmup": 4
+		},
+		"campaign": {
+			"dt": 0.25,
+			"ticks": 8,
+			"warmup": 2
+		},
+		"hullsPerSide": [
+			"maiden_dreadnought",
+			"manta_strike",
+			"cinder_monitor",
+			"slag_gunboat",
+			"gale_cutter",
+			"lantern_skiff",
+			"bilge_punt"
+		],
+		"paidWorkerDays": 1,
+		"seed": 3901,
+		"stockCanonicalEquipment": true
+	},
+	"workloadSha256": "3326be036020adba049a3aef19192cdd5dd9fd825d7bdc82b89b136dd2ed5e17",
+	"worldSha256": "cebde54f90372ae9a3807a67471b85436586c497ad916bc774b655653d71470d"
+}

@@ -3,7 +3,7 @@ BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.039)
 Working v0.031 integration candidate: copied numerical prediction, live machinery condition, preserved physical wrecks and paid tow, plus canonical title Lab boats. No release acceptance.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/equipment_combat.gd: 12633 bytes; extends RefCounted
+game/scripts/equipment_combat.gd: 13186 bytes; extends RefCounted
   game/scripts/equipment_combat.gd:11 is_canonical_owner()
   game/scripts/equipment_combat.gd:16 is_corrupt_owner()
   game/scripts/equipment_combat.gd:22 status_of()
