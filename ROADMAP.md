@@ -1,6 +1,7 @@
-# Next planned step: v0.032 - Convoy and recovery battles
+# Current authorized step: v0.032 - Convoy and recovery battles
 
-Current delivered equipment build: v0.031. This is planning, not a build start.
+Current delivered equipment build: v0.031. The owner has authorized the ten-step
+sequence with two Sol6.1 MAX helpers and Muse Wonder MEDIUM. Build0.032 first.
 Owner: "remember stick to the scope on this game" (26 October 2026).
 
 The playable outcome is an escort/interception or recovery encounter whose

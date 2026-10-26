@@ -1,3 +1,20 @@
+# Active authorized sequence - v0.032 through v0.041
+
+Owner26October2026: "ok same plan stick to the scope of each one dont get lost
+in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
+This authorizes building the saved ten-step roadmap sequentially. Current step
+is0.032 only; finish/package it before0.033. Earlier planning-only/stop-v031
+paragraphs below are historical and superseded by this new instruction.
+
+Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol
+brass-tide-scoped-flow-sol-965e39; WonderMEDIUM
+brass-tide-scoped-design-wonder-a1dd20. Separate Git checkouts under
+work/scoped-v032-v041. Root coordinates/integrates and owns all engine/TestBridge
+submissions. Helpers do source work only; no nested helpers or paid fallback.
+Preserve shared game queue, background/headless/Dummy, no mouse/keyboard/focus.
+Whole selected test batch stays under120s; focused checks, not full-game gates.
+No speculative fine-tuning before its version. Use existing tools and ship scope.
+
 # Standing version scope rule - 26 October 2026
 
 Owner: "remember stick to the scope on this game".
