@@ -1,0 +1,51 @@
+{
+  "classification": "MAIN_WORKING_SOURCE_FIVE_FRAME_FILES_INTEGRATED",
+  "at": "2026-10-26T01:10:55.110Z",
+  "sourceReviewProofSha256": "ee0a6d0d66ada8c39a3c2d5b16dee593c58b49ff672aeab758634d2b5c396196",
+  "strictBoundedPairProofSha256": "65cd7fbf9d11123e31a84fb4f1ce52be1541f1d05f5768e63002b344a33099d5",
+  "pumpProofSha256": "fecd0c2b3cbbef05a71f562c74f65bf29876494b593944946c436b8c53ec4e9b",
+  "files": [
+    {
+      "path": "scripts/battle.gd",
+      "before": "3175deafbb93d62d877096032b3e5e9e87dbb8e555964d471cc6fa31a506fa29",
+      "after": "71361d92fbad1ffeae9e2722999700e25a2f0c6b13a557d010d024464af50b57",
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/integration-history/frame-five/3175deafbb93d62d877096032b3e5e9e87dbb8e555964d471cc6fa31a506fa29/scripts/battle.gd"
+    },
+    {
+      "path": "scripts/damage.gd",
+      "before": "1f35ee482f13edae20f614d228f6a42887765a5c91ea98b0436ed986f9bec19c",
+      "after": "69b01f77a75bf7543ac0b59983053669a2a32dae2381d805ae70ef0eb30f3516",
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/integration-history/frame-five/1f35ee482f13edae20f614d228f6a42887765a5c91ea98b0436ed986f9bec19c/scripts/damage.gd"
+    },
+    {
+      "path": "scripts/equipment_combat.gd",
+      "before": "ebf9fed89cc080e151fe7a99d619c456d8ae8e304c5e139b10a100d7b80084b3",
+      "after": "4bd7d34118d23e1b943fef53e0eb15fab8270970c5e517866a4c023d3c694283",
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/integration-history/frame-five/ebf9fed89cc080e151fe7a99d619c456d8ae8e304c5e139b10a100d7b80084b3/scripts/equipment_combat.gd"
+    },
+    {
+      "path": "scripts/tactical_fire_control.gd",
+      "before": "ef98eccc50c544e28e919ef827c6d4cb3cccbd7540feaab6682a72cea4491023",
+      "after": "b057973b8308006ca0bdb7f700fa111eef6fdfa0e19007dfb1bf3b2b546fd7b9",
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/integration-history/frame-five/ef98eccc50c544e28e919ef827c6d4cb3cccbd7540feaab6682a72cea4491023/scripts/tactical_fire_control.gd"
+    },
+    {
+      "path": "scripts/tactical_runtime.gd",
+      "before": "b5d0d4ff39e0c16df8f796aa2af4875801e53e940039f5821237e510d2cbefb5",
+      "after": "bf76431c9f7b5b3108b8b1dad7be22090da82c39dad0c2bbd22d818b9d25622a",
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/integration-history/frame-five/b5d0d4ff39e0c16df8f796aa2af4875801e53e940039f5821237e510d2cbefb5/scripts/tactical_runtime.gd"
+    }
+  ],
+  "mainComponentBefore": "d9190f7140a4740184f5405b9e145b78867459d899a72d095dcd005596f17bc3",
+  "mainComponentAfter": "df32483d7878684805679da754058554a16b5beff0fc3061af7af0f7e16b65a3",
+  "mainFiles": 501,
+  "version": 30,
+  "boats": 24,
+  "sourceOnlyIntegration": true,
+  "fullSceneRebound": false,
+  "performanceAccepted": false,
+  "releaseCreated": false,
+  "desktopLauncherChanged": false,
+  "ownerSavesUnchanged": true,
+  "rootNativeLaunches": 0
+}

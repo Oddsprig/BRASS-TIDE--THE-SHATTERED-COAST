@@ -38,13 +38,13 @@ game/scripts/equipment_damage.gd: 30747 bytes; extends RefCounted
   game/scripts/equipment_damage.gd:93 is_canonical_owner()
   game/scripts/equipment_damage.gd:96 is_corrupt_owner()
   game/scripts/equipment_damage.gd:99 set_repair_priority()
-game/scripts/damage.gd: 16019 bytes; extends RefCounted
-  game/scripts/damage.gd:7 number()
-  game/scripts/damage.gd:12 create_ship()
-  game/scripts/damage.gd:42 sum_areas()
-  game/scripts/damage.gd:48 set_policy()
-  game/scripts/damage.gd:53 set_repair_priority()
-  game/scripts/damage.gd:61 get_status()
+game/scripts/damage.gd: 25641 bytes; extends RefCounted
+  game/scripts/damage.gd:8 number()
+  game/scripts/damage.gd:13 create_ship()
+  game/scripts/damage.gd:43 sum_areas()
+  game/scripts/damage.gd:49 set_policy()
+  game/scripts/damage.gd:54 set_repair_priority()
+  game/scripts/damage.gd:62 get_status()
 game/scripts/equipment_campaign.gd: 20453 bytes; extends RefCounted
   game/scripts/equipment_campaign.gd:85 prepare_state()
   game/scripts/equipment_campaign.gd:96 check_state()

@@ -1,0 +1,42 @@
+{
+  "classification": "ACTUAL_TICK69_ORIGINAL_PUMP_ARMOR_VERIFIED",
+  "native": {
+    "jobId": "40ce8fd4efc04e20a3c5b86c09f08e09",
+    "suite": "equipment_combat",
+    "family": "pump_and_armor",
+    "outcome": "passed",
+    "checks": 12,
+    "failures": 0,
+    "inputSha256": "507d0ac4eb2abf72b20773977ef4041319b184b1b0102d458113830c501c69cb",
+    "inputCount": 499,
+    "nativeWallSeconds": 8.735000000000582,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\40ce8fd4efc04e20a3c5b86c09f08e09\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "27048e5fd0bb5b275fe9655635bbcf911edefe11120d1b55ed2eeae83245c3af",
+      "execution.json": "3353203a6cf7b648afc39fbadee8b6e2324af3f3f12788fcb9f434b08b58556e",
+      "inputs-after.json": "5136e99f4b4205a5e6e6447807579bd53ae8b3dceb8fd9e4d9e3f07ebf949d34",
+      "inputs-before.json": "5136e99f4b4205a5e6e6447807579bd53ae8b3dceb8fd9e4d9e3f07ebf949d34",
+      "lane.log": "ea028bb3f412b91b6d3539ea11b4c91a6af1d4aa3714e040d6f2bac657b768af",
+      "native-receipt.json": "acbe4590fafba9e4681715660f9e4d975e5c6ea1b86b1ed3393052d5c10cbcc7",
+      "native.log": "b012df613fa67564e7c4ae7d052ee810030425f51ffdcec831cd8ea103b2b0ee",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "faad280e5b53f05fd64376a872daf7b2ce05d463a92ee88edd9cb5feb66de3fa",
+      "request.json": "3494af2c57c408e323237afb0008bdf988da6fc70f001271428a2f783beed2d1",
+      "result.json": "0dca157a9bb3581db1e7c3da4336cd46a95c7e828e51d39000e35972b44c5f51",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "efa44a6e03009bbc41cad75a196e2f54794565d465adf7c9f86529284e97db36",
+      "verified-report.json": "0dca157a9bb3581db1e7c3da4336cd46a95c7e828e51d39000e35972b44c5f51"
+    }
+  },
+  "originalFixtureUnchanged": true,
+  "supervisorSha256": "30410d709b6174b631cf8317a3f9152206af51747ec09c856e7def7356907396",
+  "scope": "working/disabled pumps; actual flooding/sinking event/wreck; damaged armor versus live projectile impact",
+  "priorFailedSupervisorJob": "4db4c5548e81458e866d646fc919c073",
+  "priorFailurePreserved": true,
+  "fullSceneAccepted": false,
+  "performanceAccepted": false,
+  "releaseAccepted": false,
+  "rootNativeLaunches": 0
+}

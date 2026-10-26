@@ -13,11 +13,12 @@ supervision failed separately. New cold40 whole274.9235ms/AI179.2996/other95.623
 performance remains unaccepted. Full recorder60s timeout preserved. Validated24-tick
 profile identifies canonical condition/repair tick work as the main measured cost.
 Protected-recovery passes3/0 in both orientations (legacy-only; no retreat proof).
-Pump/armor remains open after supervisor WinError5; no terminal test count.
+Original pump supervisor failure preserved; changed tick69 pump/armor now passes
+12/0 over362 ticks with Root-verified inputs/tools/lane and both outcomes.
 R3 native57/0 pairs preserved with original timing-key comparison failure.
 Corrected R4 OLD5c38/NEWa04ff each pass57/0; Root complete301-packet and strict
 clock-absence gates pass. Frozen comparison passes301/301 exact typed bytes.
-Five-file clean integration is being prepared; Main still private2 only.
+The five-file clean integration is now in working source alongside private2.
 Tick69 cold diagnostic51/0 matches recorded work/resources; observed whole
 204.402ms versus274.924ms previously. Performance remains open; no FPS or
 capacity acceptance. Deeper profiler is source preparation only.

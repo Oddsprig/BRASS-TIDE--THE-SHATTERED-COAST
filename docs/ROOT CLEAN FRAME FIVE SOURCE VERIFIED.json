@@ -1,0 +1,35 @@
+{
+  "classification": "ROOT_VERIFIED_CLEAN_FIVE_FILE_REBASE",
+  "createdAt": "2026-10-26T01:10:26.901Z",
+  "candidateRoot": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/planner-argon/candidates/equipment-frame-final-r1",
+  "manifestSha256": "e3a85fcc4ccc1333f6993880047c0d1f9be2d40b5a222424eef8d9e8a44ec6b6",
+  "inputsSha256": "9f185054520a6989133b8a6cf22fb2dbdded5a6d8c5799251d6cbd43b9eb2626",
+  "componentFiles": 501,
+  "exactFiveRuntime": [
+    "scripts/battle.gd",
+    "scripts/damage.gd",
+    "scripts/equipment_combat.gd",
+    "scripts/tactical_fire_control.gd",
+    "scripts/tactical_runtime.gd"
+  ],
+  "notesOnlyKnownDrift": {
+    "copied": "0abfb7b490bd34839901d3d96658d9edd9c0c6ab95e7b8b34c299abea4b54600",
+    "current": "64069890f010f11bae46b92111858a206e1e47b4fbdaab76f012d0d780dcba40",
+    "reason": "Root added verified pump evidence after clean candidate snapshot"
+  },
+  "preservedMainCampaignFixture": "9f976e89085a76eec6b6bd7a41cdfa88fcf43d18db8aa52eff4a8f25340ec058",
+  "preservedSaves": {
+    "voyage": "5282c5ad5d9135763e127d031095d8183f6f80b12f177133323e33552c235594",
+    "backup": "67cb47b6b8b62591eb1c71e9d41438cbc3b1db2379fb98d112cbcacfacefd06d"
+  },
+  "preservedPrivate2": [
+    "a9c26f8e1c003314389b57914c1883e77647ce9e7b2b2e10d4a9094c4cd3b44e",
+    "a892a7b062632524625b678c07cdcd77c8274bdd236da3628d188a65c8f584d9"
+  ],
+  "boats": 24,
+  "build": 30,
+  "nativeOrReleaseAccepted": false,
+  "mainRuntimeEdited": false,
+  "advisoryApiIssues": [],
+  "rootNativeLaunches": 0
+}

@@ -48,13 +48,13 @@ static func intercept(ship: Dictionary,mount: Dictionary,target: Dictionary) -> 
 	var radius: float=shot_radius(mount)
 	return {"ok":true,"reason":"Firing lane ready","aim":aim,"origin":origin,"muzzle":origin+Vector2.from_angle(bearing)*float(mount.muzzleDistance),"bearing":bearing,"time":time,"radius":radius}
 
-static func solution(st: Dictionary,ship: Dictionary,mount: Dictionary,target: Dictionary,budget: Dictionary,geometry: Dictionary,cells: Dictionary,check_stores: bool=true,ignore_projectile_cap: bool=false) -> Dictionary:
+static func solution(st: Dictionary,ship: Dictionary,mount: Dictionary,target: Dictionary,budget: Dictionary,geometry: Dictionary,cells: Dictionary,check_stores: bool=true,ignore_projectile_cap: bool=false,frame_cache=null,ship_status: Dictionary={}) -> Dictionary:
 	if target.is_empty() or target.get("sunk",false) or target.get("captureSecured",false) or target.team==ship.team:return {"ok":false,"reason":"Target unavailable"}
 	if check_stores:
 		if not ignore_projectile_cap and st.get("projectiles",[]).size()>=400:return {"ok":false,"reason":"Waiting for a clear firing cycle"}
 		if float(ship.ammo)<float(mount.ammoCost):return {"ok":false,"reason":"Out of ammunition"}
-		var status: Dictionary=EquipmentCombat.status_of(ship)
-		if not bool(status.get("equipmentOk",true)) or EquipmentCombat.mount_factor(ship,mount,int(mount.get("mountIndex",0)),status)<=0.01 or float(mount.get("damage",1.0))<=0.0:return {"ok":false,"reason":"Weapon disabled"}
+		var status: Dictionary=EquipmentCombat.status_of(ship,ship_status,frame_cache)
+		if not bool(status.get("equipmentOk",true)) or EquipmentCombat.mount_factor(ship,mount,int(mount.get("mountIndex",0)),status,frame_cache)<=0.01 or float(mount.get("damage",1.0))<=0.0:return {"ok":false,"reason":"Weapon disabled"}
 		if status.weaponFactor<=0.01:return {"ok":false,"reason":"Guns need working crew"}
 	var shot: Dictionary=intercept(ship,mount,target)
 	if not shot.ok:return shot
@@ -79,11 +79,11 @@ static func solution(st: Dictionary,ship: Dictionary,mount: Dictionary,target: D
 static func pass_key(ship_id: String,mount_id: String,revision: int,pass_id: String) -> String:
 	return JSON.stringify([ship_id,mount_id,revision,pass_id]).sha256_text()
 
-static func gate(st: Dictionary,ship: Dictionary,mount: Dictionary,index: int,intent: Dictionary,options: Dictionary,target: Dictionary,budget: Dictionary) -> Dictionary:
+static func gate(st: Dictionary,ship: Dictionary,mount: Dictionary,index: int,intent: Dictionary,options: Dictionary,target: Dictionary,budget: Dictionary,frame_cache=null,ship_status: Dictionary={}) -> Dictionary:
 	var t: Dictionary=st.tactical
 	var id: String=str(ship.id)
 	var mount_id: String=str(mount.id)
-	if EquipmentCombat.mount_factor(ship,mount,index)<=0.01 or float(mount.get("damage",1.0))<=0.0:return {"ok":false,"reason":"Weapon disabled"}
+	if EquipmentCombat.mount_factor(ship,mount,index,ship_status,frame_cache)<=0.01 or float(mount.get("damage",1.0))<=0.0:return {"ok":false,"reason":"Weapon disabled"}
 	var plan: Dictionary=intent.get("fireGate",{}).get(mount_id,{})
 	var reason: String=str(plan.get("reason","Waiting for a firing opportunity"))
 	if plan.is_empty() or not plan.get("permit",false) or float(intent.get("validUntil",-1.0))<float(st.time):return {"ok":false,"reason":reason}
@@ -118,7 +118,7 @@ static func gate(st: Dictionary,ship: Dictionary,mount: Dictionary,index: int,in
 	else:
 		if str(plan.get("leaseKind",""))!="continuous" or int(plan.get("shotLimit",0))<=0:return {"ok":false,"reason":"Automatic fire held"}
 	if str(plan.get("targetId",""))!=expected_target or expected_target!=str(target.get("id","")):return {"ok":false,"reason":"Target unavailable"}
-	return solution(st,ship,mount,target,budget,t.geometry,t.cells)
+	return solution(st,ship,mount,target,budget,t.geometry,t.cells,true,false,frame_cache,ship_status)
 
 static func _hull_radius(ship: Dictionary) -> float:
 	return maxf(10.0,float(ship.spec.get("size",16)))

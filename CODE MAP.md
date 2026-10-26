@@ -5,8 +5,8 @@ maps/PROJECT MAP.txt for sizes and targeted maps/ files for actual symbols/lines
 Historical JS prototype is archived. Planned modules do not exist until implemented.
 
 LIVE-FRAME CANDIDATE CHECKPOINT - 25 OCTOBER 2026
-The five live-frame modules remain isolated; Main keeps only the two accepted
-private-copy changes. Weapons-cadence58762011 passes27/0. Corrected repair
+Root integrated the five reviewed live-frame/tick modules alongside the accepted
+private-copy pair. Exact source and backups are in ROOT MAIN FRAME FIVE INTEGRATED.json. Weapons-cadence58762011 passes27/0. Corrected repair
 3cf177bd produced native67/0 with unchanged inputs and exited original children.
 Its outer supervisor FAILED after native completion; that failure and unknown
 cause remain separate. Original isolation64/1 records are preserved.
@@ -39,6 +39,11 @@ reviewed/applied only winjob.py30410d70, backed up originalcccbdc44. It retries
 WinError5/32 within250ms and records assigned ownership before resume; existing
 FIFO/detector/cleanup policy stays intact. Historical cause remains unknown;
 actual R4 native jobs now complete end-to-end. ROOT TEST SUPPORT WRITER RETRY APPLIED.
+Changed tick69 pump/armor40ce8fd4 now passes12/0 over362 ticks,8.735s native.
+Root independently verified original aa024201 fixture,499/507d0ac4 inputs, current
+tools/engine, native plus outer outcomes and shared-lane order. QA verified an
+empty ownership ledger and absent owned processes. Prior4db failure stays preserved.
+ROOT TICK69 PUMP ARMOR NATIVE VERIFIED.json binds this current scoped result.
 Small-complete r1/r2 source is preserved; Root found the autopilot return-value
 assertion error, then Argon found an assertion outside its recorded family.
 R3 OLD8f3d079e and NEWecb83f8d each pass57/0, with complete301-packet
@@ -64,9 +69,10 @@ updates/40 canonical boats. Root/QA found zero recorded resource/work/age/budget
 status differences versus734 baseline. Observed means204.4022 whole/131.4924 AI/
 72.9098 other ms; prior274.9235/179.2996/95.6239. Cold data only; no FPS/capacity,
 causal, idle-host or whole-state/RNG equivalence claim. Root cost proof preserved.
-The live-frame/tick candidate remains outside Main pending clean integration;
-Argon composes an exact five-file rebase while Sol prepares a source-only deeper
-hotspot pack. Current performance remains materially too slow. No new engine
+Root verified Argon's clean501-file rebase and integrated only the five reviewed
+runtime files. Saves, corrected campaign fixture and other game files were
+preserved. ROOT CLEAN FRAME FIVE SOURCE VERIFIED.json and MAIN FRAME FIVE
+INTEGRATED.json bind the source. Sol prepares a source-only deeper hotspot pack. Current performance remains materially too slow. No new engine
 test is queued at this checkpoint. All engine work uses the shared Test Bridge
 lane behind existing apps/projects; no desktop control. Root launches0 engines.
 No full-scene, performance or release acceptance.

@@ -28,16 +28,16 @@ static func register(st: Dictionary,ship: Dictionary,mounts: Array) -> void:
 	if not ship.has("orderRevision"):ship.orderRevision=0
 	if not t.orderTimes.has(id):t.orderTimes[id]=float(st.time)
 
-static func refresh_mounts(st: Dictionary,ship: Dictionary) -> Array:
+static func refresh_mounts(st: Dictionary,ship: Dictionary,frame_cache=null) -> Array:
 	var t: Dictionary=ensure(st)
 	var id: String=str(ship.id)
 	if not t.mountCache.has(id):return []
 	var entry: Dictionary=t.mountCache[id]
-	var cond_key: String=EquipmentCombat.mount_cache_key(ship)
+	var cond_key: String=EquipmentCombat.mount_cache_key(ship,{},frame_cache)
 	if str(entry.get("conditionKey",""))!=cond_key:
 		var base_mounts: Array=entry.get("baseMounts",entry.get("mounts",[]))
 		entry.conditionKey=cond_key
-		entry.mounts=EquipmentCombat.apply_mount_condition(ship,base_mounts)
+		entry.mounts=EquipmentCombat.apply_mount_condition(ship,base_mounts,{},frame_cache)
 		t.mountCache[id]=entry
 	return entry.mounts
 
@@ -77,7 +77,7 @@ static func _active_party_target(st: Dictionary,id: String) -> String:
 			return str(job.get("target",""))
 	return ""
 
-static func _survival_override(st: Dictionary,ship: Dictionary) -> bool:
+static func _survival_override(st: Dictionary,ship: Dictionary,frame_cache=null) -> bool:
 	var t: Dictionary=st.tactical
 	var id: String=str(ship.id)
 	if bool(t.get("safety",{}).get(id,{}).get("withdraw",false)):return true
@@ -87,19 +87,19 @@ static func _survival_override(st: Dictionary,ship: Dictionary) -> bool:
 	# explicit order with survival permission, still break for flood, dry guns, or no fuel.
 	if order!="engage" and not conditional:return false
 	if float(ship.get("fuel",0.0))<=0.0:return true
-	if float(Damage.get_status(ship).get("weaponFactor",1.0))<=0.01:return true
+	if float(Damage.get_status_cached(ship,frame_cache).get("weaponFactor",1.0))<=0.01:return true
 	for mount in t.mountCache.get(id,{}).get("mounts",[]):
 		if float(ship.get("ammo",0.0))>=float(mount.get("ammoCost",1.0)) and float(mount.get("damage",0.0))>0.0:return false
 	return true
 
-static func _boarding_contact(st: Dictionary,ship: Dictionary) -> String:
+static func _boarding_contact(st: Dictionary,ship: Dictionary,frame_cache=null) -> String:
 	# Continuity for one unchanged automatic engage revision. A new order, manual
 	# helm, or survival break is left exactly as stored on the live ship.
 	var plan: Dictionary=ship.get("boardingOrder",{})
 	if plan.is_empty() or not bool(plan.get("automatic",false)):return ""
 	if int(plan.get("orderRevision",-1))!=int(ship.get("orderRevision",0)):return ""
 	if str(ship.get("order","engage"))!="engage":return ""
-	if str(ship.id)==str(st.tactical.get("manualId","")) or _survival_override(st,ship):return ""
+	if str(ship.id)==str(st.tactical.get("manualId","")) or _survival_override(st,ship,frame_cache):return ""
 	var target: String=str(plan.get("target",""))
 	return target if not target.is_empty() else ""
 
@@ -196,7 +196,7 @@ static func _observed(ship: Dictionary,mounts: Array) -> Dictionary:
 	out.mountShotTimes=ship.get("mountShotTimes",{}).duplicate(true)
 	return out
 
-static func _own(ship: Dictionary,mounts: Array) -> Dictionary:
+static func _own(ship: Dictionary,mounts: Array,frame_cache=null) -> Dictionary:
 	var out: Dictionary=_observed(ship,mounts)
 	for key in ["crew","wounded","crewMin","crewOptimal","crewMax","supplies","ammo","fuel","cooldown","policy","shoreCrew","order","orderTarget","orderRevision","formationIndex","boardingOrder","breaches","supportRepairFactor"]:
 		if ship.has(key):out[key]=ship[key].duplicate(true) if ship[key] is Dictionary or ship[key] is Array else ship[key]
@@ -205,10 +205,10 @@ static func _own(ship: Dictionary,mounts: Array) -> Dictionary:
 	for key in ["id","size","speed","turn","fuelUse","armor","role","tier","hp","pumps","repairFactor"]:
 		if ship.spec.has(key):out.spec[key]=ship.spec[key]
 	out.weaponCooldowns=ship.get("weaponCooldowns",[]).duplicate()
-	out.status=Damage.get_status(ship).duplicate(true)
+	out.status=Damage.get_status_cached(ship,frame_cache).duplicate(true)
 	return out
 
-static func view(st: Dictionary,side: String,due: Array) -> Dictionary:
+static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dictionary:
 	var t: Dictionary=st.tactical
 	var ships: Array=[]
 	var choices: Dictionary={}
@@ -216,10 +216,10 @@ static func view(st: Dictionary,side: String,due: Array) -> Dictionary:
 		var ship: Dictionary=t.ships[id]
 		var mounts: Array=t.mountCache[id].mounts
 		if ship.team==side:
-			var own: Dictionary=_own(ship,mounts)
+			var own: Dictionary=_own(ship,mounts,frame_cache)
 			own.orderSince=float(t.orderTimes.get(id,0.0))
 			own.failedTargetIds=t.failures.get(id,[]).duplicate()
-			var contact: String=_boarding_contact(st,ship)
+			var contact: String=_boarding_contact(st,ship,frame_cache)
 			if not contact.is_empty():
 				own.order="board";own.orderTarget={"shipId":contact}
 			# Preserve the targetless legacy attack API. Nearest is selected ONCE
@@ -311,16 +311,16 @@ static func _prune(t: Dictionary,live: Dictionary,now: float) -> void:
 			if t.salvoSpent.has(key):retained[key]=t.salvoSpent[key]
 	t.salvoSpent=retained
 
-static func safety_check(st: Dictionary,ship: Dictionary) -> void:
+static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> void:
 	var t: Dictionary=st.tactical
 	var id: String=str(ship.id)
 	var now: float=float(st.time)
 	var previous: Dictionary=t.safety.get(id,{})
 	var age: float=now-float(t.lastSafety.get(id,0.0))
-	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,previous)
+	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,previous,{},frame_cache)
 	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-0.01 or equip_abrupt)
 	if age<0.1-0.000001 and not abrupt and not previous.is_empty():return
-	var status: Dictionary=Damage.get_status(ship)
+	var status: Dictionary=Damage.get_status_cached(ship,frame_cache)
 	var opts: Dictionary=t.options.byId.get(id,defaults())
 	var doctrine: String=str(opts.doctrine)
 	var hp_limit: float=0.60 if doctrine=="cautious" else (0.30 if doctrine=="aggressive" else 0.45)
@@ -329,7 +329,7 @@ static func safety_check(st: Dictionary,ship: Dictionary) -> void:
 	var sinking: bool=net>0.0 and (float(ship.capacity)-float(ship.water))/net<8.0
 	var danger: bool=float(ship.hp)/maxf(1.0,float(ship.maxHp))<=hp_limit or float(ship.water)/maxf(1.0,float(ship.capacity))>=flood_limit or float(ship.fire)>=25.0 or sinking
 	var allowed: bool=str(ship.get("order","engage"))=="engage" or bool(opts.conditionalWithdrawal)
-	var equip_mask: float=EquipmentCombat.working_mask(ship,status)
+	var equip_mask: float=EquipmentCombat.working_mask(ship,status,frame_cache)
 	var prio_code: float=EquipmentCombat.priority_code(status)
 	var discrete_equip: bool=not previous.is_empty() and ((previous.has("equipMask") and absf(equip_mask-float(previous.get("equipMask",equip_mask)))>0.001) or (previous.has("repairPriorityCode") and absf(prio_code-float(previous.get("repairPriorityCode",prio_code)))>0.001))
 	t.safety[id]={"checkedAt":now,"hp":float(ship.hp),"crew":float(ship.crew),"engine":float(ship.engine),"water":float(ship.water),"netFlood":net,"danger":danger,"withdraw":danger and allowed,"speedFactor":float(status.speedFactor),"equipMask":equip_mask,"repairPriorityCode":prio_code,"moduleHpSum":EquipmentCombat.module_hp_sum(ship)}
@@ -364,7 +364,7 @@ static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidat
 	t.budget.exhaustions+=int(counters.clearanceExhausted)
 	return status
 
-static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
+static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null) -> void:
 	var t: Dictionary=ensure(st)
 	t.dt=dt;t.snapshotRevision+=1
 	t.metrics={"aiUs":0,"activeCount":0,"normalLimit":0,"decisionAges":[],"safetyAges":[],"certificateAges":[],"certificationAges":[],"certificationAttemptAges":[],"orderApplyAges":[],"pendingAges":[],"droppedDecisions":0}
@@ -376,7 +376,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		var id: String=str(ship.id)
 		t.ships[id]=ship
 		_order_lifetime(st,ship)
-		t.observed[id]=_observed(ship,refresh_mounts(st,ship))
+		t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache))
 	_prune(t,t.ships,float(st.time))
 	t.cells=Routes.grid(t.observed.values())
 	var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
@@ -385,7 +385,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		if not str(t.manualId).is_empty():t.certificationAttempts[t.manualId]=-2.0
 		if not new_manual_id.is_empty():t.intents.erase(new_manual_id)
 		t.manualId=new_manual_id
-	for ship in t.ships.values():safety_check(st,ship)
+	for ship in t.ships.values():safety_check(st,ship,frame_cache)
 	var queued: Array=t.ships.keys()
 	# Oldest decisions across BOTH sides own the fixed due slots, preserving the
 	# <=0.2s observation cadence. Actual certification attempts break age ties;
@@ -419,7 +419,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={}) -> void:
 		for id in due:
 			if t.ships[id].team==side:side_due.append(id)
 		if side_due.is_empty():continue
-		var snapshot: Dictionary=view(st,side,side_due)
+		var snapshot: Dictionary=view(st,side,side_due,frame_cache)
 		snapshots[side]=snapshot
 		for ship in snapshot.ships:
 			if ship.team==side:copies[str(ship.id)]=ship
@@ -636,7 +636,7 @@ static func after_motion(st: Dictionary) -> void:
 	# All real helm movement publishes before ANY automatic fire target lookup.
 	st.tactical.cells=Routes.grid(st.tactical.ships.values())
 
-static func fire_gates(st: Dictionary,ship: Dictionary) -> Dictionary:
+static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
 	var t: Dictionary=st.tactical
 	var id: String=str(ship.id)
 	var intent: Dictionary=t.intents.get(id,{})
@@ -646,11 +646,12 @@ static func fire_gates(st: Dictionary,ship: Dictionary) -> Dictionary:
 		for mount in t.mountCache[id].mounts:t.fireReasons[id][str(mount.id)]="Checking the firing maneuver"
 		return out
 	var mounts: Array=t.mountCache[id].mounts
+	var ship_status: Dictionary=Damage.get_status_cached(ship,frame_cache) if not mounts.is_empty() else {}
 	for index in range(mounts.size()):
 		var mount: Dictionary=mounts[index]
 		var target_id: String=str(intent.get("fireGate",{}).get(str(mount.id),{}).get("targetId",""))
 		var target: Dictionary=t.ships.get(target_id,{})
-		var result: Dictionary=Fire.gate(st,ship,mount,index,intent,t.options.byId.get(id,defaults()),target,t.budget)
+		var result: Dictionary=Fire.gate(st,ship,mount,index,intent,t.options.byId.get(id,defaults()),target,t.budget,frame_cache,ship_status)
 		t.fireReasons[id][str(mount.id)]=str(result.reason)
 		if result.ok:result.target=target;out[str(mount.id)]=result
 	return out
