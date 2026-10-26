@@ -1,19 +1,10 @@
-# Brass Tide v0.036 delivered
+# Brass Tide v0.037
 
-BRASS TIDE v0.036 - Working civilian voyages
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 0b8e36c2a91105c193d6e6bab8953ec99ed8e230 / v0.036
-Test Bridge: a3fbf931f934431cb57eeb4d5d4893b8
-68 focused checks, 0 failures; menu/campaign/battle startup passed.
-Selected batch plus setup: 40.400s; owned cleanup verified.
+Current candidate: Supplied faction operations.
 
-- Fishing boats work at sea over the campaign clock, using real crew, fuel, provisions and hold space to land a bounded catch.
-- Existing freight is joined by funded fuel deliveries and passenger charters, with actual stock, berths, provisions and sponsor escrow.
-- Existing civilian owners sail appropriate fishing, transport and tanker hulls through the real trade and encounter systems.
-- Recurring captain contacts retain witnessed voyage and escort outcomes.
+- Existing friendly fleets receive coordinated physical objectives through the regional operation and naval order systems.
+- Actual fuel, ammunition, food, wages, machinery condition and paid replacement capacity constrain the operation.
+- The operation records a physical success or an explained supply, route or readiness stall without creating free fleets or reward coins.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
-
-Retained civilian-work036:63 checks/0 failures from3aab39798eb44644b6ed1825950de1f2. Production source hashes match; only flow fixture contact ordering comparison changed. Earlier import-name collision and two fixture representation/order failures are preserved; final batch runs remaining flow, export and portable startups.
-
-Continue with the next saved version scope after v0.036; preserve the shared lane and120-second limit.
+Focused native checks/export are pending. Root owns all TestBridge work;
+helpers stay in source-only roles. Continue this version before the next.

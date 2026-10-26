@@ -1,9 +1,8 @@
-# Current step: v0.036 - Working civilian voyages
+# Current step: v0.037 - Supplied faction operations
 
-- Fishing boats work at sea over the campaign clock, using real crew, fuel, provisions and hold space to land a bounded catch.
-- Existing freight is joined by funded fuel deliveries and passenger charters, with actual stock, berths, provisions and sponsor escrow.
-- Existing civilian owners sail appropriate fishing, transport and tanker hulls through the real trade and encounter systems.
-- Recurring captain contacts retain witnessed voyage and escort outcomes.
+- Existing friendly fleets receive coordinated physical objectives through the regional operation and naval order systems.
+- Actual fuel, ammunition, food, wages, machinery condition and paid replacement capacity constrain the operation.
+- The operation records a physical success or an explained supply, route or readiness stall without creating free fleets or reward coins.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

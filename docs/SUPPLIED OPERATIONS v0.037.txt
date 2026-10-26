@@ -1,0 +1,42 @@
+BRASS TIDE v0.037 - SUPPLIED FACTION OPERATIONS
+
+Open Regional goals with L. Choose two corridor harbors, visit an endpoint,
+and choose Secure a trade corridor. A suitable existing friendly patrol can
+receive support from the sponsoring harbor's treasury. The panel names the
+actual force and explains its current assignment and readiness.
+
+THE SHARED OBJECTIVE
+The patrol can cover a loaded friendly convoy using the corridor, intercept
+a nearby hostile fleet threatening the route, or patrol the actual harbor
+approaches. Boats travel and fight through the existing campaign simulation.
+Observed arrivals, encounters and merchant passages supply the progress.
+
+SUPPLY THE FORCE
+Read the outbound and return reserve quote. Fuel, food, ammunition, wages
+and functioning machinery all matter. The normal dock, payroll, repair and
+replacement systems pay for actual goods, labor and equipment.
+At the sponsoring harbor, use the corridor supply controls to deliver owned
+fuel, ammunition, food or repair supplies from your hold into local stock.
+The patrol still buys and loads its stores through its usual paid dock work.
+
+The treasury grant covers up to seven wage-days, capped at14,000 coins, and
+preserves two public-payroll days. It is paid from the existing treasury.
+The same corridor cannot repeatedly collect that grant. Withdrawing leaves
+already paid grants and delivered goods in their actual receiving accounts.
+
+SHORTAGES AND RECOVERY
+The operation reports its current shortage, unsafe route or machinery issue.
+A force needing recovery returns for paid repairs, resupply or replacement
+before taking another assignment. Restore the missing stock, money or working
+equipment and allow its normal dock and campaign activity to resume.
+
+COMPLETE THE CORRIDOR
+Keep it clear for seven consecutive economic days and prove its use through
+a real merchant passage, a local escort or victory, or two endpoint visits
+by the assigned patrol. Current threats and supply failures remain visible.
+The operation and its journal persist with the campaign.
+
+SCOPE
+This extends the existing corridor goal. Other regional goals and the36-boat
+roster continue to use their existing systems. Career balance and guidance
+are the separate v0.038 step.

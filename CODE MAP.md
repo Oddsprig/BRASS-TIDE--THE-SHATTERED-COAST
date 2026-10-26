@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.036: Working civilian voyages. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: civilian_work.gd, voyage_jobs.gd, passenger_transport.gd, campaign.gd, voyage_ui.gd, fleet_economy.gd, naval_lifecycle.gd, contacts.gd.
+v0.037: Supplied faction operations. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: regional_campaigns.gd, regional_ops.gd, regional_orders.gd, naval_orders.gd, regional_ui.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
