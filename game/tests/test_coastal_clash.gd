@@ -5,6 +5,7 @@ const Main=preload("res://scripts/main.gd")
 const Lab=preload("res://scripts/fleet_lab.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const Money=preload("res://scripts/money.gd")
+const Capture=preload("res://tests/clash_capture041.gd")
 var checks: int=0
 var failures: int=0
 
@@ -85,6 +86,8 @@ func run() -> void:
 	check(nearest<800.0,"raiders start close enough to fight (nearest %.0f)"%nearest)
 	var guidance=game.ui.left_body.find_child("SkirmishGuidance",true,false)
 	check(guidance!=null and str(guidance.text).contains("exit") and str(guidance.text).contains("WASD"),"battle HUD states the exit and the command keys")
+	var capture=Capture.new()
+	capture.sample(game,0.0)
 	var start_x: float=float(carrier.x)
 	var player_fire: int=0
 	var enemy_fire: int=0
@@ -94,6 +97,7 @@ func run() -> void:
 		if game.battle.get("result")!=null:
 			break
 		game.Battle.update(game.battle,1.0/30.0,{})
+		capture.sample(game,1.0/30.0)
 		for ev in game.Battle.pop_events(game.battle):
 			var kind: String=str(ev.get("type",ev.get("kind","")))
 			if kind=="fire":
@@ -135,6 +139,7 @@ func run() -> void:
 	check(int(game.core.state.get("coins",-1))==0,"the skirmish purse stays empty")
 	check(game.career_core==original and game.career_core.state==snapshot and Money.total(game.career_core.state)==coins,"captain state and coins are untouched")
 	check(FileAccess.get_file_as_string(game.save_directory.path_join("voyage.json"))==saved,"the voyage file is not rewritten")
+	check(capture.save(OS.get_environment("GAME_TEST_ARTIFACTS")),"actual chronological battle art is captured with finite geometry")
 	game.return_to_title()
 	check(game.mode=="menu" and not game.lab_active and game.core==original,"leaving the skirmish restores the captain")
 	check(game.ui.title_root.find_child("CoastalClash",true,false)!=null,"Coastal Clash remains on the title with the voyage buttons")
