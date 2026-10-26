@@ -133,17 +133,34 @@ func main_encounters(scene) -> void:
 func chart_water_routes(scene) -> void:
 	var c=scene.core
 	var paths: Array=scene.chart.trade_paths()
-	var bent: Array=[]
+	var safe: bool=not paths.is_empty()
+	var point_counts: Array=[]
 	for path in paths:
-		if path.size()>2:bent=path;break
-	check(not paths.is_empty() and not bent.is_empty(),"trade chart uses a real water polyline bending around the existing coast")
-	var safe: bool=not bent.is_empty()
-	for i in range(1,bent.size()):
-		if not Navigation._clear(c.nav,{"x":bent[i-1].x,"y":bent[i-1].y},{"x":bent[i].x,"y":bent[i].y},10.0):safe=false
-	check(safe,"every drawn segment on the coastal trade route clears land")
+		point_counts.append(path.size())
+		if path.size()<2:safe=false
+		for i in range(1,path.size()):
+			if not Navigation._clear(c.nav,{"x":path[i-1].x,"y":path[i-1].y},{"x":path[i].x,"y":path[i].y},10.0):safe=false
+	check(safe,"every drawn segment on the default coastal trade routes clears land")
 	var misses: int=c.route_misses
 	var hits: int=c.route_hits
 	check(is_same(paths,scene.chart.trade_paths()) and c.route_misses==misses and c.route_hits==hits,"repeated chart drawing reuses static paths without even querying the campaign cache")
+	# Default links need not bend. This existing port pair crosses Cinder Crown;
+	# exercise its detour through the same Chart with a detached route list.
+	var pair: Array=["brass_haven","anvil_dock"]
+	var original_data: Dictionary=scene.data
+	var fixture_data: Dictionary=original_data.duplicate(true)
+	fixture_data.ROUTES=[pair]
+	scene.data=fixture_data # New identity invalidates Chart's static path cache.
+	var detours: Array=scene.chart.trade_paths()
+	var bent: Array=detours[0] if detours.size()==1 else []
+	var has_detour: bool=not Navigation._clear(c.nav,c.port(pair[0]),c.port(pair[1]),10.0) and bent.size()>2
+	check(has_detour,"trade chart uses a real water polyline bending around the existing coast")
+	var detour_safe: bool=not bent.is_empty()
+	for i in range(1,bent.size()):
+		if not Navigation._clear(c.nav,{"x":bent[i-1].x,"y":bent[i-1].y},{"x":bent[i].x,"y":bent[i].y},10.0):detour_safe=false
+	check(detour_safe,"every drawn segment on the detour coastal trade route clears land")
+	if not safe or not has_detour or not detour_safe:print("chart route diagnostics: default=",paths.size()," pointCounts=",point_counts," detours=",detours.size()," pair=",pair," detourPoints=",bent.size())
+	scene.data=original_data
 
 func _initialize() -> void:
 	var scene=load("res://main.tscn").instantiate()
