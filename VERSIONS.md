@@ -48,7 +48,7 @@ Earlier records follow unchanged.
 
 # Delivered version ledger
 
-Current game is **v0.028**, 24 hulls. Each playable version advances by 0.001.
+Current delivered game is **v0.032**. Each playable version advances by 0.001.
 All original annotated tags and portable/source archives are preserved. This
 context-only cleanup creates no new playable version. Detailed historical changes
 remain in Git/tag snapshots and cold archives; current CHANGES v0.028.md stays active.
@@ -89,3 +89,5 @@ For current tests/export/launcher/remote status use docs/VERIFICATION INDEX.txt.
 Next ten .029–.038 scopes remain planned in VERSION MAP.txt and ROADMAP.md.
 
 | v0.031 | `6d0654523b9fda076b70db825a9cdd26bba325d1` |26October2026; damageable equipment; Desktop/Brass Tide/v0.031;1677 focused checks/0; full-game polish deferred |
+
+| v0.032 | `1ac7789546f649a38701c54e201ccbdc35df33a9` | 26 October2026; Convoy and recovery battles; 119 focused checks/0 failures; outputs/Brass Tide v0.032 |

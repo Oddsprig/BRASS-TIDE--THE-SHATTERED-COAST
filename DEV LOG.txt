@@ -1,3 +1,5 @@
+v0.032 VERIFIED AND PACKAGED: 119/0 focused checks, selected batch 44.135s, TestBridge d08ed9fe34464bf9ae5c4625b31aa5ba. Source 1ac7789546f649a38701c54e201ccbdc35df33a9.
+
 26OCT2026 - v0.032 CONVOY AND RECOVERY BATTLES
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

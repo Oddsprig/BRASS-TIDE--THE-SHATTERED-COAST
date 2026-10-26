@@ -49,7 +49,7 @@ The working folders fit Codex and its tools. The build, review, record-keeping, 
   Owner's 24 October2026 rule: check other Godot OR Unity apps before every engine launch and queue this game's tests behind them. Known projects, editors and headless runs also block. Previous exceptions are revoked.
   Recheck before each test, benchmark, render, import/export and smoke. If process discovery fails or identity is unreadable, retain the queue and do source work. Never stop or control another app to make room.
   Keep pending jobs and blockers separate from results; preserve completed checks and resume only the missing work. Background, silent, isolated profiles and no mouse/keyboard/focus remain required.
-  Each test run under 3 minutes; aim under 1. Build short tools that answer a specific question. Share setup in blocks.
+  The ENTIRE selected test suite must take less than120seconds, including setup, import/export, startup and cleanup. Run focused batches through existing tools. Shared external queue wait is recorded separately. No expanding test-framework project.
   Test touched systems each version; full rounds at milestones. Never skip/weaken tests for a green result; fix the cause or show why the check was wrong.
   Separately record automated tests, visual inspection and actual playtests. A successful compile alone is not a successful playtest. Report performance as measured, with its scenario and limits.
 

@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Settled outcomes save before leaving the report; recovery and prize transfers use finite cargo, crew, equipment condition and existing paid service.
 
 See docs/TEST RESULTS v0.032.md for actual focused checks and remaining limits.
+
+Verification: 119 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 44.135s. Preserved earlier failures; no broad acceptance claim.

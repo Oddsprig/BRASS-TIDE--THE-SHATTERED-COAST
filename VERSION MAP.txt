@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Planning only; delivered equipment build: v0.031
+26 October 2026 | Authorized sequential builds; delivered v0.032
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -8,9 +8,9 @@ fine-tuning, new test framework or full-game acceptance gate on every increment.
 Entire selected automated suites stay under120 seconds including setup/cleanup.
 Broader regression belongs at agreed milestones; preserve earlier failures.
 Shared background test scheduling and no desktop input/focus control still apply.
-This map does not start a build or authorize automatic version advancement.
+Owner authorized this sequence on26October2026. Finish each scope before advancing.
 
-0.032 - CONVOY AND RECOVERY BATTLES
+0.032 - CONVOY AND RECOVERY BATTLES [DONE]
 Loaded carriers physically reach exits. Escort/intercept actual cargo; tow,
 strip or abandon damaged prizes with correct hull, equipment and cargo custody.
 Finish the encounter-to-voyage outcome flow using existing recovery foundations.
