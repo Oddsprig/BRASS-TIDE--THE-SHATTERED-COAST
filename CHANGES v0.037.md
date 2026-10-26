@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - The operation records a physical success or an explained supply, route or readiness stall without creating free fleets or reward coins.
 
 See docs/TEST RESULTS v0.037.md for actual focused checks and remaining limits.
+
+Verification: 29 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 37.374s. Preserved earlier failures; no broad acceptance claim.

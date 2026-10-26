@@ -1,10 +1,18 @@
-# Brass Tide v0.037
+# Brass Tide v0.037 delivered
 
-Current candidate: Supplied faction operations.
+BRASS TIDE v0.037 - Supplied faction operations
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: b022ef79ae6eaec4a48f262c4ef958c830ff2182 / v0.037
+Test Bridge: a663fd9c59684a70859ecceb2ebb3f69
+29 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 37.374s; owned cleanup verified.
 
 - Existing friendly fleets receive coordinated physical objectives through the regional operation and naval order systems.
 - Actual fuel, ammunition, food, wages, machinery condition and paid replacement capacity constrain the operation.
 - The operation records a physical success or an explained supply, route or readiness stall without creating free fleets or reward coins.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+Retained supplied-operations037:27 checks/0 failures from1417a871480a4501a3d3936cb383e49c. Production hashes match; only flow fixture setup changed to pay crew and purchase actual food, and respect zero public grant without a threat. Final batch covers remaining flow, export and three startups. Earlier failed fixture preserved. The second failed fixture also assumed crew purses must increase despite ration purchases; the final assertion permits actual food spending while checking payroll and coin conservation. Production remains unchanged.
+
+Continue with the next saved version scope after v0.037; preserve the shared lane and120-second limit.

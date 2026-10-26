@@ -1,3 +1,5 @@
+v0.037 fixture lessons: initial NPC crew purses start empty; normal payroll must precede ration purchases. A clear corridor can assign a patrol with zero threat-based grant. Crew purses can fall while wages are paid because sailors buy food. Assert actual payroll, goods custody and total coins rather than monotonic purse growth. Failed jobs1417a871/402b4d24 preserved;27/0 readiness retained with production-hash proof.
+
 v0.036 fixture lessons (26Oct2026): compare saved ledgers against their parsed JSON representation, and compare contact lists through the same sorted public view on both sides. Do not compare raw-number strings or sorted views to raw arrays. New local names must not collide with existing allocation locals. Failures48c59054/662c6619/3aab3979 preserved; source unchanged for retained63/0 work pass after final flow-fixture correction.
 
 26OCT2026 - V0.035 CIVILIAN PREVIEW FRAMING
