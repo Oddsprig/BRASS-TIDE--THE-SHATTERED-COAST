@@ -21,6 +21,8 @@ The patrol still buys and loads its stores through its usual paid dock work.
 
 The treasury grant covers up to seven wage-days, capped at14,000 coins, and
 preserves two public-payroll days. It is paid from the existing treasury.
+Public support requires an actual corridor threat; a clear route can use
+the patrol's own paid stores. An empty food stock needs an actual delivery.
 The same corridor cannot repeatedly collect that grant. Withdrawing leaves
 already paid grants and delivered goods in their actual receiving accounts.
 
