@@ -75,7 +75,7 @@ func _test_midday() -> void:
 	var ammo_after: float=0.0
 	for owner in [raider,guard]:
 		for boat in owner.boats:ammo_after+=float(boat.ammo)
-		if owner.get("purpose","") in ["withdraw","repair"] and Orders.living_boats(owner).size()>0:
+		if owner.get("purpose","") in ["withdraw","repair","replace","resupply"] and Orders.living_boats(owner).size()>0:
 			check(str(Orders.find_patrol(c.state,str(owner.id)).to)==str(owner.destination),"combat survivor follows its recovery destination immediately")
 	check(ammo_after<ammo_before,"midday encounter consumes actual persistent ammunition")
 	check(int(c.state.econDay)==5 and int(c.state.navalAi.tickCount)==ticks_before,"fight occurs without a daily AI tick")
@@ -101,7 +101,7 @@ func _test_recovery_route() -> void:
 	var p: Dictionary=Orders.find_patrol(c.state,str(owner.id))
 	var away: String=str(p.to)
 	p.active=true
-	for purpose in ["withdraw","repair"]:
+	for purpose in ["withdraw","repair","replace","resupply"]:
 		Lifecycle.route(c,p,away)
 		# Exercise the formerly missed case: this leg did not originate at home.
 		p.from=away

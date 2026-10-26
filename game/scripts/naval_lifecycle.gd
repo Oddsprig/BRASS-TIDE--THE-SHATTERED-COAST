@@ -55,7 +55,7 @@ static func step(c,dt: float) -> void:
 		if owner.is_empty():continue
 		p.hostile=false if owner.get("playerCompany",false) else Factions.is_hostile(c.state,str(owner.faction))
 		if not p.active:continue
-		if str(owner.get("purpose","")) in ["withdraw","repair"] and str(owner.get("destination",p.to))!=str(p.to):
+		if str(owner.get("purpose","")) in ["withdraw","repair","replace","resupply"] and str(owner.get("destination",p.to))!=str(p.to):
 			route(c,p,str(owner.destination))
 		if not p.get("holding",false):
 			var performance: Dictionary=AI.fleet_performance(owner)
