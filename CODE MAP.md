@@ -1,3 +1,9 @@
+BRASS TIDE - CURRENT SCOPED UPDATE
+v0.032: Convoy and recovery battles. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: battle.gd, battle_objectives.gd, escort_ops.gd, campaign.gd::battle_settled, recovery_flow.gd, recovery_ui.gd, main.gd::settle_battle.
+Older performance/status paragraphs below are historical, not active gates.
+
+HISTORICAL MAP DETAIL
 # Brass Tide working source map — toward v0.031
 
 Native project: game/. Canonical catalogue/geography: game/data/world.json. See

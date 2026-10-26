@@ -1,3 +1,7 @@
+26OCT2026 - v0.032 CONVOY AND RECOVERY BATTLES
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 26OCT2026 - v0.031 EQUIPMENT BUILD DELIVERED
 Owner corrected scope: finish equipment, not the full game or future performance.
 Seven focused fixtures1677/0; portable menu/campaign/battle startup verified.

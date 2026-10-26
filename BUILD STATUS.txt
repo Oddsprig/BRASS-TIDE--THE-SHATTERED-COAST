@@ -1,22 +1,16 @@
-BRASS TIDE - v0.031
-26 October2026 | Damageable equipment |24 boat designs
+BRASS TIDE v0.032 - CONVOY AND RECOVERY BATTLES
+26 October2026 |24 boat designs
 
-Fitted guns, engines, armor and pumps keep individual condition. Damaged modules
-affect weapon, propulsion and pumping capability. Crew repair priorities spend
-real crew time and supplies; paid harbor work uses actual coins and materials.
-Refits, saves, salvage and captured/recovered equipment retain their condition.
-New acquired boats initialize identity and morale before their first save.
+THIS VERSION
+- Loaded convoy carriers must physically reach a marked exit; waiting or destroying escorts alone does not complete the passage.
+- Escort and interception outcomes retain each carrier fate and actual cargo, including escaped hulls and captured prizes.
+- Tow, strip or leave marked wrecks through the real voyage/recovery flow; loose cargo does not dismantle a towable hull.
+- Settled outcomes save before leaving the report; recovery and prize transfers use finite cargo, crew, equipment condition and existing paid service.
 
-Focused verification: seven equipment fixtures,1677 checks,zero failures.
-Windows export and portable menu/campaign/battle startups passed. The selected
-batch plus charged setup took81.464 seconds. A final documentation-only export
-is recorded separately beside the game. Test processes exited; no input control.
-The complete campaign/acquired-boat save check separately passed637/0.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-This is the equipment step of an early game. Full-game performance targets,
-rendered motion/audio evaluation and the .032-.038 systems remain later work.
-No full-game or Starsector-quality acceptance is claimed. No private Battle lease
-or further speculative performance candidate was merged in this final pass.
-Coins remain currency; ordinary sailor wages are100 coins per day.
-
-Windows package: outputs/Brass Tide v0.031. Delivered to Desktop/Brass Tide/v0.031 with the Brass Tide v0.031 desktop launcher.
+STATUS: current source candidate; focused checks/export pending.

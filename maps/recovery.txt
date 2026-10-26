@@ -1,9 +1,9 @@
-BRASS TIDE — RECOVERY MAP (generated; v0.030)
+BRASS TIDE — RECOVERY MAP (generated; v0.032)
 
 Actual destroyed hulls/site provenance -> persistent finite wrecks, selectable lots, paid tow and recovered blueprints.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/salvage.gd: 34005 bytes; extends RefCounted
+game/scripts/salvage.gd: 34898 bytes; extends RefCounted
   game/scripts/salvage.gd:119 ensure()
   game/scripts/salvage.gd:147 find_wreck()
   game/scripts/salvage.gd:277 record_battle()
@@ -16,10 +16,12 @@ game/scripts/salvage.gd: 34005 bytes; extends RefCounted
   game/scripts/salvage.gd:43 _num()
   game/scripts/salvage.gd:47 _round2()
   game/scripts/salvage.gd:51 _position_xy()
-game/scripts/recovery_ui.gd: 3799 bytes; extends RefCounted
-  game/scripts/recovery_ui.gd:3 open()
-  game/scripts/recovery_ui.gd:41 recover()
-  game/scripts/recovery_ui.gd:48 blueprints()
+game/scripts/recovery_ui.gd: 9003 bytes; extends RefCounted
+  game/scripts/recovery_ui.gd:6 open()
+  game/scripts/recovery_ui.gd:66 leave()
+  game/scripts/recovery_ui.gd:69 recover()
+  game/scripts/recovery_ui.gd:73 outcome()
+  game/scripts/recovery_ui.gd:101 blueprints()
 
 TESTS (game/tests/*.gd)
 test_salvage, test_salvage_voyage

@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.030)
+BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.032)
 
 Working v0.031 integration candidate: copied numerical prediction, live machinery condition, preserved physical wrecks and paid tow, plus canonical title Lab boats. No release acceptance.
 
@@ -10,13 +10,13 @@ game/scripts/equipment_combat.gd: 12633 bytes; extends RefCounted
   game/scripts/equipment_combat.gd:34 mount_location()
   game/scripts/equipment_combat.gd:62 mount_factor()
   game/scripts/equipment_combat.gd:76 apply_mount_condition()
-game/scripts/equipment_rollout.gd: 10529 bytes; extends RefCounted
-  game/scripts/equipment_rollout.gd:11 pose()
-  game/scripts/equipment_rollout.gd:14 execution()
-  game/scripts/equipment_rollout.gd:21 steering()
-  game/scripts/equipment_rollout.gd:43 mount_target()
-  game/scripts/equipment_rollout.gd:48 primary_mounts()
-  game/scripts/equipment_rollout.gd:60 motion_with_status()
+game/scripts/equipment_rollout.gd: 16141 bytes; extends RefCounted
+  game/scripts/equipment_rollout.gd:12 pose()
+  game/scripts/equipment_rollout.gd:15 execution()
+  game/scripts/equipment_rollout.gd:22 steering()
+  game/scripts/equipment_rollout.gd:44 mount_target()
+  game/scripts/equipment_rollout.gd:49 primary_mounts()
+  game/scripts/equipment_rollout.gd:61 motion_with_status()
 game/scripts/equipment_tow.gd: 2249 bytes; extends RefCounted
   game/scripts/equipment_tow.gd:13 contract()
   game/scripts/equipment_tow.gd:16 stage()
@@ -34,7 +34,7 @@ game/scripts/fleet_lab.gd: 4809 bytes; extends RefCounted
   game/scripts/fleet_lab.gd:20 preset()
   game/scripts/fleet_lab.gd:31 inspect()
   game/scripts/fleet_lab.gd:51 create()
-game/scripts/salvage.gd: 34005 bytes; extends RefCounted
+game/scripts/salvage.gd: 34898 bytes; extends RefCounted
   game/scripts/salvage.gd:119 ensure()
   game/scripts/salvage.gd:147 find_wreck()
   game/scripts/salvage.gd:277 record_battle()

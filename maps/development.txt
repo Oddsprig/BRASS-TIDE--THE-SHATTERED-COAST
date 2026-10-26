@@ -1,21 +1,21 @@
-BRASS TIDE — DEVELOPMENT MAP (generated; v0.030)
+BRASS TIDE — DEVELOPMENT MAP (generated; v0.032)
 
 Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 33272 bytes; extends Node2D
-  game/scripts/main.gd:270 toggle_pause()
-  game/scripts/main.gd:274 toggle_fullscreen()
-  game/scripts/main.gd:278 save_preferences()
-  game/scripts/main.gd:281 music_context()
-  game/scripts/main.gd:291 new_game()
-  game/scripts/main.gd:310 click_chart()
-  game/scripts/main.gd:342 sail_to()
-  game/scripts/main.gd:350 respond()
-  game/scripts/main.gd:356 trade()
-  game/scripts/main.gd:365 buy_boat()
-  game/scripts/main.gd:371 commission()
-  game/scripts/main.gd:377 collect_boat()
+game/scripts/main.gd: 35975 bytes; extends Node2D
+  game/scripts/main.gd:272 toggle_pause()
+  game/scripts/main.gd:276 toggle_fullscreen()
+  game/scripts/main.gd:280 save_preferences()
+  game/scripts/main.gd:283 music_context()
+  game/scripts/main.gd:293 new_game()
+  game/scripts/main.gd:312 click_chart()
+  game/scripts/main.gd:344 sail_to()
+  game/scripts/main.gd:352 respond()
+  game/scripts/main.gd:358 trade()
+  game/scripts/main.gd:367 buy_boat()
+  game/scripts/main.gd:373 commission()
+  game/scripts/main.gd:379 collect_boat()
 game/scripts/preferences.gd: 1358 bytes; extends RefCounted
   game/scripts/preferences.gd:3 defaults()
   game/scripts/preferences.gd:6 sanitize()
@@ -34,7 +34,7 @@ game/scripts/interface.gd: 48042 bytes; extends CanvasLayer
   game/scripts/interface.gd:176 column()
   game/scripts/interface.gd:182 spacer()
   game/scripts/interface.gd:187 rule()
-game/scripts/version.gd: 128 bytes; extends RefCounted
+game/scripts/version.gd: 122 bytes; extends RefCounted
   game/scripts/version.gd:5 text()
 
 TESTS (game/tests/*.gd)

@@ -1,12 +1,11 @@
-# Brass Tide v0.031
+# Brass Tide v0.032
 
-Equipment scope complete: individual module condition, crew/supply repairs,
-paid fitting/service and persistent equipment through saves/refits/recovery.
-Focused suite1677/0; portable menu/campaign/battle startup passed;81.464s including
-charged setup. The wrapper's raw-byte guard failed only on23 `.import` newline
-changes, independently reviewed. Original failures retained, owned PIDs empty.
+Current candidate: Convoy and recovery battles.
 
-Final documentation export and desktop delivery are complete. Local tagv0.031
-points to6d0654523b9fda076b70db825a9cdd26bba325d1. Stop this pass. No0.032 work, full-game test matrix or performance fine-tuning.
-No speculative private Battle lease or worker/memo prototype was merged.
-See docs/TEST RESULTS v0.031.md and docs/V0.031 FOCUSED SCOPE.txt.
+- Loaded convoy carriers must physically reach a marked exit; waiting or destroying escorts alone does not complete the passage.
+- Escort and interception outcomes retain each carrier fate and actual cargo, including escaped hulls and captured prizes.
+- Tow, strip or leave marked wrecks through the real voyage/recovery flow; loose cargo does not dismantle a towable hull.
+- Settled outcomes save before leaving the report; recovery and prize transfers use finite cargo, crew, equipment condition and existing paid service.
+
+Focused native checks/export are pending. Root owns all TestBridge work;
+helpers stay in source-only roles. Continue this version before the next.
