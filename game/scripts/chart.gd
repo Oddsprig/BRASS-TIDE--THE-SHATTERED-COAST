@@ -705,6 +705,19 @@ func draw_battle():
 		return
 	for i in range(battle.islands.size()):
 		draw_island(battle.islands[i], i, true)
+	var goal: Dictionary=host.Battle.objective_snapshot(battle).get("exit",{})
+	if goal.has("x") and goal.has("y"):
+		var exit_point: Vector2=Vector2(float(goal.x),float(goal.y))
+		var radius: float=float(goal.get("radius",70))
+		world_ring(exit_point,radius,Color(GOLD,0.85),2.0)
+		var at: Vector2=project(exit_point)
+		text_at("CONVOY EXIT",at+Vector2(0,-30),14,GOLD,mono,true)
+		var view: Vector2=get_viewport_rect().size
+		var edge: Vector2=Vector2(clampf(at.x,355,view.x-355),clampf(at.y,125,view.y-180))
+		if edge.distance_to(at)>35:
+			var direction: Vector2=(at-edge).normalized()
+			draw_line(edge,edge+direction*22,GOLD,2,true)
+			text_at("CONVOY EXIT",edge+Vector2(0,-15),12,GOLD,mono,true)
 	var flagship = host.Battle.get_flagship(battle)
 	if not flagship.is_empty():
 		world_ring(Vector2(flagship.x, flagship.y), flagship.spec.range, Color(0.75, 0.84, 0.63, 0.07), 1.0)

@@ -16,6 +16,7 @@ const DevTools = preload("res://scripts/dev_tools.gd")
 const Music = preload("res://scripts/music.gd")
 const Preferences=preload("res://scripts/preferences.gd")
 const EconomyWorkers=preload("res://scripts/economy_workers.gd")
+const RecoveryFlow=preload("res://scripts/recovery_flow.gd")
 
 var data: Dictionary
 var core
@@ -30,6 +31,7 @@ var selected_port = "brass_haven"
 var selected_site: String=""
 var battle: Dictionary = {}
 var battle_context: Dictionary = {}
+var battle_report: Dictionary = {}
 var battle_enemies: Array = []
 var quick_mode = false
 var fire_held = false
@@ -442,12 +444,21 @@ func show_patrol_encounter(id: String):
 	if not observed.is_empty():ui.paragraph(body,str(observed.get("reason","")),15,ui.GOLD)
 	var owner: Dictionary=core.fleet_owner(id)
 	patrol.hostile=core.Politics.hostile(core,owner)
+	var loaded: bool=owner.get("kind","")=="trader" and float(owner.get("tradeCargo",0))>0
 	if not patrol.hostile:
 		ui.paragraph(body, "A coastal merchant convoy sails this route. It carries goods between the same ports that supply your fleet. Its crews signal a peaceful passage.", 19)
 		ui.button(body, "Let them pass", ui.close_modal, true)
-		if not owner.is_empty() and owner.kind=="trader" and not preload("res://scripts/escort_ops.gd").threat(core,owner).is_empty():ui.button(body,"Defend this convoy · 45-second protection",func():preload("res://scripts/escort_ops.gd").start(self,id))
+		if loaded and not core.EscortOps.threat(core,owner).is_empty():
+			ui.paragraph(body,"Protect the loaded boats until they physically reach the far exit zone. Elapsed time alone cannot secure their passage; surviving boats keep their cargo for the onward voyage.",16,ui.GOLD)
+			ui.button(body,"Protect convoy to its exit",func():core.EscortOps.start(self,id))
 		ui.paragraph(body,"Opening fire damages public standing, creates a witnessed offense and a harbor claim.",15,ui.RED)
-		ui.button(body,"Attack this convoy",func():engage_patrol(patrol))
+		ui.paragraph(body,"Interception: stop the loaded boats before they reach the far exit. Escaped boats keep their goods. Recover only the cargo and damaged hulls left under your control." if loaded else "No loaded trade convoy is present. An attack promises no cargo prize.",16)
+		ui.button(body,"Intercept this convoy" if loaded else "Attack this fleet",func():engage_patrol(patrol))
+		return
+	if not owner.is_empty() and owner.kind=="trader":
+		ui.paragraph(body,"A hostile convoy is carrying actual goods along this route. Stop its loaded boats before they physically reach the far exit zone. Boats that escape keep their cargo for the onward voyage." if loaded else "This hostile convoy has no trade load aboard. Engaging it promises no cargo prize.",19)
+		ui.button(body,"Intercept this convoy" if loaded else "Engage this fleet",func():engage_patrol(patrol),true)
+		ui.button(body,"Avoid contact",func():core.state.encounterGrace=90.0;ui.close_modal())
 		return
 	ui.paragraph(body, "Raider engines echo across the water. You can engage their boats or give them a wide berth. Their strength is %d boat(s)." % patrol.strength, 19)
 	ui.button(body, "Engage the raiders", func(): engage_patrol(patrol), true)
@@ -455,6 +466,9 @@ func show_patrol_encounter(id: String):
 
 func engage_patrol(patrol: Dictionary):
 	var owner: Dictionary=core.fleet_owner(patrol.id)
+	if owner.is_empty() or not owner.get("active",false) or not owner.get("boats",[]).any(func(b):return not b.sunk):
+		ui.toast("This contact has no surviving fleet to engage.",true)
+		return
 	var aggression: bool=not core.Politics.hostile(core,owner)
 	if aggression:core.Politics.declare_attack(core,owner)
 	var specs: Array = [core.hull("bilge_punt")]
@@ -469,12 +483,16 @@ func begin_battle(specs: Array, context: Dictionary):
 		ui.toast("You need a crewed boat marked for battle deployment.", true)
 		return
 	sync_economy()
+	context=core.EscortOps.prepare_intercept(core,context)
+	if not str(context.get("startError","")).is_empty():
+		ui.toast(str(context.startError),true)
+		return
 	core.use_reserves()
 	save_game(false)
 	quick_mode = false
 	core.stop_sailing()
 	battle_enemies = specs
-	battle_context = context
+	battle_context = context.duplicate(true)
 	var owner = core.fleet_owner(str(context.get("ownerId","")))
 	var enemy_fleet = owner.get("boats",[]).filter(func(b):return not b.sunk) if not owner.is_empty() else []
 	var player_fleet: Array=core.FleetSupport.combat(core)
@@ -483,6 +501,10 @@ func begin_battle(specs: Array, context: Dictionary):
 		player_fleet=ally_owner.get("boats",[]).filter(func(b):return not b.sunk and b.crew>=b.crewMin)+player_fleet
 	for boat in player_fleet:boat.supportRepairFactor=1.0
 	battle = Battle.create({"fleet":player_fleet,"mission":context.get("mission",{}), "enemySpecs": specs, "enemyFleet":enemy_fleet, "seed": int(core.state.seed) + core.state.wins * 17 + core.state.losses * 5, "location": {"name": context.name}})
+	if not str(battle.get("startError","")).is_empty():
+		ui.toast(str(battle.startError),true)
+		battle={}
+		return
 	battle.captureSlots=maxi(0,64-core.state.get("boardingPrizes",[]).size())
 	core.BoardingOps.coastal(core,battle)
 	_enter_battle()
@@ -534,6 +556,7 @@ func _enter_battle():
 	auto_gunners = true
 	Battle.set_autopilot(battle, true)
 	result_handled = false
+	battle_report = {}
 	salvage_claimed = false
 	battle_last_wrecks = 0
 	selection_dragging = false
@@ -545,6 +568,7 @@ func _enter_battle():
 	ui.close_modal()
 	ui.build_hud()
 	ui.toast("Autopilot engaged. WASD camera · Space pause · select boats, right-click orders · Tab tactical view.")
+	if RecoveryFlow.is_convoy(battle):ui.toast(RecoveryFlow.objective_label(battle))
 
 func switch_flagship():
 	var fleet = battle.ships.filter(func(s): return s.team == "player" and not s.sunk and not s.get("captureSecured",false))
@@ -732,9 +756,14 @@ func set_crew_policy(policy: String):
 	ui.update_hud()
 
 func settle_battle():
+	if mode!="battle" or battle.get("result")==null:return
 	fire_held = false
+	result_handled=true
 	if lab_active:
 		LabUI.results(ui)
+		return
+	if not battle_report.is_empty():
+		show_battle_report()
 		return
 	var report = {"coins": 0, "salvage": {}, "fleetLost": false, "completed": false}
 	if not quick_mode:
@@ -742,7 +771,22 @@ func settle_battle():
 		report = core.battle_settled(battle.result,battle_enemies,battle_context,battle)
 		if not report.get("ok",true):
 			paused=true;result_handled=false;ui.toast(str(report.message),true);return
-	ui.outcome(battle.result, report, battle_enemies)
+	battle_report=report.duplicate(true)
+	show_battle_report()
+
+func show_battle_report():
+	if not quick_mode and RecoveryFlow.is_convoy(battle):
+		ui.RecoveryUI.outcome(ui,str(battle.result),battle_report)
+	else:
+		ui.outcome(battle.result,battle_report,battle_enemies)
+
+func open_battle_recovery():
+	var ids: Array=RecoveryFlow.wreck_ids(battle_report)
+	return_to_campaign()
+	ui.RecoveryUI.open(ui,"",ids)
+
+func recover_wreck(id: String,choice: String,good: String="",qty: float=0.0) -> Dictionary:
+	return RecoveryFlow.recover(self,id,choice,good,qty)
 
 func recover_salvage(id: String):
 	sync_economy()

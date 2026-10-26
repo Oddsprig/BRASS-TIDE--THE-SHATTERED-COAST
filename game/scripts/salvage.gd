@@ -764,12 +764,14 @@ static func strip_good(core,wreck_id: String,good: String,qty: float) -> Diction
 	var amount: float=minf(qty,float(_strip_items(wreck).get(good,0)))
 	if amount<=0 or amount*float(Goods.ITEMS[good].weight)>_free_capacity(core)+0.00001:return {"ok":false,"message":"Choose a smaller lot; the traveling hold has insufficient space."}
 	var left: float=amount
+	var removed_structure: bool=false
 	for key in ["stores","components"]:
 		var take: float=minf(left,float(wreck[key].get(good,0)))
+		if key=="components" and take>0 and not Recovery.is_store_good(good):removed_structure=true
 		wreck[key][good]=maxf(0,float(wreck[key].get(good,0))-take)
 		left-=take
 	core.state.cargo[good]=float(core.state.cargo.get(good,0))+amount
-	if not Recovery.is_store_good(good):
+	if removed_structure:
 		wreck.hullStripped=true
 		if Recovery.is_active(wreck):
 			Recovery.release(wreck, "retired")
