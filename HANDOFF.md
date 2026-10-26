@@ -1,5 +1,5 @@
 BRASS TIDE - VERIFIED COMPONENTS; CURRENT SCENE/PERFORMANCE OPEN
-2026-10-26T00:23:43.427Z
+2026-10-26T00:59:25.102Z
 Two numerical modules now avoid unused copies; other runtime stays R4. Legacy629/0.
 Fourteen runtime modules and six fixtures integrated. Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
@@ -39,7 +39,7 @@ failed its isolated proof and was rejected. A changed bounded writer retry passe
 reviewed/applied only winjob.py30410d70, backed up originalcccbdc44. It retries
 WinError5/32 within250ms and records assigned ownership before resume; existing
 FIFO/detector/cleanup policy stays intact. Historical cause remains unknown;
-next native end-to-end evidence is pending. ROOT TEST SUPPORT WRITER RETRY APPLIED.
+actual R4 native jobs now complete end-to-end. ROOT TEST SUPPORT WRITER RETRY APPLIED.
 Small-complete r1/r2 source is preserved; Root found the autopilot return-value
 assertion error, then Argon found an assertion outside its recorded family.
 R3 OLD8f3d079e and NEWecb83f8d each pass57/0, with complete301-packet
@@ -50,14 +50,27 @@ same clock leaf; no additional typed difference path. Formal pair stays FAIL.
 Root verified actual tactical/metrics keys are StringName21; producer omission
 and its absence validator accept only String4. Original failed comparison and
 full packets stay unchanged. ROOT SMALL FRAME R3 COMPARISON FAILED VERIFIED.json.
-Fresh R4 source is being prepared with the same approved clock leaf, both key
-types, unchanged frozen comparator and a stronger separate absence gate.
-NEW combines cache5 with source-reviewed tick69b01f77 (raw prototype499/507d0ac4);
-no R4 native is authorized yet. The tick removes one redundant successful
-publication per60Hz step, keeping raw engine float across sanitize; no cadence
-or arithmetic change. A single changed-tick cold diagnostic289/4706012b is
-authorized through the same shared lane. Source remains unmerged; no timing,
-capacity, FPS, scene or release acceptance.
+Corrected R4 observer handles String and StringName keys for the same approved
+clock leaf. OLD5c38ce42 and NEWa04ff0d3 each pass57/0 with complete301 packets.
+Root independently validated both native receipts, inputs and complete streams
+with frozen Trace plus the stricter4/21 assertion-only clock-absence gate. Each
+records41 approved omissions. Frozen bf29 strict comparison passes301/301 exact
+typed bytes; both trace SHA534a41a8. Original R3 failure remains unchanged.
+ROOT SMALL FRAME R4 OLD/NEW/PAIR VERIFIED.json preserve scoped acceptance.
+NEW combines cache5 with source-reviewed tick69b01f77 (raw prototype499/507d0ac4).
+The tick removes one redundant successful publication per60Hz step, preserving
+raw engine float across sanitize; arithmetic and cadence remain unchanged.
+Cold diagnostic289/4706012b completed via shared lane as78c1957c:51/0,24 actual
+updates/40 canonical boats. Root/QA found zero recorded resource/work/age/budget/
+status differences versus734 baseline. Observed means204.4022 whole/131.4924 AI/
+72.9098 other ms; prior274.9235/179.2996/95.6239. Cold data only; no FPS/capacity,
+causal, idle-host or whole-state/RNG equivalence claim. Root cost proof preserved.
+The live-frame/tick candidate remains outside Main pending clean integration;
+Argon composes an exact five-file rebase while Sol prepares a source-only deeper
+hotspot pack. Current performance remains materially too slow. No new engine
+test is queued at this checkpoint. All engine work uses the shared Test Bridge
+lane behind existing apps/projects; no desktop control. Root launches0 engines.
+No full-scene, performance or release acceptance.
 Original full battle regressions stay intact.
 Proofs: ROOT FRAME REPAIR R1 NATIVE VERIFIED OUTER FAILED.json,
 ROOT FRAME COST R3B NATIVE VERIFIED.json and

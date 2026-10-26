@@ -14,10 +14,13 @@ performance remains unaccepted. Full recorder60s timeout preserved. Validated24-
 profile identifies canonical condition/repair tick work as the main measured cost.
 Protected-recovery passes3/0 in both orientations (legacy-only; no retreat proof).
 Pump/armor remains open after supervisor WinError5; no terminal test count.
-Small OLD/NEW each pass57/0 with301 complete packets; strict pair still fails
-on an approved timing field missed by StringName lookup. Fresh recorder/gate source
-is being corrected; all failed traces remain preserved. Tick69 source is reviewed
-and its single cold diagnostic is queued; no performance acceptance.
+R3 native57/0 pairs preserved with original timing-key comparison failure.
+Corrected R4 OLD5c38/NEWa04ff each pass57/0; Root complete301-packet and strict
+clock-absence gates pass. Frozen comparison passes301/301 exact typed bytes.
+Five-file clean integration is being prepared; Main still private2 only.
+Tick69 cold diagnostic51/0 matches recorded work/resources; observed whole
+204.402ms versus274.924ms previously. Performance remains open; no FPS or
+capacity acceptance. Deeper profiler is source preparation only.
 Remaining030/held-out/motion/audio/Windows proof stays open. No031tag/export.
 0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
 Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.

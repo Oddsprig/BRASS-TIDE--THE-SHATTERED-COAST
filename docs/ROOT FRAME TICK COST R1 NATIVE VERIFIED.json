@@ -1,0 +1,51 @@
+{
+  "classification": "ACTUAL_24_COLD_TICK69_DIAGNOSTIC_ONLY",
+  "createdAt": "2026-10-26T00:37:58.862Z",
+  "jobId": "78c1957c04a34466b90d39ad4a2f7961",
+  "artifactFolder": "C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/78c1957c04a34466b90d39ad4a2f7961/attempt-001",
+  "inputCount": 289,
+  "inputSha256": "4706012b6326b1c5d7b5eb60b77eb8943be6fffa39ea98d9326cad8639ba92db",
+  "damageSha256": "69b01f77a75bf7543ac0b59983053669a2a32dae2381d805ae70ef0eb30f3516",
+  "checks": 51,
+  "failures": 0,
+  "actualUpdates": 24,
+  "warmupUpdates": 0,
+  "seed": 83,
+  "dt": 0.03333333333333333,
+  "boats": 40,
+  "costSha256": "d86cd932ab34c0a24e9697c7e4db2188c75a854d7eba533e3bd89217c007084b",
+  "baselineJob": "734be3513eb241eaa326fdaa0fed733f",
+  "baselineSha256": "7e185f25efc1c1d425a305fb6f732e03ee5d03db24c843060afb70f97e98029a",
+  "recordedResourcesWorkAgesBudgetsEqual": true,
+  "comparisonClockExclusions": [
+    "sample.diagnostic.ai_us",
+    "sample.diagnostic.metrics.aiUs"
+  ],
+  "comparisonDiffFields": [],
+  "publicCompare": {
+    "resourcesBefore": true,
+    "resourcesAfter": true,
+    "statusRows": true,
+    "liveUnchanged": true
+  },
+  "observedMeanMs": {
+    "whole_ms": 204.40220833333333,
+    "ai_ms": 131.49241666666666,
+    "other_ms": 72.90979166666668
+  },
+  "baselineObservedMeanMs": {
+    "whole_ms": 274.9235,
+    "ai_ms": 179.299625,
+    "other_ms": 95.623875
+  },
+  "publicStatusMeanUs": 184.475,
+  "rootNativeReceiptReview": "native_evidence.review passed all current289 inputs, native/tool/engine hashes, profiles, shared lane (including required waiting_engine), both outcomes and exited recorded child.",
+  "rootAuditorSha256": "b852c22d19d722df1c61225220f8fe118dd5981c02388c4da56605f0a2c69d70",
+  "supervisorSha256": "30410d709b6174b631cf8317a3f9152206af51747ec09c856e7def7356907396",
+  "fpsAccepted": false,
+  "capacityAccepted": false,
+  "causalClaim": false,
+  "fullStateOrRngEquivalence": false,
+  "idleHostClaim": false,
+  "nativeLaunchedByRoot": false
+}

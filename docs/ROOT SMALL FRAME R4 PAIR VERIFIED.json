@@ -1,0 +1,24 @@
+{
+  "classification": "ROOT_VERIFIED_BOUNDED_R4_PAIR",
+  "nativeJobs": [
+    "5c38ce42c77642fd8cb3b7d01d527c89",
+    "a04ff0d373544545b0d2ef286859c149"
+  ],
+  "nativeChecksEach": 57,
+  "nativeFailuresEach": 0,
+  "packetsEach": 301,
+  "strictClockAbsenceBoth": true,
+  "approvedOmission": "tactical.metrics.aiUs only",
+  "traceSha256": "534a41a81d8fa0f958ce9a33130372361c51a47f3d735889cfe100c4a5366e80",
+  "exactTypedBytesEqual": true,
+  "comparisonJson": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\battle-frame-reuse-proof-r2\\small-complete-comparisons\\20261026T005324Z-e7cf72e8/comparison.json",
+  "comparisonSha256": "a2582f29336899750cbc91d9f9f8c7002f9edd22e1aafcee5fa50975564f668d",
+  "qaAuditSha256": "10d10056465101689ecb3099f1e8bf61368e66bb42d60adbf021f1c882b5a4bd",
+  "rootOldProofSha256": "fd252cd112b425e1e21ee391e1b3af26cb24692a55e86dfacc27103ea09ffda0",
+  "rootNewProofSha256": "74f7383d5d91536777114201b6ba51e6a8326196ab2b1f60335395157b65e06c",
+  "frozenComparatorSha256": "bf29a6f2125ac68e4515639f10bf1ca6cea0e4a31bf801edda61f7ae94734b10",
+  "originalR3FailurePreserved": true,
+  "releaseAccepted": false,
+  "performanceAccepted": false,
+  "nativeLaunchedByRoot": false
+}
