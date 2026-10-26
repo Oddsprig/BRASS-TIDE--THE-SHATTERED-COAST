@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.033: Independent campaign fleets. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: naval_ai.gd::scan_encounters, naval_ai.gd::tick, naval_orders.gd, naval_combat.gd, naval_lifecycle.gd::step, fleet_economy.gd::dock.
+v0.034: Coastal geography and navigation. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: navigation.gd::find_path, route_cache.gd::path, campaign.gd::cached_path, naval_lifecycle.gd, coastal_terrain.gd, main.gd::begin_battle, battle.gd::create, tactical_routes.gd, chart.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

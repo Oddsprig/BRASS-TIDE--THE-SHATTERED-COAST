@@ -1,0 +1,34 @@
+V0.034 - COASTAL GEOGRAPHY AND NAVIGATION
+Owner: stick to each version's scope. Predecessor033 delivered154/0 focused
+checks across retained99 and final55, plus export/startups. Source3b8be1d.
+Current helper baseline12ea1c9; same2Sol6.1MAX and MuseWonderMEDIUM onBridge.
+
+Systems: navigation.gd,route_cache.gd,campaign.gd,naval_lifecycle.gd,
+one test_coastal_navigation034.gd. Reuse bounded coarse A* and route cache.
+Thread actual largest sailing hull clearance through nodes, segments and cache
+keys. Stored/mothballed reserves do not widen a traveling player's fleet.
+Generic cached_path(a,b,clearance=10) remains compatible; RouteCache.path
+infers actual actor/owner clearance. Every returned leg must be safe.
+Use existing nodes to choose harbor approaches within service range; refuse
+unavailable clearance clearly. No unsafe final straight leg or snap to shore.
+Preserve port IDs, prices, positions and existing world geometry/revision.
+Validate restored routes when current hull clearance makes them unsafe.
+
+Flow: main.gd,battle.gd,chart.gd,tactical_routes.gd,tactical_runtime.gd,
+optional small coastal_terrain.gd, one test_coastal_encounters034.gd.
+Translate nearby original campaign island geometry around actual encounter
+position into the existing arena; open water stays empty. Do not put the old
+fixed islands back into an explicitly empty arena. Respect original coast names.
+Choose bounded safe fleet formation positions AND physical convoy exit areas
+against the actual regional terrain. Preserve actual hull objects and300DP.
+Add one conservative fitted speed/turn planning margin; physical collision
+size and real steering/manual authority stay unchanged. Chart trade dashes
+follow cached water polylines; no per-frame uncached path searches.
+
+Wonder: review only changed functions for definite scope defects. Harbor
+approach safety and land-covered spawns/exits are acceptance issues; new
+water physics, pathfinding frameworks, a world rebuild and general polish
+are not. Root owns all native work through the shared background TestBridge.
+No helper engine/test/GPU/control calls, extra helpers or full-game gates.
+Short actual clearance/cache/approach and regional encounter fixtures,
+then export/startups in one selected batch below120seconds. Package before035.

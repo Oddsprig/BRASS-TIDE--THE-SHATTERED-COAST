@@ -1,11 +1,11 @@
-BRASS TIDE v0.033 - INDEPENDENT CAMPAIGN FLEETS
+BRASS TIDE v0.034 - COASTAL GEOGRAPHY AND NAVIGATION
 26 October2026 |24 boat designs
 
 THIS VERSION
-- Existing raiders and patrols refresh their objectives at sea; hostile NPC fleets can meet and fight between daily economy ticks.
-- Daily and midday encounter scans share saved limits of four fights per day and one fight per owner, preserving actual ammunition, damage and cargo.
-- Retreating survivors promptly use existing homeward routes and paid harbor repair; captured trade goods can be sold at home through real market stocks and purses.
-- The coastal traffic board and captain's log expose nearby fleet business and witnessed results; distant NPC fights continue in the full developer records.
+- Campaign routes and their caches account for the largest actual sailing hull, keeping stored reserves separate from the traveling fleet.
+- Harbor arrivals use safe approach water within service range and explain unavailable clearance instead of sending large boats through shore.
+- Campaign battles use the original coast near the encounter; open water stays open, with safe fleet formations and physical convoy exits.
+- Tactical route planning allows conservative turning room, and charted trade routes follow cached water paths.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

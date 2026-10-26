@@ -1,3 +1,7 @@
+26OCT2026 - v0.034 COASTAL GEOGRAPHY AND NAVIGATION
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.033 VERIFIED AND PACKAGED: 55/0 focused checks, selected batch 37.373s, TestBridge b0e766a7043b487f8ff0d4f66befdbbd. Source 3b8be1dd8227866857dd2a7de4de35c5690965e9.
 
 26OCT2026 - v0.033 INDEPENDENT CAMPAIGN FLEETS
