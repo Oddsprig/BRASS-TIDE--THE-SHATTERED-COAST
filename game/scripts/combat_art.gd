@@ -383,7 +383,7 @@ static func _draw_water_plume(fx: Dictionary, ground: Vector2, family: String, t
 			ground + Vector2(0.0, -col_h * 1.06),
 			ground + Vector2(col_w * 0.38, -col_h * 0.92),
 			ground + Vector2(col_w, 0.0)
-		]), Color(0.76, 0.94, 0.89, alpha * 0.68))
+		]), Color(0.82, 0.98, 1.0, alpha * 0.76))
 	var jet_n: int = 6 if lod == 0 else (4 if lod == 1 else 2)
 	for i in range(jet_n):
 		var frac: float = (float(i) / float(maxi(1, jet_n - 1))) * 2.0 - 1.0
@@ -545,7 +545,7 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 			var tip: Vector2 = p + sdir * dist + Vector2(0.0, t * t * 14.0 * s - t * 9.0 * s)
 			var streak_len: float = maxf(3.2, (6.2 + 2.8 * mag) * s * (1.0 - 0.28 * t))
 			var tail: Vector2 = tip - sdir * streak_len
-			var spark_col: Color = Color(1.0, 0.76, 0.22, alpha * 0.96) if i % 2 == 0 else Color(1.0, 0.94, 0.68, alpha * 0.96)
+			var spark_col: Color = Color(1.0, 0.87, 0.42, alpha * 0.96) if i % 2 == 0 else Color(0.85, 0.95, 1.0, alpha * 0.96)
 			_fx_line(fx, tail, tip, spark_col, maxf(1.1, 2.0 * s))
 			if lod == 0 and i < 4:
 				_fx_circle(fx, tip, maxf(1.0, 1.45 * s), Color(1.0, 0.99, 0.88, alpha * 0.96))
@@ -569,7 +569,7 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 		var ppos: Vector2 = p + pdir * radius * (0.25 + 1.05 * t * (0.75 + 0.4 * _det_unit(seq, i, 173))) + Vector2(0.0, t * t * 12.0 * s - t * 8.0 * s)
 		var rot_dir: Vector2 = pdir.rotated(0.4 + t * (2.4 if i % 2 == 0 else -2.4))
 		var plank_col: Color = Color(0.90, 0.68, 0.38, alpha * 0.94) if i % 2 == 0 else Color(0.72, 0.48, 0.24, alpha * 0.92)
-		_fx_poly(fx, _shard_poly(ppos, rot_dir, maxf(2.8, (4.4 + mag) * s), maxf(1.6, 2.4 * s)), plank_col)
+		_fx_poly(fx, _shard_poly(ppos, rot_dir, maxf(3.4, (5.8 + mag) * s), maxf(1.4, 1.8 * s)), plank_col)
 	var splinter_n: int = 7 if lod == 0 else (4 if lod == 1 else 2)
 	for i in range(splinter_n):
 		var wang: float = _det_angle(seq, i, splinter_n, reflect_dir.angle(), PI * 1.45)

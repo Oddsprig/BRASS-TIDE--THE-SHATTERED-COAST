@@ -2,7 +2,49 @@ extends RefCounted
 ## Bounded cosmetic hit records. No random draws, numerical damage or economy changes.
 const Profiles=preload("res://scripts/hull_profiles.gd")
 const Faces=preload("res://scripts/weapon_art.gd")
+const Layout=preload("res://scripts/mount_layout.gd")
 const MAX_SCARS: int=8
+
+static func equipment_marks(boat: Dictionary,mounts: Array) -> Array:
+	# Live presentation reads the already validated installed records, never locker
+	# parts or a second full damage status. No cached condition/repair state.
+	var marks: Array=[]
+	var condition=boat.get("moduleCondition")
+	if bool(boat.get("sunk",false)) or not condition is Dictionary:return marks
+	if condition.get("version")!=1 or not condition.get("items") is Dictionary:return marks
+	var structure: Dictionary={}
+	for value in condition.items.values():
+		if not value is Dictionary or str(value.get("status","ok")) not in ["damaged","disabled"]:continue
+		var location: String=str(value.get("location",""))
+		var anchor: Vector2=Vector2.ZERO
+		var height: float=12.5
+		var found: bool=false
+		if str(value.get("family",""))=="weapons":
+			for mount in mounts:
+				if str(mount.get("id",""))==location:
+					anchor=Vector2(mount.x,mount.y);found=true;break
+		elif location in ["engine","pumps"] and str(value.get("family","")) in ["engines","pumps"]:
+			if structure.is_empty():structure=Layout.structure(boat.spec)
+			# Integral pumps occupy the cabin/bilge damage box, not a gun socket.
+			var part: Dictionary=structure.engine if location=="engine" else structure.cabin
+			anchor=Vector2(part.x,part.y);height=float(part.height)+1.5;found=true
+		if found and marks.size()<6:
+			marks.append({"location":location,"at":anchor,"height":height,"status":str(value.status),"hp":float(value.hp)})
+	return marks
+
+static func draw_equipment(ctx: Dictionary,boat: Dictionary,mounts: Array) -> void:
+	if int(ctx.lod)>=2:return
+	var scale: float=clampf(float(ctx.px)/maxf(4,float(ctx.size)),0.65,2.0)
+	for mark in equipment_marks(boat,mounts):
+		var p: Vector2=_p(ctx,mark.at,float(mark.height))
+		var disabled: bool=str(mark.status)=="disabled"
+		var r: float=(3.6 if disabled else 3.0)*scale
+		var color:=Color("ff765c") if disabled else Color("ffd278")
+		_circle(ctx,p,r+scale,Color(0.07,0.10,0.10,0.88))
+		# Broken amber slash versus a red cross also separates state without color.
+		_line(ctx,p+Vector2(-r,-r),p+Vector2(r,r),color,1.6*scale)
+		if disabled:_line(ctx,p+Vector2(-r,r),p+Vector2(r,-r),color,1.6*scale)
+		else:_line(ctx,p+Vector2(r,-r),p+Vector2(r*0.25,-r*0.25),color,1.6*scale)
 
 static func record(ship: Dictionary, point: Vector2, time: float, power: float, material: String, section: String, angle: float) -> void:
 	var spec: Dictionary=ship.get("spec",{})

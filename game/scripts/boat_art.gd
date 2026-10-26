@@ -435,6 +435,7 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 		if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c)
 		else:_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
 	_damage(ctx, boat, stations, arch, c)
+	HullFeedback.draw_equipment(ctx,boat,mounts)
 	return {"primitives": int(ctx.n), "polygons": int(ctx.npoly), "lines": int(ctx.nline),
 		"circles": int(ctx.ncirc), "archetype": arch, "mounts": mounts.size(), "lod": int(ctx.lod)}
 
@@ -530,8 +531,8 @@ static func _wpt(projector: Callable, p: Vector2, h: float) -> Vector2:
 	return r if r is Vector2 else Vector2.ZERO
 
 ## samples: path-ordered [{p:Vector2 stern world, d:Vector2 heading, age:float,
-## w:float emission half-width in world units}]. Three polylines total: two
-## widening V edges + centre churn, alpha fading with age. Cheap and curved
+## w:float emission half-width in world units}]. Three polylines per age band:
+## widening V edges + broken centre churn, alpha fading with age. Cheap and curved
 ## because it follows the recorded stern path. Returns primitive count.
 static func draw_wake(canvas, projector: Callable, samples: Array, opts: Dictionary = {}) -> int:
 	if samples.size() < 2:
@@ -551,9 +552,9 @@ static func draw_wake(canvas, projector: Callable, samples: Array, opts: Diction
 			d = Vector2.RIGHT
 		var perp := d.normalized().orthogonal()
 		var w := float(s.get("w", 8.0)) * (1.0 + age * 0.85)
-		left.append(_wpt(projector, p + perp * w, -2.0))
-		right.append(_wpt(projector, p - perp * w, -2.0))
-		mid.append(_wpt(projector, p, -2.0))
+		left.append(_wpt(projector, p + perp * w, 0.0))
+		right.append(_wpt(projector, p - perp * w, 0.0))
+		mid.append(_wpt(projector, p + perp * w * (0.16 if mid.size()%2==0 else -0.16), 0.0))
 	if left.size() < 2:
 		return 0
 	# Samples arrive oldest-first. Draw up to 4 contiguous age bands (<=12
@@ -572,12 +573,12 @@ static func draw_wake(canvas, projector: Callable, samples: Array, opts: Diction
 		for i in range(i0, i1 + 1):
 			mean_age += float(ages[mini(i, ages.size() - 1)])
 		mean_age /= float(i1 - i0 + 1)
-		var a_edge := 0.36 * clampf(1.0 - mean_age / life, 0.0, 1.0)
+		var a_edge := 0.52 * clampf(1.0 - mean_age / life, 0.0, 1.0)
 		if a_edge < 0.01:
 			continue
-		canvas.draw_polyline(left.slice(i0, i1 + 1), Color(FOAM, a_edge), 1.4)
-		canvas.draw_polyline(right.slice(i0, i1 + 1), Color(FOAM, a_edge), 1.4)
-		canvas.draw_polyline(mid.slice(i0, i1 + 1), Color(FOAM, a_edge * 0.55), 2.2)
+		canvas.draw_polyline(left.slice(i0, i1 + 1), Color(0.82,0.96,0.92,a_edge), 1.4)
+		canvas.draw_polyline(right.slice(i0, i1 + 1), Color(0.82,0.96,0.92,a_edge), 1.4)
+		canvas.draw_polyline(mid.slice(i0, i1 + 1), Color(0.92,0.99,0.95,a_edge*0.82), 3.2)
 		n += 3
 	return n
 
@@ -647,7 +648,9 @@ static func stern_of(boat: Dictionary) -> Vector2:
 	var spec_v = boat.get("spec", {})
 	var size := maxf(4.0, float(spec_v.get("size", 16))) if spec_v is Dictionary else 16.0
 	var angle := float(boat.get("angle", 0.0))
-	return Vector2(float(boat.get("x", 0.0)), float(boat.get("y", 0.0))) + Vector2(-1.75, 0.0).rotated(angle) * size
+	# The wake begins aft of the actual profile and drive, including long civilians.
+	var aft: float=float(MotorArt._plan(spec_v,boat).minX)-0.08 if spec_v is Dictionary else -2.2
+	return Vector2(float(boat.get("x", 0.0)), float(boat.get("y", 0.0))) + Vector2(aft, 0.0).rotated(angle) * size
 
 ## A ready-made display boat for portraits/galleries without a live campaign.
 static func preview_boat(spec: Dictionary, angle: float = -0.45) -> Dictionary:
