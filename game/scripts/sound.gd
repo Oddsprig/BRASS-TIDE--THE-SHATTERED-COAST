@@ -1,12 +1,16 @@
 extends Node2D
 ## Real recording bank; bounded, camera-aware voices for every deployed boat.
 const VOICE_LIMIT=32
+const EVENT_VOICE_LIMIT=12
+const RAPID_INTERVAL=0.16
+const RAPID_SOURCE_LIMIT=128
 var enabled=true
 var weapon_volume=0.85
 var ambience_volume=0.35
 var voices: Array=[]
 var bank: Dictionary={}
 var last_variant: Dictionary={}
+var rapid_until: Dictionary={}
 var last_seq=0
 var clock=0.0
 var headless=false
@@ -51,7 +55,7 @@ func _ready():
 
 func reset_battle():
 	last_seq=0;received=0;scheduled=0;dropped=0;peak_voices=0
-	teams.clear();families.clear()
+	teams.clear();families.clear();rapid_until.clear()
 	for slot in voices:slot.player.stop();slot.until=clock
 
 func _process(dt: float):
@@ -64,8 +68,20 @@ func _process(dt: float):
 
 func priority(event: Dictionary,camera: Vector2) -> float:
 	var value=100.0 if event.kind=="sink" else (82.0 if event.family in ["torpedo","cannon","rocket"] else 58.0)
+	if event.kind=="hit":value+=12.0
+	if event.kind=="engine":value=90.0
 	if event.kind=="miss":value-=24.0
 	return value-Vector2(event.x,event.y).distance_to(camera)/80.0
+
+func _rapid_key(event: Dictionary) -> String:
+	# Each recorded burst already contains several shots. Keep its source audible
+	# without stacking every mount's gun burst or routine contact on the same boat.
+	# Significant damage and every other weapon family retain normal admission.
+	if event.family!="gun" or event.kind not in ["fire","hit","miss"]:return ""
+	if event.kind=="hit" and (event.get("breach",false) or event.get("engineDamaged",false) or event.get("sunk",false)):return ""
+	var source=str(event.get("sourceUid",event.get("sourceId","")))
+	if source.is_empty():return ""
+	return "%s/%s/%s/%s"%[event.get("sourceTeam",event.team),source,event.family,event.kind]
 
 func consume(events: Array,chart):
 	var admitted: Array=[]
@@ -76,13 +92,18 @@ func consume(events: Array,chart):
 		families[str(event.family)]=int(families.get(str(event.family),0))+1
 		admitted.append(event)
 	if not enabled:return
+	for key in rapid_until.keys():
+		if float(rapid_until[key])<=clock:rapid_until.erase(key)
 	admitted.sort_custom(func(a,b):return priority(a,chart.camera)>priority(b,chart.camera))
 	var count=0
+	var accents: Array=[]
 	for event in admitted:
-		if count>=12:dropped+=1;continue
+		if count>=EVENT_VOICE_LIMIT:dropped+=1;continue
 		var position=Vector2(event.x,event.y)
 		var distance=position.distance_to(chart.camera)
 		if distance>2200.0:dropped+=1;continue
+		var rapid_key=_rapid_key(event)
+		if not rapid_key.is_empty() and (rapid_until.has(rapid_key) or rapid_until.size()>=RAPID_SOURCE_LIMIT):dropped+=1;continue
 		var sound=""
 		match event.kind:
 			"fire":sound="splash" if event.family=="torpedo" else str(event.family)
@@ -97,8 +118,14 @@ func consume(events: Array,chart):
 		pitch*=0.97+float(int(event.seq)%7)*0.01
 		if _schedule(sound,chart.project(position),gain,pitch,priority(event,chart.camera)):
 			count+=1
-		if event.kind=="hit" and event.family=="torpedo":_schedule("splash",chart.project(position),gain-3.0,0.83,85.0-distance/80.0)
-		if event.kind=="sink":_schedule("wood",chart.project(position),gain-1.0,0.72,95.0-distance/80.0)
+			if not rapid_key.is_empty():rapid_until[rapid_key]=clock+RAPID_INTERVAL
+			if event.kind=="hit" and event.family=="torpedo":accents.append({"sound":"splash","position":chart.project(position),"gain":gain-3.0,"pitch":0.83,"rank":priority(event,chart.camera)-1.0})
+			if event.kind=="sink":accents.append({"sound":"wood","position":chart.project(position),"gain":gain-1.0,"pitch":0.72,"rank":priority(event,chart.camera)-1.0})
+	# Primary reports/impacts come before secondary layers. Layers share the same
+	# admission budget, rather than doubling it during a crowded sinking salvo.
+	for accent in accents:
+		if count>=EVENT_VOICE_LIMIT:break
+		if _schedule(accent.sound,accent.position,accent.gain,accent.pitch,accent.rank):count+=1
 
 func _schedule(kind: String,position: Vector2,db: float,pitch: float,rank: float) -> bool:
 	var variants: Array=bank.get(kind,[])
