@@ -698,6 +698,7 @@ func contracts_view(body: Node):
 func open_guide():
 	modal_kind = "guide"
 	var body = modal("A captain's guide", "BRASS TIDE · v%s" % host.Version.text())
+	button(body,"Career goals & first steps",func():GuidanceUI.open(self),true)
 	for section in [
 		["Bronze coins and paid work","An ordinary sailor earns 100 bronze coins per day, with rations supplied separately. Wages move into the crew's shared purse. Missed wages become arrears and reduce morale and combat performance. The Hold shows savings and arrears. Each town has business, worker, specialist and government purses; its Economy screen shows employment and actual transfers."],
 		["Why a boat costs what it costs","Every design has physical material requirements and paid shipwrights, mechanics, fitters, foremen and supervising experts. Trace the price through logs and planks, ore and iron, powder ingredients, ammunition, guns and engines. Yard quotes list those inputs, wages, overhead, margin and duty. Commissions hold wages in escrow and only pay for work completed."],
