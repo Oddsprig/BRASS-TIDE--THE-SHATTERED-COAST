@@ -1,3 +1,13 @@
+26 OCTOBER2026 - PUBLICATION AND RESTORE MUST AGREE
+- Initialize each new player hull with the same domain defaults and canonical
+  current-morale spec as restore, before appending it. Cover both paid/staged
+  publication and legacy tow paths. The helper must be idempotent and conserve
+  existing UID/equipment condition, damage, crew, stores, purses and people.
+- Keep complete fleet JSON equality. Diagnose the first exact field mismatch;
+  never remove newly exposed metadata from comparison to make a test pass.
+- Replay the entire source-cohort dictionary, including classification, before
+  execution approval. A source-only API/arity check is not native acceptance.
+
 BRASS TIDE â€” DEVELOPER LESSONS AND REGRESSION INVARIANTS
 23 October 2026 | Distilled from accepted root reviews and failure records
 Use alongside actual native code/tests; old rejected snapshots are not authority.

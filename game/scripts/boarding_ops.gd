@@ -28,7 +28,9 @@ static func ensure(c) -> void:
 	if not c.state.has("boardingLostPeople"):c.state.boardingLostPeople=0
 	for owner in c.state.fleetOwners:
 		for b in owner.boats:
-			if not b.has("boarders"):b.boarders=0
+			ensure_boat(b)
+static func ensure_boat(boat: Dictionary) -> void:
+	if not boat.has("boarders"):boat.boarders=0
 static func message(c,r: Dictionary,text: String) -> Dictionary:
 	r.message=text if r.ok else str(r.get("reason","Operation refused."))
 	if r.ok:c.log_entry(str(r.message))

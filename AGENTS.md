@@ -1,18 +1,16 @@
-## Current source checkpoint —26 October2026
+## Current source checkpoint - 26 October 2026
 
-Private predictions reuse guarded status, unchanged mounts/module totals and
-exact dry/no-work substeps. R13 adds owned status reuse within the same closed
-call:749/0 plus756 preserved comparisons pass;42.081978s including charged setup,
-final owned ledger empty. All physical samples/fallbacks remain; public Damage
-unchanged.146production scripts/24mutable statics;108functional/141combinedunits.
-Build30/24boats;0.031 UNRELEASED. Full release, performance and presentation open.
-R12 broader43 batch remains failed on obsolete campaign credits/price contracts
-and a separate required-report path mismatch. Campaign correction is isolated,
-not accepted. C5 adapter remains source-only. No unchanged native reruns.
-R8B instant memo and sideworkers remain unmerged: no observed timing benefit.
-Only concrete Root-reviewed119s Test Bridge batches/new one-use controls may run.
-Same shared lane, resource caps and owned cleanup; no automatic retry.
-Read BUILD STATUS.txt and task CURRENT.txt before historical handoffs.
+New-boat publication initializes all restore-time per-hull defaults and current
+morale before the boat enters the fleet. Native637/0 covers118 focused checks
+and all519 checks across the original nine campaign scenarios; complete fleet
+JSON equality retained. Receipt+setup44.816399s, owned ledger empty.
+The earlier private prediction optimization passes749/0 plus756 comparisons.
+C5 pilot tooling separately passes212/0 plus harbor's original success terminal.
+146production scripts/24mutable statics;109functional/142combined executions.
+Build30/24boats;0.031 UNRELEASED. Full release/performance/presentation open.
+Historical failures remain failed. Latest task CURRENT.txt supersedes old notes.
+Only reviewed119s Test Bridge batches/new one-use controls may run. Shared lane,
+resource caps and owned cleanup unchanged; no automatic retries.
 
 ## Crash recovery hold — 26 October 2026
 

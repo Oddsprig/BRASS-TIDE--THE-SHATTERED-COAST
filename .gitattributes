@@ -139,3 +139,23 @@
 "game/tests/test_prefix_invariants.gd" -text
 "game/scripts/equipment_rollout_idle.gd" -text
 "game/tests/test_prefix_idle.gd" -text
+
+"game/scripts/campaign.gd" -text
+
+"game/scripts/fleet_identity.gd" -text
+
+"game/scripts/home_ops.gd" -text
+
+"game/scripts/boarding_ops.gd" -text
+
+"game/tests/test_campaign.gd" -text
+
+"game/tests/test_campaign_publication.gd" -text
+
+"docs/RELEASE TEST CONTRACT v2.txt" -text
+
+"docs/DEVELOPER LESSONS.txt" -text
+
+"docs/QA CAMPAIGN PUBLICATION v0.031.txt" -text
+
+"docs/QA CAMPAIGN PUBLICATION v0.031.json" -text

@@ -10,7 +10,10 @@ static func slots(b: Dictionary) -> int:
 static func ensure(c) -> void:
 	Home.ensure(c.state)
 	for b in c.state.fleet:
-		if not b.has("berthArrears"):b.berthArrears=0
+		ensure_boat(b)
+
+static func ensure_boat(boat: Dictionary) -> void:
+	if not boat.has("berthArrears"):boat.berthArrears=0
 
 static func warehouse(c,port_id: String) -> Dictionary:
 	for b in c.state.get("businesses",[]):

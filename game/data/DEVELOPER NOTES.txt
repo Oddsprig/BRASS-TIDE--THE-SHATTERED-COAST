@@ -1,3 +1,25 @@
+26 OCTOBER 2026 - NEW-BOAT SAVE/LOAD FIX VERIFIED
+Newly bought/recovered hulls receive the same seven per-boat defaults and current
+morale scaling before publication that restore applies. New careers also publish
+their canonical morale spec immediately. Existing valid identity, berth arrears,
+boarders, equipment UIDs/condition, hull damage, crew and stores are preserved.
+The helper performs no payment, hiring, healing or restocking.
+
+Test Bridge job 431cfb6008184fa0bc9740cc47c33401:118 focused checks plus519 complete
+campaign checks,637/0. Original nine scenarios, full-fleet JSON equality and
+route/battle/construction/wage horizons remain. 44.816399s including charged
+setup; owned ledger empty; headless/Dummy/shared FIFO,512MiB8%two logical CPUs.
+The old campaign fixture is mapped to current coins, actual quotes, finite
+reward/advance/rescue purses and paid physical construction; obsolete credits
+expectations and every failed attempt remain preserved in task evidence.
+
+Required coverage now103 functional fixtures/109 units and142 unique functional
+plus motion executions, with five supported-load gates. This is a scoped pass,
+not full-suite, performance, rendered/audio or release acceptance.
+Build30/24 boats;0.031 UNRELEASED. No export, launcher, tag or remote publication.
+C5 three-fixture pilot tooling is separately verified:212 numeric checks/0 plus
+harbor's success terminal. It does not certify every scene/resource fixture.
+
 26 OCTOBER2026 — R13 PRIVATE PREDICTION CHECKPOINT
 749checks/0failures plus756 preserved comparisons passed. All193 previous idle
 assertions remain;70 add closed-prefix and subsequent canonical status/boat tests.

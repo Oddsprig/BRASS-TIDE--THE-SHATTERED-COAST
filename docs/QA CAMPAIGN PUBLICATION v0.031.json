@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "classification": "INTEGRATED_NATIVE_VERIFIED_CAMPAIGN_PUBLICATION_FIX",
+  "previous_checkpoint": "5c9e74bb1b4bb5504feb0c046e9cd374174d689d",
+  "job_id": "431cfb6008184fa0bc9740cc47c33401",
+  "checks": 637,
+  "failures": 0,
+  "phase_checks": [
+    118,
+    519
+  ],
+  "all_nine_campaign_scenarios": true,
+  "campaign_fixture_intent_mapping": "qa-sol/qa/campaign-current-contract-r1-sol/INTENT MAPPING.md",
+  "original_save_fleet_equality_retained": true,
+  "setup_debit_seconds": 10,
+  "receipt_plus_setup_seconds": 44.816399335861206,
+  "cleanup_complete": true,
+  "final_owned_pids": [],
+  "maximum_job_memory_bytes": 180584448,
+  "before_files": {
+    "scripts/campaign.gd": "f5880ccf0534bee05da1099c413649296d77970db8e2a83aa43c843ee1d097a9",
+    "scripts/fleet_identity.gd": "84473a53c210f0446919f42a9c040a4c2da293f1833392a8217cd6bc0b8a803a",
+    "scripts/home_ops.gd": "7633b6c2f5abc6ab6188d7991b5fe067c2e4b400308905e96bca5e2d93c5271d",
+    "scripts/boarding_ops.gd": "bf418d5a9e91fd0acc734f7b2115b1ab3ed37e906f62a964a8a33485ef995c76",
+    "tests/test_campaign.gd": "118725a3fd8c2292aa3b0d6d46dab9d0a0ad1f2a7ab316261d9b38c2b7986b57",
+    "tests/test_campaign_publication.gd": null
+  },
+  "after_files": {
+    "scripts/campaign.gd": "25d90d0cae9785cb5c8d1f7e790c57d3c84693bb9571307bb927c8e62e6cecda",
+    "scripts/fleet_identity.gd": "77a00c205a842fd14a4ea99003c6e799b1d39b79ee9535a81d71dab071bb158f",
+    "scripts/home_ops.gd": "0add6c39f671ab9893b09c8bf9b6d88cb99ede61d78e5a4e0a7a5ccc94c76b3d",
+    "scripts/boarding_ops.gd": "261df7829a3ddf67b7f5a2666b8c7f5e0dd84e0470c2a483114e9d7324675e3d",
+    "tests/test_campaign.gd": "ea470f02fc42f7b56729ee98b91b77983e164daa9743f63e06e555fa345d0f43",
+    "tests/test_campaign_publication.gd": "553d445510e865b1fcbb08f37a67a06c1720deed3a4e19bfc7f8ee1fd2ad7ccd"
+  },
+  "production_scripts": 146,
+  "mutable_static_fields": 24,
+  "required_functional_units": 109,
+  "unique_functional_and_motion": 142,
+  "build_number": 30,
+  "release_031": "UNRELEASED",
+  "full_suite_pass": false,
+  "performance_acceptance": false,
+  "preserved_failed_jobs": [
+    "df46182e369a4c28a28d86e0718e8bde",
+    "12a4280fa32d4f16a00458e8bcbf5331",
+    "7dd70ab6f3e04af8a430dd25be15e403",
+    "46d25f6f1a284e7db15e7bbd50420847"
+  ],
+  "limits": "Scoped campaign and publication acceptance only. Complete release regression, supported-load performance, rendered motion, audio, export remain open."
+}

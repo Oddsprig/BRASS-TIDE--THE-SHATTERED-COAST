@@ -445,18 +445,21 @@ func apply_economy(ports: Array, messages: Array, days: int):
 func apply_morale():
 	var factor: float = clampf(state.morale/85.0,0.35,1.0)
 	for boat in state.fleet:
-		# Morale scales the canonical fitted design, never a stale or serialized spec.
-		var base: Dictionary = FleetIdentity.effective(boat,fitted_spec(boat))
-		boat.spec=base.duplicate(true)
-		boat.economyFactor = factor
-		boat.spec.speed = float(base.speed)*factor
-		boat.spec.fireRate = float(base.fireRate)*factor
-		var mounts = base.get("weaponMounts")
-		var live = boat.spec.get("weaponMounts")
-		if mounts is Array and live is Array and mounts.size() == live.size():
-			for i in range(mounts.size()):
-				if mounts[i] is Dictionary and live[i] is Dictionary and mounts[i].has("fireRate"):
-					live[i].fireRate = float(mounts[i].fireRate)*factor
+		_apply_boat_morale(boat, factor)
+
+func _apply_boat_morale(boat: Dictionary, factor: float) -> void:
+	# Morale scales the canonical fitted design, never a stale or serialized spec.
+	var base: Dictionary = FleetIdentity.effective(boat,fitted_spec(boat))
+	boat.spec=base.duplicate(true)
+	boat.economyFactor = factor
+	boat.spec.speed = float(base.speed)*factor
+	boat.spec.fireRate = float(base.fireRate)*factor
+	var mounts = base.get("weaponMounts")
+	var live = boat.spec.get("weaponMounts")
+	if mounts is Array and live is Array and mounts.size() == live.size():
+		for i in range(mounts.size()):
+			if mounts[i] is Dictionary and live[i] is Dictionary and mounts[i].has("fireRate"):
+				live[i].fireRate = float(mounts[i].fireRate)*factor
 
 func pay_wage_arrears() -> Dictionary:
 	var amount: int = mini(int(state.coins),int(state.wageArrears))
@@ -596,6 +599,14 @@ func find_boat(uid: String) -> Dictionary:
 			return boat
 	return {}
 
+## Publish the same per-hull defaults and current morale that restore applies.
+## Domain helpers preserve existing valid fields; this never heals or pays anyone.
+func _initialize_published_boat(boat: Dictionary) -> void:
+	FleetIdentity.ensure_boat(boat)
+	HomeOps.ensure_boat(boat)
+	BoardingOps.ensure_boat(boat)
+	_apply_boat_morale(boat, clampf(state.morale/85.0,0.35,1.0))
+
 ## Empty staged is only Salvage._publish_tow, which still calls add_boat(spec, 0).
 ## That shell does not seed. A paid caller passes an accepted stage_birth result.
 func add_boat(h: Dictionary, crew: int = 0, staged: Dictionary = {}) -> Dictionary:
@@ -615,6 +626,7 @@ func add_boat(h: Dictionary, crew: int = 0, staged: Dictionary = {}) -> Dictiona
 	boat.supplies = 0.0
 	if not fresh:
 		boat.hp = clampf(float(staged.get("hullHp", boat.hp)), 0.0, float(boat.maxHp))
+	_initialize_published_boat(boat)
 	state.fleet.append(boat)
 	return boat
 
@@ -626,6 +638,7 @@ func _legacy_tow_shell(h: Dictionary, crew: int) -> Dictionary:
 	boat.mothballed = crew < boat.crewMin
 	boat.storedPort = ""
 	fit_boat(boat, true)
+	_initialize_published_boat(boat)
 	state.fleet.append(boat)
 	return boat
 
@@ -639,6 +652,7 @@ func publish_career(candidate: Dictionary, prior_state: Dictionary, prior_pendin
 		return fail(str(prepared.get("message", "New career was refused.")))
 	state = prepared.state
 	_refit_published()
+	apply_morale()
 	return ok("Career published.")
 
 func _refit_published() -> void:

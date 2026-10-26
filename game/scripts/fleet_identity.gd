@@ -121,15 +121,20 @@ static func ensure(state: Dictionary) -> Array:
 	state["specialistSeq"] = maxi(int(_num(state.get("specialistSeq", 0))), max_suffix)
 	for boat in state.get("fleet", []) if state.get("fleet") is Array else []:
 		if boat is Dictionary:
-			if not CONVERSIONS.has(str(boat.get("conversion", ""))):
-				boat["conversion"] = ""
-			if not (boat.get("specialistActive") is Dictionary):
-				boat["specialistActive"] = {}
-			if not (boat.get("serviceHistory") is Array):
-				boat["serviceHistory"] = []
-			if not (boat.get("service") is Dictionary):
-				boat["service"] = {}
+			ensure_boat(boat)
 	return cleaned
+
+
+## Canonical identity defaults for one newly published hull; no people or purse changes.
+static func ensure_boat(boat: Dictionary) -> void:
+	if not CONVERSIONS.has(str(boat.get("conversion", ""))):
+		boat["conversion"] = ""
+	if not (boat.get("specialistActive") is Dictionary):
+		boat["specialistActive"] = {}
+	if not (boat.get("serviceHistory") is Array):
+		boat["serviceHistory"] = []
+	if not (boat.get("service") is Dictionary):
+		boat["service"] = {}
 
 
 static func conversions() -> Dictionary:
