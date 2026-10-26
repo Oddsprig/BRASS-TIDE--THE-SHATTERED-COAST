@@ -13,7 +13,7 @@ var failures: Array=[]
 
 func check(ok: bool,message: String) -> void:
 	checks+=1
-	if not ok:failures.append(message);print("FAIL runtime_performance040: "+message)
+	if not ok:failures.append(message);print("FAIL runtime_performance041: "+message)
 
 func valid(st: Dictionary) -> bool:
 	for ship in st.ships:
@@ -151,9 +151,9 @@ func run(world: Dictionary) -> int:
 	var folder: String=OS.get_environment("GAME_TEST_ARTIFACTS")
 	check(not folder.is_empty(),"GAME_TEST_ARTIFACTS supplies the output destination")
 	if not folder.is_empty():DirAccess.make_dir_recursive_absolute(folder)
-	var file=FileAccess.open(folder.path_join("RUNTIME PERFORMANCE v0.040.json"),FileAccess.WRITE) if not folder.is_empty() else null
+	var file=FileAccess.open(folder.path_join("RUNTIME PERFORMANCE v0.041.json"),FileAccess.WRITE) if not folder.is_empty() else null
 	check(file!=null,"runtime performance artifact opens")
 	r.checks=checks;r.failures=failures;r.passed=failures.is_empty()
 	if file!=null:file.store_string(JSON.stringify(r,"\t"));file.close()
-	print("RUNTIME_PERFORMANCE040 %d checks, %d failures"%[checks,failures.size()])
+	print("RUNTIME_PERFORMANCE041 %d checks, %d failures"%[checks,failures.size()])
 	return 0 if failures.is_empty() else 1
