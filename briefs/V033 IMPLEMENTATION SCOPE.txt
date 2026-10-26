@@ -1,0 +1,31 @@
+V0.033 - INDEPENDENT CAMPAIGN FLEETS
+Owner26October2026: stick to the scope of each one.
+Accepted predecessor v0.032 source1ac7789; delivery6482f84.
+Bridge: Systems Sol6.1MAX e282ed, Flow Sol6.1MAX965e39,
+Muse Wonder MEDIUM a1dd20. Root integrates and owns all native work.
+
+Systems owns naval_ai.gd/naval_orders.gd/naval_combat.gd and one new fixture.
+Finish at-sea daily retargeting through existing selectors and target routes.
+Expose NavalAI.scan_encounters(core)->Array campaign log messages.
+The existing spatial/skirmish system must obey one shared saved daily ledger:
+at most4 encounters/day, at most1 per owner/day, even with multiple scans.
+Keep story/player-company exclusions, recovery authority and finite stores.
+
+Flow owns naval_lifecycle.gd/fleet_economy.gd and one new fixture.
+Scan at most once per simulated second without catch-up storms.
+Apply existing homeward routing promptly to withdraw/repair orders.
+At home, non-trader NPC owners may sell captured non-operating cargo through
+the existing market, actual port cash, goods, trade permission and owner purse.
+Keep working food/fuel/supplies/ammunition and reuse paid physical repair.
+
+Wonder reviews only changed paths for definite defects and player-observable
+order/log clarity. No speculative extra architecture or acceptance expansion.
+No new navigation, civilian careers, supplied operations or general polish.
+No helper engines/imports/exports/tests/GPU/control/nested helpers.
+
+Acceptance: actual hostile NPC contact, repeated-call cap/day reset,
+at-sea response, withdrawal route, finite prize sale and paid repair;
+existing coins/people/goods conservation must remain.
+Root runs only short focused fixtures, exports and portable startups through
+shared TestBridge; entire selected batch including setup/cleanup<120seconds.
+Package/tag/Desktop this step before v0.034. Preserve failures and earlier builds.

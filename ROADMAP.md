@@ -1,9 +1,9 @@
-# Current step: v0.032 - Convoy and recovery battles
+# Current step: v0.033 - Independent campaign fleets
 
-- Loaded convoy carriers must physically reach a marked exit; waiting or destroying escorts alone does not complete the passage.
-- Escort and interception outcomes retain each carrier fate and actual cargo, including escaped hulls and captured prizes.
-- Tow, strip or leave marked wrecks through the real voyage/recovery flow; loose cargo does not dismantle a towable hull.
-- Settled outcomes save before leaving the report; recovery and prize transfers use finite cargo, crew, equipment condition and existing paid service.
+- Existing raiders and patrols refresh their objectives at sea; hostile NPC fleets can meet and fight between daily economy ticks.
+- Daily and midday encounter scans share saved limits of four fights per day and one fight per owner, preserving actual ammunition, damage and cargo.
+- Retreating survivors promptly use existing homeward routes and paid harbor repair; captured trade goods can be sold at home through real market stocks and purses.
+- The coastal traffic board and captain's log expose nearby fleet business and witnessed results; distant NPC fights continue in the full developer records.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

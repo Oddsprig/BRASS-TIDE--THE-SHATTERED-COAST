@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.032)
+BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.033)
 
 Physical part condition and exact spare/new selection -> real refit/repair UI and96-hull drafts. NPC/company owners pay conserved coins, finite materials and workers; installed condition affects offscreen power. Canonical careers and saves are integrated; live battle is now a working integration candidate; remaining gates stay open.
 
@@ -45,20 +45,20 @@ game/scripts/equipment_owner_service.gd: 37514 bytes; extends RefCounted
   game/scripts/equipment_owner_service.gd:138 allowed_port_service()
   game/scripts/equipment_owner_service.gd:305 owner_service_quote()
   game/scripts/equipment_owner_service.gd:329 repair_owner_boat()
-game/scripts/fleet_economy.gd: 17220 bytes; extends RefCounted
+game/scripts/fleet_economy.gd: 18139 bytes; extends RefCounted
   game/scripts/fleet_economy.gd:26 normalize_owner()
   game/scripts/fleet_economy.gd:47 upkeep()
   game/scripts/fleet_economy.gd:57 total_coins()
   game/scripts/fleet_economy.gd:63 create_owners()
   game/scripts/fleet_economy.gd:129 subsidize()
   game/scripts/fleet_economy.gd:146 allowed_trade()
-game/scripts/naval_combat.gd: 21879 bytes; extends RefCounted
+game/scripts/naval_combat.gd: 22751 bytes; extends RefCounted
   game/scripts/naval_combat.gd:21 spatial_index()
-  game/scripts/naval_combat.gd:61 are_hostile()
-  game/scripts/naval_combat.gd:79 nearby_hostile_pairs()
-  game/scripts/naval_combat.gd:164 boat_weapon_power()
-  game/scripts/naval_combat.gd:168 fleet_firepower()
-  game/scripts/naval_combat.gd:277 resolve_encounter()
+  game/scripts/naval_combat.gd:64 are_hostile()
+  game/scripts/naval_combat.gd:82 nearby_hostile_pairs()
+  game/scripts/naval_combat.gd:171 boat_weapon_power()
+  game/scripts/naval_combat.gd:175 fleet_firepower()
+  game/scripts/naval_combat.gd:284 resolve_encounter()
 
 TESTS (game/tests/*.gd)
 Current merged actual Main/Interface UI167/0, NPC140/0 and naval AI227/0: docs/ROOT COMBINED EQUIPMENT VERIFICATION. Prior standalone UI168/0 and unchanged legacy fleet economy1266/0 are historical component evidence under ROOT EQUIPMENT INTERFACES INTEGRATION.

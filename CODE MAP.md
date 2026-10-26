@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.032: Convoy and recovery battles. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: battle.gd, battle_objectives.gd, escort_ops.gd, campaign.gd::battle_settled, recovery_flow.gd, recovery_ui.gd, main.gd::settle_battle.
+v0.033: Independent campaign fleets. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: naval_ai.gd::scan_encounters, naval_ai.gd::tick, naval_orders.gd, naval_combat.gd, naval_lifecycle.gd::step, fleet_economy.gd::dock.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

@@ -1,3 +1,13 @@
+26OCT2026 - V0.032 FOCUSED TEST LESSONS
+A convoy with multiple mandatory carriers is unfinished until ALL assigned
+carriers resolve. Boarding only the first carrier is a fixture error; preserve
+the physical objective and use existing sailors to capture every carrier.
+For complete saved wreck-record comparisons, compare the JSON representation
+on both sides. Raw in-memory floating-point values may differ from serialized
+values. Keep every field, plus independent cargo/crew/coins/UID checks.
+Original failures ef437376 and d9d233 remain; corrected full selected batch
+TestBridge d08ed9fe34464bf9ae5c4625b31aa5ba passed119/0 in44.135seconds.
+Do not widen a focused early build into speculative full-game acceptance.
 26 OCTOBER2026 - PUBLICATION AND RESTORE MUST AGREE
 - Initialize each new player hull with the same domain defaults and canonical
   current-morale spec as restore, before appending it. Cover both paid/staged
