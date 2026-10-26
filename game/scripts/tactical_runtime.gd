@@ -91,7 +91,7 @@ static func _survival_override(st: Dictionary,ship: Dictionary,frame_cache=null)
 	# explicit order with survival permission, still break for flood, dry guns, or no fuel.
 	if order!="engage" and not conditional:return false
 	if float(ship.get("fuel",0.0))<=0.0:return true
-	if float(Damage.get_status_cached(ship,frame_cache).get("weaponFactor",1.0))<=0.01:return true
+	if float(Damage.read_status_cached(ship,frame_cache).get("weaponFactor",1.0))<=0.01:return true
 	for mount in t.mountCache.get(id,{}).get("mounts",[]):
 		if float(ship.get("ammo",0.0))>=float(mount.get("ammoCost",1.0)) and float(mount.get("damage",0.0))>0.0:return false
 	return true
@@ -209,7 +209,7 @@ static func _own(ship: Dictionary,mounts: Array,frame_cache=null) -> Dictionary:
 	for key in ["id","size","speed","turn","fuelUse","armor","role","tier","hp","pumps","repairFactor"]:
 		if ship.spec.has(key):out.spec[key]=ship.spec[key]
 	out.weaponCooldowns=ship.get("weaponCooldowns",[]).duplicate()
-	out.status=Damage.get_status_cached(ship,frame_cache).duplicate(true)
+	out.status=Damage.read_status_cached(ship,frame_cache).duplicate(true)
 	return out
 
 static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dictionary:
@@ -323,7 +323,7 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	var age: float=now-float(t.lastSafety.get(id,0.0))
 	# Resolve current condition before the cadence gate, then share that status.
 	# The frame cache still validates live equipment changes on every check.
-	var status: Dictionary=Damage.get_status_cached(ship,frame_cache)
+	var status: Dictionary=Damage.read_status_cached(ship,frame_cache)
 	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,previous,status,frame_cache)
 	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-0.01 or equip_abrupt)
 	if age<0.1-0.000001 and not abrupt and not previous.is_empty():return
@@ -376,9 +376,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	t.dt=dt;t.snapshotRevision+=1
 	t.metrics={"aiUs":0,"activeCount":0,"normalLimit":0,"decisionAges":[],"safetyAges":[],"certificateAges":[],"certificationAges":[],"certificationAttemptAges":[],"orderApplyAges":[],"pendingAges":[],"droppedDecisions":0}
 	# Short per-step attribution at existing seams; no retained profiling state.
-	# physicalCertification is inside certification; helmCurrent/helmSafety are
+	# liveCertification is inside certification; helmCurrent/helmSafety are
 	# inside helmTotal. These clocks never participate in a tactical decision.
-	t.metrics.planningDetailUs={"observation":0,"snapshots":0,"proposals":0,"certification":0,"physicalCertification":0,"resolution":0,"beginTotal":0,"helmCurrent":0,"helmSafety":0,"helmTotal":0}
+	t.metrics.planningDetailUs={"observation":0,"snapshots":0,"proposals":0,"certification":0,"physicalCertification":0,"liveCertification":0,"resolution":0,"beginTotal":0,"helmCurrent":0,"helmSafety":0,"helmTotal":0}
 	t.metrics.planningCalls={"candidates":0,"certify":0,"helm":0}
 	var detail: Dictionary=t.metrics.planningDetailUs
 	var phase_started: int=0
@@ -411,14 +411,18 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var bp: float=float(t.lastDecision.get(b,0.0))
 		if ap!=bp:return ap<bp
 		return aa<bb if aa!=bb else str(a)<str(b))
-	var cap: int=maxi(1,ceili(float(queued.size())/6.0))
+	var cap: int=maxi(1,ceili(float(queued.size())/10.0))
 	t.metrics.activeCount=queued.size();t.metrics.normalLimit=cap
 	var due: Array=[]
 	for id in queued:
 		if id==t.manualId:continue
 		var certified_age: float=float(st.time)-float(t.lastCertified.get(id,0.0))
 		t.metrics.certificationAges.append(certified_age)
-		if due.size()<cap:due.append(id)
+		# Renew before the existing 0.2s lease ends. Commands and rejected
+		# maneuvers remain immediately eligible; stable plans need no per-tick
+		# proposal, full route certification or detached world reconstruction.
+		var last: float=float(t.lastDecision.get(id,-1.0))
+		if due.size()<cap and (last<0.0 or float(st.time)-last>=0.15-0.000001 or not t.intents.has(id)):due.append(id)
 	var snapshots: Dictionary={}
 	# These detached bundles exist only during this synchronous begin.
 	# Certification changes clearanceRemaining, not planning observations.
@@ -476,12 +480,12 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if refined.status=="valid":
 				var certify_started: int=Time.get_ticks_usec()
 				t.metrics.planningCalls.certify+=1
-				cert=Certification.certify(st,snapshot,ship,candidate,fingerprint,t.budget,membership)
-				detail.physicalCertification+=Time.get_ticks_usec()-certify_started
+				cert=Certification.certify_live(st,snapshot,ship,candidate,fingerprint,t.budget,membership,frame_cache)
+				detail.liveCertification+=Time.get_ticks_usec()-certify_started
 			else:
 				cert.status=refined.status
 				cert.reason="Checking a route around land" if refined.status=="pending" else "No clear route to this station"
-			if cert.status=="blocked" or int(cert.rolloutSamples)>0:real_attempt=true
+			if cert.status in ["valid","blocked"] or int(cert.rolloutSamples)>0:real_attempt=true
 			offers[side].append({"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)})
 			t.reasons[id]=str(cert.reason)
 			if cert.status=="valid":break
@@ -694,7 +698,7 @@ static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dict
 		for mount in t.mountCache[id].mounts:t.fireReasons[id][str(mount.id)]="Checking the firing maneuver"
 		return out
 	var mounts: Array=t.mountCache[id].mounts
-	var ship_status: Dictionary=Damage.get_status_cached(ship,frame_cache) if not mounts.is_empty() else {}
+	var ship_status: Dictionary=Damage.read_status_cached(ship,frame_cache) if not mounts.is_empty() else {}
 	for index in range(mounts.size()):
 		var mount: Dictionary=mounts[index]
 		var target_id: String=str(intent.get("fireGate",{}).get(str(mount.id),{}).get("targetId",""))

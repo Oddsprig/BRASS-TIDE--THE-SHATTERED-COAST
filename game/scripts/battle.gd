@@ -474,7 +474,7 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 	var mounts: Array=_combat_mounts(st,s,frame_cache)
 	_sync_cooldowns(s,mounts.size())
 	CombatEvents.sync_mount_shots(s,mounts)
-	var status: Dictionary=Damage.get_status_cached(s,frame_cache)
+	var status: Dictionary=Damage.read_status_cached(s,frame_cache)
 	if not bool(status.get("equipmentOk",true)) or status.weaponFactor<=0.01:
 		return
 	for i in range(mounts.size()):
@@ -531,7 +531,7 @@ static func _nearest(st: Dictionary,s: Dictionary) -> Dictionary:
 	return best
 
 static func _move(st: Dictionary,s: Dictionary,dt: float,desired: float,throttle: float,boost: bool,frame_cache=null) -> void:
-	var next: Dictionary=Certification._motion_with_status(s,dt,desired,throttle,boost,Damage.get_status_cached(s,frame_cache))
+	var next: Dictionary=Certification._motion_with_status(s,dt,desired,throttle,boost,Damage.read_status_cached(s,frame_cache))
 	s.angle=next.angle
 	var velocity: Vector2=Vector2(next.vx,next.vy)
 	var point: Vector2=Vector2(next.x,next.y)
@@ -731,8 +731,10 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 				select_flagship(st,s.id)
 				break
 	var ai_us: int=0
-	var ai_phases: Dictionary={"mounts":0,"planning":0,"lanes":0,"firing":0,"trace":0}
-	var frame_cache: Dictionary={}
+	var ai_phases: Dictionary={"damage":0,"mounts":0,"planning":0,"lanes":0,"firing":0,"trace":0}
+	var frame_cache: Dictionary=Tactical.ensure(st).get("damageCache",{})
+	st.tactical.damageCache=frame_cache
+	Damage.begin_frame_cache(frame_cache,st.ships)
 	# One complete prepass precedes either side's snapshot or helm. In particular
 	# the manual flagship never receives a second damage/cooldown decrement.
 	for s in st.ships:
@@ -740,7 +742,9 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		if s.sunk:
 			continue
 		# Exactly one decrement of each timer, including the manual flagship.
+		var damage_started: int=Time.get_ticks_usec()
 		Damage.tick_ship(s,dt,{"inCombat":true},frame_cache)
+		ai_phases.damage+=Time.get_ticks_usec()-damage_started
 		var mount_started: int=Time.get_ticks_usec()
 		var cached_mounts: Array=_combat_mounts(st,s,frame_cache)
 		var mount_us: int=Time.get_ticks_usec()-mount_started
@@ -763,7 +767,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			continue
 		if id==manual_id:
 			var steer: float=(1.0 if input.get("right",false) else 0.0)-(1.0 if input.get("left",false) else 0.0)
-			var turn_step: float=float(s.spec.get("turn",1.8))*clampf(Damage.number(Damage.get_status_cached(s,frame_cache).get("turnFactor"),1.0),0.0,1.0)
+			var turn_step: float=float(s.spec.get("turn",1.8))*clampf(Damage.number(Damage.read_status_cached(s,frame_cache).get("turnFactor"),1.0),0.0,1.0)
 			var desired: float=s.angle+steer*turn_step*dt
 			var throttle: float=(1.0 if input.get("forward",false) else 0.0)-(0.55 if input.get("backward",false) else 0.0)
 			controls[id]={"angle":desired,"throttle":throttle,"boost":input.get("boost",false)}
@@ -771,10 +775,12 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	ai_phases.planning=Time.get_ticks_usec()-planning_started
 	ai_phases.helm=int(ai_phases.planning)-int(ai_phases.begin)
 	ai_us+=int(ai_phases.planning)
+	var motion_started: int=Time.get_ticks_usec()
 	for id in active_ids:
 		var s: Dictionary=st.tactical.ships[id]
 		var control: Dictionary=controls.get(id,{"angle":s.angle,"throttle":0.0})
 		_move(st,s,dt,float(control.angle),float(control.throttle),bool(control.get("boost",false)),frame_cache)
+	ai_phases.motion=Time.get_ticks_usec()-motion_started
 	var lanes_started: int=Time.get_ticks_usec()
 	Tactical.after_motion(st)
 	ai_phases.lanes=Time.get_ticks_usec()-lanes_started
@@ -795,11 +801,13 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			_fire(st,s,Vector2.ZERO,{},true,gates,frame_cache)
 			var firing_us: int=Time.get_ticks_usec()-fire_started
 			ai_us+=firing_us;ai_phases.firing+=firing_us
-	Damage.clear_frame_cache(frame_cache)
+	var contact_started: int=Time.get_ticks_usec()
 	BoardingCombat.tick(st,dt)
 	_collisions(st)
+	ai_phases.contact=Time.get_ticks_usec()-contact_started
+	var projectile_started: int=Time.get_ticks_usec()
 	_projectiles(st,dt,frame_cache)
-	Damage.clear_frame_cache(frame_cache)
+	ai_phases.projectiles=Time.get_ticks_usec()-projectile_started
 	var finish_started: int=Time.get_ticks_usec()
 	Tactical.finish(st,ai_us)
 	ai_phases.trace=Time.get_ticks_usec()-finish_started

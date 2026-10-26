@@ -1,5 +1,5 @@
 extends RefCounted
-## Full corridor geometry, 0.3-second physical prefix, 0.2-second authority.
+## Complete routes plus live 60Hz clearance; retained physical-prefix API for forecasts.
 const Planner=preload("res://scripts/tactical_planner.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
 const Fire=preload("res://scripts/tactical_fire_control.gd")
@@ -15,19 +15,28 @@ const HULL_CLEARANCE_MARGIN: float=4.0
 static func pose(ship: Dictionary) -> Dictionary:
 	return EquipmentRollout.pose(ship)
 
+static func _motion_inputs(ship: Dictionary) -> Array:
+	return [ship.spec.get("size",16),ship.spec.get("speed",90),ship.spec.get("turn",1.8),ship.spec.get("fuelUse",1),ship.spec.get("pumps",0),ship.spec.get("repairFactor",1),ship.get("supportRepairFactor",1),ship.crewMin,ship.crewOptimal,ship.capacity,ship.policy,ship.get("shoreCrew",0),float(ship.fuel)>0.0,float(ship.engine)>0.0,float(ship.crew)-float(ship.wounded)>=float(ship.crewMin)]
+
 static func dynamics_key(ship: Dictionary) -> String:
 	# Gradual bailing/repair is predicted, not byte-hashed into immutable inputs.
-	return JSON.stringify([ship.spec.get("size",16),ship.spec.get("speed",90),ship.spec.get("turn",1.8),ship.spec.get("fuelUse",1),ship.spec.get("pumps",0),ship.spec.get("repairFactor",1),ship.get("supportRepairFactor",1),ship.crewMin,ship.crewOptimal,ship.capacity,ship.policy,ship.get("shoreCrew",0),float(ship.fuel)>0.0,float(ship.engine)>0.0,float(ship.crew)-float(ship.wounded)>=float(ship.crewMin)]).sha256_text()
+	return JSON.stringify(_motion_inputs(ship)).sha256_text()
+
+static func _live_capability(ship: Dictionary, status: Dictionary) -> Array:
+	return [ship.hp,ship.water,ship.fire,ship.engine,ship.crew,ship.wounded,status.speedFactor,status.turnFactor,status.weaponFactor,status.get("engineFactor",0.0),status.get("pumpFactor",0.0),status.get("armorFactor",0.0),status.get("weaponFactors",{}),status.get("repairPriority","auto"),status.get("equipmentOk",false)]
+
+static func _live_equipment(ship: Dictionary) -> Array:
+	return [ship.get("moduleCondition"),ship.spec,ship.get("baseSpec"),ship.get("loadout")]
 
 static func capability(ship: Dictionary,mask_override: float=NAN,frame_cache=null) -> Dictionary:
-	var status: Dictionary=Damage.get_status_cached(ship,frame_cache) if frame_cache is Dictionary else Damage.get_status(ship)
+	var status: Dictionary=Damage.read_status_cached(ship,frame_cache) if frame_cache is Dictionary else Damage.get_status(ship)
 	return _capability_with_status(ship,status,mask_override,frame_cache)
 
 static func _capability_with_status(ship: Dictionary,status: Dictionary,mask_override: float=NAN,frame_cache=null) -> Dictionary:
 	return EquipmentRollout.capability_with_status(ship,status,mask_override,frame_cache)
 
 static func motion(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool=false,frame_cache=null) -> Dictionary:
-	var status: Dictionary=Damage.get_status_cached(ship,frame_cache) if frame_cache is Dictionary else Damage.get_status(ship)
+	var status: Dictionary=Damage.read_status_cached(ship,frame_cache) if frame_cache is Dictionary else Damage.get_status(ship)
 	return _motion_with_status(ship,dt,desired,throttle,boost,status)
 
 static func _motion_with_status(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool,status: Dictionary) -> Dictionary:
@@ -118,6 +127,12 @@ static func corridor(st: Dictionary,ship: Dictionary,candidate: Dictionary,budge
 	return {"status":"valid","eta":elapsed,"reason":"Route clear"}
 
 static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array=[]) -> Dictionary:
+	return _certify(st,view,ship,candidate,fingerprint,budget,membership,false,null)
+
+static func certify_live(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array=[],frame_cache=null) -> Dictionary:
+	return _certify(st,view,ship,candidate,fingerprint,budget,membership,true,frame_cache)
+
+static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array,live_step: bool,frame_cache) -> Dictionary:
 	var cert: Dictionary=base_certificate(view,ship,candidate,fingerprint)
 	if not candidate_valid(candidate,view,ship,membership):
 		cert.status="blocked";cert.reason="Weapon assignment outside bounded observed targets";return cert
@@ -135,18 +150,28 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 		sub_dt=STEP
 	# A budget refusal is pending, never evidence of a blocked route. Do not
 	# recompute full corridors for a hull that cannot receive another rollout.
-	if budget.rolled.has(id) or int(budget.rollouts)>=16 or int(budget.samples)+Planner.CERT_PREFIX_STEPS*parts>840:
+	if budget.rolled.has(id) or (not live_step and (int(budget.rollouts)>=16 or int(budget.samples)+Planner.CERT_PREFIX_STEPS*parts>840)):
 		budget.exhaustions+=1;cert.reason="Checking the next safe maneuver";return cert
 	var full: Dictionary=corridor(st,ship,candidate,budget)
 	cert.eta=full.eta
 	if full.status!="valid":cert.status=full.status;cert.reason=full.reason;return cert
-	budget.rolled[id]=true;budget.rollouts+=1
+	budget.rolled[id]=true
+	if not live_step: budget.rollouts+=1
 	var live_ship: Dictionary=st.get("tactical",{}).get("ships",{}).get(id,ship)
-	var prefix: Dictionary=EquipmentRollout.prefix(st,ship,candidate,budget,cert,sub_dt,parts,null,Planner.CERT_PREFIX_STEPS)
-	if not prefix.ok:return cert
-	var predicted: Array=prefix.poses
-	var capabilities: Array=prefix.capabilities
-	var primary: Array=prefix.primary
+	var predicted: Array=[pose(live_ship)]
+	var capabilities: Array=[]
+	var primary: Array=primary_mounts(ship.mounts,candidate)
+	if not live_step:
+		var prefix: Dictionary=EquipmentRollout.prefix(st,ship,candidate,budget,cert,sub_dt,parts,null,Planner.CERT_PREFIX_STEPS)
+		if not prefix.ok:return cert
+		predicted=prefix.poses;capabilities=prefix.capabilities;primary=prefix.primary
+	else:
+		# The live helm already integrates this exact next step, sweeps land/allies
+		# before movement and resolves actual contacts. Replaying eighteen future
+		# damage/repair states bought no extra authority over those live checks.
+		cert.scope=Planner.LIVE_CERT_SCOPE
+		cert.physicalHorizonEnd=float(view.time)+Planner.CERT_SECONDS
+	var live_status: Dictionary=Damage.read_status_cached(live_ship,frame_cache)
 	var target: Dictionary=st.tactical.observed.get(str(candidate.get("targetId","")),{})
 	# Firing access at the proposed station is geometric/observed prediction;
 	# current live fire gates still require a fresh physical intercept every tick.
@@ -162,8 +187,8 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 		var station: Vector2=Routes.point(ship)
 		if not candidate.get("approach",[]).is_empty():station=candidate.approach[-1]
 		arrival=Routes.point(ship).distance_to(station)/maxf(1.0,float(ship.spec.get("speed",90))*float(ship.status.speedFactor))
-		var at_station: Dictionary=live_ship.duplicate(true)
-		at_station.mounts=ship.mounts.duplicate(true)
+		var at_station: Dictionary=live_ship.duplicate()
+		at_station.mounts=ship.mounts
 		at_station.x=station.x;at_station.y=station.y
 		if Routes.point(ship).distance_to(station)<14.0:
 			at_station.angle=float(predicted[-1].angle)
@@ -174,10 +199,10 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 			if not mount_id in candidate.fireMountIds:continue
 			var mount_target_id: String=mount_target(candidate,mount_id)
 			var mount_target_ship: Dictionary=st.tactical.observed.get(mount_target_id,{})
-			var now_shot: Dictionary=Fire.solution(st,live_ship,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true)
+			var now_shot: Dictionary=Fire.solution(st,live_ship,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true,frame_cache,live_status)
 			if now_shot.ok:current_window=true
 			elif str(now_shot.get("status",""))=="pending":fire_pending=true
-			var shot: Dictionary=Fire.solution(st,at_station,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true)
+			var shot: Dictionary=Fire.solution(st,at_station,mount,mount_target_ship,budget,st.tactical.geometry,st.tactical.cells,true,true,frame_cache,live_status)
 			if shot.ok:station_window=true
 			elif str(shot.get("status",""))=="pending":fire_pending=true
 			if now_shot.ok or shot.ok:
@@ -188,14 +213,18 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 			cert.reason="Checking firing lanes" if cert.status=="pending" else "No usable firing lane at this station"
 			return cert
 	cert.status="valid";cert.reachable=true;cert.exitReachable=true
-	cert.validUntil=float(view.time)+Planner.CERT_SECONDS;cert.physicalHorizonEnd=float(view.time)+Planner.CERT_PREFIX_SECONDS
+	cert.validUntil=float(view.time)+Planner.CERT_SECONDS
+	cert.physicalHorizonEnd=float(view.time)+(Planner.CERT_SECONDS if live_step else Planner.CERT_PREFIX_SECONDS)
 	cert.fireWindow={"from":float(view.time)+arrival,"until":float(view.time)+arrival+(1.2 if station_window else 0.0),"mountIds":firing,"mountTargets":certified_targets}
 	cert.risk=clampf(float(ship.water)/maxf(1.0,float(ship.capacity)),0.0,1.0)
-	cert.reason="Route and immediate maneuver checked"
+	cert.reason="Route checked; live clearance at the helm" if live_step else "Route and immediate maneuver checked"
 	if current_window:cert.fireWindow["from"]=float(view.time);cert.fireWindow.until=maxf(float(view.time)+0.2,float(cert.fireWindow.until))
 	var motion_key: String=dynamics_key(ship)
 	cert.dynamicsKey=JSON.stringify([motion_key,capabilities]).sha256_text()
-	st.tactical.predictions[fingerprint]={"poses":predicted,"capabilities":capabilities,"motionKey":motion_key,"sampleDt":sub_dt,"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)}
+	if live_step:
+		st.tactical.predictions[fingerprint]={"owner":live_ship,"motionInputs":_motion_inputs(live_ship),"capabilityInputs":_live_capability(live_ship,live_status).duplicate(true),"equipmentInputs":_live_equipment(live_ship).duplicate(true),"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)}
+	else:
+		st.tactical.predictions[fingerprint]={"poses":predicted,"capabilities":capabilities,"motionKey":motion_key,"sampleDt":sub_dt,"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)}
 	return cert
 
 static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offset: float=0.0,frame_cache=null) -> Dictionary:
@@ -205,7 +234,13 @@ static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offs
 	var cert: Dictionary=record.certificate
 	if str(cert.status)!="valid" or float(st.time)>minf(float(cert.validUntil),float(intent.get("validUntil",-1)))+0.0000001:return {"ok":false,"reason":"Checking the next safe maneuver"}
 	if str(intent.get("candidateId",""))!=str(record.candidate.candidateId) or int(intent.get("snapshotRevision",-1))!=int(cert.snapshotRevision) or int(intent.get("orderRevision",-1))!=int(ship.get("orderRevision",0)):return {"ok":false,"reason":"Following the new order"}
-	if st.tactical.terrainRevision!=cert.terrainRevision or dynamics_key(ship)!=str(record.motionKey):return {"ok":false,"reason":"Conditions changed; checking maneuver"}
+	if st.tactical.terrainRevision!=cert.terrainRevision:return {"ok":false,"reason":"Terrain changed; checking maneuver"}
+	if str(cert.get("scope",""))==Planner.LIVE_CERT_SCOPE:
+		if not is_same(record.get("owner"),ship):return {"ok":false,"reason":"Boat owner changed; checking maneuver"}
+		if _motion_inputs(ship)!=record.motionInputs or _live_equipment(ship)!=record.equipmentInputs or _live_capability(ship,Damage.read_status_cached(ship,frame_cache))!=record.capabilityInputs:
+			return {"ok":false,"reason":"Damage or capability changed; reassessing"}
+		return {"ok":true,"reason":str(intent.get("reason","Following maneuver")),"record":record}
+	if dynamics_key(ship)!=str(record.motionKey):return {"ok":false,"reason":"Conditions changed; checking maneuver"}
 	var age: float=maxf(0.0,float(st.time)-float(cert.checkedAt))
 	var sample_dt: float=float(record.get("sampleDt",STEP))
 	if sample_dt<=0.0:sample_dt=STEP

@@ -4,6 +4,8 @@ const EquipmentDamage = preload("res://scripts/equipment_damage.gd")
 const HULL_DAMAGE_SCALE: float = 0.35
 const CONSTANTS = {"inflowPerArea":0.055,"bailPerCrew":1.65,"pumpRate":2.3,"patchPerCrew":1.8,"patchSupplyPerArea":0.018,"hullRepairPerCrew":0.22,"hullSupplyPerHp":0.35,"fireGrowthPerSec":0.08,"fireSuppressPerCrew":0.65,"moduleHpPerCrew":0.04,"moduleSuppliesPerHp":{"pumps":1.2,"engines":1.5,"weapons":1.0},"portHullCost":3.0,"portWoundCost":12.0,"portPatchCost":0.6,"portSupplyCost":5.0}
 const _UNSET_OWNER: String = "__unset_owner__"
+const OWNER_CACHE_FRAMES: int = 12 # At most 0.2s at the live 60Hz rate.
+const OWNER_CACHE_LIMIT: int = 128
 
 static func number(value, fallback: float = 0.0) -> float:
 	if (value is float or value is int) and not (value is bool) and is_finite(float(value)):
@@ -96,69 +98,64 @@ static func invalidate_frame_cache(frame_cache, s = _UNSET_OWNER) -> void:
 		if entry is Dictionary and is_same(entry.get("shipRef"), s):
 			frame_cache.erase(existing_key)
 
+static func begin_frame_cache(frame_cache: Dictionary, ships: Array) -> void:
+	# Battle owns this cache. No proof survives twelve physics frames or an owner
+	# leaving the encounter, even when all of its values are unchanged.
+	var live: Dictionary = {}
+	for ship in ships:
+		if ship is Dictionary and not ship.get("sunk", false):
+			live[_cache_slot_key(ship)] = ship
+	for slot in frame_cache.keys():
+		var entry: Dictionary = frame_cache[slot]
+		entry.framesLeft = int(entry.get("framesLeft", 0)) - 1
+		if int(entry.framesLeft) <= 0 or not is_same(live.get(_cache_slot_key(entry.shipRef)), entry.shipRef):
+			frame_cache.erase(slot)
+
+static func _status_inputs(s: Dictionary) -> Array:
+	# Fuel magnitude does not affect status; crossing zero does. Cooldowns,
+	# ammunition and pose are live inputs to firing/motion, not this projection.
+	return [s.get("hp"),s.get("maxHp"),s.get("water"),s.get("capacity"),s.get("fire"),s.get("crew"),s.get("wounded"),s.get("shoreCrew",0),s.get("crewMin"),s.get("crewOptimal"),s.get("crewMax"),s.get("supplies"),number(s.get("fuel"))>0.0,s.get("sunk"),s.get("armor"),s.get("policy","balanced"),s.get("supportRepairFactor",1.0),s.get("breaches",[])]
+
+static func _freeze_status(status: Dictionary) -> Dictionary:
+	# Internal readers borrow this immutable projection. Public get_status_cached
+	# returns a detached copy, so callers cannot poison a subsequent live read.
+	for value in status.values():
+		if value is Dictionary or value is Array:
+			value.make_read_only()
+	status.make_read_only()
+	return status
+
 static func _store_cached_info(s: Dictionary, info: Dictionary, frame_cache) -> void:
-	if not (frame_cache is Dictionary) or not (s is Dictionary) or not (info is Dictionary):
-		return
-	if not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical" or not (info.get("snapshot") is Dictionary):
-		return
-	if not (s.get("moduleCondition") is Dictionary) or not (s.moduleCondition.get("items") is Dictionary) or not (s.get("spec") is Dictionary):
-		return
+	if not (frame_cache is Dictionary) or not (s is Dictionary) or not (info is Dictionary): return
+	if not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical" or not (info.get("snapshot") is Dictionary): return
+	if not (s.get("moduleCondition") is Dictionary) or not (s.get("spec") is Dictionary): return
 	var slot: String = _find_cache_slot(s, frame_cache)
 	if slot.is_empty():
 		var preferred: String = _cache_slot_key(s)
-		if not preferred.is_empty() and not frame_cache.has(preferred):
-			slot = preferred
+		if not preferred.is_empty() and not frame_cache.has(preferred): slot = preferred
 		else:
 			var idx: int = frame_cache.size()
-			while frame_cache.has("__ship_%d" % idx):
-				idx += 1
+			while frame_cache.has("__ship_%d" % idx): idx += 1
 			slot = "__ship_%d" % idx
+	if not frame_cache.has(slot) and frame_cache.size() >= OWNER_CACHE_LIMIT:
+		frame_cache.erase(frame_cache.keys()[0])
 	var cond: Dictionary = s.moduleCondition
-	var items: Dictionary = cond.items
-	var item_states: Array = []
-	for uid in items.keys():
-		var item = items[uid]
-		if not (item is Dictionary):
-			return
-		item_states.append({"uid":str(uid),"itemRef":item,"location":str(item.get("location","")),"hp":float(item.get("hp",0.0)),"status":str(item.get("status","")),"typeId":str(item.get("typeId","")),"lockerOrder":int(item.get("lockerOrder",0)),"cause":str(item.get("cause",""))})
-	var breaches_val = s.get("breaches", [])
-	frame_cache[slot] = {"shipRef":s,"shipKeyCount":s.size(),"conditionRef":cond,"condKeyCount":cond.size(),"itemsRef":items,"itemCount":items.size(),"specRef":s.spec,"specMountCount":s.spec.weaponMounts.size() if s.spec.get("weaponMounts") is Array else -1,"baseSpecRef":s.get("baseSpec"),"loadoutRef":s.get("loadout"),"birthNamespace":str(cond.get("birthNamespace","")),"nextItemSeq":int(cond.get("nextItemSeq",-1)),"repairPriority":str(cond.get("repairPriority","")),"hasLegacyEngineSynced":cond.has("legacyEngineSynced"),"legacyEngineSynced":float(cond.get("legacyEngineSynced",0.0)) if cond.has("legacyEngineSynced") else 0.0,"hasEngineScalar":s.has("engine"),"engineScalar":float(s.get("engine",0.0)) if s.has("engine") else 0.0,"hp":number(s.get("hp")),"maxHp":number(s.get("maxHp"),100.0),"water":number(s.get("water")),"capacity":number(s.get("capacity"),200.0),"fire":number(s.get("fire")),"crew":number(s.get("crew")),"wounded":number(s.get("wounded")),"shoreCrew":number(s.get("shoreCrew",0)),"crewMin":number(s.get("crewMin"),2.0),"crewOptimal":number(s.get("crewOptimal"),5.0),"supplies":number(s.get("supplies")),"sunk":bool(s.get("sunk",false)),"armor":number(s.get("armor")),"policy":str(s.get("policy","balanced")),"supportRepairFactor":number(s.get("supportRepairFactor",1.0),1.0),"breachCount":breaches_val.size() if breaches_val is Array else -1,"breachArea":sum_areas(s) if breaches_val is Array else -1.0,"itemStates":item_states,"info":info}
+	var snap: Dictionary = info.snapshot
+	# Native deep equality against detached values replaces dozens of GDScript
+	# validation/reconstruction calls. These are exact comparisons, not hashes.
+	frame_cache[slot] = {"shipRef":s,"shipKeys":s.keys(),"conditionRef":cond,"conditionValue":cond.duplicate(true),"specRef":s.spec,"specValue":s.spec.duplicate(true),"baseSpecRef":s.get("baseSpec"),"baseSpecValue":s.baseSpec.duplicate(true) if s.get("baseSpec") is Dictionary else s.get("baseSpec"),"loadoutRef":s.get("loadout"),"loadoutValue":s.loadout.duplicate(true) if s.get("loadout") is Dictionary else s.get("loadout"),"engineScalar":s.get("engine"),"identity":[s.get("id"),s.get("uid"),s.get("type")],"info":info,"framesLeft":OWNER_CACHE_FRAMES,"statusInputs":_status_inputs(s).duplicate(true),"status":_freeze_status(_status_for_info(s,info)),"healthy":_healthy_canonical_no_work(s,info) and EquipmentDamage._public_tick_context_eligible(s,info,{},frame_cache),"projection":{"hasEngine":snap.installed.has("engine"),"engineHp":snap.engineHp,"refitLocker":s.get("refitLocker",{}).duplicate(true)}}
 
 static func _cache_entry_valid(s: Dictionary, entry: Dictionary) -> bool:
-	if not is_same(entry.get("shipRef"), s) or s.size() != int(entry.get("shipKeyCount", -1)): return false
-	if not (s.get("moduleCondition") is Dictionary) or not is_same(entry.get("conditionRef"), s.moduleCondition): return false
-	if not (s.get("spec") is Dictionary) or not is_same(entry.get("specRef"), s.spec): return false
-	var cur_mount_count: int = s.spec.weaponMounts.size() if s.spec.get("weaponMounts") is Array else -1
-	if cur_mount_count != int(entry.get("specMountCount", -2)) or not is_same(entry.get("baseSpecRef"), s.get("baseSpec")) or not is_same(entry.get("loadoutRef"), s.get("loadout")): return false
-	var cond: Dictionary = s.moduleCondition
-	if cond.size() != int(entry.get("condKeyCount", -1)) or not (cond.get("items") is Dictionary) or not is_same(entry.get("itemsRef"), cond.items): return false
-	var items: Dictionary = cond.items
-	if items.size() != int(entry.get("itemCount", -1)): return false
-	if str(cond.get("birthNamespace", "")) != str(entry.get("birthNamespace", "")) or int(cond.get("nextItemSeq", -1)) != int(entry.get("nextItemSeq", -2)) or str(cond.get("repairPriority", "")) != str(entry.get("repairPriority", "")): return false
-	var has_sync: bool = cond.has("legacyEngineSynced")
-	if has_sync != bool(entry.get("hasLegacyEngineSynced", false)): return false
-	if has_sync and (not EquipmentDamage.Core._unit(cond.get("legacyEngineSynced")) or float(cond.get("legacyEngineSynced")) != float(entry.get("legacyEngineSynced", -1.0))): return false
-	var has_eng: bool = s.has("engine")
-	if has_eng != bool(entry.get("hasEngineScalar", false)): return false
-	if has_eng and (not EquipmentDamage.Core._unit(s.get("engine")) or float(s.get("engine")) != float(entry.get("engineScalar", -1.0))): return false
-	if number(s.get("hp"), NAN) != float(entry.get("hp", -1.0)) or number(s.get("maxHp"), NAN) != float(entry.get("maxHp", -1.0)): return false
-	if number(s.get("water"), NAN) != float(entry.get("water", -1.0)) or number(s.get("capacity"), NAN) != float(entry.get("capacity", -1.0)): return false
-	if number(s.get("fire"), NAN) != float(entry.get("fire", -1.0)) or number(s.get("supplies"), NAN) != float(entry.get("supplies", -1.0)): return false
-	if number(s.get("crew"), NAN) != float(entry.get("crew", -1.0)) or number(s.get("wounded"), NAN) != float(entry.get("wounded", -1.0)) or number(s.get("shoreCrew", 0), NAN) != float(entry.get("shoreCrew", -1.0)): return false
-	if number(s.get("crewMin"), NAN) != float(entry.get("crewMin", -1.0)) or number(s.get("crewOptimal"), NAN) != float(entry.get("crewOptimal", -1.0)): return false
-	if bool(s.get("sunk", false)) != bool(entry.get("sunk", false)) or number(s.get("armor"), NAN) != float(entry.get("armor", -1.0)): return false
-	if str(s.get("policy", "balanced")) != str(entry.get("policy", "")) or number(s.get("supportRepairFactor", 1.0), NAN) != float(entry.get("supportRepairFactor", -1.0)): return false
-	var breaches_val = s.get("breaches", [])
-	if not (breaches_val is Array) or breaches_val.size() != int(entry.get("breachCount", -1)) or sum_areas(s) != float(entry.get("breachArea", -1.0)): return false
-	for st_item in entry.get("itemStates", []):
-		var uid: String = str(st_item.uid)
-		if not items.has(uid): return false
-		var item = items[uid]
-		if not (item is Dictionary) or not is_same(st_item.itemRef, item): return false
-		if float(item.get("hp", -1.0)) != float(st_item.hp) or str(item.get("status", "")) != str(st_item.status) or str(item.get("location", "")) != str(st_item.location) or str(item.get("typeId", "")) != str(st_item.typeId) or int(item.get("lockerOrder", -1)) != int(st_item.lockerOrder) or str(item.get("cause", "")) != str(st_item.cause): return false
-	return true
+	if not is_same(entry.get("shipRef"), s) or s.keys() != entry.get("shipKeys", []): return false
+	if [s.get("id"),s.get("uid"),s.get("type")] != entry.get("identity", []): return false
+	if not (s.get("moduleCondition") is Dictionary) or not is_same(entry.get("conditionRef"),s.moduleCondition) or s.moduleCondition != entry.get("conditionValue"): return false
+	if not (s.get("spec") is Dictionary) or not is_same(entry.get("specRef"),s.spec) or s.spec != entry.get("specValue"): return false
+	if not is_same(entry.get("baseSpecRef"),s.get("baseSpec")) or s.get("baseSpec") != entry.get("baseSpecValue"): return false
+	if not is_same(entry.get("loadoutRef"),s.get("loadout")) or s.get("loadout") != entry.get("loadoutValue"): return false
+	if not EquipmentDamage.Core._unit(s.get("engine")) or s.get("engine") != entry.get("engineScalar"): return false
+	return int(entry.get("framesLeft",0)) > 0
 
-static func _cached_info_or_empty(s, frame_cache) -> Dictionary:
+static func _cached_entry(s, frame_cache) -> Dictionary:
 	if not (frame_cache is Dictionary) or frame_cache.is_empty() or not (s is Dictionary): return {}
 	var slot: String = _find_cache_slot(s, frame_cache)
 	if slot.is_empty(): return {}
@@ -166,7 +163,10 @@ static func _cached_info_or_empty(s, frame_cache) -> Dictionary:
 	if not (entry is Dictionary) or not is_same(entry.get("shipRef"), s): return {}
 	if not _cache_entry_valid(s, entry):
 		frame_cache.erase(slot); return {}
-	return entry.get("info", {})
+	return entry
+
+static func _cached_info_or_empty(s, frame_cache) -> Dictionary:
+	return _cached_entry(s,frame_cache).get("info",{})
 
 static func inspect_owner_cached(s = null, frame_cache = null) -> Dictionary:
 	if not (s is Dictionary) or s.is_empty(): return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": "Boat must be a dictionary."}
@@ -174,11 +174,37 @@ static func inspect_owner_cached(s = null, frame_cache = null) -> Dictionary:
 	if not cached.is_empty(): return cached
 	return EquipmentDamage.inspect_owner(s)
 
-static func get_status_cached(s = null, frame_cache = null) -> Dictionary:
+static func read_status_cached(s = null, frame_cache = null) -> Dictionary:
+	# Read-only, synchronous runtime use. A miss never admits an unvalidated owner.
 	if not (s is Dictionary) or s.is_empty():
 		var invalid: Dictionary = {"ok":false,"mode":"invalid","needsInitialize":false,"error":"A nonempty boat dictionary is required."}
 		return EquipmentDamage._status_from_info({},0.0,0.0,0.0,[0.5,0.28,0.22],invalid)
-	return _status_for_info(s, inspect_owner_cached(s, frame_cache))
+	var entry: Dictionary = _cached_entry(s,frame_cache)
+	if entry.is_empty(): return _status_for_info(s,EquipmentDamage.inspect_owner(s))
+	var inputs: Array = _status_inputs(s)
+	if inputs != entry.statusInputs:
+		entry.statusInputs = inputs.duplicate(true)
+		entry.status = _freeze_status(_status_for_info(s,entry.info))
+		entry.healthy = false # Re-prove no-work eligibility at the next damage tick.
+	return entry.status
+
+static func get_status_cached(s = null, frame_cache = null) -> Dictionary:
+	return read_status_cached(s,frame_cache).duplicate(true)
+
+static func _tick_healthy_cached(s: Dictionary, dt: float, entry: Dictionary, frame_cache: Dictionary) -> Dictionary:
+	# Exact old healthy substeps, real fuel/cooldown debit and sanitation. The
+	# unchanged equipment projection needs neither revalidation nor reconstruction.
+	while dt > 0.00000001 and not s.sunk:
+		var step: float = 1.0/60.0
+		var h: float = dt if dt <= step + 0.0000001 else step
+		if absf(dt - 2.0*step) <= 0.0000001: h = dt*0.5
+		s.water = clampf(s.water + 0.0,0.0,s.capacity)
+		if s.fuel > 0.0 and absf(s.vx)+absf(s.vy)>1.0: s.fuel -= 0.006*h
+		s.cooldown = maxf(0.0,number(s.cooldown)-h)
+		_sanitize(s)
+		dt -= h
+	EquipmentDamage.Records._publish_projection(s,entry.projection)
+	return get_status_cached(s,frame_cache)
 
 static func _get_status_numeric(s: Dictionary) -> Dictionary:
 	return _status_for_info(s, EquipmentDamage._numeric_info(s))
@@ -305,8 +331,8 @@ static func apply_hit(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator
 	return events
 
 static func _healthy_canonical_no_work(s: Dictionary, info: Dictionary) -> bool:
-	# Called only after fresh owner inspection and the public context's alias/type guards.
-	# No proof survives this synchronous tick; damaged or malformed owners use the old path.
+	# Admit only after canonical inspection and the public context's alias/type guards.
+	# Battle can retain this proof under exact owner/value guards for twelve frames.
 	if not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical":
 		return false
 	if not (s.get("sunk") is bool) or s.sunk or not (s.get("breaches") is Array) or not s.breaches.is_empty():
@@ -332,10 +358,13 @@ static func _healthy_canonical_no_work(s: Dictionary, info: Dictionary) -> bool:
 	return true
 
 static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame_cache = null) -> Dictionary:
-	invalidate_frame_cache(frame_cache, s)
-	if not s is Dictionary:
-		return get_status({})
-	var info: Dictionary = EquipmentDamage.inspect_owner(s)
+	if not s is Dictionary: return get_status({})
+	var entry: Dictionary = _cached_entry(s,frame_cache)
+	if not entry.is_empty() and bool(entry.get("healthy",false)) and _options == {"inCombat":true} and _status_inputs(s) == entry.statusInputs:
+		if EquipmentDamage.Core._number(s.get("fuel")) and s.fuel >= 0.0 and EquipmentDamage.Core._number(s.get("ammo")) and s.ammo >= 0.0 and EquipmentDamage.Core._number(s.get("cooldown")) and s.cooldown >= 0.0 and EquipmentDamage.Core._number(s.get("vx")) and EquipmentDamage.Core._number(s.get("vy")):
+			return _tick_healthy_cached(s,maxf(0.0,number(dt)),entry,frame_cache)
+	var info: Dictionary = entry.info if not entry.is_empty() else EquipmentDamage.inspect_owner(s)
+	invalidate_frame_cache(frame_cache,s)
 	var mode: String = str(info.get("mode", "invalid"))
 	if mode == "invalid":
 		return get_status(s)

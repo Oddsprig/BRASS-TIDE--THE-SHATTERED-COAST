@@ -28,8 +28,7 @@ static func status_of(ship: Dictionary, status: Dictionary = {}, frame_cache = n
 		if not EquipmentDamage.Core._foreign(ship) and ship.get("status") is Dictionary and ship.status.has("equipmentMode"):
 			return ship.status
 		return Damage.get_status(ship)
-	var info: Dictionary = Damage.inspect_owner_cached(ship, frame_cache)
-	return Damage._status_for_info(ship, info)
+	return Damage.read_status_cached(ship, frame_cache)
 
 static func mount_location(ship: Dictionary, mount: Dictionary, index: int = 0) -> String:
 	var explicit_slot: String = str(mount.get("slotId", ""))
@@ -86,7 +85,7 @@ static func apply_mount_condition(ship: Dictionary, base_mounts: Array, status: 
 	var info: Dictionary = Damage.inspect_owner_cached(ship, frame_cache)
 	if str(info.get("mode", "")) != "canonical":
 		return base_mounts.duplicate(true)
-	var st_dict: Dictionary = status if (not status.is_empty() and status.has("equipmentMode")) else Damage._status_for_info(ship, info)
+	var st_dict: Dictionary = status if (not status.is_empty() and status.has("equipmentMode")) else Damage.read_status_cached(ship, frame_cache)
 	var mode: String = str(st_dict.get("equipmentMode", "legacy"))
 	if mode == "legacy":
 		return base_mounts.duplicate(true)
@@ -199,7 +198,7 @@ static func capability_fields(ship: Dictionary, status: Dictionary = {}, mask_ov
 		return _capability_factor_fields(ship, st_non_can, mask_override)
 	var info: Dictionary = Damage.inspect_owner_cached(ship, frame_cache)
 	var is_can: bool = str(info.get("mode", "")) == "canonical"
-	var st_dict: Dictionary = status if (not status.is_empty() and status.has("equipmentMode")) else Damage._status_for_info(ship, info)
+	var st_dict: Dictionary = status if (not status.is_empty() and status.has("equipmentMode")) else Damage.read_status_cached(ship, frame_cache)
 	var mode: String = str(st_dict.get("equipmentMode", "legacy"))
 	if mode == "legacy":
 		return {}
@@ -234,7 +233,7 @@ static func safety_abrupt(ship: Dictionary, previous: Dictionary, status: Dictio
 	var info: Dictionary = Damage.inspect_owner_cached(ship, frame_cache)
 	if str(info.get("mode", "")) != "canonical":
 		return false
-	var st_dict: Dictionary = status if (not status.is_empty() and status.has("equipmentMode")) else Damage._status_for_info(ship, info)
+	var st_dict: Dictionary = status if (not status.is_empty() and status.has("equipmentMode")) else Damage.read_status_cached(ship, frame_cache)
 	var cur_mask: float = working_mask(ship, st_dict, frame_cache)
 	var cur_prio: float = priority_code(st_dict)
 	var cur_mod_hp: float = module_hp_sum(ship)

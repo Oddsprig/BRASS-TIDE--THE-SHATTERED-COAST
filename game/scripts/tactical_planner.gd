@@ -8,6 +8,7 @@ const CERT_SECONDS: float = 0.2
 const CERT_PREFIX_STEPS: int = 9
 const CERT_PREFIX_SECONDS: float = float(CERT_PREFIX_STEPS) / 30.0
 const CERT_SCOPE: String = "complete-geometry+prefix-physical"
+const LIVE_CERT_SCOPE: String = "complete-geometry+live-step"
 const CERT_FIELDS: Array = ["status", "reachable", "exitReachable", "eta", "fireWindow", "risk", "checkedAt", "validUntil", "snapshotRevision", "orderRevision", "pathFingerprint", "terrainRevision", "geometryKey", "checkedPose", "dynamicsKey", "physicalHorizonEnd", "rolloutSamples", "scope", "reason"]
 
 static func fingerprint(candidate: Dictionary) -> String:
@@ -93,7 +94,7 @@ static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: D
 			return "Maneuver check unavailable; wait."
 	if float(certificate.eta) < 0.0 or float(certificate.risk) < 0.0 or float(certificate.risk) > 1.0:
 		return "Maneuver check unavailable; wait."
-	if not Roles.id_ok(certificate.reason, true) or certificate.scope != CERT_SCOPE:
+	if not Roles.id_ok(certificate.reason, true) or not certificate.scope in [CERT_SCOPE,LIVE_CERT_SCOPE]:
 		return "Waiting for a complete route and turning check."
 	var now: float = float(view.time)
 	if float(certificate.checkedAt) > now + 0.000001 or float(certificate.validUntil) <= now or float(certificate.validUntil) > float(certificate.checkedAt) + CERT_SECONDS + 0.000001:
@@ -102,7 +103,10 @@ static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: D
 		return "Order or terrain changed; checking a new maneuver."
 	if not _hex_key(certificate.pathFingerprint) or certificate.pathFingerprint != fingerprint(candidate) or not _hex_key(certificate.geometryKey) or not _hex_key(certificate.dynamicsKey):
 		return "Maneuver changed; checking it again."
-	if not certificate.rolloutSamples is int or int(certificate.rolloutSamples) != CERT_PREFIX_STEPS or absf(float(certificate.physicalHorizonEnd) - float(certificate.checkedAt) - CERT_PREFIX_SECONDS) > 0.00001:
+	var live_step: bool = certificate.scope == LIVE_CERT_SCOPE
+	var expected_samples: int = 0 if live_step else CERT_PREFIX_STEPS
+	var expected_horizon: float = CERT_SECONDS if live_step else CERT_PREFIX_SECONDS
+	if not certificate.rolloutSamples is int or int(certificate.rolloutSamples) != expected_samples or absf(float(certificate.physicalHorizonEnd) - float(certificate.checkedAt) - expected_horizon) > 0.00001:
 		return "Turning and braking still need checking."
 	var pose: Dictionary = Roles.dictionary(certificate.checkedPose)
 	for key: String in ["x", "y", "vx", "vy", "angle"]:
