@@ -321,10 +321,12 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	var now: float=float(st.time)
 	var previous: Dictionary=t.safety.get(id,{})
 	var age: float=now-float(t.lastSafety.get(id,0.0))
-	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,previous,{},frame_cache)
+	# Resolve current condition before the cadence gate, then share that status.
+	# The frame cache still validates live equipment changes on every check.
+	var status: Dictionary=Damage.get_status_cached(ship,frame_cache)
+	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,previous,status,frame_cache)
 	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-0.01 or equip_abrupt)
 	if age<0.1-0.000001 and not abrupt and not previous.is_empty():return
-	var status: Dictionary=Damage.get_status_cached(ship,frame_cache)
 	var opts: Dictionary=t.options.byId.get(id,defaults())
 	var doctrine: String=str(opts.doctrine)
 	var hp_limit: float=0.60 if doctrine=="cautious" else (0.30 if doctrine=="aggressive" else 0.45)
@@ -547,7 +549,6 @@ static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,of
 		t.reasons[id]=str(accepted[id].get("reason","Following maneuver"))
 		Fire.accept_pass(st,t.ships[id],accepted[id])
 		t.trace.append({"time":float(st.time),"shipId":id,"order":str(t.ships[id].order),"phase":str(accepted[id].get("phase","")),"reason":t.reasons[id],"targetId":str(accepted[id].get("targetId",""))})
-		if t.trace.size()>512:t.trace.pop_front()
 	# dueIds alone can publish per-hull memory/reservations; non-due state stays.
 	var memory: Dictionary=resolved.get("memory",{})
 	for key in ["byId","reservations"]:
@@ -634,7 +635,9 @@ static func finish(st: Dictionary,ai_us: int) -> void:
 		var ship: Dictionary=t.ships[id]
 		var intent: Dictionary=t.intents.get(id,{})
 		t.trace.append({"sim_time":float(st.time),"hull_uid":str(ship.get("uid",id)),"shipId":id,"encounter_id":str(st.get("mission",{}).get("id","")),"party":str(ship.team),"order":str(ship.order),"intent_reason":str(t.reasons.get(id,"Checking a safe maneuver")),"observed_target":str(intent.get("targetId","")),"role":str(intent.get("role","")),"station":int(intent.get("sector",-1)),"approach_path":intent.get("waypoints",[]).duplicate(),"exit_path":intent.get("exit",[]).duplicate(),"weapon_opportunity":ship.get("mountShotTimes",{}).duplicate(true),"withheld_reason":t.fireReasons.get(id,{}).duplicate(true),"withdrawal_reason":str(t.reasons.get(id,"")) if str(intent.get("phase","")) in ["withdraw","breakaway","regroup","turn-away"] else "","condition":{"hp":float(ship.hp),"water":float(ship.water),"fire":float(ship.fire),"engine":float(ship.engine)},"stores":{"fuel":float(ship.fuel),"ammo":float(ship.ammo),"supplies":float(ship.supplies)},"objective_state":st.get("mission",{}).get("status","")})
-		if t.trace.size()>512:t.trace.pop_front()
+	# Both publication and per-hull rows are synchronous within this step. Trim
+	# once, keeping the same last 512 rows and the existing Array reference.
+	if t.trace.size()>512:t.trace.assign(t.trace.slice(t.trace.size()-512))
 
 static func after_motion(st: Dictionary) -> void:
 	# All real helm movement publishes before ANY automatic fire target lookup.
