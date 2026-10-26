@@ -554,11 +554,11 @@ static func chart_label_layout(entries: Array,bounds: Rect2,font: Font) -> Array
 		var size:=Vector2(ceilf(width)+16,font_size+10+(14 if not subtitle.is_empty() else 0))
 		if size.x>bounds.size.x or size.y>bounds.size.y:continue
 		var offsets: Array=[Vector2(22,-size.y*0.5),Vector2(-22-size.x,-size.y*0.5),Vector2(-size.x*0.5,-22-size.y),Vector2(-size.x*0.5,22),Vector2(22,22),Vector2(-22-size.x,22),Vector2(22,-22-size.y),Vector2(-22-size.x,-22-size.y)]
-		if int(entry.priority)>=80:
+		if int(entry.priority)>=60:
 			for offset in offsets.duplicate():offsets.append(offset*1.5)
 		for offset in offsets:
 			var rect:=Rect2(at+offset,size)
-			if int(entry.priority)>=80:rect.position=rect.position.clamp(bounds.position,bounds.end-size)
+			if int(entry.priority)>=60:rect.position=rect.position.clamp(bounds.position,bounds.end-size)
 			if not bounds.encloses(rect):continue
 			var collision: bool=false
 			for other in occupied:
