@@ -39,6 +39,7 @@ const ISO_X := 0.82
 const ISO_Y := 0.41
 var _chart_sheet: Array = []
 var _chart_ready: bool = false
+var _chart_towns: Dictionary={}
 
 func setup(game_host):
 	host = game_host
@@ -533,6 +534,7 @@ func _ensure_chart_sheet() -> void:
 			"contours": contours,
 			"marks": _chart_marks(str(island.get("id", "")), pts, center),
 		})
+	for port in host.data.PORTS:_chart_towns[str(port.id)]=NauticalArt.settlement_plan(port,host.data.ISLANDS)
 	_chart_ready = true
 
 func _draw_cached_ring(pts: PackedVector2Array, color: Color) -> void:
@@ -612,8 +614,9 @@ func draw_harbor(p: Dictionary, index: int):
 	var color = Color(host.core.faction(p.faction).get("color", "#8fb8a3"))
 	var selected: bool = host.selected_port == p.id
 	if nautical_chart():
-		if not campaign_overview() and index < villages.size():
-			world_line([villages[index].shore, position], Color("c8b892"), maxf(1.15, 1.8 * scale_factor))
+		if not campaign_overview():
+			_ensure_chart_sheet()
+			NauticalArt.draw_settlement(self,_projector(),_chart_towns.get(str(p.id),{}))
 		draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
 		return
 	if campaign_overview():

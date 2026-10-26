@@ -123,6 +123,8 @@ func run() -> void:
 	var home_projector: Callable=func(p: Vector2,h: float=0.0)->Vector2:return chart.project(p,h)
 	for index in range(data.ISLANDS.size()):
 		NauticalArt.draw(home_rec,home_projector,chart.polygon(data.ISLANDS[index].points),chart._chart_sheet[index],true)
+	for port in data.PORTS:NauticalArt.draw_settlement(home_rec,home_projector,chart._chart_towns[str(port.id)])
+	check(chart._chart_towns.size()==data.PORTS.size() and chart._chart_towns[str(home.id)].roofs.size()>0,"normal view gives harbors actual cached buildings on physical land")
 	Chart.draw_chart_marker(home_rec,Chart.chart_marker_geometry("harbor",chart.project(home_position),chart.scale_factor),Chart.GOLD,true)
 	Chart.draw_chart_marker(home_rec,Chart.chart_marker_geometry("fleet",chart.project(home_position)+Vector2(28,16),chart.scale_factor),Chart.GOLD)
 	var home_labels: Array=Chart.chart_label_layout([{"at":chart.project(home_position),"text":str(home.name),"priority":110,"subtitle":"HOME HARBOR","color":Chart.GOLD}],bounds,chart.sans)
