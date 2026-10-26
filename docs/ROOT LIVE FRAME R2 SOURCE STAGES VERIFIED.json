@@ -1,0 +1,55 @@
+{
+  "classification": "ROOT_SOURCE_ONLY_LIVE_FORWARD_R2_TWO_STAGES_VERIFIED",
+  "utc": "2026-10-26T07:39:41.485Z",
+  "rootRuntimeMapSha256": "fc6bbbb1740e56d02190754522c0af02a0b9278a1c3089321e984e90bc419ee7",
+  "rootArgonFixtureReviewSha256": "ac5dc92d930a0af8d3bbf598e9aafb88e57f08b514df1024b68457e53787350b",
+  "cost": {
+    "count": 289,
+    "sha256": "a9e68a96a1ff1f7fc2699f135a1c452a9b262fc3a80d7c2714c0a9f52f4ad2a7",
+    "onlyFourRuntimeChanges": true,
+    "all285OtherFilesByteExact": true
+  },
+  "projection": {
+    "count": 290,
+    "sha256": "8c96e24751189c11b6c3a009d15220dd0086efc45d87431c4ee454d3a87206fa",
+    "fixtureSha256": "0c1a415cbcd5f6ae458e885549ee831fa052dbaeced77a721590722365b1dea0",
+    "fixtureBytes": 34167,
+    "allOriginalBytesAndAssertionsRetained": true,
+    "exactArgonReverse": true,
+    "twoCacheOwnerGuardsAdded": true
+  },
+  "runtimeFiles": [
+    {
+      "path": "scripts/battle.gd",
+      "beforeSha256": "71361d92fbad1ffeae9e2722999700e25a2f0c6b13a557d010d024464af50b57",
+      "afterSha256": "bfb28ade4c5f2d9ecc6c626ad8e54e5600cb2ff127fcb31575dc0ac38a2cd049",
+      "beforeBytes": 32181,
+      "afterBytes": 32193
+    },
+    {
+      "path": "scripts/tactical_runtime.gd",
+      "beforeSha256": "bf76431c9f7b5b3108b8b1dad7be22090da82c39dad0c2bbd22d818b9d25622a",
+      "afterSha256": "aea2e5b370563a776667fa96109fa5e266e725249dd5893551d84eefc5f86009",
+      "beforeBytes": 43094,
+      "afterBytes": 43191
+    },
+    {
+      "path": "scripts/tactical_certification.gd",
+      "beforeSha256": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49",
+      "afterSha256": "822a6137b1e3ffc5edc730cc79cbac9f8dbd934ef993ab439e01387120d7c569",
+      "beforeBytes": 15773,
+      "afterBytes": 16161
+    },
+    {
+      "path": "scripts/equipment_rollout.gd",
+      "beforeSha256": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf",
+      "afterSha256": "69470eafd643ab5e705e2aa767980a1933fb1ebd04f26502470d08d147bb3161",
+      "beforeBytes": 10500,
+      "afterBytes": 10529
+    }
+  ],
+  "noProfiler": true,
+  "defaultNullPathOriginal": true,
+  "nativeRun": false,
+  "performanceAccepted": false
+}

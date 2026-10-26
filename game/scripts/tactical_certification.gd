@@ -18,14 +18,16 @@ static func dynamics_key(ship: Dictionary) -> String:
 	# Gradual bailing/repair is predicted, not byte-hashed into immutable inputs.
 	return JSON.stringify([ship.spec.get("size",16),ship.spec.get("speed",90),ship.spec.get("turn",1.8),ship.spec.get("fuelUse",1),ship.spec.get("pumps",0),ship.spec.get("repairFactor",1),ship.get("supportRepairFactor",1),ship.crewMin,ship.crewOptimal,ship.capacity,ship.policy,ship.get("shoreCrew",0),float(ship.fuel)>0.0,float(ship.engine)>0.0,float(ship.crew)-float(ship.wounded)>=float(ship.crewMin)]).sha256_text()
 
-static func capability(ship: Dictionary,mask_override: float=NAN) -> Dictionary:
-	return _capability_with_status(ship,Damage.get_status(ship),mask_override)
+static func capability(ship: Dictionary,mask_override: float=NAN,frame_cache=null) -> Dictionary:
+	var status: Dictionary=Damage.get_status_cached(ship,frame_cache) if frame_cache is Dictionary else Damage.get_status(ship)
+	return _capability_with_status(ship,status,mask_override,frame_cache)
 
-static func _capability_with_status(ship: Dictionary,status: Dictionary,mask_override: float=NAN) -> Dictionary:
-	return EquipmentRollout.capability_with_status(ship,status,mask_override)
+static func _capability_with_status(ship: Dictionary,status: Dictionary,mask_override: float=NAN,frame_cache=null) -> Dictionary:
+	return EquipmentRollout.capability_with_status(ship,status,mask_override,frame_cache)
 
-static func motion(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool=false) -> Dictionary:
-	return _motion_with_status(ship,dt,desired,throttle,boost,Damage.get_status(ship))
+static func motion(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool=false,frame_cache=null) -> Dictionary:
+	var status: Dictionary=Damage.get_status_cached(ship,frame_cache) if frame_cache is Dictionary else Damage.get_status(ship)
+	return _motion_with_status(ship,dt,desired,throttle,boost,status)
 
 static func _motion_with_status(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool,status: Dictionary) -> Dictionary:
 	return EquipmentRollout.motion_with_status(ship,dt,desired,throttle,boost,status)
@@ -193,7 +195,7 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 	st.tactical.predictions[fingerprint]={"poses":predicted,"capabilities":capabilities,"motionKey":motion_key,"sampleDt":sub_dt,"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)}
 	return cert
 
-static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offset: float=0.0) -> Dictionary:
+static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offset: float=0.0,frame_cache=null) -> Dictionary:
 	if intent.is_empty():return {"ok":false,"reason":"Choosing a safe maneuver"}
 	var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
 	if record.is_empty():return {"ok":false,"reason":"Checking the next safe maneuver"}
@@ -210,22 +212,22 @@ static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offs
 	# Fire follows this tick's movement before the next damage prepass. Its
 	# capability belongs to age, while its position belongs to age+dt.
 	var condition_at: int=clampi(roundi(age/sample_dt),0,record.capabilities.size()-1)
-	var actual: Dictionary=capability(ship)
+	var actual: Dictionary=capability(ship,NAN,frame_cache)
 	var expected: Dictionary=record.capabilities[condition_at]
 	for key in expected:
 		if absf(float(actual[key])-float(expected[key]))>0.0001:return {"ok":false,"reason":"Damage or capability changed; reassessing"}
 	return {"ok":true,"reason":str(intent.get("reason","Following maneuver")),"record":record}
 
-static func safe_step(st: Dictionary,ship: Dictionary,control: Dictionary,budget: Dictionary) -> Dictionary:
-	var next: Dictionary=motion(ship,float(st.tactical.dt),float(control.angle),float(control.throttle))
+static func safe_step(st: Dictionary,ship: Dictionary,control: Dictionary,budget: Dictionary,frame_cache=null) -> Dictionary:
+	var next: Dictionary=motion(ship,float(st.tactical.dt),float(control.angle),float(control.throttle),false,frame_cache)
 	var r: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
 	var clear: String=Routes.sweep(st.tactical.geometry,Routes.point(ship),Routes.point(next),r,budget)
 	if clear=="valid":clear=Routes.occupied(st.tactical.cells,ship,Routes.point(ship),Routes.point(next),r,0.0,float(st.tactical.dt),budget)
 	if clear=="valid":return control
 	return {"angle":float(ship.angle),"throttle":0.0,"reason":"Braking; checking clearance" if clear=="pending" else "Braking for land or allied traffic","blocked":true}
 
-static func brake(st: Dictionary,ship: Dictionary,budget: Dictionary,reason: String) -> Dictionary:
+static func brake(st: Dictionary,ship: Dictionary,budget: Dictionary,reason: String,frame_cache=null) -> Dictionary:
 	var control: Dictionary={"angle":float(ship.angle),"throttle":0.0,"reason":reason}
-	var checked: Dictionary=safe_step(st,ship,control,budget)
+	var checked: Dictionary=safe_step(st,ship,control,budget,frame_cache)
 	if checked.get("blocked",false):checked.reason=reason+"; braking drift is obstructed"
 	return checked

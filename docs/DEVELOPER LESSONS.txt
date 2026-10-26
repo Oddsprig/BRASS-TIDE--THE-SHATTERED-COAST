@@ -256,3 +256,21 @@ NATIVE STRING KEYS AND TRACE GATES - 25 OCTOBER 2026
   noneligible errors:28 CPU checks passed. Retry only WinError5/32 with a fixed
   250ms window; preserve complete old/new images and fail closed on expiry.
   This establishes the mechanism, not the historical lock owner or cause.
+
+LIVE TACTICAL REUSE AND ATTRIBUTION — 26 OCTOBER 2026
+- Forward the frame-local equipment inspection through current, helm, brake,
+  safe_step, motion, capability and firing; keep derived status fresh. Append
+  optional arguments without changing pose_offset, boost or mask positions.
+  Null/non-Dictionary cache paths retain the original status API explicitly.
+- A duplicated state may expose boats through different containers. Warm test
+  caches from the exact owner used by the API and assert is_same; do not assume
+  deep duplication preserves cross-container aliases. Keep old assertions.
+- Attribute the existing five AI clocks by reusing each exact elapsed int. Join
+  all per-tick phase sums to raw counters; keep every function seam and workload.
+  Count/profile/cold equivalence is separate from sustained capacity and FPS.
+- The one real crew pool suppresses fire before paid hull repair. Test real
+  elapsed work, supplies and output; do not introduce free parallel repair to
+  satisfy a fixture based on the older contract. Preserve the original failure.
+- Capacity checker schema corrections do not pass incomplete native work. A
+  new runtime needs an explicitly bound cohort; preserve frozen checkers and
+  their failed reports instead of rewriting hashes or thresholds in place.

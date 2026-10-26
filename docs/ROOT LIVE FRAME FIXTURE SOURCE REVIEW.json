@@ -1,0 +1,10 @@
+{
+  "classification": "ROOT_SOURCE_ONLY_ARGON_FIXTURE_REVIEWED_WITH_REQUIRED_CACHE_OWNER_STAGING_CORRECTION",
+  "fixtureSha256": "dc957d23dbbed1fc2847c62bcbcbf362f786ea6ca465edd93f5aeb5d3a2b4821",
+  "fixtureBytes": 33777,
+  "originalSha256": "549f2661a4be48c68fbac6b6b86180b7d79036f6b707ce5023fceb59d1119120",
+  "allOriginalBytesAndAssertionsRetained": true,
+  "addedBodyBytes": 10642,
+  "review": "Uses real two-hull Battle.update/move/current/helm/fire plus fuel0, engine/item mutation and sameIDclone. No copied numerical math. New helm/fire clones should warm tactical.ships owner references directly instead of assuming Dictionary.duplicate(true) preserves aliases between ships[] and tactical.ships. Add explicit cache owner-reference checks; originals untouched. Runtime must be RootR2 guards822a, not ArgonR1Cert4d71.",
+  "nativeRun": false
+}

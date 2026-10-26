@@ -1,0 +1,53 @@
+{
+  "classification": "ROOT_SCOPED_LIVE_FRAME_R2_MAIN_INTEGRATION_NOT_RELEASE",
+  "utc": "2026-10-26T07:50:03.513Z",
+  "baseCommit": "6302baf2becf7c8a3b9335915677d471178521db",
+  "files": [
+    {
+      "path": "scripts/battle.gd",
+      "beforeSha256": "71361d92fbad1ffeae9e2722999700e25a2f0c6b13a557d010d024464af50b57",
+      "afterSha256": "bfb28ade4c5f2d9ecc6c626ad8e54e5600cb2ff127fcb31575dc0ac38a2cd049",
+      "bytes": 32193,
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/main-source-history/71361d92fbad1ffeae9e2722999700e25a2f0c6b13a557d010d024464af50b57/game/scripts/battle.gd"
+    },
+    {
+      "path": "scripts/tactical_runtime.gd",
+      "beforeSha256": "bf76431c9f7b5b3108b8b1dad7be22090da82c39dad0c2bbd22d818b9d25622a",
+      "afterSha256": "aea2e5b370563a776667fa96109fa5e266e725249dd5893551d84eefc5f86009",
+      "bytes": 43191,
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/main-source-history/bf76431c9f7b5b3108b8b1dad7be22090da82c39dad0c2bbd22d818b9d25622a/game/scripts/tactical_runtime.gd"
+    },
+    {
+      "path": "scripts/tactical_certification.gd",
+      "beforeSha256": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49",
+      "afterSha256": "822a6137b1e3ffc5edc730cc79cbac9f8dbd934ef993ab439e01387120d7c569",
+      "bytes": 16161,
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/main-source-history/f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49/game/scripts/tactical_certification.gd"
+    },
+    {
+      "path": "scripts/equipment_rollout.gd",
+      "beforeSha256": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf",
+      "afterSha256": "69470eafd643ab5e705e2aa767980a1933fb1ebd04f26502470d08d147bb3161",
+      "bytes": 10529,
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/main-source-history/c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf/game/scripts/equipment_rollout.gd"
+    },
+    {
+      "path": "tests/test_frame_projection_isolation.gd",
+      "beforeSha256": "549f2661a4be48c68fbac6b6b86180b7d79036f6b707ce5023fceb59d1119120",
+      "afterSha256": "0c1a415cbcd5f6ae458e885549ee831fa052dbaeced77a721590722365b1dea0",
+      "bytes": 34167,
+      "backup": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/main-source-history/549f2661a4be48c68fbac6b6b86180b7d79036f6b707ce5023fceb59d1119120/game/tests/test_frame_projection_isolation.gd"
+    }
+  ],
+  "exactFiveGameFileChanges": true,
+  "allOtherGameFilesByteExact": true,
+  "beforeFullGameTreeSha256": "4293248ad93adb2fdbf7b490a4801035af2e95e87a3d19fb27af2196eced51d7",
+  "afterFullGameTreeSha256": "6cccc3f5d11b236b2b4971475f8c488e47df0b4695e609ae83175b3b61269c20",
+  "sourceStageProofSha256": "88224ece88c9b3ce2d4970dc3113f5d5da8b74ee7d197b4d7f03998cbf18943c",
+  "projectionProofSha256": "62986c5dd987191a12dce5212489b360d9d3079c04d6150d22ab4196e5beb22f",
+  "coldProofSha256": "8527d84ce45b1faab86d257e08aaa6de071bba4a212e4abf34bcbfcf9c113595",
+  "scope": "Focused99 and originalcold51 actual native plus identical recorded24updates/40statuses under original2clock exclusions. Four runtime files and expanded fixture only; separate documentation updates follow. No finalcapacity/Goldnewcohort/scene/release claim.",
+  "rootNativeLaunches": 0,
+  "versionChanged": false,
+  "performanceAccepted": false
+}

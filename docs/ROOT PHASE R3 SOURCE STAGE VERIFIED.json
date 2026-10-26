@@ -1,0 +1,37 @@
+{
+  "classification": "ROOT_SOURCE_ONLY_PHASE_R3_REVIEWED_NATIVE_NOT_YET_AUTHORIZED",
+  "utc": "2026-10-26T07:23:01.744Z",
+  "sourceCount": 291,
+  "sourceTreeSha256": "2bf58a39e8bbf7618694b01e779bd16ede8b436288bfbb5bb06fec5846b93237",
+  "stageCount": 291,
+  "stageTreeSha256": "b75d9344f1722097047208dd262dfda19d277f216eb382ff1ff8d7209421e7da",
+  "changedFiles": [
+    {
+      "path": "scripts/battle.gd",
+      "beforeSha256": "5af6bea68d4837a96da11facfed5149738f2cf39f03777f3d747d5209c1f75bb",
+      "afterSha256": "f5b937444dd382f274c7c78a14cdd5d1fa8b74b70795d15a0af2b047edbd07ba",
+      "beforeBytes": 33037,
+      "afterBytes": 33751
+    },
+    {
+      "path": "scripts/qa_hotspot_probe.gd",
+      "beforeSha256": "3e02a3dcab88f32dd4a774e3cd03103423e7a6f9c36bc0d278614203039936b4",
+      "afterSha256": "6adde98864d164ac2a904bd3f46987437882685498c9cb4c63b4e992f5074d0a",
+      "beforeBytes": 8526,
+      "afterBytes": 10093
+    }
+  ],
+  "all289OtherFilesByteExact": true,
+  "wholeFileReverseExact": true,
+  "battleClockCalls": 10,
+  "collectorClockCalls": 14,
+  "phaseTimersAdded": 0,
+  "semanticReview": "five original int deltas reused for original accumulators and separate static packed collector; original maths, seeds, depth, work, ten inherited seams, subclass and cold24 parent unchanged",
+  "requiredNativeValidation": [
+    "24 phase sums equal corresponding raw diagnostic.ai_us exactly",
+    "counts mounts and automatic-fire agree actual live automatic hulls, other phases once each tick",
+    "existing calibration/balanced entries/partitions valid",
+    "all24 recorded updates and40statuses equal df08+78c only original2diagnostic clocks"
+  ],
+  "nativeRun": false
+}

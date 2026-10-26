@@ -71,10 +71,10 @@ static func motion_with_status(ship: Dictionary,dt: float,desired: float,throttl
 	if velocity.length()>5.0:fuel=maxf(0.0,fuel-dt*(0.018 if boost else 0.01)*maxf(0.0,Damage.number(ship.spec.get("fuelUse"),1.0)))
 	return {"x":p.x,"y":p.y,"vx":velocity.x,"vy":velocity.y,"angle":angle,"fuel":fuel}
 
-static func capability_with_status(ship: Dictionary,status: Dictionary,mask_override: float=NAN) -> Dictionary:
+static func capability_with_status(ship: Dictionary,status: Dictionary,mask_override: float=NAN,frame_cache=null) -> Dictionary:
 	# Only certify's private copy can reuse the final status from its last tick.
 	# Direct scalars and module HP are still read from that copy at this sample.
-	return _capability_from_fields(ship,status,EquipmentCombat.capability_fields(ship,status,mask_override))
+	return _capability_from_fields(ship,status,EquipmentCombat.capability_fields(ship,status,mask_override,frame_cache))
 
 static func _capability_from_fields(ship: Dictionary,status: Dictionary,fields: Dictionary) -> Dictionary:
 	var result: Dictionary={}

@@ -484,7 +484,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if age>0.2+0.000001:t.counters.lateDecisions+=1
 			t.lastDecision[id]=float(st.time);t.counters.decisions+=1
 			var intent: Dictionary=t.intents.get(id,{})
-			if not intent.is_empty() and int(intent.get("snapshotRevision",-1))==int(t.snapshotRevision) and Certification.current(st,t.ships[id],intent).ok:
+			if not intent.is_empty() and int(intent.get("snapshotRevision",-1))==int(t.snapshotRevision) and Certification.current(st,t.ships[id],intent,0.0,frame_cache).ok:
 				t.lastCertified[id]=float(st.time);t.pending.erase(id)
 			elif not t.pending.has(id):t.pending[id]=float(st.time)
 	for id in t.pending:
@@ -592,11 +592,11 @@ static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dic
 		if goal.has("x") and (candidate.approach.is_empty() or candidate.approach[-1].distance_to(Vector2(goal.x,goal.y))>0.000001):return false
 	return true
 
-static func helm(st: Dictionary,ship: Dictionary) -> Dictionary:
+static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
 	var t: Dictionary=st.tactical
 	var id: String=str(ship.id)
 	var intent: Dictionary=t.intents.get(id,{})
-	var current: Dictionary=Certification.current(st,ship,intent)
+	var current: Dictionary=Certification.current(st,ship,intent,0.0,frame_cache)
 	if not t.get("appliedRevisions") is Dictionary:t.appliedRevisions={}
 	if int(t.appliedRevisions.get(id,-1))!=int(ship.get("orderRevision",0)):
 		t.metrics.orderApplyAges.append(maxf(0.0,float(st.time)-float(t.orderTimes.get(id,st.time))))
@@ -604,17 +604,17 @@ static func helm(st: Dictionary,ship: Dictionary) -> Dictionary:
 	if not current.ok:
 		if not t.pending.has(id):t.pending[id]=float(st.time)
 		if not intent.is_empty() or not t.reasons.has(id):t.reasons[id]=str(current.reason)
-		return Certification.brake(st,ship,t.budget,str(t.reasons[id]))
+		return Certification.brake(st,ship,t.budget,str(t.reasons[id]),frame_cache)
 	var target_id: String=str(intent.get("targetId",""))
 	var target: Dictionary=t.observed.get(target_id,{})
 	if not target_id.is_empty() and (target.is_empty() or target.team==ship.team):
 		t.intents.erase(id);t.lastDecision[id]=-1.0
-		return Certification.brake(st,ship,t.budget,"Target unavailable; reassessing")
+		return Certification.brake(st,ship,t.budget,"Target unavailable; reassessing",frame_cache)
 	var record: Dictionary=current.record
 	t.metrics.certificateAges.append(maxf(0.0,float(st.time)-float(record.certificate.checkedAt)))
 	var control: Dictionary=Certification.steering(ship,Certification.execution(record.candidate),int(record.get("index",0)),target,Certification.primary_mounts(t.mountCache[id].mounts,record.candidate))
 	record.index=int(control.index)
-	var safe: Dictionary=Certification.safe_step(st,ship,control,t.budget)
+	var safe: Dictionary=Certification.safe_step(st,ship,control,t.budget,frame_cache)
 	if safe.get("blocked",false):
 		t.reasons[id]=str(safe.reason);t.intents.erase(id)
 		if not t.pending.has(id):t.pending[id]=float(st.time)
@@ -642,7 +642,7 @@ static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dict
 	var intent: Dictionary=t.intents.get(id,{})
 	var out: Dictionary={}
 	t.fireReasons[id]={}
-	if not Certification.current(st,ship,intent,float(t.dt)).ok:
+	if not Certification.current(st,ship,intent,float(t.dt),frame_cache).ok:
 		for mount in t.mountCache[id].mounts:t.fireReasons[id][str(mount.id)]="Checking the firing maneuver"
 		return out
 	var mounts: Array=t.mountCache[id].mounts

@@ -1,0 +1,35 @@
+{
+  "classification": "ACTUAL_LIVE_FRAME_FORWARDING_R2_FOCUSED_PROJECTION_VERIFIED",
+  "native": {
+    "jobId": "d2b019dbb2ef468185011d9896795748",
+    "suite": "frame_projection_isolation",
+    "family": "",
+    "outcome": "passed",
+    "checks": 99,
+    "failures": 0,
+    "inputSha256": "8c96e24751189c11b6c3a009d15220dd0086efc45d87431c4ee454d3a87206fa",
+    "inputCount": 290,
+    "nativeWallSeconds": 0.7340000000040163,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\d2b019dbb2ef468185011d9896795748\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "0680f1b672814902fea83bf5fba8a176819cb9b999aef09d1d35be91215ddbff",
+      "execution.json": "cb76caef8b12361cb70a8d5b0c3be7d34c8e38dd46394c688e21891b933eae6a",
+      "inputs-after.json": "6250f146fbeabb1a3d1e28a079c8499fcc98e15477aec5b932eff21d9b5e5610",
+      "inputs-before.json": "6250f146fbeabb1a3d1e28a079c8499fcc98e15477aec5b932eff21d9b5e5610",
+      "lane.log": "862210d5f3add75e13f42e8d44a876aca2da3f4a330579f7eec63730d9f68da4",
+      "native-receipt.json": "d8d0a23b3ad2181fdc54f4091a82f76aeb190f5e1e2d0142e43bef094408589c",
+      "native.log": "ef5dae42ea294ef0a600f35a1a7c280be3a524fcb82fd7772c129d7fae43cae0",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "33b3e90c0ad553a383d65a3eef0289ec516a9a4987b60058f611458a29a13c31",
+      "request.json": "790183b95682f2c6c2d2d8480ff72dbb4d014be44cebcd002c200a437515b12e",
+      "result.json": "962486dba220f158e5434cefbfadabd6fa11ece9ef1ae0028a31b645929f9325",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "270815c54870b2f7f2d3204fc21bb711932b751ccf4563b17614a04ef244875e",
+      "verified-report.json": "962486dba220f158e5434cefbfadabd6fa11ece9ef1ae0028a31b645929f9325"
+    }
+  },
+  "scope": "All original67 assertions retained plus actual current/helm/fire/fuel0/engine/item/clone/forgedstatus cases; actual99/0, no forecast count enforced. No capacity/FPS/release claim.",
+  "mainMerged": false
+}

@@ -1,0 +1,137 @@
+{
+  "classification": "ACTUAL_PHASE_R3_NATIVE_PROFILE_AND_EXACT_PHASE_JOIN_VERIFIED",
+  "jobId": "c08b3d5ef08341ffa437c5f6d9129b68",
+  "utc": "2026-10-26T07:28:36.422Z",
+  "sourceStageProofSha256": "ab351636dab3f6fd1a572682081434102f64abba00cfe29a8f6104058743be8d",
+  "recordedPayloadProofSha256": "5541651ce4c010c5eeacb5b8826c8fc12c9d3db665abcbd8e9c55307f15eb3ca",
+  "nativeReceiptsProofSha256": "428c425e53c5c91792016058976876d0145047d9e1311cac12428f9eeb238034",
+  "hotspotSha256": "6430b8f84f991d311cd282199528ff1f5054c62aff124cb0bc92a2ffcc1adfd9",
+  "costSha256": "caecea2bc4f0d766369dd9c1e57c76b3e43cec74cfd1cef42db9a1368a24c3fd",
+  "all24PhaseSumsEqualRawAiClocks": true,
+  "phaseCountsEachTick": {
+    "mounts": 40,
+    "planning_begin_helm": 1,
+    "lanes": 1,
+    "automatic_fire": 40,
+    "finish": 1
+  },
+  "balancedEntries": 25044,
+  "calibrationPairs": 10000,
+  "all48TenSeamPartitionsExact": true,
+  "phaseMeanMs": {
+    "automatic_fire": 10.423916666666667,
+    "finish": 0.3135,
+    "lanes": 0.074,
+    "mounts": 1.8590833333333334,
+    "planning_begin_helm": 75.47641666666667
+  },
+  "certifyMeanInclusiveMs": 36.61570833333333,
+  "planningOutsideCertifyMeanMs": 38.860708333333335,
+  "seamTotals": {
+    "AI damage._tick_canonical_with": {
+      "count": 5100,
+      "inclusive_us": 595110,
+      "exclusive_us": 511014
+    },
+    "AI equipment_combat._canonical_capability_fields": {
+      "count": 6025,
+      "inclusive_us": 44891,
+      "exclusive_us": 44891
+    },
+    "AI equipment_condition._records_numeric": {
+      "count": 255,
+      "inclusive_us": 2793,
+      "exclusive_us": 2793
+    },
+    "AI equipment_condition._repair_installed_numeric": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    },
+    "AI equipment_damage._numeric_rollout_info": {
+      "count": 85,
+      "inclusive_us": 2471,
+      "exclusive_us": 1648
+    },
+    "AI equipment_damage._repair_step_from_info": {
+      "count": 10200,
+      "inclusive_us": 78539,
+      "exclusive_us": 78539
+    },
+    "AI equipment_records._absorb_legacy_numeric": {
+      "count": 85,
+      "inclusive_us": 1630,
+      "exclusive_us": 500
+    },
+    "AI equipment_records._publish_numeric": {
+      "count": 85,
+      "inclusive_us": 1456,
+      "exclusive_us": 616
+    },
+    "AI equipment_rollout.prefix": {
+      "count": 85,
+      "inclusive_us": 800130,
+      "exclusive_us": 169422
+    },
+    "AI tactical_certification.certify": {
+      "count": 244,
+      "inclusive_us": 878777,
+      "exclusive_us": 78647
+    },
+    "OTHER damage._tick_canonical_with": {
+      "count": 960,
+      "inclusive_us": 294903,
+      "exclusive_us": 271186
+    },
+    "OTHER equipment_combat._canonical_capability_fields": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    },
+    "OTHER equipment_condition._records_numeric": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    },
+    "OTHER equipment_condition._repair_installed_numeric": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    },
+    "OTHER equipment_damage._numeric_rollout_info": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    },
+    "OTHER equipment_damage._repair_step_from_info": {
+      "count": 1920,
+      "inclusive_us": 23717,
+      "exclusive_us": 23717
+    },
+    "OTHER equipment_records._absorb_legacy_numeric": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    },
+    "OTHER equipment_records._publish_numeric": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    },
+    "OTHER equipment_rollout.prefix": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    },
+    "OTHER tactical_certification.certify": {
+      "count": 0,
+      "inclusive_us": 0,
+      "exclusive_us": 0
+    }
+  },
+  "wholeMeanMs": 113.16933333333333,
+  "aiMeanMs": 88.14691666666667,
+  "scope": "Raw durations include observer; attribution diagnostic only. All24 recorded updates and40 public statuses equal df08 and78c under original2clock exclusions. No optimized run, capacity, FPS, sound or release acceptance. Root temporary aggregate used wrong calls key then corrected to actual count before this proof; no native retry.",
+  "performanceAccepted": false,
+  "rootNativeLaunches": 0
+}

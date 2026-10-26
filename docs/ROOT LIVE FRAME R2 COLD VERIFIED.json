@@ -1,0 +1,55 @@
+{
+  "classification": "ACTUAL_LIVE_FRAME_R2_COLD_NATIVE_AND_RECORDED_PAYLOAD_VERIFIED",
+  "native": {
+    "jobId": "f90b92da5fa843fb9e30ac0a0945dd94",
+    "suite": "equipment_cost_diagnostic",
+    "family": "",
+    "outcome": "passed",
+    "checks": 51,
+    "failures": 0,
+    "inputSha256": "a9e68a96a1ff1f7fc2699f135a1c452a9b262fc3a80d7c2714c0a9f52f4ad2a7",
+    "inputCount": 289,
+    "nativeWallSeconds": 3.3280000000013388,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\f90b92da5fa843fb9e30ac0a0945dd94\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "9037514c7aaddc46637d12674dec104ebef6b3937cc9d10ddd179cbc19c95f59",
+      "cost-diagnostic.json": "ef82f80939562bb8007ed6bd0e76a000ac9e6a93bed7561bbc259aa6959cb821",
+      "execution.json": "8990257b3641f836481fdf7b627f1676218a24e7da654c940ec1f5de4b9f829f",
+      "inputs-after.json": "88ffe2194e3e9b8f5cfc7e8a93e224fdb8b520df7dac9ec8b9ca141c244b04c1",
+      "inputs-before.json": "88ffe2194e3e9b8f5cfc7e8a93e224fdb8b520df7dac9ec8b9ca141c244b04c1",
+      "lane.log": "4a804d3975abb9be6751a3653b2403d06602be84460c1aabdb656ab0a4c2729c",
+      "native-receipt.json": "0e8817d6751086627924ad4ff8573070e005c995b4eb479dbad1260e34fd1182",
+      "native.log": "e380b795e0e9740d33e705377ab924616f21747e557b85067b7128c357e004da",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "0a0aff81136b1bee03f66c8e27f801c1671a71725e68bb6e6116937bf4eba2b8",
+      "request.json": "2143ad20b8311a1ea0a73309391a2a0701577e7fb1f097cd7df4d1e467230043",
+      "result.json": "4b4126fc4030b310520433490466290184ac32dc8879f77741eb152e9380b7f4",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "c4cc9fb4c069b6d2f95026f617fc3c19ddbc553ba03b667e792ec69246e54e12",
+      "verified-report.json": "4b4126fc4030b310520433490466290184ac32dc8879f77741eb152e9380b7f4"
+    }
+  },
+  "costSha256": "ef82f80939562bb8007ed6bd0e76a000ac9e6a93bed7561bbc259aa6959cb821",
+  "baselineSha256": "d86cd932ab34c0a24e9697c7e4db2188c75a854d7eba533e3bd89217c007084b",
+  "recordedPayloadEquivalent": true,
+  "samples": 24,
+  "publicStatuses": 40,
+  "excludedDiagnosticPaths": [
+    "ai_us",
+    "metrics.aiUs"
+  ],
+  "observedMeanMilliseconds": {
+    "whole_update_us": 94.437375,
+    "ai_us": 69.94054166666668,
+    "other_update_us": 24.49683333333333
+  },
+  "scope": "Original unchanged cold workload; recorded resources/work/ages/budgets/status only. Composed3 scripts compiled/executed. No fullstate/RNG/causal/FPS/capacity claim.",
+  "fullCorrectnessOrReleaseAccepted": false,
+  "performanceAccepted": false,
+  "mainEdited": false,
+  "rootNativeLaunches": 0,
+  "alsoComparedCurrentDf08Sha256": "d2ccc935436d7f1a7a28f3e7ce7d7d2d3839ba4c32e125fb5121222bd68757b9",
+  "currentDf08ProofSha256": "a93383bebc46260e89265e3b7c678ac8d4b0184a2ba77ca14b340695ed3a7c52"
+}

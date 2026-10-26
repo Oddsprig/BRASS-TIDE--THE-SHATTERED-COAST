@@ -4,21 +4,47 @@ Native project: game/. Canonical catalogue/geography: game/data/world.json. See
 maps/PROJECT MAP.txt for sizes and targeted maps/ files for actual symbols/lines.
 Historical JS prototype is archived. Planned modules do not exist until implemented.
 
-CONTROL AND DIAGNOSTIC UPDATE — 26 OCTOBER 2026
-Orders b7b7 passed77/0. Original UI5c46 failed127/1 because its short scenario
-expected one crew pool to suppress fire and repair hull simultaneously. The
-canonical contract conserves that labor. Corrected fixture b007 keeps every
-original assertion, checks fire-first work after0.5s, then advances75 more real
-ticks and requires extinguishing plus the original paid-repair result. Native
-bb22 passed129/0; Root verified source, scene, external inputs and receipts.
-Only the fixture changed; gameplay rules did not. Original failed bytes remain.
-Current-source diagnostic4e75 passed51/0, all24updates/40statuses equaldf08;
-collector24complete/18690balanced entries/valid calibration and interval sums.
-Raw AI88.370ms includes only21.415ms/update exclusive in the shared canonical
-kernel; remaining work is being narrowed with three additional diagnostic seams.
-No profiling code is merged into gameplay. Capacity remains incomplete; no
-unchanged fleet benchmark retry or release acceptance. See the current Root
-UI, profiler and capacity evidence files.
+CONTROL AND PERFORMANCE UPDATE — 26 OCTOBER 2026
+Live tactical checks now receive the same validated per-tick equipment inspection
+used by steering and firing. Derived status stays fresh; fuel exhaustion, scalar
+engine damage, individual gun damage and owner identity still invalidate or
+refresh the result. Optional null callers retain their original status path.
+No physical math, two-second lookahead, safety budgets or crew work rules changed.
+
+Focused projection d2b019 passed99/0. All original67 assertions remain, with
+actual current/helm/fire, fuel0, engine/item changes and clone-owner checks.
+Original cold24 f90b92 passed51/0. Root independently verified exact source,
+engine, tools, shared lane and receipts. All24 recorded updates and40 public
+statuses match both df08 and original78c; only the original two diagnostic
+clock fields are excluded. Observed cold means:94.437ms whole,69.941ms AI,
+24.497ms other. Prior df08 was111.337/86.419/24.918ms. Host contention and this
+short workload limit timing interpretation; no capacity, FPS or causal claim.
+The four runtime files and expanded fixture are integrated; all other game
+files were byte-identical at that integration. Proof c083eae8 binds the change.
+
+Before this fix, diagnostic c08b3d passed51/0 with24 exact phase-to-clock joins,
+25,044 balanced entries and valid calibration. Raw AI88.147ms included planning
+75.476ms (certification36.616ms), automatic firing10.424ms and mounts1.859ms.
+Its24 recorded updates/40 statuses also match df08/78c. These are attribution
+measurements of the earlier runtime, including observer overhead. No profiler
+is merged into gameplay. Read-only private prediction-step status reuse is the
+next isolated source candidate; it has no native acceptance yet.
+
+Orders b7b7 passed77/0 on the earlier matching runtime. Original UI5c46 failed
+127/1 because its short scenario expected the same crew to fight fire and repair
+hull simultaneously. Corrected fixture b007 retained every assertion and advanced
+real work time; bb22 passed129/0. That failure and both exact-source results stay
+preserved. Final control/release evidence must bind the final runtime.
+
+Original sustained capacity W0 remains FAILED/INCOMPLETE. The strict checkerR2
+recognizes the existing integer limit300; CPU replay still fails the three timing
+and completion issues. Original native four-issue evidence is unchanged. That
+checker is bound to its prior runtime and needs a fresh explicit source binding
+before any future optimized capacity run. No unchanged W0 retry is justified.
+Still24 boats; .031 is untagged development. No new Windows export, launcher,
+remote upload, rendered performance, sound-quality or Starsector-parity claim.
+Proofs: ROOT LIVE FRAME R2 SOURCE STAGES VERIFIED, PROJECTION NATIVE VERIFIED,
+COLD VERIFIED and MAIN INTEGRATION; ROOT PHASE R3 NATIVE PROFILE VERIFIED.
 
 CAPACITY WINDOW0 — 26 OCTOBER 2026
 Original sustained tactical40 run4d8899ea completed150 warmup updates, then

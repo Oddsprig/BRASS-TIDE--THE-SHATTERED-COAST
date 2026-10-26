@@ -676,7 +676,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			var desired: float=s.angle+steer*turn_step*dt
 			var throttle: float=(1.0 if input.get("forward",false) else 0.0)-(0.55 if input.get("backward",false) else 0.0)
 			controls[id]={"angle":desired,"throttle":throttle,"boost":input.get("boost",false)}
-		else:controls[id]=Tactical.helm(st,s)
+		else:controls[id]=Tactical.helm(st,s,frame_cache)
 	ai_us+=Time.get_ticks_usec()-planning_started
 	for id in active_ids:
 		var s: Dictionary=st.tactical.ships[id]

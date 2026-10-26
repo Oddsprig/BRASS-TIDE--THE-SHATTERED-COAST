@@ -274,6 +274,116 @@ func test_fuel_cross_zero_instantaneous_vs_average_separate() -> void:
 	check(is_same(info_b_after, info_b_ref), "fuel crossing 0.0 after tick_ship keeps cached gear info reference valid")
 	check(st_dry_cached == st_dry_public and _approx(float(st_dry_cached.pump), 0.0) and _approx(float(st_dry_cached.bailing), float(st_dry_cached.handBailing)) and float(st_dry_cached.bailing) < float(tick_b.bailing) - 2.0, "get_status_cached immediately recomputes pump=0.0 when fuel crosses 0.0 mid-frame")
 
+func test_live_frame_forwarding_cached_uncached_and_mutations() -> void:
+	var Battle = preload("res://scripts/battle.gd")
+	var Tactical = preload("res://scripts/tactical_runtime.gd")
+	var Certification = preload("res://scripts/tactical_certification.gd")
+	var EquipmentRollout = preload("res://scripts/equipment_rollout.gd")
+	var fit: Dictionary = {"weapons": ["stock_primary", "rapid_gun"], "engine": "stock_engine", "armor": "stock_armor"}
+	var p_boat: Dictionary = _canonical_boat("tin_skiff", "proj-iso-fwd-p", {"hp": 150.0, "fuel": 45.0, "supplies": 0.0, "ammo": 80.0}, fit)
+	var e_boat: Dictionary = _canonical_boat("tin_skiff", "proj-iso-fwd-e", {"hp": 150.0, "fuel": 45.0, "supplies": 0.0, "ammo": 80.0}, fit)
+	var st: Dictionary = Battle.create({"fleet": [p_boat], "enemyFleet": [e_boat], "islands": [], "seed": 411})
+	var ship: Dictionary = st.ships[0]
+	var enemy: Dictionary = st.ships[1]
+	ship.x = 700.0; ship.y = 850.0; ship.angle = 0.0
+	enemy.x = 1020.0; enemy.y = 850.0; enemy.angle = PI
+	var dt: float = 1.0 / 30.0
+	for _step in range(4):
+		Battle.update(st, dt)
+		Battle.pop_events(st)
+		if st.tactical.intents.has(str(ship.id)) and bool(Certification.current(st, ship, st.tactical.intents.get(str(ship.id), {}), dt).get("ok", false)):
+			break
+	var intent: Dictionary = st.tactical.intents.get(str(ship.id), {})
+	check(not intent.is_empty() and bool(Certification.current(st, ship, intent, dt).get("ok", false)), "autopilot canonical ship certifies active intent for live forwarding test")
+
+	# Simulate live Battle.update prepass (st.time += dt and Damage.tick_ship seeding frame_cache) right before Tactical.helm.
+	var frame_cache: Dictionary = {}
+	st.time += dt
+	for s in st.ships:
+		s.battleTime = st.time
+		Damage.tick_ship(s, dt, {"inCombat": true}, frame_cache)
+		Tactical.refresh_mounts(st, s, frame_cache)
+	var info_ref: Dictionary = frame_cache[str(ship.id)].info
+	check(frame_cache.has(str(ship.id)) and is_same(frame_cache[str(ship.id)].shipRef, ship), "prepass tick_ship seeds live ship in frame_cache")
+	check(Certification.capability(ship, NAN, frame_cache) == Certification.capability(ship), "cached Certification.capability matches default-null uncached capability")
+	check(EquipmentRollout.capability_with_status(ship, Damage.get_status_cached(ship, frame_cache), NAN, frame_cache) == EquipmentRollout.capability_with_status(ship, Damage.get_status(ship)), "cached EquipmentRollout.capability_with_status matches default-null uncached")
+	check(Certification.motion(ship, dt, float(ship.angle), 0.75, false, frame_cache) == Certification.motion(ship, dt, float(ship.angle), 0.75, false), "cached Certification.motion matches default-null uncached motion")
+	var cur_pre_cached: Dictionary = Certification.current(st, ship, intent, 0.0, frame_cache)
+	var cur_pre_uncached: Dictionary = Certification.current(st, ship, intent, 0.0)
+	check(bool(cur_pre_cached.get("ok", false)) and cur_pre_cached == cur_pre_uncached, "pre-helm Certification.current with frame_cache matches default-null uncached")
+	check(Certification.safe_step(st, ship, {"angle": float(ship.angle), "throttle": 0.5}, st.tactical.budget.duplicate(true), frame_cache) == Certification.safe_step(st, ship, {"angle": float(ship.angle), "throttle": 0.5}, st.tactical.budget.duplicate(true)), "cached Certification.safe_step matches default-null uncached")
+	check(Certification.brake(st, ship, st.tactical.budget.duplicate(true), "Hold", frame_cache) == Certification.brake(st, ship, st.tactical.budget.duplicate(true), "Hold"), "cached Certification.brake matches default-null uncached")
+
+	var st_h_cached: Dictionary = st.duplicate(true)
+	var st_h_uncached: Dictionary = st.duplicate(true)
+	var hc_cache: Dictionary = {}
+	for s_hc in st_h_cached.tactical.ships.values():
+		Damage._store_cached_info(s_hc, Damage.inspect_owner_cached(s_hc), hc_cache)
+	check(hc_cache.has(str(ship.id)) and is_same(hc_cache[str(ship.id)].shipRef, st_h_cached.tactical.ships[str(ship.id)]), "helm clone cache owns exact tactical.ships reference")
+	var helm_cached: Dictionary = Tactical.helm(st_h_cached, st_h_cached.tactical.ships[str(ship.id)], hc_cache)
+	var helm_uncached: Dictionary = Tactical.helm(st_h_uncached, st_h_uncached.tactical.ships[str(ship.id)])
+	check(helm_cached == helm_uncached and not bool(helm_cached.get("blocked", false)), "Tactical.helm with frame_cache matches default-null uncached helm")
+
+	# Advance live hull by one _move step to test post-motion fire_gates forwarding while frame_cache stays valid.
+	var live_ctrl: Dictionary = Tactical.helm(st, ship, frame_cache)
+	Battle._move(st, ship, dt, float(live_ctrl.angle), float(live_ctrl.throttle), bool(live_ctrl.get("boost", false)), frame_cache)
+	Tactical.after_motion(st)
+	check(is_same(Damage.inspect_owner_cached(ship, frame_cache), info_ref), "Battle._move preserves validated frame_cache info reference")
+	var cur_post_cached: Dictionary = Certification.current(st, ship, intent, dt, frame_cache)
+	var cur_post_uncached: Dictionary = Certification.current(st, ship, intent, dt)
+	check(bool(cur_post_cached.get("ok", false)) and cur_post_cached == cur_post_uncached, "post-motion Certification.current(pose_offset=dt) with frame_cache matches default-null")
+	var st_f_cached: Dictionary = st.duplicate(true)
+	var st_f_uncached: Dictionary = st.duplicate(true)
+	var fc_cache: Dictionary = {}
+	for s_fc in st_f_cached.tactical.ships.values():
+		Damage._store_cached_info(s_fc, Damage.inspect_owner_cached(s_fc), fc_cache)
+	check(fc_cache.has(str(ship.id)) and is_same(fc_cache[str(ship.id)].shipRef, st_f_cached.tactical.ships[str(ship.id)]), "fire clone cache owns exact tactical.ships reference")
+	var fg_cached: Dictionary = Tactical.fire_gates(st_f_cached, st_f_cached.tactical.ships[str(ship.id)], fc_cache)
+	var fg_uncached: Dictionary = Tactical.fire_gates(st_f_uncached, st_f_uncached.tactical.ships[str(ship.id)])
+	check(fg_cached == fg_uncached, "Tactical.fire_gates with frame_cache matches default-null uncached fire_gates")
+
+	# 1. Scalar fuel crossing 0.0 mid-frame keeps info cache hit but refreshes derived status/motion/current/helm/fire.
+	ship.fuel = 0.0
+	check(is_same(Damage.inspect_owner_cached(ship, frame_cache), info_ref), "fuel=0.0 scalar change retains cached info reference")
+	check(_approx(float(Damage.get_status_cached(ship, frame_cache).pump), 0.0), "fuel=0.0 immediately refreshes derived get_status_cached pump=0.0")
+	check(Certification.motion(ship, dt, float(ship.angle), 1.0, false, frame_cache) == Certification.motion(ship, dt, float(ship.angle), 1.0, false), "fuel=0.0 cached Certification.motion matches uncached 0.2x fuel-exhausted speed")
+	var cur_fuel0_cached: Dictionary = Certification.current(st, ship, intent, dt, frame_cache)
+	var cur_fuel0_uncached: Dictionary = Certification.current(st, ship, intent, dt)
+	check(not bool(cur_fuel0_cached.get("ok", true)) and cur_fuel0_cached == cur_fuel0_uncached, "fuel=0.0 invalidates Certification.current identically for cached and uncached")
+
+	# 2. External engine scalar drop evicts stale cache entry; subsequent tick_ship absorbs into moduleCondition.
+	ship.fuel = 45.0
+	Damage.tick_ship(ship, dt, {"inCombat": true}, frame_cache)
+	check(frame_cache.has(str(ship.id)), "live ship re-warmed before external engine scalar drop")
+	ship.engine = 0.35
+	var cap_eng_cached: Dictionary = Certification.capability(ship, NAN, frame_cache)
+	var cap_eng_uncached: Dictionary = Certification.capability(ship)
+	check(cap_eng_cached == cap_eng_uncached and not frame_cache.has(str(ship.id)), "external engine scalar drop evicts stale frame_cache entry and matches uncached capability")
+	check(Certification.current(st, ship, intent, dt, frame_cache) == Certification.current(st, ship, intent, dt) and not bool(Certification.current(st, ship, intent, dt, frame_cache).get("ok", true)), "external engine scalar drop invalidates Certification.current identically")
+	Damage.tick_ship(ship, dt, {"inCombat": true}, frame_cache)
+	check(frame_cache.has(str(ship.id)) and _approx(float(_item_at(ship.moduleCondition, "engine").hp), 0.35, 0.01) and Certification.capability(ship, NAN, frame_cache) == Certification.capability(ship) and Certification.motion(ship, dt, float(ship.angle), 1.0, false, frame_cache) == Certification.motion(ship, dt, float(ship.angle), 1.0, false), "post-absorption tick_ship re-seeds frame_cache and matches uncached capability/motion")
+
+	# 3. In-frame moduleCondition item edit evicts stale cache entry and matches uncached.
+	var m0_uid: String = str(_item_at(ship.moduleCondition, "mount0").itemUid)
+	check(Core.apply_component_damage(ship.moduleCondition, {"itemUid": m0_uid, "loss": 0.85, "cause": "In-frame mount0 edit"}).ok and Records.publish(ship).ok, "in-frame mount0 disabled via apply_component_damage")
+	var cap_item_cached: Dictionary = Certification.capability(ship, NAN, frame_cache)
+	var cap_item_uncached: Dictionary = Certification.capability(ship)
+	check(cap_item_cached == cap_item_uncached and _approx(float(cap_item_cached.get("mount0", 1.0)), 0.0) and not frame_cache.has(str(ship.id)), "in-frame item edit evicts frame_cache entry and reports mount0=0.0 matching uncached")
+
+	# 4. Owner clone isolation + forged canonical status guard (never skips inspect_owner_cached validation).
+	Damage.tick_ship(ship, dt, {"inCombat": true}, frame_cache)
+	var live_cache_bytes: PackedByteArray = var_to_bytes(frame_cache)
+	var clone_owner: Dictionary = ship.duplicate(true)
+	var clone_pump_uid: String = str(_item_at(clone_owner.moduleCondition, "pumps").itemUid)
+	check(Core.apply_component_damage(clone_owner.moduleCondition, {"itemUid": clone_pump_uid, "loss": 0.85, "cause": "Clone pump disable"}).ok and Records.publish(clone_owner).ok, "clone_owner pump disabled")
+	check(Certification.capability(clone_owner, NAN, frame_cache) == Certification.capability(clone_owner) and _approx(float(Certification.capability(clone_owner, NAN, frame_cache).get("pumpFactor", 1.0)), 0.0) and _approx(float(Certification.capability(ship, NAN, frame_cache).get("pumpFactor", 0.0)), 1.0), "clone_owner capability uses fresh inspection while live ship retains pumpFactor=1.0")
+	check(Certification.motion(clone_owner, dt, float(clone_owner.angle), 1.0, false, frame_cache) == Certification.motion(clone_owner, dt, float(clone_owner.angle), 1.0, false) and var_to_bytes(frame_cache) == live_cache_bytes, "clone_owner motion matches uncached and leaves live frame_cache byte-identical")
+	var corrupt_clone: Dictionary = ship.duplicate(true)
+	corrupt_clone.moduleCondition.nextItemSeq = 0
+	var forged_can_status: Dictionary = Damage.get_status(ship)
+	var forged_cap: Dictionary = EquipmentRollout.capability_with_status(corrupt_clone, forged_can_status, NAN, frame_cache)
+	check(not forged_cap.has("moduleHpSum") and not bool(Certification.capability(corrupt_clone, NAN, frame_cache).get("mount0", 1.0) > 0.0) and var_to_bytes(frame_cache) == live_cache_bytes, "capability_with_status validates owner via inspect_owner_cached and rejects forged canonical status on corrupt clone")
+
 func _initialize() -> void:
 	ProjectSettings.set_setting("application/run/flush_stdout_on_print", true)
 	world = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
@@ -282,6 +392,7 @@ func _initialize() -> void:
 	test_warmed_live_damage_repair_invalidation_and_public_get_status_fresh()
 	test_old_null_and_invalid_owners_safe()
 	test_fuel_cross_zero_instantaneous_vs_average_separate()
+	test_live_frame_forwarding_cached_uncached_and_mutations()
 	if failures > 0 or checks <= 0:
 		push_error("frame_projection_isolation: %d checks, %d failures" % [checks, failures])
 		quit(1)
