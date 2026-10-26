@@ -138,7 +138,7 @@ func _flow() -> void:
 	var port_cash: int=int(home.cash)
 	var wages_before: int=int(owner.crewPurse)
 	Fleets.tick([owner],c.state.ports,0.01,c)
-	check(owner.boats.all(func(b):return float(b.fuel)>0) and int(owner.coins)<spent_before and int(home.cash)>port_cash and int(owner.crewPurse)>wages_before,"ordinary dock service buys donated stock and pays actual crew wages")
+	check(owner.boats.all(func(b):return float(b.fuel)>0) and int(owner.coins)<spent_before and int(home.cash)>port_cash and int(owner.lastPayroll)>0 and int(owner.crewPurse)<=wages_before+int(owner.lastPayroll),"ordinary dock service buys donated stock and pays crew wages, with ration purchases allowed from their purse")
 	c.RegionalOps.refresh(c)
 	check(op.currentPlan.ready and owner.purpose=="escort" and not p.holding,"funded ordinary resupply resumes the same physical convoy order")
 	position={"x":p.x,"y":p.y};c.step(1.0)
