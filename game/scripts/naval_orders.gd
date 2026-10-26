@@ -159,6 +159,20 @@ static func owner_position(state: Dictionary, owner: Dictionary) -> Vector2:
 	return Vector2(float(p.get("x", 0.0)), float(p.get("y", 0.0)))
 
 
+static func target_destination(state: Dictionary, owner: Dictionary) -> String:
+	# A live chart actor is the current sighting; an old order alone is not one.
+	if owner.is_empty() or is_story_owner(owner) or not bool(owner.get("active", false)) or living_boats(owner).is_empty():
+		return ""
+	var patrol: Dictionary = find_patrol(state, str(owner.get("id", "")))
+	if patrol.is_empty() or not bool(patrol.get("active", false)):
+		return ""
+	var dest: String = str(patrol.get("to", ""))
+	if find_port(state, dest).is_empty():
+		var order: Dictionary = owner.get("order", {}) if owner.get("order") is Dictionary else {}
+		dest = str(order.get("destination", ""))
+	return dest if not find_port(state, dest).is_empty() else ""
+
+
 static func port_dist(a: Dictionary, b: Dictionary) -> float:
 	if a.is_empty() or b.is_empty():
 		return 1000.0
@@ -350,6 +364,15 @@ static func build_order(state: Dictionary, owner: Dictionary, purpose: String = 
 		var first_port: Dictionary = ports[0]
 		fallback_port = str(first_port.get("id", ""))
 	var dest: String = destination
+	if purpose in ["raid", "intercept", "escort"] and not target_owner_id.is_empty() and not is_story_owner(owner) and not bool(owner.get("playerCompany", false)):
+		var current_dest: String = target_destination(state, find_owner(state, target_owner_id))
+		if current_dest.is_empty():
+			target_owner_id = ""
+			var kind: String = str(owner.get("kind", "patrol"))
+			purpose = "raid" if kind == "raider" else ("deliver" if kind == "trader" else "patrol")
+			reason = "%s sea lanes; previous target is no longer sighted." % ("Raiding merchant" if kind == "raider" else ("Sailing trade" if kind == "trader" else "Patrolling"))
+		else:
+			dest = current_dest
 	if dest.is_empty() or find_port(state, dest).is_empty():
 		var route: Array = owner.get("route", []) if owner.get("route") is Array else []
 		if route.size() >= 2 and not find_port(state, str(route[1])).is_empty():
@@ -529,7 +552,9 @@ static func select_patrol_order(state: Dictionary, owner: Dictionary, current_po
 			continue
 		var r_patrol: Dictionary = find_patrol(state, str(other.get("id", "")))
 		var r_ord: Dictionary = other.get("order", {}) if other.get("order") is Dictionary else {}
-		var r_dest: String = str(r_ord.get("destination", r_patrol.get("to", "")))
+		var r_dest: String = target_destination(state, other)
+		if r_dest.is_empty():
+			continue
 		if r_dest.is_empty() or r_dest == current_port_id:
 			var r_from: String = str(r_patrol.get("from", other.get("homePort", "")))
 			r_dest = r_from if r_from != current_port_id else r_dest
@@ -556,8 +581,9 @@ static func select_patrol_order(state: Dictionary, owner: Dictionary, current_po
 		if str(other.get("kind", "")) != "trader" or living_boats(other).is_empty():
 			continue
 		var t_patrol: Dictionary = find_patrol(state, str(other.get("id", "")))
-		var t_ord: Dictionary = other.get("order", {}) if other.get("order") is Dictionary else {}
-		var t_dest: String = str(t_ord.get("destination", t_patrol.get("to", "")))
+		var t_dest: String = target_destination(state, other)
+		if t_dest.is_empty():
+			continue
 		if t_dest.is_empty() or t_dest == current_port_id:
 			var t_from: String = str(t_patrol.get("from", other.get("homePort", "")))
 			t_dest = t_from if t_from != current_port_id else t_dest
@@ -632,8 +658,9 @@ static func select_raider_order(state: Dictionary, owner: Dictionary, current_po
 		if str(other.get("kind", "")) != "trader" or living_boats(other).is_empty():
 			continue
 		var t_patrol: Dictionary = find_patrol(state, str(other.get("id", "")))
-		var t_ord: Dictionary = other.get("order", {}) if other.get("order") is Dictionary else {}
-		var t_dest: String = str(t_ord.get("destination", t_patrol.get("to", "")))
+		var t_dest: String = target_destination(state, other)
+		if t_dest.is_empty():
+			continue
 		if t_dest.is_empty() or t_dest == current_port_id:
 			var t_from: String = str(t_patrol.get("from", other.get("homePort", "")))
 			t_dest = t_from if t_from != current_port_id else t_dest

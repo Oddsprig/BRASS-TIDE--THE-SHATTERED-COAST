@@ -52,6 +52,9 @@ static func spatial_index(state: Dictionary, cell_size: float = CELL_SIZE) -> Di
 			first_owner["_navalAiCache"] = {
 				"tickCount": int(nav_ai.get("tickCount", 0)),
 				"lastDay": int(nav_ai.get("lastDay", 1)),
+				"encounterDay": int(nav_ai.get("encounterDay", -1)),
+				"encounterCount": int(nav_ai.get("encounterCount", 0)),
+				"encounterOwners": nav_ai.get("encounterOwners", {}).duplicate(true),
 				"encounters": enc_arr.duplicate(true),
 				"replacements": rep_arr.duplicate(true)
 			}
@@ -76,7 +79,7 @@ static func _compare_pair_priority(x: Dictionary, y: Dictionary) -> bool:
 	return float(x.get("priority", 0.0)) < float(y.get("priority", 0.0))
 
 
-static func nearby_hostile_pairs(state: Dictionary, radius: float = ENCOUNTER_RADIUS) -> Array:
+static func nearby_hostile_pairs(state: Dictionary, radius: float = ENCOUNTER_RADIUS, all_candidates: bool = false) -> Array:
 	var grid: Dictionary = spatial_index(state, CELL_SIZE)
 	var candidates: Array = []
 	var seen_pairs: Dictionary = {}
@@ -133,6 +136,10 @@ static func nearby_hostile_pairs(state: Dictionary, radius: float = ENCOUNTER_RA
 							"priority": prio_base + dist
 						})
 	candidates.sort_custom(_compare_pair_priority)
+	# The persistent scanner reserves owners only after a successful resolution.
+	# Keep the original disjoint shortlist for existing callers.
+	if all_candidates:
+		return candidates
 	var chosen: Array = []
 	var busy: Dictionary = {}
 	for item_var in candidates:
@@ -445,9 +452,13 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 				pat["progress"] = clampf(1.0 - float(pat.get("progress", 0.0)), 0.0, 0.99)
 		else:
 			var cur_ord: Dictionary = own.get("order", {}) if own.get("order") is Dictionary else {}
-			NavalOrders.build_order(state, own, str(cur_ord.get("purpose", own.get("kind", "patrol"))), str(cur_ord.get("destination", home_id)), str(cur_ord.get("reason", "")))
+			NavalOrders.build_order(state, own, str(cur_ord.get("purpose", own.get("kind", "patrol"))), str(cur_ord.get("destination", home_id)), str(cur_ord.get("reason", "")), str(cur_ord.get("targetOwnerId", "")))
 
-	var summary: String = "%s (%s) engaged %s (%s): %d/%d shots, %d sunk, %s." % [
+	var kinds: Array = [str(owner_a.get("kind", "")), str(owner_b.get("kind", ""))]
+	var encounter_kind: String = "raid" if kinds.has("raider") and kinds.has("trader") else ("patrol" if kinds.has("raider") and kinds.has("patrol") else "faction_clash")
+	var label: String = "Raid" if encounter_kind == "raid" else ("Patrol action" if encounter_kind == "patrol" else "Faction clash")
+	var summary: String = "%s: %s (%s) engaged %s (%s): %d/%d shots, %d sunk, %s." % [
+		label,
 		str(owner_a.get("name", id_a_str)),
 		id_a_str,
 		str(owner_b.get("name", id_b_str)),
@@ -462,6 +473,7 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 
 	var ev: Dictionary = {
 		"day": int(state.get("econDay", 1)),
+		"kind": encounter_kind,
 		"a": id_a_str,
 		"b": id_b_str,
 		"salvos": salvos_run,

@@ -69,8 +69,70 @@ static func nearby_hostile_pairs(state: Dictionary, radius: float = ENCOUNTER_RA
 
 
 static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: Dictionary, patrol_a: Dictionary = {}, patrol_b: Dictionary = {}, seed_val: int = 1) -> Dictionary:
-	ensure(state)
-	return NavalCombat.resolve_encounter(state, owner_a, owner_b, patrol_a, patrol_b, seed_val)
+	var nav_ai: Dictionary = ensure(state)
+	if nav_ai.is_empty():
+		return {"ok": false, "reason": "no_campaign"}
+	var busy: Dictionary = nav_ai["encounterOwners"]
+	var id_a: String = str(owner_a.get("id", ""))
+	var id_b: String = str(owner_b.get("id", ""))
+	if int(nav_ai.get("encounterCount", 0)) >= MAX_ENCOUNTERS_PER_DAY:
+		return {"ok": false, "reason": "daily_encounter_limit"}
+	if busy.has(id_a) or busy.has(id_b):
+		return {"ok": false, "reason": "owner_already_engaged"}
+	if not NavalCombat.are_hostile(state, owner_a, patrol_a, owner_b, patrol_b):
+		return {"ok": false, "reason": "not_hostile"}
+	var outcome: Dictionary = NavalCombat.resolve_encounter(state, owner_a, owner_b, patrol_a, patrol_b, seed_val)
+	if bool(outcome.get("ok", false)):
+		# Refusals spend neither a daily slot nor either owner's participation.
+		nav_ai["encounterCount"] = int(nav_ai.get("encounterCount", 0)) + 1
+		busy[id_a] = true
+		busy[id_b] = true
+		var witnessed: bool = false
+		var position: Dictionary = state.get("position", {}) if state.get("position") is Dictionary else {}
+		if position.has("x") and position.has("y"):
+			var player_pos: Vector2 = Vector2(float(position.x), float(position.y))
+			for patrol in [patrol_a, patrol_b]:
+				if patrol.has("x") and patrol.has("y") and player_pos.distance_to(Vector2(float(patrol.x), float(patrol.y))) <= 1800.0:
+					witnessed = true # Same chart watch as NavalUI; no distant intel or rewards.
+		outcome.event["witnessed"] = witnessed
+		NavalCombat.spatial_index(state)
+	return outcome
+
+
+static func _encounter_day(state: Dictionary, nav_ai: Dictionary) -> void:
+	var day: int = int(state.get("econDay", 1))
+	if int(nav_ai.get("encounterDay", -1)) == day and nav_ai.get("encounterOwners") is Dictionary and nav_ai.has("encounterCount"):
+		return
+	nav_ai["encounterDay"] = day
+	nav_ai["encounterCount"] = 0
+	nav_ai["encounterOwners"] = {}
+	# Older saves have the bounded event log but no shared daily ledger.
+	for event in nav_ai.get("encounters", []):
+		if not (event is Dictionary) or int(event.get("day", -1)) != day:
+			continue
+		nav_ai["encounterCount"] = int(nav_ai["encounterCount"]) + 1
+		nav_ai["encounterOwners"][str(event.get("a", ""))] = true
+		nav_ai["encounterOwners"][str(event.get("b", ""))] = true
+
+
+static func scan_encounters(core) -> Array:
+	var state: Dictionary = NavalOrders.state_of(core)
+	var nav_ai: Dictionary = ensure(state, NavalOrders.world_of(core))
+	if nav_ai.is_empty() or int(nav_ai.get("encounterCount", 0)) >= MAX_ENCOUNTERS_PER_DAY:
+		return []
+	var messages: Array = []
+	var busy: Dictionary = nav_ai["encounterOwners"]
+	for pair in NavalCombat.nearby_hostile_pairs(state, ENCOUNTER_RADIUS, true):
+		if int(nav_ai.get("encounterCount", 0)) >= MAX_ENCOUNTERS_PER_DAY:
+			break
+		var id_a: String = str(pair.get("a", ""))
+		var id_b: String = str(pair.get("b", ""))
+		if busy.has(id_a) or busy.has(id_b):
+			continue
+		var outcome: Dictionary = resolve_encounter(state, NavalOrders.find_owner(state, id_a), NavalOrders.find_owner(state, id_b), NavalOrders.find_patrol(state, id_a), NavalOrders.find_patrol(state, id_b), int(state.get("seed", 1)))
+		if bool(outcome.get("ok", false)) and bool(outcome.event.get("witnessed", false)):
+			messages.append(str(outcome.get("summary", "")))
+	return messages
 
 
 static func collect_replacements(core, port: Dictionary = {}) -> Array:
@@ -122,6 +184,9 @@ static func ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary:
 			"version": 1,
 			"tickCount": int(cached.get("tickCount", 0)),
 			"lastDay": int(cached.get("lastDay", state.get("econDay", 1))),
+			"encounterDay": int(cached.get("encounterDay", -1)),
+			"encounterCount": int(cached.get("encounterCount", 0)),
+			"encounterOwners": cached.get("encounterOwners", {}),
 			"encounters": cached.get("encounters", []),
 			"replacements": cached.get("replacements", []),
 			"spatialGrid": {},
@@ -191,6 +256,7 @@ static func ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary:
 			owner["destination"] = str(cur.get("destination", ""))
 			owner["reason"] = str(cur.get("reason", ""))
 			by_owner[str(owner.get("id", ""))] = cur
+	_encounter_day(state, nav_ai)
 	NavalCombat.spatial_index(state)
 	return nav_ai
 
@@ -237,8 +303,11 @@ static func tick(core, days = 1) -> Array:
 	var messages: Array = []
 	for step_i in range(day_steps):
 		var step_idx: int = int(step_i)
+		# Share actual fleets, ports, logs and ledger; date only this bounded step.
+		var day_state: Dictionary = state.duplicate(false)
+		day_state["econDay"] = int(state.get("econDay", 1)) + step_idx
 		nav_ai["tickCount"] = int(nav_ai.get("tickCount", 0)) + 1
-		nav_ai["lastDay"] = int(state.get("econDay", 1)) + step_idx
+		nav_ai["lastDay"] = int(day_state["econDay"])
 
 		# 1. Advance any unstepped NPC slip orders, then collect ready hulls.
 		NavalReplacements.advance_unstepped_npc_orders(state, step_idx, day_steps)
@@ -267,30 +336,8 @@ static func tick(core, days = 1) -> Array:
 						if bool(rep.get("ok", false)) and rep.has("message"):
 							messages.append(str(rep.get("message", "")))
 
-		# 3. Resolve bounded daily pair encounters for spatially nearby hostile NPC chart patrols.
-		var pairs: Array = NavalCombat.nearby_hostile_pairs(state, ENCOUNTER_RADIUS)
-		for pair_var in pairs:
-			if not (pair_var is Dictionary):
-				continue
-			var pair: Dictionary = pair_var
-			var id_a: String = str(pair.get("a", ""))
-			var id_b: String = str(pair.get("b", ""))
-			var pat_a: Dictionary = NavalOrders.find_patrol(state, id_a)
-			var pat_b: Dictionary = NavalOrders.find_patrol(state, id_b)
-			var own_a: Dictionary = NavalOrders.find_owner(state, id_a)
-			var own_b: Dictionary = NavalOrders.find_owner(state, id_b)
-			if own_a.is_empty() or own_b.is_empty():
-				continue
-			var outcome: Dictionary = NavalCombat.resolve_encounter(
-				state,
-				own_a,
-				own_b,
-				pat_a,
-				pat_b,
-				int(state.get("seed", 1)) + step_idx * 97
-			)
-			if bool(outcome.get("ok", false)) and outcome.has("summary"):
-				messages.append(str(outcome.get("summary", "")))
+		# 3. Daily and mid-day calls share one persistent encounter budget.
+		messages.append_array(scan_encounters(day_state))
 
 		# 4. Refresh orders, reserves, and performance metrics for all owners.
 		for owner_var in owners:
@@ -298,32 +345,37 @@ static func tick(core, days = 1) -> Array:
 				continue
 			var owner: Dictionary = owner_var
 			var cur_ord: Dictionary = owner.get("order", {}) if owner.get("order") is Dictionary else {}
-			if NavalOrders.is_story_owner(owner):
-				var s_route: Array = owner.get("route", []) if owner.get("route") is Array else []
-				var s_dest: String = str(s_route[s_route.size() - 1]) if not s_route.is_empty() else str(owner.get("homePort", ""))
-				NavalOrders.build_order(state, owner, "blockade", s_dest, str(cur_ord.get("reason", "Maintaining story blockade station.")))
+			if NavalOrders.is_story_owner(owner) or bool(owner.get("playerCompany", false)):
+				# ensure() refreshes derived stats without replacing authored/player intent.
 				continue
 			var res_now: Dictionary = NavalOrders.fleet_reserves(owner)
 			var perf_now: Dictionary = NavalOrders.fleet_performance(owner)
 			var rec_why: String = NavalOrders.needs_home_recovery(owner, res_now, perf_now)
 			var cur_purpose: String = str(cur_ord.get("purpose", ""))
-			var target: Dictionary=NavalOrders.find_owner(state,str(cur_ord.get("targetOwnerId","")))
-			if cur_purpose in ["intercept","escort","raid"] and not str(cur_ord.get("targetOwnerId","")).is_empty() and (target.is_empty() or not target.get("active",false) or NavalOrders.living_boats(target).is_empty()):
-				NavalOrders.assign_post_dock_order(state,owner,{})
-				cur_ord=owner.order
-				cur_purpose=str(cur_ord.purpose)
 			if not rec_why.is_empty() and not (cur_purpose in ["withdraw", "repair", "resupply", "replace"]):
 				var h_id: String = str(owner.get("homePort", ""))
 				var purp: String = "replace" if int(res_now.get("boats", 0)) < int(res_now.get("targetBoats", 1)) else "withdraw"
-				NavalOrders.build_order(state, owner, purp, h_id, rec_why)
+				NavalOrders.build_order(day_state, owner, purp, h_id, rec_why)
 			else:
+				var target_id: String = str(cur_ord.get("targetOwnerId", ""))
+				var target_lost: bool = not target_id.is_empty() and NavalOrders.target_destination(state, NavalOrders.find_owner(state, target_id)).is_empty()
+				var plan: Dictionary = {}
+				var day: int = int(day_state["econDay"])
+				if bool(owner.get("active", false)) and cur_purpose in ["patrol", "raid", "intercept", "escort"] and (int(owner.get("lastNavalRetargetDay", -1)) != day or target_lost):
+					var at_id: String = str(owner.get("atPort", ""))
+					if str(owner.get("kind", "")) == "raider":
+						plan = NavalOrders.select_raider_order(day_state, owner, at_id)
+					elif str(owner.get("kind", "")) == "patrol" and NavalOrders.RegionalOrders.operation(state, owner).is_empty():
+						plan = NavalOrders.select_patrol_order(day_state, owner, at_id)
+					if not plan.is_empty():
+						owner["lastNavalRetargetDay"] = day
 				NavalOrders.build_order(
-					state,
+					day_state,
 					owner,
-					str(cur_ord.get("purpose", owner.get("kind", "patrol"))),
-					str(cur_ord.get("destination", owner.get("homePort", ""))),
-					str(cur_ord.get("reason", "")),
-					str(cur_ord.get("targetOwnerId", ""))
+					str(plan.get("purpose", cur_ord.get("purpose", owner.get("kind", "patrol")))),
+					str(plan.get("destination", cur_ord.get("destination", owner.get("homePort", "")))),
+					str(plan.get("reason", cur_ord.get("reason", ""))),
+					str(plan.get("targetOwnerId", target_id))
 				)
 			var pat: Dictionary = NavalOrders.find_patrol(state, str(owner.get("id", "")))
 			if not pat.is_empty():
