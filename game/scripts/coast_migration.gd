@@ -189,6 +189,87 @@ static func _nearest_valid_nav_node(nav: Dictionary, x: float, y: float) -> Dict
 	return {"ok": true, "point": best_pt, "distance": best_dist, "maxDistance": max_dist}
 
 
+static func place_on_water(nav: Dictionary, point: Dictionary) -> Dictionary:
+	# Nearest connected chart water. Already-safe positions are returned unchanged.
+	if not (point is Dictionary) or not _is_finite_number(point.get("x")) or not _is_finite_number(point.get("y")):
+		return {"ok": false, "point": {}, "moved": false}
+	var current := {"x": float(point["x"]), "y": float(point["y"])}
+	if Navigation.is_water(nav, current["x"], current["y"]) and _has_nav_connectors(nav, current):
+		return {"ok": true, "point": current, "moved": false}
+	if not (nav is Dictionary) or not (nav.get("nodes") is Array):
+		return {"ok": false, "point": {}, "moved": false}
+	var nodes: Array = nav["nodes"]
+	var edges = nav.get("edges")
+	var has_edges := edges is Array and edges.size() == nodes.size()
+	var target := Vector2(float(current["x"]), float(current["y"]))
+	var best: Dictionary = {}
+	var best_dist := INF
+	for i in range(nodes.size()):
+		var node = nodes[i]
+		if not (node is Dictionary) or not _is_finite_number(node.get("x")) or not _is_finite_number(node.get("y")):
+			continue
+		if has_edges and (not (edges[i] is Array) or (edges[i] as Array).is_empty()):
+			continue
+		if not Navigation.is_water(nav, node["x"], node["y"]):
+			continue
+		var d := target.distance_to(Vector2(float(node["x"]), float(node["y"])))
+		if d < best_dist:
+			best_dist = d
+			best = {"x": float(node["x"]), "y": float(node["y"])}
+	if best.is_empty():
+		return {"ok": false, "point": {}, "moved": false}
+	return {"ok": true, "point": best, "moved": true}
+
+
+static func _correct_current_chart(state: Dictionary, world: Dictionary, nav: Dictionary) -> String:
+	# Rev 2 careers stay byte-for-byte when they are already in safe water.
+	# Land added inland of a harbor only relocates a stranded position or patrol,
+	# then rebuilds the same destination. Coins, crew and harbor stores are untouched.
+	if nav == null or nav.is_empty() or not (nav.get("nodes") is Array):
+		return ""
+	if not (state.get("position") is Dictionary):
+		return ""
+	var placed := place_on_water(nav, state["position"])
+	if not placed.get("ok", false):
+		return "Save refused: chart position is inland and no safe water could be found."
+	var moved: bool = bool(placed.get("moved", false))
+	if moved:
+		state["position"] = placed["point"]
+	var path: Array = state.get("path", []) if state.get("path") is Array else []
+	var blocked := moved or (not path.is_empty() and not Navigation.path_clear(nav, state["position"], path))
+	if blocked:
+		var destination := str(state.get("destination", ""))
+		var target: Dictionary = {}
+		if not destination.is_empty() and world.get("PORTS") is Array:
+			for port in world["PORTS"]:
+				if port is Dictionary and str(port.get("id", "")) == destination:
+					target = {"x": float(port["x"]), "y": float(port["y"])}
+					break
+		elif not path.is_empty() and path[path.size() - 1] is Dictionary:
+			var last: Dictionary = path[path.size() - 1]
+			var end := place_on_water(nav, last)
+			if end.get("ok", false):
+				target = end["point"]
+		if target.is_empty():
+			state["path"] = []
+		else:
+			var route: Array = Navigation.find_path(nav, state["position"], target)
+			if route.size() >= 2:
+				route.pop_front()
+				state["path"] = route
+			else:
+				state["path"] = []
+	if state.get("patrols") is Array:
+		for patrol in state["patrols"]:
+			if not (patrol is Dictionary) or not _is_finite_number(patrol.get("x")) or not _is_finite_number(patrol.get("y")):
+				continue
+			var patrol_point := place_on_water(nav, {"x": patrol["x"], "y": patrol["y"]})
+			if patrol_point.get("ok", false) and bool(patrol_point.get("moved", false)):
+				patrol["x"] = float(patrol_point["point"]["x"])
+				patrol["y"] = float(patrol_point["point"]["y"])
+	return ""
+
+
 static func _resolve_at_sea_position(old_pos: Dictionary, scale: float, nav: Dictionary) -> Dictionary:
 	var sx: float = float(old_pos["x"]) * scale
 	var sy: float = float(old_pos["y"]) * scale
@@ -235,6 +316,9 @@ static func prepare(saved: Dictionary, world: Dictionary, nav: Dictionary) -> Di
 			return _fail("Save refused: coin ledger mismatch (%d != %d)." % [current_coins, int(saved.get("coinSupply", -1))])
 		var current_state: Dictionary = saved.duplicate(true)
 		current_state["mapRevision"] = target_rev
+		var chart_error := _correct_current_chart(current_state, world, nav)
+		if not chart_error.is_empty():
+			return _fail(chart_error)
 		if Money.total(current_state) != current_coins:
 			return _fail("Save refused: coin total changed during state preparation.")
 		return _ok(current_state, "Save verified at map revision %d." % target_rev)

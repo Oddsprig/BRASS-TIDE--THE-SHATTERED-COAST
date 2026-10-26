@@ -1,9 +1,9 @@
-BRASS TIDE — COMBAT MAP (generated; v0.040)
+BRASS TIDE — COMBAT MAP (generated; v0.041)
 
 Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/battle.gd: 37797 bytes; extends RefCounted
+game/scripts/battle.gd: 38284 bytes; extends RefCounted
   game/scripts/battle.gd:65 pop_events()
   game/scripts/battle.gd:68 mount_shot_time()
   game/scripts/battle.gd:71 mount_shot_age()
@@ -16,19 +16,19 @@ game/scripts/battle.gd: 37797 bytes; extends RefCounted
   game/scripts/battle.gd:273 set_autopilot()
   game/scripts/battle.gd:284 issue_order()
   game/scripts/battle.gd:325 set_tactical_options()
-game/scripts/damage.gd: 28968 bytes; extends RefCounted
-  game/scripts/damage.gd:8 number()
-  game/scripts/damage.gd:13 create_ship()
-  game/scripts/damage.gd:43 sum_areas()
-  game/scripts/damage.gd:49 set_policy()
-  game/scripts/damage.gd:54 set_repair_priority()
-  game/scripts/damage.gd:62 get_status()
-  game/scripts/damage.gd:83 clear_frame_cache()
-  game/scripts/damage.gd:87 invalidate_frame_cache()
+game/scripts/damage.gd: 29029 bytes; extends RefCounted
+  game/scripts/damage.gd:10 number()
+  game/scripts/damage.gd:15 create_ship()
+  game/scripts/damage.gd:45 sum_areas()
+  game/scripts/damage.gd:51 set_policy()
+  game/scripts/damage.gd:56 set_repair_priority()
+  game/scripts/damage.gd:64 get_status()
+  game/scripts/damage.gd:85 clear_frame_cache()
+  game/scripts/damage.gd:89 invalidate_frame_cache()
+  game/scripts/damage.gd:101 begin_frame_cache()
   game/scripts/damage.gd:171 inspect_owner_cached()
-  game/scripts/damage.gd:177 get_status_cached()
-  game/scripts/damage.gd:204 apply_hit()
-  game/scripts/damage.gd:334 tick_ship()
+  game/scripts/damage.gd:177 read_status_cached()
+  game/scripts/damage.gd:191 get_status_cached()
 game/scripts/deployment.gd: 1920 bytes; extends RefCounted
   game/scripts/deployment.gd:10 cost()
   game/scripts/deployment.gd:25 total()

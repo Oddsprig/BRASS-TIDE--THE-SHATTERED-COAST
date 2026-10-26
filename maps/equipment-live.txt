@@ -1,15 +1,15 @@
-BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.040)
+BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.041)
 
 Working v0.031 integration candidate: copied numerical prediction, live machinery condition, preserved physical wrecks and paid tow, plus canonical title Lab boats. No release acceptance.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/equipment_combat.gd: 13186 bytes; extends RefCounted
+game/scripts/equipment_combat.gd: 13150 bytes; extends RefCounted
   game/scripts/equipment_combat.gd:11 is_canonical_owner()
   game/scripts/equipment_combat.gd:16 is_corrupt_owner()
   game/scripts/equipment_combat.gd:22 status_of()
-  game/scripts/equipment_combat.gd:34 mount_location()
-  game/scripts/equipment_combat.gd:62 mount_factor()
-  game/scripts/equipment_combat.gd:76 apply_mount_condition()
+  game/scripts/equipment_combat.gd:33 mount_location()
+  game/scripts/equipment_combat.gd:61 mount_factor()
+  game/scripts/equipment_combat.gd:75 apply_mount_condition()
 game/scripts/equipment_rollout.gd: 16172 bytes; extends RefCounted
   game/scripts/equipment_rollout.gd:12 pose()
   game/scripts/equipment_rollout.gd:15 execution()
@@ -27,13 +27,13 @@ game/scripts/equipment_lifecycle.gd: 24648 bytes; extends RefCounted
   game/scripts/equipment_lifecycle.gd:332 stage_birth()
   game/scripts/equipment_lifecycle.gd:419 materialize()
   game/scripts/equipment_lifecycle.gd:440 retain_wrecks()
-game/scripts/fleet_lab.gd: 4809 bytes; extends RefCounted
-  game/scripts/fleet_lab.gd:9 hull()
-  game/scripts/fleet_lab.gd:14 entry()
-  game/scripts/fleet_lab.gd:17 presets()
-  game/scripts/fleet_lab.gd:20 preset()
-  game/scripts/fleet_lab.gd:31 inspect()
-  game/scripts/fleet_lab.gd:51 create()
+game/scripts/fleet_lab.gd: 9877 bytes; extends RefCounted
+  game/scripts/fleet_lab.gd:10 hull()
+  game/scripts/fleet_lab.gd:15 entry()
+  game/scripts/fleet_lab.gd:18 presets()
+  game/scripts/fleet_lab.gd:21 preset()
+  game/scripts/fleet_lab.gd:48 inspect()
+  game/scripts/fleet_lab.gd:68 create()
 game/scripts/salvage.gd: 34898 bytes; extends RefCounted
   game/scripts/salvage.gd:119 ensure()
   game/scripts/salvage.gd:147 find_wreck()

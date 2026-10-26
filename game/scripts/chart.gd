@@ -2,6 +2,7 @@ extends Node2D
 
 const BoatArt = preload("res://scripts/boat_art.gd")
 const CombatArt = preload("res://scripts/combat_art.gd")
+const NauticalArt=preload("res://scripts/nautical_art.gd")
 const GOLD = Color("dfbd7d")
 const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
@@ -34,6 +35,10 @@ const WAKE_MAX_PER_BOAT: int = 26
 const WAKE_MAX_BOATS: int = 64
 const WAKE_LIFE_SEC: float = 6.0
 const TRAIL_MAX: int = 700
+const ISO_X := 0.82
+const ISO_Y := 0.41
+var _chart_sheet: Array = []
+var _chart_ready: bool = false
 
 func setup(game_host):
 	host = game_host
@@ -95,15 +100,34 @@ func polygon_center(points: Array) -> Vector2:
 func noise(n: float) -> float:
 	return fposmod(sin(n * 127.1 + 311.7) * 43758.5453, 1.0)
 
+func nautical_chart() -> bool:
+	# Campaign and the title chart are top-down. Battles keep the isometric frame.
+	return host == null or str(host.mode) != "battle"
+
 func project(p: Vector2, height: float = 0.0) -> Vector2:
 	var d = p - camera
-	return get_viewport_rect().size * 0.5 + Vector2((d.x - d.y) * 0.82, (d.x + d.y) * 0.41 - height) * scale_factor
+	var origin := get_viewport_rect().size * 0.5
+	if nautical_chart():
+		return origin + d * scale_factor
+	return origin + Vector2((d.x - d.y) * ISO_X, (d.x + d.y) * ISO_Y - height) * scale_factor
 
 func world_at(screen: Vector2) -> Vector2:
-	var d = (screen - get_viewport_rect().size * 0.5) / scale_factor
-	var a = d.x / 0.82
-	var b = d.y / 0.41
+	var d = (screen - get_viewport_rect().size * 0.5) / maxf(0.0001, scale_factor)
+	if nautical_chart():
+		return camera + d
+	var a = d.x / ISO_X
+	var b = d.y / ISO_Y
 	return camera + Vector2((a + b) * 0.5, (b - a) * 0.5)
+
+func _chart_plane(p: Vector2) -> Vector2:
+	if nautical_chart():
+		return p
+	return Vector2((p.x - p.y) * ISO_X, (p.x + p.y) * ISO_Y)
+
+func _plane_to_world(p: Vector2) -> Vector2:
+	if nautical_chart():
+		return p
+	return Vector2((p.x / ISO_X + p.y / ISO_Y) * 0.5, (p.y / ISO_Y - p.x / ISO_X) * 0.5)
 
 func step(dt: float):
 	clock += dt
@@ -139,14 +163,14 @@ func step(dt: float):
 			var wp = host.core.state.position
 			camera = camera.lerp(Vector2(wp.x, wp.y), 1.0 - exp(-dt * 4.0))
 		scale_factor = regional_scale() * zoom * (0.75 if tactical else 1.0)
-		if host != null and host.core != null and not host.core.state.is_empty():
-			_update_wakes(_campaign_boats())
 	queue_redraw()
 
 func _screen_to_world_delta(screen_offset: Vector2) -> Vector2:
 	var d = screen_offset / maxf(0.05, scale_factor)
-	var a = d.x / 0.82
-	var b = d.y / 0.41
+	if nautical_chart():
+		return d
+	var a = d.x / ISO_X
+	var b = d.y / ISO_Y
 	return Vector2((a + b) * 0.5, (b - a) * 0.5)
 
 func pan_camera(screen_direction: Vector2, dt: float, fast: bool = false):
@@ -187,17 +211,18 @@ func territory_view():
 	var first: bool=true
 	for island in host.data.ISLANDS:
 		for point in island.points:
-			var p:=Vector2((float(point[0])-float(point[1]))*0.82,(float(point[0])+float(point[1]))*0.41)
+			var p:=_chart_plane(Vector2(float(point[0]),float(point[1])))
 			if first:coast=Rect2(p,Vector2.ONE);first=false
 			else:coast=coast.expand(p)
 	for port in host.data.PORTS:
-		coast=coast.expand(Vector2((float(port.x)-float(port.y))*0.82,(float(port.x)+float(port.y))*0.41))
+		coast=coast.expand(_chart_plane(Vector2(float(port.x),float(port.y))))
 	var usable: Rect2=chart_label_bounds(viewport).grow(-40)
 	var fit_scale: float=minf(usable.size.x/maxf(1.0,coast.size.x),usable.size.y/maxf(1.0,coast.size.y))
 	zoom=clampf(fit_scale/regional_scale(),0.10,1.0)
 	fit_scale=regional_scale()*zoom
 	var center: Vector2=coast.get_center()-(usable.get_center()-viewport*0.5)/maxf(0.01,fit_scale)
-	camera=Vector2((center.x/0.82+center.y/0.41)*0.5,(center.y/0.41-center.x/0.82)*0.5)
+	camera=_plane_to_world(center)
+	queue_redraw()
 	queue_redraw()
 
 func set_tactical(enabled: bool):
@@ -413,16 +438,122 @@ func _draw():
 		draw_campaign()
 	presentation_us=Time.get_ticks_usec()-started
 
+func _segments_cross(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
+	var ab := b - a
+	var cd := d - c
+	var denom := ab.x * cd.y - ab.y * cd.x
+	if absf(denom) < 0.000001:
+		return false
+	var ac := c - a
+	var t := (ac.x * cd.y - ac.y * cd.x) / denom
+	var u := (ac.x * ab.y - ac.y * ab.x) / denom
+	return t > 0.001 and t < 0.999 and u > 0.001 and u < 0.999
+
+func _simple_ring(pts: PackedVector2Array) -> bool:
+	var n := pts.size()
+	if n < 3:
+		return false
+	for i in n:
+		for j in range(i + 1, n):
+			if abs(i - j) <= 1 or (i == 0 and j == n - 1):
+				continue
+			if _segments_cross(pts[i], pts[(i + 1) % n], pts[j], pts[(j + 1) % n]):
+				return false
+	return true
+
+func _scaled_ring(center: Vector2, pts: PackedVector2Array, factor: float) -> PackedVector2Array:
+	var out := PackedVector2Array()
+	for p in pts:
+		out.append(center + (p - center) * factor)
+	return out
+
+func _outset_ring(center: Vector2, pts: PackedVector2Array, distance: float) -> PackedVector2Array:
+	var n := pts.size()
+	var out := PackedVector2Array()
+	for i in n:
+		var prev: Vector2 = pts[(i + n - 1) % n]
+		var curr: Vector2 = pts[i]
+		var next: Vector2 = pts[(i + 1) % n]
+		var bisector := (prev - curr).normalized() + (next - curr).normalized()
+		if bisector.length_squared() < 0.0001:
+			bisector = curr - center
+		bisector = bisector.normalized()
+		if bisector.dot(curr - center) < 0.0:
+			bisector = -bisector
+		out.append(curr + bisector * distance)
+	return out
+
+func _chart_marks(island_id: String, pts: PackedVector2Array, center: Vector2) -> Array:
+	var marks: Array = []
+	var span := 180.0
+	for p in pts:
+		span = maxf(span, center.distance_to(p) * 0.55)
+	var seed := float(island_id.length() * 17)
+	for k in 10:
+		var at := center + Vector2(noise(seed + k * 3.1) - 0.5, noise(seed + k * 5.7) - 0.5) * span
+		if not Geometry2D.is_point_in_polygon(at, pts):
+			continue
+		var dir := Vector2.from_angle(noise(seed + k * 9.0) * TAU)
+		var length := 22.0 + noise(seed + k) * 18.0
+		if island_id in ["isl_kelp", "isl_fen", "isl_verdigris"]:
+			dir = Vector2(0.25, -1.0).normalized()
+			length = 16.0 + float(k % 3) * 6.0
+		marks.append([at - dir * length * 0.5, at + dir * length * 0.5])
+	return marks
+
+func _ensure_chart_sheet() -> void:
+	if host == null or _chart_ready:
+		return
+	_chart_sheet.clear()
+	for island in host.data.ISLANDS:
+		var pts := polygon(island.points)
+		var center := polygon_center(island.points)
+		var shoal := _outset_ring(center, pts, 130.0)
+		if not _simple_ring(shoal):
+			shoal = PackedVector2Array()
+		var contours: Array = []
+		for factor in [0.72, 0.46]:
+			var ring := _scaled_ring(center, pts, factor)
+			if not _simple_ring(ring):
+				continue
+			var inside_land := true
+			for vertex in ring:
+				if not Geometry2D.is_point_in_polygon(vertex, pts):
+					inside_land = false
+					break
+			if inside_land:
+				contours.append(ring)
+		var tint := Color(str(island.get("color", "#6d7d62")))
+		_chart_sheet.append({
+			"ground": Color("6e7f63").lerp(tint, 0.42),
+			"high": Color("3f5344").lerp(tint, 0.28),
+			"shoal": shoal,
+			"contours": contours,
+			"marks": _chart_marks(str(island.get("id", "")), pts, center),
+		})
+	_chart_ready = true
+
+func _draw_cached_ring(pts: PackedVector2Array, color: Color) -> void:
+	if pts.size() < 3:
+		return
+	var screen := PackedVector2Array()
+	for p in pts:
+		screen.append(project(p))
+	draw_colored_polygon(screen, color)
+
 func draw_island(island: Dictionary, index: int, tactical: bool = false):
 	var points = polygon(island.points)
 	var center = polygon_center(island.points)
 	var bounds=Rect2(project(points[0]),Vector2.ZERO)
 	for p in points: bounds=bounds.expand(project(p))
 	if not get_viewport_rect().grow(160).intersects(bounds.grow(100)):return
-	if campaign_overview() and host.mode!="battle" and host.mode!="menu":
-		var coast:=PackedVector2Array()
-		for p in points:coast.append(project(p))
-		draw_chart_coast(self,coast)
+	if nautical_chart():
+		_ensure_chart_sheet()
+		var sheet: Dictionary = _chart_sheet[index] if index < _chart_sheet.size() else {}
+		var close: bool = not campaign_overview()
+		NauticalArt.draw(self,_projector(),points,sheet,close)
+		if close and not str(island.get("name", "")).is_empty():
+			text_at(str(island.get("name", "")).to_upper(), project(center), 12, Color(0.86, 0.88, 0.74, 0.7), serif, true)
 		return
 	for expansion in [1.22, 1.12, 1.055]:
 		var shelf: Array = []
@@ -478,6 +609,11 @@ func draw_harbor(p: Dictionary, index: int):
 	if not get_viewport_rect().grow(240).has_point(screen):return
 	var color = Color(host.core.faction(p.faction).get("color", "#8fb8a3"))
 	var selected: bool = host.selected_port == p.id
+	if nautical_chart():
+		if not campaign_overview() and index < villages.size():
+			world_line([villages[index].shore, position], Color("c8b892"), maxf(1.15, 1.8 * scale_factor))
+		draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
+		return
 	if campaign_overview():
 		draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
 		return
@@ -505,11 +641,12 @@ func campaign_overview() -> bool:
 static func chart_marker_geometry(kind: String,center: Vector2,chart_scale: float,heading: float=0.0) -> Dictionary:
 	# Screen dimensions deliberately do not inherit world/hull size. These centers
 	# remain exactly project(world position), as used by Main.click_chart.
+	# Heading 0 points east, matching the top-down campaign chart.
 	var base: float=9.0 if kind=="fleet" else 8.0 if kind=="harbor" else 7.0
 	var radius: float=base+clampf((chart_scale-0.15)*3.0,0.0,3.0)
 	var points:=PackedVector2Array()
 	if kind=="fleet":
-		var forward:=Vector2((cos(heading)-sin(heading))*0.82,(cos(heading)+sin(heading))*0.41).normalized()
+		var forward:=Vector2.from_angle(heading)
 		var side:=forward.orthogonal()
 		for p in [Vector2(1,0),Vector2(-0.7,0.75),Vector2(-0.35,0),Vector2(-0.7,-0.75)]:points.append(center+(forward*p.x+side*p.y)*radius)
 	elif kind=="site":
@@ -608,6 +745,11 @@ func draw_campaign():
 		world_line([Vector2(x,0),Vector2(x,h)],Color(0.6,0.8,0.69,0.027))
 	for y in range(0,h+1,1000):
 		world_line([Vector2(0,y),Vector2(w,y)],Color(0.6,0.8,0.69,0.027))
+	if not overview:
+		for x in range(500,w,1000):
+			world_line([Vector2(x,0),Vector2(x,h)],Color(0.6,0.8,0.69,0.018))
+		for y in range(500,h,1000):
+			world_line([Vector2(0,y),Vector2(w,y)],Color(0.6,0.8,0.69,0.018))
 	for path in trade_paths():
 		for i in range(1,path.size()):
 			draw_dashed_line(project(path[i-1]),project(path[i]),Color(0.64,0.80,0.65,0.12),1.0,3.0,true)
@@ -619,7 +761,6 @@ func draw_campaign():
 			var point = Vector2(step_point.x, step_point.y)
 			draw_dashed_line(project(previous), project(point), Color(GOLD, 0.75), 1.5, 5.0, true)
 			previous = point
-	if not overview:_draw_wakes()
 	for patrol in world.patrols:
 		if not patrol.active:
 			continue
@@ -650,21 +791,8 @@ func draw_campaign():
 		draw_line(marker_pos+Vector2(-4,-4),marker_pos+Vector2(4,4),GOLD,1.5)
 		draw_line(marker_pos+Vector2(-4,4),marker_pos+Vector2(4,-4),GOLD,1.5)
 		labels.append({"at":marker_pos,"text":"","priority":0})
-	var fleet = host.core.active_fleet()
 	var marker: Vector2=project(Vector2(world.position.x,world.position.y))
-	if overview:
-		draw_chart_marker(self,chart_marker_geometry("fleet",marker,scale_factor,float(world.heading)),GOLD,true)
-	else:
-		for i in range(fleet.size()):
-			var boat = fleet[i].duplicate()
-			var offset = Vector2.ZERO if i == 0 else Vector2(-30 * ceili(i / 2.0), (1 if i % 2 else -1) * 30)
-			boat.x = world.position.x + offset.x
-			boat.y = world.position.y + offset.y
-			boat.angle = world.heading
-			boat.turretAngle = world.heading
-			boat.vx = 45 if not world.path.is_empty() else 0
-			boat.vy = 0
-			draw_boat(boat, GOLD if i == 0 else FRIEND, i == 0, false, 1.0, true)
+	draw_chart_marker(self,chart_marker_geometry("fleet",marker,scale_factor,float(world.heading)),GOLD,true)
 	labels.append({"at":marker,"text":"YOUR FLOTILLA","priority":105,"color":GOLD})
 	_draw_chart_labels(labels)
 	var size = get_viewport_rect().size
@@ -783,14 +911,9 @@ func draw_title():
 	for i in range(host.data.ISLANDS.size()):
 		draw_island(host.data.ISLANDS[i], i)
 	var home: Dictionary=host.data.PORTS[0]
-	var hero = {"spec": host.data.HULLS[20], "x": float(home.x)+180.0 + sin(clock * 0.04) * 45, "y": float(home.y)-180.0 + cos(clock * 0.04) * 45, "angle": 0.9, "turretAngle": 0.8, "vx": 45, "vy": 25, "water": 0, "fire": 0, "breaches": []}
-	draw_boat(hero, GOLD, false, false, 2.0, true)
-	for i in range(2):
-		var escort = hero.duplicate()
-		escort.spec = host.data.HULLS[2 + i * 3]
-		escort.x -= 140 + i * 90
-		escort.y += 140 - i * 140
-		draw_boat(escort, FRIEND, false, false, 1.8, true)
+	var at := project(Vector2(float(home.x), float(home.y)))
+	draw_chart_marker(self, chart_marker_geometry("harbor", at, scale_factor), GOLD, true)
+	draw_chart_marker(self, chart_marker_geometry("fleet", at + Vector2(28, 16), scale_factor, 0.4), GOLD, false)
 	var size = get_viewport_rect().size
 	draw_texture_rect(title_shade, Rect2(Vector2.ZERO, size), false)
 	draw_compass(Vector2(size.x - 85, size.y - 95))

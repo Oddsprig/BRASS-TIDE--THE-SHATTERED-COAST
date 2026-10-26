@@ -1,24 +1,26 @@
-BRASS TIDE — LABORATORY MAP (generated; v0.040)
+BRASS TIDE — LABORATORY MAP (generated; v0.041)
 
 Title builder -> isolated normal300point battle, seeded replay/results and opt-in developer metrics.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/fleet_lab.gd: 4809 bytes; extends RefCounted
-  game/scripts/fleet_lab.gd:9 hull()
-  game/scripts/fleet_lab.gd:14 entry()
-  game/scripts/fleet_lab.gd:17 presets()
-  game/scripts/fleet_lab.gd:20 preset()
-  game/scripts/fleet_lab.gd:31 inspect()
-  game/scripts/fleet_lab.gd:51 create()
-  game/scripts/fleet_lab.gd:79 configure_formation()
-game/scripts/lab_ui.gd: 7474 bytes; extends RefCounted
-  game/scripts/lab_ui.gd:6 picker()
-  game/scripts/lab_ui.gd:18 open()
-  game/scripts/lab_ui.gd:64 update_summary()
-  game/scripts/lab_ui.gd:70 add()
-  game/scripts/lab_ui.gd:81 edit()
-  game/scripts/lab_ui.gd:110 refresh_preview()
-  game/scripts/lab_ui.gd:114 results()
+game/scripts/fleet_lab.gd: 9877 bytes; extends RefCounted
+  game/scripts/fleet_lab.gd:10 hull()
+  game/scripts/fleet_lab.gd:15 entry()
+  game/scripts/fleet_lab.gd:18 presets()
+  game/scripts/fleet_lab.gd:21 preset()
+  game/scripts/fleet_lab.gd:48 inspect()
+  game/scripts/fleet_lab.gd:68 create()
+  game/scripts/fleet_lab.gd:144 configure_formation()
+  game/scripts/fleet_lab.gd:125 _assign_roles()
+  game/scripts/fleet_lab.gd:159 _close_on_player()
+game/scripts/lab_ui.gd: 8854 bytes; extends RefCounted
+  game/scripts/lab_ui.gd:7 picker()
+  game/scripts/lab_ui.gd:19 open()
+  game/scripts/lab_ui.gd:65 update_summary()
+  game/scripts/lab_ui.gd:71 add()
+  game/scripts/lab_ui.gd:82 edit()
+  game/scripts/lab_ui.gd:111 refresh_preview()
+  game/scripts/lab_ui.gd:115 results()
 game/scripts/dev_tools.gd: 4173 bytes; extends CanvasLayer
   game/scripts/dev_tools.gd:9 setup()
   game/scripts/dev_tools.gd:42 refill()

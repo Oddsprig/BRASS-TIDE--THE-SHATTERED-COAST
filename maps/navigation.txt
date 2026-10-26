@@ -1,4 +1,4 @@
-BRASS TIDE — NAVIGATION MAP (generated; v0.040)
+BRASS TIDE — NAVIGATION MAP (generated; v0.041)
 
 Original island polygons/endpoints -> bounded precomputed water grid and safe water paths.
 
@@ -16,8 +16,9 @@ game/scripts/navigation.gd: 13996 bytes; extends RefCounted
   game/scripts/navigation.gd:17 _point_pair()
   game/scripts/navigation.gd:27 _inside()
   game/scripts/navigation.gd:46 _edge_distance()
-game/scripts/coast_migration.gd: 20508 bytes; extends RefCounted
-  game/scripts/coast_migration.gd:208 prepare()
+game/scripts/coast_migration.gd: 24451 bytes; extends RefCounted
+  game/scripts/coast_migration.gd:192 place_on_water()
+  game/scripts/coast_migration.gd:289 prepare()
   game/scripts/coast_migration.gd:44 _fail()
   game/scripts/coast_migration.gd:48 _ok()
   game/scripts/coast_migration.gd:52 _is_finite_number()
@@ -28,7 +29,6 @@ game/scripts/coast_migration.gd: 20508 bytes; extends RefCounted
   game/scripts/coast_migration.gd:95 _build_legacy_world()
   game/scripts/coast_migration.gd:119 _ports_by_id()
   game/scripts/coast_migration.gd:135 _find_docked_port_id()
-  game/scripts/coast_migration.gd:151 _has_nav_connectors()
 
 TESTS (game/tests/*.gd)
 test_navigation, test_runtime, test_voyage

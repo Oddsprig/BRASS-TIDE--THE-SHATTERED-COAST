@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.040)
+BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.041)
 
 Constructors and saved careers -> immutable physical births, global custody checks and preserved equipment on capture. Multiple prizes stage without duplicate custody; source payload cannot forge condition or increase an actual donor hull's HP. Harbor merges paid service, commission journal compatibility and lifecycle purchases.
 
