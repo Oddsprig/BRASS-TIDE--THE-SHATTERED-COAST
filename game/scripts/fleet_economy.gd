@@ -97,8 +97,8 @@ static func create_owners(ports: Array,world: Dictionary) -> Array:
 			ids.append("scab_cutter")
 		if strength>=3:
 			ids.append("barbed_lance")
-		var civilians: Array=civilian_hulls(home,kind,world,i)
-		for j in range(mini(civilians.size(),ids.size())):ids[j]=civilians[j]
+		var civilian_designs: Array=civilian_hulls(home,kind,world,i)
+		for j in range(mini(civilian_designs.size(),ids.size())):ids[j]=civilian_designs[j]
 		var boats: Array=[]
 		for id in ids:
 			var spec: Dictionary=_find(world.get("HULLS",[]),id)
@@ -122,8 +122,8 @@ static func create_owners(ports: Array,world: Dictionary) -> Array:
 		for good in Goods.ITEMS:
 			cargo[good]=0.0
 		var owner: Dictionary={"id":"patrol-%d"%i,"name":"Reef raiders" if i%3==0 else "Coastal convoy","homePort":home.id,"faction":"raiders" if kind=="raider" else home.get("faction","compact"),"kind":kind,"coins":0,"crewPurse":0,"wageArrears":0,"morale":85.0,"cargo":cargo,"boats":boats,"route":route.duplicate(),"progress":float(i%5)/5.0,"atPort":home.id if i%5==0 else "","active":true,"log":[],"wageRemainder":0.0,"performanceFactor":1.0,"daysOperated":0.0,"lastPayroll":0,"lastFoodConsumed":0.0,"lastFuelConsumed":0.0,"tradeGood":_trade_good(home),"tradeCargo":0}
-		if not civilians.is_empty():
-			owner.preferredHulls=civilians.duplicate()
+		if not civilian_designs.is_empty():
+			owner.preferredHulls=civilian_designs.duplicate()
 			if boats[0].spec.get("civilianRole","")=="tanker":owner.tradeGood="fuel"
 		# Fourteen wage-days plus three days' rations/fuel: an explicit capital transfer,
 		# capped by the existing sponsoring purse. Hulls are the initial physical fleet.

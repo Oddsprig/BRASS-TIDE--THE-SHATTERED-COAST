@@ -35,7 +35,7 @@ game/scripts/goods.gd: 4555 bytes; extends RefCounted
   game/scripts/goods.gd:47 cost()
   game/scripts/goods.gd:56 full_labor_days()
   game/scripts/goods.gd:63 definitions()
-game/scripts/fleet_economy.gd: 19225 bytes; extends RefCounted
+game/scripts/fleet_economy.gd: 19260 bytes; extends RefCounted
   game/scripts/fleet_economy.gd:26 normalize_owner()
   game/scripts/fleet_economy.gd:47 upkeep()
   game/scripts/fleet_economy.gd:57 total_coins()

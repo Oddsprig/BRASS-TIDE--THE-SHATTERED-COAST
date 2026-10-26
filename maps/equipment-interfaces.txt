@@ -45,7 +45,7 @@ game/scripts/equipment_owner_service.gd: 37514 bytes; extends RefCounted
   game/scripts/equipment_owner_service.gd:138 allowed_port_service()
   game/scripts/equipment_owner_service.gd:305 owner_service_quote()
   game/scripts/equipment_owner_service.gd:329 repair_owner_boat()
-game/scripts/fleet_economy.gd: 19225 bytes; extends RefCounted
+game/scripts/fleet_economy.gd: 19260 bytes; extends RefCounted
   game/scripts/fleet_economy.gd:26 normalize_owner()
   game/scripts/fleet_economy.gd:47 upkeep()
   game/scripts/fleet_economy.gd:57 total_coins()
