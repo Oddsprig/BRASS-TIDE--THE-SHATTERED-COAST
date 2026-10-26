@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.037
+26 October 2026 | Authorized sequential builds; delivered v0.038
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -39,7 +39,7 @@ Coordinate friendly fleets around convoy, patrol and attack objectives.
 Actual fuel, ammunition, wages and machinery constrain deployment and upkeep.
 Finish one supplied operation that can succeed or stall for explained reasons.
 
-0.038 - CAREER BALANCE AND GUIDANCE
+0.038 - CAREER BALANCE AND GUIDANCE [DONE]
 One bounded balance pass over explorer, merchant, escort, privateer, fisher and
 passenger starts. Clarify goals, operating costs, rewards and progression.
 Fix demonstrated dead ends; avoid an open-ended general polish pass.

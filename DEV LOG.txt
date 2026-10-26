@@ -1,3 +1,5 @@
+v0.038 VERIFIED AND PACKAGED: 100/0 focused checks, selected batch 44.736s, TestBridge 93f71251c3214c619b0bf65ea3d0b6cd. Source 782726ac02f10e5d124edd14475dd6ce4d2260cf.
+
 26OCT2026 - v0.038 CAREER BALANCE AND GUIDANCE
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
