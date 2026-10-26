@@ -128,7 +128,7 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 	var synced_mounts: Array=copy.mounts;var synced_loadout=copy.get("loadout")
 	var hp_sum_valid: bool=false;var hp_sum_info=null;var hp_sum_cached: float=0.0
 	var start_time: float=0.0
-	var idle_hit: Array=[]
+	var idle_lease: Array=[]
 	for step in range(60):
 		for _part in range(parts):
 			var prev_status: Dictionary=rollout_status;var prev_fuel_pos: bool=Damage.number(copy.get("fuel"))>0.0;var prev_sunk: bool=bool(copy.get("sunk",false))
@@ -144,11 +144,18 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 			# The returned factors describe the final post-tick state. Its inflow,
 			# bailing and repair may be averages; none of these consumers use them.
 			if is_canonical:
-				idle_hit=RolloutIdle.try_prefix(copy,sub_dt,prefix_ctx)
-				if idle_hit.is_empty():
-					rollout_status=Damage._tick_canonical_with(copy,sub_dt,{"inCombat":true},prefix_info,prefix_repair,prefix_publish,prefix_absorb,null,prefix_step_status)
-				else:
-					rollout_status=idle_hit[0]
+				if not idle_lease.is_empty():
+					var owned_hit: Array=RolloutIdle._try_prefix_owned(copy,sub_dt,prefix_ctx,idle_lease[0])
+					if not owned_hit.is_empty():
+						rollout_status=owned_hit[0]
+					else:
+						idle_lease=[]
+				if idle_lease.is_empty():
+					idle_lease=RolloutIdle.try_prefix(copy,sub_dt,prefix_ctx)
+					if idle_lease.is_empty():
+						rollout_status=Damage._tick_canonical_with(copy,sub_dt,{"inCombat":true},prefix_info,prefix_repair,prefix_publish,prefix_absorb,null,prefix_step_status)
+					else:
+						rollout_status=idle_lease[0]
 			else:
 				rollout_status=Damage.tick_ship(copy,sub_dt,{"inCombat":true})
 			if is_canonical:

@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "classification": "INTEGRATED_EXACT_NATIVE_VERIFIED_PRIVATE_SCOPE",
+  "previous_checkpoint": "b775cacc8115f3f2a88bcedc5c609deb8c697d6a",
+  "job_id": "057f2a6679b646cf836d8899343107f3",
+  "checks": 749,
+  "failures": 0,
+  "phase_checks": [
+    435,
+    263,
+    51
+  ],
+  "all_original193_idle_checks_retained": true,
+  "added_idle_checks": 70,
+  "recorded_payload_comparisons": 756,
+  "setup_debit_seconds": 30,
+  "receipt_plus_setup_seconds": 42.081978,
+  "cleanup_complete": true,
+  "final_owned_pids": [],
+  "maximum_job_memory_bytes": 170201088,
+  "mean_cold_ms": {
+    "whole_update_us": 75.20241666666666,
+    "ai_us": 50.661833333333334,
+    "other_update_us": 24.54058333333333
+  },
+  "before_files": {
+    "scripts/equipment_rollout.gd": "33964c2caeef0779ed321934741bbf30214829fad6785e179efae9773800fa44",
+    "scripts/equipment_rollout_idle.gd": "c50a9694912eff006d5d4eb684e2f01fb8dc1eb5fb29d9c40c409ee01d618431",
+    "tests/test_prefix_idle.gd": "3dcdd8b8061545dbfe44212908ca79165886f70a077c7d87cf5da38b0935aad2"
+  },
+  "after_files": {
+    "scripts/equipment_rollout.gd": "1ce4d4e229e4172adb43acce83096a5a8b20b8891b3d1eb726fb928d8b6c14d0",
+    "scripts/equipment_rollout_idle.gd": "d3022337ad07f2e553dd5a86d1bbdbc41e084e78e7a76d7cddd20413f9e0ff57",
+    "tests/test_prefix_idle.gd": "a20c8d5547f75e11d6b8a1d6b1c7bbb96417e71f3ea5eeaf4e75c039e7f1a7ff"
+  },
+  "other_raw_game_files_verified_unchanged": 511,
+  "production_scripts": 146,
+  "mutable_static_fields": 24,
+  "required_functional_units": 108,
+  "unique_functional_and_motion": 141,
+  "build_number": 30,
+  "release_031": "UNRELEASED",
+  "full_suite_pass": false,
+  "performance_acceptance": false,
+  "preserved_failed_job": "df46182e369a4c28a28d86e0718e8bde",
+  "limitations": "24 cold updates only; no causal speedup/FPS/capacity/render/audio acceptance. R12 campaign failure and report-path error remain failed; campaign correction isolated and unrun."
+}

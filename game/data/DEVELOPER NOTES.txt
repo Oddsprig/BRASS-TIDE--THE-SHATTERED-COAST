@@ -1,3 +1,12 @@
+26 OCTOBER2026 — R13 PRIVATE PREDICTION CHECKPOINT
+749checks/0failures plus756 preserved comparisons passed. All193 previous idle
+assertions remain;70 add closed-prefix and subsequent canonical status/boat tests.
+An admitted zero-work status is reused only inside its detached synchronous
+prediction; every physical step remains. Public damage/economy APIs unchanged.
+42.081978s including charged setup; all owned test processes exited.
+Broader R12 remains failed on old campaign-test contracts; correction untested.
+Full release/performance/presentation open; build30/24boats,0.031UNRELEASED.
+
 BRASS TIDE — DEVELOPER NOTES
 v0.031 in development | 26 October 2026 | 24 boat designs
 

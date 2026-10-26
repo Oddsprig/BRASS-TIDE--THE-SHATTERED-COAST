@@ -1,0 +1,26 @@
+BRASS TIDE — OWNED IDLE PREDICTION / R13
+26 October 2026. Build30,24boats;0.031 UNRELEASED.
+
+Exact native job057f2a6679b646cf836d8899343107f3 passed435+263+51 checks,
+749/0; all756 preserved recorded-payload comparisons matched. All original193
+idle assertions remain;70 checks add closed-prefix fuel/alias/canonical parity.
+Three serial owned engines; final owned ledger empty; peak170201088bytes.
+Receipt plus30s conservatively charged source setup42.081978s, below119s.
+
+One closed synchronous private prediction reuses its already admitted detached
+zero-work status. Local readers do not mutate it. Fuel sign, owner/info/snapshot,
+scope and condition proof checks drop reuse before any physical write. The
+ordinary try_prefix admission/return contract and public Damage stay unchanged.
+Every original60-step prefix, part and1/60 physical inner slice remains. The
+inner math was moved byte-identically to _advance; optional probes get copies.
+
+Latest24 cold means: 75.202417ms whole, 50.661833ms AI,
+24.540583ms other. Not causal speedup, capacity or FPS acceptance.
+146production scripts/24mutable static fields;108functional units/141combined
+functional+motion executions plus5supported-load gates. Full suite unpassed.
+
+R12 original43 batch remains FAILED: battle terminal and boarding115/0 precede
+obsolete campaign fixture credits/flat-price expectations. Its required custom
+report path also differed from the runner output. Source-only correction is
+separate; no claim that the failed batch, campaign, C5, motion or release passed.
+No new tag/export/launcher/publication. See adjacent JSON for exact file hashes.

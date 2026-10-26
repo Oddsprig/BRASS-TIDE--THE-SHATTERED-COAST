@@ -45,6 +45,55 @@ static func _clamped(s: Dictionary) -> bool:
 			return false
 	return true
 
+static func _advance(s: Dictionary, dt: float, st: Dictionary) -> Array:
+	var step_cap: float = 1.0 / 60.0
+	var left: float = dt
+	var events: Array = []
+	while left > 0.00000001 and not s.sunk:
+		var h: float = left if left <= step_cap + 0.0000001 else step_cap
+		if absf(left - 2.0 * step_cap) <= 0.0000001:
+			h = left * 0.5
+		s.water = clampf(s.water + (st.inflow - st.bailing) * h, 0.0, s.capacity)
+		if s.fuel > 0.0 and (s.water > 0.0 or absf(s.vx) + absf(s.vy) > 1.0):
+			s.fuel -= 0.006 * h
+		s.cooldown = maxf(0.0, Damage.number(s.cooldown) - h)
+		var published_engine: float = float(s.engine)
+		Damage._sanitize(s)
+		s.engine = published_engine
+		left -= h
+		if s.sunk:
+			events.append("Ship sunk")
+	return events
+
+static func _lease_ok(s: Dictionary, ctx: Dictionary) -> bool:
+	if not is_same(s, ctx.get("owner")) or ctx.get("valid") != true:
+		return false
+	if ctx.get("tick_scope_open") != true or ctx.get("cond_eq_proof") != true:
+		return false
+	var info = ctx.get("info")
+	var snap = info.get("snapshot") if info is Dictionary else null
+	if not is_same(info, ctx.get("step_status_info")) or not (snap is Dictionary) or not is_same(snap, ctx.get("step_status_snap")):
+		return false
+	if not is_same(s.get("spec"), ctx.get("step_status_spec")) or not is_same(s.get("moduleCondition"), ctx.get("step_status_cond")):
+		return false
+	if (float(s.fuel) > 0.0) != bool(ctx.get("step_status_fuel_pos", false)):
+		return false
+	if s.get("sunk") != false or s.hp != s.maxHp or s.water != 0.0 or s.fire != 0.0 or s.capacity <= 0.0:
+		return false
+	if float(s.crew) != float(ctx.get("step_status_crew", -1.0)) or float(s.supplies) != float(ctx.get("step_status_supplies", -1.0)):
+		return false
+	var st = ctx.get("step_status")
+	return st is Dictionary and st.inflow == 0.0 and st.bailing == 0.0 and st.repair == 0.0 and st.crewRepair == 0.0
+
+## Closed-prefix caller only: lent came from this copy/context's successful try_prefix.
+## No outside writer or callback may receive the copy, context or lent status.
+static func _try_prefix_owned(s: Dictionary, dt: float, ctx: Dictionary, lent: Dictionary) -> Array:
+	if not _finite(dt) or dt <= 0.00000001 or not _lease_ok(s, ctx):
+		return []
+	_advance(s, dt, ctx.get("step_status"))
+	_note(ctx, lent)
+	return [lent]
+
 static func _admit(s: Dictionary, dt: float, ctx: Dictionary) -> bool:
 	if not (s is Dictionary) or not (ctx is Dictionary) or not is_same(s, ctx.get("owner")):
 		return false
@@ -94,23 +143,7 @@ static func try_prefix(s: Dictionary, dt: float, ctx: Dictionary) -> Array:
 	if not _admit(s, dt, ctx):
 		return []
 	var st: Dictionary = ctx.get("step_status")
-	var step_cap: float = 1.0 / 60.0
-	var left: float = dt
-	var events: Array = []
-	while left > 0.00000001 and not s.sunk:
-		var h: float = left if left <= step_cap + 0.0000001 else step_cap
-		if absf(left - 2.0 * step_cap) <= 0.0000001:
-			h = left * 0.5
-		s.water = clampf(s.water + (st.inflow - st.bailing) * h, 0.0, s.capacity)
-		if s.fuel > 0.0 and (s.water > 0.0 or absf(s.vx) + absf(s.vy) > 1.0):
-			s.fuel -= 0.006 * h
-		s.cooldown = maxf(0.0, Damage.number(s.cooldown) - h)
-		var published_engine: float = float(s.engine)
-		Damage._sanitize(s)
-		s.engine = published_engine
-		left -= h
-		if s.sunk:
-			events.append("Ship sunk")
+	var events: Array = _advance(s, dt, st)
 	var out: Dictionary = st.duplicate(true)
 	out.inflow = 0.0
 	out.bailing = 0.0

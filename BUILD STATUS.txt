@@ -32,7 +32,7 @@ The complete release-v2 regression suite has not executed or passed. The invento
 has104 original functional units plus four new prefix regressions,34 motion
 requirements (one overlap), seven retained regressions and five supported-load
 adapters. That is108 functional units and141 combined functional/motion executions. No partial batch is release acceptance.
-Cold observation on the new source:85.612ms whole/60.130ms AI mean. This does not
+Latest24 cold observation:75.202ms whole/50.662ms AI mean. This does not
 establish a speedup, FPS or capacity. Supported-load timing remains failed/open.
 Rendered motion, controls, sound listening, Windows export and save/career acceptance
 also remain open. Do not claim Starsector parity or advance the release number yet.
@@ -68,3 +68,11 @@ Task work/resume-v030-v038/CURRENT.txt: live coordination and exact candidate pa
 Task root-candidates/main-integration-prefix-call-r2/INTEGRATION.json: source proof.
 Native jobs9feed82a73964c8c8bfb5f83c531877d and32ec7f5153af4c239124148d25b62258:
 failed original batch and corrected scoped follow-up respectively; never relabel them.
+
+OWNED IDLE PREDICTION / R13
+749/0 and756 recorded comparisons passed; all193 prior idle assertions remain.
+Closed private status reuse retains each physical step; public Damage unchanged.
+Receipt plus charged setup42.081978s; owned cleanup complete. See
+docs/QA OWNED IDLE PREDICTION v0.031.json/.txt. R12 broader batch remains failed
+on obsolete campaign-test contracts; its isolated correction is not yet tested.
+Full release/performance/presentation remain open. Build30/24boats unchanged.

@@ -274,3 +274,15 @@ LIVE TACTICAL REUSE AND ATTRIBUTION — 26 OCTOBER 2026
 - Capacity checker schema corrections do not pass incomplete native work. A
   new runtime needs an explicitly bound cohort; preserve frozen checkers and
   their failed reports instead of rewriting hashes or thresholds in place.
+
+LEGACY CAMPAIGN FIXTURES AND RESULT PATHS —26 OCTOBER2026
+- Match integration fixtures to current published coins, material/labor quotes,
+  crew advances and funded rewards. Preserve original rejection, conservation,
+  save and battle assertions; do not restore an obsolete runtime to pass them.
+- C1 static isolation passing does not prove every old fixture still matches APIs.
+  R12 reached obsolete state.credits after battle/boarding; retain the failure.
+- Test Bridge report.path must match the runner's actual GAME_TEST_RESULT_PATH.
+  R11/R13 report=null uses the established bridge-report protocol. R12's custom
+  verified-report request mismatched result.json; raw failure evidence survived.
+- Charge failed source staging conservatively inside119s. R13 reduced outer
+ 108->85 and increased setup debit10->30; native30/resource caps stayed fixed.

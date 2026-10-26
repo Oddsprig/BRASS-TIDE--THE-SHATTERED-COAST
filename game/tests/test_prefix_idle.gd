@@ -104,6 +104,48 @@ func _zero(negative: bool) -> float:
 	if negative: raw[7] = 128
 	return raw.decode_double(0)
 
+func _check_owned_prefix_cases() -> void:
+	for parts in [1, 2]:
+		for crossing in [true, false]:
+			var label: String = "owned-p%d-%s" % [parts, "fuel-cross" if crossing else "signed-zero"]
+			var boat: Dictionary = _boat(label, STANDARD_FIT, true, true)
+			boat.fuel = 0.005 if crossing else _zero(parts == 2)
+			boat.cooldown = 0.12
+			var arena: Dictionary = _arena(boat)
+			var candidate: Dictionary = _default_candidate(boat)
+			_assert_prefix_parity(label, arena, boat, candidate, parts)
+			var probe: Dictionary = {}
+			var result: Dictionary = EquipmentRollout.prefix(arena, boat, candidate, _budget(), _cert(), (1.0 / 30.0) / float(parts), parts, probe)
+			check(bool(result.get("ok", false)) and int(probe.get("hits", 0)) > 3, label + " exercises repeated ready hits in the actual closed prefix")
+			var saved: PackedByteArray = var_to_bytes(result)
+			if probe.get("status") is Dictionary:
+				probe.status.events.append("outside probe mutation")
+				probe.status.weaponFactors["mount0"] = -99.0
+			check(var_to_bytes(result) == saved, label + " mutating the final detached probe leaves the returned prediction unchanged")
+	# A valid first admission lends status only inside this locally owned test scope.
+	var actual: Dictionary = _boat("owned-status-alias", STANDARD_FIT, true, true)
+	var reference: Dictionary = actual.duplicate(true)
+	var ctx: Dictionary = _arm(actual)
+	var ref_ctx: Dictionary = _arm(reference)
+	var probe: Dictionary = {}
+	ctx["idle_probe"] = probe
+	var lent: Array = RolloutIdle.try_prefix(actual, 1.0 / 30.0, ctx)
+	var canonical: Dictionary = _canonical_tick(reference, ref_ctx, 1.0 / 30.0)
+	check(lent.size() == 1, "owned local scope has a real successful first admission")
+	if lent.size() != 1: return
+	for step in range(3):
+		var hit: Array = RolloutIdle._try_prefix_owned(actual, 1.0 / 30.0, ctx, lent[0])
+		canonical = _canonical_tick(reference, ref_ctx, 1.0 / 30.0)
+		check(hit.size() == 1, "owned subsequent physical substep %d runs" % step)
+		if hit.size() == 1:
+			_same_bytes("owned subsequent full status %d" % step, hit[0], canonical)
+			_same_bytes("owned subsequent whole boat %d" % step, actual, reference)
+			check(not is_same(probe.get("status"), hit[0]), "owned probe remains detached %d" % step)
+			probe.status.events.append("old witness")
+			check(not hit[0].events.has("old witness"), "owned witness has no nested alias %d" % step)
+	EquipmentDamage._prefix_tick_scope_end(ctx)
+	EquipmentDamage._prefix_tick_scope_end(ref_ctx)
+
 func _initialize() -> void:
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	check(parsed is Dictionary and parsed.get("HULLS") is Array and parsed.HULLS.size() > 23, "world.json parsed with 24 hulls")
@@ -123,6 +165,7 @@ func _initialize() -> void:
 		_check_one_dt("remaining-cooldown-p%d" % parts, delta, 1.0, delta * 2.0)
 	_check_bool_before_valid()
 	_check_prefix_probe()
+	_check_owned_prefix_cases()
 	if failures > 0:
 		push_error("prefix_idle: %d checks, %d failures" % [checks, failures])
 		quit(1)

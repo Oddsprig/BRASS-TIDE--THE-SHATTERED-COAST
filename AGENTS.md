@@ -1,16 +1,18 @@
 ## Current source checkpoint —26 October2026
 
-Private prediction status, unchanged mounts/module totals and exact dry/no-work
-substeps are integrated. The latest R10 batch passes679/0 plus756 preserved
-comparisons,22.4843s including setup; every physical substep and fallback remains.
-Public Damage unchanged. Still build30/24boats;0.031 UNRELEASED.
-R8B battle memo passed1,593/0 but timing stayed essentially unchanged, so it is
-unmerged. Side workers also remain unmerged. Main now has146production scripts
-and24mutable static fields. Required functional units108; functional+motion141.
-Full release-v2, supported performance and presentation gates remain open.
-Old unbounded launchers stay held. Only exact Root-reviewed119s Test Bridge
-batches/new one-use controls may run; same caps, shared lane, no automatic retry.
-Read BUILD STATUS.txt and the current task pointers before historical handoffs.
+Private predictions reuse guarded status, unchanged mounts/module totals and
+exact dry/no-work substeps. R13 adds owned status reuse within the same closed
+call:749/0 plus756 preserved comparisons pass;42.081978s including charged setup,
+final owned ledger empty. All physical samples/fallbacks remain; public Damage
+unchanged.146production scripts/24mutable statics;108functional/141combinedunits.
+Build30/24boats;0.031 UNRELEASED. Full release, performance and presentation open.
+R12 broader43 batch remains failed on obsolete campaign credits/price contracts
+and a separate required-report path mismatch. Campaign correction is isolated,
+not accepted. C5 adapter remains source-only. No unchanged native reruns.
+R8B instant memo and sideworkers remain unmerged: no observed timing benefit.
+Only concrete Root-reviewed119s Test Bridge batches/new one-use controls may run.
+Same shared lane, resource caps and owned cleanup; no automatic retry.
+Read BUILD STATUS.txt and task CURRENT.txt before historical handoffs.
 
 ## Crash recovery hold — 26 October 2026
 
