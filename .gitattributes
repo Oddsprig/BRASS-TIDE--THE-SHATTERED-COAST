@@ -137,3 +137,5 @@
 "game/tests/test_prefix_scope_options.gd" -text
 "game/tests/test_prefix_tick_scope_r1.gd" -text
 "game/tests/test_prefix_invariants.gd" -text
+"game/scripts/equipment_rollout_idle.gd" -text
+"game/tests/test_prefix_idle.gd" -text

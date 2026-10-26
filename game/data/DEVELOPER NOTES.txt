@@ -24,8 +24,13 @@ fire, fuel exhaustion, sinking and jury repair. The51-check battle diagnostic
 also passes, with756 preserved payload comparisons. Its original fixture failure
 is retained; only a no-repair test setup needed correction.
 
+Dry, intact predictions now have an exact no-work specialization. It retains
+every physical substep and falls back to the original calculation for real work
+or an inadmissible input.679focused assertions and756 recorded comparisons
+passed, including fuel/cooldown boundaries and the next normal tick.
+
 These are developer checks, not a completed release suite. The latest short cold
-observation averaged101.750ms per battle update,77.230ms in AI across24updates;
+observation averaged85.612ms per battle update,60.130ms in AI across24updates;
 sustained capacity and target frame times remain open. No causal speedup, rendered
 FPS, audio quality or Starsector parity is claimed from these results.
 
@@ -38,7 +43,8 @@ Still to finish: supported-load AI performance and behavior, the bounded complet
 release suite, presentation/controls/audio checks, and the Windows build. The
 multithreaded side-planning prototype passed its component checks but showed no
 timing gain and remains isolated. The private battle memo also remains isolated
-after its new fixture failed; two original freshness phases passed. The next
+after all1,593 corrected checks passed without an observed timing gain; the
+original failed result is preserved. The next
 released version will advance by0.001 only after its required work is complete.
 No new export or launcher has been installed for this development checkpoint.
 

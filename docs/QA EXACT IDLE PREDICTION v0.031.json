@@ -1,0 +1,35 @@
+{
+  "classification": "ROOT_INTEGRATED_EXACT_IDLE_PREDICTION_SCOPED_NATIVE_NOT_RELEASE",
+  "prior_main_head": "118e848c438c45cd15c5e75fee1bb7cae7e3f67e",
+  "files": {
+    "game/scripts/equipment_rollout.gd": "33964c2caeef0779ed321934741bbf30214829fad6785e179efae9773800fa44",
+    "game/scripts/equipment_rollout_idle.gd": "c50a9694912eff006d5d4eb684e2f01fb8dc1eb5fb29d9c40c409ee01d618431",
+    "game/tests/test_prefix_idle.gd": "3dcdd8b8061545dbfe44212908ca79165886f70a077c7d87cf5da38b0935aad2"
+  },
+  "other_original_game_files_unchanged_at_copy": 511,
+  "job": "a37cac4897c24e52ba29e4e20dd7ab3d",
+  "checks": {
+    "original_prefix": 435,
+    "idle_focused": 193,
+    "cold": 51,
+    "failures": 0,
+    "payload_comparisons": 756
+  },
+  "receipt_plus_setup_seconds": 22.48434019088745,
+  "raw_cold_ms": {
+    "whole": 85.61183333333332,
+    "ai": 60.130375,
+    "other": 25.481458333333332
+  },
+  "timing_scope": "24cold updates only; no causal/FPS/capacity claim",
+  "final_owned_pids": [],
+  "public_damage_unchanged": true,
+  "mutable_globals_added": false,
+  "all_prediction_steps_and_physical_inner_slices_retained": true,
+  "fallback": "Original canonical tick when exact dry no-work admission fails",
+  "private_memo_and_side_workers_integrated": false,
+  "build": 30,
+  "boats": 24,
+  "full_suite_pass": false,
+  "new_export_tag_upload": false
+}

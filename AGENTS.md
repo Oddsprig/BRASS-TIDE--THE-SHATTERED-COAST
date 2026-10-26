@@ -1,15 +1,16 @@
 ## Current source checkpoint —26 October2026
 
-Private prediction status reuse plus unchanged-mount/module-total reuse are
-integrated. The new R9B prefix differential passes435/0 and cold51/0 with756
-recorded payload comparisons;18.6653s including conservative setup. FailedR9
-is preserved. Read BUILD STATUS.txt for exact source/result scope.
-R8 battle memo remains unmerged (projection99/public735 pass, new fixture269/2
-fails); no performance/full-suite claim. Side workers passed scoped checks but
-showed no timing gain and remain unmerged. Build30/24boats;0.031 UNRELEASED.
-Old unbounded launchers stay held. Root-reviewed119s Test Bridge developer
-batches may run within existing authorization, currentcaps and new one-use
-controls; no automatic retry. Current task pointers supersede old handoffs.
+Private prediction status, unchanged mounts/module totals and exact dry/no-work
+substeps are integrated. The latest R10 batch passes679/0 plus756 preserved
+comparisons,22.4843s including setup; every physical substep and fallback remains.
+Public Damage unchanged. Still build30/24boats;0.031 UNRELEASED.
+R8B battle memo passed1,593/0 but timing stayed essentially unchanged, so it is
+unmerged. Side workers also remain unmerged. Main now has146production scripts
+and24mutable static fields. Required functional units108; functional+motion141.
+Full release-v2, supported performance and presentation gates remain open.
+Old unbounded launchers stay held. Only exact Root-reviewed119s Test Bridge
+batches/new one-use controls may run; same caps, shared lane, no automatic retry.
+Read BUILD STATUS.txt and the current task pointers before historical handoffs.
 
 ## Crash recovery hold — 26 October 2026
 

@@ -1,0 +1,25 @@
+BRASS TIDE — EXACT DRY-BOAT PREDICTION SPECIALIZATION
+26 October2026 | scoped native proof; build30/24boats;0.031 unreleased
+
+A private AI prediction may use a smaller canonical tick when its boat is dry,
+intact and doing exactly0repair work, with validated primitive inputs, an owned
+copy and a proved unchanged equipment snapshot. The original calculation is
+the fallback. Every60prediction step, part, inner60Hz slice, fuel subtraction,
+cooldown, sanitize, geometry check and budget remains. Public Damage unchanged.
+No mutable global counter/cache was added. Optional developer probes own detached
+status copies; production callers use the default null probe.
+
+Joba37cac4897c24e52ba29e4e20dd7ab3d passes435 original differential checks,
+193focused checks and51cold battle checks:679/0. All756 recorded comparisons
+match the three preserved baselines. Direct full-status/boat comparisons cover
+30/60Hz, runtime signedzero, fuel exhaustion, cooldown and the following normal
+tick, including return/probe alias isolation. The original fixture covers fire,
+water, sinking, jury repair, torpedo/cannon fits, legacy and clearance fallbacks.
+Receipt plus10s setup22.4843s; owned process ledger empty.
+
+Raw24-update cold mean85.612ms whole/60.130ms AI/25.481ms other. Previous
+prefix-only observation101.750/77.230/24.520ms. These short headless runs support
+no causal speedup, renderedFPS or supported capacity claim. Full release-v2 and
+sustained timing/behavior remain open. The separate battle memo passed1593/0
+but showed essentially unchanged timing; it remains isolated, as do side workers.
+No export, launcher, version increment, tag or upload. Exact inputs in adjacent JSON.

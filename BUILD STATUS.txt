@@ -29,10 +29,10 @@ Shared FIFO, background headless rendering, silent audio, two logical CPUs,
 
 STILL OPEN
 The complete release-v2 regression suite has not executed or passed. The inventory
-has104 original functional units plus three new prefix regressions,34 motion
+has104 original functional units plus four new prefix regressions,34 motion
 requirements (one overlap), seven retained regressions and five supported-load
-adapters. That is107 functional units and140 combined functional/motion executions. No partial batch is release acceptance.
-Cold observation on the new source:101.750ms whole/77.230ms AI mean. This does not
+adapters. That is108 functional units and141 combined functional/motion executions. No partial batch is release acceptance.
+Cold observation on the new source:85.612ms whole/60.130ms AI mean. This does not
 establish a speedup, FPS or capacity. Supported-load timing remains failed/open.
 Rendered motion, controls, sound listening, Windows export and save/career acceptance
 also remain open. Do not claim Starsector parity or advance the release number yet.
@@ -43,12 +43,19 @@ and51 cold battle checks; all756 recorded comparisons match. Receipt plus8s
 setup:18.6653s; final owned ledger empty. FailedR9 remains failed: its raw-mount
 case allowed jury repair while expecting a fixed damaged factor. The correction
 sets only that case's supplies to0; repair cases and assertions remain.
-R8 private battle memo remains unmerged: original projection99/public735 pass,
-new fixture269/2 fails and cold is skipped. Fixture diagnosis is ongoing. The
+R8 private battle memo remains unmerged: its corrected combined R8B batch passes
+1,593/0 plus756 comparisons, but timing is essentially unchanged. Original R8
+269/2 failure remains preserved; explicit runtime type/bit witnesses now pass. The
 worker prototype's scoped137+51 checks passed; no timing gain, so it is unmerged.
 
+EXACT IDLE PREDICTION UPDATE
+R10 joba37cac4897c24e52ba29e4e20dd7ab3d passes435original/193focused/51cold
+checks,679/0 plus756 comparisons. Private dry/no-work substeps retain exact
+physical math and original fallbacks. Receipt plus10s setup22.4843s; finalowned
+ledger empty. See docs/QA EXACT IDLE PREDICTION v0.031.json/.txt.
+
 NEXT WORK
-Correct and verify the private battle memo fixture, finish required batching and
+Finish actual C1/C5 batching/isolation adapters and required native proof, then
 supported-load performance/behavior. Continue .032 through .038 sequentially on
 the accepted preceding version.12 civilian boats remain planned for .035.
 

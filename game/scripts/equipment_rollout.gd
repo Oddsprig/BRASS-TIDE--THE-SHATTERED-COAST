@@ -5,6 +5,7 @@ const Routes=preload("res://scripts/tactical_routes.gd")
 const Damage=preload("res://scripts/damage.gd")
 const EquipmentDamage=preload("res://scripts/equipment_damage.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
+const RolloutIdle=preload("res://scripts/equipment_rollout_idle.gd")
 const STEP: float=1.0/30.0
 const HULL_CLEARANCE_MARGIN: float=4.0
 
@@ -83,7 +84,7 @@ static func _capability_from_fields(ship: Dictionary,status: Dictionary,fields: 
 	result.merge(fields,true)
 	return result
 
-static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,cert: Dictionary,sub_dt: float,parts: int) -> Dictionary:
+static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,cert: Dictionary,sub_dt: float,parts: int,idle_probe=null) -> Dictionary:
 	var id: String=str(ship.id)
 	var live_ship: Dictionary=st.get("tactical",{}).get("ships",{}).get(id,ship)
 	var copy: Dictionary=live_ship.duplicate(true)
@@ -112,6 +113,8 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 		# prediction, or return. Callables stay in these locals so ctx cannot cycle.
 		# Opening get_status above and the closing inspect below keep the schema check.
 		prefix_ctx={"owner":copy,"valid":false}
+		if idle_probe is Dictionary:
+			prefix_ctx["idle_probe"]=idle_probe
 		prefix_info=func(boat: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_info(boat, prefix_ctx)
 		prefix_repair=func(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_repair(boat, h, crew_repair, options, info, prefix_ctx)
 		prefix_publish=func(boat: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_publish(boat, prefix_ctx)
@@ -125,6 +128,7 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 	var synced_mounts: Array=copy.mounts;var synced_loadout=copy.get("loadout")
 	var hp_sum_valid: bool=false;var hp_sum_info=null;var hp_sum_cached: float=0.0
 	var start_time: float=0.0
+	var idle_hit: Array=[]
 	for step in range(60):
 		for _part in range(parts):
 			var prev_status: Dictionary=rollout_status;var prev_fuel_pos: bool=Damage.number(copy.get("fuel"))>0.0;var prev_sunk: bool=bool(copy.get("sunk",false))
@@ -140,7 +144,11 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 			# The returned factors describe the final post-tick state. Its inflow,
 			# bailing and repair may be averages; none of these consumers use them.
 			if is_canonical:
-				rollout_status=Damage._tick_canonical_with(copy,sub_dt,{"inCombat":true},prefix_info,prefix_repair,prefix_publish,prefix_absorb,null,prefix_step_status)
+				idle_hit=RolloutIdle.try_prefix(copy,sub_dt,prefix_ctx)
+				if idle_hit.is_empty():
+					rollout_status=Damage._tick_canonical_with(copy,sub_dt,{"inCombat":true},prefix_info,prefix_repair,prefix_publish,prefix_absorb,null,prefix_step_status)
+				else:
+					rollout_status=idle_hit[0]
 			else:
 				rollout_status=Damage.tick_ship(copy,sub_dt,{"inCombat":true})
 			if is_canonical:
