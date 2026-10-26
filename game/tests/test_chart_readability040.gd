@@ -170,7 +170,7 @@ func run() -> void:
 	check(bool(stranded.get("moved",false)) and Navigation.is_water(nav,stranded.point.x,stranded.point.y,10.0),"inland chart position corrects onto safe water")
 	var stayed: Dictionary=CoastMigration.place_on_water(nav,{"x":home.x,"y":home.y})
 	check(not bool(stayed.get("moved",false)) and is_equal_approx(float(stayed.point.x),float(home.x)) and is_equal_approx(float(stayed.point.y),float(home.y)),"a harbor already in the water is not moved")
-	var career=Campaign.new(data)
+	var career=Campaign.new(data.duplicate(true))
 	career.new_game(41041)
 	check(not career.state.is_empty(),"current campaign birth succeeds on the expanded coast")
 	if not career.state.is_empty() and inland_found:
