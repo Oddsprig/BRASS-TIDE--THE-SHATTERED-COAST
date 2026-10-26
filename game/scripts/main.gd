@@ -18,6 +18,7 @@ const Preferences=preload("res://scripts/preferences.gd")
 const EconomyWorkers=preload("res://scripts/economy_workers.gd")
 const RecoveryFlow=preload("res://scripts/recovery_flow.gd")
 const CoastalTerrain=preload("res://scripts/coastal_terrain.gd")
+const RuntimeBenchmark=preload("res://scripts/runtime_benchmark.gd")
 
 var data: Dictionary
 var core
@@ -74,6 +75,9 @@ func _ready():
 	if data.is_empty():
 		push_error("World data missing.")
 		get_tree().quit(1)
+		return
+	if "--qa-performance" in OS.get_cmdline_user_args():
+		get_tree().quit(RuntimeBenchmark.new().run(data))
 		return
 	core = Campaign.new(data)
 	chart = Chart.new()
