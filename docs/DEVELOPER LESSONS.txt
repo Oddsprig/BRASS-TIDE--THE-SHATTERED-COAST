@@ -1,3 +1,5 @@
+v0.036 fixture lessons (26Oct2026): compare saved ledgers against their parsed JSON representation, and compare contact lists through the same sorted public view on both sides. Do not compare raw-number strings or sorted views to raw arrays. New local names must not collide with existing allocation locals. Failures48c59054/662c6619/3aab3979 preserved; source unchanged for retained63/0 work pass after final flow-fixture correction.
+
 26OCT2026 - V0.035 CIVILIAN PREVIEW FRAMING
 The old4.6*size portrait estimate clips long civilian stern machinery.
 HullProfiles.preview_span now derives civilian extent plus motor allowance,

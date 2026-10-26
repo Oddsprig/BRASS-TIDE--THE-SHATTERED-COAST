@@ -1,16 +1,15 @@
-BRASS TIDE v0.036 - WORKING CIVILIAN VOYAGES
-26 October2026 |36 boat designs
+BRASS TIDE v0.036 - Working civilian voyages
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 0b8e36c2a91105c193d6e6bab8953ec99ed8e230 / v0.036
+Test Bridge: a3fbf931f934431cb57eeb4d5d4893b8
+68 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 40.400s; owned cleanup verified.
 
-THIS VERSION
 - Fishing boats work at sea over the campaign clock, using real crew, fuel, provisions and hold space to land a bounded catch.
 - Existing freight is joined by funded fuel deliveries and passenger charters, with actual stock, berths, provisions and sponsor escrow.
 - Existing civilian owners sail appropriate fishing, transport and tanker hulls through the real trade and encounter systems.
 - Recurring captain contacts retain witnessed voyage and escort outcomes.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+Retained civilian-work036:63 checks/0 failures from3aab39798eb44644b6ed1825950de1f2. Production source hashes match; only flow fixture contact ordering comparison changed. Earlier import-name collision and two fixture representation/order failures are preserved; final batch runs remaining flow, export and portable startups.

@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.035
+26 October 2026 | Authorized sequential builds; delivered v0.036
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -29,7 +29,7 @@ Add12 original designs:3 fishing boats,4 transports through galleon-sized motor
 merchantmen,2 tankers and3 yachts. Give each working holds/mounts and real
 material, labor and supervision costs. Total roster becomes36.
 
-0.036 - WORKING CIVILIAN VOYAGES
+0.036 - WORKING CIVILIAN VOYAGES [DONE]
 Playable fishing, bulk freight, fuel delivery and funded passenger charters.
 Actual catches/cargo/fuel/payments create piracy and escort opportunities.
 Recurring captains remember witnessed events using the existing contact system.
@@ -61,7 +61,7 @@ No new general story framework.
 
 The agreed0.032-0.037 feature order remains. The former broad0.038 polish scope
 is separated across0.038-0.040;0.041 adds one bounded content chain.
-24 boats now;36 after0.035. Coins and100 coins per sailor-day remain.
+36 boats since0.035. Coins and100 coins per sailor-day remain.
 Ownership stays separate from300 deployment points per battle side.
 Crew remain numerical/fixed asset details. Water remains inexpensive.
 Next-step detail: ROADMAP.md. Historical detail remains in docs/roadmap/ and

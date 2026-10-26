@@ -1,3 +1,5 @@
+v0.036 VERIFIED AND PACKAGED: 68/0 focused checks, selected batch 40.400s, TestBridge a3fbf931f934431cb57eeb4d5d4893b8. Source 0b8e36c2a91105c193d6e6bab8953ec99ed8e230.
+
 26OCT2026 - v0.036 WORKING CIVILIAN VOYAGES
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
