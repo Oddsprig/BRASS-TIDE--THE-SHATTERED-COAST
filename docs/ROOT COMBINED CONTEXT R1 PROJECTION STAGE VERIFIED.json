@@ -1,0 +1,12 @@
+{
+  "classification": "CORRECTED_PROJECTION_SOURCE_STAGE_VERIFIED_NOT_NATIVE",
+  "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/combined-context-r1-root/projection/game",
+  "count": 499,
+  "sha256": "e922498750a38e32a70a87045238d513784b8c367b0d37cf015624222c39e123",
+  "fullCount": 522,
+  "fullSha256": "ef94d5a32983b6889766fa429fefbf0143755351c00e5035f392f4034c1bfd2c",
+  "onlyDeltaFromNewRaw": "tests/test_frame_projection_isolation.gd",
+  "fixtureSha256": "549f2661a4be48c68fbac6b6b86180b7d79036f6b707ce5023fceb59d1119120",
+  "originalFixturePreserved": true,
+  "rootNativeLaunches": 0
+}

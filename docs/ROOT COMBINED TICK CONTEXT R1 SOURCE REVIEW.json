@@ -1,0 +1,33 @@
+{
+  "classification": "SOURCE_COMPOSITION_ACCEPTED_PENDING_NATIVE_NOT_MAIN",
+  "reviewedAt": "2026-10-26T04:57:25.804Z",
+  "files": {
+    "scripts/damage.gd": {
+      "sha256": "298e353de6cf7ab57207a5a99b002bacdf6ecf30d5dccf41927fcb8e745649d6",
+      "bytes": 26753
+    },
+    "scripts/equipment_damage.gd": {
+      "sha256": "73ff774a0cebdac14d687dcfd8dfa390d880e9fc83320a6348109088183faed9",
+      "bytes": 50241
+    },
+    "scripts/equipment_rollout.gd": {
+      "sha256": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf",
+      "bytes": 10500
+    }
+  },
+  "exactPublicDamage": true,
+  "exactPrivateRollout": true,
+  "equipmentIsExactPublicPlusPrivateSuffix": true,
+  "removingPublicBlockRecoversWholePrivateCandidate": true,
+  "removingPrivateSuffixRecoversWholePublicCandidate": true,
+  "sourceReviews": [
+    "ROOT PUBLIC TICK CONTEXT R1 SOURCE REVIEW.json",
+    "ROOT PREFIX CONTEXT R2 SOURCE REVIEW.json"
+  ],
+  "peerFiles": [
+    "systems-grok/briefs/PUBLIC TICK CONTEXT r1 PEER.json",
+    "planner-argon/briefs/PREFIX BOUND CONTEXT R2 PEER REVIEW.json"
+  ],
+  "scope": "Three-file optimization delta from accepted6591. Adding Rollout makes a new artifact outside frozen four-file R5 cohort; no R5 result is relabeled.",
+  "decision": "APPROVE_SOURCE_ASSEMBLY_FOR_TARGETED_NATIVE_SCOPE"
+}

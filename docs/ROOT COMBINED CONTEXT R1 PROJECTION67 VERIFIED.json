@@ -1,0 +1,36 @@
+{
+  "classification": "COMBINED_CONTEXT_R1_CORRECTED_PROJECTION67_NATIVE_VERIFIED",
+  "native": {
+    "jobId": "8bf9483e9f504c0c99360494da26b5a8",
+    "suite": "frame_projection_isolation",
+    "family": "",
+    "outcome": "passed",
+    "checks": 67,
+    "failures": 0,
+    "inputSha256": "e922498750a38e32a70a87045238d513784b8c367b0d37cf015624222c39e123",
+    "inputCount": 499,
+    "nativeWallSeconds": 0.4690000000045984,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\8bf9483e9f504c0c99360494da26b5a8\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "d142f19a0a104857fd865eb9c1e2995c7965c06eca44aaf895c9ff44e07ed120",
+      "execution.json": "0407f605a1468c32b73afb1a4a2dd4f95a0f74582a1aed70d29a4596ff940d9b",
+      "inputs-after.json": "a44d47ec9c68e2a4a6e4b08700a8fb4b3f83c65dc9a5d1a95309d6b892f8070c",
+      "inputs-before.json": "a44d47ec9c68e2a4a6e4b08700a8fb4b3f83c65dc9a5d1a95309d6b892f8070c",
+      "lane.log": "abca66261e79a0069c93a1f3d0f3c41b56539773e90e7fbbcfd852a441fdbb10",
+      "native-receipt.json": "46df7b20dc8432896bde15194af1668729b201931aa87dfede4a4380056058ab",
+      "native.log": "47f92ead28a489a9b1b684e8c1b097490469bca42d87c991a88fde91ca48999b",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "89e2dd2b796cd269e298dea85a6f08d75a4dc088ef6d8b314d3533e4223bb0f4",
+      "request.json": "68d9a83c0621bd9b4ebb436534368024c0d51e1da9dde9c7680c682ba468a38f",
+      "result.json": "81955cca334dcc8f96a58f4b595584c9c0af3ece22f87e2c0ed9f4dbcd460f9a",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "27ab67fab91142141735d3e14d4fee1b0c79c394108abc490d710d645a510922",
+      "verified-report.json": "81955cca334dcc8f96a58f4b595584c9c0af3ece22f87e2c0ed9f4dbcd460f9a"
+    }
+  },
+  "scope": "Unchanged corrected67 fixture, final3-file context source; native and outer succeeded. Old flawed fixture and original outer-supervision failure remain preserved. Not capacity/release acceptance.",
+  "rootNativeLaunches": 0,
+  "mainEdited": false
+}

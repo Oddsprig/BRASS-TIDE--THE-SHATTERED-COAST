@@ -1,0 +1,69 @@
+{
+  "classification": "COMBINED_CONTEXT_R1_ORIGINAL_RECORDS89_DAMAGE174_NATIVE_VERIFIED",
+  "native": [
+    {
+      "jobId": "5ae84ad48f594866aa745304470c2fdd",
+      "suite": "equipment_records",
+      "family": "",
+      "outcome": "passed",
+      "checks": 89,
+      "failures": 0,
+      "inputSha256": "02c4bd247bdb3a04cb74eaa06a4225aaea82b26a44cb2fd3bb4abfae6b56d80c",
+      "inputCount": 499,
+      "nativeWallSeconds": 0.375,
+      "timeout": false,
+      "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\5ae84ad48f594866aa745304470c2fdd\\attempt-001",
+      "errors": [],
+      "artifactHashes": {
+        "bridge-result.json": "fe5e4f42278868dd69c7ad303a552eb3b4165ec74815519878e27cd08b220e3e",
+        "execution.json": "bfb351f5ecfb44244edf3013033c5da56494615e298cdf7cec5c40c4f5e270bc",
+        "inputs-after.json": "a783cb67b3b720ad13b0edb2a1eed1ce031625530fbde21f853022b249d72a1f",
+        "inputs-before.json": "a783cb67b3b720ad13b0edb2a1eed1ce031625530fbde21f853022b249d72a1f",
+        "lane.log": "844c90e980d79ba0451dcc424ad6d719e63152e55b4d14e908d2def573956f84",
+        "native-receipt.json": "adbabdfcb77f13803af21bc19625f09bd067a0f25a0f81b8d7dcd392983db098",
+        "native.log": "fdf878e78fcf7951bbde3c5317fe35fd4e751661a1220053275f3dc644e2b958",
+        "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+        "process.json": "d6c3086c6f76900dbae82cb0cc7c9816f70fa3c21a5dd428151c57c1bea1c109",
+        "request.json": "913399f63e32afa92b77f6d5f9caf764ec20010643c9df89f42ac2ac58c02d2c",
+        "result.json": "c03a2891cfa8690dfd92d20564f60f3e7d341a05be5a1d3b6e39bd6e7f3141b4",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "2dc673637da833072685bc6fc1d17da1d6af6cbdcd58194145adfd7b114f453d",
+        "verified-report.json": "c03a2891cfa8690dfd92d20564f60f3e7d341a05be5a1d3b6e39bd6e7f3141b4"
+      }
+    },
+    {
+      "jobId": "3030938fcb294a74ae7ed8ad8b8c8102",
+      "suite": "equipment_damage",
+      "family": "",
+      "outcome": "passed",
+      "checks": 174,
+      "failures": 0,
+      "inputSha256": "02c4bd247bdb3a04cb74eaa06a4225aaea82b26a44cb2fd3bb4abfae6b56d80c",
+      "inputCount": 499,
+      "nativeWallSeconds": 2.389999999999418,
+      "timeout": false,
+      "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\3030938fcb294a74ae7ed8ad8b8c8102\\attempt-001",
+      "errors": [],
+      "artifactHashes": {
+        "bridge-result.json": "59ff83e89cbe33d6cfe09483df754e63e042dc63f20ea4761b0cd2280a5b4658",
+        "execution.json": "5e0cdade26672c69df97da8523a12ed4d200cc629f3e03e034bdb1f0dbf08945",
+        "inputs-after.json": "a783cb67b3b720ad13b0edb2a1eed1ce031625530fbde21f853022b249d72a1f",
+        "inputs-before.json": "a783cb67b3b720ad13b0edb2a1eed1ce031625530fbde21f853022b249d72a1f",
+        "lane.log": "466969c46ca9d7a2b667dc9eb4127c04d9a68c090345bc53214d3c36d2dcf364",
+        "native-receipt.json": "f61e25bc0bc38982cde6ae2b1778422d92f41d30e1cb35148dea02b949f35223",
+        "native.log": "76f77745b95a0eed4e8e502d34a20c5caf89097d1eab30ebc95cd361ce79a9e2",
+        "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+        "process.json": "d9f436fbb4ab2bff4494f1c13a763ae89c383a3f7dc14a0ea441e34786966db4",
+        "request.json": "896fb7c005cc7d515d3a05aaaef690e7b0ea33458a596d37de89871428c495f9",
+        "result.json": "9608f29e08e5d4c35836322a88096836654c52b6ec4d00668511f18185eac7e9",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "502cbed70745c96044b73f07e29a46300d08327d6a36504c0e64a33047432af2",
+        "verified-report.json": "9608f29e08e5d4c35836322a88096836654c52b6ec4d00668511f18185eac7e9"
+      }
+    }
+  ],
+  "scope": "Both full original unchanged fixtures on reviewed combined source. Not a release, installed-Gold or capacity pass.",
+  "public735ProofSha256": "376384e93289b3f684a3db8e1c8e33e1e9fa8f17fae6c4a06c130ab0123e6c18",
+  "mainEdited": false,
+  "rootNativeLaunches": 0
+}

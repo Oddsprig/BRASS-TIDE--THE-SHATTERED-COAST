@@ -1,0 +1,37 @@
+{
+  "classification": "COMBINED_CONTEXT_R1_PUBLIC_DIFFERENTIAL_NATIVE_VERIFIED",
+  "native": {
+    "jobId": "47ed1aba502a406f93ae78bab8d44bb6",
+    "suite": "public_tick_context",
+    "family": "",
+    "outcome": "passed",
+    "checks": 735,
+    "failures": 0,
+    "inputSha256": "47f3764be55cfcf238bb89bf48da2aceb00dc6ff95b3cf5eaaf436342f4b3517",
+    "inputCount": 500,
+    "nativeWallSeconds": 0.5470000000059372,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\47ed1aba502a406f93ae78bab8d44bb6\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "c11dc64f94ea2db2ee1a114f159450191c7dce646e5d76f455a2c70d06fd14bd",
+      "execution.json": "5a7ede6faf52e600155831616b6a64cf7034128f44c655a141d469a128aa0d8d",
+      "inputs-after.json": "8a47002d88b90436a8d10af5b2b2f0392ab30105fe3d3f0ff0cbc7f74e122719",
+      "inputs-before.json": "8a47002d88b90436a8d10af5b2b2f0392ab30105fe3d3f0ff0cbc7f74e122719",
+      "lane.log": "f2abea95b3bfcdcf2f81c4d004a02e2315b78f334c39351b64ee5487ebaa6659",
+      "native-receipt.json": "87877b1cfaffdcc7bb6c3739aa3137ee183ff0b198f445e720e6c235891fadac",
+      "native.log": "b7e14a1b66aa1c6d492293e2524a8fe7b8191492fd49b6f98e12e5789ff2b4c0",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "baad1710f51546287a221c7d12393a9d30d5a1e52c956354fa681c231683accb",
+      "request.json": "519182d42826fb6f6a3c938ad79f163914353e45a109747269137cc1ae9a30bf",
+      "result.json": "7c17b0d8f64e9f3e0e2d40b2f248e7a0ae557fd5a4eeb854b17df2ab25a087c8",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "56e5cb28581b2672660051a27af95b40f8a78061b8f57ac1fc6f3260d3be9423",
+      "verified-report.json": "7c17b0d8f64e9f3e0e2d40b2f248e7a0ae557fd5a4eeb854b17df2ab25a087c8"
+    }
+  },
+  "sourceStageReview": "ROOT COMBINED CONTEXT R1 FIRST THREE STAGES VERIFIED.json",
+  "scope": "735 actual checks; whole owned boats, tick reports, status, caches, paid module repair, fire, empty and aliased breaches, EPS and Object fallback. Same actual shared kernel with original public callbacks as reference. Not original174, prefix-Gold proof, capacity or release acceptance.",
+  "rootNativeLaunches": 0,
+  "mainEdited": false
+}

@@ -5,32 +5,36 @@ maps/PROJECT MAP.txt for sizes and targeted maps/ files for actual symbols/lines
 Historical JS prototype is archived. Planned modules do not exist until implemented.
 
 ACTIVE PERFORMANCE WORK - 26 OCTOBER 2026
-The verified equipment baseline is now integrated into working game source.
-Damage5873/EqDamagec364/Core56eb/Recordsf799 exactly match raw499/6591. Root
-compared every staged runtime script and JSON data file with Main: no other
-differences. This is scoped integration, not whole-scene or release acceptance.
-Root integration receipt: ROOT IDLE BASELINE MAIN INTEGRATION.json.
-Cold c7a passed51/0 with exact recorded-payload equality against BOTH78c and93f1.
-Observed24-update means:151.118ms whole,101.023AI,50.095OTHER. This remains too
-slow. Cold data establishes no causal gain, rendered FPS or sustained capacity.
-Small witness4af passed57/0. Root independently consumed all301 packets through
-frozenR2 and strict5117 and verified source/engine bindings. The single strict
-comparison with genuineOLD844c matched every typed byte; full traceSHA534a41a8.
-All703 prior frozen files remain unchanged; no new omission, replay or normalization.
-Supplementaryd761 passed931/0: whole-owned-boat/status bytes, detached observers,
-actual eligible engine HP gain with supply debit, and private guard-domain cases.
-It is separate from original equipment_damage174. Root audited native/outer/
-input/tool/lane evidence for all3; see the five new Root native/integration proofs.
-Two larger context prototypes remain isolated: Grok handles private-prefix reuse;
-Argon handles one-call live tick reuse with strict entry and fresh public mirrors.
-They keep actual shared numerical loops. Neither has native acceptance.
-Public Records89/Damage174 and remaining installed/tactical/Main/UI/save/motion/
-capacity/Windows gates remain held for the final source. Pure Core90 reuse is
-accepted only under its isolated called-closure proof. Shared test lane, hidden/
-headless/Dummy/BelowNormal profiles; no computer input or unrelated app control.
-Build remains30,24boats. .031 is unreleased; .030 untested/.029 verified artifacts,
-tags, owner saves/music and launcher remain preserved. Recovery hold.032 notes
-are planning only.
+Working source remains the verified idle baseline: Damage5873/EqDamagec364/
+Core56eb/Recordsf799, commit1f567b1. Build30,24boats; .031 is unreleased.
+The isolated three-file context candidate (Damage298e/Eq73ff/Rolloutc51a) has
+passed five targeted native jobs. Root independently checked actual native and
+outer results, unchanged inputs/tools and the shared background test lane.
+Public differential47ed:735/0, whole boat/report/status/cache bytes, fresh locker
+identity, actual paid repairs/fire/flooding, EPS and priority Object fallback.
+Original Records5ae8:89/0; original Damage3030:174/0; corrected projection8bf9:
+67/0. Earlier failed fixture/outer results remain preserved separately.
+Cold df08:51/0. All24 recorded updates and40 public-status rows match BOTH
+acceptedc7a and original78c, excluding only two existing diagnostic clocks.
+Observed means:111.337ms whole /86.419AI /24.918OTHER per update; prior c7a
+measured151.118/101.023/50.095. Cost remains material. These cold observations
+establish no causal speedup, rendered FPS or sustained capacity acceptance.
+See ROOT COMBINED CONTEXT R1 PUBLIC CONTRACT VERIFIED.json, ORIGINALS VERIFIED,
+PROJECTION67 VERIFIED and COLD VERIFIED for exact input, log and receipt hashes.
+The candidate remains isolated pending the installed30/60 prediction comparison
+with saved independent Gold runs. Its Rollout change lies outside the frozen
+four-file R5 cohort; no old trace result is relabeled. Actual shared numerical
+loops remain unchanged. Source composition and stage reviews are preserved.
+Next: complete both installed-Gold witnesses; if they pass, measure original
+unchanged sustained capacity window0 once. Final tactical, manual/retreat, career,
+UI/save/service/coins and Windows presentation/release gates remain open. Pure
+Core90 reuse retains its narrowly accepted called-closure scope.
+Main integration waits for the scoped final-source gates and recovery allowlist.
+Same three Bridge leads; Sol alone submits engines through shared FIFO/detector,
+headless Dummy/BelowNormal with synthetic profiles and bounded60/90s runs. No
+computer input/focus or control of existing apps. Root launched zero engines.
+Preserved .030 untested/.029 verified artifacts, tags, saves, music and launcher
+remain intact. Recovery hold.032 notes are planning only.
 
 
 

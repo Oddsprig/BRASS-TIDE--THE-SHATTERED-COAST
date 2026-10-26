@@ -1,0 +1,31 @@
+{
+  "classification": "SOURCE_STAGES_VERIFIED_NOT_NATIVE_ACCEPTANCE",
+  "reviewedAt": "2026-10-26T05:08:04.189Z",
+  "runtime": {
+    "scripts/damage.gd": "298e353de6cf7ab57207a5a99b002bacdf6ecf30d5dccf41927fcb8e745649d6",
+    "scripts/equipment_damage.gd": "73ff774a0cebdac14d687dcfd8dfa390d880e9fc83320a6348109088183faed9",
+    "scripts/equipment_rollout.gd": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf"
+  },
+  "stages": {
+    "prototype": {
+      "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/combined-context-r1-root/prototype/game",
+      "count": 499,
+      "sha256": "02c4bd247bdb3a04cb74eaa06a4225aaea82b26a44cb2fd3bb4abfae6b56d80c",
+      "fullCount": 522,
+      "fullSha256": "b2082f020495b5766f695426aab593910b8c42fda187d2a1dc24371afbb22fcd"
+    },
+    "public-contract": {
+      "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/combined-context-r1-root/public-contract/game",
+      "count": 500,
+      "sha256": "47f3764be55cfcf238bb89bf48da2aceb00dc6ff95b3cf5eaaf436342f4b3517",
+      "fullCount": 523,
+      "fullSha256": "77332dafbdb39ded32dc01ede6dbe3fc912f51d7ee9b25f6c0065fbf9d47a6e3"
+    },
+    "cost": {
+      "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/combined-context-r1-root/cost/game",
+      "count": 289,
+      "sha256": "516ed90afa3ea19011e27ad86f89c0d09483a20f359e20c39f6baf6ad177aa03"
+    }
+  },
+  "rootNativeLaunches": 0
+}
