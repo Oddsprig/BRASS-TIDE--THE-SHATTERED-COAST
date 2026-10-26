@@ -188,3 +188,13 @@ static func profile(spec: Dictionary) -> Dictionary:
 
 static func stations(spec: Dictionary) -> Array:
 	return profile(spec).stations
+
+## Shared portrait/gallery framing; keep the original24 hulls' scale unchanged.
+static func preview_span(spec: Dictionary) -> float:
+	var hull_size: float = float(spec.get("size",16))
+	var span: float = maxf(20.0,hull_size*4.6)
+	if str(spec.get("civilianRole","")) not in ["fishing","transport","tanker","yacht"]:return span
+	var extent: float = 0.0
+	for station in stations(spec):extent=maxf(extent,absf(station.x))
+	# Symmetric framing includes the longest profile end plus aft drive/propeller.
+	return maxf(span,2.0*(extent+0.60)*hull_size)

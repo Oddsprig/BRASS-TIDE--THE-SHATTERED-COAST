@@ -12,6 +12,7 @@ extends SceneTree
 
 const Refit=preload("res://scripts/refit.gd")
 const BoatArt = preload("res://scripts/boat_art.gd")
+const Profiles = preload("res://scripts/hull_profiles.gd")
 
 const PANEL_W := 640.0
 const PANEL_H := 420.0
@@ -73,7 +74,7 @@ func check(ok: bool, message: String) -> void:
 		push_error("BOAT GALLERY: " + message)
 
 static func _scale_for(spec: Dictionary) -> float:
-	var world_len := maxf(20.0, float(spec.get("size", 16)) * 4.6)
+	var world_len := Profiles.preview_span(spec)
 	return minf(PANEL_W * 0.78 / (world_len * 1.08), PANEL_H * 0.72 / (world_len * 0.60))
 
 static func _projector_for(spec: Dictionary) -> Callable:

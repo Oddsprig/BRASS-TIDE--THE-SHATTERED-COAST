@@ -6,6 +6,7 @@ extends Control
 ## set_spec(spec) to preview any hull/fitted spec directly.
 
 const BoatArt = preload("res://scripts/boat_art.gd")
+const Profiles = preload("res://scripts/hull_profiles.gd")
 const Layout=preload("res://scripts/mount_layout.gd")
 signal mount_selected(index: int)
 var _socket_points: Array=[]
@@ -78,8 +79,7 @@ func _draw() -> void:
 	display.turretAngle=display_angle
 	display.vx = 0.0
 	display.vy = 0.0
-	# Fit: hull length in world units is ~4.4 * spec.size (command is longest).
-	var world_len := maxf(20.0, float(spec.get("size", 16)) * 4.6)
+	var world_len := Profiles.preview_span(spec)
 	var k := minf(size.x * 0.78 / (world_len * 1.08), size.y * 0.72 / (world_len * 0.60))
 	var origin := center + Vector2(0, size.y * 0.06)
 	var projector := func(p: Vector2, h: float) -> Vector2:

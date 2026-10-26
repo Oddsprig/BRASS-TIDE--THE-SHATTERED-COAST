@@ -71,6 +71,7 @@ func run() -> void:
 			var panel: Dictionary = gallery._panel(id,str(spec.name),Art.preview_boat(fitted),0)
 			panels.append(panel)
 			check(panel.invalid==0 and panel.primitives.size()==int(panel.stats.primitives) and int(panel.stats.mounts)==1,"finite exact native primitives and stock mount "+id)
+			_check_panel_bounds(panel)
 			var repeat: Dictionary = gallery._panel(id,str(spec.name),Art.preview_boat(fitted),0)
 			check(repeat.primitives==panel.primitives,"warm profile/detail/motor caches keep drawing stable "+id)
 			var empty_fit: Dictionary = Refit.defaults(spec)
@@ -87,6 +88,18 @@ func run() -> void:
 	_write_capture(panels)
 	print("CIVILIAN ART035: %d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
+
+func _check_panel_bounds(panel: Dictionary) -> void:
+	var lower: Vector2 = Vector2(INF,INF)
+	var upper: Vector2 = Vector2(-INF,-INF)
+	for primitive in panel.primitives:
+		var pad: float = float(primitive.get("r",float(primitive.get("w",0.0))*0.5))
+		for point in primitive.pts:
+			var pos: Vector2 = Vector2(float(point[0]),float(point[1]))
+			lower=lower.min(pos-Vector2.ONE*pad)
+			upper=upper.max(pos+Vector2.ONE*pad)
+	var margin: float = 12.0
+	check(lower.x>=margin and lower.y>=margin and upper.x<=float(panel.width)-margin and upper.y<=float(panel.height)-margin,"captured boat keeps12px panel margin %s [%s,%s]"%[panel.id,lower,upper])
 
 func _check_deck(spec: Dictionary, identity: Dictionary) -> void:
 	var plan: Dictionary = Detail.layout(spec)
