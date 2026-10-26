@@ -122,10 +122,17 @@ static func mount_cache_key(ship: Dictionary, status: Dictionary = {}, frame_cac
 	var info: Dictionary = Damage.inspect_owner_cached(ship, frame_cache)
 	if str(info.get("mode", "")) != "canonical":
 		return "legacy"
-	var st_dict: Dictionary = status if (not status.is_empty() and status.has("equipmentMode")) else Damage._status_for_info(ship, info)
-	if not bool(st_dict.get("equipmentOk", true)):
+	var supplied: bool = not status.is_empty() and status.has("equipmentMode")
+	if supplied and not bool(status.get("equipmentOk", true)):
 		return "invalid"
-	var wf: Dictionary = st_dict.get("weaponFactors", {}) if st_dict.get("weaponFactors") is Dictionary else {}
+	# The validated snapshot already owns these factors; full status only zeros
+	# installed slots when sunk. Keep explicit caller status authoritative.
+	var source: Dictionary = status if supplied else info.snapshot
+	var wf: Dictionary = source.get("weaponFactors", {}) if source.get("weaponFactors") is Dictionary else {}
+	if not supplied and bool(ship.get("sunk", false)):
+		wf = wf.duplicate()
+		for loc in wf:
+			wf[loc] = 0.0
 	return "%.4f:%.4f:%.4f:%.4f" % [
 		Damage.number(wf.get("mount0", -1.0), -1.0),
 		Damage.number(wf.get("mount1", -1.0), -1.0),
