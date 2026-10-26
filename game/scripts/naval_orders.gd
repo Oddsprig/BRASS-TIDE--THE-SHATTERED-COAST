@@ -355,7 +355,7 @@ static func needs_home_recovery(owner: Dictionary, res: Dictionary, perf: Dictio
 	return ""
 
 
-static func build_order(state: Dictionary, owner: Dictionary, purpose: String = "", destination: String = "", reason: String = "", target_owner_id: String = "") -> Dictionary:
+static func build_order(state: Dictionary, owner: Dictionary, purpose: String = "", destination: String = "", reason: String = "", target_owner_id: String = "", keep_destination: bool = false) -> Dictionary:
 	var res: Dictionary = fleet_reserves(owner)
 	var perf: Dictionary = fleet_performance(owner)
 	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
@@ -371,7 +371,7 @@ static func build_order(state: Dictionary, owner: Dictionary, purpose: String = 
 			var kind: String = str(owner.get("kind", "patrol"))
 			purpose = "raid" if kind == "raider" else ("deliver" if kind == "trader" else "patrol")
 			reason = "%s sea lanes; previous target is no longer sighted." % ("Raiding merchant" if kind == "raider" else ("Sailing trade" if kind == "trader" else "Patrolling"))
-		else:
+		elif not keep_destination:
 			dest = current_dest
 	if dest.is_empty() or find_port(state, dest).is_empty():
 		var route: Array = owner.get("route", []) if owner.get("route") is Array else []
@@ -713,7 +713,29 @@ static func select_raider_order(state: Dictionary, owner: Dictionary, current_po
 	}
 
 
-static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_port: Dictionary = {}) -> String:
+static func apply_regional_plan(state: Dictionary, owner: Dictionary, plan: Dictionary) -> Dictionary:
+	if plan.is_empty() or is_story_owner(owner) or owner.get("playerCompany",false):return {}
+	var applied: Dictionary=plan.duplicate(true)
+	var res: Dictionary=fleet_reserves(owner)
+	var recovery: String=needs_home_recovery(owner,res,fleet_performance(owner))
+	var returning: bool=str(owner.get("atPort","")).is_empty() and str(owner.get("purpose","")) in ["withdraw","repair","replace","resupply"]
+	if not recovery.is_empty() or returning:
+		applied.ready=false
+		applied.purpose=str(owner.purpose) if returning else ("replace" if int(res.boats)<int(res.targetBoats) else ("repair" if float(res.hpRatio)<0.65 or float(res.minEngine)<0.68 else "resupply"))
+		applied.destination=str(owner.get("destination",owner.homePort)) if returning else str(owner.homePort)
+		applied.targetOwnerId=""
+		applied.reason=recovery if not recovery.is_empty() else str(owner.get("reason","Returning for paid recovery before the corridor watch."))
+		applied.hold=str(owner.get("atPort","")).is_empty() and living_boats(owner).any(func(b):return float(b.get("fuel",0))<=0.0)
+		applied.erase("interceptPoint")
+	var order: Dictionary=owner.get("order",{})
+	if str(order.get("purpose",""))!=str(applied.purpose) or str(order.get("destination",""))!=str(applied.destination) or str(order.get("targetOwnerId",""))!=str(applied.get("targetOwnerId","")):
+		build_order(state,owner,str(applied.purpose),str(applied.destination),str(applied.reason),str(applied.get("targetOwnerId","")),true)
+	else:
+		order.reason=str(applied.reason);owner.reason=str(applied.reason)
+	return applied
+
+
+static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_port: Dictionary = {}, context: Dictionary = {}) -> String:
 	Fleets.normalize_owner(owner)
 	var home_id: String = str(owner.get("homePort", ""))
 	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
@@ -771,7 +793,7 @@ static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_po
 	elif kind == "raider":
 		plan = select_raider_order(state, owner, dock_id)
 	else:
-		plan = RegionalOrders.plan(state,owner,dock_id)
+		plan = RegionalOrders.plan(state,owner,dock_id,context)
 		if plan.is_empty():plan = select_patrol_order(state, owner, dock_id)
 
 	var next_port: String = str(plan.get("destination", home_id))
@@ -783,7 +805,8 @@ static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_po
 		str(plan.get("purpose", kind)),
 		next_port,
 		str(plan.get("reason", "")),
-		str(plan.get("targetOwnerId", ""))
+		str(plan.get("targetOwnerId", "")),
+		not RegionalOrders.operation(state,owner).is_empty()
 	)
 	var start_port: String = dock_id if not dock_id.is_empty() else home_id
 	if not start_port.is_empty() and not next_port.is_empty():

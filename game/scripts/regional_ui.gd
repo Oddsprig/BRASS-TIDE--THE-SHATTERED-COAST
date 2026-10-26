@@ -2,6 +2,7 @@ extends RefCounted
 const R=preload("res://scripts/regional_campaigns.gd")
 const Rules=preload("res://scripts/regional_rules.gd")
 const Factions=preload("res://scripts/factions.gd")
+const Orders=preload("res://scripts/naval_orders.gd")
 
 static func port_picker(ui,parent,key: String,caption: String) -> void:
 	var c=ui.host.core
@@ -26,6 +27,7 @@ static func open(ui) -> void:
 	ui.host.sync_economy()
 	var c=ui.host.core
 	c.RegionalOps.ensure(c)
+	c.RegionalOps.refresh(c)
 	ui.modal_kind="regional"
 	var body=ui.modal("Your place on the coast","REGIONAL GOALS · REAL FLEETS · LASTING CONSEQUENCES",1100,850)
 	ui.paragraph(body,"Choose a direction for your career. These goals use the coast's existing boats, purses and supplies. You may keep several goals alongside your contracts. Completed routes and harbors are remembered; choosing a new destination never rewrites an active operation.",16)
@@ -53,13 +55,15 @@ static func open(ui) -> void:
 			if id=="corridor":
 				var company: String=c.fleet_owner(str(op.get("ownerId",""))).get("name","your fleet / local commerce")
 				ui.paragraph(body,"%d / 7 clear days · %d patrol endpoint visits · %s · %d coins treasury support"%[int(op.get("clearDays",0)),int(op.get("patrolVisits",0)),company,int(op.funded)],15)
+				for line in corridor_status(c,op):ui.paragraph(body,line,15,ui.TEAL)
 			if id=="harbor":ui.paragraph(body,"%.0f / 12 goods lots · %d / 3 paid staff-days · %s"%[float(op.get("harborLots",0)),int(op.get("staffDays",0)),c.port(op.portId).name],15)
 			if id=="ceasefire":
 				var terms: Dictionary=Rules.peace_conditions(c.state,op,str(op.peaceA),str(op.peaceB))
 				ui.paragraph(body,"%s: %d / 5 relief · %s: %d / 5 · talks began day %d"%[Factions.CANON_NAMES[op.peaceA],int(op.relief.get(op.peaceA,0)),Factions.CANON_NAMES[op.peaceB],int(op.relief.get(op.peaceB,0)),int(op.get("talksStartedDay",0))],15)
 				ui.paragraph(body,str(terms.reason),15,ui.TEAL)
 				ui.button(body,"Sign thirty-day ceasefire",func():act(ui,R.propose_peace(c,str(op.peaceA),str(op.peaceB))),true)
-			if id in ["harbor","ceasefire"]:
+			if id in ["corridor","harbor","ceasefire"]:
+				if id=="corridor":ui.paragraph(body,"Deliver fuel, ammunition, food or repair kits to %s. Its patrol must still buy supplies and pay its crew and repair workers."%c.port(str(op.portId)).get("name","the sponsoring harbor"),15)
 				var supply=ui.row(body)
 				var goods=OptionButton.new()
 				for g in R.ACCEPT[id]:goods.add_item(c.Goods.ITEMS[g].name);goods.set_item_metadata(goods.item_count-1,g)
@@ -75,6 +79,27 @@ static func open(ui) -> void:
 		ui.paragraph(body,"%s ↔ %s · %s · expires day %d · new talks after day %d"%[Factions.CANON_NAMES[rec.a],Factions.CANON_NAMES[rec.b],"in force" if rec.get("active",true) else "ended",int(rec.untilDay),int(rec.cooldownUntil)],15)
 	for e in R.journal(c.state).slice(0,12):ui.paragraph(body,"Day %d · %s"%[int(e.get("day",0)),event_text(c,e)],14)
 
+static func corridor_status(c,op: Dictionary) -> Array:
+	var owner: Dictionary=c.fleet_owner(str(op.get("ownerId","")))
+	if owner.is_empty():return ["Stalled: no funded patrol is assigned."]
+	var plan: Dictionary=op.get("currentPlan",{})
+	var quote: Dictionary=plan.get("readiness",{})
+	var order: Dictionary=owner.get("order",{})
+	var patrol: Dictionary=Orders.find_patrol(c.state,str(owner.id))
+	var convoy: Dictionary=c.fleet_owner(str(plan.get("convoyOwnerId","")))
+	var target: Dictionary=c.fleet_owner(str(order.get("targetOwnerId","")))
+	var lines: Array=["Patrol: %s · Convoy: %s · Target: %s"%[owner.get("name",owner.id),convoy.get("name","none"),target.get("name","none")]]
+	lines.append("Order: %s → %s · %s → %s · route %.0f%%"%[str(order.get("purpose","awaiting orders")),c.port(str(order.get("destination",""))).get("name","no destination"),c.port(str(patrol.get("from",""))).get("name","at sea"),c.port(str(patrol.get("to",""))).get("name","no destination"),float(patrol.get("progress",0))*100.0])
+	if not quote.is_empty():
+		lines.append("Water route %.0f + return %.0f · %.2f + %.2f days"%[float(quote.get("routeDistance",0)),float(quote.get("returnDistance",0)),maxf(0,float(quote.get("days",0))-float(quote.get("returnDays",0))),float(quote.get("returnDays",0))])
+		lines.append("Reserves / route + return: fuel %.1f / %.1f · food %.1f / %.1f · ammo %.0f / %.0f · payroll %d / %d coins"%[float(quote.get("fuel",0)),float(quote.get("fuelNeed",0)),float(quote.get("food",0)),float(quote.get("foodNeed",0)),float(quote.get("ammo",0)),float(quote.get("ammoNeed",0)),int(quote.get("coins",0)),int(quote.get("payrollNeed",0))])
+		lines.append("Machinery: %.0f%% engine condition · %s"%[float(quote.get("engineMin",0))*100.0,"modules ready" if quote.get("moduleOk",false) else "equipment service required"])
+	lines.append("Treasury grant: %d coins from %s · no repeat grant"%[int(op.get("funded",0)),c.port(str(op.get("portId",""))).get("name","the sponsor")])
+	var reason: String=str(owner.get("navigationReason",""))
+	if reason.is_empty() and not plan.get("ready",false):reason=str(plan.get("reason","Awaiting a live route and readiness quote."))
+	lines.append("Stalled: "+reason if not reason.is_empty() else "Ready: "+str(order.get("reason","Corridor watch underway.")))
+	return lines
+
 static func event_text(c,e: Dictionary) -> String:
 	var title: String=str(R.TITLES.get(e.get("goal",""),"Regional activity"))
 	match str(e.get("kind","")):
@@ -82,6 +107,7 @@ static func event_text(c,e: Dictionary) -> String:
 		"withdrawn":return title+" · withdrawn"
 		"contribute":return "%d %s delivered to %s"%[int(e.qty),c.Goods.ITEMS[e.good].name,c.port(e.portId).name]
 		"mobilize":return "%s assigned %d coins to %s"%[c.port(e.funder).name,int(e.amount),c.fleet_owner(e.target).get("name","its patrol")]
+		"operation-order","operation-stalled","operation-resumed":return title+" · "+str(e.get("cause",e.kind))
 		"treaty-expired":return "Ceasefire ended · "+("previous dispute resumes" if e.cause=="prior-dispute-restored" else "later agreement remains in force")
 		"peace":return "Thirty-day ceasefire signed"
 	return title+" · "+str(e.get("kind",""))

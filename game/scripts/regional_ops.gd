@@ -31,10 +31,7 @@ static func start(c,id: String) -> Dictionary:
 		if id=="corridor" and not p.id in [str(c.state.campaignFocus.fromPort),str(c.state.campaignFocus.toPort)]:return c.fail("Visit one of the chosen corridor's harbors to organize its watch.")
 	var result: Dictionary=Regional.start(c,id)
 	if result.ok and not str(result.get("ownerId","")).is_empty():
-		var owner: Dictionary=c.fleet_owner(str(result.ownerId))
-		var patrol: Dictionary=Orders.find_patrol(c.state,str(result.ownerId))
-		var dest: String=Orders.assign_post_dock_order(c.state,owner,{})
-		if not patrol.is_empty():Lifecycle.route(c,patrol,dest)
+		refresh(c)
 	if result.ok:c.log_entry("Regional goal: "+str(Regional.TITLES[id])+".")
 	return result
 
@@ -42,8 +39,33 @@ static func contribute(c,id: String,good: String,qty: int) -> Dictionary:
 	var permission: Dictionary=Politics.permit(c,"service")
 	if not permission.ok:return permission
 	var result: Dictionary=Regional.contribute(c,id,good,qty)
-	if result.ok:c.Manifest.allocate(c.state)
+	if result.ok:
+		c.Manifest.allocate(c.state)
+		if id=="corridor":refresh(c)
 	return result
+
+static func refresh(c) -> Dictionary:
+	var op: Dictionary=c.state.get("regionalCampaigns",{}).get("operations",{}).get("corridor",{})
+	var owner: Dictionary=c.fleet_owner(str(op.get("ownerId","")))
+	if owner.is_empty():return {}
+	var patrol: Dictionary=Orders.find_patrol(c.state,str(owner.id))
+	if op.get("status","")!="active":
+		if patrol.has("interceptPoint"):Lifecycle.route(c,patrol,str(owner.get("destination",owner.homePort)))
+		return {}
+	var context: Dictionary={"nav":c.nav,"scale":c.data.get("CAMPAIGN_SCALE",1),"daySeconds":c.DAY_SECONDS}
+	var plan: Dictionary=Orders.RegionalOrders.plan(c.state,owner,str(owner.get("atPort","")),context)
+	var applied: Dictionary=Orders.apply_regional_plan(c.state,owner,plan)
+	if applied.is_empty():return {}
+	Regional.observe_plan(c.state,owner,applied)
+	if not patrol.is_empty() and patrol.get("active",false):
+		var dest: String=str(applied.destination)
+		var point: Dictionary=applied.get("interceptPoint",{})
+		if applied.get("hold",false):
+			patrol.to=dest;patrol.holding=true;patrol.course=[];patrol.progress=0.0;owner.progress=0.0
+			patrol.erase("interceptPoint")
+		elif str(patrol.to)!=dest or patrol.get("interceptPoint",{})!=point or (patrol.get("holding",false) and str(owner.get("atPort",""))!=dest and str(patrol.get("routeFailure","")).is_empty()):
+			Lifecycle.route(c,patrol,dest,point)
+	return applied
 
 static func delivered(c,to: String,qty: float,from: String="",player: bool=true) -> void:
 	if qty<=0 or c.port(to).is_empty():return

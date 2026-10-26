@@ -33,24 +33,27 @@ static func refuse_route(c,p: Dictionary,reason: String) -> void:
 		Fleets._log(owner,reason)
 		if c.distance(c.state.position,p)<=1800.0:c.log_entry("%s: %s"%[owner.get("name",p.id),reason])
 
-static func route(c,p: Dictionary,dest: String) -> void:
+static func route(c,p: Dictionary,dest: String,intercept_point: Dictionary={}) -> void:
 	var target: Dictionary=c.port(dest)
 	if target.is_empty():return
 	var owner: Dictionary=c.fleet_owner(p.id)
 	if owner.is_empty():return
 	var actual: float=Routes.clearance(c,p)
 	p.to=dest;p.courseClearance=actual
-	p.course=Routes.path(c,p,target,actual)
+	if intercept_point.is_empty():p.erase("interceptPoint")
+	else:p.interceptPoint=intercept_point.duplicate()
+	var goal: Dictionary=target if intercept_point.is_empty() else intercept_point
+	p.course=Routes.path(c,p,goal,actual)
 	p.courseLength=0.0
 	if p.course.is_empty():
 		refuse_route(c,p,"No safe harbor approach or water route for a hull this size (%.0f clearance)."%actual)
 		return
 	p.routeFailure="";owner.navigationReason="";p.progress=0.0
 	for i in range(1,p.course.size()):p.courseLength+=c.distance(p.course[i-1],p.course[i])
-	if c.distance(p,target)<40.0:
+	if c.distance(p,goal)<40.0:
 		# Already in service range at a certified water position: keep that
 		# position, including an offset approach for a large hull.
-		p.holding=true;owner.atPort=dest
+		p.holding=true;owner.atPort=dest if intercept_point.is_empty() else ""
 		return
 	p.voyageSeq=int(p.get("voyageSeq",0))+1
 	p.holding=false;owner.atPort=""
@@ -74,12 +77,13 @@ static func step(c,dt: float) -> void:
 		c.state.navalEncounterElapsed=0.0
 		for message in AI.scan_encounters(c):c.log_entry(str(message))
 		Contacts.witnessed_encounters(c.state)
+		c.RegionalOps.refresh(c)
 	for p in c.state.patrols:
 		var owner: Dictionary=c.fleet_owner(p.id)
 		if owner.is_empty():continue
 		p.hostile=false if owner.get("playerCompany",false) else Factions.is_hostile(c.state,str(owner.faction))
 		if not p.active:continue
-		if str(owner.get("purpose","")) in ["withdraw","repair","replace","resupply"] and str(owner.get("destination",p.to))!=str(p.to):
+		if str(owner.get("purpose","")) in ["withdraw","repair","replace","resupply"] and (str(owner.get("destination",p.to))!=str(p.to) or p.has("interceptPoint")):
 			route(c,p,str(owner.destination))
 		if not p.get("holding",false):
 			var actual: float=Routes.clearance(c,p)
@@ -96,6 +100,12 @@ static func step(c,dt: float) -> void:
 			if p.progress>=1:
 				var dock: Dictionary=c.port(p.to)
 				var endpoint: Dictionary=p.course[-1]
+				if p.has("interceptPoint"):
+					# A sea interception is not an endpoint visit or a serviced dock.
+					p.x=endpoint.x;p.y=endpoint.y;p.progress=0.0;p.holding=true
+					owner.atPort="";owner.progress=0.0
+					c.RegionalOps.refresh(c)
+					continue
 				if dock.is_empty() or c.distance(endpoint,dock)>=40.0:
 					refuse_route(c,p,"Course stopped: no safe harbor approach within docking range.")
 					continue
@@ -107,6 +117,7 @@ static func step(c,dt: float) -> void:
 				var next: String=AI.arrived(c,owner,dock)
 				if holding(c,owner):route(c,p,dock.id)
 				else:route(c,p,next)
+				c.RegionalOps.refresh(c)
 			else:c.place_patrol(p)
 		owner.progress=p.progress
 		if not p.get("holding",false):owner.atPort=""
@@ -157,3 +168,4 @@ static func daily(c) -> void:
 			if not dock.is_empty():hire(c,owner,dock)
 			if not holding(c,owner):route(c,p,AI.arrived(c,owner,dock))
 		elif str(owner.get("destination",p.to))!=str(p.to):route(c,p,str(owner.destination))
+	c.RegionalOps.refresh(c)

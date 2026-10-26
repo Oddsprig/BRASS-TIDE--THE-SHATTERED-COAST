@@ -227,6 +227,31 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 				if not op.get(key) is Dictionary or op[key].size()>32:return "Invalid regional supply/progress ledger."
 				for value in op[key].values():
 					if not number(value):return "Invalid regional supply/progress amount."
+			if op.has("currentPlan"):
+				if id!="corridor" or not op.currentPlan is Dictionary:return "Invalid observed corridor plan."
+				var plan: Dictionary=op.currentPlan
+				if not plan.get("ready") is bool or not plan.get("hold") is bool:return "Invalid observed corridor readiness."
+				for key in ["ownerId","completionId","purpose","destination","targetOwnerId","convoyOwnerId","reason"]:
+					if not plan.get(key) is String:return "Invalid observed corridor order."
+				if plan.ownerId!=op.ownerId or plan.completionId!=op.completionId or not plan.destination in port_ids:return "Unknown observed corridor assignment."
+				if not plan.purpose in ["patrol","escort","intercept","withdraw","repair","resupply","replace"]:return "Invalid corridor order purpose."
+				for key in ["ownerId","targetOwnerId","convoyOwnerId"]:
+					if plan[key]!="" and not s.get("fleetOwners",[]).any(func(o):return str(o.get("id",""))==str(plan[key])):return "Unknown corridor fleet."
+				var point=plan.get("interceptPoint",{})
+				if not point is Dictionary:return "Invalid corridor interception point."
+				if not point.is_empty() and (not number(point.get("x"),0,float(world.WORLD.width)) or not number(point.get("y"),0,float(world.WORLD.height))):return "Invalid corridor interception position."
+				for quote in [plan.get("readiness"),op.get("readiness",{})]:
+					if not quote is Dictionary:return "Invalid corridor reserve quote."
+					if quote.is_empty():continue
+					for key in ["ready","moduleOk","canReturn"]:
+						if not quote.get(key) is bool:return "Invalid corridor reserve flags."
+					for key in ["reason","shortage"]:
+						if not quote.get(key) is String:return "Invalid corridor shortage reason."
+					for key in ["routeDistance","returnDistance","days","returnDays","speed","clearance","fuelNeed","fuel","foodNeed","food","payrollNeed","coins","ammoNeed","ammo","engineMin"]:
+						if not number(quote.get(key)):return "Invalid corridor reserve amount."
+					if quote.has("reserveDays") and not number(quote.reserveDays):return "Invalid corridor provisioning days."
+				for key in ["stallReason","planIdentity"]:
+					if not op.get(key,"") is String:return "Invalid observed corridor status."
 			if id=="ceasefire":
 				for key in ["peaceA","peaceB"]:
 					if not op.get(key,"") in ["compact","forge","reed","raiders"]:return "Unknown operation treaty party."
