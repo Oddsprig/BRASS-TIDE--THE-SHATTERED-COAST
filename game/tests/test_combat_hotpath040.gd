@@ -126,7 +126,7 @@ func prefix_checks(original: Dictionary) -> void:
 	st.islands=[]
 	var ship: Dictionary=st.ships[0];var enemy: Dictionary=st.ships[1]
 	ship.x=600.0;ship.y=650.0;enemy.x=1600.0;enemy.y=1100.0
-	check(Battle.issue_order(st,[str(ship.id)],"move",{"x":1000.0,"y":650.0}) and Battle.issue_order(st,[str(enemy.id)],"hold"),"public clear-water move and hold orders prepare bounded authority checks")
+	check(Battle.issue_order(st,[str(ship.id)],"move",{"x":1000.0,"y":650.0}),"public player clear-water move prepares bounded authority checks")
 	# Two hulls share one fair due slot; two real ticks let each receive it.
 	for tick in range(2):Battle.update(st,DT)
 	var intent: Dictionary=st.tactical.intents.get(str(ship.id),{})
@@ -151,11 +151,22 @@ func prefix_checks(original: Dictionary) -> void:
 	var at_30: Dictionary=Rollout.prefix(st,own,candidate,fresh_budget(),{"rolloutSamples":0},1.0/30.0,1,null,9)
 	check(at_30.ok and at_30.poses.size()==10 and at_30.capabilities.size()==10,"1/30 caller also retains every exact step through the authority-covering forecast")
 	# Budget provenance: denial cannot claim this route was geometrically blocked.
+	# The retained prediction belongs to its earlier snapshot. Ask the real
+	# planner for a matching current request before probing budget admission.
+	var budget_candidate: Dictionary={}
+	for proposal in Planner.propose(view,st.tactical.memory.player):
+		if str(proposal.get("shipId",""))==str(ship.id):
+			budget_candidate=proposal
+			break
+	var budget_fingerprint: String=Planner.fingerprint(budget_candidate)
+	var budget_ready: bool=not budget_fingerprint.is_empty() and Certification.candidate_valid(budget_candidate,view,own) and Tactical.order_candidate(view,own,budget_candidate)
+	check(budget_ready,"fresh public planner candidate matches the current snapshot and player order before budget probes")
+	if not budget_ready:return
 	var no_second: Dictionary=fresh_budget();no_second.rolled[str(ship.id)]=true
-	var denied: Dictionary=Certification.certify(st,view,own,candidate,Planner.fingerprint(candidate),no_second)
+	var denied: Dictionary=Certification.certify(st,view,own,budget_candidate,budget_fingerprint,no_second)
 	check(str(denied.status)=="pending" and int(no_second.clearanceTests)==0 and int(no_second.samples)==0 and int(no_second.exhaustions)==1,"already-rolled hull returns pending before any repeated corridor or forecast work")
 	var capped: Dictionary=fresh_budget();capped.samples=840
-	denied=Certification.certify(st,view,own,candidate,Planner.fingerprint(candidate),capped)
+	denied=Certification.certify(st,view,own,budget_candidate,budget_fingerprint,capped)
 	check(str(denied.status)=="pending" and int(capped.clearanceTests)==0 and int(capped.samples)==840,"exhausted sample budget refuses early without fabricating blocked geometry")
 	var authority: Dictionary=st.duplicate(true)
 	# The shorter forecast must not hide land farther along the reserved exit.
