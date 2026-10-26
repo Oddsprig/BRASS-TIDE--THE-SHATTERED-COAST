@@ -5,6 +5,23 @@ Fourteen runtime modules and six fixtures integrated. Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
 No .031 version bump, release tag, export, launcher change or upload.
 
+ACTIVE PERFORMANCE WORK - 25 OCTOBER 2026
+Working runtime remains d4b0b67; H1/H2 and compact private-status source stay isolated.
+Combined cold3f1d passes51/0, observed182.279ms whole/update. Compact private
+status cold93f1 also passes51/0, observed181.146ms whole/118.322AI/62.824OTHER.
+Root independently verified both native/outer/input/tool/lane records and exact
+recorded24-update resource/work/age/budget plus40status equality versus78c.
+Raw cold observations establish no causal gain/FPS/capacity/full-state/RNG claim;
+performance remains materially too slow. Root cold proofs preserve scope.
+Parameterized recipe6400ca20/closure87f4bd5c passed independent55/0 source guards
+and Argon peer. Genuine OLD844c passes57/0 with complete301 packets; Root frozen
+Trace/strict5117 gate and source-after-native verification pass. Reusable only
+while its entire cohort, support, engine and input provenance stay unchanged.
+NEW source504/3db9ca85 is separately generated/verified; one NEW native and one
+strict comparison are authorized, with actual result still pending. Supplemental
+whole-status/repair/detachment contract fixture is source preparation; public
+canonical tick invariants are under review. No new Main runtime or .031 release.
+
 LIVE-FRAME CANDIDATE CHECKPOINT - 25 OCTOBER 2026
 Root integrated the five reviewed live-frame/tick modules alongside the accepted
 private-copy pair. Exact source and backups are in ROOT MAIN FRAME FIVE INTEGRATED.json. Weapons-cadence58762011 passes27/0. Corrected repair

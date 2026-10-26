@@ -1,0 +1,18 @@
+{
+  "classification": "ROOT_SOURCE_REVIEWED_PRIVATE_STATUS_FIELDS_NOT_NATIVE",
+  "at": "2026-10-26T02:39:38.290Z",
+  "patchFiles": 3,
+  "source": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/systems-grok/candidates/private-status-fields-r1",
+  "files": {
+    "scripts/damage.gd": "234fe781c415737e40c5667ad66d9cad36319b388b655cfff26bcf2820dc97c5",
+    "scripts/equipment_damage.gd": "9904f99a545873b759eccc795e990a321e9acde689454016746e70210c022892",
+    "scripts/equipment_records.gd": "f79987b7e0165920c0ff8e4add7a864d344ac47f67fc46db863ffd32c031061e"
+  },
+  "diffSha256": "7d20794aeacce3a7c314594e67648436013de3aa19b83c78c830da9a9a2dd158",
+  "sourceVerificationSha256": "fce5d0d4e60409ed9a1b588afceb6d7ebc5f00bba0de8f6aa49aa7cd99e1447c",
+  "review": "Read full4300B diff and1496word consumption proposal. Exact original Records restored by removing one private function; EqDamage only appends wrapper; Damage only switches private numeric callable. Same per-call numeric validator,UID/rank last-winner/factors, no live item references returned. All public snapshots/status/repair/math/cadence/publication unchanged.",
+  "scope": "Only closed owned numerical rollout. Malformed metadata paths/evaluation ordering must be judged against full prefix entry validation; source peer pending. Native whole-status/private-prefix/corruption/alias proof still required.",
+  "nativeAuthorized": false,
+  "mainEdited": false,
+  "peerPending": true
+}

@@ -1,0 +1,53 @@
+{
+  "classification": "ACTUAL_PRIVATE_STATUS_R1_COLD_NATIVE_VERIFIED",
+  "native": {
+    "jobId": "93f1d0f5939e4e3bb1b8dba862f23ebb",
+    "suite": "equipment_cost_diagnostic",
+    "family": "",
+    "outcome": "passed",
+    "checks": 51,
+    "failures": 0,
+    "inputSha256": "ad4c857ade796e68936e50fcc0f9c1419742acf24251b727ff45c0268ab551cc",
+    "inputCount": 289,
+    "nativeWallSeconds": 5.515999999999622,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\93f1d0f5939e4e3bb1b8dba862f23ebb\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "28d47f6d7db542c123a24815e290bb0134c4e7eb9bab77ec27e49210b9a3b410",
+      "cost-diagnostic.json": "3296c901f07ccc0c8adf70a9a36ff822fb96c4561e50c361b92b54693fa2d389",
+      "execution.json": "22eb524b22930fe35b646a6693f8efdcf3cda5681e9ebe10bdb000a882fb8423",
+      "inputs-after.json": "9b7f5f3e5d6461916f79453d59bb56db14587c40545bdaf51f823bc1e424fdac",
+      "inputs-before.json": "9b7f5f3e5d6461916f79453d59bb56db14587c40545bdaf51f823bc1e424fdac",
+      "lane.log": "0fe4f6107bc1bac0275da596a5048925cfbac2fb4968866854c998b45972d901",
+      "native-receipt.json": "057ffa1ef72082f9c8efc5859df93121bfb06e7a52599c754ae6bc61d14fb685",
+      "native.log": "e380b795e0e9740d33e705377ab924616f21747e557b85067b7128c357e004da",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "5616a4b3f1464f4ee5c0032d9f623e42d73fbd68de0884c52175e00414ea7d2f",
+      "request.json": "3f0d63f355ec1772b2720aab89e67f47cb0f29af1274848f16d7516431c4d78f",
+      "result.json": "eaff6d1006abc34bec13c6ee4b1b2cba9736a0ccd05b044ee173d4369caab88c",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "c4cc9fb4c069b6d2f95026f617fc3c19ddbc553ba03b667e792ec69246e54e12",
+      "verified-report.json": "eaff6d1006abc34bec13c6ee4b1b2cba9736a0ccd05b044ee173d4369caab88c"
+    }
+  },
+  "costSha256": "3296c901f07ccc0c8adf70a9a36ff822fb96c4561e50c361b92b54693fa2d389",
+  "baselineSha256": "d86cd932ab34c0a24e9697c7e4db2188c75a854d7eba533e3bd89217c007084b",
+  "recordedPayloadEquivalent": true,
+  "samples": 24,
+  "publicStatuses": 40,
+  "excludedDiagnosticPaths": [
+    "ai_us",
+    "metrics.aiUs"
+  ],
+  "observedMeanMilliseconds": {
+    "whole_update_us": 181.146125,
+    "ai_us": 118.32229166666667,
+    "other_update_us": 62.82383333333333
+  },
+  "scope": "Original unchanged cold workload; recorded resources/work/ages/budgets/status only. Source4 compiled/executed. No fullstate/RNG/causal/FPS/capacity claim.",
+  "fullCorrectnessOrReleaseAccepted": false,
+  "performanceAccepted": false,
+  "mainEdited": false,
+  "rootNativeLaunches": 0
+}

@@ -1,0 +1,60 @@
+{
+  "classification": "ROOT_PRIVATE_STATUS_R1_RAW_AND_COLD_SOURCE_STAGED_NO_NATIVE",
+  "at": "2026-10-26T02:46:04.148Z",
+  "sourceReviewSha256": "d30a248b53f670d4c29e07fe9febd2ffd6d0a878a8fcb7c7bd5a6a8a4262180f",
+  "peer": "Argon explicit limited source no-blocker for owned prefix; native evidence pending",
+  "raw": {
+    "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/frame-private-status-r1-root/prototype/game",
+    "componentFiles": 499,
+    "componentSha256": "22f8417e040ec43d70ef41166eebab4bd0beab84b8caae3d261f74cb73fd6e4a",
+    "fullFiles": 522,
+    "fullSha256": "4f427a41db7ef99ee5b8c2b15b80fd1ec0bf4a579da07bf4ffa9f05618216d18"
+  },
+  "cold": {
+    "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/frame-private-status-r1-root/cost/game",
+    "files": 289,
+    "sha256": "ad4c857ade796e68936e50fcc0f9c1419742acf24251b727ff45c0268ab551cc"
+  },
+  "reviewedReplacements": [
+    {
+      "path": "scripts/damage.gd",
+      "beforeSha256": "69b01f77a75bf7543ac0b59983053669a2a32dae2381d805ae70ef0eb30f3516",
+      "afterSha256": "234fe781c415737e40c5667ad66d9cad36319b388b655cfff26bcf2820dc97c5"
+    },
+    {
+      "path": "scripts/equipment_condition.gd",
+      "beforeSha256": "a9c26f8e1c003314389b57914c1883e77647ce9e7b2b2e10d4a9094c4cd3b44e",
+      "afterSha256": "56eb0af59e7cd040fb57b0a3061c302df759c335cfc577b3712258ae387a4b59"
+    },
+    {
+      "path": "scripts/equipment_damage.gd",
+      "beforeSha256": "a892a7b062632524625b678c07cdcd77c8274bdd236da3628d188a65c8f584d9",
+      "afterSha256": "9904f99a545873b759eccc795e990a321e9acde689454016746e70210c022892"
+    },
+    {
+      "path": "scripts/equipment_records.gd",
+      "beforeSha256": "6d392621229888b8ee92707e49d97623b633ac5a92234d4a4e1b3628a1b54253",
+      "afterSha256": "f79987b7e0165920c0ff8e4add7a864d344ac47f67fc46db863ffd32c031061e"
+    }
+  ],
+  "sourceFiles": {
+    "scripts/equipment_condition.gd": {
+      "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/systems-grok/candidates/frame-publish-fields-r1/game/scripts/equipment_condition.gd",
+      "sha": "56eb0af59e7cd040fb57b0a3061c302df759c335cfc577b3712258ae387a4b59"
+    },
+    "scripts/equipment_records.gd": {
+      "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/systems-grok/candidates/private-status-fields-r1/game/scripts/equipment_records.gd",
+      "sha": "f79987b7e0165920c0ff8e4add7a864d344ac47f67fc46db863ffd32c031061e"
+    },
+    "scripts/equipment_damage.gd": {
+      "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/systems-grok/candidates/private-status-fields-r1/game/scripts/equipment_damage.gd",
+      "sha": "9904f99a545873b759eccc795e990a321e9acde689454016746e70210c022892"
+    },
+    "scripts/damage.gd": {
+      "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/systems-grok/candidates/private-status-fields-r1/game/scripts/damage.gd",
+      "sha": "234fe781c415737e40c5667ad66d9cad36319b388b655cfff26bcf2820dc97c5"
+    }
+  },
+  "mainEdited": false,
+  "nativeAuthorized": false
+}

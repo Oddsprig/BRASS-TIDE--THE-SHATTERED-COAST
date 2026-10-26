@@ -1,0 +1,28 @@
+{
+  "classification": "ROOT_SOURCE_APPROVED_COMPACT_PUBLICATION_PATCH_NOT_NATIVE",
+  "createdAt": "2026-10-26T01:41:01.662Z",
+  "candidate": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/systems-grok/candidates/frame-publish-fields-r1",
+  "patchFiles": 2,
+  "baseInputFiles": 499,
+  "baseUnchangedSha256": "507d0ac4eb2abf72b20773977ef4041319b184b1b0102d458113830c501c69cb",
+  "sourceVerificationSha256": "8b6654d33792bc1081f7ab28bc0413c59754acf10c3f4e011146289b24420bfd",
+  "files": [
+    {
+      "path": "scripts/equipment_condition.gd",
+      "baseSha256": "a9c26f8e1c003314389b57914c1883e77647ce9e7b2b2e10d4a9094c4cd3b44e",
+      "candidateSha256": "56eb0af59e7cd040fb57b0a3061c302df759c335cfc577b3712258ae387a4b59",
+      "candidateBytes": 53305
+    },
+    {
+      "path": "scripts/equipment_records.gd",
+      "baseSha256": "6d392621229888b8ee92707e49d97623b633ac5a92234d4a4e1b3628a1b54253",
+      "candidateSha256": "0c67231b0310237cda3345fb00128adcc76d42bddd48a61de741df8678586109",
+      "candidateBytes": 22207
+    }
+  ],
+  "diffSha256": "656921fede438627f3fc07750c4de78434897a4534b84da1d41fa3bed0becbe9",
+  "review": "Read complete final2444B diff and original validators/consumer. Independently restored entire original Core by removing only3 new helper functions, and entire original Records by reversing only2 call targets. Validators, locker count/order, engine fields/failures and _publish_projection double detached copies/public result order are retained. Full project/snapshot contracts unchanged. Removed only discarded installed-row construction.",
+  "limits": "This is a2-file PATCH folder, not a full game stage; native return/refusal/alias/correctness/performance remain unverified.",
+  "nativeAuthorized": false,
+  "mainEdited": false
+}

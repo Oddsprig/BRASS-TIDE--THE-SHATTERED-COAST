@@ -1,0 +1,18 @@
+{
+  "classification": "ROOT_REVIEWED_PARAMETERIZED_RECIPE_SOURCE_NOT_NATIVE",
+  "at": "2026-10-26T02:33:44.827Z",
+  "recipe": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/battle-frame-parameterized-r1",
+  "entrypointSha256": "6400ca2024f3f557982a2c10b0b42813aed0a79524b04c733a711b05d8cd23de",
+  "closureSha256": "87f4bd5cb64d582d8c0000acd887a2981084f0b22f53f53b0cae5de209d4172a",
+  "cohortSha256": "694604b1a86af0dc7ea6b39bdef97e3a1f1551f3fb97a3806817a2f1594db449",
+  "rootCpuGuards": [
+    55,
+    0
+  ],
+  "rootCpuProofSha256": "1985c50a2f913bd09505d1516ac86141e9539f6c32fb83b4fbc4fd2c5ec35b40",
+  "review": "Root read all6 runtime modules; explicit bound DATA,4-file source allowlist, actual source/receipt hashes and complete immutable support; cached R4 observation hooks retain exact source reversal. Independent Argon source peer reports0blockers. Frozen comparison/clock gate unchanged; OLD must be genuine69 under this recipe before reusable.",
+  "initialCpuPathRefusal": "First Root invocation correctly refused output outsideQA, before writes; corrected freshQA output passed55.",
+  "stageGenerated": false,
+  "nativeAuthorized": false,
+  "mainEdited": false
+}

@@ -1,0 +1,28 @@
+{
+  "classification": "ROOT_SOURCE_REVIEWED_SAME_QUANTUM_REPAIR_INFO_NOT_NATIVE",
+  "createdAt": "2026-10-26T01:46:00.916Z",
+  "candidate": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/planner-argon/candidates/frame-repair-info-r1",
+  "inputs": 499,
+  "inputSha256": "4c9d3cd027b2d8cc1882987183befcfba1d903a1ff30e31575d750550a0fa46e",
+  "manifestSha256": "16b9e94882a5b822f3bcb55b093eec82fc0b1a9c49ae1ff3265f669bf9489fa3",
+  "changedFiles": [
+    {
+      "path": "scripts/damage.gd",
+      "before": "69b01f77a75bf7543ac0b59983053669a2a32dae2381d805ae70ef0eb30f3516",
+      "after": "d3efd15c3a6657c2b577631170d7eaab2ffd3db1b8f363e1bf7c61362543a102"
+    },
+    {
+      "path": "scripts/equipment_damage.gd",
+      "before": "a892a7b062632524625b678c07cdcd77c8274bdd236da3628d188a65c8f584d9",
+      "after": "6db071e4111a6d208dfc1cdf063ce8b0cc2da8a4d5141551de19d73332aafb8d"
+    }
+  ],
+  "forwardDiffSha256": "78b10ad710fd29967c7decea74e8e23fda1134b63f8ba1f66ea72686bf081cb5",
+  "review": "Read complete5969B delta, original status factories/quantum loop/guard contexts. Exactly2 fixed internal callers now pass fresh owner-info factories and5arg repair adapters; each quantum gets fresh info, with only water write before repair. Owner inspections read no water, status derivation does not mutate equipment, repair consumes only ok/mode/error. Entire numerical/crew/stores/60Hz/repair transaction/publication tail byte-identical. Standalone public repair still freshly inspects.",
+  "guardScope": "Added malformed-private-info/absent-condition checks are safe refusals beyond prior undefined private-adapter cases; supported factory-produced public/numeric guards retain error behavior. No persisted trusted marker or cross-quantum reuse.",
+  "fullSceneAccepted": false,
+  "performanceAccepted": false,
+  "nativeAuthorized": false,
+  "mainEdited": false,
+  "peerPending": true
+}
