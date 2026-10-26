@@ -17,10 +17,17 @@ stopped the first batch; that failed result is preserved. The corrected fixture
 passed its17 checks. All756 recorded battle comparisons still match the three
 baselines across24 updates and40 public equipment-status calls.
 
+Predictions now also reuse conditioned gun mounts and installed module totals
+when their complete inputs remain unchanged. The new differential fixture
+passes435 checks against the literal original prediction, including flooding,
+fire, fuel exhaustion, sinking and jury repair. The51-check battle diagnostic
+also passes, with756 preserved payload comparisons. Its original fixture failure
+is retained; only a no-repair test setup needed correction.
+
 These are developer checks, not a completed release suite. The latest short cold
-observation averaged109.606ms per battle update,81.812ms in AI; sustained capacity
-and target frame times remain open. No performance improvement, rendered FPS,
-audio quality or Starsector parity is claimed from these results.
+observation averaged101.750ms per battle update,77.230ms in AI across24updates;
+sustained capacity and target frame times remain open. No causal speedup, rendered
+FPS, audio quality or Starsector parity is claimed from these results.
 
 All tests run silently in the background through the shared game test queue.
 Existing games/editors keep priority. One engine at a time, bounded work, owned
@@ -29,7 +36,9 @@ A partial, skipped, interrupted or timed-out required case is not a full pass.
 
 Still to finish: supported-load AI performance and behavior, the bounded complete
 release suite, presentation/controls/audio checks, and the Windows build. The
-multithreaded side-planning prototype remains isolated and unverified. The next
+multithreaded side-planning prototype passed its component checks but showed no
+timing gain and remains isolated. The private battle memo also remains isolated
+after its new fixture failed; two original freshness phases passed. The next
 released version will advance by0.001 only after its required work is complete.
 No new export or launcher has been installed for this development checkpoint.
 

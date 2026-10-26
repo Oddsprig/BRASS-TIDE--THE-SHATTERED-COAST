@@ -1,13 +1,15 @@
-## Current source checkpoint — 26 October 2026
+## Current source checkpoint —26 October2026
 
-The guarded private-prefix status candidate is integrated after scoped native
-checks:1,992 passed across five phases on the same runtime, with the first batch's
-fixture failures preserved. Read BUILD STATUS.txt for exact scope and open gates.
-The full release-v2 suite and performance are still open; build30/24 boats.
-The global hold on old unbounded launchers remains. Exact reviewed119-second
-Test Bridge developer batches may be authorized by Root within existing user
-permission; this is an internal source review, not a new human approval request.
-No worker prototype, extra engine, GPU test or automatic retry is implied.
+Private prediction status reuse plus unchanged-mount/module-total reuse are
+integrated. The new R9B prefix differential passes435/0 and cold51/0 with756
+recorded payload comparisons;18.6653s including conservative setup. FailedR9
+is preserved. Read BUILD STATUS.txt for exact source/result scope.
+R8 battle memo remains unmerged (projection99/public735 pass, new fixture269/2
+fails); no performance/full-suite claim. Side workers passed scoped checks but
+showed no timing gain and remain unmerged. Build30/24boats;0.031 UNRELEASED.
+Old unbounded launchers stay held. Root-reviewed119s Test Bridge developer
+batches may run within existing authorization, currentcaps and new one-use
+controls; no automatic retry. Current task pointers supersede old handoffs.
 
 ## Crash recovery hold — 26 October 2026
 

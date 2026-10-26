@@ -1,25 +1,29 @@
-BRASS TIDE v0.030 - SOURCE CANDIDATE, UNTESTED
-Tests deferred AT OWNER REQUEST. Finish this Windows BUILD ONLY, then STOP.
-No tests, benchmarks, smokes, parser validation, game/UI/motion launches or future
-implementation. Root owns final merge, build-only exporter, annotated tag,
-compiler/required asset import/export, archives and launcher. C ran none of them.
-.031-.038 are STOPPED and must not resume automatically.
+BRASS TIDE — CURRENT VERSION MAP
+26 October 2026 | development continues through0.038
 
-Exact A FINAL component and B owner-stop ten-file source bundle are integrated
-on root c90438a. A's narrow screen-priority source correction is UNTESTED; its
-assertion is unchanged. Previous native evidence remains 350 checks / 1 failure,
-not a pass. No integrated .030 regression or behavior acceptance is claimed.
-Previous verified delivered game: v0.029, exact tag
-44e2a46b55bd56b52998eeb1d4cdc681c5091482. Old releases and owner files preserved.
-Deferred queue: docs/DEFERRED TEST QUEUE v0.030.txt.
-Source/provenance: docs/SOURCE INTEGRATION v0.030.txt and SOURCE MANIFEST v0.030.json.
+Latest verified delivered fallback:0.029, tag44e2a46. Preserved0.030/tag7492fb7
+is UNTESTED. Source remains build30 with24 boats;0.031 is UNRELEASED.
+The owner resumed work and testing after the historical build-only stop.
+Do not use the old stop paragraph as current authorization or release status.
 
-HISTORICAL RECORDS - superseded for current authorization/status
+0.029 | Fleet workshop and boat detail — delivered fallback.
+0.030 | Tactical AI — source integrated; final behavior/performance gates open.
+0.031 | Damageable weapons, engines and pumps — active development and scoped QA.
+0.032 | Convoy and recovery battles — recovery foundations integrated; unfinished.
+0.033 | Independent campaign fleet conflict — planned.
+0.034 | Coastal geography and large-hull navigation — planned.
+0.035 |12 additional civilian designs:3 fishers,4 transports,2 tankers,3 yachts.
+0.036 | Working fishing, freight, fuel delivery and passenger careers — planned.
+0.037 | Supplied faction operations — planned.
+0.038 | Six-career balance, presentation and sustained performance — planned.
 
-LIVE BRASS TIDE SERIES DELIVERY
-v0.029 DELIVERED | 44e2a46b55bd56b52998eeb1d4cdc681c5091482
-Current delivered: v0.029. Active .030 tactical AI; later .031-.038 authorized and unfinished.
-END LIVE BRASS TIDE SERIES DELIVERY
+Current focus: reduce repeated battle calculations without changing physical
+damage/repair, crew work, stores or AI prediction horizons; finish the bounded
+release suite within the owner's119-second active deadline. Scoped checks do
+not advance the version or establish the requested Starsector-quality target.
+See BUILD STATUS.txt and docs/RELEASE TEST CONTRACT v2.txt for exact open gates.
+No new export, desktop launcher, release tag or upload accompanies this map.
+The original detailed plan follows; its baseline and planning labels are history.
 
 BRASS TIDE — FLEET CAMPAIGN VERSION MAP v0.029-v0.038
 23 October 2026 | PLAN ONLY | prepared with a Bridge Sol 6.1 Max advisor

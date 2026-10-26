@@ -1,0 +1,36 @@
+{
+  "classification": "ROOT_INTEGRATED_SCOPED_NATIVE_VERIFIED_NOT_RELEASE",
+  "prior_main_head": "f248b3ea913502db6d7e88147ce4556beb56b486",
+  "runtime": {
+    "game/scripts/equipment_rollout.gd": "7ca931f53783834822cdc15dbc44577aa5517581455f64ea3bcb43ffb93cdd47"
+  },
+  "fixture": {
+    "game/tests/test_prefix_invariants.gd": "b0e110329d8e77bf80fe21a64f69d442c3e4ecfdf0313c33e0fb2a9401c4201d"
+  },
+  "other_game_files_byte_unchanged_at_copy": 510,
+  "job": "742fa679a7f44976880d9fbd0986ec2f",
+  "prior_failed_job_preserved": "65ec270faf714aa1b10b6b3b97c9b813",
+  "checks": {
+    "prefix_invariants": 435,
+    "cold": 51,
+    "failures": 0,
+    "recorded_payload_comparisons": 756
+  },
+  "receipt_plus_debited_setup_seconds": 18.665268898010254,
+  "raw_cold_mean_ms": {
+    "whole": 101.750125,
+    "ai": 77.22991666666667,
+    "other": 24.520208333333333
+  },
+  "timing_claim": "24cold updates only, no causal speedup/FPS/capacity acceptance",
+  "cleanup_complete": true,
+  "final_owned_ledger": {
+    "pids": []
+  },
+  "envelope": "Shared lane; background headless/silent;512MiB8%2CPU/one-real-engine.",
+  "build": 30,
+  "release_pass": false,
+  "private_battle_memo_integrated": false,
+  "side_workers_integrated": false,
+  "full_suite_pass": false
+}

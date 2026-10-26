@@ -1,0 +1,22 @@
+BRASS TIDE — PRIVATE PREDICTION INVARIANTS
+26 October2026 | scoped native verification, build30 /0.031 unreleased
+
+Predictions now reuse conditioned weapon mounts and the installed module HP
+total while their complete inputs remain unchanged. Actual60steps/substeps,
+damage, fuel, cooldown, crew work, supplies, repair and geometry budgets remain.
+
+Job742fa679a7f44976880d9fbd0986ec2f passes435differential checks plus51cold
+battle checks. All756recorded payload comparisons match preserved baselines.
+Full typed output/budget/certificate parity covers healthy and raw mounts, fuel
+exhaustion, fire, flooding, sinking, jury repair, torpedo/cannon fits and blockers.
+The original failedR9 is preserved: its raw-mount case expected0.55 while its
+supplies allowed repair. The corrected case has0supplies; the same assertion
+and dedicated repair cases remain. No runtime change was needed after that fail.
+
+The receipt plus8s setup allowance is18.6653s. Final owned-process ledger empty.
+One engine at a time in the shared lane; no input/focus/control.
+Cold observation:101.750ms whole/77.230ms AI mean across24updates. This short
+headless observation establishes no causal speedup, FPS or supported capacity.
+The full release suite, performance and presentation acceptance remain open.
+R8 private battle memo and side workers are unmerged. See the adjacent JSON
+for exact source hashes; no version increment, export, tag or upload.

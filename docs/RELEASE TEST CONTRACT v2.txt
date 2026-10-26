@@ -9,8 +9,8 @@ old failed or unrun matrix is reclassified as passed. Optional research never
 runs automatically while the release suite or another game's work is active.
 
 REQUIRED RELEASE COVERAGE
-1. All100 functional fixtures /106 execution units: the original98/104 plus
-   prefix_call_scope_r2 and prefix_scope_options. The original tick-scope parent
+1. All101 functional fixtures /107 execution units: the original98/104 plus
+   prefix_call_scope_r2, prefix_scope_options and prefix_invariants. The original tick-scope parent
    is covered in full by its child and is not a duplicate standalone execution.
    Keep original assertions, all seven equipment-rollout families, all nine tactical
    AI families, unique output files, original save/custody/crew/coin checks.

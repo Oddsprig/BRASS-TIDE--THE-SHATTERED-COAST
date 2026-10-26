@@ -10,6 +10,8 @@ Private AI predictions reuse a guarded equipment status within their locally own
 copy. Condition equality is proved within one synchronous prediction and reset at
 its boundaries and before condition writes. Foreign shared-condition publication
 and unusual repair-priority callbacks invalidate the proof before reuse.
+Predictions also reuse unchanged conditioned mounts and installed module HP
+totals, verified against the literal original prediction.
 The original physical sample count, substeps, fuel, cooldown, bailing, repair,
 crew work, supplies, projectile and global certification-budget math remain.
 Public damage callers retain their original default path. Economy/coins unchanged.
@@ -27,19 +29,28 @@ Shared FIFO, background headless rendering, silent audio, two logical CPUs,
 
 STILL OPEN
 The complete release-v2 regression suite has not executed or passed. The inventory
-has104 original functional units plus two new prefix regressions,34 motion
-requirements (one overlap), seven retained
-regressions and five supported-load adapters. No partial batch is release acceptance.
-Cold observation on the new source:109.606ms whole/81.812ms AI mean. This does not
+has104 original functional units plus three new prefix regressions,34 motion
+requirements (one overlap), seven retained regressions and five supported-load
+adapters. That is107 functional units and140 combined functional/motion executions. No partial batch is release acceptance.
+Cold observation on the new source:101.750ms whole/77.230ms AI mean. This does not
 establish a speedup, FPS or capacity. Supported-load timing remains failed/open.
 Rendered motion, controls, sound listening, Windows export and save/career acceptance
 also remain open. Do not claim Starsector parity or advance the release number yet.
 
+LATEST SCOPED RESULT
+R9B job742fa679a7f44976880d9fbd0986ec2f passes435 prefix differential checks
+and51 cold battle checks; all756 recorded comparisons match. Receipt plus8s
+setup:18.6653s; final owned ledger empty. FailedR9 remains failed: its raw-mount
+case allowed jury repair while expecting a fixed damaged factor. The correction
+sets only that case's supplies to0; repair cases and assertions remain.
+R8 private battle memo remains unmerged: original projection99/public735 pass,
+new fixture269/2 fails and cold is skipped. Fixture diagnosis is ongoing. The
+worker prototype's scoped137+51 checks passed; no timing gain, so it is unmerged.
+
 NEXT WORK
-Review and verify the isolated two-job side-planning candidate, then complete
-bounded release batching and supported-load performance/behavior. Continue .032
-through .038 sequentially only on the accepted preceding version.12 civilian
-boats remain planned for .035, beyond the24 current designs.
+Correct and verify the private battle memo fixture, finish required batching and
+supported-load performance/behavior. Continue .032 through .038 sequentially on
+the accepted preceding version.12 civilian boats remain planned for .035.
 
 WHERE TO LOOK
 AGENTS.md: standing owner/test rules and current team.

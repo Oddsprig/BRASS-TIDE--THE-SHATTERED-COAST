@@ -121,9 +121,13 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 		# prefix. Motion/geometry do not write equipment. Known writers invalidate
 		# the proof before mutation; no caller callback or live owner receives ctx.
 		EquipmentDamage._prefix_tick_scope_begin(prefix_ctx)
+	var mounts_synced: bool=_mounts_conditioned(copy,copy.mounts,rollout_status) if is_canonical else false
+	var synced_mounts: Array=copy.mounts;var synced_loadout=copy.get("loadout")
+	var hp_sum_valid: bool=false;var hp_sum_info=null;var hp_sum_cached: float=0.0
 	var start_time: float=0.0
 	for step in range(60):
 		for _part in range(parts):
+			var prev_status: Dictionary=rollout_status;var prev_fuel_pos: bool=Damage.number(copy.get("fuel"))>0.0;var prev_sunk: bool=bool(copy.get("sunk",false))
 			var control: Dictionary=steering(copy,points,index,target,primary)
 			index=int(control.index)
 			var next: Dictionary=motion_with_status(copy,sub_dt,float(control.angle),float(control.throttle),false,rollout_status)
@@ -140,9 +144,20 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 			else:
 				rollout_status=Damage.tick_ship(copy,sub_dt,{"inCombat":true})
 			if is_canonical:
-				copy.mounts=EquipmentCombat._condition_mounts_from_status(copy,copy.mounts,rollout_status)
-				primary=primary_mounts(copy.mounts,candidate)
-			capabilities.append(_capability_from_fields(copy,rollout_status,EquipmentCombat._canonical_capability_fields(copy,rollout_status,init_mask)) if is_canonical else capability_with_status(copy,rollout_status,init_mask))
+				if not (mounts_synced and is_same(copy.mounts,synced_mounts) and is_same(copy.get("loadout"),synced_loadout) and _mount_inputs_same(prev_status,rollout_status,prev_fuel_pos,Damage.number(copy.get("fuel"))>0.0,prev_sunk,bool(copy.get("sunk",false)))):
+					copy.mounts=EquipmentCombat._condition_mounts_from_status(copy,copy.mounts,rollout_status)
+					primary=primary_mounts(copy.mounts,candidate)
+					mounts_synced=true;synced_mounts=copy.mounts;synced_loadout=copy.get("loadout")
+				if _prefix_cond_proof_ready(copy,prefix_ctx,rollout_status):
+					if not hp_sum_valid or not is_same(prefix_ctx.get("info"),hp_sum_info):
+						hp_sum_cached=EquipmentCombat.module_hp_sum(copy);hp_sum_info=prefix_ctx.get("info");hp_sum_valid=true
+				else:
+					hp_sum_cached=EquipmentCombat.module_hp_sum(copy);hp_sum_info=null;hp_sum_valid=false
+				var cap_fields: Dictionary=EquipmentCombat._capability_factor_fields(copy,rollout_status,init_mask)
+				cap_fields["moduleHpSum"]=hp_sum_cached
+				capabilities.append(_capability_from_fields(copy,rollout_status,cap_fields))
+			else:
+				capabilities.append(capability_with_status(copy,rollout_status,init_mask))
 		cert.rolloutSamples+=1
 		# A conservative capsule contains ALL ten integrated positions, including
 		# curved turning and braking drift. Six swept envelopes cover the prefix.
@@ -166,6 +181,38 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 			cert.status="blocked";cert.reason="Equipment input changed; reassessing"
 			return {"ok":false}
 	return {"ok":true,"poses":predicted,"capabilities":capabilities,"primary":primary}
+
+static func _mounts_conditioned(ship: Dictionary,mounts: Array,st_dict: Dictionary) -> bool:
+	if st_dict.is_empty() or not st_dict.has("equipmentMode") or not bool(st_dict.get("equipmentOk",true)) or str(st_dict.get("equipmentMode",""))!="canonical":return false
+	for i in range(mounts.size()):
+		var raw=mounts[i]
+		if not (raw is Dictionary):return false
+		var base_dmg: float=clampf(Damage.number(raw.get("baseDamage",raw.get("damage",10.0)),10.0),0.0,100000.0)
+		var base_rate: float=clampf(Damage.number(raw.get("baseFireRate",raw.get("fireRate",1.0)),1.0),0.05,60.0)
+		var loc: String=EquipmentCombat.mount_location(ship,raw,i)
+		var factor: float=EquipmentCombat.mount_factor(ship,raw,i,st_dict)
+		var exp_dmg: float=0.0 if factor<=0.01 else base_dmg
+		var exp_rate: float=base_rate if factor<=0.01 else clampf(base_rate*factor,0.01,60.0)
+		if not is_same(raw.get("baseDamage"),base_dmg) or not is_same(raw.get("baseFireRate"),base_rate) or not is_same(raw.get("slotId"),loc) or not is_same(raw.get("mountIndex"),i) or not is_same(raw.get("mountFactor"),factor) or not is_same(raw.get("damage"),exp_dmg) or not is_same(raw.get("fireRate"),exp_rate):return false
+	return true
+
+static func _mount_inputs_same(prev_st: Dictionary,next_st: Dictionary,prev_fuel_pos: bool,next_fuel_pos: bool,prev_sunk: bool,next_sunk: bool) -> bool:
+	if prev_fuel_pos!=next_fuel_pos or prev_sunk!=next_sunk or prev_st.is_empty() or next_st.is_empty():return false
+	if not prev_st.has("equipmentMode") or not next_st.has("equipmentMode") or bool(prev_st.get("equipmentOk",true))!=bool(next_st.get("equipmentOk",true)) or str(prev_st.get("equipmentMode",""))!=str(next_st.get("equipmentMode","")):return false
+	for key in ["weaponFactor","crewGuns","crewBail","crewRepair","engineFactor","pumpFactor","armorFactor"]:
+		if not is_same(Damage.number(prev_st.get(key),0.0),Damage.number(next_st.get(key),0.0)):return false
+	if Damage.number(next_st.get("availableWork"),0.0)!=0.0 or Damage.number(next_st.get("usedWork"),0.0)!=0.0 or Damage.number(next_st.get("repairedModuleHp"),0.0)!=0.0 or not (next_st.get("moduleChanges") is Array) or not next_st.moduleChanges.is_empty():return false
+	var wf_a=prev_st.get("weaponFactors")
+	var wf_b=next_st.get("weaponFactors")
+	if not (wf_a is Dictionary) or not (wf_b is Dictionary) or wf_a.size()!=wf_b.size():return false
+	for loc in EquipmentCombat.MOUNT_LOCATIONS:
+		if wf_a.has(loc)!=wf_b.has(loc):return false
+		if wf_a.has(loc) and not is_same(clampf(Damage.number(wf_a.get(loc,0.0),0.0),0.0,1.0),clampf(Damage.number(wf_b.get(loc,0.0),0.0),0.0,1.0)):return false
+	return true
+
+static func _prefix_cond_proof_ready(boat: Dictionary,ctx: Dictionary,st_dict: Dictionary) -> bool:
+	if Damage.number(st_dict.get("availableWork"),0.0)!=0.0 or Damage.number(st_dict.get("usedWork"),0.0)!=0.0 or Damage.number(st_dict.get("repairedModuleHp"),0.0)!=0.0 or not (st_dict.get("moduleChanges") is Array) or not st_dict.moduleChanges.is_empty():return false
+	return bool(ctx.get("tick_scope_open",false)) and bool(ctx.get("cond_eq_proof",false)) and EquipmentDamage._prefix_ctx_bound(boat,ctx) and EquipmentDamage._prefix_ctx_reuse_info(boat,ctx)
 
 static func _fixed_inputs(ship: Dictionary) -> Dictionary:
 	var condition: Dictionary=ship.get("moduleCondition",{}).duplicate(true)
