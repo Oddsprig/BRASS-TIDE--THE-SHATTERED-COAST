@@ -61,6 +61,7 @@ func _test_midday() -> void:
 	var ammo_before: float=0.0
 	for owner in [raider,guard]:
 		for boat in owner.boats:ammo_before+=float(boat.ammo)
+	AI.ensure(c.state)
 	var story_before: Dictionary=c.fleet_owner("story-0").duplicate(true)
 	var ticks_before: int=int(c.state.navalAi.tickCount)
 	c.step(0.5)
@@ -80,7 +81,19 @@ func _test_midday() -> void:
 	check(ammo_after<ammo_before,"midday encounter consumes actual persistent ammunition")
 	check(int(c.state.econDay)==5 and int(c.state.navalAi.tickCount)==ticks_before,"fight occurs without a daily AI tick")
 	check(c.state.log.any(func(line):return str(event.get("summary","missing encounter summary")) in str(line)),"nearby successful encounter summary reaches the campaign log")
-	check(c.fleet_owner("story-0")==story_before,"story hulls, cargo, people and purses remain unchanged")
+	var story_after: Dictionary=c.fleet_owner("story-0")
+	if story_after!=story_before:
+		var changed: Array=[]
+		for key in story_before.merged(story_after):
+			if story_before.has(key)!=story_after.has(key) or story_before.get(key)!=story_after.get(key):changed.append(str(key))
+		print("STORY changed owner keys: ",changed)
+		if changed.has("order"):
+			var order_before: Dictionary=story_before.get("order",{})
+			var order_after: Dictionary=story_after.get("order",{})
+			for key in order_before.merged(order_after):
+				if order_before.has(key)!=order_after.has(key) or order_before.get(key)!=order_after.get(key):
+					print("STORY changed order.",key,": ",{"before":order_before.get(key),"after":order_after.get(key)})
+	check(story_after==story_before,"story hulls, cargo, people and purses remain unchanged")
 	check(Money.total(c.state)==int(c.state.coinSupply),"midday fight conserves all campaign coins")
 	c.step(2.0)
 	check(c.state.navalAi.encounters.size()==1,"later lifecycle scan cannot repeat an owner's fight that day")
