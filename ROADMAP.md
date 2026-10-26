@@ -1,8 +1,8 @@
-# Current step: v0.039 - Measured campaign and battle performance
+# Current step: v0.040 - Combat presentation and sound
 
-- Short repeatable measurements cover a representative campaign and 300-point battle using the existing bounded test tools.
-- Only demonstrated bottlenecks are changed, preserving current simulation behavior and inexpensive water.
-- The delivered notes retain measurements, workload and resource limits so future comparisons use the same conditions.
+- Existing damage and disabled equipment produce clearer visible feedback without a new rendering system.
+- Weapon impacts and boat wakes receive one bounded inexpensive effects pass.
+- Existing weapon sound families retain distinct reports with controlled layering and level balance.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

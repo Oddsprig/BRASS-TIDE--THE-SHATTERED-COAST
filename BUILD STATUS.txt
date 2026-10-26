@@ -1,14 +1,15 @@
-BRASS TIDE v0.039 - Measured campaign and battle performance
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: ba0fbfe94a92c204aa40a2ba3d4189248b4c850a / v0.039
-Test Bridge: d458da03b8624b619400eb28c88a3448
-94 focused checks, 0 failures; menu/campaign/battle startup passed.
-Selected batch plus setup: 38.687s; owned cleanup verified.
+BRASS TIDE v0.040 - COMBAT PRESENTATION AND SOUND
+26 October2026 |36 boat designs
 
-- Short repeatable measurements cover a representative campaign and 300-point battle using the existing bounded test tools.
-- Only demonstrated bottlenecks are changed, preserving current simulation behavior and inexpensive water.
-- The delivered notes retain measurements, workload and resource limits so future comparisons use the same conditions.
+THIS VERSION
+- Existing damage and disabled equipment produce clearer visible feedback without a new rendering system.
+- Weapon impacts and boat wakes receive one bounded inexpensive effects pass.
+- Existing weapon sound families retain distinct reports with controlled layering and level balance.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Baseline48/0 job18e4659b; final94/0 jobd458da03. Exact workload/fixture/world hashes match. Paired mount query9096->5674us for256calls each. Battle median29068.5->27673.5us, P9557813->58612us; tail not improved. Recorded per-tick actor/fire/projectile/effect fields match. One bounded snapshot-factor reuse; no new cache or broad refactor. Headless capped sample, not sustained/GPU FPS.
+STATUS: current source candidate; focused checks/export pending.

@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.039: Measured campaign and battle performance. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: campaign.gd, battle.gd, tests/test_performance039.gd.
+v0.040: Combat presentation and sound. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: sound.gd, hull_feedback.gd, weapon_art.gd, boat_art.gd, combat_art.gd, chart.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

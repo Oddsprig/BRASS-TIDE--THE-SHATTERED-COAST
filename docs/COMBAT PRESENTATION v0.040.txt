@@ -1,0 +1,31 @@
+BRASS TIDE v0.040 - COMBAT FEEDBACK AND SOUND
+
+EQUIPMENT CONDITION
+Damaged fitted guns, engines and integral pumps show an amber broken slash.
+Disabled equipment shows a red cross. These marks follow actual installed
+equipment and its mount, engine bay or cabin/bilge location. Crew repairs
+update the marks from the same equipment condition used by combat. Distant
+boats omit these small marks. Ordinary hull damage, motors and sinking keep
+their existing drawing and numerical systems.
+
+WATER AND IMPACTS
+Wood throws splinters, armor throws sparks and misses throw water plumes.
+This pass adjusts their existing geometry and contrast. Stern foam follows
+the traveled path behind the modeled machinery, including long civilian
+boats. The wake remains a bounded group of inexpensive strokes; there is
+no water simulation or offset hull reflection.
+
+RECORDED WEAPON MIX
+The existing recorded weapon and impact bank remains in use. Audio credits
+and the source manifest accompany the build. The mix controls repeated
+rapid-fire reports and contacts so larger weapon impacts and sinking cues
+can remain audible. Mute, volume, distance attenuation and the existing
+voice pool remain in effect. No new sound downloads or synthetic pings.
+
+VERIFICATION LIMITS
+The selected checks exercise actual damage, repair, event scheduling and
+native drawing calls. Captured primitive frames can be rasterized in the
+background for a model and motion review. These previews are distinct from
+a GPU gameplay recording. Headless silent tests do not establish subjective
+audio quality or displayed frame rate. See tests/RESULTS.txt for the actual
+completed batch and its source receipt.

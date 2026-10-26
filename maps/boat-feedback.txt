@@ -1,4 +1,4 @@
-BRASS TIDE — BOAT-FEEDBACK MAP (generated; v0.039)
+BRASS TIDE — BOAT-FEEDBACK MAP (generated; v0.040)
 
 Actual transom / bounded hit records -> visible machinery, localized damage and cheap colored meshes; live weapons keep their firing plane.
 
@@ -16,15 +16,17 @@ game/scripts/motor_art.gd: 33152 bytes; extends RefCounted
   game/scripts/motor_art.gd:88 _aft_socket_clearance()
   game/scripts/motor_art.gd:374 _palette()
   game/scripts/motor_art.gd:409 _model()
-game/scripts/hull_feedback.gd: 7040 bytes; extends RefCounted
-  game/scripts/hull_feedback.gd:7 record()
-  game/scripts/hull_feedback.gd:47 draw()
-  game/scripts/hull_feedback.gd:23 _beam()
-  game/scripts/hull_feedback.gd:28 _p()
-  game/scripts/hull_feedback.gd:31 _poly()
-  game/scripts/hull_feedback.gd:39 _line()
-  game/scripts/hull_feedback.gd:43 _circle()
-  game/scripts/hull_feedback.gd:111 _smoke()
+game/scripts/hull_feedback.gd: 9513 bytes; extends RefCounted
+  game/scripts/hull_feedback.gd:8 equipment_marks()
+  game/scripts/hull_feedback.gd:35 draw_equipment()
+  game/scripts/hull_feedback.gd:49 record()
+  game/scripts/hull_feedback.gd:89 draw()
+  game/scripts/hull_feedback.gd:65 _beam()
+  game/scripts/hull_feedback.gd:70 _p()
+  game/scripts/hull_feedback.gd:73 _poly()
+  game/scripts/hull_feedback.gd:81 _line()
+  game/scripts/hull_feedback.gd:85 _circle()
+  game/scripts/hull_feedback.gd:153 _smoke()
 game/scripts/boat_mesh_cache.gd: 3503 bytes; extends RefCounted
   game/scripts/boat_mesh_cache.gd:37 heading()
   game/scripts/boat_mesh_cache.gd:39 density()
