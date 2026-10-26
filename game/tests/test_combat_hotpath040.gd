@@ -7,6 +7,10 @@ const Core=preload("res://scripts/equipment_condition.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Deployment=preload("res://scripts/deployment.gd")
+const Certification=preload("res://scripts/tactical_certification.gd")
+const Planner=preload("res://scripts/tactical_planner.gd")
+const Rollout=preload("res://scripts/equipment_rollout.gd")
+const Routes=preload("res://scripts/tactical_routes.gd")
 const SEED: int=4040
 const DT: float=1.0/60.0
 const WARMUP: int=4
@@ -113,6 +117,111 @@ func trace_checks(st: Dictionary) -> void:
 	Tactical.finish(empty,123)
 	check(is_same(no_hulls,t.trace) and no_hulls==expected and int(t.metrics.aiUs)==123,"end-of-step trim also handles no-hull publication tails without losing newest rows")
 
+func fresh_budget() -> Dictionary:
+	return {"rolled":{},"rollouts":0,"samples":0,"clearanceTests":0,"clearanceLimit":2900,"exhaustions":0}
+
+func prefix_checks(original: Dictionary) -> void:
+	var st: Dictionary=original.duplicate(true)
+	st.rng=RandomNumberGenerator.new();st.rng.seed=SEED
+	st.islands=[]
+	var ship: Dictionary=st.ships[0];var enemy: Dictionary=st.ships[1]
+	ship.x=600.0;ship.y=650.0;enemy.x=1600.0;enemy.y=1100.0
+	check(Battle.issue_order(st,[str(ship.id)],"move",{"x":1000.0,"y":650.0}) and Battle.issue_order(st,[str(enemy.id)],"hold"),"public clear-water move and hold orders prepare bounded authority checks")
+	# Two hulls share one fair due slot; two real ticks let each receive it.
+	for tick in range(2):Battle.update(st,DT)
+	var intent: Dictionary=st.tactical.intents.get(str(ship.id),{})
+	var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
+	check(not record.is_empty(),"actual public move receives a physically certified intent")
+	if record.is_empty():return
+	var cert: Dictionary=record.certificate
+	check(int(cert.rolloutSamples)==9 and record.poses.size()==19 and record.capabilities.size()==19 and is_equal_approx(float(record.sampleDt),DT) and is_equal_approx(float(cert.physicalHorizonEnd)-float(cert.checkedAt),0.3) and is_equal_approx(float(cert.validUntil)-float(cert.checkedAt),0.2),"actual live certificate retains all18 exact1/60 substeps over0.3s and only0.2s authority")
+	check(bool(Certification.current(st,ship,intent,DT).ok),"new certificate remains current after actual movement and before fire at age+dt")
+	var view: Dictionary=Tactical.view(st,"player",[str(ship.id)])
+	var own: Dictionary={}
+	for observed in view.ships:
+		if str(observed.id)==str(ship.id):own=observed
+	var candidate: Dictionary=record.candidate
+	var live_before: PackedByteArray=var_to_bytes(st.ships);var rng_before: int=st.rng.state
+	var short_work: Dictionary=fresh_budget();var long_work: Dictionary=fresh_budget()
+	var short_cert: Dictionary={"rolloutSamples":0};var long_cert: Dictionary={"rolloutSamples":0}
+	var short: Dictionary=Rollout.prefix(st,own,candidate,short_work,short_cert,DT,2,null,9)
+	var full: Dictionary=Rollout.prefix(st,own,candidate,long_work,long_cert,DT,2)
+	check(short.ok and full.ok and short.poses==full.poses.slice(0,19) and short.capabilities==full.capabilities.slice(0,19) and int(short_work.samples)==18 and int(long_work.samples)==120,"short forecast is the exact numerical prefix of the unchanged private120-step reference")
+	check(var_to_bytes(st.ships)==live_before and st.rng.state==rng_before,"forecast copies never change real hulls, stores, equipment or RNG")
+	var at_30: Dictionary=Rollout.prefix(st,own,candidate,fresh_budget(),{"rolloutSamples":0},1.0/30.0,1,null,9)
+	check(at_30.ok and at_30.poses.size()==10 and at_30.capabilities.size()==10,"1/30 caller also retains every exact step through the authority-covering forecast")
+	# Budget provenance: denial cannot claim this route was geometrically blocked.
+	var no_second: Dictionary=fresh_budget();no_second.rolled[str(ship.id)]=true
+	var denied: Dictionary=Certification.certify(st,view,own,candidate,Planner.fingerprint(candidate),no_second)
+	check(str(denied.status)=="pending" and int(no_second.clearanceTests)==0 and int(no_second.samples)==0 and int(no_second.exhaustions)==1,"already-rolled hull returns pending before any repeated corridor or forecast work")
+	var capped: Dictionary=fresh_budget();capped.samples=840
+	denied=Certification.certify(st,view,own,candidate,Planner.fingerprint(candidate),capped)
+	check(str(denied.status)=="pending" and int(capped.clearanceTests)==0 and int(capped.samples)==840,"exhausted sample budget refuses early without fabricating blocked geometry")
+	var authority: Dictionary=st.duplicate(true)
+	# The shorter forecast must not hide land farther along the reserved exit.
+	var exit_candidate: Dictionary=candidate.duplicate(true)
+	exit_candidate.approach=[Vector2(650.0,650.0)];exit_candidate["pass"]=[];exit_candidate.exit=[Vector2(1000.0,650.0)]
+	st.islands=[{"points":[[800.0,600.0],[840.0,600.0],[840.0,700.0],[800.0,700.0]]}]
+	st.tactical.geometry=Routes.terrain(st)
+	check(str(Certification.corridor(st,own,exit_candidate,fresh_budget()).status)=="blocked","full exit corridor still rejects land well beyond0.3s physical lookahead")
+	st.islands=[];st.tactical.geometry=Routes.terrain(st)
+	var ally: Dictionary=enemy.duplicate(true);ally.id="close-ally";ally.team="player";ally.x=ship.x+1.0;ally.y=ship.y
+	st.tactical.cells=Routes.grid([ship,ally])
+	var turning_cert: Dictionary={"rolloutSamples":0}
+	var turning: Dictionary=Rollout.prefix(st,own,candidate,fresh_budget(),turning_cert,DT,2,null,9)
+	check(not bool(turning.ok) and str(turning_cert.get("status",""))=="blocked" and int(turning_cert.rolloutSamples)==9,"final partial forecast chunk still checks all curved poses against allied traffic")
+	var blocked: Dictionary=Certification.safe_step(st,ship,{"angle":ship.angle,"throttle":0.9},fresh_budget())
+	check(bool(blocked.get("blocked",false)) and float(blocked.throttle)==0.0,"unchanged live-step swept allied collision check still brakes")
+	var exhausted: Dictionary=fresh_budget();exhausted.clearanceLimit=0
+	blocked=Certification.safe_step(st,ship,{"angle":ship.angle,"throttle":0.9},exhausted)
+	check(bool(blocked.get("blocked",false)) and float(blocked.throttle)==0.0,"live safety still brakes when clearance work is unavailable")
+	st.tactical.cells=Routes.grid(st.ships)
+	# Probe the authority edge with the actual stored prediction, not a new move.
+	var boundary: Dictionary=authority.duplicate(true);var boundary_ship: Dictionary=boundary.ships[0]
+	boundary.time=float(cert.validUntil)
+	var edge_index: int=roundi((float(boundary.time)-float(cert.checkedAt)+DT)/DT)
+	boundary_ship.merge(record.poses[edge_index],true)
+	check(bool(Certification.current(boundary,boundary_ship,intent,DT).ok),"authority end plus next exact physics/fire step is covered by real stored poses")
+	boundary.time+=DT
+	check(not bool(Certification.current(boundary,boundary_ship,intent,DT).ok),"expired0.2s authority cannot borrow the remaining forecast tail")
+	var authority_ship: Dictionary=authority.ships[0]
+	check(not bool(Certification.current(authority,authority_ship,intent,0.3+DT).ok),"out-of-horizon pose lookup fails closed rather than clamping to the last pose")
+	var module_uid: String=""
+	for uid in authority_ship.moduleCondition.items:
+		if str(authority_ship.moduleCondition.items[uid].location)=="mount0":module_uid=str(uid)
+	check(not module_uid.is_empty() and bool(Core.apply_component_damage(authority_ship.moduleCondition,{"itemUid":module_uid,"loss":0.05,"cause":"authority fixture"}).ok),"real component damage is applied inside current authority")
+	var damaged: Dictionary=Certification.current(authority,authority_ship,intent,DT)
+	check(not bool(damaged.ok) and str(damaged.reason)=="Damage or capability changed; reassessing","immediate real module damage still invalidates the short certificate")
+	report.prefix={"authoritySeconds":0.2,"physicalSeconds":0.3,"exactSteps60Hz":18,"exactSteps30Hz":9,"fullCorridor":true,"liveCollisionSafety":true}
+
+func engagement_tick(st: Dictionary,evidence: Dictionary) -> void:
+	# Observe existing records only. No status/current/gate/planner calls, RNG or
+	# extra update: this runs outside the measured Battle.update clock.
+	var t: Dictionary=st.tactical
+	var sample: Dictionary={"time":float(st.time),"publishedIntents":0,"intentHulls":t.intents.size(),"pendingHulls":t.pending.size(),"movedBoats":0}
+	for row in t.trace:
+		if row.has("time") and float(row.time)==float(st.time):
+			sample.publishedIntents+=1;evidence.publishedIntents+=1
+			evidence.byId[str(row.shipId)].publishedIntents+=1
+	for ship in st.ships:
+		var id: String=str(ship.id);var hull: Dictionary=evidence.byId[id]
+		var position: Vector2=Vector2(ship.x,ship.y);var distance: float=position.distance_to(hull.last)
+		hull.distance+=distance;hull.last=position;hull.displacement=position.distance_to(hull.start)
+		if distance>0.0001:sample.movedBoats+=1
+		hull.pending=t.pending.has(id);hull.hasIntent=t.intents.has(id);hull.reason=str(t.reasons.get(id,""))
+		if hull.pending:
+			evidence.pendingReasonCounts[hull.reason]=int(evidence.pendingReasonCounts.get(hull.reason,0))+1
+		for reason in t.fireReasons.get(id,{}).values():
+			if str(reason)=="Firing lane ready":evidence.readyMountTicks+=1
+			else:evidence.withheldReasonCounts[str(reason)]=int(evidence.withheldReasonCounts.get(str(reason),0))+1
+	evidence.samples.append(sample)
+
+func common_reasons(counts: Dictionary) -> Array:
+	var rows: Array=[]
+	for reason in counts:rows.append({"reason":str(reason),"count":int(counts[reason])})
+	rows.sort_custom(func(a,b):return int(a.count)>int(b.count) if int(a.count)!=int(b.count) else str(a.reason)<str(b.reason))
+	return rows.slice(0,5)
+
 func light_window(world: Dictionary) -> void:
 	var section: Dictionary={"hull":"bilge_punt","seed":SEED,"terrain":"Unchanged public Lab default islands/formation","dt":DT,"warmupRequested":WARMUP,"measuredRequested":MEASURED,"warmupCompleted":0,"measuredCompleted":0,"warmupUs":[],"ticksUs":[],"aiUs":[],"samples":[],"events":0,"fireEvents":0,"eventKinds":{},"fireFamilies":{},"peakProjectiles":0,"peakEffects":0,"peakRouteCacheEntries":0,"work":{}}
 	report.lightBattle=section
@@ -136,6 +245,11 @@ func light_window(world: Dictionary) -> void:
 	var enemies: Array=st.ships.filter(func(ship):return str(ship.team)=="enemy")
 	section.actual={"playerBoats":players.size(),"enemyBoats":enemies.size(),"playerPoints":Deployment.total(players),"enemyPoints":Deployment.total(enemies),"totalBoats":st.ships.size()}
 	check(players.size()==count and enemies.size()==count and int(section.actual.playerPoints)==count*int(section.unitPoints) and int(section.actual.enemyPoints)==count*int(section.unitPoints) and int(section.actual.playerPoints)>300-int(section.unitPoints) and int(section.actual.playerPoints)<=300,"actual deployed boats on both sides match the derived near300DP quote")
+	var evidence: Dictionary={"scope":"All completed warmup+measured ticks from unchanged spawn; movement cutoff0.0001world units. Publication means actual accepted trace row; a stored intent alone may be pending. Reason counts are hull-ticks or mount-ticks, not unique refusals. This short window is not sustained engagement proof.","samples":[],"byId":{},"publishedIntents":0,"readyMountTicks":0,"pendingReasonCounts":{},"withheldReasonCounts":{}}
+	section.engagement=evidence
+	for ship in st.ships:
+		var position: Vector2=Vector2(ship.x,ship.y)
+		evidence.byId[str(ship.id)]={"team":str(ship.team),"start":position,"last":position,"distance":0.0,"displacement":0.0,"publishedIntents":0}
 	var previous: int=0
 	for tick in range(WARMUP+MEASURED):
 		if st.result!=null or not admit("light tick %d"%tick,previous):break
@@ -158,6 +272,13 @@ func light_window(world: Dictionary) -> void:
 			if str(event.kind)=="fire":
 				section.fireEvents+=1;section.fireFamilies[str(event.family)]=int(section.fireFamilies.get(str(event.family),0))+1
 		section.peakProjectiles=maxi(int(section.peakProjectiles),st.projectiles.size());section.peakEffects=maxi(int(section.peakEffects),st.effects.size())
+		engagement_tick(st,evidence)
+	evidence.movedBoats=0;evidence.movedBySide={"player":0,"enemy":0};evidence.boatsWithPublishedIntents=0
+	for hull in evidence.byId.values():
+		if float(hull.distance)>0.0001:evidence.movedBoats+=1;evidence.movedBySide[str(hull.team)]+=1
+		if int(hull.publishedIntents)>0:evidence.boatsWithPublishedIntents+=1
+		hull.erase("start");hull.erase("last")
+	evidence.commonPendingReasons=common_reasons(evidence.pendingReasonCounts);evidence.commonWithheldReasons=common_reasons(evidence.withheldReasonCounts)
 	section.timing=distribution(section.ticksUs);section.aiTiming=distribution(section.aiUs)
 	section.simSeconds=float(st.time);section.result=st.result;section.eventTicks=int(section.warmupCompleted)+int(section.measuredCompleted)
 	section.complete=int(section.warmupCompleted)==WARMUP and int(section.measuredCompleted)==MEASURED
@@ -165,6 +286,8 @@ func light_window(world: Dictionary) -> void:
 	for ship in st.ships:finite=finite and is_finite(float(ship.hp)) and is_finite(float(ship.x)) and is_finite(float(ship.y)) and float(ship.ammo)>=0.0
 	check(finite,"short crowded light-boat simulation retains finite positions/HP and nonnegative ammunition")
 	check(bool(section.complete) and is_equal_approx(float(st.time),(WARMUP+MEASURED)*DT),"all requested light-boat ticks complete at the actual 1/60dt; a partial window never passes")
+	check(evidence.samples.size()==int(section.warmupCompleted)+int(section.measuredCompleted) and evidence.byId.size()==st.ships.size(),"every actual hull and completed tick has read-only movement/approval/refusal evidence, including honest zero engagement")
+	print("HOTPATH040 engagement moved=%d/%d approvedPublications=%d approvedHulls=%d pending=%s fireWithheld=%s"%[evidence.movedBoats,st.ships.size(),evidence.publishedIntents,evidence.boatsWithPublishedIntents,JSON.stringify(evidence.commonPendingReasons),JSON.stringify(evidence.commonWithheldReasons)])
 	print("HOTPATH040 light boats=%d points=%d/%d warmup=%d/%d measured=%d/%d events=%d medianUs=%s p95Us=%s aiUs=%s"%[st.ships.size(),section.actual.playerPoints,section.actual.enemyPoints,section.warmupCompleted,WARMUP,section.measuredCompleted,MEASURED,section.events,str(section.timing.medianUs),str(section.timing.p95Us),str(section.aiTiming.totalUs)])
 
 func _initialize() -> void:
@@ -179,6 +302,7 @@ func _initialize() -> void:
 	check(duo_ok,"public Lab creates the small authentic equivalence fixture")
 	if duo_ok:
 		safety_checks(duo.battle.ships[0])
+		if admit("prefix authority and safety"):prefix_checks(duo.battle)
 		if admit("trace equivalence"):trace_checks(duo.battle)
 	light_window(world)
 	check(stops.is_empty() and bool(report.lightBattle.get("complete",false)),"no guard stop or incomplete measurement is accepted")

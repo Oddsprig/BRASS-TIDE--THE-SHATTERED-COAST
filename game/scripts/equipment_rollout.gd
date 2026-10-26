@@ -84,7 +84,7 @@ static func _capability_from_fields(ship: Dictionary,status: Dictionary,fields: 
 	result.merge(fields,true)
 	return result
 
-static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,cert: Dictionary,sub_dt: float,parts: int,idle_probe=null) -> Dictionary:
+static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,cert: Dictionary,sub_dt: float,parts: int,idle_probe=null,steps: int=60) -> Dictionary:
 	var id: String=str(ship.id)
 	var live_ship: Dictionary=st.get("tactical",{}).get("ships",{}).get(id,ship)
 	var copy: Dictionary=live_ship.duplicate(true)
@@ -129,7 +129,7 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 	var hp_sum_valid: bool=false;var hp_sum_info=null;var hp_sum_cached: float=0.0
 	var start_time: float=0.0
 	var idle_lease: Array=[]
-	for step in range(60):
+	for step in range(steps):
 		for _part in range(parts):
 			var prev_status: Dictionary=rollout_status;var prev_fuel_pos: bool=Damage.number(copy.get("fuel"))>0.0;var prev_sunk: bool=bool(copy.get("sunk",false))
 			var control: Dictionary=steering(copy,points,index,target,primary)
@@ -174,9 +174,9 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 			else:
 				capabilities.append(capability_with_status(copy,rollout_status,init_mask))
 		cert.rolloutSamples+=1
-		# A conservative capsule contains ALL ten integrated positions, including
-		# curved turning and braking drift. Six swept envelopes cover the prefix.
-		if (step+1)%10==0:
+		# A conservative capsule contains every integrated position, including
+		# curved turning/braking and the final partial chunk of a short forecast.
+		if (step+1)%10==0 or step+1==steps:
 			var a: Vector2=chunk[0]
 			var b: Vector2=chunk[-1]
 			var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN

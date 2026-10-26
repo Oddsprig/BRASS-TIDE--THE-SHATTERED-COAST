@@ -5,6 +5,8 @@ const Stations = preload("res://scripts/tactical_stations.gd")
 const MAX_OFFERS: int = 8
 const MAX_CLEARANCE: int = 4096
 const CERT_SECONDS: float = 0.2
+const CERT_PREFIX_STEPS: int = 9
+const CERT_PREFIX_SECONDS: float = float(CERT_PREFIX_STEPS) / 30.0
 const CERT_SCOPE: String = "complete-geometry+prefix-physical"
 const CERT_FIELDS: Array = ["status", "reachable", "exitReachable", "eta", "fireWindow", "risk", "checkedAt", "validUntil", "snapshotRevision", "orderRevision", "pathFingerprint", "terrainRevision", "geometryKey", "checkedPose", "dynamicsKey", "physicalHorizonEnd", "rolloutSamples", "scope", "reason"]
 
@@ -100,7 +102,7 @@ static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: D
 		return "Order or terrain changed; checking a new maneuver."
 	if not _hex_key(certificate.pathFingerprint) or certificate.pathFingerprint != fingerprint(candidate) or not _hex_key(certificate.geometryKey) or not _hex_key(certificate.dynamicsKey):
 		return "Maneuver changed; checking it again."
-	if not certificate.rolloutSamples is int or int(certificate.rolloutSamples) != 60 or absf(float(certificate.physicalHorizonEnd) - float(certificate.checkedAt) - 2.0) > 0.00001:
+	if not certificate.rolloutSamples is int or int(certificate.rolloutSamples) != CERT_PREFIX_STEPS or absf(float(certificate.physicalHorizonEnd) - float(certificate.checkedAt) - CERT_PREFIX_SECONDS) > 0.00001:
 		return "Turning and braking still need checking."
 	var pose: Dictionary = Roles.dictionary(certificate.checkedPose)
 	for key: String in ["x", "y", "vx", "vy", "angle"]:

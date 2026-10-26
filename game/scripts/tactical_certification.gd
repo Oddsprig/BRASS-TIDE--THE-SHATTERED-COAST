@@ -1,5 +1,6 @@
 extends RefCounted
-## Full corridor geometry, two-second physical prefix, 0.2-second authority.
+## Full corridor geometry, 0.3-second physical prefix, 0.2-second authority.
+const Planner=preload("res://scripts/tactical_planner.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
 const Fire=preload("res://scripts/tactical_fire_control.gd")
 const Damage=preload("res://scripts/damage.gd")
@@ -120,26 +121,28 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 	var cert: Dictionary=base_certificate(view,ship,candidate,fingerprint)
 	if not candidate_valid(candidate,view,ship,membership):
 		cert.status="blocked";cert.reason="Weapon assignment outside bounded observed targets";return cert
-	var full: Dictionary=corridor(st,ship,candidate,budget)
-	cert.eta=full.eta
-	if full.status!="valid":cert.status=full.status;cert.reason=full.reason;return cert
 	var id: String=str(ship.id)
 	# Physics is 60Hz and Battle.update keeps that dt. A 30Hz sample rounded to
 	# the nearest pose is already a full step ahead after one 1/60 tick, so the
-	# velocity check fails and helm brakes. Two closed-loop half-steps still
-	# publish exactly 60 samples across the required 2s prefix. Any other dt
-	# keeps the single 1/30 sample, which matches a 1/30 caller exactly.
+	# velocity check fails and helm brakes. Retain every closed-loop half-step
+	# within the 0.3s forecast: authority (0.2s) plus at least two live steps.
+	# Any other dt keeps the existing single 1/30 sample.
 	var sub_dt: float=float(st.tactical.get("dt",STEP))
 	var parts: int=1
 	if absf(sub_dt*2.0-STEP)<0.0000001:
 		parts=2
 	else:
 		sub_dt=STEP
-	if budget.rolled.has(id) or int(budget.rollouts)>=16 or int(budget.samples)+60*parts>840:
+	# A budget refusal is pending, never evidence of a blocked route. Do not
+	# recompute full corridors for a hull that cannot receive another rollout.
+	if budget.rolled.has(id) or int(budget.rollouts)>=16 or int(budget.samples)+Planner.CERT_PREFIX_STEPS*parts>840:
 		budget.exhaustions+=1;cert.reason="Checking the next safe maneuver";return cert
+	var full: Dictionary=corridor(st,ship,candidate,budget)
+	cert.eta=full.eta
+	if full.status!="valid":cert.status=full.status;cert.reason=full.reason;return cert
 	budget.rolled[id]=true;budget.rollouts+=1
 	var live_ship: Dictionary=st.get("tactical",{}).get("ships",{}).get(id,ship)
-	var prefix: Dictionary=EquipmentRollout.prefix(st,ship,candidate,budget,cert,sub_dt,parts)
+	var prefix: Dictionary=EquipmentRollout.prefix(st,ship,candidate,budget,cert,sub_dt,parts,null,Planner.CERT_PREFIX_STEPS)
 	if not prefix.ok:return cert
 	var predicted: Array=prefix.poses
 	var capabilities: Array=prefix.capabilities
@@ -185,7 +188,7 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 			cert.reason="Checking firing lanes" if cert.status=="pending" else "No usable firing lane at this station"
 			return cert
 	cert.status="valid";cert.reachable=true;cert.exitReachable=true
-	cert.validUntil=float(view.time)+0.2;cert.physicalHorizonEnd=float(view.time)+2.0
+	cert.validUntil=float(view.time)+Planner.CERT_SECONDS;cert.physicalHorizonEnd=float(view.time)+Planner.CERT_PREFIX_SECONDS
 	cert.fireWindow={"from":float(view.time)+arrival,"until":float(view.time)+arrival+(1.2 if station_window else 0.0),"mountIds":firing,"mountTargets":certified_targets}
 	cert.risk=clampf(float(ship.water)/maxf(1.0,float(ship.capacity)),0.0,1.0)
 	cert.reason="Route and immediate maneuver checked"
@@ -206,12 +209,14 @@ static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offs
 	var age: float=maxf(0.0,float(st.time)-float(cert.checkedAt))
 	var sample_dt: float=float(record.get("sampleDt",STEP))
 	if sample_dt<=0.0:sample_dt=STEP
-	var at: int=clampi(roundi((age+pose_offset)/sample_dt),0,record.poses.size()-1)
+	var at: int=roundi((age+pose_offset)/sample_dt)
+	if age+pose_offset>float(cert.physicalHorizonEnd)-float(cert.checkedAt)+0.0000001 or at<0 or at>=record.poses.size():return {"ok":false,"reason":"Checking the next safe maneuver"}
 	var predicted: Dictionary=record.poses[at]
 	if Routes.point(ship).distance_to(Routes.point(predicted))>2.0 or Vector2(ship.vx,ship.vy).distance_to(Vector2(predicted.vx,predicted.vy))>2.0 or absf(angle_difference(float(ship.angle),float(predicted.angle)))>deg_to_rad(1.0):return {"ok":false,"reason":"Traffic changed; checking approach"}
 	# Fire follows this tick's movement before the next damage prepass. Its
 	# capability belongs to age, while its position belongs to age+dt.
-	var condition_at: int=clampi(roundi(age/sample_dt),0,record.capabilities.size()-1)
+	var condition_at: int=roundi(age/sample_dt)
+	if condition_at<0 or condition_at>=record.capabilities.size():return {"ok":false,"reason":"Checking the next safe maneuver"}
 	var actual: Dictionary=capability(ship,NAN,frame_cache)
 	var expected: Dictionary=record.capabilities[condition_at]
 	for key in expected:
