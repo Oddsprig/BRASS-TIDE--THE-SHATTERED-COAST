@@ -1,0 +1,75 @@
+{
+  "classification": "CONTEXT_HOTSPOT_R2_SOURCE_AND_STAGE_VERIFIED_PENDING_ONE_NATIVE",
+  "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/context-hotspot-r2-root/prototype/game",
+  "count": 291,
+  "sha256": "2bf58a39e8bbf7618694b01e779bd16ede8b436288bfbb5bb06fec5846b93237",
+  "production": [
+    {
+      "path": "scripts/damage.gd",
+      "before": "298e353de6cf7ab57207a5a99b002bacdf6ecf30d5dccf41927fcb8e745649d6",
+      "after": "15fb5e0289e355ae83db0994c4876a08772d0f7141d7b346b780386a59cd7a94",
+      "bytes": 27348,
+      "wholeReverse": true
+    },
+    {
+      "path": "scripts/equipment_damage.gd",
+      "before": "73ff774a0cebdac14d687dcfd8dfa390d880e9fc83320a6348109088183faed9",
+      "after": "09c13ecbe9cfe63b305d8b33da3763ee9d41446d5f11ec8562a622c9b147c592",
+      "bytes": 51179,
+      "wholeReverse": true
+    },
+    {
+      "path": "scripts/equipment_condition.gd",
+      "before": "56eb0af59e7cd040fb57b0a3061c302df759c335cfc577b3712258ae387a4b59",
+      "after": "fb0b057cd9e20356dec3e44af88d752f9c421fb39c71b92e31c7f0194717938d",
+      "bytes": 54105,
+      "wholeReverse": true
+    },
+    {
+      "path": "scripts/equipment_records.gd",
+      "before": "f79987b7e0165920c0ff8e4add7a864d344ac47f67fc46db863ffd32c031061e",
+      "after": "29662cb8fe23ff37a465abcb296d9f2e70f436ba7b12a9de62c48d03248a2c78",
+      "bytes": 24735,
+      "wholeReverse": true
+    },
+    {
+      "path": "scripts/battle.gd",
+      "before": "71361d92fbad1ffeae9e2722999700e25a2f0c6b13a557d010d024464af50b57",
+      "after": "5af6bea68d4837a96da11facfed5149738f2cf39f03777f3d747d5209c1f75bb",
+      "bytes": 33037,
+      "wholeReverse": true
+    },
+    {
+      "path": "scripts/equipment_combat.gd",
+      "before": "4bd7d34118d23e1b943fef53e0eb15fab8270970c5e517866a4c023d3c694283",
+      "after": "feab27e508014118249365ad6658334d3852164515928b0543f55f51a41ad675",
+      "bytes": 13148,
+      "wholeReverse": true
+    },
+    {
+      "path": "scripts/equipment_rollout.gd",
+      "before": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf",
+      "after": "4e94005804ac445baf616bd8c346d0c23e62959d0c80627ec419030f05a53a95",
+      "bytes": 10981,
+      "wholeReverse": true
+    },
+    {
+      "path": "scripts/tactical_certification.gd",
+      "before": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49",
+      "after": "d969b214a4faa694bc35da720845f14686f0c25bc574e6c4ec7371c0be854ede",
+      "bytes": 16285,
+      "wholeReverse": true
+    }
+  ],
+  "allEightBodiesReverseExact": true,
+  "originalFiveR1WrappersUnchanged": true,
+  "collectorOnlyThreeIndicesNamesAndModeExtended": true,
+  "subclassByteIdentical": true,
+  "actualNewSeams": [
+    "EquipmentCombat._canonical_capability_fields",
+    "EquipmentRollout.prefix",
+    "TacticalCertification.certify"
+  ],
+  "scope": "Same cold24 and original parent, no gameplay/math/AI depth change. Existing validity and df08 payload join required; ten seam partition sums. No native authorized by this source receipt.",
+  "rootNativeLaunches": 0
+}

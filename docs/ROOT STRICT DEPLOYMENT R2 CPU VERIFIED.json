@@ -1,0 +1,30 @@
+{
+  "classification": "STRICT_DEPLOYMENT_REPORT_R2_CPU_SOURCE_VERIFIED_NO_NATIVE",
+  "toolHashes": {
+    "qa-sol\\qa\\capacity_prefix_context_r1_report.py": "d531420ccd4be51d6f0dc00caac47c8c79ca88ce649f4b25006126dc16ef625f",
+    "qa-sol\\qa\\capacity_prefix_context_r2_report.py": "4a2bb47bf6dac2f2f0602082b91899ac3977b6c428873db70df5540a2539e01c",
+    "qa-sol\\qa\\run_testbridge_capacity_context_r1.py": "1579e31961d6616b3d95e7fec35a52e7ba22ecfd0f941a48c8ed105c1df223dc",
+    "qa-sol\\qa\\run_testbridge_capacity_context_r2.py": "4d2185f46d58cfb6be5d87ab0e02cbd56ecf7fae84d552797aba401fb60b9df3"
+  },
+  "wholeFileReversalsByteExact": true,
+  "onlyReportChange": "Expected exact player/enemy profile points and integer limit300; no unexpected/missing keys",
+  "existingNativeJobId": "4d8899eaab0c4f7b83eb26c918615cc7",
+  "originalR1NativeUnchangedFailures": 4,
+  "separateR2ReadonlyAnalysisFailures": 3,
+  "separateR2ReadonlyAnalysisIssues": [
+    "Missing or failed TACTICAL BENCH COMPLETE banner",
+    "report.status='WORK_BOUND_INCOMPLETE'",
+    "windows[0].exit_reason='WORK_BOUND_INCOMPLETE'"
+  ],
+  "stillFailedIncomplete": true,
+  "negativeSchemaCasesRefused": [
+    "wrong_limit",
+    "extra_key",
+    "missing_limit",
+    "float_limit"
+  ],
+  "probeProtocolRuntimeLimitsUnchanged": true,
+  "newNativeLaunched": false,
+  "originalReportReplaced": false,
+  "rootNativeLaunches": 0
+}

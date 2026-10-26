@@ -1,0 +1,28 @@
+{
+  "classification": "CURRENT_CONTEXT_HOTSPOT_STAGE_VERIFIED_PENDING_ONE_NATIVE",
+  "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/context-hotspot-r1-root/prototype/game",
+  "count": 291,
+  "sha256": "a26fee925a02adc105b39a251bcfde2dc670e8aa88fd47837689a1c05bd10091",
+  "sourceReviewSha256": "7997d5aea6a314bfb2f78156a934fd5227f2280925f10451f9230485ba056de2",
+  "allOtherBaselineFilesUnchanged": true,
+  "onlyFiveInstrumentedBodiesAndTwoAddedFiles": {
+    "scripts/damage.gd": "15fb5e0289e355ae83db0994c4876a08772d0f7141d7b346b780386a59cd7a94",
+    "scripts/equipment_damage.gd": "09c13ecbe9cfe63b305d8b33da3763ee9d41446d5f11ec8562a622c9b147c592",
+    "scripts/equipment_condition.gd": "fb0b057cd9e20356dec3e44af88d752f9c421fb39c71b92e31c7f0194717938d",
+    "scripts/equipment_records.gd": "29662cb8fe23ff37a465abcb296d9f2e70f436ba7b12a9de62c48d03248a2c78",
+    "scripts/battle.gd": "5af6bea68d4837a96da11facfed5149738f2cf39f03777f3d747d5209c1f75bb",
+    "scripts/qa_hotspot_probe.gd": "4b407a3f0f313af568edddfa7a5a775b0b73d7f0e2fc01e17a0645bd0179789d",
+    "tests/test_equipment_hotspot.gd": "63803a74747917bd99b961a86242abd51313f18dc02e36ad8a8afa836a16fcaf"
+  },
+  "originalCostParent": "d3386e02664cbdf1e77620df6772678d9408bea9eceec0f4d1f025fff66abf5e",
+  "profileAcceptanceRequires": [
+    "native and outer audit",
+    "hotspot.profile_valid",
+    "complete24",
+    "balanced call stack/entry counts",
+    "calibration10000",
+    "exclusive sums equal interval unions",
+    "recorded payload match df08 with original two diagnostic clock exclusions"
+  ],
+  "rootNativeLaunches": 0
+}

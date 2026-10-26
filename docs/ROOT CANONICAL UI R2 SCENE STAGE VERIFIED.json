@@ -1,0 +1,18 @@
+{
+  "classification": "CANONICAL_UI_R2_SCENE_STAGE_VERIFIED_PENDING_ONE_NATIVE",
+  "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/final-context-ui-r2-root/candidate/game",
+  "componentCount": 498,
+  "componentSha256": "534b94f3159a9613df1dac9d3066ee119062eea1ad00825e12d80a4526568a29",
+  "fullCount": 521,
+  "fullSha256": "b02093bb606b549f4dca986c6c649c30c24b6b5533fbefe2b3368994fe35f36f",
+  "onlyGameDeltaFromR1": "tests/test_tactical_ui.gd",
+  "fixtureSha256": "b007695a5a7abefc94b345e3fa37e0dfda26adb34cedf546097a1471d8c31fcc",
+  "fixtureReviewSha256": "07c1642fb5a8f93dfc15896ecf98d9f5602168389a5121181fd67353ea5e2036",
+  "sceneManifestSha256": "1f2656104ee2d43a8aa1278110905c03973e9159fa495036304a820b7199c448",
+  "preservedR1Unchanged": true,
+  "stageLocalExternalRootRebound": true,
+  "allOriginalAssertionsRetained": true,
+  "physicsTicks179": 179,
+  "runtimeChanged": false,
+  "rootNativeLaunches": 0
+}

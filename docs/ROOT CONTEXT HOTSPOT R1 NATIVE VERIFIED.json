@@ -1,0 +1,113 @@
+{
+  "classification": "ACTUAL_CONTEXT_HOTSPOT_R1_NATIVE_PROFILE_VALIDATED",
+  "jobId": "4e75fcce248d4f3c9e3b99db3550a629",
+  "recordedPayloadProofSha256": "c5e596c86db204c7c24f62e56a594fb32c1e52ec4ec1a2206066611395008a59",
+  "hotspotSha256": "dede3cebfc5c9ba99704a3c6b2822516f462f7e21c93bfbca7865b2d410fc30a",
+  "valid24": true,
+  "balancedEntries": 18690,
+  "validCalibrationPairs": 10000,
+  "allExclusiveUnionPartitionsExact": true,
+  "summary": [
+    {
+      "seam": "AI damage._tick_canonical_with",
+      "calls": 5100,
+      "inclusiveUs": 598131,
+      "exclusiveUs": 513950,
+      "meanExclusiveMsPerUpdate": 21.414583333333333
+    },
+    {
+      "seam": "OTHER damage._tick_canonical_with",
+      "calls": 960,
+      "inclusiveUs": 298862,
+      "exclusiveUs": 274546,
+      "meanExclusiveMsPerUpdate": 11.439416666666666
+    },
+    {
+      "seam": "AI equipment_damage._repair_step_from_info",
+      "calls": 10200,
+      "inclusiveUs": 78434,
+      "exclusiveUs": 78434,
+      "meanExclusiveMsPerUpdate": 3.2680833333333332
+    },
+    {
+      "seam": "OTHER equipment_damage._repair_step_from_info",
+      "calls": 1920,
+      "inclusiveUs": 24316,
+      "exclusiveUs": 24316,
+      "meanExclusiveMsPerUpdate": 1.0131666666666668
+    },
+    {
+      "seam": "AI equipment_condition._records_numeric",
+      "calls": 255,
+      "inclusiveUs": 2867,
+      "exclusiveUs": 2867,
+      "meanExclusiveMsPerUpdate": 0.11945833333333333
+    },
+    {
+      "seam": "AI equipment_damage._numeric_rollout_info",
+      "calls": 85,
+      "inclusiveUs": 2507,
+      "exclusiveUs": 1683,
+      "meanExclusiveMsPerUpdate": 0.070125
+    },
+    {
+      "seam": "AI equipment_records._publish_numeric",
+      "calls": 85,
+      "inclusiveUs": 1509,
+      "exclusiveUs": 641,
+      "meanExclusiveMsPerUpdate": 0.026708333333333334
+    },
+    {
+      "seam": "AI equipment_records._absorb_legacy_numeric",
+      "calls": 85,
+      "inclusiveUs": 1731,
+      "exclusiveUs": 556,
+      "meanExclusiveMsPerUpdate": 0.023166666666666665
+    },
+    {
+      "seam": "AI equipment_condition._repair_installed_numeric",
+      "calls": 0,
+      "inclusiveUs": 0,
+      "exclusiveUs": 0,
+      "meanExclusiveMsPerUpdate": 0.0
+    },
+    {
+      "seam": "OTHER equipment_condition._records_numeric",
+      "calls": 0,
+      "inclusiveUs": 0,
+      "exclusiveUs": 0,
+      "meanExclusiveMsPerUpdate": 0.0
+    },
+    {
+      "seam": "OTHER equipment_condition._repair_installed_numeric",
+      "calls": 0,
+      "inclusiveUs": 0,
+      "exclusiveUs": 0,
+      "meanExclusiveMsPerUpdate": 0.0
+    },
+    {
+      "seam": "OTHER equipment_damage._numeric_rollout_info",
+      "calls": 0,
+      "inclusiveUs": 0,
+      "exclusiveUs": 0,
+      "meanExclusiveMsPerUpdate": 0.0
+    },
+    {
+      "seam": "OTHER equipment_records._absorb_legacy_numeric",
+      "calls": 0,
+      "inclusiveUs": 0,
+      "exclusiveUs": 0,
+      "meanExclusiveMsPerUpdate": 0.0
+    },
+    {
+      "seam": "OTHER equipment_records._publish_numeric",
+      "calls": 0,
+      "inclusiveUs": 0,
+      "exclusiveUs": 0,
+      "meanExclusiveMsPerUpdate": 0.0
+    }
+  ],
+  "originalBodyReverseProofSha256": "7997d5aea6a314bfb2f78156a934fd5227f2280925f10451f9230485ba056de2",
+  "scope": "Raw observer-bearing method times. No FPS/capacity/causal or exact overhead-correction claim. Recorded resources/work/ages/budgets/status match df08 and original78c with only original diagnostic clock exclusions.",
+  "rootNativeLaunches": 0
+}

@@ -1,0 +1,22 @@
+{
+  "classification": "CANONICAL_TWO_PHASE_UI_FIXTURE_SOURCE_ACCEPTED_PENDING_NATIVE",
+  "original": {
+    "sha256": "2e78e40dd39801d6a3328287428d44b359f889c1c1082f5bd6b7c5936ac1efec",
+    "bytes": 20673
+  },
+  "candidate": {
+    "sha256": "b007695a5a7abefc94b345e3fa37e0dfda26adb34cedf546097a1471d8c31fcc",
+    "bytes": 21231
+  },
+  "wholeFileReverseExact": true,
+  "allOriginalAssertionsPreserved": true,
+  "addedChecks": [
+    "Canonical first0.5s finite crew assigned to fire, bailing continues, no duplicated hull repair or kit debit",
+    "After75 additional real ticks fire extinguished then original water/HP/kit conjunct"
+  ],
+  "physicsTicks": 179,
+  "extraTicks": 75,
+  "gameRuntimeChanged": false,
+  "scope": "Corrects legacy parallel-work timing assumption. Exact values in prior diagnosis were source-derived, not live observations. Native confirmation required; no lowered thresholds/refills/timer edits.",
+  "rootNativeLaunches": 0
+}

@@ -6,6 +6,22 @@ Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
 No .031 version bump, release tag, export, launcher change or upload.
 
+CONTROL AND DIAGNOSTIC UPDATE — 26 OCTOBER 2026
+Orders b7b7 passed77/0. Original UI5c46 failed127/1 because its short scenario
+expected one crew pool to suppress fire and repair hull simultaneously. The
+canonical contract conserves that labor. Corrected fixture b007 keeps every
+original assertion, checks fire-first work after0.5s, then advances75 more real
+ticks and requires extinguishing plus the original paid-repair result. Native
+bb22 passed129/0; Root verified source, scene, external inputs and receipts.
+Only the fixture changed; gameplay rules did not. Original failed bytes remain.
+Current-source diagnostic4e75 passed51/0, all24updates/40statuses equaldf08;
+collector24complete/18690balanced entries/valid calibration and interval sums.
+Raw AI88.370ms includes only21.415ms/update exclusive in the shared canonical
+kernel; remaining work is being narrowed with three additional diagnostic seams.
+No profiling code is merged into gameplay. Capacity remains incomplete; no
+unchanged fleet benchmark retry or release acceptance. See the current Root
+UI, profiler and capacity evidence files.
+
 CAPACITY WINDOW0 — 26 OCTOBER 2026
 Original sustained tactical40 run4d8899ea completed150 warmup updates, then
 hit the unchanged40-second work bound after143/180 measured updates. The native
@@ -15,8 +31,8 @@ p95180.267ms. No capacity acceptance, unchanged retry or window1 is authorized.
 Root verified source/tools/receipts/ownership lane evidence, actual300 points per
 side and limit300. One checker issue omits that existing limit key; original
 failed report is preserved. The other completion/work-bound issues remain.
-Next is source-only profiling of remaining cost; control/scene checks are
-separately authorized with synthetic in-process input. See ROOT CONTEXT CAPACITY
+Current profiling and corrected control checks are recorded in the update
+above; sustained performance remains open. See ROOT CONTEXT CAPACITY
 W0 FAILED VERIFIED.json.
 
 ACTIVE PERFORMANCE WORK - 26 OCTOBER 2026

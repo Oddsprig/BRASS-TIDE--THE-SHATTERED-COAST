@@ -241,7 +241,7 @@ func finite_outcomes(career,saved: Dictionary) -> void:
 	check(source.policy=="repair","real crew-priority button changes the actual flagship duty allocation")
 	if not press("Selected tactics & weapon groups"):return
 	if not press("Hold automatic fire"):return
-	var ammo: float=float(source.ammo);var water: float=float(source.water);var hp: float=float(source.hp);var kits: float=float(source.supplies)
+	var ammo: float=float(source.ammo);var water: float=float(source.water);var hp: float=float(source.hp);var kits: float=float(source.supplies);var fire: float=float(source.fire)
 	game.paused=false
 	game._physics_process(1.0/30.0)
 	check(game.battle.time==0.0,"Main physics callback respects the actual open modal gate")
@@ -251,6 +251,9 @@ func finite_outcomes(career,saved: Dictionary) -> void:
 	game.paused=false
 	for tick in range(15):game._physics_process(1.0/30.0)
 	check(game.battle.time>0.49 and float(source.ammo)==ammo and game.Battle.mount_shot_time(source,0)<0.0,"real Main updates advance time while UI-held automatic gun emits and spends nothing")
+	check(game.Damage.get_status(source).get("equipmentMode","")=="canonical" and float(source.fire)>0.0 and float(source.fire)<fire and float(source.water)<water and float(source.hp)<=hp and float(source.supplies)==kits,"canonical crew-priority callback allocates finite crew work fire-first while bailing without spending kits")
+	for tick in range(75):game._physics_process(1.0/30.0)
+	check(game.battle.time>2.99 and float(source.fire)==0.0,"canonical fire-first crew work extinguishes active fire before paid hull repair")
 	check(float(source.water)<water and float(source.hp)>hp and float(source.supplies)<kits,"actual crew-priority callback produces bailing and paid finite-kit repair")
 	game.paused=true
 	if not press("Selected tactics & weapon groups"):return
