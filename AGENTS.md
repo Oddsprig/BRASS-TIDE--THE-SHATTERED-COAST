@@ -1,3 +1,19 @@
+# Current owner priority - v0.041 core playability
+
+Latest owner request: art, performance and engagement need substantial work;
+use one Sol6.1 MAX and two Grok4.7 HIGH helpers through Bridge. The v0.041
+expedition is postponed. Read work/playability-v041/OWNER SCOPE.txt in the
+task workspace. Sol owns combat runtime, Grok coast owns chart/geography,
+Grok engagement owns standalone Coastal Clash and title/Lab guidance. Root
+owns integration, boat materials, versions, packaging and all native jobs.
+Do not resume older helpers or expand to new economy/expedition features.
+The current delivered version is0.040. Source candidate0.041 must preserve
+the current Desktop voyage and the plain Brass Tide launcher. All native
+work remains background through the shared FIFO; complete selected batch
+under120seconds including setup/export/startups/cleanup. Headless checks
+do not establish graphics, FPS, audio or fun. All older scope paragraphs
+below are historical where they conflict with this latest direction.
+
 # Active authorized sequence - v0.032 through v0.041
 
 LATEST OWNER STEERING DURING v0.040: after playing v0.039, the owner rejected

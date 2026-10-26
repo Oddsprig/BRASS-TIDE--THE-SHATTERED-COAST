@@ -104,6 +104,24 @@ static func planking(ctx: Dictionary, stations: Array, offset: float, lift: floa
 	var rows: int = 7 if int(ctx.lod)==0 else 3
 	var max_beam: float = 0.0
 	for station in stations:max_beam=maxf(max_beam,float(station.y)*0.84)
+	# Narrow boards with quiet material variation, rather than one flat brown
+	# fill under a heavy grid. Baked once per hull/heading in the existing cache.
+	var board_width: float=2.0*max_beam/float(rows+1)
+	for board in range(rows+1):
+		var center_y: float=-max_beam+(float(board)+0.5)*board_width
+		var clip_y: float=absf(center_y)+board_width*0.46
+		for part in range(stations.size()-1):
+			var a: Vector2=stations[part]*Vector2(0.94,0.84)
+			var b: Vector2=stations[part+1]*Vector2(0.94,0.84)
+			if maxf(a.y,b.y)<=clip_y:continue
+			var left: float=a.x
+			var right: float=b.x
+			if a.y<clip_y:left=lerpf(a.x,b.x,(clip_y-a.y)/(b.y-a.y))
+			if b.y<clip_y:right=lerpf(a.x,b.x,(clip_y-a.y)/(b.y-a.y))
+			if right-left<0.015:continue
+			var variation: float=float((board*7+part*3)%9-4)*0.012
+			var timber: Color=c.deck.lightened(variation) if variation>=0.0 else c.deck.darkened(-variation)
+			_rect(m,(left+right)*0.5,center_y,right-left,board_width*0.92,9.12+lift,timber)
 	for row in range(1,rows+1):
 		var y: float = lerpf(-max_beam,max_beam,float(row)/float(rows+1))
 		for i in range(stations.size()-1):

@@ -241,10 +241,16 @@ static func _one_hull(ctx: Dictionary, stations: Array, y_off: float, c: Diction
 	for i in range(contact.size()):
 		var j: int=(i+1)%contact.size()
 		var points=PackedVector2Array([_pt(ctx,contact[i],0.0),_pt(ctx,contact[j],0.0),_pt(ctx,rim[j],6.5+lift),_pt(ctx,rim[i],6.5+lift)])
+		# A consistent world-space light separates the sheer faces as a boat turns.
+		# This is baked into the existing heading mesh; no live lighting pass.
+		var edge: Vector2=(contact[j]-contact[i]).rotated(float(ctx.angle))
+		var normal: Vector2=Vector2(edge.y,-edge.x).normalized()
+		var sun: float=normal.dot(Vector2(-0.55,-0.83))
+		var face: Color=c.side.lightened(maxf(0.0,sun)*0.18).darkened(maxf(0.0,-sun)*0.20)
 		for triangle in [[points[0],points[1],points[2]],[points[0],points[2],points[3]]]:
 			# The two bow-tip stations coincide; omit zero-area faces at every heading.
 			if absf((triangle[1]-triangle[0]).cross(triangle[2]-triangle[0]))<1.0:continue
-			ctx.canvas.draw_colored_polygon(PackedVector2Array(triangle),c.side.lightened(0.06) if i%2==0 else c.side)
+			ctx.canvas.draw_colored_polygon(PackedVector2Array(triangle),face)
 			ctx.n+=1;ctx.npoly+=1
 	_poly(ctx, _outline(stations, y_off, 0.97, 0.99), 6.5 + lift, c.top)
 	_line(ctx, _outline(stations, y_off, 0.97, 0.99), 7.0 + lift, Color(c.accent, 0.85), _wline(ctx) * 1.5, true)

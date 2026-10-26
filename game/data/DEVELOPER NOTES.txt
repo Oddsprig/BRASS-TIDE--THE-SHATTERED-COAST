@@ -1,19 +1,11 @@
-BRASS TIDE v0.040 - CHART READABILITY AND COMBAT CORRECTIONS
+BRASS TIDE v0.041 - CORE PLAYABILITY
 26 October2026 |36 boat designs
 
-OWNER STEERING: After playing039, the owner rejected map readability, combat
-and wake quality. This build corrects those concrete problems before041.
-No claim of Starsector parity. Read COMBAT PRESENTATION v0.040.txt.
-
 THIS VERSION
-- Existing damage and disabled equipment produce clearer visible feedback without a new rendering system.
-- Strategic markers and labels stay readable at overview; short stern foam replaces long V-shaped wake lines.
-- Existing recorded sound families retain controlled layering and level balance.
-- Exact tactical forecasts cover0.3seconds for0.2seconds of approved movement;
-  full routes and every live collision/weapon check remain.
-- Healthy boats skip a guarded zero-work repair cycle with the same real
-  fuel, timers, publication and damaged/malformed fallbacks.
-- Developer display adds actual FPS, frame process time and draw calls.
+- A nautical campaign chart with substantial real coastlines and readable harbor and fleet symbols replaces the tiny isometric overview.
+- Coastal Clash offers an immediate standalone escort battle from the title screen without changing the captain's campaign.
+- Combat reuses stable equipment and tactical information while retaining live movement, collision, firing, damage and finite stores.
+- Baked hull lighting and varied deck materials improve the existing original boat assets without expensive water or animated crews.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

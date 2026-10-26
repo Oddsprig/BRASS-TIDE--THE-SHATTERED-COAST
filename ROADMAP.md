@@ -1,12 +1,11 @@
-# Current priority after v0.040
+# Current step: v0.041 - Core playability
 
-The owner rejected combat performance, wakes and map readability. v0.040 delivers a verified corrective build; crowded simulation remains below target. Prioritize that foundation and boat presentation. Keep the original v0.041 expedition scope saved and unstarted during this review.
+- A nautical campaign chart with substantial real coastlines and readable harbor and fleet symbols replaces the tiny isometric overview.
+- Coastal Clash offers an immediate standalone escort battle from the title screen without changing the captain's campaign.
+- Combat reuses stable equipment and tactical information while retaining live movement, collision, firing, damage and finite stores.
+- Baked hull lighting and varied deck materials improve the existing original boat assets without expensive water or animated crews.
 
-# Current step: v0.040 - Combat presentation and sound
-
-- Existing damage and disabled equipment produce clearer visible feedback without a new rendering system.
-- Weapon impacts and boat wakes receive one bounded inexpensive effects pass.
-- Existing weapon sound families retain distinct reports with controlled layering and level balance.
-
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+Finish these core corrections, run focused checks under120seconds, and
+package the playable result. The previously planned v0.041 expedition is
+postponed while the owner prioritizes the map, combat and performance.
+Do not resume later content automatically from older scope paragraphs.

@@ -1,3 +1,7 @@
+26OCT2026 - v0.041 CORE PLAYABILITY
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.040 VERIFIED AND PACKAGED: 486/0 focused checks, selected batch 62.395s, TestBridge 76e2f7ac962d447fa204078a72742ab2. Source 5f2f17b3708167e1dd76a3f6485ab965e85804cf.
 
 26OCT2026 - v0.040 COMBAT PRESENTATION AND SOUND

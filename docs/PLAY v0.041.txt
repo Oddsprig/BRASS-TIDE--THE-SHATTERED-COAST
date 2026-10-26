@@ -1,0 +1,29 @@
+BRASS TIDE v0.041 - PLAY
+
+Use the plain Brass Tide desktop icon for the latest completed version.
+Numbered older icons open their preserved older builds.
+
+COASTAL CLASH
+Start the standalone escort battle from the title screen. Keep the loaded
+merchant alive and help it reach the marked physical exit. Raiders will try
+to stop it. This battle does not spend or award your campaign's coins,
+crew or cargo. Your voyage stays separate.
+
+BATTLE CONTROLS
+Boats start on autopilot. WASD pans the camera; Shift pans faster. Scroll
+zooms, Home centers. Click or drag to select; Shift adds boats. Right-click
+issues move, attack or escort orders. Space pauses for planning. Tab opens
+the tactical view. U toggles manual flagship control; arrows steer and the
+mouse aims/fires in manual control. Return to autopilot with U.
+
+CAMPAIGN
+Continue voyage resumes your saved captain. New voyage starts a campaign.
+Choose harbors and plan expeditions around cargo, fuel, ammunition, supplies
+and crew wages. Fleet ownership is separate from 300-point deployment.
+The campaign chart uses fleet symbols; battle and refit show the boat assets.
+
+Press Escape for the menu. The fleet battle laboratory remains available
+for choosing other fleets and fittings.
+
+This early build remains under development. Native headless checks verify
+specified behavior; they do not establish displayed FPS or sound quality.

@@ -1,8 +1,6 @@
-Current v0.040 corrections: Chart strategic symbols/framing; BoatArt short foam; Sound event layering; tactical_certification/planner short authority-covering forecasts; Damage healthy no-work path; runtime_benchmark exported CPU probe. See COMBAT PERFORMANCE v0.040.txt for the remaining limitation.
-
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.040: Combat presentation and sound. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: sound.gd, hull_feedback.gd, weapon_art.gd, boat_art.gd, combat_art.gd, chart.gd.
+v0.041: Core playability. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: chart.gd, world.json, fleet_lab.gd, lab_ui.gd, main.gd, interface.gd, battle.gd, damage.gd, tactical_runtime.gd, runtime_benchmark.gd, boat_art.gd, boat_deck_detail.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

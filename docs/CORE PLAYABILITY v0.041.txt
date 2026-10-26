@@ -1,0 +1,26 @@
+BRASS TIDE v0.041 - CORE PLAYABILITY
+
+Owner requested substantial corrections to art, performance and engagement.
+The planned v0.041 exploration chain is postponed. This version focuses on
+the existing coast and battle foundation; no new economy subsystem.
+
+TEAM
+Bridge: one Sol6.1 MAX (combat runtime), two Grok4.7 HIGH (coast and immediate
+skirmish). Root coordinates, integrates, adjusts cached boat materials and
+owns all native checks and packaging. No nested helpers or paid fallbacks.
+
+PRESERVED SYSTEMS
+36 original hulls, physical interchangeable fittings, numerical crew,
+100 coins per sailor-day, real labor/material costs and conserved stores.
+Default autopilot, WASD camera and separate 300-point battle deployment.
+Existing rendering thread and harbor worker-pool settings remain in use.
+
+VALIDATION
+Pending final source and focused native receipts. All native work is queued
+behind existing engine jobs, runs in the background without mouse/keyboard
+control, and uses a complete selected batch below120seconds. Exported
+simulation timings must be distinguished from displayed rendering FPS.
+
+No claim of Starsector visual quality, sustained FPS or listening acceptance
+is justified by a headless pass. Exact results belong in this build's
+TEST RESULTS and RELEASE records.
