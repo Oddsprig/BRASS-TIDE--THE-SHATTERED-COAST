@@ -1,0 +1,1118 @@
+{
+	"battle": {
+		"aiTiming": {
+			"count": 24,
+			"maxUs": 26268,
+			"medianUs": 18159.5,
+			"p95Us": 25955,
+			"totalUs": 450434
+		},
+		"aiUs": [
+			19874,
+			15541,
+			15722,
+			15359,
+			15461,
+			19835,
+			19106,
+			17129,
+			25955,
+			14505,
+			21344,
+			13781,
+			14585,
+			20486,
+			15200,
+			15913,
+			18840,
+			26268,
+			23373,
+			21776,
+			24115,
+			21624,
+			17163,
+			17479
+		],
+		"createUs": 26520,
+		"deployment": {
+			"enemy": 300,
+			"limit": 300,
+			"player": 300
+		},
+		"droppedEvents": 0,
+		"dtSeconds": 0.0333333333333333,
+		"final": {
+			"enemy": {
+				"ammo": 556.0,
+				"boats": 7,
+				"crew": 106.0,
+				"hulls": {
+					"bilge_punt": 1,
+					"cinder_monitor": 1,
+					"gale_cutter": 1,
+					"lantern_skiff": 1,
+					"maiden_dreadnought": 1,
+					"manta_strike": 1,
+					"slag_gunboat": 1
+				},
+				"points": 300,
+				"weaponFamilies": {
+					"cannon": true,
+					"gun": true,
+					"rocket": true,
+					"torpedo": true
+				}
+			},
+			"player": {
+				"ammo": 559.0,
+				"boats": 7,
+				"crew": 106.0,
+				"hulls": {
+					"bilge_punt": 1,
+					"cinder_monitor": 1,
+					"gale_cutter": 1,
+					"lantern_skiff": 1,
+					"maiden_dreadnought": 1,
+					"manta_strike": 1,
+					"slag_gunboat": 1
+				},
+				"points": 300,
+				"weaponFamilies": {
+					"cannon": true,
+					"gun": true,
+					"rocket": true,
+					"torpedo": true
+				}
+			}
+		},
+		"fireByFamily": {
+			"cannon": 2,
+			"gun": 2,
+			"torpedo": 1
+		},
+		"fireEvents": 5,
+		"initial": {
+			"enemy": {
+				"ammo": 560.0,
+				"boats": 7,
+				"crew": 106.0,
+				"hulls": {
+					"bilge_punt": 1,
+					"cinder_monitor": 1,
+					"gale_cutter": 1,
+					"lantern_skiff": 1,
+					"maiden_dreadnought": 1,
+					"manta_strike": 1,
+					"slag_gunboat": 1
+				},
+				"points": 300,
+				"weaponFamilies": {
+					"cannon": true,
+					"gun": true,
+					"rocket": true,
+					"torpedo": true
+				}
+			},
+			"player": {
+				"ammo": 560.0,
+				"boats": 7,
+				"crew": 106.0,
+				"hulls": {
+					"bilge_punt": 1,
+					"cinder_monitor": 1,
+					"gale_cutter": 1,
+					"lantern_skiff": 1,
+					"maiden_dreadnought": 1,
+					"manta_strike": 1,
+					"slag_gunboat": 1
+				},
+				"points": 300,
+				"weaponFamilies": {
+					"cannon": true,
+					"gun": true,
+					"rocket": true,
+					"torpedo": true
+				}
+			}
+		},
+		"initialPoses": [
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-0",
+				"x": 820.0,
+				"y": 722.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-1",
+				"x": 905.0,
+				"y": 722.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-2",
+				"x": 820.0,
+				"y": 807.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-3",
+				"x": 905.0,
+				"y": 807.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-4",
+				"x": 820.0,
+				"y": 892.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-5",
+				"x": 905.0,
+				"y": 892.5
+			},
+			{
+				"angle": 0.0,
+				"uid": "performance039-player-6",
+				"x": 820.0,
+				"y": 977.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-0",
+				"x": 1300.0,
+				"y": 722.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-1",
+				"x": 1385.0,
+				"y": 722.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-2",
+				"x": 1300.0,
+				"y": 807.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-3",
+				"x": 1385.0,
+				"y": 807.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-4",
+				"x": 1300.0,
+				"y": 892.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-5",
+				"x": 1385.0,
+				"y": 892.5
+			},
+			{
+				"angle": 3.14159265358979,
+				"uid": "performance039-enemy-6",
+				"x": 1300.0,
+				"y": 977.5
+			}
+		],
+		"measuredCompleted": 24,
+		"measuredRequested": 24,
+		"memory": {
+			"engineStaticBytes": 65358889,
+			"engineStaticPeakBytes": 149772972,
+			"note": "Godot static allocations, not process RSS or GPU memory. Process limits are imposed and recorded by Test Bridge."
+		},
+		"peakActiveActors": 14,
+		"peakEffects": 4,
+		"peakProjectiles": 3,
+		"result": null,
+		"rosterUs": 16630,
+		"samples": [
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 13119,
+					"firing": 4013,
+					"helm": 2167,
+					"lanes": 31,
+					"mounts": 419,
+					"planning": 15286,
+					"trace": 125
+				},
+				"aiUs": 19874,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 1,
+				"time": 0.166666666666667,
+				"updateUs": 27775,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 444,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 3,
+					"samples": 27
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 11429,
+					"firing": 1769,
+					"helm": 1780,
+					"lanes": 32,
+					"mounts": 432,
+					"planning": 13209,
+					"trace": 99
+				},
+				"aiUs": 15541,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 2,
+				"time": 0.2,
+				"updateUs": 23164,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 557,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 0,
+					"samples": 0
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 10751,
+					"firing": 2838,
+					"helm": 1604,
+					"lanes": 28,
+					"mounts": 411,
+					"planning": 12355,
+					"trace": 90
+				},
+				"aiUs": 15722,
+				"effects": 3,
+				"fireEvents": 1,
+				"projectiles": 3,
+				"tick": 3,
+				"time": 0.233333333333333,
+				"updateUs": 24323,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 564,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 11529,
+					"firing": 1696,
+					"helm": 1598,
+					"lanes": 29,
+					"mounts": 422,
+					"planning": 13127,
+					"trace": 85
+				},
+				"aiUs": 15359,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 4,
+				"time": 0.266666666666667,
+				"updateUs": 23165,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 494,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 18
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 11248,
+					"firing": 1728,
+					"helm": 1756,
+					"lanes": 30,
+					"mounts": 605,
+					"planning": 13004,
+					"trace": 94
+				},
+				"aiUs": 15461,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 5,
+				"time": 0.3,
+				"updateUs": 23215,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 694,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 14842,
+					"firing": 2770,
+					"helm": 1589,
+					"lanes": 30,
+					"mounts": 438,
+					"planning": 16431,
+					"trace": 166
+				},
+				"aiUs": 19835,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 6,
+				"time": 0.333333333333333,
+				"updateUs": 29266,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 491,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 18
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 12646,
+					"firing": 1905,
+					"helm": 3992,
+					"lanes": 33,
+					"mounts": 437,
+					"planning": 16638,
+					"trace": 93
+				},
+				"aiUs": 19106,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 7,
+				"time": 0.366666666666667,
+				"updateUs": 27797,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 593,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 12787,
+					"firing": 1735,
+					"helm": 1608,
+					"lanes": 30,
+					"mounts": 878,
+					"planning": 14395,
+					"trace": 91
+				},
+				"aiUs": 17129,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 8,
+				"time": 0.4,
+				"updateUs": 26148,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 584,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 20257,
+					"firing": 1758,
+					"helm": 2689,
+					"lanes": 31,
+					"mounts": 1127,
+					"planning": 22946,
+					"trace": 93
+				},
+				"aiUs": 25955,
+				"effects": 0,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 9,
+				"time": 0.433333333333333,
+				"updateUs": 33728,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 445,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 18
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 10434,
+					"firing": 1764,
+					"helm": 1712,
+					"lanes": 32,
+					"mounts": 466,
+					"planning": 12146,
+					"trace": 97
+				},
+				"aiUs": 14505,
+				"effects": 0,
+				"fireEvents": 0,
+				"projectiles": 3,
+				"tick": 10,
+				"time": 0.466666666666667,
+				"updateUs": 23319,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 818,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 0,
+					"samples": 0
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 16943,
+					"firing": 2237,
+					"helm": 1604,
+					"lanes": 29,
+					"mounts": 421,
+					"planning": 18547,
+					"trace": 110
+				},
+				"aiUs": 21344,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 11,
+				"time": 0.5,
+				"updateUs": 32030,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 631,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 18
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 10100,
+					"firing": 1596,
+					"helm": 1515,
+					"lanes": 30,
+					"mounts": 451,
+					"planning": 11615,
+					"trace": 89
+				},
+				"aiUs": 13781,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 12,
+				"time": 0.533333333333333,
+				"updateUs": 22099,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 516,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 10927,
+					"firing": 1767,
+					"helm": 1370,
+					"lanes": 29,
+					"mounts": 402,
+					"planning": 12297,
+					"trace": 90
+				},
+				"aiUs": 14585,
+				"effects": 1,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 13,
+				"time": 0.566666666666667,
+				"updateUs": 22955,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 464,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 18
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 16424,
+					"firing": 1970,
+					"helm": 1581,
+					"lanes": 30,
+					"mounts": 390,
+					"planning": 18005,
+					"trace": 91
+				},
+				"aiUs": 20486,
+				"effects": 2,
+				"fireEvents": 1,
+				"projectiles": 3,
+				"tick": 14,
+				"time": 0.6,
+				"updateUs": 28705,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 512,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 11425,
+					"firing": 1688,
+					"helm": 1523,
+					"lanes": 30,
+					"mounts": 443,
+					"planning": 12948,
+					"trace": 91
+				},
+				"aiUs": 15200,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 15,
+				"time": 0.633333333333333,
+				"updateUs": 26178,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 893,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 0,
+					"samples": 0
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 11823,
+					"firing": 1620,
+					"helm": 1913,
+					"lanes": 31,
+					"mounts": 435,
+					"planning": 13736,
+					"trace": 91
+				},
+				"aiUs": 15913,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 16,
+				"time": 0.666666666666667,
+				"updateUs": 24643,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 478,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 18
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 10895,
+					"firing": 1669,
+					"helm": 5724,
+					"lanes": 34,
+					"mounts": 412,
+					"planning": 16619,
+					"trace": 106
+				},
+				"aiUs": 18840,
+				"effects": 3,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 17,
+				"time": 0.7,
+				"updateUs": 27418,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 470,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 18
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 14603,
+					"firing": 7584,
+					"helm": 3507,
+					"lanes": 41,
+					"mounts": 400,
+					"planning": 18110,
+					"trace": 133
+				},
+				"aiUs": 26268,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 18,
+				"time": 0.733333333333333,
+				"updateUs": 35771,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 516,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 19368,
+					"firing": 1730,
+					"helm": 1633,
+					"lanes": 32,
+					"mounts": 522,
+					"planning": 21001,
+					"trace": 88
+				},
+				"aiUs": 23373,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 19,
+				"time": 0.766666666666667,
+				"updateUs": 34042,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 627,
+					"exhaustions": 7,
+					"fullRoutes": 0,
+					"rollouts": 2,
+					"samples": 18
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 13650,
+					"firing": 5585,
+					"helm": 1944,
+					"lanes": 48,
+					"mounts": 431,
+					"planning": 15594,
+					"trace": 118
+				},
+				"aiUs": 21776,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 20,
+				"time": 0.8,
+				"updateUs": 32932,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 733,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 19316,
+					"firing": 1944,
+					"helm": 2130,
+					"lanes": 33,
+					"mounts": 549,
+					"planning": 21446,
+					"trace": 143
+				},
+				"aiUs": 24115,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 21,
+				"time": 0.833333333333333,
+				"updateUs": 37996,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 409,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 3,
+					"samples": 27
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 15973,
+					"firing": 2947,
+					"helm": 1739,
+					"lanes": 36,
+					"mounts": 819,
+					"planning": 17712,
+					"trace": 110
+				},
+				"aiUs": 21624,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 22,
+				"time": 0.866666666666667,
+				"updateUs": 42515,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 513,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 13201,
+					"firing": 1706,
+					"helm": 1529,
+					"lanes": 33,
+					"mounts": 593,
+					"planning": 14730,
+					"trace": 101
+				},
+				"aiUs": 17163,
+				"effects": 2,
+				"fireEvents": 0,
+				"projectiles": 2,
+				"tick": 23,
+				"time": 0.9,
+				"updateUs": 27294,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 644,
+					"exhaustions": 0,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			},
+			{
+				"activeActors": 14,
+				"aiPhaseUs": {
+					"begin": 13077,
+					"firing": 1987,
+					"helm": 1619,
+					"lanes": 31,
+					"mounts": 651,
+					"planning": 14696,
+					"trace": 114
+				},
+				"aiUs": 17479,
+				"effects": 4,
+				"fireEvents": 1,
+				"projectiles": 2,
+				"tick": 24,
+				"time": 0.933333333333333,
+				"updateUs": 31757,
+				"work": {
+					"cacheEntries": 0,
+					"cacheHits": 0,
+					"clearanceTests": 485,
+					"exhaustions": 7,
+					"fullRoutes": 0,
+					"rollouts": 1,
+					"samples": 9
+				}
+			}
+		],
+		"simulatedSeconds": 0.933333333333333,
+		"tacticalCounters": {
+			"decisions": 84,
+			"droppedDecisions": 0,
+			"lateDecisions": 0,
+			"lateSafety": 0,
+			"oldestDecisionAge": 0.166666666666667,
+			"oldestPendingAge": 0.9,
+			"oldestSafetyAge": 0.1,
+			"orderAcks": [],
+			"rejectedIntents": 0
+		},
+		"ticksUs": [
+			27775,
+			23164,
+			24323,
+			23165,
+			23215,
+			29266,
+			27797,
+			26148,
+			33728,
+			23319,
+			32030,
+			22099,
+			22955,
+			28705,
+			26178,
+			24643,
+			27418,
+			35771,
+			34042,
+			32932,
+			37996,
+			42515,
+			27294,
+			31757
+		],
+		"timing": {
+			"count": 24,
+			"maxUs": 42515,
+			"medianUs": 27596.5,
+			"p95Us": 37996,
+			"totalUs": 688235
+		},
+		"warmupCompleted": 4,
+		"warmupRequested": 4,
+		"warmupUs": [
+			24436,
+			22270,
+			22234,
+			23214
+		]
+	},
+	"campaign": {
+		"coinsAfter": 172580000,
+		"coinsBefore": 172580000,
+		"constructorUs": 423215,
+		"dayAfter": 1.05555555555556,
+		"dayBefore": 1.0,
+		"dtSeconds": 0.25,
+		"independentOwnerIds": [
+			"patrol-0",
+			"patrol-1",
+			"patrol-2",
+			"patrol-3",
+			"patrol-4",
+			"patrol-5",
+			"patrol-6",
+			"patrol-7",
+			"patrol-8"
+		],
+		"measuredCompleted": 8,
+		"measuredRequested": 8,
+		"navalEncounterElapsed": 0.5,
+		"newGameUs": 228223,
+		"ownerCount": 17,
+		"pendingDays": 0,
+		"portCount": 10,
+		"routeCache": {
+			"entries": 19,
+			"hits": 0,
+			"misses": 19
+		},
+		"ticksUs": [
+			3997,
+			13583,
+			6181,
+			5435,
+			4002,
+			11896,
+			4277,
+			4904
+		],
+		"timing": {
+			"count": 8,
+			"maxUs": 13583,
+			"medianUs": 5169.5,
+			"p95Us": 13583,
+			"totalUs": 54275
+		},
+		"warmupCompleted": 2,
+		"warmupRequested": 2,
+		"warmupUs": [
+			4960,
+			6075
+		]
+	},
+	"checks": 48,
+	"complete": true,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"envelope": {
+		"admissionDeadlineUs": 24000000,
+		"audioDriverRequired": "Dummy in external invocation",
+		"enforcement": "Test Bridge owns job memory/CPU/affinity/deadline and records the actual envelope; this fixture does not change system settings.",
+		"externalProcessDeadlineSeconds": 30,
+		"externallyRequiredBuilderMiB": 1024,
+		"externallyRequiredGameMiB": 512,
+		"externallyRequiredJobCpuPercent": 8,
+		"externallyRequiredLogicalCpuLimit": 2,
+		"gpuMeasured": false,
+		"headless": true,
+		"minimumFinishMarginUs": 3000000,
+		"rendered": false
+	},
+	"failures": [],
+	"fixture": "performance039",
+	"fixtureSha256": "52560dc31429c04483a3ed7b02a48cbb4ad6ebaf2f3d98285ebf86f7950214f2",
+	"gameVersion": "0.040",
+	"guardStops": [],
+	"limits": "Short CPU simulation sample, not GPU FPS, long-run throughput, presentation, sound or full-game acceptance. AI aggregate clocks overlap the total update timing; other phases are not separately instrumented. Preload/import/engine startup and queue wait are outside the fixture wall clock; the owning batch records them separately.",
+	"logicalProcessorsObserved": 24,
+	"memoryAfter": {
+		"engineStaticBytes": 63026461,
+		"engineStaticPeakBytes": 149772972,
+		"note": "Godot static allocations, not process RSS or GPU memory. Process limits are imposed and recorded by Test Bridge."
+	},
+	"memoryBefore": {
+		"engineStaticBytes": 46422381,
+		"engineStaticPeakBytes": 149772972,
+		"note": "Godot static allocations, not process RSS or GPU memory. Process limits are imposed and recorded by Test Bridge."
+	},
+	"paidEconomy": {
+		"coinsAfter": 172580000,
+		"coinsBefore": 172580000,
+		"daysCompleted": 1,
+		"daysRequested": 1,
+		"econDayAfter": 2,
+		"econDayBefore": 1,
+		"note": "Same detached EconomyWorkers and main-thread Campaign.apply_economy path used by Main.sync_economy; one existing wait_day only.",
+		"paidWorkers": 15379,
+		"payroll": {
+			"business": 1623443,
+			"expert": 363785,
+			"household": 1323726,
+			"public": 145122,
+			"tax": 81054,
+			"total": 1768565
+		},
+		"portCount": 10,
+		"publicationUs": 361479,
+		"workerEvents": 10,
+		"workerLanes": 8,
+		"workerReportedUs": 83095,
+		"workerUs": 84062
+	},
+	"schema": 1,
+	"sourceBinding": "Root's exact-source Test Bridge receipt binds all res:// scripts. No measured code is preloaded outside the project.",
+	"status": "complete",
+	"wallUs": 1991456,
+	"workload": {
+		"battle": {
+			"contactShift": 300.0,
+			"dt": 0.0333333333333333,
+			"terrain": "Explicit open water: islands:[], coastalEncounter:true",
+			"ticks": 24,
+			"warmup": 4
+		},
+		"campaign": {
+			"dt": 0.25,
+			"ticks": 8,
+			"warmup": 2
+		},
+		"hullsPerSide": [
+			"maiden_dreadnought",
+			"manta_strike",
+			"cinder_monitor",
+			"slag_gunboat",
+			"gale_cutter",
+			"lantern_skiff",
+			"bilge_punt"
+		],
+		"paidWorkerDays": 1,
+		"seed": 3901,
+		"stockCanonicalEquipment": true
+	},
+	"workloadSha256": "3326be036020adba049a3aef19192cdd5dd9fd825d7bdc82b89b136dd2ed5e17",
+	"worldSha256": "cebde54f90372ae9a3807a67471b85436586c497ad916bc774b655653d71470d"
+}

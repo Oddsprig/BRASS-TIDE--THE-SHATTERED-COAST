@@ -1,0 +1,1068 @@
+{
+	"checks": 52,
+	"complete": true,
+	"engineStaticBytes": 34727115,
+	"engineStaticPeakBytes": 95205919,
+	"envelope": {
+		"admissionUs": 24000000,
+		"builderMiB": 1024,
+		"enforcement": "External Test Bridge job; this fixture changes no system settings.",
+		"externalDeadlineSeconds": 30,
+		"gameMiB": 512,
+		"jobCpuPercent": 8,
+		"logicalCpuLimit": 2
+	},
+	"failures": [],
+	"fixture": "combat_hotpath040",
+	"fixtureSha256": "7ade089a6fdb19b9b00ab12ba215c0dcaebe465eecf743a2fd3812e823a5711e",
+	"guardStops": [],
+	"lightBattle": {
+		"actual": {
+			"enemyBoats": 21,
+			"enemyPoints": 294,
+			"playerBoats": 21,
+			"playerPoints": 294,
+			"totalBoats": 42
+		},
+		"aiTiming": {
+			"count": 12,
+			"maxUs": 43798,
+			"medianUs": 40827.5,
+			"p95Us": 43798,
+			"totalUs": 485108
+		},
+		"aiUs": [
+			41294,
+			42251,
+			38699,
+			38830,
+			41062,
+			38794,
+			41400,
+			43798,
+			41174,
+			38920,
+			40593,
+			38293
+		],
+		"complete": true,
+		"createUs": 121551,
+		"dt": 0.0166666666666667,
+		"engagement": {
+			"boatsWithPublishedIntents": 15,
+			"byId": {
+				"enemy-0-bilge_punt": {
+					"displacement": 12.4721403121948,
+					"distance": 12.4758921265602,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "enemy"
+				},
+				"enemy-1-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "enemy"
+				},
+				"enemy-10-bilge_punt": {
+					"displacement": 12.5141792297363,
+					"distance": 12.5146336257458,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "enemy"
+				},
+				"enemy-11-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "enemy"
+				},
+				"enemy-12-bilge_punt": {
+					"displacement": 12.4775638580322,
+					"distance": 12.479839541018,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "enemy"
+				},
+				"enemy-13-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "enemy"
+				},
+				"enemy-14-bilge_punt": {
+					"displacement": 12.5299072265625,
+					"distance": 12.5299072265625,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "enemy"
+				},
+				"enemy-15-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "enemy"
+				},
+				"enemy-16-bilge_punt": {
+					"displacement": 11.2078342437744,
+					"distance": 11.2114041894674,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "enemy"
+				},
+				"enemy-17-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "enemy"
+				},
+				"enemy-18-bilge_punt": {
+					"displacement": 11.2479000091553,
+					"distance": 11.2483511567116,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "enemy"
+				},
+				"enemy-19-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "enemy"
+				},
+				"enemy-2-bilge_punt": {
+					"displacement": 11.2474927902222,
+					"distance": 11.2481569349766,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "enemy"
+				},
+				"enemy-20-bilge_punt": {
+					"displacement": 11.2604389190674,
+					"distance": 11.2605532482266,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "enemy"
+				},
+				"enemy-3-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "enemy"
+				},
+				"enemy-4-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "enemy"
+				},
+				"enemy-5-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "enemy"
+				},
+				"enemy-6-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "enemy"
+				},
+				"enemy-7-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "enemy"
+				},
+				"enemy-8-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "enemy"
+				},
+				"enemy-9-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "enemy"
+				},
+				"player-0-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "player"
+				},
+				"player-1-bilge_punt": {
+					"displacement": 8.82280540466309,
+					"distance": 8.82578825205565,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "player"
+				},
+				"player-10-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "player"
+				},
+				"player-11-bilge_punt": {
+					"displacement": 8.85948944091797,
+					"distance": 8.85985012352467,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "player"
+				},
+				"player-12-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "player"
+				},
+				"player-13-bilge_punt": {
+					"displacement": 8.83331966400146,
+					"distance": 8.83566101640463,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 3,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "player"
+				},
+				"player-14-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "player"
+				},
+				"player-15-bilge_punt": {
+					"displacement": 7.75030517578125,
+					"distance": 7.75030517578125,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 2,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "player"
+				},
+				"player-16-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "player"
+				},
+				"player-17-bilge_punt": {
+					"displacement": 7.70604467391968,
+					"distance": 7.70879288762808,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 2,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "player"
+				},
+				"player-18-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Waiting for a safe route and exit.",
+					"team": "player"
+				},
+				"player-19-bilge_punt": {
+					"displacement": 7.74037027359009,
+					"distance": 7.74071507900953,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 2,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "player"
+				},
+				"player-2-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Route or exit blocked.",
+					"team": "player"
+				},
+				"player-20-bilge_punt": {
+					"displacement": 7.73140382766724,
+					"distance": 7.7323185801506,
+					"hasIntent": true,
+					"pending": false,
+					"publishedIntents": 2,
+					"reason": "Separated approach to pressure an exposed side.",
+					"team": "player"
+				},
+				"player-3-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "player"
+				},
+				"player-4-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "player"
+				},
+				"player-5-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "player"
+				},
+				"player-6-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "player"
+				},
+				"player-7-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "player"
+				},
+				"player-8-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "player"
+				},
+				"player-9-bilge_punt": {
+					"displacement": 0.0,
+					"distance": 0.0,
+					"hasIntent": false,
+					"pending": true,
+					"publishedIntents": 0,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver.",
+					"team": "player"
+				}
+			},
+			"commonPendingReasons": [
+				{
+					"count": 161,
+					"reason": "Planning clearance budget pending; wait for a checked maneuver."
+				},
+				{
+					"count": 117,
+					"reason": "Waiting for a safe route and exit."
+				},
+				{
+					"count": 105,
+					"reason": "Choosing a safe maneuver"
+				},
+				{
+					"count": 78,
+					"reason": "Route or exit blocked."
+				}
+			],
+			"commonWithheldReasons": [
+				{
+					"count": 461,
+					"reason": "Checking the firing maneuver"
+				},
+				{
+					"count": 211,
+					"reason": "Waiting for a usable firing window."
+				}
+			],
+			"movedBoats": 15,
+			"movedBySide": {
+				"enemy": 8,
+				"player": 7
+			},
+			"pendingReasonCounts": {
+				"Choosing a safe maneuver": 105,
+				"Planning clearance budget pending; wait for a checked maneuver.": 161,
+				"Route or exit blocked.": 78,
+				"Waiting for a safe route and exit.": 117
+			},
+			"publishedIntents": 41,
+			"readyMountTicks": 0,
+			"samples": [
+				{
+					"intentHulls": 4,
+					"movedBoats": 4,
+					"pendingHulls": 38,
+					"publishedIntents": 4,
+					"time": 0.0166666666666667
+				},
+				{
+					"intentHulls": 8,
+					"movedBoats": 8,
+					"pendingHulls": 34,
+					"publishedIntents": 4,
+					"time": 0.0333333333333333
+				},
+				{
+					"intentHulls": 8,
+					"movedBoats": 8,
+					"pendingHulls": 34,
+					"publishedIntents": 0,
+					"time": 0.05
+				},
+				{
+					"intentHulls": 11,
+					"movedBoats": 11,
+					"pendingHulls": 31,
+					"publishedIntents": 3,
+					"time": 0.0666666666666667
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 4,
+					"time": 0.0833333333333333
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 0,
+					"time": 0.1
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 4,
+					"time": 0.116666666666667
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 4,
+					"time": 0.133333333333333
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 0,
+					"time": 0.15
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 3,
+					"time": 0.166666666666667
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 4,
+					"time": 0.183333333333333
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 0,
+					"time": 0.2
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 4,
+					"time": 0.216666666666667
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 4,
+					"time": 0.233333333333333
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 0,
+					"time": 0.25
+				},
+				{
+					"intentHulls": 15,
+					"movedBoats": 15,
+					"pendingHulls": 27,
+					"publishedIntents": 3,
+					"time": 0.266666666666667
+				}
+			],
+			"scope": "All completed warmup+measured ticks from unchanged spawn; movement cutoff0.0001world units. Publication means actual accepted trace row; a stored intent alone may be pending. Reason counts are hull-ticks or mount-ticks, not unique refusals. This short window is not sustained engagement proof.",
+			"withheldReasonCounts": {
+				"Checking the firing maneuver": 461,
+				"Waiting for a usable firing window.": 211
+			}
+		},
+		"eventKinds": {},
+		"eventTicks": 16,
+		"events": 0,
+		"fireEvents": 0,
+		"fireFamilies": {},
+		"hull": "bilge_punt",
+		"measuredCompleted": 12,
+		"measuredRequested": 12,
+		"peakEffects": 0,
+		"peakProjectiles": 0,
+		"peakRouteCacheEntries": 0,
+		"quote": {
+			"enemy": {
+				"boats": 21,
+				"crew": 84,
+				"points": 294
+			},
+			"error": "",
+			"ok": true,
+			"player": {
+				"boats": 21,
+				"crew": 84,
+				"points": 294
+			}
+		},
+		"requestedBoatsPerSide": 21,
+		"result": null,
+		"samples": [
+			{
+				"aiUs": 41294,
+				"phaseUs": {
+					"begin": 29574,
+					"firing": 5507,
+					"helm": 4361,
+					"lanes": 68,
+					"mounts": 1486,
+					"planning": 33935,
+					"trace": 298
+				},
+				"planningCalls": {
+					"candidates": 28,
+					"certify": 24,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 29326,
+					"certification": 15234,
+					"helmCurrent": 1387,
+					"helmSafety": 2699,
+					"helmTotal": 4293,
+					"observation": 4528,
+					"physicalCertification": 8757,
+					"proposals": 5646,
+					"resolution": 2297,
+					"snapshots": 1613
+				},
+				"simTime": 0.0833333333333333,
+				"tick": 1,
+				"updateUs": 64244
+			},
+			{
+				"aiUs": 42251,
+				"phaseUs": {
+					"begin": 31657,
+					"firing": 4779,
+					"helm": 4240,
+					"lanes": 67,
+					"mounts": 1235,
+					"planning": 35897,
+					"trace": 273
+				},
+				"planningCalls": {
+					"candidates": 28,
+					"certify": 28,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 31454,
+					"certification": 17185,
+					"helmCurrent": 1400,
+					"helmSafety": 2580,
+					"helmTotal": 4176,
+					"observation": 4629,
+					"physicalCertification": 9155,
+					"proposals": 6723,
+					"resolution": 1250,
+					"snapshots": 1659
+				},
+				"simTime": 0.1,
+				"tick": 2,
+				"updateUs": 65334
+			},
+			{
+				"aiUs": 38699,
+				"phaseUs": {
+					"begin": 28289,
+					"firing": 4765,
+					"helm": 4140,
+					"lanes": 68,
+					"mounts": 1189,
+					"planning": 32429,
+					"trace": 248
+				},
+				"planningCalls": {
+					"candidates": 28,
+					"certify": 4,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 28027,
+					"certification": 13239,
+					"helmCurrent": 1334,
+					"helmSafety": 2550,
+					"helmTotal": 4075,
+					"observation": 5177,
+					"physicalCertification": 7397,
+					"proposals": 6163,
+					"resolution": 1853,
+					"snapshots": 1588
+				},
+				"simTime": 0.116666666666667,
+				"tick": 3,
+				"updateUs": 61188
+			},
+			{
+				"aiUs": 38830,
+				"phaseUs": {
+					"begin": 28316,
+					"firing": 4616,
+					"helm": 4381,
+					"lanes": 67,
+					"mounts": 1197,
+					"planning": 32697,
+					"trace": 253
+				},
+				"planningCalls": {
+					"candidates": 28,
+					"certify": 4,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 28090,
+					"certification": 13970,
+					"helmCurrent": 1388,
+					"helmSafety": 2723,
+					"helmTotal": 4319,
+					"observation": 4586,
+					"physicalCertification": 7761,
+					"proposals": 5971,
+					"resolution": 1937,
+					"snapshots": 1619
+				},
+				"simTime": 0.133333333333333,
+				"tick": 4,
+				"updateUs": 61888
+			},
+			{
+				"aiUs": 41062,
+				"phaseUs": {
+					"begin": 29583,
+					"firing": 5374,
+					"helm": 4569,
+					"lanes": 70,
+					"mounts": 1170,
+					"planning": 34152,
+					"trace": 296
+				},
+				"planningCalls": {
+					"candidates": 32,
+					"certify": 20,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 29228,
+					"certification": 15713,
+					"helmCurrent": 1545,
+					"helmSafety": 2736,
+					"helmTotal": 4493,
+					"observation": 4606,
+					"physicalCertification": 7330,
+					"proposals": 6258,
+					"resolution": 1020,
+					"snapshots": 1623
+				},
+				"simTime": 0.15,
+				"tick": 5,
+				"updateUs": 63954
+			},
+			{
+				"aiUs": 38794,
+				"phaseUs": {
+					"begin": 27570,
+					"firing": 5161,
+					"helm": 4473,
+					"lanes": 68,
+					"mounts": 1240,
+					"planning": 32043,
+					"trace": 282
+				},
+				"planningCalls": {
+					"candidates": 35,
+					"certify": 3,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 27281,
+					"certification": 12394,
+					"helmCurrent": 1435,
+					"helmSafety": 2754,
+					"helmTotal": 4402,
+					"observation": 5230,
+					"physicalCertification": 5699,
+					"proposals": 5881,
+					"resolution": 1602,
+					"snapshots": 2168
+				},
+				"simTime": 0.166666666666667,
+				"tick": 6,
+				"updateUs": 62012
+			},
+			{
+				"aiUs": 41400,
+				"phaseUs": {
+					"begin": 30193,
+					"firing": 5246,
+					"helm": 4382,
+					"lanes": 68,
+					"mounts": 1244,
+					"planning": 34575,
+					"trace": 267
+				},
+				"planningCalls": {
+					"candidates": 28,
+					"certify": 8,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 29965,
+					"certification": 14183,
+					"helmCurrent": 1407,
+					"helmSafety": 2705,
+					"helmTotal": 4312,
+					"observation": 4553,
+					"physicalCertification": 7863,
+					"proposals": 7734,
+					"resolution": 1861,
+					"snapshots": 1624
+				},
+				"simTime": 0.183333333333333,
+				"tick": 7,
+				"updateUs": 64280
+			},
+			{
+				"aiUs": 43798,
+				"phaseUs": {
+					"begin": 31967,
+					"firing": 5338,
+					"helm": 4805,
+					"lanes": 79,
+					"mounts": 1210,
+					"planning": 36772,
+					"trace": 399
+				},
+				"planningCalls": {
+					"candidates": 35,
+					"certify": 28,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 31720,
+					"certification": 17788,
+					"helmCurrent": 1700,
+					"helmSafety": 2818,
+					"helmTotal": 4732,
+					"observation": 4777,
+					"physicalCertification": 9042,
+					"proposals": 6019,
+					"resolution": 1148,
+					"snapshots": 1979
+				},
+				"simTime": 0.2,
+				"tick": 8,
+				"updateUs": 67016
+			},
+			{
+				"aiUs": 41174,
+				"phaseUs": {
+					"begin": 30178,
+					"firing": 4650,
+					"helm": 4446,
+					"lanes": 71,
+					"mounts": 1344,
+					"planning": 34624,
+					"trace": 485
+				},
+				"planningCalls": {
+					"candidates": 31,
+					"certify": 4,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 29896,
+					"certification": 13339,
+					"helmCurrent": 1422,
+					"helmSafety": 2748,
+					"helmTotal": 4372,
+					"observation": 6427,
+					"physicalCertification": 7619,
+					"proposals": 6161,
+					"resolution": 1974,
+					"snapshots": 1987
+				},
+				"simTime": 0.216666666666667,
+				"tick": 9,
+				"updateUs": 65569
+			},
+			{
+				"aiUs": 38920,
+				"phaseUs": {
+					"begin": 28491,
+					"firing": 4598,
+					"helm": 4225,
+					"lanes": 71,
+					"mounts": 1211,
+					"planning": 32716,
+					"trace": 324
+				},
+				"planningCalls": {
+					"candidates": 28,
+					"certify": 4,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 28291,
+					"certification": 13658,
+					"helmCurrent": 1342,
+					"helmSafety": 2624,
+					"helmTotal": 4160,
+					"observation": 4874,
+					"physicalCertification": 7415,
+					"proposals": 5987,
+					"resolution": 2172,
+					"snapshots": 1592
+				},
+				"simTime": 0.233333333333333,
+				"tick": 10,
+				"updateUs": 61914
+			},
+			{
+				"aiUs": 40593,
+				"phaseUs": {
+					"begin": 29691,
+					"firing": 4953,
+					"helm": 4293,
+					"lanes": 72,
+					"mounts": 1200,
+					"planning": 33984,
+					"trace": 384
+				},
+				"planningCalls": {
+					"candidates": 35,
+					"certify": 20,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 29452,
+					"certification": 15803,
+					"helmCurrent": 1407,
+					"helmSafety": 2601,
+					"helmTotal": 4232,
+					"observation": 4779,
+					"physicalCertification": 7164,
+					"proposals": 6274,
+					"resolution": 984,
+					"snapshots": 1605
+				},
+				"simTime": 0.25,
+				"tick": 11,
+				"updateUs": 64417
+			},
+			{
+				"aiUs": 38293,
+				"phaseUs": {
+					"begin": 26970,
+					"firing": 4864,
+					"helm": 4554,
+					"lanes": 74,
+					"mounts": 1209,
+					"planning": 31524,
+					"trace": 622
+				},
+				"planningCalls": {
+					"candidates": 36,
+					"certify": 3,
+					"helm": 42
+				},
+				"planningDetailUs": {
+					"beginTotal": 26687,
+					"certification": 12407,
+					"helmCurrent": 1465,
+					"helmSafety": 2799,
+					"helmTotal": 4484,
+					"observation": 4686,
+					"physicalCertification": 5613,
+					"proposals": 6359,
+					"resolution": 1545,
+					"snapshots": 1682
+				},
+				"simTime": 0.266666666666667,
+				"tick": 12,
+				"updateUs": 60957
+			}
+		],
+		"seed": 4040,
+		"simSeconds": 0.266666666666667,
+		"terrain": "Unchanged public Lab default islands/formation",
+		"ticksUs": [
+			64244,
+			65334,
+			61188,
+			61888,
+			63954,
+			62012,
+			64280,
+			67016,
+			65569,
+			61914,
+			64417,
+			60957
+		],
+		"timing": {
+			"count": 12,
+			"maxUs": 67016,
+			"medianUs": 64099.0,
+			"p95Us": 67016,
+			"totalUs": 762773
+		},
+		"unitPoints": 14,
+		"warmupCompleted": 4,
+		"warmupRequested": 4,
+		"warmupUs": [
+			65053,
+			70950,
+			65201,
+			75422
+		],
+		"work": {
+			"cacheHits": 0,
+			"clearanceTests": 29873,
+			"exhaustions": 14,
+			"fullRoutes": 0,
+			"rollouts": 44,
+			"samples": 792
+		}
+	},
+	"limits": "Short headless CPU simulation under caps; not measured FPS, rendered gameplay, listening, or long-run throughput. aiUs overlaps total update time. Events include warmup and measured ticks; timings and work counters cover measured ticks only. Queue/startup/import are outside this fixture clock and remain in Root's batch receipt.",
+	"passed": true,
+	"prefix": {
+		"authoritySeconds": 0.2,
+		"exactSteps30Hz": 9,
+		"exactSteps60Hz": 18,
+		"fullCorridor": true,
+		"liveCollisionSafety": true,
+		"physicalSeconds": 0.3
+	},
+	"schema": 1,
+	"sourceBinding": "Root's exact-source Test Bridge receipt binds all res:// code.",
+	"status": "complete",
+	"trace": {
+		"perHullRows": 2,
+		"publicationRows": 0
+	},
+	"wallUs": 1227694,
+	"worldSha256": "cebde54f90372ae9a3807a67471b85436586c497ad916bc774b655653d71470d"
+}

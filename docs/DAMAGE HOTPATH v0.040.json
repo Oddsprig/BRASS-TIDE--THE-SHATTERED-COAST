@@ -1,0 +1,12 @@
+{
+	"checks": 124,
+	"complete": true,
+	"failures": 0,
+	"fixture": "damage_hotpath040",
+	"probe": {
+		"newUs": 28318,
+		"note": "Same canonical moving boat, fresh validation each tick, reversed arm order; bounded CPU microprobe, not battle capacity or GPU FPS.",
+		"oldUs": 29661,
+		"ticksPerVariant": 64
+	}
+}

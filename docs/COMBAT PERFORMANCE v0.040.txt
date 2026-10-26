@@ -22,13 +22,37 @@ CORRECTIONS
 - The developer display records actual displayed FPS, frame process time,
   draw calls and tactical phase costs during normal play.
 
-VERIFICATION STATUS
-Final healthy-path equivalence and crowded movement measurements are pending.
-The earlier full corrective batch passed331assertions, export and three
-portable startups in54.596seconds including setup, but that result predates
-the substantive forecast and healthy-path changes. It is not final approval.
-All failed and diagnostic attempts remain preserved in the shared TestBridge.
-A diagnostic-only pass cannot deliver or package a game version.
+FINAL VERIFICATION AND LIMITS
+Source/tag5f2f17b3708167e1dd76a3f6485ab965e85804cf /v0.040.
+TestBridge76e2f7ac962d447fa204078a72742ab2:486checks,0failures;
+Windows release export, menu/campaign/battle startup and release CPU probe
+passed. Complete selected batch plus setup62.395seconds; cleanup verified.
+Background/headless/Dummy throughout, no input/focus or GPU test.
+
+Final source/editor workload:14boats at300/300DP, median27.5965ms,
+P9537.996ms;42light boats at294/294DP, median64.099ms,P9567.016ms.
+The earlier controlled source baseline was28.4855ms and84.6755ms median.
+These short runs have machine contention and are not a full-game speed claim.
+
+ACTUAL EXPORTED RELEASE:42light boats,294DP per side, four warmup plus
+12measured ticks at1/60. Median54.861ms,P9570.742ms. Verified editor=false,
+debug=false,release=true.15boats moved; the0.2667second opening window
+produced no weapon events. This is a CPU opening-window probe, not a test
+of sustained combat, rendering FPS or sound quality. Crowded simulation
+still needs substantial performance work. Starsector quality is NOT achieved.
+
+The healthy-tick fixture passed124full-state/report/cache checks. Its final
+64-call paired microprobe measured29,661us old vs28,318us guarded path.
+The tactical fixture passed52checks, including exact short-prefix agreement
+with the retained120-step reference, route exits, collision, damage and
+expired authority. Different lookahead may change planning choices; live
+movement, collision and weapon checks remain active.
+
+The CPU-rasterized actual draw-call gallery and16-frame sequence were
+reviewed for chart readability, mount marks, impacts and short stern foam.
+They do not establish GPU playback or a subjective gameplay/audio verdict.
+The v0.041 expedition remains held while core quality takes priority.
+All failed and diagnostic attempts are preserved; none is counted as a pass.
 
 Read COMBAT BASELINE v0.040.json for source-bound actual initial data.
 All tests remain background/headless/silent, with512MiB game memory, at most

@@ -8,4 +8,6 @@ The owner rejected the v0.039 map, wake and combat performance. This pass correc
 - Exact tactical forecasts cover their approval window while preserving complete route geometry and live collision/fire checks; healthy boats skip guarded zero-work repair calculations.
 - Existing developer diagnostics report live FPS/frame/draw calls; a headless probe measures the actual exported game separately from editor tests.
 
-Final package verification is pending. CPU simulation timings, GPU FPS and subjective gameplay/audio quality are distinct.
+The final selected checks, release export and runtime probe passed. CPU simulation timings, GPU FPS and subjective gameplay/audio quality are distinct.
+
+Verification: 486 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 62.395s. Preserved earlier failures; no broad acceptance claim.

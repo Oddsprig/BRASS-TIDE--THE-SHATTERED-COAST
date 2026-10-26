@@ -1,5 +1,7 @@
+CURRENT QUALITY PRIORITY: v0.040 corrective build verified. Crowded combat performance still needs work. The planned v0.041 expedition remains unstarted during this core quality review.
+
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.039
+26 October 2026 | Authorized sequential builds; delivered v0.040
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -49,7 +51,7 @@ Measure agreed representative campaign and300-point battle cases. Fix measured
 bottlenecks, preserve behavior and inexpensive water, and retain a short
 repeatable benchmark. Further optimization needs evidence of a real problem.
 
-0.040 - COMBAT PRESENTATION AND SOUND
+0.040 - COMBAT PRESENTATION AND SOUND [DONE]
 A defined pass on damage/disabled-module feedback, wakes, weapon impacts and
 sound balance across the implemented boats. Keep effects inexpensive and weapon
 families distinct. Use existing systems and a bounded presentation checklist.
