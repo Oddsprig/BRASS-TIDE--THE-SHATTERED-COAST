@@ -1,10 +1,16 @@
-BRASS TIDE v0.040 - COMBAT PRESENTATION AND SOUND
+BRASS TIDE v0.040 - CHART READABILITY AND COMBAT CORRECTIONS
 26 October2026 |36 boat designs
+
+OWNER STEERING: After playing039, the owner rejected map readability, combat
+and wake quality. This build corrects those concrete problems before041.
+No claim of Starsector parity. Read COMBAT PRESENTATION v0.040.txt.
 
 THIS VERSION
 - Existing damage and disabled equipment produce clearer visible feedback without a new rendering system.
-- Weapon impacts and boat wakes receive one bounded inexpensive effects pass.
-- Existing weapon sound families retain distinct reports with controlled layering and level balance.
+- Strategic markers and labels stay readable at overview; short stern foam replaces long V-shaped wake lines.
+- Existing recorded sound families retain controlled layering and level balance.
+- Repeated tactical work is reduced and measured with bounded battle samples.
+- Developer display adds actual FPS, frame process time and draw calls.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
