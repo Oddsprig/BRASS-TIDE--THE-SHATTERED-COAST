@@ -14,6 +14,13 @@ static func spend(budget: Dictionary, count: int=1) -> bool:
 static func point(s: Dictionary) -> Vector2:
 	return Vector2(float(s.x),float(s.y))
 
+static func planning_radius(ship: Dictionary) -> float:
+	var spec: Dictionary=ship.spec
+	# A quarter of the fitted full-speed turning radius leaves room to set up a turn.
+	# This is route clearance only; collisions and the real helm keep physical size.
+	var allowance: float=clampf(maxf(0.0,float(spec.get("speed",90)))/maxf(0.1,float(spec.get("turn",1.8)))*0.25,0.0,64.0)
+	return maxf(10.0,float(spec.get("size",16)))+4.0+allowance
+
 static func distance(p: Vector2,a: Vector2,b: Vector2) -> float:
 	var d: Vector2=b-a
 	return p.distance_to(a+d*clampf((p-a).dot(d)/maxf(0.000001,d.length_squared()),0.0,1.0))
@@ -182,7 +189,7 @@ static func refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidat
 		var points: Array=[]
 		for goal in candidate.get(leg,[]):
 			if not goal is Vector2 or not goal.is_finite():return {"status":"blocked","candidate":result}
-			var found: Dictionary=route(st,geometry,previous,goal,maxf(10.0,float(ship.spec.get("size",16)))+4.0,budget)
+			var found: Dictionary=route(st,geometry,previous,goal,planning_radius(ship),budget)
 			if found.status!="valid":return {"status":found.status,"candidate":result}
 			points.append_array(found.path)
 			if points.size()>8:return {"status":"blocked","candidate":result}

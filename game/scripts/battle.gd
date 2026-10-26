@@ -11,6 +11,7 @@ const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Certification=preload("res://scripts/tactical_certification.gd")
 const FireControl=preload("res://scripts/tactical_fire_control.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
+const Routes=preload("res://scripts/tactical_routes.gd")
 const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
 const MAX_MOUNTS: int=16
@@ -90,8 +91,10 @@ static func create(options: Dictionary) -> Dictionary:
 	for island in options.get("islands",[]):
 		var points: Array=island.get("points",[]) if island is Dictionary else island
 		if points.size()>=3:
-			st.islands.append({"points":points.duplicate(true)})
-	if st.islands.is_empty():
+			var local: Dictionary=island.duplicate(true) if island is Dictionary else {}
+			local.points=points.duplicate(true)
+			st.islands.append(local)
+	if not options.has("islands"):
 		st.islands=[{"points":[[850,80],[1130,120],[1210,310],[1030,420],[820,300]]},{"points":[[1040,1320],[1240,1250],[1430,1450],[1320,1640],[1070,1580]]}]
 	var fleet: Array=options.get("fleet",[])
 	var enemy_fleet: Array=options.get("enemyFleet",[]).duplicate()
@@ -104,14 +107,29 @@ static func create(options: Dictionary) -> Dictionary:
 		return st
 	var player_split: Dictionary=Deployment.split(fleet)
 	var enemy_split: Dictionary=Deployment.split(enemy_fleet)
+	var spawns: Dictionary=_formation_positions(st,player_split.deployed,enemy_split.deployed)
+	if spawns.has("error"):
+		st.startError=spawns.error;st.result="lost";st.objectiveSuccess=false
+		return st
+	var reach: Dictionary={"left":64}
+	if options.get("coastalEncounter",false) and not spawns.player.is_empty() and not spawns.enemy.is_empty():
+		if not _reachable(st,spawns.player[0],spawns.enemy[0],float(spawns.clearance),reach):
+			st.startError="No water route connects the opposing coastal formations for these hulls.";st.result="lost";st.objectiveSuccess=false
+			return st
+	if options.get("coastalEncounter",false) and Objectives.is_convoy(st):
+		var exit: Dictionary=_coastal_exit(st,spawns,player_split.deployed,enemy_split.deployed,reach)
+		if exit.is_empty():
+			st.startError="No reachable water-safe convoy formation and far exit could be established for these hulls.";st.result="lost";st.objectiveSuccess=false
+			return st
+		st.mission.exit=exit
 	st.reserves.player=player_split.reserve
 	st.reserves.enemy=enemy_split.reserve
 	st.deployment.player=player_split.points
 	st.deployment.enemy=enemy_split.points
 	for i in range(player_split.deployed.size()):
-		_deploy(st,player_split.deployed[i],i,"player",player_split.deployed.size())
+		_deploy(st,player_split.deployed[i],i,"player",spawns.player[i])
 	for i in range(enemy_split.deployed.size()):
-		_deploy(st,enemy_split.deployed[i],i,"enemy",enemy_split.deployed.size())
+		_deploy(st,enemy_split.deployed[i],i,"enemy",spawns.enemy[i])
 	Objectives.configure(st)
 	for ship in st.ships:
 		if ship.team=="player" and not ship.sunk and not str(ship.get("uid","")) in st.mission.get("allyUids",[]):
@@ -123,7 +141,76 @@ static func create(options: Dictionary) -> Dictionary:
 static func objective_snapshot(st: Dictionary) -> Dictionary:
 	return Objectives.snapshot(st)
 
-static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: int) -> void:
+static func _deployment_spec(ship: Dictionary) -> Dictionary:
+	# Match _deploy's fitting before deciding which actual hull will fit in water.
+	if not EquipmentCombat.is_corrupt_owner(ship) and not ship.spec.get("weaponMounts") is Array:
+		var loadout: Dictionary=ship.loadout if ship.get("loadout") is Dictionary else Refit.defaults(ship.spec)
+		return Refit.effective_spec(ship.spec,loadout)
+	return ship.spec
+
+static func _formation_positions(st: Dictionary,players: Array,enemies: Array) -> Dictionary:
+	var positions: Dictionary={"player":[],"enemy":[],"largest":10.0,"clearance":10.0}
+	for ship in players+enemies:
+		positions.clearance=maxf(float(positions.clearance),Routes.planning_radius({"spec":_deployment_spec(ship)}))
+	var placed: Dictionary={"islands":st.islands,"ships":[]}
+	for team in ["player","enemy"]:
+		var fleet: Array=players if team=="player" else enemies
+		for i in range(fleet.size()):
+			var shape: Dictionary={"spec":_deployment_spec(fleet[i]),"sunk":false}
+			var clearance: float=float(positions.clearance)
+			var preferred: Vector2=Vector2((520.0 if team=="player" else 1600.0)+(i%2)*85.0,850.0+(floor(i/2.0)-(ceil(fleet.size()/2.0)-1.0)/2.0)*85.0)
+			var spawn: Vector2=preferred if _spawn_clear(placed,shape,preferred,clearance) else Vector2(INF,INF)
+			var best: float=INF
+			if not spawn.is_finite():
+				# Fixed, bounded samples in this side's formation area; never change coast.
+				for k in range(176):
+					var p: Vector2=Vector2((120.0 if team=="player" else 1280.0)+(k%11)*90.0,120.0+floor(k/11.0)*96.0)
+					var distance: float=p.distance_squared_to(preferred)
+					if distance<best and _spawn_clear(placed,shape,p,clearance):spawn=p;best=distance
+			if not spawn.is_finite():return {"error":"No safe water formation for every deployed hull at this coast."}
+			positions[team].append(spawn)
+			positions.largest=maxf(float(positions.largest),_radius(shape))
+			shape.x=spawn.x;shape.y=spawn.y;placed.ships.append(shape)
+	return positions
+
+static func _reachable(st: Dictionary,a: Vector2,b: Vector2,r: float,remaining: Dictionary) -> bool:
+	# Whole encounter setup has at most 64 bounded queries, each using the existing
+	# corner router and its normal 4096-clearance ceiling. Pending never means safe.
+	if int(remaining.left)<=0:return false
+	remaining.left-=1
+	var budget: Dictionary={"fullRoutes":0,"cacheHits":0,"clearanceTests":0,"clearanceLimit":4096,"exhaustions":0}
+	return Routes.route(st,Routes.terrain(st),a,b,r,budget).status=="valid"
+
+static func _coastal_exit(st: Dictionary,spawns: Dictionary,players: Array,enemies: Array,reach: Dictionary) -> Dictionary:
+	var exit: Dictionary=st.mission.get("exit",{}).duplicate(true)
+	var right: bool=str(st.mission.get("carrierTeam","player" if st.mission.kind=="escort" else "enemy"))=="player"
+	var fleet: Array=players if right else enemies
+	var starts: Array=spawns.player if right else spawns.enemy
+	var carriers: Array=Objectives.carrier_uids(st.mission)
+	exit.radius=maxf(float(exit.get("radius",70.0)),float(spawns.largest)+24.0)
+	if exit.radius>180.0:return {}
+	var clearance: float=float(exit.radius)+float(spawns.largest)+4.0
+	for column in range(3):
+		var inset: float=maxf(120.0,clearance+4.0)+column*140.0
+		for row in range(15):
+			var offset: float=ceil(row/2.0)*96.0*(-1.0 if row%2 else 1.0)
+			var p: Vector2=Vector2(WIDTH-inset if right else inset,float(exit.get("y",850.0))+offset)
+			if _blocked(st,p,clearance):continue
+			var separated: bool=true
+			for i in range(fleet.size()):
+				if str(fleet[i].get("uid","")) in carriers and starts[i].distance_to(p)<WIDTH*0.35:separated=false;break
+			if not separated:continue
+			var reachable: bool=true
+			for i in range(fleet.size()):
+				if not str(fleet[i].get("uid","")) in carriers:continue
+				if not _reachable(st,starts[i],p,Routes.planning_radius({"spec":_deployment_spec(fleet[i])}),reach):reachable=false;break
+			if int(reach.left)<=0 and not reachable:return {}
+			if not reachable:continue
+			exit.x=p.x;exit.y=p.y
+			return exit
+	return {}
+
+static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,spawn: Vector2) -> void:
 	var corrupt_equip: bool=EquipmentCombat.is_corrupt_owner(s)
 	if not corrupt_equip and not s.spec.get("weaponMounts") is Array:
 		if EquipmentCombat.is_canonical_owner(s) and not s.get("baseSpec") is Dictionary:
@@ -134,8 +221,8 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: 
 	s.localAimAngles={}
 	s.team=team
 	s.id="%s-%d-%s"%[team,index,s.type]
-	s.x=(520.0 if team=="player" else 1600.0)+(index%2)*85.0
-	s.y=850.0+(floor(index/2.0)-(ceil(count/2.0)-1.0)/2.0)*85.0
+	s.x=spawn.x
+	s.y=spawn.y
 	s.angle=0.0 if team=="player" else PI
 	s.turretAngle=s.angle
 	s.vx=0.0
@@ -157,18 +244,11 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,count: 
 	s.formationIndex=index
 	s._wreckRecorded=false
 	s.erase("battleEscaped")
-	if not _spawn_clear(st,s,_pos(s)):
-		for k in range(128):
-			var p: Vector2=Vector2((260.0 if team=="player" else 1880.0)+(k%4)*80.0,90.0+floor(k/4.0)*48.0)
-			if _spawn_clear(st,s,p):
-				s.x=p.x
-				s.y=p.y
-				break
 	st.ships.append(s)
 	Tactical.register(st,s,base_mounts)
 
-static func _spawn_clear(st: Dictionary,s: Dictionary,p: Vector2) -> bool:
-	if _blocked(st,p,_radius(s)):
+static func _spawn_clear(st: Dictionary,s: Dictionary,p: Vector2,clearance: float=0.0) -> bool:
+	if _blocked(st,p,maxf(_radius(s),clearance)):
 		return false
 	for other in st.ships:
 		if not other.sunk and p.distance_to(_pos(other))<_radius(s)+_radius(other)+4.0:

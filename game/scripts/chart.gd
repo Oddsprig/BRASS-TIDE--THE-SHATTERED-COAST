@@ -20,6 +20,9 @@ var sans: SystemFont
 var mono: SystemFont
 var foliage: Array = []
 var villages: Array = []
+var _trade_data=null
+var _trade_revision: int=-1
+var _trade_paths: Array=[]
 var follow_camera: bool = true
 var tactical: bool = false
 var _campaign_follow: bool = false
@@ -438,7 +441,7 @@ func draw_island(island: Dictionary, index: int, tactical: bool = false):
 	if not tactical and index < foliage.size():
 		for tree in foliage[index]:
 			draw_tree(tree.p, tree.height, tree.tone)
-	if not tactical and host.mode != "menu":
+	if host.mode != "menu" and not str(island.get("name","")).is_empty():
 		text_at(str(island.get("name", "")).to_upper(), project(center, 85), 11, Color(0.83, 0.86, 0.69, 0.55), serif, true)
 
 func draw_tree(p: Vector2, height: float, tone: int):
@@ -504,6 +507,20 @@ func _harbor_label(p: Dictionary):
 		if scale_factor>0.24:text_at(p.industry.to_upper(),s+offset+Vector2(0,15),9,Color("9db8a5"),mono,true)
 		return
 
+func trade_paths() -> Array:
+	var revision: int=int(host.data.get("MAP_REVISION",1))
+	if is_same(_trade_data,host.data) and _trade_revision==revision:return _trade_paths
+	_trade_data=host.data;_trade_revision=revision;_trade_paths=[]
+	for route in host.data.ROUTES:
+		var a: Dictionary=host.core.port(route[0])
+		var b: Dictionary=host.core.port(route[1])
+		var path: Array=host.core.cached_path(a,b,10.0)
+		if path.is_empty():continue
+		var line: Array=[]
+		for p in path:line.append(Vector2(p.x,p.y))
+		_trade_paths.append(line)
+	return _trade_paths
+
 func draw_campaign():
 	if host.core == null or host.core.state.is_empty():
 		return
@@ -513,12 +530,9 @@ func draw_campaign():
 		world_line([Vector2(x,0),Vector2(x,h)],Color(0.6,0.8,0.69,0.027))
 	for y in range(0,h+1,1000):
 		world_line([Vector2(0,y),Vector2(w,y)],Color(0.6,0.8,0.69,0.027))
-	for route in host.data.ROUTES:
-		var a = host.core.port(route[0])
-		var b = host.core.port(route[1])
-		var begin = project(Vector2(a.x, a.y))
-		var end = project(Vector2(b.x, b.y))
-		draw_dashed_line(begin, end, Color(0.64, 0.80, 0.65, 0.12), 1.0, 3.0, true)
+	for path in trade_paths():
+		for i in range(1,path.size()):
+			draw_dashed_line(project(path[i-1]),project(path[i]),Color(0.64,0.80,0.65,0.12),1.0,3.0,true)
 	for i in range(host.data.ISLANDS.size()):
 		draw_island(host.data.ISLANDS[i], i)
 	if not world.path.is_empty():

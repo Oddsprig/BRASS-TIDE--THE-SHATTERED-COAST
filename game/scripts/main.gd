@@ -17,6 +17,7 @@ const Music = preload("res://scripts/music.gd")
 const Preferences=preload("res://scripts/preferences.gd")
 const EconomyWorkers=preload("res://scripts/economy_workers.gd")
 const RecoveryFlow=preload("res://scripts/recovery_flow.gd")
+const CoastalTerrain=preload("res://scripts/coastal_terrain.gd")
 
 var data: Dictionary
 var core
@@ -478,6 +479,14 @@ func engage_patrol(patrol: Dictionary):
 		specs.append(core.hull("barbed_lance"))
 	begin_battle(specs, {"kind": "patrol", "id": patrol.id, "ownerId":patrol.id,"aggression":aggression, "name": "Coastal shipping lane"})
 
+func encounter_position(context: Dictionary) -> Dictionary:
+	if context.get("encounterPosition") is Dictionary and context.encounterPosition.has("x") and context.encounterPosition.has("y"):
+		return context.encounterPosition.duplicate(true)
+	var contact_id: String=str(context.get("allyOwnerId","") if context.get("kind","")=="escort" else context.get("ownerId","") if context.get("kind","")=="patrol" else "")
+	for patrol in core.state.patrols:
+		if str(patrol.id)==contact_id:return {"x":float(patrol.x),"y":float(patrol.y)}
+	return core.state.position.duplicate(true)
+
 func begin_battle(specs: Array, context: Dictionary):
 	if core.FleetSupport.combat(core).is_empty():
 		ui.toast("You need a crewed boat marked for battle deployment.", true)
@@ -500,11 +509,14 @@ func begin_battle(specs: Array, context: Dictionary):
 		var ally_owner: Dictionary=core.fleet_owner(str(context.get("allyOwnerId","")))
 		player_fleet=ally_owner.get("boats",[]).filter(func(b):return not b.sunk and b.crew>=b.crewMin)+player_fleet
 	for boat in player_fleet:boat.supportRepairFactor=1.0
-	battle = Battle.create({"fleet":player_fleet,"mission":context.get("mission",{}), "enemySpecs": specs, "enemyFleet":enemy_fleet, "seed": int(core.state.seed) + core.state.wins * 17 + core.state.losses * 5, "location": {"name": context.name}})
+	var options: Dictionary=CoastalTerrain.arena(data,encounter_position(context))
+	options.merge({"fleet":player_fleet,"mission":context.get("mission",{}),"enemySpecs":specs,"enemyFleet":enemy_fleet,"seed":int(core.state.seed)+core.state.wins*17+core.state.losses*5})
+	battle = Battle.create(options)
 	if not str(battle.get("startError","")).is_empty():
 		ui.toast(str(battle.startError),true)
 		battle={}
 		return
+	battle_context.mission=battle.mission.duplicate(true)
 	battle.captureSlots=maxi(0,64-core.state.get("boardingPrizes",[]).size())
 	core.BoardingOps.coastal(core,battle)
 	_enter_battle()
