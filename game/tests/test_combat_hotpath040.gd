@@ -92,7 +92,9 @@ func trace_checks(st: Dictionary) -> void:
 	for row in rows:
 		if row.has("time"):published+=1
 		if row.has("sim_time"):finished+=1
-	check(published>0 and finished==st.ships.size(),"short real Battle step includes both publication and per-hull trace producers")
+	# Publication is conditional on an accepted certified intent, not every tick.
+	check(finished==st.ships.size() and rows.size()==published+finished and published<=int(short.tactical.metrics.normalLimit),"short real Battle step traces every hull and any accepted certified publications")
+	report.trace={"publicationRows":published,"perHullRows":finished}
 	var retained: Array=st.tactical.trace
 	for index in range(512):retained.append({"oldRow":index,"payload":{"unchanged":true}})
 	var expected: Array=retained.duplicate(true);expected.append_array(rows)
