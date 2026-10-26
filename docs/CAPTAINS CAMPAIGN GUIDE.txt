@@ -1,3 +1,10 @@
+CURRENT GUIDE - v0.041
+Read PLAY v0.041.txt for current entry points and controls. The paragraph
+below describes an old stopped v0.030 task; its test/authorization status
+and deferred-feature statements do not describe this version. Current
+native results live in TEST RESULTS v0.041.md and the portable tests/ folder.
+
+HISTORICAL GUIDE FOLLOWS
 BRASS TIDE v0.030 - CURRENT SOURCE CONTROLS; UNTESTED
 Tests deferred AT OWNER REQUEST. Finish Windows BUILD ONLY, then STOP.
 These controls describe the saved source; no new gameplay/UI acceptance is claimed.

@@ -1,3 +1,13 @@
+26OCT2026 - CORE PLAYABILITY
+The owner rejected the delivered foundation despite passing focused checks.
+Do not equate assertion counts with fun, map readability or smooth rendering.
+A short opening probe with zero shots proves no sustained engagement. Record
+actual action separately and compare unchanged actor/tick budgets honestly.
+Large land on a chart must be actual navigable geography, not enlarged art
+over water that boats can sail through. Preserve current saves and explain
+the plain latest-build launcher. Reuse the bounded native tools; do not
+turn an early version into a new framework or full-game acceptance exercise.
+
 v0.037 fixture lessons: initial NPC crew purses start empty; normal payroll must precede ration purchases. A clear corridor can assign a patrol with zero threat-based grant. Crew purses can fall while wages are paid because sailors buy food. Assert actual payroll, goods custody and total coins rather than monotonic purse growth. Failed jobs1417a871/402b4d24 preserved;27/0 readiness retained with production-hash proof.
 
 v0.036 fixture lessons (26Oct2026): compare saved ledgers against their parsed JSON representation, and compare contact lists through the same sorted public view on both sides. Do not compare raw-number strings or sorted views to raw arrays. New local names must not collide with existing allocation locals. Failures48c59054/662c6619/3aab3979 preserved; source unchanged for retained63/0 work pass after final flow-fixture correction.
