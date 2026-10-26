@@ -3,6 +3,7 @@ extends RefCounted
 const Expedition = preload("res://scripts/expedition.gd")
 const Deployment = preload("res://scripts/deployment.gd")
 const Goods = preload("res://scripts/goods.gd")
+const CareerCosts = preload("res://scripts/career_costs.gd")
 const MAX_CARDS = 8
 const DISPLAY_CAP = 1000000000.0
 
@@ -70,6 +71,21 @@ static func careers() -> Array:
 				"Read recorded fines and restrictions before choosing an encounter.", "law"],
 			["Inspect boarding readiness",
 				"Review actual crew and hull readiness before planning a boarding attempt.", "boarding"]]],
+		["escort", "Escort", [
+			["Protect a loaded convoy",
+				"Hail real nearby peaceful traffic with an armed threat; every loaded carrier must reach the exit.", "traffic"],
+			["Budget the service voyage",
+				"Escort success grants service credit and standing. Check payroll and stores; no coin fee is promised.", "supply"]]],
+		["fisher", "Fisher", [
+			["Prepare a working fishing boat",
+				"Use a crewed fishing hull, stop in safe open water and let actual campaign time earn a bounded catch.", "fishing"],
+			["Find a paying buyer",
+				"Return to Market with the actual catch; sales need a business purse and leave unsold lots aboard.", "market"]]],
+		["passenger", "Passenger operator", [
+			["Quote a funded charter",
+				"Prepare one transport or yacht with spare berths and food space for a real civilian cohort.", "jobs"],
+			["Prepare the actual carrier",
+				"Buy or commission a suitable hull, pay its crew and preserve the passengers' own savings.", "yard"]]],
 		["harbormaster", "Harbormaster", [
 			["Check workplace commitments",
 				"Review employees, cash, fatigue and arrears before funding more work.", "workers"],
@@ -365,6 +381,7 @@ static func report(c, route_distance: float = 0.0,
 			warnings.append(warning)
 	return {"ok":true, "day":_shown(maxf(0.0, _n(s.get("day")))),
 		"career":choice.id, "routeDistance":route, "routeValid":route_valid,
+		"careerPlan":CareerCosts.plan(c,str(choice.id)),
 		"notes":notes, "fleet":fleet, "route_trip_returnbudget":budget,
 		"cards":cards, "warnings":warnings.slice(0, MAX_CARDS),
 		"warningCount":warnings.size()}
