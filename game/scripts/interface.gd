@@ -534,14 +534,14 @@ func yard_view(body: Node, p: Dictionary):
 		label(line, "%s · %s · %s" % [host.core.hull(order.hull).name,"YOUR ORDER" if order.owner == "player" else "YARD STOCK","READY" if order.ready else "%.1f worker-days left · %s coins escrow"%[order.remainingWorkerDays,money(order.escrow)]], 15, GOLD).size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		if order.owner == "player":
 			button(line, "Collect hull", func(): host.collect_boat(index)).disabled = not order.ready
-	for id in p.get("shipIds", []):
+	for id in host.core.Harbor.catalogue(host.core, p):
 		var h = host.core.hull(id)
 		hull_card(body, h, true, p.shipStock.get(id, 0))
-	button(body, "View all 24 boat designs", open_catalog)
+	button(body, "View all %d boat designs" % host.data.HULLS.size(), open_catalog)
 
 func open_catalog():
 	modal_kind = "catalog"
-	var body = modal("Fleet register", "24 ORIGINAL HULL DESIGNS")
+	var body = modal("Fleet register", "%d ORIGINAL HULL DESIGNS" % host.data.HULLS.size())
 	paragraph(body, "Prices are for the hull. Buy from a harbor with that design, add crew, and supply it before sailing. Bigger boats have more cargo and armor, but need more hands and are slower to turn.")
 	for h in host.data.HULLS:
 		hull_card(body, h, false)
@@ -727,7 +727,7 @@ func open_menu():
 	button(body, "Load saved voyage", func(): host.load_game()).disabled = not host.has_save() or host.lab_active
 	if host.mode=="campaign":button(body,"Coastal traffic",func():NavalUI.open(self))
 	button(body, "Captain's guide", open_guide)
-	button(body, "Fleet register · all 24 hulls", open_catalog)
+	button(body, "Fleet register · all %d hulls" % host.data.HULLS.size(), open_catalog)
 	button(body, "Settings & performance", open_settings)
 	button(body,"Development notes",func():CampaignUI.notes(self))
 	button(body, "Main menu", func(): host.return_to_title())

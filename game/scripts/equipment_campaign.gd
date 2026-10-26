@@ -28,7 +28,6 @@ const Records = preload("res://scripts/equipment_records.gd")
 const Core = preload("res://scripts/equipment_condition.gd")
 const Refits = preload("res://scripts/refit.gd")
 
-const HULL_CATALOGUE := 24
 const MARKER := "equipmentRetiredTo"
 
 static func _fail(message: String) -> Dictionary:
@@ -101,8 +100,8 @@ static func check_state(state: Dictionary, world: Dictionary) -> Dictionary:
 static func _world(world: Dictionary) -> Dictionary:
 	if not world is Dictionary or not world.get("HULLS") is Array:
 		return _fail("World definitions are unavailable.")
-	if world.HULLS.size() != HULL_CATALOGUE:
-		return _fail("World hull catalogue is not the 24-hull set.")
+	if world.HULLS.is_empty():
+		return _fail("World hull catalogue is empty.")
 	var hulls: Dictionary = {}
 	for hull in world.HULLS:
 		if not hull is Dictionary or not Core._token(hull.get("id")):

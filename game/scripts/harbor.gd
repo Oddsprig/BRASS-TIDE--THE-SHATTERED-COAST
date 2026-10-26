@@ -7,6 +7,17 @@ const Construction = preload("res://scripts/construction.gd")
 const Money = preload("res://scripts/money.gd")
 const EquipmentService = preload("res://scripts/equipment_service.gd")
 
+## Add civilian drawings to existing faction yards without free hull stock or
+## changing authored ports. Both the menu and paid construction use this list.
+static func catalogue(core, p: Dictionary) -> Array:
+	var ids: Array = p.get("shipIds", []).duplicate()
+	if p.is_empty() or ids.is_empty():
+		return ids
+	for h in core.data.HULLS:
+		if h.get("civilianRole", "") in ["fishing", "transport", "tanker", "yacht"] and h.get("faction", "") == p.get("faction", "") and not h.id in ids:
+			ids.append(h.id)
+	return ids
+
 static func quote(core, h: Dictionary, at: Dictionary = {}) -> Dictionary:
 	var p: Dictionary = core.current_port() if at.is_empty() else at
 	var prices: Dictionary = {}
@@ -52,7 +63,7 @@ static func commission(core, id: String) -> Dictionary:
 	if not permission.ok:return permission
 	var p: Dictionary = core.current_port()
 	var h: Dictionary = core.hull(id)
-	if p.is_empty() or h.is_empty() or not id in p.get("shipIds", []):
+	if p.is_empty() or h.is_empty() or not id in catalogue(core, p):
 		return core.fail("This yard does not build that design.")
 	if p.buildQueue.size() >= 2+core.YardDevelopment.bays(core.state,str(p.id)):
 		return core.fail("The public and chartered building slips are occupied.")
@@ -119,7 +130,7 @@ static func tick_yards(core, days: int):
 					p.buildQueue.erase(order)
 			if p.buildQueue.size() >= 2:
 				continue
-			for id in p.get("shipIds",[]):
+			for id in catalogue(core, p):
 				if p.shipStock.get(id,0) > 0 or p.buildQueue.any(func(o): return o.hull == id):
 					continue
 				var h: Dictionary = core.hull(id)
