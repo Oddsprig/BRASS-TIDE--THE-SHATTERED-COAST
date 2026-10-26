@@ -162,35 +162,58 @@ func actual_prize(c) -> void:
 	var st: Dictionary=B.create({"fleet":c.FleetSupport.combat(c),"enemyFleet":owner.boats.filter(func(b):return not b.sunk),"mission":context.mission,"seed":3203})
 	var target: Dictionary=carrier(st)
 	var source: Dictionary=B.get_flagship(st)
+	var targets: Array=[]
+	var goods_by_uid: Dictionary={}
+	var conditions: Dictionary={}
+	for uid in st.convoy.uids:
+		var ship: Dictionary=st.convoy.actors[uid]
+		targets.append(ship)
+		goods_by_uid[uid]=st.convoy.cargo[uid].duplicate(true)
+		conditions[uid]=ship.moduleCondition.duplicate(true)
+		if float(st.convoy.cargo[uid].get("timber",0))>=1.0:target=ship
 	# Mark a subset of the existing crew as qualified for this custody fixture;
 	# the separate academy fixture covers paid qualification and hiring.
-	var party: int=mini(2,floori(float(source.crew)-float(source.crewMin)-float(source.wounded)))
-	source.boarders=party
-	source.x=520.0;source.y=850.0;target.x=550.0;target.y=850.0
-	target.hp=target.maxHp*0.3;target.surrendering=true
+	# Every loaded carrier must be stopped, with one real sailor on each prize.
+	var available: int=floori(float(source.crew)-float(source.crewMin)-float(source.wounded))
+	check(available>=targets.size(),"Existing surplus sailors can crew every mandatory loaded prize")
+	if available<targets.size():return
+	source.boarders=targets.size()
 	var goods: Dictionary=st.convoy.cargo[str(target.uid)].duplicate(true)
-	var condition: Dictionary=target.moduleCondition.duplicate(true)
+	var timber: float=float(owner.cargo.get("timber",0))
 	var stores: Dictionary=store_totals(c,owner)
 	var people: float=0.0
 	for b in c.state.fleet+owner.boats:people+=float(b.crew)
-	var launched: Dictionary=Boarding.launch(st,str(source.id),str(target.id),party)
-	check(launched.ok,"Actual boarding launches existing sailors onto the loaded carrier")
-	if not launched.ok:return
-	Boarding.tick(st,4.1);O.update(st)
-	check(target.get("captureSecured",false) and st.result=="won","Actual elapsed boarding secures the living loaded prize")
+	for ship in targets:
+		source.x=520.0;source.y=850.0;ship.x=550.0;ship.y=850.0
+		ship.hp=ship.maxHp*0.3;ship.surrendering=true
+		var launched: Dictionary=Boarding.launch(st,str(source.id),str(ship.id),1)
+		check(launched.ok,"Actual boarding launches existing sailors onto the loaded carrier")
+		if not launched.ok:return
+		Boarding.tick(st,4.1);O.update(st)
+	var secured: bool=targets.all(func(b):return b.get("captureSecured",false) and not b.sunk) and st.result=="won"
+	check(secured,"Actual elapsed boarding secures the living loaded prize")
+	if not secured:print("Convoy boarding diagnostic: ",{"result":st.result,"carrierUids":st.convoy.uids,"fates":O.snapshot(st),"captureSecured":targets.map(func(b):return b.get("captureSecured",false)),"jobs":st.get("boarding",{}).get("jobs",[])})
 	var report: Dictionary=c.battle_settled(str(st.result),owner.boats.map(func(b):return b.spec),context,st)
 	var uid: String=str(target.uid)
 	var prize: Dictionary={}
+	var published: bool=report.get("ok",true) and report.get("convoy",{}).get("captured",0)==targets.size()
+	for ship in targets:
+		var held: Dictionary={}
+		for b in c.state.fleet+c.state.boardingPrizes:
+			if str(b.uid)==str(ship.uid):held=b;break
+		published=published and not held.is_empty() and is_same(held,ship) and held.get("convoyCargo",{})==goods_by_uid[str(ship.uid)]
 	for b in c.state.fleet+c.state.boardingPrizes:
 		if str(b.uid)==uid:prize=b;break
-	check(report.get("ok",true) and not prize.is_empty() and is_same(prize,target) and prize.get("convoyCargo",{})==goods,"Cargo is attached to the actual published campaign prize object")
+	check(published,"Cargo is attached to the actual published campaign prize object")
+	if not published:print("Convoy prize diagnostic: ",{"report":report,"result":st.result,"carrierUids":st.convoy.uids,"publishedUids":(c.state.fleet+c.state.boardingPrizes).map(func(b):return str(b.uid))})
 	if prize.is_empty():return
-	check(not owner.boats.has(prize) and prize.moduleCondition==condition and store_totals(c,owner)==stores,"Capture handoff preserves parts and finite stores across the existing automatic reserve transfer")
+	check(targets.all(func(b):return not owner.boats.has(b) and b.moduleCondition==conditions[str(b.uid)]) and store_totals(c,owner)==stores,"Capture handoff preserves parts and finite stores across the existing automatic reserve transfer")
 	var after_people: float=float(c.state.captives)
 	for b in c.state.fleet+c.state.boardingPrizes+owner.boats:after_people+=float(b.crew)
 	check(is_equal_approx(after_people,people),"Prize crew and captured defenders reconcile to the same actual sailors")
-	var held: float=float(prize.convoyCargo.get("timber",0))+float(owner.cargo.get("timber",0))
-	check(is_equal_approx(held,float(goods.get("timber",0))) and c.state.wrecks.is_empty(),"Captured cargo remains entirely in actual prize plus original owner custody with no wreck duplicate")
+	var held_timber: float=float(owner.cargo.get("timber",0))
+	for b in c.state.fleet+c.state.boardingPrizes:held_timber+=float(b.get("convoyCargo",{}).get("timber",0))
+	check(is_equal_approx(held_timber,timber) and c.state.wrecks.is_empty(),"Captured cargo remains entirely in actual prize plus original owner custody with no wreck duplicate")
 	check(c.restore(JSON.parse_string(JSON.stringify(c.state))).ok,"Actual prize cargo and crew survive JSON restore")
 	prize=c.find_boat(uid)
 	check(not prize.is_empty() and prize.get("convoyCargo",{})==goods,"Restored campaign prize retains assigned cargo")
