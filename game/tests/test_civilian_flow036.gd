@@ -248,6 +248,7 @@ func _test_witnesses() -> void:
 	var unseen: Dictionary=Contacts._find(c.state,"captain:"+str(far.id)).duplicate(true)
 	Contacts.witnessed_encounters(c.state)
 	check(same_data(Contacts._find(c.state,"captain:"+str(far.id)),unseen),"remote result grants no captain contact or memory")
+	var memories: Array=JSON.parse_string(JSON.stringify(Contacts.list_contacts(c.state)))
 	var saved: Dictionary=JSON.parse_string(JSON.stringify(c.state))
 	var result: Dictionary=c.restore(saved)
-	check(result.ok and same_data(Contacts.list_contacts(c.state),saved.contacts),"recurring captain memories persist through actual save validation and restore")
+	check(result.ok and same_data(Contacts.list_contacts(c.state),memories),"recurring captain memories persist through actual save validation and restore: "+str(result.get("message","")))
