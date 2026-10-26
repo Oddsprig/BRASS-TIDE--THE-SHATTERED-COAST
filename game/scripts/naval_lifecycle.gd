@@ -19,18 +19,40 @@ static func hire(c,owner: Dictionary,p: Dictionary) -> void:
 			boat.crew=survivors+int(result.count)
 			boat.wounded=minf(float(boat.wounded),float(boat.crew))
 
+static func refuse_route(c,p: Dictionary,reason: String) -> void:
+	var changed: bool=str(p.get("routeFailure",""))!=reason
+	p.routeFailure=reason;p.holding=true;p.course=[];p.courseLength=0.0;p.progress=0.0
+	var owner: Dictionary=c.fleet_owner(str(p.id))
+	if owner.is_empty():return
+	owner.progress=0.0;owner.navigationReason=reason
+	var dock: Dictionary=c.port(str(owner.get("atPort","")))
+	if dock.is_empty() or c.distance(p,dock)>=40.0 or not Navigation.is_water(c.nav,p.x,p.y,Routes.clearance(c,p)):owner.atPort=""
+	if owner.get("order") is Dictionary:owner.order.reason=reason
+	if changed:
+		Fleets._log(owner,reason)
+		if c.distance(c.state.position,p)<=1800.0:c.log_entry("%s: %s"%[owner.get("name",p.id),reason])
+
 static func route(c,p: Dictionary,dest: String) -> void:
 	var target: Dictionary=c.port(dest)
 	if target.is_empty():return
 	var owner: Dictionary=c.fleet_owner(p.id)
-	if c.distance(p,target)<40:
-		p.x=target.x;p.y=target.y;p.holding=true;owner.atPort=dest;p.progress=0.0;p.to=dest
+	if owner.is_empty():return
+	var actual: float=Routes.clearance(c,p)
+	p.to=dest;p.courseClearance=actual
+	p.course=Routes.path(c,p,target,actual)
+	p.courseLength=0.0
+	if p.course.is_empty():
+		refuse_route(c,p,"No safe harbor approach or water route for a hull this size (%.0f clearance)."%actual)
+		return
+	p.routeFailure="";owner.navigationReason="";p.progress=0.0
+	for i in range(1,p.course.size()):p.courseLength+=c.distance(p.course[i-1],p.course[i])
+	if c.distance(p,target)<40.0:
+		# Already in service range at a certified water position: keep that
+		# position, including an offset approach for a large hull.
+		p.holding=true;owner.atPort=dest
 		return
 	p.voyageSeq=int(p.get("voyageSeq",0))+1
-	p.holding=false;owner.atPort="";p.to=dest;p.progress=0.0
-	p.course=Routes.path(c,p,target)
-	p.courseLength=0.0
-	for i in range(1,p.course.size()):p.courseLength+=c.distance(p.course[i-1],p.course[i])
+	p.holding=false;owner.atPort=""
 
 static func holding(c,owner: Dictionary) -> bool:
 	if str(owner.get("atPort","")).is_empty():return false
@@ -58,13 +80,26 @@ static func step(c,dt: float) -> void:
 		if str(owner.get("purpose","")) in ["withdraw","repair","replace","resupply"] and str(owner.get("destination",p.to))!=str(p.to):
 			route(c,p,str(owner.destination))
 		if not p.get("holding",false):
+			var actual: float=Routes.clearance(c,p)
+			if p.get("course",[]).is_empty():
+				refuse_route(c,p,"Course stopped: no safe water route for a hull this size (%.0f clearance)."%actual)
+			elif not is_equal_approx(float(p.get("courseClearance",0)),actual):
+				var remaining: Array=c.remaining_patrol_course(p)
+				if remaining.is_empty() or not Navigation.path_clear(c.nav,{"x":p.x,"y":p.y},remaining,actual):
+					refuse_route(c,p,"Course stopped: no safe water route for a hull this size (%.0f clearance). Position unchanged."%actual)
+				else:p.courseClearance=actual
+		if not p.get("holding",false):
 			var performance: Dictionary=AI.fleet_performance(owner)
 			p.progress+=dt*float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))/maxf(1,float(p.courseLength))
 			if p.progress>=1:
 				var dock: Dictionary=c.port(p.to)
+				var endpoint: Dictionary=p.course[-1]
+				if dock.is_empty() or c.distance(endpoint,dock)>=40.0:
+					refuse_route(c,p,"Course stopped: no safe harbor approach within docking range.")
+					continue
 				var origin: String=str(p.from)
 				var delivered_before: float=float(owner.get("tradeDelivered",0))
-				p.x=dock.x;p.y=dock.y;p.from=p.to;p.progress=0.0;p.holding=true
+				p.x=endpoint.x;p.y=endpoint.y;p.from=p.to;p.progress=0.0;p.holding=true
 				Fleets.dock(owner,dock,c);hire(c,owner,dock)
 				c.RegionalOps.delivered(c,str(dock.id),maxf(0,float(owner.get("tradeDelivered",0))-delivered_before),origin,false)
 				var next: String=AI.arrived(c,owner,dock)
@@ -102,6 +137,10 @@ static func daily(c) -> void:
 		if owner.get("playerCompany",false):c.CompanyOps.reconcile(c,owner)
 		p.active=bool(owner.active) and owner.boats.any(func(b):return not b.sunk)
 		if not p.active:continue
+		if not str(p.get("routeFailure","")).is_empty():
+			if str(owner.get("destination",p.to))!=str(p.to) or not is_equal_approx(float(p.get("courseClearance",0)),Routes.clearance(c,p)):
+				route(c,p,str(owner.get("destination",p.to)))
+			if not str(p.get("routeFailure","")).is_empty():continue
 		if p.get("holding",false) and str(owner.get("atPort",""))==str(owner.homePort):
 			var home: Dictionary=c.port(owner.homePort)
 			if int(home.get("availableSpecialists",0))<1 and owner.boats.any(func(b):return not b.sunk and b.engine<0.68) and int(owner.coins)>=150:

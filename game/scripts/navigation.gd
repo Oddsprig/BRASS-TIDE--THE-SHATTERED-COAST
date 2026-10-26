@@ -98,14 +98,18 @@ static func isWater(nav: Dictionary, x, y, clearance = DEFAULT_CLEARANCE) -> boo
 	return is_water(nav, x, y, clearance)
 
 
-static func _clear(nav: Dictionary, a: Dictionary, b: Dictionary) -> bool:
+static func hull_clearance(value = DEFAULT_CLEARANCE) -> float:
+	return maxf(DEFAULT_CLEARANCE, float(value)) if _is_finite_num(value) else DEFAULT_CLEARANCE
+
+
+static func _clear(nav: Dictionary, a: Dictionary, b: Dictionary, clearance = DEFAULT_CLEARANCE) -> bool:
+	var c := hull_clearance(clearance)
+	if not is_water(nav, a.get("x"), a.get("y"), c) or not is_water(nav, b.get("x"), b.get("y"), c):
+		return false
 	var ax := float(a["x"])
 	var ay := float(a["y"])
 	var bx := float(b["x"])
 	var by := float(b["y"])
-	var c := float(nav.get("clearance", DEFAULT_CLEARANCE))
-	if not is_water(nav, ax, ay, c) or not is_water(nav, bx, by, c):
-		return false
 	var seg_min_x := minf(ax, bx) - c
 	var seg_max_x := maxf(ax, bx) + c
 	var seg_min_y := minf(ay, by) - c
@@ -227,7 +231,7 @@ static func create(islands = [], width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT,
 	return nav
 
 
-static func _connectors(nav: Dictionary, p: Dictionary) -> Array:
+static func _nearby_nodes(nav: Dictionary, p: Dictionary) -> Array:
 	var cell := float(nav["cell"])
 	var cols := int(nav["cols"])
 	var rows := int(nav["rows"])
@@ -243,7 +247,7 @@ static func _connectors(nav: Dictionary, p: Dictionary) -> Array:
 				continue
 			var id := y * cols + x
 			var n = nodes[id]
-			if n != null and _clear(nav, p, n):
+			if n != null:
 				var ddx := float(p["x"]) - float(n["x"])
 				var ddy := float(p["y"]) - float(n["y"])
 				out.append({
@@ -251,6 +255,51 @@ static func _connectors(nav: Dictionary, p: Dictionary) -> Array:
 					"cost": sqrt(ddx * ddx + ddy * ddy)
 				})
 	return out
+
+
+static func _connectors(nav: Dictionary, p: Dictionary, clearance = DEFAULT_CLEARANCE) -> Array:
+	var out: Array = []
+	for candidate in _nearby_nodes(nav, p):
+		if _clear(nav, p, nav.nodes[int(candidate.id)], clearance):
+			out.append(candidate)
+	return out
+
+
+static func harbor_approach(nav: Dictionary, port: Dictionary, clearance = DEFAULT_CLEARANCE, service_range: float = 65.0) -> Dictionary:
+	var c := hull_clearance(clearance)
+	if nav.is_empty() or not _is_finite_num(port.get("x")) or not _is_finite_num(port.get("y")) or service_range <= 0.5:
+		return {}
+	if is_water(nav, port.x, port.y, c):
+		return {"x": float(port.x), "y": float(port.y)}
+	var best: Dictionary = {}
+	var best_distance := INF
+	var origin := Vector2(float(port.x), float(port.y))
+	# Reuse the bounded connector neighborhood and the one coarse grid. A node
+	# outside docking range may anchor a safe approach inside it; never sail
+	# the remaining segment from that approach to an unsafe harbor dot.
+	for candidate in _nearby_nodes(nav, port):
+		var node: Dictionary = nav.nodes[int(candidate.id)]
+		var offset := Vector2(float(node.x), float(node.y)) - origin
+		var d := offset.length()
+		if d <= 0.0:
+			continue
+		var approach := origin + offset / d * minf(d, service_range - 0.5)
+		var point := {"x": approach.x, "y": approach.y}
+		if origin.distance_to(approach) < best_distance and _clear(nav, point, node, c):
+			best = point
+			best_distance = origin.distance_to(approach)
+	return best
+
+
+static func path_clear(nav: Dictionary, from: Dictionary, waypoints: Array, clearance = DEFAULT_CLEARANCE) -> bool:
+	if not is_water(nav, from.get("x"), from.get("y"), hull_clearance(clearance)):
+		return false
+	var previous: Dictionary = from
+	for point in waypoints:
+		if not point is Dictionary or not _clear(nav, previous, point, clearance):
+			return false
+		previous = point
+	return true
 
 
 static func _heap_push(heap: Array, id: int, f: float) -> void:
@@ -285,22 +334,22 @@ static func _heap_pop(heap: Array) -> Dictionary:
 	return top
 
 
-static func find_path(nav: Dictionary, from: Dictionary, to: Dictionary) -> Array:
+static func find_path(nav: Dictionary, from: Dictionary, to: Dictionary, clearance = DEFAULT_CLEARANCE) -> Array:
 	if nav == null or nav.is_empty() or from == null or to == null:
 		return []
 	var fx = from.get("x", null)
 	var fy = from.get("y", null)
 	var tx = to.get("x", null)
 	var ty = to.get("y", null)
-	var c := float(nav.get("clearance", DEFAULT_CLEARANCE))
+	var c := hull_clearance(clearance)
 	if not is_water(nav, fx, fy, c) or not is_water(nav, tx, ty, c):
 		return []
 	var start := {"x": fx, "y": fy}
 	var end := {"x": tx, "y": ty}
-	if _clear(nav, start, end):
+	if _clear(nav, start, end, c):
 		return [start, end]
-	var begins := _connectors(nav, start)
-	var ends := _connectors(nav, end)
+	var begins := _connectors(nav, start, c)
+	var ends := _connectors(nav, end, c)
 	if begins.is_empty() or ends.is_empty():
 		return []
 	var goals := {}
@@ -349,6 +398,10 @@ static func find_path(nav: Dictionary, from: Dictionary, to: Dictionary) -> Arra
 			var next_id := int(edge["id"])
 			if closed[next_id] != 0:
 				continue
+			# The grid/edges are built once at 10 units, then filtered for the
+			# actual hull. Never rebuild a finer or per-hull navigation grid.
+			if c > DEFAULT_CLEARANCE and not _clear(nav, nodes[id], nodes[next_id], c):
+				continue
 			var cost := g[id] + float(edge["cost"])
 			if cost < g[next_id]:
 				g[next_id] = cost
@@ -372,13 +425,15 @@ static func find_path(nav: Dictionary, from: Dictionary, to: Dictionary) -> Arra
 	var last_idx := chain.size() - 1
 	while index < last_idx:
 		var next_idx := last_idx
-		while next_idx > index + 1 and not _clear(nav, chain[index], chain[next_idx]):
+		while next_idx > index + 1 and not _clear(nav, chain[index], chain[next_idx], c):
 			next_idx -= 1
 		var chosen: Dictionary = chain[next_idx]
+		if not _clear(nav, chain[index], chosen, c):
+			return []
 		path.append({"x": chosen["x"], "y": chosen["y"]})
 		index = next_idx
 	return path
 
 
-static func findPath(nav: Dictionary, from: Dictionary, to: Dictionary) -> Array:
-	return find_path(nav, from, to)
+static func findPath(nav: Dictionary, from: Dictionary, to: Dictionary, clearance = DEFAULT_CLEARANCE) -> Array:
+	return find_path(nav, from, to, clearance)

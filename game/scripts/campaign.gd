@@ -3,6 +3,7 @@ extends RefCounted
 const Damage = preload("res://scripts/damage.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Navigation = preload("res://scripts/navigation.gd")
+const Routes = preload("res://scripts/route_cache.gd")
 const Version = preload("res://scripts/version.gd")
 const Goods = preload("res://scripts/goods.gd")
 const Money = preload("res://scripts/money.gd")
@@ -62,6 +63,7 @@ var nav: Dictionary = {}
 var events: Array = []
 var pending_days: int = 0
 var exploration_timer: float=0.0
+var sailing_clearance: float=0.0
 
 func _init(world_data: Dictionary):
 	data = world_data
@@ -69,17 +71,18 @@ func _init(world_data: Dictionary):
 		h.price = Construction.quote(h).readyPrice
 	nav = Navigation.create(data.ISLANDS,float(data.WORLD.width),float(data.WORLD.height),40.0*float(data.get("CAMPAIGN_SCALE",1.0)))
 
-func cached_path(a: Dictionary,b: Dictionary) -> Array:
+func cached_path(a: Dictionary,b: Dictionary,clearance: float=10.0) -> Array:
 	# Coast geometry is immutable for this Campaign instance. Cache exact numeric
 	# endpoints, return detached paths, and cap entries so chart movement is bounded.
+	var actual: float=Navigation.hull_clearance(clearance)
 	for point in [a,b]:
 		for coordinate in ["x","y"]:
 			var value=point.get(coordinate)
-			if not (value is int or value is float) or not is_finite(float(value)):return Navigation.find_path(nav,a,b)
-	var key: Array=[float(a.x),float(a.y),float(b.x),float(b.y)]
+			if not (value is int or value is float) or not is_finite(float(value)):return Navigation.find_path(nav,a,b,actual)
+	var key: Array=[float(a.x),float(a.y),float(b.x),float(b.y),actual]
 	if route_cache.has(key):route_hits+=1;return route_cache[key].duplicate(true)
 	route_misses+=1
-	var path: Array=Navigation.find_path(nav,a,b)
+	var path: Array=Navigation.find_path(nav,a,b,actual)
 	if route_cache.size()>=128:route_cache.erase(route_cache.keys()[0])
 	route_cache[key]=path.duplicate(true)
 	return path
@@ -107,6 +110,7 @@ func new_game(seed_value: int = 1) -> Dictionary:
 	var prior_pending: int = pending_days
 	var prior_events: Array = events.duplicate(true)
 	route_cache.clear();route_hits=0;route_misses=0
+	sailing_clearance=0.0
 	var start = data.START
 	var ports: Array = []
 	for definition in data.PORTS:
@@ -217,10 +221,31 @@ func port_position(id: String) -> Dictionary:
 
 func set_patrol_course(patrol: Dictionary, a: Dictionary, b: Dictionary):
 	# Precompute once per voyage/load; never pathfind or simulate water per frame.
-	patrol.course = cached_path(a,b)
+	var actual: float=Routes.clearance(self,patrol)
+	var start: Dictionary=a
+	if not str(a.get("id","")).is_empty() and not port(str(a.id)).is_empty():
+		start=Navigation.harbor_approach(nav,a,actual,40.0)
+	var endpoint: Dictionary=Navigation.harbor_approach(nav,b,actual,40.0)
+	patrol.course=[] if start.is_empty() or endpoint.is_empty() else cached_path(start,endpoint,actual)
+	patrol.courseClearance=actual
 	patrol.courseLength = 0.0
 	for i in range(1,patrol.course.size()):
 		patrol.courseLength += distance(patrol.course[i-1],patrol.course[i])
+	if patrol.course.is_empty():
+		NavalLifecycle.refuse_route(self,patrol,"No safe harbor approach or water route for a hull this size (%.0f clearance)."%actual)
+	else:patrol.routeFailure=""
+
+func remaining_patrol_course(patrol: Dictionary) -> Array:
+	var remaining: Array=[]
+	var left: float=float(patrol.get("progress",0))*float(patrol.get("courseLength",0))
+	var course: Array=patrol.get("course",[])
+	for i in range(1,course.size()):
+		var length: float=distance(course[i-1],course[i])
+		if left<=length:
+			remaining.append_array(course.slice(i))
+			break
+		left-=length
+	return remaining
 
 func place_patrol(patrol: Dictionary):
 	var left: float = patrol.progress*patrol.courseLength
@@ -308,15 +333,28 @@ func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if active_fleet().size()>MAX_TRAVELING:return fail("Store boats at a harbor: up to %d active boats may accompany one expedition."%MAX_TRAVELING)
 	if cargo_weight()>capacity()+0.001:return fail("The traveling holds are overloaded. Offload cargo or activate a carrier before sailing.")
 	Manifest.allocate(state)
-	var path = cached_path(state.position,target)
+	var actual: float=Routes.clearance(self)
+	var endpoint: Dictionary=Routes.endpoint(self,port(destination) if not destination.is_empty() else target,actual)
+	if endpoint.is_empty():return fail("No safe harbor approach for a hull this size (%.0f clearance)."%actual)
+	var path = cached_path(state.position,endpoint,actual)
 	if path.is_empty():
-		return fail("No safe water route. Choose a harbor or open water.")
+		return fail("No safe water route for a hull this size (%.0f clearance). Choose a harbor or open water."%actual)
 	path.pop_front()
 	var departure: Dictionary=current_port()
 	if not departure.is_empty():state.regionalOrigin=str(departure.id)
 	state.path = path
 	state.destination = destination
+	sailing_clearance=actual
 	return ok("Course set for %s." % (port(destination).get("name", "open water")))
+
+func validate_sailing_route() -> bool:
+	var actual: float=Routes.clearance(self)
+	if state.get("path",[]).is_empty() or is_equal_approx(sailing_clearance,actual):return true
+	sailing_clearance=actual
+	if Navigation.path_clear(nav,state.position,state.path,actual):return true
+	stop_sailing()
+	log_entry("Course stopped: no safe water route for a hull this size (%.0f clearance). Position unchanged."%actual)
+	return false
 
 func stop_sailing():
 	state.path = []
@@ -333,6 +371,7 @@ func step(dt: float):
 			log_entry("Sighted %s. Open Island charts (I) to investigate."%site.name)
 	advance_surveys(dt/DAY_SECONDS)
 	var voyage_before: Dictionary=state.position.duplicate()
+	validate_sailing_route()
 	var moving: bool = not state.path.is_empty()
 	if moving:
 		var step_left = travel_speed() * dt
@@ -1108,6 +1147,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	if Money.total(incoming) != int(incoming.get("coinSupply",-1)):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
 	route_cache.clear();route_hits=0;route_misses=0
+	sailing_clearance=0.0
 	pending_days = 0
 	state = incoming
 	_refit_published()
@@ -1119,12 +1159,11 @@ func restore(saved: Dictionary) -> Dictionary:
 	for patrol in state.patrols:
 		# Saved chart position is authoritative; recompute a safe remaining route from there.
 		var saved_position: Dictionary={"x":patrol.x,"y":patrol.y}
-		patrol.course=cached_path(saved_position,port(patrol.to))
-		patrol.courseLength=0.0
-		for i in range(1,patrol.course.size()):patrol.courseLength+=distance(patrol.course[i-1],patrol.course[i])
+		set_patrol_course(patrol,saved_position,port(patrol.to))
 		patrol.progress=0.0
 		patrol.x=saved_position.x;patrol.y=saved_position.y
 	state.path = incoming.get("path",[]).duplicate(true)
+	validate_sailing_route()
 	Manifest.allocate(state)
 	pending_days = 0
 	Exploration.ensure(state,data)
