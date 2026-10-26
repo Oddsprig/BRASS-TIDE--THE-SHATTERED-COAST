@@ -1,0 +1,56 @@
+{
+  "classification": "CAPACITY_CONTEXT_R1_CLOSED_SOURCE_ADAPTER_VERIFIED_PENDING_NATIVE",
+  "toolHashes": {
+    "qa-sol\\qa\\capacity_prefix_report.py": "56ce147e7e8bcc419d470c45858aa65012481bf5a15f87d4a8363e49cf255747",
+    "qa-sol\\qa\\run_testbridge_capacity_prefix.py": "49e64b80a1af759f954b257fc175cbef6dec7712b385d09fc92a7f4fb941c93b",
+    "qa-sol\\qa\\capacity_prefix_context_r1_report.py": "d531420ccd4be51d6f0dc00caac47c8c79ca88ce649f4b25006126dc16ef625f",
+    "qa-sol\\qa\\run_testbridge_capacity_context_r1.py": "1579e31961d6616b3d95e7fec35a52e7ba22ecfd0f941a48c8ed105c1df223dc"
+  },
+  "runtime14Sha256": {
+    "scripts/damage.gd": "298e353de6cf7ab57207a5a99b002bacdf6ecf30d5dccf41927fcb8e745649d6",
+    "scripts/equipment_combat.gd": "4bd7d34118d23e1b943fef53e0eb15fab8270970c5e517866a4c023d3c694283",
+    "scripts/equipment_condition.gd": "56eb0af59e7cd040fb57b0a3061c302df759c335cfc577b3712258ae387a4b59",
+    "scripts/equipment_damage.gd": "73ff774a0cebdac14d687dcfd8dfa390d880e9fc83320a6348109088183faed9",
+    "scripts/equipment_records.gd": "f79987b7e0165920c0ff8e4add7a864d344ac47f67fc46db863ffd32c031061e",
+    "scripts/equipment_rollout.gd": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf",
+    "scripts/tactical_certification.gd": "f2ab0b6a3988f7ebbfdc2f806775effa371d42f63d9df2fd2fa504e2344a3d49",
+    "scripts/battle.gd": "71361d92fbad1ffeae9e2722999700e25a2f0c6b13a557d010d024464af50b57",
+    "scripts/tactical_runtime.gd": "bf76431c9f7b5b3108b8b1dad7be22090da82c39dad0c2bbd22d818b9d25622a",
+    "scripts/tactical_fire_control.gd": "b057973b8308006ca0bdb7f700fa111eef6fdfa0e19007dfb1bf3b2b546fd7b9",
+    "scripts/salvage.gd": "03efbbdbce329f5df92429da75d5d4e34dd40490fc021c91c2c443c301ef8748",
+    "scripts/equipment_lifecycle.gd": "60bf8f7a4a933c7161282bfed026d1f61f60ae66be9cf69147cc338d78d400a4",
+    "scripts/equipment_tow.gd": "1957e7bc765f36fcc69c253dde56a316be96e84b9dac1ed94c3c662691089bb5",
+    "scripts/fleet_lab.gd": "bc080dfb51c3c136d221299f76e7e8742a51c7aedaedfd45c491a6f094b98f49"
+  },
+  "changedRuntimeBindings": [
+    "scripts/damage.gd",
+    "scripts/equipment_combat.gd",
+    "scripts/equipment_condition.gd",
+    "scripts/equipment_damage.gd",
+    "scripts/equipment_records.gd",
+    "scripts/equipment_rollout.gd",
+    "scripts/battle.gd",
+    "scripts/tactical_runtime.gd",
+    "scripts/tactical_fire_control.gd"
+  ],
+  "otherFiveBindingsUnchanged": true,
+  "wholeReportReverseByteExact": true,
+  "wholeRunnerReverseByteExact": true,
+  "allValidatorFunctionBodiesUnchanged": true,
+  "cpuActualSourceAndProtocolPreflight": true,
+  "cpuWrongHashRefusal": "Staged game 14 equipment runtime script SHA256 mismatch: ['scripts/damage.gd']",
+  "probeSha256": "f7074c8cbd1705e792e4de6d2552af9a9d46f4cc3368321c51fa4c91b9fb4eb0",
+  "configSha256": "b6b63aa25a17383d7f1baeabb0da18a4c1ad552af7dde55285216087140ccb5e",
+  "workSeconds": 40,
+  "nativeTimeoutSeconds": 60,
+  "outerTimeoutSeconds": 90,
+  "nativeScopeProposed": {
+    "profile": "tactical_40",
+    "window": 0,
+    "windows": 1,
+    "remaining": 1800
+  },
+  "capacityAccepted": false,
+  "engineAuthorized": false,
+  "rootNativeLaunches": 0
+}

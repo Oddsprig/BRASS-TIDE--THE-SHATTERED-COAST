@@ -1,0 +1,63 @@
+{
+  "classification": "FINAL_CONTEXT_TACTICAL_SCENE_SOURCE_STAGE_VERIFIED_PENDING_NATIVE",
+  "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/final-context-ui-r1-root/candidate/game",
+  "mainHead": "1c29ce3e74918315cca42f3c39a26a029ac3d21e",
+  "fullCount": 521,
+  "fullSha256": "6a6b28a9b20c6513a05bb4df66184f86554010ad41123a3c52799fef875f3968",
+  "componentCount": 498,
+  "componentSha256": "0052fb250dfeb007b4dbf17680d3647021d60261819b1fbe518f76900250d3a7",
+  "currentMainFilesByteMatched": 497,
+  "importedFilesSameAsAcceptedRaw": 23,
+  "notesArePreservedPrior73cBytes": "8ba76a4b256cf82a1f31654a66fcd2a4e697e0b6e9eab9a58e31d8af337a4a55",
+  "unusedAddedMainFixturesAbsent": [
+    "tests/test_public_tick_context.gd",
+    "tests/test_frame_projection_isolation.gd",
+    "tests/test_equipment_damage_private_status_contract.gd",
+    "tests/test_private_status_contract.gd",
+    "tests/test_equipment_cost_diagnostic.gd",
+    "tests/probe_equipment_capacity.gd",
+    "tests/tactical_scenarios.json",
+    "tests/test_equipment_rollout.gd",
+    "tests/equipment_rollout_reference.gd"
+  ],
+  "sceneManifestSha256": "17950f1f06dcd895e7b52ad9b3649be033d441eb52ad5da598deedf62e865de9",
+  "externalRoots": [
+    {
+      "role": "fonts",
+      "root": "C:\\Windows\\Fonts",
+      "present": true,
+      "sha256": "2646a500a3f24110fae8882ff9954600155398c76d30e4625ce7dd3dbe4379f2",
+      "files": 535
+    },
+    {
+      "role": "fonts",
+      "root": "C:\\Users\\bligh\\AppData\\Local\\Microsoft\\Windows\\Fonts",
+      "present": false,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "files": 0
+    },
+    {
+      "role": "music",
+      "root": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\final-context-ui-r1-root\\candidate\\music",
+      "present": false,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "files": 0
+    },
+    {
+      "role": "music",
+      "root": "C:\\Users\\bligh\\Documents\\Codex\\2026-09-25\\we-x20\\work\\engine\\music",
+      "present": false,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "files": 0
+    },
+    {
+      "role": "music",
+      "root": "C:\\Users\\bligh\\Desktop\\Brass Tide Music",
+      "present": true,
+      "sha256": "754d641ad326a0069392f78dbbe50c13b1501c430e37c6b4e6ddbb4271aa4d71",
+      "files": 19
+    }
+  ],
+  "scope": "All runtime, scenes, assets, five JSON data files and original169 fixtures match current Main. Prior developer-note text and nine unused added test files are explicit non-runtime differences. Existing scene runner must freshly validate external inputs before/after each native. No render/GPU/presentation proof.",
+  "rootNativeLaunches": 0
+}

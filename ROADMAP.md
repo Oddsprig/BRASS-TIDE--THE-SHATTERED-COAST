@@ -28,6 +28,19 @@ Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
 No .031 version bump, release tag, export, launcher change or upload.
 
+CAPACITY WINDOW0 — 26 OCTOBER 2026
+Original sustained tactical40 run4d8899ea completed150 warmup updates, then
+hit the unchanged40-second work bound after143/180 measured updates. The native
+exited0 without timeout; the required report remains FAILED/INCOMPLETE:3541
+validator checks,4 issues. Mean measured update143.415ms, AI114.555ms; whole
+p95180.267ms. No capacity acceptance, unchanged retry or window1 is authorized.
+Root verified source/tools/receipts/ownership lane evidence, actual300 points per
+side and limit300. One checker issue omits that existing limit key; original
+failed report is preserved. The other completion/work-bound issues remain.
+Next is source-only profiling of remaining cost; control/scene checks are
+separately authorized with synthetic in-process input. See ROOT CONTEXT CAPACITY
+W0 FAILED VERIFIED.json.
+
 ACTIVE PERFORMANCE WORK - 26 OCTOBER 2026
 The verified context update is integrated into working game source. Exact runtime
 hashes: Damage298e/EqDamage73ff/Rolloutc51a; Core56eb/Recordsf799 unchanged.
@@ -49,8 +62,8 @@ Cold24-update payloads and40 public-status rows match BOTHc7a and78c with only
 two existing diagnostic clocks excluded. Observed means111.337ms whole /86.419AI
 /24.918OTHER; prior c7a151.118/101.023/50.095. Cost remains material. These
 cold observations establish no causal speedup, rendered FPS or sustained capacity.
-Next: original unchanged sustained capacity window0, once its separate closed
-source binding is reviewed. Historical source hashes correctly refuse the new
+The separately bound original sustained window0 ran incomplete; see the
+current capacity note above. Historical source hashes correctly refuse the new
 revision; original probe, protocol, workloads, timing limits and validators stay
 preserved. Scene/control source staging is proceeding independently.
 Final tactical behavior/counters, manual/retreat, career, UI/save/service/coins

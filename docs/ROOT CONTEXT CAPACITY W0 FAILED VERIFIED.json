@@ -1,0 +1,85 @@
+{
+  "classification": "ACTUAL_CONTEXT_CAPACITY_W0_FAILED_INCOMPLETE_VERIFIED",
+  "jobId": "4d8899eaab0c4f7b83eb26c918615cc7",
+  "inputSha256": "f05580af503086f4a3b72380fd7410ac2a71f43ccad3f038074c864a6fef4b7b",
+  "checks": 3541,
+  "failures": 4,
+  "issuesUnmodified": [
+    "Missing or failed TACTICAL BENCH COMPLETE banner",
+    "report.status='WORK_BOUND_INCOMPLETE'",
+    "windows[0].deployment mismatch",
+    "windows[0].exit_reason='WORK_BOUND_INCOMPLETE'"
+  ],
+  "nativeExitCode": 0,
+  "nativeTimeout": false,
+  "nativeWallSeconds": 40.859000000004016,
+  "warmup": {
+    "actual_ticks": 150,
+    "create_us": 89647,
+    "final_live": {
+      "afloat": 40,
+      "enemy": 20,
+      "player": 20,
+      "total": 40
+    },
+    "requested_ticks": 150,
+    "seed": 83,
+    "sim_seconds": 4.99999999999999,
+    "terminal_result": null,
+    "update_wall_us": 19391796
+  },
+  "measuredSamples": 143,
+  "requestedWindowMaximum": 180,
+  "fullProfileRequired": 1800,
+  "capacityAccepted": false,
+  "timings": {
+    "battle": {
+      "max": 235195,
+      "mean": 143414.769230769,
+      "min": 93241,
+      "n": 143,
+      "p50": 143525,
+      "p90": 164097,
+      "p95": 180267,
+      "p99": 208391
+    },
+    "ai": {
+      "max": 201634,
+      "mean": 114554.979020979,
+      "min": 66662,
+      "n": 143,
+      "p50": 113748,
+      "p90": 135826,
+      "p95": 148643,
+      "p99": 170500
+    }
+  },
+  "deployment": {
+    "enemy": 300,
+    "limit": 300,
+    "player": 300
+  },
+  "checkerSchemaIssue": "Old expected deployment omits actual limit key. Actual exact player300/enemy300/limit300 verified here. Original report remains failed4; any future checker must require all3 exact keys. Timing remains incomplete regardless.",
+  "next": "No unchanged native retry/window1. Source-only measured hotspot diagnosis before new performance changes.",
+  "artifactHashes": {
+    "bridge-result.json": "ebf6903acc7ef01d93c6f86d3d4b6779aa1993c13629b54f52ea4dc72e2cd41f",
+    "capacity.json": "461f056ce412c4b9bff9e9ba05e9091a34c6f5a89c149093499f820096416cde",
+    "execution.json": "2ba4cfcce4bcb1af98a1b0f383b6209772e098234ce41af3c4584feb2d47b9cc",
+    "inputs-after.json": "771fa8ac514e7d032138c4522ba57165cfd81fbea6be25989ed847c81b4627b5",
+    "inputs-before.json": "771fa8ac514e7d032138c4522ba57165cfd81fbea6be25989ed847c81b4627b5",
+    "lane.log": "b44b095ed8c16ffc06323fee00a93dcf11afaee7e92dd2e9b599f874f6f535c0",
+    "native-receipt.json": "ae64c6793e7341ec7d644130522486e74fcd78cd75820875a4d9726880ff06fd",
+    "native.log": "cdd5925cd2bd2dda7b530496220eeeada73764e71ee556f6d66b819e946a900b",
+    "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+    "prefix-validation.json": "cf1a1e5a4bb167fe2288066197707e12b13544e3c98ed6943340fde41bbbaa0d",
+    "process.json": "ce2bd42f0f2b961b9dc6217ee16a286338d30c6ee853f407604cb687a1b21d60",
+    "request.json": "b2fc07bee635245d7e454f87c1a7f91f10e2f3da9bd143331eaf15d4cf91902e",
+    "result.json": "160f762ee2380ae407bf61ea5d0571f62d815e8662af9fe427eb9d7d7036b062",
+    "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.log": "dda6f9c01b0daf818d0d6210ca38c01b742100c4fdc4d81c2d5a4cba609ef55e",
+    "verified-report.json": "160f762ee2380ae407bf61ea5d0571f62d815e8662af9fe427eb9d7d7036b062"
+  },
+  "rootNativeLaunches": 0,
+  "nativePassed": false,
+  "prefixPassed": false
+}
