@@ -44,11 +44,19 @@ static func holding(c,owner: Dictionary) -> bool:
 	return not preload("res://scripts/naval_orders.gd").needs_home_recovery(owner,res,perf).is_empty()
 
 static func step(c,dt: float) -> void:
+	if not is_finite(dt) or dt<=0:return
+	c.state.navalEncounterElapsed=float(c.state.get("navalEncounterElapsed",0.0))+dt
+	if c.state.navalEncounterElapsed>=1.0:
+		# One scan only, even after a long step; never replay missed intervals.
+		c.state.navalEncounterElapsed=0.0
+		for message in AI.scan_encounters(c):c.log_entry(str(message))
 	for p in c.state.patrols:
 		var owner: Dictionary=c.fleet_owner(p.id)
 		if owner.is_empty():continue
 		p.hostile=false if owner.get("playerCompany",false) else Factions.is_hostile(c.state,str(owner.faction))
 		if not p.active:continue
+		if str(owner.get("purpose","")) in ["withdraw","repair"] and str(owner.get("destination",p.to))!=str(p.to):
+			route(c,p,str(owner.destination))
 		if not p.get("holding",false):
 			var performance: Dictionary=AI.fleet_performance(owner)
 			p.progress+=dt*float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))/maxf(1,float(p.courseLength))

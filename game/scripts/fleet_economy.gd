@@ -199,6 +199,18 @@ static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 					owner.tradeCargo-=int(result.qty)
 					owner.tradeDelivered=float(owner.get("tradeDelivered",0))+float(result.qty)
 					messages.append("%s sold %d %s at %s."%[owner.name,sale,good,port.name])
+	elif owner.kind in ["raider","patrol"] and port.id==owner.homePort and not owner.get("playerCompany",false) and not str(owner.id).begins_with("story-"):
+		# Prize sales use the real hold and home market; keep all operating stores.
+		for good in Goods.ITEMS:
+			if good in ["food","fuel","supplies","ammo"] or not allowed_trade(owner,port,good,core):continue
+			var sale: int=mini(_integer(owner.cargo.get(good,0)),_integer(port.get("cash",0))/maxi(1,Economy.price(port,good,"sell")))
+			if sale<=0:continue
+			var wallet: Dictionary={"coins":owner.coins,"cargo":owner.cargo}
+			var result: Dictionary=Economy.transact(port,wallet,good,sale,"sell",_capacity(owner))
+			if result.ok:
+				owner.coins=wallet.coins
+				if good==owner.tradeGood:owner.tradeCargo=maxf(0.0,float(owner.tradeCargo)-float(result.qty))
+				messages.append("%s sold %d captured %s at %s."%[owner.name,int(result.qty),good,port.name])
 	var personal_food: float=float(owner.cargo.food)
 	if owner.get("playerCompany",false) and owner.tradeGood=="food":personal_food=maxf(0,personal_food-float(owner.tradeCargo))
 	_purchase(owner,port,"food",maxi(0,ceili(costs.food*3.0-personal_food)),true,false,core)
