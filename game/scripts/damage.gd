@@ -304,6 +304,33 @@ static func apply_hit(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator
 		events.append("Ship sunk")
 	return events
 
+static func _healthy_canonical_no_work(s: Dictionary, info: Dictionary) -> bool:
+	# Called only after fresh owner inspection and the public context's alias/type guards.
+	# No proof survives this synchronous tick; damaged or malformed owners use the old path.
+	if not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical":
+		return false
+	if not (s.get("sunk") is bool) or s.sunk or not (s.get("breaches") is Array) or not s.breaches.is_empty():
+		return false
+	if not (s.get("spec") is Dictionary) or not (s.get("policy", "balanced") in ["balanced", "bail", "repair", "fight"]):
+		return false
+	for key in ["hp", "maxHp", "water", "capacity", "fire", "engine", "crew", "wounded", "crewMin", "crewOptimal", "crewMax", "supplies", "ammo", "fuel", "cooldown", "armor"]:
+		if not EquipmentDamage.Core._number(s.get(key)) or float(s[key]) < 0.0:
+			return false
+	if not EquipmentDamage.Core._number(s.get("vx")) or not EquipmentDamage.Core._number(s.get("vy")):
+		return false
+	if s.maxHp < 1.0 or s.hp != s.maxHp or s.capacity < 1.0 or s.water != 0.0 or s.fire != 0.0 or s.wounded != 0.0 or s.engine != 1.0:
+		return false
+	if s.crewMin > s.crewOptimal or s.crewOptimal > s.crewMax or s.crew > s.crewMax:
+		return false
+	if s.has("shoreCrew") and (not EquipmentDamage.Core._number(s.shoreCrew) or float(s.shoreCrew) < 0.0 or float(s.shoreCrew) > float(s.crew)):
+		return false
+	if float(s.moduleCondition.get("legacyEngineSynced", -1.0)) != 1.0:
+		return false
+	for item in s.moduleCondition.items.values():
+		if float(item.hp) != 1.0 or str(item.status) != "ok":
+			return false
+	return true
+
 static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame_cache = null) -> Dictionary:
 	invalidate_frame_cache(frame_cache, s)
 	if not s is Dictionary:
@@ -331,7 +358,9 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 				EquipmentDamage._tick_repair_public_local_from_info.bind(tick_ctx),
 				EquipmentDamage._tick_publish_public_local.bind(tick_ctx),
 				EquipmentDamage._tick_absorb_public_local.bind(tick_ctx),
-				out_info
+				out_info,
+				null,
+				_healthy_canonical_no_work(s, info)
 			)
 			if bool(tick_ctx.get("eligible", false))
 			else _tick_canonical_with(
@@ -392,7 +421,7 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 static func _tick_canonical_numeric(s: Dictionary, dt: float, options: Dictionary) -> Dictionary:
 	return _tick_canonical_with(s, dt, options, EquipmentDamage._numeric_rollout_info, EquipmentDamage._tick_repair_rollout_from_info, EquipmentDamage.Records._publish_numeric, EquipmentDamage.Records._absorb_legacy_numeric)
 
-static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null, step_status_fn = null) -> Dictionary:
+static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null, step_status_fn = null, healthy_no_work: bool = false) -> Dictionary:
 	var total_in: float=0.0
 	var total_bail: float=0.0
 	var total_repair: float=0.0
@@ -412,6 +441,7 @@ static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary,
 		if out_info is Dictionary:
 			out_info["info"] = absorbed_info
 		return _status_for_info(s, absorbed_info)
+	healthy_no_work = healthy_no_work and not bool(absorbed.get("changed", false))
 	publish_fn.call(s)
 	var total_avail_work: float = 0.0
 	var total_used_work: float = 0.0
@@ -427,31 +457,35 @@ static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary,
 		var h_can: float = dt if dt <= step_cap + 0.0000001 else step_cap
 		if absf(dt - 2.0 * step_cap) <= 0.0000001:
 			h_can = dt * 0.5
-		var step_info: Dictionary = status_fn.call(s)
-		var t_can: Dictionary = step_status_fn.call(s, step_info) if step_status_fn is Callable and step_status_fn.is_valid() else _status_for_info(s, step_info)
-		var before_can: float = s.water
-		s.water = clampf(s.water + (t_can.inflow - t_can.bailing) * h_can, 0.0, s.capacity)
-		total_in += t_can.inflow * h_can
-		total_bail += minf(t_can.bailing * h_can, before_can + t_can.inflow * h_can)
-		var step_res: Dictionary = repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {}, step_info)
-		if not step_res.ok:
-			break
-		total_repair += float(step_res.patchedArea)
-		total_avail_work += float(step_res.availableWork)
-		total_used_work += float(step_res.usedWork)
-		total_used_supplies += float(step_res.usedSupplies)
-		total_hull_hp += float(step_res.repairedHullHp)
-		total_module_hp += float(step_res.repairedModuleHp)
-		total_fire_supp += float(step_res.suppressedFire)
-		for k in ["fire", "patch", "machinery", "hull"]:
-			work_by_task[k] = float(work_by_task[k]) + float(step_res.workByTask[k])
-			supplies_by_task[k] = float(supplies_by_task[k]) + float(step_res.suppliesByTask[k])
-		for ch in step_res.moduleChanges:
-			module_changes.append(ch)
+		if not healthy_no_work:
+			var step_info: Dictionary = status_fn.call(s)
+			var t_can: Dictionary = step_status_fn.call(s, step_info) if step_status_fn is Callable and step_status_fn.is_valid() else _status_for_info(s, step_info)
+			var before_can: float = s.water
+			s.water = clampf(s.water + (t_can.inflow - t_can.bailing) * h_can, 0.0, s.capacity)
+			total_in += t_can.inflow * h_can
+			total_bail += minf(t_can.bailing * h_can, before_can + t_can.inflow * h_can)
+			var step_res: Dictionary = repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {}, step_info)
+			if not step_res.ok:
+				break
+			total_repair += float(step_res.patchedArea)
+			total_avail_work += float(step_res.availableWork)
+			total_used_work += float(step_res.usedWork)
+			total_used_supplies += float(step_res.usedSupplies)
+			total_hull_hp += float(step_res.repairedHullHp)
+			total_module_hp += float(step_res.repairedModuleHp)
+			total_fire_supp += float(step_res.suppressedFire)
+			for k in ["fire", "patch", "machinery", "hull"]:
+				work_by_task[k] = float(work_by_task[k]) + float(step_res.workByTask[k])
+				supplies_by_task[k] = float(supplies_by_task[k]) + float(step_res.suppliesByTask[k])
+			for ch in step_res.moduleChanges:
+				module_changes.append(ch)
+		else:
+			# Retain the zero-flow water write, including normalization of signed zero.
+			s.water = clampf(s.water + 0.0, 0.0, s.capacity)
 		if s.fuel>0.0 and (s.water>0.0 or absf(s.vx)+absf(s.vy)>1.0):
 			s.fuel-=0.006*h_can
 		s.cooldown=maxf(0.0,number(s.cooldown)-h_can)
-		# Repair's publish already set engine. Sanitize cannot change condition or locker counts.
+		# Equipment publication set engine. Sanitize cannot change condition or locker counts.
 		var published_engine: float = float(s.engine)
 		_sanitize(s)
 		s.engine = published_engine
@@ -459,6 +493,9 @@ static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary,
 		elapsed+=h_can
 		if s.sunk:
 			events.append("Ship sunk")
+	if healthy_no_work and elapsed > 0.0:
+		# The no-work steps still finish by publishing the real equipment projection.
+		publish_fn.call(s)
 	var final_info: Dictionary = status_fn.call(s)
 	if out_info is Dictionary:
 		out_info["info"] = final_info
