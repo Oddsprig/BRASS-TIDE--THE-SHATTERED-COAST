@@ -750,6 +750,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	Objectives.retarget(st,input)
 	var planning_started: int=Time.get_ticks_usec()
 	Tactical.begin(st,dt,input,frame_cache)
+	ai_phases.begin=Time.get_ticks_usec()-planning_started
 	var controls: Dictionary={}
 	var manual_id: String=str(st.tactical.manualId)
 	var active_ids: Array=st.tactical.ships.keys()
@@ -768,6 +769,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			controls[id]={"angle":desired,"throttle":throttle,"boost":input.get("boost",false)}
 		else:controls[id]=Tactical.helm(st,s,frame_cache)
 	ai_phases.planning=Time.get_ticks_usec()-planning_started
+	ai_phases.helm=int(ai_phases.planning)-int(ai_phases.begin)
 	ai_us+=int(ai_phases.planning)
 	for id in active_ids:
 		var s: Dictionary=st.tactical.ships[id]

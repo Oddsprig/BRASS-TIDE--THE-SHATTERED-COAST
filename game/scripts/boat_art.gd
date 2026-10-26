@@ -532,39 +532,34 @@ static func _wpt(projector: Callable, p: Vector2, h: float) -> Vector2:
 
 ## samples: path-ordered [{p:Vector2 stern world, d:Vector2 heading, age:float,
 ## w:float emission half-width in world units}]. A short patch of churn follows
-## the actual stern path. Five pairs of translucent foam patches at most, with
+## the actual stern path. Six pairs of translucent foam patches at most, with
 ## no long geometric V rails. All points remain on the water plane.
 static func draw_wake(canvas, projector: Callable, samples: Array, opts: Dictionary = {}) -> int:
-	var life: float=minf(1.8,maxf(0.1,float(opts.get("life",WAKE_LIFE))))
+	var life: float=minf(0.7,maxf(0.1,float(opts.get("life",WAKE_LIFE))))
 	var live: Array=[]
 	for s in samples:
 		if s is Dictionary and s.get("p") is Vector2 and float(s.get("age",life))>=0.0 and float(s.get("age",life))<life:
 			live.append(s)
-	if live.size()<2:return 0
+	if live.is_empty():return 0
 	var n: int=0
-	var bands: int=mini(5,live.size()-1)
-	for band in range(bands):
-		var a: Dictionary=live[int(roundf(float(band)*(live.size()-1)/bands))]
-		var b: Dictionary=live[int(roundf(float(band+1)*(live.size()-1)/bands))]
-		var delta: Vector2=b.p-a.p
-		var width: float=maxf(0.5,float(b.get("w",5.0)))
-		# A discontinuity in the recorded voyage never draws a line across the sea.
-		if delta.length_squared()<0.01 or delta.length()>maxf(80.0,width*20.0):continue
-		var side: Vector2=delta.normalized().orthogonal()
-		var ta: float=clampf(float(a.age)/life,0.0,1.0)
-		var tb: float=clampf(float(b.age)/life,0.0,1.0)
-		var wa: float=maxf(0.5,float(a.get("w",width)))*(0.32+ta*0.38)
-		var wb: float=width*(0.32+tb*0.38)
-		var fade: float=pow(1.0-(ta+tb)*0.5,1.4)
-		var outer:=PackedVector2Array([
-			_wpt(projector,a.p+side*wa,0),_wpt(projector,b.p+side*wb,0),
-			_wpt(projector,b.p-side*wb,0),_wpt(projector,a.p-side*wa,0)])
-		canvas.draw_colored_polygon(outer,Color(0.62,0.85,0.83,fade*0.20))
-		var shift: float=(0.12 if band%2==0 else -0.12)*width
-		var core:=PackedVector2Array([
-			_wpt(projector,a.p+side*(wa*0.48+shift),0),_wpt(projector,b.p+side*(wb*0.55-shift),0),
-			_wpt(projector,b.p-side*(wb*0.42+shift),0),_wpt(projector,a.p-side*(wa*0.58-shift),0)])
-		canvas.draw_colored_polygon(core,Color(0.88,0.96,0.92,fade*0.48))
+	var count: int=mini(6,live.size())
+	var shape: Array=[Vector2(1,0),Vector2(0.7,0.6),Vector2(0.15,0.82),Vector2(-0.65,0.65),Vector2(-1,0),Vector2(-0.6,-0.7),Vector2(0.2,-0.8),Vector2(0.85,-0.4)]
+	for index in range(count):
+		var sample: Dictionary=live[int(roundf(float(index)*(live.size()-1)/maxi(1,count-1)))]
+		var along: Vector2=Vector2(sample.get("d",Vector2.RIGHT)).normalized()
+		if along.length_squared()<0.5:along=Vector2.RIGHT
+		var side: Vector2=along.orthogonal()
+		var age: float=clampf(float(sample.age)/life,0.0,1.0)
+		var width: float=maxf(0.5,float(sample.get("w",5.0)))*(0.38+age*0.28)
+		var fade: float=pow(1.0-age,1.4)
+		var outer:=PackedVector2Array()
+		var core:=PackedVector2Array()
+		for point in shape:
+			var offset: Vector2=along*point.x*width*1.35+side*point.y*width
+			outer.append(_wpt(projector,sample.p+offset,0))
+			core.append(_wpt(projector,sample.p+offset*0.48+side*width*(0.10 if index%2==0 else -0.10),0))
+		canvas.draw_colored_polygon(outer,Color(0.65,0.86,0.83,fade*0.20))
+		canvas.draw_colored_polygon(core,Color(0.90,0.97,0.93,fade*0.42))
 		n+=2
 	return n
 

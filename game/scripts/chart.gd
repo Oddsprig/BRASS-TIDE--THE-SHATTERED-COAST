@@ -182,10 +182,22 @@ func regional_scale() -> float:
 
 func territory_view():
 	follow_camera=false;_campaign_follow=false
-	var w=float(host.data.WORLD.width);var h=float(host.data.WORLD.height)
-	camera=Vector2(w,h)*0.5
 	var viewport=get_viewport_rect().size
-	zoom=clampf(minf((viewport.x-660.0)/((w+h)*0.82),(viewport.y-290.0)/((w+h)*0.41))/regional_scale(),0.10,1.0)
+	var coast: Rect2=Rect2()
+	var first: bool=true
+	for island in host.data.ISLANDS:
+		for point in island.points:
+			var p:=Vector2((float(point[0])-float(point[1]))*0.82,(float(point[0])+float(point[1]))*0.41)
+			if first:coast=Rect2(p,Vector2.ONE);first=false
+			else:coast=coast.expand(p)
+	for port in host.data.PORTS:
+		coast=coast.expand(Vector2((float(port.x)-float(port.y))*0.82,(float(port.x)+float(port.y))*0.41))
+	var usable: Rect2=chart_label_bounds(viewport).grow(-40)
+	var fit_scale: float=minf(usable.size.x/maxf(1.0,coast.size.x),usable.size.y/maxf(1.0,coast.size.y))
+	zoom=clampf(fit_scale/regional_scale(),0.10,1.0)
+	fit_scale=regional_scale()*zoom
+	var center: Vector2=coast.get_center()-(usable.get_center()-viewport*0.5)/maxf(0.01,fit_scale)
+	camera=Vector2((center.x/0.82+center.y/0.41)*0.5,(center.y/0.41-center.x/0.82)*0.5)
 	queue_redraw()
 
 func set_tactical(enabled: bool):
@@ -234,7 +246,9 @@ func _update_wakes(boats: Array):
 		var spec_v = boat.get("spec", {})
 		var bsize := maxf(4.0, float(spec_v.get("size", 16))) if spec_v is Dictionary else 16.0
 		var samples: Array = _wakes.get(key, [])
-		if samples.is_empty() or Vector2(samples[samples.size() - 1].p).distance_to(stern) > bsize * 0.5:
+		var travel: float=INF if samples.is_empty() else Vector2(samples[-1].p).distance_to(stern)
+		var elapsed: float=INF if samples.is_empty() else clock-float(samples[-1].t)
+		if samples.is_empty() or travel>maxf(1.5,bsize*0.12) or (elapsed>=0.12 and travel>0.5):
 			samples.append({"p": stern, "d": Vector2.from_angle(float(boat.get("angle", 0.0))), "t": clock, "w": bsize * 0.42})
 			while samples.size() > WAKE_MAX_PER_BOAT:
 				samples.pop_front()
@@ -522,7 +536,7 @@ static func draw_chart_coast(canvas,points: PackedVector2Array) -> void:
 	canvas.draw_polyline(outline,Color("cfbf92"),1.5,true)
 
 static func chart_label_bounds(viewport: Vector2) -> Rect2:
-	return Rect2(345,110,maxf(0,viewport.x-385),maxf(0,viewport.y-260))
+	return Rect2(345,110,maxf(0,viewport.x-700),maxf(0,viewport.y-260))
 
 static func chart_label_layout(entries: Array,bounds: Rect2,font: Font) -> Array:
 	var ordered: Array=entries.duplicate()

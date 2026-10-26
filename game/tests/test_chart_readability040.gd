@@ -31,7 +31,13 @@ func run() -> void:
 	chart.territory_view()
 	chart.scale_factor=chart.regional_scale()*chart.zoom
 	var territory_scale: float=chart.scale_factor
-	check(chart.campaign_overview() and chart.camera==Vector2(data.WORLD.width,data.WORLD.height)*0.5 and not chart.follow_camera,"M retains its complete world fit and disables follow")
+	check(chart.campaign_overview() and not chart.follow_camera,"M shows strategic overview and disables follow")
+	var fit_bounds: Rect2=Chart.chart_label_bounds(Vector2(1600,1000)).grow(-39)
+	var coasts_fit: bool=true
+	for island in data.ISLANDS:
+		for point in island.points:coasts_fit=coasts_fit and fit_bounds.has_point(chart.project(Vector2(point[0],point[1])))
+	for port in data.PORTS:coasts_fit=coasts_fit and fit_bounds.has_point(chart.project(Vector2(port.x,port.y)))
+	check(coasts_fit,"M fits all authored coastlines and harbor hit centers inside the usable chart area")
 	var center: Vector2=chart.project(home_position)
 	check(chart.world_at(center).distance_to(home_position)<0.001,"projected harbor center remains the exact inverse/hit position")
 	var rec=ChartRecorder.new()
