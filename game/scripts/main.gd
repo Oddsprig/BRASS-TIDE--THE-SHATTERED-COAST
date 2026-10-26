@@ -772,6 +772,7 @@ func settle_battle():
 		if not report.get("ok",true):
 			paused=true;result_handled=false;ui.toast(str(report.message),true);return
 	battle_report=report.duplicate(true)
+	save_game(false,true)
 	show_battle_report()
 
 func show_battle_report():
@@ -870,8 +871,9 @@ func sync_economy():
 func has_save() -> bool:
 	return not save_directory.is_empty() and FileAccess.file_exists(save_directory.path_join("voyage.json"))
 
-func save_game(show_notice: bool = true):
-	if mode != "campaign" or core.state.is_empty() or quick_mode:
+func save_game(show_notice: bool = true,allow_settled_battle: bool = false):
+	var settled_battle: bool=allow_settled_battle and mode=="battle" and not lab_active and result_handled and battle.get("result")!=null and not battle_report.is_empty() and bool(battle_report.get("ok",true))
+	if (mode != "campaign" and not settled_battle) or core.state.is_empty() or quick_mode:
 		if show_notice:
 			ui.toast("Return to the campaign chart before saving.", true)
 		return
