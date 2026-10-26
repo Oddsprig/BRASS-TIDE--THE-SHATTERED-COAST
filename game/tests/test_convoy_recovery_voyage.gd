@@ -65,6 +65,18 @@ func parts(condition: Dictionary) -> Array:
 		out.append([str(item.itemUid),str(item.location),float(item.hp),str(item.status),str(item.cause)])
 	return out
 
+func wreck_differences(expected: Array,actual: Array) -> Array:
+	var out: Array=[]
+	if expected.size()!=actual.size():out.append({"expectedCount":expected.size(),"actualCount":actual.size()})
+	for index in range(mini(expected.size(),actual.size())):
+		var fields: Array=[]
+		for field in expected[index]:
+			if not actual[index].has(field) or expected[index][field]!=actual[index][field]:fields.append(str(field))
+		for field in actual[index]:
+			if not expected[index].has(field):fields.append(str(field))
+		if not fields.is_empty():out.append({"wreckId":expected[index].get("id"),"fields":fields})
+	return out
+
 func _initialize() -> void:
 	var scene=load("res://main.tscn").instantiate()
 	root.add_child(scene)
@@ -176,13 +188,26 @@ func _test_intercept_recovery(scene) -> void:
 	var coins: int=int(c.state.coins)
 	var cargo: Dictionary=c.state.cargo.duplicate(true)
 	var convoy_cargo: Dictionary=owner.cargo.duplicate(true)
-	var wrecks: Array=c.state.wrecks.duplicate(true)
+	# The save contract is JSON, whose numeric representation can round native floats.
+	# Compare complete records in that representation, retaining every cargo/part field.
+	var wrecks: Array=JSON.parse_string(JSON.stringify(c.state.wrecks))
+	if c.state.wrecks!=wrecks:
+		print("Outcome raw/JSON wreck baseline differs: ",wreck_differences(c.state.wrecks,wrecks))
 	var saved_outcome: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(scene.save_directory.path_join("voyage.json")))
-	check(scene.mode=="battle" and int(saved_outcome.get("battleSeq",-1))==sequence and saved_outcome.get("wrecks",[])==wrecks and int(saved_outcome.get("coins",-1))==coins,"interception saves real wreck cargo and credit before leaving the outcome")
+	var saved_ok: bool=scene.mode=="battle" and int(saved_outcome.get("battleSeq",-1))==sequence and saved_outcome.get("wrecks",[])==wrecks and int(saved_outcome.get("coins",-1))==coins
+	check(saved_ok,"interception saves real wreck cargo and credit before leaving the outcome")
+	if not saved_ok:
+		print("Outcome save diagnostic: ",{"mode":scene.mode,"expectedSequence":sequence,"savedSequence":saved_outcome.get("battleSeq"),"expectedCoins":coins,"savedCoins":saved_outcome.get("coins"),"wreckDifferences":wreck_differences(wrecks,saved_outcome.get("wrecks",[]))})
 	scene.load_game()
-	check(scene.mode=="campaign" and int(c.state.battleSeq)==sequence and int(c.state.coins)==coins and c.state.cargo==cargo and c.fleet_owner(str(owner.id)).cargo==convoy_cargo and c.state.wrecks==wrecks,"loading directly from outcome restores each settled cargo lot, wreck and credit once")
+	var loaded_ok: bool=scene.mode=="campaign" and int(c.state.battleSeq)==sequence and int(c.state.coins)==coins and c.state.cargo==cargo and c.fleet_owner(str(owner.id)).cargo==convoy_cargo and JSON.parse_string(JSON.stringify(c.state.wrecks))==wrecks
+	check(loaded_ok,"loading directly from outcome restores each settled cargo lot, wreck and credit once")
+	if not loaded_ok:
+		print("Outcome load diagnostic: ",{"mode":scene.mode,"expectedSequence":sequence,"loadedSequence":c.state.battleSeq,"expectedCoins":coins,"loadedCoins":c.state.coins,"cargoMatches":c.state.cargo==cargo,"ownerCargoMatches":c.fleet_owner(str(owner.id)).cargo==convoy_cargo,"wreckDifferences":wreck_differences(wrecks,JSON.parse_string(JSON.stringify(c.state.wrecks)))})
 	scene.settle_battle()
-	check(int(c.state.battleSeq)==sequence and int(c.state.coins)==coins and c.state.cargo==cargo and c.state.wrecks==wrecks,"loaded outcome cannot duplicate settlement cargo or credit")
+	var repeat_ok: bool=int(c.state.battleSeq)==sequence and int(c.state.coins)==coins and c.state.cargo==cargo and JSON.parse_string(JSON.stringify(c.state.wrecks))==wrecks
+	check(repeat_ok,"loaded outcome cannot duplicate settlement cargo or credit")
+	if not repeat_ok:
+		print("Outcome repeat diagnostic: ",{"mode":scene.mode,"expectedSequence":sequence,"actualSequence":c.state.battleSeq,"expectedCoins":coins,"actualCoins":c.state.coins,"cargoMatches":c.state.cargo==cargo,"wreckDifferences":wreck_differences(wrecks,JSON.parse_string(JSON.stringify(c.state.wrecks)))})
 	scene.open_battle_recovery()
 	check(scene.mode=="campaign" and scene.ui.modal_kind=="recovery" and text_in(scene.ui.overlay,"Abandon for now"),"outcome returns to campaign recovery with an explicit leave-marked choice")
 	var untouched: Dictionary=c.state.duplicate(true)
