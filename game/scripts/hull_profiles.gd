@@ -1,5 +1,5 @@
 extends RefCounted
-## Pure static hull identity profiles for all 24 canonical Brass Tide hulls (v0.006).
+## Pure static hull identity profiles for the 36 canonical Brass Tide hulls.
 ## Provides name-specific stern-to-bow silhouette stations Vector2(x, half_beam),
 ## bridgeStyle, deckAccents, and cargoDetails while preserving archetypes,
 ## sizes/stats/budgets, and clear deck zones for shared sockets, central bridge, and engine.
@@ -20,7 +20,10 @@ const _HULL_ORDER: Array = [
 	"tin_skiff", "bilge_punt", "lantern_skiff", "marsh_dart", "scab_cutter", "gale_cutter",
 	"silt_lugger", "hook_raider", "mercantile_clipper", "harbor_sloop", "ash_corvette", "aegis_corvette",
 	"reed_stinger", "krill_torpedo", "manta_strike", "slag_gunboat", "bellows_gunboat", "furnace_turret",
-	"barbed_lance", "cinder_monitor", "wraith_rocket", "cobalt_frigate", "iron_bastion", "maiden_dreadnought"
+	"barbed_lance", "cinder_monitor", "wraith_rocket", "cobalt_frigate", "iron_bastion", "maiden_dreadnought",
+	"kelpnet_dory", "brinehook_longliner", "mother_gull_trawler", "fenhopper_lighter",
+	"tideledger_coaster", "fourport_packet", "brasswind_motor_galleon", "seepoil_tanker",
+	"blackwater_fleet_tanker", "gullwing_daysailer", "osprey_cabin_cruiser", "aurelian_court_yacht"
 ]
 
 const _PROFILES: Dictionary = {
@@ -119,7 +122,55 @@ const _PROFILES: Dictionary = {
 	"maiden_dreadnought": {"name": "Shatter Throne Dreadnought", "faction": "forge", "role": "cruiser", "tier": 4, "size": 36.0, "bridgeStyle": "throne_pagoda", "bridge": {"x": -0.31, "len": 0.76, "wid": 0.60, "h": 27.6, "glass": true, "visor": "triple_command_pagoda"},
 		"stations": [Vector2(-2.10, 0.62), Vector2(-1.82, 0.75), Vector2(-0.98, 0.81), Vector2(0.22, 0.81), Vector2(0.98, 0.74), Vector2(1.64, 0.56), Vector2(2.08, 0.25), Vector2(2.30, 0.0)],
 		"accents": [{"kind": "forged_triple_belt", "x": -0.28, "y": 0.60, "len": 0.82, "wid": 0.18, "h": 14.2}, {"kind": "throne_forecastle", "x": 1.68, "y": 0.0, "len": 0.38, "wid": 0.50, "h": 13.0}],
-		"cargo": [{"kind": "bilge_manifold_bank", "x": -1.32, "y": -0.38, "len": 0.30, "wid": 0.24, "h": 13.4}, {"kind": "siege_magazine_cap", "x": -1.32, "y": 0.38, "len": 0.30, "wid": 0.24, "h": 13.4}]}
+		"cargo": [{"kind": "bilge_manifold_bank", "x": -1.32, "y": -0.38, "len": 0.30, "wid": 0.24, "h": 13.4}, {"kind": "siege_magazine_cap", "x": -1.32, "y": 0.38, "len": 0.30, "wid": 0.24, "h": 13.4}]},
+	"kelpnet_dory": {"name": "Kelpnet Dory", "faction": "reed", "role": "skiff", "tier": 1, "size": 13.0, "bridgeStyle": "open_windscreen", "bridge": {"x": -0.30, "len": 0.68, "wid": 0.48, "h": 16.5, "glass": false},
+		"stations": [Vector2(-2.06, 0.56), Vector2(-1.78, 0.60), Vector2(-1.0, 0.59), Vector2(0.0, 0.56), Vector2(0.70, 0.52), Vector2(1.40, 0.38), Vector2(1.92, 0.15), Vector2(2.08, 0.0)],
+		"accents": [{"kind": "net_reel", "x": -1.65, "y": -0.32, "len": 0.24, "wid": 0.17, "h": 13.0}],
+		"cargo": [{"kind": "salvage_drum", "x": -1.05, "y": 0.38, "len": 0.24, "wid": 0.16, "h": 12.3}, {"kind": "rope_coil", "x": 1.50, "y": 0.0, "len": 0.28, "wid": 0.24, "h": 10.0}]},
+	"brinehook_longliner": {"name": "Brinehook Longliner", "faction": "compact", "role": "skiff", "tier": 2, "size": 15.0, "bridgeStyle": "customs_canopy", "bridge": {"x": -0.30, "len": 0.71, "wid": 0.51, "h": 18.5, "glass": true},
+		"stations": [Vector2(-2.32, 0.50), Vector2(-2.0, 0.59), Vector2(-1.15, 0.62), Vector2(-0.10, 0.58), Vector2(0.66, 0.54), Vector2(1.42, 0.36), Vector2(1.98, 0.14), Vector2(2.18, 0.0)],
+		"accents": [{"kind": "stern_davit", "x": -1.85, "y": -0.30, "len": 0.42, "wid": 0.14, "h": 20.0}],
+		"cargo": [{"kind": "line_drum", "x": -1.25, "y": -0.40, "len": 0.22, "wid": 0.16, "h": 13.0}, {"kind": "line_drum", "x": -1.25, "y": 0.40, "len": 0.22, "wid": 0.16, "h": 13.0}]},
+	"mother_gull_trawler": {"name": "Mother Gull Trawler", "faction": "reed", "role": "raider", "tier": 2, "size": 19.0, "bridgeStyle": "estuary_span", "bridge": {"x": -0.28, "len": 0.73, "wid": 0.58, "h": 20.0, "glass": true},
+		"stations": [Vector2(-2.20, 0.25), Vector2(-1.80, 0.30), Vector2(-0.80, 0.32), Vector2(0.20, 0.32), Vector2(1.10, 0.27), Vector2(1.70, 0.20), Vector2(2.12, 0.06), Vector2(2.28, 0.0)],
+		"accents": [{"kind": "cross_beam", "x": 0.56, "y": 0.0, "len": 0.16, "wid": 0.95, "h": 11.4}, {"kind": "trawl_reel", "x": -1.48, "y": -0.48, "len": 0.34, "wid": 0.24, "h": 15.0}, {"kind": "trawl_reel", "x": -1.48, "y": 0.48, "len": 0.34, "wid": 0.24, "h": 15.0}],
+		"cargo": [{"kind": "net_tarp_stack", "x": 0.0, "y": -0.48, "len": 0.26, "wid": 0.18, "h": 12.4}, {"kind": "net_tarp_stack", "x": 0.0, "y": 0.48, "len": 0.26, "wid": 0.18, "h": 12.4}]},
+	"fenhopper_lighter": {"name": "Fenhopper Lighter", "faction": "reed", "role": "raider", "tier": 1, "size": 17.0, "bridgeStyle": "estuary_span", "bridge": {"x": -0.28, "len": 0.71, "wid": 0.56, "h": 18.4, "glass": true},
+		"stations": [Vector2(-2.20, 0.31), Vector2(-1.85, 0.32), Vector2(-0.85, 0.33), Vector2(0.35, 0.33), Vector2(1.20, 0.30), Vector2(1.72, 0.24), Vector2(2.05, 0.13), Vector2(2.18, 0.0)],
+		"accents": [{"kind": "cross_beam", "x": 0.25, "y": 0.0, "len": 0.16, "wid": 1.0, "h": 11.0}],
+		"cargo": [{"kind": "bale_stack", "x": -1.48, "y": -0.48, "len": 0.38, "wid": 0.24, "h": 15.0}, {"kind": "bale_stack", "x": -1.48, "y": 0.48, "len": 0.38, "wid": 0.24, "h": 15.0}, {"kind": "cargo_hatch", "x": 1.10, "y": -0.63, "len": 0.34, "wid": 0.22, "h": 10.2}, {"kind": "cargo_hatch", "x": 1.10, "y": 0.63, "len": 0.34, "wid": 0.22, "h": 10.2}]},
+	"tideledger_coaster": {"name": "Tideledger Coaster", "faction": "compact", "role": "raider", "tier": 2, "size": 21.0, "bridgeStyle": "estuary_span", "bridge": {"x": -0.28, "len": 0.73, "wid": 0.58, "h": 20.4, "glass": true},
+		"stations": [Vector2(-2.38, 0.28), Vector2(-1.95, 0.32), Vector2(-0.85, 0.34), Vector2(0.35, 0.34), Vector2(1.22, 0.29), Vector2(1.86, 0.20), Vector2(2.28, 0.08), Vector2(2.45, 0.0)],
+		"accents": [{"kind": "packet_prow_crest", "x": 1.82, "y": 0.62, "len": 0.32, "wid": 0.16, "h": 12.3}],
+		"cargo": [{"kind": "bonded_strongbox", "x": -1.60, "y": -0.48, "len": 0.44, "wid": 0.24, "h": 15.0}, {"kind": "bonded_strongbox", "x": -1.60, "y": 0.48, "len": 0.44, "wid": 0.24, "h": 15.0}, {"kind": "cargo_hatch", "x": 1.08, "y": -0.63, "len": 0.42, "wid": 0.24, "h": 10.4}, {"kind": "cargo_hatch", "x": 1.08, "y": 0.63, "len": 0.42, "wid": 0.24, "h": 10.4}]},
+	"fourport_packet": {"name": "Fourport Packet", "faction": "compact", "role": "raider", "tier": 3, "size": 24.0, "bridgeStyle": "packet_house", "bridge": {"x": -0.28, "len": 0.75, "wid": 0.59, "h": 22.0, "glass": true},
+		"stations": [Vector2(-2.30, 0.30), Vector2(-1.92, 0.35), Vector2(-0.90, 0.36), Vector2(0.40, 0.35), Vector2(1.20, 0.29), Vector2(1.86, 0.18), Vector2(2.32, 0.06), Vector2(2.52, 0.0)],
+		"accents": [{"kind": "cross_beam", "x": 0.25, "y": 0.0, "len": 0.14, "wid": 1.0, "h": 11.2}],
+		"cargo": [{"kind": "packet_tarp_stack", "x": -1.65, "y": -0.50, "len": 0.46, "wid": 0.28, "h": 15.4}, {"kind": "bonded_strongbox", "x": -1.65, "y": 0.50, "len": 0.46, "wid": 0.28, "h": 14.0}, {"kind": "cargo_hatch", "x": 1.10, "y": -0.63, "len": 0.48, "wid": 0.28, "h": 10.6}, {"kind": "cargo_hatch", "x": 1.10, "y": 0.63, "len": 0.48, "wid": 0.28, "h": 10.6}]},
+	"brasswind_motor_galleon": {"name": "Brasswind Motor-Galleon", "faction": "compact", "role": "raider", "tier": 3, "size": 28.0, "bridgeStyle": "packet_house", "bridge": {"x": -0.28, "len": 0.75, "wid": 0.59, "h": 23.0, "glass": true},
+		"stations": [Vector2(-2.50, 0.36), Vector2(-2.06, 0.38), Vector2(-0.90, 0.38), Vector2(0.45, 0.38), Vector2(1.30, 0.33), Vector2(1.94, 0.23), Vector2(2.44, 0.09), Vector2(2.65, 0.0)],
+		"accents": [{"kind": "merchant_mast", "x": -0.28, "y": -0.50, "len": 0.16, "wid": 0.13, "h": 36.0}, {"kind": "merchant_mast", "x": -0.28, "y": 0.50, "len": 0.16, "wid": 0.13, "h": 30.0}],
+		"cargo": [{"kind": "bale_tarp_stack", "x": -1.92, "y": -0.60, "len": 0.50, "wid": 0.30, "h": 17.0}, {"kind": "bale_tarp_stack", "x": -1.92, "y": 0.60, "len": 0.50, "wid": 0.30, "h": 17.0}, {"kind": "cargo_hatch", "x": 1.18, "y": -0.63, "len": 0.52, "wid": 0.30, "h": 10.6}, {"kind": "cargo_hatch", "x": 1.18, "y": 0.63, "len": 0.52, "wid": 0.30, "h": 10.6}]},
+	"seepoil_tanker": {"name": "Seepoil Tanker Barge", "faction": "forge", "role": "corvette", "tier": 2, "size": 20.0, "bridgeStyle": "turtleback_conning", "bridge": {"x": -0.31, "len": 0.73, "wid": 0.55, "h": 19.0, "glass": true},
+		"stations": [Vector2(-2.16, 0.62), Vector2(-1.80, 0.72), Vector2(-0.80, 0.78), Vector2(0.25, 0.78), Vector2(1.18, 0.71), Vector2(1.78, 0.48), Vector2(2.12, 0.28), Vector2(2.30, 0.0)],
+		"accents": [{"kind": "oil_manifold_bank", "x": -0.42, "y": -0.52, "len": 0.66, "wid": 0.18, "h": 13.0}, {"kind": "oil_manifold_bank", "x": -0.42, "y": 0.52, "len": 0.66, "wid": 0.18, "h": 13.0}],
+		"cargo": [{"kind": "oil_cask", "x": -1.58, "y": -0.46, "len": 0.30, "wid": 0.20, "h": 14.4}, {"kind": "oil_cask", "x": -1.58, "y": 0.46, "len": 0.30, "wid": 0.20, "h": 14.4}, {"kind": "cargo_drum", "x": 1.56, "y": 0.0, "len": 0.42, "wid": 0.42, "h": 16.0}]},
+	"blackwater_fleet_tanker": {"name": "Blackwater Fleet Tanker", "faction": "forge", "role": "corvette", "tier": 3, "size": 27.0, "bridgeStyle": "brass_wheelhouse", "bridge": {"x": -0.31, "len": 0.75, "wid": 0.56, "h": 22.0, "glass": true},
+		"stations": [Vector2(-2.48, 0.63), Vector2(-2.08, 0.76), Vector2(-1.0, 0.83), Vector2(0.40, 0.83), Vector2(1.35, 0.74), Vector2(1.96, 0.48), Vector2(2.42, 0.22), Vector2(2.62, 0.0)],
+		"accents": [{"kind": "oil_manifold_bank", "x": -0.42, "y": -0.55, "len": 0.80, "wid": 0.20, "h": 14.4}, {"kind": "oil_manifold_bank", "x": -0.42, "y": 0.55, "len": 0.80, "wid": 0.20, "h": 14.4}],
+		"cargo": [{"kind": "oil_cask", "x": -1.65, "y": -0.50, "len": 0.40, "wid": 0.24, "h": 16.0}, {"kind": "oil_cask", "x": -1.65, "y": 0.50, "len": 0.40, "wid": 0.24, "h": 16.0}, {"kind": "cargo_drum", "x": 1.68, "y": 0.0, "len": 0.60, "wid": 0.58, "h": 18.0}]},
+	"gullwing_daysailer": {"name": "Gullwing Daysailer", "faction": "reed", "role": "cutter", "tier": 1, "size": 14.0, "bridgeStyle": "stepped_cockpit", "bridge": {"x": -0.31, "len": 0.70, "wid": 0.48, "h": 17.8, "glass": true},
+		"stations": [Vector2(-2.0, 0.48), Vector2(-1.70, 0.57), Vector2(-0.85, 0.58), Vector2(0.15, 0.59), Vector2(0.86, 0.54), Vector2(1.50, 0.34), Vector2(2.10, 0.07), Vector2(2.30, 0.0)],
+		"accents": [{"kind": "trim_cells", "x": -1.15, "y": -0.40, "len": 0.24, "wid": 0.14, "h": 11.5}, {"kind": "trim_cells", "x": -1.15, "y": 0.40, "len": 0.24, "wid": 0.14, "h": 11.5}],
+		"cargo": [{"kind": "rope_coil", "x": 1.52, "y": 0.0, "len": 0.24, "wid": 0.20, "h": 10.0}]},
+	"osprey_cabin_cruiser": {"name": "Lacquered Osprey Cruiser", "faction": "compact", "role": "cutter", "tier": 2, "size": 17.0, "bridgeStyle": "interceptor_canopy", "bridge": {"x": -0.30, "len": 0.74, "wid": 0.51, "h": 21.0, "glass": true},
+		"stations": [Vector2(-2.18, 0.54), Vector2(-1.82, 0.62), Vector2(-0.90, 0.65), Vector2(0.18, 0.67), Vector2(0.92, 0.59), Vector2(1.60, 0.36), Vector2(2.22, 0.10), Vector2(2.42, 0.0)],
+		"accents": [{"kind": "signal_tube", "x": 1.52, "y": 0.0, "len": 0.24, "wid": 0.19, "h": 13.0}],
+		"cargo": [{"kind": "cabin_locker", "x": 0.28, "y": -0.32, "len": 0.25, "wid": 0.20, "h": 12.6}, {"kind": "cabin_locker", "x": 0.28, "y": 0.32, "len": 0.25, "wid": 0.20, "h": 12.6}]},
+	"aurelian_court_yacht": {"name": "Aurelian Viceroy Yacht", "faction": "compact", "role": "cruiser", "tier": 3, "size": 25.0, "bridgeStyle": "commodore_tower", "bridge": {"x": -0.31, "len": 0.75, "wid": 0.59, "h": 25.8, "glass": true},
+		"stations": [Vector2(-2.34, 0.56), Vector2(-1.94, 0.68), Vector2(-0.95, 0.72), Vector2(0.20, 0.72), Vector2(0.96, 0.66), Vector2(1.64, 0.45), Vector2(2.34, 0.16), Vector2(2.58, 0.0)],
+		"accents": [{"kind": "signal_wings", "x": -0.30, "y": -0.50, "len": 0.34, "wid": 0.15, "h": 20.0}, {"kind": "signal_wings", "x": -0.30, "y": 0.50, "len": 0.34, "wid": 0.15, "h": 20.0}],
+		"cargo": [{"kind": "cabin_locker", "x": -1.30, "y": -0.43, "len": 0.26, "wid": 0.18, "h": 13.4}, {"kind": "cabin_locker", "x": -1.30, "y": 0.43, "len": 0.26, "wid": 0.18, "h": 13.4}, {"kind": "court_sun_deck", "x": 1.58, "y": 0.0, "len": 0.38, "wid": 0.36, "h": 11.4}]}
 }
 
 static func hull_ids() -> Array:

@@ -28,6 +28,9 @@ static func _clear(sockets: Array, item: Dictionary) -> bool:
 		if Layout.footprint_clearance(socket,item)<0.025:return false
 	return true
 
+static func _overlaps(a: Dictionary, b: Dictionary) -> bool:
+	return absf(float(a.x)-float(b.x))<(float(a.get("len",a.get("length",0.0)))+float(b.get("len",b.get("length",0.0))))*0.5+0.025 and absf(float(a.y)-float(b.y))<(float(a.get("wid",a.get("width",0.0)))+float(b.get("wid",b.get("width",0.0))))*0.5+0.025
+
 static func _supported(stations: Array, item: Dictionary, cat: bool) -> bool:
 	for dx in [-0.5,0.5]:
 		for dy in [-0.5,0.5]:
@@ -45,9 +48,13 @@ static func _plan(spec: Dictionary) -> Dictionary:
 	var stations: Array = identity.stations
 	var sockets: Array = Layout.hardpoints(spec)
 	var cat: bool = str(identity.archetype)=="catamaran"
+	var civilian: bool = str(spec.get("civilianRole","")) in ["fishing","transport","tanker","yacht"]
+	var structure: Dictionary = Layout.structure(spec)
 	var items: Array = []
 	for original in identity.deckAccents+identity.cargoDetails:
 		if original.kind=="outboard_pair" or not _clear(sockets,original):continue
+		if civilian:
+			if not _supported(stations,original,cat) or _overlaps(original,structure.cabin) or _overlaps(original,structure.engine):continue
 		var item: Dictionary = original.duplicate(true)
 		item["closeOnly"]=original in identity.cargoDetails
 		items.append(item)
@@ -57,12 +64,19 @@ static func _plan(spec: Dictionary) -> Dictionary:
 	var stern_beam: float = _width(stations,stern_x/0.94)*0.84
 	for side in [-1.0,1.0]:
 		additions.append({"kind":"mooring_bitt","x":stern_x,"y":side*(0.62 if cat else stern_beam*0.65),"len":0.13,"wid":0.12,"h":12.3,"closeOnly":true})
-	var structure: Dictionary = Layout.structure(spec)
 	for item in additions:
+		if civilian and item.kind=="access_hatch":
+			for solid in items:
+				if _overlaps(item,solid):
+					item.x=0.64
+					break
 		if not _clear(sockets,item) or not _supported(stations,item,cat):continue
 		var occupied: bool = false
 		for solid in [structure.cabin,structure.engine]:
 			if absf(float(item.x)-float(solid.x))<(float(item.len)+float(solid.length))*0.5+0.025 and absf(float(item.y)-float(solid.y))<(float(item.wid)+float(solid.width))*0.5+0.025:occupied=true
+		if civilian:
+			for solid in items:
+				if _overlaps(item,solid):occupied=true
 		if not occupied:items.append(item)
 	var rails: Array = []
 	for side in [-1.0,1.0]:
@@ -194,6 +208,39 @@ static func _item(ctx: Dictionary, item: Dictionary, c: Dictionary) -> void:
 	var l: float = item.len
 	var w: float = item.wid
 	var z: float = maxf(9.8,float(item.h))
+	if kind=="merchant_mast":
+		Shapes._box(m,Vector3(-l*0.42,-w*0.42,9.4),Vector3(l*0.42,w*0.42,11.0),c.deck_dark)
+		_line(m,Vector3(0,0,10.0),Vector3(0,0,z),c.brass,1.4)
+		_line(m,Vector3(-l*0.45,0,z-3.0),Vector3(l*0.45,0,z-3.0),c.metal_light,1.0)
+		_line(m,Vector3(-l*0.4,0,10.0),Vector3(0,0,z-1.0),c.metal_light,0.5)
+		return
+	if kind in ["net_tarp_stack","packet_tarp_stack","bale_tarp_stack"]:
+		Shapes._box(m,Vector3(-l*0.5,-w*0.5,9.4),Vector3(l*0.5,w*0.5,z-0.8),c.deck_dark)
+		Shapes._face(m,[Vector3(-l*0.5,-w*0.5,z-0.8),Vector3(l*0.5,-w*0.5,z-0.8),Vector3(l*0.5,0,z),Vector3(-l*0.5,0,z)],c.cloth)
+		Shapes._face(m,[Vector3(-l*0.5,0,z),Vector3(l*0.5,0,z),Vector3(l*0.5,w*0.5,z-0.8),Vector3(-l*0.5,w*0.5,z-0.8)],c.cloth.lightened(0.15))
+		for x in [-l*0.25,l*0.25]:
+			_line(m,Vector3(x,-w*0.5,z-0.6),Vector3(x,0,z+0.1),c.brass,0.7)
+			_line(m,Vector3(x,0,z+0.1),Vector3(x,w*0.5,z-0.6),c.brass,0.7)
+		return
+	if kind in ["oil_cask","cargo_drum"]:
+		var top: Array = []
+		var faces: Array = []
+		for i in range(8):top.append(Vector3(cos(i*TAU/8.0)*l*0.48,sin(i*TAU/8.0)*w*0.48,z))
+		for i in range(8):
+			var a: Vector3 = top[i]
+			var b: Vector3 = top[(i+1)%8]
+			faces.append([Vector3(a.x,a.y,9.4),Vector3(b.x,b.y,9.4),b,a])
+		faces.sort_custom(func(a,b):return (Shapes._p(m,a[0])+Shapes._p(m,a[1])).y<(Shapes._p(m,b[0])+Shapes._p(m,b[1])).y)
+		for i in range(4,8):Shapes._face(m,faces[i],c.metal.darkened(0.12*float(i%2)))
+		Shapes._face(m,top,c.plate)
+		_rect(m,0,0,l*0.28,w*0.25,z+0.1,c.brass)
+		if int(ctx.lod)==0:
+			for height in [10.2,z-0.8]:
+				for i in range(8):
+					var a: Vector3 = top[i]
+					var b: Vector3 = top[(i+1)%8]
+					_line(m,Vector3(a.x,a.y,height),Vector3(b.x,b.y,height),c.brass,0.65)
+		return
 	if "searchlight" in kind:
 		Shapes._box(m,Vector3(-l*0.28,-w*0.28,9.4),Vector3(l*0.28,w*0.28,z-1.5),c.metal)
 		Shapes._box(m,Vector3(-l*0.42,-w*0.45,z-2.0),Vector3(l*0.28,w*0.45,z),c.plate)

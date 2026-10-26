@@ -96,6 +96,16 @@ static func palette(spec: Dictionary, accent: Color, enemy: bool) -> Dictionary:
 			side = Color("402c2c"); top = Color("523838"); deck = Color("7d6a55"); cabin = Color("97795c")
 		_:  # compact
 			side = Color("24383f"); top = Color("30505c"); deck = Color("8d8262"); cabin = Color("b9ac84")
+	# Civilian trim belongs to these catalogue hulls; military palettes stay intact.
+	match str(spec.get("civilianRole", "")):
+		"fishing":
+			top = Color("49634a"); deck = Color("aa885b"); cabin = Color("d0be91")
+		"transport":
+			top = Color("4b6262"); deck = Color("9e7950"); cabin = Color("cdc1a0")
+		"tanker":
+			side = Color("362f2c"); top = Color("715347"); deck = Color("87725e"); cabin = Color("c0b39a")
+		"yacht":
+			side = Color("24464b"); top = Color("dedbc6"); deck = Color("b79461"); cabin = Color("eee6ce")
 	if enemy:
 		deck = deck.lerp(Color("8a5f4c"), 0.45)
 		cabin = cabin.lerp(Color("a07a5e"), 0.4)
@@ -479,7 +489,7 @@ static func _static(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Diction
 		_rivet_row(ctx, stations, c, CAT_OFFSET)
 	else:
 		_one_hull(ctx, stations, 0.0, c, lift)
-		if arch in ["armored", "monitor", "command"] or int(spec.get("armor", 0)) >= 10:
+		if (arch in ["armored", "monitor", "command"] and str(spec.get("civilianRole", "")).is_empty()) or int(spec.get("armor", 0)) >= 10:
 			_armor_plates(ctx, stations, c, lift)
 		else:
 			_rivet_row(ctx, stations, c)

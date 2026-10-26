@@ -5,7 +5,7 @@ extends SceneTree
 ## Records the exact BoatArt draw primitives for every hull (plus fitted,
 ## damaged, wake and projectile panels) through a dummy canvas recorder and
 ## writes them as JSON for software rasterising (PNG/GIF) by root tooling.
-## Also asserts the art contract: 24 hulls, 6+ distinct archetypes, rich
+## Also asserts the art contract: 24/36 hulls, 6+ distinct archetypes, rich
 ## primitive counts at full detail, cheaper LODs, and all four fitted weapon
 ## families visible. Exit code 0 = pass, 1 = failure. Default output:
 ## <repo>/qa/boat_gallery.json (res://../qa/boat_gallery.json).
@@ -22,6 +22,7 @@ var failures := 0
 
 class Recorder extends RefCounted:
 	var prims: Array = []
+	var invalid: int = 0
 
 	func _col(c: Color) -> Array:
 		return [snappedf(c.r, 0.001), snappedf(c.g, 0.001), snappedf(c.b, 0.001), snappedf(c.a, 0.001)]
@@ -29,19 +30,24 @@ class Recorder extends RefCounted:
 	func _pts(points: PackedVector2Array) -> Array:
 		var out: Array = []
 		for p in points:
+			if not is_finite(p.x) or not is_finite(p.y):invalid+=1
 			out.append([snappedf(p.x, 0.01), snappedf(p.y, 0.01)])
 		return out
 
 	func draw_colored_polygon(points: PackedVector2Array, color: Color) -> void:
+		if Geometry2D.triangulate_polygon(points).is_empty():invalid+=1
 		prims.append({"t": "poly", "pts": _pts(points), "c": _col(color)})
 
 	func draw_polyline(points: PackedVector2Array, color: Color, width: float = -1.0, _aa: bool = false) -> void:
+		if not is_finite(width):invalid+=1
 		prims.append({"t": "line", "pts": _pts(points), "c": _col(color), "w": snappedf(maxf(0.5, width), 0.01)})
 
 	func draw_line(from: Vector2, to: Vector2, color: Color, width: float = -1.0, _aa: bool = false) -> void:
+		if not is_finite(width):invalid+=1
 		prims.append({"t": "seg", "pts": _pts(PackedVector2Array([from, to])), "c": _col(color), "w": snappedf(maxf(0.5, width), 0.01)})
 
 	func draw_circle(position: Vector2, radius: float, color: Color) -> void:
+		if not is_finite(radius) or radius<=0.0:invalid+=1
 		prims.append({"t": "circle", "pts": _pts(PackedVector2Array([position])), "r": snappedf(radius, 0.01), "c": _col(color)})
 
 	func draw_arc(center: Vector2, radius: float, start: float, end: float, point_count: int, color: Color, width: float = -1.0, _aa: bool = false) -> void:
@@ -66,17 +72,17 @@ func check(ok: bool, message: String) -> void:
 		failures += 1
 		push_error("BOAT GALLERY: " + message)
 
-func _scale_for(spec: Dictionary) -> float:
+static func _scale_for(spec: Dictionary) -> float:
 	var world_len := maxf(20.0, float(spec.get("size", 16)) * 4.6)
 	return minf(PANEL_W * 0.78 / (world_len * 1.08), PANEL_H * 0.72 / (world_len * 0.60))
 
-func _projector_for(spec: Dictionary) -> Callable:
+static func _projector_for(spec: Dictionary) -> Callable:
 	var k := _scale_for(spec)
 	var origin := Vector2(PANEL_W, PANEL_H) * 0.5 + Vector2(0, PANEL_H * 0.05)
 	return func(p: Vector2, h: float) -> Vector2:
 		return origin + Vector2((p.x - p.y) * 0.82, (p.x + p.y) * 0.41 - h) * k
 
-func _panel(id: String, title: String, boat: Dictionary, lod: int = 0) -> Dictionary:
+static func _panel(id: String, title: String, boat: Dictionary, lod: int = 0) -> Dictionary:
 	var spec: Dictionary = boat.get("spec", {})
 	var rec := Recorder.new()
 	var k_px := maxf(4.0, _scale_for(spec)*float(spec.get("size", 16)))
@@ -84,6 +90,7 @@ func _panel(id: String, title: String, boat: Dictionary, lod: int = 0) -> Dictio
 		"accent": Color("dfbd7d"), "enemy": false, "lod": lod, "clock": 1.25, "px": k_px})
 	return {"id": id, "title": title, "width": PANEL_W, "height": PANEL_H,
 		"background": BACKGROUND, "archetype": stats.archetype, "mounts": stats.mounts,
+		"civilianRole": str(spec.get("civilianRole","")), "invalid": rec.invalid,
 		"stats": stats, "primitives": rec.prims}
 
 func _out_path() -> String:
@@ -108,7 +115,7 @@ func _run() -> void:
 		_finish(start, [])
 		return
 	var hulls: Array = world_v.get("HULLS", [])
-	check(hulls.size() == 24, "24 hulls in world data (got %d)" % hulls.size())
+	check(hulls.size() in [24,36], "24/36 hulls in world data (got %d)" % hulls.size())
 	if hulls.is_empty():
 		_finish(start, [])
 		return
@@ -117,6 +124,7 @@ func _run() -> void:
 	var min_prims := 1 << 30
 	var max_prims := 0
 	var total_prims := 0
+	var hull_ids: Array = []
 	for spec in hulls:
 		if not (spec is Dictionary):
 			continue
@@ -125,6 +133,7 @@ func _run() -> void:
 		boat.vy = 18.0
 		var panel := _panel(str(spec.get("id", "?")), str(spec.get("name", "")), boat, 0)
 		panels.append(panel)
+		hull_ids.append(str(spec.id))
 		archetypes[str(panel.archetype)] = true
 		var n := int(panel.stats.primitives)
 		total_prims += n
@@ -136,7 +145,9 @@ func _run() -> void:
 	for want in ["speedboat", "catamaran", "hydrofoil", "armored", "monitor", "command", "patrol"]:
 		check(archetypes.has(want), "archetype present: " + want)
 	# LOD must get strictly cheaper on the largest hull.
-	var big: Dictionary = hulls[hulls.size() - 1]
+	var big: Dictionary = hulls[0]
+	for spec in hulls:
+		if float(spec.size)>float(big.size):big=spec
 	var lod_counts: Array = []
 	for lod in [0, 1, 2]:
 		var p := _panel("lod%d" % lod, "LOD %d" % lod, BoatArt.preview_boat(big, -0.45), lod)
@@ -172,9 +183,9 @@ func _run() -> void:
 	panels.append(hurt_panel)
 	check(int(hurt_panel.stats.primitives) > clean_n, "damage state adds visible primitives")
 	_add_motion_panels(panels, big)
-	_finish(start, panels, {"hulls": hulls.size(), "archetypes": archetypes.keys(),
+	_finish(start, panels, {"hulls": hulls.size(), "hull_ids": hull_ids, "archetypes": archetypes.keys(),
 		"min_primitives_lod0": min_prims, "max_primitives_lod0": max_prims,
-		"total_primitives_24_lod0": total_prims, "lod_counts_big_hull": lod_counts})
+		"total_primitives_lod0": total_prims, "lod_counts_big_hull": lod_counts})
 
 func _add_motion_panels(panels: Array, spec: Dictionary) -> void:
 	# Three wake frames along a curved (turning) stern path + projectile set,
@@ -224,6 +235,7 @@ func _add_motion_panels(panels: Array, spec: Dictionary) -> void:
 func _finish(start: int, panels: Array, summary: Dictionary = {}) -> void:
 	var out := _out_path()
 	var payload := {"tool": "tools/boat_gallery.gd", "format": 1,
+		"gallery": {"title":"ORIGINAL HULLS", "hull_ids":summary.get("hull_ids",[])},
 		"note": "Exact BoatArt draw primitives in panel pixel coordinates. poly/line/seg pts are [x,y]; circle has pts[0]=center and r. c is [r,g,b,a] 0..1.",
 		"summary": summary, "checks": checks, "failures": failures, "panels": panels}
 	var dir := out.get_base_dir()

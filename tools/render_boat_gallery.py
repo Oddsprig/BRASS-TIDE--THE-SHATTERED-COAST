@@ -39,10 +39,17 @@ def main():
     font_path = Path('C:/Windows/Fonts/segoeui.ttf')
     font = ImageFont.truetype(str(font_path), 17) if font_path.exists() else ImageFont.load_default()
     title_font = ImageFont.truetype(str(font_path), 29) if font_path.exists() else font
-    sheet = Image.new('RGB', (1920, 70+6*350), '#0b242f')
+    gallery = data.get('gallery', {})
+    hull_ids = gallery.get('hull_ids')
+    hull_panels = ([p for p in panels if p['id'] in hull_ids] if hull_ids
+                   else panels[:int(data.get('summary', {}).get('hulls', 24))])
+    count = len(hull_panels)
+    rows = max(1, (count+3)//4)
+    sheet = Image.new('RGB', (1920, 70+rows*350), '#0b242f')
     draw = ImageDraw.Draw(sheet)
-    draw.text((24, 16), f'BRASS TIDE  {args.label}  |  24 ORIGINAL HULLS', font=title_font, fill='#dfbd7d')
-    for i, panel in enumerate(panels[:24]):
+    heading = gallery.get('title', 'ORIGINAL HULLS')
+    draw.text((24, 16), f'BRASS TIDE  {args.label}  |  {count} {heading}', font=title_font, fill='#dfbd7d')
+    for i, panel in enumerate(hull_panels):
         x, y = (i % 4)*480, 70+(i//4)*350
         sheet.paste(images[panel['id']].resize((480, 315), Image.Resampling.LANCZOS), (x, y))
         draw.text((x+14, y+321), panel['title'], font=font, fill='#dfdccc')
@@ -55,11 +62,12 @@ def main():
         x, y = (i % 2)*640, 60+(i//2)*425
         detail.paste(images[panel['id']], (x, y))
         dd.text((x+12, y+390), panel['title'], font=font, fill='#dfdccc')
-    detail.save(args.out/f'Brass Tide {args.label} - Boat detail.png')
+    if detail_panels:
+        detail.save(args.out/f'Brass Tide {args.label} - Boat detail.png')
     wakes = [images[p['id']] for p in panels if p['id'].startswith('wake_frame')]
     if wakes:
         wakes[0].save(args.out/f'Brass Tide {args.label} - Wake study.gif', save_all=True, append_images=wakes[1:], duration=550, loop=0)
-    print(f'Rendered {len(images)} captured panels; 24 hulls, detail and wake study: {args.out}')
+    print(f'Rendered {len(images)} captured panels; {count} hulls: {args.out}')
 
 
 if __name__ == '__main__':
