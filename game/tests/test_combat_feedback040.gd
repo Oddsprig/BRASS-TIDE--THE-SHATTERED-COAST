@@ -65,8 +65,18 @@ func native_records() -> Dictionary:
 	var projectiles: Dictionary={}
 	var ammo_before: float=0.0
 	for ship in st.ships:ammo_before+=float(ship.ammo)
+	# Exercise public manual firing for each fitted family. Discretionary AI
+	# launch passes are not a prerequisite for this bounded sound-path fixture.
 	for tick in range(24):
-		Battle.update(st,DT)
+		var input: Dictionary={}
+		if tick<WEAPONS.size():
+			var shooter: Dictionary=st.ships[tick]
+			var target: Dictionary=st.ships[tick+WEAPONS.size()]
+			check(Battle.select_flagship(st,shooter.id),"public manual firing authority: "+WEAPONS[tick])
+			Battle.set_autopilot(st,false)
+			input={"fire":true,"aimX":target.x,"aimY":target.y}
+		elif tick==WEAPONS.size():Battle.set_autopilot(st,true)
+		Battle.update(st,DT,input)
 		for projectile in st.projectiles:
 			if not projectiles.has(str(projectile.family)):projectiles[str(projectile.family)]=projectile.duplicate(true)
 		records.append_array(Battle.pop_events(st))
@@ -78,7 +88,7 @@ func native_records() -> Dictionary:
 	check(ammo_after<ammo_before,"actual battle reports debit finite ammunition")
 	check(Battle.pop_events(st).is_empty(),"public event drain consumes actual battle records once")
 	for family in Events.FAMILIES:
-		check(samples.has(family) and projectiles.has(family),"actual default AI firing/projectile: "+str(family))
+		check(samples.has(family) and projectiles.has(family),"actual public Battle firing/projectile: "+str(family))
 	if samples.size()!=4 or projectiles.size()!=4:return {}
 	# Exercise the same public hit/miss producers as Battle with its real shots,
 	# real canonical target copies and actual Damage.apply_hit outcomes. These
