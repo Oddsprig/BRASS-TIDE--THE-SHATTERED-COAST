@@ -1,10 +1,10 @@
-BRASS TIDE v0.038 - CAREER BALANCE AND GUIDANCE
+BRASS TIDE v0.039 - MEASURED CAMPAIGN AND BATTLE PERFORMANCE
 26 October2026 |36 boat designs
 
 THIS VERSION
-- Explorer, merchant, escort, privateer, fisher and passenger guidance explains a first goal, real operating costs, existing rewards and the next useful step.
-- One bounded pass checks the six earning paths against actual wage, fuel, food and repair costs and corrects demonstrated dead ends.
-- Guidance uses current boats, berths, cargo and job records; it does not promise invented income or guaranteed profit.
+- Short repeatable measurements cover a representative campaign and 300-point battle using the existing bounded test tools.
+- Only demonstrated bottlenecks are changed, preserving current simulation behavior and inexpensive water.
+- The delivered notes retain measurements, workload and resource limits so future comparisons use the same conditions.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

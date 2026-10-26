@@ -1,4 +1,4 @@
-BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.038)
+BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.039)
 
 Real sponsors/stock/crew/time -> funded freight/fuel/charters, finite wild catch, actual carriers/people and witnessed captain memory.
 

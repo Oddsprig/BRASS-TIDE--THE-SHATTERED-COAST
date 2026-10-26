@@ -1,14 +1,15 @@
-BRASS TIDE v0.038 - Career balance and guidance
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 782726ac02f10e5d124edd14475dd6ce4d2260cf / v0.038
-Test Bridge: 93f71251c3214c619b0bf65ea3d0b6cd
-100 focused checks, 0 failures; menu/campaign/battle startup passed.
-Selected batch plus setup: 44.736s; owned cleanup verified.
+BRASS TIDE v0.039 - MEASURED CAMPAIGN AND BATTLE PERFORMANCE
+26 October2026 |36 boat designs
 
-- Explorer, merchant, escort, privateer, fisher and passenger guidance explains a first goal, real operating costs, existing rewards and the next useful step.
-- One bounded pass checks the six earning paths against actual wage, fuel, food and repair costs and corrects demonstrated dead ends.
-- Guidance uses current boats, berths, cargo and job records; it does not promise invented income or guaranteed profit.
+THIS VERSION
+- Short repeatable measurements cover a representative campaign and 300-point battle using the existing bounded test tools.
+- Only demonstrated bottlenecks are changed, preserving current simulation behavior and inexpensive water.
+- The delivered notes retain measurements, workload and resource limits so future comparisons use the same conditions.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-One bounded six-career quote review. Existing numerical prices/rewards were retained because these single-action quotes did not justify a global retune. Corrected missing career entry guidance, false zero-distance route presentation and economy publication from pure Guide entry/close. No full career playthrough or profit guarantee.
+STATUS: current source candidate; focused checks/export pending.

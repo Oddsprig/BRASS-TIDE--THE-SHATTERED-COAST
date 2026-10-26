@@ -1,0 +1,35 @@
+BRASS TIDE v0.039 - SHORT REPEATABLE PERFORMANCE MEASUREMENTS
+
+The accompanying JSON records the actual fixed workload, seed, hull mix,
+deployed points, warmup and measured tick counts, raw timings, memory and
+observed weapons/effects. Read the delivered test receipt for the source
+commit, process limits, complete/partial outcome and owned-process cleanup.
+
+WORKLOAD
+A fresh campaign retains its nine independent fleet owners. A short live
+campaign window is followed by one actual paid harbor worker day, using the
+existing copied-harbor worker pool and main-thread publication.
+The battle uses seven different stock-fitted canonical boats per side,
+exactly300 deployment points each. Fixed starting positions bring them
+toward contact so the short sample can include actual firing and projectiles.
+The measured window is four warmup ticks followed by24 measured ticks.
+
+MEASUREMENT CONDITIONS
+Background, headless, silent Dummy audio, with no GPU or desktop input.
+The game test process is capped at512MiB,8percent jobCPU and at most two
+logical processors. Import/export builders are capped at1GiB. The benchmark
+has a30-second process limit; the entire selected test/export/startup batch
+has its existing119-second deadline including setup and cleanup. External
+waiting in the shared machine queue is recorded separately.
+
+These are short simulation timings under those limits, rather than displayed
+frame rate or a full-system graphics benchmark. Godot static memory counters
+are separate from the process memory recorded by the test supervisor.
+The runtime game keeps its existing multithreaded harbor processing and
+rendering configuration. The test caps apply to owned background tests.
+
+VERSION DISCIPLINE
+Only an observed bottleneck warrants a correction in this pass. Baseline and
+any follow-up use the same workload and record actual outcomes. A partial
+window or interrupted run is preserved as such. No full-game gate, broad
+refactor, expensive water simulation or new worker framework is added here.

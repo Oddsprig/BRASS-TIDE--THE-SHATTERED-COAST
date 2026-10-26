@@ -1,8 +1,8 @@
-# Current step: v0.038 - Career balance and guidance
+# Current step: v0.039 - Measured campaign and battle performance
 
-- Explorer, merchant, escort, privateer, fisher and passenger guidance explains a first goal, real operating costs, existing rewards and the next useful step.
-- One bounded pass checks the six earning paths against actual wage, fuel, food and repair costs and corrects demonstrated dead ends.
-- Guidance uses current boats, berths, cargo and job records; it does not promise invented income or guaranteed profit.
+- Short repeatable measurements cover a representative campaign and 300-point battle using the existing bounded test tools.
+- Only demonstrated bottlenecks are changed, preserving current simulation behavior and inexpensive water.
+- The delivered notes retain measurements, workload and resource limits so future comparisons use the same conditions.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

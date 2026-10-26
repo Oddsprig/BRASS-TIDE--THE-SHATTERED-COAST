@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.038: Career balance and guidance. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: campaign_guidance.gd, guidance_ui.gd, voyage_jobs.gd, civilian_work.gd.
+v0.039: Measured campaign and battle performance. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: campaign.gd, battle.gd, tests/test_performance039.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
