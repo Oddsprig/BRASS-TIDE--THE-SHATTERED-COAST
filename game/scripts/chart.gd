@@ -2,7 +2,6 @@ extends Node2D
 
 const BoatArt = preload("res://scripts/boat_art.gd")
 const CombatArt = preload("res://scripts/combat_art.gd")
-const SiteArt=preload("res://scripts/island_site_art.gd")
 const GOLD = Color("dfbd7d")
 const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
@@ -406,13 +405,10 @@ func draw_island(island: Dictionary, index: int, tactical: bool = false):
 	var bounds=Rect2(project(points[0]),Vector2.ZERO)
 	for p in points: bounds=bounds.expand(project(p))
 	if not get_viewport_rect().grow(160).intersects(bounds.grow(100)):return
-	if scale_factor<0.19 and host.mode!="battle":
-		var coarse: Array=[]
-		for p in points:coarse.append(p)
-		world_poly(coarse,Color("c4b788"))
-		var inner_coarse: Array=[]
-		for p in points:inner_coarse.append(center+(p-center)*0.85)
-		world_poly(inner_coarse,Color("506f55"),8)
+	if campaign_overview() and host.mode!="battle" and host.mode!="menu":
+		var coast:=PackedVector2Array()
+		for p in points:coast.append(project(p))
+		draw_chart_coast(self,coast)
 		return
 	for expansion in [1.22, 1.12, 1.055]:
 		var shelf: Array = []
@@ -441,6 +437,7 @@ func draw_island(island: Dictionary, index: int, tactical: bool = false):
 	if not tactical and index < foliage.size():
 		for tree in foliage[index]:
 			draw_tree(tree.p, tree.height, tree.tone)
+	if host.mode=="campaign":world_line(array+[array[0]],Color("cfbf92"),1.5)
 	if host.mode != "menu" and not str(island.get("name","")).is_empty():
 		text_at(str(island.get("name", "")).to_upper(), project(center, 85), 11, Color(0.83, 0.86, 0.69, 0.55), serif, true)
 
@@ -462,15 +459,16 @@ func draw_house(p: Vector2, size_value: float, height: float, roof: Color):
 	draw_circle(window, maxf(1.0, scale_factor * 1.7), Color("eed797"))
 
 func draw_harbor(p: Dictionary, index: int):
-	var v = villages[index]
 	var position = Vector2(p.x, p.y)
 	var screen=project(position)
 	if not get_viewport_rect().grow(240).has_point(screen):return
-	if scale_factor<0.19:
-		draw_circle(screen,4.0,GOLD if host.selected_port==p.id else FRIEND)
-		return
-	var tangent = (v.inland - position).normalized().orthogonal()
 	var color = Color(host.core.faction(p.faction).get("color", "#8fb8a3"))
+	var selected: bool = host.selected_port == p.id
+	if campaign_overview():
+		draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
+		return
+	var v = villages[index]
+	var tangent = (v.inland - position).normalized().orthogonal()
 	world_line([v.inland, position], Color("5a7468"), maxf(4, 11 * scale_factor), 6)
 	world_line([position - tangent * 24, position + tangent * 24], Color("9d9b75"), maxf(3, 7 * scale_factor), 6)
 	for i in range(8):
@@ -482,30 +480,93 @@ func draw_harbor(p: Dictionary, index: int):
 		var top = project(v.inland + tangent * 19, 76)
 		draw_line(foot, top, Color("b2a88c"), maxf(2.0, scale_factor * 7))
 		world_line([v.inland + tangent * 19, position + tangent * 35], color, maxf(1, 3 * scale_factor), 76)
-	var s = project(position)
-	var selected: bool = host.selected_port == p.id
-	world_ring(position, 35 if selected else 22, GOLD if selected else Color(color, 0.65), 1.5 if selected else 1.0)
+	draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
 	var flag = project(position + Vector2(10, 0), 56)
 	draw_line(project(position + Vector2(10, 0), 8), flag, Color("c5c9a7"), 1.3)
 	draw_colored_polygon(PackedVector2Array([flag, flag + Vector2(16, 5), flag + Vector2(0, 10)]), color)
 
-func _harbor_label(p: Dictionary):
-	var s=project(Vector2(p.x,p.y))
-	var viewport=get_viewport_rect().size
-	if not Rect2(345,110,viewport.x-385,viewport.y-260).has_point(s):return
-	var selected: bool=host.selected_port==p.id
-	var width: float=sans.get_string_size(p.name,HORIZONTAL_ALIGNMENT_LEFT,-1,15).x+16.0
-	for offset in [Vector2(0,27),Vector2(0,-20),Vector2(65,8),Vector2(-65,8),Vector2(0,51)]:
-		var rect=Rect2(s+offset-Vector2(width*0.5,17),Vector2(width,37 if scale_factor>0.24 else 23))
-		if not Rect2(345,110,viewport.x-385,viewport.y-260).encloses(rect):continue
-		var collision=false
-		for existing in _map_labels:
-			if rect.grow(6).intersects(existing):collision=true;break
-		if collision:continue
-		_map_labels.append(rect)
-		text_at(p.name,s+offset,16 if selected else 14,GOLD if selected else Color("d7e1cc"),sans,true)
-		if scale_factor>0.24:text_at(p.industry.to_upper(),s+offset+Vector2(0,15),9,Color("9db8a5"),mono,true)
-		return
+func campaign_overview() -> bool:
+	return scale_factor<0.32
+
+static func chart_marker_geometry(kind: String,center: Vector2,chart_scale: float,heading: float=0.0) -> Dictionary:
+	# Screen dimensions deliberately do not inherit world/hull size. These centers
+	# remain exactly project(world position), as used by Main.click_chart.
+	var base: float=9.0 if kind=="fleet" else 8.0 if kind=="harbor" else 7.0
+	var radius: float=base+clampf((chart_scale-0.15)*3.0,0.0,3.0)
+	var points:=PackedVector2Array()
+	if kind=="fleet":
+		var forward:=Vector2((cos(heading)-sin(heading))*0.82,(cos(heading)+sin(heading))*0.41).normalized()
+		var side:=forward.orthogonal()
+		for p in [Vector2(1,0),Vector2(-0.7,0.75),Vector2(-0.35,0),Vector2(-0.7,-0.75)]:points.append(center+(forward*p.x+side*p.y)*radius)
+	elif kind=="site":
+		for p in [Vector2(0,-1),Vector2(1,0),Vector2(0,1),Vector2(-1,0)]:points.append(center+p*radius)
+	return {"kind":kind,"center":center,"radius":radius,"points":points}
+
+static func draw_chart_marker(canvas,geometry: Dictionary,color: Color,selected: bool=false) -> void:
+	var at: Vector2=geometry.center
+	var radius: float=geometry.radius
+	canvas.draw_circle(at,radius+2.0,Color("102d3b"))
+	if str(geometry.kind)=="harbor":
+		canvas.draw_arc(at,radius,0,TAU,24,color,2.0,true)
+		canvas.draw_rect(Rect2(at-Vector2(2.5,2.5),Vector2(5,5)),color)
+	else:
+		canvas.draw_colored_polygon(geometry.points,color)
+		if str(geometry.kind)=="site":canvas.draw_circle(at,2.0,Color("102d3b"))
+	if selected:canvas.draw_arc(at,radius+4.0,0,TAU,28,GOLD,1.5,true)
+
+static func draw_chart_coast(canvas,points: PackedVector2Array) -> void:
+	if points.size()<3:return
+	canvas.draw_colored_polygon(points,Color("506f55"))
+	var outline: PackedVector2Array=points.duplicate()
+	outline.append(points[0])
+	canvas.draw_polyline(outline,Color("cfbf92"),1.5,true)
+
+static func chart_label_bounds(viewport: Vector2) -> Rect2:
+	return Rect2(345,110,maxf(0,viewport.x-385),maxf(0,viewport.y-260))
+
+static func chart_label_layout(entries: Array,bounds: Rect2,font: Font) -> Array:
+	var ordered: Array=entries.duplicate()
+	ordered.sort_custom(func(a,b):return int(a.priority)>int(b.priority) if int(a.priority)!=int(b.priority) else str(a.text)<str(b.text))
+	var occupied: Array=[]
+	for entry in entries:occupied.append(Rect2(entry.at-Vector2(17,17),Vector2(34,34)))
+	var placed: Array=[]
+	for entry in ordered:
+		var at: Vector2=entry.at
+		if str(entry.text).is_empty() or not bounds.grow(24).has_point(at):continue
+		var font_size: int=16 if int(entry.priority)>=80 else 14
+		var subtitle: String=str(entry.get("subtitle",""))
+		var width: float=font.get_string_size(str(entry.text),HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+		if not subtitle.is_empty():width=maxf(width,font.get_string_size(subtitle,HORIZONTAL_ALIGNMENT_LEFT,-1,11).x)
+		var size:=Vector2(ceilf(width)+16,font_size+10+(14 if not subtitle.is_empty() else 0))
+		if size.x>bounds.size.x or size.y>bounds.size.y:continue
+		var offsets: Array=[Vector2(22,-size.y*0.5),Vector2(-22-size.x,-size.y*0.5),Vector2(-size.x*0.5,-22-size.y),Vector2(-size.x*0.5,22),Vector2(22,22),Vector2(-22-size.x,22),Vector2(22,-22-size.y),Vector2(-22-size.x,-22-size.y)]
+		if int(entry.priority)>=80:
+			for offset in offsets.duplicate():offsets.append(offset*1.5)
+		for offset in offsets:
+			var rect:=Rect2(at+offset,size)
+			if int(entry.priority)>=80:rect.position=rect.position.clamp(bounds.position,bounds.end-size)
+			if not bounds.encloses(rect):continue
+			var collision: bool=false
+			for other in occupied:
+				if rect.grow(3).intersects(other):collision=true;break
+			if collision:continue
+			var label: Dictionary=entry.duplicate()
+			label.rect=rect;label.font_size=font_size
+			placed.append(label);occupied.append(rect)
+			break
+	return placed
+
+static func draw_chart_label(canvas,label: Dictionary,font: Font) -> void:
+	var rect: Rect2=label.rect
+	var color: Color=label.get("color",Color("d7e1cc"))
+	canvas.draw_line(label.at,Vector2(label.at).clamp(rect.position,rect.end),Color(color,0.45),1.0,true)
+	canvas.draw_rect(rect,Color(0.035,0.12,0.16,0.92))
+	canvas.draw_string(font,rect.position+Vector2(8,int(label.font_size)+2),str(label.text),HORIZONTAL_ALIGNMENT_LEFT,-1,int(label.font_size),color)
+	if not str(label.get("subtitle","")).is_empty():canvas.draw_string(font,rect.position+Vector2(8,int(label.font_size)+16),str(label.subtitle),HORIZONTAL_ALIGNMENT_LEFT,-1,11,Color("9db8a5"))
+
+func _draw_chart_labels(entries: Array):
+	_map_labels=chart_label_layout(entries,chart_label_bounds(get_viewport_rect().size),sans)
+	for label in _map_labels:draw_chart_label(self,label,sans)
 
 func trade_paths() -> Array:
 	var revision: int=int(host.data.get("MAP_REVISION",1))
@@ -525,6 +586,9 @@ func draw_campaign():
 	if host.core == null or host.core.state.is_empty():
 		return
 	var world = host.core.state
+	var overview: bool=campaign_overview()
+	var labels: Array=[]
+	var target_id: String=str(world.activeContract.get("targetPort",""))
 	var w=int(host.data.WORLD.width);var h=int(host.data.WORLD.height)
 	for x in range(0,w+1,1000):
 		world_line([Vector2(x,0),Vector2(x,h)],Color(0.6,0.8,0.69,0.027))
@@ -541,24 +605,29 @@ func draw_campaign():
 			var point = Vector2(step_point.x, step_point.y)
 			draw_dashed_line(project(previous), project(point), Color(GOLD, 0.75), 1.5, 5.0, true)
 			previous = point
-	_draw_wakes()
+	if not overview:_draw_wakes()
 	for patrol in world.patrols:
 		if not patrol.active:
 			continue
 		var s = project(Vector2(patrol.x, patrol.y))
+		if not get_viewport_rect().grow(30).has_point(s):continue
 		var color = ENEMY if patrol.hostile else FRIEND
-		draw_colored_polygon(PackedVector2Array([s + Vector2(0, -5), s + Vector2(5, 0), s + Vector2(0, 5), s + Vector2(-5, 0)]), Color(color, 0.5))
+		draw_chart_marker(self,chart_marker_geometry("fleet",s,scale_factor),color)
+		labels.append({"at":s,"text":str(patrol.get("name","Fleet")) if not overview else "","priority":10,"color":color})
 	for i in range(world.ports.size()):
-		draw_harbor(world.ports[i], i)
-	_map_labels=[]
-	var label_ports: Array=world.ports.duplicate()
-	var target_id: String=str(world.activeContract.get("targetPort",""))
-	label_ports.sort_custom(func(a,b):return (3 if a.id==host.selected_port else 2 if a.id==target_id else 1 if a.id==world.lastPort else 0)>(3 if b.id==host.selected_port else 2 if b.id==target_id else 1 if b.id==world.lastPort else 0))
-	for p in label_ports:_harbor_label(p)
+		var p: Dictionary=world.ports[i]
+		draw_harbor(p, i)
+		labels.append({"at":project(Vector2(p.x,p.y)),"text":str(p.name),"priority":110 if p.id==host.selected_port else 100 if p.id==target_id else 80 if p.id==world.lastPort else 60,"subtitle":"CONTRACT DESTINATION" if p.id==target_id else str(p.industry).to_upper() if not overview else "","color":GOLD if p.id==host.selected_port or p.id==target_id else Color("d7e1cc")})
 	var knowledge: Dictionary=world.get("exploration",{})
 	for site in knowledge.get("catalog",[]):
 		var level: int=int(knowledge.get("sites",{}).get(site.id,{}).get("level",0))
-		if level>0:SiteArt.draw_site(self,site,level,str(host.selected_site)==str(site.id))
+		if level<=0:continue
+		var at: Vector2=project(Vector2(site.x,site.y))
+		if not get_viewport_rect().grow(30).has_point(at):continue
+		var selected: bool=str(host.selected_site)==str(site.id)
+		var color: Color=GOLD if level<3 else FRIEND
+		draw_chart_marker(self,chart_marker_geometry("site",at,scale_factor),color,selected)
+		labels.append({"at":at,"text":"Unsurveyed site" if level==1 else str(site.name),"priority":120 if selected else 20,"color":color})
 	for wreck in world.get("wrecks",[]):
 		if wreck.get("status","")!="unclaimed":continue
 		var marker_pos: Vector2=project(Vector2(wreck.x,wreck.y))
@@ -566,24 +635,24 @@ func draw_campaign():
 		draw_circle(marker_pos,7,Color(GOLD,0.12))
 		draw_line(marker_pos+Vector2(-4,-4),marker_pos+Vector2(4,4),GOLD,1.5)
 		draw_line(marker_pos+Vector2(-4,4),marker_pos+Vector2(4,-4),GOLD,1.5)
+		labels.append({"at":marker_pos,"text":"","priority":0})
 	var fleet = host.core.active_fleet()
-	for i in range(fleet.size()):
-		var boat = fleet[i].duplicate()
-		var offset = Vector2.ZERO if i == 0 else Vector2(-30 * ceili(i / 2.0), (1 if i % 2 else -1) * 30)
-		boat.x = world.position.x + offset.x
-		boat.y = world.position.y + offset.y
-		boat.angle = world.heading
-		boat.turretAngle = world.heading
-		boat.vx = 45 if not world.path.is_empty() else 0
-		boat.vy = 0
-		draw_boat(boat, GOLD if i == 0 else FRIEND, i == 0, false, 1.0, true)
-	var marker = project(Vector2(world.position.x, world.position.y), 50)
-	text_at("YOUR FLOTILLA", marker + Vector2(0, -12), 10, GOLD, mono, true)
-	if not world.activeContract.is_empty():
-		var target = host.core.port(world.activeContract.targetPort)
-		var p = project(Vector2(target.x, target.y), 90)
-		draw_circle(p, 12, Color(GOLD, 0.12))
-		text_at("⚑", p + Vector2(0, 5), 20, GOLD, sans, true)
+	var marker: Vector2=project(Vector2(world.position.x,world.position.y))
+	if overview:
+		draw_chart_marker(self,chart_marker_geometry("fleet",marker,scale_factor,float(world.heading)),GOLD,true)
+	else:
+		for i in range(fleet.size()):
+			var boat = fleet[i].duplicate()
+			var offset = Vector2.ZERO if i == 0 else Vector2(-30 * ceili(i / 2.0), (1 if i % 2 else -1) * 30)
+			boat.x = world.position.x + offset.x
+			boat.y = world.position.y + offset.y
+			boat.angle = world.heading
+			boat.turretAngle = world.heading
+			boat.vx = 45 if not world.path.is_empty() else 0
+			boat.vy = 0
+			draw_boat(boat, GOLD if i == 0 else FRIEND, i == 0, false, 1.0, true)
+	labels.append({"at":marker,"text":"YOUR FLOTILLA","priority":105,"color":GOLD})
+	_draw_chart_labels(labels)
 	var size = get_viewport_rect().size
 	text_at("THE SHATTER COAST", Vector2(size.x * 0.5, size.y - 175), 12, GOLD, mono, true)
 	text_at("Nothing stays afloat alone.", Vector2(size.x * 0.5, size.y - 144), 26, Color("c7d4bd"), serif, true)
