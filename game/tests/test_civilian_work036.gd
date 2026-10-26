@@ -110,8 +110,8 @@ func fishing() -> void:
 	var before: float=float(c.state.cargo.preserved_fish)
 	Work.tick(c,0.25)
 	check(close(before,float(c.state.cargo.preserved_fish)),"repeated same-clock tick cannot harvest again")
-	var book: String=JSON.stringify(c.state.civilianWork)
-	check(restore_checkpoint(c.state.duplicate(true),"active fishing full JSON roundtrip") and JSON.stringify(c.state.civilianWork)==book,"active site quota and work survive restore exactly")
+	var book: Dictionary=JSON.parse_string(JSON.stringify(c.state.civilianWork))
+	check(restore_checkpoint(c.state.duplicate(true),"active fishing full JSON roundtrip") and c.state.civilianWork==book,"active site quota and work survive restore exactly in saved JSON representation")
 	var bad: Dictionary=c.state.duplicate(true);bad.civilianWork.fishing[0].catch=1e6
 	check(not c.restore(bad).ok,"fabricated unearned fishing work refused before publication")
 	c.step(c.DAY_SECONDS*0.5)
