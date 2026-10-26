@@ -1,0 +1,33 @@
+{
+  "classification": "INSTALLED_GOLD_SOURCE_STAGE_VERIFIED_PENDING_NATIVE",
+  "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/combined-context-r1-root/installed-observed/game",
+  "count": 501,
+  "sha256": "3b92e582cbd1d23edc7094c8589f333f85270fd25606a084918b3bc8e19fc799",
+  "fullCount": 524,
+  "fullSha256": "6bc2339c274d827b1a6133f53fa76448e8e8be64d657a609910cca7137e368e5",
+  "addedFiles": {
+    "tests/test_equipment_rollout.gd": "43dada2761ef3444922092feadfe42c40e915aeaf2477cd3cd18b14137465fa6",
+    "tests/equipment_rollout_reference.gd": "ad52e2d1251b656a27f4024db934d3b0d130d6d1829ac1bb3462ee81b5d9daf8"
+  },
+  "onlyChangedFromReviewedRaw": "scripts/equipment_rollout.gd one observation line",
+  "observerSha256": "a6f39cf11713facea133d4b073d838e7a2625a869d6d4914cf66394491b78265",
+  "observerBytes": 10724,
+  "observerBindingProof": "ROOT PREFIX GOLD OBSERVER ACTUAL BINDING.json",
+  "goldWitnesses": [
+    {
+      "jobId": "8bc3c3198a064b3ebfbc350e289942b6",
+      "sha256": "eb4cda45e22c22e258dd8a62441cf3b499e423c2122dfa1728c7414645fbb098",
+      "samples": 600,
+      "certificatePairs": 10
+    },
+    {
+      "jobId": "5e8d6a408fff44ce993c3017228f38ff",
+      "sha256": "013835380a4e3f47821ffc9bf738e353831c6f6278d72ab792fe446c31ed5e49",
+      "samples": 1200,
+      "certificatePairs": 10
+    }
+  ],
+  "newNativeRuns": 0,
+  "rootNativeLaunches": 0,
+  "notFrozenR5Cohort": true
+}

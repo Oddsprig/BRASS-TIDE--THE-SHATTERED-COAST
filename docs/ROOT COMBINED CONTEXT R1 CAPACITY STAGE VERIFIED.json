@@ -1,0 +1,21 @@
+{
+  "classification": "NEW_CONTEXT_CAPACITY_SOURCE_STAGE_VERIFIED_PENDING_ADAPTER_COHORT_BINDING",
+  "game": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/combined-context-r1-root/capacity/game",
+  "count": 501,
+  "sha256": "f05580af503086f4a3b72380fd7410ac2a71f43ccad3f038074c864a6fef4b7b",
+  "fullCount": 524,
+  "fullSha256": "38c615546ca19288d3bbba744122611ebdaafd425af4293523c03108964589ca",
+  "onlyAddedFiles": {
+    "tests/probe_equipment_capacity.gd": "f7074c8cbd1705e792e4de6d2552af9a9d46f4cc3368321c51fa4c91b9fb4eb0",
+    "tests/tactical_scenarios.json": "b6b63aa25a17383d7f1baeabb0da18a4c1ad552af7dde55285216087140ccb5e"
+  },
+  "unobservedRuntime": {
+    "scripts/damage.gd": "298e353de6cf7ab57207a5a99b002bacdf6ecf30d5dccf41927fcb8e745649d6",
+    "scripts/equipment_damage.gd": "73ff774a0cebdac14d687dcfd8dfa390d880e9fc83320a6348109088183faed9",
+    "scripts/equipment_rollout.gd": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf"
+  },
+  "probeAndProtocolUnchanged": true,
+  "oldClosedRuntimeCohortMustRemainPreserved": true,
+  "engineAuthorized": false,
+  "rootNativeLaunches": 0
+}

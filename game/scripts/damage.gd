@@ -321,7 +321,30 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 
 	if mode == "canonical":
 		var out_info = {} if frame_cache is Dictionary else null
-		var status_can: Dictionary = _tick_canonical_with(s, dt, _options, EquipmentDamage.inspect_owner, EquipmentDamage._tick_repair_step_from_info, EquipmentDamage.Records.publish, EquipmentDamage.Records.absorb_legacy_damage, out_info)
+		var tick_ctx: Dictionary = EquipmentDamage._make_public_tick_context(s, info, _options, frame_cache)
+		var status_can: Dictionary = (
+			_tick_canonical_with(
+				s,
+				dt,
+				_options,
+				EquipmentDamage._tick_status_public_local.bind(tick_ctx),
+				EquipmentDamage._tick_repair_public_local_from_info.bind(tick_ctx),
+				EquipmentDamage._tick_publish_public_local.bind(tick_ctx),
+				EquipmentDamage._tick_absorb_public_local.bind(tick_ctx),
+				out_info
+			)
+			if bool(tick_ctx.get("eligible", false))
+			else _tick_canonical_with(
+				s,
+				dt,
+				_options,
+				EquipmentDamage.inspect_owner,
+				EquipmentDamage._tick_repair_step_from_info,
+				EquipmentDamage.Records.publish,
+				EquipmentDamage.Records.absorb_legacy_damage,
+				out_info
+			)
+		)
 		if frame_cache is Dictionary and bool(status_can.get("equipmentOk", false)):
 			_store_cached_info(s, out_info.get("info", {}), frame_cache)
 		return status_can

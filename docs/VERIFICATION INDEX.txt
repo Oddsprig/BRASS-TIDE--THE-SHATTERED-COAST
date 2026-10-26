@@ -1,41 +1,44 @@
 BRASS TIDE - VERIFIED COMPONENTS; CURRENT SCENE/PERFORMANCE OPEN
 2026-10-26T00:59:25.110Z
-Accepted private-copy pair and five live-frame/tick modules are in working source.
-Fourteen runtime modules and six fixtures integrated. Still24 boats.
+Verified equipment tick and prediction reuse are in working source.
+Fourteen runtime modules integrated; nine additional focused fixtures retained.
+Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
 No .031 version bump, release tag, export, launcher change or upload.
 
 ACTIVE PERFORMANCE WORK - 26 OCTOBER 2026
-Working source remains the verified idle baseline: Damage5873/EqDamagec364/
-Core56eb/Recordsf799, commit1f567b1. Build30,24boats; .031 is unreleased.
-The isolated three-file context candidate (Damage298e/Eq73ff/Rolloutc51a) has
-passed five targeted native jobs. Root independently checked actual native and
-outer results, unchanged inputs/tools and the shared background test lane.
-Public differential47ed:735/0, whole boat/report/status/cache bytes, fresh locker
-identity, actual paid repairs/fire/flooding, EPS and priority Object fallback.
-Original Records5ae8:89/0; original Damage3030:174/0; corrected projection8bf9:
-67/0. Earlier failed fixture/outer results remain preserved separately.
-Cold df08:51/0. All24 recorded updates and40 public-status rows match BOTH
-acceptedc7a and original78c, excluding only two existing diagnostic clocks.
-Observed means:111.337ms whole /86.419AI /24.918OTHER per update; prior c7a
-measured151.118/101.023/50.095. Cost remains material. These cold observations
-establish no causal speedup, rendered FPS or sustained capacity acceptance.
-See ROOT COMBINED CONTEXT R1 PUBLIC CONTRACT VERIFIED.json, ORIGINALS VERIFIED,
-PROJECTION67 VERIFIED and COLD VERIFIED for exact input, log and receipt hashes.
-The candidate remains isolated pending the installed30/60 prediction comparison
-with saved independent Gold runs. Its Rollout change lies outside the frozen
-four-file R5 cohort; no old trace result is relabeled. Actual shared numerical
-loops remain unchanged. Source composition and stage reviews are preserved.
-Next: complete both installed-Gold witnesses; if they pass, measure original
-unchanged sustained capacity window0 once. Final tactical, manual/retreat, career,
-UI/save/service/coins and Windows presentation/release gates remain open. Pure
-Core90 reuse retains its narrowly accepted called-closure scope.
-Main integration waits for the scoped final-source gates and recovery allowlist.
+The verified context update is integrated into working game source. Exact runtime
+hashes: Damage298e/EqDamage73ff/Rolloutc51a; Core56eb/Recordsf799 unchanged.
+Root backed up and replaced exactly3 runtime files, preserving all other current
+code and the corrected campaign fixture. Recovery R5 was already integrated; no
+older recovery tree was copied. See ROOT COMBINED CONTEXT R1 MAIN INTEGRATION.
+Seven targeted native jobs passed, with Root independent receipt/input/tool/lane
+audits: public47ed735/0; original Records5ae889/0; original Damage3030174/0;
+corrected projection8bf967/0; colddf0851/0; installed30 83bf119/0 and installed60
+f4e9119/0. Nine additional focused development fixtures are retained in source.
+The two prediction witnesses match ALL1840 retained records:1800 samples and
+20 certificate/prediction pairs, exact typed payload bytes against independent
+Gold8bc3/5e8d. No fields omitted, normalization or Gold rerun. Full log hashes
+differ only by four preserved startup Separate-rendering warning lines.
+The observer is one actual production print, reversed to unobserved Rolloutc51a.
+Its actual bindinga6f3/10724B corrects an earlier handoff metadata error; no test
+ran with the incorrect claimed binding. This is outside frozen four-file R5.
+Cold24-update payloads and40 public-status rows match BOTHc7a and78c with only
+two existing diagnostic clocks excluded. Observed means111.337ms whole /86.419AI
+/24.918OTHER; prior c7a151.118/101.023/50.095. Cost remains material. These
+cold observations establish no causal speedup, rendered FPS or sustained capacity.
+Next: original unchanged sustained capacity window0, once its separate closed
+source binding is reviewed. Historical source hashes correctly refuse the new
+revision; original probe, protocol, workloads, timing limits and validators stay
+preserved. Scene/control source staging is proceeding independently.
+Final tactical behavior/counters, manual/retreat, career, UI/save/service/coins
+and Windows presentation/release gates remain open. Pure Core90 reuse retains
+its accepted called-closure scope. Scoped component acceptance is not release
+acceptance. Build remains30,24boats; .031 has no release tag or export yet.
 Same three Bridge leads; Sol alone submits engines through shared FIFO/detector,
-headless Dummy/BelowNormal with synthetic profiles and bounded60/90s runs. No
-computer input/focus or control of existing apps. Root launched zero engines.
-Preserved .030 untested/.029 verified artifacts, tags, saves, music and launcher
-remain intact. Recovery hold.032 notes are planning only.
+headless Dummy/BelowNormal, synthetic profiles, bounded60/90s. No computer input
+or focus or control of existing apps. Root launched zero engines. Preserved
+.030 untested/.029 verified artifacts, tags, saves, music and launcher remain.
 
 
 

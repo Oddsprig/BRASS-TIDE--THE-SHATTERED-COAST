@@ -101,6 +101,20 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 	var target: Dictionary=st.tactical.observed.get(str(candidate.get("targetId","")),{})
 	var primary: Array=primary_mounts(copy.mounts,candidate)
 	var chunk: Array=[Routes.point(copy)]
+	var prefix_ctx: Dictionary={}
+	var prefix_info: Callable=Callable()
+	var prefix_repair: Callable=Callable()
+	var prefix_publish: Callable=Callable()
+	var prefix_absorb: Callable=Callable()
+	if is_canonical:
+		# Local to this synchronous prefix. Not stored on the copy, certificate,
+		# prediction, or return. Callables stay in these locals so ctx cannot cycle.
+		# Opening get_status above and the closing inspect below keep the schema check.
+		prefix_ctx={"owner":copy,"valid":false}
+		prefix_info=func(boat: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_info(boat, prefix_ctx)
+		prefix_repair=func(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_repair(boat, h, crew_repair, options, info, prefix_ctx)
+		prefix_publish=func(boat: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_publish(boat, prefix_ctx)
+		prefix_absorb=func(boat: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_absorb(boat, prefix_ctx)
 	var start_time: float=0.0
 	for step in range(60):
 		for _part in range(parts):
@@ -115,7 +129,10 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 			# is numerical error only; actual incoming hits are never predicted away.
 			# The returned factors describe the final post-tick state. Its inflow,
 			# bailing and repair may be averages; none of these consumers use them.
-			rollout_status=Damage._tick_canonical_numeric(copy,sub_dt,{"inCombat":true}) if is_canonical else Damage.tick_ship(copy,sub_dt,{"inCombat":true})
+			if is_canonical:
+				rollout_status=Damage._tick_canonical_with(copy,sub_dt,{"inCombat":true},prefix_info,prefix_repair,prefix_publish,prefix_absorb)
+			else:
+				rollout_status=Damage.tick_ship(copy,sub_dt,{"inCombat":true})
 			if is_canonical:
 				copy.mounts=EquipmentCombat._condition_mounts_from_status(copy,copy.mounts,rollout_status)
 				primary=primary_mounts(copy.mounts,candidate)

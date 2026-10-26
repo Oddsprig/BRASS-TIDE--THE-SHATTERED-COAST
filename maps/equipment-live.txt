@@ -10,7 +10,7 @@ game/scripts/equipment_combat.gd: 12633 bytes; extends RefCounted
   game/scripts/equipment_combat.gd:34 mount_location()
   game/scripts/equipment_combat.gd:62 mount_factor()
   game/scripts/equipment_combat.gd:76 apply_mount_condition()
-game/scripts/equipment_rollout.gd: 9380 bytes; extends RefCounted
+game/scripts/equipment_rollout.gd: 10500 bytes; extends RefCounted
   game/scripts/equipment_rollout.gd:11 pose()
   game/scripts/equipment_rollout.gd:14 execution()
   game/scripts/equipment_rollout.gd:21 steering()

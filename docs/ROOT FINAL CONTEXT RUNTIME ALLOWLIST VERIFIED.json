@@ -1,0 +1,51 @@
+{
+  "classification": "EXACT_RUNTIME_ALLOWLIST_SOURCE_RECONCILIATION",
+  "mainHead": "73c108e docs only over1f567b1",
+  "acceptedRecoveryAlreadyPresent": [
+    {
+      "path": "scripts/equipment_lifecycle.gd",
+      "sha256": "60bf8f7a4a933c7161282bfed026d1f61f60ae66be9cf69147cc338d78d400a4",
+      "bytes": 24648
+    },
+    {
+      "path": "scripts/equipment_tow.gd",
+      "sha256": "1957e7bc765f36fcc69c253dde56a316be96e84b9dac1ed94c3c662691089bb5",
+      "bytes": 2249
+    },
+    {
+      "path": "scripts/salvage.gd",
+      "sha256": "03efbbdbce329f5df92429da75d5d4e34dd40490fc021c91c2c443c301ef8748",
+      "bytes": 34005
+    },
+    {
+      "path": "tests/test_equipment_recovery.gd",
+      "sha256": "894152bba4eeb064f6f152883cc4e67a8310e77ffb603a9dfee3b5458ac7e664",
+      "bytes": 51012
+    },
+    {
+      "path": "tests/test_equipment_strip_custody.gd",
+      "sha256": "5d95ec9be0dd5b5ee1aea91d17bbabae2a84e3ae325789b2ad605a23af65be01",
+      "bytes": 12381
+    },
+    {
+      "path": "tests/test_salvage.gd",
+      "sha256": "1068ebd316de0aa20703e3a626421e513fd93ae49eff7074e187147a5e89e0cb",
+      "bytes": 12182
+    }
+  ],
+  "missingRecoveryRuntime": [],
+  "onlyPlannedRuntimeReplacements": {
+    "scripts/damage.gd": "298e353de6cf7ab57207a5a99b002bacdf6ecf30d5dccf41927fcb8e745649d6",
+    "scripts/equipment_damage.gd": "73ff774a0cebdac14d687dcfd8dfa390d880e9fc83320a6348109088183faed9",
+    "scripts/equipment_rollout.gd": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf"
+  },
+  "otherUnchangedRuntimeFiles": 270,
+  "copyWholeHistoricalTree": false,
+  "qualifications": [
+    "No R5 remerge: historical stage has obsolete other runtime.",
+    "Preserve corrected Main campaign fixture9f976e89; raw6472acf1 is historical failed fixture.",
+    "Illustrative byte counts in peer prose are not proof; rows here use actual file bytes.",
+    "Source allowlist only; installed-Gold and final capacity/behavior/release gates remain open."
+  ],
+  "rootNativeLaunches": 0
+}

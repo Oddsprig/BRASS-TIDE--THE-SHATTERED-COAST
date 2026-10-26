@@ -1,0 +1,87 @@
+{
+  "classification": "COMBINED_CONTEXT_R1_INSTALLED_GOLD_PAIR_NATIVE_VERIFIED",
+  "installed60": {
+    "jobId": "f4e9198f01294ec99cf26b8fc70c3573",
+    "suite": "equipment_rollout",
+    "family": "installed60",
+    "outcome": "passed",
+    "checks": 119,
+    "failures": 0,
+    "inputSha256": "3b92e582cbd1d23edc7094c8589f333f85270fd25606a084918b3bc8e19fc799",
+    "inputCount": 501,
+    "nativeWallSeconds": 1.110000000000582,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\f4e9198f01294ec99cf26b8fc70c3573\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "0ba1e81ebb5371e80445f354b0172c2ba4b7a7c7fbb311d53923db587f0ff60f",
+      "execution.json": "2d5c968a8592e0227df1e1c2b80e5be11f9c36fb241d7ada5c063db12aa0658d",
+      "inputs-after.json": "f74f71e0c44621c90e9d8294549d48f3344388e9688d512c34c29c20a448af39",
+      "inputs-before.json": "f74f71e0c44621c90e9d8294549d48f3344388e9688d512c34c29c20a448af39",
+      "lane.log": "2782177a127533dcba760a077ec903f492baeecba2323dfd91715c69920bfd51",
+      "native-receipt.json": "9bbef3052ff2b4ef78303cb6598f807f31a2a38e71443c660a40ae5cafbc5b85",
+      "native.log": "7984e60a3cdbde948b5ffc4752384d76c46f21ce554e23ebcf3762544d852c8f",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "5b3c8d440e62db40f6ce3f248e5141ec9473705bddf7f0920bab98843b23e94b",
+      "request.json": "60d7ebb45b223924a9d869b74ade7a5d8c21b03141e98cec93883850c00244d4",
+      "result.json": "d95d20b0c139f3af3d6267a06624175e88de442546482a73d71ed72c170aa2a7",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "076fdb3316a8b7a68a36291dc9aa1c9b4a26e9a2fa47e763448639466ba60e33",
+      "verified-report.json": "d95d20b0c139f3af3d6267a06624175e88de442546482a73d71ed72c170aa2a7"
+    }
+  },
+  "installed30ProofSha256": "25957051c6e4a461b23a5c7d755008181afe995ff5e125747bda171e132d887a",
+  "installed30Native": {
+    "jobId": "83bf03d709cf4b27a9a784200e927f77",
+    "suite": "equipment_rollout",
+    "family": "installed30",
+    "outcome": "passed",
+    "checks": 119,
+    "failures": 0,
+    "inputSha256": "3b92e582cbd1d23edc7094c8589f333f85270fd25606a084918b3bc8e19fc799",
+    "inputCount": 501,
+    "nativeWallSeconds": 0.9369999999980791,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\83bf03d709cf4b27a9a784200e927f77\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "9014d49a5b6a45fe17234879e906a64a468e22b190455c1b306885f846bf578d",
+      "execution.json": "c9807d875ce9c15c5968379a3b072f021e01d0fac470eb1dae887b5354a8641d",
+      "inputs-after.json": "f74f71e0c44621c90e9d8294549d48f3344388e9688d512c34c29c20a448af39",
+      "inputs-before.json": "f74f71e0c44621c90e9d8294549d48f3344388e9688d512c34c29c20a448af39",
+      "lane.log": "cf25f5b6224a7f9a617b4122148904aacefccebb224b68c06c87b1f3e70fc0b4",
+      "native-receipt.json": "f2c44ab5aba7f626e17dc41de59d67aff47a5a4c71e9f4c2e9669cc99ff92064",
+      "native.log": "9a52e4cae9de32c072c93aa5bf3ae24270d7ce25ca277d106267ab09d1014165",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "db8364e2530080e490cb3505ae623d19103b9c0e206ad62408fbe1d3ced0f1e6",
+      "request.json": "b10dbcb9d290482e4c49d5f188806b89c721938eff8d7eda454c71faaaf8b350",
+      "result.json": "5e6757271a315ae6d24ab83d95f299fcd8044c8d91878dc5449a37ddc5eb0080",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "a16f96f157bbbc90787739947c2cd57f8093172d8c901e0c65b9861e4fa056fc",
+      "verified-report.json": "5e6757271a315ae6d24ab83d95f299fcd8044c8d91878dc5449a37ddc5eb0080"
+    }
+  },
+  "originalGoldJobs": [
+    "8bc3c3198a064b3ebfbc350e289942b6",
+    "5e8d6a408fff44ce993c3017228f38ff"
+  ],
+  "originalGoldLogSha256": [
+    "eb4cda45e22c22e258dd8a62441cf3b499e423c2122dfa1728c7414645fbb098",
+    "013835380a4e3f47821ffc9bf738e353831c6f6278d72ab792fe446c31ed5e49"
+  ],
+  "losslessRecords": 1840,
+  "samples": 1800,
+  "certificatePredictionPairs": 20,
+  "allRetainedKindsAndPayloadBytesExact": true,
+  "allSampleAndBudgetIndicesVerified": true,
+  "fieldOmissions": [],
+  "consoleOnlyDifference": [
+    "WARNING: The separate rendering thread feature is experimental. Feel free to try it since it will eventually become a stable feature.",
+    "However, bear in mind that at the moment it can lead to project crashes or instability.",
+    "So, unless you want to test the engine, set the \"rendering/driver/threads/thread_model\" project setting to 'Safe'.",
+    "   at: setup2 (main/main.cpp:3518)"
+  ],
+  "scope": "Two original119 fixtures. Every typed payload exact vs preserved independent Gold, never rerun; startup Separate-rendering warnings are preserved with distinct whole-log hashes. No old4-file R5 cohort relabel, no capacity/rendered FPS/release acceptance.",
+  "rootNativeLaunches": 0,
+  "mainEdited": false
+}

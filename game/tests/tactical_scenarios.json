@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "milestone": 30,
+  "status": "Predeclared independent fixture configuration; no measured achievement",
+  "authority": "briefs/TACTICAL CONTRACT v0.030.txt and accepted AI FIXTURE BUDGETS protocol r3",
+  "dt": 0.03333333333333333,
+  "tuning_seeds": [30011, 30029, 30047, 30059, 30071, 30089, 30103, 30119],
+  "held_out_seeds": [73013, 73019, 73037, 73043, 73061, 73063, 73079, 73087, 73109, 73121, 73127, 73133, 73141, 73151, 73159, 73163, 73171, 73189, 73201, 73213, 73229, 73237, 73243, 73259],
+  "orientations": ["authored", "teams_swapped"],
+  "behavior_protocol": {
+    "ticks": 1350,
+    "trace_every_ticks": 3,
+    "process_work_bound_seconds": 40,
+    "process_timeout_seconds": 60,
+    "one_case_per_process": true,
+    "initial_positions": "Native separated Battle deployment; never pre-arranged firing or encirclement poses",
+    "short_suite": "Named representative tuning cases only; complete held-out matrix is a separate explicit batch",
+    "terminal": "Stop after real terminal update; keep terminal/counter defeat and partial work distinct",
+    "forbidden": ["HP/ammo/supply refills", "mid-run healing writes", "terminal no-op padding", "adverse-seed replacement", "production thread changes"]
+  },
+  "physical_metrics": {
+    "movement_min_world_units": 80,
+    "separated_approach_min_bearing_spread_degrees": 30,
+    "separated_approach_min_travel_world_units": 80,
+    "exit_radial_gain_world_units": 64,
+    "screen_intercept_max_distance_to_threat_ally_segment": 220,
+    "minimum_useful_firing_events_favorable_case": 1,
+    "illegal_shots_max": 0,
+    "land_penetrations_max": 0,
+    "unfunded_store_increase_max": 0,
+    "claim_limit": "A physical firing pass/exit or observed counter defeat is required; planner phase/reason labels alone satisfy no motion gate. Light victory is never required."
+  },
+  "scenarios": [
+    {"id":"A1", "title":"Three light boats against a heavy", "actors":["tin_skiff","tin_skiff","tin_skiff"], "opponents":["iron_bastion"], "variants":[
+      {"id":"stationary_heavy","name":"stationary heavy","opponent_stationary":true,"requires_separated_approach":true,"requires_useful_fire":true},
+      {"id":"moving_heavy","name":"moving heavy","requires_separated_approach":true,"requires_useful_fire":true},
+      {"id":"fast_turning_counter","name":"fast turning counter","opponents":["aegis_corvette"],"counter_outcome_allowed":true},
+      {"id":"slower_lights","name":"light boats slower than target","actors":["silt_lugger","silt_lugger","silt_lugger"],"opponents":["mercantile_clipper"],"counter_outcome_allowed":true}
+    ]},
+    {"id":"A2", "title":"A protected heavy with a real escort screen", "actors":["tin_skiff","tin_skiff","tin_skiff"], "opponents":["iron_bastion","ash_corvette","ash_corvette"], "protect_opponent_index":0, "variants":[
+      {"id":"intact_screen","name":"intact screen","requires_protective_motion":true},
+      {"id":"screen_displaced","name":"screen displaced by order","event":{"tick":180,"kind":"displace_screen"}},
+      {"id":"blocked_approach","name":"blocked approach","terrain":"central_island"},
+      {"id":"escort_destroyed","name":"escort destroyed","event":{"tick":180,"kind":"destroy_screen"}}
+    ]},
+    {"id":"A3", "title":"A real fixed-tube striker", "actors":["reed_stinger"], "opponents":["iron_bastion"], "variants":[
+      {"id":"blocked_shot","name":"blocked shot","terrain":"central_island"},
+      {"id":"spent_tubes","name":"spent tubes","actor_ammo":0,"requires_no_actor_fire":true},
+      {"id":"fast_target","name":"fast target","opponents":["gale_cutter"],"counter_outcome_allowed":true},
+      {"id":"slow_target","name":"slow target","requires_useful_fire":true},
+      {"id":"escaping_carrier","name":"escaping carrier","opponents":["mercantile_clipper"],"opponent_withdraw":true,"counter_outcome_allowed":true}
+    ]},
+    {"id":"A4", "title":"Real damaged skirmisher survival", "actors":["gale_cutter"], "opponents":["ash_corvette"], "actor_damage":{"hp_fraction":0.55,"water_fraction":0.28,"fire":8,"breach_area":45,"policy":"repair"}, "variants":[
+      {"id":"open_escape","name":"open escape"},
+      {"id":"screened_escape","name":"screened escape","actors":["gale_cutter","ash_corvette"],"protect_actor_index":0},
+      {"id":"trapped_hull","name":"trapped hull","terrain":"trapped_actor","counter_outcome_allowed":true}
+    ], "deferred_variants":{"disabled gun":"0.031","disabled engine":"0.031","disabled pump":"0.031"}},
+    {"id":"A5", "title":"Changed leader and blocked station", "actors":["gale_cutter","gale_cutter","ash_corvette"], "opponents":["iron_bastion"], "protect_actor_index":2, "variants":[
+      {"id":"blocked_flank","name":"blocked flank","terrain":"central_island"},
+      {"id":"leader_destroyed","name":"leader destroyed","event":{"tick":180,"kind":"destroy_actor_leader"}},
+      {"id":"occupied_station","name":"occupied station","actors":["gale_cutter","gale_cutter","ash_corvette","bilge_punt"],"actor_last_hold":true}
+    ], "deferred_variants":{"large hull narrow passage":"0.034"}}
+  ],
+  "adapter_adversaries": {
+    "gradual_condition":{"ticks":240,"damage":"Real Damage.tick_ship bailing, breach/hull repair and fire-driven engine evolution; finite initial supplies, no scripted healing","minimum_motion_world_units":80,"abrupt_engine_zero_countercase":true},
+    "urgent_fairness":{"profiles":["tactical_40","api_74"],"orientations":["authored","teams_swapped"],"ticks":240,"initial_hp_fraction":0.59,"initial_water_fraction":0.08,"per_id_actual_certificate_deadline_seconds":4,"minimum_per_id_motion_world_units":40,"command_tick":90,"geometry":"Open water; retain native separated spawn, finite stores and actual traffic"},
+    "private_mission":{"public_fields":["kind","duration","allyUids","objectiveGeometry"],"private_sentinels":["manifest","paidCargo","ownerBudget","privateLedger"]},
+    "fire_control":["Muzzle-offset and inherited-velocity emitted intercept", "Actual projectile ray land clearance", "Finite rounds and once-only cooldown", "Stationary phase-label churn cannot reset fixed salvo"]
+  },
+  "load_profiles": {
+    "tactical_40":{"hull":"tin_skiff","per_side":20,"points_per_side":300,"overflow_per_side":2},
+    "catalogue_42":{"hull":"bilge_punt","per_side":21,"points_per_side":294,"overflow_per_side":2},
+    "api_60":{"synthetic_deployment_points":10,"per_side":30,"points_per_side":300,"overflow_per_side":2},
+    "api_74":{"synthetic_deployment_points":8,"per_side":37,"points_per_side":296,"overflow_per_side":2}
+  },
+  "capacity_protocol": {
+    "id":"full-population-prefix-capacity-r3",
+    "warmup_ticks_per_process":150,
+    "window_ticks_max":180,
+    "full_pre_tick_samples_required":1800,
+    "seed_schedule_cyclic":[83,30011,30029,30047,30059,30071,30089,30103,30119,83],
+    "windows_per_profile_max":40,
+    "windows_per_process_max":2,
+    "work_bound_seconds":40,
+    "process_timeout_seconds":60,
+    "window_exit":"First sunk/captured loss or terminal outcome, 180 actual ticks, or remaining allocation; every short window consumes its literal scheduled seed",
+    "scope":"Cumulative 60s full-pre-tick capacity across fresh finite laboratory windows, never a continuous 60s encounter",
+    "timing":"Independent Battle.update; AI timer must include snapshot/propose/certification/resolve/helm/safety/automatic-fire gates, excluding legacy movement/damage/projectiles"
+  },
+  "cpu_thresholds_ms": {
+    "tactical_40":{"p95":16,"p99":24,"max":33.333,"ai_p95":3},
+    "catalogue_42":{"p95":16,"p99":24,"max":33.333,"ai_p95":3},
+    "api_60":{"p95":24,"p99":30,"max":33.333,"ai_p95":5},
+    "api_74":{"p95":24,"p99":30,"max":33.333,"ai_p95":5}
+  },
+  "exact_work_limits": {"fullRoutes":4,"rollouts":16,"samples":840,"clearanceTests":4096,"cacheEntries":128,"traceRecords":512,"normal_decision_seconds":0.2,"safety_seconds":0.1,"command_apply_seconds":0.03333333333333333,"dropped_decisions":0}
+}

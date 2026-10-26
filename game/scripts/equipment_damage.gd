@@ -534,6 +534,202 @@ static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, opt
 static func _tick_repair_step_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary) -> Dictionary:
 	return _repair_step_from_info(boat, h, crew_repair, options, info, Core.repair_installed, Core.apply_component_damage, Records.publish)
 
+static func _is_string_value(value) -> bool:
+	var value_type: int = typeof(value)
+	return value_type == TYPE_STRING or value_type == TYPE_STRING_NAME
+
+static func _public_tick_context_eligible(boat: Dictionary, entry_info: Dictionary, options, frame_cache) -> bool:
+	if not (boat is Dictionary) or not (entry_info is Dictionary) or not (options is Dictionary):
+		return false
+	if not bool(entry_info.get("ok", false)):
+		return false
+	var mode_val = entry_info.get("mode")
+	if not _is_string_value(mode_val) or String(mode_val) != "canonical":
+		return false
+	if not (entry_info.get("snapshot") is Dictionary):
+		return false
+	var cond = boat.get("moduleCondition")
+	if not (cond is Dictionary):
+		return false
+	var items = cond.get("items")
+	if not (items is Dictionary):
+		return false
+	var breaches = boat.get("breaches")
+	if not (breaches is Array) or not breaches.is_empty():
+		return false
+	if is_same(cond, boat) or is_same(items, boat) or is_same(items, cond):
+		return false
+	if is_same(options, boat) or is_same(options, cond) or is_same(options, items):
+		return false
+	if is_same(frame_cache, boat) or is_same(frame_cache, cond) or is_same(frame_cache, items):
+		return false
+	var spec = boat.get("spec")
+	if is_same(spec, boat) or is_same(spec, cond) or is_same(spec, items):
+		return false
+	var base_spec = boat.get("baseSpec")
+	if is_same(base_spec, boat) or is_same(base_spec, cond) or is_same(base_spec, items):
+		return false
+	var loadout = boat.get("loadout")
+	if is_same(loadout, boat) or is_same(loadout, cond) or is_same(loadout, items):
+		return false
+	for key in boat.keys():
+		if not _is_string_value(key):
+			return false
+	if spec is Dictionary:
+		var mounts = spec.get("weaponMounts")
+		if mounts is Array:
+			for mount in mounts:
+				if mount is Dictionary:
+					for mount_key in mount.keys():
+						if not _is_string_value(mount_key):
+							return false
+	for item_uid in items.keys():
+		if not _is_string_value(item_uid):
+			return false
+		var item = items[item_uid]
+		if not (item is Dictionary):
+			return false
+		if not _is_string_value(item.get("family")) or not _is_string_value(item.get("location")) or not _is_string_value(item.get("status")):
+			return false
+	if boat.has("policy") and not _is_string_value(boat.get("policy")):
+		return false
+	if options.has("priority"):
+		var opt_prio = options.get("priority")
+		if not _is_string_value(opt_prio) or not (String(opt_prio) in Core.PRIORITIES):
+			return false
+	var cond_prio = cond.get("repairPriority")
+	if not _is_string_value(cond_prio) or not (String(cond_prio) in Core.PRIORITIES):
+		return false
+	if boat.has("engine") and not Core._unit(boat.get("engine")):
+		return false
+	return true
+
+static func _make_public_tick_context(boat: Dictionary, entry_info: Dictionary, options = {}, frame_cache = null) -> Dictionary:
+	var eligible: bool = _public_tick_context_eligible(boat, entry_info, options, frame_cache)
+	return {
+		"owner": boat if eligible else null,
+		"condition": boat.moduleCondition if eligible else null,
+		"items": boat.moduleCondition.items if eligible else null,
+		"eligible": eligible,
+		"info_valid": eligible,
+		"info": entry_info if eligible else {},
+		"publish_valid": false,
+		"publish_projection": {}
+	}
+
+static func _invalidate_public_tick_context(tick_ctx: Dictionary, disable_eligibility: bool = false) -> void:
+	if not (tick_ctx is Dictionary):
+		return
+	if disable_eligibility:
+		tick_ctx["eligible"] = false
+		tick_ctx["owner"] = null
+		tick_ctx["condition"] = null
+		tick_ctx["items"] = null
+	tick_ctx["info_valid"] = false
+	tick_ctx["info"] = {}
+	tick_ctx["publish_valid"] = false
+	tick_ctx["publish_projection"] = {}
+
+static func _tick_context_runtime_valid(boat: Dictionary, tick_ctx: Dictionary) -> bool:
+	if not (tick_ctx is Dictionary) or not bool(tick_ctx.get("eligible", false)):
+		return false
+	if not (boat is Dictionary) or not is_same(tick_ctx.get("owner"), boat):
+		return false
+	var cond = boat.get("moduleCondition")
+	if not (cond is Dictionary) or not is_same(tick_ctx.get("condition"), cond):
+		return false
+	var items = cond.get("items")
+	if not (items is Dictionary) or not is_same(tick_ctx.get("items"), items):
+		return false
+	var breaches = boat.get("breaches")
+	if not (breaches is Array) or not breaches.is_empty():
+		return false
+	if boat.has("engine") and not Core._unit(boat.get("engine")):
+		return false
+	if boat.has("policy") and not _is_string_value(boat.get("policy")):
+		return false
+	var cond_prio = cond.get("repairPriority")
+	if not _is_string_value(cond_prio) or not (String(cond_prio) in Core.PRIORITIES):
+		return false
+	return true
+
+static func _tick_status_public_local(boat: Dictionary, tick_ctx: Dictionary) -> Dictionary:
+	if _tick_context_runtime_valid(boat, tick_ctx) and bool(tick_ctx.get("info_valid", false)):
+		var cached_info = tick_ctx.get("info")
+		if cached_info is Dictionary and bool(cached_info.get("ok", false)) and _is_string_value(cached_info.get("mode")) and String(cached_info.get("mode")) == "canonical":
+			return cached_info
+	var fresh: Dictionary = inspect_owner(boat)
+	if _tick_context_runtime_valid(boat, tick_ctx) and bool(fresh.get("ok", false)) and _is_string_value(fresh.get("mode")) and String(fresh.get("mode")) == "canonical" and (fresh.get("snapshot") is Dictionary):
+		tick_ctx["condition"] = boat.moduleCondition
+		tick_ctx["items"] = boat.moduleCondition.items
+		tick_ctx["info"] = fresh
+		tick_ctx["info_valid"] = true
+	else:
+		_invalidate_public_tick_context(tick_ctx, true)
+	return fresh
+
+static func _tick_absorb_public_local(boat: Dictionary, tick_ctx: Dictionary) -> Dictionary:
+	var absorbed: Dictionary = Records.absorb_legacy_damage(boat)
+	if not bool(absorbed.get("ok", false)):
+		_invalidate_public_tick_context(tick_ctx, true)
+	elif bool(absorbed.get("changed", false)):
+		_invalidate_public_tick_context(tick_ctx, false)
+	return absorbed
+
+static func _tick_publish_public_local(boat: Dictionary, tick_ctx: Dictionary) -> Dictionary:
+	if _tick_context_runtime_valid(boat, tick_ctx) and bool(tick_ctx.get("publish_valid", false)):
+		var proj = tick_ctx.get("publish_projection")
+		if proj is Dictionary and proj.has("hasEngine") and proj.has("engineHp") and (proj.get("refitLocker") is Dictionary):
+			return Records._publish_projection(boat, proj)
+	var published: Dictionary = Records.publish(boat)
+	if bool(published.get("ok", false)) and _tick_context_runtime_valid(boat, tick_ctx) and (published.get("refitLocker") is Dictionary):
+		tick_ctx["condition"] = boat.moduleCondition
+		tick_ctx["items"] = boat.moduleCondition.items
+		tick_ctx["publish_projection"] = {
+			"hasEngine": bool(published.get("hasEngine", false)),
+			"engineHp": float(published.get("engineHp", 0.0)),
+			"refitLocker": published.get("refitLocker", {}).duplicate(true)
+		}
+		tick_ctx["publish_valid"] = true
+	else:
+		_invalidate_public_tick_context(tick_ctx, true)
+	return published
+
+static func _tick_repair_public_local_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, tick_ctx: Dictionary) -> Dictionary:
+	if _tick_context_runtime_valid(boat, tick_ctx) and bool(tick_ctx.get("info_valid", false)) and (info is Dictionary) and is_same(info, tick_ctx.get("info")) and (options is Dictionary):
+		var prio_ok: bool = true
+		var priority: String = ""
+		if options.has("priority"):
+			var raw_prio = options.get("priority")
+			if _is_string_value(raw_prio):
+				priority = String(raw_prio)
+			else:
+				prio_ok = false
+		else:
+			var cond_prio = boat.moduleCondition.get("repairPriority", "auto")
+			if _is_string_value(cond_prio):
+				priority = String(cond_prio)
+			else:
+				prio_ok = false
+		if prio_ok and (priority in Core.PRIORITIES):
+			var h_idle: float = maxf(0.0, number(h))
+			var crew_idle: float = maxf(0.0, number(crew_repair))
+			var available_work: float = crew_idle * h_idle
+			var fire_before: float = clampf(number(boat.get("fire")), 0.0, 100.0)
+			if fire_before <= 0.0 and available_work <= Core.EPS:
+				return _repair_step_from_info(
+					boat,
+					h,
+					crew_repair,
+					options,
+					info,
+					Core.repair_installed,
+					Core.apply_component_damage,
+					_tick_publish_public_local.bind(tick_ctx)
+				)
+	_invalidate_public_tick_context(tick_ctx, false)
+	return _tick_repair_step_from_info(boat, h, crew_repair, options, info)
+
 static func _tick_repair_numeric(boat: Dictionary, h: float, crew_repair: float, options: Dictionary = {}) -> Dictionary:
 	return _tick_repair_numeric_from_info(boat, h, crew_repair, options, _repair_guard_numeric(boat))
 
@@ -739,3 +935,165 @@ static func _numeric_rollout_info(boat: Dictionary) -> Dictionary:
 	if not snap.ok:
 		return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": str(snap.get("error", "Invalid numerical equipment state."))}
 	return {"ok": true, "mode": "canonical", "needsInitialize": false, "snapshot": snap}
+
+# Prefix-local callbacks for one EquipmentRollout.prefix canonical arm.
+# Damage._tick_canonical_with stays the caller of these callables and is not edited.
+# The loop, scalar math, and accumulators stay in that body. Nothing here copies them.
+# ctx is that prefix's local dictionary only: owner, valid, info, engine_hp, absorb_receipt.
+# Callables are not stored on ctx. Another boat pointer does not read or write ctx.
+# Reuse reads this call's breaches array. Missing or nonempty uses the original numeric
+# functions and does not refuse a boat the original functions still accept.
+# A kept absorb dictionary is a real Records._absorb_legacy_numeric return with ok and
+# changed == false. changed true is not kept and is not treated as a no-write.
+# _prefix_ctx_publish_ok_only assigns nothing. published.ok is the only field the repair
+# body reads. That dictionary is not Records._publish_numeric's return.
+# Eligibility also requires an absent policy, or a present TYPE_STRING or TYPE_STRING_NAME policy.
+# That policy read is typeof only. It does not call str, because Object._to_string can write after inspection.
+
+static func _prefix_ctx_bound(boat: Dictionary, ctx: Dictionary) -> bool:
+	return boat is Dictionary and ctx is Dictionary and is_same(boat, ctx.get("owner"))
+
+static func _prefix_ctx_clear(ctx: Dictionary) -> void:
+	ctx["valid"] = false
+	ctx.erase("info")
+	ctx.erase("engine_hp")
+
+static func _prefix_ctx_drop_receipt(ctx: Dictionary) -> void:
+	ctx.erase("absorb_receipt")
+
+static func _prefix_ctx_breaches_empty(boat: Dictionary) -> bool:
+	var breaches = boat.get("breaches")
+	return breaches is Array and breaches.is_empty()
+
+static func _prefix_ctx_receipt_is_nowrite(receipt) -> bool:
+	return receipt is Dictionary and bool(receipt.get("ok", false)) and receipt.get("changed") == false and Core._unit(receipt.get("engineHp"))
+
+static func _prefix_ctx_info_acceptable(boat: Dictionary, info: Dictionary) -> bool:
+	# Damage._status_for_info calls _status_from_info, which assigns str(boat.get("policy", "balanced")).
+	# An Object policy makes that str() run Object._to_string, which can mutate condition after a cached inspection.
+	# A present policy is eligible only for TYPE_STRING or TYPE_STRING_NAME. This check does not call str.
+	# A missing policy stays eligible and uses the default balanced weights. Any other present type returns false,
+	# so arm leaves the context unarmed and info, absorb, publish, and repair tail-call the original functions.
+	# That miss is not a refusal. No priority typeof gate is added. repairPriority stays core metadata.
+	# _prefix_ctx_repair_idle still stringifies options.priority and the stored repairPriority, then requires
+	# Core.PRIORITIES membership. A miss clears and tail-calls. This patch does not change that gate.
+	if boat.has("policy"):
+		var policy_type: int = typeof(boat.get("policy"))
+		if policy_type != TYPE_STRING and policy_type != TYPE_STRING_NAME:
+			return false
+	if not (info is Dictionary) or not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical":
+		return false
+	if bool(info.get("needsInitialize", true)):
+		return false
+	if not _prefix_ctx_breaches_empty(boat):
+		return false
+	var snap = info.get("snapshot")
+	if not (snap is Dictionary) or not bool(snap.get("ok", false)):
+		return false
+	var installed = snap.get("installed")
+	if not (installed is Dictionary) or not (installed.get("engine") is Dictionary):
+		return false
+	var engine_row: Dictionary = installed.get("engine")
+	if not Core._unit(boat.get("engine")) or not Core._unit(snap.get("engineHp")) or not Core._unit(engine_row.get("hp")):
+		return false
+	if float(engine_row.get("hp")) != float(snap.get("engineHp")):
+		return false
+	return true
+
+static func _prefix_ctx_arm(boat: Dictionary, ctx: Dictionary, info: Dictionary) -> void:
+	if not _prefix_ctx_bound(boat, ctx):
+		return
+	if not _prefix_ctx_info_acceptable(boat, info):
+		_prefix_ctx_clear(ctx)
+		_prefix_ctx_drop_receipt(ctx)
+		return
+	var snap: Dictionary = info.get("snapshot")
+	var record_hp: float = float(snap.get("engineHp"))
+	if float(boat.engine) != record_hp:
+		_prefix_ctx_clear(ctx)
+		return
+	ctx["info"] = info
+	ctx["engine_hp"] = record_hp
+	ctx["valid"] = true
+	var receipt = ctx.get("absorb_receipt")
+	if not _prefix_ctx_receipt_is_nowrite(receipt) or float(receipt.get("engineHp")) != record_hp:
+		_prefix_ctx_drop_receipt(ctx)
+
+static func _prefix_ctx_reuse_info(boat: Dictionary, ctx: Dictionary) -> bool:
+	if not bool(ctx.get("valid", false)):
+		return false
+	var info = ctx.get("info")
+	if not (info is Dictionary) or not _prefix_ctx_info_acceptable(boat, info):
+		return false
+	if not ctx.has("engine_hp") or float(boat.engine) != float(ctx.get("engine_hp")):
+		return false
+	var snap: Dictionary = info.get("snapshot")
+	if float(snap.get("engineHp")) != float(ctx.get("engine_hp")):
+		return false
+	return true
+
+static func _prefix_ctx_publish_ok_only(_boat: Dictionary) -> Dictionary:
+	return {"ok": true}
+
+static func _prefix_ctx_info(boat: Dictionary, ctx: Dictionary) -> Dictionary:
+	if not _prefix_ctx_bound(boat, ctx):
+		return _numeric_rollout_info(boat)
+	if _prefix_ctx_reuse_info(boat, ctx):
+		var current: Dictionary = ctx.get("info")
+		return current
+	_prefix_ctx_clear(ctx)
+	var info: Dictionary = _numeric_rollout_info(boat)
+	_prefix_ctx_arm(boat, ctx, info)
+	return info
+
+static func _prefix_ctx_absorb(boat: Dictionary, ctx: Dictionary) -> Dictionary:
+	if not _prefix_ctx_bound(boat, ctx):
+		return Records._absorb_legacy_numeric(boat)
+	var receipt = ctx.get("absorb_receipt")
+	if _prefix_ctx_reuse_info(boat, ctx) and _prefix_ctx_receipt_is_nowrite(receipt) and float(receipt.get("engineHp")) == float(ctx.get("engine_hp")):
+		var kept: Dictionary = receipt
+		return kept
+	_prefix_ctx_clear(ctx)
+	_prefix_ctx_drop_receipt(ctx)
+	var fresh: Dictionary = Records._absorb_legacy_numeric(boat)
+	if _prefix_ctx_receipt_is_nowrite(fresh):
+		ctx["absorb_receipt"] = fresh
+	return fresh
+
+static func _prefix_ctx_publish(boat: Dictionary, ctx: Dictionary) -> Dictionary:
+	if not _prefix_ctx_bound(boat, ctx):
+		return Records._publish_numeric(boat)
+	if _prefix_ctx_reuse_info(boat, ctx):
+		return _prefix_ctx_publish_ok_only(boat)
+	_prefix_ctx_clear(ctx)
+	var published: Dictionary = Records._publish_numeric(boat)
+	if not bool(published.get("ok", false)):
+		_prefix_ctx_drop_receipt(ctx)
+	return published
+
+static func _prefix_ctx_repair_idle(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, ctx: Dictionary) -> bool:
+	if not _prefix_ctx_reuse_info(boat, ctx) or not is_same(info, ctx.get("info")):
+		return false
+	if not (options is Dictionary) or not (boat.get("moduleCondition") is Dictionary):
+		return false
+	var fire_before: float = clampf(number(boat.get("fire")), 0.0, 100.0)
+	if fire_before > 0.0:
+		return false
+	var priority: String = str(options.get("priority", boat.moduleCondition.get("repairPriority", "auto")))
+	if not priority in Core.PRIORITIES:
+		return false
+	var current: Dictionary = ctx.get("info")
+	var snap: Dictionary = current.get("snapshot")
+	if str(boat.moduleCondition.get("repairPriority", "")) != str(snap.get("repairPriority", "")):
+		return false
+	var available_work: float = maxf(0.0, number(crew_repair)) * maxf(0.0, number(h))
+	return available_work <= Core.EPS
+
+static func _prefix_ctx_repair(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, ctx: Dictionary) -> Dictionary:
+	if not _prefix_ctx_bound(boat, ctx):
+		return _tick_repair_rollout_from_info(boat, h, crew_repair, options, info)
+	if _prefix_ctx_repair_idle(boat, h, crew_repair, options, info, ctx):
+		return _repair_step_from_info(boat, h, crew_repair, options, info, Core._repair_installed_numeric, Core._apply_component_damage_numeric, _prefix_ctx_publish_ok_only)
+	_prefix_ctx_clear(ctx)
+	_prefix_ctx_drop_receipt(ctx)
+	return _tick_repair_rollout_from_info(boat, h, crew_repair, options, info)

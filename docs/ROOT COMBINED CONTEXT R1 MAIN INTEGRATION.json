@@ -1,0 +1,95 @@
+{
+  "classification": "SCOPED_CONTEXT_RUNTIME_INTEGRATED_NOT_RELEASE_OR_PERFORMANCE_ACCEPTANCE",
+  "integratedAt": "2026-10-26T05:43:32.084Z",
+  "baseMainHead": "73c108e",
+  "runtime": [
+    {
+      "path": "scripts/damage.gd",
+      "before": "58738cbdf0c1f6ba2da5493b0575f1f02ba905d99527b7b9d21ecac3c55147da",
+      "after": "298e353de6cf7ab57207a5a99b002bacdf6ecf30d5dccf41927fcb8e745649d6",
+      "bytes": 26753
+    },
+    {
+      "path": "scripts/equipment_damage.gd",
+      "before": "c364de093cf5900c8a8d4e746d09352c5e5156b0f885fefb13c81e766130ee1b",
+      "after": "73ff774a0cebdac14d687dcfd8dfa390d880e9fc83320a6348109088183faed9",
+      "bytes": 50241
+    },
+    {
+      "path": "scripts/equipment_rollout.gd",
+      "before": "b0e9b4b1ad4735004aa757fe441c883eea2d611944c5a0492f8e627e4d7fa26e",
+      "after": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf",
+      "bytes": 10500
+    }
+  ],
+  "retainedFixtures": [
+    {
+      "path": "tests/test_public_tick_context.gd",
+      "sha256": "098348e1ced10b4ea3b03c56fa4e92ba4d61bbd256a7fa1b9321229aeecf5ca4",
+      "bytes": 15292,
+      "added": true
+    },
+    {
+      "path": "tests/test_frame_projection_isolation.gd",
+      "sha256": "549f2661a4be48c68fbac6b6b86180b7d79036f6b707ce5023fceb59d1119120",
+      "bytes": 23075,
+      "added": true
+    },
+    {
+      "path": "tests/test_equipment_damage_private_status_contract.gd",
+      "sha256": "24da2fad78755689fe786b5b4bd9410a0c3955adbbecf2d9774570eb0c2e897c",
+      "bytes": 20578,
+      "added": true
+    },
+    {
+      "path": "tests/test_private_status_contract.gd",
+      "sha256": "abc1f7d4efe2ab9fce24cbd899911189d8df04de53011e95c33718266ecebff5",
+      "bytes": 71,
+      "added": true
+    },
+    {
+      "path": "tests/test_equipment_cost_diagnostic.gd",
+      "sha256": "d3386e02664cbdf1e77620df6772678d9408bea9eceec0f4d1f025fff66abf5e",
+      "bytes": 8414,
+      "added": true
+    },
+    {
+      "path": "tests/probe_equipment_capacity.gd",
+      "sha256": "f7074c8cbd1705e792e4de6d2552af9a9d46f4cc3368321c51fa4c91b9fb4eb0",
+      "bytes": 11931,
+      "added": true
+    },
+    {
+      "path": "tests/tactical_scenarios.json",
+      "sha256": "b6b63aa25a17383d7f1baeabb0da18a4c1ad552af7dde55285216087140ccb5e",
+      "bytes": 7923,
+      "added": true
+    },
+    {
+      "path": "tests/test_equipment_rollout.gd",
+      "sha256": "43dada2761ef3444922092feadfe42c40e915aeaf2477cd3cd18b14137465fa6",
+      "bytes": 18638,
+      "added": true
+    },
+    {
+      "path": "tests/equipment_rollout_reference.gd",
+      "sha256": "ad52e2d1251b656a27f4024db934d3b0d130d6d1829ac1bb3462ee81b5d9daf8",
+      "bytes": 20336,
+      "added": true
+    }
+  ],
+  "recoveryAlreadyPresentProof": "ROOT FINAL CONTEXT RUNTIME ALLOWLIST VERIFIED.json",
+  "nativeProofs": [
+    "ROOT COMBINED CONTEXT R1 PUBLIC CONTRACT VERIFIED.json",
+    "ROOT COMBINED CONTEXT R1 ORIGINALS VERIFIED.json",
+    "ROOT COMBINED CONTEXT R1 PROJECTION67 VERIFIED.json",
+    "ROOT COMBINED CONTEXT R1 COLD VERIFIED.json",
+    "ROOT COMBINED CONTEXT R1 INSTALLED GOLD PAIR VERIFIED.json"
+  ],
+  "onlyRuntimeReplacements": 3,
+  "build": 30,
+  "boats": 24,
+  "capacityAccepted": false,
+  "sceneOrReleaseAccepted": false,
+  "rootNativeLaunches": 0
+}

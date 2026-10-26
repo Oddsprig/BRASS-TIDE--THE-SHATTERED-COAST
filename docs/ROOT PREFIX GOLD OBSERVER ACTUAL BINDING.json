@@ -1,0 +1,25 @@
+{
+  "classification": "OBSERVER_SOURCE_BINDING_CORRECTED_NOT_NATIVE",
+  "base": {
+    "sha256": "c51a4c58b3b16b999c29e79d8cde59eb380fd48e8548bd341959ae7ab57086cf",
+    "bytes": 10500
+  },
+  "patch": {
+    "sha256": "9b806c4da6188a207cc385b4f82a247d18ff81c3fbcbbaebba518a144f056344",
+    "bytes": 863
+  },
+  "actualObserved": {
+    "sha256": "a6f39cf11713facea133d4b073d838e7a2625a869d6d4914cf66394491b78265",
+    "bytes": 10724
+  },
+  "addedLines": [
+    "\t\t\tprint(\"ROLLOUT_PREFIX \" + Marshalls.raw_to_base64(var_to_bytes({\"state\":copy,\"motion\":next,\"capability\":capabilities[-1],\"tickReport\":rollout_status,\"rng\":int(st.rng.state),\"sample\":predicted.size()-1,\"budget\":budget})))"
+  ],
+  "byteExactReverse": true,
+  "preservedIncorrectClaim": {
+    "sha256": "5f13c0ddc77c984b2434ae0366162206125dae52d95a3afaf8042dcf07622132",
+    "bytes": 10894
+  },
+  "scope": "The exact reviewed diff is accepted; proposed output hash/size was wrong. Rebind stage to actual output; no source semantics change or engine retry.",
+  "rootNativeLaunches": 0
+}

@@ -16,7 +16,7 @@ game/scripts/battle.gd: 32181 bytes; extends RefCounted
   game/scripts/battle.gd:198 issue_order()
   game/scripts/battle.gd:239 set_tactical_options()
   game/scripts/battle.gd:249 tactical_status()
-game/scripts/damage.gd: 26224 bytes; extends RefCounted
+game/scripts/damage.gd: 26753 bytes; extends RefCounted
   game/scripts/damage.gd:8 number()
   game/scripts/damage.gd:13 create_ship()
   game/scripts/damage.gd:43 sum_areas()
