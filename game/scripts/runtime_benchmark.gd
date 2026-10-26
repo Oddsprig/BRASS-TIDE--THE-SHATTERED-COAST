@@ -44,7 +44,7 @@ func sample(world: Dictionary,r: Dictionary,started: int) -> void:
 	var movement: Dictionary={};var previous: int=0
 	for ship in st.ships:movement[str(ship.id)]={"team":str(ship.team),"last":Vector2(ship.x,ship.y),"distance":0.0}
 	for tick in range(16):
-		if st.result!=null or Time.get_ticks_usec()-started+maxi(3000000,previous*2)>=24000000:break
+		if st.result!=null or Time.get_ticks_usec()-started+maxi(3000000,previous*2)>=12000000:break
 		var before: int=Time.get_ticks_usec();Battle.update(st,DT);previous=Time.get_ticks_usec()-before
 		r["warmupCompleted" if tick<4 else "measuredCompleted"]+=1
 		if tick<4:r.warmupUs.append(previous)
@@ -71,6 +71,7 @@ func run(world: Dictionary) -> int:
 	var started: int=Time.get_ticks_usec()
 	var r: Dictionary={"version":Version.text(),"build":Version.BUILD,"engine":Engine.get_version_info(),"os":OS.get_name(),"features":{"editor":OS.has_feature("editor"),"debug":OS.has_feature("debug"),"release":OS.has_feature("release"),"debugBuild":OS.is_debug_build()},"displayServer":DisplayServer.get_name(),"seed":4040,"dt":DT,"terrain":"Unchanged public Lab default islands/formation","warmupRequested":4,"measuredRequested":12,"warmupCompleted":0,"measuredCompleted":0,"warmupUs":[],"updateUs":[],"aiUs":[],"phaseUs":{},"samples":[],"events":0,"eventKinds":{},"complete":false,"limits":"CPU simulation only under external Test Bridge limits; no rendered FPS or sustained engagement claim. Timings/AI phases cover measured ticks; movement/events include warmup. AI/phase clocks overlap updateUs; planning includes begin and helm."}
 	check(DisplayServer.get_name()=="headless","explicit headless display is required")
+	check(not OS.has_feature("editor") and OS.has_feature("release") and not OS.is_debug_build(),"probe requires an exported release executable outside the editor")
 	if failures.is_empty():sample(world,r,started)
 	r.timing=timing(r.updateUs);r.aiTiming=timing(r.aiUs);r.wallUs=Time.get_ticks_usec()-started
 	var folder: String=OS.get_environment("GAME_TEST_ARTIFACTS")
