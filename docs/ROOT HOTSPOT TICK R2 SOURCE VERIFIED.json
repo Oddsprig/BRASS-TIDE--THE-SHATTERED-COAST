@@ -1,0 +1,24 @@
+{
+  "classification": "ROOT_REVIEWED_NINE_SEAM_PROFILER_SOURCE",
+  "inputFiles": 291,
+  "inputSha256": "076a710c00117832fba7a7a5f475384b1a7d592b56936e451993b698c7b00db0",
+  "baseInputFiles": 289,
+  "baseInputSha256": "4706012b6326b1c5d7b5eb60b77eb8943be6fffa39ea98d9326cad8639ba92db",
+  "sourceVerificationSha256": "3dae2a0e5dddfdd8e8db777428419f6a520dd8af953498d8d2df9c86b86d4dd0",
+  "analyzerSha256": "87646cdceda9c36e426d4fd08a773515b2e9a7e3e6159333e94b10a3e298e29d",
+  "builderSha256": "bb5e57dd23a288d5c2564fb84668809a12fce622a99c35da2dde20ff5d70ee05",
+  "probeSha256": "a3264ca16d6d24b9a5467a26fba36d07362afb0413b908a5114228d559c877ea",
+  "wrapperSha256": "d1c4c1bdffa6d55a0ff5c7daffd8f16e01d47f8162f255afa08d5888da35e212",
+  "guardsSha256": "15e0d434273a3aeed12c3a5d5c058537dd355562d63c2ab12f818fb4c56774ba",
+  "cpuGuards": [
+    30,
+    0
+  ],
+  "review": "Root read complete builder/analyzer/probe/wrapper and source reversal/validation; independently restored all6 exact original bodies and current291 inventory. Actual34-script fixture callchain has no thread/await spawning.",
+  "originalWorkload": "24 updates,40 boats,dt1/30,51 unchanged assertions,40s original work bound",
+  "exactBaseline": "78c1957c/d86cd932 raw saved cost",
+  "timingScope": "nested raw durations/disjoint union; observer overhead retained; no causal/FPS/capacity/full-state/RNG-baseline claim",
+  "nativeAuthorized": false,
+  "nativeLaunched": false,
+  "r1FrozenUnchanged": true
+}

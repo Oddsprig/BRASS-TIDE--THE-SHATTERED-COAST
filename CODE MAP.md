@@ -72,7 +72,17 @@ causal, idle-host or whole-state/RNG equivalence claim. Root cost proof preserve
 Root verified Argon's clean501-file rebase and integrated only the five reviewed
 runtime files. Saves, corrected campaign fixture and other game files were
 preserved. ROOT CLEAN FRAME FIVE SOURCE VERIFIED.json and MAIN FRAME FIVE
-INTEGRATED.json bind the source. Sol prepares a source-only deeper hotspot pack. Current performance remains materially too slow. No new engine
+INTEGRATED.json bind the source. Deeper nine-seam profiler ad43ffe6 passes51/0 on291/076a710c. Root independently
+verified native/outer/input/tool/lane evidence and ran frozen analyzer87646ccd
+against exact78c/d86 baseline: profile_valid=true,issues=[],analysisSHAa95ed3a6.
+All24 updates and recorded resources/work/ages/budgets/public statuses match.
+AI5100 ticks include45900 numeric record walks and15300 numeric snapshots;
+OTHER960 ticks include10560 full record walks and6720 snapshots. Numeric part
+repair was never called in this healthy workload. Raw nested times include
+observer cost; no inclusive-overlap sum or causal/FPS/capacity/fullstate claim.
+Root HOTSPOT TICK R2 SOURCE/NATIVE/ANALYSIS proofs bind this scoped result.
+Grok now prepares compact publication; Argon same-quantum inspection reuse.
+Both are isolated source-only candidates. Sol plans remaining .031 gates. Current performance remains materially too slow. No new engine
 test is queued at this checkpoint. All engine work uses the shared Test Bridge
 lane behind existing apps/projects; no desktop control. Root launches0 engines.
 No full-scene, performance or release acceptance.
