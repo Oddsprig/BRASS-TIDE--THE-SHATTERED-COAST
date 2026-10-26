@@ -197,6 +197,26 @@ static func propose_peace(core, a, b) -> Dictionary:
 static func journal(state) -> Array:
 	return ensure(state).journal.duplicate(true)
 
+static func observe_plan(state: Dictionary,owner: Dictionary,plan: Dictionary) -> void:
+	var book: Dictionary=ensure(state)
+	var op: Dictionary=book.operations.get("corridor",{})
+	if op.get("status","")!="active" or str(op.get("ownerId",""))!=str(owner.get("id","")) or plan.is_empty():return
+	if str(plan.get("ownerId",owner.get("id","")))!=str(owner.get("id","")):return
+	var previous: Dictionary=op.get("currentPlan",{})
+	var was_ready: bool=bool(previous.get("ready",false))
+	var ready: bool=bool(plan.get("ready",false))
+	op.currentPlan=plan.duplicate(true)
+	op.readiness=plan.get("readiness",{}).duplicate(true)
+	op.stallReason="" if ready else str(plan.get("reason","Awaiting supplies."))
+	var identity: String="%s|%s|%s|%s"%[str(plan.get("purpose","")),str(plan.get("destination","")),str(plan.get("targetOwnerId","")),str(plan.get("readiness",{}).get("shortage",""))]
+	# Numeric reserves change continuously. Journal material order/shortage changes
+	# only; one stalled watch cannot evict all physical history every second.
+	if str(op.get("planIdentity",""))==identity and not previous.is_empty() and was_ready==ready:return
+	op.planIdentity=identity
+	var kind: String="operation-order" if ready else "operation-stalled"
+	if ready and not was_ready and not previous.is_empty():kind="operation-resumed"
+	_note(book,{"day":_today(state),"kind":kind,"goal":"corridor","target":str(owner.id),"purpose":str(plan.get("purpose","")),"destination":str(plan.get("destination","")),"targetOwnerId":str(plan.get("targetOwnerId","")),"convoyOwnerId":str(plan.get("convoyOwnerId","")),"cause":str(plan.get("reason","")),"completionId":str(op.completionId)})
+
 static func cancel(core,id: String) -> Dictionary:
 	var state: Dictionary=_state_of(core)
 	var book: Dictionary=ensure(state)
@@ -207,29 +227,43 @@ static func cancel(core,id: String) -> Dictionary:
 	return {"ok":true,"message":"Goal withdrawn. Supplies and grants remain with their recipients. Restarting cannot duplicate treasury support."}
 
 static func _mobilize(state: Dictionary, book: Dictionary, op: Dictionary) -> void:
+	# Reopening the same corridor reuses the original paid recipient, even if
+	# threat, port stock or patrol strength has since changed. Never grant again.
+	if book.fundedRoutes.has(str(op.completionId)):
+		var prior: Dictionary=book.fundedRoutes[str(op.completionId)]
+		op.ownerId=str(prior.get("ownerId",""));op.portId=str(prior.get("portId",op.portId))
+		op.funded=int(prior.amount);op.funding=prior.duplicate(true)
+		var assigned: Dictionary=_owner(state,str(op.ownerId))
+		op.patrolLastPort=str(assigned.get("atPort",""))
+		op.fundingReason="Existing once-only treasury support remains with its paid recipient."
+		return
 	var ends: Array = op.ends.map(func(id):return _port(state,str(id)))
 	var threat := _threat(state, ends)
 	var base := _base(state, ends)
 	op.threat = bool(threat.ok)
 	op.cause = str(threat.cause)
-	if not threat.ok or base.owner.is_empty() or base.port.is_empty():
+	if base.owner.is_empty() or base.port.is_empty():
+		op.fundingReason="No existing patrol based at either corridor endpoint. No fleet was created."
 		return
 	var owner: Dictionary = base.owner
 	var port: Dictionary = base.port
 	op.portId = str(port.id)
-	if not Rules.may_deliver(state,port):return
+	if not Rules.may_deliver(state,port):
+		op.fundingReason="Organize the watch at its actual sponsoring harbor with legal access."
+		return
 	var standing: Dictionary=Factions.standing(state,str(port.get("faction","")))
-	if standing.get("hostile",true) or int(standing.get("public",0))<Factions.FRIENDLY_ENTER:return
-	if book.fundedRoutes.has(str(op.completionId)):
-		var prior: Dictionary=book.fundedRoutes[str(op.completionId)]
-		var assigned: Dictionary=_owner(state,str(prior.get("ownerId","")))
-		if not assigned.is_empty():
-			op.ownerId=str(assigned.id);op.funded=int(prior.amount);op.patrolLastPort=str(assigned.get("atPort",""))
+	if standing.get("hostile",true) or int(standing.get("public",0))<Factions.FRIENDLY_ENTER:
+		op.fundingReason="Friendly standing is required for the sponsoring harbor's public watch."
+		return
+	op.ownerId=str(owner.id);op.patrolLastPort=str(owner.get("atPort",""))
+	if not threat.ok:
+		op.fundingReason="No actual corridor threat justifies a treasury grant; the existing patrol uses its own paid stores."
 		return
 	var public_reserve: int=int(port.get("publicWorkers",0))*int(Goods.WAGES.laborer)*2
 	var amount := mini(maxi(0,int(port.get("governmentPurse",0))-public_reserve),_grant(owner))
 	var note := {"day": _today(state), "goal": "corridor", "purpose": "upkeep", "target": str(owner.id), "cause": str(threat.cause), "funder": str(port.id), "purse": "governmentPurse", "amount": amount}
 	if amount <= 0:
+		op.fundingReason="Treasury cannot fund the patrol while preserving two public-payroll days."
 		note.kind = "mobilize-skipped"
 		_note(book, note)
 		return
@@ -241,6 +275,7 @@ static func _mobilize(state: Dictionary, book: Dictionary, op: Dictionary) -> vo
 	op.ownerId=str(owner.id)
 	op.patrolLastPort=str(owner.get("atPort",""))
 	op.funded = amount
+	op.fundingReason="Once-only public support paid into the actual patrol's coins; all stores, wages and service still require payment."
 	op.funding = {"amount": amount, "ownerId": str(owner.id), "portId": str(port.id), "purpose": "upkeep", "target": str(owner.id), "cause": str(threat.cause), "funder": str(port.id), "purse": "governmentPurse"}
 	book.fundedRoutes[str(op.completionId)]=op.funding.duplicate(true)
 	note.kind = "mobilize"
@@ -309,15 +344,25 @@ static func _threat(state: Dictionary, ports: Array) -> Dictionary:
 	for owner in state.get("fleetOwners", []):
 		if not owner is Dictionary or _story(owner) or not bool(owner.get("active", true)) or _force(owner) < FORCE_MIN:
 			continue
+		var actor: Dictionary={}
+		for patrol in state.get("patrols",[]):
+			if str(patrol.get("id",""))==str(owner.get("id","")) and patrol.get("active",false):actor=patrol;break
+		if actor.is_empty() or ports.size()!=2:continue
+		if not Rules.near_corridor(state,{"ends":[str(ports[0].id),str(ports[1].id)]},Vector2(float(actor.x),float(actor.y))):continue
 		for port in ports:
 			if _relation(state, str(owner.get("faction", "")), str(port.get("faction", ""))) <= int(Factions.ENEMY_AT):
 				return {"ok": true, "cause": "hostile:" + str(owner.id)}
 	return {"ok": false, "cause": ""}
 
 static func _base(state: Dictionary, ports: Array) -> Dictionary:
+	var local: Dictionary=Rules.local_port(state)
+	# Empty stores are a visible supply stall, not a reason to erase the patrol
+	# assignment. Paid dock/loading paths remain the only consumers of stock.
 	for port in ports:
-		if not _supplied_port(port):
-			continue
+		if str(port.get("id",""))!=str(local.get("id","")):continue
+		var owner: Dictionary=_fund_target(state,port)
+		if not owner.is_empty():return {"port":port,"owner":owner}
+	for port in ports:
 		var owner := _fund_target(state, port)
 		if not owner.is_empty():
 			return {"port": port, "owner": owner}
