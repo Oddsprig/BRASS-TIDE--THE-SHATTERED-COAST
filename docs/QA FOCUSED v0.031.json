@@ -1,0 +1,21 @@
+{
+  "scope": "v0.031 equipment only",
+  "equipment_checks": 1677,
+  "equipment_failures": 0,
+  "seven_fixtures_passed": true,
+  "portable_export_and_menu_campaign_battle_startups_passed": true,
+  "receipt_plus_charged_setup_seconds": 81.46401572227478,
+  "cleanup_complete": true,
+  "owned_pids": [],
+  "source_commit": "c8cfa9e1a87fe04cd335a89ce983d4a5e49d11fc",
+  "job_id": "743c0c26a91d4a0a8f9ade56d59da877",
+  "original_supervisor_job": "failed final raw-byte guard",
+  "root_independent_source_verdict": "All runtime, tests, raw assets and data exact; changed files are CRLF/LF-only .import metadata. This preserves the original failed wrapper result and accepts actual individual phase results. No engine rerun needed.",
+  "generated_import_line_ending_files": 23,
+  "full_game_suite_pass": false,
+  "performance_or_rendered_quality_claim": false,
+  "files": {
+    "Brass Tide.exe": "5bcf3c5487a6586450151aa27dd7badee531968fc6500d36f93463f0f46f505d",
+    "Brass Tide.pck": "89a72af32f12c8111ee9d69973af7fd766a55c1e42e138db35892ea15bcb6ba9"
+  }
+}

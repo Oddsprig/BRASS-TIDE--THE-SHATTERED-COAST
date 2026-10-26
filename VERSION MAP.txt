@@ -3,9 +3,9 @@ BRASS TIDE - SEQUENTIAL VERSION MAP
 
 0.029 | DELIVERED/VERIFIED | Workshop,24 boat/equipment detail, paid fittings.
 0.030 | PRESERVED UNTESTED BUILD | Tactical AI; later behavior/performance work remains.
-0.031 | RELEASE CANDIDATE | Damageable fitted equipment, crew/supply repairs,
+0.031 | EQUIPMENT SCOPE VERIFIED | Damageable fitted equipment, crew/supply repairs,
 priorities, paid fitting, condition persistence and acquired-boat save fix.
-Focused equipment suite and portable Windows check pending. Full-game polish deferred.
+Focused1677/0 and portable startups passed; final documentation packaging. Full-game polish deferred.
 0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
 Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.
 Choose tow/strip/abandon with finite cargo/modules and actual custody.

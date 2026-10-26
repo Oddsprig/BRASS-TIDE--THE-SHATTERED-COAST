@@ -1,3 +1,11 @@
+# v0.031 delivery status
+
+Seven focused equipment fixtures pass1677/0; portable menu/campaign/battle
+startup passed. See docs/TEST RESULTS v0.031.md for the preserved wrapper
+metadata failure and Root's independent source verdict. Root owns the final
+documentation-only export and desktop packaging; Sol/Argon/Grok launch no engine.
+Stop after delivering this equipment build. Full-game gates and0.032 are deferred.
+
 # Current scope - v0.031 only
 
 The owner explicitly corrected the scope on26October2026:

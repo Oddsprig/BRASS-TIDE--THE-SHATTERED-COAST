@@ -1,15 +1,20 @@
-BRASS TIDE - v0.031 RELEASE CANDIDATE
-26 October2026 |24 boat designs
+BRASS TIDE - v0.031
+26 October2026 | Damageable equipment |24 boat designs
 
-This step adds persistent condition to individual fitted weapons, engines,
-armor and pumps, with crew repair priorities, actual supplies and paid harbor
-work. Fittings, saves and recovered/captured equipment retain their condition.
-New boats also receive their current morale and bookkeeping defaults before
-their first save. The complete campaign/publication check passed637/0.
+Fitted guns, engines, armor and pumps keep individual condition. Damaged modules
+affect weapon, propulsion and pumping capability. Crew repair priorities spend
+real crew time and supplies; paid harbor work uses actual coins and materials.
+Refits, saves, salvage and captured/recovered equipment retain their condition.
+New acquired boats initialize identity and morale before their first save.
 
-The current check scope is equipment condition/records/damage/fitting/UI,
-campaign persistence and service, followed by a portable Windows startup check.
-Focused suite and export are pending. Background only; no mouse or key control.
-Broader performance tuning and future versions are deferred. This is an early
-game build, not a completed full-game or visual/audio-quality certification.
-Coins remain the currency; ordinary sailor wages remain100 coins per day.
+Focused verification: seven equipment fixtures,1677 checks,zero failures.
+Windows export and portable menu/campaign/battle startups passed. The selected
+batch plus charged setup took81.464 seconds. A final documentation-only export
+is recorded separately beside the game. Test processes exited; no input control.
+The complete campaign/acquired-boat save check separately passed637/0.
+
+This is the equipment step of an early game. Full-game performance targets,
+rendered motion/audio evaluation and the .032-.038 systems remain later work.
+No full-game or Starsector-quality acceptance is claimed. No private Battle lease
+or further speculative performance candidate was merged in this final pass.
+Coins remain currency; ordinary sailor wages are100 coins per day.

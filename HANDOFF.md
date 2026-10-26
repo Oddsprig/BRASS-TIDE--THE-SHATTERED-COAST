@@ -1,10 +1,12 @@
 # Brass Tide v0.031
 
-Owner narrowed this pass to damageable equipment, repair work, fitting and
-condition persistence. Stop full-game/performance fine-tuning. Do not start.032.
-Runtime features are integrated; the acquired-hull save fix passed637/0.
-Version metadata is31. Seven focused equipment fixtures and Windows packaging
-are pending. Sol is preparing the bounded existing-runner job; Root delivers.
-Broad C1 attempt69d917 remains incomplete; owned ledger is empty. No rerun.
-See docs/V0.031 FOCUSED SCOPE.txt and task CURRENT.txt. Old notes preserved in
-task coordination-history/owner-scope-reset-031.
+Equipment scope complete: individual module condition, crew/supply repairs,
+paid fitting/service and persistent equipment through saves/refits/recovery.
+Focused suite1677/0; portable menu/campaign/battle startup passed;81.464s including
+charged setup. The wrapper's raw-byte guard failed only on23 `.import` newline
+changes, independently reviewed. Original failures retained, owned PIDs empty.
+
+Final documentation-only export and desktop delivery finish this pass. Stop
+after delivering. No0.032 work, full-game test matrix or performance fine-tuning.
+No speculative private Battle lease or worker/memo prototype was merged.
+See docs/TEST RESULTS v0.031.md and docs/V0.031 FOCUSED SCOPE.txt.
