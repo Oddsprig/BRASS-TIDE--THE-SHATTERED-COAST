@@ -151,7 +151,7 @@ func eyebrow(parent: Node, text: String) -> Label:
 	result.add_theme_font_override("font", host.chart.mono)
 	return result
 
-func button(parent: Node, text: String, action: Callable, primary: bool = false) -> Button:
+func button(parent: Node, text: String, action: Callable, primary: bool = false, sync: bool = true) -> Button:
 	var result = Button.new()
 	result.text = text
 	result.custom_minimum_size.y = 42
@@ -164,7 +164,9 @@ func button(parent: Node, text: String, action: Callable, primary: bool = false)
 		result.add_theme_color_override("font_hover_color", INK)
 	# Every harbor/account action publishes a pending copied economy snapshot first.
 	# This also covers direct core actions in modal buttons, before they touch purses.
-	result.pressed.connect(func(): host.sync_economy(); action.call())
+	result.pressed.connect(func():
+		if sync:host.sync_economy()
+		action.call())
 	parent.add_child(result)
 	return result
 
@@ -235,7 +237,7 @@ func title_screen():
 	if first==null:first=start
 	button(actions, "Fleet battle laboratory", host.open_lab)
 	button(actions, "Options & music", open_settings)
-	button(actions, "Guide & acknowledgements", open_guide)
+	button(actions, "Guide & acknowledgements", open_guide, false, false)
 	button(actions, "Development notes", func():CampaignUI.notes(self))
 	button(actions, "Quit to desktop", host.quit_game)
 	for action in actions.get_children():
@@ -291,7 +293,7 @@ func build_campaign_hud(size: Vector2):
 	flagship_label = label(left_body, "", 26, TEXT, true)
 	paragraph(left_body, "A captain is only as strong as the boats and sailors that come home.", 14)
 	rule(left_body)
-	button(left_body,"Captain's priorities",func():GuidanceUI.open(self),true)
+	button(left_body,"Captain's priorities",func():GuidanceUI.open(self),true,false)
 	button(left_body, "Fleet & damage control     F", open_fleet)
 	button(left_body, "Cargo & supplies               C", open_cargo)
 	button(left_body, "Contracts & logbook          J", open_contracts)
@@ -325,7 +327,7 @@ func build_campaign_hud(size: Vector2):
 	button(actions, "▱  Fleet", open_fleet)
 	button(actions, "▤  Hold", open_cargo)
 	button(actions, "⚑  Contracts", open_contracts)
-	button(actions, "?  Guide", open_guide)
+	button(actions, "?  Guide", open_guide, false, false)
 	voyage_label = label(actions, "", 12, MUTED)
 	voyage_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	voyage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -394,7 +396,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal)
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities"])
 	rule(outer)
 	var scroll = ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -698,7 +700,7 @@ func contracts_view(body: Node):
 func open_guide():
 	modal_kind = "guide"
 	var body = modal("A captain's guide", "BRASS TIDE · v%s" % host.Version.text())
-	button(body,"Career goals & first steps",func():GuidanceUI.open(self),true)
+	button(body,"Career goals & first steps",func():GuidanceUI.open(self),true,false)
 	for section in [
 		["Bronze coins and paid work","An ordinary sailor earns 100 bronze coins per day, with rations supplied separately. Wages move into the crew's shared purse. Missed wages become arrears and reduce morale and combat performance. The Hold shows savings and arrears. Each town has business, worker, specialist and government purses; its Economy screen shows employment and actual transfers."],
 		["Why a boat costs what it costs","Every design has physical material requirements and paid shipwrights, mechanics, fitters, foremen and supervising experts. Trace the price through logs and planks, ore and iron, powder ingredients, ammunition, guns and engines. Yard quotes list those inputs, wages, overhead, margin and duty. Commissions hold wages in escrow and only pay for work completed."],
@@ -728,7 +730,7 @@ func open_menu():
 	button(body, "Save voyage", func(): host.save_game(true)).disabled = host.mode != "campaign"
 	button(body, "Load saved voyage", func(): host.load_game()).disabled = not host.has_save() or host.lab_active
 	if host.mode=="campaign":button(body,"Coastal traffic",func():NavalUI.open(self))
-	button(body, "Captain's guide", open_guide)
+	button(body, "Captain's guide", open_guide, false, false)
 	button(body, "Fleet register · all %d hulls" % host.data.HULLS.size(), open_catalog)
 	button(body, "Settings & performance", open_settings)
 	button(body,"Development notes",func():CampaignUI.notes(self))

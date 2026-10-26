@@ -54,8 +54,10 @@ static func open(ui) -> void:
 	var c=ui.host.core
 	var target: Dictionary=c.port(str(ui.host.selected_port))
 	var route: float=0
+	var sailing_quote: bool=false
 	if not target.is_empty():
 		var path: Array=Routes.path(c,c.state.position,c.port_position(str(target.id)))
+		sailing_quote=not path.is_empty()
 		for i in range(1,path.size()):route+=c.distance(path[i-1],path[i])
 	var report: Dictionary=Guidance.report(c,route,str(ui.guidance_career))
 	ui.modal_kind="captain_priorities"
@@ -73,10 +75,13 @@ static func open(ui) -> void:
 	ui.label(body,"%d owned boats · %d in your company fleets · %d stored · %d supporting"%[int(fleet.owned),int(fleet.company),int(fleet.stored),int(fleet.support)],21,ui.GOLD,true)
 	ui.paragraph(body,"Next battle: %d deployed boats at %d / %d points, %d held in reserve. Ownership, traveling support and battle deployment are separate. Secured prizes need harbor repair before combat."%[int(fleet.deployed),int(fleet.points),int(fleet.limit),int(fleet.reserve)],15)
 	var budget: Dictionary=report.route_trip_returnbudget
-	ui.label(body,"Return allowance",22,ui.TEAL,true)
-	ui.paragraph(body,"Selected harbor: %s. The estimate is a round trip from your current position plus %.0f reserve days.
-%.1f days planned · %s coins daily payroll · %s coins return payroll · %.1f food days · %.1f working-fuel days · %.1f repair kits.
-Holds: %.1f / %.1f space. Loose fuel still needs loading into boat tanks."%[str(target.get("name","No harbor selected")),float(budget.reserveDays),float(budget.tripDays),str(budget.dailyWages),str(budget.returnWages),float(budget.foodDays),float(budget.fuelDays),float(budget.repairKits),float(budget.cargoWeight),float(budget.usableCapacity)],15)
+	ui.label(body,"Return allowance" if sailing_quote else "Reserve-only budget",22,ui.TEAL,true)
+	var journey: String="No harbor selected. Sailing quote unavailable; reserve-only budget, excluding travel."
+	if not target.is_empty():
+		journey="Selected harbor: %s. "%str(target.name)
+		journey+="The estimate is a round trip from your current position plus %.0f reserve days."%float(budget.reserveDays) if sailing_quote else "No safe sailing route. Sailing quote unavailable; reserve-only budget, excluding travel."
+	ui.paragraph(body,journey+"\n%.1f %s days · %s coins daily payroll · %s coins %s payroll · %.1f food days · %.1f working-fuel days · %.1f repair kits.
+Holds: %.1f / %.1f space. Loose fuel still needs loading into boat tanks."%[float(budget.tripDays),"planned" if sailing_quote else "reserve",str(budget.dailyWages),str(budget.returnWages),"return" if sailing_quote else "reserve",float(budget.foodDays),float(budget.fuelDays),float(budget.repairKits),float(budget.cargoWeight),float(budget.usableCapacity)],15)
 	for card in report.cards:
 		ui.rule(body)
 		ui.label(body,str(card.title),21,ui.RED if card.urgent else ui.GOLD,true)
@@ -84,4 +89,4 @@ Holds: %.1f / %.1f space. Loose fuel still needs loading into boat tanks."%[str(
 		var id: String=str(card.actionId)
 		ui.button(body,action_label(id),func():action(ui,id))
 	for note in report.notes:ui.paragraph(body,str(note),13,ui.MUTED)
-	ui.button(body,"Close",ui.close_modal,true)
+	ui.button(body,"Close",ui.close_modal,true,false)

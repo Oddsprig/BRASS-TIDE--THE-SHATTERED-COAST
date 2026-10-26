@@ -51,14 +51,28 @@ func _initialize() -> void:
 
 func _flow() -> void:
 	var ui=scene.ui
-	ui.open_guide()
+	var prior_pending: int=c.pending_days
+	c.pending_days=prior_pending+1 # Exercise the wrapper without starting a worker.
+	var before: String=snapshot()
+	var guide: Button=button_in(ui.root,"?  Guide")
+	check(guide!=null,"campaign Guide button is available")
+	if guide==null:c.pending_days=prior_pending;return
+	guide.pressed.emit()
 	check(text_in(ui.overlay,"Keep the water outside"),"existing useful Guide cards remain")
 	var entry: Button=button_in(ui.overlay,"Career goals & first steps")
 	check(entry!=null and not entry.disabled,"existing Guide exposes career entry")
-	if entry==null:return
-	var before: String=snapshot()
+	if entry==null:c.pending_days=prior_pending;return
 	entry.pressed.emit()
 	check(ui.modal_kind=="captain_priorities" and snapshot()==before,"Guide link opens the read-only priorities panel")
+	var close: Button=button_in(ui.overlay,"Close")
+	if close!=null:close.pressed.emit()
+	check(close!=null and not ui.modal_open and c.pending_days==prior_pending+1 and scene.economy_task<0 and snapshot()==before,"Guide/priorities entry and Close preserve pending_days without a live worker")
+	c.pending_days=prior_pending
+	var navigation: Dictionary=c.nav
+	scene.selected_port=str(c.state.ports[0].id);c.nav={} # Actual Routes.path returns no safe route.
+	GuidanceUI.open(ui)
+	check(text_in(ui.overlay,"No safe sailing route") and text_in(ui.overlay,"Sailing quote unavailable") and text_in(ui.overlay,"Reserve-only budget") and not text_in(ui.overlay,"The estimate is a round trip"),"unreachable selected harbor shows unavailable sailing quote and reserve-only budget")
+	c.nav=navigation;scene.selected_port="";GuidanceUI.open(ui)
 	var options: Array=Guidance.careers()
 	var ids: Array=[]
 	for option in options:ids.append(str(option.id))
