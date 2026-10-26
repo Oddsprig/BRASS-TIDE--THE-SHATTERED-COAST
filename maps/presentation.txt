@@ -1,4 +1,4 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.035)
+BRASS TIDE — PRESENTATION MAP (generated; v0.036)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
@@ -17,13 +17,13 @@ game/scripts/boat_art.gd: 31684 bytes; extends RefCounted
   game/scripts/boat_art.gd:405 draw_boat()
   game/scripts/boat_art.gd:536 draw_wake()
   game/scripts/boat_art.gd:586 draw_trail()
-game/scripts/boat_portrait.gd: 6147 bytes; class_name BoatPortrait
-  game/scripts/boat_portrait.gd:48 set_spec()
-  game/scripts/boat_portrait.gd:43 _init()
-  game/scripts/boat_portrait.gd:51 _gui_input()
-  game/scripts/boat_portrait.gd:57 _draw()
+game/scripts/boat_portrait.gd: 6111 bytes; class_name BoatPortrait
+  game/scripts/boat_portrait.gd:49 set_spec()
+  game/scripts/boat_portrait.gd:44 _init()
+  game/scripts/boat_portrait.gd:52 _gui_input()
+  game/scripts/boat_portrait.gd:58 _draw()
   game/scripts/boat_portrait.gd:112 _draw_socket_arc()
-game/scripts/interface.gd: 48137 bytes; extends CanvasLayer
+game/scripts/interface.gd: 48224 bytes; extends CanvasLayer
   game/scripts/interface.gd:71 setup()
   game/scripts/interface.gd:96 create_theme()
   game/scripts/interface.gd:116 box()

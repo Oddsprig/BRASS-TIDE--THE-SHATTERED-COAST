@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.035)
+BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.036)
 
 Physical part condition and exact spare/new selection -> real refit/repair UI and96-hull drafts. NPC/company owners pay conserved coins, finite materials and workers; installed condition affects offscreen power. Canonical careers and saves are integrated; live battle is now a working integration candidate; remaining gates stay open.
 
@@ -45,13 +45,13 @@ game/scripts/equipment_owner_service.gd: 37514 bytes; extends RefCounted
   game/scripts/equipment_owner_service.gd:138 allowed_port_service()
   game/scripts/equipment_owner_service.gd:305 owner_service_quote()
   game/scripts/equipment_owner_service.gd:329 repair_owner_boat()
-game/scripts/fleet_economy.gd: 18139 bytes; extends RefCounted
+game/scripts/fleet_economy.gd: 19225 bytes; extends RefCounted
   game/scripts/fleet_economy.gd:26 normalize_owner()
   game/scripts/fleet_economy.gd:47 upkeep()
   game/scripts/fleet_economy.gd:57 total_coins()
-  game/scripts/fleet_economy.gd:63 create_owners()
-  game/scripts/fleet_economy.gd:129 subsidize()
-  game/scripts/fleet_economy.gd:146 allowed_trade()
+  game/scripts/fleet_economy.gd:65 civilian_hulls()
+  game/scripts/fleet_economy.gd:78 create_owners()
+  game/scripts/fleet_economy.gd:149 subsidize()
 game/scripts/naval_combat.gd: 22751 bytes; extends RefCounted
   game/scripts/naval_combat.gd:21 spatial_index()
   game/scripts/naval_combat.gd:64 are_hostile()

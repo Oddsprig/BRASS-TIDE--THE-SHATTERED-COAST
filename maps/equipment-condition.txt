@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.035)
+BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.036)
 
 Core/Records, paid physical fitting/damage and whole-campaign custody preflight feed integrated constructors/save migration/UI and paid Harbor/NPC service. Working live combat/tow has Lab99/0, equipment voyage67/0 and salvage voyage14/0; remaining gates stay open; legacy counts cannot create free perfect parts.
 

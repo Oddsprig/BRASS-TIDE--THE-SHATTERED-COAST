@@ -1,40 +1,48 @@
-BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.035)
+BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.036)
 
-Real sponsors/stock/crew-based quotes -> several funded jobs, physical sealed lots, remembered contacts and dated observations.
+Real sponsors/stock/crew/time -> funded freight/fuel/charters, finite wild catch, actual carriers/people and witnessed captain memory.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/voyage_jobs.gd: 22939 bytes; extends RefCounted
-  game/scripts/voyage_jobs.gd:80 ensure()
-  game/scripts/voyage_jobs.gd:129 pending_freight_weight()
-  game/scripts/voyage_jobs.gd:212 available()
-  game/scripts/voyage_jobs.gd:314 accept()
-  game/scripts/voyage_jobs.gd:388 finish()
-  game/scripts/voyage_jobs.gd:438 abandon()
-  game/scripts/voyage_jobs.gd:33 _is_num()
-  game/scripts/voyage_jobs.gd:37 _num()
-  game/scripts/voyage_jobs.gd:41 _state()
-  game/scripts/voyage_jobs.gd:45 _clean_freight()
-  game/scripts/voyage_jobs.gd:53 _sanitize_job()
-  game/scripts/voyage_jobs.gd:106 _find()
-game/scripts/contacts.gd: 8176 bytes; extends RefCounted
-  game/scripts/contacts.gd:81 ensure()
-  game/scripts/contacts.gd:127 visit()
-  game/scripts/contacts.gd:147 list_contacts()
-  game/scripts/contacts.gd:160 record()
-  game/scripts/contacts.gd:30 _is_num()
-  game/scripts/contacts.gd:34 _num()
-  game/scripts/contacts.gd:38 _known_ports()
-  game/scripts/contacts.gd:49 _fresh()
-  game/scripts/contacts.gd:58 _sanitize()
-  game/scripts/contacts.gd:105 _clean_snapshot()
-  game/scripts/contacts.gd:116 _find()
-game/scripts/voyage_ui.gd: 4981 bytes; extends RefCounted
-  game/scripts/voyage_ui.gd:3 open()
-  game/scripts/voyage_ui.gd:49 settle()
-  game/scripts/voyage_ui.gd:54 contacts()
-  game/scripts/voyage_ui.gd:66 intel()
+game/scripts/voyage_jobs.gd: 35733 bytes; extends RefCounted
+  game/scripts/voyage_jobs.gd:92 ensure()
+  game/scripts/voyage_jobs.gd:141 pending_freight_weight()
+  game/scripts/voyage_jobs.gd:225 available()
+  game/scripts/voyage_jobs.gd:328 accept()
+  game/scripts/voyage_jobs.gd:413 finish()
+  game/scripts/voyage_jobs.gd:482 abandon()
+game/scripts/civilian_work.gd: 8677 bytes; extends RefCounted
+  game/scripts/civilian_work.gd:16 ensure()
+  game/scripts/civilian_work.gd:21 site_id()
+  game/scripts/civilian_work.gd:24 catch_rate()
+  game/scripts/civilian_work.gd:29 fuel_rate()
+  game/scripts/civilian_work.gd:37 start_fishing()
+  game/scripts/civilian_work.gd:59 cancel_fishing()
+game/scripts/passenger_transport.gd: 14102 bytes; extends RefCounted
+  game/scripts/passenger_transport.gd:13 actual()
+  game/scripts/passenger_transport.gd:14 jobs()
+  game/scripts/passenger_transport.gd:15 assigned()
+  game/scripts/passenger_transport.gd:17 food_weight()
+  game/scripts/passenger_transport.gd:19 spare()
+  game/scripts/passenger_transport.gd:21 available_hold()
+game/scripts/passenger_manifest.gd: 1069 bytes; extends RefCounted
+  game/scripts/passenger_manifest.gd:3 assigned()
+  game/scripts/passenger_manifest.gd:10 food_weight()
+game/scripts/contacts.gd: 10153 bytes; extends RefCounted
+  game/scripts/contacts.gd:85 ensure()
+  game/scripts/contacts.gd:138 visit()
+  game/scripts/contacts.gd:163 list_contacts()
+  game/scripts/contacts.gd:176 record()
+  game/scripts/contacts.gd:200 record_captain()
+  game/scripts/contacts.gd:206 witnessed_encounters()
+game/scripts/voyage_ui.gd: 9475 bytes; extends RefCounted
+  game/scripts/voyage_ui.gd:4 open()
+  game/scripts/voyage_ui.gd:58 settle()
+  game/scripts/voyage_ui.gd:63 contacts()
+  game/scripts/voyage_ui.gd:76 carrier_picker()
+  game/scripts/voyage_ui.gd:98 fishing()
+  game/scripts/voyage_ui.gd:129 intel()
 
 TESTS (game/tests/*.gd)
-test_voyage_jobs, test_voyage_flow
+test_civilian_work036, test_civilian_flow036; earlier test_voyage_jobs, test_voyage_flow
 
 Full symbols: rg -n '^func |^static func ' on named files.

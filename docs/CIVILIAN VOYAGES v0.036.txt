@@ -1,0 +1,46 @@
+BRASS TIDE v0.036 - WORKING CIVILIAN VOYAGES
+
+Open Voyage jobs & contacts with K. The Work board and Fishing tabs use the
+boats, people, stores and purses already in your campaign.
+
+FISHING
+Buy or commission one of the three fishing hulls. Hire sailors, carry fuel
+and food, and leave room for the catch. Sail clear of the harbor, stop in
+safe open water, then choose Fishing, the boat, working days and sailors.
+Begin fishing returns to the chart. Unpaused campaign time advances work;
+waiting at the dock earns no catch. Changing course, leaving the work site
+or losing the assigned boat stops its fishing assignment. Recall is allowed.
+Catch comes from a shared, bounded water-cell resource quota. Crew time,
+fuel and rations are consumed; wages remain part of normal campaign payroll.
+Sell landed preserved fish through the existing harbor market. Buyers need
+actual coins and hold space remains finite. No sale or profit is guaranteed.
+
+FREIGHT AND FUEL
+Existing sealed freight jobs remain alongside the story contract, up to six
+compatible commitments. Source stock and passage fees must exist first.
+Fuel delivery offers name a real needy fleet and receiving harbor. Choose
+an active transport or tanker with free hold. Sealed fuel belongs to that
+carrier until a real receipt, loss or harbor unloading; it is not extra
+player tank fuel. The named recipient must be present and still need it.
+The sponsoring treasury funds materials and the passage fee. Delivery moves
+the same fuel into the recipient's custody and pays the reserved fee once.
+
+PASSENGERS
+Funded charters use a real transport or yacht. Existing crew, captives and
+other passengers occupy berths. The source supplies actual passengers and
+provisions; their carried savings stay separately accounted for in escrow.
+Passengers eat during elapsed campaign time. Reach the named harbor and
+settle the job there. A harbor needs reception room for safe discharge.
+Abandonment and loss use the existing refund, discharge and loss records.
+
+COASTAL TRAFFIC AND CONTACTS
+The existing coastal fleet owners now include appropriate civilian hulls.
+Their cargo, purchases, wages, repairs and replacements use their actual
+economies. Existing escort and interception battles protect or raid loaded
+carriers. Captain contacts remember encounters you witnessed and actual
+completed jobs. Remote events do not become eyewitness knowledge later.
+
+SCOPE
+36 boat designs. Coins; 100 coins per sailor-day. Ownership remains separate
+from the 300-point battle limit. This version connects civilian work; the
+separate v0.038 pass addresses career guidance and demonstrated balance gaps.

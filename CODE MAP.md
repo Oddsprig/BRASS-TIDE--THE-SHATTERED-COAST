@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.035: Twelve civilian boats. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: world.json::HULLS, construction.gd::quote, hull_profiles.gd, boat_art.gd, boat_deck_detail.gd, tools/boat_gallery.gd, tools/render_boat_gallery.py.
+v0.036: Working civilian voyages. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: civilian_work.gd, voyage_jobs.gd, passenger_transport.gd, campaign.gd, voyage_ui.gd, fleet_economy.gd, naval_lifecycle.gd, contacts.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
