@@ -489,8 +489,9 @@ func _chart_marks(island_id: String, pts: PackedVector2Array, center: Vector2) -
 	for p in pts:
 		span = maxf(span, center.distance_to(p) * 0.55)
 	var seed := float(island_id.length() * 17)
-	for k in 10:
-		var at := center + Vector2(noise(seed + k * 3.1) - 0.5, noise(seed + k * 5.7) - 0.5) * span
+	for k in 96:
+		if marks.size()>=36:break
+		var at := center + Vector2(noise(seed + k * 3.1) - 0.5, noise(seed + k * 5.7) - 0.5) * span * 2.0
 		if not Geometry2D.is_point_in_polygon(at, pts):
 			continue
 		var dir := Vector2.from_angle(noise(seed + k * 9.0) * TAU)
@@ -498,7 +499,8 @@ func _chart_marks(island_id: String, pts: PackedVector2Array, center: Vector2) -
 		if island_id in ["isl_kelp", "isl_fen", "isl_verdigris"]:
 			dir = Vector2(0.25, -1.0).normalized()
 			length = 16.0 + float(k % 3) * 6.0
-		marks.append([at - dir * length * 0.5, at + dir * length * 0.5])
+		var kind: String="reeds" if island_id in ["isl_kelp","isl_fen","isl_verdigris"] else "ridge" if island_id in ["isl_cinder","isl_shatter","isl_oilstone"] else "trees"
+		marks.append([at,at+dir*length,kind])
 	return marks
 
 func _ensure_chart_sheet() -> void:
@@ -525,8 +527,8 @@ func _ensure_chart_sheet() -> void:
 				contours.append(ring)
 		var tint := Color(str(island.get("color", "#6d7d62")))
 		_chart_sheet.append({
-			"ground": Color("6e7f63").lerp(tint, 0.42),
-			"high": Color("3f5344").lerp(tint, 0.28),
+			"ground": Color("82956b").lerp(tint, 0.20),
+			"high": Color("506b4c").lerp(tint, 0.18),
 			"shoal": shoal,
 			"contours": contours,
 			"marks": _chart_marks(str(island.get("id", "")), pts, center),

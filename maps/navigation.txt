@@ -16,7 +16,7 @@ game/scripts/navigation.gd: 13996 bytes; extends RefCounted
   game/scripts/navigation.gd:17 _point_pair()
   game/scripts/navigation.gd:27 _inside()
   game/scripts/navigation.gd:46 _edge_distance()
-game/scripts/coast_migration.gd: 24451 bytes; extends RefCounted
+game/scripts/coast_migration.gd: 24456 bytes; extends RefCounted
   game/scripts/coast_migration.gd:192 place_on_water()
   game/scripts/coast_migration.gd:289 prepare()
   game/scripts/coast_migration.gd:44 _fail()
