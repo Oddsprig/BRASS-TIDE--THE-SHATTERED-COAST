@@ -1,11 +1,19 @@
-# Brass Tide v0.033
+# Brass Tide v0.033 delivered
 
-Current candidate: Independent campaign fleets.
+BRASS TIDE v0.033 - Independent campaign fleets
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 3b8be1dd8227866857dd2a7de4de35c5690965e9 / v0.033
+Test Bridge: b0e766a7043b487f8ff0d4f66befdbbd
+55 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 37.373s; owned cleanup verified.
 
 - Existing raiders and patrols refresh their objectives at sea; hostile NPC fleets can meet and fight between daily economy ticks.
 - Daily and midday encounter scans share saved limits of four fights per day and one fight per owner, preserving actual ammunition, damage and cargo.
 - Retreating survivors promptly use existing homeward routes and paid harbor repair; captured trade goods can be sold at home through real market stocks and purses.
 - The coastal traffic board and captain's log expose nearby fleet business and witnessed results; distant NPC fights continue in the full developer records.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+Retained campaign-fleets033:99 checks/0 failures in TestBridge080685a3f4274776be23bcde5b399fb3. Production source hashes matched the final candidate; only the lifecycle fixture changed. The final batch runs the remaining lifecycle checks, export and portable startups.
+
+Continue with the next saved version scope after v0.033; preserve the shared lane and120-second limit.

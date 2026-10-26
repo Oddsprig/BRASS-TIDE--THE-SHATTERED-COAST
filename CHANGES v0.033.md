@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - The coastal traffic board and captain's log expose nearby fleet business and witnessed results; distant NPC fights continue in the full developer records.
 
 See docs/TEST RESULTS v0.033.md for actual focused checks and remaining limits.
+
+Verification: 55 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 37.373s. Preserved earlier failures; no broad acceptance claim.

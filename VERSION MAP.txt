@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.032
+26 October 2026 | Authorized sequential builds; delivered v0.033
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -15,7 +15,7 @@ Loaded carriers physically reach exits. Escort/intercept actual cargo; tow,
 strip or abandon damaged prizes with correct hull, equipment and cargo custody.
 Finish the encounter-to-voyage outcome flow using existing recovery foundations.
 
-0.033 - INDEPENDENT CAMPAIGN FLEETS
+0.033 - INDEPENDENT CAMPAIGN FLEETS [DONE]
 Pirates raid merchants, patrols respond and hostile factions fight each other.
 Sightings guide pursuit; survivors retreat and fund repairs/replacements.
 Finish an observable raid, patrol response and faction clash using real fleets.

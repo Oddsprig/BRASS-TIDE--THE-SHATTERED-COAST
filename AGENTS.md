@@ -2,7 +2,7 @@
 
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
-This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.032; continue with the next saved scope only. Earlier planning-only/stop-v031
+This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.033; continue with the next saved scope only. Earlier planning-only/stop-v031
 paragraphs below are historical and superseded by this new instruction.
 
 Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol
