@@ -1,0 +1,35 @@
+BRASS TIDE - SEQUENTIAL VERSION MAP
+26October2026 | Current pass is0.031 only
+
+0.029 | DELIVERED/VERIFIED | Workshop,24 boat/equipment detail, paid fittings.
+0.030 | PRESERVED UNTESTED BUILD | Tactical AI; later behavior/performance work remains.
+0.031 | EQUIPMENT SCOPE VERIFIED | Damageable fitted equipment, crew/supply repairs,
+priorities, paid fitting, condition persistence and acquired-boat save fix.
+DELIVERED to Desktop/Brass Tide/v0.031. Focused1677/0; portable startup verified. Full-game polish deferred.
+0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
+Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.
+Choose tow/strip/abandon with finite cargo/modules and actual custody.
+0.033 | PLANNED | Independent pirate/patrol/faction pursuit and conflict,dated
+sightings,survivor retreats,paid repair/replacement,multi-party arrival/custody.
+0.034 | PLANNED | Distinct coasts/passages/reefs,battle terrain from location,
+full large-hull clearance and turning,harbor eligibility and safe route keys.
+0.035 | PLANNED |12 original civilian designs:3 fishing,4 transports through large
+motor merchantman,2 tankers,3 yachts;actual material/labor/experts/build costs.
+0.036 | PLANNED | Working fishing,freight,conserved fuel and funded charters;
+traffic creates piracy/escort choices;recurring captains remember real events.
+0.037 | PLANNED | Supplied faction objectives,coordinated friendly fleets;
+actual fuel/ammo/wages/machinery constrain deployment,repairs and replacements.
+0.038 | PLANNED | Six careers,balance,guidance,presentation and sustained
+campaign/combat performance: explorer,merchant,escort,privateer,fisher,passenger.
+
+Each actual playable version builds on accepted predecessor and advances .001.
+No031+ build/tag/export exists.030 tag7492fb7 and029 verified44e2a46 are immutable.
+24 hulls now;36 only after 0.035 acceptance. Ownership distinct from 300 battle DP/side.
+Coins,finite sailors/materials/stores,100 coins sailor-day;no animated repair crew.
+Cheap 2D water,main-thread scenes/UI,owned copied-data workers;profile real work.
+All testing background/headless/Dummy/isolated/no desktop input or focus.
+
+Current proof/remaining failures: docs/VERIFICATION INDEX.txt,BUILD STATUS.txt.
+Detailed agreed requirements: docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt,
+docs/AI BEHAVIOR STANDARD v0.029-v0.038.txt and CIVILIAN FLEET PLAN of the same series.
+Earlier maps preserved unchanged in docs/roadmap/. No parity/complete-AI claim.

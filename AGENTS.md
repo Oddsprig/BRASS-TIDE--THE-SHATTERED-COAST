@@ -1,3 +1,19 @@
+# Standing version scope rule - 26 October 2026
+
+Owner: "remember stick to the scope on this game".
+One agreed playable step per version: implement that scope, fix defects caused
+by it, run focused checks, package and finish. Do not expand an increment into
+full-game acceptance, speculative fine-tuning or a new test-framework project.
+Use existing tools. Broaden testing at agreed milestones or for a concrete
+failure. Entire selected automated suites remain below120 seconds; preserve
+shared background scheduling, no input/focus control and earlier failed results.
+Performance and presentation have explicit later scopes, not a gate on every
+feature build. No additional features without an agreed scope change.
+
+Current delivered build:0.031. VERSION MAP.txt is the planning authority for
+0.032-0.041; ROADMAP.md defines the next step. This request is planning only.
+Do not start another build or helper run without the user's instruction.
+
 # v0.031 delivery status
 
 Seven focused equipment fixtures pass1677/0; portable menu/campaign/battle

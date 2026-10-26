@@ -1,29 +1,9 @@
-BRASS TIDE — CURRENT VERSION MAP
-26 October 2026 | development continues through0.038
-
-Latest verified delivered fallback:0.029, tag44e2a46. Preserved0.030/tag7492fb7
-is UNTESTED. Source remains build30 with24 boats;0.031 is UNRELEASED.
-The owner resumed work and testing after the historical build-only stop.
-Do not use the old stop paragraph as current authorization or release status.
-
-0.029 | Fleet workshop and boat detail — delivered fallback.
-0.030 | Tactical AI — source integrated; final behavior/performance gates open.
-0.031 | Damageable weapons, engines and pumps — active development and scoped QA.
-0.032 | Convoy and recovery battles — recovery foundations integrated; unfinished.
-0.033 | Independent campaign fleet conflict — planned.
-0.034 | Coastal geography and large-hull navigation — planned.
-0.035 |12 additional civilian designs:3 fishers,4 transports,2 tankers,3 yachts.
-0.036 | Working fishing, freight, fuel delivery and passenger careers — planned.
-0.037 | Supplied faction operations — planned.
-0.038 | Six-career balance, presentation and sustained performance — planned.
-
-Current focus: reduce repeated battle calculations without changing physical
-damage/repair, crew work, stores or AI prediction horizons; finish the bounded
-release suite within the owner's119-second active deadline. Scoped checks do
-not advance the version or establish the requested Starsector-quality target.
-See BUILD STATUS.txt and docs/RELEASE TEST CONTRACT v2.txt for exact open gates.
-No new export, desktop launcher, release tag or upload accompanies this map.
-The original detailed plan follows; its baseline and planning labels are history.
+HISTORICAL DESIGN DETAIL - v0.029-v0.038
+Current delivered equipment build is0.031. The current ten-version plan is
+VERSION MAP.txt (0.032-0.041), with the next step in ROADMAP.md. The former broad
+0.038 polish scope is divided across0.038-0.040. Earlier baseline, status and
+exit-gate language below is historical and does not override the owner’s latest
+scope discipline. No full-game acceptance gate applies to every feature version.
 
 BRASS TIDE — FLEET CAMPAIGN VERSION MAP v0.029-v0.038
 23 October 2026 | PLAN ONLY | prepared with a Bridge Sol 6.1 Max advisor

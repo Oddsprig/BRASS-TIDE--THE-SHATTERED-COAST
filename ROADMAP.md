@@ -1,10 +1,18 @@
-# Current step: v0.031 - Damageable equipment
+# Next planned step: v0.032 - Convoy and recovery battles
 
-Owner: "stick to the fucking scope" (26October2026).
+Current delivered equipment build: v0.031. This is planning, not a build start.
+Owner: "remember stick to the scope on this game" (26 October 2026).
 
-Finish individual weapon/engine/armor/pump condition, crew/supply repairs,
-repair priorities, paid fittings and persistence through refit/save/salvage.
-Verify only this step and produce the portable Windows build and launcher.
-Full-game polish and performance work is deferred. No0.032 work in this pass.
-The agreed later sequence remains in VERSION MAP.txt and the detailed map in
-docs/FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt.
+The playable outcome is an escort/interception or recovery encounter whose
+result follows what the actual boats, cargo and equipment do.
+
+- Loaded convoy boats must physically reach their authored exit.
+- Escorts protect them; interceptors stop them and recover actual cargo.
+- Tow, strip or abandon damaged prizes while preserving the correct hull,
+  module condition, crew, cargo and ownership through settlement.
+- Carry that result through the real campaign voyage and save/load flow.
+
+Check those touched paths with focused background tests under the two-minute
+suite limit, then package this step. Further AI, new hulls, general performance
+work and full-game polish have their own later versions in VERSION MAP.txt.
+Finish one agreed step at a time.
