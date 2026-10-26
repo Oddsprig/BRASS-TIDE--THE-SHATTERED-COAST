@@ -81,7 +81,11 @@ func _test_midday() -> void:
 	check(ammo_after<ammo_before,"midday encounter consumes actual persistent ammunition")
 	check(int(c.state.econDay)==5 and int(c.state.navalAi.tickCount)==ticks_before,"fight occurs without a daily AI tick")
 	check(c.state.log.any(func(line):return str(event.get("summary","missing encounter summary")) in str(line)),"nearby successful encounter summary reaches the campaign log")
-	var story_after: Dictionary=c.fleet_owner("story-0")
+	var story_after: Dictionary=c.fleet_owner("story-0").duplicate(true)
+	check(is_equal_approx(float(story_after.tradeLawDay),float(c.state.day)),"story trade-law clock follows actual elapsed campaign time")
+	# LawOps.clock updates this timestamp for every owner during a real step.
+	# Keep the entire remaining physical, purse and intent record under comparison.
+	story_before.erase("tradeLawDay");story_after.erase("tradeLawDay")
 	if story_after!=story_before:
 		var changed: Array=[]
 		for key in story_before.merged(story_after):
