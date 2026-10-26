@@ -147,6 +147,8 @@ func light_window(world: Dictionary) -> void:
 			section.aiUs.append(int(st.tactical.metrics.aiUs))
 			var sample: Dictionary={"tick":tick-WARMUP+1,"simTime":float(st.time),"updateUs":previous,"aiUs":int(st.tactical.metrics.aiUs)}
 			if st.tactical.metrics.get("phaseUs") is Dictionary:sample.phaseUs=st.tactical.metrics.phaseUs.duplicate(true)
+			if st.tactical.metrics.get("planningDetailUs") is Dictionary:sample.planningDetailUs=st.tactical.metrics.planningDetailUs.duplicate(true)
+			if st.tactical.metrics.get("planningCalls") is Dictionary:sample.planningCalls=st.tactical.metrics.planningCalls.duplicate(true)
 			section.samples.append(sample)
 			for key in ["fullRoutes","cacheHits","rollouts","samples","clearanceTests","exhaustions"]:section.work[key]=int(section.work.get(key,0))+int(st.tactical.metrics.work[key])
 			section.peakRouteCacheEntries=maxi(int(section.peakRouteCacheEntries),int(st.tactical.metrics.work.cacheEntries))

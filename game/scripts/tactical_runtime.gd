@@ -371,9 +371,17 @@ static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidat
 	return status
 
 static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null) -> void:
+	var begin_started: int=Time.get_ticks_usec()
 	var t: Dictionary=ensure(st)
 	t.dt=dt;t.snapshotRevision+=1
 	t.metrics={"aiUs":0,"activeCount":0,"normalLimit":0,"decisionAges":[],"safetyAges":[],"certificateAges":[],"certificationAges":[],"certificationAttemptAges":[],"orderApplyAges":[],"pendingAges":[],"droppedDecisions":0}
+	# Short per-step attribution at existing seams; no retained profiling state.
+	# physicalCertification is inside certification; helmCurrent/helmSafety are
+	# inside helmTotal. These clocks never participate in a tactical decision.
+	t.metrics.planningDetailUs={"observation":0,"snapshots":0,"proposals":0,"certification":0,"physicalCertification":0,"resolution":0,"beginTotal":0,"helmCurrent":0,"helmSafety":0,"helmTotal":0}
+	t.metrics.planningCalls={"candidates":0,"certify":0,"helm":0}
+	var detail: Dictionary=t.metrics.planningDetailUs
+	var phase_started: int=0
 	t.budget={"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":2900}
 	t.geometry=Routes.terrain(st)
 	t.ships={};t.observed={}
@@ -419,17 +427,21 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	var copies: Dictionary={}
 	var proposed: Dictionary={}
 	var offers: Dictionary={"player":[],"enemy":[]}
+	detail.observation=Time.get_ticks_usec()-begin_started
 	# Snapshot and propose both sides BEFORE certification spends the shared pool.
 	for side in ["player","enemy"]:
 		var side_due: Array=[]
 		for id in due:
 			if t.ships[id].team==side:side_due.append(id)
 		if side_due.is_empty():continue
+		phase_started=Time.get_ticks_usec()
 		var snapshot: Dictionary=view(st,side,side_due,frame_cache)
 		snapshots[side]=snapshot
 		for ship in snapshot.ships:
 			if ship.team==side:copies[str(ship.id)]=ship
 		memories[side]=t.memory[side].duplicate(true)
+		detail.snapshots+=Time.get_ticks_usec()-phase_started
+		phase_started=Time.get_ticks_usec()
 		planning[side]=Planner._prepare_begin(snapshot,memories[side])
 		var candidates: Array=planning[side].get("candidates",[])
 		for raw in candidates:
@@ -438,7 +450,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if not id in side_due:continue
 			if not proposed.has(id):proposed[id]=[]
 			if proposed[id].size()<8:proposed[id].append(raw)
+		detail.proposals+=Time.get_ticks_usec()-phase_started
 	# Actual physical work follows GLOBAL fair order, never player-first batches.
+	phase_started=Time.get_ticks_usec()
 	for id in due:
 		var ship: Dictionary=copies[id]
 		var side: String=str(ship.team)
@@ -446,6 +460,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var real_attempt: bool=false
 		var membership: Array=Certification.detailed_targets(snapshot,ship,t.memory[side].get("byId",{}).get(id,{}))
 		for raw in proposed.get(id,[]):
+			t.metrics.planningCalls.candidates+=1
 			if not Certification.candidate_valid(raw,snapshot,ship,membership) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
 			var refined: Dictionary=Routes.refine(st,t.geometry,ship,raw,t.budget)
 			var candidate: Dictionary=refined.candidate
@@ -458,7 +473,11 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 					continue
 			var fingerprint: String=Planner.fingerprint(candidate)
 			var cert: Dictionary=Certification.base_certificate(snapshot,ship,candidate,fingerprint)
-			if refined.status=="valid":cert=Certification.certify(st,snapshot,ship,candidate,fingerprint,t.budget,membership)
+			if refined.status=="valid":
+				var certify_started: int=Time.get_ticks_usec()
+				t.metrics.planningCalls.certify+=1
+				cert=Certification.certify(st,snapshot,ship,candidate,fingerprint,t.budget,membership)
+				detail.physicalCertification+=Time.get_ticks_usec()-certify_started
 			else:
 				cert.status=refined.status
 				cert.reason="Checking a route around land" if refined.status=="pending" else "No clear route to this station"
@@ -469,7 +488,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if real_attempt or proposed.get(id,[]).is_empty():
 			t.metrics.certificationAttemptAges.append(maxf(0.0,float(st.time)-maxf(0.0,float(t.certificationAttempts.get(id,0.0)))))
 			t.certificationAttempts[id]=float(st.time)
+	detail.certification=Time.get_ticks_usec()-phase_started
 	# Alternate resolution priority too: reservation accounting has the same cap.
+	phase_started=Time.get_ticks_usec()
 	var side_order: Array=["player","enemy"] if int(t.snapshotRevision)%2==1 else ["enemy","player"]
 	for side in side_order:
 		if not snapshots.has(side):continue
@@ -498,6 +519,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		t.metrics.pendingAges.append(age)
 		t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
 	t.budget.clearanceLimit=4096 # Reserved current helm/fire legality work.
+	detail.resolution=Time.get_ticks_usec()-phase_started
+	detail.beginTotal=Time.get_ticks_usec()-begin_started
 
 static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,offers: Array) -> void:
 	var t: Dictionary=st.tactical
@@ -598,10 +621,15 @@ static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dic
 	return true
 
 static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
+	var helm_started: int=Time.get_ticks_usec()
 	var t: Dictionary=st.tactical
+	var detail: Dictionary=t.metrics.get("planningDetailUs",{})
+	if not detail.is_empty():t.metrics.planningCalls.helm+=1
 	var id: String=str(ship.id)
 	var intent: Dictionary=t.intents.get(id,{})
+	var current_started: int=Time.get_ticks_usec()
 	var current: Dictionary=Certification.current(st,ship,intent,0.0,frame_cache)
+	if not detail.is_empty():detail.helmCurrent+=Time.get_ticks_usec()-current_started
 	if not t.get("appliedRevisions") is Dictionary:t.appliedRevisions={}
 	if int(t.appliedRevisions.get(id,-1))!=int(ship.get("orderRevision",0)):
 		t.metrics.orderApplyAges.append(maxf(0.0,float(st.time)-float(t.orderTimes.get(id,st.time))))
@@ -609,20 +637,33 @@ static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary
 	if not current.ok:
 		if not t.pending.has(id):t.pending[id]=float(st.time)
 		if not intent.is_empty() or not t.reasons.has(id):t.reasons[id]=str(current.reason)
-		return Certification.brake(st,ship,t.budget,str(t.reasons[id]),frame_cache)
+		var brake_started: int=Time.get_ticks_usec()
+		var braked: Dictionary=Certification.brake(st,ship,t.budget,str(t.reasons[id]),frame_cache)
+		if not detail.is_empty():
+			detail.helmSafety+=Time.get_ticks_usec()-brake_started
+			detail.helmTotal+=Time.get_ticks_usec()-helm_started
+		return braked
 	var target_id: String=str(intent.get("targetId",""))
 	var target: Dictionary=t.observed.get(target_id,{})
 	if not target_id.is_empty() and (target.is_empty() or target.team==ship.team):
 		t.intents.erase(id);t.lastDecision[id]=-1.0
-		return Certification.brake(st,ship,t.budget,"Target unavailable; reassessing",frame_cache)
+		var brake_started: int=Time.get_ticks_usec()
+		var braked: Dictionary=Certification.brake(st,ship,t.budget,"Target unavailable; reassessing",frame_cache)
+		if not detail.is_empty():
+			detail.helmSafety+=Time.get_ticks_usec()-brake_started
+			detail.helmTotal+=Time.get_ticks_usec()-helm_started
+		return braked
 	var record: Dictionary=current.record
 	t.metrics.certificateAges.append(maxf(0.0,float(st.time)-float(record.certificate.checkedAt)))
 	var control: Dictionary=Certification.steering(ship,Certification.execution(record.candidate),int(record.get("index",0)),target,Certification.primary_mounts(t.mountCache[id].mounts,record.candidate))
 	record.index=int(control.index)
+	var safety_started: int=Time.get_ticks_usec()
 	var safe: Dictionary=Certification.safe_step(st,ship,control,t.budget,frame_cache)
+	if not detail.is_empty():detail.helmSafety+=Time.get_ticks_usec()-safety_started
 	if safe.get("blocked",false):
 		t.reasons[id]=str(safe.reason);t.intents.erase(id)
 		if not t.pending.has(id):t.pending[id]=float(st.time)
+	if not detail.is_empty():detail.helmTotal+=Time.get_ticks_usec()-helm_started
 	return safe
 
 static func finish(st: Dictionary,ai_us: int) -> void:
