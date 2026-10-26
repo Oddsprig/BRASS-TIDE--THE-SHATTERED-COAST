@@ -16,6 +16,8 @@ const Reserves=preload("res://scripts/harbor_reserves.gd")
 const Training=preload("res://scripts/crew_training.gd")
 const CampaignState=preload("res://scripts/campaign_state_validation.gd")
 const Preflight=preload("res://scripts/equipment_campaign.gd")
+const CivilianWork=preload("res://scripts/civilian_work.gd")
+const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 ## Roster safety cap, not an ownership rule: 300 DP of 8-DP hulls is 37 boats, plus margin.
 const MAX_ROSTER: int=96
 const MAX_LOCKER: int=256
@@ -193,6 +195,8 @@ static func validate(saved: Dictionary,world: Dictionary) -> Dictionary:
 	if error.is_empty():error=LawOps.validate(saved,world)
 	if error.is_empty():error=BoardingOps.validate(saved,world)
 	if error.is_empty():error=CrisisOps.validate(saved,world)
+	if error.is_empty():error=VoyageJobs.validate(saved,world)
+	if error.is_empty():error=CivilianWork.validate(saved,world)
 	if error.is_empty():
 		var hulls: Dictionary={}
 		for h in world.HULLS:hulls[h.id]=h

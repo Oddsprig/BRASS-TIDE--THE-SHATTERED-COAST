@@ -8,20 +8,14 @@ const Expedition=preload("res://scripts/expedition.gd")
 const Manifest=preload("res://scripts/hold_manifest.gd")
 const Reserves=preload("res://scripts/harbor_reserves.gd")
 const Politics=preload("res://scripts/politics.gd")
+const Reads=preload("res://scripts/passenger_manifest.gd")
+const Cohorts=preload("res://scripts/regional_crises.gd")
 static func actual(c):return c.core if c.get("core")!=null else c
 static func jobs(s: Dictionary) -> Array:return s.get("regionalCrises",{}).get("jobs",[])
 static func assigned(s: Dictionary,uid: String) -> int:
-	var total: int=0
-	for j in jobs(s):
-		if j.stage!="holding" and s.get("passengerTransport",{}).get("carriers",{}).get(str(j.id),"")==uid:total+=int(j.n)
-	return total
+	return Reads.assigned(s,uid)
 static func food_weight(s: Dictionary,uid: String="") -> float:
-	var total: float=0.0
-	for j in jobs(s):
-		if j.stage=="holding":continue
-		if not uid.is_empty() and s.get("passengerTransport",{}).get("carriers",{}).get(str(j.id),"")!=uid:continue
-		total+=float(j.food.get("food",0))
-	return total
+	return Reads.food_weight(s,uid)
 static func spare(c,b: Dictionary) -> int:
 	return maxi(0,floori(float(b.crewMax)-float(b.crew))-int(c.state.get("captiveBerths",{}).get(str(b.uid),0))-assigned(c.state,str(b.uid)))
 static func available_hold(c,b: Dictionary,known: Dictionary={}) -> float:
@@ -130,3 +124,99 @@ static func atomic(view,moves: Array,event: Dictionary) -> bool:
 			if str(j.destination)==str(p.id) and str(j.origin)!=str(p.id):c.state.campaignFacts.resettlersAdmitted=int(c.state.campaignFacts.get("resettlersAdmitted",0))+int(j.n)
 		"lose":c.state.passengerTransport.foodLost=float(c.state.passengerTransport.foodLost)+float(j.food.get("food",0));j.food.clear()
 	return true
+
+## Charters share the actual regional cohort arithmetic, berths and provisions.
+## Their fee AND carried household savings occupy the already-counted voyage
+## escrow; there is no second purse or invented passenger population.
+static func choose_charter(c,count: int,food: float,uid: String="") -> String:
+	for b in c.active_fleet():
+		if not uid.is_empty() and str(b.uid)!=uid:continue
+		if str(c.hull(str(b.type)).get("civilianRole","")) not in ["transport","yacht"]:continue
+		if spare(c,b)>=count and available_hold(c,b)+0.000001>=food and c.capacity()-c.cargo_weight()+0.000001>=food:return str(b.uid)
+	return ""
+
+static func charter_room(c,p: Dictionary,excluding: String="") -> int:
+	var value: int=room(c,p)
+	for j in jobs(c.state):
+		if str(j.destination)==str(p.id) and j.stage!="returning":value-=int(j.n)
+	for j in c.state.get("voyageJobs",[]):
+		if j.get("kind","")=="passenger_charter" and str(j.id)!=excluding and str(j.targetPort)==str(p.id):value-=int(j.get("passengers",{}).get("n",0))
+	return maxi(0,value)
+
+static func charter_quote(c,origin: String,destination: String,count: int,uid: String="") -> Dictionary:
+	var p: Dictionary=c.port(origin);var target: Dictionary=c.port(destination)
+	if p.is_empty() or target.is_empty() or origin==destination or count<1 or count>32 or charter_room(c,target)<count:return {}
+	var module=Cohorts.new()
+	var cohort: Dictionary=module._cohort(p,count)
+	if cohort.is_empty():return {}
+	var days: int=route_days(c,origin,destination)
+	if days<1:return {}
+	var food: float=quantity(count,days+2)
+	var carrier: String=choose_charter(c,count,food,uid)
+	if carrier.is_empty() or Reserves.exportable(p,"food")+0.000001<food:return {}
+	var path: Array=Routes.path(c,c.state.position,target)
+	var distance: float=0.0
+	for i in range(1,path.size()):distance+=c.distance(path[i-1],path[i])
+	if path.size()<2 or distance<=0:return {}
+	return {"passengers":cohort,"carrierUid":carrier,"charterFood":{"food":food},"materialInvoice":ceili(food*Economy.price(p,"food","buy")),"routeDistance":distance,"routeDays":days,
+		"savingsHousehold":module._share(int(p.householdPurse),count,int(p.workforce)),"savingsExpert":module._share(int(p.expertPurse),int(cohort.specialists),int(p.specialists))}
+
+static func board_charter(c,j: Dictionary,uid: String="") -> bool:
+	var p: Dictionary=c.current_port()
+	if str(p.get("id",""))!=str(j.port) or not service(c,str(j.port),""):return false
+	var q: Dictionary=charter_quote(c,str(j.port),str(j.targetPort),int(j.passengers.n),uid)
+	if q.is_empty() or int(p.get(str(j.payerKey),0))<int(j.reward)+int(q.materialInvoice):return false
+	# Complete preflight precedes the four finite purse transfers and the stock debit.
+	if int(p.householdPurse)<int(q.savingsHousehold) or int(p.expertPurse)<int(q.savingsExpert):return false
+	j.merge(q,true);j.escrow=0
+	Money.move(p,str(j.payerKey),j,"escrow",int(j.reward),"Sponsor funds passenger charter",c.state.moneyLog)
+	Money.move(p,str(j.payerKey),p,"cash",int(j.materialInvoice),"Sponsor buys actual charter provisions",c.state.moneyLog)
+	Money.move(p,"householdPurse",j,"escrow",int(j.savingsHousehold),"Passengers carry existing household savings",c.state.moneyLog)
+	Money.move(p,"expertPurse",j,"escrow",int(j.savingsExpert),"Passengers carry existing expert savings",c.state.moneyLog)
+	p.stocks.food=maxf(0,float(p.stocks.food)-float(j.charterFood.food))
+	Cohorts.new()._people(p,j.passengers,-1)
+	Economy.sync_workforce(p)
+	j.lastPosition=c.state.position.duplicate();j.lastTickDay=float(c.state.day);j.elapsedDays=0.0;j.voyageDistance=0.0;j.foodConsumed=0.0
+	return true
+
+static func discharge_charter(c,j: Dictionary,p: Dictionary) -> bool:
+	var n: int=int(j.get("passengers",{}).get("n",0))
+	var savings: int=int(j.get("savingsHousehold",0))+int(j.get("savingsExpert",0))
+	if n<=0 or p.is_empty() or charter_room(c,p,str(j.id))<n or int(j.escrow)<savings:return false
+	Money.move(j,"escrow",p,"householdPurse",int(j.savingsHousehold),"Passenger household savings discharged",c.state.moneyLog)
+	Money.move(j,"escrow",p,"expertPurse",int(j.savingsExpert),"Passenger expert savings discharged",c.state.moneyLog)
+	Cohorts.new()._people(p,j.passengers,1);Economy.sync_workforce(p)
+	p.publicStores.food=float(p.publicStores.get("food",0))+float(j.charterFood.get("food",0))
+	j.passengers={};j.charterFood={};j.savingsHousehold=0;j.savingsExpert=0
+	return true
+
+static func lose_charter(c,j: Dictionary) -> void:
+	var cohort: Dictionary=j.get("passengers",{})
+	if cohort.is_empty():return
+	var losses: Dictionary=c.state.regionalCrises
+	var savings: int=int(j.savingsHousehold)+int(j.savingsExpert)
+	Money.move(j,"escrow",losses,"lostPurse",savings,"Lost charter savings retained in existing loss custody",c.state.moneyLog)
+	losses.lostPeople=int(losses.lostPeople)+int(cohort.n)
+	losses.lostSpecialists=int(losses.lostSpecialists)+int(cohort.specialists)
+	losses.lostRecruits=int(losses.lostRecruits)+int(cohort.recruits)
+	for role in Cohorts.ROLES:losses.lostQualified[role]=int(losses.lostQualified[role])+int(cohort.qualified[role])
+	c.state.passengerTransport.foodLost=float(c.state.passengerTransport.foodLost)+float(j.charterFood.get("food",0))
+	j.passengers={};j.charterFood={};j.savingsHousehold=0;j.savingsExpert=0;j.failed=true
+
+static func tick_charter(c,j: Dictionary,dt_days: float) -> void:
+	if j.get("passengers",{}).is_empty():return
+	var b: Dictionary=c.find_boat(str(j.carrierUid))
+	if b.is_empty() or b.sunk:lose_charter(c,j);return
+	var now: float=float(c.state.day)
+	var elapsed: float=maxf(0,minf(dt_days,now-float(j.lastTickDay)))
+	if elapsed<=0:return
+	j.lastTickDay=now
+	if not c.active_fleet().has(b):j.failed=true
+	var need: float=float(j.passengers.n)*0.08*elapsed
+	var eaten: float=minf(need,float(j.charterFood.get("food",0)))
+	j.charterFood.food=maxf(0,float(j.charterFood.get("food",0))-eaten)
+	j.foodConsumed=float(j.foodConsumed)+eaten
+	if eaten+0.000001<need:j.failed=true
+	j.elapsedDays=float(j.elapsedDays)+elapsed
+	j.voyageDistance=minf(1e9,float(j.voyageDistance)+c.distance(j.lastPosition,c.state.position))
+	j.lastPosition=c.state.position.duplicate()
