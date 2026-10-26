@@ -1,3 +1,12 @@
+26OCT2026 - v0.031 EQUIPMENT BUILD DELIVERED
+Owner corrected scope: finish equipment, not the full game or future performance.
+Seven focused fixtures1677/0; portable menu/campaign/battle startup verified.
+Final documentation export passed;93.173s total bound including prior charged work.
+Wrapper .import newline failure and512MiB builder failure remain preserved.
+Local tagv0.031 ->6d0654523b9fda076b70db825a9cdd26bba325d1; no remote push.
+Desktop/Brass Tide/v0.031 plus custom desktop shortcut;18musictracks included.
+All test processes cleaned up. No further version started; stop this pass.
+
 24 October2026 - exact verified numerical equipment damage integrated
 Damage88694a78/EquipmentDamageed3c6efd and identical174-check fixture05950d68
 are copied from the native after pack. Earlier174/11 ->174/0 and legacy pass

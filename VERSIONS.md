@@ -87,3 +87,5 @@ remain in Git/tag snapshots and cold archives; current CHANGES v0.028.md stays a
 Unverified/rejected candidate tags stay distinct from these accepted versions.
 For current tests/export/launcher/remote status use docs/VERIFICATION INDEX.txt.
 Next ten .029–.038 scopes remain planned in VERSION MAP.txt and ROADMAP.md.
+
+| v0.031 | `6d0654523b9fda076b70db825a9cdd26bba325d1` |26October2026; damageable equipment; Desktop/Brass Tide/v0.031;1677 focused checks/0; full-game polish deferred |

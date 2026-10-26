@@ -19,4 +19,4 @@ No full-game or Starsector-quality acceptance is claimed. No private Battle leas
 or further speculative performance candidate was merged in this final pass.
 Coins remain currency; ordinary sailor wages are100 coins per day.
 
-Windows package: outputs/Brass Tide v0.031. Final desktop copy follows packaging.
+Windows package: outputs/Brass Tide v0.031. Delivered to Desktop/Brass Tide/v0.031 with the Brass Tide v0.031 desktop launcher.
