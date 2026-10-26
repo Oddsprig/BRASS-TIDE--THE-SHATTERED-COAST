@@ -14,7 +14,10 @@ performance remains unaccepted. Full recorder60s timeout preserved. Validated24-
 profile identifies canonical condition/repair tick work as the main measured cost.
 Protected-recovery passes3/0 in both orientations (legacy-only; no retreat proof).
 Pump/armor remains open after supervisor WinError5; no terminal test count.
-Small integration fixture is source-only pending its family-boundary correction.
+Small OLD/NEW each pass57/0 with301 complete packets; strict pair still fails
+on an approved timing field missed by StringName lookup. Fresh recorder/gate source
+is being corrected; all failed traces remain preserved. Tick69 source is reviewed
+and its single cold diagnostic is queued; no performance acceptance.
 Remaining030/held-out/motion/audio/Windows proof stays open. No031tag/export.
 0.032 | NEXT | Loaded convoy/recovery boats must physically reach exits.
 Pure R5 tow/save/paid repair proof does not accept the scene/voyage exit flow.

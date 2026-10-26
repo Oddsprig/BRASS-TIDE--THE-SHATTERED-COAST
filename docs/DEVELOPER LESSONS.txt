@@ -241,3 +241,18 @@ TEST API RETURN VALUES AND RESTARTS - 25 OCTOBER 2026
 - A queue handoff with request+failure receipt+empty lane.log and no execution
   artifacts is not a native pass. Preserve it separately; prove launch state,
   recheck frozen sources and current shared lane, then recover only owned work.
+
+NATIVE STRING KEYS AND TRACE GATES - 25 OCTOBER 2026
+- Godot dictionary paths can contain StringName21 keys as well as String4.
+  R3 observer missed the already approved tactical.metrics.aiUs omission because
+  its exact-path lookup accepted only String4. Its absence guard shared that gap.
+  Preserve that strict failed result; correct only the existing leaf in a fresh
+  producer and add an independent absence check covering both native key types.
+- Native57/0 and a complete301-packet trace do not alone accept paired equality.
+  R3 full scan found41 clock-only differences; original strict comparison stays
+  FAIL until the corrected recording/validation path supplies actual evidence.
+- Delete sharing on the reader alone failed the isolated replacement proof.
+  The separate writer retry was tested against release, permanent hold and
+  noneligible errors:28 CPU checks passed. Retry only WinError5/32 with a fixed
+  250ms window; preserve complete old/new images and fail closed on expiry.
+  This establishes the mechanism, not the historical lock owner or cause.

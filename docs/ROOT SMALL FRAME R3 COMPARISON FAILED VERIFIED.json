@@ -1,0 +1,66 @@
+{
+  "classification": "ACTUAL_STRICT_R3_PAIR_FAIL_WITH_PRODUCER_BUG_DIAGNOSED",
+  "createdAt": "2026-10-26T00:23:02.483Z",
+  "oldJob": "8f3d079e38554395b0e4fe57a7990736",
+  "newJob": "ecb83f8dd3b4425296fc873c57c33731",
+  "oldNativeChecks": 57,
+  "newNativeChecks": 57,
+  "nativeFailures": 0,
+  "oldPackets": 301,
+  "newPackets": 301,
+  "originalComparison": {
+    "protocol": "BFRP2",
+    "classification": "EXACT_DECOMPRESSED_TYPED_BYTES",
+    "traceByteEqual": false,
+    "oldPackets": 301,
+    "newPackets": 301,
+    "firstMismatch": {
+      "packet": 37,
+      "oldPresent": true,
+      "newPresent": true,
+      "typedPath": "$.state[StringName:'1500000008000000746163746963616c'][StringName:'15000000070000006d65747269637300'][String:'aiUs']",
+      "old": {
+        "type": "int",
+        "nativeType": 2,
+        "nativeHex": "02000000d9db0000",
+        "nativeBytes": 8,
+        "value": 56281
+      },
+      "new": {
+        "type": "int",
+        "nativeType": 2,
+        "nativeHex": "0200000085860000",
+        "nativeBytes": 8,
+        "value": 34437
+      },
+      "firstByteOffset": 337292,
+      "oldPacketSha256": "ee4e316123ba2437710497342dfd805c67c012f42781497007888ebbb1212fc9",
+      "newPacketSha256": "e701f463f841154e03c777a24240cf95aa5cc482cdb05ffbb13ef797c17a0bf8"
+    },
+    "peakRawBufferedBytes": 1011624,
+    "oldCumulativeRawBytes": 22470484,
+    "newCumulativeRawBytes": 22470484,
+    "mergeAccepted": false,
+    "timingEvidence": false
+  },
+  "comparisonFile": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/battle-frame-reuse-proof-r2/small-complete-comparisons/20261026T000847Z-ef596f04/comparison.json",
+  "comparisonSha256": "beb9db7ffb7319a1ebf6b9afa1d6bdc65c627a0a44a62c1b566f0b51a5dcc1bf",
+  "frozenComparatorSha256": "bf29a6f2125ac68e4515639f10bf1ca6cea0e4a31bf801edda61f7ae94734b10",
+  "diagnosticScriptSha256": "c09bcc3a1944b55066da912c498d1951d0b8f0e417ffeb4147bdd14e1b7548c2",
+  "diagnosticSha256": "6610c08a9d6cbac32ca2a599b5a49093284312c343e796c569e68de21dfba96f",
+  "diagnosticDifferencePaths": {
+    "$.state[StringName:'tactical'][StringName:'metrics'][String:'aiUs']": 41
+  },
+  "diagnosedKeyTypes": {
+    "tactical": 21,
+    "metrics": 21,
+    "aiUs": 4
+  },
+  "cause": "Producer exact-path omission and validator lookup recognize String4 only; real tactical/metrics keys are StringName21.",
+  "rawFailedPacketsPreserved": true,
+  "diagnosticNormalizedTraces": false,
+  "additionalOmissions": false,
+  "formalPairAccepted": false,
+  "mainMerged": false,
+  "next": "Fresh R4 outgoing observer recognizes both native text key types only along the already approved leaf; add stricter absence companion and rerun changed source only after review."
+}

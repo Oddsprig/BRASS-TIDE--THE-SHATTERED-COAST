@@ -1,5 +1,5 @@
 BRASS TIDE - VERIFIED COMPONENTS; CURRENT SCENE/PERFORMANCE OPEN
-2026-10-25T23:30:33.664Z
+2026-10-26T00:23:43.448Z
 Two numerical modules now avoid unused copies; other runtime stays R4. Legacy629/0.
 Fourteen runtime modules and six fixtures integrated. Still24 boats.
 Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
@@ -42,12 +42,22 @@ FIFO/detector/cleanup policy stays intact. Historical cause remains unknown;
 next native end-to-end evidence is pending. ROOT TEST SUPPORT WRITER RETRY APPLIED.
 Small-complete r1/r2 source is preserved; Root found the autopilot return-value
 assertion error, then Argon found an assertion outside its recorded family.
-R3 fixes both; Root reviewed and verified the builder and staged exact OLD503/
-dcf8e2ff and NEW504/ea84b759. Only ONE OLD feasibility native is authorized,
-through the same lane; NEW remains unapproved pending actual complete evidence.
-Grok's next tick candidate69b01f77 removes one redundant successful publication
-per60Hz step, keeping the raw published engine float across sanitize. Source
-review only; unmerged, with no state/timing acceptance yet.
+R3 OLD8f3d079e and NEWecb83f8d each pass57/0, with complete301-packet
+traces. Root independently validated native receipts, exact inputs and full
+streams. Frozen R2 strict comparison FAILS at packet37: AI timing counter
+56281 versus34437. Full structural scan finds41 differing packets, all the
+same clock leaf; no additional typed difference path. Formal pair stays FAIL.
+Root verified actual tactical/metrics keys are StringName21; producer omission
+and its absence validator accept only String4. Original failed comparison and
+full packets stay unchanged. ROOT SMALL FRAME R3 COMPARISON FAILED VERIFIED.json.
+Fresh R4 source is being prepared with the same approved clock leaf, both key
+types, unchanged frozen comparator and a stronger separate absence gate.
+NEW combines cache5 with source-reviewed tick69b01f77 (raw prototype499/507d0ac4);
+no R4 native is authorized yet. The tick removes one redundant successful
+publication per60Hz step, keeping raw engine float across sanitize; no cadence
+or arithmetic change. A single changed-tick cold diagnostic289/4706012b is
+authorized through the same shared lane. Source remains unmerged; no timing,
+capacity, FPS, scene or release acceptance.
 Original full battle regressions stay intact.
 Proofs: ROOT FRAME REPAIR R1 NATIVE VERIFIED OUTER FAILED.json,
 ROOT FRAME COST R3B NATIVE VERIFIED.json and
