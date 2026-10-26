@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.034
+26 October 2026 | Authorized sequential builds; delivered v0.035
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -24,7 +24,7 @@ Finish an observable raid, patrol response and faction clash using real fleets.
 Distinct passages, reefs and harbor approaches; encounter terrain follows
 location. Large hulls respect turning space, clearance and harbor restrictions.
 
-0.035 - CIVILIAN BOAT ROSTER
+0.035 - CIVILIAN BOAT ROSTER [DONE]
 Add12 original designs:3 fishing boats,4 transports through galleon-sized motor
 merchantmen,2 tankers and3 yachts. Give each working holds/mounts and real
 material, labor and supervision costs. Total roster becomes36.

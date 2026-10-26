@@ -1,3 +1,5 @@
+v0.035 VERIFIED AND PACKAGED: 581/0 focused checks, selected batch 37.081s, TestBridge df31d4e06ab6490996696eb86430682e. Source 7c3bea4cbdb856d46fd6287924058c94b7fbb40d.
+
 26OCT2026 - v0.035 TWELVE CIVILIAN BOATS
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

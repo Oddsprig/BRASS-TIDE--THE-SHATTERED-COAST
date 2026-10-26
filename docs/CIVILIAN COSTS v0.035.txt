@@ -1,0 +1,306 @@
+BRASS TIDE v0.035 - ACTUAL CIVILIAN CONSTRUCTION BILLS
+Existing Construction.quote at recursive Goods prices; 100 coins per sailor-day. Working fuel, ammunition and supplies are purchased separately.
+Native fixture job: df31d4e06ab6490996696eb86430682e
+Reference prices: local quotes may change with actual market stocks and wages.
+Crew pay is separate from hull construction. Working fuel, ammunition and kits are purchased separately.
+
+Kelpnet Dory - FISHING
+Commission: 37,473 coins | Ready hull: 38,207 coins
+Crew wages/day: 300 minimum / 400 optimal / 600 maximum coins
+Ordinary work: 21.43 worker-days | Expert work: 6.05 days
+Open Reedwater net dory with a hand reel, salvage drum and one light defense gun. Its short planked hull and single propulsion assembly keep the physical building bill small.
+  Seasoned Planks: 3.73 plank bundles at 387.5 -> 1,445 coins
+  Raw Logs: 1.62 log loads at 200.0 -> 324 coins
+  Worked Iron: 1.28 iron lots at 800.0 -> 1,024 coins
+  Copper Stock: 0.7 metal lots at 550.0 -> 385 coins
+  Drydock & Repair Kits: 1.32 kits at 257.5 -> 340 coins
+  Marine Engines: 1.0 engine assemblies at 17265.0 -> 17,265 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 0.97 drums at 325.0 -> 315 coins
+  Yard Laborers (ordinary rate): 5.53 worker-days at 100.0 -> 553 coins
+  Shipwright Hull Framing & Planking: 9.6 worker-days at 125.0 -> 1,200 coins
+  Fitting Mechanics & Armor Hanging: 4.1 worker-days at 150.0 -> 615 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 3.0 worker-days at 175.0 -> 525 coins
+  Master Shipwright Lofting & Survey: 1.17 worker-days at 200.0 -> 234 coins
+  Chief Marine & Trials Engineer: 1.88 worker-days at 200.0 -> 376 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 3.05 worker-days at 100.0 -> 305 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 2644.0 -> 2,644 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 1784.0 -> 1,784 coins
+  Ready-storage addition: 734 coins
+
+Brinehook Longliner - FISHING
+Commission: 40,940 coins | Ready hull: 41,949 coins
+Crew wages/day: 300 minimum / 500 optimal / 800 maximum coins
+Ordinary work: 30.14 worker-days | Expert work: 8.04 days
+Compact working launch with a long stern, line davit and paired drums under a customs canopy. Extra planking and bilge equipment support a modest catch hold.
+  Seasoned Planks: 5.62 plank bundles at 387.5 -> 2,178 coins
+  Raw Logs: 2.16 log loads at 200.0 -> 432 coins
+  Worked Iron: 1.79 iron lots at 800.0 -> 1,432 coins
+  Copper Stock: 0.89 metal lots at 550.0 -> 490 coins
+  Drydock & Repair Kits: 2.0 kits at 257.5 -> 515 coins
+  Marine Engines: 1.0 engine assemblies at 17265.0 -> 17,265 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 1.08 drums at 325.0 -> 351 coins
+  Yard Laborers (ordinary rate): 8.4 worker-days at 100.0 -> 840 coins
+  Shipwright Hull Framing & Planking: 14.65 worker-days at 125.0 -> 1,831 coins
+  Fitting Mechanics & Armor Hanging: 4.89 worker-days at 150.0 -> 734 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 4.22 worker-days at 175.0 -> 739 coins
+  Master Shipwright Lofting & Survey: 1.86 worker-days at 200.0 -> 372 coins
+  Chief Marine & Trials Engineer: 1.96 worker-days at 200.0 -> 392 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 3.92 worker-days at 100.0 -> 392 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 2888.0 -> 2,888 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 1950.0 -> 1,950 coins
+  Ready-storage addition: 1,009 coins
+
+Mother Gull Trawler - FISHING
+Commission: 87,701 coins | Ready hull: 90,830 coins
+Crew wages/day: 400 minimum / 700 optimal / 1,100 maximum coins
+Ordinary work: 99.10 worker-days | Expert work: 23.87 days
+Broad estuary catamaran with a cross-beam work deck, twin net reels and covered net stacks. Two propulsion assemblies move the timber-heavy trawling hull; its single light gun is for defense.
+  Seasoned Planks: 20.24 plank bundles at 387.5 -> 7,843 coins
+  Raw Logs: 5.58 log loads at 200.0 -> 1,116 coins
+  Worked Iron: 5.94 iron lots at 800.0 -> 4,752 coins
+  Copper Stock: 2.42 metal lots at 550.0 -> 1,331 coins
+  Drydock & Repair Kits: 6.49 kits at 257.5 -> 1,671 coins
+  Marine Engines: 2.0 engine assemblies at 17265.0 -> 34,530 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 2.91 drums at 325.0 -> 946 coins
+  Yard Laborers (ordinary rate): 33.31 worker-days at 100.0 -> 3,331 coins
+  Shipwright Hull Framing & Planking: 54.19 worker-days at 125.0 -> 6,774 coins
+  Fitting Mechanics & Armor Hanging: 9.4 worker-days at 150.0 -> 1,410 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 13.87 worker-days at 175.0 -> 2,427 coins
+  Master Shipwright Lofting & Survey: 6.86 worker-days at 200.0 -> 1,372 coins
+  Chief Marine & Trials Engineer: 3.14 worker-days at 200.0 -> 628 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 10.68 worker-days at 100.0 -> 1,068 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 6187.0 -> 6,187 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 4176.0 -> 4,176 coins
+  Ready-storage addition: 3,129 coins
+
+Fenhopper Lighter - TRANSPORT
+Commission: 80,502 coins | Ready hull: 83,085 coins
+Crew wages/day: 400 minimum / 600 optimal / 1,000 maximum coins
+Ordinary work: 80.80 worker-days | Expert work: 19.81 days
+Flat estuary lighter carrying lashed bale stacks on both hulls beneath a low span bridge. Cargo framing favors timber and logs over armor; one light gun leaves the other sockets optional.
+  Seasoned Planks: 16.66 plank bundles at 387.5 -> 6,456 coins
+  Raw Logs: 4.7 log loads at 200.0 -> 940 coins
+  Worked Iron: 4.61 iron lots at 800.0 -> 3,688 coins
+  Copper Stock: 2.03 metal lots at 550.0 -> 1,117 coins
+  Drydock & Repair Kits: 5.14 kits at 257.5 -> 1,324 coins
+  Marine Engines: 2.0 engine assemblies at 17265.0 -> 34,530 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 2.63 drums at 325.0 -> 855 coins
+  Yard Laborers (ordinary rate): 26.78 worker-days at 100.0 -> 2,678 coins
+  Shipwright Hull Framing & Planking: 43.54 worker-days at 125.0 -> 5,443 coins
+  Fitting Mechanics & Armor Hanging: 8.28 worker-days at 150.0 -> 1,242 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 11.31 worker-days at 175.0 -> 1,979 coins
+  Master Shipwright Lofting & Survey: 5.44 worker-days at 200.0 -> 1,088 coins
+  Chief Marine & Trials Engineer: 3.06 worker-days at 200.0 -> 612 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 8.99 worker-days at 100.0 -> 899 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 5679.0 -> 5,679 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 3833.0 -> 3,833 coins
+  Ready-storage addition: 2,583 coins
+
+Tideledger Coaster - TRANSPORT
+Commission: 96,223 coins | Ready hull: 100,006 coins
+Crew wages/day: 500 minimum / 900 optimal / 1,400 maximum coins
+Ordinary work: 120.95 worker-days | Expert work: 28.53 days
+Long coastal catamaran with a packet prow crest and bonded strongboxes. Hull-area planking and twin propulsion assemblies dominate the yard bill rather than military armor.
+  Seasoned Planks: 25.67 plank bundles at 387.5 -> 9,947 coins
+  Raw Logs: 6.6 log loads at 200.0 -> 1,320 coins
+  Worked Iron: 7.08 iron lots at 800.0 -> 5,664 coins
+  Copper Stock: 2.83 metal lots at 550.0 -> 1,557 coins
+  Drydock & Repair Kits: 7.89 kits at 257.5 -> 2,032 coins
+  Marine Engines: 2.0 engine assemblies at 17265.0 -> 34,530 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 3.26 drums at 325.0 -> 1,060 coins
+  Yard Laborers (ordinary rate): 41.46 worker-days at 100.0 -> 4,146 coins
+  Shipwright Hull Framing & Planking: 67.53 worker-days at 125.0 -> 8,441 coins
+  Fitting Mechanics & Armor Hanging: 9.76 worker-days at 150.0 -> 1,464 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 16.93 worker-days at 175.0 -> 2,963 coins
+  Master Shipwright Lofting & Survey: 8.46 worker-days at 200.0 -> 1,692 coins
+  Chief Marine & Trials Engineer: 3.14 worker-days at 200.0 -> 628 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 12.7 worker-days at 100.0 -> 1,270 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 6788.0 -> 6,788 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 4582.0 -> 4,582 coins
+  Ready-storage addition: 3,783 coins
+
+Fourport Packet - TRANSPORT
+Commission: 130,981 coins | Ready hull: 135,873 coins
+Crew wages/day: 700 minimum / 1,200 optimal / 1,800 maximum coins
+Ordinary work: 159.27 worker-days | Expert work: 37.60 days
+Civilian packet with a high packet-house bridge, broad cargo framing and covered manifests. More hold space than the Sovereign Armed Packet trades armor and ordnance for planks, pumps and cargo access.
+  Seasoned Planks: 33.84 plank bundles at 387.5 -> 13,113 coins
+  Raw Logs: 8.23 log loads at 200.0 -> 1,646 coins
+  Worked Iron: 9.28 iron lots at 800.0 -> 7,424 coins
+  Copper Stock: 3.77 metal lots at 550.0 -> 2,074 coins
+  Drydock & Repair Kits: 10.31 kits at 257.5 -> 2,655 coins
+  Marine Engines: 3.0 engine assemblies at 17265.0 -> 51,795 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 4.59 drums at 325.0 -> 1,492 coins
+  Yard Laborers (ordinary rate): 54.76 worker-days at 100.0 -> 5,476 coins
+  Shipwright Hull Framing & Planking: 89.01 worker-days at 125.0 -> 11,126 coins
+  Fitting Mechanics & Armor Hanging: 13.3 worker-days at 150.0 -> 1,995 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 22.3 worker-days at 175.0 -> 3,903 coins
+  Master Shipwright Lofting & Survey: 11.06 worker-days at 200.0 -> 2,212 coins
+  Chief Marine & Trials Engineer: 4.24 worker-days at 200.0 -> 848 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 16.06 worker-days at 100.0 -> 1,606 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 9240.0 -> 9,240 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 6237.0 -> 6,237 coins
+  Ready-storage addition: 4,892 coins
+
+Brasswind Motor-Galleon - TRANSPORT
+Commission: 152,460 coins | Ready hull: 158,948 coins
+Crew wages/day: 900 minimum / 1,600 optimal / 2,400 maximum coins
+Ordinary work: 213.73 worker-days | Expert work: 49.39 days
+Wide motor-driven cargo galleon with a packet house and cargo derrick masts, without working sails. Three propulsion assemblies and extensive timber framing make the largest civilian building bill; only one light defense gun is installed.
+  Seasoned Planks: 46.07 plank bundles at 387.5 -> 17,852 coins
+  Raw Logs: 10.59 log loads at 200.0 -> 2,118 coins
+  Worked Iron: 12.89 iron lots at 800.0 -> 10,312 coins
+  Copper Stock: 4.86 metal lots at 550.0 -> 2,673 coins
+  Drydock & Repair Kits: 14.01 kits at 257.5 -> 3,608 coins
+  Marine Engines: 3.0 engine assemblies at 17265.0 -> 51,795 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 5.46 drums at 325.0 -> 1,775 coins
+  Yard Laborers (ordinary rate): 74.86 worker-days at 100.0 -> 7,486 coins
+  Shipwright Hull Framing & Planking: 121.5 worker-days at 125.0 -> 15,188 coins
+  Fitting Mechanics & Armor Hanging: 15.17 worker-days at 150.0 -> 2,276 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 29.92 worker-days at 175.0 -> 5,236 coins
+  Master Shipwright Lofting & Survey: 15.15 worker-days at 200.0 -> 3,030 coins
+  Chief Marine & Trials Engineer: 4.32 worker-days at 200.0 -> 864 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 20.92 worker-days at 100.0 -> 2,092 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 10756.0 -> 10,756 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 7260.0 -> 7,260 coins
+  Ready-storage addition: 6,488 coins
+
+Seepoil Tanker Barge - TANKER
+Commission: 92,710 coins | Ready hull: 96,221 coins
+Crew wages/day: 500 minimum / 800 optimal / 1,300 maximum coins
+Ordinary work: 111.95 worker-days | Expert work: 26.51 days
+Civilian foundry barge with a low turtleback wheelhouse, manifold banks and secured casks. High pump capacity demands copper, supplies and paid mechanics; the hold uses ordinary finite cargo custody.
+  Seasoned Planks: 23.05 plank bundles at 387.5 -> 8,932 coins
+  Raw Logs: 6.19 log loads at 200.0 -> 1,238 coins
+  Worked Iron: 6.54 iron lots at 800.0 -> 5,232 coins
+  Copper Stock: 2.81 metal lots at 550.0 -> 1,546 coins
+  Drydock & Repair Kits: 7.75 kits at 257.5 -> 1,996 coins
+  Marine Engines: 2.0 engine assemblies at 17265.0 -> 34,530 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 3.09 drums at 325.0 -> 1,004 coins
+  Yard Laborers (ordinary rate): 37.61 worker-days at 100.0 -> 3,761 coins
+  Shipwright Hull Framing & Planking: 61.22 worker-days at 125.0 -> 7,653 coins
+  Fitting Mechanics & Armor Hanging: 10.92 worker-days at 150.0 -> 1,638 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 15.67 worker-days at 175.0 -> 2,742 coins
+  Master Shipwright Lofting & Survey: 7.7 worker-days at 200.0 -> 1,540 coins
+  Chief Marine & Trials Engineer: 3.14 worker-days at 200.0 -> 628 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 11.76 worker-days at 100.0 -> 1,176 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 6540.0 -> 6,540 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 4415.0 -> 4,415 coins
+  Ready-storage addition: 3,511 coins
+
+Blackwater Fleet Tanker - TANKER
+Commission: 147,135 coins | Ready hull: 153,220 coins
+Crew wages/day: 800 minimum / 1,400 optimal / 2,200 maximum coins
+Ordinary work: 200.06 worker-days | Expert work: 46.36 days
+Long civilian fleet tanker with a practical wheelhouse and manifold runs along both rails. Its heavy pumping fit and three propulsion assemblies need substantial copper, mechanics and engineering supervision, with no automatic fuel delivery.
+  Seasoned Planks: 42.32 plank bundles at 387.5 -> 16,399 coins
+  Raw Logs: 10.03 log loads at 200.0 -> 2,006 coins
+  Worked Iron: 12.06 iron lots at 800.0 -> 9,648 coins
+  Copper Stock: 4.76 metal lots at 550.0 -> 2,618 coins
+  Drydock & Repair Kits: 13.62 kits at 257.5 -> 3,507 coins
+  Marine Engines: 3.0 engine assemblies at 17265.0 -> 51,795 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 5.21 drums at 325.0 -> 1,693 coins
+  Yard Laborers (ordinary rate): 69.17 worker-days at 100.0 -> 6,917 coins
+  Shipwright Hull Framing & Planking: 112.28 worker-days at 125.0 -> 14,035 coins
+  Fitting Mechanics & Armor Hanging: 16.41 worker-days at 150.0 -> 2,462 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 28.01 worker-days at 175.0 -> 4,902 coins
+  Master Shipwright Lofting & Survey: 14.03 worker-days at 200.0 -> 2,806 coins
+  Chief Marine & Trials Engineer: 4.32 worker-days at 200.0 -> 864 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 19.58 worker-days at 100.0 -> 1,958 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 10380.0 -> 10,380 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 7006.0 -> 7,006 coins
+  Ready-storage addition: 6,085 coins
+
+Gullwing Daysailer - YACHT
+Commission: 43,185 coins | Ready hull: 44,454 coins
+Crew wages/day: 300 minimum / 400 optimal / 700 maximum coins
+Ordinary work: 36.66 worker-days | Expert work: 9.30 days
+Motor hydrofoil pleasure launch with a stepped cockpit, trim cells and coiled docking ropes. Its numerical crew are sailors; speed-driven propulsion takes precedence over a tiny cargo hold.
+  Seasoned Planks: 6.89 plank bundles at 387.5 -> 2,670 coins
+  Raw Logs: 2.67 log loads at 200.0 -> 534 coins
+  Worked Iron: 2.0 iron lots at 800.0 -> 1,600 coins
+  Copper Stock: 1.02 metal lots at 550.0 -> 561 coins
+  Drydock & Repair Kits: 2.35 kits at 257.5 -> 605 coins
+  Marine Engines: 1.0 engine assemblies at 17265.0 -> 17,265 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 1.22 drums at 325.0 -> 397 coins
+  Yard Laborers (ordinary rate): 11.41 worker-days at 100.0 -> 1,141 coins
+  Shipwright Hull Framing & Planking: 18.61 worker-days at 125.0 -> 2,326 coins
+  Fitting Mechanics & Armor Hanging: 4.44 worker-days at 150.0 -> 666 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 5.13 worker-days at 175.0 -> 898 coins
+  Master Shipwright Lofting & Survey: 2.29 worker-days at 200.0 -> 458 coins
+  Chief Marine & Trials Engineer: 1.88 worker-days at 200.0 -> 376 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 4.46 worker-days at 100.0 -> 446 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 3047.0 -> 3,047 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 2056.0 -> 2,056 coins
+  Ready-storage addition: 1,269 coins
+
+Lacquered Osprey Cruiser - YACHT
+Commission: 76,073 coins | Ready hull: 78,140 coins
+Crew wages/day: 300 minimum / 600 optimal / 1,000 maximum coins
+Ordinary work: 63.88 worker-days | Expert work: 16.03 days
+Cabin cruiser with an interceptor canopy, signal tube and fitted lockers. Cabin joinery adds four plank bundles and three repair kits to the derived hull recipe, including their existing paid supply chains and shipwright work.
+  Seasoned Planks: 15.78 plank bundles at 387.5 -> 6,115 coins
+  Raw Logs: 3.96 log loads at 200.0 -> 792 coins
+  Worked Iron: 3.66 iron lots at 800.0 -> 2,928 coins
+  Copper Stock: 1.67 metal lots at 550.0 -> 919 coins
+  Drydock & Repair Kits: 6.95 kits at 257.5 -> 1,790 coins
+  Marine Engines: 2.0 engine assemblies at 17265.0 -> 34,530 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 2.32 drums at 325.0 -> 754 coins
+  Yard Laborers (ordinary rate): 19.65 worker-days at 100.0 -> 1,965 coins
+  Shipwright Hull Framing & Planking: 33.94 worker-days at 125.0 -> 4,243 coins
+  Fitting Mechanics & Armor Hanging: 8.09 worker-days at 150.0 -> 1,214 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 8.94 worker-days at 175.0 -> 1,565 coins
+  Master Shipwright Lofting & Survey: 4.03 worker-days at 200.0 -> 806 coins
+  Chief Marine & Trials Engineer: 3.06 worker-days at 200.0 -> 612 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 7.11 worker-days at 100.0 -> 711 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 5367.0 -> 5,367 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 3623.0 -> 3,623 coins
+  Ready-storage addition: 2,067 coins
+
+Aurelian Viceroy Yacht - YACHT
+Commission: 138,992 coins | Ready hull: 144,113 coins
+Crew wages/day: 600 minimum / 1,200 optimal / 2,000 maximum coins
+Ordinary work: 168.46 worker-days | Expert work: 39.49 days
+High-ranking civilian yacht with a commodore tower, signal wings and household cabins. Eight extra plank bundles and six repair kits fund the fitted interior through existing material and labor bills; household staff count within its numerical crew.
+  Seasoned Planks: 41.32 plank bundles at 387.5 -> 16,012 coins
+  Raw Logs: 8.52 log loads at 200.0 -> 1,704 coins
+  Worked Iron: 10.25 iron lots at 800.0 -> 8,200 coins
+  Copper Stock: 3.9 metal lots at 550.0 -> 2,145 coins
+  Drydock & Repair Kits: 16.81 kits at 257.5 -> 4,329 coins
+  Marine Engines: 3.0 engine assemblies at 17265.0 -> 51,795 coins
+  Deck Guns & Launchers: 1.0 weapon assemblies at 7808.75 -> 7,809 coins
+  Distilled Fuel: 4.67 drums at 325.0 -> 1,518 coins
+  Yard Laborers (ordinary rate): 56.74 worker-days at 100.0 -> 5,674 coins
+  Shipwright Hull Framing & Planking: 95.36 worker-days at 125.0 -> 11,920 coins
+  Fitting Mechanics & Armor Hanging: 14.16 worker-days at 150.0 -> 2,124 coins
+  Ordnance & Mount Fitters: 2.2 worker-days at 150.0 -> 330 coins
+  Slipway Foreman Supervision: 23.58 worker-days at 175.0 -> 4,127 coins
+  Master Shipwright Lofting & Survey: 11.59 worker-days at 200.0 -> 2,318 coins
+  Chief Marine & Trials Engineer: 4.32 worker-days at 200.0 -> 864 coins
+  Slipway, Lofting Floor & Tool-Crib Upkeep: 16.99 worker-days at 100.0 -> 1,699 coins
+  Shipyard Operating Margin (8%): 1.0 lot at 9805.0 -> 9,805 coins
+  Harbor Hull Registry & Stamp Tax (5%): 1.0 lot at 6619.0 -> 6,619 coins
+  Ready-storage addition: 5,121 coins
+

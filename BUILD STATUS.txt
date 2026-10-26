@@ -1,16 +1,15 @@
-BRASS TIDE v0.035 - TWELVE CIVILIAN BOATS
-26 October2026 |36 boat designs
+BRASS TIDE v0.035 - Twelve civilian boats
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 7c3bea4cbdb856d46fd6287924058c94b7fbb40d / v0.035
+Test Bridge: df31d4e06ab6490996696eb86430682e
+581 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 37.081s; owned cleanup verified.
 
-THIS VERSION
 - Twelve original civilian designs expand the roster to36:3 fishing boats,4 transports,2 tankers and3 yachts including a high-ranking civilian vessel.
 - Each design has its own working-deck profile, stern machinery, holds, crew requirements and interchangeable weapon mounts using the existing inexpensive geometry.
 - Construction and ready prices derive from physical materials, engine and gun units, ordinary workers, experts, margin and tax through the existing yard system.
 - Existing paid acquisition and canonical equipment remain in use; civilian earning activities follow separately in v0.036.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+Exact native BoatArt draw primitives were rasterized with the existing CPU gallery tool and visually inspected. One observed stern-clipping defect was fixed in the shared civilian portrait/gallery span; all12 captured panels now pass12-pixel bounds. This is a software geometry preview, separate from foreground gameplay/audio acceptance.

@@ -1,0 +1,2634 @@
+{
+	"basis": "Existing Construction.quote at recursive Goods prices; 100 coins per sailor-day. Working fuel, ammunition and supplies are purchased separately.",
+	"hulls": [
+		{
+			"basis": "Open Reedwater net dory with a hand reel, salvage drum and one light defense gun. Its short planked hull and single propulsion assembly keep the physical building bill small.",
+			"civilianRole": "fishing",
+			"commissionPrice": 37473,
+			"dailyCrewPay": 400,
+			"expertDays": 6.05,
+			"expertLabor": {
+				"engineer": 1.88,
+				"foreman": 3.0,
+				"master shipwright": 1.17
+			},
+			"fuelCapacity": 40.0,
+			"id": "kelpnet_dory",
+			"lineItems": [
+				{
+					"amount": 1445,
+					"category": "material",
+					"cost": 1445,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 3.73,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 324,
+					"category": "material",
+					"cost": 324,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 1.62,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1024,
+					"category": "material",
+					"cost": 1024,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 1.28,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 385,
+					"category": "material",
+					"cost": 385,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 0.7,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 340,
+					"category": "material",
+					"cost": 340,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 1.32,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 17265,
+					"category": "material",
+					"cost": 17265,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 1.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 315,
+					"category": "material",
+					"cost": 315,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 0.97,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 553,
+					"category": "labor",
+					"cost": 553,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 5.53,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 1200,
+					"category": "labor",
+					"cost": 1200,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 9.6,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 615,
+					"category": "labor",
+					"cost": 615,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 4.1,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 525,
+					"category": "supervision",
+					"cost": 525,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 3.0,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 234,
+					"category": "supervision",
+					"cost": 234,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 1.17,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 376,
+					"category": "supervision",
+					"cost": 376,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 1.88,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 305,
+					"category": "overhead",
+					"cost": 305,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 3.05,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 2644,
+					"category": "margin",
+					"cost": 2644,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 2644.0
+				},
+				{
+					"amount": 1784,
+					"category": "tax",
+					"cost": 1784,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 1784.0
+				}
+			],
+			"materials": {
+				"copper": 0.7,
+				"engines": 1,
+				"fuel": 0.97,
+				"guns": 1,
+				"iron": 1.28,
+				"logs": 1.62,
+				"supplies": 1.32,
+				"timber": 3.73
+			},
+			"maximumDailyCrewPay": 600,
+			"minimumDailyCrewPay": 300,
+			"name": "Kelpnet Dory",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 5.53,
+				"mechanic": 4.1,
+				"shipwright": 9.6
+			},
+			"ordinaryWorkerDays": 21.43,
+			"readyPrice": 38207,
+			"readyStorageCost": 734,
+			"role": "skiff"
+		},
+		{
+			"basis": "Compact working launch with a long stern, line davit and paired drums under a customs canopy. Extra planking and bilge equipment support a modest catch hold.",
+			"civilianRole": "fishing",
+			"commissionPrice": 40940,
+			"dailyCrewPay": 500,
+			"expertDays": 8.04,
+			"expertLabor": {
+				"engineer": 1.96,
+				"foreman": 4.22,
+				"master shipwright": 1.86
+			},
+			"fuelCapacity": 60.0,
+			"id": "brinehook_longliner",
+			"lineItems": [
+				{
+					"amount": 2178,
+					"category": "material",
+					"cost": 2178,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 5.62,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 432,
+					"category": "material",
+					"cost": 432,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 2.16,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1432,
+					"category": "material",
+					"cost": 1432,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 1.79,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 490,
+					"category": "material",
+					"cost": 490,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 0.89,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 515,
+					"category": "material",
+					"cost": 515,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 2.0,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 17265,
+					"category": "material",
+					"cost": 17265,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 1.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 351,
+					"category": "material",
+					"cost": 351,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 1.08,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 840,
+					"category": "labor",
+					"cost": 840,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 8.4,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 1831,
+					"category": "labor",
+					"cost": 1831,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 14.65,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 734,
+					"category": "labor",
+					"cost": 734,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 4.89,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 739,
+					"category": "supervision",
+					"cost": 739,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 4.22,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 372,
+					"category": "supervision",
+					"cost": 372,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 1.86,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 392,
+					"category": "supervision",
+					"cost": 392,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 1.96,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 392,
+					"category": "overhead",
+					"cost": 392,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 3.92,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 2888,
+					"category": "margin",
+					"cost": 2888,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 2888.0
+				},
+				{
+					"amount": 1950,
+					"category": "tax",
+					"cost": 1950,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 1950.0
+				}
+			],
+			"materials": {
+				"copper": 0.89,
+				"engines": 1,
+				"fuel": 1.08,
+				"guns": 1,
+				"iron": 1.79,
+				"logs": 2.16,
+				"supplies": 2.0,
+				"timber": 5.62
+			},
+			"maximumDailyCrewPay": 800,
+			"minimumDailyCrewPay": 300,
+			"name": "Brinehook Longliner",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 8.4,
+				"mechanic": 4.89,
+				"shipwright": 14.65
+			},
+			"ordinaryWorkerDays": 30.14,
+			"readyPrice": 41949,
+			"readyStorageCost": 1009,
+			"role": "skiff"
+		},
+		{
+			"basis": "Broad estuary catamaran with a cross-beam work deck, twin net reels and covered net stacks. Two propulsion assemblies move the timber-heavy trawling hull; its single light gun is for defense.",
+			"civilianRole": "fishing",
+			"commissionPrice": 87701,
+			"dailyCrewPay": 700,
+			"expertDays": 23.87,
+			"expertLabor": {
+				"engineer": 3.14,
+				"foreman": 13.87,
+				"master shipwright": 6.86
+			},
+			"fuelCapacity": 100.0,
+			"id": "mother_gull_trawler",
+			"lineItems": [
+				{
+					"amount": 7843,
+					"category": "material",
+					"cost": 7843,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 20.24,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 1116,
+					"category": "material",
+					"cost": 1116,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 5.58,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 4752,
+					"category": "material",
+					"cost": 4752,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 5.94,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 1331,
+					"category": "material",
+					"cost": 1331,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 2.42,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 1671,
+					"category": "material",
+					"cost": 1671,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 6.49,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 34530,
+					"category": "material",
+					"cost": 34530,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 2.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 946,
+					"category": "material",
+					"cost": 946,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 2.91,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 3331,
+					"category": "labor",
+					"cost": 3331,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 33.31,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 6774,
+					"category": "labor",
+					"cost": 6774,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 54.19,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 1410,
+					"category": "labor",
+					"cost": 1410,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 9.4,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 2427,
+					"category": "supervision",
+					"cost": 2427,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 13.87,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 1372,
+					"category": "supervision",
+					"cost": 1372,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 6.86,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 628,
+					"category": "supervision",
+					"cost": 628,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 3.14,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1068,
+					"category": "overhead",
+					"cost": 1068,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 10.68,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 6187,
+					"category": "margin",
+					"cost": 6187,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 6187.0
+				},
+				{
+					"amount": 4176,
+					"category": "tax",
+					"cost": 4176,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 4176.0
+				}
+			],
+			"materials": {
+				"copper": 2.42,
+				"engines": 2,
+				"fuel": 2.91,
+				"guns": 1,
+				"iron": 5.94,
+				"logs": 5.58,
+				"supplies": 6.49,
+				"timber": 20.24
+			},
+			"maximumDailyCrewPay": 1100,
+			"minimumDailyCrewPay": 400,
+			"name": "Mother Gull Trawler",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 33.31,
+				"mechanic": 9.4,
+				"shipwright": 54.19
+			},
+			"ordinaryWorkerDays": 99.1,
+			"readyPrice": 90830,
+			"readyStorageCost": 3129,
+			"role": "raider"
+		},
+		{
+			"basis": "Flat estuary lighter carrying lashed bale stacks on both hulls beneath a low span bridge. Cargo framing favors timber and logs over armor; one light gun leaves the other sockets optional.",
+			"civilianRole": "transport",
+			"commissionPrice": 80502,
+			"dailyCrewPay": 600,
+			"expertDays": 19.81,
+			"expertLabor": {
+				"engineer": 3.06,
+				"foreman": 11.31,
+				"master shipwright": 5.44
+			},
+			"fuelCapacity": 90.0,
+			"id": "fenhopper_lighter",
+			"lineItems": [
+				{
+					"amount": 6456,
+					"category": "material",
+					"cost": 6456,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 16.66,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 940,
+					"category": "material",
+					"cost": 940,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 4.7,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 3688,
+					"category": "material",
+					"cost": 3688,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 4.61,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 1117,
+					"category": "material",
+					"cost": 1117,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 2.03,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 1324,
+					"category": "material",
+					"cost": 1324,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 5.14,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 34530,
+					"category": "material",
+					"cost": 34530,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 2.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 855,
+					"category": "material",
+					"cost": 855,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 2.63,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 2678,
+					"category": "labor",
+					"cost": 2678,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 26.78,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 5443,
+					"category": "labor",
+					"cost": 5443,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 43.54,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 1242,
+					"category": "labor",
+					"cost": 1242,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 8.28,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 1979,
+					"category": "supervision",
+					"cost": 1979,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 11.31,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 1088,
+					"category": "supervision",
+					"cost": 1088,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 5.44,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 612,
+					"category": "supervision",
+					"cost": 612,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 3.06,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 899,
+					"category": "overhead",
+					"cost": 899,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 8.99,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 5679,
+					"category": "margin",
+					"cost": 5679,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 5679.0
+				},
+				{
+					"amount": 3833,
+					"category": "tax",
+					"cost": 3833,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 3833.0
+				}
+			],
+			"materials": {
+				"copper": 2.03,
+				"engines": 2,
+				"fuel": 2.63,
+				"guns": 1,
+				"iron": 4.61,
+				"logs": 4.7,
+				"supplies": 5.14,
+				"timber": 16.66
+			},
+			"maximumDailyCrewPay": 1000,
+			"minimumDailyCrewPay": 400,
+			"name": "Fenhopper Lighter",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 26.78,
+				"mechanic": 8.28,
+				"shipwright": 43.54
+			},
+			"ordinaryWorkerDays": 80.8,
+			"readyPrice": 83085,
+			"readyStorageCost": 2583,
+			"role": "raider"
+		},
+		{
+			"basis": "Long coastal catamaran with a packet prow crest and bonded strongboxes. Hull-area planking and twin propulsion assemblies dominate the yard bill rather than military armor.",
+			"civilianRole": "transport",
+			"commissionPrice": 96223,
+			"dailyCrewPay": 900,
+			"expertDays": 28.53,
+			"expertLabor": {
+				"engineer": 3.14,
+				"foreman": 16.93,
+				"master shipwright": 8.46
+			},
+			"fuelCapacity": 140.0,
+			"id": "tideledger_coaster",
+			"lineItems": [
+				{
+					"amount": 9947,
+					"category": "material",
+					"cost": 9947,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 25.67,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 1320,
+					"category": "material",
+					"cost": 1320,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 6.6,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 5664,
+					"category": "material",
+					"cost": 5664,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 7.08,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 1557,
+					"category": "material",
+					"cost": 1557,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 2.83,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 2032,
+					"category": "material",
+					"cost": 2032,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 7.89,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 34530,
+					"category": "material",
+					"cost": 34530,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 2.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 1060,
+					"category": "material",
+					"cost": 1060,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 3.26,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 4146,
+					"category": "labor",
+					"cost": 4146,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 41.46,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 8441,
+					"category": "labor",
+					"cost": 8441,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 67.53,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 1464,
+					"category": "labor",
+					"cost": 1464,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 9.76,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 2963,
+					"category": "supervision",
+					"cost": 2963,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 16.93,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 1692,
+					"category": "supervision",
+					"cost": 1692,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 8.46,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 628,
+					"category": "supervision",
+					"cost": 628,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 3.14,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1270,
+					"category": "overhead",
+					"cost": 1270,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 12.7,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 6788,
+					"category": "margin",
+					"cost": 6788,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 6788.0
+				},
+				{
+					"amount": 4582,
+					"category": "tax",
+					"cost": 4582,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 4582.0
+				}
+			],
+			"materials": {
+				"copper": 2.83,
+				"engines": 2,
+				"fuel": 3.26,
+				"guns": 1,
+				"iron": 7.08,
+				"logs": 6.6,
+				"supplies": 7.89,
+				"timber": 25.67
+			},
+			"maximumDailyCrewPay": 1400,
+			"minimumDailyCrewPay": 500,
+			"name": "Tideledger Coaster",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 41.46,
+				"mechanic": 9.76,
+				"shipwright": 67.53
+			},
+			"ordinaryWorkerDays": 120.95,
+			"readyPrice": 100006,
+			"readyStorageCost": 3783,
+			"role": "raider"
+		},
+		{
+			"basis": "Civilian packet with a high packet-house bridge, broad cargo framing and covered manifests. More hold space than the Sovereign Armed Packet trades armor and ordnance for planks, pumps and cargo access.",
+			"civilianRole": "transport",
+			"commissionPrice": 130981,
+			"dailyCrewPay": 1200,
+			"expertDays": 37.6,
+			"expertLabor": {
+				"engineer": 4.24,
+				"foreman": 22.3,
+				"master shipwright": 11.06
+			},
+			"fuelCapacity": 180.0,
+			"id": "fourport_packet",
+			"lineItems": [
+				{
+					"amount": 13113,
+					"category": "material",
+					"cost": 13113,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 33.84,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 1646,
+					"category": "material",
+					"cost": 1646,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 8.23,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 7424,
+					"category": "material",
+					"cost": 7424,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 9.28,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 2074,
+					"category": "material",
+					"cost": 2074,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 3.77,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 2655,
+					"category": "material",
+					"cost": 2655,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 10.31,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 51795,
+					"category": "material",
+					"cost": 51795,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 3.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 1492,
+					"category": "material",
+					"cost": 1492,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 4.59,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 5476,
+					"category": "labor",
+					"cost": 5476,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 54.76,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 11126,
+					"category": "labor",
+					"cost": 11126,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 89.01,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 1995,
+					"category": "labor",
+					"cost": 1995,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 13.3,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 3903,
+					"category": "supervision",
+					"cost": 3903,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 22.3,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 2212,
+					"category": "supervision",
+					"cost": 2212,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 11.06,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 848,
+					"category": "supervision",
+					"cost": 848,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 4.24,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1606,
+					"category": "overhead",
+					"cost": 1606,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 16.06,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 9240,
+					"category": "margin",
+					"cost": 9240,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 9240.0
+				},
+				{
+					"amount": 6237,
+					"category": "tax",
+					"cost": 6237,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 6237.0
+				}
+			],
+			"materials": {
+				"copper": 3.77,
+				"engines": 3,
+				"fuel": 4.59,
+				"guns": 1,
+				"iron": 9.28,
+				"logs": 8.23,
+				"supplies": 10.31,
+				"timber": 33.84
+			},
+			"maximumDailyCrewPay": 1800,
+			"minimumDailyCrewPay": 700,
+			"name": "Fourport Packet",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 54.76,
+				"mechanic": 13.3,
+				"shipwright": 89.01
+			},
+			"ordinaryWorkerDays": 159.27,
+			"readyPrice": 135873,
+			"readyStorageCost": 4892,
+			"role": "raider"
+		},
+		{
+			"basis": "Wide motor-driven cargo galleon with a packet house and cargo derrick masts, without working sails. Three propulsion assemblies and extensive timber framing make the largest civilian building bill; only one light defense gun is installed.",
+			"civilianRole": "transport",
+			"commissionPrice": 152460,
+			"dailyCrewPay": 1600,
+			"expertDays": 49.39,
+			"expertLabor": {
+				"engineer": 4.32,
+				"foreman": 29.92,
+				"master shipwright": 15.15
+			},
+			"fuelCapacity": 240.0,
+			"id": "brasswind_motor_galleon",
+			"lineItems": [
+				{
+					"amount": 17852,
+					"category": "material",
+					"cost": 17852,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 46.07,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 2118,
+					"category": "material",
+					"cost": 2118,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 10.59,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 10312,
+					"category": "material",
+					"cost": 10312,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 12.89,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 2673,
+					"category": "material",
+					"cost": 2673,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 4.86,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 3608,
+					"category": "material",
+					"cost": 3608,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 14.01,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 51795,
+					"category": "material",
+					"cost": 51795,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 3.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 1775,
+					"category": "material",
+					"cost": 1775,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 5.46,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 7486,
+					"category": "labor",
+					"cost": 7486,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 74.86,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 15188,
+					"category": "labor",
+					"cost": 15188,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 121.5,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 2276,
+					"category": "labor",
+					"cost": 2276,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 15.17,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 5236,
+					"category": "supervision",
+					"cost": 5236,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 29.92,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 3030,
+					"category": "supervision",
+					"cost": 3030,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 15.15,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 864,
+					"category": "supervision",
+					"cost": 864,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 4.32,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 2092,
+					"category": "overhead",
+					"cost": 2092,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 20.92,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 10756,
+					"category": "margin",
+					"cost": 10756,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 10756.0
+				},
+				{
+					"amount": 7260,
+					"category": "tax",
+					"cost": 7260,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 7260.0
+				}
+			],
+			"materials": {
+				"copper": 4.86,
+				"engines": 3,
+				"fuel": 5.46,
+				"guns": 1,
+				"iron": 12.89,
+				"logs": 10.59,
+				"supplies": 14.01,
+				"timber": 46.07
+			},
+			"maximumDailyCrewPay": 2400,
+			"minimumDailyCrewPay": 900,
+			"name": "Brasswind Motor-Galleon",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 74.86,
+				"mechanic": 15.17,
+				"shipwright": 121.5
+			},
+			"ordinaryWorkerDays": 213.73,
+			"readyPrice": 158948,
+			"readyStorageCost": 6488,
+			"role": "raider"
+		},
+		{
+			"basis": "Civilian foundry barge with a low turtleback wheelhouse, manifold banks and secured casks. High pump capacity demands copper, supplies and paid mechanics; the hold uses ordinary finite cargo custody.",
+			"civilianRole": "tanker",
+			"commissionPrice": 92710,
+			"dailyCrewPay": 800,
+			"expertDays": 26.51,
+			"expertLabor": {
+				"engineer": 3.14,
+				"foreman": 15.67,
+				"master shipwright": 7.7
+			},
+			"fuelCapacity": 130.0,
+			"id": "seepoil_tanker",
+			"lineItems": [
+				{
+					"amount": 8932,
+					"category": "material",
+					"cost": 8932,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 23.05,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 1238,
+					"category": "material",
+					"cost": 1238,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 6.19,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 5232,
+					"category": "material",
+					"cost": 5232,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 6.54,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 1546,
+					"category": "material",
+					"cost": 1546,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 2.81,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 1996,
+					"category": "material",
+					"cost": 1996,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 7.75,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 34530,
+					"category": "material",
+					"cost": 34530,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 2.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 1004,
+					"category": "material",
+					"cost": 1004,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 3.09,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 3761,
+					"category": "labor",
+					"cost": 3761,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 37.61,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 7653,
+					"category": "labor",
+					"cost": 7653,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 61.22,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 1638,
+					"category": "labor",
+					"cost": 1638,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 10.92,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 2742,
+					"category": "supervision",
+					"cost": 2742,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 15.67,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 1540,
+					"category": "supervision",
+					"cost": 1540,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 7.7,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 628,
+					"category": "supervision",
+					"cost": 628,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 3.14,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1176,
+					"category": "overhead",
+					"cost": 1176,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 11.76,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 6540,
+					"category": "margin",
+					"cost": 6540,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 6540.0
+				},
+				{
+					"amount": 4415,
+					"category": "tax",
+					"cost": 4415,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 4415.0
+				}
+			],
+			"materials": {
+				"copper": 2.81,
+				"engines": 2,
+				"fuel": 3.09,
+				"guns": 1,
+				"iron": 6.54,
+				"logs": 6.19,
+				"supplies": 7.75,
+				"timber": 23.05
+			},
+			"maximumDailyCrewPay": 1300,
+			"minimumDailyCrewPay": 500,
+			"name": "Seepoil Tanker Barge",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 37.61,
+				"mechanic": 10.92,
+				"shipwright": 61.22
+			},
+			"ordinaryWorkerDays": 111.95,
+			"readyPrice": 96221,
+			"readyStorageCost": 3511,
+			"role": "corvette"
+		},
+		{
+			"basis": "Long civilian fleet tanker with a practical wheelhouse and manifold runs along both rails. Its heavy pumping fit and three propulsion assemblies need substantial copper, mechanics and engineering supervision, with no automatic fuel delivery.",
+			"civilianRole": "tanker",
+			"commissionPrice": 147135,
+			"dailyCrewPay": 1400,
+			"expertDays": 46.36,
+			"expertLabor": {
+				"engineer": 4.32,
+				"foreman": 28.01,
+				"master shipwright": 14.03
+			},
+			"fuelCapacity": 220.0,
+			"id": "blackwater_fleet_tanker",
+			"lineItems": [
+				{
+					"amount": 16399,
+					"category": "material",
+					"cost": 16399,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 42.32,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 2006,
+					"category": "material",
+					"cost": 2006,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 10.03,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 9648,
+					"category": "material",
+					"cost": 9648,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 12.06,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 2618,
+					"category": "material",
+					"cost": 2618,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 4.76,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 3507,
+					"category": "material",
+					"cost": 3507,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 13.62,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 51795,
+					"category": "material",
+					"cost": 51795,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 3.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 1693,
+					"category": "material",
+					"cost": 1693,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 5.21,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 6917,
+					"category": "labor",
+					"cost": 6917,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 69.17,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 14035,
+					"category": "labor",
+					"cost": 14035,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 112.28,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 2462,
+					"category": "labor",
+					"cost": 2462,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 16.41,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 4902,
+					"category": "supervision",
+					"cost": 4902,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 28.01,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 2806,
+					"category": "supervision",
+					"cost": 2806,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 14.03,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 864,
+					"category": "supervision",
+					"cost": 864,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 4.32,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1958,
+					"category": "overhead",
+					"cost": 1958,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 19.58,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 10380,
+					"category": "margin",
+					"cost": 10380,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 10380.0
+				},
+				{
+					"amount": 7006,
+					"category": "tax",
+					"cost": 7006,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 7006.0
+				}
+			],
+			"materials": {
+				"copper": 4.76,
+				"engines": 3,
+				"fuel": 5.21,
+				"guns": 1,
+				"iron": 12.06,
+				"logs": 10.03,
+				"supplies": 13.62,
+				"timber": 42.32
+			},
+			"maximumDailyCrewPay": 2200,
+			"minimumDailyCrewPay": 800,
+			"name": "Blackwater Fleet Tanker",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 69.17,
+				"mechanic": 16.41,
+				"shipwright": 112.28
+			},
+			"ordinaryWorkerDays": 200.06,
+			"readyPrice": 153220,
+			"readyStorageCost": 6085,
+			"role": "corvette"
+		},
+		{
+			"basis": "Motor hydrofoil pleasure launch with a stepped cockpit, trim cells and coiled docking ropes. Its numerical crew are sailors; speed-driven propulsion takes precedence over a tiny cargo hold.",
+			"civilianRole": "yacht",
+			"commissionPrice": 43185,
+			"dailyCrewPay": 400,
+			"expertDays": 9.3,
+			"expertLabor": {
+				"engineer": 1.88,
+				"foreman": 5.13,
+				"master shipwright": 2.29
+			},
+			"fuelCapacity": 55.0,
+			"id": "gullwing_daysailer",
+			"lineItems": [
+				{
+					"amount": 2670,
+					"category": "material",
+					"cost": 2670,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 6.89,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 534,
+					"category": "material",
+					"cost": 534,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 2.67,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1600,
+					"category": "material",
+					"cost": 1600,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 2.0,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 561,
+					"category": "material",
+					"cost": 561,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 1.02,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 605,
+					"category": "material",
+					"cost": 605,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 2.35,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 17265,
+					"category": "material",
+					"cost": 17265,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 1.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 397,
+					"category": "material",
+					"cost": 397,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 1.22,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 1141,
+					"category": "labor",
+					"cost": 1141,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 11.41,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 2326,
+					"category": "labor",
+					"cost": 2326,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 18.61,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 666,
+					"category": "labor",
+					"cost": 666,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 4.44,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 898,
+					"category": "supervision",
+					"cost": 898,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 5.13,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 458,
+					"category": "supervision",
+					"cost": 458,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 2.29,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 376,
+					"category": "supervision",
+					"cost": 376,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 1.88,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 446,
+					"category": "overhead",
+					"cost": 446,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 4.46,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 3047,
+					"category": "margin",
+					"cost": 3047,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 3047.0
+				},
+				{
+					"amount": 2056,
+					"category": "tax",
+					"cost": 2056,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 2056.0
+				}
+			],
+			"materials": {
+				"copper": 1.02,
+				"engines": 1,
+				"fuel": 1.22,
+				"guns": 1,
+				"iron": 2.0,
+				"logs": 2.67,
+				"supplies": 2.35,
+				"timber": 6.89
+			},
+			"maximumDailyCrewPay": 700,
+			"minimumDailyCrewPay": 300,
+			"name": "Gullwing Daysailer",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 11.41,
+				"mechanic": 4.44,
+				"shipwright": 18.61
+			},
+			"ordinaryWorkerDays": 36.66,
+			"readyPrice": 44454,
+			"readyStorageCost": 1269,
+			"role": "cutter"
+		},
+		{
+			"basis": "Cabin cruiser with an interceptor canopy, signal tube and fitted lockers. Cabin joinery adds four plank bundles and three repair kits to the derived hull recipe, including their existing paid supply chains and shipwright work.",
+			"civilianRole": "yacht",
+			"commissionPrice": 76073,
+			"dailyCrewPay": 600,
+			"expertDays": 16.03,
+			"expertLabor": {
+				"engineer": 3.06,
+				"foreman": 8.94,
+				"master shipwright": 4.03
+			},
+			"fuelCapacity": 80.0,
+			"id": "osprey_cabin_cruiser",
+			"lineItems": [
+				{
+					"amount": 6115,
+					"category": "material",
+					"cost": 6115,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 15.78,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 792,
+					"category": "material",
+					"cost": 792,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 3.96,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 2928,
+					"category": "material",
+					"cost": 2928,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 3.66,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 919,
+					"category": "material",
+					"cost": 919,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 1.67,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 1790,
+					"category": "material",
+					"cost": 1790,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 6.95,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 34530,
+					"category": "material",
+					"cost": 34530,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 2.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 754,
+					"category": "material",
+					"cost": 754,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 2.32,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 1965,
+					"category": "labor",
+					"cost": 1965,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 19.65,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 4243,
+					"category": "labor",
+					"cost": 4243,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 33.94,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 1214,
+					"category": "labor",
+					"cost": 1214,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 8.09,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 1565,
+					"category": "supervision",
+					"cost": 1565,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 8.94,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 806,
+					"category": "supervision",
+					"cost": 806,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 4.03,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 612,
+					"category": "supervision",
+					"cost": 612,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 3.06,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 711,
+					"category": "overhead",
+					"cost": 711,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 7.11,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 5367,
+					"category": "margin",
+					"cost": 5367,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 5367.0
+				},
+				{
+					"amount": 3623,
+					"category": "tax",
+					"cost": 3623,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 3623.0
+				}
+			],
+			"materials": {
+				"copper": 1.67,
+				"engines": 2,
+				"fuel": 2.32,
+				"guns": 1,
+				"iron": 3.66,
+				"logs": 3.96,
+				"supplies": 6.95,
+				"timber": 15.78
+			},
+			"maximumDailyCrewPay": 1000,
+			"minimumDailyCrewPay": 300,
+			"name": "Lacquered Osprey Cruiser",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 19.65,
+				"mechanic": 8.09,
+				"shipwright": 33.94
+			},
+			"ordinaryWorkerDays": 63.88,
+			"readyPrice": 78140,
+			"readyStorageCost": 2067,
+			"role": "cutter"
+		},
+		{
+			"basis": "High-ranking civilian yacht with a commodore tower, signal wings and household cabins. Eight extra plank bundles and six repair kits fund the fitted interior through existing material and labor bills; household staff count within its numerical crew.",
+			"civilianRole": "yacht",
+			"commissionPrice": 138992,
+			"dailyCrewPay": 1200,
+			"expertDays": 39.49,
+			"expertLabor": {
+				"engineer": 4.32,
+				"foreman": 23.58,
+				"master shipwright": 11.59
+			},
+			"fuelCapacity": 160.0,
+			"id": "aurelian_court_yacht",
+			"lineItems": [
+				{
+					"amount": 16012,
+					"category": "material",
+					"cost": 16012,
+					"key": "timber",
+					"label": "Seasoned Planks",
+					"qty": 41.32,
+					"unit": "plank bundles",
+					"unitCost": 387.5
+				},
+				{
+					"amount": 1704,
+					"category": "material",
+					"cost": 1704,
+					"key": "logs",
+					"label": "Raw Logs",
+					"qty": 8.52,
+					"unit": "log loads",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 8200,
+					"category": "material",
+					"cost": 8200,
+					"key": "iron",
+					"label": "Worked Iron",
+					"qty": 10.25,
+					"unit": "iron lots",
+					"unitCost": 800.0
+				},
+				{
+					"amount": 2145,
+					"category": "material",
+					"cost": 2145,
+					"key": "copper",
+					"label": "Copper Stock",
+					"qty": 3.9,
+					"unit": "metal lots",
+					"unitCost": 550.0
+				},
+				{
+					"amount": 4329,
+					"category": "material",
+					"cost": 4329,
+					"key": "supplies",
+					"label": "Drydock & Repair Kits",
+					"qty": 16.81,
+					"unit": "kits",
+					"unitCost": 257.5
+				},
+				{
+					"amount": 51795,
+					"category": "material",
+					"cost": 51795,
+					"key": "engines",
+					"label": "Marine Engines",
+					"qty": 3.0,
+					"unit": "engine assemblies",
+					"unitCost": 17265.0
+				},
+				{
+					"amount": 7809,
+					"category": "material",
+					"cost": 7809,
+					"key": "guns",
+					"label": "Deck Guns & Launchers",
+					"qty": 1.0,
+					"unit": "weapon assemblies",
+					"unitCost": 7808.75
+				},
+				{
+					"amount": 1518,
+					"category": "material",
+					"cost": 1518,
+					"key": "fuel",
+					"label": "Distilled Fuel",
+					"qty": 4.67,
+					"unit": "drums",
+					"unitCost": 325.0
+				},
+				{
+					"amount": 5674,
+					"category": "labor",
+					"cost": 5674,
+					"key": "laborer",
+					"label": "Yard Laborers (ordinary rate)",
+					"qty": 56.74,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 11920,
+					"category": "labor",
+					"cost": 11920,
+					"key": "shipwright",
+					"label": "Shipwright Hull Framing & Planking",
+					"qty": 95.36,
+					"unit": "worker-days",
+					"unitCost": 125.0
+				},
+				{
+					"amount": 2124,
+					"category": "labor",
+					"cost": 2124,
+					"key": "mechanic",
+					"label": "Fitting Mechanics & Armor Hanging",
+					"qty": 14.16,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 330,
+					"category": "labor",
+					"cost": 330,
+					"key": "gunsmith",
+					"label": "Ordnance & Mount Fitters",
+					"qty": 2.2,
+					"unit": "worker-days",
+					"unitCost": 150.0
+				},
+				{
+					"amount": 4127,
+					"category": "supervision",
+					"cost": 4127,
+					"key": "foreman",
+					"label": "Slipway Foreman Supervision",
+					"qty": 23.58,
+					"unit": "worker-days",
+					"unitCost": 175.0
+				},
+				{
+					"amount": 2318,
+					"category": "supervision",
+					"cost": 2318,
+					"key": "master shipwright",
+					"label": "Master Shipwright Lofting & Survey",
+					"qty": 11.59,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 864,
+					"category": "supervision",
+					"cost": 864,
+					"key": "engineer",
+					"label": "Chief Marine & Trials Engineer",
+					"qty": 4.32,
+					"unit": "worker-days",
+					"unitCost": 200.0
+				},
+				{
+					"amount": 1699,
+					"category": "overhead",
+					"cost": 1699,
+					"key": "overhead",
+					"label": "Slipway, Lofting Floor & Tool-Crib Upkeep",
+					"qty": 16.99,
+					"unit": "worker-days",
+					"unitCost": 100.0
+				},
+				{
+					"amount": 9805,
+					"category": "margin",
+					"cost": 9805,
+					"key": "margin",
+					"label": "Shipyard Operating Margin (8%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 9805.0
+				},
+				{
+					"amount": 6619,
+					"category": "tax",
+					"cost": 6619,
+					"key": "tax",
+					"label": "Harbor Hull Registry & Stamp Tax (5%)",
+					"qty": 1.0,
+					"unit": "lot",
+					"unitCost": 6619.0
+				}
+			],
+			"materials": {
+				"copper": 3.9,
+				"engines": 3,
+				"fuel": 4.67,
+				"guns": 1,
+				"iron": 10.25,
+				"logs": 8.52,
+				"supplies": 16.81,
+				"timber": 41.32
+			},
+			"maximumDailyCrewPay": 2000,
+			"minimumDailyCrewPay": 600,
+			"name": "Aurelian Viceroy Yacht",
+			"ordinaryLabor": {
+				"gunsmith": 2.2,
+				"laborer": 56.74,
+				"mechanic": 14.16,
+				"shipwright": 95.36
+			},
+			"ordinaryWorkerDays": 168.46,
+			"readyPrice": 144113,
+			"readyStorageCost": 5121,
+			"role": "cruiser"
+		}
+	],
+	"version": "0.035"
+}

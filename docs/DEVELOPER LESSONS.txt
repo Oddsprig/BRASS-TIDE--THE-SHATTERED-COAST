@@ -1,3 +1,11 @@
+26OCT2026 - V0.035 CIVILIAN PREVIEW FRAMING
+The old4.6*size portrait estimate clips long civilian stern machinery.
+HullProfiles.preview_span now derives civilian extent plus motor allowance,
+shared by BoatPortrait and the native gallery; original24framing stays.
+The exact12BoatArt captures pass12px margins and were software-rasterized
+and visually checked. FinalNative372roster+209art=581/0,37.032seconds.
+No general art/performance overhaul was added to this roster step.
+
 26OCT2026 - V0.034 CHART FIXTURE GEOMETRY
 Default trade links need not detour. Check every actual drawn segment for
 safe water, then use a detached fixture route that really crosses the coast.

@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Existing paid acquisition and canonical equipment remain in use; civilian earning activities follow separately in v0.036.
 
 See docs/TEST RESULTS v0.035.md for actual focused checks and remaining limits.
+
+Verification: 581 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 37.081s. Preserved earlier failures; no broad acceptance claim.
