@@ -1,4 +1,11 @@
-BRASS TIDE v0.040 - COMBAT FEEDBACK AND SOUND
+BRASS TIDE v0.040 - COMBAT FEEDBACK, CHART READABILITY AND SOUND
+
+OWNER CORRECTION
+The owner reported poor combat performance, an unreadable map and unacceptable
+wakes while trying v0.039. New expedition content is held while this corrective
+pass addresses those concrete problems. Scope includes readable strategic
+markers, short foam behind moving sterns, and measured removal of repeated
+tactical work. This is not a claim of Starsector quality or overall parity.
 
 EQUIPMENT CONDITION
 Damaged fitted guns, engines and integral pumps show an amber broken slash.
@@ -12,7 +19,7 @@ WATER AND IMPACTS
 Wood throws splinters, armor throws sparks and misses throw water plumes.
 This pass adjusts their existing geometry and contrast. Stern foam follows
 the traveled path behind the modeled machinery, including long civilian
-boats. The wake remains a bounded group of inexpensive strokes; there is
+boats. Short translucent foam patches replace the long V-shaped lines. There is
 no water simulation or offset hull reflection.
 
 RECORDED WEAPON MIX

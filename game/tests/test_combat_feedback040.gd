@@ -93,7 +93,7 @@ func native_records() -> Dictionary:
 	# Exercise the same public hit/miss producers as Battle with its real shots,
 	# real canonical target copies and actual Damage.apply_hit outcomes. These
 	# detached contacts make material/priority checks independent of aim RNG.
-	var producer: Dictionary={"time":float(st.time)}
+	var producer: Dictionary={"time":float(st.time),"effects":[]}
 	for family in Events.FAMILIES:
 		var target: Dictionary=st.ships[4 if family=="gun" else 1].duplicate(true)
 		var shot: Dictionary=projectiles[family]

@@ -162,7 +162,7 @@ func battle_window() -> void:
 		section.peakActiveActors=maxi(int(section.peakActiveActors),int(metrics.activeCount))
 		if measured:
 			section.aiUs.append(int(metrics.aiUs))
-			section.samples.append({"tick":index-BATTLE_WARMUP+1,"time":float(battle.time),"updateUs":previous,"aiUs":int(metrics.aiUs),"activeActors":int(metrics.activeCount),"fireEvents":fires,"projectiles":battle.projectiles.size(),"effects":battle.effects.size(),"work":metrics.work.duplicate(true)})
+			section.samples.append({"tick":index-BATTLE_WARMUP+1,"time":float(battle.time),"updateUs":previous,"aiUs":int(metrics.aiUs),"aiPhaseUs":metrics.get("phaseUs",{}).duplicate(),"activeActors":int(metrics.activeCount),"fireEvents":fires,"projectiles":battle.projectiles.size(),"effects":battle.effects.size(),"work":metrics.work.duplicate(true)})
 	section.timing=distribution(section.ticksUs);section.aiTiming=distribution(section.aiUs)
 	section.simulatedSeconds=float(battle.time);section.result=battle.result
 	section.final={"player":mix(battle.ships,"player"),"enemy":mix(battle.ships,"enemy")}

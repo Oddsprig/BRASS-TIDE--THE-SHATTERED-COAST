@@ -29,6 +29,7 @@ func _process(dt: float):
 	var b: Dictionary=host.battle
 	info.text="DEVELOPMENT · %s · physics %.2f ms\nF9 overlay · . single step · F6 repair/refill lab · F8 report\n%s"%[host.mode,host.simulation_us/1000.0,"Laboratory fixtures" if host.lab_active else "Read-only career diagnostics"]
 	info.text+="\nDrawing commands %.2f ms · cached shapes %d / %d"%[host.chart.presentation_us/1000.0,MeshCache._meshes.size(),MeshCache.LIMIT]
+	info.text+="\nDisplayed %.0f FPS · frame %.2f ms · canvas calls %d"%[Engine.get_frames_per_second(),float(Performance.get_monitor(Performance.TIME_PROCESS))*1000.0,int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))]
 	info.text+="\nCPU %d threads · harbor workers %d · last group %.2f ms"%[OS.get_processor_count(),host.economy_workers.last_workers,host.economy_workers.last_us/1000.0]
 	if not b.is_empty():
 		info.text+="\nSeed %d · %.1f s · boats %d · shots %d · effects %d\nDeploy %d : %d / 300 · %s"%[host.lab_seed,b.time,b.ships.size(),b.projectiles.size(),b.effects.size(),b.deployment.player,b.deployment.enemy,"AI" if b.autopilot else "manual"]
@@ -55,6 +56,8 @@ func snapshot():
 	if file==null:return
 	var report: Dictionary={"version":host.Version.text(),"mode":host.mode,"lab":host.lab_active,"seed":host.lab_seed,"config":host.lab_config,"simulationUs":host.simulation_us}
 	report.presentationUs=host.chart.presentation_us;report.cachedShapes=MeshCache._meshes.size();report.cacheHits=MeshCache.hits;report.cacheMisses=MeshCache.misses
+	report.fps=Engine.get_frames_per_second();report.frameProcessSeconds=Performance.get_monitor(Performance.TIME_PROCESS);report.drawCalls=Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)
+	if not host.battle.is_empty():report.aiPhaseUs=host.battle.get("tactical",{}).get("metrics",{}).get("phaseUs",{}).duplicate()
 	report.logicalThreads=OS.get_processor_count();report.harborWorkers=host.economy_workers.last_workers;report.harborJobUs=host.economy_workers.last_us
 	if not host.battle.is_empty():
 		report["time"]=host.battle.time;report["deployment"]=host.battle.deployment

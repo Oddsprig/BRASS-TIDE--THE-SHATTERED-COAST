@@ -731,6 +731,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 				select_flagship(st,s.id)
 				break
 	var ai_us: int=0
+	var ai_phases: Dictionary={"mounts":0,"planning":0,"lanes":0,"firing":0,"trace":0}
 	var frame_cache: Dictionary={}
 	# One complete prepass precedes either side's snapshot or helm. In particular
 	# the manual flagship never receives a second damage/cooldown decrement.
@@ -742,7 +743,8 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		Damage.tick_ship(s,dt,{"inCombat":true},frame_cache)
 		var mount_started: int=Time.get_ticks_usec()
 		var cached_mounts: Array=_combat_mounts(st,s,frame_cache)
-		ai_us+=Time.get_ticks_usec()-mount_started
+		var mount_us: int=Time.get_ticks_usec()-mount_started
+		ai_us+=mount_us;ai_phases.mounts+=mount_us
 		_tick_cooldowns(s,dt,cached_mounts)
 		CombatEvents.check_ship_engine(st,s)
 	Objectives.retarget(st,input)
@@ -765,14 +767,16 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			var throttle: float=(1.0 if input.get("forward",false) else 0.0)-(0.55 if input.get("backward",false) else 0.0)
 			controls[id]={"angle":desired,"throttle":throttle,"boost":input.get("boost",false)}
 		else:controls[id]=Tactical.helm(st,s,frame_cache)
-	ai_us+=Time.get_ticks_usec()-planning_started
+	ai_phases.planning=Time.get_ticks_usec()-planning_started
+	ai_us+=int(ai_phases.planning)
 	for id in active_ids:
 		var s: Dictionary=st.tactical.ships[id]
 		var control: Dictionary=controls.get(id,{"angle":s.angle,"throttle":0.0})
 		_move(st,s,dt,float(control.angle),float(control.throttle),bool(control.get("boost",false)),frame_cache)
 	var lanes_started: int=Time.get_ticks_usec()
 	Tactical.after_motion(st)
-	ai_us+=Time.get_ticks_usec()-lanes_started
+	ai_phases.lanes=Time.get_ticks_usec()-lanes_started
+	ai_us+=int(ai_phases.lanes)
 	for id in active_ids:
 		var s: Dictionary=st.tactical.ships[id]
 		if id==manual_id:
@@ -787,7 +791,8 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			var fire_started: int=Time.get_ticks_usec()
 			var gates: Dictionary=Tactical.fire_gates(st,s,frame_cache)
 			_fire(st,s,Vector2.ZERO,{},true,gates,frame_cache)
-			ai_us+=Time.get_ticks_usec()-fire_started
+			var firing_us: int=Time.get_ticks_usec()-fire_started
+			ai_us+=firing_us;ai_phases.firing+=firing_us
 	Damage.clear_frame_cache(frame_cache)
 	BoardingCombat.tick(st,dt)
 	_collisions(st)
@@ -795,7 +800,9 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	Damage.clear_frame_cache(frame_cache)
 	var finish_started: int=Time.get_ticks_usec()
 	Tactical.finish(st,ai_us)
-	st.tactical.metrics.aiUs+=Time.get_ticks_usec()-finish_started
+	ai_phases.trace=Time.get_ticks_usec()-finish_started
+	st.tactical.metrics.aiUs+=int(ai_phases.trace)
+	st.tactical.metrics.phaseUs=ai_phases
 	_age_effects(st,dt)
 	Objectives.update(st)
 	var players: Array=[]
