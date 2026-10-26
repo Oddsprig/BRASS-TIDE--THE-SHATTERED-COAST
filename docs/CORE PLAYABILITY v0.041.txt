@@ -1,26 +1,52 @@
 BRASS TIDE v0.041 - CORE PLAYABILITY
 
-Owner requested substantial corrections to art, performance and engagement.
-The planned v0.041 exploration chain is postponed. This version focuses on
-the existing coast and battle foundation; no new economy subsystem.
+WHAT CHANGED
+A top-down nautical campaign map now has substantial real shores, regional
+terrain, visible harbor buildings/piers and fleet symbols at normal zoom.
+Battle and refit boats retain the isometric projection. Hull faces have
+consistent directional shading; heavy warboats use painted steel decks.
+The existing original roster remains36 designs with interchangeable guns.
 
-TEAM
-Bridge: one Sol6.1 MAX (combat runtime), two Grok4.7 HIGH (coast and immediate
-skirmish). Root coordinates, integrates, adjusts cached boat materials and
-owns all native checks and packaging. No nested helpers or paid fallbacks.
+Coastal Clash starts directly from the title: screen one loaded packet,
+fight nearby mixed raiders, and reach the marked physical exit. There is
+no timed objective win or campaign payout. The voyage remains separate.
 
-PRESERVED SYSTEMS
-36 original hulls, physical interchangeable fittings, numerical crew,
-100 coins per sailor-day, real labor/material costs and conserved stores.
-Default autopilot, WASD camera and separate 300-point battle deployment.
-Existing rendering thread and harbor worker-pool settings remain in use.
+Combat reuses stable exact-owner equipment information and avoids repeated
+future-damage replays and duplicate route work. Real steering, collisions,
+weapon arcs, ammunition, fuel, component damage and crew repairs remain live.
+Water stays inexpensive. No animated crew or new economy subsystem.
 
-VALIDATION
-Pending final source and focused native receipts. All native work is queued
-behind existing engine jobs, runs in the background without mouse/keyboard
-control, and uses a complete selected batch below120seconds. Exported
-simulation timings must be distinguished from displayed rendering FPS.
+VERIFIED BUILD
+Source: ee0225bbf39273a0bffd91c27e27589622ca0657
+Test Bridge: d6ef442661404957bfb42fbcbbd45c45
+380focused checks /0failures; complete selected batch99.439seconds including
+setup, import, export, portable startup and owned cleanup. All native work
+used the shared queue, background/headless/Dummy, at most2logical CPUs and
+bounded memory/CPU. No mouse, keyboard, focus control or GPU test.
 
-No claim of Starsector visual quality, sustained FPS or listening acceptance
-is justified by a headless pass. Exact results belong in this build's
-TEST RESULTS and RELEASE records.
+MEASURED LIMIT
+Same42boats/294DPper-side opening probe: median21.703ms/P9541.126ms per
+simulation update, versus54.861/70.742ms in v040. About60percent lower median.
+This0.2667second opening has22moving boats, not a sustained battle or FPS
+measurement. The12ms target remains missed. A separate four-boat1.6second
+real-autopilot action produced12shots and10hits, spent ammunition/fuel,
+and measured median3.357ms/P955.260ms. Do not add these timings together.
+
+The actual CoastalClash fixture advances8seconds, checks both sides firing,
+finite cargo/physical objectives and unchanged captain/save, and records7
+chronological frames. Native code-drawn map and boat captures were reviewed
+through the existing CPU renderer. These are not GPU footage or listening
+acceptance. Graphics remain stylized prototype art; no Starsector parity claim.
+
+TEAM AND SCOPE
+Bridge: one Sol6.1 MAX, two Grok4.7 HIGH. Root coordinates, reviews, integrates,
+adds chart/boat art and owns all native testing and packaging. No nested
+helpers or paid fallback. The formerly planned .041 expedition is postponed.
+Current coastal framing and final shore detailing are Root's reviewed
+integration of the helper's coast proposal; the copy-first migration may move
+positions newly covered by land, while preserving coins, crew and stores.
+
+USE THE PLAIN BRASS TIDE DESKTOP ICON
+Numbered older shortcuts open older preserved builds. Start CoastalClash for
+an immediate battle, or Continue voyage for your captain. Default autopilot;
+WASD camera, Space pause, Tab orders, U manual helm. See PLAY v0.041.txt.

@@ -7,8 +7,12 @@ task workspace. Sol owns combat runtime, Grok coast owns chart/geography,
 Grok engagement owns standalone Coastal Clash and title/Lab guidance. Root
 owns integration, boat materials, versions, packaging and all native jobs.
 Do not resume older helpers or expand to new economy/expedition features.
-The current delivered version is0.040. Source candidate0.041 must preserve
-the current Desktop voyage and the plain Brass Tide launcher. All native
+The current completed build is0.041 at tested source ee0225bbf39273a0bffd91c27e27589622ca0657.
+380focused checks/0failures; selected batch99.439seconds, TestBridge d6ef442661404957bfb42fbcbbd45c45.
+The plain Brass Tide launcher and copied prior voyage identify the current release.
+Large-fleet opening CPU median21.703ms remains above the12ms target; no FPS or
+Starsector-quality claim. Both Grok seats and the Sol seat are finished. Do not
+resume older content merely from a historical scope paragraph. All native
 work remains background through the shared FIFO; complete selected batch
 under120seconds including setup/export/startups/cleanup. Headless checks
 do not establish graphics, FPS, audio or fun. All older scope paragraphs
@@ -25,7 +29,7 @@ shortcut. Headless correctness does not establish graphics, FPS or game feel.
 
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
-This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.040; continue with the next saved scope only. Earlier planning-only/stop-v031
+This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.041; continue with the next saved scope only. Earlier planning-only/stop-v031
 paragraphs below are historical and superseded by this new instruction.
 
 Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol

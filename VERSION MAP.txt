@@ -1,7 +1,10 @@
-CURRENT QUALITY PRIORITY: v0.040 corrective build verified. Crowded combat performance still needs work. The planned v0.041 expedition remains unstarted during this core quality review.
+CURRENT QUALITY PRIORITY: v0.041 core playability. The owner's latest request
+replaces this version's expedition with a readable real coast, an immediate
+convoy skirmish, boat material detail and measured combat-cost corrections.
+The original expedition remains deferred; it is not delivered by this build.
 
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.040
+26 October 2026 | Authorized sequential builds; delivered v0.041
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -56,13 +59,17 @@ A defined pass on damage/disabled-module feedback, wakes, weapon impacts and
 sound balance across the implemented boats. Keep effects inexpensive and weapon
 families distinct. Use existing systems and a bounded presentation checklist.
 
-0.041 - ONE CONNECTED EXPLORATION EXPEDITION
-One original island discovery chain with clues, salvage and a faction choice.
-Give it a complete beginning, consequences and reward using existing systems.
-No new general story framework.
+0.041 - CORE PLAYABILITY [DONE]
+Top-down campaign chart with larger real coastlines, regional terrain and
+visible harbor settlements. Isometric battles and boat refit views remain.
+Immediate Coastal Clash escorts a loaded packet to a physical exit, using
+actual AI, ammunition, fuel and damage while preserving the captain's voyage.
+Reduce repeated equipment/status and tactical route work; measure the actual
+exported game and retain the honest large-fleet performance limit.
 
 The agreed0.032-0.037 feature order remains. The former broad0.038 polish scope
-is separated across0.038-0.040;0.041 adds one bounded content chain.
+is separated across0.038-0.040. The latest owner instruction makes0.041 a
+core playability correction. The former connected expedition is deferred.
 36 boats since0.035. Coins and100 coins per sailor-day remain.
 Ownership stays separate from300 deployment points per battle side.
 Crew remain numerical/fixed asset details. Water remains inexpensive.

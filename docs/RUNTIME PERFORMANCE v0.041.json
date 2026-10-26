@@ -1,0 +1,1236 @@
+{
+	"action": {
+		"actual": {
+			"autopilot": true,
+			"boats": 4,
+			"enemyDP": 30,
+			"playerDP": 30
+		},
+		"complete": true,
+		"dt": 0.0166666666666667,
+		"events": {
+			"engine": 4,
+			"fire": 12,
+			"hit": 10
+		},
+		"fireEvents": 12,
+		"firstFireTick": 1,
+		"firstHitTick": 12,
+		"hitEvents": 10,
+		"movedByTeam": {
+			"enemy": 2,
+			"player": 2
+		},
+		"movement": [
+			{
+				"distance": 96.8463587090373,
+				"id": "player-0-tin_skiff",
+				"team": "player"
+			},
+			{
+				"distance": 86.633546423167,
+				"id": "player-1-tin_skiff",
+				"team": "player"
+			},
+			{
+				"distance": 20.0821925909258,
+				"id": "enemy-0-tin_skiff",
+				"team": "enemy"
+			},
+			{
+				"distance": 18.2623038613237,
+				"id": "enemy-1-tin_skiff",
+				"team": "enemy"
+			}
+		],
+		"result": null,
+		"seed": 4101,
+		"simSeconds": 1.6,
+		"storesAfter": {
+			"ammo": 308.0,
+			"crew": 20.0,
+			"fuel": 479.903666666663,
+			"supplies": 79.8847640000001
+		},
+		"storesBefore": {
+			"ammo": 320.0,
+			"crew": 20.0,
+			"fuel": 480.0,
+			"supplies": 80.0
+		},
+		"terrain": "Unchanged default islands; paired boats at x1000/1200, y650/1050",
+		"ticksCompleted": 96,
+		"ticksRequested": 96,
+		"timeline": [
+			{
+				"fireEvents": 1,
+				"hitEvents": 0,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 120.0,
+						"hp": 150.0,
+						"id": "player-0-tin_skiff",
+						"x": 1000.0,
+						"y": 650.0
+					},
+					{
+						"ammo": 80.0,
+						"fuel": 120.0,
+						"hp": 150.0,
+						"id": "player-1-tin_skiff",
+						"x": 1000.0,
+						"y": 1050.0
+					},
+					{
+						"ammo": 79.0,
+						"fuel": 120.0,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1199.99365234375,
+						"y": 650.000305175781
+					},
+					{
+						"ammo": 80.0,
+						"fuel": 120.0,
+						"hp": 150.0,
+						"id": "enemy-1-tin_skiff",
+						"x": 1200.0,
+						"y": 1050.0
+					}
+				],
+				"tick": 1,
+				"time": 0.0166666666666667
+			},
+			{
+				"fireEvents": 3,
+				"hitEvents": 2,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 119.997166666667,
+						"hp": 146.36,
+						"id": "player-0-tin_skiff",
+						"x": 1004.94476318359,
+						"y": 651.029907226563
+					},
+					{
+						"ammo": 79.0,
+						"fuel": 119.9976,
+						"hp": 146.36,
+						"id": "player-1-tin_skiff",
+						"x": 1002.63641357422,
+						"y": 1050.5498046875
+					},
+					{
+						"ammo": 79.0,
+						"fuel": 119.9985,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1199.33117675781,
+						"y": 650.207275390625
+					},
+					{
+						"ammo": 79.0,
+						"fuel": 119.998766666667,
+						"hp": 150.0,
+						"id": "enemy-1-tin_skiff",
+						"x": 1199.44604492188,
+						"y": 1050.15576171875
+					}
+				],
+				"tick": 13,
+				"time": 0.216666666666667
+			},
+			{
+				"fireEvents": 3,
+				"hitEvents": 3,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 119.993966666666,
+						"hp": 146.36,
+						"id": "player-0-tin_skiff",
+						"x": 1011.67370605469,
+						"y": 653.353576660156
+					},
+					{
+						"ammo": 79.0,
+						"fuel": 119.9944,
+						"hp": 146.36,
+						"id": "player-1-tin_skiff",
+						"x": 1007.18988037109,
+						"y": 1052.10473632813
+					},
+					{
+						"ammo": 79.0,
+						"fuel": 119.9953,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1197.06225585938,
+						"y": 652.030334472656
+					},
+					{
+						"ammo": 79.0,
+						"fuel": 119.995566666667,
+						"hp": 146.36,
+						"id": "enemy-1-tin_skiff",
+						"x": 1197.87805175781,
+						"y": 1051.095703125
+					}
+				],
+				"tick": 25,
+				"time": 0.416666666666667
+			},
+			{
+				"fireEvents": 6,
+				"hitEvents": 3,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 119.990766666666,
+						"hp": 146.36,
+						"id": "player-0-tin_skiff",
+						"x": 1022.39538574219,
+						"y": 661.160949707031
+					},
+					{
+						"ammo": 78.0,
+						"fuel": 119.9912,
+						"hp": 146.36,
+						"id": "player-1-tin_skiff",
+						"x": 1015.34063720703,
+						"y": 1058.55859375
+					},
+					{
+						"ammo": 78.0,
+						"fuel": 119.9921,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1194.92590332031,
+						"y": 654.839904785156
+					},
+					{
+						"ammo": 78.0,
+						"fuel": 119.992366666666,
+						"hp": 146.36,
+						"id": "enemy-1-tin_skiff",
+						"x": 1195.36657714844,
+						"y": 1054.44262695313
+					}
+				],
+				"tick": 37,
+				"time": 0.616666666666667
+			},
+			{
+				"fireEvents": 6,
+				"hitEvents": 6,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 119.987566666666,
+						"hp": 142.711458133333,
+						"id": "player-0-tin_skiff",
+						"x": 1031.90576171875,
+						"y": 669.662719726563
+					},
+					{
+						"ammo": 78.0,
+						"fuel": 119.988,
+						"hp": 142.711458133333,
+						"id": "player-1-tin_skiff",
+						"x": 1022.43475341797,
+						"y": 1067.76342773438
+					},
+					{
+						"ammo": 78.0,
+						"fuel": 119.9889,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1194.00427246094,
+						"y": 656.424072265625
+					},
+					{
+						"ammo": 78.0,
+						"fuel": 119.989166666666,
+						"hp": 142.711458133333,
+						"id": "enemy-1-tin_skiff",
+						"x": 1193.75085449219,
+						"y": 1057.71472167969
+					}
+				],
+				"tick": 49,
+				"time": 0.816666666666668
+			},
+			{
+				"fireEvents": 9,
+				"hitEvents": 6,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 119.984366666666,
+						"hp": 142.711458133333,
+						"id": "player-0-tin_skiff",
+						"x": 1042.14978027344,
+						"y": 679.959289550781
+					},
+					{
+						"ammo": 77.0,
+						"fuel": 119.9848,
+						"hp": 142.711458133333,
+						"id": "player-1-tin_skiff",
+						"x": 1027.89807128906,
+						"y": 1079.73962402344
+					},
+					{
+						"ammo": 77.0,
+						"fuel": 119.9857,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1194.08911132813,
+						"y": 657.642883300781
+					},
+					{
+						"ammo": 77.0,
+						"fuel": 119.985966666666,
+						"hp": 142.711458133333,
+						"id": "enemy-1-tin_skiff",
+						"x": 1193.10388183594,
+						"y": 1059.42358398438
+					}
+				],
+				"tick": 61,
+				"time": 1.01666666666667
+			},
+			{
+				"fireEvents": 9,
+				"hitEvents": 9,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 119.981166666666,
+						"hp": 139.054354355086,
+						"id": "player-0-tin_skiff",
+						"x": 1052.78576660156,
+						"y": 691.155029296875
+					},
+					{
+						"ammo": 77.0,
+						"fuel": 119.981599999999,
+						"hp": 139.054354355086,
+						"id": "player-1-tin_skiff",
+						"x": 1033.20446777344,
+						"y": 1095.33447265625
+					},
+					{
+						"ammo": 77.0,
+						"fuel": 119.982499999999,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1195.69519042969,
+						"y": 658.716125488281
+					},
+					{
+						"ammo": 77.0,
+						"fuel": 119.982933333333,
+						"hp": 139.054354355086,
+						"id": "enemy-1-tin_skiff",
+						"x": 1193.22631835938,
+						"y": 1060.56774902344
+					}
+				],
+				"tick": 73,
+				"time": 1.21666666666667
+			},
+			{
+				"fireEvents": 10,
+				"hitEvents": 9,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 119.977966666666,
+						"hp": 139.054354355086,
+						"id": "player-0-tin_skiff",
+						"x": 1060.95141601563,
+						"y": 701.533508300781
+					},
+					{
+						"ammo": 77.0,
+						"fuel": 119.978399999999,
+						"hp": 139.054354355086,
+						"id": "player-1-tin_skiff",
+						"x": 1037.21667480469,
+						"y": 1108.37219238281
+					},
+					{
+						"ammo": 76.0,
+						"fuel": 119.979299999999,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1198.67395019531,
+						"y": 658.791748046875
+					},
+					{
+						"ammo": 77.0,
+						"fuel": 119.979733333333,
+						"hp": 139.054354355086,
+						"id": "enemy-1-tin_skiff",
+						"x": 1194.34143066406,
+						"y": 1061.443359375
+					}
+				],
+				"tick": 85,
+				"time": 1.41666666666667
+			},
+			{
+				"fireEvents": 12,
+				"hitEvents": 10,
+				"poses": [
+					{
+						"ammo": 80.0,
+						"fuel": 119.975033333333,
+						"hp": 135.388668573306,
+						"id": "player-0-tin_skiff",
+						"x": 1067.46142578125,
+						"y": 715.46533203125
+					},
+					{
+						"ammo": 76.0,
+						"fuel": 119.975466666666,
+						"hp": 139.054354355086,
+						"id": "player-1-tin_skiff",
+						"x": 1040.95568847656,
+						"y": 1121.58581542969
+					},
+					{
+						"ammo": 76.0,
+						"fuel": 119.976366666666,
+						"hp": 150.0,
+						"id": "enemy-0-tin_skiff",
+						"x": 1203.15002441406,
+						"y": 657.013610839844
+					},
+					{
+						"ammo": 76.0,
+						"fuel": 119.976799999999,
+						"hp": 139.054354355086,
+						"id": "enemy-1-tin_skiff",
+						"x": 1197.83361816406,
+						"y": 1061.52844238281
+					}
+				],
+				"tick": 96,
+				"time": 1.6
+			}
+		],
+		"timing": {
+			"count": 96,
+			"maxUs": 6647,
+			"medianUs": 3357.0,
+			"p95Us": 5260,
+			"totalUs": 327282
+		},
+		"updateUs": [
+			3775,
+			3629,
+			1782,
+			2093,
+			1076,
+			1031,
+			1059,
+			1029,
+			1018,
+			2348,
+			2209,
+			3832,
+			4553,
+			3155,
+			4366,
+			2293,
+			2088,
+			2097,
+			3105,
+			3512,
+			3179,
+			3264,
+			2269,
+			2226,
+			2243,
+			2810,
+			2214,
+			3215,
+			3359,
+			3358,
+			3859,
+			3032,
+			2468,
+			2282,
+			2301,
+			2336,
+			3655,
+			3737,
+			5273,
+			6144,
+			4422,
+			4313,
+			2946,
+			3366,
+			2947,
+			4066,
+			3954,
+			4839,
+			4010,
+			3429,
+			2972,
+			3510,
+			3009,
+			2888,
+			3933,
+			3905,
+			4514,
+			4252,
+			3329,
+			3282,
+			3322,
+			3454,
+			3254,
+			4121,
+			4335,
+			6647,
+			4371,
+			3524,
+			5196,
+			5087,
+			3054,
+			3356,
+			4086,
+			4312,
+			3871,
+			5260,
+			3293,
+			3044,
+			2944,
+			3340,
+			2963,
+			4147,
+			3982,
+			4440,
+			4217,
+			3403,
+			2957,
+			3673,
+			3329,
+			3137,
+			3966,
+			4220,
+			4376,
+			5507,
+			3043,
+			2891
+		]
+	},
+	"actual": {
+		"deployment": {
+			"enemy": 294,
+			"limit": 300,
+			"player": 294
+		},
+		"enemyBoats": 21,
+		"enemyDP": 294,
+		"hull": "bilge_punt",
+		"playerBoats": 21,
+		"playerDP": 294,
+		"totalBoats": 42
+	},
+	"aiTiming": {
+		"count": 12,
+		"maxUs": 21988,
+		"medianUs": 18530.0,
+		"p95Us": 21988,
+		"totalUs": 224472
+	},
+	"aiUs": [
+		21988,
+		17913,
+		17676,
+		17450,
+		19482,
+		19020,
+		17915,
+		17679,
+		19262,
+		19027,
+		18261,
+		18799
+	],
+	"build": 41,
+	"checks": 16,
+	"complete": true,
+	"displayServer": "headless",
+	"droppedEvents": 0,
+	"dt": 0.0166666666666667,
+	"engine": {
+		"build": "official",
+		"hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+		"hex": 263938,
+		"major": 4,
+		"minor": 7,
+		"patch": 2,
+		"status": "stable",
+		"string": "4.7.2-stable (official)",
+		"timestamp": 0
+	},
+	"eventKinds": {},
+	"events": 0,
+	"failures": [],
+	"features": {
+		"debug": false,
+		"debugBuild": false,
+		"editor": false,
+		"release": true
+	},
+	"limits": "Opening42/294 workload unchanged; compact four-boat action is reported separately. CPU simulation only under external Test Bridge limits; no rendered FPS or sustained engagement claim. Timings/AI phases cover measured ticks; movement/events include warmup. AI/phase clocks overlap updateUs; planning includes begin and helm.",
+	"measuredCompleted": 12,
+	"measuredRequested": 12,
+	"movedBoats": 22,
+	"movement": [
+		{
+			"distance": 0.0,
+			"id": "player-0-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 7.70928724855185,
+			"id": "player-1-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-2-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 4.73537162691355,
+			"id": "player-3-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-4-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 4.71720662713051,
+			"id": "player-5-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-6-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 4.74273681640625,
+			"id": "player-7-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-8-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 3.84289526194334,
+			"id": "player-9-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-10-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 7.74074818193913,
+			"id": "player-11-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-12-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 6.65491425991058,
+			"id": "player-13-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-14-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 6.68658447265625,
+			"id": "player-15-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-16-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 5.6479093208909,
+			"id": "player-17-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 0.0,
+			"id": "player-18-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 5.67438816279173,
+			"id": "player-19-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 5.66712653636932,
+			"id": "player-20-bilge_punt",
+			"team": "player"
+		},
+		{
+			"distance": 12.4757364392281,
+			"id": "enemy-0-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-1-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 10.0277754366398,
+			"id": "enemy-2-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-3-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 8.84189770370722,
+			"id": "enemy-4-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-5-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 8.8699951171875,
+			"id": "enemy-6-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-7-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 8.82313674688339,
+			"id": "enemy-8-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-9-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 12.5144673287869,
+			"id": "enemy-10-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-11-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 12.497252561152,
+			"id": "enemy-12-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-13-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 11.2630615234375,
+			"id": "enemy-14-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-15-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 11.2110080569983,
+			"id": "enemy-16-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-17-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 10.0278009772301,
+			"id": "enemy-18-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 0.0,
+			"id": "enemy-19-bilge_punt",
+			"team": "enemy"
+		},
+		{
+			"distance": 10.039937980473,
+			"id": "enemy-20-bilge_punt",
+			"team": "enemy"
+		}
+	],
+	"openingComplete": true,
+	"os": "Windows",
+	"passed": true,
+	"phaseUs": {
+		"begin": 163543,
+		"contact": 9006,
+		"damage": 33765,
+		"firing": 25006,
+		"helm": 24366,
+		"lanes": 807,
+		"motion": 9492,
+		"mounts": 7083,
+		"planning": 187909,
+		"projectiles": 20,
+		"trace": 3667
+	},
+	"probeBudgetUs": 12000000,
+	"result": null,
+	"samples": [
+		{
+			"aiUs": 21988,
+			"phaseUs": {
+				"begin": 16767,
+				"contact": 749,
+				"damage": 1357,
+				"firing": 2097,
+				"helm": 2095,
+				"lanes": 66,
+				"motion": 1262,
+				"mounts": 650,
+				"planning": 18862,
+				"projectiles": 2,
+				"trace": 313
+			},
+			"planningDetailUs": {
+				"beginTotal": 16361,
+				"certification": 4948,
+				"helmCurrent": 394,
+				"helmSafety": 1495,
+				"helmTotal": 2038,
+				"liveCertification": 237,
+				"observation": 2753,
+				"physicalCertification": 0,
+				"proposals": 5155,
+				"resolution": 1013,
+				"snapshots": 2483
+			},
+			"tick": 1,
+			"updateUs": 25844
+		},
+		{
+			"aiUs": 17913,
+			"phaseUs": {
+				"begin": 13191,
+				"contact": 717,
+				"damage": 1253,
+				"firing": 1788,
+				"helm": 2054,
+				"lanes": 59,
+				"motion": 712,
+				"mounts": 578,
+				"planning": 15245,
+				"projectiles": 2,
+				"trace": 243
+			},
+			"planningDetailUs": {
+				"beginTotal": 13016,
+				"certification": 5202,
+				"helmCurrent": 455,
+				"helmSafety": 1377,
+				"helmTotal": 1999,
+				"liveCertification": 211,
+				"observation": 2439,
+				"physicalCertification": 0,
+				"proposals": 3458,
+				"resolution": 908,
+				"snapshots": 1005
+			},
+			"tick": 2,
+			"updateUs": 21020
+		},
+		{
+			"aiUs": 17676,
+			"phaseUs": {
+				"begin": 12289,
+				"contact": 978,
+				"damage": 1252,
+				"firing": 2202,
+				"helm": 2261,
+				"lanes": 59,
+				"motion": 762,
+				"mounts": 559,
+				"planning": 14550,
+				"projectiles": 2,
+				"trace": 306
+			},
+			"planningDetailUs": {
+				"beginTotal": 12131,
+				"certification": 3924,
+				"helmCurrent": 627,
+				"helmSafety": 1404,
+				"helmTotal": 2199,
+				"liveCertification": 302,
+				"observation": 2680,
+				"physicalCertification": 0,
+				"proposals": 3535,
+				"resolution": 1085,
+				"snapshots": 902
+			},
+			"tick": 3,
+			"updateUs": 21082
+		},
+		{
+			"aiUs": 17450,
+			"phaseUs": {
+				"begin": 12170,
+				"contact": 803,
+				"damage": 1381,
+				"firing": 2441,
+				"helm": 1924,
+				"lanes": 59,
+				"motion": 713,
+				"mounts": 590,
+				"planning": 14094,
+				"projectiles": 2,
+				"trace": 266
+			},
+			"planningDetailUs": {
+				"beginTotal": 12034,
+				"certification": 4002,
+				"helmCurrent": 483,
+				"helmSafety": 1223,
+				"helmTotal": 1873,
+				"liveCertification": 277,
+				"observation": 2352,
+				"physicalCertification": 0,
+				"proposals": 3502,
+				"resolution": 1228,
+				"snapshots": 945
+			},
+			"tick": 4,
+			"updateUs": 20939
+		},
+		{
+			"aiUs": 19482,
+			"phaseUs": {
+				"begin": 14726,
+				"contact": 713,
+				"damage": 1283,
+				"firing": 1925,
+				"helm": 1957,
+				"lanes": 61,
+				"motion": 726,
+				"mounts": 573,
+				"planning": 16683,
+				"projectiles": 1,
+				"trace": 240
+			},
+			"planningDetailUs": {
+				"beginTotal": 14489,
+				"certification": 5349,
+				"helmCurrent": 499,
+				"helmSafety": 1230,
+				"helmTotal": 1906,
+				"liveCertification": 95,
+				"observation": 2384,
+				"physicalCertification": 0,
+				"proposals": 3544,
+				"resolution": 1089,
+				"snapshots": 2116
+			},
+			"tick": 5,
+			"updateUs": 22614
+		},
+		{
+			"aiUs": 19020,
+			"phaseUs": {
+				"begin": 13791,
+				"contact": 725,
+				"damage": 1227,
+				"firing": 2315,
+				"helm": 2045,
+				"lanes": 60,
+				"motion": 722,
+				"mounts": 563,
+				"planning": 15836,
+				"projectiles": 1,
+				"trace": 246
+			},
+			"planningDetailUs": {
+				"beginTotal": 13658,
+				"certification": 4624,
+				"helmCurrent": 537,
+				"helmSafety": 1275,
+				"helmTotal": 1993,
+				"liveCertification": 309,
+				"observation": 2278,
+				"physicalCertification": 0,
+				"proposals": 3999,
+				"resolution": 1246,
+				"snapshots": 1505
+			},
+			"tick": 6,
+			"updateUs": 22089
+		},
+		{
+			"aiUs": 17915,
+			"phaseUs": {
+				"begin": 13061,
+				"contact": 717,
+				"damage": 1217,
+				"firing": 1929,
+				"helm": 1983,
+				"lanes": 106,
+				"motion": 719,
+				"mounts": 597,
+				"planning": 15044,
+				"projectiles": 2,
+				"trace": 239
+			},
+			"planningDetailUs": {
+				"beginTotal": 12891,
+				"certification": 4640,
+				"helmCurrent": 491,
+				"helmSafety": 1262,
+				"helmTotal": 1937,
+				"liveCertification": 187,
+				"observation": 2293,
+				"physicalCertification": 0,
+				"proposals": 3478,
+				"resolution": 1384,
+				"snapshots": 1092
+			},
+			"tick": 7,
+			"updateUs": 20975
+		},
+		{
+			"aiUs": 17679,
+			"phaseUs": {
+				"begin": 12789,
+				"contact": 717,
+				"damage": 1186,
+				"firing": 1904,
+				"helm": 2073,
+				"lanes": 60,
+				"motion": 700,
+				"mounts": 556,
+				"planning": 14862,
+				"projectiles": 2,
+				"trace": 297
+			},
+			"planningDetailUs": {
+				"beginTotal": 12648,
+				"certification": 4287,
+				"helmCurrent": 539,
+				"helmSafety": 1296,
+				"helmTotal": 2019,
+				"liveCertification": 292,
+				"observation": 2247,
+				"physicalCertification": 0,
+				"proposals": 3947,
+				"resolution": 1241,
+				"snapshots": 922
+			},
+			"tick": 8,
+			"updateUs": 20658
+		},
+		{
+			"aiUs": 19262,
+			"phaseUs": {
+				"begin": 14011,
+				"contact": 735,
+				"damage": 1208,
+				"firing": 2143,
+				"helm": 1923,
+				"lanes": 86,
+				"motion": 966,
+				"mounts": 564,
+				"planning": 15934,
+				"projectiles": 1,
+				"trace": 535
+			},
+			"planningDetailUs": {
+				"beginTotal": 13805,
+				"certification": 4102,
+				"helmCurrent": 441,
+				"helmSafety": 1256,
+				"helmTotal": 1875,
+				"liveCertification": 273,
+				"observation": 2778,
+				"physicalCertification": 0,
+				"proposals": 3577,
+				"resolution": 1326,
+				"snapshots": 2016
+			},
+			"tick": 9,
+			"updateUs": 22573
+		},
+		{
+			"aiUs": 19027,
+			"phaseUs": {
+				"begin": 13845,
+				"contact": 716,
+				"damage": 19664,
+				"firing": 1970,
+				"helm": 2097,
+				"lanes": 63,
+				"motion": 747,
+				"mounts": 719,
+				"planning": 15942,
+				"projectiles": 2,
+				"trace": 333
+			},
+			"planningDetailUs": {
+				"beginTotal": 13688,
+				"certification": 5035,
+				"helmCurrent": 571,
+				"helmSafety": 1288,
+				"helmTotal": 2045,
+				"liveCertification": 207,
+				"observation": 2539,
+				"physicalCertification": 0,
+				"proposals": 3892,
+				"resolution": 1080,
+				"snapshots": 1135
+			},
+			"tick": 10,
+			"updateUs": 41126
+		},
+		{
+			"aiUs": 18261,
+			"phaseUs": {
+				"begin": 13015,
+				"contact": 727,
+				"damage": 1188,
+				"firing": 2389,
+				"helm": 1909,
+				"lanes": 63,
+				"motion": 747,
+				"mounts": 550,
+				"planning": 14924,
+				"projectiles": 2,
+				"trace": 335
+			},
+			"planningDetailUs": {
+				"beginTotal": 12893,
+				"certification": 5070,
+				"helmCurrent": 469,
+				"helmSafety": 1217,
+				"helmTotal": 1859,
+				"liveCertification": 187,
+				"observation": 2416,
+				"physicalCertification": 0,
+				"proposals": 3435,
+				"resolution": 1035,
+				"snapshots": 932
+			},
+			"tick": 11,
+			"updateUs": 21317
+		},
+		{
+			"aiUs": 18799,
+			"phaseUs": {
+				"begin": 13888,
+				"contact": 709,
+				"damage": 1549,
+				"firing": 1903,
+				"helm": 2045,
+				"lanes": 65,
+				"motion": 716,
+				"mounts": 584,
+				"planning": 15933,
+				"projectiles": 1,
+				"trace": 314
+			},
+			"planningDetailUs": {
+				"beginTotal": 13644,
+				"certification": 4283,
+				"helmCurrent": 524,
+				"helmSafety": 1285,
+				"helmTotal": 1990,
+				"liveCertification": 270,
+				"observation": 2565,
+				"physicalCertification": 0,
+				"proposals": 3604,
+				"resolution": 1283,
+				"snapshots": 1902
+			},
+			"tick": 12,
+			"updateUs": 22177
+		}
+	],
+	"seed": 4040,
+	"simSeconds": 0.266666666666667,
+	"targetMet": false,
+	"targetUpdateUs": 12000,
+	"terrain": "Unchanged public Lab default islands/formation",
+	"timing": {
+		"count": 12,
+		"maxUs": 41126,
+		"medianUs": 21703.0,
+		"p95Us": 41126,
+		"totalUs": 282414
+	},
+	"updateUs": [
+		25844,
+		21020,
+		21082,
+		20939,
+		22614,
+		22089,
+		20975,
+		20658,
+		22573,
+		41126,
+		21317,
+		22177
+	],
+	"version": "0.041",
+	"wallUs": 880844,
+	"warmupCompleted": 4,
+	"warmupRequested": 4,
+	"warmupUs": [
+		38700,
+		42503,
+		22349,
+		22393
+	]
+}

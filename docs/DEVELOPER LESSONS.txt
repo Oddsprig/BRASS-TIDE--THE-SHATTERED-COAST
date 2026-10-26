@@ -1,3 +1,17 @@
+V0.041 DELIVERY LESSONS
+Use explicit bool for an expression involving Variant array metadata; native
+import caught has_edges inference despite the source API advisory being clean.
+Campaign birth intentionally augments its world; use a detached world in a
+read-only chart fixture. Do not weaken the chart's no-mutation assertion.
+The native full batch must stay below120seconds including import/export and
+cleanup: final380/0 in99.439seconds. Keep failures93393435 andcc3cacf5.
+First passing379-check coast was still visually too blocky. Real physical
+shore geometry was softened, then cached regional marks and land-checked
+harbor roofs/pier were added. Review normal zoom plus actual battle chronology,
+not only overview symbols or a hull portrait. Final source ee0225b.
+Do not promise a12ms large-fleet target when actual release median is21.703ms;
+compare identical42/294 work separately from four-boat action and FPS.
+
 26OCT2026 - CORE PLAYABILITY
 The owner rejected the delivered foundation despite passing focused checks.
 Do not equate assertion counts with fun, map readability or smooth rendering.
