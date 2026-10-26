@@ -396,7 +396,265 @@ func _initialize() -> void:
 	_eligible_module_repair()
 	_guard_domain_duplicate()
 	_numeric_refusal()
+	_prefix_step_status_contract()
 	_finish()
+
+func _tick_prefix_pair(label: String, boat: Dictionary, dt: float = 0.1, options: Dictionary = {}) -> Dictionary:
+	var wired_boat: Dictionary = boat.duplicate(true)
+	var ref_boat: Dictionary = boat.duplicate(true)
+	var ctx: Dictionary = {"owner": wired_boat, "valid": false}
+	var prefix_info: Callable = func(b: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_info(b, ctx)
+	var prefix_repair: Callable = func(b: Dictionary, h: float, cr: float, opts: Dictionary, inf: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_repair(b, h, cr, opts, inf, ctx)
+	var prefix_publish: Callable = func(b: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_publish(b, ctx)
+	var prefix_absorb: Callable = func(b: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_absorb(b, ctx)
+	var prefix_step_status: Callable = func(b: Dictionary, inf: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_step_status(b, inf, ctx, Damage._status_for_info)
+	var wired_status: Dictionary = Damage._tick_canonical_with(wired_boat, dt, options.duplicate(true), prefix_info, prefix_repair, prefix_publish, prefix_absorb, null, prefix_step_status)
+	var ref_status: Dictionary = Damage._tick_canonical_with(ref_boat, dt, options.duplicate(true), EquipmentDamage._numeric_rollout_info, EquipmentDamage._tick_repair_rollout_from_info, Records._publish_numeric, Records._absorb_legacy_numeric)
+	_same_bytes(label + " full owned boat var_to_bytes", wired_boat, ref_boat)
+	_same_bytes(label + " post-tick status var_to_bytes", wired_status, ref_status)
+	check(wired_boat.keys() == ref_boat.keys() and wired_boat.keys() == boat.keys(), label + " preserves exact boat key insertion order")
+	check(_bad_encoded(ctx, label + " ctx").is_empty(), label + " ctx stores no Callables/Objects/Signals/RIDs")
+	return {"wiredBoat": wired_boat, "refBoat": ref_boat, "wiredStatus": wired_status, "refStatus": ref_status, "ctx": ctx}
+
+func _tick_armed_prefix_pair(label: String, boat: Dictionary, mutate_fn: Callable, expect_info_invalidated: bool, dt: float = 0.1, options: Dictionary = {}) -> Dictionary:
+	var wired_boat: Dictionary = boat.duplicate(true)
+	var ref_boat: Dictionary = boat.duplicate(true)
+	var ctx: Dictionary = {"owner": wired_boat, "valid": false}
+	var pre_info: Dictionary = EquipmentDamage._prefix_ctx_info(wired_boat, ctx)
+	var pre_st: Dictionary = EquipmentDamage._prefix_ctx_step_status(wired_boat, pre_info, ctx, Damage._status_for_info)
+	check(bool(ctx.get("valid", false)) and is_same(ctx.get("step_status"), pre_st) and ctx.has("step_status_cond_snap") and not ctx.has("step_status_cond_hash"), label + " pre-arms ctx with collision-free cond_snap")
+	var pre_cond_snap: Dictionary = ctx.get("step_status_cond_snap", {})
+	var pre_cond_bytes: Dictionary = _bytes(label + " pre-mutation cond_snap", pre_cond_snap)
+	mutate_fn.call(wired_boat)
+	mutate_fn.call(ref_boat)
+	if pre_cond_bytes.ok:
+		check(_bytes(label + " cond_snap after live mutation", pre_cond_snap).bytes == pre_cond_bytes.bytes, label + " cond_snap stays isolated from live mutation")
+	if expect_info_invalidated:
+		check(not EquipmentDamage._prefix_ctx_reuse_info(wired_boat, ctx), label + " invalidates cached info before reuse")
+	check(not EquipmentDamage._prefix_ctx_step_status_valid(wired_boat, pre_info, ctx), label + " invalidates cached step_status before tick")
+	var prefix_info: Callable = func(b: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_info(b, ctx)
+	var prefix_repair: Callable = func(b: Dictionary, h: float, cr: float, opts: Dictionary, inf: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_repair(b, h, cr, opts, inf, ctx)
+	var prefix_publish: Callable = func(b: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_publish(b, ctx)
+	var prefix_absorb: Callable = func(b: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_absorb(b, ctx)
+	var prefix_step_status: Callable = func(b: Dictionary, inf: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_step_status(b, inf, ctx, Damage._status_for_info)
+	var wired_status: Dictionary = Damage._tick_canonical_with(wired_boat, dt, options.duplicate(true), prefix_info, prefix_repair, prefix_publish, prefix_absorb, null, prefix_step_status)
+	var ref_status: Dictionary = Damage._tick_canonical_with(ref_boat, dt, options.duplicate(true), EquipmentDamage._numeric_rollout_info, EquipmentDamage._tick_repair_rollout_from_info, Records._publish_numeric, Records._absorb_legacy_numeric)
+	_same_bytes(label + " full owned boat var_to_bytes", wired_boat, ref_boat)
+	_same_bytes(label + " post-tick status var_to_bytes", wired_status, ref_status)
+	check(wired_boat.keys() == ref_boat.keys(), label + " preserves exact boat key insertion order")
+	check(_bad_encoded(ctx, label + " ctx").is_empty(), label + " ctx stores no Callables/Objects/Signals/RIDs")
+	return {"wiredBoat": wired_boat, "refBoat": ref_boat, "wiredStatus": wired_status, "refStatus": ref_status, "ctx": ctx}
+
+func _prefix_step_status_contract() -> void:
+	var boat: Dictionary = _fitted("psc-step-status", true)
+	if boat.is_empty():
+		return
+	boat.water = 18.0
+	boat.fuel = 40.0
+	boat.supplies = 12.0
+	boat.vx = 14.0
+	var ctx: Dictionary = {"owner": boat, "valid": false}
+	var info1: Dictionary = EquipmentDamage._prefix_ctx_info(boat, ctx)
+	var st1: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, info1, ctx, Damage._status_for_info)
+	var st1_snap: Dictionary = _bytes("st1 initial snapshot", st1)
+	check(bool(ctx.get("valid", false)) and ctx.has("step_status") and is_same(ctx.get("step_status"), st1), "step_status arms on valid canonical prefix_ctx")
+	check(ctx.has("step_status_cond_snap") and not ctx.has("step_status_cond_hash"), "armed prefix_ctx stores collision-free cond_snap without hash key")
+	var cond_snap1: Dictionary = ctx.get("step_status_cond_snap", {})
+	check(not is_same(cond_snap1, boat.moduleCondition) and not is_same(cond_snap1.get("items"), boat.moduleCondition.get("items")), "cond_snap clones top-level condition and items dictionaries")
+	for uid in boat.moduleCondition.items.keys():
+		check(cond_snap1.get("items", {}).has(uid) and not is_same(cond_snap1.items[uid], boat.moduleCondition.items[uid]), "cond_snap clones item record " + str(uid))
+	_same_bytes("armed cond_snap matches live moduleCondition", cond_snap1, boat.moduleCondition)
+	check(_bad_encoded(ctx, "armed prefix_ctx").is_empty(), "armed prefix_ctx contains no Callables or Objects")
+	_same_bytes("step_status initial matches Damage.get_status", st1, Damage.get_status(boat.duplicate(true)))
+	_same_bytes("step_status initial matches _status_for_info(_numeric_rollout_info)", st1, Damage._status_for_info(boat.duplicate(true), EquipmentDamage._numeric_rollout_info(boat.duplicate(true))))
+
+	# Positive fuel drain & pose/cooldown changes reuse cached step_status and cond_snap.
+	boat.fuel = 12.5
+	boat.x += 9.0
+	boat.cooldown = 0.25
+	var info2: Dictionary = EquipmentDamage._prefix_ctx_info(boat, ctx)
+	var st2: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, info2, ctx, Damage._status_for_info)
+	check(is_same(info2, info1) and is_same(st2, st1) and is_same(ctx.get("step_status_cond_snap"), cond_snap1), "positive fuel drain reuses cached info, step_status, and cond_snap")
+	_same_bytes("positive fuel drain cached step_status matches fresh Damage.get_status", st2, Damage.get_status(boat.duplicate(true)))
+
+	# 1. fuel0 transition: refreshes pump=0.0 immediately while keeping info and cond_snap cached without re-cloning.
+	boat.fuel = 0.0
+	var info_f0: Dictionary = EquipmentDamage._prefix_ctx_info(boat, ctx)
+	var st_f0: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, info_f0, ctx, Damage._status_for_info)
+	check(is_same(info_f0, info1) and not is_same(st_f0, st1) and is_same(ctx.get("step_status_cond_snap"), cond_snap1), "fuel0 transition reuses info and cond_snap without re-cloning while refreshing step_status")
+	check(float(st1.get("pump", 0.0)) > 0.0 and float(st_f0.get("pump", -1.0)) == 0.0, "fuel0 transition drops pump to 0.0 without mutating prior cached st1")
+	if st1_snap.ok:
+		check(_bytes("st1 after fuel0", st1).bytes == st1_snap.bytes, "prior cached st1 remains byte-identical after fuel0 transition")
+	_same_bytes("fuel0 step_status matches Damage.get_status", st_f0, Damage.get_status(boat.duplicate(true)))
+	boat.fuel = 25.0
+	var st_fpos: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, EquipmentDamage._prefix_ctx_info(boat, ctx), ctx, Damage._status_for_info)
+	check(not is_same(st_fpos, st_f0) and float(st_fpos.get("pump", 0.0)) > 0.0 and is_same(ctx.get("step_status_cond_snap"), cond_snap1), "fuel positive restoration refreshes pump > 0.0 without re-cloning cond_snap")
+	_same_bytes("fuel positive restoration matches Damage.get_status", st_fpos, Damage.get_status(boat.duplicate(true)))
+
+	# 2. water transition.
+	boat.water = 64.0
+	var st_water: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, EquipmentDamage._prefix_ctx_info(boat, ctx), ctx, Damage._status_for_info)
+	check(not is_same(st_water, st_fpos) and is_same(ctx.get("step_status_cond_snap"), cond_snap1), "water change refreshes cached step_status without re-cloning cond_snap")
+	_same_bytes("water transition matches Damage.get_status", st_water, Damage.get_status(boat.duplicate(true)))
+
+	# 3. crew/wounded transition.
+	boat.wounded = 2.0
+	boat.crew = maxf(float(boat.crewMin), float(boat.crew) - 1.0)
+	var st_crew: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, EquipmentDamage._prefix_ctx_info(boat, ctx), ctx, Damage._status_for_info)
+	check(not is_same(st_crew, st_water) and is_same(ctx.get("step_status_cond_snap"), cond_snap1), "crew/wounded transition refreshes cached step_status without re-cloning cond_snap")
+	_same_bytes("crew transition matches Damage.get_status", st_crew, Damage.get_status(boat.duplicate(true)))
+
+	# 4. policy transition.
+	boat.policy = "bail"
+	var st_pol: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, EquipmentDamage._prefix_ctx_info(boat, ctx), ctx, Damage._status_for_info)
+	check(not is_same(st_pol, st_crew) and is_same(ctx.get("step_status_cond_snap"), cond_snap1), "policy transition refreshes cached step_status without re-cloning cond_snap")
+	_same_bytes("policy transition matches Damage.get_status", st_pol, Damage.get_status(boat.duplicate(true)))
+
+	# 5. wrong owner & invalid ctx fallback without mutating armed owner ctx.
+	var other_boat: Dictionary = _fitted("psc-step-other", false)
+	if not other_boat.is_empty() and _strike(other_boat, "engine", 0.85, "Other boat disabled engine") and Records.publish(other_boat).ok:
+		var ctx_before_wrong: Dictionary = _bytes("ctx before wrong owner", ctx)
+		var st_wrong: Dictionary = EquipmentDamage._prefix_ctx_step_status(other_boat, EquipmentDamage._numeric_rollout_info(other_boat), ctx, Damage._status_for_info)
+		_same_bytes("wrong owner fallback matches Damage.get_status(other_boat)", st_wrong, Damage.get_status(other_boat.duplicate(true)))
+		if ctx_before_wrong.ok:
+			check(_bytes("ctx after wrong owner", ctx).bytes == ctx_before_wrong.bytes, "wrong owner call does not read or mutate bound ctx")
+	var invalid_ctx: Dictionary = {"owner": null, "valid": false}
+	var st_invalid_ctx: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, EquipmentDamage._numeric_rollout_info(boat), invalid_ctx, Damage._status_for_info)
+	_same_bytes("unarmed/invalid ctx fallback matches Damage.get_status", st_invalid_ctx, Damage.get_status(boat.duplicate(true)))
+	check(not invalid_ctx.has("step_status"), "invalid ctx does not cache step_status")
+
+	# 6. engine scalar transition + multi-step tick absorption.
+	boat.engine = 0.42
+	var st_eng_drop: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, EquipmentDamage._prefix_ctx_info(boat, ctx), ctx, Damage._status_for_info)
+	check(not bool(ctx.get("valid", true)) and not ctx.has("step_status") and not ctx.has("step_status_cond_snap"), "engine scalar mismatch clears ctx, step_status, and cond_snap")
+	_same_bytes("engine scalar mismatch fallback matches _status_for_info", st_eng_drop, Damage._status_for_info(boat.duplicate(true), EquipmentDamage._numeric_rollout_info(boat.duplicate(true))))
+	_tick_prefix_pair("prefix step_status engine scalar absorption tick", boat, 0.1, {"inCombat": true})
+
+	# 7. item & priority transitions in-place on armed ctx + snapshot isolation + pre-armed shared repair.
+	check(Records.publish(boat).ok, "sync boat.engine before item transition probe")
+	var info_rearmed: Dictionary = EquipmentDamage._prefix_ctx_info(boat, ctx)
+	var st_rearmed: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, info_rearmed, ctx, Damage._status_for_info)
+	var rearmed_cond_snap: Dictionary = ctx.get("step_status_cond_snap", {})
+	var rearmed_snap_bytes: Dictionary = _bytes("rearmed cond_snap before in-place item strike", rearmed_cond_snap)
+	check(bool(ctx.get("valid", false)) and is_same(ctx.get("step_status"), st_rearmed) and not rearmed_cond_snap.is_empty(), "ctx re-armed before in-place item edit")
+	if _strike(boat, "mount0", 0.85, "Step status mount0 disable") and _strike(boat, "pumps", 0.50, "Step status pumps damage"):
+		if rearmed_snap_bytes.ok:
+			check(_bytes("rearmed cond_snap after in-place item strike", rearmed_cond_snap).bytes == rearmed_snap_bytes.bytes, "in-place item strike leaves prior cond_snap byte-identical")
+		_differ_bytes("mutated live moduleCondition differs from prior cond_snap", boat.moduleCondition, rearmed_cond_snap)
+		check(not EquipmentDamage._prefix_ctx_reuse_info(boat, ctx), "in-place item edit invalidates _prefix_ctx_reuse_info before cached info reuse")
+		var st_after_item: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, info_rearmed, ctx, Damage._status_for_info)
+		check(not is_same(ctx.get("info"), info_rearmed) and not is_same(ctx.get("step_status_cond_snap"), rearmed_cond_snap), "fallback re-arms fresh info and fresh cond_snap after in-place item edit")
+		_same_bytes("re-armed cond_snap matches mutated moduleCondition", ctx.get("step_status_cond_snap", {}), boat.moduleCondition)
+		check(not is_same(st_after_item, st_rearmed) and float(st_after_item.get("pumpFactor", 1.0)) == 0.5 and float(st_after_item.get("weaponFactors", {}).get("mount0", 1.0)) == 0.0, "in-place item edit invalidates stale step_status and refreshes factors")
+		_same_bytes("in-place item edit matches Damage.get_status", st_after_item, Damage.get_status(boat.duplicate(true)))
+		var snap_before_prio: Dictionary = ctx.get("step_status_cond_snap", {})
+		var snap_before_prio_bytes: Dictionary = _bytes("cond_snap before priority edit", snap_before_prio)
+		check(Damage.set_repair_priority(boat, "pumps") == "pumps", "set repairPriority to pumps")
+		if snap_before_prio_bytes.ok:
+			check(_bytes("cond_snap after priority edit", snap_before_prio).bytes == snap_before_prio_bytes.bytes, "in-place priority edit leaves prior cond_snap byte-identical")
+		check(not EquipmentDamage._prefix_ctx_reuse_info(boat, ctx), "in-place repairPriority edit invalidates _prefix_ctx_reuse_info before cached info reuse")
+		var st_after_prio: Dictionary = EquipmentDamage._prefix_ctx_step_status(boat, ctx.get("info"), ctx, Damage._status_for_info)
+		check(str(st_after_prio.get("repairPriority", "")) == "pumps", "in-place repairPriority change refreshes step_status")
+		_same_bytes("in-place repairPriority change matches Damage.get_status", st_after_prio, Damage.get_status(boat.duplicate(true)))
+		boat.policy = "repair"
+		boat.supplies = 10.0
+		boat.wounded = 0.0
+		_tick_prefix_pair("prefix step_status active pumps repair tick", boat, 0.1, {"inCombat": true, "priority": "pumps"})
+
+	# 7b. Pre-armed ctx invalidations before shared repair (module / priority / policy / engine edits).
+	var base_armed: Dictionary = _fitted("psc-step-prearmed", false)
+	if not base_armed.is_empty():
+		base_armed.water = 0.0
+		base_armed.fire = 0.0
+		base_armed.supplies = 10.0
+		base_armed.policy = "balanced"
+		var mod_pair: Dictionary = _tick_armed_prefix_pair(
+			"pre-armed module edit into shared repair",
+			base_armed,
+			func(b: Dictionary) -> void:
+				_strike(b, "pumps", 0.50, "Pre-armed pumps damage")
+				_strike(b, "mount0", 0.85, "Pre-armed mount0 disable"),
+			true,
+			0.1,
+			{"inCombat": true, "priority": "pumps"}
+		)
+		check(float(_item_at(mod_pair.wiredBoat.moduleCondition, "pumps").hp) > 0.50 and float(mod_pair.wiredStatus.get("repairedModuleHp", 0.0)) > 0.0 and float(mod_pair.wiredBoat.supplies) < 10.0, "pre-armed module edit feeds fresh info into shared repair and repairs pumps")
+
+		var hull_armed: Dictionary = base_armed.duplicate(true)
+		hull_armed.hp = 80.0
+		var prio_pair: Dictionary = _tick_armed_prefix_pair(
+			"pre-armed priority edit into shared repair",
+			hull_armed,
+			func(b: Dictionary) -> void:
+				Damage.set_repair_priority(b, "hull"),
+			true,
+			0.1,
+			{"inCombat": true}
+		)
+		check(float(prio_pair.wiredBoat.hp) > 80.0 and float(prio_pair.wiredStatus.get("repairedHullHp", 0.0)) > 0.0 and float(prio_pair.wiredBoat.supplies) < 10.0, "pre-armed priority edit feeds fresh info into shared repair and repairs hull")
+
+		var pol_pair: Dictionary = _tick_armed_prefix_pair(
+			"pre-armed policy edit into shared repair",
+			hull_armed,
+			func(b: Dictionary) -> void:
+				b.policy = "repair",
+			false,
+			0.1,
+			{"inCombat": true}
+		)
+		check(float(pol_pair.wiredBoat.hp) > 80.0 and float(pol_pair.wiredStatus.get("repairedHullHp", 0.0)) > 0.0 and float(pol_pair.wiredBoat.supplies) < 10.0, "pre-armed policy edit refreshes crewRepair and repairs hull")
+
+		var eng_pair: Dictionary = _tick_armed_prefix_pair(
+			"pre-armed engine scalar edit into shared repair",
+			base_armed,
+			func(b: Dictionary) -> void:
+				b.engine = 0.42,
+			true,
+			0.1,
+			{"inCombat": true, "priority": "engine"}
+		)
+		check(float(_item_at(eng_pair.wiredBoat.moduleCondition, "engine").hp) > 0.42 and float(eng_pair.wiredStatus.get("repairedModuleHp", 0.0)) > 0.0 and float(eng_pair.wiredBoat.supplies) < 10.0, "pre-armed engine edit absorbs legacy scalar and repairs engine")
+
+	# 8. _prefix_ctx_clear erases all step_status keys.
+	check(bool(ctx.get("valid", false)) and ctx.has("step_status") and ctx.has("step_status_cond_snap"), "ctx is armed before _prefix_ctx_clear check")
+	EquipmentDamage._prefix_ctx_clear(ctx)
+	check(not bool(ctx.get("valid", true)) and not ctx.has("info") and not ctx.has("engine_hp") and not ctx.has("step_status") and not ctx.has("step_status_cond_snap"), "_prefix_ctx_clear erases valid/info/engine_hp/step_status/step_status_cond_snap")
+	for k in ctx.keys():
+		check(not str(k).begins_with("step_status"), "_prefix_ctx_clear leaves no step_status* key: " + str(k))
+
+	# 9. Tick-average output does not mutate cached instantaneous step_status.
+	var avg_boat: Dictionary = _fitted("psc-step-avg", false)
+	if not avg_boat.is_empty():
+		avg_boat.water = 28.0
+		avg_boat.fuel = 0.0002
+		avg_boat.supplies = 0.0
+		avg_boat.vx = 15.0
+		var avg_pair: Dictionary = _tick_prefix_pair("prefix step_status mid-tick fuel0 crossing", avg_boat, 0.1, {"inCombat": true})
+		var avg_ctx: Dictionary = avg_pair.ctx
+		var tick_out: Dictionary = avg_pair.wiredStatus
+		var inst_cached: Dictionary = avg_ctx.get("step_status", {})
+		var inst_fresh: Dictionary = Damage.get_status(avg_pair.wiredBoat.duplicate(true))
+		check(avg_ctx.has("step_status") and not is_same(tick_out, inst_cached), "post-tick status_can is a distinct Dictionary from cached step_status")
+		# The raw cache is the last sub-step INPUT; water changed after that read.
+		# The guarded accessor must reject it and return current instantaneous state.
+		var cache_before_read: Dictionary = _bytes("last input before guarded refresh", inst_cached)
+		var final_info: Dictionary = EquipmentDamage._prefix_ctx_info(avg_pair.wiredBoat, avg_ctx)
+		check(not EquipmentDamage._prefix_ctx_step_status_valid(avg_pair.wiredBoat, final_info, avg_ctx), "post-tick changed water invalidates the last sub-step input cache")
+		var inst_accessed: Dictionary = EquipmentDamage._prefix_ctx_step_status(avg_pair.wiredBoat, final_info, avg_ctx, Damage._status_for_info)
+		check(not is_same(inst_accessed, inst_cached), "guarded refresh returns a new current status without changing the prior cache")
+		_same_bytes("guarded step_status read after mid-tick fuel0 matches final instantaneous get_status", inst_accessed, inst_fresh)
+		if cache_before_read.ok:
+			check(_bytes("last input after guarded refresh", inst_cached).bytes == cache_before_read.bytes, "guarded refresh preserves the prior cached input bytes")
+		_differ_bytes("tick-averaged bailing report differs from final dry instantaneous step_status", tick_out, inst_accessed)
+		var cached_before_mut: Dictionary = _bytes("inst_cached before tick_out mutation", inst_cached)
+		var current_before_mut: Dictionary = _bytes("current guarded status before tick_out mutation", inst_accessed)
+		tick_out.inflow = -777.0
+		tick_out.bailing = -888.0
+		tick_out.workByTask["fire"] = 999.0
+		if cached_before_mut.ok:
+			check(_bytes("inst_cached after tick_out mutation", inst_cached).bytes == cached_before_mut.bytes, "mutating returned tick status never mutates cached step_status")
+		if current_before_mut.ok:
+			check(_bytes("current guarded status after tick_out mutation", inst_accessed).bytes == current_before_mut.bytes, "mutating tick output also leaves the current guarded cache unchanged")
 
 func _finish() -> void:
 	if failures > 0:

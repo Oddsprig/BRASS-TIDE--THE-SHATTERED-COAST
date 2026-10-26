@@ -6,6 +6,7 @@ extends RefCounted
 const Core = preload("res://scripts/equipment_condition.gd")
 const Records = preload("res://scripts/equipment_records.gd")
 const Layout = preload("res://scripts/mount_layout.gd")
+const PrefixStepStatus = preload("res://scripts/equipment_prefix_step_status.gd")
 
 const HULL_DAMAGE_SCALE: float = 0.35
 const INFLOW_PER_AREA: float = 0.055
@@ -953,10 +954,30 @@ static func _numeric_rollout_info(boat: Dictionary) -> Dictionary:
 static func _prefix_ctx_bound(boat: Dictionary, ctx: Dictionary) -> bool:
 	return boat is Dictionary and ctx is Dictionary and is_same(boat, ctx.get("owner"))
 
+static func _prefix_ctx_clear_step_status(ctx: Dictionary) -> void:
+	PrefixStepStatus.clear(ctx)
+
 static func _prefix_ctx_clear(ctx: Dictionary) -> void:
 	ctx["valid"] = false
 	ctx.erase("info")
 	ctx.erase("engine_hp")
+	PrefixStepStatus.clear(ctx)
+
+static func _prefix_tick_scope_begin(ctx: Dictionary) -> void:
+	PrefixStepStatus.tick_scope_begin(ctx)
+
+static func _prefix_tick_scope_end(ctx: Dictionary) -> void:
+	PrefixStepStatus.tick_scope_end(ctx)
+
+static func _prefix_drop_cond_proof(ctx: Dictionary) -> void:
+	if ctx is Dictionary:
+		ctx.erase("cond_eq_proof")
+
+static func _prefix_drop_cond_proof_if_same_condition(boat: Dictionary, ctx: Dictionary) -> void:
+	if not (ctx is Dictionary) or not (boat is Dictionary):
+		return
+	if is_same(boat.get("moduleCondition"), ctx.get("step_status_cond")):
+		ctx.erase("cond_eq_proof")
 
 static func _prefix_ctx_drop_receipt(ctx: Dictionary) -> void:
 	ctx.erase("absorb_receipt")
@@ -1012,6 +1033,10 @@ static func _prefix_ctx_arm(boat: Dictionary, ctx: Dictionary, info: Dictionary)
 	if float(boat.engine) != record_hp:
 		_prefix_ctx_clear(ctx)
 		return
+	if not PrefixStepStatus.arm_info(boat, info, ctx):
+		_prefix_ctx_clear(ctx)
+		_prefix_ctx_drop_receipt(ctx)
+		return
 	ctx["info"] = info
 	ctx["engine_hp"] = record_hp
 	ctx["valid"] = true
@@ -1030,7 +1055,7 @@ static func _prefix_ctx_reuse_info(boat: Dictionary, ctx: Dictionary) -> bool:
 	var snap: Dictionary = info.get("snapshot")
 	if float(snap.get("engineHp")) != float(ctx.get("engine_hp")):
 		return false
-	return true
+	return PrefixStepStatus.cond_valid(boat, ctx)
 
 static func _prefix_ctx_publish_ok_only(_boat: Dictionary) -> Dictionary:
 	return {"ok": true}
@@ -1048,6 +1073,7 @@ static func _prefix_ctx_info(boat: Dictionary, ctx: Dictionary) -> Dictionary:
 
 static func _prefix_ctx_absorb(boat: Dictionary, ctx: Dictionary) -> Dictionary:
 	if not _prefix_ctx_bound(boat, ctx):
+		_prefix_drop_cond_proof_if_same_condition(boat, ctx)
 		return Records._absorb_legacy_numeric(boat)
 	var receipt = ctx.get("absorb_receipt")
 	if _prefix_ctx_reuse_info(boat, ctx) and _prefix_ctx_receipt_is_nowrite(receipt) and float(receipt.get("engineHp")) == float(ctx.get("engine_hp")):
@@ -1055,6 +1081,7 @@ static func _prefix_ctx_absorb(boat: Dictionary, ctx: Dictionary) -> Dictionary:
 		return kept
 	_prefix_ctx_clear(ctx)
 	_prefix_ctx_drop_receipt(ctx)
+	_prefix_drop_cond_proof(ctx)
 	var fresh: Dictionary = Records._absorb_legacy_numeric(boat)
 	if _prefix_ctx_receipt_is_nowrite(fresh):
 		ctx["absorb_receipt"] = fresh
@@ -1062,6 +1089,7 @@ static func _prefix_ctx_absorb(boat: Dictionary, ctx: Dictionary) -> Dictionary:
 
 static func _prefix_ctx_publish(boat: Dictionary, ctx: Dictionary) -> Dictionary:
 	if not _prefix_ctx_bound(boat, ctx):
+		_prefix_drop_cond_proof_if_same_condition(boat, ctx)
 		return Records._publish_numeric(boat)
 	if _prefix_ctx_reuse_info(boat, ctx):
 		return _prefix_ctx_publish_ok_only(boat)
@@ -1079,6 +1107,8 @@ static func _prefix_ctx_repair_idle(boat: Dictionary, h: float, crew_repair: flo
 	var fire_before: float = clampf(number(boat.get("fire")), 0.0, 100.0)
 	if fire_before > 0.0:
 		return false
+	if options.has("priority") and not _is_string_value(options.get("priority")):
+		return false
 	var priority: String = str(options.get("priority", boat.moduleCondition.get("repairPriority", "auto")))
 	if not priority in Core.PRIORITIES:
 		return false
@@ -1091,9 +1121,45 @@ static func _prefix_ctx_repair_idle(boat: Dictionary, h: float, crew_repair: flo
 
 static func _prefix_ctx_repair(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, ctx: Dictionary) -> Dictionary:
 	if not _prefix_ctx_bound(boat, ctx):
+		_prefix_drop_cond_proof_if_same_condition(boat, ctx)
 		return _tick_repair_rollout_from_info(boat, h, crew_repair, options, info)
 	if _prefix_ctx_repair_idle(boat, h, crew_repair, options, info, ctx):
+		# Idle gate: fire is 0 and available work <= Core.EPS. _repair_step_from_info
+		# then cannot reach repair_parts or damage_part, and publish is the no-write stub.
 		return _repair_step_from_info(boat, h, crew_repair, options, info, Core._repair_installed_numeric, Core._apply_component_damage_numeric, _prefix_ctx_publish_ok_only)
 	_prefix_ctx_clear(ctx)
 	_prefix_ctx_drop_receipt(ctx)
+	_prefix_drop_cond_proof(ctx)
 	return _tick_repair_rollout_from_info(boat, h, crew_repair, options, info)
+
+static func _prefix_ctx_step_status_valid(boat: Dictionary, info: Dictionary, ctx: Dictionary) -> bool:
+	return _prefix_ctx_reuse_info(boat, ctx) and PrefixStepStatus.valid(boat, info, ctx)
+
+static func _prefix_ctx_arm_step_status(boat: Dictionary, info: Dictionary, status: Dictionary, ctx: Dictionary) -> void:
+	if not _prefix_ctx_bound(boat, ctx) or not _prefix_ctx_reuse_info(boat, ctx):
+		PrefixStepStatus.clear_status(ctx)
+		return
+	PrefixStepStatus.arm(boat, info, status, ctx)
+
+static func _prefix_ctx_step_status(boat: Dictionary, info: Dictionary, ctx: Dictionary, status_for_info_fn: Callable) -> Dictionary:
+	if not _prefix_ctx_bound(boat, ctx):
+		return status_for_info_fn.call(boat, info)
+	if _prefix_ctx_reuse_info(boat, ctx) and (info is Dictionary) and is_same(info, ctx.get("info")):
+		if PrefixStepStatus.valid(boat, info, ctx):
+			var cached: Dictionary = ctx.get("step_status")
+			return cached
+		PrefixStepStatus.clear_status(ctx)
+		var fresh: Dictionary = status_for_info_fn.call(boat, info)
+		PrefixStepStatus.arm(boat, info, fresh, ctx)
+		return fresh
+	var use_info: Dictionary = info
+	if is_same(info, ctx.get("info")):
+		_prefix_ctx_clear(ctx)
+		use_info = _numeric_rollout_info(boat)
+		_prefix_ctx_arm(boat, ctx, use_info)
+	else:
+		_prefix_ctx_clear(ctx)
+	var fallback: Dictionary = status_for_info_fn.call(boat, use_info)
+	if bool(ctx.get("valid", false)) and is_same(use_info, ctx.get("info")):
+		PrefixStepStatus.arm(boat, use_info, fallback, ctx)
+	return fallback

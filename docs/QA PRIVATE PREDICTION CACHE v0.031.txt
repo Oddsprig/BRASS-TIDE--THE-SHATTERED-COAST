@@ -1,0 +1,26 @@
+SCOPED SOURCE CHECKPOINT — PRIVATE PREDICTION CACHE
+26 October2026; v0.031 remains unreleased; 24 boats.
+
+Native phases on the exact same runtime: private1065/0, public735/0,
+scope124/0, corrected options17/0, cold51/0. Total1,992 checks.
+All756 recorded comparisons match across24 actual updates and40 public statuses;
+only the original ai_us and metrics.aiUs diagnostic clocks are excluded.
+
+Original batch9feed82a73964c8c8bfb5f83c531877d remains FAILED. Its new options
+fixture had2 failures in17 checks; cold did not run. Corrected follow-up
+32ec7f5153af4c239124148d25b62258 passed options17 and cold51. Corrections reordered
+absorb before info, matching the real kernel, and explicitly required an erased
+proof key to be absent. All17 checks remain. No runtime fix was needed for them.
+The original three passes are reused only because all runtime bytes are identical;
+the only stage delta was the corrected options fixture and its mechanical wrapper.
+
+The follow-up's complete receipt plus prior setup was17.18seconds; it used the
+shared background lane, two logical CPUs,8% job CPU and512MiB aggregate limits.
+Peak observed memory162.95MiB; both owned children exited and cleanup completed.
+No computer input, focus, existing-app control, GPU test or automatic engine retry.
+
+Eight integrated runtime/test file hashes are in the sibling JSON. Other code and
+assets retain their prior bytes. In-game notes and current handoff were shortened
+and updated afterwards. Full release suite, supported-load timing, graphics,
+controls, audio listening and Windows export remain OPEN. Raw cold observations
+109.606ms whole/81.812ms AI are not proof of speedup, FPS or sustained capacity.

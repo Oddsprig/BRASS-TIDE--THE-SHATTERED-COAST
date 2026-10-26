@@ -128,3 +128,11 @@
 "game/scripts/equipment_damage.gd" -text
 
 "game/tests/test_equipment_damage.gd" -text
+
+# Preserve exact native-verified private-prefix source bytes at this checkpoint.
+"game/scripts/equipment_rollout.gd" -text
+"game/scripts/equipment_prefix_step_status.gd" -text
+"game/tests/test_equipment_damage_private_status_contract.gd" -text
+"game/tests/test_prefix_call_scope_r2.gd" -text
+"game/tests/test_prefix_scope_options.gd" -text
+"game/tests/test_prefix_tick_scope_r1.gd" -text

@@ -1,0 +1,64 @@
+BRASS TIDE — BOUNDED RELEASE REGRESSION CONTRACT v2
+26 October 2026
+
+The owner's latest hard requirement is an entire test suite under two minutes.
+The previous plan made 1,088 tuning/held-out AI runs mandatory per version. This
+agent-created requirement is replaced for future release runs by the bounded
+coverage below. Preserve all old protocols, inputs, failures and partials. No
+old failed or unrun matrix is reclassified as passed. Optional research never
+runs automatically while the release suite or another game's work is active.
+
+REQUIRED RELEASE COVERAGE
+1. All100 functional fixtures /106 execution units: the original98/104 plus
+   prefix_call_scope_r2 and prefix_scope_options. The original tick-scope parent
+   is covered in full by its child and is not a duplicate standalone execution.
+   Keep original assertions, all seven equipment-rollout families, all nine tactical
+   AI families, unique output files, original save/custody/crew/coin checks.
+2. All17 supported R4 motion variants in both authored and teams-swapped layouts
+   at the fixture's declared default seed30011. Keep1350 actual simulation ticks
+   or genuine terminal outcome and every original behavior/finite-store check.
+   Map overlap with an already-executed functional unit without double-counting.
+3. Every known unresolved gameplay/correctness regression seed and scenario is
+   an explicit required case. An obsolete fixture expectation may remain a
+   historical tooling failure; explain that classification with its correction.
+   A known failing gameplay seed may never be replaced by an easier seed.
+4. Supported300-point deployments: fresh canonical progress/fairness, equipment
+   interruption and manual authority checks; one bounded dense-fleet simulation
+   performance check against the existing supported-load threshold. Preserve
+   failed capacity evidence. A timing failure is a real failure, not a pass.
+5. Save/load and entry-flow coverage remains in the functional set. Export,
+   visible motion/graphics, human controls and audio listening remain separately
+   labelled acceptance, with no GPU/FPS/audio-quality claim from headless counts.
+
+EXECUTION CONTRACT
+One119-second active deadline includes setup, engine startup, all phases,
+assertions, result validation and owned-child cleanup. Record external shared
+queue waiting separately. No automatic retries. An unfinished required phase
+makes release regression incomplete. Report exact completed/missing IDs.
+
+Keep original fixture bodies. Batching adapters may change only test plumbing
+with reversible source bindings. Use owned data and per-case seeded RNG for any
+parallel pure simulation. Load scene/resources on main; join before publishing
+or emitting ordered results. UI/deferred/timer/filesystem cases use fresh
+processes unless their exact isolation has been reviewed and actually checked.
+One engine at a time through the shared lane, background/headless/Dummy audio,
+no input/focus control, synthetic saves. Existing apps retain priority.
+
+The current verified pilot envelope is two logical CPUs,8% job CPU cap,512MiB
+aggregate memory and the console launcher plus one real engine. Any wider test
+worker envelope needs a separate concrete resource/source review; do not infer
+that six workers are approved by this document.
+
+OPTIONAL RESEARCH, PRESERVED AND NOT AUTO-RUN
+- The original272 tuning +816 held-out motion cases, with original seeds.
+- Long installed-prefix witnesses and sustained1,800-sample-per-profile capacity
+  studies beyond the bounded default regression coverage.
+- Extra stress loads outside supported player deployment and long campaigns.
+These remain available for targeted diagnosis and later tuning. Existing scoped
+evidence may be reused only under its actual source/closure and workload label.
+
+STATUS
+v2 is a source-level contract; the whole v2 suite has not yet executed or passed.
+The three-fixture R4 developer pilot passed in8.05 seconds; it is not v2 release
+acceptance. Keep historical full_suite_pass=false. A new result must name this
+contract version and list all required units, pending cases and acceptance gaps.

@@ -392,7 +392,7 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 static func _tick_canonical_numeric(s: Dictionary, dt: float, options: Dictionary) -> Dictionary:
 	return _tick_canonical_with(s, dt, options, EquipmentDamage._numeric_rollout_info, EquipmentDamage._tick_repair_rollout_from_info, EquipmentDamage.Records._publish_numeric, EquipmentDamage.Records._absorb_legacy_numeric)
 
-static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null) -> Dictionary:
+static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null, step_status_fn = null) -> Dictionary:
 	var total_in: float=0.0
 	var total_bail: float=0.0
 	var total_repair: float=0.0
@@ -428,7 +428,7 @@ static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary,
 		if absf(dt - 2.0 * step_cap) <= 0.0000001:
 			h_can = dt * 0.5
 		var step_info: Dictionary = status_fn.call(s)
-		var t_can: Dictionary = _status_for_info(s, step_info)
+		var t_can: Dictionary = step_status_fn.call(s, step_info) if step_status_fn is Callable and step_status_fn.is_valid() else _status_for_info(s, step_info)
 		var before_can: float = s.water
 		s.water = clampf(s.water + (t_can.inflow - t_can.bailing) * h_can, 0.0, s.capacity)
 		total_in += t_can.inflow * h_can

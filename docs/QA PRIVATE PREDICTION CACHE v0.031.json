@@ -1,0 +1,53 @@
+{
+  "classification": "SCOPED_NATIVE_VERIFIED_SOURCE_INTEGRATION_NOT_RELEASE",
+  "passed_checks": 1992,
+  "native_jobs": [
+    "9feed82a73964c8c8bfb5f83c531877d",
+    "32ec7f5153af4c239124148d25b62258"
+  ],
+  "old_r6_entire_outcome": "FAILED_PRESERVED",
+  "reused_r6_phases": [
+    "private1065",
+    "public735",
+    "scope60-foreign"
+  ],
+  "new_r6b_phases": [
+    "options-callback",
+    "cold51"
+  ],
+  "same_runtime_between_jobs": true,
+  "recorded_payload_comparisons": 756,
+  "excluded_payload_fields": [
+    "ai_us",
+    "metrics.aiUs"
+  ],
+  "full_suite_pass": false,
+  "release_suite_pass": false,
+  "boat_count": 24,
+  "version": ".031_UNRELEASED",
+  "global_old_unbounded_test_hold_preserved": true,
+  "engine_runs_by_root": 0,
+  "public_damage_math_unchanged": true,
+  "runtime_and_fixture_files": {
+    "scripts/damage.gd": "d8b3931cf9c63cd38a8a692b0e2b4804e26632ddeb2797e86007f400cd6b03a9",
+    "scripts/equipment_damage.gd": "5e0098266e4639a6469a23d7f0de7bc4f2b5df5d819ce66df94a298c927d1ac7",
+    "scripts/equipment_prefix_step_status.gd": "5e6c5c82ac2ffaf82d097920fdae2083d45d894ef635b4aa2df0b99bddb78810",
+    "scripts/equipment_rollout.gd": "97fba382cf0b018dc5f325b0fef324976f1987003f0646a1928c047414771364",
+    "tests/test_prefix_tick_scope_r1.gd": "e9d349756e32d555d2557773a80a6a34e396fd8ee33aed6315c3e33376919562",
+    "tests/test_equipment_damage_private_status_contract.gd": "641ed305517bfe726bbe3ecb20c818fbc61b7ba2a09ed42f2780808355be8dbe",
+    "tests/test_prefix_call_scope_r2.gd": "0d67cb1329105e2058171ff602998ae46b61a1b3b315ae48cd68d53dff466eb0",
+    "tests/test_prefix_scope_options.gd": "0109b82c7de6df7abfd9c380674583b373a239ebda911eaf12b6b402b79d8723"
+  },
+  "source_scope": "Eight runtime/test files exactly match the verified candidate; notes/docs were updated afterwards and are not full release acceptance.",
+  "r6b_receipt_plus_setup_seconds": 17.18,
+  "r6b_peak_memory_bytes": 170860544,
+  "observed_cold_whole_mean_ms": 109.605625,
+  "observed_cold_ai_mean_ms": 81.81225,
+  "causal_speedup_claim": false,
+  "required_functional_units": 106,
+  "original_functional_units": 104,
+  "new_required_regression_ids": [
+    "prefix_call_scope_r2",
+    "prefix_scope_options"
+  ]
+}

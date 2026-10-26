@@ -1,3 +1,14 @@
+## Current source checkpoint — 26 October 2026
+
+The guarded private-prefix status candidate is integrated after scoped native
+checks:1,992 passed across five phases on the same runtime, with the first batch's
+fixture failures preserved. Read BUILD STATUS.txt for exact scope and open gates.
+The full release-v2 suite and performance are still open; build30/24 boats.
+The global hold on old unbounded launchers remains. Exact reviewed119-second
+Test Bridge developer batches may be authorized by Root within existing user
+permission; this is an internal source review, not a new human approval request.
+No worker prototype, extra engine, GPU test or automatic retry is implied.
+
 ## Crash recovery hold — 26 October 2026
 
 The owner reported a computer crash. Engine/GPU/render/build/heavy CPU tests are
@@ -16,10 +27,15 @@ our own setup, engine startup, assertions and result collection; report the
 shared lane's external queue wait separately. Preserve the shared Godot/Unity
 queue and never close/control an existing app to meet the deadline.
 
-No partial, timed-out, interrupted or skipped required coverage is a full pass.
-Do not weaken assertions, reduce seeds/ticks/depth/workloads or silently call a
-smoke/subset the full suite. Inventory and retain the actual required coverage.
-If full coverage cannot fit yet, report incomplete and fix runner/game overhead.
+No partial, timed-out, interrupted or skipped required release coverage is a pass.
+Use docs/RELEASE TEST CONTRACT v2.txt for the bounded release suite. The prior
+1,088-case parameter/seed matrix and sustained research protocols remain intact
+as optional research; their old failures and incomplete results stay recorded.
+Keep every assertion, physical tick horizon and depth in selected fixtures.
+Retain known unresolved regression seeds. Do not silently change the contract,
+hide failing cases, or claim that optional research has passed. Report release
+regression, research, performance and visual/audio acceptance separately.
+If the bounded release suite cannot finish yet, report incomplete and fix it.
 Batch pure data work safely, keep scene/UI/resources on main, give workers owned
 data, preserve deterministic ordering and join every task. Never run concurrent
 engines or nest shared test-lane leases. Preserve all existing failures/evidence.

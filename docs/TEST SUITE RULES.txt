@@ -1,6 +1,10 @@
 BRASS TIDE — REQUIRED TEST SUITE CONTRACT
 26 October 2026
 
+Current release coverage: RELEASE TEST CONTRACT v2.txt. Its explicit bounded
+release/research separation supersedes the original exhaustive coverage scope
+below. All old failures and protocols remain recorded; none become a pass.
+
 ## Owner hard rule — full suite under two minutes (26 October 2026)
 
 The owner requires the ENTIRE required automated game test suite to execute in

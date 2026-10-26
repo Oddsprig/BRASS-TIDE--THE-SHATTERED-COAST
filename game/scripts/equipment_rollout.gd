@@ -106,6 +106,7 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 	var prefix_repair: Callable=Callable()
 	var prefix_publish: Callable=Callable()
 	var prefix_absorb: Callable=Callable()
+	var prefix_step_status: Callable=Callable()
 	if is_canonical:
 		# Local to this synchronous prefix. Not stored on the copy, certificate,
 		# prediction, or return. Callables stay in these locals so ctx cannot cycle.
@@ -115,6 +116,11 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 		prefix_repair=func(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_repair(boat, h, crew_repair, options, info, prefix_ctx)
 		prefix_publish=func(boat: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_publish(boat, prefix_ctx)
 		prefix_absorb=func(boat: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_absorb(boat, prefix_ctx)
+		prefix_step_status=func(boat: Dictionary, info: Dictionary) -> Dictionary: return EquipmentDamage._prefix_ctx_step_status(boat, info, prefix_ctx, Damage._status_for_info)
+		# This copy, context and internal callbacks belong only to this synchronous
+		# prefix. Motion/geometry do not write equipment. Known writers invalidate
+		# the proof before mutation; no caller callback or live owner receives ctx.
+		EquipmentDamage._prefix_tick_scope_begin(prefix_ctx)
 	var start_time: float=0.0
 	for step in range(60):
 		for _part in range(parts):
@@ -130,7 +136,7 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 			# The returned factors describe the final post-tick state. Its inflow,
 			# bailing and repair may be averages; none of these consumers use them.
 			if is_canonical:
-				rollout_status=Damage._tick_canonical_with(copy,sub_dt,{"inCombat":true},prefix_info,prefix_repair,prefix_publish,prefix_absorb)
+				rollout_status=Damage._tick_canonical_with(copy,sub_dt,{"inCombat":true},prefix_info,prefix_repair,prefix_publish,prefix_absorb,null,prefix_step_status)
 			else:
 				rollout_status=Damage.tick_ship(copy,sub_dt,{"inCombat":true})
 			if is_canonical:
@@ -149,9 +155,12 @@ static func prefix(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget:
 			radius+=deviation
 			var result: String=Routes.sweep(st.tactical.geometry,a,b,radius,budget)
 			if result=="valid":result=Routes.occupied(st.tactical.cells,ship,a,b,radius,start_time,float(step+1)*STEP,budget)
-			if result!="valid":cert.status=result;cert.reason="Checking turning clearance" if result=="pending" else "Cannot turn or brake safely on this approach";return {"ok":false}
+			if result!="valid":
+				if is_canonical:EquipmentDamage._prefix_tick_scope_end(prefix_ctx)
+				cert.status=result;cert.reason="Checking turning clearance" if result=="pending" else "Cannot turn or brake safely on this approach";return {"ok":false}
 			chunk=[b];start_time=float(step+1)*STEP
 	if is_canonical:
+		EquipmentDamage._prefix_tick_scope_end(prefix_ctx)
 		var final_info: Dictionary=EquipmentDamage.inspect_owner(copy)
 		if not final_info.get("ok",false) or str(final_info.get("mode",""))!="canonical" or var_to_bytes(_fixed_inputs(copy))!=var_to_bytes(fixed_inputs):
 			cert.status="blocked";cert.reason="Equipment input changed; reassessing"
