@@ -1,0 +1,24 @@
+{
+  "classification": "SOURCE_REVIEW_ONLY_NOT_NATIVE_PASS",
+  "reviewedAt": "2026-10-26T03:15:34.722Z",
+  "fixture": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\systems-grok\\candidates\\private-status-contract-r2\\game\\tests\\test_equipment_damage_private_status_contract.gd",
+  "fixtureSha256": "24da2fad78755689fe786b5b4bd9410a0c3955adbbecf2d9774570eb0c2e897c",
+  "fixtureBytes": 20578,
+  "contractSha256": "e29da03258c2e11be721d33278f951852fae86c44e8a56684e201a82ca8f73cc",
+  "diffSha256": "ebcb08e47ca815f63da03abf080792e5da47e3031133b16e3c206989a7b8390e",
+  "review": [
+    "Read complete fixture and full r1-to-r2 diff; original fixture remains separate.",
+    "Uses actual owned factory boats and production callables, not copied repair formulas.",
+    "Status checks compare complete returned value and complete pre/post boat bytes.",
+    "Repair compares whole boat and returned status; includes hp, water, fire, breaches, cooldown, supplies and insertion order.",
+    "Eligible engine case requires actual module hp increase and supply debit on both paths.",
+    "Encoder checks for unsupported Object/Callable/Signal/RID before var_to_bytes.",
+    "Supplement retains private_status_contract label; no existing --script CLI support claimed."
+  ],
+  "limits": [
+    "No engine run in this review; runtime parser, full-state equality and gain assertions remain pending.",
+    "Owned acyclic factory graphs only; no general recursive or object encoder claim.",
+    "Does not substitute for original equipment_damage174 or complete battle witness."
+  ],
+  "decision": "ACCEPT_FOR_SEPARATE_BOUNDED_NATIVE_AFTER_ADAPTER_REVIEW"
+}

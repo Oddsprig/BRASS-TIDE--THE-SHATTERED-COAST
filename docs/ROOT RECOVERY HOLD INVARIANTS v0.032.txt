@@ -1,0 +1,19 @@
+BRASS TIDE - RECOVERY HOLD INVARIANTS FOR v0.032
+SOURCE PLANNING ONLY. No .032 integration or acceptance; finish .031 first.
+
+1. Physical ownership
+Installed equipment is already part of a hull. Loose guns, engines and armor occupy hold space on their actual carrier. Canonical moduleCondition is authoritative; its refitLocker mirror is never additional stock. Legacy counts apply only when canonical condition is absent. Invalid canonical records must block the affected action rather than count as zero weight.
+
+2. Ordinary carriers and prizes
+An active carrier can offer only hold capacity left after its own spare parts, working-store overflow, passenger provisions and captive overflow. A stored, mothballed or damaged prize cannot silently provide the fleet with ordinary cargo capacity. Spares already aboard a towed prize stay on that hull; do not silently teleport them into the active carriers or charge their mass twice. Check that hull own storage capacity and handle overload explicitly. This detail remains an integration decision to verify against actual tow/voyage rules.
+
+3. Transfers and losses
+Transfer exact physical item UIDs between owned co-located hulls on a staged plan, validate cross-hull uniqueness, publish both mirrors and reallocate holds before committing. No remote harbor teleportation. When a carrier sinks, goods assigned to it and its equipment enter the same wreck custody once. Stripping retires converted part UIDs; towing transfers them once. The old sunk-hull mirror must not become a second locker after its canonical condition moved.
+
+4. Coherent previews
+A workshop preview must apply the physical fitting plan to its detached probe before calculating its new hold usage. A new loadout paired with old condition is not a valid preview. Boat sale, storage, company dispatch and return must calculate capacity after the actual outgoing/incoming hull and its own stores are accounted for. Preserve live dictionary identities at commit.
+
+5. Cost and presentation
+Use catalog material weights for loose parts; preserve condition and origin independently of weight. Do not add repeated whole-catalog and whole-fleet validation to every HUD frame. Keep validation at actual mutation/save boundaries and use an auditable read summary for presentation. Any summary caching needs explicit invalidation coverage and an invalid-state refusal, not a persistent trust flag that bypasses external validation.
+
+Sources reviewed: Argon equipment-cargo-r1 and INTEGRATION MAP; Grok EQUIPMENT CARGO REVIEW v0.032. Their older source hashes are historical. Rebind actual accepted .031 dependencies before implementation. These notes are design constraints and known gaps, not tested game behavior.

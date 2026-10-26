@@ -1,0 +1,13 @@
+{
+  "classification": "ROOT_ACCEPTED_SCOPED_CORE90_CALLED_CLOSURE_REUSE_NOT_NEW_NATIVE",
+  "at": "2026-10-26T03:08:43.240Z",
+  "acceptedNativeJob": "138b4072b3b44b2493e584170cea1cac",
+  "calledClosureSha256": "743de940ca126b20068f53ab64e623033dd06d1ddc11c7b3fbbe3f0c617cc527",
+  "acceptedCoreSha256": "a9c26f8e1c003314389b57914c1883e77647ce9e7b2b2e10d4a9094c4cd3b44e",
+  "currentCoreSha256": "56eb0af59e7cd040fb57b0a3061c302df759c335cfc577b3712258ae387a4b59",
+  "entireAcceptedCoreRestoredByOnlyRemovingThreeNewUnusedHelpers": true,
+  "originalFixtureAndWrapperBound": true,
+  "scope": "Only original90 pure Core fixture with accepted isolated project72a2 and enginec8, noautoload/callback. All original functions/constants/top-level code identical; fixture onlyCore and no reflection/settings/clock/OS/tree dependencies. No new pass or wholeMain transfer.",
+  "newNativeRequiredForRecordsAndDamage": true,
+  "mainReleaseAccepted": false
+}

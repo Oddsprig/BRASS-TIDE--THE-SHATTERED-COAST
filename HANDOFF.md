@@ -6,21 +6,31 @@ Preserved .030/tag7492fb7 is UNTESTED; verified .029/44e2a46 is available.
 No .031 version bump, release tag, export, launcher change or upload.
 
 ACTIVE PERFORMANCE WORK - 25 OCTOBER 2026
-Working runtime remains d4b0b67; H1/H2 and compact private-status source stay isolated.
-Combined cold3f1d passes51/0, observed182.279ms whole/update. Compact private
-status cold93f1 also passes51/0, observed181.146ms whole/118.322AI/62.824OTHER.
-Root independently verified both native/outer/input/tool/lane records and exact
-recorded24-update resource/work/age/budget plus40status equality versus78c.
-Raw cold observations establish no causal gain/FPS/capacity/full-state/RNG claim;
-performance remains materially too slow. Root cold proofs preserve scope.
-Parameterized recipe6400ca20/closure87f4bd5c passed independent55/0 source guards
-and Argon peer. Genuine OLD844c passes57/0 with complete301 packets; Root frozen
-Trace/strict5117 gate and source-after-native verification pass. Reusable only
-while its entire cohort, support, engine and input provenance stay unchanged.
-NEW source504/3db9ca85 is separately generated/verified; one NEW native and one
-strict comparison are authorized, with actual result still pending. Supplemental
-whole-status/repair/detachment contract fixture is source preparation; public
-canonical tick invariants are under review. No new Main runtime or .031 release.
+Working runtime remains d4b0b67; candidate changes below stay isolated.
+Compact private-status NEW7ac passed actual57/0. Root independently consumed
+all301 packets through frozenR2 and strict5117, verified actual4.7.2 and source
+provenance, then checked the single frozen comparator output. OLD844c and NEW7ac
+have equal full physical traceSHA534a41a8 and all decompressed typed bytes.
+No replay, normalization or added omission;702 frozen files remain unchanged.
+Scope is raw22f/observed3db9 BEFORE the later B1a/idle changes, not Main release.
+See ROOT PARAMETERIZED PRIVATE STATUS PAIR VERIFIED.json and native proof.
+Earlier original cold93f1 passed51/0 with exact recorded-payload equality versus
+78c;181.146ms whole/118.322AI/62.824OTHER per cold update remains too slow.
+No causal gain/FPS/capacity claim follows from those24 cold observations.
+B1a reuses only the final actual inspection for the immediate live-frame cache
+store. Private idle repair skips redundant numeric publication only when fire
+is zero and actual sanitized crew*h<=EPS; every other case uses original repair.
+Root reversal/read and cross-family peers passed source review; no speed claim.
+Final raw499/6591 and full522/fe2c are source-verified. Observed504/030c/full527/5e4e
+passes frozen paired SOURCE audit. Supplementary501/aa0b/full524/2872 adds only
+the unchanged whole-boat R2 contract and inherited one-line test entry.
+The final batch was queued: cold c7a103eb1def4470afeb9ca34c3f1f7d; small witness
+4afbab38425b4ab3b3faea0cbe64a503; contract d761bb6e0e0348dc9737db5a12bba2d8.
+Queued work is not a pass. QA Sol owns the shared serialized lane; no foreground
+tests or computer input. Core90 called-closure reuse is accepted narrowly;
+Records89/Damage174 and broader gates remain held for final-source decision.
+.031 is unreleased. Recovery hold notes for.032 are planning only.
+
 
 LIVE-FRAME CANDIDATE CHECKPOINT - 25 OCTOBER 2026
 Root integrated the five reviewed live-frame/tick modules alongside the accepted

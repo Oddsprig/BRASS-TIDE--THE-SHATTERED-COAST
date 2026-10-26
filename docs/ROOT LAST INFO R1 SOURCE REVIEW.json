@@ -1,0 +1,29 @@
+{
+  "classification": "SOURCE_REVIEW_ONLY_NOT_NATIVE_NOT_MEASURED_SPEEDUP",
+  "reviewedAt": "2026-10-26T03:23:43.469Z",
+  "base": {
+    "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\systems-grok\\candidates\\private-status-fields-r1\\game\\scripts\\damage.gd",
+    "sha256": "234fe781c415737e40c5667ad66d9cad36319b388b655cfff26bcf2820dc97c5",
+    "bytes": 25834
+  },
+  "candidate": {
+    "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\planner-argon\\candidates\\frame-last-info-r1\\game\\scripts\\damage.gd",
+    "sha256": "94987b86a44f3b5bc0141d621e99ffface7f0961e870958857a221d789aa92b9",
+    "bytes": 26224
+  },
+  "permittedReversals": 7,
+  "wholeFileReversalByteExact": true,
+  "review": [
+    "Only public caller creates new local out-info box when a frame cache exists.",
+    "All original inspector calls inside canonical worker remain at original exit and quantum points.",
+    "Every canonical return path captures its actual exit inspection. Unknown-priority status still prevents cache store.",
+    "No live owner or inspection write occurs after final inspection before cache store. Sunk weapon factors are duplicated before status edits.",
+    "Private numeric wrapper and all quantum math, repair functions, validators, returned status fields and public tick signature unchanged.",
+    "No global memo, persistent trust flag or new refusal."
+  ],
+  "decision": "SOURCE_ACCEPTED_PENDING_PEER_AND_NATIVE",
+  "nativeLimits": [
+    "Existing corrected projection-isolation67 and full battle comparison must cover actual composed source.",
+    "This source review establishes neither elapsed-time improvement nor release readiness."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "classification": "SOURCE_REVIEW_ONLY_NOT_NATIVE_NOT_SPEEDUP",
+  "reviewedAt": "2026-10-26T03:36:52.422Z",
+  "damage": {
+    "sha256": "58738cbdf0c1f6ba2da5493b0575f1f02ba905d99527b7b9d21ecac3c55147da",
+    "bytes": 26224,
+    "baseSha256": "94987b86a44f3b5bc0141d621e99ffface7f0961e870958857a221d789aa92b9"
+  },
+  "equipmentDamage": {
+    "sha256": "c364de093cf5900c8a8d4e746d09352c5e5156b0f885fefb13c81e766130ee1b",
+    "bytes": 34005,
+    "baseSha256": "9904f99a545873b759eccc795e990a321e9acde689454016746e70210c022892"
+  },
+  "wholeFileReversalsByteExact": true,
+  "review": [
+    "New private adapter is selected only by _tick_canonical_numeric. All live public callers retain original adapter.",
+    "Actual sanitized crew_repair*h multiplication order is retained; gate checks available_work<=EPS rather than assuming a time step bound.",
+    "Zero clamped fire and insufficient task work prevent every original equipment/hull/breach/fire mutation in repair.",
+    "The same-quantum info came from the original numeric status inspection; only the water scalar is assigned before repair. Water is not an input of Core._records_numeric.",
+    "Pre-loop absorb and publication remain. Status inspections, 60Hz math, cooldown/fuel/sanitize/order and return field types/order remain.",
+    "Skipping this idle publication preserves values; private refitLocker object replacement identity is outside the closed-prefix external contract.",
+    "Every ineligible case calls the unchanged original numeric repair with original arguments."
+  ],
+  "limits": [
+    "Private same-quantum prefix call contract only; not a new public or forged/stale-info contract.",
+    "Peer review and native differential/full-state checks remain required.",
+    "Actual performance must be measured on the final composed source."
+  ],
+  "decision": "SOURCE_ACCEPTED_PENDING_PEER_AND_NATIVE"
+}

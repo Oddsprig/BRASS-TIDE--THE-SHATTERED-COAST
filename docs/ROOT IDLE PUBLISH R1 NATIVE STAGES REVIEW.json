@@ -1,0 +1,48 @@
+{
+  "classification": "SOURCE_STAGE_APPROVAL_NOT_NATIVE_PASS",
+  "reviewedAt": "2026-10-26T03:49:46.858Z",
+  "observed": {
+    "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\battle-frame-parameterized-r1-stages\\new-idle-publish-r1\\game",
+    "componentCount": 504,
+    "componentSha256": "030c7e0c8b3780eb35019af5b11552bc92fd884883be579aa7f1d501465498a8",
+    "fullCount": 527,
+    "fullSha256": "5e4e9b1ac6d191d807c1b9ba1098a87b89e1383b58fbfe08d9044b94b265757f",
+    "configSha256": "7e5bbd3796df087e83e0bc2dc2edcfc77e2c7d3b0cc71b768c9fd846d6940f34",
+    "sourcePairedAudit": "Root independent frozen verify_stage exit0 pairedSourceMetadataVerified=true filesWritten=0",
+    "invocationSha256": "d870d95cee421ddd270aa489fbdaa238f64d6677e840120d9b7a79f26a6f40fb",
+    "recipeClosureSha256": "87f4bd5cb64d582d8c0000acd887a2981084f0b22f53f53b0cae5de209d4172a",
+    "cohortManifestSha256": "694604b1a86af0dc7ea6b39bdef97e3a1f1551f3fb97a3806817a2f1594db449"
+  },
+  "contract": {
+    "path": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/resume-v030-v038/qa-sol/qa/frame-idle-publish-r1-contract/candidate/game",
+    "componentCount": 501,
+    "componentSha256": "aa0b198d80ddd501c3c03ad8b6986ee24d7878cff69679abe1f4f0b6234e86b2",
+    "fullCount": 524,
+    "fullSha256": "28723f3df1bf9e3c485d3a4fd48b811865ee4ecf108ac12dc9d24b6f86d65ced",
+    "onlyExtras": [
+      "tests/test_equipment_damage_private_status_contract.gd",
+      "tests/test_private_status_contract.gd"
+    ],
+    "fixtureSha256": "24da2fad78755689fe786b5b4bd9410a0c3955adbbecf2d9774570eb0c2e897c",
+    "stubSha256": "abc1f7d4efe2ab9fce24cbd899911189d8df04de53011e95c33718266ecebff5",
+    "original174Sha256": "05950d68c513bed13cb1bc8b13dfb376ec9f5c8823bfecf61cb80fb5422d0fa0"
+  },
+  "cost": {
+    "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\frame-idle-publish-r1-root\\cost\\game",
+    "componentCount": 289,
+    "componentSha256": "6452cb9dd7f6d54f8894e5242781f72a5b88cdb5b210ee8bed9b873398724627",
+    "fullCount": 289,
+    "fullSha256": "6452cb9dd7f6d54f8894e5242781f72a5b88cdb5b210ee8bed9b873398724627",
+    "baseFullSha256": "ad4c857ade796e68936e50fcc0f9c1419742acf24251b727ff45c0268ab551cc",
+    "changes": [
+      "scripts/damage.gd",
+      "scripts/equipment_damage.gd"
+    ]
+  },
+  "decision": "EXACT_STAGES_APPROVED_FOR_ONE_BOUNDED_COLD_ONE_NEW_AND_ONE_SUPPLEMENTARY_NATIVE",
+  "limits": [
+    "One shared test lane, sole QA submitter. Pending or queued work is not a pass.",
+    "Original public Batch1 remains held until results and final source decision.",
+    "No OLD rerun, recipe change, extra profiler/capacity run or custom adapter."
+  ]
+}

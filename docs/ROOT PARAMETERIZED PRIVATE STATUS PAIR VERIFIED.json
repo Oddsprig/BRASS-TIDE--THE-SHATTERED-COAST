@@ -1,0 +1,41 @@
+{
+  "classification": "ACTUAL_COMPACT_PRIVATE_STATUS_PARAMETERIZED_PAIR_ACCEPTED",
+  "reviewedAt": "2026-10-26T03:57:50.612Z",
+  "oldJob": "844cacab37594cf990f469614bc259cd",
+  "newJob": "7ac903da822d44838fb08a7340c836cb",
+  "newSource499": "22f8417e040ec43d70ef41166eebab4bd0beab84b8caae3d261f74cb73fd6e4a",
+  "newObserved504": "3db9ca8500cb4177e938a50c0f62a32378a6e4308cee5b8ac18044ef5060fd7d",
+  "nativeProofSha256": "c97fe1d18ff60a3d70f9c0b557f6838a8cbb0105d335bc7a7194039dea35ee01",
+  "comparisonAuditSha256": "09833a7988e1fad0dd4b4795d226545af5951434dc3347f4f5c87de89b888f60",
+  "comparisonResultSha256": "a2582f29336899750cbc91d9f9f8c7002f9edd22e1aafcee5fa50975564f668d",
+  "comparisonCallCount": 1,
+  "completePacketsPerSide": 301,
+  "strictClockAbsenceBoth": true,
+  "actualEngineVersion": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "fullPhysicalTraceSha256Equal": true,
+  "traceSha256": "534a41a81d8fa0f958ce9a33130372361c51a47f3d735889cfe100c4a5366e80",
+  "peakRawBufferedBytes": 1011544,
+  "cumulativeRawBytesPerSide": 22468844,
+  "frozenFilesUnchanged": 702,
+  "permittedOutputFiles": {
+    "small-complete-comparisons/20261026T035254Z-dc09b1d3/comparison.json": "a2582f29336899750cbc91d9f9f8c7002f9edd22e1aafcee5fa50975564f668d"
+  },
+  "rootReranComparator": false,
+  "mergeAccepted": false,
+  "timingEvidence": false,
+  "limits": [
+    "Scope is compact private source22f BEFORE B1a/idle source6591.",
+    "Root independently audited completed native and all301 packets using frozen validators, then verified the single already executed comparator output and immutable file set.",
+    "Not Main UI/save/render/capacity or .031 release acceptance."
+  ]
+}
