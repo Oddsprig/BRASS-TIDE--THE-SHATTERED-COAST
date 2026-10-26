@@ -531,55 +531,41 @@ static func _wpt(projector: Callable, p: Vector2, h: float) -> Vector2:
 	return r if r is Vector2 else Vector2.ZERO
 
 ## samples: path-ordered [{p:Vector2 stern world, d:Vector2 heading, age:float,
-## w:float emission half-width in world units}]. Three polylines per age band:
-## widening V edges + broken centre churn, alpha fading with age. Cheap and curved
-## because it follows the recorded stern path. Returns primitive count.
+## w:float emission half-width in world units}]. A short patch of churn follows
+## the actual stern path. Five pairs of translucent foam patches at most, with
+## no long geometric V rails. All points remain on the water plane.
 static func draw_wake(canvas, projector: Callable, samples: Array, opts: Dictionary = {}) -> int:
-	if samples.size() < 2:
-		return 0
-	var life := float(opts.get("life", WAKE_LIFE))
-	var left := PackedVector2Array()
-	var right := PackedVector2Array()
-	var mid := PackedVector2Array()
-	var n := 0
+	var life: float=minf(1.8,maxf(0.1,float(opts.get("life",WAKE_LIFE))))
+	var live: Array=[]
 	for s in samples:
-		if not (s is Dictionary):
-			continue
-		var age := clampf(float(s.get("age", 0.0)), 0.0, life)
-		var p: Vector2 = s.get("p", Vector2.ZERO)
-		var d: Vector2 = s.get("d", Vector2.RIGHT)
-		if d.length_squared() < 0.001:
-			d = Vector2.RIGHT
-		var perp := d.normalized().orthogonal()
-		var w := float(s.get("w", 8.0)) * (1.0 + age * 0.85)
-		left.append(_wpt(projector, p + perp * w, 0.0))
-		right.append(_wpt(projector, p - perp * w, 0.0))
-		mid.append(_wpt(projector, p + perp * w * (0.16 if mid.size()%2==0 else -0.16), 0.0))
-	if left.size() < 2:
-		return 0
-	# Samples arrive oldest-first. Draw up to 4 contiguous age bands (<=12
-	# primitives per boat) so the tail visibly fades and widens behind.
-	var ages: Array = []
-	for s in samples:
-		ages.append(clampf(float(s.get("age", life)), 0.0, life) if s is Dictionary else life)
-	var bands := mini(4, left.size() - 1)
-	var per := int(ceil(float(left.size()) / float(bands)))
-	for b in range(bands):
-		var i0 := b * per
-		var i1 := mini(left.size() - 1, (b + 1) * per)
-		if i1 <= i0:
-			continue
-		var mean_age := 0.0
-		for i in range(i0, i1 + 1):
-			mean_age += float(ages[mini(i, ages.size() - 1)])
-		mean_age /= float(i1 - i0 + 1)
-		var a_edge := 0.52 * clampf(1.0 - mean_age / life, 0.0, 1.0)
-		if a_edge < 0.01:
-			continue
-		canvas.draw_polyline(left.slice(i0, i1 + 1), Color(0.82,0.96,0.92,a_edge), 1.4)
-		canvas.draw_polyline(right.slice(i0, i1 + 1), Color(0.82,0.96,0.92,a_edge), 1.4)
-		canvas.draw_polyline(mid.slice(i0, i1 + 1), Color(0.92,0.99,0.95,a_edge*0.82), 3.2)
-		n += 3
+		if s is Dictionary and s.get("p") is Vector2 and float(s.get("age",life))>=0.0 and float(s.get("age",life))<life:
+			live.append(s)
+	if live.size()<2:return 0
+	var n: int=0
+	var bands: int=mini(5,live.size()-1)
+	for band in range(bands):
+		var a: Dictionary=live[int(roundf(float(band)*(live.size()-1)/bands))]
+		var b: Dictionary=live[int(roundf(float(band+1)*(live.size()-1)/bands))]
+		var delta: Vector2=b.p-a.p
+		var width: float=maxf(0.5,float(b.get("w",5.0)))
+		# A discontinuity in the recorded voyage never draws a line across the sea.
+		if delta.length_squared()<0.01 or delta.length()>maxf(80.0,width*20.0):continue
+		var side: Vector2=delta.normalized().orthogonal()
+		var ta: float=clampf(float(a.age)/life,0.0,1.0)
+		var tb: float=clampf(float(b.age)/life,0.0,1.0)
+		var wa: float=maxf(0.5,float(a.get("w",width)))*(0.32+ta*0.38)
+		var wb: float=width*(0.32+tb*0.38)
+		var fade: float=pow(1.0-(ta+tb)*0.5,1.4)
+		var outer:=PackedVector2Array([
+			_wpt(projector,a.p+side*wa,0),_wpt(projector,b.p+side*wb,0),
+			_wpt(projector,b.p-side*wb,0),_wpt(projector,a.p-side*wa,0)])
+		canvas.draw_colored_polygon(outer,Color(0.62,0.85,0.83,fade*0.20))
+		var shift: float=(0.12 if band%2==0 else -0.12)*width
+		var core:=PackedVector2Array([
+			_wpt(projector,a.p+side*(wa*0.48+shift),0),_wpt(projector,b.p+side*(wb*0.55-shift),0),
+			_wpt(projector,b.p-side*(wb*0.42+shift),0),_wpt(projector,a.p-side*(wa*0.58-shift),0)])
+		canvas.draw_colored_polygon(core,Color(0.88,0.96,0.92,fade*0.48))
+		n+=2
 	return n
 
 ## points: [{p:Vector2, age:float, life:float}] fading dots for torpedo foam
