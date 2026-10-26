@@ -200,7 +200,7 @@ static func place_on_water(nav: Dictionary, point: Dictionary) -> Dictionary:
 		return {"ok": false, "point": {}, "moved": false}
 	var nodes: Array = nav["nodes"]
 	var edges = nav.get("edges")
-	var has_edges := edges is Array and edges.size() == nodes.size()
+	var has_edges: bool = edges is Array and edges.size() == nodes.size()
 	var target := Vector2(float(current["x"]), float(current["y"]))
 	var best: Dictionary = {}
 	var best_dist := INF
