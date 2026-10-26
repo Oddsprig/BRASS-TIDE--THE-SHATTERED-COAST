@@ -678,6 +678,26 @@ static func _project_from_records(condition: Dictionary, records: Dictionary) ->
 		projected.legacyEngineSynced = float(condition.legacyEngineSynced)
 	return projected
 
+static func _project_publish_fields(condition: Dictionary) -> Dictionary:
+	var records: Dictionary = _records(condition)
+	if not records.ok:
+		return records
+	return _publish_fields_from_records(condition, records)
+
+static func _project_publish_fields_numeric(condition: Dictionary) -> Dictionary:
+	var records: Dictionary = _records_numeric(condition)
+	if not records.ok:
+		return records
+	return _publish_fields_from_records(condition, records)
+
+static func _publish_fields_from_records(condition: Dictionary, records: Dictionary) -> Dictionary:
+	# Publish stores engine and locker counts only. Installed rows are not built.
+	var projected: Dictionary = {"ok": true, "refitLocker": _locker_counts(condition), "hasEngine": records.hasEngine}
+	if records.hasEngine:
+		projected.engineHp = records.engineHp
+		projected.legacyEngineSynced = float(condition.legacyEngineSynced)
+	return projected
+
 static func _context_of(request: Dictionary) -> Dictionary:
 	if not request.has("mountCount") or not request.has("hullType"):
 		return _fail("The hull mount count and hull type are required.")

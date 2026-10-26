@@ -1,0 +1,58 @@
+{
+  "classification": "WORKING_SOURCE_INTEGRATION_SCOPED_NATIVE_PROOFS_NOT_RELEASE",
+  "integratedAt": "2026-10-26T04:26:58.420Z",
+  "parentHead": "adc273189d786d79d53431eb5272f739bbd4d826",
+  "runtimeFiles": [
+    {
+      "path": "scripts/damage.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\frame-idle-publish-r1-root\\prototype\\game\\scripts\\damage.gd",
+      "target": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\game\\scripts\\damage.gd",
+      "beforeSha256": "69b01f77a75bf7543ac0b59983053669a2a32dae2381d805ae70ef0eb30f3516",
+      "afterSha256": "58738cbdf0c1f6ba2da5493b0575f1f02ba905d99527b7b9d21ecac3c55147da",
+      "beforeBytes": 25641,
+      "afterBytes": 26224
+    },
+    {
+      "path": "scripts/equipment_condition.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\frame-idle-publish-r1-root\\prototype\\game\\scripts\\equipment_condition.gd",
+      "target": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\game\\scripts\\equipment_condition.gd",
+      "beforeSha256": "a9c26f8e1c003314389b57914c1883e77647ce9e7b2b2e10d4a9094c4cd3b44e",
+      "afterSha256": "56eb0af59e7cd040fb57b0a3061c302df759c335cfc577b3712258ae387a4b59",
+      "beforeBytes": 52411,
+      "afterBytes": 53305
+    },
+    {
+      "path": "scripts/equipment_damage.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\frame-idle-publish-r1-root\\prototype\\game\\scripts\\equipment_damage.gd",
+      "target": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\game\\scripts\\equipment_damage.gd",
+      "beforeSha256": "a892a7b062632524625b678c07cdcd77c8274bdd236da3628d188a65c8f584d9",
+      "afterSha256": "c364de093cf5900c8a8d4e746d09352c5e5156b0f885fefb13c81e766130ee1b",
+      "beforeBytes": 30747,
+      "afterBytes": 34005
+    },
+    {
+      "path": "scripts/equipment_records.gd",
+      "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\resume-v030-v038\\qa-sol\\qa\\frame-idle-publish-r1-root\\prototype\\game\\scripts\\equipment_records.gd",
+      "target": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\outputs\\brass-tide\\game\\scripts\\equipment_records.gd",
+      "beforeSha256": "6d392621229888b8ee92707e49d97623b633ac5a92234d4a4e1b3628a1b54253",
+      "afterSha256": "f79987b7e0165920c0ff8e4add7a864d344ac47f67fc46db863ffd32c031061e",
+      "beforeBytes": 22176,
+      "afterBytes": 23990
+    }
+  ],
+  "acceptedEvidence": {
+    "battlePair": "ROOT PARAMETERIZED IDLE PUBLISH PAIR VERIFIED.json",
+    "cold": "ROOT IDLE PUBLISH R1 COLD VERIFIED.json",
+    "supplementary931": "ROOT IDLE PUBLISH R1 CONTRACT VERIFIED.json",
+    "core90Reuse": "ROOT CORE90 CALLED CLOSURE REUSE.json"
+  },
+  "otherRuntimeOrDataDifferences": [],
+  "boats": 24,
+  "build": 30,
+  "versionBumped": false,
+  "releaseAccepted": false,
+  "performanceAccepted": false,
+  "exported": false,
+  "launcherChanged": false,
+  "notes": "Original Windows artifacts/tags/saves/music preserved. .031 full Main/UI/save/public broader/behavior/capacity/release gates remain open; isolated evidence is not whole-Main acceptance."
+}

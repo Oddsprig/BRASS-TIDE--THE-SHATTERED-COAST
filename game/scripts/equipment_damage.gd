@@ -529,10 +529,50 @@ static func apply_hit_equipment(boat: Dictionary, hit: Dictionary, impact: float
 	}
 
 static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, options: Dictionary = {}) -> Dictionary:
-	return _repair_step_from_info(boat, h, crew_repair, options, inspect_owner(boat), Core.repair_installed, Core.apply_component_damage, Records.publish)
+	return _tick_repair_step_from_info(boat, h, crew_repair, options, inspect_owner(boat))
+
+static func _tick_repair_step_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary) -> Dictionary:
+	return _repair_step_from_info(boat, h, crew_repair, options, info, Core.repair_installed, Core.apply_component_damage, Records.publish)
 
 static func _tick_repair_numeric(boat: Dictionary, h: float, crew_repair: float, options: Dictionary = {}) -> Dictionary:
-	return _repair_step_from_info(boat, h, crew_repair, options, _repair_guard_numeric(boat), Core._repair_installed_numeric, Core._apply_component_damage_numeric, Records._publish_numeric)
+	return _tick_repair_numeric_from_info(boat, h, crew_repair, options, _repair_guard_numeric(boat))
+
+static func _tick_repair_numeric_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary) -> Dictionary:
+	return _repair_step_from_info(boat, h, crew_repair, options, info, Core._repair_installed_numeric, Core._apply_component_damage_numeric, Records._publish_numeric)
+
+static func _tick_repair_rollout_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary) -> Dictionary:
+	# Only Damage._tick_canonical_numeric calls this, after that call's pre-loop _publish_numeric.
+	# info is this step's _numeric_rollout_info result, taken before the water write. Same quantum: no second item walk.
+	# The pre-loop refitLocker object stays. A replacement locker from publish is not an external identity.
+	# Live tick_ship boats do not use this adapter. A failed gate tail-calls the original numeric repair.
+	if not (info is Dictionary) or not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical":
+		return _tick_repair_numeric_from_info(boat, h, crew_repair, options, info)
+	if not (boat is Dictionary) or not (boat.get("moduleCondition") is Dictionary):
+		return _tick_repair_numeric_from_info(boat, h, crew_repair, options, info)
+	var h_idle: float = maxf(0.0, number(h))
+	var crew_idle: float = maxf(0.0, number(crew_repair))
+	var available_work: float = crew_idle * h_idle
+	var priority: String = str(options.get("priority", boat.moduleCondition.get("repairPriority", "auto")))
+	var fire_before: float = clampf(number(boat.get("fire")), 0.0, 100.0)
+	if not priority in Core.PRIORITIES or fire_before > 0.0 or not (available_work <= Core.EPS):
+		return _tick_repair_numeric_from_info(boat, h, crew_repair, options, info)
+	var work_by_task: Dictionary = empty_task_map()
+	var supplies_by_task: Dictionary = empty_task_map()
+	var used_work: float = float(work_by_task["fire"]) + float(work_by_task["patch"]) + float(work_by_task["machinery"]) + float(work_by_task["hull"])
+	var used_supplies: float = float(supplies_by_task["patch"]) + float(supplies_by_task["machinery"]) + float(supplies_by_task["hull"])
+	return {
+		"ok": true,
+		"availableWork": available_work,
+		"usedWork": used_work,
+		"usedSupplies": used_supplies,
+		"workByTask": work_by_task,
+		"suppliesByTask": supplies_by_task,
+		"patchedArea": 0.0,
+		"repairedHullHp": 0.0,
+		"repairedModuleHp": 0.0,
+		"suppressedFire": 0.0,
+		"moduleChanges": []
+	}
 
 static func _repair_guard_numeric(boat: Dictionary) -> Dictionary:
 	# Same Core._records_numeric refusal as the numeric snapshot. Fresh dict; no item or factor copies.
@@ -547,8 +587,10 @@ static func _repair_guard_numeric(boat: Dictionary) -> Dictionary:
 	return {"ok": true, "mode": "canonical", "needsInitialize": false}
 
 static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, repair_parts: Callable, damage_part: Callable, publish: Callable) -> Dictionary:
-	if not info.ok or str(info.mode) != "canonical":
-		return _fail(str(info.get("error", "Equipment condition is not initialized.")))
+	if not (info is Dictionary) or not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical":
+		return _fail(str(info.get("error", "Equipment condition is not initialized.")) if info is Dictionary else "Equipment condition is not initialized.")
+	if not (boat is Dictionary) or not (boat.get("moduleCondition") is Dictionary):
+		return _fail("Equipment condition is not initialized.")
 	h = maxf(0.0, number(h))
 	crew_repair = maxf(0.0, number(crew_repair))
 	var priority: String = str(options.get("priority", boat.moduleCondition.get("repairPriority", "auto")))
@@ -687,6 +729,13 @@ static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: floa
 static func _numeric_info(boat: Dictionary) -> Dictionary:
 	# Only the closed private prefix may call this after strict owner validation.
 	var snap: Dictionary = Records._snapshot_numeric(boat)
+	if not snap.ok:
+		return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": str(snap.get("error", "Invalid numerical equipment state."))}
+	return {"ok": true, "mode": "canonical", "needsInitialize": false, "snapshot": snap}
+
+static func _numeric_rollout_info(boat: Dictionary) -> Dictionary:
+	# Same four-field wrapper as _numeric_info. Snapshot is the private status readout.
+	var snap: Dictionary = Records._rollout_status_fields(boat)
 	if not snap.ok:
 		return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": str(snap.get("error", "Invalid numerical equipment state."))}
 	return {"ok": true, "mode": "canonical", "needsInitialize": false, "snapshot": snap}

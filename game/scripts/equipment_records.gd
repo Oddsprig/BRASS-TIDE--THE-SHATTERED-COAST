@@ -398,13 +398,13 @@ static func publish(boat: Dictionary) -> Dictionary:
 		return _fail("Unrecognized condition metadata was left untouched.")
 	if not boat.has("moduleCondition") or not boat.moduleCondition is Dictionary:
 		return _fail("Equipment condition is not initialized.")
-	var projected: Dictionary = Core.project(boat.moduleCondition)
+	var projected: Dictionary = Core._project_publish_fields(boat.moduleCondition)
 	if not projected.ok:
 		return projected
 	return _publish_projection(boat, projected)
 
 static func _publish_numeric(boat: Dictionary) -> Dictionary:
-	var projected: Dictionary = Core._project_numeric(boat.moduleCondition)
+	var projected: Dictionary = Core._project_publish_fields_numeric(boat.moduleCondition)
 	if not projected.ok:
 		return projected
 	return _publish_projection(boat, projected)
@@ -510,6 +510,48 @@ static func _snapshot_from_projection(boat: Dictionary, projected: Dictionary) -
 		"pumpFactor": pump_factor,
 		"armorFactor": armor_factor,
 		"weaponFactors": weapon_factors.duplicate(true)
+	}
+
+static func _rollout_status_fields(boat: Dictionary) -> Dictionary:
+	# Private readout for the owned numeric rollout. Same refusal object as _snapshot_numeric.
+	# Installed values are new dictionaries. Factor calls use the live winner, which does not leave.
+	var records: Dictionary = Core._records_numeric(boat.moduleCondition)
+	if not records.ok:
+		return records
+	var _birth_namespace: String = str(boat.moduleCondition.birthNamespace)
+	var _next_item_seq: int = int(boat.moduleCondition.nextItemSeq)
+	var priority: String = str(boat.moduleCondition.repairPriority)
+	var rows: Array = []
+	for key in Core._uid_list(boat.moduleCondition):
+		var item: Dictionary = boat.moduleCondition.items[key]
+		if str(item.location) == "locker":
+			continue
+		rows.append(item)
+	rows.sort_custom(func(a, b): return Core._location_rank(str(a.location)) < Core._location_rank(str(b.location)))
+	var installed: Dictionary = {}
+	var live: Dictionary = {}
+	for item in rows:
+		var loc: String = str(item.location)
+		installed[loc] = {"family": str(item.get("family", "")), "hp": float(item.get("hp", 1.0))}
+		live[loc] = item
+	var engine_item: Dictionary = live.get("engine", {})
+	var pump_item: Dictionary = live.get("pumps", {})
+	var armor_item: Dictionary = live.get("armor", {})
+	var engine_hp: float = float(engine_item.hp) if not engine_item.is_empty() else 0.0
+	var weapon_factors: Dictionary = {}
+	for loc in MOUNT_LOCATIONS:
+		if live.has(loc):
+			weapon_factors[loc] = _factor_for(live[loc])
+	return {
+		"ok": true,
+		"needsInitialize": false,
+		"repairPriority": priority,
+		"installed": installed,
+		"engineHp": engine_hp,
+		"engineFactor": _factor_for(engine_item),
+		"pumpFactor": _factor_for(pump_item),
+		"armorFactor": _factor_for(armor_item),
+		"weaponFactors": weapon_factors
 	}
 
 static func _absorb_legacy_numeric(boat: Dictionary) -> Dictionary:

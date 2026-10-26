@@ -4,31 +4,34 @@ Native project: game/. Canonical catalogue/geography: game/data/world.json. See
 maps/PROJECT MAP.txt for sizes and targeted maps/ files for actual symbols/lines.
 Historical JS prototype is archived. Planned modules do not exist until implemented.
 
-ACTIVE PERFORMANCE WORK - 25 OCTOBER 2026
-Working runtime remains d4b0b67; candidate changes below stay isolated.
-Compact private-status NEW7ac passed actual57/0. Root independently consumed
-all301 packets through frozenR2 and strict5117, verified actual4.7.2 and source
-provenance, then checked the single frozen comparator output. OLD844c and NEW7ac
-have equal full physical traceSHA534a41a8 and all decompressed typed bytes.
-No replay, normalization or added omission;702 frozen files remain unchanged.
-Scope is raw22f/observed3db9 BEFORE the later B1a/idle changes, not Main release.
-See ROOT PARAMETERIZED PRIVATE STATUS PAIR VERIFIED.json and native proof.
-Earlier original cold93f1 passed51/0 with exact recorded-payload equality versus
-78c;181.146ms whole/118.322AI/62.824OTHER per cold update remains too slow.
-No causal gain/FPS/capacity claim follows from those24 cold observations.
-B1a reuses only the final actual inspection for the immediate live-frame cache
-store. Private idle repair skips redundant numeric publication only when fire
-is zero and actual sanitized crew*h<=EPS; every other case uses original repair.
-Root reversal/read and cross-family peers passed source review; no speed claim.
-Final raw499/6591 and full522/fe2c are source-verified. Observed504/030c/full527/5e4e
-passes frozen paired SOURCE audit. Supplementary501/aa0b/full524/2872 adds only
-the unchanged whole-boat R2 contract and inherited one-line test entry.
-The final batch was queued: cold c7a103eb1def4470afeb9ca34c3f1f7d; small witness
-4afbab38425b4ab3b3faea0cbe64a503; contract d761bb6e0e0348dc9737db5a12bba2d8.
-Queued work is not a pass. QA Sol owns the shared serialized lane; no foreground
-tests or computer input. Core90 called-closure reuse is accepted narrowly;
-Records89/Damage174 and broader gates remain held for final-source decision.
-.031 is unreleased. Recovery hold notes for.032 are planning only.
+ACTIVE PERFORMANCE WORK - 26 OCTOBER 2026
+The verified equipment baseline is now integrated into working game source.
+Damage5873/EqDamagec364/Core56eb/Recordsf799 exactly match raw499/6591. Root
+compared every staged runtime script and JSON data file with Main: no other
+differences. This is scoped integration, not whole-scene or release acceptance.
+Root integration receipt: ROOT IDLE BASELINE MAIN INTEGRATION.json.
+Cold c7a passed51/0 with exact recorded-payload equality against BOTH78c and93f1.
+Observed24-update means:151.118ms whole,101.023AI,50.095OTHER. This remains too
+slow. Cold data establishes no causal gain, rendered FPS or sustained capacity.
+Small witness4af passed57/0. Root independently consumed all301 packets through
+frozenR2 and strict5117 and verified source/engine bindings. The single strict
+comparison with genuineOLD844c matched every typed byte; full traceSHA534a41a8.
+All703 prior frozen files remain unchanged; no new omission, replay or normalization.
+Supplementaryd761 passed931/0: whole-owned-boat/status bytes, detached observers,
+actual eligible engine HP gain with supply debit, and private guard-domain cases.
+It is separate from original equipment_damage174. Root audited native/outer/
+input/tool/lane evidence for all3; see the five new Root native/integration proofs.
+Two larger context prototypes remain isolated: Grok handles private-prefix reuse;
+Argon handles one-call live tick reuse with strict entry and fresh public mirrors.
+They keep actual shared numerical loops. Neither has native acceptance.
+Public Records89/Damage174 and remaining installed/tactical/Main/UI/save/motion/
+capacity/Windows gates remain held for the final source. Pure Core90 reuse is
+accepted only under its isolated called-closure proof. Shared test lane, hidden/
+headless/Dummy/BelowNormal profiles; no computer input or unrelated app control.
+Build remains30,24boats. .031 is unreleased; .030 untested/.029 verified artifacts,
+tags, owner saves/music and launcher remain preserved. Recovery hold.032 notes
+are planning only.
+
 
 
 LIVE-FRAME CANDIDATE CHECKPOINT - 25 OCTOBER 2026

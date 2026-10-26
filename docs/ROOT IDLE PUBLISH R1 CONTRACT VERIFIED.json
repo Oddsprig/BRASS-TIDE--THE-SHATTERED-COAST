@@ -1,0 +1,37 @@
+{
+  "classification": "ACTUAL_SUPPLEMENTARY_PRIVATE_STATUS_CONTRACT_NATIVE_VERIFIED",
+  "native": {
+    "jobId": "d761bb6e0e0348dc9737db5a12bba2d8",
+    "suite": "private_status_contract",
+    "family": "",
+    "outcome": "passed",
+    "checks": 931,
+    "failures": 0,
+    "inputSha256": "aa0b198d80ddd501c3c03ad8b6986ee24d7878cff69679abe1f4f0b6234e86b2",
+    "inputCount": 501,
+    "nativeWallSeconds": 0.5630000000019209,
+    "timeout": false,
+    "artifactFolder": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\d761bb6e0e0348dc9737db5a12bba2d8\\attempt-001",
+    "errors": [],
+    "artifactHashes": {
+      "bridge-result.json": "53aa4a740703b75a0f9848773b32c135f3ed8d1a5d6f83c2713d03f26208e22c",
+      "execution.json": "f4aeb0211ead2b8d8dfb2d68f6068b2b6652d669c7ec311103cc8bb3c127d973",
+      "inputs-after.json": "2bb7c720823605f404246857862e3a4f67aa2608fd4919ad1d662886664e0957",
+      "inputs-before.json": "2bb7c720823605f404246857862e3a4f67aa2608fd4919ad1d662886664e0957",
+      "lane.log": "705861dec99941ecebfeea04b3b1a947a8bf51b79ec0704e8d65a5710ca00116",
+      "native-receipt.json": "de402da5833c2fb28f05b78fb428c8c5edb94f1ccedbbb0f78009152487f39a4",
+      "native.log": "8b082442f0f8544beefa7f97eceb298024ab2ded08329061a8bd1a351c36e3a0",
+      "owned.json": "43a7a0471e32647609a2ea874154d4f49e6d9a3a1235f6e98731c8745709fcec",
+      "process.json": "820943368f043654f2e161e9e9b586a022be29d6a3fe09223c8cd137eefa4408",
+      "request.json": "725af538cf1c5652423ee119330820e4ec4960113a09f09ee1ceda3649c35e34",
+      "result.json": "64dd9003fefb8bfc28932c016eccda016dc70fdd6a699ae94f4d8a18b5ff68a9",
+      "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.log": "72515214a31038993d26a28eab947fd1fb1ea14972251a44cdeac377d7fe699c",
+      "verified-report.json": "64dd9003fefb8bfc28932c016eccda016dc70fdd6a699ae94f4d8a18b5ff68a9"
+    }
+  },
+  "original174Claimed": false,
+  "fullOwnedBoatComparison": true,
+  "realRepairGainAndSuppliesAssertions": true,
+  "releaseAccepted": false
+}

@@ -320,9 +320,10 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 	var events: Array=[]
 
 	if mode == "canonical":
-		var status_can: Dictionary = _tick_canonical_with(s, dt, _options, get_status, EquipmentDamage.tick_repair_step, EquipmentDamage.Records.publish, EquipmentDamage.Records.absorb_legacy_damage)
+		var out_info = {} if frame_cache is Dictionary else null
+		var status_can: Dictionary = _tick_canonical_with(s, dt, _options, EquipmentDamage.inspect_owner, EquipmentDamage._tick_repair_step_from_info, EquipmentDamage.Records.publish, EquipmentDamage.Records.absorb_legacy_damage, out_info)
 		if frame_cache is Dictionary and bool(status_can.get("equipmentOk", false)):
-			_store_cached_info(s, EquipmentDamage.inspect_owner(s), frame_cache)
+			_store_cached_info(s, out_info.get("info", {}), frame_cache)
 		return status_can
 
 	while dt>0.00000001 and not s.sunk:
@@ -366,22 +367,28 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 
 
 static func _tick_canonical_numeric(s: Dictionary, dt: float, options: Dictionary) -> Dictionary:
-	return _tick_canonical_with(s, dt, options, _get_status_numeric, EquipmentDamage._tick_repair_numeric, EquipmentDamage.Records._publish_numeric, EquipmentDamage.Records._absorb_legacy_numeric)
+	return _tick_canonical_with(s, dt, options, EquipmentDamage._numeric_rollout_info, EquipmentDamage._tick_repair_rollout_from_info, EquipmentDamage.Records._publish_numeric, EquipmentDamage.Records._absorb_legacy_numeric)
 
-static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable) -> Dictionary:
+static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null) -> Dictionary:
 	var total_in: float=0.0
 	var total_bail: float=0.0
 	var total_repair: float=0.0
 	var elapsed: float=0.0
 	var events: Array=[]
 	if _options is Dictionary and _options.has("priority") and not str(_options.get("priority")) in EquipmentDamage.Core.PRIORITIES:
-		var bad_status: Dictionary = status_fn.call(s)
+		var bad_info: Dictionary = status_fn.call(s)
+		if out_info is Dictionary:
+			out_info["info"] = bad_info
+		var bad_status: Dictionary = _status_for_info(s, bad_info)
 		bad_status.equipmentOk = false
 		bad_status.equipmentError = "Repair priority is unknown."
 		return bad_status
 	var absorbed: Dictionary = absorb_fn.call(s)
 	if not absorbed.ok:
-		return status_fn.call(s)
+		var absorbed_info: Dictionary = status_fn.call(s)
+		if out_info is Dictionary:
+			out_info["info"] = absorbed_info
+		return _status_for_info(s, absorbed_info)
 	publish_fn.call(s)
 	var total_avail_work: float = 0.0
 	var total_used_work: float = 0.0
@@ -397,12 +404,13 @@ static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary,
 		var h_can: float = dt if dt <= step_cap + 0.0000001 else step_cap
 		if absf(dt - 2.0 * step_cap) <= 0.0000001:
 			h_can = dt * 0.5
-		var t_can: Dictionary = status_fn.call(s)
+		var step_info: Dictionary = status_fn.call(s)
+		var t_can: Dictionary = _status_for_info(s, step_info)
 		var before_can: float = s.water
 		s.water = clampf(s.water + (t_can.inflow - t_can.bailing) * h_can, 0.0, s.capacity)
 		total_in += t_can.inflow * h_can
 		total_bail += minf(t_can.bailing * h_can, before_can + t_can.inflow * h_can)
-		var step_res: Dictionary = repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {})
+		var step_res: Dictionary = repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {}, step_info)
 		if not step_res.ok:
 			break
 		total_repair += float(step_res.patchedArea)
@@ -428,7 +436,10 @@ static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary,
 		elapsed+=h_can
 		if s.sunk:
 			events.append("Ship sunk")
-	var status_can: Dictionary = status_fn.call(s)
+	var final_info: Dictionary = status_fn.call(s)
+	if out_info is Dictionary:
+		out_info["info"] = final_info
+	var status_can: Dictionary = _status_for_info(s, final_info)
 	if elapsed>0.0:
 		status_can.inflow=total_in/elapsed
 		status_can.bailing=total_bail/elapsed
