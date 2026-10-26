@@ -7,6 +7,7 @@ const Lab=preload("res://scripts/fleet_lab.gd")
 const Battle=preload("res://scripts/battle.gd")
 const Certification=preload("res://scripts/tactical_certification.gd")
 const Planner=preload("res://scripts/tactical_planner.gd")
+const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
 const Benchmark=preload("res://scripts/runtime_benchmark.gd")
 const DT: float=1.0/60.0
@@ -88,6 +89,54 @@ func cache_checks(source: Dictionary) -> void:
 	for tick in range(Damage.OWNER_CACHE_FRAMES):Damage.begin_frame_cache(cache,[fresh])
 	check(cache.is_empty(),"unchanged proof still expires after twelve live physics frames")
 
+func route_budget() -> Dictionary:
+	return {"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"clearanceLimit":4096,"exhaustions":0,"rolled":{}}
+
+func route_state(ship: Dictionary,islands: Array,allies: Array=[]) -> Dictionary:
+	var st: Dictionary={"time":0.0,"islands":islands}
+	var t: Dictionary=Tactical.ensure(st)
+	t.ships[str(ship.id)]=ship;t.dt=DT;t.snapshotRevision=1
+	t.cells=Routes.grid([ship]+allies);t.geometry=Routes.terrain(st)
+	return st
+
+func route_checks(source: Dictionary) -> void:
+	var ship: Dictionary=source.duplicate(true)
+	ship.x=600.0;ship.y=850.0;ship.vx=0.0;ship.vy=0.0
+	ship.status=Damage.get_status(ship);ship.mounts=[]
+	var candidate: Dictionary={"candidateId":"route-fixture","shipId":str(ship.id),"targetId":"","leaderId":"","role":"skirmisher","sector":-1,"approach":[Vector2(600,850),Vector2(1400,850)],"pass":[Vector2(1400,850)],"exit":[Vector2(1500,850)],"fireMountIds":[],"orderRevision":int(ship.orderRevision),"snapshotRevision":1}
+	var island: Dictionary={"points":[[900,750],[1100,750],[1100,950],[900,950]]}
+	var comparisons: Array=[]
+	for islands: Array in [[],[island]]:
+		var trial_reference: Dictionary=route_state(ship,islands)
+		var trial_live: Dictionary=route_state(ship,islands)
+		var trial_old_budget: Dictionary=route_budget();var trial_new_budget: Dictionary=route_budget()
+		var trial_old_route: Dictionary=Routes.refine(trial_reference,trial_reference.tactical.geometry,ship,candidate,trial_old_budget)
+		var trial_new_route: Dictionary=Routes.refine_live(trial_live,trial_live.tactical.geometry,ship,candidate,trial_new_budget)
+		check(trial_old_route.status=="valid" and trial_new_route.status=="valid","reference and combined walk find complete clear-water or island-detour routes")
+		if trial_old_route.status!="valid" or trial_new_route.status!="valid":continue
+		check(trial_old_route.candidate==trial_new_route.candidate and (islands.is_empty() or trial_new_route.candidate.approach.size()>candidate.approach.size()),"combined walk preserves every approach/pass/exit point including a real land detour")
+		var view: Dictionary={"snapshotRevision":1,"terrainRevision":trial_reference.tactical.terrainRevision,"time":0.0,"dt":DT,"side":str(ship.team),"dueIds":[str(ship.id)],"ships":[ship]}
+		var fingerprint: String=Planner.fingerprint(trial_old_route.candidate)
+		var old_cert: Dictionary=Certification.certify_live(trial_reference,view,ship,trial_old_route.candidate,fingerprint,trial_old_budget)
+		var new_cert: Dictionary=Certification._certify_refined_live(trial_live,view,ship,trial_new_route,fingerprint,trial_new_budget)
+		check(old_cert.status=="valid" and old_cert==new_cert,"same-begin corridor result produces the complete unchanged live certificate")
+		check(int(trial_new_budget.clearanceTests)<int(trial_old_budget.clearanceTests),"complete valid route uses fewer bounded clearance operations")
+		comparisons.append({"islandDetour":not islands.is_empty(),"referenceClearance":trial_old_budget.clearanceTests,"combinedClearance":trial_new_budget.clearanceTests})
+	# The approach crosses an actual ally. Its later pass crosses land and would
+	# need a graph search, but no complete maneuver can use that blocked approach.
+	var ally: Dictionary=ship.duplicate(true);ally.id="route-blocker";ally.x=675.0
+	candidate.approach=[Vector2(600,850),Vector2(750,850)];candidate.pass=[Vector2(750,850),Vector2(1400,850)]
+	var reference: Dictionary=route_state(ship,[island],[ally]);var live: Dictionary=route_state(ship,[island],[ally])
+	var old_budget: Dictionary=route_budget();var new_budget: Dictionary=route_budget()
+	var old_route: Dictionary=Routes.refine(reference,reference.tactical.geometry,ship,candidate,old_budget)
+	var new_route: Dictionary=Routes.refine_live(live,live.tactical.geometry,ship,candidate,new_budget)
+	check(old_route.status=="valid" and Certification.corridor(reference,ship,old_route.candidate,old_budget).status=="blocked" and new_route.status=="blocked","combined walk rejects the same actual allied approach conflict")
+	check(int(old_budget.fullRoutes)>0 and int(new_budget.fullRoutes)==0 and int(new_budget.clearanceTests)<int(old_budget.clearanceTests),"blocked approach stops before the unusable pass/exit graph search")
+	var pending_budget: Dictionary=route_budget();pending_budget.clearanceLimit=0
+	check(Routes.refine_live(live,live.tactical.geometry,ship,candidate,pending_budget).status=="pending","exhausted route work remains pending and grants no corridor proof")
+	report.routeComparisons=comparisons
+	report.blockedApproach={"referenceClearance":old_budget.clearanceTests,"combinedClearance":new_budget.clearanceTests,"referenceSearches":old_budget.fullRoutes,"combinedSearches":new_budget.fullRoutes}
+
 func authority_checks(st: Dictionary) -> void:
 	var ship: Dictionary=st.ships[0]
 	ship.x=600.0;ship.y=850.0
@@ -130,6 +179,7 @@ func run() -> void:
 	check(bool(created.get("ok",false)),"canonical fixture boats use actual public fitting and deployment")
 	if bool(created.get("ok",false)):
 		cache_checks(created.battle.ships[0])
+		route_checks(created.battle.ships[0])
 		authority_checks(created.battle)
 		var benchmark=Benchmark.new()
 		benchmark.action_sample(world,report,started)

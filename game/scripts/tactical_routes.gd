@@ -182,18 +182,39 @@ static func route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: f
 	return {"status":"blocked","path":[]}
 
 static func refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary) -> Dictionary:
+	return _refine(st,geometry,ship,candidate,budget,false)
+
+static func refine_live(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary) -> Dictionary:
+	# One synchronous route/corridor walk. Each returned edge already passed
+	# terrain at planning_radius (at least hull radius+4); check allied traffic
+	# as that edge is built, before searching an unusable pass or exit.
+	return _refine(st,geometry,ship,candidate,budget,true)
+
+static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,live_corridor: bool) -> Dictionary:
 	var result: Dictionary=candidate.duplicate(true)
 	var previous: Vector2=point(ship)
 	var total: int=0
+	var elapsed: float=0.0
+	var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+4.0
+	var speed: float=1.0
+	if live_corridor:speed=maxf(1.0,float(ship.spec.get("speed",90))*float(ship.status.speedFactor)*(1.0 if float(ship.fuel)>0.0 else 0.2)*0.8)
 	for leg in ["approach","pass","exit"]:
 		var points: Array=[]
 		for goal in candidate.get(leg,[]):
 			if not goal is Vector2 or not goal.is_finite():return {"status":"blocked","candidate":result}
 			var found: Dictionary=route(st,geometry,previous,goal,planning_radius(ship),budget)
 			if found.status!="valid":return {"status":found.status,"candidate":result}
+			if live_corridor:
+				var cursor: Vector2=previous
+				for waypoint: Vector2 in found.path:
+					var until: float=elapsed+cursor.distance_to(waypoint)/speed
+					var traffic: String=occupied(st.tactical.cells,ship,cursor,waypoint,radius,elapsed,until,budget)
+					if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking allied traffic" if traffic=="pending" else "Ally occupies this approach"}
+					elapsed=until;cursor=waypoint
 			points.append_array(found.path)
 			if points.size()>8:return {"status":"blocked","candidate":result}
 			previous=goal
 		result[leg]=points;total+=points.size()
 	if total>24:return {"status":"blocked","candidate":result}
+	if live_corridor:return {"status":"valid","candidate":result,"eta":elapsed,"reason":"Route clear"}
 	return {"status":"valid","candidate":result}

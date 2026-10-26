@@ -132,7 +132,12 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 static func certify_live(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array=[],frame_cache=null) -> Dictionary:
 	return _certify(st,view,ship,candidate,fingerprint,budget,membership,true,frame_cache)
 
-static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array,live_step: bool,frame_cache) -> Dictionary:
+static func _certify_refined_live(st: Dictionary,view: Dictionary,ship: Dictionary,refined: Dictionary,fingerprint: String,budget: Dictionary,membership: Array=[],frame_cache=null) -> Dictionary:
+	# Runtime.begin alone supplies this same-begin Routes.refine_live result.
+	# No proof is retained or reused across poses, observations or physics ticks.
+	return _certify(st,view,ship,refined.candidate,fingerprint,budget,membership,true,frame_cache,refined)
+
+static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array,live_step: bool,frame_cache,refined_corridor: Dictionary={}) -> Dictionary:
 	var cert: Dictionary=base_certificate(view,ship,candidate,fingerprint)
 	if not candidate_valid(candidate,view,ship,membership):
 		cert.status="blocked";cert.reason="Weapon assignment outside bounded observed targets";return cert
@@ -152,7 +157,7 @@ static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate:
 	# recompute full corridors for a hull that cannot receive another rollout.
 	if budget.rolled.has(id) or (not live_step and (int(budget.rollouts)>=16 or int(budget.samples)+Planner.CERT_PREFIX_STEPS*parts>840)):
 		budget.exhaustions+=1;cert.reason="Checking the next safe maneuver";return cert
-	var full: Dictionary=corridor(st,ship,candidate,budget)
+	var full: Dictionary=corridor(st,ship,candidate,budget) if refined_corridor.is_empty() else refined_corridor
 	cert.eta=full.eta
 	if full.status!="valid":cert.status=full.status;cert.reason=full.reason;return cert
 	budget.rolled[id]=true
