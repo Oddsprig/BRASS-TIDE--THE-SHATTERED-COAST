@@ -1,5 +1,12 @@
 # Active authorized sequence - v0.032 through v0.041
 
+LATEST OWNER STEERING DURING v0.040: after playing v0.039, the owner rejected
+performance, combat, wakes and pixel-sized map landmarks. Prioritize the current
+corrective v0.040: strategic chart readability, short stern foam and measured
+tactical cost corrections. Hold v0.041 expedition content during that review.
+Preserve the owner's Desktop v0.039 voyage when updating the stable Brass Tide
+shortcut. Headless correctness does not establish graphics, FPS or game feel.
+
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
 This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.039; continue with the next saved scope only. Earlier planning-only/stop-v031

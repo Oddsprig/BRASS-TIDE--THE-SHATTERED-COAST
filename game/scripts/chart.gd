@@ -530,10 +530,10 @@ static func draw_chart_marker(canvas,geometry: Dictionary,color: Color,selected:
 
 static func draw_chart_coast(canvas,points: PackedVector2Array) -> void:
 	if points.size()<3:return
-	canvas.draw_colored_polygon(points,Color("506f55"))
+	canvas.draw_colored_polygon(points,Color("69836a"))
 	var outline: PackedVector2Array=points.duplicate()
 	outline.append(points[0])
-	canvas.draw_polyline(outline,Color("cfbf92"),1.5,true)
+	canvas.draw_polyline(outline,Color("dac48b"),2.0,true)
 
 static func chart_label_bounds(viewport: Vector2) -> Rect2:
 	return Rect2(345,110,maxf(0,viewport.x-700),maxf(0,viewport.y-260))

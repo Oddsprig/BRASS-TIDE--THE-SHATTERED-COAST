@@ -3,7 +3,7 @@ BRASS TIDE — COMBAT MAP (generated; v0.040)
 Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/battle.gd: 37680 bytes; extends RefCounted
+game/scripts/battle.gd: 37797 bytes; extends RefCounted
   game/scripts/battle.gd:65 pop_events()
   game/scripts/battle.gd:68 mount_shot_time()
   game/scripts/battle.gd:71 mount_shot_age()
@@ -16,7 +16,7 @@ game/scripts/battle.gd: 37680 bytes; extends RefCounted
   game/scripts/battle.gd:273 set_autopilot()
   game/scripts/battle.gd:284 issue_order()
   game/scripts/battle.gd:325 set_tactical_options()
-game/scripts/damage.gd: 26875 bytes; extends RefCounted
+game/scripts/damage.gd: 28968 bytes; extends RefCounted
   game/scripts/damage.gd:8 number()
   game/scripts/damage.gd:13 create_ship()
   game/scripts/damage.gd:43 sum_areas()
@@ -28,7 +28,7 @@ game/scripts/damage.gd: 26875 bytes; extends RefCounted
   game/scripts/damage.gd:171 inspect_owner_cached()
   game/scripts/damage.gd:177 get_status_cached()
   game/scripts/damage.gd:204 apply_hit()
-  game/scripts/damage.gd:307 tick_ship()
+  game/scripts/damage.gd:334 tick_ship()
 game/scripts/deployment.gd: 1920 bytes; extends RefCounted
   game/scripts/deployment.gd:10 cost()
   game/scripts/deployment.gd:25 total()

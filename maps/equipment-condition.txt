@@ -38,7 +38,7 @@ game/scripts/equipment_damage.gd: 53167 bytes; extends RefCounted
   game/scripts/equipment_damage.gd:94 is_canonical_owner()
   game/scripts/equipment_damage.gd:97 is_corrupt_owner()
   game/scripts/equipment_damage.gd:100 set_repair_priority()
-game/scripts/damage.gd: 26875 bytes; extends RefCounted
+game/scripts/damage.gd: 28968 bytes; extends RefCounted
   game/scripts/damage.gd:8 number()
   game/scripts/damage.gd:13 create_ship()
   game/scripts/damage.gd:43 sum_areas()

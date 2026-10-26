@@ -1,0 +1,37 @@
+BRASS TIDE v0.040 - CORRECTIVE PERFORMANCE WORK
+
+OWNER REPORT AND BASELINE
+The owner reported poor live combat performance in v0.039. The initial
+v0.040 micro-optimizations did not solve it. Actual background measurements
+of42 light boats at294 deployment points per side showed about84ms per
+update in the short opening window. The14-boat300-point mixed fleet measured
+about28.5ms median. These are capped headless CPU timings, not displayed FPS.
+
+The detailed measurements identified tactical maneuver certification as the
+largest measured part of the crowded update:405.7ms across12measured ticks,
+including305.4ms spent on physical future forecasting. The forecasts replayed
+two seconds of movement and damage, while granting only0.2seconds of authority.
+
+CORRECTIONS
+- The live maneuver forecast now covers0.3seconds, retaining each actual
+  60Hz/30Hz substep, the complete approach and exit geometry, and live
+  collision and weapon checks. Old direct prefix callers retain their default.
+- An exhausted rollout budget returns pending before repeated corridor work.
+- Healthy boats can skip a guarded zero-work damage-control calculation.
+  Actual fuel, cooldown, sanitation, publication and fallback behavior remain.
+- The developer display records actual displayed FPS, frame process time,
+  draw calls and tactical phase costs during normal play.
+
+VERIFICATION STATUS
+Final healthy-path equivalence and crowded movement measurements are pending.
+The earlier full corrective batch passed331assertions, export and three
+portable startups in54.596seconds including setup, but that result predates
+the substantive forecast and healthy-path changes. It is not final approval.
+All failed and diagnostic attempts remain preserved in the shared TestBridge.
+A diagnostic-only pass cannot deliver or package a game version.
+
+Read COMBAT BASELINE v0.040.json for source-bound actual initial data.
+All tests remain background/headless/silent, with512MiB game memory, at most
+two logical CPUs and8percent jobCPU. Rendering FPS, music and subjective
+combat feel require separate evidence. The entire selected final batch must
+remain under120seconds; queue waiting is recorded separately.

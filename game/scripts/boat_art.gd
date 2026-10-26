@@ -545,21 +545,25 @@ static func draw_wake(canvas, projector: Callable, samples: Array, opts: Diction
 	var count: int=mini(6,live.size())
 	var shape: Array=[Vector2(1,0),Vector2(0.7,0.6),Vector2(0.15,0.82),Vector2(-0.65,0.65),Vector2(-1,0),Vector2(-0.6,-0.7),Vector2(0.2,-0.8),Vector2(0.85,-0.4)]
 	for index in range(count):
-		var sample: Dictionary=live[int(roundf(float(index)*(live.size()-1)/maxi(1,count-1)))]
+		var sample_index: int=int(roundf(float(index)*(live.size()-1)/maxi(1,count-1)))
+		var sample: Dictionary=live[sample_index]
 		var along: Vector2=Vector2(sample.get("d",Vector2.RIGHT)).normalized()
 		if along.length_squared()<0.5:along=Vector2.RIGHT
 		var side: Vector2=along.orthogonal()
 		var age: float=clampf(float(sample.age)/life,0.0,1.0)
 		var width: float=maxf(0.5,float(sample.get("w",5.0)))*(0.38+age*0.28)
+		var neighbor_index: int=int(roundf(float(mini(index+1,count-1))*(live.size()-1)/maxi(1,count-1))) if index+1<count else int(roundf(float(maxi(0,index-1))*(live.size()-1)/maxi(1,count-1)))
+		var spacing: float=Vector2(live[neighbor_index].p).distance_to(sample.p)
+		var reach: float=maxf(width*1.35,minf(spacing*0.65,width*4.0))
 		var fade: float=pow(1.0-age,1.4)
 		var outer:=PackedVector2Array()
 		var core:=PackedVector2Array()
 		for point in shape:
-			var offset: Vector2=along*point.x*width*1.35+side*point.y*width
+			var offset: Vector2=along*point.x*reach+side*point.y*width
 			outer.append(_wpt(projector,sample.p+offset,0))
 			core.append(_wpt(projector,sample.p+offset*0.48+side*width*(0.10 if index%2==0 else -0.10),0))
-		canvas.draw_colored_polygon(outer,Color(0.65,0.86,0.83,fade*0.20))
-		canvas.draw_colored_polygon(core,Color(0.90,0.97,0.93,fade*0.42))
+		canvas.draw_colored_polygon(outer,Color(0.65,0.86,0.83,fade*0.24))
+		canvas.draw_colored_polygon(core,Color(0.90,0.97,0.93,fade*0.30))
 		n+=2
 	return n
 

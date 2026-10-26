@@ -1,0 +1,1740 @@
+{
+  "status": "measured baseline; corrective performance change pending",
+  "source": "47cda4bde3ea47f38b27ba8bc19fd0c8716c1723",
+  "job": "d35c2fd271464119bd97395410255838",
+  "mixed": {
+    "aiTiming": {
+      "count": 24,
+      "maxUs": 56047,
+      "medianUs": 18507.0,
+      "p95Us": 55191,
+      "totalUs": 524681
+    },
+    "aiUs": [
+      23464,
+      12876,
+      15448,
+      20636,
+      16536,
+      20219,
+      16680,
+      16512,
+      20600,
+      13060,
+      21770,
+      16698,
+      20997,
+      56047,
+      14406,
+      21745,
+      20040,
+      18248,
+      55191,
+      18766,
+      33202,
+      16329,
+      17592,
+      17619
+    ],
+    "createUs": 20352,
+    "deployment": {
+      "enemy": 300,
+      "limit": 300,
+      "player": 300
+    },
+    "droppedEvents": 0,
+    "dtSeconds": 0.0333333333333333,
+    "final": {
+      "enemy": {
+        "ammo": 556.0,
+        "boats": 7,
+        "crew": 106.0,
+        "hulls": {
+          "bilge_punt": 1,
+          "cinder_monitor": 1,
+          "gale_cutter": 1,
+          "lantern_skiff": 1,
+          "maiden_dreadnought": 1,
+          "manta_strike": 1,
+          "slag_gunboat": 1
+        },
+        "points": 300,
+        "weaponFamilies": {
+          "cannon": true,
+          "gun": true,
+          "rocket": true,
+          "torpedo": true
+        }
+      },
+      "player": {
+        "ammo": 558.0,
+        "boats": 7,
+        "crew": 106.0,
+        "hulls": {
+          "bilge_punt": 1,
+          "cinder_monitor": 1,
+          "gale_cutter": 1,
+          "lantern_skiff": 1,
+          "maiden_dreadnought": 1,
+          "manta_strike": 1,
+          "slag_gunboat": 1
+        },
+        "points": 300,
+        "weaponFamilies": {
+          "cannon": true,
+          "gun": true,
+          "rocket": true,
+          "torpedo": true
+        }
+      }
+    },
+    "fireByFamily": {
+      "cannon": 3,
+      "gun": 2,
+      "torpedo": 1
+    },
+    "fireEvents": 6,
+    "initial": {
+      "enemy": {
+        "ammo": 560.0,
+        "boats": 7,
+        "crew": 106.0,
+        "hulls": {
+          "bilge_punt": 1,
+          "cinder_monitor": 1,
+          "gale_cutter": 1,
+          "lantern_skiff": 1,
+          "maiden_dreadnought": 1,
+          "manta_strike": 1,
+          "slag_gunboat": 1
+        },
+        "points": 300,
+        "weaponFamilies": {
+          "cannon": true,
+          "gun": true,
+          "rocket": true,
+          "torpedo": true
+        }
+      },
+      "player": {
+        "ammo": 560.0,
+        "boats": 7,
+        "crew": 106.0,
+        "hulls": {
+          "bilge_punt": 1,
+          "cinder_monitor": 1,
+          "gale_cutter": 1,
+          "lantern_skiff": 1,
+          "maiden_dreadnought": 1,
+          "manta_strike": 1,
+          "slag_gunboat": 1
+        },
+        "points": 300,
+        "weaponFamilies": {
+          "cannon": true,
+          "gun": true,
+          "rocket": true,
+          "torpedo": true
+        }
+      }
+    },
+    "initialPoses": [
+      {
+        "angle": 0.0,
+        "uid": "performance039-player-0",
+        "x": 820.0,
+        "y": 722.5
+      },
+      {
+        "angle": 0.0,
+        "uid": "performance039-player-1",
+        "x": 905.0,
+        "y": 722.5
+      },
+      {
+        "angle": 0.0,
+        "uid": "performance039-player-2",
+        "x": 820.0,
+        "y": 807.5
+      },
+      {
+        "angle": 0.0,
+        "uid": "performance039-player-3",
+        "x": 905.0,
+        "y": 807.5
+      },
+      {
+        "angle": 0.0,
+        "uid": "performance039-player-4",
+        "x": 820.0,
+        "y": 892.5
+      },
+      {
+        "angle": 0.0,
+        "uid": "performance039-player-5",
+        "x": 905.0,
+        "y": 892.5
+      },
+      {
+        "angle": 0.0,
+        "uid": "performance039-player-6",
+        "x": 820.0,
+        "y": 977.5
+      },
+      {
+        "angle": 3.14159265358979,
+        "uid": "performance039-enemy-0",
+        "x": 1300.0,
+        "y": 722.5
+      },
+      {
+        "angle": 3.14159265358979,
+        "uid": "performance039-enemy-1",
+        "x": 1385.0,
+        "y": 722.5
+      },
+      {
+        "angle": 3.14159265358979,
+        "uid": "performance039-enemy-2",
+        "x": 1300.0,
+        "y": 807.5
+      },
+      {
+        "angle": 3.14159265358979,
+        "uid": "performance039-enemy-3",
+        "x": 1385.0,
+        "y": 807.5
+      },
+      {
+        "angle": 3.14159265358979,
+        "uid": "performance039-enemy-4",
+        "x": 1300.0,
+        "y": 892.5
+      },
+      {
+        "angle": 3.14159265358979,
+        "uid": "performance039-enemy-5",
+        "x": 1385.0,
+        "y": 892.5
+      },
+      {
+        "angle": 3.14159265358979,
+        "uid": "performance039-enemy-6",
+        "x": 1300.0,
+        "y": 977.5
+      }
+    ],
+    "measuredCompleted": 24,
+    "measuredRequested": 24,
+    "memory": {
+      "engineStaticBytes": 66369103,
+      "engineStaticPeakBytes": 149244478,
+      "note": "Godot static allocations, not process RSS or GPU memory. Process limits are imposed and recorded by Test Bridge."
+    },
+    "peakActiveActors": 14,
+    "peakEffects": 4,
+    "peakProjectiles": 3,
+    "result": null,
+    "rosterUs": 15718,
+    "samples": [
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 20138,
+          "firing": 1528,
+          "helm": 1299,
+          "lanes": 28,
+          "mounts": 388,
+          "planning": 21437,
+          "trace": 83
+        },
+        "aiUs": 23464,
+        "effects": 2,
+        "fireEvents": 0,
+        "projectiles": 2,
+        "tick": 1,
+        "time": 0.166666666666667,
+        "updateUs": 31437,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 459,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 3,
+          "samples": 180
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 9353,
+          "firing": 1605,
+          "helm": 1394,
+          "lanes": 29,
+          "mounts": 404,
+          "planning": 10747,
+          "trace": 91
+        },
+        "aiUs": 12876,
+        "effects": 2,
+        "fireEvents": 0,
+        "projectiles": 2,
+        "tick": 2,
+        "time": 0.2,
+        "updateUs": 20942,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 557,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 0,
+          "samples": 0
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 11805,
+          "firing": 1751,
+          "helm": 1344,
+          "lanes": 27,
+          "mounts": 435,
+          "planning": 13149,
+          "trace": 86
+        },
+        "aiUs": 15448,
+        "effects": 3,
+        "fireEvents": 1,
+        "projectiles": 3,
+        "tick": 3,
+        "time": 0.233333333333333,
+        "updateUs": 24030,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 590,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 17037,
+          "firing": 1722,
+          "helm": 1315,
+          "lanes": 37,
+          "mounts": 439,
+          "planning": 18352,
+          "trace": 86
+        },
+        "aiUs": 20636,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 4,
+        "time": 0.266666666666667,
+        "updateUs": 29086,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 691,
+          "exhaustions": 4,
+          "fullRoutes": 0,
+          "rollouts": 2,
+          "samples": 120
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 13077,
+          "firing": 1568,
+          "helm": 1377,
+          "lanes": 28,
+          "mounts": 401,
+          "planning": 14454,
+          "trace": 85
+        },
+        "aiUs": 16536,
+        "effects": 2,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 5,
+        "time": 0.3,
+        "updateUs": 24563,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 601,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 16840,
+          "firing": 1544,
+          "helm": 1304,
+          "lanes": 28,
+          "mounts": 415,
+          "planning": 18144,
+          "trace": 88
+        },
+        "aiUs": 20219,
+        "effects": 2,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 6,
+        "time": 0.333333333333333,
+        "updateUs": 28534,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 493,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 2,
+          "samples": 120
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 13004,
+          "firing": 1630,
+          "helm": 1519,
+          "lanes": 29,
+          "mounts": 408,
+          "planning": 14523,
+          "trace": 90
+        },
+        "aiUs": 16680,
+        "effects": 1,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 7,
+        "time": 0.366666666666667,
+        "updateUs": 25097,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 619,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 13098,
+          "firing": 1546,
+          "helm": 1354,
+          "lanes": 29,
+          "mounts": 402,
+          "planning": 14452,
+          "trace": 83
+        },
+        "aiUs": 16512,
+        "effects": 1,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 8,
+        "time": 0.4,
+        "updateUs": 24568,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 774,
+          "exhaustions": 4,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 17241,
+          "firing": 1536,
+          "helm": 1303,
+          "lanes": 30,
+          "mounts": 407,
+          "planning": 18544,
+          "trace": 83
+        },
+        "aiUs": 20600,
+        "effects": 0,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 9,
+        "time": 0.433333333333333,
+        "updateUs": 28848,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 477,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 2,
+          "samples": 120
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 9526,
+          "firing": 1710,
+          "helm": 1313,
+          "lanes": 29,
+          "mounts": 398,
+          "planning": 10839,
+          "trace": 84
+        },
+        "aiUs": 13060,
+        "effects": 0,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 10,
+        "time": 0.466666666666667,
+        "updateUs": 21283,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 690,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 0,
+          "samples": 0
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 18298,
+          "firing": 1592,
+          "helm": 1359,
+          "lanes": 30,
+          "mounts": 398,
+          "planning": 19657,
+          "trace": 93
+        },
+        "aiUs": 21770,
+        "effects": 1,
+        "fireEvents": 0,
+        "projectiles": 2,
+        "tick": 11,
+        "time": 0.5,
+        "updateUs": 32661,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 629,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 2,
+          "samples": 120
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 13182,
+          "firing": 1494,
+          "helm": 1464,
+          "lanes": 33,
+          "mounts": 437,
+          "planning": 14646,
+          "trace": 88
+        },
+        "aiUs": 16698,
+        "effects": 1,
+        "fireEvents": 0,
+        "projectiles": 2,
+        "tick": 12,
+        "time": 0.533333333333333,
+        "updateUs": 26417,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 539,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 17557,
+          "firing": 1452,
+          "helm": 1265,
+          "lanes": 29,
+          "mounts": 604,
+          "planning": 18822,
+          "trace": 90
+        },
+        "aiUs": 20997,
+        "effects": 1,
+        "fireEvents": 0,
+        "projectiles": 2,
+        "tick": 13,
+        "time": 0.566666666666667,
+        "updateUs": 30660,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 477,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 2,
+          "samples": 120
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 52267,
+          "firing": 1779,
+          "helm": 1435,
+          "lanes": 30,
+          "mounts": 446,
+          "planning": 53702,
+          "trace": 90
+        },
+        "aiUs": 56047,
+        "effects": 2,
+        "fireEvents": 1,
+        "projectiles": 3,
+        "tick": 14,
+        "time": 0.6,
+        "updateUs": 65299,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 511,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 10696,
+          "firing": 1634,
+          "helm": 1541,
+          "lanes": 31,
+          "mounts": 414,
+          "planning": 12237,
+          "trace": 90
+        },
+        "aiUs": 14406,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 2,
+        "tick": 15,
+        "time": 0.633333333333333,
+        "updateUs": 26509,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 765,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 0,
+          "samples": 0
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 18387,
+          "firing": 1461,
+          "helm": 1359,
+          "lanes": 30,
+          "mounts": 426,
+          "planning": 19746,
+          "trace": 82
+        },
+        "aiUs": 21745,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 2,
+        "tick": 16,
+        "time": 0.666666666666667,
+        "updateUs": 31026,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 482,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 2,
+          "samples": 120
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 16659,
+          "firing": 1513,
+          "helm": 1315,
+          "lanes": 31,
+          "mounts": 424,
+          "planning": 17974,
+          "trace": 98
+        },
+        "aiUs": 20040,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 2,
+        "tick": 17,
+        "time": 0.7,
+        "updateUs": 29316,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 525,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 2,
+          "samples": 120
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 14014,
+          "firing": 2022,
+          "helm": 1596,
+          "lanes": 30,
+          "mounts": 442,
+          "planning": 15610,
+          "trace": 144
+        },
+        "aiUs": 18248,
+        "effects": 3,
+        "fireEvents": 1,
+        "projectiles": 3,
+        "tick": 18,
+        "time": 0.733333333333333,
+        "updateUs": 27673,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 583,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 51283,
+          "firing": 1744,
+          "helm": 1565,
+          "lanes": 32,
+          "mounts": 483,
+          "planning": 52848,
+          "trace": 84
+        },
+        "aiUs": 55191,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 19,
+        "time": 0.766666666666667,
+        "updateUs": 65545,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 763,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 2,
+          "samples": 120
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 14947,
+          "firing": 1717,
+          "helm": 1549,
+          "lanes": 30,
+          "mounts": 430,
+          "planning": 16496,
+          "trace": 93
+        },
+        "aiUs": 18766,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 20,
+        "time": 0.8,
+        "updateUs": 28437,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 716,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 28795,
+          "firing": 2268,
+          "helm": 1572,
+          "lanes": 30,
+          "mounts": 432,
+          "planning": 30367,
+          "trace": 105
+        },
+        "aiUs": 33202,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 21,
+        "time": 0.833333333333333,
+        "updateUs": 42560,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 467,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 3,
+          "samples": 180
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 12625,
+          "firing": 1709,
+          "helm": 1470,
+          "lanes": 30,
+          "mounts": 404,
+          "planning": 14095,
+          "trace": 91
+        },
+        "aiUs": 16329,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 22,
+        "time": 0.866666666666667,
+        "updateUs": 25297,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 533,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 14031,
+          "firing": 1579,
+          "helm": 1402,
+          "lanes": 29,
+          "mounts": 464,
+          "planning": 15433,
+          "trace": 87
+        },
+        "aiUs": 17592,
+        "effects": 3,
+        "fireEvents": 0,
+        "projectiles": 3,
+        "tick": 23,
+        "time": 0.9,
+        "updateUs": 27610,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 688,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      },
+      {
+        "activeActors": 14,
+        "aiPhaseUs": {
+          "begin": 13678,
+          "firing": 1771,
+          "helm": 1651,
+          "lanes": 29,
+          "mounts": 398,
+          "planning": 15329,
+          "trace": 92
+        },
+        "aiUs": 17619,
+        "effects": 4,
+        "fireEvents": 1,
+        "projectiles": 3,
+        "tick": 24,
+        "time": 0.933333333333333,
+        "updateUs": 29482,
+        "work": {
+          "cacheEntries": 0,
+          "cacheHits": 0,
+          "clearanceTests": 787,
+          "exhaustions": 0,
+          "fullRoutes": 0,
+          "rollouts": 1,
+          "samples": 60
+        }
+      }
+    ],
+    "simulatedSeconds": 0.933333333333333,
+    "tacticalCounters": {
+      "decisions": 84,
+      "droppedDecisions": 0,
+      "lateDecisions": 0,
+      "lateSafety": 0,
+      "oldestDecisionAge": 0.166666666666667,
+      "oldestPendingAge": 0.9,
+      "oldestSafetyAge": 0.1,
+      "orderAcks": [],
+      "rejectedIntents": 0
+    },
+    "ticksUs": [
+      31437,
+      20942,
+      24030,
+      29086,
+      24563,
+      28534,
+      25097,
+      24568,
+      28848,
+      21283,
+      32661,
+      26417,
+      30660,
+      65299,
+      26509,
+      31026,
+      29316,
+      27673,
+      65545,
+      28437,
+      42560,
+      25297,
+      27610,
+      29482
+    ],
+    "timing": {
+      "count": 24,
+      "maxUs": 65545,
+      "medianUs": 28485.5,
+      "p95Us": 65299,
+      "totalUs": 746880
+    },
+    "warmupCompleted": 4,
+    "warmupRequested": 4,
+    "warmupUs": [
+      23469,
+      23795,
+      26259,
+      20453
+    ]
+  },
+  "light": {
+    "actual": {
+      "enemyBoats": 21,
+      "enemyPoints": 294,
+      "playerBoats": 21,
+      "playerPoints": 294,
+      "totalBoats": 42
+    },
+    "aiTiming": {
+      "count": 12,
+      "maxUs": 64577,
+      "medianUs": 60010.5,
+      "p95Us": 64577,
+      "totalUs": 708814
+    },
+    "aiUs": [
+      61422,
+      55653,
+      61419,
+      61347,
+      56206,
+      53259,
+      63582,
+      64577,
+      59596,
+      60425,
+      58026,
+      53302
+    ],
+    "complete": true,
+    "createUs": 123129,
+    "dt": 0.0166666666666667,
+    "eventKinds": {},
+    "eventTicks": 16,
+    "events": 0,
+    "fireEvents": 0,
+    "fireFamilies": {},
+    "hull": "bilge_punt",
+    "measuredCompleted": 12,
+    "measuredRequested": 12,
+    "peakEffects": 0,
+    "peakProjectiles": 0,
+    "peakRouteCacheEntries": 0,
+    "quote": {
+      "enemy": {
+        "boats": 21,
+        "crew": 84,
+        "points": 294
+      },
+      "error": "",
+      "ok": true,
+      "player": {
+        "boats": 21,
+        "crew": 84,
+        "points": 294
+      }
+    },
+    "requestedBoatsPerSide": 21,
+    "result": null,
+    "samples": [
+      {
+        "aiUs": 61422,
+        "phaseUs": {
+          "begin": 50540,
+          "firing": 4737,
+          "helm": 4553,
+          "lanes": 71,
+          "mounts": 1248,
+          "planning": 55093,
+          "trace": 273
+        },
+        "simTime": 0.0833333333333333,
+        "tick": 1,
+        "updateUs": 86325
+      },
+      {
+        "aiUs": 55653,
+        "phaseUs": {
+          "begin": 44615,
+          "firing": 4964,
+          "helm": 4555,
+          "lanes": 70,
+          "mounts": 1184,
+          "planning": 49170,
+          "trace": 265
+        },
+        "simTime": 0.1,
+        "tick": 2,
+        "updateUs": 79405
+      },
+      {
+        "aiUs": 61419,
+        "phaseUs": {
+          "begin": 50532,
+          "firing": 4763,
+          "helm": 4553,
+          "lanes": 70,
+          "mounts": 1245,
+          "planning": 55085,
+          "trace": 256
+        },
+        "simTime": 0.116666666666667,
+        "tick": 3,
+        "updateUs": 86088
+      },
+      {
+        "aiUs": 61347,
+        "phaseUs": {
+          "begin": 49922,
+          "firing": 5313,
+          "helm": 4517,
+          "lanes": 67,
+          "mounts": 1250,
+          "planning": 54439,
+          "trace": 278
+        },
+        "simTime": 0.133333333333333,
+        "tick": 4,
+        "updateUs": 86274
+      },
+      {
+        "aiUs": 56206,
+        "phaseUs": {
+          "begin": 44409,
+          "firing": 5855,
+          "helm": 4310,
+          "lanes": 67,
+          "mounts": 1274,
+          "planning": 48719,
+          "trace": 291
+        },
+        "simTime": 0.15,
+        "tick": 5,
+        "updateUs": 80502
+      },
+      {
+        "aiUs": 53259,
+        "phaseUs": {
+          "begin": 42268,
+          "firing": 4988,
+          "helm": 4323,
+          "lanes": 72,
+          "mounts": 1250,
+          "planning": 46591,
+          "trace": 358
+        },
+        "simTime": 0.166666666666667,
+        "tick": 6,
+        "updateUs": 77502
+      },
+      {
+        "aiUs": 63582,
+        "phaseUs": {
+          "begin": 52147,
+          "firing": 4765,
+          "helm": 4605,
+          "lanes": 69,
+          "mounts": 1731,
+          "planning": 56752,
+          "trace": 265
+        },
+        "simTime": 0.183333333333333,
+        "tick": 7,
+        "updateUs": 88240
+      },
+      {
+        "aiUs": 64577,
+        "phaseUs": {
+          "begin": 52943,
+          "firing": 4766,
+          "helm": 5201,
+          "lanes": 69,
+          "mounts": 1235,
+          "planning": 58144,
+          "trace": 363
+        },
+        "simTime": 0.2,
+        "tick": 8,
+        "updateUs": 88890
+      },
+      {
+        "aiUs": 59596,
+        "phaseUs": {
+          "begin": 48602,
+          "firing": 4743,
+          "helm": 4411,
+          "lanes": 71,
+          "mounts": 1405,
+          "planning": 53013,
+          "trace": 364
+        },
+        "simTime": 0.216666666666667,
+        "tick": 9,
+        "updateUs": 83709
+      },
+      {
+        "aiUs": 60425,
+        "phaseUs": {
+          "begin": 49395,
+          "firing": 4807,
+          "helm": 4407,
+          "lanes": 74,
+          "mounts": 1340,
+          "planning": 53802,
+          "trace": 402
+        },
+        "simTime": 0.233333333333333,
+        "tick": 10,
+        "updateUs": 85642
+      },
+      {
+        "aiUs": 58026,
+        "phaseUs": {
+          "begin": 46639,
+          "firing": 4751,
+          "helm": 4872,
+          "lanes": 73,
+          "mounts": 1276,
+          "planning": 51511,
+          "trace": 415
+        },
+        "simTime": 0.25,
+        "tick": 11,
+        "updateUs": 82447
+      },
+      {
+        "aiUs": 53302,
+        "phaseUs": {
+          "begin": 41834,
+          "firing": 4836,
+          "helm": 4875,
+          "lanes": 76,
+          "mounts": 1255,
+          "planning": 46709,
+          "trace": 426
+        },
+        "simTime": 0.266666666666667,
+        "tick": 12,
+        "updateUs": 77877
+      }
+    ],
+    "seed": 4040,
+    "simSeconds": 0.266666666666667,
+    "terrain": "Unchanged public Lab default islands/formation",
+    "ticksUs": [
+      86325,
+      79405,
+      86088,
+      86274,
+      80502,
+      77502,
+      88240,
+      88890,
+      83709,
+      85642,
+      82447,
+      77877
+    ],
+    "timing": {
+      "count": 12,
+      "maxUs": 88890,
+      "medianUs": 84675.5,
+      "p95Us": 88890,
+      "totalUs": 1002901
+    },
+    "unitPoints": 14,
+    "warmupCompleted": 4,
+    "warmupRequested": 4,
+    "warmupUs": [
+      82654,
+      86083,
+      83217,
+      80708
+    ],
+    "work": {
+      "cacheHits": 0,
+      "clearanceTests": 31042,
+      "exhaustions": 8,
+      "fullRoutes": 0,
+      "rollouts": 43,
+      "samples": 5160
+    }
+  },
+  "detailSource": "0d4ab1a64aab5808a1e61412d3c2099d33ef5841",
+  "detailJob": "7a574f58fbe94668a7bf75a4226577c2",
+  "detailLight": {
+    "actual": {
+      "enemyBoats": 21,
+      "enemyPoints": 294,
+      "playerBoats": 21,
+      "playerPoints": 294,
+      "totalBoats": 42
+    },
+    "aiTiming": {
+      "count": 12,
+      "maxUs": 78767,
+      "medianUs": 59638.5,
+      "p95Us": 78767,
+      "totalUs": 713941
+    },
+    "aiUs": [
+      59955,
+      53334,
+      59869,
+      78767,
+      58714,
+      51669,
+      59408,
+      62906,
+      60844,
+      61107,
+      55485,
+      51883
+    ],
+    "complete": true,
+    "createUs": 126626,
+    "dt": 0.0166666666666667,
+    "eventKinds": {},
+    "eventTicks": 16,
+    "events": 0,
+    "fireEvents": 0,
+    "fireFamilies": {},
+    "hull": "bilge_punt",
+    "measuredCompleted": 12,
+    "measuredRequested": 12,
+    "peakEffects": 0,
+    "peakProjectiles": 0,
+    "peakRouteCacheEntries": 0,
+    "quote": {
+      "enemy": {
+        "boats": 21,
+        "crew": 84,
+        "points": 294
+      },
+      "error": "",
+      "ok": true,
+      "player": {
+        "boats": 21,
+        "crew": 84,
+        "points": 294
+      }
+    },
+    "requestedBoatsPerSide": 21,
+    "result": null,
+    "samples": [
+      {
+        "aiUs": 59955,
+        "phaseUs": {
+          "begin": 49149,
+          "firing": 4977,
+          "helm": 4038,
+          "lanes": 65,
+          "mounts": 1462,
+          "planning": 53187,
+          "trace": 264
+        },
+        "planningCalls": {
+          "candidates": 28,
+          "certify": 24,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 48965,
+          "certification": 35305,
+          "helmCurrent": 1304,
+          "helmSafety": 2486,
+          "helmTotal": 3974,
+          "observation": 4371,
+          "physicalCertification": 29063,
+          "proposals": 5919,
+          "resolution": 1868,
+          "snapshots": 1497
+        },
+        "simTime": 0.0833333333333333,
+        "tick": 1,
+        "updateUs": 83355
+      },
+      {
+        "aiUs": 53334,
+        "phaseUs": {
+          "begin": 42999,
+          "firing": 4826,
+          "helm": 4011,
+          "lanes": 65,
+          "mounts": 1188,
+          "planning": 47010,
+          "trace": 245
+        },
+        "planningCalls": {
+          "candidates": 28,
+          "certify": 27,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 42837,
+          "certification": 29978,
+          "helmCurrent": 1324,
+          "helmSafety": 2456,
+          "helmTotal": 3956,
+          "observation": 4288,
+          "physicalCertification": 22095,
+          "proposals": 5804,
+          "resolution": 986,
+          "snapshots": 1775
+        },
+        "simTime": 0.1,
+        "tick": 2,
+        "updateUs": 76661
+      },
+      {
+        "aiUs": 59869,
+        "phaseUs": {
+          "begin": 48608,
+          "firing": 4758,
+          "helm": 4880,
+          "lanes": 70,
+          "mounts": 1269,
+          "planning": 53488,
+          "trace": 284
+        },
+        "planningCalls": {
+          "candidates": 28,
+          "certify": 4,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 48314,
+          "certification": 33376,
+          "helmCurrent": 1713,
+          "helmSafety": 2865,
+          "helmTotal": 4807,
+          "observation": 5054,
+          "physicalCertification": 27507,
+          "proposals": 5838,
+          "resolution": 2014,
+          "snapshots": 2025
+        },
+        "simTime": 0.116666666666667,
+        "tick": 3,
+        "updateUs": 84016
+      },
+      {
+        "aiUs": 78767,
+        "phaseUs": {
+          "begin": 66302,
+          "firing": 6284,
+          "helm": 4505,
+          "lanes": 68,
+          "mounts": 1278,
+          "planning": 70807,
+          "trace": 330
+        },
+        "planningCalls": {
+          "candidates": 28,
+          "certify": 4,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 65950,
+          "certification": 50936,
+          "helmCurrent": 1444,
+          "helmSafety": 2766,
+          "helmTotal": 4427,
+          "observation": 5252,
+          "physicalCertification": 28392,
+          "proposals": 5921,
+          "resolution": 2035,
+          "snapshots": 1801
+        },
+        "simTime": 0.133333333333333,
+        "tick": 4,
+        "updateUs": 103739
+      },
+      {
+        "aiUs": 58714,
+        "phaseUs": {
+          "begin": 46978,
+          "firing": 5137,
+          "helm": 4906,
+          "lanes": 76,
+          "mounts": 1337,
+          "planning": 51884,
+          "trace": 280
+        },
+        "planningCalls": {
+          "candidates": 35,
+          "certify": 19,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 46667,
+          "certification": 31707,
+          "helmCurrent": 1560,
+          "helmSafety": 3035,
+          "helmTotal": 4817,
+          "observation": 5935,
+          "physicalCertification": 22905,
+          "proposals": 6089,
+          "resolution": 1098,
+          "snapshots": 1832
+        },
+        "simTime": 0.15,
+        "tick": 5,
+        "updateUs": 84019
+      },
+      {
+        "aiUs": 51669,
+        "phaseUs": {
+          "begin": 40927,
+          "firing": 5113,
+          "helm": 4111,
+          "lanes": 66,
+          "mounts": 1200,
+          "planning": 45038,
+          "trace": 252
+        },
+        "planningCalls": {
+          "candidates": 35,
+          "certify": 3,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 40756,
+          "certification": 27138,
+          "helmCurrent": 1347,
+          "helmSafety": 2506,
+          "helmTotal": 4047,
+          "observation": 4686,
+          "physicalCertification": 20959,
+          "proposals": 5820,
+          "resolution": 1421,
+          "snapshots": 1684
+        },
+        "simTime": 0.166666666666667,
+        "tick": 6,
+        "updateUs": 75298
+      },
+      {
+        "aiUs": 59408,
+        "phaseUs": {
+          "begin": 48377,
+          "firing": 4903,
+          "helm": 4604,
+          "lanes": 68,
+          "mounts": 1209,
+          "planning": 52981,
+          "trace": 247
+        },
+        "planningCalls": {
+          "candidates": 28,
+          "certify": 8,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 48186,
+          "certification": 34242,
+          "helmCurrent": 1645,
+          "helmSafety": 2655,
+          "helmTotal": 4520,
+          "observation": 4689,
+          "physicalCertification": 27817,
+          "proposals": 5758,
+          "resolution": 1862,
+          "snapshots": 1628
+        },
+        "simTime": 0.183333333333333,
+        "tick": 7,
+        "updateUs": 83542
+      },
+      {
+        "aiUs": 62906,
+        "phaseUs": {
+          "begin": 51338,
+          "firing": 5153,
+          "helm": 4545,
+          "lanes": 68,
+          "mounts": 1454,
+          "planning": 55883,
+          "trace": 348
+        },
+        "planningCalls": {
+          "candidates": 27,
+          "certify": 26,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 51063,
+          "certification": 38015,
+          "helmCurrent": 1531,
+          "helmSafety": 2731,
+          "helmTotal": 4474,
+          "observation": 4410,
+          "physicalCertification": 29338,
+          "proposals": 5911,
+          "resolution": 1173,
+          "snapshots": 1549
+        },
+        "simTime": 0.2,
+        "tick": 8,
+        "updateUs": 86395
+      },
+      {
+        "aiUs": 60844,
+        "phaseUs": {
+          "begin": 48921,
+          "firing": 5418,
+          "helm": 4830,
+          "lanes": 73,
+          "mounts": 1243,
+          "planning": 53751,
+          "trace": 359
+        },
+        "planningCalls": {
+          "candidates": 31,
+          "certify": 4,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 48671,
+          "certification": 33794,
+          "helmCurrent": 1789,
+          "helmSafety": 2737,
+          "helmTotal": 4747,
+          "observation": 5333,
+          "physicalCertification": 27780,
+          "proposals": 5900,
+          "resolution": 1948,
+          "snapshots": 1691
+        },
+        "simTime": 0.216666666666667,
+        "tick": 9,
+        "updateUs": 84967
+      },
+      {
+        "aiUs": 61107,
+        "phaseUs": {
+          "begin": 49504,
+          "firing": 5264,
+          "helm": 4624,
+          "lanes": 78,
+          "mounts": 1196,
+          "planning": 54128,
+          "trace": 441
+        },
+        "planningCalls": {
+          "candidates": 28,
+          "certify": 4,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 49131,
+          "certification": 34213,
+          "helmCurrent": 1482,
+          "helmSafety": 2834,
+          "helmTotal": 4546,
+          "observation": 5325,
+          "physicalCertification": 27794,
+          "proposals": 5868,
+          "resolution": 2111,
+          "snapshots": 1608
+        },
+        "simTime": 0.233333333333333,
+        "tick": 10,
+        "updateUs": 85767
+      },
+      {
+        "aiUs": 55485,
+        "phaseUs": {
+          "begin": 44715,
+          "firing": 4831,
+          "helm": 4250,
+          "lanes": 97,
+          "mounts": 1229,
+          "planning": 48965,
+          "trace": 363
+        },
+        "planningCalls": {
+          "candidates": 30,
+          "certify": 18,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 44536,
+          "certification": 30428,
+          "helmCurrent": 1438,
+          "helmSafety": 2551,
+          "helmTotal": 4182,
+          "observation": 5538,
+          "physicalCertification": 21410,
+          "proposals": 5972,
+          "resolution": 923,
+          "snapshots": 1668
+        },
+        "simTime": 0.25,
+        "tick": 11,
+        "updateUs": 79930
+      },
+      {
+        "aiUs": 51883,
+        "phaseUs": {
+          "begin": 40695,
+          "firing": 5071,
+          "helm": 4444,
+          "lanes": 71,
+          "mounts": 1198,
+          "planning": 45139,
+          "trace": 404
+        },
+        "planningCalls": {
+          "candidates": 36,
+          "certify": 3,
+          "helm": 42
+        },
+        "planningDetailUs": {
+          "beginTotal": 40453,
+          "certification": 26613,
+          "helmCurrent": 1438,
+          "helmSafety": 2721,
+          "helmTotal": 4371,
+          "observation": 5000,
+          "physicalCertification": 20296,
+          "proposals": 5704,
+          "resolution": 1536,
+          "snapshots": 1593
+        },
+        "simTime": 0.266666666666667,
+        "tick": 12,
+        "updateUs": 75325
+      }
+    ],
+    "seed": 4040,
+    "simSeconds": 0.266666666666667,
+    "terrain": "Unchanged public Lab default islands/formation",
+    "ticksUs": [
+      83355,
+      76661,
+      84016,
+      103739,
+      84019,
+      75298,
+      83542,
+      86395,
+      84967,
+      85767,
+      79930,
+      75325
+    ],
+    "timing": {
+      "count": 12,
+      "maxUs": 103739,
+      "medianUs": 83779.0,
+      "p95Us": 103739,
+      "totalUs": 1003014
+    },
+    "unitPoints": 14,
+    "warmupCompleted": 4,
+    "warmupRequested": 4,
+    "warmupUs": [
+      83047,
+      82515,
+      78505,
+      78443
+    ],
+    "work": {
+      "cacheHits": 0,
+      "clearanceTests": 31042,
+      "exhaustions": 8,
+      "fullRoutes": 0,
+      "rollouts": 43,
+      "samples": 5160
+    }
+  },
+  "limits": "Headless CPU simulation:512MiB,8percent jobCPU,at most2logicalCPUs. Timing is not displayed FPS or a GPU/gameplay quality verdict. planning includes begin+helm; physicalCertification is a subset of certification. Do not sum overlapping timing fields."
+}
