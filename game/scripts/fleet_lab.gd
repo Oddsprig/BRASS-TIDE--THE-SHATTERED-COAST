@@ -100,7 +100,10 @@ static func create(world: Dictionary,config: Dictionary,seed_value: int) -> Dict
 		carrier_uid=str(carrier.uid)
 		var cargo: Dictionary=config.get("carrierCargo",{}) if config.get("carrierCargo") is Dictionary else {}
 		if cargo.is_empty(): cargo={"timber":4.0}
-		mission={"kind":"escort","carrierTeam":"player","carrierUids":[carrier_uid],"allyUids":[carrier_uid],"carrierCargo":cargo.duplicate(true)}
+		# Bare identifier keys in a GDScript literal are names, not values. Assign the uid key separately.
+		var carrier_cargo: Dictionary={}
+		carrier_cargo[carrier_uid]=cargo.duplicate(true)
+		mission={"kind":"escort","carrierTeam":"player","carrierUids":[carrier_uid],"allyUids":[carrier_uid],"carrierCargo":carrier_cargo}
 		var exit: Dictionary=config.get("exit",{}) if config.get("exit") is Dictionary else {}
 		if exit.has("x") and exit.has("y"): mission.exit=exit.duplicate(true)
 	var place: String="Coastal Clash" if str(config.get("context",""))=="coastal_clash" else "Fleet battle laboratory"
