@@ -18,6 +18,7 @@ const Manifest=preload("res://scripts/hold_manifest.gd")
 const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
+const CivilianWork=preload("res://scripts/civilian_work.gd")
 const Contacts=preload("res://scripts/contacts.gd")
 const CrisisOps=preload("res://scripts/crisis_ops.gd")
 const BoardingOps=preload("res://scripts/boarding_ops.gd")
@@ -418,6 +419,7 @@ func step(dt: float):
 	if int(state.day) > old_day:
 		pending_days += int(state.day) - old_day
 	LawOps.clock(self)
+	CivilianWork.tick(self,dt/DAY_SECONDS)
 	NavalLifecycle.step(self,dt)
 	LawOps.check_patrols(self)
 
@@ -755,7 +757,11 @@ func can_add_boat(spec: Dictionary) -> bool:
 func points_refusal(spec: Dictionary) -> String:
 	return "The fleet register holds at most %d owned hulls. Sell a hull or collect an existing stored boat; battle deployment remains 300 points per side."%MAX_FLEET
 
+func sealed_fuel_carrier(uid: String) -> bool:
+	return state.get("voyageJobs",[]).any(func(j):return j.get("kind","")=="fuel_delivery" and str(j.get("carrierUid",""))==uid and float(j.get("freight",{}).get("qty",0))>0)
+
 func set_boat_active(uid: String, enabled: bool) -> Dictionary:
+	if not enabled and sealed_fuel_carrier(uid):return fail("Deliver or safely unload this boat's sealed fuel before standing it down.")
 	var b: Dictionary=find_boat(uid)
 	if b.is_empty() or not str(b.get("storedPort","")).is_empty():return fail("Collect this boat from its harbor first.")
 	if int(b.get("shoreCrew",0))>0:return fail("Recall the shore party before changing this boat's status.")
@@ -779,6 +785,7 @@ func toggle_storage(uid: String) -> Dictionary:
 	if CrisisOps.Transport.assigned(state,uid)>0:return fail("Discharge passengers safely before storing their actual carrier.")
 	if int(state.get("captiveBerths",{}).get(uid,0))>0:return fail("Release this boat's captives safely before storing it.")
 	var stored: String=str(b.get("storedPort",""))
+	if stored.is_empty() and sealed_fuel_carrier(uid):return fail("Deliver or safely unload this boat's sealed fuel before storing it.")
 	if not stored.is_empty():
 		var permission: Dictionary=Politics.permit(self,"service")
 		if not permission.ok:return permission
@@ -846,6 +853,7 @@ func recruit_crew(uid: String, count: int) -> Dictionary:
 	return Harbor.recruit(self,uid,count)
 
 func sell_boat(uid: String) -> Dictionary:
+	if sealed_fuel_carrier(uid):return fail("Deliver or safely unload this boat's sealed fuel before selling it.")
 	return Harbor.sell(self,uid)
 
 func service_quote(boat: Dictionary, p: Dictionary) -> Dictionary:
@@ -869,10 +877,16 @@ func accept_contract(id: String) -> Dictionary:
 	if not permission.ok:return permission
 	return Contracts.accept(self,id)
 
-func accept_voyage_job(id: String) -> Dictionary:
+func start_fishing(uid: String,days: float=1.0,crew: int=0) -> Dictionary:
+	return CivilianWork.start_fishing(self,uid,days,crew)
+
+func cancel_fishing(uid: String) -> Dictionary:
+	return CivilianWork.cancel_fishing(self,uid)
+
+func accept_voyage_job(id: String,carrier_uid: String="") -> Dictionary:
 	var permission: Dictionary=Politics.permit(self,"contract")
 	if not permission.ok:return permission
-	var result: Dictionary=VoyageJobs.accept(self,id)
+	var result: Dictionary=VoyageJobs.accept(self,id,carrier_uid)
 	if result.ok:
 		Contacts.visit(state,current_port(),state.day)
 		if id.begins_with("chainfreight-"):state.storyRights.usedOffers[id]=true
@@ -888,9 +902,12 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 		if not abandon:
 			Politics.job_completed(self,before)
 			if before.get("kind","")=="freight":RegionalOps.delivered(self,str(before.targetPort),float(before.get("freight",{}).get("qty",0)),str(before.port))
-			if before.get("kind","")!="bounty":FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),"survey" if before.get("kind","")=="survey" else "trade")
+			var used: Array=[str(before.carrierUid)] if not str(before.get("carrierUid","")).is_empty() else active_fleet().map(func(b):return b.uid)
+			if before.get("kind","")!="bounty":FleetIdentity.record_service(self,used,"survey" if before.get("kind","")=="survey" else "trade")
+			var captain: String=str(before.get("ownerId",""))
+			if before.get("kind","")=="fuel_delivery" and not captain.is_empty():Contacts.record_captain(state,captain,"job:"+id+":paid",str(before.get("title","Voyage delivery"))+" completed at "+str(current_port().get("name","harbor")),5)
 		for contact in Contacts.list_contacts(state):
-			if contact.port==before.get("port",""):Contacts.record(state,contact.id,"job:"+id+(":abandoned" if abandon else ":paid"),-5 if abandon else 5)
+			if not contact.has("ownerId") and contact.port==current_port().get("id","") and (not abandon or contact.port==before.get("port","")):Contacts.record(state,contact.id,"job:"+id+(":abandoned" if abandon else ":paid"),-5 if abandon else 5,str(before.get("title","Voyage job")))
 	Manifest.allocate(state)
 	return result
 
@@ -985,6 +1002,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 		state.losses += 1
 		state.morale = maxf(10.0,state.morale-6)
 	Politics.settled(self,owner,result,context)
+	if not owner.is_empty():Contacts.record_captain(state,str(owner.id),"engagement:%d:%d"%[int(state.seed),int(state.battleSeq)],"Encounter with your fleet: "+result)
 	use_reserves()
 	apply_morale()
 	log_entry("Engagement %s. %d boats remain."%[result,state.fleet.size()])

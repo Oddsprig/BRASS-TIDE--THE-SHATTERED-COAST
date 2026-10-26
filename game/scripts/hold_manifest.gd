@@ -19,12 +19,14 @@ static func allocate(state: Dictionary) -> void:
 	var freight: Dictionary=state.get("freight",{})
 	if not freight.is_empty():load["@freight"]=float(freight.get("qty",0))
 	var job_goods: Dictionary={}
+	var job_carriers: Dictionary={}
 	for job in state.get("voyageJobs",[]):
 		var lot: Dictionary=job.get("freight",{})
 		if not lot.is_empty():
 			var key: String="@job:"+str(job.id)
 			load[key]=float(lot.get("qty",0))
 			job_goods[key]=str(lot.get("good",""))
+			if job.get("kind","")=="fuel_delivery" and not str(job.get("carrierUid","")).is_empty():job_carriers[key]=str(job.carrierUid)
 	var tool_weights: Dictionary={}
 	for item in state.get("tooling",{}).get("items",[]):
 		if item.get("location","")=="cargo":
@@ -37,6 +39,7 @@ static func allocate(state: Dictionary) -> void:
 		var weight: float=float(tool_weights.get(good,Goods.ITEMS.get(material,{"weight":1}).weight))
 		var left: float=float(load[good])
 		for b in boats:
+			if job_carriers.has(good) and str(b.uid)!=str(job_carriers[good]):continue
 			var qty: float=minf(left,maxf(0,free[b.uid])/maxf(0.01,weight))
 			if str(good).begins_with("@"):qty=floorf(qty)
 			if qty<=0:continue

@@ -447,6 +447,7 @@ func open_port(tab: String = ""):
 	button(body,"Faction standing & safe passage",func():FactionUI.open(self))
 	host.core.Contacts.visit(host.core.state,p,host.core.state.day)
 	button(body,"Voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
+	button(body,"Fishing crews & civilian voyages",func():VoyageUI.open(self,"Fishing"))
 	button(body,"Coastal stories & expedition leads",func():StoryUI.open(self))
 	button(body,"Home harbor, storage & business",func():HomeUI.open(self))
 	button(body,"Crew training & harbor workforce",func():EconomicUI.open(self))

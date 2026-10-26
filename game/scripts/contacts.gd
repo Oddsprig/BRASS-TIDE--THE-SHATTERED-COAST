@@ -12,6 +12,7 @@ const TRUST_MIN := -100
 const TRUST_MAX := 100
 const MAX_EVENTS := 32
 const MAX_LOG := 20
+const CAPTAINS := ["Inez Rook", "Dara Fen", "Milo Teal", "Vera Brack", "Edda Quill", "Oren Pike", "Silas Brine", "Nessa Reed", "Ada Sedge"]
 
 # Authored original contacts at real world ports. ensure() keeps only ids
 # whose port exists in the supplied world (or in state.ports).
@@ -47,12 +48,14 @@ static func _known_ports(state: Dictionary, world: Dictionary) -> Dictionary:
 
 
 static func _fresh(definition: Dictionary) -> Dictionary:
-	return {
+	var out: Dictionary={
 		"id": str(definition["id"]), "name": str(definition["name"]),
 		"role": str(definition["role"]), "port": str(definition["port"]),
 		"title": str(definition.get("title", "")), "trust": 0,
 		"met": false, "lastVisitDay": 0.0, "events": [], "log": [],
 	}
+	if definition.has("ownerId"):out.ownerId=str(definition.ownerId)
+	return out
 
 
 static func _sanitize(raw, definition: Dictionary) -> Dictionary:
@@ -71,6 +74,7 @@ static func _sanitize(raw, definition: Dictionary) -> Dictionary:
 			if entry is Dictionary:
 				log.append({"day": _num(entry.get("day", 0.0)), "event": str(entry.get("event", "")),
 					"amount": int(_num(entry.get("amount", 0))), "trust": clampi(int(_num(entry.get("trust", 0))), TRUST_MIN, TRUST_MAX)})
+				if entry.has("detail"):log[-1].detail=str(entry.detail).left(240)
 		out["log"] = log.slice(maxi(0, log.size() - MAX_LOG))
 	return out
 
@@ -85,7 +89,14 @@ static func ensure(state: Dictionary, world: Dictionary = {}) -> Array:
 		if raw is Dictionary:
 			stored[str(raw.get("id", ""))] = raw
 	var contacts: Array = []
-	for definition in DEFINITIONS:
+	var definitions: Array=DEFINITIONS.duplicate(true)
+	for i in range(CAPTAINS.size()):
+		var owner_id: String="patrol-%d"%i
+		for owner in state.get("fleetOwners",[]):
+			if not owner is Dictionary or str(owner.get("id",""))!=owner_id or owner.get("playerCompany",false):continue
+			definitions.append({"id":"captain:"+owner_id,"name":"Captain "+CAPTAINS[i],"role":"captain","port":str(owner.get("homePort","")),"ownerId":owner_id,"title":str(owner.get("name","Coastal fleet"))+" · "+owner_id})
+			break
+	for definition in definitions:
 		if not known.is_empty() and not known.has(str(definition["port"])):
 			continue
 		contacts.append(_sanitize(stored.get(str(definition["id"]), {}), definition))
@@ -134,6 +145,11 @@ static func visit(state: Dictionary, port: Dictionary, day) -> Dictionary:
 	state["marketSnapshots"][str(port["id"])] = snapshot
 	var met := {}
 	for contact in state["contacts"]:
+		if contact.has("ownerId"):
+			var present: bool=false
+			for owner in state.get("fleetOwners",[]):
+				if str(owner.get("id",""))==str(contact.ownerId) and str(owner.get("atPort",""))==str(port["id"]) and owner.get("active",false):present=true;break
+			if not present:continue
 		if str(contact.get("port", "")) == str(port["id"]):
 			contact["met"] = true
 			contact["lastVisitDay"] = when
@@ -157,7 +173,7 @@ static func list_contacts(state: Dictionary) -> Array:
 # ids return applied=false with trust unchanged. Amount is clamped with the
 # resulting trust to [-100, 100]; the bounded per-contact log keeps the most
 # recent MAX_LOG entries with the campaign day from state.
-static func record(state: Dictionary, contact_id: String, event_id: String, amount) -> Dictionary:
+static func record(state: Dictionary, contact_id: String, event_id: String, amount, detail: String="") -> Dictionary:
 	ensure(state)
 	var contact := _find(state, contact_id)
 	if contact.is_empty():
@@ -175,6 +191,21 @@ static func record(state: Dictionary, contact_id: String, event_id: String, amou
 		events.pop_front()
 	var log: Array = contact["log"]
 	log.append({"day": _num(state.get("day", 0.0)), "event": event_id, "amount": delta, "trust": int(contact["trust"])})
+	if not detail.is_empty():log[-1].detail=detail.left(240)
 	while log.size() > MAX_LOG:
 		log.pop_front()
 	return {"ok": true, "message": "Trust recorded.", "trust": int(contact["trust"]), "applied": true}
+
+
+static func record_captain(state: Dictionary, owner_id: String, event_id: String, detail: String, amount: int=0) -> Dictionary:
+	return record(state,"captain:"+owner_id,event_id,amount,detail)
+
+
+# The encounter resolver stamps witnessed at resolution using the existing
+# chart watch radius. Later proximity must never turn a remote event into intel.
+static func witnessed_encounters(state: Dictionary) -> void:
+	for event in state.get("navalAi",{}).get("encounters",[]):
+		if not event.get("witnessed",false):continue
+		var id: String="naval:%d:%s:%s"%[int(event.get("day",0)),str(event.get("a","")),str(event.get("b",""))]
+		for owner_id in [str(event.get("a","")),str(event.get("b",""))]:
+			record_captain(state,owner_id,id,str(event.get("summary","Observed fleet encounter.")))

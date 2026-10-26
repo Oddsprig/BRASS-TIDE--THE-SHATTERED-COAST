@@ -235,12 +235,14 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 	if not hull_id.is_empty():
 		candidate_ids.append(hull_id)
 	else:
+		var civilians: Array=Fleets.civilian_hulls(p,str(owner.get("kind","")),world,int(owner_id.trim_prefix("patrol-"))) if owner_id.begins_with("patrol-") else []
 		var prefs: Array = owner.get("preferredHulls", []) if owner.get("preferredHulls") is Array else []
+		if not civilians.is_empty():prefs=civilians
 		for pref_var in prefs:
 			var pref_str: String = str(pref_var)
 			if not pref_str.is_empty() and not (pref_str in candidate_ids):
 				candidate_ids.append(pref_str)
-		var sids: Array = p.get("shipIds", []) if p.get("shipIds") is Array else []
+		var sids: Array = p.get("shipIds", []) if civilians.is_empty() and p.get("shipIds") is Array else []
 		for sid_var in sids:
 			var sid_str: String = str(sid_var)
 			if not sid_str.is_empty() and not (sid_str in candidate_ids):
@@ -337,6 +339,11 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 		return {"ok": false, "reason": "slips_full"}
 
 	var port_ship_ids: Array = p.get("shipIds", []) if p.get("shipIds") is Array else []
+	# The same faction civilian drawings as Harbor.catalogue, without creating
+	# ready stock. All existing material, workforce and purse checks still run.
+	port_ship_ids=port_ship_ids.duplicate()
+	for h in world.get("HULLS",[]):
+		if h.get("civilianRole","") in ["fishing","transport","tanker","yacht"] and h.get("faction","")==p.get("faction","") and not h.id in port_ship_ids:port_ship_ids.append(h.id)
 	var nav_ai_d: Dictionary = state.get("navalAi", {}) if state.get("navalAi") is Dictionary else {}
 	for cid_var in candidate_ids:
 		var cid: String = str(cid_var)

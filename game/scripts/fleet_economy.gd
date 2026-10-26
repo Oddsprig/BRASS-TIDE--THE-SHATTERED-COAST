@@ -60,6 +60,21 @@ static func total_coins(owners: Array) -> int:
 		total+=_integer(owner.coins)+_integer(owner.crewPurse)
 	return total
 
+## Drawings for existing civilian owners, also used by their paid replacement
+## path. Reading this never converts an existing saved hull or creates stock.
+static func civilian_hulls(home: Dictionary,kind: String,world: Dictionary,variant: int=0) -> Array:
+	if kind!="trader":return []
+	var ids: Array=[]
+	match str(home.get("faction","")):
+		"reed":ids=["kelpnet_dory","fenhopper_lighter"] if home.get("industry","")=="fishery" and variant<5 else ["mother_gull_trawler","gullwing_daysailer"]
+		"forge":ids=["seepoil_tanker"]
+		"compact":ids=["tideledger_coaster","osprey_cabin_cruiser"]
+	var found: Array=[]
+	for id in ids:
+		var h: Dictionary=_find(world.get("HULLS",[]),str(id))
+		if not h.is_empty() and h.get("faction","")==home.get("faction",""):found.append(id)
+	return found
+
 static func create_owners(ports: Array,world: Dictionary) -> Array:
 	var owners: Array=[]
 	var routes: Array=world.get("ROUTES",[])
@@ -82,6 +97,8 @@ static func create_owners(ports: Array,world: Dictionary) -> Array:
 			ids.append("scab_cutter")
 		if strength>=3:
 			ids.append("barbed_lance")
+		var civilians: Array=civilian_hulls(home,kind,world,i)
+		for j in range(mini(civilians.size(),ids.size())):ids[j]=civilians[j]
 		var boats: Array=[]
 		for id in ids:
 			var spec: Dictionary=_find(world.get("HULLS",[]),id)
@@ -105,6 +122,9 @@ static func create_owners(ports: Array,world: Dictionary) -> Array:
 		for good in Goods.ITEMS:
 			cargo[good]=0.0
 		var owner: Dictionary={"id":"patrol-%d"%i,"name":"Reef raiders" if i%3==0 else "Coastal convoy","homePort":home.id,"faction":"raiders" if kind=="raider" else home.get("faction","compact"),"kind":kind,"coins":0,"crewPurse":0,"wageArrears":0,"morale":85.0,"cargo":cargo,"boats":boats,"route":route.duplicate(),"progress":float(i%5)/5.0,"atPort":home.id if i%5==0 else "","active":true,"log":[],"wageRemainder":0.0,"performanceFactor":1.0,"daysOperated":0.0,"lastPayroll":0,"lastFoodConsumed":0.0,"lastFuelConsumed":0.0,"tradeGood":_trade_good(home),"tradeCargo":0}
+		if not civilians.is_empty():
+			owner.preferredHulls=civilians.duplicate()
+			if boats[0].spec.get("civilianRole","")=="tanker":owner.tradeGood="fuel"
 		# Fourteen wage-days plus three days' rations/fuel: an explicit capital transfer,
 		# capped by the existing sponsoring purse. Hulls are the initial physical fleet.
 		var costs: Dictionary=upkeep(owner)

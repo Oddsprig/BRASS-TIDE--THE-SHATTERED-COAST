@@ -7,6 +7,7 @@ const Economy=preload("res://scripts/economy.gd")
 const Navigation=preload("res://scripts/navigation.gd")
 const Factions=preload("res://scripts/factions.gd")
 const Salvage=preload("res://scripts/salvage.gd")
+const Contacts=preload("res://scripts/contacts.gd")
 
 static func hire(c,owner: Dictionary,p: Dictionary) -> void:
 	for boat in owner.boats:
@@ -72,6 +73,7 @@ static func step(c,dt: float) -> void:
 		# One scan only, even after a long step; never replay missed intervals.
 		c.state.navalEncounterElapsed=0.0
 		for message in AI.scan_encounters(c):c.log_entry(str(message))
+		Contacts.witnessed_encounters(c.state)
 	for p in c.state.patrols:
 		var owner: Dictionary=c.fleet_owner(p.id)
 		if owner.is_empty():continue
@@ -115,6 +117,7 @@ static func step(c,dt: float) -> void:
 static func daily(c) -> void:
 	c.state.yardsAdvancedThisDay=true
 	for message in AI.tick(c,1):c.log_entry(str(message))
+	Contacts.witnessed_encounters(c.state)
 	c.state.erase("yardsAdvancedThisDay")
 	for p in c.state.patrols:
 		var owner: Dictionary=c.fleet_owner(p.id)

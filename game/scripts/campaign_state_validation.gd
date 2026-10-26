@@ -59,11 +59,16 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		for job in s.voyageJobs:
 			if not job is Dictionary or not job.get("id") is String or jobs.has(job.id):return "Invalid or duplicate voyage job."
 			jobs[job.id]=true
-			if job.get("kind","") not in ["freight","survey","bounty"] or job.get("state","") not in ["active","expired"]:return "Invalid voyage job kind/state."
+			if job.get("kind","") not in ["freight","survey","bounty","fuel_delivery","passenger_charter"] or job.get("state","") not in ["active","expired"]:return "Invalid voyage job kind/state."
 			if not job.get("port","") in ports or not job.get("targetPort","") in ports or job.get("payerKey","") not in ["cash","governmentPurse"]:return "Unknown voyage sponsor/destination."
 			for key in ["reward","escrow","deadlineDay","acceptedDay"]:
 				if not number(job.get(key)):return "Invalid voyage job accounting."
-			if floorf(float(job.escrow))!=float(job.escrow) or float(job.escrow)>float(job.reward):return "Invalid voyage escrow."
+			var savings: float=0.0
+			if job.kind=="passenger_charter":
+				for key in ["savingsHousehold","savingsExpert"]:
+					if not number(job.get(key,0)):return "Invalid charter savings."
+					savings+=float(job.get(key,0))
+			if floorf(float(job.escrow))!=float(job.escrow) or float(job.escrow)>float(job.reward)+savings:return "Invalid voyage escrow."
 			if not job.get("freight") is Dictionary:return "Invalid sealed voyage freight."
 			var freight: Dictionary=job.freight
 			if not freight.is_empty():

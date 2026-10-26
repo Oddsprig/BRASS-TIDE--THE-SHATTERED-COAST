@@ -445,6 +445,12 @@ func show_patrol_encounter(id: String):
 	if not observed.is_empty():ui.paragraph(body,str(observed.get("reason","")),15,ui.GOLD)
 	var owner: Dictionary=core.fleet_owner(id)
 	patrol.hostile=core.Politics.hostile(core,owner)
+	if not owner.is_empty() and core.distance(core.state.position,patrol)<=1800.0 and owner.boats.any(func(b):return not b.sunk):
+		core.Contacts.record_captain(core.state,id,"hail:%s:%d"%[id,int(core.state.day)],"Exchanged signals on the coastal route.")
+		var captain: Dictionary=core.Contacts._find(core.state,"captain:"+id)
+		if not captain.is_empty():
+			ui.label(body,str(captain.name),21,ui.GOLD,true)
+			for memory in captain.log.slice(-2):ui.paragraph(body,str(memory.get("detail",memory.event)),14)
 	var loaded: bool=owner.get("kind","")=="trader" and float(owner.get("tradeCargo",0))>0
 	if not patrol.hostile:
 		ui.paragraph(body, "A coastal merchant convoy sails this route. It carries goods between the same ports that supply your fleet. Its crews signal a peaceful passage.", 19)
