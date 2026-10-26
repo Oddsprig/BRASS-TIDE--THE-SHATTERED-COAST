@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.033
+26 October 2026 | Authorized sequential builds; delivered v0.034
 
 VERSION DISCIPLINE
 One agreed playable step per version: implement its listed outcome, fix defects
@@ -20,7 +20,7 @@ Pirates raid merchants, patrols respond and hostile factions fight each other.
 Sightings guide pursuit; survivors retreat and fund repairs/replacements.
 Finish an observable raid, patrol response and faction clash using real fleets.
 
-0.034 - COASTAL GEOGRAPHY AND NAVIGATION
+0.034 - COASTAL GEOGRAPHY AND NAVIGATION [DONE]
 Distinct passages, reefs and harbor approaches; encounter terrain follows
 location. Large hulls respect turning space, clearance and harbor restrictions.
 

@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Tactical route planning allows conservative turning room, and charted trade routes follow cached water paths.
 
 See docs/TEST RESULTS v0.034.md for actual focused checks and remaining limits.
+
+Verification: 56 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 37.275s. Preserved earlier failures; no broad acceptance claim.

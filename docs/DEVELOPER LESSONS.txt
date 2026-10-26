@@ -1,3 +1,10 @@
+26OCT2026 - V0.034 CHART FIXTURE GEOMETRY
+Default trade links need not detour. Check every actual drawn segment for
+safe water, then use a detached fixture route that really crosses the coast.
+Brass Haven to Anvil Dock crosses Cinder Crown and exercises a real detour.
+Do not alter production routes or require needless bends for a green check.
+Navigation58/0 retained; all9 NPC routes usable. Encounter56/0 final.
+
 26OCT2026 - V0.033 SNAPSHOT SCOPE
 LawOps.clock updates every owner's tradeLawDay as real campaign time advances.
 When testing physical story-fleet preservation, assert that clock separately

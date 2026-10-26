@@ -48,7 +48,7 @@ Earlier records follow unchanged.
 
 # Delivered version ledger
 
-Current delivered game is **v0.033**. Each playable version advances by 0.001.
+Current delivered game is **v0.034**. Each playable version advances by 0.001.
 All original annotated tags and portable/source archives are preserved. This
 context-only cleanup creates no new playable version. Detailed historical changes
 remain in Git/tag snapshots and cold archives; current CHANGES v0.028.md stays active.
@@ -93,3 +93,5 @@ Next ten .029–.038 scopes remain planned in VERSION MAP.txt and ROADMAP.md.
 | v0.032 | `1ac7789546f649a38701c54e201ccbdc35df33a9` | 26 October2026; Convoy and recovery battles; 119 focused checks/0 failures; outputs/Brass Tide v0.032 |
 
 | v0.033 | `3b8be1dd8227866857dd2a7de4de35c5690965e9` | 26 October2026; Independent campaign fleets; 55 focused checks/0 failures; outputs/Brass Tide v0.033 |
+
+| v0.034 | `a38c972ad9ad38088d64da307ac41d4db21fd748` | 26 October2026; Coastal geography and navigation; 56 focused checks/0 failures; outputs/Brass Tide v0.034 |
