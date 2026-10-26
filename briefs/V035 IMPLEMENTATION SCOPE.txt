@@ -1,0 +1,39 @@
+V0.035 - TWELVE ORIGINAL CIVILIAN BOATS
+Owner: stick to each version's scope. Predecessor034 delivered114/0 focused
+checks across retained58 and final56, plus portable export/startups.
+Baselineca59474; same2Sol6.1MAX and MuseWonderMEDIUM onBridge.
+
+Exactly3 fishing,4 transport,2 tanker,3 yacht designs; total roster36.
+Accepted names and physical recipe tiers: Wonder's V035 BOUNDED ROSTER.txt.
+Shared metadata civilianRole=fishing|transport|tanker|yacht. Keep existing8
+combat/physics roles; no new tactical enum or boat-use loops in this version.
+
+Systems owns world.json HULLS additions, necessary existing catalogue/
+construction/refit/deployment/harbor compatibility (announce exact extras),
+and one test_civilian_roster035.gd. Preserve all24 original hulls and other
+world data. Actual ready/build prices derive from Construction.quote, finite
+materials, ordinary workers and experts. No invented coin-price constants.
+New hulls use actual existing purchase/commission paths, numerical crews,
+holds, engines/pumps and interchangeable mounts; one stock light gun follows
+the existing world's convention. Emit actual reference bills during the
+focused fixture for delivery, including crew pay at100coins/sailor/day.
+
+Flow owns hull_profiles/boat_art/boat_deck_detail/portrait/mesh-cache as
+needed for the12 additions and existing gallery tools. New fishing work
+decks, transport holds, tanker manifolds and civilian yacht cabins must be
+visually distinct while keeping compatible hardpoints and stern motors.
+Use the existing cheap geometry, no3D assets, new rendering framework or
+animated crew. One test_civilian_art035.gd also captures exact BoatArt draw
+primitives into civilian-gallery.json in GAME_TEST_ARTIFACTS. Root uses the
+existing software rasterizer for a contact sheet; no foreground or GPU run.
+Reuse the existing Recorder pattern and gallery tools, no new test framework.
+
+Wonder reviews coverage, actual cost basis, role clarity and mounts; max4
+definite findings, no speculative additions. Root performs one bounded visual
+pass on the new12 after native capture. Existing24 are not a general polish
+project. No036 fishing, freight, fuel transfer or passenger earnings yet.
+
+Root alone owns the shared TestBridge lane. Helpers run no engines/tests/
+imports/exports/GPU/control or nested helpers. One focused batch including
+setup/export/startups/cleanup stays below120seconds. Package/tag/Desktop035
+before036. Keep coins, finite crews/materials, canonical parts and300DP.

@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.034)
+BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.035)
 
 Constructors and saved careers -> immutable physical births, global custody checks and preserved equipment on capture. Multiple prizes stage without duplicate custody; source payload cannot forge condition or increase an actual donor hull's HP. Harbor merges paid service, commission journal compatibility and lifecycle purchases.
 
@@ -10,13 +10,13 @@ game/scripts/equipment_lifecycle.gd: 24648 bytes; extends RefCounted
   game/scripts/equipment_lifecycle.gd:332 stage_birth()
   game/scripts/equipment_lifecycle.gd:419 materialize()
   game/scripts/equipment_lifecycle.gd:440 retain_wrecks()
-game/scripts/equipment_campaign.gd: 20453 bytes; extends RefCounted
-  game/scripts/equipment_campaign.gd:85 prepare_state()
-  game/scripts/equipment_campaign.gd:96 check_state()
-  game/scripts/equipment_campaign.gd:34 _fail()
-  game/scripts/equipment_campaign.gd:37 _remember()
-  game/scripts/equipment_campaign.gd:45 _boat_lists()
-  game/scripts/equipment_campaign.gd:57 _clone_boats()
+game/scripts/equipment_campaign.gd: 20897 bytes; extends RefCounted
+  game/scripts/equipment_campaign.gd:84 prepare_state()
+  game/scripts/equipment_campaign.gd:95 check_state()
+  game/scripts/equipment_campaign.gd:33 _fail()
+  game/scripts/equipment_campaign.gd:36 _remember()
+  game/scripts/equipment_campaign.gd:44 _boat_lists()
+  game/scripts/equipment_campaign.gd:56 _clone_boats()
 game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
   game/scripts/equipment_recovery.gd:37 prepare()
   game/scripts/equipment_recovery.gd:216 registry()
@@ -38,13 +38,13 @@ game/scripts/save_validation.gd: 20646 bytes; extends RefCounted
   game/scripts/save_validation.gd:32 _numbers()
   game/scripts/save_validation.gd:38 _cargo()
   game/scripts/save_validation.gd:49 _point()
-game/scripts/harbor.gd: 13017 bytes; extends RefCounted
-  game/scripts/harbor.gd:10 quote()
-  game/scripts/harbor.gd:18 buy()
-  game/scripts/harbor.gd:49 commission()
-  game/scripts/harbor.gd:80 collect()
-  game/scripts/harbor.gd:103 tick_yards()
-  game/scripts/harbor.gd:134 recruit()
+game/scripts/harbor.gd: 13773 bytes; extends RefCounted
+  game/scripts/harbor.gd:12 catalogue()
+  game/scripts/harbor.gd:21 quote()
+  game/scripts/harbor.gd:29 buy()
+  game/scripts/harbor.gd:60 commission()
+  game/scripts/harbor.gd:91 collect()
+  game/scripts/harbor.gd:114 tick_yards()
 game/scripts/naval_replacements.gd: 17561 bytes; extends RefCounted
   game/scripts/naval_replacements.gd:17 quote_at_port()
   game/scripts/naval_replacements.gd:26 can_materials()

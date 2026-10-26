@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.034: Coastal geography and navigation. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: navigation.gd::find_path, route_cache.gd::path, campaign.gd::cached_path, naval_lifecycle.gd, coastal_terrain.gd, main.gd::begin_battle, battle.gd::create, tactical_routes.gd, chart.gd.
+v0.035: Twelve civilian boats. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: world.json::HULLS, construction.gd::quote, hull_profiles.gd, boat_art.gd, boat_deck_detail.gd, tools/boat_gallery.gd, tools/render_boat_gallery.py.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

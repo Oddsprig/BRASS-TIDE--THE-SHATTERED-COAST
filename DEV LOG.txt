@@ -1,3 +1,7 @@
+26OCT2026 - v0.035 TWELVE CIVILIAN BOATS
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.034 VERIFIED AND PACKAGED: 56/0 focused checks, selected batch 37.275s, TestBridge 8d8c9384f1244baba94fa0c2a50688a5. Source a38c972ad9ad38088d64da307ac41d4db21fd748.
 
 26OCT2026 - v0.034 COASTAL GEOGRAPHY AND NAVIGATION

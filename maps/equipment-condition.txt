@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.034)
+BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.035)
 
 Core/Records, paid physical fitting/damage and whole-campaign custody preflight feed integrated constructors/save migration/UI and paid Harbor/NPC service. Working live combat/tow has Lab99/0, equipment voyage67/0 and salvage voyage14/0; remaining gates stay open; legacy counts cannot create free perfect parts.
 
@@ -45,13 +45,13 @@ game/scripts/damage.gd: 26875 bytes; extends RefCounted
   game/scripts/damage.gd:49 set_policy()
   game/scripts/damage.gd:54 set_repair_priority()
   game/scripts/damage.gd:62 get_status()
-game/scripts/equipment_campaign.gd: 20453 bytes; extends RefCounted
-  game/scripts/equipment_campaign.gd:85 prepare_state()
-  game/scripts/equipment_campaign.gd:96 check_state()
-  game/scripts/equipment_campaign.gd:34 _fail()
-  game/scripts/equipment_campaign.gd:37 _remember()
-  game/scripts/equipment_campaign.gd:45 _boat_lists()
-  game/scripts/equipment_campaign.gd:57 _clone_boats()
+game/scripts/equipment_campaign.gd: 20897 bytes; extends RefCounted
+  game/scripts/equipment_campaign.gd:84 prepare_state()
+  game/scripts/equipment_campaign.gd:95 check_state()
+  game/scripts/equipment_campaign.gd:33 _fail()
+  game/scripts/equipment_campaign.gd:36 _remember()
+  game/scripts/equipment_campaign.gd:44 _boat_lists()
+  game/scripts/equipment_campaign.gd:56 _clone_boats()
 game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
   game/scripts/equipment_recovery.gd:37 prepare()
   game/scripts/equipment_recovery.gd:216 registry()

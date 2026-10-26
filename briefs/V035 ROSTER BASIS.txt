@@ -1,0 +1,105 @@
+V035 BOUNDED ROSTER — 12 original civilian hulls (read-only brief)
+Scope: roster only. No fishing/freight/fuel/passenger loops
+(v0.036), no new rendering code or skeletons.
+
+ANCHORS (MAIN world.json, 24 hulls, all combat, 8 roles)
+Civilian-relevant: Tinwake Skiff (skiff, size 14, cargo 60, crew
+3/5/8, speed 118); Silt Runner Lugger (raider, size 17, cargo
+130, crew 4/6/10, speed 104, estuary freighter); Sovereign Armed
+Packet (raider, size 23, cargo 230, crew 8/14/20); Breakwater
+Sloop (corvette, size 17, cargo 80); size ceiling is the size-36
+dreadnought. All tiers below stay in the skiff-to-corvette
+hp/armor band (civilian armor 1-6); only the motor-galleon
+exceeds the Packet's size, none approaches capital stats.
+
+ART BASIS
+boat_art maps only the 8 existing roles to archetypes, and
+hull_profiles falls back to the role's default hull for unknown
+ids, so every entry uses an existing role/archetype (speedboat,
+catamaran, patrol, hydrofoil, command). Builders add one
+_PROFILES entry per hull in the established form (stations,
+bridgeStyle, accents, cargo), reusing existing bridgeStyle
+values and prop-kind keyword families boat_deck_detail already
+renders (reel, drum, cask, davit, manifold, tarp/stack boxes).
+Each hull keeps one light stock gun (world convention);
+hardpoints add aft/side sockets at size 20/28 automatically.
+
+PRICE BASIS — no invented coin prices, no price field proposed
+Construction.quote(blueprint) derives all of it: role geometry
+gives length/beam/depth/hull area; timber/logs scale with hull
+area, cargo, hp; iron with armor, engines, guns; copper with
+engines, guns, pumps; supplies with hull area, armor, pumps;
+fuel with engines and hull area. Engines derive from
+displacement, armor and speed; weapon units from mounts and
+complexity. Labor is ordinary worker-days (laborer, shipwright,
+mechanic, gunsmith at Goods.WAGES, ordinary anchor 100) plus
+expert days (foreman, master shipwright, engineer), then 8%
+margin, 5% tax, ready-storage. Entries name recipe emphasis
+only; any materials override stays within MATERIAL_ORDER keys.
+
+FISHING (3)
+1. kelpnet_dory "Kelpnet Dory" (reed, skiff, t1): size 13,
+cargo ~35 (under Tinwake), crew 3/4/6, speed ~110. Open
+speedboat, open_windscreen; net reel, salvage drum. Smallest
+timber/logs bill, 1 engine.
+2. brinehook_longliner "Brinehook Longliner" (compact, skiff,
+t2): size 15, cargo ~55, crew 3/5/8, speed ~106. Long working
+stern, customs_canopy; stern davit, drum pair. Timber/supplies
+grow with size, modest pumps.
+3. mother_gull_trawler "Mother Gull Trawler" (reed, raider,
+t2): size 19, cargo ~110 (under Lugger), crew 4/7/11, speed
+~96. Broad catamaran work deck, estuary_span; cross-beam, twin
+reels, stacked nets as tarp props. First 2-engine fishing hull.
+
+TRANSPORTS (4, ascending to motor-galleon)
+4. fenhopper_lighter "Fenhopper Lighter" (reed, raider, t1):
+size 17, cargo ~140 (just over Lugger), crew 4/6/10, speed
+~100. Flat catamaran, estuary_span; bale stacks on both hulls.
+Timber/logs-heavy, low iron.
+5. tideledger_coaster "Tideledger Coaster" (compact, raider,
+t2): size 21, cargo ~200, crew 5/9/14, speed ~102. Longer
+catamaran, packet prow crest, bonded strongboxes. Hull-area
+timber and 2 engines dominate.
+6. fourport_packet "Fourport Packet" (compact, raider, t3):
+size 24, cargo ~260 (over Armed Packet's 230 but civilian fit:
+armor ~3, tier-1 gun), crew 7/12/18, speed ~108. packet_house
+bridge. Cargo beam factor raises timber; copper follows pumps.
+7. brasswind_motor_galleon "Brasswind Motor-Galleon" (compact,
+raider, t3): size 28, cargo ~340, crew 9/16/24, speed ~100.
+Widest catamaran roster-wide; packet_house, mast accents as
+deck props only (no sail system); size-28 side socket per
+existing hardpoints. Largest civilian timber/logs/iron bill,
+3-engine band, quoted by formula, never hand-priced.
+
+TANKERS (2)
+8. seepoil_tanker "Seepoil Tanker Barge" (forge, corvette,
+t2): size 20, liquid cargo ~150, crew 5/8/13, speed ~92, pumps
+well above corvette norm. Patrol hull, turtleback_conning
+profile in civilian trim; manifold banks, drum/cask props.
+Copper/supplies follow the pump fit; fuel lots are build
+materials only, not a delivery loop.
+9. blackwater_fleet_tanker "Blackwater Fleet Tanker" (forge,
+corvette, t3): size 27, liquid cargo ~280, crew 8/14/22, speed
+~88. Long patrol hull, wheelhouse profile; manifolds both
+sides. 2-3 engines; engineer expert days lead the quote.
+
+YACHTS (3)
+10. gullwing_daysailer "Gullwing Daysailer" (reed, cutter,
+t1): size 14, cargo ~20, crew 3/4/7 (sailors only), speed ~138
+near Marsh Dart. Hydrofoil, stepped_cockpit; trim cells, rope
+coil. Speed-derived engines lead a tiny timber bill.
+11. osprey_cabin_cruiser "Lacquered Osprey Cruiser" (compact,
+cutter, t2): size 17, cargo ~30, crew 3/6/10, speed ~130.
+interceptor_canopy in civilian trim; signal tube, cabin
+lockers. Supplies/timber share raised via the existing
+materials override; no new goods.
+12. aurelian_court_yacht "Aurelian Viceroy Yacht" (compact,
+cruiser, t3), the high-ranking civilian: size 25, cargo ~45,
+crew 6/12/20 (household staff counted as crew), speed ~116,
+armor ~4, tier-1 gun. Command hull, commodore_tower, signal
+wings, no capital armor. Master-shipwright/engineer days and
+supplies are its cost story, quoted like every other hull.
+
+Builders set exact hp/armor/turn/pumps inside these bands under
+existing balance tests. Nothing here sets a price, adds a good,
+or models earnings; that is v0.036.

@@ -1,4 +1,4 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.034)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.035)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses.
 
