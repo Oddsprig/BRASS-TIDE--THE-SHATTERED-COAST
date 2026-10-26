@@ -100,6 +100,88 @@
         "ash_corvette",
         "slag_gunboat"
       ]
+    },
+    "coastal_clash": {
+      "label": "Coastal Clash",
+      "seconds": 20,
+      "context": "coastal_clash",
+      "objective": "escort",
+      "formation": "closing",
+      "carrierHull": "fourport_packet",
+      "carrierCargo": {
+        "ammo": 8,
+        "timber": 6,
+        "fuel": 4
+      },
+      "exit": {
+        "x": 2180,
+        "y": 850,
+        "radius": 70
+      },
+      "guidance": "Win: the loaded Fourport Packet reaches the eastern exit with its cargo. Lose: the packet is sunk or taken. Galeblade and Ashwake screen it. Slagclast works the guns. Fen Stinger carries the torpedoes. WASD moves the camera, Space pauses, Tab opens orders, U takes manual helm. 1 engage, 2 escort, 3 hold.",
+      "roles": {
+        "gale_cutter": "screen",
+        "ash_corvette": "screen",
+        "slag_gunboat": "heavy",
+        "reed_stinger": "striker"
+      },
+      "player": [
+        "fourport_packet",
+        "gale_cutter",
+        "ash_corvette",
+        "slag_gunboat",
+        "reed_stinger"
+      ],
+      "enemy": [
+        "scab_cutter",
+        "marsh_dart",
+        "hook_raider",
+        "krill_torpedo",
+        "barbed_lance",
+        "bellows_gunboat"
+      ],
+      "fits": {
+        "fourport_packet": {
+          "weapons": ["stock_primary", "", ""],
+          "engine": "economy_drive",
+          "armor": "stock_armor"
+        },
+        "gale_cutter": {
+          "weapons": ["rapid_gun", "rapid_gun"],
+          "engine": "boost_drive",
+          "armor": "stock_armor"
+        },
+        "ash_corvette": {
+          "weapons": ["heavy_gun", "rapid_gun", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        },
+        "slag_gunboat": {
+          "weapons": ["heavy_gun", "light_cannon", "rapid_gun"],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        },
+        "reed_stinger": {
+          "weapons": ["light_torpedo", "rapid_gun"],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        },
+        "krill_torpedo": {
+          "weapons": ["light_torpedo", "rapid_gun", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        },
+        "hook_raider": {
+          "weapons": ["light_cannon", "rapid_gun", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        },
+        "barbed_lance": {
+          "weapons": ["fire_rocket", "rapid_gun", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        }
+      }
     }
   }
 }

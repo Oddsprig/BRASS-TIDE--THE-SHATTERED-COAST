@@ -230,11 +230,10 @@ func title_screen():
 	var actions = column(v)
 	actions.custom_minimum_size.x = 345
 	actions.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	var first: Button
+	var first: Button=add_coastal_clash(actions)
 	if host.has_save():
-		first=button(actions, "Continue voyage", host.load_game, true)
-	var start=button(actions, "New voyage", host.new_game, first==null)
-	if first==null:first=start
+		button(actions, "Continue voyage", host.load_game)
+	button(actions, "New voyage", host.new_game)
 	button(actions, "Fleet battle laboratory", host.open_lab)
 	button(actions, "Options & music", open_settings)
 	button(actions, "Guide & acknowledgements", open_guide, false, false)
@@ -333,7 +332,24 @@ func build_campaign_hud(size: Vector2):
 	voyage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	dock_button = button(actions, "Enter harbor  ↗", func(): open_port(), true)
 
+func add_coastal_clash(actions: Node) -> Button:
+	var clash: Button=button(actions, "Coastal Clash", host.start_coastal_clash, true)
+	clash.name="CoastalClash"
+	paragraph(actions, "One loaded packet, a mixed escort, raiders already in range.", 14, GOLD)
+	return clash
+
+func skirmish_guidance() -> void:
+	if left_body==null or str(host.battle_context.get("kind",""))!="coastal_clash":
+		return
+	eyebrow(left_body, "COASTAL CLASH")
+	var text: String=str(host.lab_config.get("guidance",""))
+	if text.is_empty():
+		text="Escort the loaded packet to the exit. WASD camera, Space pause, Tab orders, U manual helm."
+	var hint: Label=paragraph(left_body, text, 13, GOLD)
+	hint.name="SkirmishGuidance"
+
 func build_battle_hud(size: Vector2):
+	skirmish_guidance()
 	TacticsUI.build(self, size)
 
 func update_hud():

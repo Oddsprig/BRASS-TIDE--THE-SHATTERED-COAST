@@ -535,6 +535,13 @@ func quick_battle():
 	lab_config=FleetLab.preset(data,"mixed")
 	start_lab()
 
+func start_coastal_clash():
+	lab_config=FleetLab.preset(data,"coastal_clash")
+	lab_seed=41041
+	start_lab()
+	if mode=="battle" and str(battle_context.get("kind",""))=="coastal_clash" and ui!=null:
+		ui.toast("Raiders are in range. Screen the packet and put guns and torpedoes on them.")
+
 func _leave_lab():
 	if career_core!=null:
 		core=career_core
@@ -566,7 +573,8 @@ func start_lab():
 	quick_mode=true
 	battle=built.battle
 	battle_enemies=battle.ships.filter(func(s):return s.team=="enemy").map(func(s):return s.spec)
-	battle_context={"kind":"laboratory","name":"Fleet battle laboratory"}
+	var skirmish: bool=str(lab_config.get("context",""))=="coastal_clash"
+	battle_context={"kind":"coastal_clash" if skirmish else "laboratory","name":str(lab_config.get("label","Coastal Clash")) if skirmish else "Fleet battle laboratory"}
 	_enter_battle()
 
 func _enter_battle():

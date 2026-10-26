@@ -2,6 +2,7 @@ extends RefCounted
 const Lab=preload("res://scripts/fleet_lab.gd")
 const Refit=preload("res://scripts/refit.gd")
 const Portrait=preload("res://scripts/boat_portrait.gd")
+const Objectives=preload("res://scripts/battle_objectives.gd")
 
 static func picker(parent: Node,options: Array,current: String,action: Callable) -> OptionButton:
 	var choice=OptionButton.new()
@@ -25,7 +26,7 @@ static func open(ui):
 	var choices: Array=[]
 	for id in Lab.presets(): choices.append({"id":id,"label":Lab.presets()[id].label})
 	picker(top,choices,"",func(id):host.lab_config=Lab.preset(host.data,id);open(ui))
-	picker(top,[{"id":"","label":"Fleet engagement"},{"id":"escort","label":"Protect first boat for 45 seconds"}],str(host.lab_config.get("objective","")),func(id):host.lab_config.objective=id;open(ui))
+	picker(top,[{"id":"","label":"Fleet engagement"},{"id":"escort","label":"Escort the first boat to the exit"}],str(host.lab_config.get("objective","")),func(id):host.lab_config.objective=id;open(ui))
 	ui.label(top,"Seed",15)
 	var seed_box=SpinBox.new()
 	seed_box.min_value=1;seed_box.max_value=2147483647;seed_box.value=host.lab_seed
@@ -114,9 +115,33 @@ static func refresh_preview(portrait,spec: Dictionary,draft: Dictionary):
 static func results(ui):
 	var host=ui.host
 	ui.modal_kind="outcome"
-	var body=ui.modal("Engagement complete","LABORATORY · SEED %d"%host.lab_seed,850,700)
-	ui.label(body,str(host.battle.result).capitalize(),32,ui.GOLD,true)
-	ui.paragraph(body,"Test fixtures only. No coins, salvage or laboratory hulls enter your voyage.")
+	var clash: bool=str(host.battle_context.get("kind",""))=="coastal_clash"
+	var body=ui.modal("Coastal Clash" if clash else "Engagement complete","LABORATORY · SEED %d · NO VOYAGE REWARDS"%host.lab_seed,850,700)
+	var headline: String=str(host.battle.result).capitalize()
+	var detail: String="Test fixtures only. No coins, salvage or laboratory hulls enter your voyage."
+	if Objectives.is_convoy(host.battle):
+		var snap: Dictionary=Objectives.snapshot(host.battle)
+		if str(host.battle.result)=="won":
+			headline="Victory"
+			detail="The loaded boat reached the exit with its cargo. No coins or cargo are added to a voyage."
+		elif str(host.battle.result)=="retreated":
+			headline="Withdrawn"
+			detail="The fleet left before the loaded boat reached the exit. No coins or cargo are added to a voyage."
+		else:
+			headline="Defeat"
+			detail="The loaded boat did not clear the exit. No coins or cargo are added to a voyage."
+		ui.label(body,headline,32,ui.GOLD,true)
+		ui.paragraph(body,detail)
+		if not str(snap.get("label","")).is_empty(): ui.paragraph(body,str(snap.label),15,ui.GOLD)
+		for carrier in snap.get("carriers",[]):
+			var bits: String=""
+			for good in carrier.get("cargoAboard",{}):
+				bits+=", " if not bits.is_empty() else ""
+				bits+="%.0f %s"%[float(carrier.cargoAboard[good]),str(good)]
+			ui.label(body,"%s · %s · %s"%[str(carrier.get("name",carrier.get("uid",""))),str(carrier.get("fate","")),bits if not bits.is_empty() else "no cargo"],16)
+	else:
+		ui.label(body,headline,32,ui.GOLD,true)
+		ui.paragraph(body,detail)
 	for team in ["player","enemy"]:
 		var boats: Array=host.battle.ships.filter(func(s):return s.team==team)
 		var alive=0;var holes=0;var water=0.0;var ammo=0.0
