@@ -1,3 +1,7 @@
+26OCT2026 - v0.038 CAREER BALANCE AND GUIDANCE
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.037 VERIFIED AND PACKAGED: 29/0 focused checks, selected batch 37.374s, TestBridge a663fd9c59684a70859ecceb2ebb3f69. Source b022ef79ae6eaec4a48f262c4ef958c830ff2182.
 
 26OCT2026 - v0.037 SUPPLIED FACTION OPERATIONS

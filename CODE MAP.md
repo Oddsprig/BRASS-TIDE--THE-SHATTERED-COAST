@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.037: Supplied faction operations. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: regional_campaigns.gd, regional_ops.gd, regional_orders.gd, naval_orders.gd, regional_ui.gd.
+v0.038: Career balance and guidance. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: campaign_guidance.gd, guidance_ui.gd, voyage_jobs.gd, civilian_work.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

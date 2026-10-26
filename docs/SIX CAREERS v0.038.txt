@@ -1,0 +1,55 @@
+BRASS TIDE v0.038 - SIX WAYS TO MAKE A LIVING
+
+Open Captain's priorities from the campaign panel or Guide. Choose a career
+to see a first goal, entry requirements, current operating costs, reward
+source and next useful step. You can combine careers during one voyage.
+The guide keeps entry advice visible when urgent fleet warnings need space.
+
+EXPLORER
+Choose an island lead, provision the voyage and survey it with actual crew
+and supplies. A funded survey job can pay from a harbor's reserved fee.
+Follow the revealed lead or inspect a discovered wreck after returning safely.
+
+MERCHANT
+Compare actual stock, prices, buyer funds and a safe return route. Start with
+a manageable freight lot or a funded delivery, then consider a larger hold
+or paid shipping company. Cargo ties up coins; a sale needs a real buyer.
+
+ESCORT
+Find actual loaded coastal traffic and protect its carrier through the
+physical exit or destination objective. Check the offered terms, crew,
+ammunition and repair reserves. Voluntary escort success awards service
+and faction standing; it currently carries no automatic coin fee. Combine
+it with funded work or trade when you need voyage income. Improve endurance before
+taking on a more dangerous route; the carrier's survival is the objective.
+
+PRIVATEER
+Read faction standing, commissions and customs before choosing a target.
+Budget ammunition, boarding crew, damage and the return of a captured prize.
+A bounty, recovered equipment or a sale pays only through its existing
+funding and custody rules. Keep the legal and repair costs in the decision.
+
+FISHER
+Acquire a crewed fishing hull, fuel, food and free hold. Use K, then Fishing,
+after stopping in safe water away from a harbor. Unpaused time earns a
+bounded catch from the site. Land it at a harbor with actual purchasing
+funds, then improve carrying space and endurance for the next trip.
+
+PASSENGER OPERATOR
+Prepare a transport or yacht with actual spare berths. The K work board
+shows funded charters when a sponsor, passengers, route and provisions are
+available. Carry the real cohort to its destination and settle there.
+Improve berth and supply capacity before carrying a larger commitment.
+
+COMMON COSTS
+Sailors earn100 coins per person per day. Food, fuel, repairs, machinery,
+weapons and construction retain their existing material and labor costs.
+The guide uses current records and quotes; it does not guarantee profit.
+Protect return wages and stores before committing cargo or passenger space.
+An unavailable safe route is marked as such; reserve-only estimates do not
+quote a sailing journey. Actual action panels remain the place to commit.
+
+SCOPE
+This is one career guidance and balance pass across the existing systems.
+The general Captain and Harbormaster views remain available. The36-boat
+roster, paid economy and300-point battle deployment limit remain in use.

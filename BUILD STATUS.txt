@@ -1,14 +1,15 @@
-BRASS TIDE v0.037 - Supplied faction operations
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: b022ef79ae6eaec4a48f262c4ef958c830ff2182 / v0.037
-Test Bridge: a663fd9c59684a70859ecceb2ebb3f69
-29 focused checks, 0 failures; menu/campaign/battle startup passed.
-Selected batch plus setup: 37.374s; owned cleanup verified.
+BRASS TIDE v0.038 - CAREER BALANCE AND GUIDANCE
+26 October2026 |36 boat designs
 
-- Existing friendly fleets receive coordinated physical objectives through the regional operation and naval order systems.
-- Actual fuel, ammunition, food, wages, machinery condition and paid replacement capacity constrain the operation.
-- The operation records a physical success or an explained supply, route or readiness stall without creating free fleets or reward coins.
+THIS VERSION
+- Explorer, merchant, escort, privateer, fisher and passenger guidance explains a first goal, real operating costs, existing rewards and the next useful step.
+- One bounded pass checks the six earning paths against actual wage, fuel, food and repair costs and corrects demonstrated dead ends.
+- Guidance uses current boats, berths, cargo and job records; it does not promise invented income or guaranteed profit.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Retained supplied-operations037:27 checks/0 failures from1417a871480a4501a3d3936cb383e49c. Production hashes match; only flow fixture setup changed to pay crew and purchase actual food, and respect zero public grant without a threat. Final batch covers remaining flow, export and three startups. Earlier failed fixture preserved. The second failed fixture also assumed crew purses must increase despite ration purchases; the final assertion permits actual food spending while checking payroll and coin conservation. Production remains unchanged.
+STATUS: current source candidate; focused checks/export pending.
