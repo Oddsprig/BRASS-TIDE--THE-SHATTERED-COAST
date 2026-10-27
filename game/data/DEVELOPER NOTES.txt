@@ -1,10 +1,10 @@
-BRASS TIDE v0.050 - DISTINCT COASTAL TERRAIN AND WORKING HARBORS
+BRASS TIDE v0.051 - FIRST VOYAGE AND CORE QUALITY MILESTONE
 27 October2026 |36 boat designs
 
 THIS VERSION
-- Give the eight coastal regions authored terrain compositions and all ten harbors distinct layouts and industry landmarks.
-- Prepare inexpensive cached detail at three zoom levels, using the actual campaign coast and translated battle encounter polygons.
-- Keep navigation boundaries, port anchors and trade routes authoritative while improving regional names, harbor captions and chart readability.
+- Present a clear first-voyage opportunity, actual operating reserves and an understandable next fitting or fleet goal using the existing campaign systems.
+- Remove the demonstrated remaining bow-art defect without changing physical boat sockets or stats.
+- Reduce measured repeated damage and navigation work, validate the unchanged public behavior and measure actual full300DP rendered battles.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
@@ -12,8 +12,8 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-The prior v0.049 authored assets cover all36 hulls. This build changes coast
-and harbor paint only; it does not move navigation rings or economic anchors.
-Actual full300DP performance remains below target (v0.046 measured4.605FPS
-light /17.084FPS mixed). The v0.051 core-quality gate remains OPEN before
-v0.052 breadth; lower-bow visual findings also remain for that review.
+ACTIVE CANDIDATE: native checks, final exported measurement and first-voyage
+review remain pending. The previous full300DP benchmark was4.605FPS light /
+17.084FPS mixed; all performance targets unmet. Two prepared optimizations
+are source candidates only until measured. Gate051 remains OPEN and blocks052.
+Background tests use the shared lane and whole batches below120seconds.

@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.050: Distinct coastal terrain and working harbors. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: chart.gd, nautical_art.gd, coast_art050.gd.
+v0.051: First voyage and core quality milestone. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: interface.gd, captain_guidance.gd, damage.gd, equipment_damage.gd, equipment_records.gd, tactical_runtime.gd, tactical_routes.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

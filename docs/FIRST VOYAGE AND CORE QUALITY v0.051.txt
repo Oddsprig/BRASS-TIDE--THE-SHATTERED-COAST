@@ -1,0 +1,12 @@
+BRASS TIDE v0.051 - FIRST VOYAGE AND CORE QUALITY
+
+This is the active source candidate on delivered v0.050. Native verification,
+final exported performance and opening-voyage review remain pending.
+
+Scope: clear first job, actual operating costs and next fleet/fitting goal;
+correct the demonstrated remaining bow-art problem; reduce measured repeated
+damage/navigation work without changing actors, deployment or simulation rate.
+
+No new campaign breadth until the core-quality milestone clears. The previous
+full300DP measurement was4.605FPS light /17.084FPS mixed, all targets unmet.
+Assertion counts and offline captures do not establish smoothness or fun.
