@@ -690,6 +690,8 @@ func retained_semantic_preference051() -> void:
 		var held: Variant=_admit_retained051(st,source,dt,"semantic-recertification")
 		check(held is C._Retained051,"semantic recertification begins with a real maneuver dt="+str(dt))
 		if not held is C._Retained051:continue
+		T.enable_planning051(st);worker_states051.append(st)
+		check(st.tactical.has("workers051"),"semantic reuse case opts the actual multi-hostile fleet into pooled planning dt="+str(dt))
 		var preference: Variant=_physical_preference_drop051(arena,held,"recertification "+str(dt))
 		if not preference is C._Preference051:continue
 		var original: float=preference.chosen_at
@@ -733,17 +735,21 @@ func retained_semantic_preference051() -> void:
 			B.update(st,dt);B.pop_events(st)
 		check(not is_same(st.tactical.retained051.get(id),recertified) and not C._retained_current051(st,source,recertified).ok,"recertification and stable observations cannot extend original chosenAt+0.45 dt="+str(dt))
 		observations.append({"case":"semantic-preference051","dt":dt,"originalChosenAt":original,"recertifiedAt":recertified.record.certificate.checkedAt,"cutoffObservedAt":st.time})
+		T.retire_planning051(st);T.drain_planning051()
 	# The same physical revocation must retire a PUBLIC intent's reservation,
 	# even when its private retained descriptor has already been removed.
 	var public_arena: Dictionary=local_arena()
 	var public_held: Variant=_admit_retained051(public_arena.state,public_arena.source,1.0/60.0,"semantic-public-intent")
 	check(public_held is C._Retained051,"non-retained helm case obtains its public certificate from real admission")
-	if public_held is C._Retained051:_physical_preference_drop051(public_arena,public_held,"public-intent",false)
+	if public_held is C._Retained051:
+		T.enable_planning051(public_arena.state);worker_states051.append(public_arena.state)
+		_physical_preference_drop051(public_arena,public_held,"public-intent",false)
 	for variant: String in ["command","options","direct-options","terrain","owner","target","capability","phase","shot","manual","deadline"]:
 		var arena: Dictionary=local_arena();var st: Dictionary=arena.state;var source: Dictionary=arena.source;var id: String=str(source.id)
 		var held: Variant=_admit_retained051(st,source,1.0/60.0,"semantic-urgent-"+variant)
 		check(held is C._Retained051,"urgent semantic case begins with actual authority: "+variant)
 		if not held is C._Retained051:continue
+		T.enable_planning051(st);worker_states051.append(st)
 		var preference: Variant=_physical_preference_drop051(arena,held,variant)
 		if not preference is C._Preference051:continue
 		match variant:
@@ -760,6 +766,59 @@ func retained_semantic_preference051() -> void:
 			"deadline":st.time=preference.chosen_at+0.45
 		var current: Dictionary={}
 		check(not T._observe_retained051(st,id,null,current) and not current.get("freshDecisions051",{}).has(id) and not st.tactical.preferences051.has(id) and not st.tactical.retained051.has(id) and not st.tactical.intents.has(id) and not st.tactical.memory.player.reservations.has(id),"current urgent change/hard deadline cannot lend a semantic decision or authority: "+variant)
+
+func retained_synchronous_policy051() -> void:
+	# Actual one-per-side workload policy, both sides, no mission/hull/seed gate.
+	# These public ticks isolate reconsideration BEFORE the fleet .45s cutoff.
+	var dt: float=1.0/60.0
+	for side: String in ["player","enemy"]:
+		var spec: Dictionary=SPEC.duplicate(true);spec.range=300.0
+		var player: Dictionary=D.create_ship(spec,{"uid":"sync-retained-player"})
+		var enemy: Dictionary=D.create_ship(spec,{"uid":"sync-retained-enemy"})
+		var st: Dictionary=B.create({"fleet":[player],"enemyFleet":[enemy],"seed":30011,"islands":[]})
+		st.islands=[];st.autoBoard=false
+		player.x=500.0;player.y=850.0;player.angle=0.0
+		enemy.x=1500.0;enemy.y=850.0;enemy.angle=PI
+		T.enable_planning051(st)
+		check(not st.tactical.has("workers051"),"real ordinary duel retains general synchronous workload policy: "+side)
+		var source: Dictionary=player if side=="player" else enemy
+		var blocker: Dictionary=enemy if side=="player" else player
+		var id: String=str(source.id)
+		var held: Variant=_admit_retained051(st,source,dt,"sync-policy-"+side)
+		check(held is C._Retained051,"ordinary synchronous side obtains real certified authority: "+side)
+		if not held is C._Retained051:continue
+		var original: float=held.chosen_at
+		for tick: int in range(ceili(0.40/dt)):
+			if float(st.time)-original>=0.40-0.000001:break
+			B.update(st,dt);B.pop_events(st)
+		var reconsidered: Variant=st.tactical.retained051.get(id)
+		check(reconsidered is C._Retained051 and not is_same(reconsidered,held) and float(reconsidered.chosen_at)-original>=0.30-0.000001 and float(st.time)-original<0.45,"ordinary sync makes a full choice after .30s, before fleet .45s retention: "+side)
+		if not reconsidered is C._Retained051:continue
+		check(T._current051(st,source,st.tactical.intents.get(id,{})).ok and reconsidered.record.certificate.checkedAt>held.record.certificate.checkedAt,"ordinary reconsideration obtains a NEW current physical certificate: "+side)
+		var old: Vector2=F.pos(blocker)
+		blocker.x=float(source.x)+30.0;blocker.y=source.y;T.after_motion(st)
+		var control: Dictionary=T.helm(st,source)
+		check(bool(control.get("blocked",false)) and float(control.throttle)==0.0 and not reconsidered.step_ok and not st.tactical.intents.has(id) and not st.tactical.retained051.has(id) and not st.tactical.preferences051.has(id),"ordinary physical veto retires authority AND semantic eligibility immediately: "+side)
+		check(not st.tactical.memory.player.reservations.has(id) and not st.tactical.memory.enemy.reservations.has(id),"ordinary physical veto clears every side's reservation for this hull: "+side)
+		var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state])
+		check(T.fire_gates(st,source).is_empty() and bool(T.helm(st,source).get("blocked",false)) and var_to_bytes([st.ships,st.rng.state])==physical,"ordinary veto cannot fire, move, spend stores or advance RNG: "+side)
+		blocker.x=old.x;blocker.y=old.y;T.after_motion(st)
+		var current: Dictionary={}
+		check(not T._observe_retained051(st,id,null,current) and not current.get("freshDecisions051",{}).has(id),"ordinary physical loss cannot lend a prepared semantic decision: "+side)
+		var memory: PackedByteArray=var_to_bytes(st.tactical.memory[side])
+		var view: Dictionary=T._begin_view051(st,side,[id],null,current)
+		var prepared: Dictionary=Planner._prepare_with_worker051(view,st.tactical.memory[side],{},current.indexes[side],current.get("freshDecisions051",{}))
+		var expected: Dictionary=Roles.decide(view,prepared.context[id],st.tactical.memory[side].byId[id],prepared.context,st.tactical.memory[side].reservations)
+		check(int(prepared.scored)>0 and var_to_bytes(prepared.decisions[id])==var_to_bytes(expected) and not prepared.originalPreferenceChosenAt051.has(id),"ordinary replan runs the complete current canonical choice without semantic reuse: "+side)
+		check(var_to_bytes(st.tactical.memory[side])==memory and not st.tactical.intents.has(id),"ordinary candidate preparation grants no memory or physical authority: "+side)
+		var fresh: Variant=null
+		for tick: int in range(ceili(0.2/dt)):
+			B.update(st,dt);B.pop_events(st)
+			fresh=st.tactical.retained051.get(id)
+			if fresh is C._Retained051:break
+		check(fresh is C._Retained051 and not is_same(fresh,reconsidered) and float(fresh.chosen_at)>float(reconsidered.chosen_at) and T._current051(st,source,st.tactical.intents.get(id,{})).ok,"ordinary physical recovery requires a full choice and NEW live certificate: "+side)
+		check(not st.tactical.has("workers051"),"ordinary policy stays synchronous through reconsideration and physical recovery: "+side)
+		observations.append({"case":"retained-sync-policy051","side":side,"originalChosenAt":original,"reconsideredAt":reconsidered.chosen_at,"recoveredAt":st.time})
 
 func retained_maneuver051() -> void:
 	for dt: float in [1.0/30.0,1.0/60.0]:
@@ -816,6 +875,7 @@ func retained_maneuver051() -> void:
 				check(events.any(func(event):return event.kind=="hit" and str(event.targetId)==id) and float(source.hp)<hp-1.0 and not T._current051(st,source,held.intent,dt).ok,"actual impact immediately invalidates retained capability authority")
 
 	retained_semantic_preference051()
+	retained_synchronous_policy051()
 
 func traffic_budget051(limit: int=4096) -> Dictionary:
 	return {"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":limit}

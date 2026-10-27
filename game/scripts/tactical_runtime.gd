@@ -998,6 +998,9 @@ static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dic
 	return true
 
 static func _drop_retained051(t: Dictionary,id: String,preference_expiry051: bool=false,physical_only051: bool=false) -> void:
+	# Semantic-only reuse belongs to pooled fleet planning. Ordinary synchronous
+	# encounters must make a full choice after physical authority is lost.
+	physical_only051=physical_only051 and t.has("workers051")
 	var held=t.retained051.get(id)
 	var preference=t.get("preferences051",{}).get(id)
 	if held is Certification._Retained051:
@@ -1035,10 +1038,13 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,curr
 	var t: Dictionary=st.tactical
 	var held=t.retained051.get(id)
 	var preference=t.preferences051.get(id)
+	var pooled051: bool=t.has("workers051")
+	if not pooled051 and not held is Certification._Retained051:return false
 	if not preference is Certification._Preference051:return false
-	# Fresh stable observations may cross .30s. This ORIGINAL .45s hard bound
-	# is not refreshed by semantic reuse, physical drops or recertification.
-	if float(st.time)-preference.chosen_at>=0.45-0.000001:
+	# Preserve ordinary synchronous reconsideration at .30s. Only pooled fleets
+	# may reuse fresh stable semantics up to the ORIGINAL .45s hard deadline;
+	# physical drops and recertification never renew that choice timestamp.
+	if float(st.time)-preference.chosen_at>=(0.45 if pooled051 else 0.30)-0.000001:
 		if _runtime_profile043_enabled:_runtime_profile043_counts.retainedDropTime+=1
 		_drop_retained051(t,id,t.has("workers051"));return false
 	var ship: Dictionary=t.ships[id]

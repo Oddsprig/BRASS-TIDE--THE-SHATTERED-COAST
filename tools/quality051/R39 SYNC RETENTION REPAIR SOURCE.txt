@@ -1,0 +1,32 @@
+R39 ORDINARY SYNCHRONOUS RETENTION REPAIR - SOURCE CANDIDATE ONLY
+Base: 964ff7ca63bdcb4c8941aeb4ea2e85139fe97e63
+Checkout: work/quality-v042-v061/v051-r39-voyage-fix-sol
+
+Evidence: R39 job5764f01c0db24e808e070566fe634c5f first-voyage native.log
+and first-voyage-failure.json: lost54.6167s; TinHP0/ammo71, lastUsefulShot16.9,
+regroup/fire-flood danger, final Weapon disabled; enemyammo31/latestshot54.45.
+Snapshot shows retained regroup authority and a final weapon-disable reason.
+Source: d680e14 replaced unconditional .30 reconsideration with .45 and retained
+semantic eligibility after physical veto even without workers051. The existing
+c9379b9 policy keeps ordinary duels synchronous; those extensions supplied no
+worker savings there. End-state evidence does not isolate the entire trajectory.
+
+Bounded repair in Runtime _observe_retained051/_drop_retained051 only:
+- Existing workers051 workload policy gates NEW .45 semantic reuse and detached
+  physical-only eligibility. Ordinary synchronous planning again requires a
+  retained maneuver and full reconsideration at .30; physical veto discards its
+  semantic eligibility as well as authority. Both sides use the same rule.
+- Every revoked intent/retained fire/movement grant and all-side reservation for
+  that id still clear immediately. Fleet original chosenAt+.45, fresh complete
+  decision provenance/consumption, urgent guards and current physics unchanged.
+
+Existing RETAINED fixture: fleet semantic assertions now explicitly enable the
+actual multi-hostile fleet policy. Added public-tick ordinary-duel cases for BOTH
+sides: full choice before .45, real physical veto/no semantic borrowing, canonical
+complete decision parity, new live certification and no movement/fire/store/RNG
+permission from revoked authority. All231 prior check lines preserved; worker
+section/selectors byte-identical. Certification/Planner/workers untouched.
+SINGLE source advisory issues=[]/engineInvoked=false; whitespace diff clean.
+No engine/native/test/build/profile/export/GPU/helper run. R39 failure preserved;
+Root owns unchanged90s real voyage rerun and combined acceptance. No win/savings
+claim, no release051/no052. All Git mutations disable gc/maintenance/hooks.
