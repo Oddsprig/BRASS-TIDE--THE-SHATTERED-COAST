@@ -275,6 +275,65 @@ func test_real_fleet_and_dangers() -> void:
 	r = view(c, 1000.0, "harbormaster")
 	ck(not card_with(r, "overload").is_empty(), "actual overloaded hold")
 
+func failure_fields(source: Dictionary, keys: Array) -> Dictionary:
+	var out: Dictionary = {}
+	for key in keys:
+		var value = source.get(key)
+		if value is String or value is StringName:
+			out[key] = str(value).left(256)
+		elif value == null or value is bool or value is int or value is float:
+			out[key] = value
+	return out
+
+func save_first_voyage_failure(battle: Dictionary) -> void:
+	# Failure-only projection of the existing battle; no stepping or full-state dump.
+	var folder: String = OS.get_environment("GAME_TEST_ARTIFACTS")
+	if folder.is_empty():
+		print("first voyage failure snapshot unavailable: GAME_TEST_ARTIFACTS is empty")
+		return
+	var tactical: Dictionary = battle.get("tactical", {})
+	var ships: Array = []
+	for actual_ship in battle.get("ships", []).slice(0, 16):
+		var id: String = str(actual_ship.id)
+		var intent: Dictionary = tactical.get("intents", {}).get(id, {})
+		var status: Dictionary = Battle.tactical_status(battle, id) # Public status is player-only.
+		var row: Dictionary = failure_fields(actual_ship, ["id", "type", "team", "angle", "hp", "maxHp", "water", "ammo", "fuel", "supplies", "order", "sunk", "captureSecured"])
+		row.position = {"x":actual_ship.x, "y":actual_ship.y}
+		row.velocity = {"x":actual_ship.vx, "y":actual_ship.vy}
+		row.tacticalStatus = failure_fields(status, ["order", "reason", "role", "phase", "targetName"])
+		row.tacticalStatusAvailable = not status.is_empty()
+		row.tacticalReason = str(tactical.get("reasons", {}).get(id, "")).left(256)
+		row.intent = failure_fields(intent, ["candidateId", "role", "phase", "targetId", "leaderId", "firingPassId", "reason", "validUntil", "orderRevision", "snapshotRevision"])
+		row.firingPass = failure_fields(tactical.get("passes", {}).get(id, {}), ["id", "phase", "released", "revision"])
+		row.orderTarget = failure_fields(actual_ship.get("orderTarget", {}), ["shipId", "x", "y"])
+		var fire_reasons: Dictionary = tactical.get("fireReasons", {}).get(id, {})
+		row.fireReasons = failure_fields(fire_reasons, fire_reasons.keys().slice(0, 16))
+		ships.append(row)
+	var islands: Array = []
+	for island in battle.get("islands", []).slice(0, 32):
+		var points: Array = []
+		for point in island.get("points", []).slice(0, 128):
+			points.append([point[0], point[1]])
+		islands.append({"id":str(island.get("id", "")).left(256), "name":str(island.get("name", "")).left(256), "pointCount":island.get("points", []).size(), "points":points})
+	var trace: Array = tactical.get("trace", [])
+	var trace_tail: Array = []
+	for entry in trace.slice(maxi(0, trace.size() - 12)):
+		trace_tail.append(failure_fields(entry, ["time", "sim_time", "shipId", "hull_uid", "order", "phase", "reason", "intent_reason", "targetId", "observed_target", "role", "station", "withdrawal_reason", "objective_state"]))
+	var events: Array = battle.get("events", [])
+	var event_tail: Array = []
+	for entry in events.slice(maxi(0, events.size() - 12)):
+		event_tail.append(failure_fields(entry, ["seq", "kind", "time", "reason", "sourceId", "targetId", "mountId", "x", "y", "damage", "material"]))
+	var report: Dictionary = {"schema":1, "phase":file_phase, "battleTime":battle.time, "result":battle.result, "autopilot":battle.autopilot, "order":battle.order, "shipsTotal":battle.ships.size(), "ships":ships, "islandsTotal":battle.islands.size(), "islands":islands, "tacticalTraceTotal":trace.size(), "tacticalTrace":trace_tail, "eventsTotal":events.size(), "events":event_tail, "limits":{"ships":16, "islands":32, "islandPoints":128, "traceRows":12, "events":12, "mountReasons":16, "textChars":256}}
+	var directory_error: int = DirAccess.make_dir_recursive_absolute(folder)
+	var path: String = folder.path_join("first-voyage-failure.json")
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE) if directory_error == OK else null
+	if file == null:
+		print("first voyage failure snapshot write failed: " + path)
+		return
+	file.store_string(JSON.stringify(report, "  ") + "\n")
+	file.close()
+	print("first voyage failure snapshot saved: " + path)
+
 func test_first_voyage_public_loop() -> void:
 	if not in_time("voyage career creation"):
 		return
@@ -379,11 +438,13 @@ func test_first_voyage_public_loop() -> void:
 			if battle.result != null:
 				break
 			if not in_time("physical Kelp battle at %.3fs" % float(battle.time)):
+				save_first_voyage_failure(battle)
 				return
 			Battle.update(battle, 1.0 / 60.0, {})
 		combat_time = float(battle.time)
 		print("first voyage fight result=%s sim=%.3fs hp=%.3f ammo=%.3f kits=%.3f" % [str(battle.result), combat_time, float(ship.hp), float(ship.ammo), float(ship.supplies)])
 		if not voyage_ck(battle.result == "won", "actual 60Hz win within 90s; outcome=" + str(battle.result)):
+			save_first_voyage_failure(battle)
 			return
 		if not in_time("physical battle settlement"):
 			return
