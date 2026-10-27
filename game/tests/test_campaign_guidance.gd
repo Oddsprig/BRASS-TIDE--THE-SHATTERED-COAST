@@ -477,7 +477,7 @@ func test_first_voyage_public_loop() -> void:
 		battle.captureSlots = maxi(0, 64-c.state.get("boardingPrizes", []).size())
 		c.BoardingOps.coastal(c, battle)
 		worker_battle051 = battle
-		Tactical.enable_planning051(battle) # Same opt-in as Main._enter_battle.
+		Tactical.enable_planning051(battle, true) # Same opt-in as Main._enter_battle; duels retain synchronous policy.
 		for _frame in range(COMBAT_STEPS):
 			if battle.result != null:
 				break

@@ -3,7 +3,7 @@ BRASS TIDE — DEVELOPMENT MAP (generated; v0.051)
 Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 46114 bytes; extends Node2D
+game/scripts/main.gd: 46120 bytes; extends Node2D
   game/scripts/main.gd:317 toggle_pause()
   game/scripts/main.gd:321 toggle_fullscreen()
   game/scripts/main.gd:325 save_preferences()

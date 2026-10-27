@@ -29,9 +29,15 @@ Rejected slower retained native renderer is REVERTED; prior checked sprite
 path restored. Rejected code/receipts stay in Git; no claim of render speedup.
 R26 light planning10.643ms (begin8.3945/helm2.245) remains primary bottleneck.
 Small-cache review found no supported material seam preserving every internal
-policy. Root is assessing goal/steering separation with bounded sampled tactical
-updates while keeping current physical steering/fire, orders, stores and60Hz.
-No sampled-policy implementation/native extension/simulation-thread rewrite yet.
+policy. SOURCE CANDIDATE: pooled fleets now use sampled worker goals and one
+live-steered route, bypassing old MAIN multi-offer/refine/resolve work. Tactical
+selection may lag<=150ms; current steering/fire/damage/orders still60Hz. Goal
+refresh100ms perSIDE, max2unfinished including retired old tasks. Original
+sampledAt+.15/chosenAt+.45 never renew at adoption. Duels/publiclegacy unchanged.
+Three BridgeSol6.1MAX handoffs: Runtime/Planner/goal worker, live Fire gates,
+existing test_tactical_ai goals051 selector. No complete-route certificates
+fabricated. R55logic/R56export/R27actual PENDING; no speedup/acceptance claimed.
+No native extension or simulation-thread ownership rewrite implemented.
 Root owns all queued muted background tests, each whole batch below120seconds.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 

@@ -647,7 +647,7 @@ func start_lab():
 	_enter_battle()
 
 func _enter_battle():
-	Tactical.enable_planning051(battle)
+	Tactical.enable_planning051(battle, true)
 	audio.reset_battle()
 	ui.modal_kind = ""
 	mode = "battle"
