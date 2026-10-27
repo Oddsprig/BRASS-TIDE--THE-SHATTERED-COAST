@@ -8,6 +8,21 @@ const Fire=preload("res://scripts/tactical_fire_control.gd")
 const Damage=preload("res://scripts/damage.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 
+# Optional cumulative diagnostics; independent of authoritative tactical state.
+static var _runtime_profile043_enabled: bool=false
+static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,"observedCalls":0,"observedUs":0,"observedMountsCopied":0,"observedMountCopyUs":0,"ownCopies":0,"ownCopyUs":0,"enemyCopies":0,"enemyCopyUs":0,"enemyMountsCopied":0}
+
+static func set_runtime_profile043(enabled: bool) -> void:
+	_runtime_profile043_enabled=enabled
+
+static func reset_runtime_profile043() -> void:
+	for key in _runtime_profile043_counts:_runtime_profile043_counts[key]=0
+
+static func runtime_profile043() -> Dictionary:
+	var result: Dictionary=_runtime_profile043_counts.duplicate(true)
+	result.schema=1;result.enabled=_runtime_profile043_enabled
+	return result
+
 static func defaults() -> Dictionary:
 	return {"doctrine":"steady","role":"auto","group":0,"formation":"line","protectedAllyId":"","rally":{},"leash":600.0,"conditionalWithdrawal":false,"mounts":{}}
 
@@ -190,17 +205,26 @@ static func set_options(st: Dictionary,ids: Array,patch: Dictionary) -> bool:
 	return true
 
 static func _observed(ship: Dictionary,mounts: Array) -> Dictionary:
+	var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	var out: Dictionary={}
 	for key in ["id","uid","team","name","x","y","vx","vy","angle","hp","maxHp","water","capacity","fire","engine","sunk","captureSecured"]:
 		if ship.has(key):out[key]=ship[key]
 	out.spec={}
 	for key in ["id","size","speed","turn","fuelUse","armor","role","tier","hp"]:
 		if ship.spec.has(key):out.spec[key]=ship.spec[key]
+	var mounts_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	out.mounts=mounts.duplicate(true)
+	if _runtime_profile043_enabled:
+		_runtime_profile043_counts.observedMountCopyUs+=Time.get_ticks_usec()-mounts_started
+		_runtime_profile043_counts.observedMountsCopied+=mounts.size()
 	out.mountShotTimes=ship.get("mountShotTimes",{}).duplicate(true)
+	if _runtime_profile043_enabled:
+		_runtime_profile043_counts.observedUs+=Time.get_ticks_usec()-profile_started
+		_runtime_profile043_counts.observedCalls+=1
 	return out
 
 static func _own(ship: Dictionary,mounts: Array,frame_cache=null) -> Dictionary:
+	var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	var out: Dictionary=_observed(ship,mounts)
 	for key in ["crew","wounded","crewMin","crewOptimal","crewMax","supplies","ammo","fuel","cooldown","policy","shoreCrew","order","orderTarget","orderRevision","formationIndex","boardingOrder","breaches","supportRepairFactor"]:
 		if ship.has(key):out[key]=ship[key].duplicate(true) if ship[key] is Dictionary or ship[key] is Array else ship[key]
@@ -210,9 +234,13 @@ static func _own(ship: Dictionary,mounts: Array,frame_cache=null) -> Dictionary:
 		if ship.spec.has(key):out.spec[key]=ship.spec[key]
 	out.weaponCooldowns=ship.get("weaponCooldowns",[]).duplicate()
 	out.status=Damage.read_status_cached(ship,frame_cache).duplicate(true)
+	if _runtime_profile043_enabled:
+		_runtime_profile043_counts.ownCopyUs+=Time.get_ticks_usec()-profile_started
+		_runtime_profile043_counts.ownCopies+=1
 	return out
 
 static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dictionary:
+	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
 	var t: Dictionary=st.tactical
 	var ships: Array=[]
 	var choices: Dictionary={}
@@ -254,7 +282,14 @@ static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dic
 				var local_egress: bool=str(retained.get("phase","")) in ["breakaway","turn-away"] and spent_pass and short_home
 				if own.order=="withdraw" or not local_egress:choices[id].rally=home.duplicate(true)
 			if own.order=="withdraw" and own.orderTarget.has("x"):choices[id].rally=own.orderTarget.duplicate(true)
-		else:ships.append(t.observed[id].duplicate(true))
+		else:
+			var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
+			ships.append(t.observed[id].duplicate(true))
+			if _runtime_profile043_enabled:
+				_runtime_profile043_counts.enemyCopyUs+=Time.get_ticks_usec()-profile_started
+				_runtime_profile043_counts.enemyCopies+=1
+				var copied_mounts = t.observed[id].get("mounts",[])
+				if copied_mounts is Array:_runtime_profile043_counts.enemyMountsCopied+=copied_mounts.size()
 	var groups: Dictionary={1:[],2:[],3:[],4:[]}
 	for group in t.groups:
 		for id in t.groups[group]:
@@ -372,10 +407,11 @@ static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidat
 
 static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null) -> void:
 	var begin_started: int=Time.get_ticks_usec()
+	if _runtime_profile043_enabled:_runtime_profile043_counts.beginCalls+=1
 	var t: Dictionary=ensure(st)
 	t.dt=dt;t.snapshotRevision+=1
 	t.metrics={"aiUs":0,"activeCount":0,"normalLimit":0,"decisionAges":[],"safetyAges":[],"certificateAges":[],"certificationAges":[],"certificationAttemptAges":[],"orderApplyAges":[],"pendingAges":[],"droppedDecisions":0}
-	# Short per-step attribution at existing seams; no retained profiling state.
+	# Existing per-step phase clocks stay separate from optional cumulative counts.
 	# liveCertification is inside certification; helmCurrent/helmSafety are
 	# inside helmTotal. These clocks never participate in a tactical decision.
 	t.metrics.planningDetailUs={"observation":0,"snapshots":0,"proposals":0,"certification":0,"physicalCertification":0,"liveCertification":0,"resolution":0,"beginTotal":0,"helmCurrent":0,"helmSafety":0,"helmTotal":0}

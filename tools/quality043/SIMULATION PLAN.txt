@@ -1,0 +1,117 @@
+BRASS TIDE 0.043 - SIMULATION SOURCE PREPARATION
+
+Base: a206b59bf1676ae0a9825847d5344e938a99e993, Root's tested 0.042
+candidate. Root finishes 0.042 review/package before advancing the version.
+This change prepares opt-in instrumentation only. No optimization or mechanics
+change, version metadata, release acceptance, new fixture or native execution.
+
+Only two hypotheses are instrumented:
+1. Twelve-frame equipment cache expiry may cluster full snapshot refreshes.
+2. begin/view may repeatedly construct observations and copy their mounts.
+Historical 0.041 capped opening median21.703ms/P9541.126ms and damage
+worst19.664ms/median1.253ms are prior observations, not an active-game baseline.
+The prior begin/view2.428ms and snapshot1.114ms medians do not prove causation.
+
+API FOR THE RUNTIME SEAT
+
+Both Damage (damage.gd) and TacticalRuntime (tactical_runtime.gd) expose:
+  set_runtime_profile043(enabled: bool) -> void
+  reset_runtime_profile043() -> void
+  runtime_profile043() -> Dictionary
+
+Runtime must enable BOTH only under its explicit --qa-runtime043 flag.
+Damage's setter/reset also controls EquipmentRecords; TacticalRuntime is
+independent to avoid a preload cycle. EquipmentRecords has the same three
+methods for direct inspection, normally accessed through Damage's report.
+
+Default is disabled. Enabling/disabling never resets counts. Reset zeros
+counters, preserves enable state, and never clears gameplay caches or state.
+Read returns detached dictionaries without resetting. Counters accumulate
+across all battles/callers in this script/process, not per boat or battle.
+Use the existing after-physics seam to read deltas, or explicitly reset at
+window boundaries. Sampling/allocation cost lies outside these counters.
+Call on the main thread at a synchronous boundary; no worker synchronization.
+
+DAMAGE REPORT, schema1
+
+  enabled: bool
+  cache: Dictionary of cumulative integer counts
+  equipmentSnapshots: EquipmentRecords report
+
+cache fields:
+  cacheFrames: begin_frame_cache calls.
+  cacheLookups/cacheHits/cacheMisses: _cached_entry attempts and outcomes.
+  unavailableMisses: no usable/nonempty cache or no dictionary owner.
+  missingOwnerMisses: _find_cache_slot found no matching owner reference.
+  invalidEntryMisses: slot was malformed or did not retain that reference.
+  ownerIdentityMisses/valueMisses/expiryMisses: already rejected entries,
+    classified ONLY after the unchanged _cache_entry_valid returns false.
+    Identity includes id/uid/type and condition/spec/baseSpec/loadout references;
+    it takes priority over expiry, then value when several causes coexist.
+  expiryEvictions/ownerIdentityEvictions: actual begin_frame_cache removals.
+    Expiry wins when both apply, matching the original short-circuit predicate.
+  explicitEvictions: entries removed by invalidate_frame_cache/clear_frame_cache.
+  limitEvictions: entries removed by the unchanged 128-entry capacity limit.
+  cacheStores: successful _store_cached_info writes, including replacements.
+
+All six miss buckets sum to cacheMisses; hits+misses=lookups.
+Misses count calls, not unique owners or refreshes. Once an entry was erased,
+the next lookup reports unavailable/missing, not its earlier cause. Eviction
+reasons are separate event counts, not additional lookup misses. There are no
+tombstones or retained owner references. Per-tick expiry deltas can show a
+cluster; correlate with snapshot deltas and existing phase timings before
+attributing a stutter. Stores and full snapshot refreshes need not be equal.
+
+equipmentSnapshots fields:
+  enabled: bool
+  fullSnapshotCalls: canonical Records.snapshot projection attempts completed.
+  fullSnapshotRefreshes/fullSnapshotRefusals: successful construction versus
+    a refused Core.project; these sum to fullSnapshotCalls.
+  fullSnapshotUs: summed wall microseconds for Core.project plus, on success,
+    _snapshot_from_projection (including installed-item/factor deep copies).
+  Legacy/foreign/malformed early exits, outer inspect_owner checks, numeric
+  rollout APIs, publication and cache proof storage are not in this clock.
+  Calls from any consumer count; there is no claim that all are cache misses.
+
+TACTICAL REPORT, schema1
+
+  enabled: bool
+  beginCalls/viewCalls: entry counts at the existing public seams.
+  observedCalls/observedUs: _observed construction calls and wall microseconds,
+    including both the initial begin observations and repeated _own observations.
+  observedMountsCopied/observedMountCopyUs: mount elements and microseconds
+    for the unchanged mounts.duplicate(true) inside _observed. One mount-array
+    copy per observedCalls, including empty arrays; nested elements are not counted.
+  ownCopies/ownCopyUs: complete _own builds, INCLUDING their _observed child,
+    current status lookup/copy, crew/order/spec/cooldown data.
+  enemyCopies/enemyCopyUs: view's whole observed-enemy deep copies and their
+    microseconds; includes nested mounts, not an isolated mount-copy clock.
+  enemyMountsCopied: mount elements carried by those whole enemy copies.
+
+Timings overlap. observedMountCopyUs is inside observedUs; the _own subset of
+observedUs is inside ownCopyUs. Status lookups may include an equipment snapshot.
+Never add these clocks as disjoint phase costs. Reuse existing tactical.metrics
+aiUs/phaseUs/planningDetailUs/work for phase attribution; no replacement timers.
+These observations/copies do not change any public detached-result boundary.
+
+LIMITS AND NEXT ROOT-OWNED STEP
+
+Disabled hooks perform only Boolean gates and a few scalar local assignments;
+they perform no new clock reads, counter writes, deep copies, classifications,
+file I/O, logs or per-actor allocations. Static counter dictionaries allocate
+once on script load. Actual disabled overhead remains unmeasured. Enabled
+wall clocks include instrumentation overhead and scheduling contention; they
+are attribution, not rendered FPS, GPU timings or an unobserved baseline.
+
+Root must first measure the actual active exported mixed/light300DP-per-side
+baseline through TestBridge after 0.042 packaging. Runtime may collect these
+optional counters at its existing hooks. Preserve all actors, live behavior,
+60Hz/cadence, fuel/cooldown, immediate invalidation, canonical custody checks,
+same-frame state and deterministic ordering. Choose ONE bounded actual fix only
+after Root's evidence identifies cost. No cache TTL staggering, shared snapshot
+reuse, alias changes, mechanics changes or speculative optimization in this pass.
+
+Source review and read-only static advisories do not establish Godot parsing,
+runtime behavior, active performance or test acceptance. No engine/tests,
+renders/build/GPU/download/paid fallback/helpers/CUA are authorized to this seat.
+Root alone submits one bounded TestBridge job at a time under the shared lane.

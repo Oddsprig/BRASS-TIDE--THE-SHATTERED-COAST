@@ -12,6 +12,28 @@ const CATALOG_FAMILIES: Array = ["weapons", "engines", "armor"]
 const MOUNT_LOCATIONS: Array = ["mount0", "mount1", "mount2", "mount3"]
 const PUMP_TYPE_ID: String = "hull_pumps"
 
+# Canonical public snapshot projection/construction only; numeric rollouts stay out.
+static var _runtime_profile043_enabled: bool = false
+static var _runtime_profile043_counts: Dictionary = {"fullSnapshotCalls":0,"fullSnapshotRefreshes":0,"fullSnapshotRefusals":0,"fullSnapshotUs":0}
+
+static func set_runtime_profile043(enabled: bool) -> void:
+	_runtime_profile043_enabled = enabled
+
+static func reset_runtime_profile043() -> void:
+	for key in _runtime_profile043_counts: _runtime_profile043_counts[key] = 0
+
+static func runtime_profile043() -> Dictionary:
+	var result: Dictionary = _runtime_profile043_counts.duplicate(true)
+	result.enabled = _runtime_profile043_enabled
+	return result
+
+static func _runtime_profile043_snapshot_finished(started: int, refreshed: bool) -> void:
+	var elapsed: int = Time.get_ticks_usec() - started
+	_runtime_profile043_counts.fullSnapshotCalls += 1
+	_runtime_profile043_counts.fullSnapshotUs += elapsed
+	if refreshed: _runtime_profile043_counts.fullSnapshotRefreshes += 1
+	else: _runtime_profile043_counts.fullSnapshotRefusals += 1
+
 static func _fail(message: String) -> Dictionary:
 	return {"ok": false, "error": message}
 
@@ -459,10 +481,14 @@ static func snapshot(boat: Dictionary) -> Dictionary:
 		}
 	if not boat.moduleCondition is Dictionary:
 		return _fail("Existing equipment condition is corrupt and was left untouched.")
+	var profile_started: int = Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	var projected: Dictionary = Core.project(boat.moduleCondition)
 	if not projected.ok:
+		if _runtime_profile043_enabled: _runtime_profile043_snapshot_finished(profile_started,false)
 		return projected
-	return _snapshot_from_projection(boat, projected)
+	var result: Dictionary = _snapshot_from_projection(boat, projected)
+	if _runtime_profile043_enabled: _runtime_profile043_snapshot_finished(profile_started,true)
+	return result
 
 static func _snapshot_numeric(boat: Dictionary) -> Dictionary:
 	var projected: Dictionary = Core._project_numeric(boat.moduleCondition)

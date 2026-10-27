@@ -7,6 +7,34 @@ const _UNSET_OWNER: String = "__unset_owner__"
 const OWNER_CACHE_FRAMES: int = 12 # At most 0.2s at the live 60Hz rate.
 const OWNER_CACHE_LIMIT: int = 128
 
+# Opt-in, process-local diagnostics only. Never retained in a boat or battle.
+static var _runtime_profile043_enabled: bool = false
+static var _runtime_profile043_counts: Dictionary = {"cacheFrames":0,"cacheLookups":0,"cacheHits":0,"cacheMisses":0,"unavailableMisses":0,"missingOwnerMisses":0,"invalidEntryMisses":0,"ownerIdentityMisses":0,"valueMisses":0,"expiryMisses":0,"expiryEvictions":0,"ownerIdentityEvictions":0,"explicitEvictions":0,"limitEvictions":0,"cacheStores":0}
+
+static func set_runtime_profile043(enabled: bool) -> void:
+	_runtime_profile043_enabled = enabled
+	EquipmentDamage.Records.set_runtime_profile043(enabled)
+
+static func reset_runtime_profile043() -> void:
+	for key in _runtime_profile043_counts: _runtime_profile043_counts[key] = 0
+	EquipmentDamage.Records.reset_runtime_profile043()
+
+static func runtime_profile043() -> Dictionary:
+	return {"schema":1,"enabled":_runtime_profile043_enabled,"cache":_runtime_profile043_counts.duplicate(true),"equipmentSnapshots":EquipmentDamage.Records.runtime_profile043()}
+
+static func _runtime_profile043_miss(reason: String) -> void:
+	_runtime_profile043_counts.cacheMisses += 1
+	_runtime_profile043_counts[reason] += 1
+
+static func _runtime_profile043_rejection(s: Dictionary, entry: Dictionary) -> String:
+	# Classify only an already rejected entry; never decide cache eligibility.
+	# Identity takes priority if several independent causes changed together.
+	if not is_same(entry.get("shipRef"),s) or [s.get("id"),s.get("uid"),s.get("type")] != entry.get("identity",[]): return "ownerIdentityMisses"
+	for pair in [["conditionRef","moduleCondition"],["specRef","spec"],["baseSpecRef","baseSpec"],["loadoutRef","loadout"]]:
+		if not is_same(entry.get(pair[0]),s.get(pair[1])): return "ownerIdentityMisses"
+	if int(entry.get("framesLeft",0)) <= 0: return "expiryMisses"
+	return "valueMisses"
+
 static func number(value, fallback: float = 0.0) -> float:
 	if (value is float or value is int) and not (value is bool) and is_finite(float(value)):
 		return float(value)
@@ -84,23 +112,27 @@ static func _find_cache_slot(s: Dictionary, frame_cache: Dictionary) -> String:
 
 static func clear_frame_cache(frame_cache) -> void:
 	if frame_cache is Dictionary:
+		if _runtime_profile043_enabled: _runtime_profile043_counts.explicitEvictions += frame_cache.size()
 		frame_cache.clear()
 
 static func invalidate_frame_cache(frame_cache, s = _UNSET_OWNER) -> void:
 	if not (frame_cache is Dictionary) or frame_cache.is_empty():
 		return
 	if s is String and s == _UNSET_OWNER:
+		if _runtime_profile043_enabled: _runtime_profile043_counts.explicitEvictions += frame_cache.size()
 		frame_cache.clear(); return
 	if not (s is Dictionary) or s.is_empty():
 		return
 	for existing_key in frame_cache.keys():
 		var entry = frame_cache.get(existing_key)
 		if entry is Dictionary and is_same(entry.get("shipRef"), s):
+			if _runtime_profile043_enabled: _runtime_profile043_counts.explicitEvictions += 1
 			frame_cache.erase(existing_key)
 
 static func begin_frame_cache(frame_cache: Dictionary, ships: Array) -> void:
 	# Battle owns this cache. No proof survives twelve physics frames or an owner
 	# leaving the encounter, even when all of its values are unchanged.
+	if _runtime_profile043_enabled: _runtime_profile043_counts.cacheFrames += 1
 	var live: Dictionary = {}
 	for ship in ships:
 		if ship is Dictionary and not ship.get("sunk", false):
@@ -109,6 +141,10 @@ static func begin_frame_cache(frame_cache: Dictionary, ships: Array) -> void:
 		var entry: Dictionary = frame_cache[slot]
 		entry.framesLeft = int(entry.get("framesLeft", 0)) - 1
 		if int(entry.framesLeft) <= 0 or not is_same(live.get(_cache_slot_key(entry.shipRef)), entry.shipRef):
+			if _runtime_profile043_enabled:
+				if int(entry.framesLeft) <= 0:
+					_runtime_profile043_counts.expiryEvictions += 1
+				else: _runtime_profile043_counts.ownerIdentityEvictions += 1
 			frame_cache.erase(slot)
 
 static func _status_inputs(s: Dictionary) -> Array:
@@ -138,12 +174,14 @@ static func _store_cached_info(s: Dictionary, info: Dictionary, frame_cache) -> 
 			while frame_cache.has("__ship_%d" % idx): idx += 1
 			slot = "__ship_%d" % idx
 	if not frame_cache.has(slot) and frame_cache.size() >= OWNER_CACHE_LIMIT:
+		if _runtime_profile043_enabled: _runtime_profile043_counts.limitEvictions += 1
 		frame_cache.erase(frame_cache.keys()[0])
 	var cond: Dictionary = s.moduleCondition
 	var snap: Dictionary = info.snapshot
 	# Native deep equality against detached values replaces dozens of GDScript
 	# validation/reconstruction calls. These are exact comparisons, not hashes.
 	frame_cache[slot] = {"shipRef":s,"shipKeys":s.keys(),"conditionRef":cond,"conditionValue":cond.duplicate(true),"specRef":s.spec,"specValue":s.spec.duplicate(true),"baseSpecRef":s.get("baseSpec"),"baseSpecValue":s.baseSpec.duplicate(true) if s.get("baseSpec") is Dictionary else s.get("baseSpec"),"loadoutRef":s.get("loadout"),"loadoutValue":s.loadout.duplicate(true) if s.get("loadout") is Dictionary else s.get("loadout"),"engineScalar":s.get("engine"),"identity":[s.get("id"),s.get("uid"),s.get("type")],"info":info,"framesLeft":OWNER_CACHE_FRAMES,"statusInputs":_status_inputs(s).duplicate(true),"status":_freeze_status(_status_for_info(s,info)),"healthy":_healthy_canonical_no_work(s,info) and EquipmentDamage._public_tick_context_eligible(s,info,{},frame_cache),"projection":{"hasEngine":snap.installed.has("engine"),"engineHp":snap.engineHp,"refitLocker":s.get("refitLocker",{}).duplicate(true)}}
+	if _runtime_profile043_enabled: _runtime_profile043_counts.cacheStores += 1
 
 static func _cache_entry_valid(s: Dictionary, entry: Dictionary) -> bool:
 	if not is_same(entry.get("shipRef"), s) or s.keys() != entry.get("shipKeys", []): return false
@@ -156,13 +194,22 @@ static func _cache_entry_valid(s: Dictionary, entry: Dictionary) -> bool:
 	return int(entry.get("framesLeft",0)) > 0
 
 static func _cached_entry(s, frame_cache) -> Dictionary:
-	if not (frame_cache is Dictionary) or frame_cache.is_empty() or not (s is Dictionary): return {}
+	if _runtime_profile043_enabled: _runtime_profile043_counts.cacheLookups += 1
+	if not (frame_cache is Dictionary) or frame_cache.is_empty() or not (s is Dictionary):
+		if _runtime_profile043_enabled: _runtime_profile043_miss("unavailableMisses")
+		return {}
 	var slot: String = _find_cache_slot(s, frame_cache)
-	if slot.is_empty(): return {}
+	if slot.is_empty():
+		if _runtime_profile043_enabled: _runtime_profile043_miss("missingOwnerMisses")
+		return {}
 	var entry = frame_cache.get(slot)
-	if not (entry is Dictionary) or not is_same(entry.get("shipRef"), s): return {}
+	if not (entry is Dictionary) or not is_same(entry.get("shipRef"), s):
+		if _runtime_profile043_enabled: _runtime_profile043_miss("invalidEntryMisses")
+		return {}
 	if not _cache_entry_valid(s, entry):
+		if _runtime_profile043_enabled: _runtime_profile043_miss(_runtime_profile043_rejection(s,entry))
 		frame_cache.erase(slot); return {}
+	if _runtime_profile043_enabled: _runtime_profile043_counts.cacheHits += 1
 	return entry
 
 static func _cached_info_or_empty(s, frame_cache) -> Dictionary:
