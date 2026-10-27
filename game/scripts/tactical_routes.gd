@@ -4,6 +4,71 @@ const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
 const CACHE_LIMIT: int=128
 const GRID_QUERY_LIMIT: int=128
+const BEGIN_PROOF_LIMIT051: int=512
+
+class _BeginProofs051 extends RefCounted:
+	var active: bool=true
+	var geometry: Dictionary={}
+	var obstacles: Array=[]
+	var geometry_stamp: PackedByteArray=PackedByteArray()
+	var cells: Dictionary={}
+	var owners: Dictionary={}
+	var entries: Dictionary={}
+
+static func _begin_proofs051(geometry: Dictionary,cells: Dictionary,owners: Dictionary) -> _BeginProofs051:
+	# Runtime.begin alone owns this closed, synchronous observation scope. None
+	# of these geometry/ship observations move or mutate during certification.
+	var proofs: _BeginProofs051=_BeginProofs051.new()
+	proofs.geometry=geometry;proofs.obstacles=geometry.obstacles
+	proofs.geometry_stamp=var_to_bytes([geometry.key,geometry.revision])
+	proofs.cells=cells;proofs.owners=owners.duplicate()
+	return proofs
+
+static func _close_begin_proofs051(proofs: _BeginProofs051) -> void:
+	proofs.active=false;proofs.entries.clear();proofs.owners.clear()
+	proofs.geometry={};proofs.obstacles=[];proofs.cells={}
+
+static func _proof_scope051(proofs: _BeginProofs051,geometry: Dictionary,cells: Dictionary,ship: Dictionary) -> bool:
+	return proofs!=null and proofs.active and is_same(proofs.geometry,geometry) and is_same(proofs.obstacles,geometry.obstacles) and is_same(proofs.cells,cells) and proofs.geometry_stamp==var_to_bytes([geometry.key,geometry.revision]) and proofs.owners.has(str(ship.id)) and is_same(proofs.owners[str(ship.id)],ship)
+
+static func _proof_spend051(budget: Dictionary,debits: Array[int],count: int=1) -> bool:
+	if not spend(budget,count):return false
+	debits.append(count)
+	return true
+
+static func _proof_replay051(proof: Dictionary,budget: Dictionary) -> String:
+	# Keep individual spend(2) boundaries and the first refusal, not a summed
+	# debit: finite work, exhaustions and subsequent fair slots must be identical.
+	for count: int in proof.debits:
+		if not spend(budget,count):return "pending"
+	return str(proof.status)
+
+static func _proof_store051(proofs: _BeginProofs051,key: String,status: String,debits: Array[int]) -> void:
+	if status not in ["valid","blocked"]:return
+	debits.make_read_only()
+	var proof: Dictionary={"status":status,"debits":debits}
+	proof.make_read_only();proofs.entries[key]=proof
+
+static func _sweep_begin051(proofs: _BeginProofs051,ship: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary) -> String:
+	# Context identities are checked at _refine_begin051. Typed bytes preserve
+	# exact ordered endpoints/radii; no rounded keys or hash-only equality.
+	var key: String=var_to_bytes(["terrain",str(ship.id),proofs.geometry_stamp,a,b,r]).hex_encode()
+	if proofs.entries.has(key):return _proof_replay051(proofs.entries[key],budget)
+	if proofs.entries.size()>=BEGIN_PROOF_LIMIT051:return sweep(geometry,a,b,r,budget)
+	var debits: Array[int]=[]
+	var status: String=_sweep_record051(geometry,a,b,r,budget,debits)
+	_proof_store051(proofs,key,status,debits)
+	return status
+
+static func _occupied_begin051(proofs: _BeginProofs051,cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool=false,contact_id: String="") -> String:
+	var own_navigation: float=maxf(r,navigation_radius(ship)) if avoid_hostiles else r
+	var key: String=var_to_bytes(["traffic",str(ship.id),str(ship.team),proofs.geometry_stamp,a,b,r,from,until,own_navigation,contact_id,avoid_hostiles]).hex_encode()
+	if proofs.entries.has(key):return _proof_replay051(proofs.entries[key],budget)
+	if proofs.entries.size()>=BEGIN_PROOF_LIMIT051:return occupied(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id)
+	var debits: Array[int]=[]
+	var status: String=_occupied_record051(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id,debits)
+	_proof_store051(proofs,key,status,debits)
+	return status
 
 static func spend(budget: Dictionary, count: int=1) -> bool:
 	if int(budget.clearanceTests)+count>int(budget.get("clearanceLimit",4096)):
@@ -84,6 +149,26 @@ static func sweep(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Di
 		if inside(a,vertices) or inside(b,vertices):return "blocked"
 		for i in range(vertices.size()):
 			if not spend(budget):return "pending"
+			var c: Vector2=Vector2(vertices[i][0],vertices[i][1])
+			var d: Vector2=Vector2(vertices[(i+1)%vertices.size()][0],vertices[(i+1)%vertices.size()][1])
+			if segment_distance(a,b,c,d)<r+0.001:return "blocked"
+	return "valid"
+
+# These two private recorders mirror the unchanged public reference checks;
+# only spend recording differs. Pending walks never create a terminal proof.
+static func _sweep_record051(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary,debits: Array[int]) -> String:
+	if not _proof_spend051(budget,debits):return "pending"
+	if not a.is_finite() or not b.is_finite() or minf(a.x,b.x)<r or maxf(a.x,b.x)>WIDTH-r or minf(a.y,b.y)<r or maxf(a.y,b.y)>HEIGHT-r:return "blocked"
+	var lo: Vector2=a.min(b)-Vector2.ONE*r
+	var hi: Vector2=a.max(b)+Vector2.ONE*r
+	for obstacle in geometry.obstacles:
+		if not _proof_spend051(budget,debits):return "pending"
+		if hi.x<float(obstacle.lo.x) or hi.y<float(obstacle.lo.y) or lo.x>float(obstacle.hi.x) or lo.y>float(obstacle.hi.y):continue
+		var vertices: Array=obstacle.points
+		if not _proof_spend051(budget,debits,2):return "pending"
+		if inside(a,vertices) or inside(b,vertices):return "blocked"
+		for i in range(vertices.size()):
+			if not _proof_spend051(budget,debits):return "pending"
 			var c: Vector2=Vector2(vertices[i][0],vertices[i][1])
 			var d: Vector2=Vector2(vertices[(i+1)%vertices.size()][0],vertices[(i+1)%vertices.size()][1])
 			if segment_distance(a,b,c,d)<r+0.001:return "blocked"
@@ -175,14 +260,43 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 			return "blocked"
 	return "valid"
 
+static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool,contact_id: String,debits: Array[int]) -> String:
+	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
+	var query_radius: float=r+80.0+extra
+	var own_navigation: float=maxf(r,navigation_radius(ship)) if avoid_hostiles else r
+	if avoid_hostiles:
+		var padding: float=float(cells._maxNavigationRadius)+7.0 if cells.has("_maxNavigationRadius") else 220.0
+		query_radius=own_navigation+padding+extra
+	for other in _neighbours(cells,a,b,query_radius):
+		if str(other.id)==str(ship.id):continue
+		var hostile: bool=other.team!=ship.team
+		if hostile and (not avoid_hostiles or str(other.id)==contact_id):continue
+		if hostile and a==b and until<=from:continue
+		if not _proof_spend051(budget,debits):return "pending"
+		var velocity: Vector2=Vector2(other.vx,other.vy)
+		var c: Vector2=point(other)+velocity*from
+		var d: Vector2=point(other)+velocity*until
+		var relative: Vector2=a-c
+		var delta: Vector2=(b-a)-(d-c)
+		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
+		var clearance: float=r+maxf(10.0,float(other.spec.get("size",16)))+3.0
+		if hostile:clearance=own_navigation+navigation_radius(other)+7.0
+		if (relative+delta*fraction).length()<clearance:
+			if hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
+			return "blocked"
+	return "valid"
+
 static func route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary) -> Dictionary:
+	return _route(st,geometry,a,b,r,budget)
+
+static func _route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary,proofs: _BeginProofs051=null,owner: Dictionary={}) -> Dictionary:
 	var key: String=JSON.stringify([geometry.key,r,a.x,a.y,b.x,b.y]).sha256_text()
 	var cache: Dictionary=st.tactical.routeCache
 	if cache.has(key):
 		budget.cacheHits+=1
 		return {"status":"valid","path":cache[key].duplicate()}
 	# Direct segment checks are bounded geometry, not graph searches.
-	var direct: String=sweep(geometry,a,b,r,budget)
+	var direct: String=sweep(geometry,a,b,r,budget) if proofs==null else _sweep_begin051(proofs,owner,geometry,a,b,r,budget)
 	if direct=="pending":return {"status":"pending","path":[]}
 	if direct=="valid":return {"status":"valid","path":[b]}
 	if int(budget.fullRoutes)>=4:
@@ -225,7 +339,7 @@ static func route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: f
 		for next in range(nodes.size()):
 			if closed.has(next) or next==current:continue
 			var edge_key: Vector2i=Vector2i(mini(current,next),maxi(current,next))
-			if not edges.has(edge_key):edges[edge_key]=sweep(geometry,nodes[current],nodes[next],r,budget)
+			if not edges.has(edge_key):edges[edge_key]=sweep(geometry,nodes[current],nodes[next],r,budget) if proofs==null else _sweep_begin051(proofs,owner,geometry,nodes[current],nodes[next],r,budget)
 			if edges[edge_key]=="pending":return {"status":"pending","path":[]}
 			if edges[edge_key]!="valid":continue
 			var cost: float=float(costs[current])+nodes[current].distance_to(nodes[next])
@@ -241,7 +355,13 @@ static func refine_live(st: Dictionary,geometry: Dictionary,ship: Dictionary,can
 	# as that edge is built, before searching an unusable pass or exit.
 	return _refine(st,geometry,ship,candidate,budget,true)
 
-static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,live_corridor: bool) -> Dictionary:
+static func _refine_begin051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proofs: _BeginProofs051) -> Dictionary:
+	# Never borrow a proof for a new owner, geometry, grid, tick or closed batch.
+	# The public path and all live after-motion/helm/fire calls have no context.
+	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):return refine_live(st,geometry,ship,candidate,budget)
+	return _refine(st,geometry,ship,candidate,budget,true,proofs)
+
+static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,live_corridor: bool,proofs: _BeginProofs051=null) -> Dictionary:
 	var result: Dictionary=candidate.duplicate(true)
 	var previous: Vector2=point(ship)
 	var total: int=0
@@ -253,13 +373,13 @@ static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candida
 		var points: Array=[]
 		for goal in candidate.get(leg,[]):
 			if not goal is Vector2 or not goal.is_finite():return {"status":"blocked","candidate":result}
-			var found: Dictionary=route(st,geometry,previous,goal,planning_radius(ship),budget)
+			var found: Dictionary=route(st,geometry,previous,goal,planning_radius(ship),budget) if proofs==null else _route(st,geometry,previous,goal,planning_radius(ship),budget,proofs,ship)
 			if found.status!="valid":return {"status":found.status,"candidate":result}
 			if live_corridor:
 				var cursor: Vector2=previous
 				for waypoint: Vector2 in found.path:
 					var until: float=elapsed+cursor.distance_to(waypoint)/speed
-					var traffic: String=occupied(st.tactical.cells,ship,cursor,waypoint,radius,elapsed,until,budget,true,contact_target(ship))
+					var traffic: String=occupied(st.tactical.cells,ship,cursor,waypoint,radius,elapsed,until,budget,true,contact_target(ship)) if proofs==null else _occupied_begin051(proofs,st.tactical.cells,ship,cursor,waypoint,radius,elapsed,until,budget,true,contact_target(ship))
 					if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking hull clearance" if traffic=="pending" else "Hull occupies this approach"}
 					elapsed=until;cursor=waypoint
 			points.append_array(found.path)

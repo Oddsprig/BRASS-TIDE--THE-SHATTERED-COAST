@@ -81,5 +81,107 @@ func run() -> void:
 	var ordered_context: Dictionary = Roles.ships_by_id(ordered_view)
 	check(Roles.decide(ordered_view, ordered_context[own_id], {}, ordered_context, reservations).state.targetId == first.state.targetId, "team pressure cannot divert an explicit attack")
 	check(world == original_world, "Lab and planning preserve source world data")
+	proof_reuse051()
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
+
+func proof_budget051(limit: int) -> Dictionary:
+	return {"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":limit}
+
+func proof_state051(ships: Array) -> Dictionary:
+	return {"tactical":{"routeCache":{},"cells":Routes.grid(ships,true)}}
+
+func proof_pair051(label: String,reference: Dictionary,cached: Dictionary,geometry: Dictionary,owner: Dictionary,candidate: Dictionary,proofs: Routes._BeginProofs051,limit: int=4096) -> Dictionary:
+	var old_budget: Dictionary=proof_budget051(limit)
+	var new_budget: Dictionary=proof_budget051(limit)
+	var expected: Dictionary=Routes.refine_live(reference,geometry,owner,candidate,old_budget)
+	var actual: Dictionary=Routes._refine_begin051(cached,geometry,owner,candidate,new_budget,proofs)
+	check(var_to_bytes(actual)==var_to_bytes(expected),label+": full typed refinement result matches public reference")
+	check(var_to_bytes(new_budget)==var_to_bytes(old_budget),label+": every budget field matches public reference")
+	check(var_to_bytes(cached.tactical.routeCache)==var_to_bytes(reference.tactical.routeCache),label+": persistent route cache matches public reference")
+	return actual
+
+func proof_reuse051() -> void:
+	# Small paired source-candidate cases only. Public sweep/occupied stay the
+	# independent reference; Root owns any native execution of this fixture.
+	var geometry: Dictionary={"key":"open051","revision":51,"obstacles":[]}
+	var owner: Dictionary={"id":"own051","team":"player","x":400.0,"y":800.0,"vx":0.0,"vy":0.0,"spec":{"size":12.0,"speed":80.0,"turn":2.0},"status":{"speedFactor":1.0},"fuel":100.0,"order":"engage","orderTarget":{}}
+	var candidate: Dictionary={"approach":[Vector2(400,800),Vector2(600,800)],"pass":[Vector2(600,800)],"exit":[Vector2(600,800)],"candidateId":"stop051"}
+	var held: PackedByteArray=var_to_bytes([geometry,owner,candidate])
+	var reference: Dictionary=proof_state051([owner.duplicate(true)])
+	var cached: Dictionary=proof_state051([owner])
+	var owners: Dictionary={str(owner.id):owner}
+	var proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,cached.tactical.cells,owners)
+	check(proof_pair051("repeated stop suffix",reference,cached,geometry,owner,candidate,proofs).status=="valid","open stopping route is valid")
+	check(proofs.entries.size()==6,"four edge visits store only three exact terrain/traffic pairs")
+	proof_pair051("same owner next offer",reference,cached,geometry,owner,candidate,proofs)
+	check(proofs.entries.size()==6,"identical next offer reuses completed proofs")
+	for limit: int in [0,1,2,3]:
+		proof_pair051("warm proof tight budget %d"%limit,reference,cached,geometry,owner,candidate,proofs,limit)
+	var shifted: Dictionary=candidate.duplicate(true)
+	shifted.approach[1]=Vector2(600.00006103515625,800)
+	proof_pair051("one float32 endpoint step",reference,cached,geometry,owner,shifted,proofs)
+	check(proofs.entries.size()>6,"neighboring exact endpoints do not share a rounded proof")
+	check(var_to_bytes([geometry,owner,candidate])==held,"proofs do not mutate geometry, owners or candidates")
+
+	var corner_owner: Dictionary=owner.duplicate(true)
+	corner_owner.x=480.0;corner_owner.y=720.0
+	var land: Dictionary={"key":"corner051","revision":52,"obstacles":[{"points":[[500,600],[700,600],[700,700],[500,700]],"lo":Vector2(500,600),"hi":Vector2(700,700)}]}
+	var corner: Dictionary={"approach":[Vector2(480,720)],"pass":[],"exit":[]}
+	var land_reference: Dictionary=proof_state051([corner_owner.duplicate(true)])
+	var land_cached: Dictionary=proof_state051([corner_owner])
+	var land_proofs: Routes._BeginProofs051=Routes._begin_proofs051(land,land_cached.tactical.cells,{str(corner_owner.id):corner_owner})
+	check(proof_pair051("polygon terminal proof",land_reference,land_cached,land,corner_owner,corner,land_proofs).status=="valid","near-corner route exercises a clear overlapping polygon bound")
+	for limit: int in [2,3]:
+		proof_pair051("warm spend(2) boundary %d"%limit,land_reference,land_cached,land,corner_owner,corner,land_proofs,limit)
+	var pending_proofs: Routes._BeginProofs051=Routes._begin_proofs051(land,land_cached.tactical.cells,{str(corner_owner.id):corner_owner})
+	proof_pair051("cold pending polygon",land_reference,land_cached,land,corner_owner,corner,pending_proofs,3)
+	check(pending_proofs.entries.is_empty(),"pending geometry is never stored as a proof")
+	proof_pair051("pending then enough budget",land_reference,land_cached,land,corner_owner,corner,pending_proofs)
+	check(not pending_proofs.entries.is_empty(),"later completed walk may create terminal proofs")
+
+	var ally: Dictionary=owner.duplicate(true)
+	ally.id="ally051"
+	var blocked_reference: Dictionary=proof_state051([owner.duplicate(true),ally.duplicate(true)])
+	var blocked_cached: Dictionary=proof_state051([owner,ally])
+	var blocked_proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,blocked_cached.tactical.cells,owners)
+	check(proof_pair051("ally blocks origin",blocked_reference,blocked_cached,geometry,owner,candidate,blocked_proofs).status=="blocked","live ally proof blocks this origin")
+	proof_pair051("repeat blocked ally",blocked_reference,blocked_cached,geometry,owner,candidate,blocked_proofs)
+	proof_pair051("blocked traffic debit refusal",blocked_reference,blocked_cached,geometry,owner,candidate,blocked_proofs,1)
+	var foreign_owner: Dictionary=owner.duplicate(true)
+	foreign_owner.team="enemy"
+	check(not Routes._proof_scope051(blocked_proofs,geometry,blocked_cached.tactical.cells,foreign_owner),"equal-ID foreign owner is outside the closed scope")
+	proof_pair051("new owner identity",blocked_reference,blocked_cached,geometry,foreign_owner,candidate,blocked_proofs)
+	check(blocked_proofs.entries.size()==2,"foreign owner cannot add or borrow the registered owner's proofs")
+	var entry_count: int=proofs.entries.size()
+	reference.tactical.cells=blocked_reference.tactical.cells
+	cached.tactical.cells=blocked_cached.tactical.cells
+	check(proof_pair051("new observation grid",reference,cached,geometry,owner,candidate,proofs).status=="blocked","rebuilt grid cannot borrow the old clear proof")
+	var new_geometry: Dictionary=geometry.duplicate(true)
+	check(not Routes._proof_scope051(blocked_proofs,new_geometry,blocked_cached.tactical.cells,owner),"equal geometry values with a new identity miss")
+	proof_pair051("new geometry identity",blocked_reference,blocked_cached,new_geometry,owner,candidate,blocked_proofs)
+	check(proofs.entries.size()==entry_count and blocked_proofs.entries.size()==2,"new grid and geometry leave the old scopes untouched")
+
+	var island: Dictionary={"key":"detour051","revision":53,"obstacles":[{"points":[[500,750],[600,750],[600,850],[500,850]],"lo":Vector2(500,750),"hi":Vector2(600,850)}]}
+	var crossing: Dictionary={"approach":[Vector2(400,800),Vector2(800,800)],"pass":[Vector2(800,800)],"exit":[Vector2(800,800)]}
+	var detour_reference: Dictionary=proof_state051([owner.duplicate(true)])
+	var detour_cached: Dictionary=proof_state051([owner])
+	var detour_proofs: Routes._BeginProofs051=Routes._begin_proofs051(island,detour_cached.tactical.cells,owners)
+	check(proof_pair051("land graph detour",detour_reference,detour_cached,island,owner,crossing,detour_proofs).status=="valid","land blockage retains a valid graph detour")
+	check(not detour_cached.tactical.routeCache.is_empty(),"graph route still populates the persistent cache")
+	proof_pair051("persistent graph hit",detour_reference,detour_cached,island,owner,crossing,detour_proofs)
+
+	var hostile: Dictionary=owner.duplicate(true)
+	hostile.id="large051";hostile.team="enemy";hostile.x=1200.0;hostile.vx=-70.0;hostile.spec.size=120.0
+	var late_reference: Dictionary=proof_state051([owner.duplicate(true),hostile.duplicate(true)])
+	var late_cached: Dictionary=proof_state051([owner,hostile])
+	var late_proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,late_cached.tactical.cells,owners)
+	check(proof_pair051("late oversized hostile",late_reference,late_cached,geometry,owner,crossing,late_proofs).status=="blocked","full-time grid bounds retain oversized hostile clearance")
+	proof_pair051("repeat late hostile",late_reference,late_cached,geometry,owner,crossing,late_proofs)
+	for scope: Routes._BeginProofs051 in [proofs,land_proofs,pending_proofs,blocked_proofs,detour_proofs,late_proofs]:
+		Routes._close_begin_proofs051(scope)
+	check(not blocked_proofs.active and blocked_proofs.entries.is_empty(),"closing the begin scope expires every proof")
+	proof_pair051("closed scope",blocked_reference,blocked_cached,geometry,owner,candidate,blocked_proofs)
+	var next_begin: Routes._BeginProofs051=Routes._begin_proofs051(geometry,blocked_cached.tactical.cells,owners)
+	check(next_begin.entries.is_empty(),"new begin starts without previous proofs")
+	Routes._close_begin_proofs051(next_begin)

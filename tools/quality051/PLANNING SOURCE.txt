@@ -1,0 +1,56 @@
+v0.051 PER-BEGIN GEOMETRY PROOFS - SECOND SOURCE CANDIDATE
+Parent: 7b4a9f247235b889933dd6d2a56f970fcf9d178b on integrated048 da06715.
+Root approved only this second implementation from PLANNING PROPOSAL.txt.
+Integrate only051 after049/050. Local048 metadata remains unchanged.
+Damage memo699681c remains separate and unintegrated. Native UNRUN for both.
+
+EXACT SOURCE
+tactical_runtime.gd: fresh local Routes context surrounds only the existing
+globally ordered due/candidate certification loop. It binds detached copied
+owners, terrain and observed grid; explicit close drops all proofs/references
+before resolution. Factory and cleanup cost stay inside the existing clock.
+No context enters tactical state, outputs, helm, firing or after_motion.
+
+tactical_routes.gd: bound512 terminal entries, no eviction or pending proof.
+Scope admission requires exact owner/geometry/obstacle-array/grid identities
+and exact typed terrain-key/revision bytes. Keys use full typed bytes encoded
+as hex: ordered endpoints, radius; traffic also team, times, own navigation
+radius, contact exception and avoid-hostiles mode. Geometry/grid identities
+are bound by the context, never approximated or shared with another scope.
+Inputs are immutable during this synchronous loop; this is not a live memo.
+An inadmissible/closed scope follows the public full path. A full memo still
+uses the original checks for new keys. Completed valid/blocked checks store
+their original ordered successful spends. Hits replay each original spend;
+a refusal returns pending at the same boundary, including count2. Real budget
+fields, graph/search allowance/order, persistent route-cache hits/contents,
+candidate copies, fingerprints, certificates and reservations stay unchanged.
+The public spend/sweep/occupied bodies are unchanged. Private recorders mirror
+that math/order; route/refine default branches retain the original algorithm.
+
+EXISTING FIXTURE ONLY, PREPARED / UNRUN
+test_role_geometry046.gd retains every old function/assertion, with one added
+call. Paired public refine_live/private begin cases compare full typed results,
+every budget field and persistent route-cache contents: repeated origin/stop
+suffix, exact neighboring endpoints, tight1/2 and polygon count2 refusals,
+pending-then-completed checks, blocked ally, foreign same-ID owner, rebuilt
+grid, equal-value new geometry, land graph search/cache hit, late oversized
+hostile and closed/new begin. No profiling/telemetry or new QA framework.
+
+SOURCE ADVISORY ONLY
+python -B tools/check_preload_calls.py game scripts/tactical_routes.gd
+scripts/tactical_runtime.gd tests/test_role_geometry046.gd:
+issues[], engineInvoked:false. git diff --check clean.
+Read-only textual comparison verified all16 other original Routes bodies,
+private recorder math/order, default route/refine algorithm, original fixture
+assertions and the runtime-only approved seam. No native parse/runtime claim.
+No engine/test/import/export/render/GPU/audio/CUA/download/helper job ran.
+
+LIMIT / ROOT ACCEPTANCE
+The6.260ms certification remainder contains this work; exclusive avoidable
+geometry time/hit rate is unknown. Neither3.5ms nor any saving is measured;
+typed-key/record/replay overhead may outweigh reuse. No60FPS prediction.
+Keep42 actors/full300DP, physics60Hz, candidate caps/cadence, explicit orders,
+manual/urgent withdrawal/live checks, crew/stores/RNG and workers unchanged.
+Root batches native validation and ONE unchanged exported profile at051 after
+049/050. Both candidates are source preparation, not accepted code or a smooth
+game.051 remains OPEN with all targets UNMET; no third optimization authorized.

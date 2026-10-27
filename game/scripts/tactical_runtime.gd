@@ -504,6 +504,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		detail.proposals+=Time.get_ticks_usec()-phase_started
 	# Actual physical work follows GLOBAL fair order, never player-first batches.
 	phase_started=Time.get_ticks_usec()
+	# These exact terminal proofs borrow only the closed detached observations.
+	# They die before resolution, real movement, helm or fire can change inputs.
+	var route_proofs051: Routes._BeginProofs051=Routes._begin_proofs051(t.geometry,t.cells,copies)
 	for id in due:
 		var ship: Dictionary=copies[id]
 		var side: String=str(ship.team)
@@ -519,7 +522,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			t.metrics.planningCalls.candidates+=1
 			if candidate_inputs.is_empty():candidate_inputs=Certification._begin_inputs(snapshot,ship,membership)
 			if not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
-			var refined: Dictionary=Routes.refine_live(st,t.geometry,ship,raw,t.budget)
+			var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ship,raw,t.budget,route_proofs051)
 			var candidate: Dictionary=refined.candidate
 			if refined.status=="valid" and str(ship.get("order","engage"))=="engage" and candidate.fireMountIds.is_empty():
 				var reservation_status: String=_reserved_path(st,side,ship,candidate)
@@ -546,6 +549,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if real_attempt or proposed.get(id,[]).is_empty():
 			t.metrics.certificationAttemptAges.append(maxf(0.0,float(st.time)-maxf(0.0,float(t.certificationAttempts.get(id,0.0)))))
 			t.certificationAttempts[id]=float(st.time)
+	Routes._close_begin_proofs051(route_proofs051)
 	detail.certification=Time.get_ticks_usec()-phase_started
 	# Alternate resolution priority too: reservation accounting has the same cap.
 	phase_started=Time.get_ticks_usec()
