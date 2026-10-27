@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.048: Visual refitting and meaningful build tradeoffs. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: workshop_ui.gd, workshop_comparison048.gd, workshop_builds048.gd, main.gd.
+v0.049: Complete authored boat roster and readable hull detail. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: boat_sprite_art.gd, hull_feedback.gd, quality042/models.py, quality042/bake.py, quality049/recipes.py, boats042/asset-manifest.json.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

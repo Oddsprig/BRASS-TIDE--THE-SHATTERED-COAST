@@ -1,3 +1,7 @@
+27OCT2026 - v0.049 COMPLETE AUTHORED BOAT ROSTER AND READABLE HULL DETAIL
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.048 VERIFIED AND PACKAGED: 147/0 focused checks, selected batch 89.275s, TestBridge 67be0221aa13424d935406f0da59df2d. Source da06715a041961dcd69e47cad78ccc024975234d.
 
 27OCT2026 - v0.048 VISUAL REFITTING AND MEANINGFUL BUILD TRADEOFFS
