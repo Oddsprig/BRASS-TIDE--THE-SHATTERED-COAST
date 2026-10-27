@@ -1,0 +1,57 @@
+BRASS TIDE 0.051 - R28 OWNED SNAPSHOT PREPARATION CANDIDATE
+
+Base: 9fcb29482d713c6c79d8698e2d8d6ca2492bdac4.
+Scope: equipment_records.gd, equipment_damage.gd and this source note.
+Status: SOURCE ONLY / NATIVE UNRUN / NOT ACCEPTED. Root owns all execution.
+
+R28 evidence read
+Parent R28 engagement and cost findings.json: actual job
+b491da26cf504b2aaaf05bfa45a08ba0, quality FAILED, cleanup complete, 58.500s.
+Same 42 light / 16 mixed, full 300DP per side, 60Hz. Light 19.062FPS,
+simulation median 12.377ms / P95 18.577ms; damage phase 1523us, mounts 1076us,
+begin 2321us. Mixed simulation median 5.482ms. These are baseline whole-phase
+measurements; they do not isolate snapshot copying or measure this candidate.
+
+Concrete reduction
+Dirty owned equipment generations call _battle_info051 -> _snapshot_with_records
+-> Core._project_from_records -> Core._installed_rows. Each installed row was
+deep-copied once by Core, twice more into snapshot.installed/installedItems,
+and then recursively frozen by _battle_info051. The owned call now opts into
+sharing that first detached row between the two frozen views. It also shares
+the fresh local weaponFactors dictionary between the frozen factor views.
+Per refreshed owned snapshot: two installed-row deep copies per installed part
+and two weapon-factor dictionary deep copies are removed. No extra freeze pass.
+Unchanged generations already reuse info; they gain no new snapshot saving.
+
+Detachment and publication proof
+Core._installed_rows reads condition.items in its existing UID/location order
+and item.duplicate(true) creates every projected row. Its projected dictionary
+is local to _snapshot_with_records: no live condition or caller retains these
+rows. weaponFactors is built locally from those rows using unchanged _factor_for,
+including disabled-part handling. The sole true opt-in is _battle_info051;
+after checking snap.ok it immediately calls the existing recursive
+Records._battle_freeze051 on its new info/snapshot before assigning infoGeneration
+or returning to any phase reader. No callback or await occurs in that interval.
+The resulting shared internal dictionaries are deeply read-only. This changes
+internal alias identity only, retaining snapshot fields, values and ordering.
+
+Public Records.snapshot, numeric snapshots, _inspect_owner_with_records and
+two-argument _snapshot_with_records retain separate mutable deep copies by
+default. Owner/foreign guards, live engine validation, dirty/revoke/priority
+paths, generation advancement and fallback inspection are unchanged. No new
+generation proof, repair-need cache or live-readiness cache is introduced.
+Repair budgets/task order, current factors, fuel-zero, crew, stores, purses,
+RNG and read/write phase boundaries are unchanged.
+
+Bounded review and handoff
+Read AGENTS/current checkpoint, roadmap, relevant maps/lessons and exact
+constructors/callers in parts. Reviewed damage prepass, mount refresh and seal
+callers, including Root's repeated refresh at Runtime.begin. No mount-key cache
+or Runtime edit is part of this single snapshot candidate.
+git diff --check passed as a source formatting check. No engines, tests,
+imports, exports, profiler/GPU jobs, helpers or new harnesses run here.
+Root's planned R61 includes the existing equipment_records detachment checks
+and damage451 whole-state/status/owned-generation/public-mutation checks;
+their candidate results remain pending. Root must verify native byte parity,
+read-only detachment and current actual performance before acceptance.
+No speedup, FPS, quality-gate or delivery claim. Desktop050/core051 gate OPEN.

@@ -540,9 +540,11 @@ static func _factor_for(item: Dictionary) -> float:
 static func snapshot(boat: Dictionary) -> Dictionary:
 	return _snapshot_with_records(boat, Core._records)
 
-static func _snapshot_with_records(boat: Dictionary, validate: Callable) -> Dictionary:
-	# Only Damage's synchronous tick supplies an exact-record memo. Public reads
+static func _snapshot_with_records(boat: Dictionary, validate: Callable, share_detached051: bool = false) -> Dictionary:
+	# Numerical callers supply their existing records validator. Public reads
 	# retain full validation; every snapshot still constructs detached live fields.
+	# _battle_info051 alone shares detached rows, then deeply freezes its result
+	# before publication. The local projection has no other caller or live alias.
 	if not boat is Dictionary:
 		return _fail("Boat must be a dictionary.")
 	if Core._foreign(boat):
@@ -580,7 +582,7 @@ static func _snapshot_with_records(boat: Dictionary, validate: Callable) -> Dict
 	if not projected.ok:
 		if _runtime_profile043_enabled: _runtime_profile043_snapshot_finished(profile_started,false)
 		return projected
-	var result: Dictionary = _snapshot_from_projection(boat, projected)
+	var result: Dictionary = _snapshot_from_projection(boat, projected, share_detached051)
 	if _runtime_profile043_enabled: _runtime_profile043_snapshot_finished(profile_started,true)
 	return result
 
@@ -590,13 +592,15 @@ static func _snapshot_numeric(boat: Dictionary) -> Dictionary:
 		return projected
 	return _snapshot_from_projection(boat, projected)
 
-static func _snapshot_from_projection(boat: Dictionary, projected: Dictionary) -> Dictionary:
+static func _snapshot_from_projection(boat: Dictionary, projected: Dictionary, share_detached051: bool = false) -> Dictionary:
 	var by_location: Dictionary = {}
 	var items_list: Array = []
 	for item in projected.installed:
 		var loc: String = str(item.location)
-		by_location[loc] = item.duplicate(true)
-		items_list.append(item.duplicate(true))
+		# Core._installed_rows already detached each row from live equipment. Only
+		# the immediately frozen owned snapshot can share it between both views.
+		by_location[loc] = item if share_detached051 else item.duplicate(true)
+		items_list.append(item if share_detached051 else item.duplicate(true))
 	var engine_item: Dictionary = by_location.get("engine", {})
 	var pump_item: Dictionary = by_location.get("pumps", {})
 	var armor_item: Dictionary = by_location.get("armor", {})
@@ -613,7 +617,7 @@ static func _snapshot_from_projection(boat: Dictionary, projected: Dictionary) -
 		"engineFactor": engine_factor,
 		"pumpFactor": pump_factor,
 		"armorFactor": armor_factor,
-		"weaponFactors": weapon_factors.duplicate(true)
+		"weaponFactors": weapon_factors if share_detached051 else weapon_factors.duplicate(true)
 	}
 	return {
 		"ok": true,
@@ -629,7 +633,7 @@ static func _snapshot_from_projection(boat: Dictionary, projected: Dictionary) -
 		"engineFactor": engine_factor,
 		"pumpFactor": pump_factor,
 		"armorFactor": armor_factor,
-		"weaponFactors": weapon_factors.duplicate(true)
+		"weaponFactors": weapon_factors if share_detached051 else weapon_factors.duplicate(true)
 	}
 
 static func _rollout_status_fields(boat: Dictionary) -> Dictionary:

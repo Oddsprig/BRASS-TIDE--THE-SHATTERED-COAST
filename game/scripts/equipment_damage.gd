@@ -553,7 +553,9 @@ static func _tick_repair_step_with_records(boat: Dictionary, h: float, crew_repa
 static func _battle_info051(boat: Dictionary, entry: Dictionary) -> Dictionary:
 	if not bool(entry.get("valid",false)): return inspect_owner(boat)
 	if int(entry.infoGeneration) != int(entry.generation):
-		var snap: Dictionary = Records._snapshot_with_records(boat,Records._battle_records051.bind(entry))
+		# Share only rows detached by Core; the existing publication below freezes
+		# the whole snapshot before any phase reader receives it.
+		var snap: Dictionary = Records._snapshot_with_records(boat,Records._battle_records051.bind(entry),true)
 		if not bool(snap.get("ok",false)):
 			entry.valid = false
 			return inspect_owner(boat)
