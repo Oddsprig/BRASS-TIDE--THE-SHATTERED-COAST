@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "fourport_packet",
+  "headings": 32,
+  "atlas_sha256": "784042ad34b0b56319ee25a2e289aa96a889fb4e72a7dd7e2da594e8aba32fef",
+  "canvas_config": {
+    "cell_px": [
+      320,
+      192
+    ],
+    "pivot_px": [
+      159,
+      103
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      640,
+      384
+    ],
+    "portrait_pivot_px": [
+      318,
+      206
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2560,
+    768
+  ],
+  "gpu_rgba8_bytes": 7864320,
+  "frame_bounds_px": [
+    [
+      25,
+      14,
+      261,
+      153
+    ],
+    [
+      42,
+      8,
+      227,
+      165
+    ],
+    [
+      60,
+      5,
+      189,
+      172
+    ],
+    [
+      80,
+      4,
+      150,
+      173
+    ],
+    [
+      101,
+      6,
+      116,
+      167
+    ],
+    [
+      88,
+      4,
+      150,
+      173
+    ],
+    [
+      69,
+      5,
+      189,
+      172
+    ],
+    [
+      49,
+      8,
+      227,
+      165
+    ],
+    [
+      32,
+      14,
+      261,
+      153
+    ],
+    [
+      20,
+      23,
+      286,
+      136
+    ],
+    [
+      13,
+      33,
+      300,
+      115
+    ],
+    [
+      12,
+      37,
+      302,
+      99
+    ],
+    [
+      16,
+      38,
+      294,
+      86
+    ],
+    [
+      12,
+      40,
+      302,
+      97
+    ],
+    [
+      13,
+      36,
+      300,
+      114
+    ],
+    [
+      20,
+      29,
+      286,
+      132
+    ],
+    [
+      32,
+      20,
+      261,
+      150
+    ],
+    [
+      49,
+      14,
+      227,
+      162
+    ],
+    [
+      69,
+      11,
+      189,
+      169
+    ],
+    [
+      88,
+      10,
+      150,
+      171
+    ],
+    [
+      101,
+      12,
+      116,
+      167
+    ],
+    [
+      80,
+      10,
+      150,
+      171
+    ],
+    [
+      60,
+      11,
+      189,
+      169
+    ],
+    [
+      42,
+      14,
+      227,
+      162
+    ],
+    [
+      25,
+      20,
+      261,
+      150
+    ],
+    [
+      12,
+      29,
+      286,
+      132
+    ],
+    [
+      5,
+      36,
+      300,
+      114
+    ],
+    [
+      4,
+      40,
+      302,
+      97
+    ],
+    [
+      8,
+      38,
+      294,
+      86
+    ],
+    [
+      4,
+      37,
+      302,
+      99
+    ],
+    [
+      5,
+      33,
+      300,
+      115
+    ],
+    [
+      12,
+      23,
+      286,
+      136
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        25,
+        14,
+        286,
+        167
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        27.201568603515625,
+        16.65521240234375,
+        283.3138732910156,
+        164.79519653320312
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715774536133,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.011,
+      "png_sha256": "9e1ac1f6aa24bc3d87759b48c455379c603d1de5bf5c57965c37f365e56ba44b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        42,
+        8,
+        269,
+        173
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        44.66304016113281,
+        10.706474304199219,
+        266.4209289550781,
+        170.9026336669922
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715393066406,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.083,
+      "png_sha256": "561d681489d0c3d16fe06eeb3cc4919e30307b5e5cc99a2371a087738c3adfc3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        5,
+        249,
+        177
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        62.01905059814453,
+        7.3807220458984375,
+        246.59014892578125,
+        174.40061950683594
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.835689544677734,
+        0.0,
+        60.56715774536133,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.018,
+      "png_sha256": "6709d91699d0f9f1dfee76437c56317427e97dc2d4ddd1283fd85d353d32233c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        80,
+        4,
+        230,
+        177
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        83.10198211669922,
+        6.804756164550781,
+        227.69297790527344,
+        175.15472412109375
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.835689544677734,
+        0.0,
+        60.567161560058594,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.001,
+      "png_sha256": "62fea27d00d45e9a0593d13179aed9f95f89c667fee48fb64f9608061c0823aa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        101,
+        6,
+        217,
+        173
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        103.7176513671875,
+        8.999732971191406,
+        214.2823486328125,
+        173.1359405517578
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.56715393066406,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.948,
+      "png_sha256": "47eafe92c116de589f4f856bd29f59a776deea71bf6c88ea89ff1c2f8d2c5e2d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        88,
+        4,
+        238,
+        177
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        90.30702209472656,
+        6.804756164550781,
+        234.89801025390625,
+        175.15472412109375
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.567161560058594,
+        23.835689544677734,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.987,
+      "png_sha256": "a26c695b7ad6be1c150a6f97568663d0519294897bb88205bce2715b4e9e9624",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        69,
+        5,
+        258,
+        177
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        71.40984344482422,
+        7.3807220458984375,
+        255.98095703125,
+        174.40061950683594
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.56715774536133,
+        23.835689544677734,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.01,
+      "png_sha256": "db6b1370baa904fcc13fd7cb005a3d85ed89f748905364ee9a58532a468ef852",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        8,
+        276,
+        173
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        51.579063415527344,
+        10.706474304199219,
+        273.33697509765625,
+        170.9026336669922
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715393066406,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.039,
+      "png_sha256": "b99fb09ba434a628ef2b4e40f4bde19e6f3b1468a72efca399b3493732cf9d73",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        32,
+        14,
+        293,
+        167
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        34.686134338378906,
+        16.65521240234375,
+        290.7984313964844,
+        164.79519653320312
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715774536133,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.025,
+      "png_sha256": "e204b8f7be3d9ba1c8122e78d93af225dfbb4592df5453d05aa1f89532911ccb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        23,
+        306,
+        159
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        22.570526123046875,
+        24.995361328125,
+        303.29876708984375,
+        156.31300354003906
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715393066406,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.052,
+      "png_sha256": "3dae2198567f6b3c2a4fa4e3ae4153bf954b572ccc45fb56cc54568a6dd285e8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        33,
+        313,
+        148
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        15.69781494140625,
+        35.40937042236328,
+        310.2991638183594,
+        145.78201293945312
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.835689544677734,
+        0.0,
+        60.56715774536133,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.104,
+      "png_sha256": "281ec97eb90a706bfce5d27821c8b64a5591e07554ff71aac9772128609c11e3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        37,
+        314,
+        136
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        14.3321533203125,
+        38.11833953857422,
+        311.6704406738281,
+        133.60694885253906
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.835689544677734,
+        0.0,
+        60.567161560058594,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.246,
+      "png_sha256": "58906dd1c2f507e576ffd63f6d6dd62ec1786544be9d09570a3adfe4b67a8a32",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        38,
+        310,
+        124
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        18.525985717773438,
+        40.43870544433594,
+        307.62139892578125,
+        120.96671295166016
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.56715393066406,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.943,
+      "png_sha256": "3b937edf83d688d68257500140bba9c07892a83cb1bdb9f48659b5e653a8e78d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        40,
+        314,
+        137
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        14.3321533203125,
+        43.00506591796875,
+        311.6704406738281,
+        134.1472625732422
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.567161560058594,
+        23.835689544677734,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.984,
+      "png_sha256": "800886b61c590fc1568166effd3c35092932e51e15ef8ab759e726da137d90c7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        36,
+        313,
+        150
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        15.69781494140625,
+        38.857765197753906,
+        310.2991638183594,
+        146.9585723876953
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.56715774536133,
+        23.835689544677734,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.997,
+      "png_sha256": "eecbe893b80f71a597db84c1f574ec60af8b4ec364b02deede96dded69579449",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        29,
+        306,
+        161
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        22.570526123046875,
+        31.283187866210938,
+        303.29876708984375,
+        158.0345916748047
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715393066406,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.022,
+      "png_sha256": "918d028b97c67984a826c3f75942b199fcc0295e621e1416759de33b21952e3d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        32,
+        20,
+        293,
+        170
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        34.686134338378906,
+        22.827621459960938,
+        290.7984313964844,
+        166.94972229003906
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715774536133,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.007,
+      "png_sha256": "a6a329058c7a3aef1652273c3985b05a442eb89699beec31af7936cf9fc4fa59",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        14,
+        276,
+        176
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        51.579063415527344,
+        16.75653839111328,
+        273.33697509765625,
+        173.36131286621094
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715393066406,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.042,
+      "png_sha256": "3068dfcab77740a831011949ffe5e726d70520864802d9ea4886bdbde16bfd46",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        69,
+        11,
+        258,
+        180
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        71.40984344482422,
+        13.283729553222656,
+        255.98095703125,
+        177.09751892089844
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.835689544677734,
+        0.0,
+        60.56715774536133,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.013,
+      "png_sha256": "4372848559e1f1d00e894412f74f6a297d3380009bf29535ccd167bdd6e914f2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        88,
+        10,
+        238,
+        181
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        90.30702209472656,
+        12.540840148925781,
+        234.89801025390625,
+        177.96234130859375
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.835689544677734,
+        0.0,
+        60.567161560058594,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.011,
+      "png_sha256": "8ba150a2b07c4ed3127a5455a0d2de3a84d4b36f594f12277a5abea44dd2ad45",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        101,
+        12,
+        217,
+        179
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        103.7176513671875,
+        14.570999145507812,
+        214.2823486328125,
+        176.0008544921875
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.56715393066406,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.967,
+      "png_sha256": "e62053d3c9c2d1ea502575b98972083b3a7aece68941efc77a7abd983123a751",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        80,
+        10,
+        230,
+        181
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        83.10198211669922,
+        12.540840148925781,
+        227.69297790527344,
+        177.96234130859375
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.567161560058594,
+        23.835689544677734,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.172,
+      "png_sha256": "e4409c598b1f481e98774b32fc84931be639963413084e88176c271506eb32d4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        11,
+        249,
+        180
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        62.01905059814453,
+        13.283729553222656,
+        246.59014892578125,
+        177.09751892089844
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.56715774536133,
+        23.835689544677734,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.042,
+      "png_sha256": "aa0c61042ccd7472b1a54a27a602be10908934163f543630e1276b687f685c4c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        42,
+        14,
+        269,
+        176
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        44.66304016113281,
+        16.75653839111328,
+        266.4209289550781,
+        173.36131286621094
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715393066406,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.068,
+      "png_sha256": "06b1e23616fc9677c61fcd4cb889ee1a16bdc02ace99ceb6662ddfadde91ec5a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        20,
+        286,
+        170
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        27.201568603515625,
+        22.827621459960938,
+        283.3138732910156,
+        166.94972229003906
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715774536133,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.047,
+      "png_sha256": "0255117579cab69940f7e2c299f0f017e448042a9b8b7d18045c0ae2b186fd37",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        29,
+        298,
+        161
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        14.701248168945312,
+        31.283187866210938,
+        295.4294738769531,
+        158.0345916748047
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715393066406,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.021,
+      "png_sha256": "543f704661e1975c1913f9390893c58d866260808fc789fc3e476c4fcd9fc97d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        36,
+        305,
+        150
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        7.700836181640625,
+        38.857765197753906,
+        302.30218505859375,
+        146.9585723876953
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.835689544677734,
+        0.0,
+        60.56715774536133,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.013,
+      "png_sha256": "d210eff787db2566417db1e32fa1b0e2c2a2a6308ea9ef54e3b3b989352dac4e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        40,
+        306,
+        137
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        6.329559326171875,
+        43.00506591796875,
+        303.6678466796875,
+        134.1472625732422
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.835689544677734,
+        0.0,
+        60.567161560058594,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.009,
+      "png_sha256": "7dfa45076d86622bd40544545458d65680f6e3880d07344baba7f6bd9c31cb94",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        38,
+        302,
+        124
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        10.37860107421875,
+        40.43870544433594,
+        299.4739990234375,
+        120.96671295166016
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.56715393066406,
+        23.83568572998047,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.963,
+      "png_sha256": "9e19f6425f580d178ef22bb77f6417e99ca166a05c596b162b8163bacc1b7429",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        37,
+        306,
+        136
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        6.329559326171875,
+        38.11833953857422,
+        303.6678466796875,
+        133.60694885253906
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.567161560058594,
+        23.835689544677734,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.015,
+      "png_sha256": "6f96b28878b0934bf32628ec6ab0e79d4f0355383e2a76c905780d56ad9dbefc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        33,
+        305,
+        148
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        7.700836181640625,
+        35.40937042236328,
+        302.30218505859375,
+        145.78201293945312
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.83568572998047,
+        0.0,
+        60.56715774536133,
+        23.835689544677734,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.036,
+      "png_sha256": "902689eaa7bc85405e628ede6dad351e5fe8bf80c158fbc45d8832e5a9a926f0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        23,
+        298,
+        159
+      ],
+      "vertices": 22476,
+      "triangles": 42356,
+      "parts": 321,
+      "projected_vertex_bounds_px": [
+        14.701248168945312,
+        24.995361328125,
+        295.4294738769531,
+        156.31300354003906
+      ],
+      "physical_bounds_world": [
+        -64.08000183105469,
+        -23.8356876373291,
+        0.0,
+        60.56715393066406,
+        23.8356876373291,
+        29.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.3,
+            0.3
+          ],
+          [
+            -1.92,
+            0.35
+          ],
+          [
+            -0.9,
+            0.36
+          ],
+          [
+            0.4,
+            0.35
+          ],
+          [
+            1.2,
+            0.29
+          ],
+          [
+            1.86,
+            0.18
+          ],
+          [
+            2.32,
+            0.06
+          ],
+          [
+            2.52,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 2.34965618605606,
+        "installed_guns_in_hull": false,
+        "design": "High two-level packet house; long covered hatches and twin exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fourport_packet",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        192
+      ],
+      "pivot_px": [
+        159,
+        103
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          192
+        ],
+        "pivot_px": [
+          159,
+          103
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          384
+        ],
+        "portrait_pivot_px": [
+          318,
+          206
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.033,
+      "png_sha256": "2dae0cd8e2eda49d6ed45983ab9d37ed3e8f3e76c8cd2ab7aef636f1fdb05800",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.002,
+            0
+          ],
+          "world_xy": [
+            24.048000000000002,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4929999999999999,
+            0
+          ],
+          "world_xy": [
+            -35.831999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.512,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            12.288,
+            -13.536000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.3,
+        0.3
+      ],
+      [
+        -1.92,
+        0.35
+      ],
+      [
+        -0.9,
+        0.36
+      ],
+      [
+        0.4,
+        0.35
+      ],
+      [
+        1.2,
+        0.29
+      ],
+      [
+        1.86,
+        0.18
+      ],
+      [
+        2.32,
+        0.06
+      ],
+      [
+        2.52,
+        0.0
+      ]
+    ],
+    "physical_size": 24,
+    "minimum_high_structure_clearance_world": 2.34965618605606,
+    "installed_guns_in_hull": false,
+    "design": "High two-level packet house; long covered hatches and twin exhaust"
+  },
+  "status": "baked; visual and native integration review still required"
+}

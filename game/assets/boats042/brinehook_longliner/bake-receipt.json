@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "brinehook_longliner",
+  "headings": 32,
+  "atlas_sha256": "7faab61523503ac5445d98b46732efe27f525a05f5a17825cb66bd31b4e49775",
+  "canvas_config": {
+    "cell_px": [
+      208,
+      128
+    ],
+    "pivot_px": [
+      100,
+      75
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      416,
+      256
+    ],
+    "portrait_pivot_px": [
+      200,
+      150
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1664,
+    512
+  ],
+  "gpu_rgba8_bytes": 3407872,
+  "frame_bounds_px": [
+    [
+      27,
+      16,
+      130,
+      88
+    ],
+    [
+      37,
+      11,
+      109,
+      98
+    ],
+    [
+      50,
+      7,
+      85,
+      105
+    ],
+    [
+      63,
+      5,
+      64,
+      108
+    ],
+    [
+      75,
+      4,
+      50,
+      110
+    ],
+    [
+      73,
+      5,
+      64,
+      108
+    ],
+    [
+      65,
+      7,
+      85,
+      105
+    ],
+    [
+      54,
+      11,
+      109,
+      98
+    ],
+    [
+      43,
+      16,
+      130,
+      88
+    ],
+    [
+      34,
+      18,
+      148,
+      81
+    ],
+    [
+      27,
+      18,
+      163,
+      74
+    ],
+    [
+      22,
+      19,
+      173,
+      66
+    ],
+    [
+      21,
+      20,
+      175,
+      59
+    ],
+    [
+      22,
+      21,
+      173,
+      65
+    ],
+    [
+      27,
+      22,
+      163,
+      73
+    ],
+    [
+      34,
+      24,
+      148,
+      79
+    ],
+    [
+      43,
+      25,
+      130,
+      85
+    ],
+    [
+      54,
+      22,
+      109,
+      94
+    ],
+    [
+      65,
+      19,
+      85,
+      101
+    ],
+    [
+      73,
+      17,
+      64,
+      106
+    ],
+    [
+      75,
+      16,
+      50,
+      107
+    ],
+    [
+      63,
+      17,
+      64,
+      106
+    ],
+    [
+      50,
+      19,
+      85,
+      101
+    ],
+    [
+      37,
+      22,
+      109,
+      94
+    ],
+    [
+      27,
+      25,
+      130,
+      85
+    ],
+    [
+      18,
+      29,
+      148,
+      74
+    ],
+    [
+      10,
+      33,
+      163,
+      62
+    ],
+    [
+      5,
+      36,
+      173,
+      50
+    ],
+    [
+      4,
+      36,
+      175,
+      43
+    ],
+    [
+      5,
+      33,
+      173,
+      52
+    ],
+    [
+      10,
+      28,
+      163,
+      64
+    ],
+    [
+      18,
+      23,
+      148,
+      76
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        27,
+        16,
+        157,
+        104
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        30.008888244628906,
+        19.134613037109375,
+        154.4073028564453,
+        101.81400299072266
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.88596725463867,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.126,
+      "png_sha256": "c5311ea0e03b1b950bc555e670ba756e9c5008e5b0178c229af13be06651794c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        37,
+        11,
+        146,
+        109
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        40.026390075683594,
+        13.785629272460938,
+        143.13525390625,
+        106.5299301147461
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.885963439941406,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.144,
+      "png_sha256": "e61985aaf7e3214d96bd529517619782ccdefd283f696362daa4bf5113723f8c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        50,
+        7,
+        135,
+        112
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        52.3486328125,
+        9.839790344238281,
+        132.09437561035156,
+        110.0341796875
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604203224182129,
+        0.0,
+        32.885963439941406,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.099,
+      "png_sha256": "9ed6315d804881747da8d2f27f43952a4f2c6f925753ccb646ba4d0ef1dc499e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        63,
+        5,
+        127,
+        113
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        65.57972717285156,
+        7.4599761962890625,
+        123.76936340332031,
+        112.19208526611328
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.88596725463867,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.1,
+      "png_sha256": "44f01cdb371f29dec4e719dccafcc6a31a612b20bb328762870663f406f9ce75",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        75,
+        4,
+        125,
+        114
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        77.72486877441406,
+        6.747138977050781,
+        122.27513122558594,
+        112.92072296142578
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.88596725463867,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.079,
+      "png_sha256": "9be4b87514b95b03489137ee54e77acab6d1a67d97cac852c089287d1c55a4f7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        73,
+        5,
+        137,
+        113
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        76.23063659667969,
+        7.4599761962890625,
+        134.42027282714844,
+        112.19208526611328
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.88596725463867,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.09,
+      "png_sha256": "00658429dd49ef718c482dd5409a79d9feaa8dcb079356ef3c81e29ef741b2ab",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        65,
+        7,
+        150,
+        112
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        67.90562438964844,
+        9.839790344238281,
+        147.6513671875,
+        110.0341796875
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.885963439941406,
+        9.604203224182129,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.098,
+      "png_sha256": "71f763131e962ce1b0a67e458d3931083941a27897aa048e7472b86d47b77548",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        11,
+        163,
+        109
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        56.86475372314453,
+        13.785629272460938,
+        159.97360229492188,
+        106.5299301147461
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.885963439941406,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.107,
+      "png_sha256": "83aa90a6f76b0d9016748c735cbdfb25b400f8d32424eff17123abc78f62916a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        43,
+        16,
+        173,
+        104
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        45.59270095825195,
+        19.134613037109375,
+        169.99111938476562,
+        101.81400299072266
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.88596725463867,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.119,
+      "png_sha256": "ad46d232fc03947d758efd57575b3e1d08afcc1589d8cc22169a79c185fbc8ef",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        18,
+        182,
+        99
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        36.208858489990234,
+        20.92157745361328,
+        178.8988494873047,
+        96.067626953125
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.885963439941406,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.121,
+      "png_sha256": "837854693f598b6e993ed74821f172b3ce5f21064194853baf55731a29d2aa83",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        27,
+        18,
+        190,
+        92
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        29.276466369628906,
+        20.914264678955078,
+        187.07101440429688,
+        89.51163482666016
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604203224182129,
+        0.0,
+        32.885963439941406,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.106,
+      "png_sha256": "44a71088fa05b3ddba0ff655d0d672584456e7e87fc69767b551b7319715d73a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        19,
+        195,
+        85
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        25.06194305419922,
+        21.351837158203125,
+        191.95791625976562,
+        82.39796447753906
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.88596725463867,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.098,
+      "png_sha256": "31fd613230d4397cc823022a902dd987aa2ee876d10ccd6ba69d42696c35adc8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        20,
+        196,
+        79
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        23.72724151611328,
+        22.191001892089844,
+        193.58416748046875,
+        75.89164733886719
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.88596725463867,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.077,
+      "png_sha256": "6f7840d3222ecc4474ed3862aea26901666dfe6b8d6efc55750326bb7926ceb5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        21,
+        195,
+        86
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        25.06194305419922,
+        23.402923583984375,
+        191.95791625976562,
+        83.53776550292969
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.88596725463867,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.096,
+      "png_sha256": "defc58d0c30238ad16ea60d6169948c1d0d5be076ac525963dfdbe49aa7a75d2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        27,
+        22,
+        190,
+        95
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        29.276466369628906,
+        24.95599365234375,
+        187.07101440429688,
+        92.22718811035156
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.885963439941406,
+        9.604203224182129,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.108,
+      "png_sha256": "031f45cf05ea309362b1393db4acd550aeecd139ac369d3342b7119291c01349",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        24,
+        182,
+        103
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        36.208858489990234,
+        26.790515899658203,
+        178.8988494873047,
+        100.21376037597656
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.885963439941406,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.106,
+      "png_sha256": "0a6bda1c51c112dc5c0d179f8b069582e4baf13385b80d394e6978cb4140ac29",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        43,
+        25,
+        173,
+        110
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        45.59270095825195,
+        27.924102783203125,
+        169.99111938476562,
+        107.22004699707031
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.88596725463867,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.111,
+      "png_sha256": "72e3f144a104717ccc4050b4032c27f9a0f78e814caf92818970351080d72db7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        22,
+        163,
+        116
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        56.86475372314453,
+        25.081707000732422,
+        159.97360229492188,
+        112.95210266113281
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.885963439941406,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.138,
+      "png_sha256": "c29d7bc69addb43ea0b978d109740159c36e3e9921798d398a77971f292dbbb2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        65,
+        19,
+        150,
+        120
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        67.90562438964844,
+        21.773788452148438,
+        147.6513671875,
+        117.18964385986328
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604203224182129,
+        0.0,
+        32.885963439941406,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.101,
+      "png_sha256": "bf88f751664bc965d5c609074c12561cbaf4e9cca66576f500f8f8f07230901a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        73,
+        17,
+        137,
+        123
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        76.23063659667969,
+        19.65209197998047,
+        134.42027282714844,
+        119.79689025878906
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.88596725463867,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.117,
+      "png_sha256": "9e44c35217da0593697f79c665fa19d5643532abdc29833d2d963138e7ee561a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        75,
+        16,
+        125,
+        123
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        77.72486877441406,
+        18.940059661865234,
+        122.27513122558594,
+        120.69097137451172
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.88596725463867,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.081,
+      "png_sha256": "f8198a207cf57e012491f1c55b6f2b884dec439791b54ccf936bd787d23381e2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        63,
+        17,
+        127,
+        123
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        65.57972717285156,
+        19.65209197998047,
+        123.76936340332031,
+        119.79689025878906
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.88596725463867,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.11,
+      "png_sha256": "86509f12c94e3a6f58180b78bd14a53c75db0c85ff88d5f301643fb2ff4afa2a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        50,
+        19,
+        135,
+        120
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        52.3486328125,
+        21.773788452148438,
+        132.09437561035156,
+        117.18964385986328
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.885963439941406,
+        9.604203224182129,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.103,
+      "png_sha256": "78fee1e542e2aca837a9b6127b27672e166be1d402b356a0d99fb465a2e273cf",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        37,
+        22,
+        146,
+        116
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        40.026390075683594,
+        25.081707000732422,
+        143.13525390625,
+        112.95210266113281
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.885963439941406,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.129,
+      "png_sha256": "c488747eee26724da6193e7bb03e6c75d9bc99a16181c28a7b74e726bbea7ca3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        27,
+        25,
+        157,
+        110
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        30.008888244628906,
+        27.924102783203125,
+        154.4073028564453,
+        107.22004699707031
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.88596725463867,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.124,
+      "png_sha256": "c3bca59bc083727bb3ea0178649e4d21422f168cb7a60b7908c1bc700003c5ba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        29,
+        166,
+        103
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        21.101150512695312,
+        31.670997619628906,
+        163.7911376953125,
+        100.21376037597656
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.885963439941406,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.142,
+      "png_sha256": "4c01820f7bcb8a7cdabb3ab57676bb06bbea2837c38dd9c085017f84116548e4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        33,
+        173,
+        95
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        12.928977966308594,
+        36.17839813232422,
+        170.72354125976562,
+        92.22718811035156
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604203224182129,
+        0.0,
+        32.885963439941406,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.11,
+      "png_sha256": "ef6a17ff83f426aa9f5a32d824caef5847f16aec48c49d835443775077d4ed11",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        36,
+        178,
+        86
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        8.042083740234375,
+        38.67079162597656,
+        174.93804931640625,
+        83.53776550292969
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.88596725463867,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.097,
+      "png_sha256": "371627ef64fe7ec2a63267e23c00e9e34b8557959216ff6fd47961e423199c49",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        36,
+        179,
+        79
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        6.415840148925781,
+        38.57952117919922,
+        176.27276611328125,
+        75.89164733886719
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.88596725463867,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.081,
+      "png_sha256": "a3038888a733d88c8c5707f26ab5931c9aa1e6e0f15ab36511bcd664826d6dd0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        33,
+        178,
+        85
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        8.042083740234375,
+        35.79265594482422,
+        174.93804931640625,
+        82.39796447753906
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.88596725463867,
+        9.604204177856445,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.107,
+      "png_sha256": "d793f5b4ad45d1f702128840b4a019e1fd41e902295f4fa70e17f37b529381d2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        28,
+        173,
+        92
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        12.928977966308594,
+        30.541492462158203,
+        170.72354125976562,
+        89.51163482666016
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604205131530762,
+        0.0,
+        32.885963439941406,
+        9.604203224182129,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.099,
+      "png_sha256": "a2ac741893575dcbdaeaf2e51d8446a6aa9b818427089e27698eb60bc3662873",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        23,
+        166,
+        99
+      ],
+      "vertices": 12278,
+      "triangles": 23268,
+      "parts": 171,
+      "projected_vertex_bounds_px": [
+        21.101150512695312,
+        25.703693389892578,
+        163.7911376953125,
+        96.067626953125
+      ],
+      "physical_bounds_world": [
+        -40.349998474121094,
+        -9.604204177856445,
+        0.0,
+        32.885963439941406,
+        9.604205131530762,
+        21.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.32,
+            0.5
+          ],
+          [
+            -2.0,
+            0.59
+          ],
+          [
+            -1.15,
+            0.62
+          ],
+          [
+            -0.1,
+            0.58
+          ],
+          [
+            0.66,
+            0.54
+          ],
+          [
+            1.42,
+            0.36
+          ],
+          [
+            1.98,
+            0.14
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 15,
+        "minimum_high_structure_clearance_world": 2.28,
+        "installed_guns_in_hull": false,
+        "design": "Long working stern; paired line reels and offset davit under canopy"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "brinehook_longliner",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        208,
+        128
+      ],
+      "pivot_px": [
+        100,
+        75
+      ],
+      "canvas_config": {
+        "cell_px": [
+          208,
+          128
+        ],
+        "pivot_px": [
+          100,
+          75
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          416,
+          256
+        ],
+        "portrait_pivot_px": [
+          200,
+          150
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.11,
+      "png_sha256": "da529257763f6c933464124cf35795d36bb0001e596f2423362aff1e41068db2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.988,
+            0
+          ],
+          "world_xy": [
+            14.82,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -22.08,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.4,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.32,
+        0.5
+      ],
+      [
+        -2.0,
+        0.59
+      ],
+      [
+        -1.15,
+        0.62
+      ],
+      [
+        -0.1,
+        0.58
+      ],
+      [
+        0.66,
+        0.54
+      ],
+      [
+        1.42,
+        0.36
+      ],
+      [
+        1.98,
+        0.14
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "physical_size": 15,
+    "minimum_high_structure_clearance_world": 2.28,
+    "installed_guns_in_hull": false,
+    "design": "Long working stern; paired line reels and offset davit under canopy"
+  },
+  "status": "baked; visual and native integration review still required"
+}

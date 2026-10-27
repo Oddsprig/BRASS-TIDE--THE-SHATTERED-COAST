@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "hook_raider",
+  "headings": 32,
+  "atlas_sha256": "ccd1e02f7d03c17a5539cae1b4bd2a66ce06f7604afa9d56148218cf2d4979d1",
+  "canvas_config": {
+    "cell_px": [
+      224,
+      144
+    ],
+    "pivot_px": [
+      110,
+      78
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      448,
+      288
+    ],
+    "portrait_pivot_px": [
+      220,
+      156
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1792,
+    576
+  ],
+  "gpu_rgba8_bytes": 4128768,
+  "frame_bounds_px": [
+    [
+      15,
+      9,
+      189,
+      117
+    ],
+    [
+      26,
+      6,
+      167,
+      124
+    ],
+    [
+      38,
+      4,
+      140,
+      127
+    ],
+    [
+      53,
+      4,
+      109,
+      128
+    ],
+    [
+      67,
+      6,
+      86,
+      124
+    ],
+    [
+      58,
+      4,
+      109,
+      128
+    ],
+    [
+      42,
+      4,
+      140,
+      127
+    ],
+    [
+      27,
+      6,
+      167,
+      124
+    ],
+    [
+      16,
+      9,
+      189,
+      117
+    ],
+    [
+      8,
+      11,
+      204,
+      109
+    ],
+    [
+      4,
+      10,
+      212,
+      103
+    ],
+    [
+      4,
+      10,
+      211,
+      94
+    ],
+    [
+      7,
+      11,
+      204,
+      84
+    ],
+    [
+      4,
+      12,
+      211,
+      92
+    ],
+    [
+      4,
+      15,
+      212,
+      96
+    ],
+    [
+      8,
+      16,
+      204,
+      102
+    ],
+    [
+      16,
+      12,
+      189,
+      111
+    ],
+    [
+      27,
+      8,
+      167,
+      118
+    ],
+    [
+      42,
+      5,
+      140,
+      123
+    ],
+    [
+      58,
+      5,
+      109,
+      123
+    ],
+    [
+      67,
+      7,
+      86,
+      119
+    ],
+    [
+      53,
+      5,
+      109,
+      123
+    ],
+    [
+      38,
+      5,
+      140,
+      123
+    ],
+    [
+      26,
+      8,
+      167,
+      118
+    ],
+    [
+      15,
+      12,
+      189,
+      111
+    ],
+    [
+      8,
+      16,
+      204,
+      102
+    ],
+    [
+      4,
+      21,
+      212,
+      90
+    ],
+    [
+      5,
+      28,
+      211,
+      76
+    ],
+    [
+      9,
+      32,
+      204,
+      63
+    ],
+    [
+      5,
+      26,
+      211,
+      78
+    ],
+    [
+      4,
+      21,
+      212,
+      92
+    ],
+    [
+      8,
+      15,
+      204,
+      105
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        15,
+        9,
+        204,
+        126
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        18.127830505371094,
+        12.012237548828125,
+        201.5455322265625,
+        123.4280014038086
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.568,
+      "png_sha256": "50e34cfd6920ff804a77c9d22e2bbf81621920ec1112f0f0393a8771319871b5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        26,
+        6,
+        193,
+        130
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        28.76445770263672,
+        8.322998046875,
+        190.08599853515625,
+        127.4503173828125
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542482376098633,
+        0.0,
+        43.06974411010742,
+        17.542482376098633,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.6,
+      "png_sha256": "0f4b2cbea45360af0409e1d422b497f68c5479382269acd17c66e52a7ed484b9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        4,
+        178,
+        131
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        41.098899841308594,
+        6.53326416015625,
+        175.54879760742188,
+        129.57229614257812
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.546,
+      "png_sha256": "2e6c5035e28b70948855093e465cf0b352db1388b3532a47ccb0ebf6ace795c1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        53,
+        4,
+        162,
+        132
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        56.0811767578125,
+        6.6951751708984375,
+        158.9241485595703,
+        129.71237182617188
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.534,
+      "png_sha256": "c700942bef681a443eeabe40d8027a887dc784951ccb841e9869582ad7c40f7c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        67,
+        6,
+        153,
+        130
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        69.31353759765625,
+        8.785888671875,
+        150.68646240234375,
+        127.86517333984375
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.493,
+      "png_sha256": "8586187c082c334bba9b8e2eaa466d850a321ed1b24182beee6522142e3448d7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        58,
+        4,
+        167,
+        132
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        61.07585525512695,
+        6.6951751708984375,
+        163.9188232421875,
+        129.71237182617188
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.513,
+      "png_sha256": "52d27a332df3cccb65f39108fd2c307988e5944b5a96f6e7f03b927eda46fd2b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        42,
+        4,
+        182,
+        131
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        44.451210021972656,
+        6.53326416015625,
+        178.90109252929688,
+        129.57229614257812
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.542,
+      "png_sha256": "09bdd7ed7cb6fa4a5d8fdb8eca1ff642f0afdbe07f39bbd3cc9ae91cf1a17481",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        27,
+        6,
+        194,
+        130
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        29.91400146484375,
+        8.322998046875,
+        191.23553466796875,
+        127.4503173828125
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542482376098633,
+        0.0,
+        43.06974411010742,
+        17.542482376098633,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.577,
+      "png_sha256": "0e8b79b3f21dac1abeffe6b97a80f57f56c44da6dbaa2efec60b7d44bf3d6565",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        9,
+        205,
+        126
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        18.45446014404297,
+        12.012237548828125,
+        201.87216186523438,
+        123.4280014038086
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.555,
+      "png_sha256": "8bf9a84c7e7abdc77da3a700a42068405ffe479ed6ef47243b65d88425d955ef",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        11,
+        212,
+        120
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        10.512962341308594,
+        13.283515930175781,
+        209.263671875,
+        117.659912109375
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542482376098633,
+        0.0,
+        43.06974411010742,
+        17.542482376098633,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.55,
+      "png_sha256": "7b8dc8b67e42f873da9c5251aaadb4a0bcd4b09ed852916b99b5f08b78be7887",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        10,
+        216,
+        113
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        6.394691467285156,
+        12.510177612304688,
+        212.84051513671875,
+        110.36770629882812
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.539,
+      "png_sha256": "5657a5b12ffa453c581858d7c5b7ca2c6c81d382d51d9b7033f9c203a677a580",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        10,
+        215,
+        104
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        6.257911682128906,
+        12.540756225585938,
+        212.51235961914062,
+        101.83163452148438
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.542,
+      "png_sha256": "9d61cd202411e31aac72d91981e242c09339ceff26eda6932a5f334f012bdd96",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        11,
+        211,
+        95
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        10.107894897460938,
+        13.333930969238281,
+        208.33877563476562,
+        92.48135375976562
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.518,
+      "png_sha256": "6c504db4762cad7cdffbe765d7e7adc3d7b43bffaa4b00f51b8b3775ae1779a1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        12,
+        215,
+        104
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        6.257911682128906,
+        14.893623352050781,
+        212.51235961914062,
+        100.97193145751953
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.515,
+      "png_sha256": "1d948d667530007d2001439a521e1f428b8d0527863a33dd08809bb50126d51f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        15,
+        216,
+        111
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        6.394691467285156,
+        17.159893035888672,
+        212.84051513671875,
+        108.68133544921875
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.536,
+      "png_sha256": "63efbb1d398fbc153107bb5243c0af5d0c5280c32cd88c0819c9534ddf218e10",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        16,
+        212,
+        118
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        10.512962341308594,
+        19.036087036132812,
+        209.263671875,
+        115.21167755126953
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542482376098633,
+        0.0,
+        43.06974411010742,
+        17.542482376098633,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.565,
+      "png_sha256": "264d6e303fe4d6e8a758bf897d758ad1fc2bc5d76f186df0ab4eb73dab8f6bea",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        12,
+        205,
+        123
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        18.45446014404297,
+        14.210063934326172,
+        201.87216186523438,
+        120.31199645996094
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.549,
+      "png_sha256": "d15e18b22c768e4b348c432e091d38be9f4373ed86378850c578c389c59792fd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        27,
+        8,
+        194,
+        126
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        29.91400146484375,
+        10.225265502929688,
+        191.23553466796875,
+        123.78628540039062
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542482376098633,
+        0.0,
+        43.06974411010742,
+        17.542482376098633,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.547,
+      "png_sha256": "c99b93d74678ba74abbab9ff49f67b45eb43a238e1b134c50a2e2dbd5676010c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        42,
+        5,
+        182,
+        128
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        44.451210021972656,
+        8.118453979492188,
+        178.90109252929688,
+        125.50103759765625
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.535,
+      "png_sha256": "b1d5451b01cb5bcd308d321aa0c8a20ff8c4d004f566af38cde9e0b24b30407e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        58,
+        5,
+        167,
+        128
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        61.07585525512695,
+        7.988067626953125,
+        163.9188232421875,
+        125.39035034179688
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.536,
+      "png_sha256": "ffbb25ec330a840ea4d6b3b46cd9912d78b4d2d57c8e3022d275492c07e9842b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        67,
+        7,
+        153,
+        126
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        69.31353759765625,
+        9.844955444335938,
+        150.68646240234375,
+        123.45848083496094
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.506,
+      "png_sha256": "59bb3f5a231bca6e7c2b670d1c74f5931fcfe9989a4560a1bbd102c68a408c40",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        53,
+        5,
+        162,
+        128
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        56.0811767578125,
+        7.988067626953125,
+        158.9241485595703,
+        125.39035034179688
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.511,
+      "png_sha256": "e334b9a921f017e7639b5d83194fbbf29bf2fbf82a6fb1a6a51dbe8f393ea433",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        5,
+        178,
+        128
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        41.098899841308594,
+        8.118453979492188,
+        175.54879760742188,
+        125.50103759765625
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.528,
+      "png_sha256": "063e5512f078646aaa7df972087e9933eceeab4618a051d11853ed2575f13bf5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        26,
+        8,
+        193,
+        126
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        28.76445770263672,
+        10.225265502929688,
+        190.08599853515625,
+        123.78628540039062
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542482376098633,
+        0.0,
+        43.06974411010742,
+        17.542482376098633,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.569,
+      "png_sha256": "36fb5feb746af1499afd97876b58eabd336681e0d4b4dbe8a89bd5a3739f1bd9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        12,
+        204,
+        123
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        18.127830505371094,
+        14.210063934326172,
+        201.5455322265625,
+        120.31199645996094
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.557,
+      "png_sha256": "295500368830ce005c9c86431bd00b5b32cbc328a78eaa58c8c060df46c23a6d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        16,
+        212,
+        118
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        10.736335754394531,
+        19.036087036132812,
+        209.48703002929688,
+        115.21167755126953
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542482376098633,
+        0.0,
+        43.06974411010742,
+        17.542482376098633,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.627,
+      "png_sha256": "da736ca2ce0562665cb8cbe2ef51ea0f210de63821da24541bf8a01102cc62e2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        21,
+        216,
+        111
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        7.159492492675781,
+        24.12259292602539,
+        213.60531616210938,
+        108.68133544921875
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.569,
+      "png_sha256": "e744834025a5400e13bf41282407ccf561253f882e5404459dc725e5f950ae0a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        28,
+        216,
+        104
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        7.487632751464844,
+        30.374980926513672,
+        213.74209594726562,
+        100.97193145751953
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.548,
+      "png_sha256": "3e90d98b5f8ae68909031739f377f0fdde2a3cac796cfafdff6ab2b8f0c3ed35",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        32,
+        213,
+        95
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        11.661231994628906,
+        34.79060363769531,
+        209.89210510253906,
+        92.48135375976562
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.511,
+      "png_sha256": "7505ef835cce8eaf691a9f1fe8f239f1eb435a62218e104cf6caed64c3f2ac4b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        26,
+        216,
+        104
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        7.487632751464844,
+        29.04016876220703,
+        213.74209594726562,
+        101.83163452148438
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.523,
+      "png_sha256": "9fa3db3c81110e1b51c64ffeb54c7c6e2d40968721eebd64d98de0f7e270866e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        21,
+        216,
+        113
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        7.159492492675781,
+        23.74786376953125,
+        213.60531616210938,
+        110.36770629882812
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542484283447266,
+        0.0,
+        43.06974792480469,
+        17.542484283447266,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.541,
+      "png_sha256": "429e0df0ea084a69214dfeed11791b06e71052350f3b726797b11a9ecc389296",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        15,
+        212,
+        120
+      ],
+      "vertices": 16716,
+      "triangles": 31156,
+      "parts": 253,
+      "projected_vertex_bounds_px": [
+        10.736335754394531,
+        17.409526824951172,
+        209.48703002929688,
+        117.659912109375
+      ],
+      "physical_bounds_world": [
+        -42.400001525878906,
+        -17.542482376098633,
+        0.0,
+        43.06974411010742,
+        17.542482376098633,
+        22.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.16
+          ],
+          [
+            -1.66,
+            0.21
+          ],
+          [
+            -0.8,
+            0.22
+          ],
+          [
+            0.2,
+            0.24
+          ],
+          [
+            0.88,
+            0.23
+          ],
+          [
+            1.5,
+            0.14
+          ],
+          [
+            1.94,
+            0.05
+          ],
+          [
+            2.15,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 1.4257175807312277,
+        "installed_guns_in_hull": false,
+        "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "hook_raider",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        110,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          110,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          220,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.553,
+      "png_sha256": "fb0a1719c8eaef2f37b46edd5a3108c0174d43d8618a9b14149e7dcdf7b96f40",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            20.08,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.484,
+            0
+          ],
+          "world_xy": [
+            -29.68,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5224,
+            -0.56
+          ],
+          "world_xy": [
+            10.448,
+            -11.200000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.96,
+        0.16
+      ],
+      [
+        -1.66,
+        0.21
+      ],
+      [
+        -0.8,
+        0.22
+      ],
+      [
+        0.2,
+        0.24
+      ],
+      [
+        0.88,
+        0.23
+      ],
+      [
+        1.5,
+        0.14
+      ],
+      [
+        1.94,
+        0.05
+      ],
+      [
+        2.15,
+        0.0
+      ]
+    ],
+    "physical_size": 20,
+    "minimum_high_structure_clearance_world": 1.4257175807312277,
+    "installed_guns_in_hull": false,
+    "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
+  },
+  "status": "baked; visual and native integration review still required"
+}

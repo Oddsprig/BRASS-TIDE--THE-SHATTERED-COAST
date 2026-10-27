@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "mother_gull_trawler",
+  "headings": 32,
+  "atlas_sha256": "1d16549dfc72916a8a7a24d52db2e9b3fd5484f923c1f48bb4a7fb9b1ce5dff1",
+  "canvas_config": {
+    "cell_px": [
+      248,
+      152
+    ],
+    "pivot_px": [
+      123,
+      86
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      496,
+      304
+    ],
+    "portrait_pivot_px": [
+      246,
+      172
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1984,
+    608
+  ],
+  "gpu_rgba8_bytes": 4825088,
+  "frame_bounds_px": [
+    [
+      19,
+      12,
+      198,
+      121
+    ],
+    [
+      32,
+      7,
+      173,
+      130
+    ],
+    [
+      47,
+      5,
+      143,
+      134
+    ],
+    [
+      63,
+      4,
+      113,
+      135
+    ],
+    [
+      78,
+      6,
+      90,
+      132
+    ],
+    [
+      70,
+      4,
+      113,
+      135
+    ],
+    [
+      56,
+      5,
+      143,
+      134
+    ],
+    [
+      41,
+      7,
+      173,
+      130
+    ],
+    [
+      29,
+      12,
+      198,
+      121
+    ],
+    [
+      21,
+      18,
+      215,
+      110
+    ],
+    [
+      17,
+      19,
+      224,
+      101
+    ],
+    [
+      16,
+      20,
+      226,
+      92
+    ],
+    [
+      20,
+      21,
+      219,
+      82
+    ],
+    [
+      16,
+      24,
+      226,
+      89
+    ],
+    [
+      17,
+      26,
+      225,
+      96
+    ],
+    [
+      21,
+      22,
+      215,
+      109
+    ],
+    [
+      29,
+      18,
+      198,
+      120
+    ],
+    [
+      41,
+      15,
+      173,
+      127
+    ],
+    [
+      56,
+      13,
+      143,
+      132
+    ],
+    [
+      70,
+      13,
+      113,
+      133
+    ],
+    [
+      78,
+      15,
+      90,
+      129
+    ],
+    [
+      63,
+      13,
+      113,
+      133
+    ],
+    [
+      47,
+      13,
+      143,
+      132
+    ],
+    [
+      32,
+      15,
+      173,
+      127
+    ],
+    [
+      19,
+      18,
+      198,
+      120
+    ],
+    [
+      10,
+      22,
+      215,
+      109
+    ],
+    [
+      4,
+      26,
+      225,
+      96
+    ],
+    [
+      4,
+      24,
+      226,
+      89
+    ],
+    [
+      7,
+      21,
+      219,
+      82
+    ],
+    [
+      4,
+      20,
+      226,
+      92
+    ],
+    [
+      5,
+      19,
+      224,
+      101
+    ],
+    [
+      10,
+      18,
+      215,
+      110
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        19,
+        12,
+        217,
+        133
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        21.70555877685547,
+        14.046211242675781,
+        214.09317016601562,
+        131.1820068359375
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.852,
+      "png_sha256": "b99cda64bdae7e585fac1124d536e47f4b85ca951ddc5503e97bb5a9fdf71843",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        32,
+        7,
+        205,
+        137
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        34.941307067871094,
+        9.63665771484375,
+        202.32589721679688,
+        135.3594207763672
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.901,
+      "png_sha256": "d532909f72e530e28b050f6dbe393ffab0aeb8b3be9ca40e606a4e07d389638a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        47,
+        5,
+        190,
+        139
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        49.806495666503906,
+        7.2378997802734375,
+        187.51019287109375,
+        137.63998413085938
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631530761719,
+        18.250112533569336,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.838,
+      "png_sha256": "4d6c6229f90bd3bfd04ab9005de5fe40c838b8c50e474713b1df2362b717f7fa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        63,
+        4,
+        176,
+        139
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        65.79035949707031,
+        6.941131591796875,
+        173.73486328125,
+        137.93606567382812
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.809,
+      "png_sha256": "f6c7150079ff70e57ac92e6f31bb05c577a4a5450607008e41e9bedc26017f63",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        78,
+        6,
+        168,
+        138
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        80.67232513427734,
+        8.756744384765625,
+        165.32766723632812,
+        136.2362518310547
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.766,
+      "png_sha256": "9832eda6621e989e3471e605dae1d17975eb99900679fc1d5d92acfc52c738f0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        70,
+        4,
+        183,
+        139
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        72.26512908935547,
+        6.941131591796875,
+        180.2096405029297,
+        137.93606567382812
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.794,
+      "png_sha256": "c30fe3130b374ed6f3ea3dd0d13e0223f695ab3b4d8920b909896701a6b1c265",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        56,
+        5,
+        199,
+        139
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        58.48981475830078,
+        7.2378997802734375,
+        196.19351196289062,
+        137.63998413085938
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.250112533569336,
+        0.0,
+        43.42631530761719,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.809,
+      "png_sha256": "80076b759bd062b33221aeece56fd369b56beaeef1767dbbd2b6bc61278976a4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        7,
+        214,
+        137
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        43.674095153808594,
+        9.63665771484375,
+        211.05868530273438,
+        135.3594207763672
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.844,
+      "png_sha256": "5114841c540ad3c446e90280056cd6a736e6e7b812f66e5a8c806fbdb5fcd4f0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        12,
+        227,
+        133
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        31.906822204589844,
+        14.046211242675781,
+        224.29443359375,
+        131.1820068359375
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.922,
+      "png_sha256": "1386101bab27f7df0ee3700bb934f65a4cf73474dc4d5d33a5c0bd024f78beaa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        18,
+        236,
+        128
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        23.640213012695312,
+        20.29412841796875,
+        233.6374969482422,
+        125.26825714111328
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.862,
+      "png_sha256": "00774c29b440f98e33099b18f1264664198509a2dd324e0f570119c991aa2721",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        19,
+        241,
+        120
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        19.19194793701172,
+        21.422470092773438,
+        238.77423095703125,
+        117.845458984375
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631530761719,
+        18.250112533569336,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.852,
+      "png_sha256": "deb22eaddf5e4d423a77a73df07c6abe0265b9207e401c58c80f4d99a5417f3d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        20,
+        242,
+        112
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        18.732955932617188,
+        22.293670654296875,
+        239.57791137695312,
+        109.19886016845703
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.831,
+      "png_sha256": "f13f55669e78860aa8b8404c76d06c2813fad73811aed20b24d50e2fc5f9b3e9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        21,
+        239,
+        103
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        22.28089141845703,
+        23.894126892089844,
+        236.25192260742188,
+        99.96376037597656
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.79,
+      "png_sha256": "965fc96f88bb317a16a7ee72a293b50e274669479883b353e432c954f91e294b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        24,
+        242,
+        113
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        18.732955932617188,
+        26.162330627441406,
+        239.57791137695312,
+        109.99666595458984
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.798,
+      "png_sha256": "89cb55c018115edecc9c021c24ef3fb7e44ef743b49e91ad10402c31b2959985",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        26,
+        242,
+        122
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        19.19194793701172,
+        29.011119842529297,
+        238.77423095703125,
+        119.72760009765625
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.250112533569336,
+        0.0,
+        43.42631530761719,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.807,
+      "png_sha256": "e695d5625eee31410443a22a2d164f26cd7b2ae89807a90b46c2d5298ece1e4c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        22,
+        236,
+        131
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        23.640213012695312,
+        24.439373016357422,
+        233.6374969482422,
+        128.1160430908203
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.974,
+      "png_sha256": "5d4286f7fdd3260079f6563b2a893c2b1600be102e9a0929df39918c49fc8113",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        18,
+        227,
+        138
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        31.906822204589844,
+        20.259002685546875,
+        224.29443359375,
+        134.83963012695312
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.814,
+      "png_sha256": "aff675baf2b26ce32ee47f21f609c53f9688694d28886d6279b7c56804cb8768",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        15,
+        214,
+        142
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        43.674095153808594,
+        17.630874633789062,
+        211.05868530273438,
+        139.68714904785156
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.824,
+      "png_sha256": "09b13200101c94d09a34544e236d63069882134afab95b2028822265892d5e12",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        56,
+        13,
+        199,
+        145
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        58.48981475830078,
+        16.050506591796875,
+        196.19351196289062,
+        142.45013427734375
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631530761719,
+        18.250112533569336,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.822,
+      "png_sha256": "88c01f97882734582a07ff2421f4985aad0a33d73a66d6c5d87a40a56072d9b0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        70,
+        13,
+        183,
+        146
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        72.26512908935547,
+        15.763839721679688,
+        180.2096405029297,
+        143.01589965820312
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.811,
+      "png_sha256": "dba9aef327bc9032b10dc878aedf79e7a8bcdafef77bb7874a4309b92eb4c42b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        78,
+        15,
+        168,
+        144
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        80.67232513427734,
+        17.473060607910156,
+        165.32766723632812,
+        141.43206787109375
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.788,
+      "png_sha256": "264269325bf29206e314a996206fe162ed64e2908d9df5eb902e4ddb2ecb7028",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        63,
+        13,
+        176,
+        146
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        65.79035949707031,
+        15.763839721679688,
+        173.73486328125,
+        143.01589965820312
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.798,
+      "png_sha256": "5d59667e5254dfb1c45eba2447d7fbaa7266063e3709c3029a2d33735a7a6c90",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        47,
+        13,
+        190,
+        145
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        49.806495666503906,
+        16.050506591796875,
+        187.51019287109375,
+        142.45013427734375
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.250112533569336,
+        0.0,
+        43.42631530761719,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.828,
+      "png_sha256": "adf97f99724b4a9aa8c9ebde4e2a193f8e36aa2269a550a5b794a0bf3dec0e40",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        32,
+        15,
+        205,
+        142
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        34.941307067871094,
+        17.630874633789062,
+        202.32589721679688,
+        139.68714904785156
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.834,
+      "png_sha256": "909c61d01534e44eabe5986d3b07382b7a2e21b231fa055eced07fd2a48a8ac1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        18,
+        217,
+        138
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        21.70555877685547,
+        20.259002685546875,
+        214.09317016601562,
+        134.83963012695312
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.829,
+      "png_sha256": "cb7daf40dc74c75ad8adb19f83923c0040a5d5f46297958985b35aa484e9b2f3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        22,
+        225,
+        131
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        12.362503051757812,
+        24.439373016357422,
+        222.3597869873047,
+        128.1160430908203
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.842,
+      "png_sha256": "2ff4598cad7d819a40a9c664c7dc80241bd0e54a0c832919225ee7cb7733cbf8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        26,
+        229,
+        122
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        7.225776672363281,
+        29.011119842529297,
+        226.80804443359375,
+        119.72760009765625
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631530761719,
+        18.250112533569336,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.828,
+      "png_sha256": "9d36d2469239a290df660058629b207f2e04001b5083df9f42c125a65fd4d8ae",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        24,
+        230,
+        113
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        6.422088623046875,
+        26.162330627441406,
+        227.2670440673828,
+        109.99666595458984
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.803,
+      "png_sha256": "5238762efffe21107b0447acd5131fb09d9610b6cc2cf64abd495d06b3cf5b20",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        21,
+        226,
+        103
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        9.748077392578125,
+        23.894126892089844,
+        223.7191162109375,
+        99.96376037597656
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.765,
+      "png_sha256": "441ae91bf558bc203cd661d5a89225909d360c16097a46a655c7cbad635cc8e7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        20,
+        230,
+        112
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        6.422088623046875,
+        22.293670654296875,
+        227.2670440673828,
+        109.19886016845703
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.807,
+      "png_sha256": "3b0b0d63a80515940e3c6be8f07f44f673dbd9205d3f5bde2b5ba312bedc9cc8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        19,
+        229,
+        120
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        7.225776672363281,
+        21.422470092773438,
+        226.80804443359375,
+        117.845458984375
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.250112533569336,
+        0.0,
+        43.42631530761719,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.82,
+      "png_sha256": "7c5a0183b68d3bd13ed2423270d2fce20da5ce22457a2f005f1abcc5b488ff08",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        18,
+        225,
+        128
+      ],
+      "vertices": 20028,
+      "triangles": 38092,
+      "parts": 281,
+      "projected_vertex_bounds_px": [
+        12.362503051757812,
+        20.29412841796875,
+        222.3597869873047,
+        125.26825714111328
+      ],
+      "physical_bounds_world": [
+        -48.83000183105469,
+        -18.25011444091797,
+        0.0,
+        43.42631912231445,
+        18.25011444091797,
+        22.36494255065918
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.25
+          ],
+          [
+            -1.8,
+            0.3
+          ],
+          [
+            -0.8,
+            0.32
+          ],
+          [
+            0.2,
+            0.32
+          ],
+          [
+            1.1,
+            0.27
+          ],
+          [
+            1.7,
+            0.2
+          ],
+          [
+            2.12,
+            0.06
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 19,
+        "minimum_high_structure_clearance_world": 3.0764336803781234,
+        "installed_guns_in_hull": false,
+        "design": "Broad trawling cat; stern net reels and full-width working gantry"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mother_gull_trawler",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        248,
+        152
+      ],
+      "pivot_px": [
+        123,
+        86
+      ],
+      "canvas_config": {
+        "cell_px": [
+          248,
+          152
+        ],
+        "pivot_px": [
+          123,
+          86
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          496,
+          304
+        ],
+        "portrait_pivot_px": [
+          246,
+          172
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.887,
+      "png_sha256": "620c702631a86bc22871da7ef7557eb52dd8d932c7ebc3b6a71806bd218268ab",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.022,
+            0
+          ],
+          "world_xy": [
+            19.418,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.42,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -27.968,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.04,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.2,
+        0.25
+      ],
+      [
+        -1.8,
+        0.3
+      ],
+      [
+        -0.8,
+        0.32
+      ],
+      [
+        0.2,
+        0.32
+      ],
+      [
+        1.1,
+        0.27
+      ],
+      [
+        1.7,
+        0.2
+      ],
+      [
+        2.12,
+        0.06
+      ],
+      [
+        2.28,
+        0.0
+      ]
+    ],
+    "physical_size": 19,
+    "minimum_high_structure_clearance_world": 3.0764336803781234,
+    "installed_guns_in_hull": false,
+    "design": "Broad trawling cat; stern net reels and full-width working gantry"
+  },
+  "status": "baked; visual and native integration review still required"
+}

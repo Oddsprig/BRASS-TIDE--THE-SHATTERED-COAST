@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "fenhopper_lighter",
+  "headings": 32,
+  "atlas_sha256": "089c55cbea5ecb82ff8839b496fb59a2d882ef5b117814b2c01f343edfe46244",
+  "canvas_config": {
+    "cell_px": [
+      224,
+      144
+    ],
+    "pivot_px": [
+      111,
+      80
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      448,
+      288
+    ],
+    "portrait_pivot_px": [
+      222,
+      160
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1792,
+    576
+  ],
+  "gpu_rgba8_bytes": 4128768,
+  "frame_bounds_px": [
+    [
+      18,
+      10,
+      175,
+      111
+    ],
+    [
+      29,
+      7,
+      155,
+      118
+    ],
+    [
+      41,
+      4,
+      132,
+      123
+    ],
+    [
+      55,
+      4,
+      106,
+      123
+    ],
+    [
+      70,
+      6,
+      82,
+      118
+    ],
+    [
+      61,
+      4,
+      106,
+      123
+    ],
+    [
+      49,
+      4,
+      132,
+      123
+    ],
+    [
+      38,
+      7,
+      155,
+      118
+    ],
+    [
+      29,
+      10,
+      175,
+      111
+    ],
+    [
+      23,
+      16,
+      190,
+      101
+    ],
+    [
+      19,
+      21,
+      198,
+      89
+    ],
+    [
+      19,
+      28,
+      199,
+      75
+    ],
+    [
+      22,
+      35,
+      193,
+      60
+    ],
+    [
+      19,
+      29,
+      199,
+      75
+    ],
+    [
+      19,
+      24,
+      198,
+      89
+    ],
+    [
+      23,
+      19,
+      190,
+      101
+    ],
+    [
+      29,
+      16,
+      175,
+      110
+    ],
+    [
+      38,
+      14,
+      155,
+      117
+    ],
+    [
+      49,
+      13,
+      132,
+      120
+    ],
+    [
+      61,
+      14,
+      106,
+      120
+    ],
+    [
+      70,
+      16,
+      82,
+      116
+    ],
+    [
+      55,
+      14,
+      106,
+      120
+    ],
+    [
+      41,
+      13,
+      132,
+      120
+    ],
+    [
+      29,
+      14,
+      155,
+      117
+    ],
+    [
+      18,
+      16,
+      175,
+      110
+    ],
+    [
+      9,
+      19,
+      190,
+      101
+    ],
+    [
+      5,
+      24,
+      198,
+      89
+    ],
+    [
+      4,
+      29,
+      199,
+      75
+    ],
+    [
+      7,
+      35,
+      193,
+      60
+    ],
+    [
+      4,
+      28,
+      199,
+      75
+    ],
+    [
+      5,
+      21,
+      198,
+      89
+    ],
+    [
+      9,
+      16,
+      190,
+      101
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        18,
+        10,
+        193,
+        121
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        20.33275604248047,
+        13.015419006347656,
+        189.9522705078125,
+        119.03199768066406
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.77,
+      "png_sha256": "4cd08e8cb2ab38ce27e63a38f2a67bec634585bdd4b9a26ebbb7be1743549150",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        7,
+        184,
+        125
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        31.72962188720703,
+        9.083084106445312,
+        181.19749450683594,
+        122.52452087402344
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501922607421875,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.805,
+      "png_sha256": "50c28e5b4cf1043bf2937e92b54738c4c156e09138a38cc76811e1739ec90249",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        4,
+        173,
+        127
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        43.27720642089844,
+        6.952247619628906,
+        170.08871459960938,
+        124.38285064697266
+      ],
+      "physical_bounds_world": [
+        -43.69000244140625,
+        -16.501922607421875,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.749,
+      "png_sha256": "95ee92a170759a435c02e091831de2c26abeaceddb685600df6a5146634644d9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        4,
+        161,
+        127
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        57.427345275878906,
+        6.70379638671875,
+        158.17703247070312,
+        124.53556823730469
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.733,
+      "png_sha256": "236b6206f0cc39dcba12f837015d9033ae564000f3e0b219f08cc31de27f4bad",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        70,
+        6,
+        152,
+        124
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        72.72691345214844,
+        8.346282958984375,
+        149.27308654785156,
+        122.97682189941406
+      ],
+      "physical_bounds_world": [
+        -43.68999481201172,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.684,
+      "png_sha256": "7c670209c59205d52bf08f288622110e3e3278f2a73e50e2e1ea6a23214fc102",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        61,
+        4,
+        167,
+        127
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        63.822975158691406,
+        6.70379638671875,
+        164.57266235351562,
+        124.53556823730469
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.727,
+      "png_sha256": "cfa377943c0d774e553d578a6e176b6d52880743431e6c38915a023bd7f373aa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        4,
+        181,
+        127
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        51.911285400390625,
+        6.952247619628906,
+        178.72279357910156,
+        124.38285064697266
+      ],
+      "physical_bounds_world": [
+        -43.69000244140625,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501922607421875,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.722,
+      "png_sha256": "f887a5f83ffe499add230b47212f1c49cdf8a80ba4803319c2a14f2d1dc9e8d8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        7,
+        193,
+        125
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        40.80250549316406,
+        9.083084106445312,
+        190.2703857421875,
+        122.52452087402344
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501922607421875,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.754,
+      "png_sha256": "3e7c2acd0e68a7145989840cb31b2689a799de6bb7744d1df98d6c19c2263944",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        10,
+        204,
+        121
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        32.0477294921875,
+        13.015419006347656,
+        201.667236328125,
+        119.03199768066406
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.76,
+      "png_sha256": "3970ac546952be440683a5728b3233b701f4ab8c8876a7306184c1937144ab8f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        16,
+        213,
+        117
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        25.180633544921875,
+        18.504905700683594,
+        210.0242919921875,
+        114.03950500488281
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501922607421875,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.748,
+      "png_sha256": "2a4098bd770779083360aaead39154cc6b9474f10c4820a16d40616bb65b323c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        21,
+        217,
+        110
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        21.518966674804688,
+        24.096839904785156,
+        214.6212921142578,
+        107.73887634277344
+      ],
+      "physical_bounds_world": [
+        -43.69000244140625,
+        -16.501922607421875,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.745,
+      "png_sha256": "252ffe279fe9c524c1a3fe210c1cf3f0987ee57597f918bedec30fa75c7652ee",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        28,
+        218,
+        103
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        21.295997619628906,
+        30.592185974121094,
+        215.32464599609375,
+        100.37226867675781
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.738,
+      "png_sha256": "8df0b4446b8fa2ecb10dc2b4f1a4cff86c54140668aa85dd3198937061dcec22",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        35,
+        215,
+        95
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        24.520301818847656,
+        37.68931579589844,
+        212.33065795898438,
+        92.44888305664062
+      ],
+      "physical_bounds_world": [
+        -43.68999481201172,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.696,
+      "png_sha256": "31d28c1fbbcf0c8e08cbbb57f8295d955443df0ceeb0283e39280d34d3001fc6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        29,
+        218,
+        104
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        21.295997619628906,
+        31.745994567871094,
+        215.32464599609375,
+        101.35282897949219
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.714,
+      "png_sha256": "f7e2432ea1e4f02fe71c4d206348c316000ea8f00384b25447b2310c033ec1d3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        24,
+        217,
+        113
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        21.518966674804688,
+        26.360122680664062,
+        214.6212921142578,
+        110.06039428710938
+      ],
+      "physical_bounds_world": [
+        -43.69000244140625,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501922607421875,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.717,
+      "png_sha256": "7f455bf98a8d7bd4c077ddb7061a5cdc42adc20603dc3c4f1baa70a0811c9c07",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        19,
+        213,
+        120
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        25.180633544921875,
+        21.79068374633789,
+        210.0242919921875,
+        117.56614685058594
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501922607421875,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.764,
+      "png_sha256": "af563146f89767d2eff557bab1ddd95c22b442dbc727a87e80ca66e7cf2cc325",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        16,
+        204,
+        126
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        32.0477294921875,
+        18.466903686523438,
+        201.667236328125,
+        123.59761810302734
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.729,
+      "png_sha256": "799a0c16c794f28f8d8987ce50e4e1c83b8ec5a155700b2b60aad2cdaaac2d6f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        14,
+        193,
+        131
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        40.80250549316406,
+        16.48754119873047,
+        190.2703857421875,
+        127.94778442382812
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501922607421875,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.767,
+      "png_sha256": "e034c1392dd3db090f51bdbdab26fd1f36b9b192cc0c79c0407643d230cfef5f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        13,
+        181,
+        133
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        51.911285400390625,
+        15.9576416015625,
+        178.72279357910156,
+        130.41940307617188
+      ],
+      "physical_bounds_world": [
+        -43.69000244140625,
+        -16.501922607421875,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.741,
+      "png_sha256": "4bb8160825b118a618e54f6cce6ad27eaf8684837ef66da8104e3c6a78f413ba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        61,
+        14,
+        167,
+        134
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        63.822975158691406,
+        16.887847900390625,
+        164.57266235351562,
+        130.93475341796875
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.762,
+      "png_sha256": "dc0e1089f2714d660abc3695f0d12fe0460257613b6898d265b60062d9a95073",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        70,
+        16,
+        152,
+        132
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        72.72691345214844,
+        18.749439239501953,
+        149.27308654785156,
+        129.517822265625
+      ],
+      "physical_bounds_world": [
+        -43.68999481201172,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.7,
+      "png_sha256": "e936f9e872cb5e5ccce7b87d1d48901836e91e9ef15c3bfdc1271b3fded46b46",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        14,
+        161,
+        134
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        57.427345275878906,
+        16.887847900390625,
+        158.17703247070312,
+        130.93475341796875
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.721,
+      "png_sha256": "f43e31b425b3677f4a32021068fb6d09e50b082ec6a7ac0f6dc76f2d9425e30e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        13,
+        173,
+        133
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        43.27720642089844,
+        15.9576416015625,
+        170.08871459960938,
+        130.41940307617188
+      ],
+      "physical_bounds_world": [
+        -43.69000244140625,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501922607421875,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.729,
+      "png_sha256": "50419cf071f51ee4c1f1492056d5b7d3249d1831f0b2c1d79f703e649ce16631",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        14,
+        184,
+        131
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        31.72962188720703,
+        16.48754119873047,
+        181.19749450683594,
+        127.94778442382812
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501922607421875,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.755,
+      "png_sha256": "43fa9b9b425733642be9c6048b5108ba4543367e652cddb369e9edd0ad137908",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        16,
+        193,
+        126
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        20.33275604248047,
+        18.466903686523438,
+        189.9522705078125,
+        123.59761810302734
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.726,
+      "png_sha256": "5f3f3fff7f61a9a016826ae6ef8ee32d0a48ccf72683c7e1e049d77319b34c5f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        19,
+        199,
+        120
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        11.975715637207031,
+        21.79068374633789,
+        196.81936645507812,
+        117.56614685058594
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501922607421875,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.735,
+      "png_sha256": "29be200fe494428e9b35837b06d36ee30246147679e15b347736855056476c89",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        24,
+        203,
+        113
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        7.3787078857421875,
+        26.360122680664062,
+        200.4810333251953,
+        110.06039428710938
+      ],
+      "physical_bounds_world": [
+        -43.69000244140625,
+        -16.501922607421875,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.761,
+      "png_sha256": "17bbbe1ad190a15ed1c7ee4c05e812f774bb2a69198a25b21ed4388b40348dd5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        29,
+        203,
+        104
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        6.675361633300781,
+        31.745994567871094,
+        200.70401000976562,
+        101.35282897949219
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.733,
+      "png_sha256": "d610f28928c7ff578155bc0dad61056e7df1ca24519bdaf57e447ffe17110835",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        35,
+        200,
+        95
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        9.669342041015625,
+        37.68931579589844,
+        197.47970581054688,
+        92.44888305664062
+      ],
+      "physical_bounds_world": [
+        -43.68999481201172,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.696,
+      "png_sha256": "35c268b338087338c958947fe7859c779bdd6dcc7113549f1bc9806e306030af",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        28,
+        203,
+        103
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        6.675361633300781,
+        30.592185974121094,
+        200.70401000976562,
+        100.37226867675781
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501924514770508,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.729,
+      "png_sha256": "7c746217ea6f941315b6535b13f268c46e58dabb252250382827a92d16ce712f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        21,
+        203,
+        110
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        7.3787078857421875,
+        24.096839904785156,
+        200.4810333251953,
+        107.73887634277344
+      ],
+      "physical_bounds_world": [
+        -43.69000244140625,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501922607421875,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.73,
+      "png_sha256": "a5eacd2f9ab5ba849257dcc74f794fa692db788f7fa5e11c6aa7bae807d96852",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        16,
+        199,
+        117
+      ],
+      "vertices": 19196,
+      "triangles": 36432,
+      "parts": 274,
+      "projected_vertex_bounds_px": [
+        11.975715637207031,
+        18.504905700683594,
+        196.81936645507812,
+        114.03950500488281
+      ],
+      "physical_bounds_world": [
+        -43.689998626708984,
+        -16.501924514770508,
+        0.0,
+        37.28681564331055,
+        16.501922607421875,
+        15.75
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.2,
+            0.31
+          ],
+          [
+            -1.85,
+            0.32
+          ],
+          [
+            -0.85,
+            0.33
+          ],
+          [
+            0.35,
+            0.33
+          ],
+          [
+            1.2,
+            0.3
+          ],
+          [
+            1.72,
+            0.24
+          ],
+          [
+            2.05,
+            0.13
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5399675319168575,
+        "installed_guns_in_hull": false,
+        "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "fenhopper_lighter",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        80
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          80
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          160
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.746,
+      "png_sha256": "9e8c4764e6c3e90ebfd33746a0116675108aba5efca99cbb6f896b0b40e750f9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.996,
+            0
+          ],
+          "world_xy": [
+            16.932,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -25.211000000000002,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.2,
+        0.31
+      ],
+      [
+        -1.85,
+        0.32
+      ],
+      [
+        -0.85,
+        0.33
+      ],
+      [
+        0.35,
+        0.33
+      ],
+      [
+        1.2,
+        0.3
+      ],
+      [
+        1.72,
+        0.24
+      ],
+      [
+        2.05,
+        0.13
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "physical_size": 17,
+    "minimum_high_structure_clearance_world": 2.5399675319168575,
+    "installed_guns_in_hull": false,
+    "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+  },
+  "status": "baked; visual and native integration review still required"
+}

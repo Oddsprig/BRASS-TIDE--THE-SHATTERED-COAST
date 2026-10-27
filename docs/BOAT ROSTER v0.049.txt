@@ -1,0 +1,67 @@
+BRASS TIDE v0.049 - BOAT ROSTER
+
+CURRENT CANDIDATE - asset production and final native/visual review pending.
+The roster remains36 designs:24 combat and12 civilian boats. No filler hulls
+or new economic statistics are added in this art version. Original authored
+hulls are baked offline into32 directions. Guns stay separate and turn/fire
+from their real interchangeable sockets; hull art buys no equipment or stores.
+
+New models distinguish open launches, cutters, armored cruisers, strike craft,
+fishing gear, cargo holds, tank storage, passenger cabins and wealthy yachts.
+Hull machinery, pipes, windows, hatches, rails and mounting wells are physical
+model details. Water stays inexpensive2D. Crews remain numerical/static assets.
+
+Four initial previews caught bare decks, weak tanker storage and a detached
+foil. The revised samples added functional detail and connected supports.
+All-roster previews, directional production, fitted views and real battle review
+must still be checked separately; one attractive render proves no performance.
+
+Small live fires have a readable core above deck fittings and smoke/embers
+anchored to the damaged area. No fire is invented on healthy hulls. Actual
+collision envelopes and visual projection are separate; no new contact or
+navigation model is claimed by an atlas or its transparent padding.
+
+ROSTER - base design; fitting, crew condition and support conversions can change it
+Name | Role | Minimum/working crew | Hold space
+Tinwake Skiff | skiff | 3/5 crew | 60 hold
+Bilgewater Punt | skiff | 3/4 crew | 45 hold
+Lantern Ward Skiff | skiff | 4/7 crew | 75 hold
+Marsh Dart Hydro | cutter | 3/5 crew | 50 hold
+Scabfin Cutter | cutter | 5/8 crew | 70 hold
+Galeblade Interceptor | cutter | 6/11 crew | 85 hold
+Silt Runner Lugger | raider | 4/6 crew | 130 hold
+Grapnel Blockade Runner | raider | 6/10 crew | 165 hold
+Sovereign Armed Packet | raider | 8/14 crew | 230 hold
+Breakwater Patrol Sloop | corvette | 4/7 crew | 80 hold
+Ashwake Escort Corvette | corvette | 7/12 crew | 105 hold
+Vanguard Line Corvette | corvette | 9/16 crew | 125 hold
+Fen Stinger Torpedo Launch | torpedo | 5/8 crew | 60 hold
+Tallowfin Torpedo Boat | torpedo | 7/12 crew | 75 hold
+Manta Flotilla Leader | torpedo | 11/18 crew | 100 hold
+Slagclast River Gunboat | gunboat | 8/13 crew | 95 hold
+Bellows Siege Gunboat | gunboat | 11/18 crew | 120 hold
+Furnace Sovereign Monitor | gunboat | 15/25 crew | 145 hold
+Sparkrack Rocket Scow | rocket | 6/10 crew | 80 hold
+Pyreclast Rocket Monitor | rocket | 10/17 crew | 110 hold
+Hellbore Salvo Cruiser | rocket | 14/24 crew | 135 hold
+Cobalt Commodore Frigate | cruiser | 9/15 crew | 140 hold
+Bastion Armored Cruiser | cruiser | 14/24 crew | 175 hold
+Shatter Throne Dreadnought | cruiser | 22/36 crew | 220 hold
+Kelpnet Dory | skiff | 3/4 crew | 35 hold
+Brinehook Longliner | skiff | 3/5 crew | 55 hold
+Mother Gull Trawler | raider | 4/7 crew | 110 hold
+Fenhopper Lighter | raider | 4/6 crew | 140 hold
+Tideledger Coaster | raider | 5/9 crew | 200 hold
+Fourport Packet | raider | 7/12 crew | 260 hold
+Brasswind Motor-Galleon | raider | 9/16 crew | 340 hold
+Seepoil Tanker Barge | corvette | 5/8 crew | 150 hold
+Blackwater Fleet Tanker | corvette | 8/14 crew | 280 hold
+Gullwing Daysailer | cutter | 3/4 crew | 20 hold
+Lacquered Osprey Cruiser | cutter | 3/6 crew | 30 hold
+Aurelian Viceroy Yacht | cruiser | 6/12 crew | 45 hold
+
+VERIFICATION
+Final actual production/native/draw-call/exported-motion receipts belong under
+tests/. Source models, produced images, native correctness and visual review
+are distinct. All earlier full300DP performance targets remain unaccepted;
+core-quality051 staysOPEN. This version number does not certify parity.

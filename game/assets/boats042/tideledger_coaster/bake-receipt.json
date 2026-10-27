@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "tideledger_coaster",
+  "headings": 32,
+  "atlas_sha256": "0188be4a5e2d8a18d7f828d68a4e8e5436a7ac25a365ccee59101227b075793b",
+  "canvas_config": {
+    "cell_px": [
+      288,
+      176
+    ],
+    "pivot_px": [
+      144,
+      96
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      576,
+      352
+    ],
+    "portrait_pivot_px": [
+      288,
+      192
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2304,
+    704
+  ],
+  "gpu_rgba8_bytes": 6488064,
+  "frame_bounds_px": [
+    [
+      23,
+      13,
+      230,
+      138
+    ],
+    [
+      39,
+      8,
+      200,
+      148
+    ],
+    [
+      56,
+      5,
+      165,
+      153
+    ],
+    [
+      75,
+      4,
+      130,
+      155
+    ],
+    [
+      94,
+      6,
+      100,
+      151
+    ],
+    [
+      83,
+      4,
+      130,
+      155
+    ],
+    [
+      67,
+      5,
+      165,
+      153
+    ],
+    [
+      49,
+      8,
+      200,
+      148
+    ],
+    [
+      35,
+      13,
+      230,
+      138
+    ],
+    [
+      25,
+      21,
+      251,
+      123
+    ],
+    [
+      19,
+      23,
+      264,
+      112
+    ],
+    [
+      18,
+      23,
+      266,
+      102
+    ],
+    [
+      22,
+      24,
+      259,
+      90
+    ],
+    [
+      18,
+      26,
+      266,
+      100
+    ],
+    [
+      19,
+      28,
+      264,
+      110
+    ],
+    [
+      25,
+      28,
+      251,
+      120
+    ],
+    [
+      35,
+      22,
+      230,
+      134
+    ],
+    [
+      49,
+      17,
+      200,
+      145
+    ],
+    [
+      67,
+      14,
+      165,
+      151
+    ],
+    [
+      83,
+      14,
+      130,
+      152
+    ],
+    [
+      94,
+      15,
+      100,
+      149
+    ],
+    [
+      75,
+      14,
+      130,
+      152
+    ],
+    [
+      56,
+      14,
+      165,
+      151
+    ],
+    [
+      39,
+      17,
+      200,
+      145
+    ],
+    [
+      23,
+      22,
+      230,
+      134
+    ],
+    [
+      12,
+      28,
+      251,
+      120
+    ],
+    [
+      5,
+      34,
+      264,
+      104
+    ],
+    [
+      4,
+      42,
+      266,
+      84
+    ],
+    [
+      7,
+      47,
+      259,
+      67
+    ],
+    [
+      4,
+      39,
+      266,
+      86
+    ],
+    [
+      5,
+      30,
+      264,
+      105
+    ],
+    [
+      12,
+      21,
+      251,
+      123
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        23,
+        13,
+        253,
+        151
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        25.87915802001953,
+        15.9774169921875,
+        250.49403381347656,
+        148.8654022216797
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.855,
+      "png_sha256": "6cbdcf72d4806184bb70aba00e6b71e23e70e213d889db4b84c84655870ba82d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        39,
+        8,
+        239,
+        156
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        41.83782958984375,
+        10.545494079589844,
+        236.21475219726562,
+        153.99740600585938
+      ],
+      "physical_bounds_world": [
+        -57.749996185302734,
+        -20.568052291870117,
+        0.0,
+        51.584877014160156,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.889,
+      "png_sha256": "0ae0fede99e316b02c704db44206db9d6eb45dda4b496b61f3d94ea5bb406fba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        56,
+        5,
+        221,
+        158
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        58.47454071044922,
+        7.4737396240234375,
+        218.72976684570312,
+        156.90060424804688
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.568050384521484,
+        0.0,
+        51.58488082885742,
+        20.568052291870117,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.808,
+      "png_sha256": "420bd39fe8fd49617878118d4c83e6da6c47b3f62fac8d8b8d4efb7857464f63",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        75,
+        4,
+        205,
+        159
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        77.69981384277344,
+        6.8791961669921875,
+        202.52784729003906,
+        157.46343994140625
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.808,
+      "png_sha256": "378be4bcdd59d30c3abbbf87716a614630ff1eadc258fea76950839b12c890dc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        6,
+        194,
+        157
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        96.29630279541016,
+        8.783714294433594,
+        191.70370483398438,
+        155.66424560546875
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.584877014160156,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.786,
+      "png_sha256": "6916278698c05a712c80ce2a47fb2564bdc371168c48cd1d4b3b792d051a16ad",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        83,
+        4,
+        213,
+        159
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        85.47215270996094,
+        6.8791961669921875,
+        210.30018615722656,
+        157.46343994140625
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.8,
+      "png_sha256": "ecaef5274ebac9f9bf0900841ece6e2b48e1c5dc01d2129bd6332febc2d3a130",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        67,
+        5,
+        232,
+        158
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        69.2702407836914,
+        7.4737396240234375,
+        229.52545166015625,
+        156.90060424804688
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.568052291870117,
+        0.0,
+        51.58488082885742,
+        20.568050384521484,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.813,
+      "png_sha256": "8661c4c9b3751661399137883cd1fa7395c20eeb649db9b1c1fd28280e86f750",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        8,
+        249,
+        156
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        51.785247802734375,
+        10.545494079589844,
+        246.16217041015625,
+        153.99740600585938
+      ],
+      "physical_bounds_world": [
+        -57.749996185302734,
+        -20.56805419921875,
+        0.0,
+        51.584877014160156,
+        20.568052291870117,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.839,
+      "png_sha256": "0fbb5081c17e4efe413725fce7c1b5a154279a0ef45a028057a0af9774803026",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        13,
+        265,
+        151
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        37.50596618652344,
+        15.9774169921875,
+        262.120849609375,
+        148.8654022216797
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.818,
+      "png_sha256": "611f5dfad144e135cf3c2ba1c0ae5c97af2a27f9d713cc4cd6ef455f3ffe264e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        21,
+        276,
+        144
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        27.3192138671875,
+        23.557785034179688,
+        273.5401611328125,
+        141.70179748535156
+      ],
+      "physical_bounds_world": [
+        -57.749996185302734,
+        -20.568052291870117,
+        0.0,
+        51.584877014160156,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.86,
+      "png_sha256": "bfc11defc0da7db2ee839360be6c41c12e83d43d22dd5811507d29f454046f7c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        23,
+        283,
+        135
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        21.616424560546875,
+        25.61681365966797,
+        280.02679443359375,
+        132.7819061279297
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.568050384521484,
+        0.0,
+        51.58488082885742,
+        20.568052291870117,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.811,
+      "png_sha256": "13430fb60c4a62e2044918c35ec08b8678ca0eba2b419f6d8f24f7a36f42dfc7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        23,
+        284,
+        125
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        20.61676788330078,
+        25.829818725585938,
+        281.4296875,
+        122.4485092163086
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.81,
+      "png_sha256": "08c54e24ca456b87ce18720d75c96481821b73144734e5ea443e82a5e4cf7cab",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        24,
+        281,
+        114
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        24.358665466308594,
+        26.77190399169922,
+        277.9401550292969,
+        111.56491088867188
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.584877014160156,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.793,
+      "png_sha256": "ecec342369d84eb17dabe590299129851b77ff165ea9c0e8a0413359e258a339",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        26,
+        284,
+        126
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        20.61676788330078,
+        28.410301208496094,
+        281.4296875,
+        123.4951171875
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.795,
+      "png_sha256": "eeba0115c88a7c4af0774274aad932db3f059aaa6d8ea86a8b3a1210760de465",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        28,
+        283,
+        138
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        21.616424560546875,
+        30.696983337402344,
+        280.02679443359375,
+        135.0717010498047
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.568052291870117,
+        0.0,
+        51.58488082885742,
+        20.568050384521484,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.803,
+      "png_sha256": "b60e558100b89060a8aa75e7dd0f77aa4fe0c89a2e18aa26961e9f97cc367f20",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        28,
+        276,
+        148
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        27.3192138671875,
+        30.775436401367188,
+        273.5401611328125,
+        145.10061645507812
+      ],
+      "physical_bounds_world": [
+        -57.749996185302734,
+        -20.56805419921875,
+        0.0,
+        51.584877014160156,
+        20.568052291870117,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.819,
+      "png_sha256": "6c1c80e5fa28fb144cb036445b6fe24628cc844ebbf82da88efcd6ad9ece5494",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        22,
+        265,
+        156
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        37.50596618652344,
+        24.745452880859375,
+        262.120849609375,
+        153.19642639160156
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.814,
+      "png_sha256": "97e067ffadd4a4543a0b39c111da9c5695170282bcef2e6a1423f124b2fbeb70",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        17,
+        249,
+        162
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        51.785247802734375,
+        19.64202880859375,
+        246.16217041015625,
+        159.0711669921875
+      ],
+      "physical_bounds_world": [
+        -57.749996185302734,
+        -20.568052291870117,
+        0.0,
+        51.584877014160156,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.833,
+      "png_sha256": "0cac72ffca0bfe873d1e5180f00f44599bc0877a4350114edeb616734f6233d1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        67,
+        14,
+        232,
+        165
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        69.2702407836914,
+        16.77649688720703,
+        229.52545166015625,
+        162.53045654296875
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.568050384521484,
+        0.0,
+        51.58488082885742,
+        20.568052291870117,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.844,
+      "png_sha256": "d23dfe6775626b018a6b94ccc66ebc0608f12003e67ea5c5e447a44cb81ed24d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        83,
+        14,
+        213,
+        166
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        85.47215270996094,
+        16.233444213867188,
+        210.30018615722656,
+        163.397216796875
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.812,
+      "png_sha256": "7248e339f49d433206d6f437759c67cf83172ca1e701177e311762111fdc8977",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        15,
+        194,
+        164
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        96.29630279541016,
+        18.042930603027344,
+        191.70370483398438,
+        161.72979736328125
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.584877014160156,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.761,
+      "png_sha256": "e766c6d0d1420846da33f78af231b444a9c8c31a453a7b559b5c09feae6ae0a5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        75,
+        14,
+        205,
+        166
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        77.69981384277344,
+        16.233444213867188,
+        202.52784729003906,
+        163.397216796875
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.782,
+      "png_sha256": "82d3b49b6a6a2bb2648ed9fa41a6afd7b37d659b01a809e369856b84fa057c2b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        56,
+        14,
+        221,
+        165
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        58.47454071044922,
+        16.77649688720703,
+        218.72976684570312,
+        162.53045654296875
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.568052291870117,
+        0.0,
+        51.58488082885742,
+        20.568050384521484,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.797,
+      "png_sha256": "913f873a5a9f11c07a9585db64b73cd24cffe7d960e3d5a920635cfbd2fa6ce3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        39,
+        17,
+        239,
+        162
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        41.83782958984375,
+        19.64202880859375,
+        236.21475219726562,
+        159.0711669921875
+      ],
+      "physical_bounds_world": [
+        -57.749996185302734,
+        -20.56805419921875,
+        0.0,
+        51.584877014160156,
+        20.568052291870117,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.831,
+      "png_sha256": "049b3b6fc385780384ce3daef6c6c735695facbcafe94f3bf46ac0b0224e8dfa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        22,
+        253,
+        156
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        25.87915802001953,
+        24.745452880859375,
+        250.49403381347656,
+        153.19642639160156
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.851,
+      "png_sha256": "d105b3208ea92ac5ae035848f1c9c919447b8c838cb05bc819b518897a4afdca",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        28,
+        263,
+        148
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        14.459823608398438,
+        30.775436401367188,
+        260.6807861328125,
+        145.10061645507812
+      ],
+      "physical_bounds_world": [
+        -57.749996185302734,
+        -20.568052291870117,
+        0.0,
+        51.584877014160156,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.832,
+      "png_sha256": "f9f0db20559f0dea05fe5044743d7e81a7f8a3b3b033d82dfcf065355cba88ee",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        34,
+        269,
+        138
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        7.97320556640625,
+        36.836997985839844,
+        266.3835754394531,
+        135.0717010498047
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.568050384521484,
+        0.0,
+        51.58488082885742,
+        20.568052291870117,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.801,
+      "png_sha256": "ac5346dafc1cc241abf63fedfcb1adc3773173ea5e5b6befcafa44dac8fa6b47",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        42,
+        270,
+        126
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        6.5702972412109375,
+        44.26755142211914,
+        267.38323974609375,
+        123.4951171875
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.801,
+      "png_sha256": "f6377f997bf99c829575322089c93f291a62d7040cb8ef84efd2e6741183baba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        47,
+        266,
+        114
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        10.059844970703125,
+        49.52305603027344,
+        263.6413269042969,
+        111.56491088867188
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.584877014160156,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.747,
+      "png_sha256": "2c72e7a626b5379c11457ae1f9afdb39cbd1c801a0617f8a5568fef12dcd0a87",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        39,
+        270,
+        125
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        6.5702972412109375,
+        41.57529830932617,
+        267.38323974609375,
+        122.4485092163086
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.56805419921875,
+        0.0,
+        51.58488082885742,
+        20.56805419921875,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.809,
+      "png_sha256": "70ef922523e812db50742aeb3865ba5cb512005718a48b3911164c84e138b9a5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        30,
+        269,
+        135
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        7.97320556640625,
+        32.785274505615234,
+        266.3835754394531,
+        132.7819061279297
+      ],
+      "physical_bounds_world": [
+        -57.75,
+        -20.568052291870117,
+        0.0,
+        51.58488082885742,
+        20.568050384521484,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.809,
+      "png_sha256": "8014d6dd19b8645c8319e88f611f96e80aa42b65a1d8a041623cc60e7585161c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        21,
+        263,
+        144
+      ],
+      "vertices": 20004,
+      "triangles": 37788,
+      "parts": 290,
+      "projected_vertex_bounds_px": [
+        14.459823608398438,
+        23.557785034179688,
+        260.6807861328125,
+        141.70179748535156
+      ],
+      "physical_bounds_world": [
+        -57.749996185302734,
+        -20.56805419921875,
+        0.0,
+        51.584877014160156,
+        20.568052291870117,
+        25.360000610351562
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.38,
+            0.28
+          ],
+          [
+            -1.95,
+            0.32
+          ],
+          [
+            -0.85,
+            0.34
+          ],
+          [
+            0.35,
+            0.34
+          ],
+          [
+            1.22,
+            0.29
+          ],
+          [
+            1.86,
+            0.2
+          ],
+          [
+            2.28,
+            0.08
+          ],
+          [
+            2.45,
+            0.0
+          ]
+        ],
+        "physical_size": 21,
+        "minimum_high_structure_clearance_world": 1.8585097397674923,
+        "installed_guns_in_hull": false,
+        "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "tideledger_coaster",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        176
+      ],
+      "pivot_px": [
+        144,
+        96
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          176
+        ],
+        "pivot_px": [
+          144,
+          96
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          352
+        ],
+        "portrait_pivot_px": [
+          288,
+          192
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.829,
+      "png_sha256": "9a9d04e1a177e099e6a185bb824f3eb5767ab0c5efd2e8ee16979848e5a2513b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            21.168,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.472,
+            0
+          ],
+          "world_xy": [
+            -30.912,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.528,
+            -0.56
+          ],
+          "world_xy": [
+            11.088000000000001,
+            -11.760000000000002
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.38,
+        0.28
+      ],
+      [
+        -1.95,
+        0.32
+      ],
+      [
+        -0.85,
+        0.34
+      ],
+      [
+        0.35,
+        0.34
+      ],
+      [
+        1.22,
+        0.29
+      ],
+      [
+        1.86,
+        0.2
+      ],
+      [
+        2.28,
+        0.08
+      ],
+      [
+        2.45,
+        0.0
+      ]
+    ],
+    "physical_size": 21,
+    "minimum_high_structure_clearance_world": 1.8585097397674923,
+    "installed_guns_in_hull": false,
+    "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+  },
+  "status": "baked; visual and native integration review still required"
+}

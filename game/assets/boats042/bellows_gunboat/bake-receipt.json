@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "bellows_gunboat",
+  "headings": 32,
+  "atlas_sha256": "5d9c73efd26b45e3fdcfc09c2949621893af5177049422a864347c56c97fe551",
+  "canvas_config": {
+    "cell_px": [
+      296,
+      176
+    ],
+    "pivot_px": [
+      148,
+      97
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      592,
+      352
+    ],
+    "portrait_pivot_px": [
+      296,
+      194
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2368,
+    704
+  ],
+  "gpu_rgba8_bytes": 6668288,
+  "frame_bounds_px": [
+    [
+      32,
+      17,
+      211,
+      127
+    ],
+    [
+      48,
+      11,
+      181,
+      140
+    ],
+    [
+      64,
+      6,
+      152,
+      151
+    ],
+    [
+      81,
+      4,
+      125,
+      156
+    ],
+    [
+      97,
+      5,
+      102,
+      156
+    ],
+    [
+      90,
+      4,
+      125,
+      155
+    ],
+    [
+      80,
+      6,
+      152,
+      151
+    ],
+    [
+      67,
+      11,
+      181,
+      140
+    ],
+    [
+      53,
+      17,
+      211,
+      127
+    ],
+    [
+      40,
+      25,
+      239,
+      109
+    ],
+    [
+      29,
+      30,
+      259,
+      96
+    ],
+    [
+      22,
+      35,
+      270,
+      86
+    ],
+    [
+      19,
+      41,
+      272,
+      77
+    ],
+    [
+      22,
+      43,
+      270,
+      81
+    ],
+    [
+      29,
+      40,
+      259,
+      94
+    ],
+    [
+      40,
+      33,
+      239,
+      112
+    ],
+    [
+      53,
+      27,
+      211,
+      128
+    ],
+    [
+      67,
+      23,
+      181,
+      139
+    ],
+    [
+      80,
+      18,
+      152,
+      149
+    ],
+    [
+      90,
+      14,
+      125,
+      155
+    ],
+    [
+      97,
+      13,
+      102,
+      156
+    ],
+    [
+      81,
+      14,
+      125,
+      155
+    ],
+    [
+      64,
+      18,
+      152,
+      149
+    ],
+    [
+      48,
+      23,
+      181,
+      139
+    ],
+    [
+      32,
+      27,
+      211,
+      128
+    ],
+    [
+      17,
+      33,
+      239,
+      112
+    ],
+    [
+      8,
+      40,
+      259,
+      94
+    ],
+    [
+      4,
+      43,
+      270,
+      81
+    ],
+    [
+      5,
+      41,
+      272,
+      77
+    ],
+    [
+      4,
+      35,
+      270,
+      86
+    ],
+    [
+      8,
+      30,
+      259,
+      96
+    ],
+    [
+      17,
+      25,
+      239,
+      109
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        32,
+        17,
+        243,
+        144
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        34.24156951904297,
+        20.019615173339844,
+        239.9354248046875,
+        141.34559631347656
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.406,
+      "png_sha256": "6e25b03d15bad9c2df6b63bd22d632df8fe86a79f96c09d857bbf042c6a035b5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        11,
+        229,
+        151
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        50.559837341308594,
+        13.286239624023438,
+        226.10092163085938,
+        149.14491271972656
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.452,
+      "png_sha256": "55aab38129ed3c9a410fd729b805a956ed907f2cef83947c4bcb8ed407ecda04",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        6,
+        216,
+        157
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        66.743896484375,
+        8.84613037109375,
+        213.00765991210938,
+        154.94032287597656
+      ],
+      "physical_bounds_world": [
+        -60.57999801635742,
+        -20.817089080810547,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.404,
+      "png_sha256": "d5ba594c5f92f6da029d0952902996de5c64954a1e51cc90887da202cff1e2d1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        81,
+        4,
+        206,
+        160
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        83.84602355957031,
+        6.868919372558594,
+        203.223876953125,
+        158.5091094970703
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.388,
+      "png_sha256": "0454d7e2eccee70d1f6aec8c6ff5a636d1033fde650448d48fd9e3f7745a9c1e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        97,
+        5,
+        199,
+        161
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        99.71870422363281,
+        7.4296112060546875,
+        196.2812957763672,
+        159.71414184570312
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.36,
+      "png_sha256": "eeae3fc7cf237d06b69ee30fcd090fcf26a18357fed9109b948cdc7079e2318a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        90,
+        4,
+        215,
+        159
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        92.77613067626953,
+        6.868919372558594,
+        212.1539764404297,
+        158.5091094970703
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.417,
+      "png_sha256": "8eea3f27f741132ce3e813b9a783922cad8f6d3eddd78b22796b07d2879a4250",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        80,
+        6,
+        232,
+        157
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        82.99234771728516,
+        8.84613037109375,
+        229.256103515625,
+        154.94032287597656
+      ],
+      "physical_bounds_world": [
+        -60.57999801635742,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.817089080810547,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.415,
+      "png_sha256": "a668faea74704808115637472dea2f2f0c5403caced95db52462d2b5a98fdb19",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        67,
+        11,
+        248,
+        151
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        69.8990707397461,
+        13.286239624023438,
+        245.44015502929688,
+        149.14491271972656
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.421,
+      "png_sha256": "2d885a2c3669b3505f2e32c4366117be08df3d0be04b01954fd2793e132d0475",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        53,
+        17,
+        264,
+        144
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        56.06458282470703,
+        20.019615173339844,
+        261.7584228515625,
+        141.34559631347656
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.416,
+      "png_sha256": "6d44cb27cbb912a5c96ee4ee312e5f038058b2b5f933941372dfe0f9f285f33d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        40,
+        25,
+        279,
+        134
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        42.904747009277344,
+        27.863136291503906,
+        275.8595886230469,
+        131.8421173095703
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.421,
+      "png_sha256": "3a4bd23761a81a282265eac58a7f42ab37773e8a457e73a2db2aa989e8044eb9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        30,
+        288,
+        126
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        31.355941772460938,
+        32.553794860839844,
+        285.09259033203125,
+        123.26361846923828
+      ],
+      "physical_bounds_world": [
+        -60.57999801635742,
+        -20.817089080810547,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.406,
+      "png_sha256": "e2ad279e7dc98bbfa9ab69607fb188d0ef6b4182ea3d7458778e4dcf8ccd787f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        35,
+        292,
+        121
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        24.28968048095703,
+        37.94026184082031,
+        289.27001953125,
+        118.47216796875
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.396,
+      "png_sha256": "1768face56de66969fd6390c3e409f20096a7340e1e36bc5cc8e1fc0c6937009",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        41,
+        291,
+        118
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        21.977554321289062,
+        43.74845504760742,
+        288.5038146972656,
+        114.99988555908203
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.358,
+      "png_sha256": "6ff36b9427f06d896ce76edadba917982b1390b04738d55d3b4103714eedbcd1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        43,
+        292,
+        124
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        24.28968048095703,
+        45.83301544189453,
+        289.27001953125,
+        121.65299224853516
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.394,
+      "png_sha256": "37d1990f0d30c007970ed4d4ab3bb8aecf7f00f2a92bcdda9b1a7b90dc5ca133",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        40,
+        288,
+        134
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        31.355941772460938,
+        42.65074157714844,
+        285.09259033203125,
+        131.325927734375
+      ],
+      "physical_bounds_world": [
+        -60.57999801635742,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.817089080810547,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.391,
+      "png_sha256": "77c8b720e1cf94f92a30b5d4eaa8745741cd6a399499a69c4778e80f2339fdfe",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        40,
+        33,
+        279,
+        145
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        42.904747009277344,
+        35.64391326904297,
+        275.8595886230469,
+        142.49285888671875
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.428,
+      "png_sha256": "fd02b5ad846b31587222f0fbff7ef12de07fc11f34f86edc010bdeec87790133",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        53,
+        27,
+        264,
+        155
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        56.06458282470703,
+        29.996871948242188,
+        261.7584228515625,
+        151.87234497070312
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.417,
+      "png_sha256": "f29912adba31aa1ad7c185a46975ecb2d7dac135d94ca43f213f1b772f457de5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        67,
+        23,
+        248,
+        162
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        69.8990707397461,
+        26.020118713378906,
+        245.44015502929688,
+        159.0972442626953
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.433,
+      "png_sha256": "1c4793c5d9119d8f9a1d8f5237b6b5cb7f1d40505225eaa9761f6b4df2fd64c4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        80,
+        18,
+        232,
+        167
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        82.99234771728516,
+        20.673660278320312,
+        229.256103515625,
+        163.94805908203125
+      ],
+      "physical_bounds_world": [
+        -60.57999801635742,
+        -20.817089080810547,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.425,
+      "png_sha256": "d67e362c699a1b9a15a05d42430f883b39d29add2804c65c1e300babd2a5296c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        90,
+        14,
+        215,
+        169
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        92.77613067626953,
+        17.13237762451172,
+        212.1539764404297,
+        166.22512817382812
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.423,
+      "png_sha256": "88208ee0338eb1fab481a13bbd2dd04f240c4634e5f00434a48bfd01269710c4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        97,
+        13,
+        199,
+        169
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        99.71870422363281,
+        15.963851928710938,
+        196.2812957763672,
+        165.89566040039062
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.39,
+      "png_sha256": "31daea48825b0f738b8cd2a74bdb52d0fc87aad9c5f99876f91bf26b06bf76e2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        81,
+        14,
+        206,
+        169
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        83.84602355957031,
+        17.13237762451172,
+        203.223876953125,
+        166.22512817382812
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.39,
+      "png_sha256": "82bcfff4568f80bd86145f04d66796a859fcd0e77798f120b865c1ac2871d1d7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        18,
+        216,
+        167
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        66.743896484375,
+        20.673660278320312,
+        213.00765991210938,
+        163.94805908203125
+      ],
+      "physical_bounds_world": [
+        -60.57999801635742,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.817089080810547,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.404,
+      "png_sha256": "b24a3ecf3adc24869e5303d980a003a139b7755656c83c9e3605631035c26f0d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        23,
+        229,
+        162
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        50.559837341308594,
+        26.020118713378906,
+        226.10092163085938,
+        159.0972442626953
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.407,
+      "png_sha256": "e29277fe71ca3458540a22e97d3314e4bd7f95cadd9f909b0691f3bb4c101cc3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        32,
+        27,
+        243,
+        155
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        34.24156951904297,
+        29.996871948242188,
+        239.9354248046875,
+        151.87234497070312
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.41,
+      "png_sha256": "bce6d27b9e7aa6eabac855e2cacf8bade01c1c57ac6453bcadf366b2d5ecdb7c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        33,
+        256,
+        145
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        20.140411376953125,
+        35.64391326904297,
+        253.09524536132812,
+        142.49285888671875
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.416,
+      "png_sha256": "12f5de9c3468497a1ded103aadcf4557f6f3c2a92eeb31b1928af297f45a7e43",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        40,
+        267,
+        134
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        10.90740966796875,
+        42.65074157714844,
+        264.64404296875,
+        131.325927734375
+      ],
+      "physical_bounds_world": [
+        -60.57999801635742,
+        -20.817089080810547,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.404,
+      "png_sha256": "4a5db31bac213786455941e81ab45a180e543393cf242d2c86861c3db287a40a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        43,
+        274,
+        124
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        6.72998046875,
+        45.83301544189453,
+        271.7103271484375,
+        121.65299224853516
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.395,
+      "png_sha256": "24f0701b321f441d0d1be16416eb6339341e74d774e3f7561cc8c9c4173f4f1b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        41,
+        277,
+        118
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        7.496185302734375,
+        43.74845504760742,
+        274.0224609375,
+        114.99988555908203
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.374,
+      "png_sha256": "4aa1366a5bfd327ec19309ef2aafde71a9ea9e462b7bfd72ad6c98e91f2a0a94",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        35,
+        274,
+        121
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        6.72998046875,
+        37.94026184082031,
+        271.7103271484375,
+        118.47216796875
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.33617401123047,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.401,
+      "png_sha256": "a2cb782a9a1621db4f62738de32794630aa61cd9449541157580870e34985008",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        30,
+        267,
+        126
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        10.90740966796875,
+        32.553794860839844,
+        264.64404296875,
+        123.26361846923828
+      ],
+      "physical_bounds_world": [
+        -60.57999801635742,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.817089080810547,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.404,
+      "png_sha256": "f88eb7263fadc9ecf92cb430a9a2b26df15934db6cd327ded59884562fdf9e24",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        25,
+        256,
+        134
+      ],
+      "vertices": 16350,
+      "triangles": 30748,
+      "parts": 227,
+      "projected_vertex_bounds_px": [
+        20.140411376953125,
+        27.863136291503906,
+        253.09524536132812,
+        131.8421173095703
+      ],
+      "physical_bounds_world": [
+        -60.58000183105469,
+        -20.81709098815918,
+        0.0,
+        54.3361701965332,
+        20.81709098815918,
+        23.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.62
+          ],
+          [
+            -1.68,
+            0.74
+          ],
+          [
+            -0.9,
+            0.78
+          ],
+          [
+            0.18,
+            0.78
+          ],
+          [
+            0.84,
+            0.72
+          ],
+          [
+            1.46,
+            0.55
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 26,
+        "minimum_high_structure_clearance_world": 2.203286997910962,
+        "installed_guns_in_hull": false,
+        "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bellows_gunboat",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        296,
+        176
+      ],
+      "pivot_px": [
+        148,
+        97
+      ],
+      "canvas_config": {
+        "cell_px": [
+          296,
+          176
+        ],
+        "pivot_px": [
+          148,
+          97
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          592,
+          352
+        ],
+        "portrait_pivot_px": [
+          296,
+          194
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.41,
+      "png_sha256": "03e2e6a75900725d70037cf8b83c30b3a17e1424f1e875f1d3ac19ad7c96ee33",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.994,
+            0
+          ],
+          "world_xy": [
+            25.844,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.68,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.509,
+            0
+          ],
+          "world_xy": [
+            -39.233999999999995,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 4.16,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4764,
+            -0.444
+          ],
+          "world_xy": [
+            12.3864,
+            -11.544
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 3.6400000000000006,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.96,
+        0.62
+      ],
+      [
+        -1.68,
+        0.74
+      ],
+      [
+        -0.9,
+        0.78
+      ],
+      [
+        0.18,
+        0.78
+      ],
+      [
+        0.84,
+        0.72
+      ],
+      [
+        1.46,
+        0.55
+      ],
+      [
+        1.88,
+        0.26
+      ],
+      [
+        2.08,
+        0.0
+      ]
+    ],
+    "physical_size": 26,
+    "minimum_high_structure_clearance_world": 2.203286997910962,
+    "installed_guns_in_hull": false,
+    "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+  },
+  "status": "baked; visual and native integration review still required"
+}

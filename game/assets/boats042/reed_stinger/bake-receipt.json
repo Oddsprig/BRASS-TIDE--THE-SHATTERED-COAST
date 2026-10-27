@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "reed_stinger",
+  "headings": 32,
+  "atlas_sha256": "e05ea478d15b7bbdbe3d1b27b20bf7005ca02e88f0ec8f4a04c7014af0fdb677",
+  "canvas_config": {
+    "cell_px": [
+      184,
+      120
+    ],
+    "pivot_px": [
+      91,
+      67
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      368,
+      240
+    ],
+    "portrait_pivot_px": [
+      182,
+      134
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1472,
+    480
+  ],
+  "gpu_rgba8_bytes": 2826240,
+  "frame_bounds_px": [
+    [
+      25,
+      15,
+      129,
+      84
+    ],
+    [
+      35,
+      10,
+      106,
+      94
+    ],
+    [
+      46,
+      7,
+      82,
+      101
+    ],
+    [
+      57,
+      5,
+      65,
+      104
+    ],
+    [
+      61,
+      4,
+      60,
+      105
+    ],
+    [
+      60,
+      5,
+      65,
+      104
+    ],
+    [
+      54,
+      7,
+      82,
+      101
+    ],
+    [
+      41,
+      10,
+      106,
+      94
+    ],
+    [
+      28,
+      15,
+      129,
+      84
+    ],
+    [
+      18,
+      18,
+      146,
+      75
+    ],
+    [
+      10,
+      22,
+      159,
+      64
+    ],
+    [
+      5,
+      26,
+      168,
+      52
+    ],
+    [
+      4,
+      29,
+      170,
+      44
+    ],
+    [
+      5,
+      28,
+      168,
+      49
+    ],
+    [
+      10,
+      24,
+      159,
+      60
+    ],
+    [
+      18,
+      19,
+      146,
+      71
+    ],
+    [
+      28,
+      15,
+      129,
+      81
+    ],
+    [
+      41,
+      11,
+      106,
+      90
+    ],
+    [
+      54,
+      7,
+      82,
+      97
+    ],
+    [
+      60,
+      5,
+      65,
+      101
+    ],
+    [
+      61,
+      4,
+      60,
+      103
+    ],
+    [
+      57,
+      5,
+      65,
+      101
+    ],
+    [
+      46,
+      7,
+      82,
+      97
+    ],
+    [
+      35,
+      11,
+      106,
+      90
+    ],
+    [
+      25,
+      15,
+      129,
+      81
+    ],
+    [
+      18,
+      19,
+      146,
+      71
+    ],
+    [
+      13,
+      24,
+      159,
+      60
+    ],
+    [
+      9,
+      28,
+      168,
+      49
+    ],
+    [
+      8,
+      29,
+      170,
+      44
+    ],
+    [
+      9,
+      26,
+      168,
+      52
+    ],
+    [
+      13,
+      22,
+      159,
+      64
+    ],
+    [
+      18,
+      18,
+      146,
+      75
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        25,
+        15,
+        154,
+        99
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        27.89212417602539,
+        17.318817138671875,
+        151.38893127441406,
+        96.83160400390625
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.816,
+      "png_sha256": "302a4734d7e872e67d430af3fae925d105524e919f1fd6026bcf9f63c1c54691",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        10,
+        141,
+        104
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        37.32731628417969,
+        12.910335540771484,
+        138.66067504882812,
+        102.0782470703125
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.644999504089355,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.797,
+      "png_sha256": "798cbca4e69b10cae7b43639f7dd555bd481cd7079ccc2a7c134ab382dc10b64",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        7,
+        128,
+        108
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        48.38029479980469,
+        9.41372299194336,
+        125.70137023925781,
+        105.97686767578125
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48903274536133,
+        11.644999504089355,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.806,
+      "png_sha256": "6e0472ebe8bf83f06cdc7853ddecce9b6b4190b7f6e29ee5d205f6c48739f3ba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        5,
+        122,
+        109
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        59.43798828125,
+        7.335323333740234,
+        119.67576599121094,
+        108.37761688232422
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.793,
+      "png_sha256": "c0ee4626a7c7a38af7005ad73fcb3b6afb6ae733b50d1b3bfcd589a10d5f1abb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        61,
+        4,
+        121,
+        109
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        63.99163055419922,
+        6.705169677734375,
+        118.00836944580078,
+        109.18824768066406
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.787,
+      "png_sha256": "1d1ebe1a751d7eb9ceb4b4eaff3e99488e2a2f3fe01362af845d37bbb90e0396",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        5,
+        125,
+        109
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        62.32423400878906,
+        7.335323333740234,
+        122.56201171875,
+        108.37761688232422
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.785,
+      "png_sha256": "be6d3d7e5ab8bb5c20902ff7df5fcb427313fb9f2ae268ff351c90a69af2430d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        7,
+        136,
+        108
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        56.29863357543945,
+        9.41372299194336,
+        133.6197052001953,
+        105.97686767578125
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.644999504089355,
+        0.0,
+        36.48903274536133,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.785,
+      "png_sha256": "3c163ae74529e3f6a538a6351e98e5e70b2a7f37ad240895a398db0eef96faf4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        10,
+        147,
+        104
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        43.339317321777344,
+        12.910335540771484,
+        144.6726837158203,
+        102.0782470703125
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.644999504089355,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.801,
+      "png_sha256": "bf1531f6a02da71bdeb155314227429d27c08f0358561eca5d747874d5160a10",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        15,
+        157,
+        99
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        30.611064910888672,
+        17.318817138671875,
+        154.10787963867188,
+        96.83160400390625
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.817,
+      "png_sha256": "8db3904000e958edf695bd11e742477eb47e1b762d32fee35c0b2ba8e927f5b7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        18,
+        164,
+        93
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        20.203521728515625,
+        20.327919006347656,
+        161.11785888671875,
+        90.43853759765625
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.644999504089355,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.818,
+      "png_sha256": "0c4375c049bc8e976bb279cbd4aaef1703c296e9ea3113e57e226a7d02cff7b8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        22,
+        169,
+        86
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        12.516654968261719,
+        24.225994110107422,
+        166.07960510253906,
+        83.14474487304688
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48903274536133,
+        11.644999504089355,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.805,
+      "png_sha256": "fccb310c05e2cd69f61892bfe0691baf4d0eae58c3e5318f205f8a129feafefd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        26,
+        173,
+        78
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        7.845855712890625,
+        28.86324691772461,
+        170.2320556640625,
+        75.23051452636719
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.812,
+      "png_sha256": "732510bcccca9d3905ffa494778f3d56957d97bd31c7e74f324167aa44a45227",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        29,
+        174,
+        73
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        6.3706207275390625,
+        31.742809295654297,
+        171.43368530273438,
+        69.92719268798828
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.822,
+      "png_sha256": "658f294cc9d8ae7c2cbe4994a982f12adb1be404ba5e7a6c43217ec365d16ca2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        28,
+        173,
+        77
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        7.845855712890625,
+        30.30990982055664,
+        170.2320556640625,
+        74.48472595214844
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.804,
+      "png_sha256": "3805798f9b80b95a57b520933f9e9db73cc875a20412f46296352cf77f6788dd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        24,
+        169,
+        84
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        12.516654968261719,
+        26.933944702148438,
+        166.07960510253906,
+        81.38469696044922
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.644999504089355,
+        0.0,
+        36.48903274536133,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.804,
+      "png_sha256": "454abe261a3cc84936e0d578cccdaf9a99b7283c01cbbe8040193d1b8fb978a1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        19,
+        164,
+        90
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        20.203521728515625,
+        21.94298553466797,
+        161.11785888671875,
+        87.70672607421875
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.644999504089355,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.799,
+      "png_sha256": "5629df80c3f59167d68aa5a598f662404b34bb0db32c69fe35ebc98fe9db78ea",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        15,
+        157,
+        96
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        30.611064910888672,
+        17.474014282226562,
+        154.10787963867188,
+        93.20785522460938
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.8,
+      "png_sha256": "cceea10b8027fdff460c741f4a2467a8951b32f1d12416f61a6fc5e4b1157d26",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        11,
+        147,
+        101
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        43.339317321777344,
+        13.580448150634766,
+        144.6726837158203,
+        97.81640625
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.644999504089355,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.797,
+      "png_sha256": "27d4ca4134e61541ef394fa26d92f687a9a8e86972a0c81b9f2968feea61dde3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        7,
+        136,
+        104
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        56.29863357543945,
+        9.716773986816406,
+        133.6197052001953,
+        101.2413558959961
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48903274536133,
+        11.644999504089355,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.788,
+      "png_sha256": "539853e77af80c944146155dcc7fd8bce27368899a357448a9fd9338196daf39",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        5,
+        125,
+        106
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        62.32423400878906,
+        7.324787139892578,
+        122.56201171875,
+        103.35043334960938
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.796,
+      "png_sha256": "b471ed3d46d22c3fdda18d3692e8cc2b785a1384c47ba69e607692f41ae7bc4d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        61,
+        4,
+        121,
+        107
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        63.99163055419922,
+        6.522846221923828,
+        118.00836944580078,
+        104.06257629394531
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.772,
+      "png_sha256": "9ac674a8c28044b5a6d39008d667c46f24c2f71317b9f49e0508028ab484956b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        5,
+        122,
+        106
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        59.43798828125,
+        7.324787139892578,
+        119.67576599121094,
+        103.35043334960938
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.784,
+      "png_sha256": "fa511cdec981e3ba5fade2d55ef8d11717bbfb7dd1509a4ede7ed977abf2a236",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        7,
+        128,
+        104
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        48.38029479980469,
+        9.716773986816406,
+        125.70137023925781,
+        101.2413558959961
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.644999504089355,
+        0.0,
+        36.48903274536133,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.784,
+      "png_sha256": "adc831fbaa42290a7b57e5046d0f3974b97b06cc5527904cf72db022627d2bbf",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        11,
+        141,
+        101
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        37.32731628417969,
+        13.580448150634766,
+        138.66067504882812,
+        97.81640625
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.644999504089355,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.807,
+      "png_sha256": "983b90df9c341335ef92d387d79802284920081fe4a579887074674f0981a6a8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        15,
+        154,
+        96
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        27.89212417602539,
+        17.474014282226562,
+        151.38893127441406,
+        93.20785522460938
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.798,
+      "png_sha256": "4ff984c7b6acf7820becf13186a25ef6557e2755be12536ab0ab1b6c355a8096",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        19,
+        164,
+        90
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        20.88214111328125,
+        21.94298553466797,
+        161.79647827148438,
+        87.70672607421875
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.644999504089355,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.798,
+      "png_sha256": "d9a349bd8804759f2e73fe6a95b2ddb2e3a22408f62e63a0186530a6bad752cd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        24,
+        172,
+        84
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        15.920394897460938,
+        26.933944702148438,
+        169.48333740234375,
+        81.38469696044922
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48903274536133,
+        11.644999504089355,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.81,
+      "png_sha256": "140a459790ae22b097a738c1bc13dd8d42340603f549801e447739f7b8bc76f4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        28,
+        177,
+        77
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        11.767951965332031,
+        30.30990982055664,
+        174.15414428710938,
+        74.48472595214844
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.787,
+      "png_sha256": "0fc7c3395320de8c719b53b21c2af3e2e4e6a6f8eb2efd74d2e3b305ed51d93c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        29,
+        178,
+        73
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        10.566322326660156,
+        31.742809295654297,
+        175.62937927246094,
+        69.92719268798828
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.777,
+      "png_sha256": "a319a19d0bcb249834e71243d0645f25de32883b0338242cf680dfa6076b6c03",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        26,
+        177,
+        78
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        11.767951965332031,
+        28.86324691772461,
+        174.15414428710938,
+        75.23051452636719
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.787,
+      "png_sha256": "cbb28c550575448223a9a006bf76bef34cff27a9f3efd3fb1a0d76fb2148e99f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        22,
+        172,
+        86
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        15.920394897460938,
+        24.225994110107422,
+        169.48333740234375,
+        83.14474487304688
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.644999504089355,
+        0.0,
+        36.48903274536133,
+        11.645000457763672,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.788,
+      "png_sha256": "2508b53d9a722462a61853a7f9972b1b64c77a814e9043bd3c7a66ace04a7625",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        18,
+        164,
+        93
+      ],
+      "vertices": 8438,
+      "triangles": 15660,
+      "parts": 131,
+      "projected_vertex_bounds_px": [
+        20.88214111328125,
+        20.327919006347656,
+        161.79647827148438,
+        90.43853759765625
+      ],
+      "physical_bounds_world": [
+        -34.68000030517578,
+        -11.645000457763672,
+        0.0,
+        36.48902893066406,
+        11.644999504089355,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.36
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.88,
+            0.56
+          ],
+          [
+            0.12,
+            0.62
+          ],
+          [
+            0.62,
+            0.6
+          ],
+          [
+            1.24,
+            0.42
+          ],
+          [
+            1.84,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.4480000000000026,
+        "installed_guns_in_hull": false,
+        "design": "Low open marsh launch; single jet and air-receiver manifold"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "reed_stinger",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        184,
+        120
+      ],
+      "pivot_px": [
+        91,
+        67
+      ],
+      "canvas_config": {
+        "cell_px": [
+          184,
+          120
+        ],
+        "pivot_px": [
+          91,
+          67
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          368,
+          240
+        ],
+        "portrait_pivot_px": [
+          182,
+          134
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.8,
+      "png_sha256": "0cba69e9c6793643e9c060e70ab39890034cac0f0004fbe3adb3bf2810a83177",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.058,
+            0
+          ],
+          "world_xy": [
+            17.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.496,
+            0
+          ],
+          "world_xy": [
+            -25.432,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.88,
+        0.36
+      ],
+      [
+        -1.6,
+        0.48
+      ],
+      [
+        -0.88,
+        0.56
+      ],
+      [
+        0.12,
+        0.62
+      ],
+      [
+        0.62,
+        0.6
+      ],
+      [
+        1.24,
+        0.42
+      ],
+      [
+        1.84,
+        0.12
+      ],
+      [
+        2.14,
+        0.0
+      ]
+    ],
+    "physical_size": 17,
+    "minimum_high_structure_clearance_world": 2.4480000000000026,
+    "installed_guns_in_hull": false,
+    "design": "Low open marsh launch; single jet and air-receiver manifold"
+  },
+  "status": "baked; visual and native integration review still required"
+}

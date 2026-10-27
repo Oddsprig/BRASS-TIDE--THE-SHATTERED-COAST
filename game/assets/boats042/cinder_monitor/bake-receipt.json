@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "cinder_monitor",
+  "headings": 32,
+  "atlas_sha256": "389fa7a14c652f032a83dfd11fc357726478e58b9ed7c6b7c5172529156b0a8e",
+  "canvas_config": {
+    "cell_px": [
+      288,
+      168
+    ],
+    "pivot_px": [
+      142,
+      94
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      576,
+      336
+    ],
+    "portrait_pivot_px": [
+      284,
+      188
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2304,
+    672
+  ],
+  "gpu_rgba8_bytes": 6193152,
+  "frame_bounds_px": [
+    [
+      30,
+      17,
+      203,
+      122
+    ],
+    [
+      46,
+      10,
+      175,
+      136
+    ],
+    [
+      61,
+      6,
+      151,
+      145
+    ],
+    [
+      77,
+      4,
+      126,
+      151
+    ],
+    [
+      87,
+      4,
+      110,
+      151
+    ],
+    [
+      81,
+      4,
+      126,
+      151
+    ],
+    [
+      72,
+      6,
+      151,
+      145
+    ],
+    [
+      63,
+      10,
+      175,
+      136
+    ],
+    [
+      51,
+      17,
+      203,
+      122
+    ],
+    [
+      39,
+      25,
+      228,
+      105
+    ],
+    [
+      28,
+      31,
+      248,
+      93
+    ],
+    [
+      22,
+      36,
+      258,
+      84
+    ],
+    [
+      19,
+      42,
+      260,
+      75
+    ],
+    [
+      22,
+      42,
+      258,
+      80
+    ],
+    [
+      28,
+      37,
+      248,
+      93
+    ],
+    [
+      39,
+      31,
+      228,
+      109
+    ],
+    [
+      51,
+      26,
+      203,
+      123
+    ],
+    [
+      63,
+      22,
+      175,
+      134
+    ],
+    [
+      72,
+      18,
+      151,
+      143
+    ],
+    [
+      81,
+      14,
+      126,
+      149
+    ],
+    [
+      87,
+      13,
+      110,
+      150
+    ],
+    [
+      77,
+      14,
+      126,
+      149
+    ],
+    [
+      61,
+      18,
+      151,
+      143
+    ],
+    [
+      46,
+      22,
+      175,
+      134
+    ],
+    [
+      30,
+      26,
+      203,
+      123
+    ],
+    [
+      17,
+      31,
+      228,
+      109
+    ],
+    [
+      8,
+      37,
+      248,
+      93
+    ],
+    [
+      4,
+      42,
+      258,
+      80
+    ],
+    [
+      5,
+      42,
+      260,
+      75
+    ],
+    [
+      4,
+      36,
+      258,
+      84
+    ],
+    [
+      8,
+      31,
+      248,
+      93
+    ],
+    [
+      17,
+      25,
+      228,
+      105
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        30,
+        17,
+        233,
+        139
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        33.01396179199219,
+        19.233612060546875,
+        230.42596435546875,
+        136.22999572753906
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.42927360534668,
+        0.0,
+        51.76511764526367,
+        22.42927360534668,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.318,
+      "png_sha256": "64c4418aa77293c86b4e5f3edbb94a1c330607ed19a36a7a96d0c25add99f8df",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        10,
+        221,
+        146
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        48.59992980957031,
+        12.800041198730469,
+        218.56130981445312,
+        143.6572265625
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.42927360534668,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.355,
+      "png_sha256": "a4ea95861aaaf4cc5e4043e28b1fada8b9a52ea072761beb8efdec4142c7d6a0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        61,
+        6,
+        212,
+        151
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        63.450401306152344,
+        8.563140869140625,
+        209.18704223632812,
+        149.1761474609375
+      ],
+      "physical_bounds_world": [
+        -57.999996185302734,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.324,
+      "png_sha256": "042cf9b1efb23caf232280ffbd882a0fe9bee2fd86ff29663cfc33005b6c84ea",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        4,
+        203,
+        155
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        79.30473327636719,
+        6.684715270996094,
+        200.271728515625,
+        152.57469177246094
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76512145996094,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.306,
+      "png_sha256": "3868ea6cd028a626abf0ddd2bb69d528644b53b2fd8a9ea792d2a0fa79d31691",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        87,
+        4,
+        197,
+        155
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        89.97955322265625,
+        7.2359771728515625,
+        194.02044677734375,
+        153.7222442626953
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76511764526367,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.289,
+      "png_sha256": "bb6157f31cf800bc1ab0ea35ad00bccfd0d521601235a7bedc9a0480d5b53ee6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        81,
+        4,
+        207,
+        155
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        83.728271484375,
+        6.684715270996094,
+        204.6952667236328,
+        152.57469177246094
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76512145996094,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.307,
+      "png_sha256": "e7605bd9e33017baeb85248b0f9babacd33a530bfcd77955c7e7d060354b41ae",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        72,
+        6,
+        223,
+        151
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        74.81295013427734,
+        8.563140869140625,
+        220.54959106445312,
+        149.1761474609375
+      ],
+      "physical_bounds_world": [
+        -57.999996185302734,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.336,
+      "png_sha256": "304e1a158def8a1abcabd227fa52bfab8fbad0ac07e1b0733135d9e5abbcf312",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        63,
+        10,
+        238,
+        146
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        65.4386978149414,
+        12.800041198730469,
+        235.4000701904297,
+        143.6572265625
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.42927360534668,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.318,
+      "png_sha256": "a280b32c38b9ab74eb105970461b4dbc48b12295bf13b955d1cf374da62350e2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        17,
+        254,
+        139
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        53.57403564453125,
+        19.233612060546875,
+        250.9860382080078,
+        136.22999572753906
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.42927360534668,
+        0.0,
+        51.76511764526367,
+        22.42927360534668,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.394,
+      "png_sha256": "34e874661217b3b0a288fc285cd704bcf0d8c94b3fe18989bdeabc5b2537fe0a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        39,
+        25,
+        267,
+        130
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        41.78203582763672,
+        27.61363983154297,
+        264.4718017578125,
+        127.17989349365234
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.42927360534668,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.327,
+      "png_sha256": "9762da9e4ca263385bd40efd5a8f9cd938ae059511fad3c32692f4f0a55d69ee",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        31,
+        276,
+        124
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        30.877967834472656,
+        33.26472854614258,
+        273.29644775390625,
+        121.45860290527344
+      ],
+      "physical_bounds_world": [
+        -57.999996185302734,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.333,
+      "png_sha256": "e38edfcd97cac8c3722586426a7b0148295891645fb81d067a24bf16498d6614",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        36,
+        280,
+        120
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        24.144729614257812,
+        38.78055953979492,
+        277.2745056152344,
+        117.00147247314453
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76512145996094,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.335,
+      "png_sha256": "da8610d8e9223bb20ad2d42adbc3833cfc0601dc9ca1a1f35a294367f3054e67",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        42,
+        279,
+        117
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        21.940635681152344,
+        44.470191955566406,
+        276.5199890136719,
+        113.86801147460938
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76511764526367,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.286,
+      "png_sha256": "e4e6454a3407e9c716d38b0504f1bfda3402c05611b3af5a3f3cc231621b9361",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        42,
+        280,
+        122
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        24.144729614257812,
+        44.460182189941406,
+        277.2745056152344,
+        119.18460083007812
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76512145996094,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.385,
+      "png_sha256": "63b8004144a6555957939f6712a28828d2862122adcde4cd037bfaf25a00d745",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        37,
+        276,
+        130
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        30.877967834472656,
+        39.54557800292969,
+        273.29644775390625,
+        126.84611511230469
+      ],
+      "physical_bounds_world": [
+        -57.999996185302734,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.332,
+      "png_sha256": "c7f74ac2ebb94e2526edd92a55b2a5879d8aca143c4109ae46f2943e740aa491",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        39,
+        31,
+        267,
+        140
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        41.78203582763672,
+        33.46044921875,
+        264.4718017578125,
+        137.54005432128906
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.42927360534668,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.364,
+      "png_sha256": "1c983db1afcf05ae8f1e0cf123499832f6c0571e36c0bffd9425171f89b7eaa7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        26,
+        254,
+        149
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        53.57403564453125,
+        28.234474182128906,
+        250.9860382080078,
+        146.51486206054688
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.42927360534668,
+        0.0,
+        51.76511764526367,
+        22.42927360534668,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.388,
+      "png_sha256": "478d1c917f0d8b728ba2f6217fbfb78809d196ab130f6b7ddfb82e7019e5c8d0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        63,
+        22,
+        238,
+        156
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        65.4386978149414,
+        24.6312255859375,
+        235.4000701904297,
+        153.42562866210938
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.42927360534668,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.345,
+      "png_sha256": "260f98210b91069e75b6324887ed52045cd606e71fa79fd7507164e3ba5969ba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        72,
+        18,
+        223,
+        161
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        74.81295013427734,
+        20.436141967773438,
+        220.54959106445312,
+        158.07308959960938
+      ],
+      "physical_bounds_world": [
+        -57.999996185302734,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.379,
+      "png_sha256": "f408af37d287287928f451944797897945eb59c918a676926f0d442bc4febea1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        81,
+        14,
+        207,
+        163
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        83.728271484375,
+        17.062484741210938,
+        204.6952667236328,
+        160.24588012695312
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76512145996094,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.312,
+      "png_sha256": "9c392aedf6ff7aa4ff0eacb46c3037ab9d085b15082cb80094f7c94ae28e16d2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        87,
+        13,
+        197,
+        163
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        89.97955322265625,
+        15.948989868164062,
+        194.02044677734375,
+        159.92694091796875
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76511764526367,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.304,
+      "png_sha256": "c1161064f9696d7357ba534c60b7f6972f5f0e75663515ccf9a1aeba79521b93",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        14,
+        203,
+        163
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        79.30473327636719,
+        17.062484741210938,
+        200.271728515625,
+        160.24588012695312
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76512145996094,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.323,
+      "png_sha256": "b2a9ecafaf5e1e69882e5ba50a2a7afc66a7389af88adc5f244a0d00b44d1cc9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        61,
+        18,
+        212,
+        161
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        63.450401306152344,
+        20.436141967773438,
+        209.18704223632812,
+        158.07308959960938
+      ],
+      "physical_bounds_world": [
+        -57.999996185302734,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.413,
+      "png_sha256": "ad2ba02420a14c2e8de608efe18b39c14254b5b5ad0793d3af6450356f345363",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        22,
+        221,
+        156
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        48.59992980957031,
+        24.6312255859375,
+        218.56130981445312,
+        153.42562866210938
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.42927360534668,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.327,
+      "png_sha256": "f2a6fd0d67b3152a35bb21145dd12613b5bb17a2312f538b446967311f5aacaa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        30,
+        26,
+        233,
+        149
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        33.01396179199219,
+        28.234474182128906,
+        230.42596435546875,
+        146.51486206054688
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.42927360534668,
+        0.0,
+        51.76511764526367,
+        22.42927360534668,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.328,
+      "png_sha256": "35dc2b40142c14642ac52fbf07541947db044f2b58f5cb6a2a5112dbb20bf0d3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        31,
+        245,
+        140
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        19.52819061279297,
+        33.46044921875,
+        242.21795654296875,
+        137.54005432128906
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.42927360534668,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.33,
+      "png_sha256": "6463625b07e4c5451664020dcb561e8cfe2bdf022c9e0d0756328c1cd94dc43e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        37,
+        256,
+        130
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        10.703536987304688,
+        39.54557800292969,
+        253.12203979492188,
+        126.84611511230469
+      ],
+      "physical_bounds_world": [
+        -57.999996185302734,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.326,
+      "png_sha256": "abb3bc2e19b5b6bf7bbf660d35504ad07685df8579e57e11d7ed7022217a2898",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        42,
+        262,
+        122
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        6.725494384765625,
+        44.460182189941406,
+        259.85528564453125,
+        119.18460083007812
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76512145996094,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.31,
+      "png_sha256": "08e43a9eca5239d7470efd436e6b0fa8a9ea269da9b00bd4b24038ffb013b465",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        42,
+        265,
+        117
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        7.480010986328125,
+        44.470191955566406,
+        262.0593566894531,
+        113.86801147460938
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76511764526367,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.277,
+      "png_sha256": "a6722ba853cad26f5a26c59d85c9b6328dd1903e5fe0087a7f155eb5db1903b6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        36,
+        262,
+        120
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        6.725494384765625,
+        38.78055953979492,
+        259.85528564453125,
+        117.00147247314453
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.429271697998047,
+        0.0,
+        51.76512145996094,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.298,
+      "png_sha256": "af240e486053046c937d83510ece5c91b5975af792bbe2c761983478a7fa6a00",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        31,
+        256,
+        124
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        10.703536987304688,
+        33.26472854614258,
+        253.12203979492188,
+        121.45860290527344
+      ],
+      "physical_bounds_world": [
+        -57.999996185302734,
+        -22.429271697998047,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.329,
+      "png_sha256": "d7466672217503dec4a90b8fe610fd9a9c5781411cdfee664f3e84997a339556",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        25,
+        245,
+        130
+      ],
+      "vertices": 14998,
+      "triangles": 28260,
+      "parts": 208,
+      "projected_vertex_bounds_px": [
+        19.52819061279297,
+        27.61363983154297,
+        242.21795654296875,
+        127.17989349365234
+      ],
+      "physical_bounds_world": [
+        -58.0,
+        -22.42927360534668,
+        0.0,
+        51.765113830566406,
+        22.429271697998047,
+        24.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.95,
+            0.62
+          ],
+          [
+            -1.66,
+            0.76
+          ],
+          [
+            -0.78,
+            0.86
+          ],
+          [
+            0.25,
+            0.88
+          ],
+          [
+            0.9,
+            0.8
+          ],
+          [
+            1.48,
+            0.58
+          ],
+          [
+            1.88,
+            0.26
+          ],
+          [
+            2.06,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.9782876476154434,
+        "installed_guns_in_hull": false,
+        "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cinder_monitor",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        142,
+        94
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          142,
+          94
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          284,
+          188
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.331,
+      "png_sha256": "1fade2c6c14a800f037c60810e4363dd3719ac9b0a9ec5f03154260cc2838e88",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.012,
+            0
+          ],
+          "world_xy": [
+            25.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -37.525,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4944,
+            -0.444
+          ],
+          "world_xy": [
+            12.36,
+            -11.1
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.95,
+        0.62
+      ],
+      [
+        -1.66,
+        0.76
+      ],
+      [
+        -0.78,
+        0.86
+      ],
+      [
+        0.25,
+        0.88
+      ],
+      [
+        0.9,
+        0.8
+      ],
+      [
+        1.48,
+        0.58
+      ],
+      [
+        1.88,
+        0.26
+      ],
+      [
+        2.06,
+        0.0
+      ]
+    ],
+    "physical_size": 25,
+    "minimum_high_structure_clearance_world": 3.9782876476154434,
+    "installed_guns_in_hull": false,
+    "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+  },
+  "status": "baked; visual and native integration review still required"
+}

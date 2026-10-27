@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "kelpnet_dory",
+  "headings": 32,
+  "atlas_sha256": "c88e324c13beca8c151d92aa0a0c6d58f92a745ee13e85702c53d0aa0e6f0a89",
+  "canvas_config": {
+    "cell_px": [
+      160,
+      112
+    ],
+    "pivot_px": [
+      80,
+      65
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      320,
+      224
+    ],
+    "portrait_pivot_px": [
+      160,
+      130
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1280,
+    448
+  ],
+  "gpu_rgba8_bytes": 2293760,
+  "frame_bounds_px": [
+    [
+      21,
+      13,
+      107,
+      77
+    ],
+    [
+      28,
+      9,
+      91,
+      84
+    ],
+    [
+      37,
+      6,
+      73,
+      90
+    ],
+    [
+      48,
+      4,
+      55,
+      93
+    ],
+    [
+      58,
+      4,
+      44,
+      94
+    ],
+    [
+      57,
+      4,
+      55,
+      93
+    ],
+    [
+      50,
+      6,
+      73,
+      90
+    ],
+    [
+      41,
+      9,
+      91,
+      84
+    ],
+    [
+      32,
+      13,
+      107,
+      77
+    ],
+    [
+      25,
+      18,
+      120,
+      67
+    ],
+    [
+      19,
+      22,
+      132,
+      58
+    ],
+    [
+      15,
+      26,
+      140,
+      48
+    ],
+    [
+      14,
+      30,
+      142,
+      38
+    ],
+    [
+      15,
+      29,
+      140,
+      45
+    ],
+    [
+      19,
+      25,
+      132,
+      56
+    ],
+    [
+      24,
+      22,
+      121,
+      65
+    ],
+    [
+      32,
+      19,
+      107,
+      74
+    ],
+    [
+      41,
+      16,
+      91,
+      81
+    ],
+    [
+      50,
+      15,
+      73,
+      86
+    ],
+    [
+      57,
+      13,
+      55,
+      90
+    ],
+    [
+      58,
+      12,
+      44,
+      91
+    ],
+    [
+      48,
+      13,
+      55,
+      90
+    ],
+    [
+      37,
+      14,
+      73,
+      87
+    ],
+    [
+      28,
+      16,
+      91,
+      81
+    ],
+    [
+      21,
+      19,
+      107,
+      74
+    ],
+    [
+      15,
+      22,
+      121,
+      65
+    ],
+    [
+      9,
+      25,
+      132,
+      56
+    ],
+    [
+      5,
+      29,
+      140,
+      45
+    ],
+    [
+      4,
+      29,
+      142,
+      39
+    ],
+    [
+      5,
+      26,
+      140,
+      48
+    ],
+    [
+      9,
+      22,
+      132,
+      58
+    ],
+    [
+      15,
+      18,
+      120,
+      67
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        21,
+        13,
+        128,
+        90
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        23.574275970458984,
+        16.055416107177734,
+        125.12861633300781,
+        87.17279815673828
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262678146362305,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.133,
+      "png_sha256": "350488e1c480dddc22d4fe16bfb413917f318946b3ad6e3ae395622e29ad274a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        9,
+        119,
+        93
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        30.818885803222656,
+        11.832359313964844,
+        116.47528076171875,
+        91.07245635986328
+      ],
+      "physical_bounds_world": [
+        -31.589998245239258,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.12918758392334,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.068,
+      "png_sha256": "09de1522089332b6d8d66226d3f2dbe821298229091959d7b92fc95c2b0283f1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        37,
+        6,
+        110,
+        96
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        39.9534912109375,
+        8.753684997558594,
+        107.71533203125,
+        93.97016143798828
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.005,
+      "png_sha256": "7453aab18e98afdd68260eb5d1b149e4569b1c8398c7bd0e098e9f3146d0717e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        4,
+        103,
+        97
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        50.62705993652344,
+        6.922908782958984,
+        100.6302719116211,
+        95.75455474853516
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262680053710938,
+        8.129186630249023,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.023,
+      "png_sha256": "3cd72ab1a7633aa6f257f3f3c34efcab3ccc2666701578a60138590d175317bd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        58,
+        4,
+        102,
+        98
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        61.14588928222656,
+        6.395469665527344,
+        98.85411071777344,
+        96.35707092285156
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.987,
+      "png_sha256": "3eb709be384e30c5bc08db332781b91fea4a7037f55ce7ac33c7a17b1abb7016",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        4,
+        112,
+        97
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        59.369728088378906,
+        6.922908782958984,
+        109.37294006347656,
+        95.75455474853516
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129186630249023,
+        0.0,
+        27.262680053710938,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.021,
+      "png_sha256": "b6534f78cd276fdea0c0e9f3854633465b54cdc0199b00d712568d990d121a1b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        50,
+        6,
+        123,
+        96
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        52.28466796875,
+        8.753684997558594,
+        120.0465087890625,
+        93.97016143798828
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.999,
+      "png_sha256": "d8318666a70e9dd8fae0b801d298dad27dfff6183444726587628b256b78b287",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        9,
+        132,
+        93
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        43.524723052978516,
+        11.832359313964844,
+        129.18112182617188,
+        91.07245635986328
+      ],
+      "physical_bounds_world": [
+        -31.589998245239258,
+        -8.12918758392334,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.016,
+      "png_sha256": "86e79a10e9453cb3d9e310ea121a4ff9a7f2098b34ae2b2b30ef22eeb93ec7f6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        32,
+        13,
+        139,
+        90
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        34.87137985229492,
+        16.055416107177734,
+        136.42572021484375,
+        87.17279815673828
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262678146362305,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.011,
+      "png_sha256": "e5b55534f3fc4a15679d3400da8413e0ba14928f10603c7dff25c95e04fb0469",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        18,
+        145,
+        85
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        27.097381591796875,
+        21.141334533691406,
+        141.90249633789062,
+        82.42105865478516
+      ],
+      "physical_bounds_world": [
+        -31.589998245239258,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.12918758392334,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.114,
+      "png_sha256": "c55251b0fe6defeff2c51d9e13c666f7069fc2370b1a1900240c454a42a32de0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        22,
+        151,
+        80
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        21.35641098022461,
+        24.6279296875,
+        148.26187133789062,
+        76.99983215332031
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.999,
+      "png_sha256": "13f4609df7fc62e61a5270a0c05d7d6bc8356e5034786052e69e466236ad3d3b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        26,
+        155,
+        74
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        17.869068145751953,
+        28.56680679321289,
+        152.03115844726562,
+        71.11746215820312
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262680053710938,
+        8.129186630249023,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.048,
+      "png_sha256": "ffea5efdfaadc65d8df88b88bac7e4d43597b4134151afe8212dfe2026ee925b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        14,
+        30,
+        156,
+        68
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        16.769393920898438,
+        30.81814956665039,
+        153.2670135498047,
+        65.5400161743164
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.997,
+      "png_sha256": "3fb17ab908440c43ff376807b87c6f40cb4c461f7c5615d8ae004a5808626bdb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        29,
+        155,
+        74
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        17.869068145751953,
+        30.928653717041016,
+        152.03115844726562,
+        71.48292541503906
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129186630249023,
+        0.0,
+        27.262680053710938,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.017,
+      "png_sha256": "ad093549c6b7efbde61fe5ed406838bab7216650b19544e23aa6afc783ab6aeb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        25,
+        151,
+        81
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        21.35641098022461,
+        28.14453887939453,
+        148.26187133789062,
+        78.29597473144531
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.004,
+      "png_sha256": "2c616131b954aeb9fcd2f102ad901203fcc4eb636ef9a9336d79134fd0bd2646",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        24,
+        22,
+        145,
+        87
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        27.097381591796875,
+        24.424312591552734,
+        141.90249633789062,
+        84.56228637695312
+      ],
+      "physical_bounds_world": [
+        -31.589998245239258,
+        -8.12918758392334,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.021,
+      "png_sha256": "52728808b714bc2f5c072ef2f88190a98f331899f15194fd83b3c136c9a0faca",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        32,
+        19,
+        139,
+        93
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        34.87137985229492,
+        21.358779907226562,
+        136.42572021484375,
+        90.04065704345703
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262678146362305,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.021,
+      "png_sha256": "3cc441b98dae89ab26647e96f1090571913e2bafce79a482af9e033acae9d14e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        16,
+        132,
+        97
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        43.524723052978516,
+        19.065750122070312,
+        129.18112182617188,
+        94.52054595947266
+      ],
+      "physical_bounds_world": [
+        -31.589998245239258,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.12918758392334,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.039,
+      "png_sha256": "2a70442c67eea70f68e6799bf8fb18e1c238bbbbd37801a95d4bd92d47327af2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        50,
+        15,
+        123,
+        101
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        52.28466796875,
+        17.170528411865234,
+        120.0465087890625,
+        97.82980346679688
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.007,
+      "png_sha256": "ea199e2311786b9286762da60af5785f887b4276cdade51f245befa8456eb806",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        13,
+        112,
+        103
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        59.369728088378906,
+        15.626140594482422,
+        109.37294006347656,
+        99.87899780273438
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262680053710938,
+        8.129186630249023,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.002,
+      "png_sha256": "c06435d870a1c9b63d09b6ba9b55cced8da16b3d4c0ae3e8e19fc3162f15f39f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        58,
+        12,
+        102,
+        103
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        61.14588928222656,
+        15.103336334228516,
+        98.85411071777344,
+        100.57878112792969
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.993,
+      "png_sha256": "1145827ddccc6bb39440feaf373d007e34dfecec1b55ceefed69ad3610ab3aaa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        13,
+        103,
+        103
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        50.62705993652344,
+        15.599716186523438,
+        100.6302719116211,
+        99.87899780273438
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129186630249023,
+        0.0,
+        27.262680053710938,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.006,
+      "png_sha256": "77bcaee0bb50ca79faf328c8bfb9bc87d57ca179a17daf1a3b3290f928e821d6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        37,
+        14,
+        110,
+        101
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        39.9534912109375,
+        17.02147674560547,
+        107.71533203125,
+        97.82980346679688
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.999,
+      "png_sha256": "44994935fe8755b8ff6f0e2bad9dce211469192d40367b183224ee664de7d84b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        16,
+        119,
+        97
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        30.818885803222656,
+        19.065750122070312,
+        116.47528076171875,
+        94.52054595947266
+      ],
+      "physical_bounds_world": [
+        -31.589998245239258,
+        -8.12918758392334,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.007,
+      "png_sha256": "bce2d93ddb994e68d6a3fbab1f7dd9aef41d6ecde335c5ac21765a1051294bca",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        19,
+        128,
+        93
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        23.574275970458984,
+        21.358779907226562,
+        125.12861633300781,
+        90.04065704345703
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262678146362305,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.012,
+      "png_sha256": "326ffe1631cd7996cceac6f99148066a46b0789e9096d144445da8593862ef8b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        22,
+        136,
+        87
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        18.09750747680664,
+        24.424312591552734,
+        132.90261840820312,
+        84.56228637695312
+      ],
+      "physical_bounds_world": [
+        -31.589998245239258,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.12918758392334,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.026,
+      "png_sha256": "f6771f3fccafd821dc5ce3ec39261bb219b91a674c620f88ae9b5e4c35b39996",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        25,
+        141,
+        81
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        11.738136291503906,
+        28.14453887939453,
+        138.64358520507812,
+        78.29597473144531
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.018,
+      "png_sha256": "f17d357fa9bc50f336f9c35cfc0629b330c2f9a111157f9fdd30d51858b7e6a3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        29,
+        145,
+        74
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        7.968849182128906,
+        30.928653717041016,
+        142.1309356689453,
+        71.48292541503906
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262680053710938,
+        8.129186630249023,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.008,
+      "png_sha256": "e48046edbcf3d081ba7ffbbd670bb60a23a351a9669a70dd69eb89350d616c5a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        29,
+        146,
+        68
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        6.7329864501953125,
+        30.81814956665039,
+        143.23060607910156,
+        65.5400161743164
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.995,
+      "png_sha256": "b29d894606d53ca583556d38be70ba65b303ebc9572012189707137acbb7aa9a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        26,
+        145,
+        74
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        7.968849182128906,
+        28.56680679321289,
+        142.1309356689453,
+        71.11746215820312
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129186630249023,
+        0.0,
+        27.262680053710938,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.016,
+      "png_sha256": "f11b89f7049862a02b8a2089d9068ff4e01eb7ef634e2e3b6c1599cbd0064d0f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        22,
+        141,
+        80
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        11.738136291503906,
+        24.6279296875,
+        138.64358520507812,
+        76.99983215332031
+      ],
+      "physical_bounds_world": [
+        -31.59000015258789,
+        -8.129188537597656,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.015,
+      "png_sha256": "099fe9bd4245232fd2f2d9b247ad210aa00f0b03403f96d0a5134427e4b244e6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        18,
+        135,
+        85
+      ],
+      "vertices": 10948,
+      "triangles": 20708,
+      "parts": 150,
+      "projected_vertex_bounds_px": [
+        18.09750747680664,
+        21.141334533691406,
+        132.90261840820312,
+        82.42105865478516
+      ],
+      "physical_bounds_world": [
+        -31.589998245239258,
+        -8.12918758392334,
+        0.0,
+        27.262676239013672,
+        8.129188537597656,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.56
+          ],
+          [
+            -1.78,
+            0.6
+          ],
+          [
+            -1.0,
+            0.59
+          ],
+          [
+            0.0,
+            0.56
+          ],
+          [
+            0.7,
+            0.52
+          ],
+          [
+            1.4,
+            0.38
+          ],
+          [
+            1.92,
+            0.15
+          ],
+          [
+            2.08,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 1.6757627720610904,
+        "installed_guns_in_hull": false,
+        "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "kelpnet_dory",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        112
+      ],
+      "pivot_px": [
+        80,
+        65
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          112
+        ],
+        "pivot_px": [
+          80,
+          65
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          224
+        ],
+        "portrait_pivot_px": [
+          160,
+          130
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.027,
+      "png_sha256": "59eae2691ffc818403e351e4b28c7fa002a1d5f6e5bc2dbae8067672e999eea3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.98,
+            0
+          ],
+          "world_xy": [
+            12.74,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -19.227,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.06,
+        0.56
+      ],
+      [
+        -1.78,
+        0.6
+      ],
+      [
+        -1.0,
+        0.59
+      ],
+      [
+        0.0,
+        0.56
+      ],
+      [
+        0.7,
+        0.52
+      ],
+      [
+        1.4,
+        0.38
+      ],
+      [
+        1.92,
+        0.15
+      ],
+      [
+        2.08,
+        0.0
+      ]
+    ],
+    "physical_size": 13,
+    "minimum_high_structure_clearance_world": 1.6757627720610904,
+    "installed_guns_in_hull": false,
+    "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
+  },
+  "status": "baked; visual and native integration review still required"
+}

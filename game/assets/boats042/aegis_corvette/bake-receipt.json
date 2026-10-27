@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "aegis_corvette",
+  "headings": 32,
+  "atlas_sha256": "f1711174b6ff404d3a333004d6f1acd7ce62f9c88bee3f1811e3d7ee4ab60ada",
+  "canvas_config": {
+    "cell_px": [
+      280,
+      168
+    ],
+    "pivot_px": [
+      140,
+      93
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      560,
+      336
+    ],
+    "portrait_pivot_px": [
+      280,
+      186
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2240,
+    672
+  ],
+  "gpu_rgba8_bytes": 6021120,
+  "frame_bounds_px": [
+    [
+      31,
+      17,
+      200,
+      122
+    ],
+    [
+      49,
+      10,
+      163,
+      136
+    ],
+    [
+      68,
+      6,
+      128,
+      146
+    ],
+    [
+      85,
+      4,
+      101,
+      150
+    ],
+    [
+      99,
+      4,
+      82,
+      151
+    ],
+    [
+      94,
+      4,
+      101,
+      151
+    ],
+    [
+      84,
+      6,
+      128,
+      146
+    ],
+    [
+      68,
+      10,
+      163,
+      136
+    ],
+    [
+      49,
+      17,
+      200,
+      122
+    ],
+    [
+      34,
+      25,
+      229,
+      105
+    ],
+    [
+      23,
+      26,
+      249,
+      93
+    ],
+    [
+      16,
+      28,
+      260,
+      80
+    ],
+    [
+      13,
+      30,
+      263,
+      74
+    ],
+    [
+      16,
+      33,
+      260,
+      82
+    ],
+    [
+      23,
+      36,
+      249,
+      91
+    ],
+    [
+      34,
+      33,
+      229,
+      105
+    ],
+    [
+      49,
+      26,
+      200,
+      121
+    ],
+    [
+      68,
+      21,
+      163,
+      133
+    ],
+    [
+      84,
+      15,
+      128,
+      144
+    ],
+    [
+      94,
+      11,
+      101,
+      150
+    ],
+    [
+      99,
+      10,
+      82,
+      151
+    ],
+    [
+      85,
+      11,
+      101,
+      150
+    ],
+    [
+      68,
+      15,
+      128,
+      144
+    ],
+    [
+      49,
+      21,
+      163,
+      133
+    ],
+    [
+      31,
+      26,
+      200,
+      121
+    ],
+    [
+      17,
+      33,
+      229,
+      105
+    ],
+    [
+      8,
+      36,
+      249,
+      91
+    ],
+    [
+      4,
+      33,
+      260,
+      82
+    ],
+    [
+      4,
+      30,
+      263,
+      74
+    ],
+    [
+      4,
+      28,
+      260,
+      80
+    ],
+    [
+      8,
+      26,
+      249,
+      93
+    ],
+    [
+      17,
+      25,
+      229,
+      105
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        31,
+        17,
+        231,
+        139
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        33.785552978515625,
+        19.44721221923828,
+        228.1744384765625,
+        136.68960571289062
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.13,
+      "png_sha256": "bc3b1fb77a483af1d6fc0858acfc9824505a6cf6c6ba01f2771c8ae446bdbfd8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        10,
+        212,
+        146
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        51.550323486328125,
+        12.907135009765625,
+        209.4834747314453,
+        144.37353515625
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.172,
+      "png_sha256": "3a90cb2aeecf6c61c05930c5ab26a6d76d42047925f533ef07572e01c7a36c73",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        68,
+        6,
+        196,
+        152
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        71.20580291748047,
+        8.521171569824219,
+        193.58982849121094,
+        150.0832061767578
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.134,
+      "png_sha256": "1de9225982d05a8d7b5ef4d3e572d6d62737fe4040a64d62f2ab7342648285c1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        85,
+        4,
+        186,
+        154
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        87.91014099121094,
+        6.4568939208984375,
+        182.88470458984375,
+        153.59921264648438
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.11,
+      "png_sha256": "b7ba4bdda9c4275d854a90552f0177c7ef9bde67db9929428b9d1727fd48bdb2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        99,
+        4,
+        181,
+        155
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        102.16703033447266,
+        6.792610168457031,
+        177.83297729492188,
+        154.7864227294922
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.106,
+      "png_sha256": "2a5dfbe73e9dfa31b9be27de070cfa419e900e301f0c59bf4543a518f816cdd2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        4,
+        195,
+        155
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        97.11528778076172,
+        6.4568939208984375,
+        192.08985900878906,
+        153.59921264648438
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.109,
+      "png_sha256": "999a5621a78f8fae575dc63e99e1595c2cf390ed625176bd17dcbb4d606d0104",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        6,
+        212,
+        152
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        86.41017150878906,
+        8.521171569824219,
+        208.794189453125,
+        150.0832061767578
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.161,
+      "png_sha256": "f67327cb799e755c5703831559ad6765adffb735c23692c0845df37b286165ba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        68,
+        10,
+        231,
+        146
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        70.51652526855469,
+        12.907135009765625,
+        228.44967651367188,
+        144.37353515625
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.131,
+      "png_sha256": "1038312ef63049139933988400cb9969135c07f9604b597b809be3a37c17bd6e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        17,
+        249,
+        139
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        51.8255615234375,
+        19.44721221923828,
+        246.21444702148438,
+        136.68960571289062
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.16,
+      "png_sha256": "d441f0ce035e08aab51e59cf8184114c7225d500e6d14b0f9525618c7d5c1205",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        25,
+        263,
+        130
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        36.52311706542969,
+        26.94544219970703,
+        259.8974609375,
+        127.32669067382812
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.117,
+      "png_sha256": "0106627a5922b9b45c48e76fa929635b4c5eb42c633d3645bae30aa044586baa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        26,
+        272,
+        119
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        25.197219848632812,
+        28.496780395507812,
+        269.01824951171875,
+        116.64463806152344
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.198,
+      "png_sha256": "a2e5dc5d7ef0210ee47d3372efd27d7c192e1c5d76b4f397a5835f1447539d09",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        28,
+        276,
+        108
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        18.283126831054688,
+        30.445606231689453,
+        273.3661804199219,
+        105.0539321899414
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.111,
+      "png_sha256": "d8671eb5743aaf36bbc4f5e554befcea2097e2a3958f86ed21cc60186257d4ca",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        30,
+        276,
+        104
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        16.04656219482422,
+        32.71702194213867,
+        273.03564453125,
+        100.88079833984375
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.106,
+      "png_sha256": "56baa4e2bd37b25403233315a5b60e37b6f6c8617f074e734bd4cb6ff5b43fa3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        33,
+        276,
+        115
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        18.283126831054688,
+        35.22373962402344,
+        273.3661804199219,
+        112.52708435058594
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.099,
+      "png_sha256": "725dc2ddd2d912de68bb7fe7e34c700089284f61e8404968fe0e85cf76f6462e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        36,
+        272,
+        127
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        25.197219848632812,
+        37.86943054199219,
+        269.01824951171875,
+        124.4625015258789
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.121,
+      "png_sha256": "31de3e607d002f80bac16509476c3c23009b70335ac353d938188b2fff1ef650",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        33,
+        263,
+        138
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        36.52311706542969,
+        35.72422790527344,
+        259.8974609375,
+        135.14285278320312
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.118,
+      "png_sha256": "cf7dae3fef466b9ad99ef216fe18c495a5fb9ce464a3fac40271d9f7d3fbe524",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        26,
+        249,
+        147
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        51.8255615234375,
+        29.164199829101562,
+        246.21444702148438,
+        144.15771484375
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.133,
+      "png_sha256": "4dd66ac72525a5575941b8cc7f20a320289b62d18c487cf705d9ccf489136168",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        68,
+        21,
+        231,
+        154
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        70.51652526855469,
+        23.249351501464844,
+        228.44967651367188,
+        151.16064453125
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.139,
+      "png_sha256": "d8d6b500ad246729760b6d68f602a99d5e249e2ebfb8adddfbaca43a4aee1532",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        15,
+        212,
+        159
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        86.41017150878906,
+        17.574249267578125,
+        208.794189453125,
+        155.95706176757812
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.143,
+      "png_sha256": "f2d4d760adb539f7d2d20453ecce2f01b3a39392614b8ee5812404bf81fc0af8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        11,
+        195,
+        161
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        97.11528778076172,
+        14.095245361328125,
+        192.08985900878906,
+        158.31021118164062
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.115,
+      "png_sha256": "162594dcc14fe26c35e1041c78496dde3e29177d358cad5e4e04605e5a537143",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        99,
+        10,
+        181,
+        161
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        102.16703033447266,
+        12.919754028320312,
+        177.83297729492188,
+        158.2079620361328
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.108,
+      "png_sha256": "c8103fe5a38bd9762eb6f2007d0b87aa834755316e60de1ecb0d912beca3c6d7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        85,
+        11,
+        186,
+        161
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        87.91014099121094,
+        14.095245361328125,
+        182.88470458984375,
+        158.31021118164062
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.103,
+      "png_sha256": "2766761a0ab86d7e0e06a738561c0bc846863c4cd282d8d2235953c5601689c0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        68,
+        15,
+        196,
+        159
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        71.20580291748047,
+        17.574249267578125,
+        193.58982849121094,
+        155.95706176757812
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.147,
+      "png_sha256": "a42e4eb265c1d283bf7e1a1a6fc2351e2c5b7c6e27a31823234213d7073f61a8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        21,
+        212,
+        154
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        51.550323486328125,
+        23.249351501464844,
+        209.4834747314453,
+        151.16064453125
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.125,
+      "png_sha256": "9ed2f740926be8abdf39fa607f5b09c639e8c93f4fd46ceb3fdab36f05dbbbb2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        31,
+        26,
+        231,
+        147
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        33.785552978515625,
+        29.164199829101562,
+        228.1744384765625,
+        144.15771484375
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.148,
+      "png_sha256": "11d81bea52c7b4a1cf2d6bcf1003a99114706937c16e29cac68afed3bec49646",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        33,
+        246,
+        138
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        20.102554321289062,
+        35.72422790527344,
+        243.4768829345703,
+        135.14285278320312
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.117,
+      "png_sha256": "d40d359631282f3b5ab55c806dd76666916dbc60a6531d6b9860df514d5a2b0c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        36,
+        257,
+        127
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        10.981735229492188,
+        37.86943054199219,
+        254.8027801513672,
+        124.4625015258789
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.135,
+      "png_sha256": "76b605abb4c6f8714d3f4ff6b397dbc9ab56ffef81379f98d2034f1c008f8be5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        33,
+        264,
+        115
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        6.633819580078125,
+        35.22373962402344,
+        261.71685791015625,
+        112.52708435058594
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.109,
+      "png_sha256": "4a71dfe82e48918b9d0f892e15a8844ba8798f813b7fe92c5dbfe41fc1bc76e8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        30,
+        267,
+        104
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        6.96435546875,
+        32.71702194213867,
+        263.95343017578125,
+        100.88079833984375
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.097,
+      "png_sha256": "d74d7a692c0631ddbcfc5bc5ac7164f3adfeb07f59ffd7fb2ee559e2334ae627",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        28,
+        264,
+        108
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        6.633819580078125,
+        30.445606231689453,
+        261.71685791015625,
+        105.0539321899414
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.101,
+      "png_sha256": "fab10a239738d2692346759fbefc9d932565fc58c18dd752559bf41298c4fa21",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        26,
+        257,
+        119
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        10.981735229492188,
+        28.496780395507812,
+        254.8027801513672,
+        116.64463806152344
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.44409942626953,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.133,
+      "png_sha256": "59ca56eb3c9cb588ba8f7785c852fdd94f5da9ac9f3c9e8b510a23821cdc36f4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        25,
+        246,
+        130
+      ],
+      "vertices": 12646,
+      "triangles": 23664,
+      "parts": 181,
+      "projected_vertex_bounds_px": [
+        20.102554321289062,
+        26.94544219970703,
+        243.4768829345703,
+        127.32669067382812
+      ],
+      "physical_bounds_world": [
+        -57.36000061035156,
+        -16.312164306640625,
+        0.0,
+        53.444095611572266,
+        16.312164306640625,
+        28.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.02,
+            0.48
+          ],
+          [
+            -1.72,
+            0.6
+          ],
+          [
+            -0.9,
+            0.66
+          ],
+          [
+            0.1,
+            0.66
+          ],
+          [
+            0.76,
+            0.62
+          ],
+          [
+            1.42,
+            0.44
+          ],
+          [
+            1.96,
+            0.16
+          ],
+          [
+            2.22,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "installed_guns_in_hull": false,
+        "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aegis_corvette",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.132,
+      "png_sha256": "132c533f83bf8957a1dcdbb8666cd7c2dde7246dd95eb3893628499b5a72d5d5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            24.816000000000003,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -36.024,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.504,
+            -0.434
+          ],
+          "world_xy": [
+            12.096,
+            -10.416
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.02,
+        0.48
+      ],
+      [
+        -1.72,
+        0.6
+      ],
+      [
+        -0.9,
+        0.66
+      ],
+      [
+        0.1,
+        0.66
+      ],
+      [
+        0.76,
+        0.62
+      ],
+      [
+        1.42,
+        0.44
+      ],
+      [
+        1.96,
+        0.16
+      ],
+      [
+        2.22,
+        0.0
+      ]
+    ],
+    "physical_size": 24,
+    "minimum_high_structure_clearance_world": 4.344000000000001,
+    "installed_guns_in_hull": false,
+    "design": "Fine escort prow; full rangefinder wing and damage-control chests"
+  },
+  "status": "baked; visual and native integration review still required"
+}

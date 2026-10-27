@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "marsh_dart",
+  "headings": 32,
+  "atlas_sha256": "e3cb6a99fceaffeda8d8c44fe08d256570d7bf4e6a78a4de16a993fd9576b8c7",
+  "canvas_config": {
+    "cell_px": [
+      160,
+      104
+    ],
+    "pivot_px": [
+      77,
+      60
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      320,
+      208
+    ],
+    "portrait_pivot_px": [
+      154,
+      120
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1280,
+    416
+  ],
+  "gpu_rgba8_bytes": 2129920,
+  "frame_bounds_px": [
+    [
+      23,
+      13,
+      107,
+      74
+    ],
+    [
+      31,
+      9,
+      88,
+      82
+    ],
+    [
+      39,
+      6,
+      69,
+      89
+    ],
+    [
+      48,
+      5,
+      56,
+      91
+    ],
+    [
+      52,
+      4,
+      50,
+      91
+    ],
+    [
+      50,
+      5,
+      56,
+      91
+    ],
+    [
+      46,
+      6,
+      69,
+      89
+    ],
+    [
+      35,
+      9,
+      88,
+      82
+    ],
+    [
+      24,
+      13,
+      107,
+      74
+    ],
+    [
+      15,
+      15,
+      122,
+      67
+    ],
+    [
+      9,
+      18,
+      132,
+      58
+    ],
+    [
+      5,
+      22,
+      139,
+      48
+    ],
+    [
+      4,
+      24,
+      141,
+      42
+    ],
+    [
+      5,
+      23,
+      139,
+      46
+    ],
+    [
+      9,
+      20,
+      132,
+      54
+    ],
+    [
+      15,
+      16,
+      122,
+      63
+    ],
+    [
+      24,
+      12,
+      107,
+      72
+    ],
+    [
+      35,
+      9,
+      88,
+      79
+    ],
+    [
+      46,
+      7,
+      69,
+      84
+    ],
+    [
+      50,
+      5,
+      56,
+      87
+    ],
+    [
+      52,
+      4,
+      50,
+      89
+    ],
+    [
+      48,
+      5,
+      56,
+      87
+    ],
+    [
+      39,
+      7,
+      69,
+      84
+    ],
+    [
+      31,
+      9,
+      88,
+      79
+    ],
+    [
+      23,
+      12,
+      107,
+      72
+    ],
+    [
+      17,
+      16,
+      122,
+      63
+    ],
+    [
+      13,
+      20,
+      132,
+      54
+    ],
+    [
+      10,
+      23,
+      139,
+      46
+    ],
+    [
+      9,
+      24,
+      141,
+      42
+    ],
+    [
+      10,
+      22,
+      139,
+      48
+    ],
+    [
+      13,
+      18,
+      132,
+      58
+    ],
+    [
+      17,
+      15,
+      122,
+      67
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        23,
+        13,
+        130,
+        87
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        25.58758544921875,
+        15.112083435058594,
+        127.30091857910156,
+        84.79679870605469
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.792,
+      "png_sha256": "55733cd9762591af0f1a5659c2e270c5731bf5d534b9b639ad5f8d9bdffa40b9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        31,
+        9,
+        119,
+        91
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        33.303123474121094,
+        11.928169250488281,
+        116.73274993896484,
+        89.15795135498047
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340654373168945,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.81,
+      "png_sha256": "46c173b3d518de820a89c1116012f95c86405eba1a0e2b42a00c639963387278",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        39,
+        6,
+        108,
+        95
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        41.87148666381836,
+        9.057559967041016,
+        105.01826477050781,
+        92.39857482910156
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.829,
+      "png_sha256": "889d43d15cf9d1cf5c2aa43c68cfc032abb7ec655a54bf9fbd3ff16b89e8113d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        5,
+        104,
+        96
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        50.87926483154297,
+        7.3222503662109375,
+        100.99203491210938,
+        94.39414978027344
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.828,
+      "png_sha256": "a83ae815208649b8f9a792941d14826f8692a5d8a2b945fba24d8e453af553c9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        52,
+        4,
+        102,
+        95
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        54.3873291015625,
+        6.709484100341797,
+        99.6126708984375,
+        95.0679702758789
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340652465820312,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.819,
+      "png_sha256": "6a3c3d5e22eb917318a64ce4c02f4ceb93a578e0abb758e9a47f46393ada896e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        50,
+        5,
+        106,
+        96
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        53.007965087890625,
+        7.3222503662109375,
+        103.12073516845703,
+        94.39414978027344
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.823,
+      "png_sha256": "8bd7485b07bc5dff712fffa19defe729ef851b47d0b51671561d1976fc17c726",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        6,
+        115,
+        95
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        48.98173141479492,
+        9.057559967041016,
+        112.12850952148438,
+        92.39857482910156
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.844,
+      "png_sha256": "147171f9ffae05ca3e29b39d4d9abd41483e2fd880a431f87a8713fb2332f0ac",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        9,
+        123,
+        91
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        37.267250061035156,
+        11.928169250488281,
+        120.6968765258789,
+        89.15795135498047
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340654373168945,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.825,
+      "png_sha256": "371460890a456710fdf8b1544995a229797304a44bd87bc02ee90c405f7933e3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        24,
+        13,
+        131,
+        87
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        26.699077606201172,
+        15.112083435058594,
+        128.41241455078125,
+        84.79679870605469
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.843,
+      "png_sha256": "a8cc42c46cdd74ebc72e587eef8e906432142121ba96cdc508c930115dc999b7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        15,
+        137,
+        82
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        18.063953399658203,
+        17.532176971435547,
+        134.15220642089844,
+        79.48271942138672
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340654373168945,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.817,
+      "png_sha256": "b89ab36e6c4284ae198879a3e97e2fe4c9a2edc68d5fe3a4c3ac74e199e6e517",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        18,
+        141,
+        76
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        11.693702697753906,
+        20.67967987060547,
+        138.22305297851562,
+        73.41992950439453
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.842,
+      "png_sha256": "cf3bf758f6f55e734a45aa47b0d564e79a708d15a7397ff7e8c46df7e66ba057",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        22,
+        144,
+        70
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        7.8331298828125,
+        24.433631896972656,
+        141.6085205078125,
+        66.84142303466797
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.816,
+      "png_sha256": "e5a7972e6853e8bc475d8b2d3917c66c4c0aafd984b17d92bb744eb4cd3982d3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        24,
+        145,
+        66
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        6.630607604980469,
+        25.233963012695312,
+        142.590087890625,
+        63.56114196777344
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340652465820312,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.791,
+      "png_sha256": "ea2a7dd7a3d7c90089144749be8c231bd6f00f25d93f0008c47e6656792597f5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        23,
+        144,
+        69
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        7.8331298828125,
+        25.35562515258789,
+        141.6085205078125,
+        65.96565246582031
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.806,
+      "png_sha256": "7162434ab8627d079f0301c3bc2157a2749df868f5af74f0d2484c4f0c25c54c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        20,
+        141,
+        74
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        11.693702697753906,
+        23.099388122558594,
+        138.22305297851562,
+        71.5882797241211
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.815,
+      "png_sha256": "dcdbf0916afeb7916c636b228818ee0997627a0a5326eab76e16923cace63f53",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        16,
+        137,
+        79
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        18.063953399658203,
+        18.755584716796875,
+        134.15220642089844,
+        76.77678680419922
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340654373168945,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.818,
+      "png_sha256": "8e5ca5498adacef2ef6882071171ffc8d424b61fe620c881277b49dca6568974",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        24,
+        12,
+        131,
+        84
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        26.699077606201172,
+        14.994636535644531,
+        128.41241455078125,
+        81.35279846191406
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.825,
+      "png_sha256": "060d52270ccd4c195bd5d4c1747f7e7167488bddf7ba4454c3ca61fca981cadc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        9,
+        123,
+        88
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        37.267250061035156,
+        12.058609008789062,
+        120.6968765258789,
+        85.10823822021484
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340654373168945,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.824,
+      "png_sha256": "19feb7480333763802c1648517b6c1a7cdbe862c01502720f8a432f04df9e2bd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        7,
+        115,
+        91
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        48.98173141479492,
+        9.299957275390625,
+        112.12850952148438,
+        87.89877319335938
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.823,
+      "png_sha256": "77f82bb0ef761dcb73ccbae875d65ff6ff8d5af8876e580cef2a2e1355eca742",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        50,
+        5,
+        106,
+        92
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        53.007965087890625,
+        7.312084197998047,
+        103.12073516845703,
+        89.6171875
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.814,
+      "png_sha256": "a454652f38e5997aff91931fbdbdfa40626bad3c8d6b0378711a225e3782698f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        52,
+        4,
+        102,
+        93
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        54.3873291015625,
+        6.645748138427734,
+        99.6126708984375,
+        90.19741821289062
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340652465820312,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.799,
+      "png_sha256": "6912119dcf3190331781a6a9b412c3d2d670d82b71c831c4b698b8233b6e6831",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        5,
+        104,
+        92
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        50.87926483154297,
+        7.312084197998047,
+        100.99203491210938,
+        89.6171875
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.8,
+      "png_sha256": "61fc5f79e09820fe84e06bc053f5f1204fdbe03cc2133e94209f2086b74a44c9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        39,
+        7,
+        108,
+        91
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        41.87148666381836,
+        9.299957275390625,
+        105.01826477050781,
+        87.89877319335938
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.796,
+      "png_sha256": "4d551beb8172ac51c040f3c113f22cf7a2c454d38e6ba97fe6ca257b4a3d393b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        31,
+        9,
+        119,
+        88
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        33.303123474121094,
+        12.058609008789062,
+        116.73274993896484,
+        85.10823822021484
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340654373168945,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.829,
+      "png_sha256": "6463d27924238ad9c108a3d84f9d6b3174346e2a966fc4fd69f485d8d6c77c88",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        12,
+        130,
+        84
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        25.58758544921875,
+        14.994636535644531,
+        127.30091857910156,
+        81.35279846191406
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.823,
+      "png_sha256": "814e36fa49d46785c48f2e9b6afd3d4c6c8c3ae6717c2ff8b4e620f0f295d919",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        16,
+        139,
+        79
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        19.847797393798828,
+        18.755584716796875,
+        135.93605041503906,
+        76.77678680419922
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340654373168945,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.855,
+      "png_sha256": "806e0f2d02bcd6595e0862184d216c8c5180f79185cee1b77f2176272b48dbd7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        20,
+        145,
+        74
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        15.776939392089844,
+        23.099388122558594,
+        142.30630493164062,
+        71.5882797241211
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.819,
+      "png_sha256": "367848f747ff3b6202e410ad93c5ef5cb9ad15b95732db1eb3b70f0c524b135b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        23,
+        149,
+        69
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        12.3914794921875,
+        25.35562515258789,
+        146.1668701171875,
+        65.96565246582031
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.808,
+      "png_sha256": "01a2d6e6695f85bdada9dfb970962140c52092bb12c406f04b8d5afddab67835",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        24,
+        150,
+        66
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        11.409904479980469,
+        25.233963012695312,
+        147.369384765625,
+        63.56114196777344
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340652465820312,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.803,
+      "png_sha256": "8d37b29d701627b58e6f800db159659876f7f7eb805ab94e63458afec6bc65ef",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        22,
+        149,
+        70
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        12.3914794921875,
+        24.433631896972656,
+        146.1668701171875,
+        66.84142303466797
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.807,
+      "png_sha256": "76fd3df87baede4bb9d2cdea348956f0d5fb63133b4d6574ba6421e31ff207bd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        18,
+        145,
+        76
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        15.776939392089844,
+        20.67967987060547,
+        142.30630493164062,
+        73.41992950439453
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340656280517578,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.828,
+      "png_sha256": "81053c94ba8ed9e6b2d7823efb155c393d3976f6013dfb89252f029dd71bb01c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        15,
+        139,
+        82
+      ],
+      "vertices": 8710,
+      "triangles": 16252,
+      "parts": 133,
+      "projected_vertex_bounds_px": [
+        19.847797393798828,
+        17.532176971435547,
+        135.93605041503906,
+        79.48271942138672
+      ],
+      "physical_bounds_world": [
+        -28.280000686645508,
+        -9.749740600585938,
+        0.0,
+        30.340654373168945,
+        9.749740600585938,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.35
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.92,
+            0.55
+          ],
+          [
+            -0.1,
+            0.59
+          ],
+          [
+            0.52,
+            0.6
+          ],
+          [
+            1.18,
+            0.42
+          ],
+          [
+            1.86,
+            0.11
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 1.8340000000000014,
+        "installed_guns_in_hull": false,
+        "design": "Stepped open hydroplane; center jet and transverse foil"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "marsh_dart",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        160,
+        104
+      ],
+      "pivot_px": [
+        77,
+        60
+      ],
+      "canvas_config": {
+        "cell_px": [
+          160,
+          104
+        ],
+        "pivot_px": [
+          77,
+          60
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          320,
+          208
+        ],
+        "portrait_pivot_px": [
+          154,
+          120
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.82,
+      "png_sha256": "5e06744007cece64beeb1aaf4b9e8f04b599a8ad391973ce3eefe0dabd1eb837",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.028,
+            0
+          ],
+          "world_xy": [
+            14.392,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.481,
+            0
+          ],
+          "world_xy": [
+            -20.734,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.86,
+        0.35
+      ],
+      [
+        -1.6,
+        0.48
+      ],
+      [
+        -0.92,
+        0.55
+      ],
+      [
+        -0.1,
+        0.59
+      ],
+      [
+        0.52,
+        0.6
+      ],
+      [
+        1.18,
+        0.42
+      ],
+      [
+        1.86,
+        0.11
+      ],
+      [
+        2.16,
+        0.0
+      ]
+    ],
+    "physical_size": 14,
+    "minimum_high_structure_clearance_world": 1.8340000000000014,
+    "installed_guns_in_hull": false,
+    "design": "Stepped open hydroplane; center jet and transverse foil"
+  },
+  "status": "baked; visual and native integration review still required"
+}

@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "bilge_punt",
+  "headings": 32,
+  "atlas_sha256": "22ca3a2b3c9d4bbc8abe6fef3cca9f7dc3a01d3ff6d83c784c111f1d807ca37c",
+  "canvas_config": {
+    "cell_px": [
+      152,
+      104
+    ],
+    "pivot_px": [
+      75,
+      63
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      304,
+      208
+    ],
+    "portrait_pivot_px": [
+      150,
+      126
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1216,
+    416
+  ],
+  "gpu_rgba8_bytes": 2023424,
+  "frame_bounds_px": [
+    [
+      24,
+      12,
+      100,
+      76
+    ],
+    [
+      31,
+      8,
+      83,
+      84
+    ],
+    [
+      40,
+      6,
+      63,
+      89
+    ],
+    [
+      48,
+      4,
+      51,
+      91
+    ],
+    [
+      53,
+      4,
+      44,
+      91
+    ],
+    [
+      51,
+      5,
+      51,
+      90
+    ],
+    [
+      47,
+      7,
+      63,
+      88
+    ],
+    [
+      36,
+      10,
+      85,
+      82
+    ],
+    [
+      26,
+      14,
+      104,
+      74
+    ],
+    [
+      18,
+      19,
+      120,
+      64
+    ],
+    [
+      12,
+      22,
+      131,
+      56
+    ],
+    [
+      9,
+      25,
+      137,
+      47
+    ],
+    [
+      8,
+      26,
+      138,
+      41
+    ],
+    [
+      9,
+      27,
+      135,
+      45
+    ],
+    [
+      12,
+      24,
+      128,
+      56
+    ],
+    [
+      18,
+      20,
+      115,
+      65
+    ],
+    [
+      26,
+      17,
+      100,
+      73
+    ],
+    [
+      36,
+      14,
+      83,
+      80
+    ],
+    [
+      47,
+      12,
+      63,
+      85
+    ],
+    [
+      51,
+      10,
+      51,
+      89
+    ],
+    [
+      53,
+      10,
+      44,
+      89
+    ],
+    [
+      48,
+      10,
+      51,
+      88
+    ],
+    [
+      40,
+      12,
+      63,
+      84
+    ],
+    [
+      29,
+      14,
+      85,
+      78
+    ],
+    [
+      20,
+      17,
+      104,
+      71
+    ],
+    [
+      12,
+      20,
+      120,
+      62
+    ],
+    [
+      7,
+      24,
+      131,
+      53
+    ],
+    [
+      4,
+      27,
+      137,
+      44
+    ],
+    [
+      4,
+      26,
+      138,
+      40
+    ],
+    [
+      6,
+      25,
+      135,
+      47
+    ],
+    [
+      10,
+      22,
+      128,
+      56
+    ],
+    [
+      17,
+      16,
+      115,
+      67
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        24,
+        12,
+        124,
+        88
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        26.581153869628906,
+        14.375213623046875,
+        121.33232116699219,
+        85.8124008178711
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.893,
+      "png_sha256": "ac8b1f983c28b02484fd0b6cf63a4455ef9abfd07dda093a41e60c0094f9bc20",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        31,
+        8,
+        114,
+        92
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        33.95829391479492,
+        10.749114990234375,
+        111.61274719238281,
+        89.82454681396484
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.975,
+      "png_sha256": "e096c3788f99589e58c5db6f8797ea4ff4e197f980656c09ecf49a06522c7aa5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        40,
+        6,
+        103,
+        95
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        42.36792755126953,
+        8.232170104980469,
+        100.71339416503906,
+        92.80583190917969
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.477392196655273,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.914,
+      "png_sha256": "c7c97b7d46d9c5685146ea4882c5b1107bb068656adf82cdb08f64a45c136d02",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        4,
+        99,
+        95
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        50.33077621459961,
+        6.906303405761719,
+        96.28459167480469,
+        94.64170837402344
+      ],
+      "physical_bounds_world": [
+        -29.51000213623047,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.89,
+      "png_sha256": "0545dae2723e43bed698dd37a2aa9762614219afb203320359576d6df891ac7d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        53,
+        4,
+        97,
+        95
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        55.338294982910156,
+        6.807552337646484,
+        94.66170501708984,
+        95.26160430908203
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.923730850219727,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.89,
+      "png_sha256": "5f0e6dc87943a69b78be2c17d984093c29f0d86a1b9c63ef1f0a4592d07f65e5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        5,
+        102,
+        95
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        53.71540832519531,
+        7.670989990234375,
+        99.66921997070312,
+        94.64170837402344
+      ],
+      "physical_bounds_world": [
+        -29.51000213623047,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.891,
+      "png_sha256": "72fbc7c776c664e34d32757fdc36534463ebe449da1acd81a482d1ff3f5aab31",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        47,
+        7,
+        110,
+        95
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        49.28660583496094,
+        9.732147216796875,
+        107.63207244873047,
+        92.80583190917969
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.477392196655273,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.908,
+      "png_sha256": "6eb5d772712ce955250c1e1c0b8da1006611323e7c2367a3ea1d8610b3c4c26d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        10,
+        121,
+        92
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        38.38725280761719,
+        12.926750183105469,
+        118.05087280273438,
+        89.82454681396484
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.91,
+      "png_sha256": "0a9deb322690114923a2662df223357566bfcdf4a5c6069ee1f6ecb386fb0cc3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        26,
+        14,
+        130,
+        88
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        28.667682647705078,
+        17.14681625366211,
+        127.5700454711914,
+        85.8124008178711
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.929,
+      "png_sha256": "eb6a28e61c9d9c921195a01063b3541109fda8ef8a3c11c89cdf3e0d70cefe2c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        19,
+        138,
+        83
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        20.728641510009766,
+        21.421855926513672,
+        135.0689697265625,
+        80.923583984375
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.906,
+      "png_sha256": "b4d36054500463565bab3560f327ff290fcb7fc1d9a63e007b49868185eeb3ec",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        22,
+        143,
+        78
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        14.87521743774414,
+        24.431415557861328,
+        140.30490112304688,
+        75.34597778320312
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.477392196655273,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.913,
+      "png_sha256": "1f033578f68dafe0fd6b24f429907517749f6ffd5363eecfc91b09276d5f9879",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        25,
+        146,
+        72
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        11.332347869873047,
+        28.018539428710938,
+        143.06436157226562,
+        69.2939224243164
+      ],
+      "physical_bounds_world": [
+        -29.51000213623047,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.902,
+      "png_sha256": "1dac6262471e446ba5e80c92b0e8d3b27af7eaf8ab732e9527fcd32960f40fda",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        26,
+        146,
+        67
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        10.2362060546875,
+        28.60332489013672,
+        143.44284057617188,
+        64.34969329833984
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.923730850219727,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.892,
+      "png_sha256": "b654ceb62fe9ed090a4bdf66561789913e9c0433a8c150d34ace7afd20a02874",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        27,
+        144,
+        72
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        11.332347869873047,
+        28.76177978515625,
+        141.53500366210938,
+        70.93450927734375
+      ],
+      "physical_bounds_world": [
+        -29.51000213623047,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.895,
+      "png_sha256": "9387cde859ac926fe391d9034680778a00c3b29c4e2cbbd660f0b7ef05922bc4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        24,
+        140,
+        80
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        14.87521743774414,
+        27.1826171875,
+        137.304931640625,
+        77.18354797363281
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.477392196655273,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.914,
+      "png_sha256": "138e2ea830bf6b7f9c8bed98282c4572c4b2d235ce15ac6681ab72445ea77b2b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        20,
+        133,
+        85
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        20.728641510009766,
+        23.182952880859375,
+        130.71371459960938,
+        82.85173034667969
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.908,
+      "png_sha256": "47f3753445c2c718162f079948f972d3b3d33a5682d120570c21c82b49e7ec43",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        26,
+        17,
+        126,
+        90
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        28.667682647705078,
+        19.744476318359375,
+        123.4188461303711,
+        87.72085571289062
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.933,
+      "png_sha256": "01020e9f6c0e689d9bdca80d209b01cfd9fe24de8c8250f5beda6bd28cc36d19",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        14,
+        119,
+        94
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        38.38725280761719,
+        17.063674926757812,
+        116.04170227050781,
+        91.60379028320312
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.919,
+      "png_sha256": "57c2574f3013ba30f935d259499179b8f161a4442be0883633509ae18415a14b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        47,
+        12,
+        110,
+        97
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        49.28660583496094,
+        14.894428253173828,
+        107.63207244873047,
+        94.351318359375
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.477392196655273,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.909,
+      "png_sha256": "e0ed8492fb8c4f354a3236d28af51079ac1816e009cf236e9709e12b13cb8621",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        10,
+        102,
+        99
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        53.71540832519531,
+        13.065975189208984,
+        99.66921997070312,
+        95.89559936523438
+      ],
+      "physical_bounds_world": [
+        -29.51000213623047,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.908,
+      "png_sha256": "1b61df33bbcc0a20153f72286d65e0e923b9f083911716b6e88cd5c4c8e92249",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        53,
+        10,
+        97,
+        99
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        55.338294982910156,
+        12.453231811523438,
+        94.66170501708984,
+        96.16669464111328
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.923730850219727,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.891,
+      "png_sha256": "f024c00726bb68de1e4e06892e0157e1512a29e61eeaa17be5ff5fbf2651e0bf",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        10,
+        99,
+        98
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        50.33077621459961,
+        13.065975189208984,
+        96.28459167480469,
+        95.13092041015625
+      ],
+      "physical_bounds_world": [
+        -29.51000213623047,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.9,
+      "png_sha256": "9c91062a08cd2f98dd01245da5fbfece6f873234114abf173f9bb84aa07e3bb5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        40,
+        12,
+        103,
+        96
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        42.36792755126953,
+        14.894428253173828,
+        100.71339416503906,
+        92.8513412475586
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.477392196655273,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.903,
+      "png_sha256": "69fc1a06b7156107f108eb1e1b44b9c60a79063470a16d3ae3ee8cb430fd5a1f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        14,
+        114,
+        92
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        31.94913101196289,
+        17.063674926757812,
+        111.61274719238281,
+        89.42615509033203
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.908,
+      "png_sha256": "a5aa8159d7e1dfab57632914ae93d13a7cd1330d0c106afd8f56a9f446b51dcb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        17,
+        124,
+        88
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        22.429954528808594,
+        19.744476318359375,
+        121.33232116699219,
+        84.94925689697266
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.933,
+      "png_sha256": "38aa4df283cebc13833081b6eb4dd2efab9e70cb2a7ecf74cfbd8e66be369501",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        20,
+        132,
+        82
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        14.931022644042969,
+        23.182952880859375,
+        129.2713623046875,
+        79.59268188476562
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.92,
+      "png_sha256": "3ca63caa586ffc3789ac278f64d2180a772bd13c06da1b0339681e02065c89e1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        24,
+        138,
+        77
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        9.695098876953125,
+        27.1826171875,
+        135.12478637695312,
+        73.96138763427734
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.477392196655273,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.904,
+      "png_sha256": "458928dda8b1f38799d605458204c3a16d189697b21cefed7d7609f2168b6261",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        27,
+        141,
+        71
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        6.935638427734375,
+        28.76177978515625,
+        138.6676483154297,
+        68.589111328125
+      ],
+      "physical_bounds_world": [
+        -29.51000213623047,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.939,
+      "png_sha256": "053650962bd4da5516cd55ff4834d92f1d59b0910ece561b276099e56eeae9df",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        26,
+        142,
+        66
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        6.557159423828125,
+        28.60332489013672,
+        139.7637939453125,
+        63.60615921020508
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.923730850219727,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.887,
+      "png_sha256": "72b0ac9bc0d79a14fecca5fc0c2469aa10ca8118cbef60e0bf4f9aab71c17048",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        6,
+        25,
+        141,
+        72
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        8.465003967285156,
+        28.018539428710938,
+        138.6676483154297,
+        69.2939224243164
+      ],
+      "physical_bounds_world": [
+        -29.51000213623047,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.914,
+      "png_sha256": "9395ef067b70541b9f3b5771ee9f15a30c5922b492ebbae4d03c856f608570f6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        22,
+        138,
+        78
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        12.695060729980469,
+        24.101341247558594,
+        135.12478637695312,
+        75.34597778320312
+      ],
+      "physical_bounds_world": [
+        -29.510000228881836,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.477392196655273,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.932,
+      "png_sha256": "27ebd5b02df894ec958b8c84f621de86a8b7da78356d0798e40562a3d6d5a951",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        16,
+        132,
+        83
+      ],
+      "vertices": 9822,
+      "triangles": 18496,
+      "parts": 140,
+      "projected_vertex_bounds_px": [
+        19.28628921508789,
+        18.851882934570312,
+        129.2713623046875,
+        80.923583984375
+      ],
+      "physical_bounds_world": [
+        -29.509998321533203,
+        -8.47739315032959,
+        0.0,
+        27.92373275756836,
+        8.47739315032959,
+        15.800000190734863
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.9,
+            0.34
+          ],
+          [
+            -1.6,
+            0.48
+          ],
+          [
+            -0.85,
+            0.62
+          ],
+          [
+            -0.05,
+            0.61
+          ],
+          [
+            0.58,
+            0.58
+          ],
+          [
+            1.2,
+            0.4
+          ],
+          [
+            1.82,
+            0.12
+          ],
+          [
+            2.14,
+            0.0
+          ]
+        ],
+        "physical_size": 13,
+        "minimum_high_structure_clearance_world": 2.0526685972235947,
+        "installed_guns_in_hull": false,
+        "design": "Open patched scout; offset exposed motor and salvage reel"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "bilge_punt",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        152,
+        104
+      ],
+      "pivot_px": [
+        75,
+        63
+      ],
+      "canvas_config": {
+        "cell_px": [
+          152,
+          104
+        ],
+        "pivot_px": [
+          75,
+          63
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          304,
+          208
+        ],
+        "portrait_pivot_px": [
+          150,
+          126
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.938,
+      "png_sha256": "1984763aa18e95bd9804920125ceece4da58ca5088f8bd58bf064f647c9232d1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.97,
+            0
+          ],
+          "world_xy": [
+            12.61,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.483,
+            0
+          ],
+          "world_xy": [
+            -19.279,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.08,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.9,
+        0.34
+      ],
+      [
+        -1.6,
+        0.48
+      ],
+      [
+        -0.85,
+        0.62
+      ],
+      [
+        -0.05,
+        0.61
+      ],
+      [
+        0.58,
+        0.58
+      ],
+      [
+        1.2,
+        0.4
+      ],
+      [
+        1.82,
+        0.12
+      ],
+      [
+        2.14,
+        0.0
+      ]
+    ],
+    "physical_size": 13,
+    "minimum_high_structure_clearance_world": 2.0526685972235947,
+    "installed_guns_in_hull": false,
+    "design": "Open patched scout; offset exposed motor and salvage reel"
+  },
+  "status": "baked; visual and native integration review still required"
+}

@@ -1,0 +1,5517 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "wraith_rocket",
+  "headings": 32,
+  "atlas_sha256": "21f772c7e7116217d0374ec50bd56bd5244e12ff903c24af75a6bd3811c9973d",
+  "canvas_config": {
+    "cell_px": [
+      320,
+      184
+    ],
+    "pivot_px": [
+      156,
+      101
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      640,
+      368
+    ],
+    "portrait_pivot_px": [
+      312,
+      202
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2560,
+    736
+  ],
+  "gpu_rgba8_bytes": 7536640,
+  "frame_bounds_px": [
+    [
+      28,
+      18,
+      237,
+      137
+    ],
+    [
+      44,
+      10,
+      204,
+      154
+    ],
+    [
+      63,
+      5,
+      169,
+      166
+    ],
+    [
+      82,
+      3,
+      139,
+      172
+    ],
+    [
+      96,
+      4,
+      120,
+      172
+    ],
+    [
+      91,
+      3,
+      139,
+      170
+    ],
+    [
+      80,
+      5,
+      169,
+      166
+    ],
+    [
+      64,
+      10,
+      204,
+      154
+    ],
+    [
+      47,
+      18,
+      237,
+      137
+    ],
+    [
+      31,
+      25,
+      264,
+      119
+    ],
+    [
+      17,
+      26,
+      287,
+      106
+    ],
+    [
+      9,
+      29,
+      299,
+      94
+    ],
+    [
+      6,
+      31,
+      301,
+      90
+    ],
+    [
+      9,
+      34,
+      299,
+      94
+    ],
+    [
+      17,
+      37,
+      287,
+      101
+    ],
+    [
+      31,
+      29,
+      264,
+      118
+    ],
+    [
+      47,
+      21,
+      237,
+      136
+    ],
+    [
+      64,
+      14,
+      204,
+      150
+    ],
+    [
+      80,
+      10,
+      169,
+      159
+    ],
+    [
+      91,
+      8,
+      139,
+      164
+    ],
+    [
+      96,
+      7,
+      120,
+      165
+    ],
+    [
+      82,
+      8,
+      139,
+      164
+    ],
+    [
+      63,
+      10,
+      169,
+      159
+    ],
+    [
+      44,
+      14,
+      204,
+      150
+    ],
+    [
+      28,
+      21,
+      237,
+      136
+    ],
+    [
+      17,
+      29,
+      264,
+      118
+    ],
+    [
+      8,
+      37,
+      287,
+      101
+    ],
+    [
+      4,
+      34,
+      299,
+      94
+    ],
+    [
+      5,
+      31,
+      301,
+      90
+    ],
+    [
+      4,
+      29,
+      299,
+      94
+    ],
+    [
+      8,
+      26,
+      287,
+      106
+    ],
+    [
+      17,
+      25,
+      264,
+      119
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        28,
+        18,
+        265,
+        155
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        30.72833251953125,
+        20.383438110351562,
+        262.4082946777344,
+        152.84039306640625
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.247,
+      "png_sha256": "f6be7ac2cac97bdda6bcabc950d5f76a3bf149cae8c3c0b01d562b84f2f061bb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        44,
+        10,
+        248,
+        164
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        46.64173126220703,
+        12.982330322265625,
+        245.69827270507812,
+        161.95785522460938
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.335,
+      "png_sha256": "ab5ed3e920e355a1ca8a4adfd2efbae7d1165a72b6797c29a7b0848182330508",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        63,
+        5,
+        232,
+        171
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        65.35636901855469,
+        8.185562133789062,
+        229.60723876953125,
+        168.73275756835938
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.278,
+      "png_sha256": "3afa005ba4692b7c3fb17c0d1986a5a21c6bdeecb8d1706e3fa018dc14654b11",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        82,
+        3,
+        221,
+        175
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        84.9704818725586,
+        6.160804748535156,
+        217.99610900878906,
+        172.90469360351562
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.255,
+      "png_sha256": "36ff6d165348d169466b2e2f6e57ebbac173f3dedf6093826f12bd2587ee8f97",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        96,
+        4,
+        216,
+        176
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        98.34490203857422,
+        6.969268798828125,
+        213.65509033203125,
+        174.31338500976562
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.239,
+      "png_sha256": "d8a9c569677c5c611d214b2b6d60f8c97f3de2164d096d7252b3f519c7ea1617",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        91,
+        3,
+        230,
+        173
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        94.00389099121094,
+        6.160804748535156,
+        227.02951049804688,
+        172.90469360351562
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.255,
+      "png_sha256": "ec5244971c32c2972a0a6ea942198f71a676b52b9e0a75d13b7759f2de30f928",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        80,
+        5,
+        249,
+        171
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        82.39276885986328,
+        8.185562133789062,
+        246.6436309814453,
+        168.73275756835938
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.255,
+      "png_sha256": "cbdbdd0f5b664c65179f9b32b5ba46ee5ab579fb7328fbddb707d650d190d9fb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        10,
+        268,
+        164
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        66.3017349243164,
+        12.982330322265625,
+        265.3582763671875,
+        161.95785522460938
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.269,
+      "png_sha256": "f8404be9c6086ce246df437ae83b3e70f0702f795f8893835a73a188fa646546",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        47,
+        18,
+        284,
+        155
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        49.591697692871094,
+        20.383438110351562,
+        281.27166748046875,
+        152.84039306640625
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.259,
+      "png_sha256": "727295848163a0902fa2c6219f5491bc4ffa3a8f3c852fadce1290e3535999d5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        31,
+        25,
+        295,
+        144
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        33.28546905517578,
+        26.97650146484375,
+        292.37091064453125,
+        141.73074340820312
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.274,
+      "png_sha256": "78a193029e89fee6ac030387032213db31608c6881a3843e004db220027b7804",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        26,
+        304,
+        132
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        19.801055908203125,
+        28.60643768310547,
+        301.5359191894531,
+        129.05581665039062
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.252,
+      "png_sha256": "31d807a32e05d0d155a05fd0976504f0777cc8111ad61d05ae75a84ec57d1a98",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        29,
+        308,
+        123
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        11.550704956054688,
+        30.783355712890625,
+        305.58111572265625,
+        120.69126892089844
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.279,
+      "png_sha256": "871cd7ea8e019f5d9fd660509b097347211348338d56efc1a39cfb35c83b65c8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        6,
+        31,
+        307,
+        121
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        8.851455688476562,
+        33.42359924316406,
+        303.97198486328125,
+        118.39541625976562
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.211,
+      "png_sha256": "b9a51e7d955543f1b147642eafb1fdf28813b3d0aa439e7cf0a3beda092fdd7d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        34,
+        308,
+        128
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        11.550704956054688,
+        36.42571258544922,
+        305.58111572265625,
+        125.26765441894531
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.226,
+      "png_sha256": "099ff4ec1ce102475a78a615d99553b47f8648f10660099ea8a8761acdaca255",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        37,
+        304,
+        138
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        19.801055908203125,
+        39.6743278503418,
+        301.5359191894531,
+        135.1714324951172
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.242,
+      "png_sha256": "0f3e1fbf3ef7d1e3426e9ba395959c748acb589fb60c7b295d9b68fe14338249",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        31,
+        29,
+        295,
+        147
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        33.28546905517578,
+        31.674522399902344,
+        292.37091064453125,
+        144.73744201660156
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.257,
+      "png_sha256": "144b64ecbbd8a249438c48b57a084ed92b4f705cb57203f21ae625b291d682d1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        47,
+        21,
+        284,
+        157
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        49.591697692871094,
+        23.315704345703125,
+        281.27166748046875,
+        153.86099243164062
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.275,
+      "png_sha256": "b6f4e8c6b3543bd2d7f08a1bcf498530c3bbd5df83e788f6ec4757b6595ee597",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        14,
+        268,
+        164
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        66.3017349243164,
+        16.968101501464844,
+        265.3582763671875,
+        161.50970458984375
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.273,
+      "png_sha256": "1f92241b7cd4db50106bb1e2fc437fd4a02050040a4ece5dd7e5162ae80f026c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        80,
+        10,
+        249,
+        169
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        82.39276885986328,
+        12.904632568359375,
+        246.6436309814453,
+        166.62554931640625
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.277,
+      "png_sha256": "2c448461025289b4661f6d4da26054c58bf41c057b66fbed37a8429a84f038fd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        91,
+        8,
+        230,
+        172
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        94.00389099121094,
+        10.753326416015625,
+        227.02951049804688,
+        169.01190185546875
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.257,
+      "png_sha256": "4fd8ac09e45dbcea65b40d7291aa35c0ecc9e93e48763ab2796dca5f478b7206",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        96,
+        7,
+        216,
+        172
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        98.34490203857422,
+        9.388336181640625,
+        213.65509033203125,
+        169.60519409179688
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.219,
+      "png_sha256": "ec741575e936525d3afdc0ef9e013f3533c11a250922b609c83277fd1ac201e1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        82,
+        8,
+        221,
+        172
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        84.9704818725586,
+        10.753326416015625,
+        217.99610900878906,
+        169.01190185546875
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.258,
+      "png_sha256": "c8ce5738d2ee6394c37d76e73d16c0069907532e1cbe0ca2a2bf9b375f0ce5f0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        63,
+        10,
+        232,
+        169
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        65.35636901855469,
+        12.904632568359375,
+        229.60723876953125,
+        166.62554931640625
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.252,
+      "png_sha256": "2a10ad4cbe38957615613190d558e38a56a7a1a85ddc59cba204dba2f703fc12",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        44,
+        14,
+        248,
+        164
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        46.64173126220703,
+        16.968101501464844,
+        245.69827270507812,
+        161.50970458984375
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.249,
+      "png_sha256": "a5804d452760d67ca309d432afa1128606e223c5512733d486ebb620a6e04d57",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        21,
+        265,
+        157
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        30.72833251953125,
+        23.315704345703125,
+        262.4082946777344,
+        153.86099243164062
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.394,
+      "png_sha256": "ce3a95d3d18d39e151309fc865338d5bca1cc46ada5d51ea84855dfc1a565e8e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        29,
+        281,
+        147
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        19.629074096679688,
+        31.674522399902344,
+        278.71453857421875,
+        144.73744201660156
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.275,
+      "png_sha256": "62bf48ed5dcfb2c086a1565b81fa29e173cd51c7d537d1902026ac0ced44f537",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        37,
+        295,
+        138
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        10.464080810546875,
+        39.6743278503418,
+        292.1989440917969,
+        135.1714324951172
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.278,
+      "png_sha256": "cff31db33b6606d864339a694ae2e2ba1b57d94a900380b413fe6519a7d88e92",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        34,
+        303,
+        128
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        6.4188995361328125,
+        36.42571258544922,
+        300.44927978515625,
+        125.26765441894531
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.227,
+      "png_sha256": "e9e2738c52423f47c4429a480753c589ef5b91242417b4172bf96456420f684c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        31,
+        306,
+        121
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        8.02801513671875,
+        33.42359924316406,
+        303.1485595703125,
+        118.39541625976562
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.233,
+      "png_sha256": "89279e16c8acb6ce6308827f18bf12db85f96d390fc77a54ab6a2a3bcdf0a882",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        29,
+        303,
+        123
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        6.4188995361328125,
+        30.783355712890625,
+        300.44927978515625,
+        120.69126892089844
+      ],
+      "physical_bounds_world": [
+        -63.79999923706055,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.858726501464844,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.239,
+      "png_sha256": "14a2cbd6df6752b9df5ccdf1eb63e82c64cb113c08e81e29eb0dda8327ad9065",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        26,
+        295,
+        132
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        10.464080810546875,
+        28.60643768310547,
+        292.1989440917969,
+        129.05581665039062
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.858726501464844,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.241,
+      "png_sha256": "baee636524614eab26889c0a6959327c34136a16ccf8a67f88ce3a2e8c5f9dbe",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        25,
+        281,
+        144
+      ],
+      "vertices": 14126,
+      "triangles": 26428,
+      "parts": 207,
+      "projected_vertex_bounds_px": [
+        19.629074096679688,
+        26.97650146484375,
+        278.71453857421875,
+        141.73074340820312
+      ],
+      "physical_bounds_world": [
+        -63.79999542236328,
+        -24.85872459411621,
+        0.0,
+        63.44496154785156,
+        24.85872459411621,
+        30.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.58
+          ],
+          [
+            -1.74,
+            0.72
+          ],
+          [
+            -0.88,
+            0.82
+          ],
+          [
+            0.2,
+            0.84
+          ],
+          [
+            0.94,
+            0.74
+          ],
+          [
+            1.56,
+            0.52
+          ],
+          [
+            1.96,
+            0.22
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 29,
+        "minimum_high_structure_clearance_world": 3.044646227301949,
+        "installed_guns_in_hull": false,
+        "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "wraith_rocket",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        320,
+        184
+      ],
+      "pivot_px": [
+        156,
+        101
+      ],
+      "canvas_config": {
+        "cell_px": [
+          320,
+          184
+        ],
+        "pivot_px": [
+          156,
+          101
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          640,
+          368
+        ],
+        "portrait_pivot_px": [
+          312,
+          202
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.249,
+      "png_sha256": "564265330804043d284f38181bd26a40d6a24c0a091ed70a082fc8086c6d82a2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.034,
+            0
+          ],
+          "world_xy": [
+            29.986,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 3,
+          "radius": 5.800000000000001,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -43.906,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 5.22,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5024,
+            -0.445
+          ],
+          "world_xy": [
+            14.5696,
+            -12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5024,
+            0.445
+          ],
+          "world_xy": [
+            14.5696,
+            12.905
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.35,
+          "angle": 1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.04,
+        0.58
+      ],
+      [
+        -1.74,
+        0.72
+      ],
+      [
+        -0.88,
+        0.82
+      ],
+      [
+        0.2,
+        0.84
+      ],
+      [
+        0.94,
+        0.74
+      ],
+      [
+        1.56,
+        0.52
+      ],
+      [
+        1.96,
+        0.22
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "physical_size": 29,
+    "minimum_high_structure_clearance_world": 3.044646227301949,
+    "installed_guns_in_hull": false,
+    "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
+  },
+  "status": "baked; visual and native integration review still required"
+}

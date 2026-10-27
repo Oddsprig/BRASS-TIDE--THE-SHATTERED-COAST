@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "silt_lugger",
+  "headings": 32,
+  "atlas_sha256": "5722c588e50337c91c5ff2e5a496516a5a83de9c7507cadb7b74831ee6d7dd68",
+  "canvas_config": {
+    "cell_px": [
+      200,
+      128
+    ],
+    "pivot_px": [
+      98,
+      74
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      400,
+      256
+    ],
+    "portrait_pivot_px": [
+      196,
+      148
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1600,
+    512
+  ],
+  "gpu_rgba8_bytes": 3276800,
+  "frame_bounds_px": [
+    [
+      14,
+      9,
+      161,
+      104
+    ],
+    [
+      23,
+      6,
+      143,
+      110
+    ],
+    [
+      36,
+      4,
+      121,
+      114
+    ],
+    [
+      48,
+      4,
+      97,
+      113
+    ],
+    [
+      60,
+      6,
+      76,
+      107
+    ],
+    [
+      51,
+      4,
+      97,
+      113
+    ],
+    [
+      39,
+      4,
+      121,
+      114
+    ],
+    [
+      30,
+      6,
+      143,
+      110
+    ],
+    [
+      21,
+      9,
+      161,
+      104
+    ],
+    [
+      15,
+      14,
+      174,
+      95
+    ],
+    [
+      12,
+      20,
+      181,
+      83
+    ],
+    [
+      12,
+      26,
+      181,
+      70
+    ],
+    [
+      15,
+      29,
+      174,
+      60
+    ],
+    [
+      12,
+      27,
+      181,
+      69
+    ],
+    [
+      12,
+      22,
+      181,
+      82
+    ],
+    [
+      15,
+      18,
+      174,
+      93
+    ],
+    [
+      21,
+      16,
+      161,
+      100
+    ],
+    [
+      30,
+      13,
+      143,
+      106
+    ],
+    [
+      39,
+      12,
+      121,
+      109
+    ],
+    [
+      51,
+      12,
+      97,
+      109
+    ],
+    [
+      60,
+      13,
+      76,
+      107
+    ],
+    [
+      48,
+      12,
+      97,
+      109
+    ],
+    [
+      36,
+      12,
+      121,
+      109
+    ],
+    [
+      23,
+      13,
+      143,
+      106
+    ],
+    [
+      14,
+      16,
+      161,
+      100
+    ],
+    [
+      7,
+      18,
+      174,
+      93
+    ],
+    [
+      3,
+      22,
+      181,
+      82
+    ],
+    [
+      3,
+      27,
+      181,
+      69
+    ],
+    [
+      7,
+      29,
+      174,
+      60
+    ],
+    [
+      3,
+      26,
+      181,
+      70
+    ],
+    [
+      3,
+      20,
+      181,
+      83
+    ],
+    [
+      7,
+      14,
+      174,
+      95
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        14,
+        9,
+        175,
+        113
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        16.254364013671875,
+        11.476211547851562,
+        172.37454223632812,
+        110.80160522460938
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.785,
+      "png_sha256": "0ff99d62394bb3a0470e1fb4923a8623d8444a3c4a86290b2b84090bbce5ea89",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        6,
+        166,
+        116
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        26.183761596679688,
+        8.32843017578125,
+        163.684814453125,
+        113.90184783935547
+      ],
+      "physical_bounds_world": [
+        -38.250003814697266,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.784,
+      "png_sha256": "efe1bbcbc59ecffb84cef489de7a30988553d16bad3e61cebf8c0c7495e43631",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        4,
+        157,
+        118
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        38.873008728027344,
+        6.780570983886719,
+        154.2730712890625,
+        115.46868896484375
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.723,
+      "png_sha256": "732ae2bbf41f8e05990a8a44694283ffe7ac01fb1a5d375a61938b5733fb3808",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        4,
+        145,
+        117
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        51.13352584838867,
+        6.891105651855469,
+        142.70822143554688,
+        115.4419174194336
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.721,
+      "png_sha256": "229ef779edb6caad7efd4866cc19728d71758e121f9d962ef363cbe0d52de149",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        6,
+        136,
+        113
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        62.88095474243164,
+        8.654800415039062,
+        133.11904907226562,
+        113.82255554199219
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.723,
+      "png_sha256": "2be8823969f64dfd4dc17e64c7ecd4c8a2ae7e12969f9e2ce777a33a6a80b6be",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        4,
+        148,
+        117
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        53.29178237915039,
+        6.891105651855469,
+        144.86647033691406,
+        115.4419174194336
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.726,
+      "png_sha256": "4dfccd9474641e3e567299af834f5ac848000ac64084c6d95c9a8c748ccb39a8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        39,
+        4,
+        160,
+        118
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        41.726924896240234,
+        6.780570983886719,
+        157.12698364257812,
+        115.46868896484375
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.725,
+      "png_sha256": "0622f2ba375806f152298e43bd5f333ae0e0ba1f1c983a63c61ef26b833a9be4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        30,
+        6,
+        173,
+        116
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        32.31517791748047,
+        8.32843017578125,
+        169.8162384033203,
+        113.90184783935547
+      ],
+      "physical_bounds_world": [
+        -38.250003814697266,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.75,
+      "png_sha256": "69d663d96adb342df4f1fa577f90caeb83ee10abbd7daa5477470bc5dccbac1b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        9,
+        182,
+        113
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        23.625465393066406,
+        11.476211547851562,
+        179.74563598632812,
+        110.80160522460938
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.742,
+      "png_sha256": "a658ffe51cc96b01c6678db5aaf6cef797560fdf86594439704bcd87bc9bcf0f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        14,
+        189,
+        109
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        17.487030029296875,
+        16.0999755859375,
+        186.53359985351562,
+        106.28707885742188
+      ],
+      "physical_bounds_world": [
+        -38.250003814697266,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.738,
+      "png_sha256": "03b90a6062db472db328d3e1a21ed6c7749ceb6c8bc00bc76f2005da6628651b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        20,
+        193,
+        103
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        14.442657470703125,
+        22.024993896484375,
+        189.96466064453125,
+        100.53179168701172
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.735,
+      "png_sha256": "051e6cdc552defc155fcfc11cec7ab90450ac015f6cb690bbd20f9c1c6417472",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        26,
+        193,
+        96
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        14.609352111816406,
+        28.518085479736328,
+        189.95004272460938,
+        93.75689697265625
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.724,
+      "png_sha256": "9789d753670024ab9124d996299822249f423440b011ab2031ef09a25a29e0e8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        29,
+        189,
+        89
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        17.98070526123047,
+        32.18217086791992,
+        186.71360778808594,
+        86.24303436279297
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.685,
+      "png_sha256": "d3c443a589ef2a694cb83807f99b90772aea8104b5c2c58b15a4b79a101360eb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        27,
+        193,
+        96
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        14.609352111816406,
+        29.57931900024414,
+        189.95004272460938,
+        94.12210083007812
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.708,
+      "png_sha256": "0126259208f74b1ff3d578ad4de958bb9ad6558c6a1473b4fdbb94e18d056e7b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        22,
+        193,
+        104
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        14.442657470703125,
+        24.70013427734375,
+        189.96466064453125,
+        101.64622497558594
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.713,
+      "png_sha256": "5f017e0825df3ad243bb633ab4a1642a2669c2547dd850d2276b611d8882dd3d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        18,
+        189,
+        111
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        17.487030029296875,
+        20.810909271240234,
+        186.53359985351562,
+        108.06132507324219
+      ],
+      "physical_bounds_world": [
+        -38.250003814697266,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.735,
+      "png_sha256": "f48097ace365cebb4fdc146f3734029293280c14849acbe075ea91b33db2aa84",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        16,
+        182,
+        116
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        23.625465393066406,
+        18.06110382080078,
+        179.74563598632812,
+        113.1368179321289
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.728,
+      "png_sha256": "3ee7e0e2d7a5fd8fa34a1e87ccd23278f4118fb018fb096f9d86c89591d24c16",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        30,
+        13,
+        173,
+        119
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        32.31517791748047,
+        15.732463836669922,
+        169.8162384033203,
+        116.70243835449219
+      ],
+      "physical_bounds_world": [
+        -38.250003814697266,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.748,
+      "png_sha256": "2c4642141e16b27db7b2dc8ce957ed2150f7a2301378de6d388878426fd412ab",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        39,
+        12,
+        160,
+        121
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        41.726924896240234,
+        14.198291778564453,
+        157.12698364257812,
+        118.59107971191406
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.718,
+      "png_sha256": "3c719468f538ff15c2ef29f4dc1a579848205afe403e6201b7c06b5178febf5c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        12,
+        148,
+        121
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        53.29178237915039,
+        14.258888244628906,
+        144.86647033691406,
+        118.74745178222656
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.708,
+      "png_sha256": "e249644f13547d293a9536c044efda07f3dda2ea2afd58b498f211e8b754daa9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        13,
+        136,
+        120
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        62.88095474243164,
+        15.887256622314453,
+        133.11904907226562,
+        117.20930480957031
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.673,
+      "png_sha256": "9efb16ea59146bedda755e02799fac9205d84cbd7e3e408bee6904f58c18b09a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        12,
+        145,
+        121
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        51.13352584838867,
+        14.258888244628906,
+        142.70822143554688,
+        118.74745178222656
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.7,
+      "png_sha256": "70658f758136cc182218cebc340c62cfb97fc5ae37ab790a1e00ea9504024ff3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        12,
+        157,
+        121
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        38.873008728027344,
+        14.198291778564453,
+        154.2730712890625,
+        118.59107971191406
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.718,
+      "png_sha256": "36009b376e4abd9d0ac713a74cb9dcc6e144fa4192dd272ee7c784725efae4ba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        13,
+        166,
+        119
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        26.183761596679688,
+        15.732463836669922,
+        163.684814453125,
+        116.70243835449219
+      ],
+      "physical_bounds_world": [
+        -38.250003814697266,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.734,
+      "png_sha256": "e6ba14aa5af4865ca6f82668331dac209f730627af21e0756aa68f8a80021831",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        14,
+        16,
+        175,
+        116
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        16.254364013671875,
+        18.06110382080078,
+        172.37454223632812,
+        113.1368179321289
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.762,
+      "png_sha256": "75c3c892f75d84cac602bdd9d9515bc1ba1b46bf121a2deec19d848c83288553",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        18,
+        181,
+        111
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        9.466400146484375,
+        20.810909271240234,
+        178.51296997070312,
+        108.06132507324219
+      ],
+      "physical_bounds_world": [
+        -38.250003814697266,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.777,
+      "png_sha256": "61457c312e0f55415e4e8379d6e1c0d1a11a5efbb06bc8cda902164ca3b8db38",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        3,
+        22,
+        184,
+        104
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        6.035331726074219,
+        24.70013427734375,
+        181.55734252929688,
+        101.64622497558594
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.718,
+      "png_sha256": "1bec44e4564a9a665efd30892bf1627380e4ef6121ddd20e8bd5043fa9f3e1f4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        3,
+        27,
+        184,
+        96
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        6.049964904785156,
+        29.57931900024414,
+        181.39065551757812,
+        94.12210083007812
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.707,
+      "png_sha256": "96eb599df97d614e9c5e118626a196595ff74023865d401099e00f55f247afbd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        29,
+        181,
+        89
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        9.286392211914062,
+        32.18217086791992,
+        178.019287109375,
+        86.24303436279297
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.686,
+      "png_sha256": "a8de505b5d4456cd44971c8545773eec673d816f8d73aecc6bb93f55fc6321f0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        3,
+        26,
+        184,
+        96
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        6.049964904785156,
+        28.518085479736328,
+        181.39065551757812,
+        93.75689697265625
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142022132873535,
+        0.0,
+        34.50133514404297,
+        15.142022132873535,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.704,
+      "png_sha256": "05a8ba55b45aa06a22d1ee91c147be72cf1c4ea9fc637ed9ee215495056eea0d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        3,
+        20,
+        184,
+        103
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        6.035331726074219,
+        22.024993896484375,
+        181.55734252929688,
+        100.53179168701172
+      ],
+      "physical_bounds_world": [
+        -38.25,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.745,
+      "png_sha256": "b2cca70ea81af7ae1a831a2e01b4696262ebeeb2a1c82b811def1035a5144ebd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        14,
+        181,
+        109
+      ],
+      "vertices": 19308,
+      "triangles": 36648,
+      "parts": 276,
+      "projected_vertex_bounds_px": [
+        9.466400146484375,
+        16.0999755859375,
+        178.51296997070312,
+        106.28707885742188
+      ],
+      "physical_bounds_world": [
+        -38.250003814697266,
+        -15.142021179199219,
+        0.0,
+        34.50133514404297,
+        15.142021179199219,
+        16.450000762939453
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.88,
+            0.2
+          ],
+          [
+            -1.6,
+            0.24
+          ],
+          [
+            -0.75,
+            0.25
+          ],
+          [
+            0.25,
+            0.25
+          ],
+          [
+            0.95,
+            0.22
+          ],
+          [
+            1.52,
+            0.16
+          ],
+          [
+            1.88,
+            0.08
+          ],
+          [
+            2.02,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 3.272614537912481,
+        "installed_guns_in_hull": false,
+        "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "silt_lugger",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        200,
+        128
+      ],
+      "pivot_px": [
+        98,
+        74
+      ],
+      "canvas_config": {
+        "cell_px": [
+          200,
+          128
+        ],
+        "pivot_px": [
+          98,
+          74
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          400,
+          256
+        ],
+        "portrait_pivot_px": [
+          196,
+          148
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.741,
+      "png_sha256": "a6cd90c33a78756817514c096afc2bc4e59b7b6628cb78ab0401fea3ef162305",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.0,
+            0
+          ],
+          "world_xy": [
+            17.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -25.143,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.88,
+        0.2
+      ],
+      [
+        -1.6,
+        0.24
+      ],
+      [
+        -0.75,
+        0.25
+      ],
+      [
+        0.25,
+        0.25
+      ],
+      [
+        0.95,
+        0.22
+      ],
+      [
+        1.52,
+        0.16
+      ],
+      [
+        1.88,
+        0.08
+      ],
+      [
+        2.02,
+        0.0
+      ]
+    ],
+    "physical_size": 17,
+    "minimum_high_structure_clearance_world": 3.272614537912481,
+    "installed_guns_in_hull": false,
+    "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+  },
+  "status": "baked; visual and native integration review still required"
+}

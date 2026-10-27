@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "cobalt_frigate",
+  "headings": 32,
+  "atlas_sha256": "f2f2153a2b8e2f8fe2bd7271af5cb28459d2a4744b0e523cd2940896705e5a0e",
+  "canvas_config": {
+    "cell_px": [
+      280,
+      168
+    ],
+    "pivot_px": [
+      137,
+      91
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      560,
+      336
+    ],
+    "portrait_pivot_px": [
+      274,
+      182
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2240,
+    672
+  ],
+  "gpu_rgba8_bytes": 6021120,
+  "frame_bounds_px": [
+    [
+      30,
+      15,
+      196,
+      121
+    ],
+    [
+      47,
+      10,
+      162,
+      134
+    ],
+    [
+      66,
+      5,
+      129,
+      144
+    ],
+    [
+      83,
+      3,
+      100,
+      149
+    ],
+    [
+      96,
+      4,
+      82,
+      149
+    ],
+    [
+      91,
+      3,
+      100,
+      149
+    ],
+    [
+      79,
+      5,
+      129,
+      143
+    ],
+    [
+      65,
+      10,
+      162,
+      134
+    ],
+    [
+      48,
+      15,
+      196,
+      121
+    ],
+    [
+      33,
+      16,
+      224,
+      111
+    ],
+    [
+      22,
+      17,
+      244,
+      100
+    ],
+    [
+      15,
+      19,
+      255,
+      87
+    ],
+    [
+      13,
+      22,
+      256,
+      80
+    ],
+    [
+      15,
+      24,
+      255,
+      89
+    ],
+    [
+      22,
+      27,
+      244,
+      98
+    ],
+    [
+      33,
+      29,
+      224,
+      106
+    ],
+    [
+      48,
+      25,
+      196,
+      119
+    ],
+    [
+      65,
+      19,
+      162,
+      132
+    ],
+    [
+      79,
+      14,
+      129,
+      141
+    ],
+    [
+      91,
+      10,
+      100,
+      147
+    ],
+    [
+      96,
+      9,
+      82,
+      148
+    ],
+    [
+      83,
+      10,
+      100,
+      147
+    ],
+    [
+      66,
+      14,
+      129,
+      141
+    ],
+    [
+      47,
+      19,
+      162,
+      132
+    ],
+    [
+      30,
+      25,
+      196,
+      119
+    ],
+    [
+      17,
+      29,
+      224,
+      106
+    ],
+    [
+      8,
+      27,
+      244,
+      98
+    ],
+    [
+      4,
+      24,
+      255,
+      89
+    ],
+    [
+      5,
+      22,
+      256,
+      80
+    ],
+    [
+      4,
+      19,
+      255,
+      87
+    ],
+    [
+      8,
+      17,
+      244,
+      100
+    ],
+    [
+      17,
+      16,
+      224,
+      111
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        30,
+        15,
+        226,
+        136
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        32.753562927246094,
+        17.654403686523438,
+        223.61410522460938,
+        133.90240478515625
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.353,
+      "png_sha256": "51cb1fd34b4136086cf97b5a14ec0528a3c2a9e149608fd496350454d41517fc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        47,
+        10,
+        209,
+        144
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        49.94300079345703,
+        12.140983581542969,
+        206.024169921875,
+        141.44789123535156
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.386,
+      "png_sha256": "713db0ecb34fbbb1d4f048aa6dc5f834cbae68c24a55f4d52a75e8fec14aba7e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        66,
+        5,
+        195,
+        149
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        69.17926788330078,
+        7.95745849609375,
+        192.31639099121094,
+        147.0546875
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.32830810546875,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.348,
+      "png_sha256": "b2223105b1143299f40d6ac621995e50bb40ddc74dd503786c238d48071d1b59",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        83,
+        3,
+        183,
+        152
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        85.36665344238281,
+        6.0404052734375,
+        180.22793579101562,
+        150.50733947753906
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.335,
+      "png_sha256": "cdec31b4d4fcfbd201cee2f229c4bfbbfdde12abbee18fbc00395a63352281a0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        96,
+        4,
+        178,
+        153
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        99.12958526611328,
+        6.4625091552734375,
+        174.87042236328125,
+        151.67315673828125
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.305,
+      "png_sha256": "28e3086e6e240b9e0a038f2e442395a57409795068d341b5147c591ac50bd0ee",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        91,
+        3,
+        191,
+        152
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        93.77205657958984,
+        6.0404052734375,
+        188.6333465576172,
+        150.50733947753906
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.345,
+      "png_sha256": "7c0202c2ac0bedae9b7fc214c425713dedb4e4f5dd671e81659b8488ecd3f0e2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        79,
+        5,
+        208,
+        148
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        81.68360900878906,
+        7.95745849609375,
+        204.82073974609375,
+        147.0546875
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.32830810546875,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.345,
+      "png_sha256": "e317588e9bf5742f9d057353c6e1299ed04f73595c211bddccd6fbfb18319e79",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        65,
+        10,
+        227,
+        144
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        67.97583770751953,
+        12.140983581542969,
+        224.0570068359375,
+        141.44789123535156
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.347,
+      "png_sha256": "13de73e492abf913bd36ae6f5a2f3896e9a4f75507993ae90d3e7d75c8258378",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        15,
+        244,
+        136
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        50.385887145996094,
+        17.654403686523438,
+        241.24642944335938,
+        133.90240478515625
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.38,
+      "png_sha256": "1bb03ff70ca7bc6b8853bea01d6ea42084c4e8e85ef4931fc9f77d279ecabd98",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        33,
+        16,
+        257,
+        127
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        35.34699249267578,
+        18.637237548828125,
+        254.42974853515625,
+        124.70819854736328
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.356,
+      "png_sha256": "113457cf1645e3a3935d6a31fbe4b97fbce529d385db8b10761c57e8187547a7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        17,
+        266,
+        117
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        24.214553833007812,
+        20.089019775390625,
+        263.14569091796875,
+        114.21861267089844
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.32830810546875,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.337,
+      "png_sha256": "36704f36d56e2a5a0bb73be7e1bd7ebed59f87a816cb23066fa3725192ad70c4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        19,
+        270,
+        106
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        17.416397094726562,
+        21.953964233398438,
+        267.19915771484375,
+        102.83674621582031
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.345,
+      "png_sha256": "78bd91a16b6939b3e4a81a3f2e12721c3ec255f14eff7a3b9901d820b804d705",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        22,
+        269,
+        102
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        15.213775634765625,
+        24.160385131835938,
+        266.69580078125,
+        98.89876556396484
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.323,
+      "png_sha256": "ea096048991e251277ea63ae1f88875d4690e5d08d3472c6f25599e10dcb2ba4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        24,
+        270,
+        113
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        17.416397094726562,
+        26.623504638671875,
+        267.19915771484375,
+        110.4742660522461
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.364,
+      "png_sha256": "840d52bc1d8253e6f7620237602db21f6a96a29f7d7a3a09dd6a18f634dbdbf7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        27,
+        266,
+        125
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        24.214553833007812,
+        29.248661041259766,
+        263.14569091796875,
+        122.08058166503906
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.32830810546875,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.333,
+      "png_sha256": "01a30242eb97fdacec09cff66dc8dec1ad19ddd8dfcf0ff7b17c61ff51881ea9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        33,
+        29,
+        257,
+        135
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        35.34699249267578,
+        31.934967041015625,
+        254.42974853515625,
+        132.44651794433594
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.399,
+      "png_sha256": "35689f90a88bf333afbfb56bdba9b7bc1aa743a7f7a3ee9dc97eba3e790ecbb7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        48,
+        25,
+        244,
+        144
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        50.385887145996094,
+        27.948699951171875,
+        241.24642944335938,
+        141.17372131347656
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.35,
+      "png_sha256": "11e428715dfeea7ea46a1118420b0834d45a2ed179ed74f5e68f1e2d0125c827",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        65,
+        19,
+        227,
+        151
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        67.97583770751953,
+        22.1656494140625,
+        224.0570068359375,
+        147.9268035888672
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.367,
+      "png_sha256": "b6b3a0b97787c43ce4a539d2c05bfb4c2f8d4052a9e01fd7a8a0e5294242bcf9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        79,
+        14,
+        208,
+        155
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        81.68360900878906,
+        16.589248657226562,
+        204.82073974609375,
+        152.52078247070312
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.32830810546875,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.351,
+      "png_sha256": "fb384210215ffca28ba0cac709789bb6cf64b9cf30bf28b816299b897db4ffd9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        91,
+        10,
+        191,
+        157
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        93.77205657958984,
+        13.175910949707031,
+        188.6333465576172,
+        154.7266845703125
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.35,
+      "png_sha256": "9e653379979a6f1cd09c5d4ed9ff586ee0b07449f365ab8f6df1b0230301c3b1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        96,
+        9,
+        178,
+        157
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        99.12958526611328,
+        12.0323486328125,
+        174.87042236328125,
+        154.53805541992188
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.324,
+      "png_sha256": "71d26bf3b3ae8dfd5acfbe98356e14be6edec834f82c698d9670aa42dbc01ca3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        83,
+        10,
+        183,
+        157
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        85.36665344238281,
+        13.175910949707031,
+        180.22793579101562,
+        154.7266845703125
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.39,
+      "png_sha256": "5fc332f33a94ab111e13323ec27b22239a3c1931f7f2ff8dec6d2143a4df7712",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        66,
+        14,
+        195,
+        155
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        69.17926788330078,
+        16.589248657226562,
+        192.31639099121094,
+        152.52078247070312
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.32830810546875,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.337,
+      "png_sha256": "c19ff3f791fde63d10a42e6ca2270e202c76919b59b2acbf44814a8a6e52dd1e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        47,
+        19,
+        209,
+        151
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        49.94300079345703,
+        22.1656494140625,
+        206.024169921875,
+        147.9268035888672
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.35,
+      "png_sha256": "368eb205e35bd51d10489aa85410bcde0ded4011f1c1e7a5b9fb2034382ec598",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        30,
+        25,
+        226,
+        144
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        32.753562927246094,
+        27.948699951171875,
+        223.61410522460938,
+        141.17372131347656
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.34,
+      "png_sha256": "4546a77a5cf3cc6ea25d4f72422d19c60e01ed46ad5aa6c96ae08fc01a00092e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        29,
+        241,
+        135
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        19.57025909423828,
+        31.934967041015625,
+        238.65301513671875,
+        132.44651794433594
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.344,
+      "png_sha256": "04c37b05918bfc36d7cd8165bd9556c11f07802600cbdb216e7a963579973946",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        27,
+        252,
+        125
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        10.85430908203125,
+        29.248661041259766,
+        249.7854461669922,
+        122.08058166503906
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.32830810546875,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.341,
+      "png_sha256": "b07d46919e577bbcb1c86f9f1a02db3d1b01732a6f2c71602cacfc889288e17a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        24,
+        259,
+        113
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        6.8008575439453125,
+        26.623504638671875,
+        256.5836181640625,
+        110.4742660522461
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.34,
+      "png_sha256": "4313910bc6c55301dec7e4a333643e659b55f3c52e26fa5799a909317dae8201",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        22,
+        261,
+        102
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        7.3041839599609375,
+        24.160385131835938,
+        258.7862243652344,
+        98.89876556396484
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.309,
+      "png_sha256": "e10e8a52da5b471898afe4e5856204fd7b3c121c8eb6a5f840e4e2b40f0a2007",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        19,
+        259,
+        106
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        6.8008575439453125,
+        21.953964233398438,
+        256.5836181640625,
+        102.83674621582031
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.322,
+      "png_sha256": "bf9fb32c41dd5da0254160e0964429c94f96fe1e295b71929f1206c8c97cc02c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        17,
+        252,
+        117
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        10.85430908203125,
+        20.089019775390625,
+        249.7854461669922,
+        114.21861267089844
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.32830810546875,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.393,
+      "png_sha256": "46bdd0e72ceb12d736b7e9eee0d47831dcdda2c88ad7c666ee9697f27448683a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        16,
+        241,
+        127
+      ],
+      "vertices": 15710,
+      "triangles": 29504,
+      "parts": 218,
+      "projected_vertex_bounds_px": [
+        19.57025909423828,
+        18.637237548828125,
+        238.65301513671875,
+        124.70819854736328
+      ],
+      "physical_bounds_world": [
+        -55.91999816894531,
+        -16.328310012817383,
+        0.0,
+        52.509674072265625,
+        16.328310012817383,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.48
+          ],
+          [
+            -1.68,
+            0.6
+          ],
+          [
+            -0.88,
+            0.66
+          ],
+          [
+            0.12,
+            0.66
+          ],
+          [
+            0.82,
+            0.61
+          ],
+          [
+            1.48,
+            0.45
+          ],
+          [
+            1.94,
+            0.18
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 5.021369753115286,
+        "installed_guns_in_hull": false,
+        "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "cobalt_frigate",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        280,
+        168
+      ],
+      "pivot_px": [
+        137,
+        91
+      ],
+      "canvas_config": {
+        "cell_px": [
+          280,
+          168
+        ],
+        "pivot_px": [
+          137,
+          91
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          560,
+          336
+        ],
+        "portrait_pivot_px": [
+          274,
+          182
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.335,
+      "png_sha256": "11aaff5f84b03b293032eb6512a938b940d18193cfdaa08d831794b29c42ebfb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.054,
+            0
+          ],
+          "world_xy": [
+            25.296,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.516,
+            0
+          ],
+          "world_xy": [
+            -36.384,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.514,
+            -0.44
+          ],
+          "world_xy": [
+            12.336,
+            -10.56
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.96,
+        0.48
+      ],
+      [
+        -1.68,
+        0.6
+      ],
+      [
+        -0.88,
+        0.66
+      ],
+      [
+        0.12,
+        0.66
+      ],
+      [
+        0.82,
+        0.61
+      ],
+      [
+        1.48,
+        0.45
+      ],
+      [
+        1.94,
+        0.18
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "physical_size": 24,
+    "minimum_high_structure_clearance_world": 5.021369753115286,
+    "installed_guns_in_hull": false,
+    "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
+  },
+  "status": "baked; visual and native integration review still required"
+}

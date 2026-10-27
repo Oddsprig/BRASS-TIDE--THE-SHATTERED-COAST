@@ -1,0 +1,5517 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "iron_bastion",
+  "headings": 32,
+  "atlas_sha256": "ca5a57c17a67dce13c3d5508b23884cd7ef658970c2e6d33042a3ad2b31232ea",
+  "canvas_config": {
+    "cell_px": [
+      368,
+      208
+    ],
+    "pivot_px": [
+      181,
+      112
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      736,
+      416
+    ],
+    "portrait_pivot_px": [
+      362,
+      224
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2944,
+    832
+  ],
+  "gpu_rgba8_bytes": 9797632,
+  "frame_bounds_px": [
+    [
+      38,
+      18,
+      260,
+      153
+    ],
+    [
+      61,
+      12,
+      217,
+      169
+    ],
+    [
+      84,
+      6,
+      177,
+      182
+    ],
+    [
+      106,
+      4,
+      141,
+      189
+    ],
+    [
+      124,
+      4,
+      114,
+      190
+    ],
+    [
+      115,
+      4,
+      141,
+      189
+    ],
+    [
+      101,
+      6,
+      177,
+      182
+    ],
+    [
+      84,
+      12,
+      217,
+      169
+    ],
+    [
+      64,
+      18,
+      260,
+      153
+    ],
+    [
+      44,
+      23,
+      297,
+      136
+    ],
+    [
+      29,
+      26,
+      324,
+      120
+    ],
+    [
+      20,
+      28,
+      338,
+      112
+    ],
+    [
+      17,
+      31,
+      340,
+      105
+    ],
+    [
+      20,
+      34,
+      338,
+      109
+    ],
+    [
+      29,
+      38,
+      324,
+      119
+    ],
+    [
+      44,
+      40,
+      297,
+      131
+    ],
+    [
+      64,
+      32,
+      260,
+      151
+    ],
+    [
+      84,
+      24,
+      217,
+      168
+    ],
+    [
+      101,
+      17,
+      177,
+      181
+    ],
+    [
+      115,
+      12,
+      141,
+      188
+    ],
+    [
+      124,
+      10,
+      114,
+      190
+    ],
+    [
+      106,
+      12,
+      141,
+      188
+    ],
+    [
+      84,
+      17,
+      177,
+      181
+    ],
+    [
+      61,
+      24,
+      217,
+      168
+    ],
+    [
+      38,
+      32,
+      260,
+      151
+    ],
+    [
+      21,
+      40,
+      297,
+      131
+    ],
+    [
+      9,
+      38,
+      324,
+      119
+    ],
+    [
+      4,
+      34,
+      338,
+      109
+    ],
+    [
+      5,
+      31,
+      340,
+      105
+    ],
+    [
+      4,
+      28,
+      338,
+      112
+    ],
+    [
+      9,
+      26,
+      324,
+      120
+    ],
+    [
+      21,
+      23,
+      297,
+      136
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        38,
+        18,
+        298,
+        171
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        40.85395812988281,
+        20.90532684326172,
+        295.72125244140625,
+        168.9407958984375
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.498,
+      "png_sha256": "b9f931dd5b515b0e06f721cebb25386695b219e073f699da0cc5e4e37a35aba5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        61,
+        12,
+        278,
+        181
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        63.663604736328125,
+        14.331512451171875,
+        275.52606201171875,
+        178.95529174804688
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.574,
+      "png_sha256": "7c602bfad899e8ea3e2d11500af5a2b307c150655f66786ec91ee89c317e0f05",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        6,
+        261,
+        188
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        86.83909606933594,
+        8.805755615234375,
+        257.7708740234375,
+        186.39674377441406
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.56,
+      "png_sha256": "f03b3c6771f6dc1fda21da4fdfe8ef827229feddfc290100a20688d622c4c3b0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        106,
+        4,
+        247,
+        193
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        108.47702026367188,
+        6.320884704589844,
+        244.0897216796875,
+        190.97915649414062
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.508,
+      "png_sha256": "a824b0dfd1440adb0cb886b1f253c53061ac45ffef3abf44ae34f6711bd896a3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        124,
+        4,
+        238,
+        194
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        126.96728515625,
+        6.971412658691406,
+        235.03271484375,
+        192.52645874023438
+      ],
+      "physical_bounds_world": [
+        -74.70999145507812,
+        -23.296890258789062,
+        0.0,
+        69.66145324707031,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.463,
+      "png_sha256": "7b8524097dacd38e586a092a1f465fbe9324b7cccf60743ebdcaa1b8fbf15a63",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        115,
+        4,
+        256,
+        193
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        117.9102783203125,
+        6.320884704589844,
+        253.52297973632812,
+        190.97915649414062
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.473,
+      "png_sha256": "e4c8b81e2376f42b532d67547d04741a193a6a1b8f660c9dd84b73cb10f7d3c0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        101,
+        6,
+        278,
+        188
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        104.22911834716797,
+        8.805755615234375,
+        275.160888671875,
+        186.39674377441406
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.529,
+      "png_sha256": "cfd58104ca9f81bdf8dfde6b61131fab64b03c15e4071f722239973b75eefc32",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        12,
+        301,
+        181
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        86.47394561767578,
+        14.331512451171875,
+        298.3363952636719,
+        178.95529174804688
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.581,
+      "png_sha256": "5e048e5800e3991b026801f6571f586f57cf9fa8d13c1d02591ae41ddf42f063",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        18,
+        324,
+        171
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        66.27876281738281,
+        20.90532684326172,
+        321.14605712890625,
+        168.9407958984375
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.516,
+      "png_sha256": "363b8fcaae2a1839869cc82dc4903bf05027a7d00b4d42c47e93b27bc6fbcf3b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        44,
+        23,
+        341,
+        159
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        46.287994384765625,
+        25.502052307128906,
+        338.5699462890625,
+        156.73809814453125
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.521,
+      "png_sha256": "7a537e6dbb68d45cb8a551aed6851d193fb85a971ad79dad8874b64ce2a3a389",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        26,
+        353,
+        146
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        31.474151611328125,
+        28.48723602294922,
+        349.98394775390625,
+        143.17098999023438
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.506,
+      "png_sha256": "ec3b61debaf76dc4008e24e2f538bd2f0002e01576d75942c6d3b915eb2d12d9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        28,
+        358,
+        140
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        22.406478881835938,
+        30.88172149658203,
+        355.1859130859375,
+        137.3782196044922
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.52,
+      "png_sha256": "1f00fe5aaef3d09c96cec91216a91c43bcebcd47e03e5eecd4ecf847e6c4fd1c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        31,
+        357,
+        136
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        19.433456420898438,
+        33.774192810058594,
+        354.2756652832031,
+        132.84852600097656
+      ],
+      "physical_bounds_world": [
+        -74.70999145507812,
+        -23.296890258789062,
+        0.0,
+        69.66145324707031,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.468,
+      "png_sha256": "222875bfab93c8ef0acf447ce3e0db14a783c7467b1797587555da07e5e7115a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        34,
+        358,
+        143
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        22.406478881835938,
+        37.05348205566406,
+        355.1859130859375,
+        140.7054443359375
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.483,
+      "png_sha256": "0062b2a9aea0dd98ea630683d75093bb5be4c992ad1e2388f25829ee2212c773",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        38,
+        353,
+        157
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        31.474151611328125,
+        40.59357452392578,
+        349.98394775390625,
+        154.6510467529297
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.515,
+      "png_sha256": "524153b8e766f6125be619e36205fc2575296805274b7ec9dd8ff5949206fde5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        44,
+        40,
+        341,
+        171
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        46.287994384765625,
+        42.525489807128906,
+        338.5699462890625,
+        168.38552856445312
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.521,
+      "png_sha256": "d0e2ef29b13b5e24737960479014b7cf38c44ebdb0311ecc92a773b11a21f2b3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        32,
+        324,
+        183
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        66.27876281738281,
+        34.81605529785156,
+        321.14605712890625,
+        179.92201232910156
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.513,
+      "png_sha256": "21f008fe7b07ee48512a0dc88f8b922fc868fc550094c201206d4add3e4494bd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        24,
+        301,
+        192
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        86.47394561767578,
+        26.639915466308594,
+        298.3363952636719,
+        188.84024047851562
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.536,
+      "png_sha256": "e4ab28ee8407bb1c072ec0b6b5f7817c5f2c0db945e97610adf5517fd7d04130",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        101,
+        17,
+        278,
+        198
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        104.22911834716797,
+        19.22553253173828,
+        275.160888671875,
+        194.77822875976562
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.576,
+      "png_sha256": "038902713e7e13938c68265723779775cf3a213596c0dffd13f36cf8fec6f46b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        115,
+        12,
+        256,
+        200
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        117.9102783203125,
+        14.679924011230469,
+        253.52297973632812,
+        197.59024047851562
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.493,
+      "png_sha256": "1fae7c325bdba5a2d6c7161976604e36cb2bdb8049f8ffde28960d889c575f05",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        124,
+        10,
+        238,
+        200
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        126.96728515625,
+        13.176826477050781,
+        235.03271484375,
+        197.16561889648438
+      ],
+      "physical_bounds_world": [
+        -74.70999145507812,
+        -23.296890258789062,
+        0.0,
+        69.66145324707031,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.474,
+      "png_sha256": "f5c612fe772e448ba27ed3cd96df5cda467abfe734710318031477231b2c0981",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        106,
+        12,
+        247,
+        200
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        108.47702026367188,
+        14.679924011230469,
+        244.0897216796875,
+        197.59024047851562
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.504,
+      "png_sha256": "82732d9ad0775c521edc53427673e825e9d18cee1f9d6eb8655b207c49432827",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        17,
+        261,
+        198
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        86.83909606933594,
+        19.22553253173828,
+        257.7708740234375,
+        194.77822875976562
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.522,
+      "png_sha256": "107dffdf9463c2a155f9803ce687271f2f37e7ab2be3f96a253e972933eebba9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        61,
+        24,
+        278,
+        192
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        63.663604736328125,
+        26.639915466308594,
+        275.52606201171875,
+        188.84024047851562
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.527,
+      "png_sha256": "c30c6edc2e7505360fd4b66527755a1017f86c97cddfb32d3d04c9cfa15201ea",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        32,
+        298,
+        183
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        40.85395812988281,
+        34.81605529785156,
+        295.72125244140625,
+        179.92201232910156
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.534,
+      "png_sha256": "978086ad10fd1e58d0f93e18a64780ca9f569d8a40ffcf0d064b50964e6f3756",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        40,
+        318,
+        171
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        23.430068969726562,
+        42.525489807128906,
+        315.7120056152344,
+        168.38552856445312
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.551,
+      "png_sha256": "a9a98282a5b7cfbd5095cf32c417e8cc8d44c82223e77ed04870c9698a92ab9e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        38,
+        333,
+        157
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        12.016067504882812,
+        40.59357452392578,
+        330.5258483886719,
+        154.6510467529297
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.564,
+      "png_sha256": "c3112d2f25395793fbd53afa2df7b79260d7116f543ab1fc4dfa2084b8dd007c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        34,
+        342,
+        143
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        6.8140869140625,
+        37.05348205566406,
+        339.593505859375,
+        140.7054443359375
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.6,
+      "png_sha256": "a9035f8e5711eb0c095cdef28abba2fca7e98685ee1477fe37e2e9467cfa94da",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        31,
+        345,
+        136
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        7.724334716796875,
+        33.774192810058594,
+        342.5665283203125,
+        132.84852600097656
+      ],
+      "physical_bounds_world": [
+        -74.70999145507812,
+        -23.296890258789062,
+        0.0,
+        69.66145324707031,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.463,
+      "png_sha256": "0a501426b460803044c6a60787c6e4766c702b9e3732172b9300d151a67cde9b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        28,
+        342,
+        140
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        6.8140869140625,
+        30.88172149658203,
+        339.593505859375,
+        137.3782196044922
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.522,
+      "png_sha256": "1a91914bd74fc635baaf280cc9d738b27e434e442739a65dc6ae683f4d3ebcc9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        26,
+        333,
+        146
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        12.016067504882812,
+        28.48723602294922,
+        330.5258483886719,
+        143.17098999023438
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.296890258789062,
+        0.0,
+        69.66146087646484,
+        23.296890258789062,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.497,
+      "png_sha256": "dbbf1a8c6b7fdd5244f6e044467041d3971834e3259f50596bf68edd2816aac8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        23,
+        318,
+        159
+      ],
+      "vertices": 17246,
+      "triangles": 32292,
+      "parts": 240,
+      "projected_vertex_bounds_px": [
+        23.430068969726562,
+        25.502052307128906,
+        315.7120056152344,
+        156.73809814453125
+      ],
+      "physical_bounds_world": [
+        -74.70999908447266,
+        -23.29688835144043,
+        0.0,
+        69.66146087646484,
+        23.29688835144043,
+        35.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.04,
+            0.54
+          ],
+          [
+            -1.76,
+            0.67
+          ],
+          [
+            -0.92,
+            0.73
+          ],
+          [
+            0.16,
+            0.73
+          ],
+          [
+            0.9,
+            0.67
+          ],
+          [
+            1.56,
+            0.5
+          ],
+          [
+            2.02,
+            0.21
+          ],
+          [
+            2.24,
+            0.0
+          ]
+        ],
+        "physical_size": 31,
+        "minimum_high_structure_clearance_world": 1.6702260256792405,
+        "installed_guns_in_hull": false,
+        "design": "Heavy flagship; double belt; high signal house and pump dome"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "iron_bastion",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        368,
+        208
+      ],
+      "pivot_px": [
+        181,
+        112
+      ],
+      "canvas_config": {
+        "cell_px": [
+          368,
+          208
+        ],
+        "pivot_px": [
+          181,
+          112
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          736,
+          416
+        ],
+        "portrait_pivot_px": [
+          362,
+          224
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.538,
+      "png_sha256": "679f407e90b54f490da3d7ea462d7639a186aa97d7c4293eb5d0c425e4ec3efc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.06,
+            0
+          ],
+          "world_xy": [
+            32.86,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 6.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.525,
+            0
+          ],
+          "world_xy": [
+            -47.275,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.58,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.51,
+            -0.444
+          ],
+          "world_xy": [
+            15.81,
+            -13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.51,
+            0.444
+          ],
+          "world_xy": [
+            15.81,
+            13.764
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 4.6499999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.04,
+        0.54
+      ],
+      [
+        -1.76,
+        0.67
+      ],
+      [
+        -0.92,
+        0.73
+      ],
+      [
+        0.16,
+        0.73
+      ],
+      [
+        0.9,
+        0.67
+      ],
+      [
+        1.56,
+        0.5
+      ],
+      [
+        2.02,
+        0.21
+      ],
+      [
+        2.24,
+        0.0
+      ]
+    ],
+    "physical_size": 31,
+    "minimum_high_structure_clearance_world": 1.6702260256792405,
+    "installed_guns_in_hull": false,
+    "design": "Heavy flagship; double belt; high signal house and pump dome"
+  },
+  "status": "baked; visual and native integration review still required"
+}

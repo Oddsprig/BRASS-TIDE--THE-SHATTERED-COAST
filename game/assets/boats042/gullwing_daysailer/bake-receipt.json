@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "gullwing_daysailer",
+  "headings": 32,
+  "atlas_sha256": "2a24c16b0e118cf2d75fd11be23fba50c1a97db14b8621eabade0f42107cf4c8",
+  "canvas_config": {
+    "cell_px": [
+      168,
+      112
+    ],
+    "pivot_px": [
+      81,
+      62
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      336,
+      224
+    ],
+    "portrait_pivot_px": [
+      162,
+      124
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1344,
+    448
+  ],
+  "gpu_rgba8_bytes": 2408448,
+  "frame_bounds_px": [
+    [
+      21,
+      13,
+      116,
+      78
+    ],
+    [
+      29,
+      9,
+      97,
+      86
+    ],
+    [
+      38,
+      6,
+      75,
+      92
+    ],
+    [
+      49,
+      4,
+      59,
+      95
+    ],
+    [
+      55,
+      4,
+      52,
+      95
+    ],
+    [
+      54,
+      4,
+      59,
+      95
+    ],
+    [
+      49,
+      6,
+      75,
+      92
+    ],
+    [
+      36,
+      9,
+      97,
+      86
+    ],
+    [
+      25,
+      13,
+      116,
+      78
+    ],
+    [
+      16,
+      15,
+      131,
+      70
+    ],
+    [
+      9,
+      18,
+      141,
+      61
+    ],
+    [
+      5,
+      22,
+      148,
+      50
+    ],
+    [
+      3,
+      26,
+      151,
+      40
+    ],
+    [
+      5,
+      24,
+      148,
+      47
+    ],
+    [
+      9,
+      21,
+      141,
+      56
+    ],
+    [
+      16,
+      17,
+      131,
+      66
+    ],
+    [
+      25,
+      13,
+      116,
+      75
+    ],
+    [
+      36,
+      10,
+      97,
+      82
+    ],
+    [
+      49,
+      7,
+      75,
+      88
+    ],
+    [
+      54,
+      4,
+      59,
+      93
+    ],
+    [
+      55,
+      4,
+      52,
+      93
+    ],
+    [
+      49,
+      4,
+      59,
+      93
+    ],
+    [
+      38,
+      7,
+      75,
+      88
+    ],
+    [
+      29,
+      10,
+      97,
+      82
+    ],
+    [
+      21,
+      13,
+      116,
+      75
+    ],
+    [
+      15,
+      17,
+      131,
+      66
+    ],
+    [
+      12,
+      21,
+      141,
+      56
+    ],
+    [
+      9,
+      24,
+      148,
+      47
+    ],
+    [
+      8,
+      26,
+      151,
+      40
+    ],
+    [
+      9,
+      22,
+      148,
+      50
+    ],
+    [
+      12,
+      18,
+      141,
+      61
+    ],
+    [
+      15,
+      15,
+      131,
+      70
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        21,
+        13,
+        137,
+        91
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        23.43256378173828,
+        15.207656860351562,
+        134.50770568847656,
+        88.40399932861328
+      ],
+      "physical_bounds_world": [
+        -30.239999771118164,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.799,
+      "png_sha256": "9d809788be40e99b345697b3db93e61bd9f9899c3ad5d3fca38b4eaf5cca94f6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        9,
+        126,
+        95
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        31.2882080078125,
+        12.038299560546875,
+        123.25369262695312,
+        93.04782104492188
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.813,
+      "png_sha256": "f8b14f03761fcbb95d5b11ca582289b57bad98bb1ad0e978b40f6c27210d7401",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        6,
+        113,
+        98
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        41.05424499511719,
+        8.957649230957031,
+        110.5660171508789,
+        96.49848937988281
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.821,
+      "png_sha256": "38cf5c55be84f4c5e9002da00c163fbf91bdc1526482b92ad5ddfa4099c28f75",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        4,
+        108,
+        99
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        51.36119079589844,
+        7.0930023193359375,
+        105.174072265625,
+        98.62339782714844
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.8,
+      "png_sha256": "23af518223fdbe618815a4861588316ef6cc854368248bc7b524b7e0ae3552d8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        4,
+        107,
+        99
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        57.663970947265625,
+        6.436561584472656,
+        104.33602905273438,
+        99.34089660644531
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.791,
+      "png_sha256": "1a6f875390fdf33f3240e55e9b6df7e4e6dcc780033b6b8fa8170e4c950cf9a7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        4,
+        113,
+        99
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        56.825927734375,
+        7.0930023193359375,
+        110.63880920410156,
+        98.62339782714844
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.796,
+      "png_sha256": "75bee20bf06ff1611b3657269d4b5ba07385c2940d0663b73cf3eabb772c9d84",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        6,
+        124,
+        98
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        51.433982849121094,
+        8.957649230957031,
+        120.94575500488281,
+        96.49848937988281
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.807,
+      "png_sha256": "2266365450c40afeac00c8aade8a02386e9333cf5db62fabf64d7abc62e0fe2f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        9,
+        133,
+        95
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        38.74630355834961,
+        12.038299560546875,
+        130.7117919921875,
+        93.04782104492188
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.807,
+      "png_sha256": "e0c421b4c6f0d47e152444d7f6188156283c516e86b1076f69ba8df96b94676f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        13,
+        141,
+        91
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        27.492298126220703,
+        15.207656860351562,
+        138.56744384765625,
+        88.40399932861328
+      ],
+      "physical_bounds_world": [
+        -30.239999771118164,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.824,
+      "png_sha256": "30ba2cb44836b27332cf44126943537ed19100239d15093b0bc7a6dded3e43a0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        15,
+        147,
+        85
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        18.29456329345703,
+        17.766632080078125,
+        144.21078491210938,
+        82.74549102783203
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.824,
+      "png_sha256": "02f65c1f444d9d535e4c5bc3b8b91be17ebbcd1184345b8b129fd378eef1f8c9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        18,
+        150,
+        79
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        11.506561279296875,
+        21.11984634399414,
+        147.42498779296875,
+        76.28974151611328
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.812,
+      "png_sha256": "f8135c150344f424e9b830ec12479eec9279589a28afc314c55ca5540fa8b343",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        22,
+        153,
+        72
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        7.38916015625,
+        25.13945770263672,
+        150.0670166015625,
+        69.28484344482422
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.802,
+      "png_sha256": "33b79b2f4a63b018ced0ce788651c576d15071df560f13d1262c17e6682a90ae",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        3,
+        26,
+        154,
+        66
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        6.100578308105469,
+        26.925495147705078,
+        151.1359405517578,
+        63.09304428100586
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.791,
+      "png_sha256": "ef5da786e08a7fdcfd4d4ea5a73c8fc1e82d0317d284b47c27bcac19b336fabb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        24,
+        153,
+        71
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        7.38916015625,
+        27.001140594482422,
+        150.0670166015625,
+        68.6786117553711
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.798,
+      "png_sha256": "2a5a3bea817f8868d7b48d31ef4b3dcbec75b1ff05509b148126745d64404a38",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        21,
+        150,
+        77
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        11.506561279296875,
+        24.23138427734375,
+        147.42498779296875,
+        74.71194458007812
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.802,
+      "png_sha256": "eab021d3f68b709fb7df4bb7d1e9dc867a485b457e0ff58cd95ce42a8fd7d82b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        17,
+        147,
+        83
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        18.29456329345703,
+        19.523162841796875,
+        144.21078491210938,
+        80.23164367675781
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.8,
+      "png_sha256": "a3019e359d24aea777ef1abbe97ab783248ae4bb2b4b07768c3f515589995704",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        13,
+        141,
+        88
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        27.492298126220703,
+        15.54269790649414,
+        138.56744384765625,
+        85.02558898925781
+      ],
+      "physical_bounds_world": [
+        -30.239999771118164,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.827,
+      "png_sha256": "0a14e7709f0ed56a646dee12025d0d7de505ee1bb65afce123197efb97c84726",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        10,
+        133,
+        92
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        38.74630355834961,
+        12.442955017089844,
+        130.7117919921875,
+        88.99810028076172
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.813,
+      "png_sha256": "11557500d6b79ac87ea17777bebaf13511331357ad7d6daadc70cc9cf167cfa2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        7,
+        124,
+        95
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        51.433982849121094,
+        9.199634552001953,
+        120.94575500488281,
+        91.99868774414062
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.806,
+      "png_sha256": "0c7897f11d34cd234f79d3da88b554da6cf85213d4653cae63da71dce67c6340",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        4,
+        113,
+        97
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        56.825927734375,
+        7.082286834716797,
+        110.63880920410156,
+        93.846435546875
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.805,
+      "png_sha256": "6c5b9d9f2a7a5c4c16ad8240b19e7a174aef8df2f2fcee242ddb31f370e7164e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        4,
+        107,
+        97
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        57.663970947265625,
+        6.372158050537109,
+        104.33602905273438,
+        94.47034454345703
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.785,
+      "png_sha256": "5fcbd192305c66edab4df7e99f2ef7078f9afdd5702e25105394386b90dc6017",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        4,
+        108,
+        97
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        51.36119079589844,
+        7.082286834716797,
+        105.174072265625,
+        93.846435546875
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.799,
+      "png_sha256": "2ee30ce17bc6c0ee4a412a4b53dc860ba803c9f81a71185278f4d20b5f90a551",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        7,
+        113,
+        95
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        41.05424499511719,
+        9.199634552001953,
+        110.5660171508789,
+        91.99868774414062
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.799,
+      "png_sha256": "56561e252d057a142ff93b07bd1f1cff1d228850f82893072eac10bbd38df97d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        29,
+        10,
+        126,
+        92
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        31.2882080078125,
+        12.442955017089844,
+        123.25369262695312,
+        88.99810028076172
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.814,
+      "png_sha256": "b24b84e612decc5e1d93e1ded50a9f4436810a4bb902888aa24ea1d9531c9564",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        21,
+        13,
+        137,
+        88
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        23.43256378173828,
+        15.54269790649414,
+        134.50770568847656,
+        85.02558898925781
+      ],
+      "physical_bounds_world": [
+        -30.239999771118164,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.823,
+      "png_sha256": "7c0ca3c6f4d28841ed123f8d7043092f46a9288033be72c77bd7c35a95bf1167",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        17,
+        146,
+        83
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        17.78921127319336,
+        19.523162841796875,
+        143.7054443359375,
+        80.23164367675781
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.816,
+      "png_sha256": "daa60bd50b3df6cbd9f3bd8bf45e3329c035ab784b486d443682f7a4c93b98aa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        21,
+        153,
+        77
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        14.575004577636719,
+        24.23138427734375,
+        150.49343872070312,
+        74.71194458007812
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.808,
+      "png_sha256": "ca0d91b9f6916a9a06d321ad9ecbb0d287cdbf047593a385c65c018fb59ca3e7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        24,
+        157,
+        71
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        11.9329833984375,
+        27.001140594482422,
+        154.61083984375,
+        68.6786117553711
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.82,
+      "png_sha256": "d0d3d71be9b2e4cf0c13239c66055e02bf0fc0b5b13278073d66019f7ee904c3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        26,
+        159,
+        66
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        10.864059448242188,
+        26.925495147705078,
+        155.8994140625,
+        63.09304428100586
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.794,
+      "png_sha256": "983c5fc63264e6c96498bfe0cffe76c6bdc6dd7e107b4808657951a7fc301277",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        22,
+        157,
+        72
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        11.9329833984375,
+        25.13945770263672,
+        154.61083984375,
+        69.28484344482422
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061624526977539,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.805,
+      "png_sha256": "d431e14a53c8331b23e90e4d43c975317792b338d86ef01500170cc0fe7bde86",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        18,
+        153,
+        79
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        14.575004577636719,
+        21.11984634399414,
+        150.49343872070312,
+        76.28974151611328
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061623573303223,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.809,
+      "png_sha256": "ec11f8959ed896a5314d447db7d77765b3cf5c803a7531c789984395dd64b818",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        15,
+        146,
+        85
+      ],
+      "vertices": 8798,
+      "triangles": 16408,
+      "parts": 138,
+      "projected_vertex_bounds_px": [
+        17.78921127319336,
+        17.766632080078125,
+        143.7054443359375,
+        82.74549102783203
+      ],
+      "physical_bounds_world": [
+        -30.23999786376953,
+        -10.061623573303223,
+        0.0,
+        32.2938346862793,
+        10.061624526977539,
+        16.229999542236328
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.0,
+            0.48
+          ],
+          [
+            -1.7,
+            0.57
+          ],
+          [
+            -0.85,
+            0.58
+          ],
+          [
+            0.15,
+            0.59
+          ],
+          [
+            0.86,
+            0.54
+          ],
+          [
+            1.5,
+            0.34
+          ],
+          [
+            2.1,
+            0.07
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 14,
+        "minimum_high_structure_clearance_world": 2.365999999999998,
+        "installed_guns_in_hull": false,
+        "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "gullwing_daysailer",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        168,
+        112
+      ],
+      "pivot_px": [
+        81,
+        62
+      ],
+      "canvas_config": {
+        "cell_px": [
+          168,
+          112
+        ],
+        "pivot_px": [
+          81,
+          62
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          336,
+          224
+        ],
+        "portrait_pivot_px": [
+          162,
+          124
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.814,
+      "png_sha256": "28093babc52575081ab95f489ac5198025cdcc752e6e57dce75f5e4b2c291c57",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.02,
+            0
+          ],
+          "world_xy": [
+            14.280000000000001,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.489,
+            0
+          ],
+          "world_xy": [
+            -20.846,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.0,
+        0.48
+      ],
+      [
+        -1.7,
+        0.57
+      ],
+      [
+        -0.85,
+        0.58
+      ],
+      [
+        0.15,
+        0.59
+      ],
+      [
+        0.86,
+        0.54
+      ],
+      [
+        1.5,
+        0.34
+      ],
+      [
+        2.1,
+        0.07
+      ],
+      [
+        2.3,
+        0.0
+      ]
+    ],
+    "physical_size": 14,
+    "minimum_high_structure_clearance_world": 2.365999999999998,
+    "installed_guns_in_hull": false,
+    "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+  },
+  "status": "baked; visual and native integration review still required"
+}

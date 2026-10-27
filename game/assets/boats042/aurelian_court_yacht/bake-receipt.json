@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "aurelian_court_yacht",
+  "headings": 32,
+  "atlas_sha256": "0edbe8718c0824bee50e207c4df46db651bb5f3383a14310d8a343a8ed94c7ca",
+  "canvas_config": {
+    "cell_px": [
+      328,
+      192
+    ],
+    "pivot_px": [
+      164,
+      105
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      656,
+      384
+    ],
+    "portrait_pivot_px": [
+      328,
+      210
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2624,
+    768
+  ],
+  "gpu_rgba8_bytes": 8060928,
+  "frame_bounds_px": [
+    [
+      36,
+      20,
+      237,
+      140
+    ],
+    [
+      57,
+      12,
+      194,
+      157
+    ],
+    [
+      79,
+      7,
+      149,
+      169
+    ],
+    [
+      100,
+      4,
+      116,
+      176
+    ],
+    [
+      118,
+      4,
+      92,
+      177
+    ],
+    [
+      112,
+      4,
+      116,
+      176
+    ],
+    [
+      100,
+      7,
+      149,
+      169
+    ],
+    [
+      77,
+      12,
+      194,
+      157
+    ],
+    [
+      55,
+      20,
+      237,
+      140
+    ],
+    [
+      36,
+      29,
+      272,
+      120
+    ],
+    [
+      23,
+      31,
+      296,
+      105
+    ],
+    [
+      14,
+      33,
+      310,
+      89
+    ],
+    [
+      11,
+      37,
+      313,
+      81
+    ],
+    [
+      14,
+      40,
+      310,
+      91
+    ],
+    [
+      23,
+      41,
+      296,
+      104
+    ],
+    [
+      36,
+      40,
+      272,
+      118
+    ],
+    [
+      55,
+      31,
+      237,
+      137
+    ],
+    [
+      77,
+      22,
+      194,
+      155
+    ],
+    [
+      100,
+      15,
+      149,
+      167
+    ],
+    [
+      112,
+      11,
+      116,
+      174
+    ],
+    [
+      118,
+      9,
+      92,
+      176
+    ],
+    [
+      100,
+      11,
+      116,
+      174
+    ],
+    [
+      79,
+      15,
+      149,
+      167
+    ],
+    [
+      57,
+      22,
+      194,
+      155
+    ],
+    [
+      36,
+      31,
+      237,
+      137
+    ],
+    [
+      20,
+      40,
+      272,
+      118
+    ],
+    [
+      9,
+      41,
+      296,
+      104
+    ],
+    [
+      4,
+      40,
+      310,
+      91
+    ],
+    [
+      4,
+      37,
+      313,
+      81
+    ],
+    [
+      4,
+      33,
+      310,
+      89
+    ],
+    [
+      9,
+      31,
+      296,
+      105
+    ],
+    [
+      20,
+      29,
+      272,
+      120
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        36,
+        20,
+        273,
+        160
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        39.023963928222656,
+        22.238609313964844,
+        270.5873718261719,
+        157.88999938964844
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.383,
+      "png_sha256": "5e242acab7a91491c9809937ab6f37e0300dab16a516ff2717c41f23aa44c0cc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        12,
+        251,
+        169
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        60.12474822998047,
+        14.398918151855469,
+        248.11386108398438,
+        167.19204711914062
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913055419922,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.42,
+      "png_sha256": "9ac8e01723bab0cc9ec3b64d0422550e53c091b2bee351b289398942057ed86c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        79,
+        7,
+        228,
+        176
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        81.3846664428711,
+        9.117164611816406,
+        225.7200927734375,
+        174.10411071777344
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913818359375,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.43,
+      "png_sha256": "142fed26c4422c7adab5339dc671efd985256679469f024bd4ee6c9de41cd64a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        100,
+        4,
+        216,
+        180
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        102.58940124511719,
+        6.595329284667969,
+        213.09521484375,
+        178.36053466796875
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.346,
+      "png_sha256": "91a527a78cfbdf5f16157cf6e4bad218433a32729cc4792e745bdafa85987fee",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        118,
+        4,
+        210,
+        181
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        121.13693237304688,
+        6.9293365478515625,
+        206.86306762695312,
+        179.79776000976562
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.325,
+      "png_sha256": "be0e32a85b73343787e6503a6a26b372881b005d38c551cd72c7029d51456df3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        112,
+        4,
+        228,
+        180
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        114.90478515625,
+        6.595329284667969,
+        225.4105987548828,
+        178.36053466796875
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.35,
+      "png_sha256": "1e4f0b0a03011d7e8cdf706950b7771e3230b125116a134dd22b1cd93900e3af",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        100,
+        7,
+        249,
+        176
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        102.27989959716797,
+        9.117164611816406,
+        246.61532592773438,
+        174.10411071777344
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913818359375,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.363,
+      "png_sha256": "fd8af1a4e3e387a8b6e6cc80beb58e690bfb0b9d4d098bfd84492063328651e0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        12,
+        271,
+        169
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        79.88613891601562,
+        14.398918151855469,
+        267.875244140625,
+        167.19204711914062
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913055419922,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.366,
+      "png_sha256": "ff7314825bbe40e8755c815102b476a92c8b95c7e445f3acae5d53a8c0d235a2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        20,
+        292,
+        160
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        57.412635803222656,
+        22.238609313964844,
+        288.9760437011719,
+        157.88999938964844
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.36,
+      "png_sha256": "f9b68a6d78134b450a0e4c990e7b8f47c7f2cfa9225ff2000fcca786f4dd4d24",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        29,
+        308,
+        149
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        38.866920471191406,
+        31.886642456054688,
+        305.2740478515625,
+        146.55540466308594
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913055419922,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.386,
+      "png_sha256": "f47d162a193e0d158e1edefd315f2712be04dbfe764855c1d6d645069d8e02c9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        31,
+        319,
+        136
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        25.129974365234375,
+        33.576080322265625,
+        316.18841552734375,
+        133.62387084960938
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913818359375,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.372,
+      "png_sha256": "8b907f95b0f39518fafc11ae65d91b1dd8dd21f8bea59e52bfd63df9141ed0cb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        14,
+        33,
+        324,
+        122
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        16.729736328125,
+        35.69837951660156,
+        321.4532470703125,
+        119.59231567382812
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.352,
+      "png_sha256": "a5d6c96272e5c6092caba3488e90aca28b087ac79ddbaaa2852acc6ed85fdb71",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        11,
+        37,
+        324,
+        118
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        13.989013671875,
+        38.17198181152344,
+        321.13323974609375,
+        115.29523468017578
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.308,
+      "png_sha256": "f7b3f8f9e8576a77118b2f8affdc3a8b6b5f45554279b414978cdb2c7acf5462",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        14,
+        40,
+        324,
+        131
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        16.729736328125,
+        40.90184020996094,
+        321.4532470703125,
+        128.06552124023438
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.346,
+      "png_sha256": "44190e23e3f7118491c95f85f064706442a520841574abf9c520f1010d8567d1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        41,
+        319,
+        145
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        25.129974365234375,
+        43.78303527832031,
+        316.18841552734375,
+        142.1729736328125
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913818359375,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.342,
+      "png_sha256": "c6cfdb6bf6dd2bc2f01ad85fca961ebc550de7d6574be514fee8dac4df5f6d4c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        40,
+        308,
+        158
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        38.866920471191406,
+        42.306419372558594,
+        305.2740478515625,
+        154.82168579101562
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913055419922,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.362,
+      "png_sha256": "e136af3ed09628573bafe929e7fe78ffcb597898069f4cfbbd32d83d4a1718d6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        31,
+        292,
+        168
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        57.412635803222656,
+        33.70311737060547,
+        288.9760437011719,
+        165.50985717773438
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.353,
+      "png_sha256": "8c7013081f75e7161dcd114682a8d72a8ea6874e4d884645ba2463826a8fa916",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        22,
+        271,
+        177
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        79.88613891601562,
+        24.423484802246094,
+        267.875244140625,
+        173.82675170898438
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913055419922,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.371,
+      "png_sha256": "602c3a572698dc12d057b832ed7d82dec49a09816102977ef344b811ce018be0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        100,
+        15,
+        249,
+        182
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        102.27989959716797,
+        17.543853759765625,
+        246.61532592773438,
+        179.51907348632812
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913818359375,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.363,
+      "png_sha256": "1f9f758703d8c26b500ebf4a63878af11d6856738185930bf3287d4e7d346729",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        112,
+        11,
+        228,
+        185
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        114.90478515625,
+        13.32861328125,
+        225.4105987548828,
+        182.33526611328125
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.347,
+      "png_sha256": "a42327144d1cb77388e6265882d82797fdd5da6816fdb52c883d4d101914aaae",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        118,
+        9,
+        210,
+        185
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        121.13693237304688,
+        11.906974792480469,
+        206.86306762695312,
+        182.23358154296875
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.329,
+      "png_sha256": "2ab61cba98e25e16486914d3b0c0b68968e5bec03899d0ee9873730cfc2e0ea6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        100,
+        11,
+        216,
+        185
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        102.58940124511719,
+        13.32861328125,
+        213.09521484375,
+        182.33526611328125
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.349,
+      "png_sha256": "749b2c368342c28cbe74f992e89fd7b3a617dcd1325d72c2ad443a9e3abaa8d7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        79,
+        15,
+        228,
+        182
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        81.3846664428711,
+        17.543853759765625,
+        225.7200927734375,
+        179.51907348632812
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913818359375,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.393,
+      "png_sha256": "05576b95feaf5c19575362aaf12e3aba01730945164804c6e2a5b1edb2b6c575",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        22,
+        251,
+        177
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        60.12474822998047,
+        24.423484802246094,
+        248.11386108398438,
+        173.82675170898438
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913055419922,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.373,
+      "png_sha256": "9dbe34136bc072e3ac6601e944f64e7d1752a24b837b8418338e5b1380ff2a6c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        31,
+        273,
+        168
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        39.023963928222656,
+        33.70311737060547,
+        270.5873718261719,
+        165.50985717773438
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.375,
+      "png_sha256": "6856723d48da17b20f64a901f788f432579edb645568a11a90faf38e01e14486",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        40,
+        292,
+        158
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        22.7259521484375,
+        42.306419372558594,
+        289.1330871582031,
+        154.82168579101562
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913055419922,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.372,
+      "png_sha256": "b1a25c15bd8fa94b486763fb3cd336ebf2adc3810a1aa7c4faa0d704b0d40e1f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        41,
+        305,
+        145
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        11.811599731445312,
+        43.78303527832031,
+        302.8700256347656,
+        142.1729736328125
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913818359375,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.369,
+      "png_sha256": "8fa338c2b9713312c039a924491d3fb8a82bc71501d15ca0c358de8699052ede",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        40,
+        314,
+        131
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        6.5467376708984375,
+        40.90184020996094,
+        311.270263671875,
+        128.06552124023438
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.357,
+      "png_sha256": "59fb1daf1096a3e4199d4db7e5721d4a6777f0dc6f77bbf23ef959cbd3f213de",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        37,
+        317,
+        118
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        6.8667449951171875,
+        38.17198181152344,
+        314.010986328125,
+        115.29523468017578
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.326,
+      "png_sha256": "bc5ff37a4fddec602aed7f35033f6b35a5786fdc177b2a98ec230007fc65fc5c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        33,
+        314,
+        122
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        6.5467376708984375,
+        35.69837951660156,
+        311.270263671875,
+        119.59231567382812
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913818359375,
+        18.480955123901367,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.358,
+      "png_sha256": "72a88afa845993a0254a905914e1095650856d5b59c3fece47eb3ec0d46ed8f5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        31,
+        305,
+        136
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        11.811599731445312,
+        33.576080322265625,
+        302.8700256347656,
+        133.62387084960938
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480953216552734,
+        0.0,
+        64.67913818359375,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.408,
+      "png_sha256": "0da3a9d809246ef036a861de006275d20c51b8c51f43e9c86ca6f721960ca5f6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        29,
+        292,
+        149
+      ],
+      "vertices": 15694,
+      "triangles": 29760,
+      "parts": 216,
+      "projected_vertex_bounds_px": [
+        22.7259521484375,
+        31.886642456054688,
+        289.1330871582031,
+        146.55540466308594
+      ],
+      "physical_bounds_world": [
+        -67.75,
+        -18.480955123901367,
+        0.0,
+        64.67913055419922,
+        18.480953216552734,
+        31.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.34,
+            0.56
+          ],
+          [
+            -1.94,
+            0.68
+          ],
+          [
+            -0.95,
+            0.72
+          ],
+          [
+            0.2,
+            0.72
+          ],
+          [
+            0.96,
+            0.66
+          ],
+          [
+            1.64,
+            0.45
+          ],
+          [
+            2.34,
+            0.16
+          ],
+          [
+            2.58,
+            0.0
+          ]
+        ],
+        "physical_size": 25,
+        "minimum_high_structure_clearance_world": 3.21619495126215,
+        "installed_guns_in_hull": false,
+        "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "aurelian_court_yacht",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        328,
+        192
+      ],
+      "pivot_px": [
+        164,
+        105
+      ],
+      "canvas_config": {
+        "cell_px": [
+          328,
+          192
+        ],
+        "pivot_px": [
+          164,
+          105
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          656,
+          384
+        ],
+        "portrait_pivot_px": [
+          328,
+          210
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.406,
+      "png_sha256": "8229e4629515df743a4be11e8becd03b4757be8af2b7eed2f16886af9f74ecf3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.056,
+            0
+          ],
+          "world_xy": [
+            26.400000000000002,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.529,
+            0
+          ],
+          "world_xy": [
+            -38.224999999999994,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 4.0,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.506,
+            -0.444
+          ],
+          "world_xy": [
+            12.65,
+            -11.1
+          ],
+          "elevation": 13.0,
+          "size": 1,
+          "radius": 3.5000000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.34,
+        0.56
+      ],
+      [
+        -1.94,
+        0.68
+      ],
+      [
+        -0.95,
+        0.72
+      ],
+      [
+        0.2,
+        0.72
+      ],
+      [
+        0.96,
+        0.66
+      ],
+      [
+        1.64,
+        0.45
+      ],
+      [
+        2.34,
+        0.16
+      ],
+      [
+        2.58,
+        0.0
+      ]
+    ],
+    "physical_size": 25,
+    "minimum_high_structure_clearance_world": 3.21619495126215,
+    "installed_guns_in_hull": false,
+    "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
+  },
+  "status": "baked; visual and native integration review still required"
+}

@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "manta_strike",
+  "headings": 32,
+  "atlas_sha256": "471055afb85bdeac1d51850674b298c6e6ab626ac5656d27ff496f4e87458409",
+  "canvas_config": {
+    "cell_px": [
+      272,
+      160
+    ],
+    "pivot_px": [
+      134,
+      89
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      544,
+      320
+    ],
+    "portrait_pivot_px": [
+      268,
+      178
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2176,
+    640
+  ],
+  "gpu_rgba8_bytes": 5570560,
+  "frame_bounds_px": [
+    [
+      30,
+      16,
+      197,
+      120
+    ],
+    [
+      46,
+      10,
+      162,
+      134
+    ],
+    [
+      65,
+      6,
+      126,
+      143
+    ],
+    [
+      84,
+      4,
+      100,
+      148
+    ],
+    [
+      86,
+      5,
+      96,
+      148
+    ],
+    [
+      84,
+      4,
+      100,
+      148
+    ],
+    [
+      77,
+      6,
+      126,
+      143
+    ],
+    [
+      60,
+      10,
+      162,
+      134
+    ],
+    [
+      41,
+      16,
+      197,
+      120
+    ],
+    [
+      25,
+      24,
+      225,
+      103
+    ],
+    [
+      14,
+      29,
+      244,
+      87
+    ],
+    [
+      6,
+      32,
+      255,
+      73
+    ],
+    [
+      4,
+      36,
+      256,
+      68
+    ],
+    [
+      6,
+      38,
+      255,
+      68
+    ],
+    [
+      14,
+      37,
+      244,
+      80
+    ],
+    [
+      25,
+      30,
+      225,
+      97
+    ],
+    [
+      41,
+      23,
+      197,
+      112
+    ],
+    [
+      60,
+      15,
+      162,
+      126
+    ],
+    [
+      77,
+      9,
+      126,
+      136
+    ],
+    [
+      84,
+      6,
+      100,
+      142
+    ],
+    [
+      86,
+      5,
+      96,
+      144
+    ],
+    [
+      84,
+      6,
+      100,
+      142
+    ],
+    [
+      65,
+      9,
+      126,
+      136
+    ],
+    [
+      46,
+      15,
+      162,
+      126
+    ],
+    [
+      30,
+      23,
+      197,
+      112
+    ],
+    [
+      18,
+      30,
+      225,
+      97
+    ],
+    [
+      10,
+      37,
+      244,
+      80
+    ],
+    [
+      7,
+      38,
+      255,
+      68
+    ],
+    [
+      8,
+      36,
+      256,
+      68
+    ],
+    [
+      7,
+      32,
+      255,
+      73
+    ],
+    [
+      10,
+      29,
+      244,
+      87
+    ],
+    [
+      18,
+      24,
+      225,
+      103
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        30,
+        16,
+        227,
+        136
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        32.681427001953125,
+        18.289031982421875,
+        224.51409912109375,
+        133.87039184570312
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.061,
+      "png_sha256": "70165ea2b08a5402f363435cfe3ec701bf1cd6191581b6dca4656d36737ba140",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        10,
+        208,
+        144
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        48.61009216308594,
+        12.207763671875,
+        205.3314208984375,
+        141.7620086669922
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.11,
+      "png_sha256": "26269a441d07d125ea68b6ca75eb472c98ec15882b5aeba995393c02990f4501",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        65,
+        6,
+        191,
+        149
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        67.82024383544922,
+        8.299423217773438,
+        188.32717895507812,
+        147.62600708007812
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.61891746520996,
+        0.0,
+        54.8555908203125,
+        19.61891746520996,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.077,
+      "png_sha256": "a6232199415a86b3b0ea7ba4638a13132629cee8c1ccdcc61b69a5a7862baf88",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        4,
+        184,
+        152
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        86.22775268554688,
+        6.6975555419921875,
+        181.08035278320312,
+        151.23703002929688
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.072,
+      "png_sha256": "52d1b52d7b0d6c613e97d1869d9fb02e18bdaa8c27917df1aef0596120cdc3a0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        86,
+        5,
+        182,
+        153
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        88.49763488769531,
+        7.4471588134765625,
+        179.5023651123047,
+        152.45632934570312
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.063,
+      "png_sha256": "e00f667a482f97cd5371630b8774f2cf09ff22d6ba1e5d5421d48d8723307fc0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        4,
+        184,
+        152
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        86.9196548461914,
+        6.6975555419921875,
+        181.77224731445312,
+        151.23703002929688
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.05,
+      "png_sha256": "b97e392fe2a2c635e49d975ad438a5ff9241fa85c011b2e1563ee1c04985d6ff",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        6,
+        203,
+        149
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        79.67282104492188,
+        8.299423217773438,
+        200.17974853515625,
+        147.62600708007812
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.61891746520996,
+        0.0,
+        54.8555908203125,
+        19.61891746520996,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.073,
+      "png_sha256": "290fdc1de3351fa330fd9e12ea3497d5ebceafb7f40a213311553103ebc336ca",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        10,
+        222,
+        144
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        62.66857147216797,
+        12.207763671875,
+        219.38990783691406,
+        141.7620086669922
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.096,
+      "png_sha256": "77fc87f9243ac9848ffddb577167035d3911df89cd015557e9b7c67c9e14bd69",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        16,
+        238,
+        136
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        43.48590087890625,
+        18.289031982421875,
+        235.31857299804688,
+        133.87039184570312
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.08,
+      "png_sha256": "bff51682939a751415f00272644187640581b7347728b7943a274f10fc00cec5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        24,
+        250,
+        127
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        27.781646728515625,
+        26.259876251220703,
+        247.494140625,
+        124.25444793701172
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.071,
+      "png_sha256": "d7230fff4f5a62406f7c8587c0d841606c044d292493e4e58af92d0b51b262f7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        14,
+        29,
+        258,
+        116
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        16.15929412841797,
+        31.85894012451172,
+        255.30819702148438,
+        113.28368377685547
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.61891746520996,
+        0.0,
+        54.8555908203125,
+        19.61891746520996,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.072,
+      "png_sha256": "3d07d691bd01161398552af0d54aa1377408a6f3a187ad2a620baa66d5a1b300",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        6,
+        32,
+        261,
+        105
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        9.065498352050781,
+        35.11443328857422,
+        258.507568359375,
+        101.96337890625
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.094,
+      "png_sha256": "56786b29c5f293a9a9a7fd9828a208156825d761b93d763821f7a3a25604bf9b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        36,
+        260,
+        104
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        6.772865295410156,
+        38.509483337402344,
+        257.0162048339844,
+        101.17620849609375
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.036,
+      "png_sha256": "daa3c807ac498f99f421e6f50deb568bfaf53aa1aef85d2e54a4c57a733e4f69",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        6,
+        38,
+        261,
+        106
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        9.065498352050781,
+        40.218353271484375,
+        258.507568359375,
+        103.80059051513672
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.057,
+      "png_sha256": "318acf8de8d23248667379d19972db94c9819fb487618e3a572e420c561f3c27",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        14,
+        37,
+        258,
+        117
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        16.15929412841797,
+        39.55177307128906,
+        255.30819702148438,
+        114.66999053955078
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.61891746520996,
+        0.0,
+        54.8555908203125,
+        19.61891746520996,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.061,
+      "png_sha256": "ff13114e8e06d1a354f603f35ba687a6e75ddf8721d4b958b31671c2bc7eb40e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        30,
+        250,
+        127
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        27.781646728515625,
+        32.31646728515625,
+        247.494140625,
+        124.32738494873047
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.075,
+      "png_sha256": "c068195a06c1642b8fadf7464bf407ebcffa08eb91e1a472adfa3bf296a0ee5d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        23,
+        238,
+        135
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        43.48590087890625,
+        25.735198974609375,
+        235.31857299804688,
+        132.40640258789062
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.07,
+      "png_sha256": "bab3083d881d6732eb07ec038fe9c8232968aee1877f57d9cee96dca0474eb81",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        15,
+        222,
+        141
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        62.66857147216797,
+        17.873062133789062,
+        219.38990783691406,
+        138.68663024902344
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.087,
+      "png_sha256": "80f269388cfa4e9179bbeb0831e45cd12e35fb3a001b9090a1fb2697221c8b49",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        9,
+        203,
+        145
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        79.67282104492188,
+        12.04779052734375,
+        200.17974853515625,
+        142.8498992919922
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.61891746520996,
+        0.0,
+        54.8555908203125,
+        19.61891746520996,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.144,
+      "png_sha256": "b145634dbc99c273419e8207f101a6caa07f5babf8ba0e2bb876734350431773",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        6,
+        184,
+        148
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        86.9196548461914,
+        8.458099365234375,
+        181.77224731445312,
+        144.958740234375
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.065,
+      "png_sha256": "29f745bf699afe1b543d606c2925c101253a205e9229aaa9e3268a062072be3b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        86,
+        5,
+        182,
+        149
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        88.49763488769531,
+        7.250419616699219,
+        179.5023651123047,
+        146.05502319335938
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.053,
+      "png_sha256": "532b65041fa4a72cfff732987638ae9714debfe70d321d0be218f766945429c7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        84,
+        6,
+        184,
+        148
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        86.22775268554688,
+        8.458099365234375,
+        181.08035278320312,
+        144.958740234375
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.051,
+      "png_sha256": "8f74273e8e2dd42ecd0cb55da06a530dfbb1e74a0756becb8e2f2e2c351bb47f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        65,
+        9,
+        191,
+        145
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        67.82024383544922,
+        12.04779052734375,
+        188.32717895507812,
+        142.8498992919922
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.61891746520996,
+        0.0,
+        54.8555908203125,
+        19.61891746520996,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.08,
+      "png_sha256": "f993adb4f84519b8b06f1ab0ad9b05827932dca58f58e7bba4cc29f4f6ddd4fc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        15,
+        208,
+        141
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        48.61009216308594,
+        17.873062133789062,
+        205.3314208984375,
+        138.68663024902344
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.059,
+      "png_sha256": "4a65c0ee70dea1a82cfbb2982748be4a352577f575c875185735ece047f72b08",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        30,
+        23,
+        227,
+        135
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        32.681427001953125,
+        25.735198974609375,
+        224.51409912109375,
+        132.40640258789062
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.081,
+      "png_sha256": "a1bae44dab95e17864db1f6fcf5e602286f9c2d97d02352feb0a2eba72727757",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        30,
+        243,
+        127
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        20.50585174560547,
+        32.31646728515625,
+        240.21835327148438,
+        124.32738494873047
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.058,
+      "png_sha256": "1dbd08ae1431632ed28bc0e00971d42dfb608399f531d8229cfaa60120c23649",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        37,
+        254,
+        117
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        12.691802978515625,
+        39.55177307128906,
+        251.8406982421875,
+        114.66999053955078
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.61891746520996,
+        0.0,
+        54.8555908203125,
+        19.61891746520996,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.081,
+      "png_sha256": "d85c563cc8cb8ff9aaaba6b48559eaba020359a7308af8b4b83c6695c79ca156",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        38,
+        262,
+        106
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        9.492431640625,
+        40.218353271484375,
+        258.93450927734375,
+        103.80059051513672
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.05,
+      "png_sha256": "1f2316d6f28dcdc274d91f51c769ef8f8574c50a3bde253c0042c573f7e7d2b8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        36,
+        264,
+        104
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        10.983787536621094,
+        38.509483337402344,
+        261.2271423339844,
+        101.17620849609375
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.057,
+      "png_sha256": "66ce50ae3cf514bb3045dac90432c95d6188eb7afc86d4d3c0f1ab237058ba3b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        32,
+        262,
+        105
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        9.492431640625,
+        35.11443328857422,
+        258.93450927734375,
+        101.96337890625
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.058,
+      "png_sha256": "2c1b9b5db1a8072e35704f1b56d696ee37102cb5e9c1b3ddf030248dd932305d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        29,
+        254,
+        116
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        12.691802978515625,
+        31.85894012451172,
+        251.8406982421875,
+        113.28368377685547
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.61891746520996,
+        0.0,
+        54.8555908203125,
+        19.61891746520996,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.074,
+      "png_sha256": "c56e89de08aed018852c648436699fb744c58a646447fcd803031d791fc9f2ca",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        24,
+        243,
+        127
+      ],
+      "vertices": 11910,
+      "triangles": 22244,
+      "parts": 179,
+      "projected_vertex_bounds_px": [
+        20.50585174560547,
+        26.259876251220703,
+        240.21835327148438,
+        124.25444793701172
+      ],
+      "physical_bounds_world": [
+        -53.040000915527344,
+        -19.618919372558594,
+        0.0,
+        54.8555908203125,
+        19.618919372558594,
+        25.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.05,
+            0.4
+          ],
+          [
+            -1.72,
+            0.52
+          ],
+          [
+            -0.92,
+            0.58
+          ],
+          [
+            0.05,
+            0.68
+          ],
+          [
+            0.64,
+            0.7
+          ],
+          [
+            1.36,
+            0.48
+          ],
+          [
+            1.98,
+            0.15
+          ],
+          [
+            2.28,
+            0.0
+          ]
+        ],
+        "physical_size": 24,
+        "minimum_high_structure_clearance_world": 1.0946593151990767,
+        "installed_guns_in_hull": false,
+        "design": "Swept wide foil; tall narrow command fin and paired jets"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "manta_strike",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        272,
+        160
+      ],
+      "pivot_px": [
+        134,
+        89
+      ],
+      "canvas_config": {
+        "cell_px": [
+          272,
+          160
+        ],
+        "pivot_px": [
+          134,
+          89
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          544,
+          320
+        ],
+        "portrait_pivot_px": [
+          268,
+          178
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.069,
+      "png_sha256": "485767b3cf7adaaa4b54ac53a5c87b518e826b3397fec4e57f9ec9fc57cea0f5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.07,
+            0
+          ],
+          "world_xy": [
+            25.68,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.32,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.514,
+            0
+          ],
+          "world_xy": [
+            -36.336,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.84,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5072,
+            -0.438
+          ],
+          "world_xy": [
+            12.172799999999999,
+            -10.512
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.3600000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.05,
+        0.4
+      ],
+      [
+        -1.72,
+        0.52
+      ],
+      [
+        -0.92,
+        0.58
+      ],
+      [
+        0.05,
+        0.68
+      ],
+      [
+        0.64,
+        0.7
+      ],
+      [
+        1.36,
+        0.48
+      ],
+      [
+        1.98,
+        0.15
+      ],
+      [
+        2.28,
+        0.0
+      ]
+    ],
+    "physical_size": 24,
+    "minimum_high_structure_clearance_world": 1.0946593151990767,
+    "installed_guns_in_hull": false,
+    "design": "Swept wide foil; tall narrow command fin and paired jets"
+  },
+  "status": "baked; visual and native integration review still required"
+}

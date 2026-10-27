@@ -1,0 +1,5517 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "furnace_turret",
+  "headings": 32,
+  "atlas_sha256": "71f4bf1571ea4d3ce34bd3a963bf384c285c8ea9452195f03c1cef92735ec63f",
+  "canvas_config": {
+    "cell_px": [
+      360,
+      208
+    ],
+    "pivot_px": [
+      177,
+      110
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      720,
+      416
+    ],
+    "portrait_pivot_px": [
+      354,
+      220
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2880,
+    832
+  ],
+  "gpu_rgba8_bytes": 9584640,
+  "frame_bounds_px": [
+    [
+      37,
+      20,
+      253,
+      146
+    ],
+    [
+      56,
+      11,
+      219,
+      164
+    ],
+    [
+      75,
+      6,
+      185,
+      175
+    ],
+    [
+      96,
+      4,
+      153,
+      182
+    ],
+    [
+      114,
+      4,
+      126,
+      183
+    ],
+    [
+      105,
+      4,
+      153,
+      182
+    ],
+    [
+      94,
+      6,
+      185,
+      175
+    ],
+    [
+      79,
+      11,
+      219,
+      164
+    ],
+    [
+      64,
+      20,
+      253,
+      146
+    ],
+    [
+      49,
+      30,
+      285,
+      124
+    ],
+    [
+      35,
+      36,
+      310,
+      110
+    ],
+    [
+      26,
+      42,
+      324,
+      99
+    ],
+    [
+      23,
+      49,
+      326,
+      88
+    ],
+    [
+      26,
+      53,
+      324,
+      91
+    ],
+    [
+      35,
+      46,
+      310,
+      108
+    ],
+    [
+      49,
+      38,
+      285,
+      130
+    ],
+    [
+      64,
+      31,
+      253,
+      148
+    ],
+    [
+      79,
+      26,
+      219,
+      162
+    ],
+    [
+      94,
+      20,
+      185,
+      174
+    ],
+    [
+      105,
+      15,
+      153,
+      181
+    ],
+    [
+      114,
+      14,
+      126,
+      182
+    ],
+    [
+      96,
+      15,
+      153,
+      181
+    ],
+    [
+      75,
+      20,
+      185,
+      174
+    ],
+    [
+      56,
+      26,
+      219,
+      162
+    ],
+    [
+      37,
+      31,
+      253,
+      148
+    ],
+    [
+      20,
+      38,
+      285,
+      130
+    ],
+    [
+      9,
+      46,
+      310,
+      108
+    ],
+    [
+      4,
+      53,
+      324,
+      91
+    ],
+    [
+      5,
+      49,
+      326,
+      88
+    ],
+    [
+      4,
+      42,
+      324,
+      99
+    ],
+    [
+      9,
+      36,
+      310,
+      110
+    ],
+    [
+      20,
+      30,
+      285,
+      124
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        37,
+        20,
+        290,
+        166
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        39.88795471191406,
+        22.0316162109375,
+        286.92431640625,
+        163.13600158691406
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.491,
+      "png_sha256": "ba33cbb9662bcffba8c84e63989f385469015a9b8b3befb7a29e43487dea94e7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        56,
+        11,
+        275,
+        175
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        58.495384216308594,
+        13.916038513183594,
+        272.3690185546875,
+        172.4813232421875
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.541,
+      "png_sha256": "56b69bac0c699afb0db21bbcfca16ccf5cafce7ea8ef18b8f2243d4b093a7d8b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        75,
+        6,
+        260,
+        181
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        78.02516174316406,
+        8.569099426269531,
+        257.4453430175781,
+        179.425537109375
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.182222366333008,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.497,
+      "png_sha256": "ede4d620c8c7f7fcd93cfbb483ec623a3d5ed670547fd354820fb78de6115a12",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        96,
+        4,
+        249,
+        186
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        98.53681182861328,
+        6.195289611816406,
+        245.81138610839844,
+        183.70175170898438
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.475,
+      "png_sha256": "89f9248a2795bd70fea290e219a7dbbbe9cc99095692b5342e3f5a56c4e554f7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        114,
+        4,
+        240,
+        187
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        116.27529907226562,
+        6.8848419189453125,
+        237.72470092773438,
+        185.14566040039062
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.436,
+      "png_sha256": "4827c6e802c87631e441c4a191cbf7bd8b995808601b8b05f671fa64282fc79f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        105,
+        4,
+        258,
+        186
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        108.18861389160156,
+        6.195289611816406,
+        255.46319580078125,
+        183.70175170898438
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.466,
+      "png_sha256": "c807ed4fddb08771fca345ccf9016d0748aa0620b27b7c21885f3cd9f2fc1b13",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        6,
+        279,
+        181
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        96.5546646118164,
+        8.569099426269531,
+        275.974853515625,
+        179.425537109375
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.182222366333008,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.482,
+      "png_sha256": "f12c5734ed3c28bc98dbc1b5f176e36b5ebe8b0a6974e49498e448b136fa60b7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        79,
+        11,
+        298,
+        175
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        81.63097381591797,
+        13.916038513183594,
+        295.5046081542969,
+        172.4813232421875
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.493,
+      "png_sha256": "308af8483a6e9650ea73ae815d741ebcc781663e6db6e3e321a40b48c527faa4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        20,
+        317,
+        166
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        67.07566833496094,
+        22.0316162109375,
+        314.112060546875,
+        163.13600158691406
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.502,
+      "png_sha256": "3c4c2b5413083edf3e0ba1dff60e8b11e8ab5f41bc38f43b3c21464d82eba617",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        30,
+        334,
+        154
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        51.22290802001953,
+        32.60099792480469,
+        331.04071044921875,
+        151.74868774414062
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.497,
+      "png_sha256": "7c93db7301123574f2eb4314da1200ffce9bf504b6e44210f4a90577ed38bb86",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        36,
+        345,
+        146
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        37.38227844238281,
+        38.59441375732422,
+        342.0951232910156,
+        143.6253204345703
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.182222366333008,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.496,
+      "png_sha256": "42600d9161e631e3d17b96229aedc62d4c995f0ae10c4fcc452bdd357ac59996",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        26,
+        42,
+        350,
+        141
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        28.907089233398438,
+        44.8756103515625,
+        347.0731506347656,
+        138.2444305419922
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.464,
+      "png_sha256": "414eaaa9acc704cb3cdcbc2dbab0e250df412bccd398df8762ed547406a692a1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        49,
+        349,
+        137
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        26.123031616210938,
+        51.64446258544922,
+        346.07769775390625,
+        134.19993591308594
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.424,
+      "png_sha256": "0b6ef5d0fb29460c718fb24ef89ece1bf3b2a3e62a62372091cd2d71dd8113e7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        26,
+        53,
+        350,
+        144
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        28.907089233398438,
+        55.67897033691406,
+        347.0731506347656,
+        141.70880126953125
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.47,
+      "png_sha256": "a907ab95e7ba53e3207164c1d894f4e6aa3b7432f18cc082924702abc40cf743",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        46,
+        345,
+        154
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        37.38227844238281,
+        48.357818603515625,
+        342.0951232910156,
+        151.81419372558594
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.182222366333008,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.542,
+      "png_sha256": "2beb80baa800d1558c5096c8bef590ba58a03da0467794e25f3bf947879c8e93",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        49,
+        38,
+        334,
+        168
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        51.22290802001953,
+        40.32683563232422,
+        331.04071044921875,
+        165.19386291503906
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.524,
+      "png_sha256": "a35b090399c7f297181a1ea27243dbdf421474e7db61a5ed5408b31a71c16cb9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        31,
+        317,
+        179
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        67.07566833496094,
+        33.70988464355469,
+        314.112060546875,
+        176.4338836669922
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.481,
+      "png_sha256": "cc93c53fde896eeac4770501027815677ebeb13e0d7b77f06cc3ee7f5d0d6715",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        79,
+        26,
+        298,
+        188
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        81.63097381591797,
+        29.11028289794922,
+        295.5046081542969,
+        185.09814453125
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.496,
+      "png_sha256": "ff8c82d6adc2fb1eb88459703a683f35ce36bccd75b6a5580e83900c0e838135",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        20,
+        279,
+        194
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        96.5546646118164,
+        22.185928344726562,
+        275.974853515625,
+        190.85693359375
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.182222366333008,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.493,
+      "png_sha256": "f47df3565e0c59c908161b75de94d1e98ab7a66ae1e480521f6d9802e506dcc9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        105,
+        15,
+        258,
+        196
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        108.18861389160156,
+        17.939697265625,
+        255.46319580078125,
+        193.55245971679688
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.483,
+      "png_sha256": "77818ac3e9b27b54e2700359bdb5bff6dc768d68a9bb4d8c07d06e1644223d14",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        114,
+        14,
+        240,
+        196
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        116.27529907226562,
+        16.534805297851562,
+        237.72470092773438,
+        193.08984375
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.434,
+      "png_sha256": "e41370bf70f71901e422436d24ec42cd3c466bd4bb53da26310edf7ac9fd1942",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        96,
+        15,
+        249,
+        196
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        98.53681182861328,
+        17.939697265625,
+        245.81138610839844,
+        193.55245971679688
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.467,
+      "png_sha256": "414801db79a9027aa09ed3ed316e1cf378c8a3af14b78ce592366336732aec4c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        75,
+        20,
+        260,
+        194
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        78.02516174316406,
+        22.185928344726562,
+        257.4453430175781,
+        190.85693359375
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.182222366333008,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.484,
+      "png_sha256": "aae736c5027e8cc4d7273f2618591b36502bf9463e08cf5cdf5227ac586802ff",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        56,
+        26,
+        275,
+        188
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        58.495384216308594,
+        29.11028289794922,
+        272.3690185546875,
+        185.09814453125
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.5,
+      "png_sha256": "28e53e646a4677b9aeb578dd12c22c6f26dfd7e878da53a1fd93128ed455bf69",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        37,
+        31,
+        290,
+        179
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        39.88795471191406,
+        33.70988464355469,
+        286.92431640625,
+        176.4338836669922
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.497,
+      "png_sha256": "9c3a3a2c14a6ae75694457827038050a3f21f2716962c2d14338fabcd00c9c09",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        38,
+        305,
+        168
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        22.959274291992188,
+        40.32683563232422,
+        302.777099609375,
+        165.19386291503906
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.503,
+      "png_sha256": "1a419086b6fdf628556790b5419c173bd1da5a043097da981dbad77233ed6fbc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        46,
+        319,
+        154
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        11.904876708984375,
+        48.357818603515625,
+        316.61773681640625,
+        151.81419372558594
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.182222366333008,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.481,
+      "png_sha256": "51b75364e8347b86037a00cddfe0f1a9a8841a8b40f58a79d692cbcba48fe8e2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        53,
+        328,
+        144
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        6.926849365234375,
+        55.67897033691406,
+        325.0928955078125,
+        141.70880126953125
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.478,
+      "png_sha256": "466c86865c8fcf496ac009e843ca87e2196dae13eca087194d6f94807f202617",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        49,
+        331,
+        137
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        7.9222869873046875,
+        51.64446258544922,
+        327.876953125,
+        134.19993591308594
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.445,
+      "png_sha256": "0407035c0ccb6f74801313b5c688f415b4c9437cd1ab94501f4f93e33469d94a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        42,
+        328,
+        141
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        6.926849365234375,
+        44.8756103515625,
+        325.0928955078125,
+        138.2444305419922
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.476,
+      "png_sha256": "77fcbabef9ad578b3c1dd8c20aa217d12f106c8403a15d54a94edc2a811aa4b0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        36,
+        319,
+        146
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        11.904876708984375,
+        38.59441375732422,
+        316.61773681640625,
+        143.6253204345703
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.182222366333008,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.5,
+      "png_sha256": "33d94d188a26659a8b4dd3b857cfdc80cc548cec0fcd9cf5921d761e00106ab6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        30,
+        305,
+        154
+      ],
+      "vertices": 16926,
+      "triangles": 31588,
+      "parts": 235,
+      "projected_vertex_bounds_px": [
+        22.959274291992188,
+        32.60099792480469,
+        302.777099609375,
+        151.74868774414062
+      ],
+      "physical_bounds_world": [
+        -72.9000015258789,
+        -26.18222427368164,
+        0.0,
+        65.05252075195312,
+        26.18222427368164,
+        25.5
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.66
+          ],
+          [
+            -1.76,
+            0.79
+          ],
+          [
+            -0.95,
+            0.85
+          ],
+          [
+            0.2,
+            0.85
+          ],
+          [
+            0.92,
+            0.78
+          ],
+          [
+            1.54,
+            0.6
+          ],
+          [
+            1.94,
+            0.28
+          ],
+          [
+            2.16,
+            0.0
+          ]
+        ],
+        "physical_size": 30,
+        "minimum_high_structure_clearance_world": 4.1085877064132745,
+        "installed_guns_in_hull": false,
+        "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "furnace_turret",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        360,
+        208
+      ],
+      "pivot_px": [
+        177,
+        110
+      ],
+      "canvas_config": {
+        "cell_px": [
+          360,
+          208
+        ],
+        "pivot_px": [
+          177,
+          110
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          720,
+          416
+        ],
+        "portrait_pivot_px": [
+          354,
+          220
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.484,
+      "png_sha256": "7f6b91f8b6dcf66a5df6cf349bad3902553c248cd814ca8c278bbb511c108af3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.008,
+            0
+          ],
+          "world_xy": [
+            30.240000000000002,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 3,
+          "radius": 6.0,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.51,
+            0
+          ],
+          "world_xy": [
+            -45.3,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4804,
+            -0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            -13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.4804,
+            0.445
+          ],
+          "world_xy": [
+            14.411999999999999,
+            13.35
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 4.5,
+          "angle": 1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.06,
+        0.66
+      ],
+      [
+        -1.76,
+        0.79
+      ],
+      [
+        -0.95,
+        0.85
+      ],
+      [
+        0.2,
+        0.85
+      ],
+      [
+        0.92,
+        0.78
+      ],
+      [
+        1.54,
+        0.6
+      ],
+      [
+        1.94,
+        0.28
+      ],
+      [
+        2.16,
+        0.0
+      ]
+    ],
+    "physical_size": 30,
+    "minimum_high_structure_clearance_world": 4.1085877064132745,
+    "installed_guns_in_hull": false,
+    "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+  },
+  "status": "baked; visual and native integration review still required"
+}

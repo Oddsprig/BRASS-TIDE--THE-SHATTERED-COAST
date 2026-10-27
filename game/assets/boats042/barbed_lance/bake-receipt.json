@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "barbed_lance",
+  "headings": 32,
+  "atlas_sha256": "ed64d07a148f3c6cbc5ee4c2baf27f2431c404f9f637498cf4fe8c2d02a1825d",
+  "canvas_config": {
+    "cell_px": [
+      224,
+      144
+    ],
+    "pivot_px": [
+      111,
+      79
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      448,
+      288
+    ],
+    "portrait_pivot_px": [
+      222,
+      158
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1792,
+    576
+  ],
+  "gpu_rgba8_bytes": 4128768,
+  "frame_bounds_px": [
+    [
+      24,
+      13,
+      162,
+      101
+    ],
+    [
+      34,
+      8,
+      143,
+      112
+    ],
+    [
+      46,
+      5,
+      122,
+      119
+    ],
+    [
+      58,
+      4,
+      100,
+      122
+    ],
+    [
+      70,
+      4,
+      82,
+      123
+    ],
+    [
+      64,
+      4,
+      100,
+      122
+    ],
+    [
+      54,
+      5,
+      122,
+      119
+    ],
+    [
+      45,
+      8,
+      143,
+      112
+    ],
+    [
+      36,
+      13,
+      162,
+      101
+    ],
+    [
+      28,
+      20,
+      180,
+      87
+    ],
+    [
+      22,
+      25,
+      193,
+      74
+    ],
+    [
+      17,
+      30,
+      201,
+      64
+    ],
+    [
+      15,
+      36,
+      202,
+      57
+    ],
+    [
+      17,
+      32,
+      201,
+      65
+    ],
+    [
+      22,
+      27,
+      193,
+      80
+    ],
+    [
+      28,
+      22,
+      180,
+      93
+    ],
+    [
+      36,
+      18,
+      162,
+      104
+    ],
+    [
+      45,
+      16,
+      143,
+      111
+    ],
+    [
+      54,
+      15,
+      122,
+      116
+    ],
+    [
+      64,
+      12,
+      100,
+      120
+    ],
+    [
+      70,
+      12,
+      82,
+      120
+    ],
+    [
+      58,
+      12,
+      100,
+      120
+    ],
+    [
+      46,
+      15,
+      122,
+      116
+    ],
+    [
+      34,
+      16,
+      143,
+      111
+    ],
+    [
+      24,
+      18,
+      162,
+      104
+    ],
+    [
+      14,
+      22,
+      180,
+      93
+    ],
+    [
+      7,
+      27,
+      193,
+      80
+    ],
+    [
+      4,
+      32,
+      201,
+      65
+    ],
+    [
+      5,
+      36,
+      202,
+      57
+    ],
+    [
+      4,
+      30,
+      201,
+      64
+    ],
+    [
+      7,
+      25,
+      193,
+      74
+    ],
+    [
+      14,
+      20,
+      180,
+      87
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        24,
+        13,
+        186,
+        114
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        27.023956298828125,
+        15.877616882324219,
+        183.50775146484375,
+        111.80000305175781
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.132,
+      "png_sha256": "d73f880642a4a0bc67ea272b2d248b5a729d0875031697b9eda637f313cc9e44",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        8,
+        177,
+        120
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        36.92096710205078,
+        10.980018615722656,
+        174.73558044433594,
+        117.56871795654297
+      ],
+      "physical_bounds_world": [
+        -44.59999465942383,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.215,
+      "png_sha256": "32177a823be542b1fd1e04cfb049020d0cbedcc7745fcb2ddc6c173b15de8a8b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        5,
+        168,
+        124
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        48.358768463134766,
+        7.772590637207031,
+        164.8599853515625,
+        121.85527038574219
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.158,
+      "png_sha256": "98b1a6cdfd306c08999dc14c05669a1d537f92b949c38c3be9c5466ce15c2e56",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        58,
+        4,
+        158,
+        126
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        60.5499382019043,
+        6.377586364746094,
+        154.90103149414062,
+        124.49490356445312
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.147,
+      "png_sha256": "8159ec54fe2ae517b935752b14f944019cbee829fb729c78c3246fcab8825523",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        70,
+        4,
+        152,
+        127
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        72.98587036132812,
+        6.847633361816406,
+        149.01412963867188,
+        125.38619995117188
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.129,
+      "png_sha256": "9ad3308b2757856e7fcb2a953e509a79107f77535f5f87b40732c8ff7ea3393e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        4,
+        164,
+        126
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        67.09896850585938,
+        6.377586364746094,
+        161.45005798339844,
+        124.49490356445312
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.147,
+      "png_sha256": "09ced9d2bca473e09c33891b6534135be0da80fcda39d72fcb093d4e69975265",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        5,
+        176,
+        124
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        57.140010833740234,
+        7.772590637207031,
+        173.6412353515625,
+        121.85527038574219
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.16,
+      "png_sha256": "e962b885799ad9656b50a1e17d5142b251901b3859136f1076346dfff6ef0591",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        45,
+        8,
+        188,
+        120
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        47.26441955566406,
+        10.980018615722656,
+        185.07904052734375,
+        117.56871795654297
+      ],
+      "physical_bounds_world": [
+        -44.59999465942383,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.146,
+      "png_sha256": "dabf210cc0739f7b5ba0ead03d52c6d129b9cadbb14253295ba15c9c9a6c4730",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        13,
+        198,
+        114
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        38.49224853515625,
+        15.877616882324219,
+        194.97604370117188,
+        111.80000305175781
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.163,
+      "png_sha256": "6f7029178ccd90f9ac98a34cdab8d518488073c37ced29e6c6b6fead93018975",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        20,
+        208,
+        107
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        30.834716796875,
+        22.274192810058594,
+        205.3109588623047,
+        104.77079772949219
+      ],
+      "physical_bounds_world": [
+        -44.59999465942383,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.153,
+      "png_sha256": "40f64553d94935442e2e7c36f6b091ea1ec2cc0e7decbbd1fd98fcec17764140",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        25,
+        215,
+        99
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        24.513519287109375,
+        27.347126007080078,
+        212.06695556640625,
+        96.75123596191406
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.16,
+      "png_sha256": "6a66008acb0fdabb251320d1e99eb0381c752d71fe1ca14183c598538cdcd1b2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        30,
+        218,
+        94
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        19.269393920898438,
+        32.45720672607422,
+        215.06893920898438,
+        90.94577026367188
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.141,
+      "png_sha256": "100bb0a8c25c59f3005560bbabd547aa019392910fba46d838118bd69f665392",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        36,
+        217,
+        93
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        17.5504150390625,
+        38.2847785949707,
+        214.44122314453125,
+        90.594482421875
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.139,
+      "png_sha256": "e665536ff1463b708180cf66a9c4dc4609c9e5e2d533350e72263793323f36a7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        32,
+        218,
+        97
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        19.269393920898438,
+        35.12543487548828,
+        215.06893920898438,
+        94.81832885742188
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.135,
+      "png_sha256": "869b1c9626770248c074369797d3bfafbf7f40c48a8fda8a3d83b0a2eb5f6831",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        27,
+        215,
+        107
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        24.513519287109375,
+        29.87665557861328,
+        212.06695556640625,
+        104.04358673095703
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.152,
+      "png_sha256": "63125f74a35fdf11f36c8e7a743e96e273159cb02f7277a50d6b39452ea4fe81",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        22,
+        208,
+        115
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        30.834716796875,
+        24.89617156982422,
+        205.3109588623047,
+        112.26016235351562
+      ],
+      "physical_bounds_world": [
+        -44.59999465942383,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.177,
+      "png_sha256": "e2276fa8108f651e3090ce5c5ae1e195b5e58cfa706f392aa7c6021c25bb62d0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        18,
+        198,
+        122
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        38.49224853515625,
+        21.09026336669922,
+        194.97604370117188,
+        119.15229797363281
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.245,
+      "png_sha256": "801148c9deb7c1fe8444a52f0515d49ba330069742135fdf3f9de121dda8caa6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        45,
+        16,
+        188,
+        127
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        47.26441955566406,
+        18.605186462402344,
+        185.07904052734375,
+        124.49021911621094
+      ],
+      "physical_bounds_world": [
+        -44.59999465942383,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.165,
+      "png_sha256": "d8a68240fc5fed8b05f42a7aac0bb5553c056985f7d3bf18bbef7f4406698c70",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        15,
+        176,
+        131
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        57.140010833740234,
+        17.523975372314453,
+        173.6412353515625,
+        128.07354736328125
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.169,
+      "png_sha256": "881af9a993e853531e3e928d74745be4cccff90bbd11445567a56ef894c4cbf5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        64,
+        12,
+        164,
+        132
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        67.09896850585938,
+        15.131881713867188,
+        161.45005798339844,
+        129.73866271972656
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.147,
+      "png_sha256": "db1dedd6903d02335762d78506ad282f5c0bcb94e05a1ac2841e9fd223a7eb9e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        70,
+        12,
+        152,
+        132
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        72.98587036132812,
+        14.264862060546875,
+        149.01412963867188,
+        129.5035400390625
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.13,
+      "png_sha256": "5c105473f4112757c6e954ac6aecdbe3dd6a783e6bd36899ed3b32dd1e58f910",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        58,
+        12,
+        158,
+        132
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        60.5499382019043,
+        15.131881713867188,
+        154.90103149414062,
+        129.73866271972656
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.139,
+      "png_sha256": "ad98201b795c86db37d6df57bdc13b35f09eedd18911774f8a4de40d681fbb55",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        15,
+        168,
+        131
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        48.358768463134766,
+        17.523975372314453,
+        164.8599853515625,
+        128.07354736328125
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.162,
+      "png_sha256": "a64f9829466fc5c8adf351bf9d6b91c57c50e185ee8e9342f0066cd048cf4c37",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        16,
+        177,
+        127
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        36.92096710205078,
+        18.605186462402344,
+        174.73558044433594,
+        124.49021911621094
+      ],
+      "physical_bounds_world": [
+        -44.59999465942383,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.159,
+      "png_sha256": "90ba8ddf7af71c2748ad45b93081b41b3cee395ea30d5b8d91a5c79e3e922d64",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        24,
+        18,
+        186,
+        122
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        27.023956298828125,
+        21.09026336669922,
+        183.50775146484375,
+        119.15229797363281
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.168,
+      "png_sha256": "65ef44fb8a3bacf898f1ca4211491e1f8966d0372c9c29ddd134b0e903268b33",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        14,
+        22,
+        194,
+        115
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        16.689041137695312,
+        24.89617156982422,
+        191.165283203125,
+        112.26016235351562
+      ],
+      "physical_bounds_world": [
+        -44.59999465942383,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.165,
+      "png_sha256": "6ee80f9fae33e0350f1153cb237756deea945f4d5ffe84058e9f4d5661344c0c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        27,
+        200,
+        107
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        9.933036804199219,
+        29.87665557861328,
+        197.48648071289062,
+        104.04358673095703
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.171,
+      "png_sha256": "9301b11877d94965a873156a914d66a80bb1b9b495bf52c6adc9fefae49b0c97",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        32,
+        205,
+        97
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        6.931060791015625,
+        35.12543487548828,
+        202.73060607910156,
+        94.81832885742188
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.138,
+      "png_sha256": "205d301d1e0d7efa83f292e6bbee1b1bb6493700755e0061faaeb5730fd13cf6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        36,
+        207,
+        93
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        7.558769226074219,
+        38.2847785949707,
+        204.4495849609375,
+        90.594482421875
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.124,
+      "png_sha256": "2c367d44b7d56ae25ca916aab474e2792635aa35f38ee8a345f401b09950a30a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        30,
+        205,
+        94
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        6.931060791015625,
+        32.45720672607422,
+        202.73060607910156,
+        90.94577026367188
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.134,
+      "png_sha256": "195842582af74816a04bfd19c99aaa8b90ffd3fbf648b17dbe76ddcdc5f7f30a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        7,
+        25,
+        200,
+        99
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        9.933036804199219,
+        27.347126007080078,
+        197.48648071289062,
+        96.75123596191406
+      ],
+      "physical_bounds_world": [
+        -44.599998474121094,
+        -16.39027214050293,
+        0.0,
+        40.29197311401367,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.235,
+      "png_sha256": "f32938cadc7a154b81cffd85c40167a1295e03be543e245320e0f70ba4862a04",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        14,
+        20,
+        194,
+        107
+      ],
+      "vertices": 12958,
+      "triangles": 24412,
+      "parts": 185,
+      "projected_vertex_bounds_px": [
+        16.689041137695312,
+        22.274192810058594,
+        191.165283203125,
+        104.77079772949219
+      ],
+      "physical_bounds_world": [
+        -44.59999465942383,
+        -16.39027214050293,
+        0.0,
+        40.291969299316406,
+        16.39027214050293,
+        17.25
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.66
+          ],
+          [
+            -1.58,
+            0.78
+          ],
+          [
+            -0.8,
+            0.8
+          ],
+          [
+            0.2,
+            0.8
+          ],
+          [
+            0.88,
+            0.76
+          ],
+          [
+            1.5,
+            0.62
+          ],
+          [
+            1.84,
+            0.34
+          ],
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 2.273309450306597,
+        "installed_guns_in_hull": false,
+        "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "barbed_lance",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        224,
+        144
+      ],
+      "pivot_px": [
+        111,
+        79
+      ],
+      "canvas_config": {
+        "cell_px": [
+          224,
+          144
+        ],
+        "pivot_px": [
+          111,
+          79
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          448,
+          288
+        ],
+        "portrait_pivot_px": [
+          222,
+          158
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.251,
+      "png_sha256": "55e32dc1f0c7cd6b12b2866fb642e96d271cfcde25587b4019bdf1aec2ae82cc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.018,
+            0
+          ],
+          "world_xy": [
+            20.36,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.5,
+            0
+          ],
+          "world_xy": [
+            -30.0,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5064,
+            -0.44
+          ],
+          "world_xy": [
+            10.128,
+            -8.8
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.86,
+        0.66
+      ],
+      [
+        -1.58,
+        0.78
+      ],
+      [
+        -0.8,
+        0.8
+      ],
+      [
+        0.2,
+        0.8
+      ],
+      [
+        0.88,
+        0.76
+      ],
+      [
+        1.5,
+        0.62
+      ],
+      [
+        1.84,
+        0.34
+      ],
+      [
+        2.0,
+        0.0
+      ]
+    ],
+    "physical_size": 20,
+    "minimum_high_structure_clearance_world": 2.273309450306597,
+    "installed_guns_in_hull": false,
+    "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+  },
+  "status": "baked; visual and native integration review still required"
+}

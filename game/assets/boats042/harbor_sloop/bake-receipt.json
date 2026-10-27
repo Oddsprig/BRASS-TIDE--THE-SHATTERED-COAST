@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "harbor_sloop",
+  "headings": 32,
+  "atlas_sha256": "8bf4937afa3049dc845c1460e0e2b2617b649ed47ee6d8e89add71e907596012",
+  "canvas_config": {
+    "cell_px": [
+      192,
+      128
+    ],
+    "pivot_px": [
+      94,
+      71
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      384,
+      256
+    ],
+    "portrait_pivot_px": [
+      188,
+      142
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1536,
+    512
+  ],
+  "gpu_rgba8_bytes": 3145728,
+  "frame_bounds_px": [
+    [
+      26,
+      13,
+      128,
+      89
+    ],
+    [
+      35,
+      10,
+      107,
+      96
+    ],
+    [
+      46,
+      6,
+      87,
+      104
+    ],
+    [
+      57,
+      4,
+      69,
+      108
+    ],
+    [
+      66,
+      3,
+      56,
+      109
+    ],
+    [
+      62,
+      4,
+      69,
+      108
+    ],
+    [
+      55,
+      6,
+      87,
+      104
+    ],
+    [
+      46,
+      10,
+      107,
+      96
+    ],
+    [
+      34,
+      13,
+      128,
+      89
+    ],
+    [
+      24,
+      15,
+      147,
+      81
+    ],
+    [
+      16,
+      17,
+      163,
+      72
+    ],
+    [
+      12,
+      18,
+      171,
+      64
+    ],
+    [
+      10,
+      19,
+      175,
+      57
+    ],
+    [
+      12,
+      21,
+      171,
+      60
+    ],
+    [
+      16,
+      23,
+      163,
+      67
+    ],
+    [
+      24,
+      23,
+      147,
+      74
+    ],
+    [
+      34,
+      19,
+      128,
+      85
+    ],
+    [
+      46,
+      16,
+      107,
+      93
+    ],
+    [
+      55,
+      13,
+      87,
+      100
+    ],
+    [
+      62,
+      11,
+      69,
+      105
+    ],
+    [
+      66,
+      10,
+      56,
+      107
+    ],
+    [
+      57,
+      11,
+      69,
+      105
+    ],
+    [
+      46,
+      13,
+      87,
+      100
+    ],
+    [
+      35,
+      16,
+      107,
+      93
+    ],
+    [
+      26,
+      19,
+      128,
+      85
+    ],
+    [
+      17,
+      23,
+      147,
+      74
+    ],
+    [
+      9,
+      23,
+      163,
+      67
+    ],
+    [
+      5,
+      21,
+      171,
+      60
+    ],
+    [
+      3,
+      19,
+      175,
+      57
+    ],
+    [
+      5,
+      18,
+      171,
+      64
+    ],
+    [
+      9,
+      17,
+      163,
+      72
+    ],
+    [
+      17,
+      15,
+      147,
+      81
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        26,
+        13,
+        154,
+        102
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        28.940017700195312,
+        15.831462860107422,
+        151.65771484375,
+        99.4375991821289
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.94571590423584,
+        0.0,
+        34.85978698730469,
+        10.94571590423584,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.958,
+      "png_sha256": "16f700380483f87cc597a1438eca4a2a9ef2a0318010af79979c64223214e1e5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        10,
+        142,
+        106
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        37.814697265625,
+        12.446868896484375,
+        139.66976928710938,
+        104.43907928466797
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.036,
+      "png_sha256": "a12d29719b4a7fb5a25ac88b0b6ddcc99eba72a1859b745354fc00baf442ae5c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        6,
+        133,
+        110
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        48.439788818359375,
+        8.822288513183594,
+        130.46331787109375,
+        108.155517578125
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.993,
+      "png_sha256": "02d5200622ad01572c5c0f0bd37bc9b827916a00d9adc3e5538affb9c8347ac5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        4,
+        126,
+        112
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        59.39274978637695,
+        6.662353515625,
+        123.0240707397461,
+        110.44407653808594
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.94571590423584,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.068,
+      "png_sha256": "26f7dd1632889e9aac473ccc024cccdc21c6e6c1ea691e5b480d8272541a103f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        66,
+        3,
+        122,
+        112
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        68.61349487304688,
+        6.0490875244140625,
+        119.38650512695312,
+        111.21684265136719
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.963,
+      "png_sha256": "736c7ac6a90b2327224c1386d4471bd7e9148a627e92a96122067ecfb1755643",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        62,
+        4,
+        131,
+        112
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        64.9759292602539,
+        6.662353515625,
+        128.6072540283203,
+        110.44407653808594
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.94571590423584,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.984,
+      "png_sha256": "fe3166948ba922ee13acb87109fb7bdfffc4d2a6c441833c4f49a40c24e13bad",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        6,
+        142,
+        110
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        57.536685943603516,
+        8.822288513183594,
+        139.56021118164062,
+        108.155517578125
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.99,
+      "png_sha256": "abe7988abf1ac0c863967aa46341f3de59fe258981f33b021b298afcf91a8c29",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        10,
+        153,
+        106
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        48.33023452758789,
+        12.446868896484375,
+        150.185302734375,
+        104.43907928466797
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.158,
+      "png_sha256": "e9d7f98f34ca92218c88f428c977d9e8a3c7240d25bd0c2b47016a363b72dbe4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        13,
+        162,
+        102
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        36.342281341552734,
+        15.831462860107422,
+        159.0599822998047,
+        99.4375991821289
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.94571590423584,
+        0.0,
+        34.85978698730469,
+        10.94571590423584,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.116,
+      "png_sha256": "73d47b53e03b7e77e0a46c9488ead6f15d5da4c265166b467b026077765cc282",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        24,
+        15,
+        171,
+        96
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        26.39197540283203,
+        17.890682220458984,
+        168.29672241210938,
+        93.34327697753906
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.103,
+      "png_sha256": "952e2c8bdeebfbf2ab7e1134ded8c61173632434d8285b6c36f783758820f1f4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        17,
+        179,
+        89
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        19.039810180664062,
+        19.01482391357422,
+        175.8812255859375,
+        86.39031982421875
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.015,
+      "png_sha256": "3daa68e9cd37292d16f8419971098d5173044260e7c652f827b5d4e62e885b7e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        18,
+        183,
+        82
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        14.568321228027344,
+        20.362823486328125,
+        180.40753173828125,
+        78.84591674804688
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.94571590423584,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.988,
+      "png_sha256": "82fca3950a11470a8fb5bafd79f94c40ac06b937ff8ce0a905320913530280ac",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        19,
+        185,
+        76
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        13.149337768554688,
+        21.88288116455078,
+        181.925048828125,
+        72.906494140625
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.956,
+      "png_sha256": "813c35427cd880ef4431191d0b8c8c55c61abe75516993957fbc89b55203e2f2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        21,
+        183,
+        81
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        14.568321228027344,
+        23.51657485961914,
+        180.40753173828125,
+        79.0572738647461
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.94571590423584,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.971,
+      "png_sha256": "3b76abad83754716d7e7ebb3cc19dd3706814bdd034cb6c43f74e89cead1a171",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        23,
+        179,
+        90
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        19.039810180664062,
+        25.201129913330078,
+        175.8812255859375,
+        87.2029800415039
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.981,
+      "png_sha256": "245b723134d0a78f53b49ca9be93d58562b80d223a3c6644480df984358901b3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        24,
+        23,
+        171,
+        97
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        26.39197540283203,
+        25.50469207763672,
+        168.29672241210938,
+        94.67941284179688
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.054,
+      "png_sha256": "6271556594257907230ef8d5a2e52b22937f49fa3768730bd1f693d10fb6e523",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        19,
+        162,
+        104
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        36.342281341552734,
+        21.49732208251953,
+        159.0599822998047,
+        101.21521759033203
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.94571590423584,
+        0.0,
+        34.85978698730469,
+        10.94571590423584,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.002,
+      "png_sha256": "9dc0630846e7a0d9e5710fe25bd3fc46d0799a9fd1ea26e2ae22c7333468fbc8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        16,
+        153,
+        109
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        48.33023452758789,
+        18.487709045410156,
+        150.185302734375,
+        106.58399963378906
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.048,
+      "png_sha256": "87fa0219f7f5413e5ec99ee1a4c4c8820ee748a77e3ed5e8c2832f95799b725c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        13,
+        142,
+        113
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        57.536685943603516,
+        15.50118637084961,
+        139.56021118164062,
+        110.54936218261719
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.99,
+      "png_sha256": "128dedd08f30c48fff726fa142066e2ff1911b9d91f6455e44d854e267f1137b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        62,
+        11,
+        131,
+        116
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        64.9759292602539,
+        13.250755310058594,
+        128.6072540283203,
+        112.97620391845703
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.94571590423584,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.981,
+      "png_sha256": "3165438688ea3f99af9a34fa8904a02ef26d53ff9f4f732dffd678c04f83721b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        66,
+        10,
+        122,
+        117
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        68.61349487304688,
+        12.49203109741211,
+        119.38650512695312,
+        113.81502532958984
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.958,
+      "png_sha256": "aa70b9cd711001ee691c9fc61a57a7e5f966df7b23e62522cd60516caeb26fe4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        11,
+        126,
+        116
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        59.39274978637695,
+        13.250755310058594,
+        123.0240707397461,
+        112.97620391845703
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.94571590423584,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.011,
+      "png_sha256": "7b2389f6ddd8d3517266cef1e91f189ebff330dcec50c8f928c883e307681f64",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        13,
+        133,
+        113
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        48.439788818359375,
+        15.50118637084961,
+        130.46331787109375,
+        110.54936218261719
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.987,
+      "png_sha256": "d33232a53961611141d76971058817dafa2ecae50091706479c11c8c5e65f0ec",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        16,
+        142,
+        109
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        37.814697265625,
+        18.487709045410156,
+        139.66976928710938,
+        106.58399963378906
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.985,
+      "png_sha256": "4a0663b731dfb8abb4ffde2edae5620f720b408a0cec920d7a53156d533900e6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        26,
+        19,
+        154,
+        104
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        28.940017700195312,
+        21.49732208251953,
+        151.65771484375,
+        101.21521759033203
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.94571590423584,
+        0.0,
+        34.85978698730469,
+        10.94571590423584,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.991,
+      "png_sha256": "50d3128131c55a68573600b348589d8b88efa0e420aeacf7cf15249f6b3b3313",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        23,
+        164,
+        97
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        19.703277587890625,
+        25.50469207763672,
+        161.6080322265625,
+        94.67941284179688
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.996,
+      "png_sha256": "7589bd8fcbfb1276e3f512ba2212395af086c5616b6c5921811ea61813e03407",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        23,
+        172,
+        90
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        12.1187744140625,
+        25.201129913330078,
+        168.96018981933594,
+        87.2029800415039
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.986,
+      "png_sha256": "91269b86f60ab9255aaa84e1406cb43f352082b391ec086f93a5ef30c35f682d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        21,
+        176,
+        81
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        7.592460632324219,
+        23.51657485961914,
+        173.43167114257812,
+        79.0572738647461
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.94571590423584,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.981,
+      "png_sha256": "572c0aa91beea42ea0763c1f93c60405e6acb3133dfb6fc7853f993376163884",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        3,
+        19,
+        178,
+        76
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        6.074951171875,
+        21.88288116455078,
+        174.8506622314453,
+        72.906494140625
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.953,
+      "png_sha256": "29cc349b47376fd276b66c26fcd5fe3daf7723e42e2f260deb4381f033921ac6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        18,
+        176,
+        82
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        7.592460632324219,
+        20.362823486328125,
+        173.43167114257812,
+        78.84591674804688
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.94571590423584,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.983,
+      "png_sha256": "816d2eaa7f6b797edd489779ae550bd8d754ee112923465a9984c2e1a54c3e80",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        17,
+        172,
+        89
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        12.1187744140625,
+        19.01482391357422,
+        168.96018981933594,
+        86.39031982421875
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.984,
+      "png_sha256": "eb6c22e4c33024d69c5e279558486c3776fe1909e55d217e09ee865377a0bc9f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        15,
+        164,
+        96
+      ],
+      "vertices": 10822,
+      "triangles": 20236,
+      "parts": 160,
+      "projected_vertex_bounds_px": [
+        19.703277587890625,
+        17.890682220458984,
+        161.6080322265625,
+        93.34327697753906
+      ],
+      "physical_bounds_world": [
+        -37.90999984741211,
+        -10.945714950561523,
+        0.0,
+        34.85978698730469,
+        10.945714950561523,
+        24.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.86,
+            0.45
+          ],
+          [
+            -1.6,
+            0.56
+          ],
+          [
+            -0.82,
+            0.62
+          ],
+          [
+            0.05,
+            0.62
+          ],
+          [
+            0.65,
+            0.59
+          ],
+          [
+            1.26,
+            0.46
+          ],
+          [
+            1.78,
+            0.18
+          ],
+          [
+            2.04,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "installed_guns_in_hull": false,
+        "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "harbor_sloop",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        192,
+        128
+      ],
+      "pivot_px": [
+        94,
+        71
+      ],
+      "canvas_config": {
+        "cell_px": [
+          192,
+          128
+        ],
+        "pivot_px": [
+          94,
+          71
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          384,
+          256
+        ],
+        "portrait_pivot_px": [
+          188,
+          142
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.975,
+      "png_sha256": "ba670f83b73d35a15d4ef56830e275450251f62fa9d48c1fcea358cef43f6877",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.006,
+            0
+          ],
+          "world_xy": [
+            17.102,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.499,
+            0
+          ],
+          "world_xy": [
+            -25.483,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.86,
+        0.45
+      ],
+      [
+        -1.6,
+        0.56
+      ],
+      [
+        -0.82,
+        0.62
+      ],
+      [
+        0.05,
+        0.62
+      ],
+      [
+        0.65,
+        0.59
+      ],
+      [
+        1.26,
+        0.46
+      ],
+      [
+        1.78,
+        0.18
+      ],
+      [
+        2.04,
+        0.0
+      ]
+    ],
+    "physical_size": 17,
+    "minimum_high_structure_clearance_world": 2.5546505634040915,
+    "installed_guns_in_hull": false,
+    "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+  },
+  "status": "baked; visual and native integration review still required"
+}

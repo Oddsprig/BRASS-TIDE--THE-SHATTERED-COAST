@@ -11,3 +11,18 @@ remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
+
+ASSET PRODUCTION
+All36 existing hulls now have authored directional assets. The33missing designs
+produced1056real direction images and33portraits in99bounded CPUproduction jobs;
+maximum whole job75.328s including setup. Sourcebundle230eebfb5a0b, four revised
+representatives and all36unfitted source previews reviewed. No new hull/stats.
+Interchangeable gun assets remain independent at actual sockets. Real small
+fires retain a visible core; their smoke follows damaged deck positions.
+
+ACCEPTANCE LIMITS
+Production is not native or game-quality acceptance. The final tests/ receipts
+record actual hashes/bounds/mounts, fitted normal-scale draw replay and exported
+battle review. Existing collision circles and projected profile overlap are
+not fixed by transparent atlas padding. Full300DP performance targets remain
+unaccepted;051whole-core gate staysOPEN and blocks052breadth until it passes.

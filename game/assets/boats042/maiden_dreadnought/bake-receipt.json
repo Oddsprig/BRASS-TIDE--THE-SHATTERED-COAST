@@ -1,0 +1,5517 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "maiden_dreadnought",
+  "headings": 32,
+  "atlas_sha256": "3827e566c907f6f37c867312d202dcbda69e2e725803de5f2b0bb42658bc7799",
+  "canvas_config": {
+    "cell_px": [
+      432,
+      240
+    ],
+    "pivot_px": [
+      214,
+      128
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      864,
+      480
+    ],
+    "portrait_pivot_px": [
+      428,
+      256
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    3456,
+    960
+  ],
+  "gpu_rgba8_bytes": 13271040,
+  "frame_bounds_px": [
+    [
+      44,
+      23,
+      311,
+      175
+    ],
+    [
+      70,
+      13,
+      263,
+      197
+    ],
+    [
+      94,
+      7,
+      219,
+      212
+    ],
+    [
+      120,
+      4,
+      177,
+      219
+    ],
+    [
+      142,
+      5,
+      144,
+      220
+    ],
+    [
+      131,
+      4,
+      177,
+      220
+    ],
+    [
+      115,
+      7,
+      219,
+      212
+    ],
+    [
+      95,
+      13,
+      263,
+      197
+    ],
+    [
+      73,
+      23,
+      311,
+      175
+    ],
+    [
+      51,
+      30,
+      354,
+      154
+    ],
+    [
+      33,
+      32,
+      385,
+      139
+    ],
+    [
+      22,
+      36,
+      402,
+      129
+    ],
+    [
+      19,
+      39,
+      404,
+      120
+    ],
+    [
+      22,
+      43,
+      402,
+      125
+    ],
+    [
+      33,
+      47,
+      385,
+      135
+    ],
+    [
+      51,
+      41,
+      354,
+      157
+    ],
+    [
+      73,
+      30,
+      311,
+      182
+    ],
+    [
+      95,
+      23,
+      263,
+      200
+    ],
+    [
+      115,
+      17,
+      219,
+      213
+    ],
+    [
+      131,
+      13,
+      177,
+      220
+    ],
+    [
+      142,
+      11,
+      144,
+      221
+    ],
+    [
+      120,
+      13,
+      177,
+      220
+    ],
+    [
+      94,
+      17,
+      219,
+      213
+    ],
+    [
+      70,
+      23,
+      263,
+      200
+    ],
+    [
+      44,
+      30,
+      311,
+      182
+    ],
+    [
+      23,
+      41,
+      354,
+      157
+    ],
+    [
+      10,
+      47,
+      385,
+      135
+    ],
+    [
+      4,
+      43,
+      402,
+      125
+    ],
+    [
+      5,
+      39,
+      404,
+      120
+    ],
+    [
+      4,
+      36,
+      402,
+      129
+    ],
+    [
+      10,
+      32,
+      385,
+      139
+    ],
+    [
+      23,
+      30,
+      354,
+      154
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        44,
+        23,
+        355,
+        198
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        46.58074951171875,
+        25.911216735839844,
+        352.25872802734375,
+        195.89599609375
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.013,
+      "png_sha256": "311b3a487064d1d6c2eae5556ce987539d982f34d4b561af3bb4a2355d273d82",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        70,
+        13,
+        333,
+        210
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        72.85127258300781,
+        16.003280639648438,
+        330.6847229003906,
+        207.83724975585938
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977888107299805,
+        0.0,
+        83.04145812988281,
+        29.97788429260254,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.976,
+      "png_sha256": "22a59070a8a88bd7ce092974a795d998ecddd4d3373a9c4f8e4e2def6512ef74",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        7,
+        313,
+        219
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        96.68721008300781,
+        9.475517272949219,
+        310.2947998046875,
+        216.71038818359375
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145050048828,
+        29.977882385253906,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.909,
+      "png_sha256": "c2eb696a9aa68a7a399ec6a1249fc2e6d2f290907ee822208a6b3f955f4aa7ff",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        120,
+        4,
+        297,
+        223
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        122.39669799804688,
+        6.5777740478515625,
+        294.08111572265625,
+        222.17446899414062
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.882,
+      "png_sha256": "4e5405f4497857042c4ef24a42fa6680dc7379b169fe7ce0719a8ca491666c9d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        142,
+        5,
+        286,
+        225
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        144.47198486328125,
+        7.420433044433594,
+        283.52801513671875,
+        224.01943969726562
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.857,
+      "png_sha256": "c7ee7e3f45b13248d5a82b260afa82a535202cabb0849221a40f8ea4c62f17dd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        131,
+        4,
+        308,
+        224
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        133.9188690185547,
+        6.5777740478515625,
+        305.6033020019531,
+        222.17446899414062
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.878,
+      "png_sha256": "2c7b5c968316a4377e668edd1dfe6f4a26bc5f767948eff12599d18518c86a1f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        115,
+        7,
+        334,
+        219
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        117.70520782470703,
+        9.475517272949219,
+        331.31280517578125,
+        216.71038818359375
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977882385253906,
+        0.0,
+        83.04145050048828,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.915,
+      "png_sha256": "a582c4df7f6df45872e08c6648bd0347241f94bd0f4aa3837270e3f323616181",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        95,
+        13,
+        358,
+        210
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        97.3152847290039,
+        16.003280639648438,
+        355.14874267578125,
+        207.83724975585938
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.97788429260254,
+        0.0,
+        83.04145812988281,
+        29.977888107299805,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.935,
+      "png_sha256": "852d172fa3cb9ee6849364742ca8c3bd603f728fec4455d07913602505fa97ba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        73,
+        23,
+        384,
+        198
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        75.74128723144531,
+        25.911216735839844,
+        381.41925048828125,
+        195.89599609375
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.914,
+      "png_sha256": "4134f2529869405f90e40835ba29855ceee58b559d007e60b4bd3bb3ac14ea2a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        30,
+        405,
+        184
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        53.500213623046875,
+        32.75733184814453,
+        402.02728271484375,
+        181.34555053710938
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977888107299805,
+        0.0,
+        83.04145812988281,
+        29.97788429260254,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.935,
+      "png_sha256": "85c53d54c1075909005732ed6a5ddd020fed91bc9c708dc025cca767f3e44eef",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        33,
+        32,
+        418,
+        171
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        35.8140869140625,
+        34.920066833496094,
+        415.4549560546875,
+        168.3878173828125
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145050048828,
+        29.977882385253906,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.891,
+      "png_sha256": "b005a3141bc60eee246158a524b690e096969a1151c6b7625a608a0efeb785b9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        36,
+        424,
+        165
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        24.975540161132812,
+        37.80987548828125,
+        421.49188232421875,
+        161.85678100585938
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.883,
+      "png_sha256": "b236a74ca42edcb30ff4de6b64f53a7ab0516285dfdda3c7d4b79efcd61f6a36",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        19,
+        39,
+        423,
+        159
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        21.401107788085938,
+        41.31571960449219,
+        420.2330322265625,
+        156.57891845703125
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.835,
+      "png_sha256": "7fec397da3361eecb55fa9ce2d5512b5c6543f9eedc20a0bb1786798717cbb59",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        43,
+        424,
+        168
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        24.975540161132812,
+        45.30286407470703,
+        421.49188232421875,
+        165.67242431640625
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.873,
+      "png_sha256": "f26fa16a0c63b6f9f7d021085d0cd61e4a3127d0e3700bddd2e99ccf23f2c8a8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        33,
+        47,
+        418,
+        182
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        35.8140869140625,
+        49.61808776855469,
+        415.4549560546875,
+        179.50283813476562
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977882385253906,
+        0.0,
+        83.04145050048828,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.893,
+      "png_sha256": "ae404f06dacee4b3d0a448645880f0134e98cc8b49af18f59d83ecda65a571b0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        41,
+        405,
+        198
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        53.500213623046875,
+        43.615196228027344,
+        402.02728271484375,
+        195.80792236328125
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.97788429260254,
+        0.0,
+        83.04145812988281,
+        29.977888107299805,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.925,
+      "png_sha256": "9710352ea07d8b265ca7371730b44da375adafedb61165ecf85eb828615c4690",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        73,
+        30,
+        384,
+        212
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        75.74128723144531,
+        33.11061096191406,
+        381.41925048828125,
+        209.44570922851562
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.915,
+      "png_sha256": "cb512280fdd77bf017a66b6ee7f5ca26728ecbdefc52fc3fe9fc53ea820aca35",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        95,
+        23,
+        358,
+        223
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        97.3152847290039,
+        25.186180114746094,
+        355.14874267578125,
+        219.95603942871094
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977888107299805,
+        0.0,
+        83.04145812988281,
+        29.97788429260254,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.92,
+      "png_sha256": "d54cea1690a9c2d4d8a6443d7659ad9ca0d18ee540643beaff2bbd48a2fee850",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        115,
+        17,
+        334,
+        230
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        117.70520782470703,
+        20.175430297851562,
+        331.31280517578125,
+        226.91867065429688
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145050048828,
+        29.977882385253906,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.917,
+      "png_sha256": "55bb787e1c3c4ddfb6eaed84655f104441889282b83cd4ee216383e3db0566fe",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        131,
+        13,
+        308,
+        233
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        133.9188690185547,
+        15.470207214355469,
+        305.6033020019531,
+        230.15017700195312
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.896,
+      "png_sha256": "331bca69bba59001defed3979b691f4078cadc60ce7009793ebc464b9f6cd89c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        142,
+        11,
+        286,
+        232
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        144.47198486328125,
+        13.669044494628906,
+        283.52801513671875,
+        229.52835083007812
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.852,
+      "png_sha256": "cb4fa5464d525afac488c99471cacc3e54b9bd9952b69a814d0d32b3c053ad32",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        120,
+        13,
+        297,
+        233
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        122.39669799804688,
+        15.470207214355469,
+        294.08111572265625,
+        230.15017700195312
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.869,
+      "png_sha256": "bc73c5860090ca961da075cfe8d565212a8aa7b4268e51e49cc7bc5728f566b5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        17,
+        313,
+        230
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        96.68721008300781,
+        20.175430297851562,
+        310.2947998046875,
+        226.91867065429688
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977882385253906,
+        0.0,
+        83.04145050048828,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.906,
+      "png_sha256": "df90a3dd5407fbb6c459718ac7ee890b9e48a05a6c0110567fb5ff7c0d00117a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        70,
+        23,
+        333,
+        223
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        72.85127258300781,
+        25.186180114746094,
+        330.6847229003906,
+        219.95603942871094
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.97788429260254,
+        0.0,
+        83.04145812988281,
+        29.977888107299805,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.911,
+      "png_sha256": "faa00e7aeee14df940c19775f84f637642d233c3d0254801f0d04748dc9c49da",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        44,
+        30,
+        355,
+        212
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        46.58074951171875,
+        33.11061096191406,
+        352.25872802734375,
+        209.44570922851562
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.916,
+      "png_sha256": "ecbe784430665a64219e1a3923d3b065000c308fdfebc906819cdd42a8d17eec",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        41,
+        377,
+        198
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        25.97271728515625,
+        43.615196228027344,
+        374.4997863769531,
+        195.80792236328125
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977888107299805,
+        0.0,
+        83.04145812988281,
+        29.97788429260254,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.918,
+      "png_sha256": "e3a86aea3200657b696f81d2b3d10a8da0744e6107dd44c98829c97ac7f07468",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        47,
+        395,
+        182
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        12.545028686523438,
+        49.61808776855469,
+        392.1859130859375,
+        179.50283813476562
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145050048828,
+        29.977882385253906,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.896,
+      "png_sha256": "379b1f0b8f7227e5dd962152e971fe274f2a32f60a0991fad1ee345a2853902a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        43,
+        406,
+        168
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        6.5081024169921875,
+        45.30286407470703,
+        403.02447509765625,
+        165.67242431640625
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.883,
+      "png_sha256": "040b3b6fad09c9cf31fba46b4549cda087da387c3b0682669b4d38dac1674307",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        5,
+        39,
+        409,
+        159
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        7.7669525146484375,
+        41.31571960449219,
+        406.598876953125,
+        156.57891845703125
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.845,
+      "png_sha256": "a6bfd3983537b0e990ac3d2f9be431d0fed61c3704c7ae2070c04de2a4ce8e30",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        36,
+        406,
+        165
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        6.5081024169921875,
+        37.80987548828125,
+        403.02447509765625,
+        161.85678100585938
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977886199951172,
+        0.0,
+        83.04145812988281,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.87,
+      "png_sha256": "d306306afa0cb874f4e9a000b93f2ce5678585538dc44a5402254f1644728005",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        32,
+        395,
+        171
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        12.545028686523438,
+        34.920066833496094,
+        392.1859130859375,
+        168.3878173828125
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.977882385253906,
+        0.0,
+        83.04145050048828,
+        29.977886199951172,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.884,
+      "png_sha256": "cfc718c2bd02b910306eec6dd5c735ccf31781501db7722f824180cd00f5c162",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        23,
+        30,
+        377,
+        184
+      ],
+      "vertices": 21878,
+      "triangles": 41196,
+      "parts": 296,
+      "projected_vertex_bounds_px": [
+        25.97271728515625,
+        32.75733184814453,
+        374.4997863769531,
+        181.34555053710938
+      ],
+      "physical_bounds_world": [
+        -88.91999816894531,
+        -29.97788429260254,
+        0.0,
+        83.04145812988281,
+        29.977888107299805,
+        38.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.1,
+            0.62
+          ],
+          [
+            -1.82,
+            0.75
+          ],
+          [
+            -0.98,
+            0.81
+          ],
+          [
+            0.22,
+            0.81
+          ],
+          [
+            0.98,
+            0.74
+          ],
+          [
+            1.64,
+            0.56
+          ],
+          [
+            2.08,
+            0.25
+          ],
+          [
+            2.3,
+            0.0
+          ]
+        ],
+        "physical_size": 36,
+        "minimum_high_structure_clearance_world": 3.9959935663230928,
+        "installed_guns_in_hull": false,
+        "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "maiden_dreadnought",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        432,
+        240
+      ],
+      "pivot_px": [
+        214,
+        128
+      ],
+      "canvas_config": {
+        "cell_px": [
+          432,
+          240
+        ],
+        "pivot_px": [
+          214,
+          128
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          864,
+          480
+        ],
+        "portrait_pivot_px": [
+          428,
+          256
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.905,
+      "png_sha256": "cbaf8799d346de880fd55a61d3b5986f73df303ca8f446b3da2e858d7105c761",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.066,
+            0
+          ],
+          "world_xy": [
+            38.376000000000005,
+            0
+          ],
+          "elevation": 13.5,
+          "size": 3,
+          "radius": 7.2,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.522,
+            0
+          ],
+          "world_xy": [
+            -54.792,
+            0
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 6.4799999999999995,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5084,
+            -0.445
+          ],
+          "world_xy": [
+            18.3024,
+            -16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.5084,
+            0.445
+          ],
+          "world_xy": [
+            18.3024,
+            16.02
+          ],
+          "elevation": 13.0,
+          "size": 2,
+          "radius": 5.3999999999999995,
+          "angle": 1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.1,
+        0.62
+      ],
+      [
+        -1.82,
+        0.75
+      ],
+      [
+        -0.98,
+        0.81
+      ],
+      [
+        0.22,
+        0.81
+      ],
+      [
+        0.98,
+        0.74
+      ],
+      [
+        1.64,
+        0.56
+      ],
+      [
+        2.08,
+        0.25
+      ],
+      [
+        2.3,
+        0.0
+      ]
+    ],
+    "physical_size": 36,
+    "minimum_high_structure_clearance_world": 3.9959935663230928,
+    "installed_guns_in_hull": false,
+    "design": "Long capital bow; triple belt; triple funnels and three transom drives"
+  },
+  "status": "baked; visual and native integration review still required"
+}

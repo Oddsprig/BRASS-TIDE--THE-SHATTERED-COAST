@@ -10,11 +10,14 @@ All realtime performance targets remain UNMET:42light4.605FPS;16mixed17.084FPS.
 Mixed is worse than matched045. Core-quality051 remainsOPEN; no052breadth
 until it passes. Scoped delivery does not certify art, audio, fun or parity.
 
-Next0.049 rosterart: HullsSol049 prepares33missingrecipes through existing
-042offline32headingpipeline. Metadata049NOTyetprepared; finish048package/
-Desktopverificationfirst. TwootheractiveSolseats prepare050coastsource and
-051measuredperformanceproposal; no futureintegrationbeforeits savedversion.
-048Workshop/BuildsSol finishedstandby for exactfailures only.
+Active0.049 rosterart metadata PREPARED ONCE. All33new hull sets are actually
+produced/copied; native/fitted/exported review is NEXT. Models5abfc102,
+eligibilitya0284f7, detail998bd14 integrated. Immutable actualsourcebundle230eeb,
+1056directionimages+33portraits,99productionjobsallPASSmax75.328s whole. Legacy3
+assets preserved. Rootowns minorfire and36fittedtrace fixture/replay changes.
+Desktop048verified. Finish049before050metadata/integration. Source-only050
+coast930af51ready;051memo699681c+approvedexactgeometryproofcache preparation.
+Hulls049freeze/standby; no extra AIroutes/helpers. Read concise taskCURRENTSTATE.
 Root coordinates/integrates all engine/render/bake/shared-queue jobs and
 versions. Helpers source-only, maximum3activeSol6.1MAX; optionalGrok4.7HIGH.
 No ask_project/delegate/AIbrain/providerfallback/nestedhelpers. Earlier seats

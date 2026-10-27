@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "krill_torpedo",
+  "headings": 32,
+  "atlas_sha256": "f13f58db3bb4e46ee78b6256794b738673efcc192c03adda826537a3951c503d",
+  "canvas_config": {
+    "cell_px": [
+      232,
+      144
+    ],
+    "pivot_px": [
+      115,
+      81
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      464,
+      288
+    ],
+    "portrait_pivot_px": [
+      230,
+      162
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1856,
+    576
+  ],
+  "gpu_rgba8_bytes": 4276224,
+  "frame_bounds_px": [
+    [
+      27,
+      15,
+      163,
+      104
+    ],
+    [
+      41,
+      9,
+      134,
+      116
+    ],
+    [
+      57,
+      5,
+      105,
+      124
+    ],
+    [
+      71,
+      4,
+      82,
+      128
+    ],
+    [
+      81,
+      4,
+      68,
+      128
+    ],
+    [
+      77,
+      4,
+      82,
+      128
+    ],
+    [
+      68,
+      5,
+      105,
+      124
+    ],
+    [
+      55,
+      9,
+      134,
+      116
+    ],
+    [
+      40,
+      15,
+      163,
+      104
+    ],
+    [
+      28,
+      22,
+      187,
+      90
+    ],
+    [
+      18,
+      30,
+      204,
+      73
+    ],
+    [
+      13,
+      36,
+      213,
+      58
+    ],
+    [
+      11,
+      39,
+      215,
+      49
+    ],
+    [
+      13,
+      38,
+      213,
+      61
+    ],
+    [
+      18,
+      34,
+      204,
+      75
+    ],
+    [
+      28,
+      28,
+      187,
+      89
+    ],
+    [
+      40,
+      23,
+      163,
+      102
+    ],
+    [
+      55,
+      18,
+      134,
+      112
+    ],
+    [
+      68,
+      13,
+      105,
+      121
+    ],
+    [
+      77,
+      10,
+      82,
+      127
+    ],
+    [
+      81,
+      9,
+      68,
+      128
+    ],
+    [
+      71,
+      10,
+      82,
+      127
+    ],
+    [
+      57,
+      13,
+      105,
+      121
+    ],
+    [
+      41,
+      18,
+      134,
+      112
+    ],
+    [
+      27,
+      23,
+      163,
+      102
+    ],
+    [
+      15,
+      28,
+      187,
+      89
+    ],
+    [
+      8,
+      34,
+      204,
+      75
+    ],
+    [
+      4,
+      38,
+      213,
+      61
+    ],
+    [
+      4,
+      35,
+      215,
+      53
+    ],
+    [
+      4,
+      30,
+      213,
+      64
+    ],
+    [
+      8,
+      26,
+      204,
+      77
+    ],
+    [
+      15,
+      22,
+      187,
+      90
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        27,
+        15,
+        190,
+        119
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        29.383956909179688,
+        17.0576171875,
+        187.27908325195312,
+        116.75199890136719
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334548950195,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.159,
+      "png_sha256": "93fddd016a782b8269fb2673cf0207138d353a479458b00d5574c44ec29d1691",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        9,
+        175,
+        125
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        43.93738555908203,
+        11.695854187011719,
+        171.9936065673828,
+        123.03990173339844
+      ],
+      "physical_bounds_world": [
+        -46.59999465942383,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.117,
+      "png_sha256": "20e86cfe61e07e7e0ed090804d7f7f5c265cd7e64a64c7b744f4c5a67449b373",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        5,
+        162,
+        129
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        60.0914192199707,
+        8.0736083984375,
+        159.2075653076172,
+        127.71223449707031
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.111,
+      "png_sha256": "f892081a6190c984ecad41472e005af017a4f5b120677653920950fa4b5b6e1c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        71,
+        4,
+        153,
+        132
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        73.6673583984375,
+        6.329078674316406,
+        150.6900634765625,
+        130.58944702148438
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334930419922,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.098,
+      "png_sha256": "8fcc3fca4199131bf097087d9b11c129b5b8d1e033932e07ae6ec52179e2bd70",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        81,
+        4,
+        149,
+        132
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        84.08443450927734,
+        6.5283203125,
+        145.91555786132812,
+        131.5609588623047
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.329636573791504,
+        0.0,
+        43.75334167480469,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.071,
+      "png_sha256": "8d5459e970cb776d83086f3d641fffeb9ce12a010c26ecbcd5ed7825a230f93a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        4,
+        159,
+        132
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        79.3099365234375,
+        6.329078674316406,
+        156.3326416015625,
+        130.58944702148438
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334930419922,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.083,
+      "png_sha256": "eaf35d928f4d4ae5c7c5b86257c35de6bc67de3cf607b0d99274b5fef5d8bf51",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        68,
+        5,
+        173,
+        129
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        70.79243469238281,
+        8.0736083984375,
+        169.90858459472656,
+        127.71223449707031
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.112,
+      "png_sha256": "b1062d304c2260eff588f494d35abf5cdca7653017a57cb9d9e867070b62ad34",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        9,
+        189,
+        125
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        58.00639724731445,
+        11.695854187011719,
+        186.0626220703125,
+        123.03990173339844
+      ],
+      "physical_bounds_world": [
+        -46.59999465942383,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.1,
+      "png_sha256": "2bf074c4f9b87157a2f0c0dd032757868a57c9e5ed7aa65a18783e6ae6511c87",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        40,
+        15,
+        203,
+        119
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        42.720924377441406,
+        17.0576171875,
+        200.6160430908203,
+        116.75199890136719
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334548950195,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.107,
+      "png_sha256": "6ff34cd86b3fdd6a6b354a3544cc6aacf7bdbe2ccb92fa8ad3c0e51f997292be",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        22,
+        215,
+        112
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        30.213096618652344,
+        23.949867248535156,
+        211.87928771972656,
+        109.09016418457031
+      ],
+      "physical_bounds_world": [
+        -46.59999465942383,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.094,
+      "png_sha256": "c5e62748e01adc5d1e134e1c7a00978a50bc4c39e81790538909f0540ced0158",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        30,
+        222,
+        103
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        20.96356964111328,
+        32.1107177734375,
+        219.46493530273438,
+        100.34883880615234
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.103,
+      "png_sha256": "acb3917276bf23f7023141f7ea0ac397b52cfbe156f0ac832b61bf07e2cb1d0f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        36,
+        226,
+        94
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        15.32781982421875,
+        38.426856994628906,
+        223.16595458984375,
+        90.86395263671875
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334930419922,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.092,
+      "png_sha256": "1997de8583d06e2cf5db26d4fe3edeff13dba728cfa4347662129311a0e7f127",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        11,
+        39,
+        226,
+        88
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        13.522422790527344,
+        42.08940124511719,
+        223.07986450195312,
+        85.77925872802734
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.329636573791504,
+        0.0,
+        43.75334167480469,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.073,
+      "png_sha256": "f0bcbe5f99223c2769320e922a2a69546f8b542fea4670e05cdca51a246628b8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        38,
+        226,
+        99
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        15.32781982421875,
+        40.9834098815918,
+        223.16595458984375,
+        96.13343811035156
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334930419922,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.077,
+      "png_sha256": "b97da7f6ee93be15c4e34f110bb3858bd61dfb10b9f2fddeb786aa6a138eb277",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        34,
+        222,
+        109
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        20.96356964111328,
+        36.352230072021484,
+        219.46493530273438,
+        105.85977172851562
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.098,
+      "png_sha256": "6eaf2b085ec5ca5e50de24ddf152022dca703455457be11724e8bdfd99ca06ea",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        28,
+        215,
+        117
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        30.213096618652344,
+        30.57806396484375,
+        211.87928771972656,
+        114.58448791503906
+      ],
+      "physical_bounds_world": [
+        -46.59999465942383,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.092,
+      "png_sha256": "d227b438f8c7c0f502555949326fa0f93a7eb4783f79646e524ce32c97bdb416",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        40,
+        23,
+        203,
+        125
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        42.720924377441406,
+        25.418853759765625,
+        200.6160430908203,
+        121.97230529785156
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334548950195,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.115,
+      "png_sha256": "415a7ae7080eff6edf29b3a85b2607b97e54c58b1e3086b2fcaecf34529d4722",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        55,
+        18,
+        189,
+        130
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        58.00639724731445,
+        20.593109130859375,
+        186.0626220703125,
+        127.7743911743164
+      ],
+      "physical_bounds_world": [
+        -46.59999465942383,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.139,
+      "png_sha256": "b10d95fc9f9ff7a90831a956bab55a27e2aa5c3acf4893049354f26a711f4d82",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        68,
+        13,
+        173,
+        134
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        70.79243469238281,
+        15.955574035644531,
+        169.90858459472656,
+        131.77252197265625
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.128,
+      "png_sha256": "9eda93ebdc6a1e644f2db738de8605adcf23db2a448a05e3d56868659446fc87",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        10,
+        159,
+        137
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        79.3099365234375,
+        13.108444213867188,
+        156.3326416015625,
+        133.78717041015625
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334930419922,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.108,
+      "png_sha256": "cc57bf1591ed68c26e237fa24b8387eff51153bcb8811e700303bb94f407e60f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        81,
+        9,
+        149,
+        137
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        84.08443450927734,
+        12.146995544433594,
+        145.91555786132812,
+        133.82284545898438
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.329636573791504,
+        0.0,
+        43.75334167480469,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.054,
+      "png_sha256": "eac6d134228d2f513d3cb66e3b12065f40a9ab49de43218f80de22c47e473e20",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        71,
+        10,
+        153,
+        137
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        73.6673583984375,
+        13.108444213867188,
+        150.6900634765625,
+        133.78717041015625
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334930419922,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.12,
+      "png_sha256": "ff61e0f8dcbe0bf5bcb395a70d5f795e524a817293ed371baf4e719cccf4940a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        57,
+        13,
+        162,
+        134
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        60.0914192199707,
+        15.955574035644531,
+        159.2075653076172,
+        131.77252197265625
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.09,
+      "png_sha256": "b31dc431c3d46c8468fff6b33e63b18d9d4ea089c597d8e1660065c8a5d3d284",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        41,
+        18,
+        175,
+        130
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        43.93738555908203,
+        20.593109130859375,
+        171.9936065673828,
+        127.7743911743164
+      ],
+      "physical_bounds_world": [
+        -46.59999465942383,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.13,
+      "png_sha256": "df1a7955300cfe3b2cb093567099fbc089d39e6bed9cbc9d2a3ad30ab00f8194",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        27,
+        23,
+        190,
+        125
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        29.383956909179688,
+        25.418853759765625,
+        187.27908325195312,
+        121.97230529785156
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334548950195,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.088,
+      "png_sha256": "f63dae3985c79472376505fbfa29c093ea8394d4b9b50e98d6196c3cd1e6fa36",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        28,
+        202,
+        117
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        18.120712280273438,
+        30.57806396484375,
+        199.78689575195312,
+        114.58448791503906
+      ],
+      "physical_bounds_world": [
+        -46.59999465942383,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.121,
+      "png_sha256": "d3917b17c9f7f4c9b24e4cf139def0a6ddf51c54bb512fe339349145c0b77694",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        34,
+        212,
+        109
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        10.535064697265625,
+        36.352230072021484,
+        209.03643798828125,
+        105.85977172851562
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.094,
+      "png_sha256": "bf6a39052a30d3bb60e709e12843478964a796efeb85fc81cf71a230b6c832d6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        38,
+        217,
+        99
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        6.834037780761719,
+        40.9834098815918,
+        214.67218017578125,
+        96.13343811035156
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334930419922,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.107,
+      "png_sha256": "dfee17e5064a364ad236ca6322d605c7208123b7c79832fe64b02931bac74170",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        35,
+        219,
+        88
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        6.920143127441406,
+        37.404441833496094,
+        216.47756958007812,
+        85.77925872802734
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.329636573791504,
+        0.0,
+        43.75334167480469,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.078,
+      "png_sha256": "51600ca884b9486553735dfdefa80546ac0bd01f7f15b6cb919f5475102c1a01",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        30,
+        217,
+        94
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        6.834037780761719,
+        32.89018249511719,
+        214.67218017578125,
+        90.86395263671875
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.32963752746582,
+        0.0,
+        43.75334930419922,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.106,
+      "png_sha256": "7bee980e5b2634cbac22e057f082e5467a2743dcbd6c5c1ff7ec378970a6a08e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        26,
+        212,
+        103
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        10.535064697265625,
+        28.704410552978516,
+        209.03643798828125,
+        100.34883880615234
+      ],
+      "physical_bounds_world": [
+        -46.599998474121094,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.32963752746582,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.107,
+      "png_sha256": "6c239db6660fe951eb24d8fa502b948fba5e04b20a53140ba4a63588ef6483af",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        22,
+        202,
+        112
+      ],
+      "vertices": 12262,
+      "triangles": 22912,
+      "parts": 177,
+      "projected_vertex_bounds_px": [
+        18.120712280273438,
+        23.949867248535156,
+        199.78689575195312,
+        109.09016418457031
+      ],
+      "physical_bounds_world": [
+        -46.59999465942383,
+        -13.329636573791504,
+        0.0,
+        43.75334548950195,
+        13.329636573791504,
+        19.170000076293945
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -1.96,
+            0.44
+          ],
+          [
+            -1.68,
+            0.56
+          ],
+          [
+            -0.86,
+            0.63
+          ],
+          [
+            0.1,
+            0.65
+          ],
+          [
+            0.68,
+            0.63
+          ],
+          [
+            1.34,
+            0.46
+          ],
+          [
+            1.9,
+            0.16
+          ],
+          [
+            2.18,
+            0.0
+          ]
+        ],
+        "physical_size": 20,
+        "minimum_high_structure_clearance_world": 3.6667605171579964,
+        "installed_guns_in_hull": false,
+        "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "krill_torpedo",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        232,
+        144
+      ],
+      "pivot_px": [
+        115,
+        81
+      ],
+      "canvas_config": {
+        "cell_px": [
+          232,
+          144
+        ],
+        "pivot_px": [
+          115,
+          81
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          464,
+          288
+        ],
+        "portrait_pivot_px": [
+          230,
+          162
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.135,
+      "png_sha256": "5a8241068b8f286c90bc119a0deec4175c32ffd530e8ea0b33755385eb38d6f2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.062,
+            0
+          ],
+          "world_xy": [
+            21.240000000000002,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 2,
+          "radius": 3.5999999999999996,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.501,
+            0
+          ],
+          "world_xy": [
+            -30.019999999999996,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 3.2,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.5104,
+            -0.434
+          ],
+          "world_xy": [
+            10.207999999999998,
+            -8.68
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.8000000000000003,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -1.96,
+        0.44
+      ],
+      [
+        -1.68,
+        0.56
+      ],
+      [
+        -0.86,
+        0.63
+      ],
+      [
+        0.1,
+        0.65
+      ],
+      [
+        0.68,
+        0.63
+      ],
+      [
+        1.34,
+        0.46
+      ],
+      [
+        1.9,
+        0.16
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "physical_size": 20,
+    "minimum_high_structure_clearance_world": 3.6667605171579964,
+    "installed_guns_in_hull": false,
+    "design": "Low wolfpack hood; empty reload skid; split motor and stack"
+  },
+  "status": "baked; visual and native integration review still required"
+}

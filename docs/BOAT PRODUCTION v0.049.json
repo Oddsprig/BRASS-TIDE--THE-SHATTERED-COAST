@@ -1,0 +1,15 @@
+{
+  "source_bundle": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "completed_new_hulls": 33,
+  "headings_per_hull": 32,
+  "directional_images_produced": 1056,
+  "new_portraits": 33,
+  "preserved_legacy_hulls": 3,
+  "production_jobs": 99,
+  "all_production_passed": true,
+  "max_whole_batch_seconds": 75.32800000000861,
+  "new_png_compressed_bytes": 31017175,
+  "new_atlas_RGBA8_base_bytes": 175620096,
+  "source_review": "Rootviewed4revisedrepresentatives+all36unfittedcontact; fullfittednormalandexportedbattlepending",
+  "native_game_acceptance": false
+}

@@ -1,0 +1,4557 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "osprey_cabin_cruiser",
+  "headings": 32,
+  "atlas_sha256": "0c0b2d4e79f0caa7c9b15260db0ac58220fcf0a5ac2073dcabdead96c27d92ff",
+  "canvas_config": {
+    "cell_px": [
+      216,
+      136
+    ],
+    "pivot_px": [
+      107,
+      78
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      432,
+      272
+    ],
+    "portrait_pivot_px": [
+      214,
+      156
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    1728,
+    544
+  ],
+  "gpu_rgba8_bytes": 3760128,
+  "frame_bounds_px": [
+    [
+      26,
+      14,
+      152,
+      100
+    ],
+    [
+      38,
+      9,
+      125,
+      111
+    ],
+    [
+      51,
+      6,
+      97,
+      117
+    ],
+    [
+      65,
+      4,
+      75,
+      121
+    ],
+    [
+      77,
+      4,
+      60,
+      122
+    ],
+    [
+      74,
+      4,
+      75,
+      121
+    ],
+    [
+      66,
+      6,
+      97,
+      117
+    ],
+    [
+      51,
+      9,
+      125,
+      111
+    ],
+    [
+      36,
+      14,
+      152,
+      100
+    ],
+    [
+      24,
+      21,
+      175,
+      86
+    ],
+    [
+      16,
+      27,
+      190,
+      72
+    ],
+    [
+      10,
+      29,
+      200,
+      61
+    ],
+    [
+      9,
+      31,
+      201,
+      53
+    ],
+    [
+      10,
+      33,
+      200,
+      61
+    ],
+    [
+      16,
+      33,
+      190,
+      70
+    ],
+    [
+      24,
+      27,
+      175,
+      84
+    ],
+    [
+      36,
+      22,
+      152,
+      96
+    ],
+    [
+      51,
+      17,
+      125,
+      107
+    ],
+    [
+      66,
+      13,
+      97,
+      115
+    ],
+    [
+      74,
+      10,
+      75,
+      120
+    ],
+    [
+      77,
+      9,
+      60,
+      121
+    ],
+    [
+      65,
+      10,
+      75,
+      120
+    ],
+    [
+      51,
+      13,
+      97,
+      115
+    ],
+    [
+      38,
+      17,
+      125,
+      107
+    ],
+    [
+      26,
+      22,
+      152,
+      96
+    ],
+    [
+      15,
+      27,
+      175,
+      84
+    ],
+    [
+      8,
+      33,
+      190,
+      70
+    ],
+    [
+      4,
+      33,
+      200,
+      61
+    ],
+    [
+      4,
+      31,
+      201,
+      53
+    ],
+    [
+      4,
+      29,
+      200,
+      61
+    ],
+    [
+      8,
+      27,
+      190,
+      72
+    ],
+    [
+      15,
+      21,
+      175,
+      86
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        26,
+        14,
+        178,
+        114
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        28.32115936279297,
+        17.009613037109375,
+        175.22393798828125,
+        111.73480224609375
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.023,
+      "png_sha256": "743edd5c9f58b8edad58bec1e652eb32ba34e9f50c381cc17189535354585eb7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        9,
+        163,
+        120
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        40.88825988769531,
+        11.901481628417969,
+        160.8084716796875,
+        117.66792297363281
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745072364807129,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.098,
+      "png_sha256": "7bfd8b21f2bc0d7aa5afdff025b75e0546ea7322959945fff1a9183d370551f8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        6,
+        148,
+        123
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        53.748008728027344,
+        8.409675598144531,
+        145.08058166503906,
+        122.0766372680664
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.053,
+      "png_sha256": "834cea65c60e9857ab1a543bbb0962336d2256e192c6b9679bbb9aba50fab7a6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        65,
+        4,
+        140,
+        125
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        68.16642761230469,
+        6.6673736572265625,
+        137.5839385986328,
+        124.79150390625
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.06,
+      "png_sha256": "29c19713679770526c8f839620679067406c8491831afa7745437818aae45b6c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        4,
+        137,
+        126
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        79.75952911376953,
+        6.740562438964844,
+        134.24046325683594,
+        125.70820617675781
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915573120117,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.037,
+      "png_sha256": "417c707674f0ef2c44740e95072e310e34e576262bc9281feb00eb414db429ef",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        74,
+        4,
+        149,
+        125
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        76.41606140136719,
+        6.6673736572265625,
+        145.8335723876953,
+        124.79150390625
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.063,
+      "png_sha256": "d993b152e3adbe6e2ad3eaba106bd44d616dbed4bb1a5b5d9c6d24648d616ba3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        66,
+        6,
+        163,
+        123
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        68.91941833496094,
+        8.409675598144531,
+        160.25198364257812,
+        122.0766372680664
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.052,
+      "png_sha256": "90bf4979a4abf3ddab4a6f457217b82304149922baefb19da6dd7fcdd5ad6c82",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        9,
+        176,
+        120
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        53.1915283203125,
+        11.901481628417969,
+        173.1117401123047,
+        117.66792297363281
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745072364807129,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.075,
+      "png_sha256": "30ee44e2428d7866ead393a18655efa3347f753c4782b2b436308318c697373f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        14,
+        188,
+        114
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        38.77606964111328,
+        17.009613037109375,
+        185.6788330078125,
+        111.73480224609375
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.068,
+      "png_sha256": "67c56ff717084dc070c19c451fd108106712b5b9bfc612ab81d84ae5a1d6d083",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        24,
+        21,
+        199,
+        107
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        26.982421875,
+        23.53479766845703,
+        196.3874969482422,
+        104.50526428222656
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745072364807129,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.056,
+      "png_sha256": "ae1461641912bb2584c95ce5d7864c9a063969e88c9b3bd30c6bd2e9256d6b4d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        27,
+        206,
+        99
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        18.263809204101562,
+        29.976715087890625,
+        203.70645141601562,
+        96.25714111328125
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.057,
+      "png_sha256": "86e11d4bb39bc02ee0909d5621e5c1f192fef99f85f3d719ae4dceb457a2cbac",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        29,
+        210,
+        90
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        12.955276489257812,
+        31.913135528564453,
+        207.39747619628906,
+        87.30741119384766
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.041,
+      "png_sha256": "b8015fb5a45ccef9ef1e110ab6336b24a585167801ca85f02f5345d830085e3d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        31,
+        210,
+        84
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        11.260826110839844,
+        34.019020080566406,
+        207.54209899902344,
+        81.6952896118164
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915573120117,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.031,
+      "png_sha256": "092d820eca15a554cfae96e11131788ca90b4188d549faa3937b604d9618122a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        33,
+        210,
+        94
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        12.955276489257812,
+        35.220726013183594,
+        207.39747619628906,
+        91.34842681884766
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.064,
+      "png_sha256": "76bcffb0aa7be1b664468287dd5b5944f0e86c4f9f3cc016f1c17c5424d3a4da",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        16,
+        33,
+        206,
+        103
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        18.263809204101562,
+        35.98508071899414,
+        203.70645141601562,
+        100.44197845458984
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.066,
+      "png_sha256": "02559e8a546899550b77c41b6c45137ed9ec328b71e370968958b7016e989a37",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        24,
+        27,
+        199,
+        111
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        26.982421875,
+        30.04254913330078,
+        196.3874969482422,
+        108.62649536132812
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745072364807129,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.048,
+      "png_sha256": "353c4b0f476ef45ca868a36b961f6700bf45546718e90bce531eea1cb5cbb355",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        36,
+        22,
+        188,
+        118
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        38.77606964111328,
+        25.03839111328125,
+        185.6788330078125,
+        115.6034164428711
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.06,
+      "png_sha256": "a7dd911059eda3915f2ac880e8298323268514bcfa4ca857dcccd662506d3dd9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        17,
+        176,
+        124
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        53.1915283203125,
+        19.975448608398438,
+        173.1117401123047,
+        121.12938690185547
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745072364807129,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.087,
+      "png_sha256": "eb4f0ad8286dde988396497ad07a1ebddc809da8bd65d715120f449377972af7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        66,
+        13,
+        163,
+        128
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        68.91941833496094,
+        15.602432250976562,
+        160.25198364257812,
+        124.96197509765625
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.07,
+      "png_sha256": "a8079ef21bcee1f3525f1552100ca85bb27433d6017897622ce2444613fca816",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        74,
+        10,
+        149,
+        130
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        76.41606140136719,
+        12.90869140625,
+        145.8335723876953,
+        126.97117614746094
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.05,
+      "png_sha256": "3d37ff6c7368fd993faec6ab666d6d77e2dccdbaab680ca6fd4409e981f1900e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        9,
+        137,
+        130
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        79.75952911376953,
+        12.000701904296875,
+        134.24046325683594,
+        127.12355041503906
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915573120117,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.05,
+      "png_sha256": "81f0e0cb56abfa6592316447a9313d7d23385f32b301f6c889dc608b3e3e357b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        65,
+        10,
+        140,
+        130
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        68.16642761230469,
+        12.90869140625,
+        137.5839385986328,
+        126.97117614746094
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.051,
+      "png_sha256": "bb0e63c16f7fd505cb7d71f3b5b5b24e507f019974eb50264e490d3162c435fe",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        51,
+        13,
+        148,
+        128
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        53.748008728027344,
+        15.602432250976562,
+        145.08058166503906,
+        124.96197509765625
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.063,
+      "png_sha256": "8ed30349576456228107010b198ef54d734d2346f431686b2d9e77461fa9826d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        38,
+        17,
+        163,
+        124
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        40.88825988769531,
+        19.975448608398438,
+        160.8084716796875,
+        121.12938690185547
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745072364807129,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.07,
+      "png_sha256": "699b8fb3af27077bba55ea86d47589aa66e79b1efd38a4f584fe2a6379500dde",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        26,
+        22,
+        178,
+        118
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        28.32115936279297,
+        25.03839111328125,
+        175.22393798828125,
+        115.6034164428711
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.079,
+      "png_sha256": "aca1fde74217b4cb4ada29d8337579179ad93e5175433d2f98a1465e81f14f52",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        27,
+        190,
+        111
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        17.612503051757812,
+        30.04254913330078,
+        187.017578125,
+        108.62649536132812
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745072364807129,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.052,
+      "png_sha256": "8d78643fdeb2336045ab02b2e0a2782d3d09ada7721afd4f4b1432f11e3766a3",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        33,
+        198,
+        103
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        10.293548583984375,
+        35.98508071899414,
+        195.73619079589844,
+        100.44197845458984
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.071,
+      "png_sha256": "4cf599ce1ae04621f5bd0dc27e7a955a40fd1f3c7354ad3ada911a6e147ccec2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        33,
+        204,
+        94
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        6.6025238037109375,
+        35.220726013183594,
+        201.0447235107422,
+        91.34842681884766
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.042,
+      "png_sha256": "53dba918001d921e8ba749bc061816eb41e83f0c782673b8831c6e1e3072697c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        31,
+        205,
+        84
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        6.4579010009765625,
+        34.019020080566406,
+        202.73916625976562,
+        81.6952896118164
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915573120117,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.041,
+      "png_sha256": "fbe50b9726f1b4bb7af1ac1de332a44d121c174f5057a6cbd1cc67fa3ab9cc75",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        29,
+        204,
+        90
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        6.6025238037109375,
+        31.913135528564453,
+        201.0447235107422,
+        87.30741119384766
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.054,
+      "png_sha256": "c25df11dee9ec669a6664240934bdbb21c3518dd25dfc494b892878f7d680473",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        27,
+        198,
+        99
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        10.293548583984375,
+        29.976715087890625,
+        195.73619079589844,
+        96.25714111328125
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745073318481445,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.06,
+      "png_sha256": "58e9add8d209999d47eda432aee07e8cd32caab59fbf9dad4711bd9657328724",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        15,
+        21,
+        190,
+        107
+      ],
+      "vertices": 11630,
+      "triangles": 22000,
+      "parts": 166,
+      "projected_vertex_bounds_px": [
+        17.612503051757812,
+        23.53479766845703,
+        187.017578125,
+        104.50526428222656
+      ],
+      "physical_bounds_world": [
+        -43.349998474121094,
+        -11.745072364807129,
+        0.0,
+        41.27915954589844,
+        11.745073318481445,
+        20.799999237060547
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.18,
+            0.54
+          ],
+          [
+            -1.82,
+            0.62
+          ],
+          [
+            -0.9,
+            0.65
+          ],
+          [
+            0.18,
+            0.67
+          ],
+          [
+            0.92,
+            0.59
+          ],
+          [
+            1.6,
+            0.36
+          ],
+          [
+            2.22,
+            0.1
+          ],
+          [
+            2.42,
+            0.0
+          ]
+        ],
+        "physical_size": 17,
+        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "installed_guns_in_hull": false,
+        "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "osprey_cabin_cruiser",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        216,
+        136
+      ],
+      "pivot_px": [
+        107,
+        78
+      ],
+      "canvas_config": {
+        "cell_px": [
+          216,
+          136
+        ],
+        "pivot_px": [
+          107,
+          78
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          432,
+          272
+        ],
+        "portrait_pivot_px": [
+          214,
+          156
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.056,
+      "png_sha256": "824fc38ad9da1e7b6e0a65a167ad61658a103d257bacc6d71536a9d72bd757df",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.016,
+            0
+          ],
+          "world_xy": [
+            17.272,
+            0
+          ],
+          "elevation": 12.5,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.494,
+            0
+          ],
+          "world_xy": [
+            -25.398,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 1,
+          "radius": 2.72,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.18,
+        0.54
+      ],
+      [
+        -1.82,
+        0.62
+      ],
+      [
+        -0.9,
+        0.65
+      ],
+      [
+        0.18,
+        0.67
+      ],
+      [
+        0.92,
+        0.59
+      ],
+      [
+        1.6,
+        0.36
+      ],
+      [
+        2.22,
+        0.1
+      ],
+      [
+        2.42,
+        0.0
+      ]
+    ],
+    "physical_size": 17,
+    "minimum_high_structure_clearance_world": 2.9580000000000006,
+    "installed_guns_in_hull": false,
+    "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+  },
+  "status": "baked; visual and native integration review still required"
+}

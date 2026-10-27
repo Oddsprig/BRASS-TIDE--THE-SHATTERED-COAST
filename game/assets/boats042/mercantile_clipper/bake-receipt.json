@@ -1,0 +1,5037 @@
+{
+  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "hull_id": "mercantile_clipper",
+  "headings": 32,
+  "atlas_sha256": "7e43844be05b578aa56dfe07fef935451460952ac925529b0e5bed2987c86833",
+  "canvas_config": {
+    "cell_px": [
+      288,
+      168
+    ],
+    "pivot_px": [
+      140,
+      93
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      576,
+      336
+    ],
+    "portrait_pivot_px": [
+      280,
+      186
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    2304,
+    672
+  ],
+  "gpu_rgba8_bytes": 6193152,
+  "frame_bounds_px": [
+    [
+      20,
+      11,
+      232,
+      139
+    ],
+    [
+      35,
+      6,
+      203,
+      149
+    ],
+    [
+      54,
+      4,
+      166,
+      153
+    ],
+    [
+      73,
+      3,
+      131,
+      154
+    ],
+    [
+      89,
+      6,
+      102,
+      147
+    ],
+    [
+      76,
+      3,
+      131,
+      154
+    ],
+    [
+      60,
+      4,
+      166,
+      153
+    ],
+    [
+      42,
+      6,
+      203,
+      149
+    ],
+    [
+      28,
+      11,
+      232,
+      139
+    ],
+    [
+      18,
+      18,
+      252,
+      125
+    ],
+    [
+      13,
+      27,
+      263,
+      107
+    ],
+    [
+      12,
+      32,
+      264,
+      92
+    ],
+    [
+      17,
+      34,
+      255,
+      79
+    ],
+    [
+      12,
+      35,
+      264,
+      89
+    ],
+    [
+      13,
+      30,
+      263,
+      105
+    ],
+    [
+      18,
+      24,
+      252,
+      121
+    ],
+    [
+      28,
+      18,
+      232,
+      134
+    ],
+    [
+      42,
+      13,
+      203,
+      145
+    ],
+    [
+      60,
+      10,
+      166,
+      151
+    ],
+    [
+      76,
+      10,
+      131,
+      151
+    ],
+    [
+      89,
+      12,
+      102,
+      147
+    ],
+    [
+      73,
+      10,
+      131,
+      151
+    ],
+    [
+      54,
+      10,
+      166,
+      151
+    ],
+    [
+      35,
+      13,
+      203,
+      145
+    ],
+    [
+      20,
+      18,
+      232,
+      134
+    ],
+    [
+      10,
+      24,
+      252,
+      121
+    ],
+    [
+      4,
+      30,
+      263,
+      105
+    ],
+    [
+      4,
+      35,
+      264,
+      89
+    ],
+    [
+      8,
+      34,
+      255,
+      79
+    ],
+    [
+      4,
+      32,
+      264,
+      92
+    ],
+    [
+      4,
+      27,
+      263,
+      107
+    ],
+    [
+      10,
+      18,
+      252,
+      125
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        20,
+        11,
+        252,
+        150
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        22.731956481933594,
+        13.748207092285156,
+        249.3544921875,
+        147.31680297851562
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.0676383972168,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.947,
+      "png_sha256": "6dcf212f015fcc32f2a48555349e2bba3ab5c61f158224efd5551fb990a7835a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        6,
+        238,
+        155
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        37.62480926513672,
+        8.848594665527344,
+        235.26937866210938,
+        152.30734252929688
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.997,
+      "png_sha256": "b10f92e71acba18901bce9d3688a2a0a6e256ad3b6a5197d38f3782a34fb1929",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        4,
+        220,
+        157
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        56.45188903808594,
+        6.259056091308594,
+        217.63638305664062,
+        155.01873779296875
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.927,
+      "png_sha256": "636766fbf3136ae8335090367c98e7f2cd5f7872acc114170e4f9c8b66bbf760",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        73,
+        3,
+        204,
+        157
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        75.31571960449219,
+        6.078117370605469,
+        201.39276123046875,
+        155.34677124023438
+      ],
+      "physical_bounds_world": [
+        -55.8900032043457,
+        -20.853511810302734,
+        0.0,
+        52.06764221191406,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.902,
+      "png_sha256": "6f5ffcb7db6c19938ca4c821f7cc4126de9bcca2cf533850bc531d7329ac1d24",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        89,
+        6,
+        191,
+        153
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        91.63423919677734,
+        8.311752319335938,
+        188.36575317382812,
+        153.27886962890625
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.06763458251953,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.9,
+      "png_sha256": "5d8a1fc2177e519142a34c09553b7a9f89766713d03d317830a6dc3005c8a989",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        76,
+        3,
+        207,
+        157
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        78.60723876953125,
+        6.078117370605469,
+        204.6842803955078,
+        155.34677124023438
+      ],
+      "physical_bounds_world": [
+        -55.8900032043457,
+        -20.853511810302734,
+        0.0,
+        52.06764221191406,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.919,
+      "png_sha256": "0a7eeed8a144a19b16d3e0bc40f8a0b51e9844ee49e14395165c7a22fe00657b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        4,
+        226,
+        157
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        62.363616943359375,
+        6.259056091308594,
+        223.54811096191406,
+        155.01873779296875
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.919,
+      "png_sha256": "d7c2a8154ea455bcd8d10848f196bf1e51d3228507dbf92b9909842816c3c3ba",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        42,
+        6,
+        245,
+        155
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        44.730621337890625,
+        8.848594665527344,
+        242.37518310546875,
+        152.30734252929688
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.951,
+      "png_sha256": "72de69705b84329b8a9ed56c67130030f254cb8976c4fc7b7b6c5f47b9d9b650",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        11,
+        260,
+        150
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        30.64551544189453,
+        13.748207092285156,
+        257.2680358886719,
+        147.31680297851562
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.0676383972168,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.928,
+      "png_sha256": "502c8b95619582ffb93c39243e396274b992812026aeb84c050373bf690731b4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        18,
+        270,
+        143
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        20.762847900390625,
+        20.76666259765625,
+        267.65435791015625,
+        140.2388916015625
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.939,
+      "png_sha256": "7d5e03dcaf6ed5b8f94176ac0f286bd9f63820bcbdb27f9b53d645d646946f3a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        27,
+        276,
+        134
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        15.46240234375,
+        29.637184143066406,
+        273.18035888671875,
+        131.3456268310547
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.923,
+      "png_sha256": "7c3178a2112c303c744a36fa2eb3a77b5b0f4124b85bdc224382435a3edddadf",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        32,
+        276,
+        124
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        14.947845458984375,
+        33.003509521484375,
+        273.759765625,
+        120.978759765625
+      ],
+      "physical_bounds_world": [
+        -55.8900032043457,
+        -20.853511810302734,
+        0.0,
+        52.06764221191406,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.888,
+      "png_sha256": "606e3f005ed89c7e4e7741e7f7fe2fe31016f5f747c088753b727c96e8441c7c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        17,
+        34,
+        272,
+        113
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        19.238998413085938,
+        34.972145080566406,
+        269.626220703125,
+        109.85836791992188
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.06763458251953,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.86,
+      "png_sha256": "fd3d701d913ea5dbdb5ceac8a7937fcbd0ba5a0bf2363ab40f7c808ec00c4d1f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        12,
+        35,
+        276,
+        124
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        14.947845458984375,
+        37.16627883911133,
+        273.759765625,
+        121.55440521240234
+      ],
+      "physical_bounds_world": [
+        -55.8900032043457,
+        -20.853511810302734,
+        0.0,
+        52.06764221191406,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.93,
+      "png_sha256": "d326aa877c6e792f0909151640e32465c9dcf8fef4eaab2f259edc82d223083c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        13,
+        30,
+        276,
+        135
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        15.46240234375,
+        32.990509033203125,
+        273.18035888671875,
+        132.63148498535156
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.895,
+      "png_sha256": "50f47bf852c03aedb153b4189a9d666442daa03f436b7cb116c18e4ff1e43e1d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        24,
+        270,
+        145
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        20.762847900390625,
+        26.822998046875,
+        267.65435791015625,
+        142.1395263671875
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.91,
+      "png_sha256": "49fe3a3e43e32df7cb4b906b8f9af0305a89de76f79fb189ac632ea129387ae7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        28,
+        18,
+        260,
+        152
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        30.64551544189453,
+        20.307891845703125,
+        257.2680358886719,
+        149.71311950683594
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.0676383972168,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.917,
+      "png_sha256": "cb8437e325776f6f12c3faa5e972b6512d7992466cbfa268d0753a805e67614c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        42,
+        13,
+        245,
+        158
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        44.730621337890625,
+        15.353416442871094,
+        242.37518310546875,
+        155.06121826171875
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.96,
+      "png_sha256": "8eca88a2c811db9bd4a7d4916e0bdbc8a9ddef3081b18a9fc33fb80baf67c3b6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        60,
+        10,
+        226,
+        161
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        62.363616943359375,
+        12.667434692382812,
+        223.54811096191406,
+        158.06118774414062
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.923,
+      "png_sha256": "cfe93f73ae02d13623e5b77d61e07b1ad8e22b1495b633943536fa836fb0453c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        76,
+        10,
+        207,
+        161
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        78.60723876953125,
+        12.35028076171875,
+        204.6842803955078,
+        158.52545166015625
+      ],
+      "physical_bounds_world": [
+        -55.8900032043457,
+        -20.853511810302734,
+        0.0,
+        52.06764221191406,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.932,
+      "png_sha256": "039c264231cc4a4c29a81bdf38449a64176b86c83f65f2a8aaa2ab10fadde8ff",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        89,
+        12,
+        191,
+        159
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        91.63423919677734,
+        14.429206848144531,
+        188.36575317382812,
+        156.52647399902344
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.06763458251953,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.894,
+      "png_sha256": "fcec9c8dfedad4de6d9e7d02047b19869db2f2e971bb7c783071e5dc45db1aea",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        73,
+        10,
+        204,
+        161
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        75.31571960449219,
+        12.35028076171875,
+        201.39276123046875,
+        158.52545166015625
+      ],
+      "physical_bounds_world": [
+        -55.8900032043457,
+        -20.853511810302734,
+        0.0,
+        52.06764221191406,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.099,
+      "png_sha256": "ea347bf57c9a3c5df272353cbb898df36bdc4412a0d73a32029848171b2791cb",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        10,
+        220,
+        161
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        56.45188903808594,
+        12.667434692382812,
+        217.63638305664062,
+        158.06118774414062
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.93,
+      "png_sha256": "ce9d65c330cb5cd7dd0938fa153095534d245914602673df94cc05e35d69401c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        35,
+        13,
+        238,
+        158
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        37.62480926513672,
+        15.353416442871094,
+        235.26937866210938,
+        155.06121826171875
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.934,
+      "png_sha256": "8f7b84fbf1b99ab30ea2cd74656cba06838581e38e5a9501735ef54689ad4c03",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        18,
+        252,
+        152
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        22.731956481933594,
+        20.307891845703125,
+        249.3544921875,
+        149.71311950683594
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.0676383972168,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.948,
+      "png_sha256": "d85e5cff78c877edee5ed5ce7c6d3e4db63ec9eaa6d9a74f55e6790b81d78567",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        24,
+        262,
+        145
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        12.345649719238281,
+        26.822998046875,
+        259.2371520996094,
+        142.1395263671875
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.96,
+      "png_sha256": "8291152cd500650504d1e6f30345baf8d3cc88dfd9d15350604f727c98d4882b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        30,
+        267,
+        135
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        6.8196258544921875,
+        32.990509033203125,
+        264.53759765625,
+        132.63148498535156
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.918,
+      "png_sha256": "d8c09535423c0c240f18d11329cc26fca8b331e185c5b3be0529745e73af9ac5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        35,
+        268,
+        124
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        6.2402496337890625,
+        37.16627883911133,
+        265.0521545410156,
+        121.55440521240234
+      ],
+      "physical_bounds_world": [
+        -55.8900032043457,
+        -20.853511810302734,
+        0.0,
+        52.06764221191406,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.928,
+      "png_sha256": "efa030d2a4329722833e2c3e1c0096e9eaca0600344be05e09d45b190d4d2c4c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        8,
+        34,
+        263,
+        113
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        10.373764038085938,
+        34.972145080566406,
+        260.760986328125,
+        109.85836791992188
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.06763458251953,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.86,
+      "png_sha256": "685c370b5bcdb95e99a1440bf7cae2563d64b4f881bb582edea48fc880e20bdc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        32,
+        268,
+        124
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        6.2402496337890625,
+        33.003509521484375,
+        265.0521545410156,
+        120.978759765625
+      ],
+      "physical_bounds_world": [
+        -55.8900032043457,
+        -20.853511810302734,
+        0.0,
+        52.06764221191406,
+        20.853511810302734,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.919,
+      "png_sha256": "dc62b3e18c0a272311bf07667b8885fbf320b64ecd120187062411ba153fa058",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        4,
+        27,
+        267,
+        134
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        6.8196258544921875,
+        29.637184143066406,
+        264.53759765625,
+        131.3456268310547
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.853511810302734,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.958,
+      "png_sha256": "4f10983766a914082710ed9a895b7cf1ea71d7bf077cdacc9bc50260ac7ff08a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        10,
+        18,
+        262,
+        143
+      ],
+      "vertices": 21612,
+      "triangles": 40968,
+      "parts": 306,
+      "projected_vertex_bounds_px": [
+        12.345649719238281,
+        20.76666259765625,
+        259.2371520996094,
+        140.2388916015625
+      ],
+      "physical_bounds_world": [
+        -55.88999938964844,
+        -20.8535099029541,
+        0.0,
+        52.0676383972168,
+        20.8535099029541,
+        27.0
+      ],
+      "roster049": {
+        "recipe_revision": "049-roster-detail-r2",
+        "stations": [
+          [
+            -2.06,
+            0.19
+          ],
+          [
+            -1.74,
+            0.25
+          ],
+          [
+            -0.85,
+            0.27
+          ],
+          [
+            0.25,
+            0.27
+          ],
+          [
+            1.02,
+            0.24
+          ],
+          [
+            1.66,
+            0.16
+          ],
+          [
+            2.06,
+            0.06
+          ],
+          [
+            2.26,
+            0.0
+          ]
+        ],
+        "physical_size": 23,
+        "minimum_high_structure_clearance_world": 1.8627032393336385,
+        "installed_guns_in_hull": false,
+        "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+      },
+      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "revision": "049-roster-detail-r2",
+      "hull_id": "mercantile_clipper",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        288,
+        168
+      ],
+      "pivot_px": [
+        140,
+        93
+      ],
+      "canvas_config": {
+        "cell_px": [
+          288,
+          168
+        ],
+        "pivot_px": [
+          140,
+          93
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          576,
+          336
+        ],
+        "portrait_pivot_px": [
+          280,
+          186
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.95,
+      "png_sha256": "7bebae75d08b3324570002dbc3433c1448d49e60f5ee35fa5ba0fde2338424ef",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.01,
+            0
+          ],
+          "world_xy": [
+            23.23,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 4.14,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4849999999999999,
+            0
+          ],
+          "world_xy": [
+            -34.154999999999994,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.68,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.52,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            11.96,
+            -12.972000000000001
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.22,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": {
+    "recipe_revision": "049-roster-detail-r2",
+    "stations": [
+      [
+        -2.06,
+        0.19
+      ],
+      [
+        -1.74,
+        0.25
+      ],
+      [
+        -0.85,
+        0.27
+      ],
+      [
+        0.25,
+        0.27
+      ],
+      [
+        1.02,
+        0.24
+      ],
+      [
+        1.66,
+        0.16
+      ],
+      [
+        2.06,
+        0.06
+      ],
+      [
+        2.26,
+        0.0
+      ]
+    ],
+    "physical_size": 23,
+    "minimum_high_structure_clearance_world": 1.8627032393336385,
+    "installed_guns_in_hull": false,
+    "design": "Fine treasury cat bows; stepped packet house and bonded safes"
+  },
+  "status": "baked; visual and native integration review still required"
+}
