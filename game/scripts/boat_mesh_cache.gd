@@ -7,6 +7,26 @@ static var _meshes: Dictionary={}
 static var _order: Array=[]
 static var hits: int=0
 static var misses: int=0
+static var _profile_enabled: bool=false
+static var _profile_hits: int=0
+static var _profile_misses: int=0
+static var _profile_build_us: int=0
+static var _profile_build_max_us: int=0
+static var _profile_evictions: int=0
+static var _profile_clears: int=0
+
+## Main-thread, opt-in CPU counters. Reset never evicts or warms geometry.
+static func profile_enable(enabled: bool=true) -> void:
+	_profile_enabled=enabled
+
+static func profile_reset() -> void:
+	_profile_hits=0;_profile_misses=0;_profile_build_us=0
+	_profile_build_max_us=0;_profile_evictions=0;_profile_clears=0
+
+static func profile_read() -> Dictionary:
+	return {"enabled":_profile_enabled,"hits":_profile_hits,"misses":_profile_misses,
+		"build_us":_profile_build_us,"build_max_us":_profile_build_max_us,
+		"evictions":_profile_evictions,"clears":_profile_clears,"entries":_meshes.size()}
 
 class Capture extends RefCounted:
 	var vertices:=PackedVector3Array()
@@ -46,12 +66,21 @@ static func draw(canvas,projector: Callable,position: Vector2,angle: float,key: 
 	var full_key: String=key+":%d"%posmod(int(roundf(angle/TAU*STEPS)),STEPS)
 	if not _meshes.has(full_key):
 		misses+=1
+		var build_started: int=Time.get_ticks_usec() if _profile_enabled else 0
 		var capture:=Capture.new()
 		capture.reference_scale=reference_scale
 		bake.call(capture,quantized)
-		if _meshes.size()>=LIMIT:_meshes.erase(_order.pop_front())
+		if _meshes.size()>=LIMIT:
+			_meshes.erase(_order.pop_front())
+			if _profile_enabled:_profile_evictions+=1
 		_meshes[full_key]=capture.mesh();_order.append(full_key)
-	else:hits+=1
+		if _profile_enabled:
+			var build_us: int=Time.get_ticks_usec()-build_started
+			_profile_misses+=1;_profile_build_us+=build_us
+			_profile_build_max_us=maxi(_profile_build_max_us,build_us)
+	else:
+		hits+=1
+		if _profile_enabled:_profile_hits+=1
 	var origin: Vector2=projector.call(position,0.0)
 	var scale: float=(projector.call(position+Vector2(1,0),0.0)-origin).length()/Vector2(0.82,0.41).length()
 	var transform: Transform2D=ISO*Transform2D(angle-quantized,Vector2.ZERO)*ISO.affine_inverse()
@@ -64,3 +93,4 @@ static func draw(canvas,projector: Callable,position: Vector2,angle: float,key: 
 
 static func clear() -> void:
 	_meshes.clear();_order.clear();hits=0;misses=0
+	if _profile_enabled:_profile_clears+=1

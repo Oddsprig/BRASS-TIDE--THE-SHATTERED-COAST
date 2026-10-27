@@ -1,0 +1,156 @@
+BRASS TIDE - 0.043 RENDER ATTRIBUTION SOURCE PREPARATION
+
+Base: tested 0.042 candidate a206b59bf1676ae0a9825847d5344e938a99e993.
+This is an instrumentation candidate, not a delivered 0.043 build or a
+performance result. Root finishes 0.042 art review/package first. Root's real
+rendered active baseline precedes optimization. No version/metadata changes.
+
+Owned files:
+  game/scripts/chart.gd
+  game/scripts/boat_mesh_cache.gd
+  game/scripts/combat_art.gd
+  tools/quality043/RENDER PLAN.txt (this new document)
+
+No art/model/baker, Main, Damage, tactical, UI callback, save, socket, camera,
+LOD, sorting order, cache key/limit/eviction policy or wake mechanics changes.
+Existing copy calls, gameplay inputs and every drawing call remain in place.
+
+RUNTIME API (main thread, between draws)
+
+Chart instance:
+  chart.profile_enable(true)  # toggle only; does not reset or warm anything
+  chart.profile_reset()       # measurements only; caches and wakes stay live
+  # Read after the existing RenderingServer.frame_post_draw boundary:
+  var sample: Dictionary = chart.profile_read()
+  chart.profile_enable(false) # retain the last measurements for reading
+
+profile_enable(enabled: bool=true), profile_reset(), profile_read()->Dictionary
+also exist on BoatArt.MeshCache and CombatArt. Chart forwards enable/reset to
+both, so Runtime needs no new preload. Counters default to disabled. Enabling
+does not request redraws, launch a battle or change any rendering option.
+
+Chart read schema:
+  enabled: bool
+  draws: int, completed measured Chart._draw calls since reset
+  last_frame: Dictionary, latest measured Chart draw; empty until first draw
+  mesh_cache: Dictionary, process-wide cumulative counters since reset
+  combat_art: Dictionary, process-wide cumulative counters since reset
+
+The returned dictionaries contain copied scalar measurements, no live boats,
+effects, meshes or callbacks. Reading does not consume or reset counters. Check
+draws/last_frame.draw for freshness; disabled draws retain the previous sample.
+Static counters include other users of these scripts in the same process,
+including portraits. One active Chart/profile owner is assumed. Take differences
+of cumulative counters between samples; do not reset the cache per frame.
+
+LAST_FRAME COUNTERS
+
+  draw, mode, viewport_width, viewport_height, scale_factor, tactical
+  presentation_us: reuses existing whole Chart CPU draw-submission measurement
+  boats_total: battle.ships size, including sunk entries
+  boats_live: nonsunk entries in the unchanged sorted drawing loop
+  boats_visible: accepted by the existing conservative boat culling margin
+  boat_centers_on_screen: accepted boats whose projected origin is in viewport
+  boats_culled / boats_invalid: existing cull/spec rejection paths
+  authored_hulls: successful authored-hull draws among boats_visible
+  boat_sprites: existing BoatArt sprites return, hull and fitted weapon layers
+  boat_primitives: existing BoatArt primitives return
+  lod0 / lod1 / lod2: counts at the unchanged chosen boat LOD
+  boats_us: whole boat loop, including culls, bars, prize labels/order indicators
+  sort_us: existing shallow ship-array copy plus identical depth sort
+  wake_updates: calls to the existing wake update since the previous draw
+  wake_update_us / trail_update_us: CPU update totals since the previous draw
+  wake_draw_us / trail_draw_us: existing draw functions including their culling
+  wake_paths / wake_samples: accepted wake paths and samples offered to BoatArt
+  wake_primitives / trail_primitives: existing draw return values
+  projectiles_total / projectile_primitives / projectiles_us: whole unchanged loop
+  effects_total / effects_submitted / effect_primitives / effects_us
+  wrecks_total / wrecks_submitted / wreck_primitives / wrecks_us
+  counted_primitives: sum of the six boat/wake/trail/projectile/effect/wreck counts
+
+Effects/wrecks submitted means the existing conservative cull accepted them;
+the draw return may still be zero. Wreck timing includes the existing sinking
+count and coarse-copy path. Wake samples can include older samples rejected
+inside BoatArt's unchanged short foam-life filter. Timing does not extend life.
+
+Visibility is conservative draw eligibility, not a pixel/occlusion query.
+Primitive counts are logical canvas submissions: a cached mesh or sprite counts
+as one, not its triangles. counted_primitives excludes terrain, cheap water,
+selection rings, bars, labels, minimap, fort/boarding drawings and external UI.
+boat_sprites counts live Chart boats; wreck FadeCanvas has no texture support.
+These counters are not complete RenderingServer draw-call/GPU-primitive totals.
+
+MESH_CACHE COUNTERS
+
+  enabled, hits, misses, build_us, build_max_us, evictions, clears, entries
+
+hits/misses count measured draws only; the original public hits/misses retain
+their existing always-on behavior. build_us sums synchronous miss construction:
+Capture creation, existing bake callback, eviction, mesh/resource construction,
+cache insertion and order append. It excludes key construction and GPU completion.
+build_max_us is the largest measured miss since reset. entries is the current
+cache-size gauge. clear() retains its old semantics and only increments clears
+while profiling; profile_reset() never invokes clear(). A mid-window clear is
+visible without making cumulative profile hits/misses negative.
+
+COMBAT_ART COUNTERS
+
+  enabled, triangulation_calls, triangulation_us, triangulation_max_us,
+  triangulation_rejected
+
+Time only the existing explicit Geometry2D.triangulate_polygon validation in
+_fx_poly and FadeCanvas.draw_colored_polygon. Each original guard still performs
+one identical triangulation and uses its result, including when profiling is
+disabled. This covers effects and wreck/faded-hull validation together. It does
+not cover BoatArt wake/hull validation, mesh Capture triangulation, or internal
+CanvasItem/renderer triangulation. It is nested within effect/wreck CPU timing;
+do not add overlapping totals as independent frame costs.
+
+OVERHEAD AND KNOWN LIMITS
+
+Disabled: no added clock reads or per-frame profile dictionary creation; cheap
+flag branches, reused existing drawing results, and a polygon-guard wrapper
+remain. Enabled: one small scalar dictionary per Chart draw, counters in the
+existing loops, two clocks per timed group/miss/polygon guard, and dictionaries
+only when read. There is no retained frame history, canvas proxy, per-boat timer,
+extra gameplay state copy or file/JSON output. Actual overhead has NOT been measured.
+Microsecond resolution may produce zero timings for small work. presentation_us
+includes in-draw observer setup/counters, excluding final counter publication;
+Runtime sampling/serialization is outside that measurement. Frame time still
+includes observer cost and must be reported honestly.
+
+This API does not measure GPU time, FPS, frame tails, simulation/catch-up, loading,
+memory/VRAM, renderer/adapter identity, deployment points or action evidence.
+Runtime/Root must join those separately at the real normal-runtime boundary.
+No native parsing, fixture, rendering, motion, performance or art acceptance is
+claimed here. No engines/builds/bakes/tests/renders/GPU/downloads/helpers/CUA
+were run by this source seat. Static review is the owned-file diff/API inspection
+and git diff --check only. Root owns integration and native validation.
+
+ROOT BASELINE AND NEXT DECISION
+
+Use the actual exported Main/Chart/FleetLab on the normal renderer in Root's
+private background desktop, with no active-desktop switch, focus/input takeover
+or test audio. Submit through Test Bridge's existing shared lane; no nested lease
+and no second engine. Keep each complete selected batch below 120 seconds.
+Root owns resource/GPU authorization and all execution; this document is no job.
+
+Capture active mixed AND light fleets at 300 deployment points per side. Record
+actual resolution, CPU, adapter/renderer, actor/deployment counts and evidence
+of movement, gunfire, hits, missiles, flooding and effects. Join existing tactical
+phase metrics, frame/simulation tails, catch-up, memory/VRAM and loading evidence.
+Keep first-load/miss costs separate from warm steady action without erasing them.
+FeedbackRecorder/headless correctness or a shots-free opening is not this proof.
+
+Saved targets remain targets: 60 FPS; 95 percent active frames <=20 ms; no
+recurring catch-up/50 ms+ stutters; simulation median <=6 ms and P95 <=10 ms.
+
+After attribution, Root selects ONE OR TWO bounded fixes from the measured
+dominant seams (for example cache-miss work, sorting, wake submission or repeated
+effect validation). No pipeline cleanup is authorized by these counters. Keep
+all deployed actors, useful AI, physical updates, 0.042 sockets/aim/wakes,
+threaded rendering and existing economy workers. Compare the same active work;
+do not shrink fleets, physics frequency, effects or tactical usefulness to pass.
+
+Handoff board: brass-tide-quality-042-061; Runtime seat:
+C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/runtime043

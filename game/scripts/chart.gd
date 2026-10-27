@@ -13,6 +13,13 @@ var scale_factor = 0.36
 var zoom = 1.0
 var clock = 0.0
 var presentation_us: int=0
+var _profile_enabled: bool=false
+var _profile_drawing: bool=false
+var _profile_draws: int=0
+var _profile_frame: Dictionary={}
+var _profile_wake_update_us: int=0
+var _profile_trail_update_us: int=0
+var _profile_wake_updates: int=0
 var background: Texture2D
 var title_shade: Texture2D
 var serif: SystemFont
@@ -40,6 +47,23 @@ const ISO_Y := 0.41
 var _chart_sheet: Array = []
 var _chart_ready: bool = false
 var _chart_towns: Dictionary={}
+
+## Main-thread opt-in attribution only. Timings are CPU submission, not GPU/FPS.
+## Static child counters include every caller in this process, including UI.
+func profile_enable(enabled: bool=true) -> void:
+	_profile_enabled=enabled
+	BoatArt.MeshCache.profile_enable(enabled)
+	CombatArt.profile_enable(enabled)
+
+func profile_reset() -> void:
+	_profile_draws=0;_profile_frame={}
+	_profile_wake_update_us=0;_profile_trail_update_us=0;_profile_wake_updates=0
+	BoatArt.MeshCache.profile_reset()
+	CombatArt.profile_reset()
+
+func profile_read() -> Dictionary:
+	return {"enabled":_profile_enabled,"draws":_profile_draws,"last_frame":_profile_frame.duplicate(),
+		"mesh_cache":BoatArt.MeshCache.profile_read(),"combat_art":CombatArt.profile_read()}
 
 func setup(game_host):
 	host = game_host
@@ -147,8 +171,14 @@ func step(dt: float):
 			if not boat.is_empty():
 				camera = camera.lerp(Vector2(boat.x, boat.y), 1.0 - exp(-dt * 4.0))
 		scale_factor = clampf(viewport.x / 1700.0, 0.65, 1.2) * zoom * (0.52 if tactical else 1.0)
+		var wake_started: int=Time.get_ticks_usec() if _profile_enabled else 0
 		_update_wakes(host.battle.ships)
+		if _profile_enabled:
+			_profile_wake_update_us+=Time.get_ticks_usec()-wake_started
+			_profile_wake_updates+=1
+		var trail_started: int=Time.get_ticks_usec() if _profile_enabled else 0
 		_update_trails(host.battle.projectiles)
+		if _profile_enabled:_profile_trail_update_us+=Time.get_ticks_usec()-trail_started
 	elif host != null and host.mode == "menu":
 		if mode_changed:
 			var home: Dictionary=host.data.PORTS[0]
@@ -322,7 +352,10 @@ func _draw_wakes():
 		var samples: Array = []
 		for s in raw:
 			samples.append({"p": s.p, "d": s.d, "age": clock - float(s.t), "w": s.w})
-		BoatArt.draw_wake(self, proj, samples, {"life": WAKE_LIFE_SEC})
+		var primitives: int=BoatArt.draw_wake(self, proj, samples, {"life": WAKE_LIFE_SEC})
+		if _profile_drawing:
+			_profile_frame.wake_paths+=1;_profile_frame.wake_samples+=samples.size()
+			_profile_frame.wake_primitives+=primitives
 
 func _draw_trails():
 	if _trails.is_empty():
@@ -334,7 +367,8 @@ func _draw_trails():
 			if str(s.kind) == kind:
 				pts.append({"p": s.p, "age": clock - float(s.t), "life": float(s.life)})
 		if not pts.is_empty():
-			BoatArt.draw_trail(self, proj, pts, kind, {"px": maxf(4.0, 14.0 * scale_factor)})
+			var primitives: int=BoatArt.draw_trail(self, proj, pts, kind, {"px": maxf(4.0, 14.0 * scale_factor)})
+			if _profile_drawing:_profile_frame.trail_primitives+=primitives
 
 func _selected_battle_ids(battle: Dictionary) -> Array:
 	if host != null and "selected_battle_ids" in host and host.selected_battle_ids is Array and not host.selected_battle_ids.is_empty():
@@ -426,6 +460,20 @@ func _draw():
 		return
 	var started: int=Time.get_ticks_usec()
 	var viewport = get_viewport_rect().size
+	_profile_drawing=_profile_enabled
+	if _profile_drawing:
+		_profile_frame={"mode":str(host.mode),"viewport_width":int(viewport.x),"viewport_height":int(viewport.y),
+			"scale_factor":scale_factor,"tactical":tactical,"presentation_us":0,
+			"boats_total":0,"boats_live":0,"boats_visible":0,"boat_centers_on_screen":0,"boats_culled":0,"boats_invalid":0,
+			"authored_hulls":0,"boat_sprites":0,"boat_primitives":0,"boats_us":0,
+			"lod0":0,"lod1":0,"lod2":0,"sort_us":0,
+			"wake_updates":_profile_wake_updates,"wake_update_us":_profile_wake_update_us,
+			"trail_update_us":_profile_trail_update_us,"wake_draw_us":0,"trail_draw_us":0,
+			"wake_paths":0,"wake_samples":0,"wake_primitives":0,"trail_primitives":0,
+			"projectiles_total":0,"projectile_primitives":0,"projectiles_us":0,
+			"effects_total":0,"effects_submitted":0,"effect_primitives":0,"effects_us":0,
+			"wrecks_total":0,"wrecks_submitted":0,"wreck_primitives":0,"wrecks_us":0}
+		_profile_wake_update_us=0;_profile_trail_update_us=0;_profile_wake_updates=0
 	draw_texture_rect(background, Rect2(Vector2.ZERO, viewport), false)
 	for i in range(65):
 		var p = Vector2(noise(i + 7) * viewport.x, fposmod(noise(i + 101) * viewport.y + clock * (0.6 + noise(i) * 1.2), viewport.y))
@@ -438,6 +486,14 @@ func _draw():
 	else:
 		draw_campaign()
 	presentation_us=Time.get_ticks_usec()-started
+	if _profile_drawing:
+		_profile_draws+=1
+		_profile_frame.draw=_profile_draws
+		_profile_frame.presentation_us=presentation_us
+		_profile_frame.counted_primitives=(int(_profile_frame.boat_primitives)+int(_profile_frame.wake_primitives)
+			+int(_profile_frame.trail_primitives)+int(_profile_frame.projectile_primitives)
+			+int(_profile_frame.effect_primitives)+int(_profile_frame.wreck_primitives))
+	_profile_drawing=false
 
 func _segments_cross(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
 	var ab := b - a
@@ -817,12 +873,14 @@ func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bo
 	# Persistent wakes are recorded in step() and drawn by _draw_wakes().
 	var spec_v = boat.get("spec", {})
 	if not (spec_v is Dictionary):
+		if _profile_drawing:_profile_frame.boats_invalid+=1
 		return
 	var boat_size := maxf(4.0, float(spec_v.get("size", 16))) * enlargement
 	var p := Vector2(float(boat.get("x", 0.0)), float(boat.get("y", 0.0)))
 	var screen := project(p)
 	var margin: float = 120.0 + boat_size * scale_factor * 3.2
 	if not get_viewport_rect().grow(margin).has_point(screen):
+		if _profile_drawing:_profile_frame.boats_culled+=1
 		return
 	if selected:
 		world_ring(p, boat_size * 2.6, Color(GOLD, 0.65), 1.0)
@@ -830,11 +888,20 @@ func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bo
 	var lod := 0 if screen_len > 78.0 else (1 if screen_len > 36.0 else 2)
 	if tactical:
 		lod = maxi(lod, 1)
-	BoatArt.draw_boat(self, _projector(), boat, {
+	var draw_stats: Dictionary=BoatArt.draw_boat(self, _projector(), boat, {
 		"accent": color, "enemy": enemy, "lod": lod, "clock": clock,
 		"cache":true,
 		"combat":host.mode=="battle","battle_clock":float(host.battle.get("time",0))+float(host.battle.get("visualTailTime",0)) if host.mode=="battle" else 0.0,
 		"px": maxf(2.0, boat_size * scale_factor * 0.82), "enlargement": enlargement})
+	if _profile_drawing:
+		_profile_frame.boats_visible+=1
+		if get_viewport_rect().has_point(screen):_profile_frame.boat_centers_on_screen+=1
+		_profile_frame.boat_primitives+=int(draw_stats.get("primitives",0))
+		_profile_frame.boat_sprites+=int(draw_stats.get("sprites",0))
+		_profile_frame.authored_hulls+=int(bool(draw_stats.get("authored_hull",false)))
+		if lod==0:_profile_frame.lod0+=1
+		elif lod==1:_profile_frame.lod1+=1
+		else:_profile_frame.lod2+=1
 	if not no_bars and boat.has("hp") and boat.has("maxHp"):
 		var center = project(p, -35)
 		var width = maxf(35, boat_size * scale_factor * 2.5)
@@ -928,6 +995,11 @@ func draw_battle():
 	var battle = host.battle
 	if battle.is_empty():
 		return
+	if _profile_drawing:
+		_profile_frame.boats_total=battle.ships.size()
+		_profile_frame.projectiles_total=battle.projectiles.size()
+		_profile_frame.effects_total=battle.effects.size()
+		_profile_frame.wrecks_total=battle.wrecks.size()
 	for i in range(battle.islands.size()):
 		draw_island(battle.islands[i], i, true)
 	var goal: Dictionary=host.Battle.objective_snapshot(battle).get("exit",{})
@@ -946,17 +1018,26 @@ func draw_battle():
 	var flagship = host.Battle.get_flagship(battle)
 	if not flagship.is_empty():
 		world_ring(Vector2(flagship.x, flagship.y), flagship.spec.range, Color(0.75, 0.84, 0.63, 0.07), 1.0)
+	var phase_started: int=Time.get_ticks_usec() if _profile_drawing else 0
 	var active_wrecks: int=0
 	for wreck in battle.wrecks:
 		if bool(wreck.get("sinking",false)):active_wrecks+=1
 	for wreck in battle.wrecks:
 		var margin: float=maxf(100,float(wreck.size)*scale_factor*3.2)
 		if get_viewport_rect().grow(margin).has_point(project(Vector2(wreck.x,wreck.y))):
+			var primitives: int=0
 			if active_wrecks>=8:
-				var coarse: Dictionary=wreck.duplicate();coarse.lod=2;CombatArt.wreck(self,coarse)
-			else:CombatArt.wreck(self,wreck)
+				var coarse: Dictionary=wreck.duplicate();coarse.lod=2;primitives=CombatArt.wreck(self,coarse)
+			else:primitives=CombatArt.wreck(self,wreck)
+			if _profile_drawing:
+				_profile_frame.wrecks_submitted+=1;_profile_frame.wreck_primitives+=primitives
+	if _profile_drawing:_profile_frame.wrecks_us=Time.get_ticks_usec()-phase_started
+	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	_draw_wakes()
+	if _profile_drawing:_profile_frame.wake_draw_us=Time.get_ticks_usec()-phase_started
+	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	_draw_trails()
+	if _profile_drawing:_profile_frame.trail_draw_us=Time.get_ticks_usec()-phase_started
 	for fort in battle.get("coastalDefenses",[]):
 		var at: Vector2=project(Vector2(fort.x,fort.y))
 		var color: Color=ENEMY if fort.team=="enemy" else FRIEND
@@ -975,25 +1056,38 @@ func draw_battle():
 			draw_line(project(Vector2(source.x,source.y)),project(Vector2(target.x,target.y)),FRIEND,2,true)
 			text_at("BOARDING · %d"%int(job.alive),project(Vector2(target.x,target.y))+Vector2(0,-50),12,GOLD,mono,true)
 	var selected_ids := _selected_battle_ids(battle)
+	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	var sorted_ships = battle.ships.duplicate()
 	sorted_ships.sort_custom(func(a, b): return a.x + a.y < b.x + b.y)
+	if _profile_drawing:_profile_frame.sort_us=Time.get_ticks_usec()-phase_started
+	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	for boat in sorted_ships:
 		if not boat.sunk:
+			if _profile_drawing:_profile_frame.boats_live+=1
 			var is_sel: bool = boat.id in selected_ids or bool(boat.get("selected", false))
 			draw_boat(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, is_sel, boat.team == "enemy")
 			if boat.get("captureSecured",false):text_at("SECURED PRIZE",project(Vector2(boat.x,boat.y))+Vector2(0,-38),11,GOLD,mono,true)
 			if is_sel and boat.team == "player":
 				_draw_order_indicator(battle, boat)
+	if _profile_drawing:_profile_frame.boats_us=Time.get_ticks_usec()-phase_started
+	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	for shot in battle.projectiles:
-		BoatArt.draw_projectile(self, _projector(), shot, {})
+		var primitives: int=BoatArt.draw_projectile(self, _projector(), shot, {})
+		if _profile_drawing:_profile_frame.projectile_primitives+=primitives
 		pass # projectile body drawn by BoatArt above
 		pass
 		pass
 		pass
 		pass
+	if _profile_drawing:_profile_frame.projectiles_us=Time.get_ticks_usec()-phase_started
+	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	for effect in battle.effects:
 		var margin: float=maxf(100,float(effect.get("radius",20))*scale_factor*3.0)
-		if get_viewport_rect().grow(margin).has_point(project(Vector2(effect.x,effect.y),float(effect.get("height",0)))):CombatArt.effect(self,effect)
+		if get_viewport_rect().grow(margin).has_point(project(Vector2(effect.x,effect.y),float(effect.get("height",0)))):
+			var primitives: int=CombatArt.effect(self,effect)
+			if _profile_drawing:
+				_profile_frame.effects_submitted+=1;_profile_frame.effect_primitives+=primitives
+	if _profile_drawing:_profile_frame.effects_us=Time.get_ticks_usec()-phase_started
 	if not flagship.is_empty():
 		var nearest: Dictionary = {}
 		var best = INF

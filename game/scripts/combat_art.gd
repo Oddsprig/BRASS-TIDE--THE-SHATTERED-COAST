@@ -8,6 +8,38 @@ const FOAM_LIGHT := Color(0.88, 0.98, 0.94, 1.0)
 const FOAM_MID := Color(0.70, 0.91, 0.85, 1.0)
 const FOAM_DEEP := Color(0.46, 0.74, 0.69, 1.0)
 
+## Only the two existing explicit polygon guards use this probe. It does not
+## include CanvasItem/renderer triangulation or alter the validation result.
+class PolygonProfile extends RefCounted:
+	static var enabled: bool = false
+	static var calls: int = 0
+	static var elapsed_us: int = 0
+	static var max_us: int = 0
+	static var rejected: int = 0
+
+	static func valid(points: PackedVector2Array) -> bool:
+		var started: int = Time.get_ticks_usec() if enabled else 0
+		var result: bool = not Geometry2D.triangulate_polygon(points).is_empty()
+		if enabled:
+			var elapsed: int = Time.get_ticks_usec() - started
+			calls += 1
+			elapsed_us += elapsed
+			max_us = maxi(max_us, elapsed)
+			if not result: rejected += 1
+		return result
+
+static func profile_enable(enabled: bool = true) -> void:
+	PolygonProfile.enabled = enabled
+
+static func profile_reset() -> void:
+	PolygonProfile.calls = 0; PolygonProfile.elapsed_us = 0
+	PolygonProfile.max_us = 0; PolygonProfile.rejected = 0
+
+static func profile_read() -> Dictionary:
+	return {"enabled": PolygonProfile.enabled, "triangulation_calls": PolygonProfile.calls,
+		"triangulation_us": PolygonProfile.elapsed_us, "triangulation_max_us": PolygonProfile.max_us,
+		"triangulation_rejected": PolygonProfile.rejected}
+
 class FadeCanvas extends RefCounted:
 	var target
 	var alpha: float = 1.0
@@ -35,7 +67,7 @@ class FadeCanvas extends RefCounted:
 		if _skip() or points.size() < 3:
 			return
 		var col: Color = _color(color)
-		if col.a <= 0.01 or Geometry2D.triangulate_polygon(points).is_empty():
+		if col.a <= 0.01 or not PolygonProfile.valid(points):
 			return
 		target.draw_colored_polygon(points, col)
 		count += 1
@@ -157,7 +189,7 @@ static func _det_angle(seq: int, idx: int, count: int, base: float = 0.0, spread
 static func _fx_poly(fx: Dictionary, pts: PackedVector2Array, col: Color) -> void:
 	if int(fx.n) >= int(fx.max_n) or col.a <= 0.01 or pts.size() < 3:
 		return
-	if Geometry2D.triangulate_polygon(pts).is_empty():
+	if not PolygonProfile.valid(pts):
 		return
 	fx.canvas.draw_colored_polygon(pts, col)
 	fx.n = int(fx.n) + 1
