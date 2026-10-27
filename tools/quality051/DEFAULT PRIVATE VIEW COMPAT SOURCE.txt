@@ -1,0 +1,26 @@
+051 DEFAULT PRIVATE VIEW COMPATIBILITY - SOURCE ONLY, NATIVE UNRUN
+Parent f69a47f36c61d42b2f6cd0e095c8217347923612; Root94c3f03 contains it
+and Nav's independent fixed-endpoint proof hook, which this patch does not touch.
+
+R30 job5941424197ae443789860abb6cf6a18d FAILED in25.484s:
+traffic geometry368checks/3failures, old view_parity051 lines159/160/174.
+Exact native.log read; Damage450/0 and coastal95/0 are prior Root evidence.
+The default empty Dictionary accidentally selected borrowing for private
+callers that retain their snapshots. R30 remains FAILED, not reclassified.
+
+Only Runtime's two view functions change. Nullable omitted context preserves
+the detached default; an explicit Dictionary opts into closed-begin borrowing.
+For default private views, each not-yet-frozen observation is deep-detached,
+recursively frozen, and stored back in t.observed exactly once. Both sides
+share that exact frozen observation; due-owner mounts share its detached fit.
+Live borrowed mount arrays are never frozen. Explicit current contexts keep
+their existing fast path; public/worker ownership and mutability stay unchanged.
+
+No fixture edits: all old geometry and new current-begin assertions retained.
+Planner, Certification, Nav/Routes, Damage, policy, decisions, sample times,
+60Hz physical authority, .2s useful-decision bound and workload unchanged.
+Single check_preload_calls advisory on Runtime and both existing fixtures:
+issues[], advisoryOnly:true, engineInvoked:false. Diff whitespace clean.
+No helpers/engine/native/test/build/GPU runs. Root owns combined R31.
+Native parsing, compatibility and performance UNVERIFIED;051gateOPEN.
+Commit this bounded source candidate, then STOP.

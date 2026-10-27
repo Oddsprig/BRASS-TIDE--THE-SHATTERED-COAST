@@ -289,9 +289,10 @@ static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dic
 	# Public callers retain full, detached, mutable owner and enemy records.
 	return _view051(st,side,due,frame_cache,false)
 
-static func _begin_view051(st: Dictionary,side: String,due: Array,frame_cache=null,current051: Dictionary={}) -> Dictionary:
-	# Only the closed synchronous begin lends current read inputs. This bundle
-	# is local to that call; neither a worker nor publication retains its aliases.
+static func _begin_view051(st: Dictionary,side: String,due: Array,frame_cache=null,current051: Variant=null) -> Dictionary:
+	# Only an explicit context opts the closed synchronous begin into borrowing.
+	# Omitted contexts retain detached, frozen shared observations for callers
+	# that keep this private view after begin returns.
 	return _view051(st,side,due,frame_cache,true,false,current051)
 
 static func _begin_context051(st: Dictionary,side: String,frame_cache,current051: Dictionary) -> Dictionary:
@@ -328,12 +329,12 @@ static func _view_read_only051(value: Variant) -> void:
 		for child in (value.values() if value is Dictionary else value):_view_read_only051(child)
 		value.make_read_only()
 
-static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false,current051: Dictionary={}) -> Dictionary:
+static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false,current051: Variant=null) -> Dictionary:
 	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
 	var t: Dictionary=st.tactical
 	var ships: Array=[]
 	var choices: Dictionary={}
-	var main051: bool=closed_begin051 and not worker_owned051
+	var main051: bool=closed_begin051 and not worker_owned051 and current051 is Dictionary
 	if main051 and not current051.has("sides"):
 		current051.sides={};current051.owners={};current051.indexes={}
 		current051.mission=public_mission(st)
@@ -347,8 +348,14 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 		var observed051: Dictionary={}
 		if closed_begin051:
 			observed051=t.observed[id].duplicate(true) if worker_owned051 else t.observed[id]
-			# Main's readers are pure and finish before helm/motion/fire writes.
-			# Never recursively freeze a borrowed live mount/status/option graph.
+			if not main051 and not worker_owned051 and not observed051.is_read_only():
+				# Begin observations can borrow live mount generations. Detach before
+				# freezing, then share this exact observation on either side only once.
+				observed051=observed051.duplicate(true)
+				_view_read_only051(observed051)
+				t.observed[id]=observed051
+			# Explicit main readers finish before helm/motion/fire writes; their
+			# borrowed live mount/status/option graphs must stay mutable.
 		if ship.team==side:
 			var own: Dictionary
 			if not closed_begin051 or id in due:
