@@ -1,0 +1,59 @@
+051 R27 GOAL CAPABILITY GUARDS - SOURCE CANDIDATE, 27 October 2026
+Base f5381ee232227a5b3b8f5ff0ac85cc1f12b15ac9. Root owns all execution.
+
+Measured input: R27 b004006fa03847e9add1313605d14080 QUALITY FAILED.
+Light42/full300DPside:16.404FPS, simulation median12.4545ms/P9520.122ms;
+helmCurrent1150us, helmSafety1655us, firing1223us median. Mixed16:
+~59.887FPS, simulation5.590ms/P958.787ms. All42/16 ever moved;35/14
+moving; ZERO persistent stalls. Both end PNGs were viewed by Root.
+R55 PASS2796/0 including771 existing goals checks,69.844s; R56 export/
+three starts PASS60.953s are BASE evidence, not this candidate's results.
+Timing input: parent/R27 engagement and cost findings.json, read in part.
+
+Boundaries inspected: Battle.update performs the complete damage/mount/timer
+prepass and objective retarget, seals Damage.BattlePhase043, then runs begin,
+all helms, all motion, and all fire synchronously. It closes the numeric
+epoch before motion, builds another afterward, then closes both numeric and
+damage phase before boarding/contact/projectile writes. _move changes pose,
+velocity and fuel; _fire changes ammo, timers, aim and emission bookkeeping.
+There are no condition/crew/fit/policy writers inside that sealed lifetime.
+
+Change is deliberately limited to repeated capability construction/validation.
+_Goal051 stages the already-read owned status entry after a real successful
+capability read, including publication. At consumption, reuse requires the
+existing Routes numeric epoch and exact st/phase/ships/cache/owned membership,
+same sealed entry, valid/current generation, same immutable status projection,
+unchanged priority, tick, snapshot revision and capability observation time.
+HP/water/fire/engine/crew/wounded still compare against the real read; changed
+motion/emission scalars remain finite and positive-fuel state remains equal.
+An eligible repeat avoids rebuilding motion/live-capability arrays, their deep
+copy and repeated finite scans of unchanged fit/status inputs. First full reads
+stage only in the current exact numeric context/time/phase, without repeating
+the complete owned-entry proof at staging. Root's precommit review identified
+the stale-numeric staging/test mismatch; this guard fixes it while retaining
+the new-tick fresh-read and cleared-phase assertions. Priority uses the actual
+Core.PRIORITIES value "engine".
+No route, sweep, clearance, fire readiness, target motion or physical result is
+cached. Default/UI, foreign, dirty/revoked, unsealed, closed, later-tick and
+changed-revision calls perform the original full capability read. Real motion
+fuel-zero crossings fail reuse and revoke the incompatible sampled goal.
+
+All joined-record, encounter/owner/generation, current orders/control/options,
+terrain, survival/boarding, target/loss/capture and deadline checks still run
+on EVERY _goal_current051 call. This pass does not thin those checks. The
+150ms sample and450ms choice deadlines never renew. Current steering, physical
+clearance, live fire,60Hz, actors/DP, art, RNG, coins/crew/stores are unchanged.
+
+Existing test_tactical_ai.gd goals051 selector has additive focused coverage:
+real joined goal plus real owned phase; reuse across a numeric rebuild;
+current reloading; equivalent fresh default/UI read; new tick and changed
+revision; closed and active foreign contexts; real priority writer; actual
+Battle._move fuel-zero crossing before fire; unchanged original clocks.
+Existing assertions and other selectors were not edited. No new harness.
+
+Validation here: manually read the named diff and relevant constructor/call
+chains. NO engine, import, export, GPU, test, profiler, source advisory or
+helper/provider call was run. Root must run combined native checks on the
+integrated source. This is an unaccepted source candidate; the added admission
+and comparison overhead may offset savings. No speedup or quality acceptance
+is claimed before actual R28. No tag/package/install/push or other files changed.

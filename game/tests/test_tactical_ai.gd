@@ -1933,8 +1933,73 @@ func goals_retirement051() -> void:
 	T.retire_planning051(st);T.drain_planning051()
 	check(Planner._tasks051.is_empty(),"goal retirement drains every owned task through the existing lifecycle")
 
+func _goals_guard_phase051(st: Dictionary):
+	# Existing real ownership/seal/numeric infrastructure; no fake goal, worker
+	# completion or clearance. The joined goals come from _goals_ready051.
+	var cache: Dictionary=st.tactical.damageCache
+	var phase=D._begin_battle_phase043(cache)
+	D._bind_battle_owned051(phase,st.get("_damageOwned051"),st.ships,cache)
+	D._seal_battle_reads051(phase)
+	T.after_motion(st,phase)
+	return phase
+
+func goals_phase_guards051() -> void:
+	var arena: Dictionary=_goals_arena051(true)
+	var st: Dictionary=arena.state
+	var ready: Dictionary=_goals_ready051(arena)
+	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
+	var source: Dictionary=arena.source
+	var id: String=str(source.id)
+	var record: Dictionary=ready.records[id]
+	var chosen: float=float(record.chosenAt)
+	var sampled: float=float(record.sampledAt)
+	var held=st.tactical.goals051[id]
+	var phase=_goals_guard_phase051(st)
+	check(is_same(T._goal_current051(st,source,phase),record) and is_same(held.capability_phase051,phase),"real owned sealed phase admits a fully checked joined goal capability")
+	var capability: Array=held.capability
+	var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state])
+	T.helm(st,source,phase);T.after_motion(st,phase)
+	check(is_same(T._goal_current051(st,source,phase),record) and is_same(held.capability,capability) and var_to_bytes([st.ships,st.rng.state])==physical,"same owned begin-to-fire phase reuses capability inputs across the numeric rebuild without moving, spending or renewing the goal")
+	source.weaponCooldowns[0]=0.5;source.cooldown=0.5
+	physical=var_to_bytes([st.ships,st.rng.state])
+	check(T._battle_fire_gates051(st,source,phase).is_empty() and str(st.tactical.fireReasons[id].get("goal-gun",""))=="Reloading" and is_same(held.capability,capability) and var_to_bytes([st.ships,st.rng.state])==physical,"owned capability reuse still reads actual post-helm fire readiness and emits or spends nothing while reloading")
+	check(is_same(T._goal_current051(st,source),record) and held.capability==capability and not is_same(held.capability,capability) and held.capability_phase051==null,"default/UI read fully rebuilds the same real capability and clears owned-phase reuse")
+	T._goal_current051(st,source,phase);capability=held.capability
+	st.time+=1.0/60.0
+	check(is_same(T._goal_current051(st,source,phase),record) and held.capability==capability and not is_same(held.capability,capability) and held.capability_phase051==null,"new tick cannot reuse an earlier numeric epoch even with the still-active exact phase handle")
+	T.after_motion(st,phase);T._goal_current051(st,source,phase);capability=held.capability
+	st.tactical.snapshotRevision+=1
+	T.after_motion(st,phase)
+	check(is_same(T._goal_current051(st,source,phase),record) and not is_same(held.capability,capability),"changed snapshot revision at the same clock requires a fresh capability read")
+	capability=held.capability
+	T._close_numeric051(st);D._end_battle_phase043(phase)
+	check(is_same(T._goal_current051(st,source,phase),record) and held.capability==capability and not is_same(held.capability,capability) and held.capability_phase051==null,"closed phase takes the full checked read instead of retaining its capability proof")
+	phase=_goals_guard_phase051(st);T._goal_current051(st,source,phase);capability=held.capability
+	var foreign: Dictionary=_goals_arena051(true)
+	var foreign_phase=_goals_guard_phase051(foreign.state)
+	check(is_same(T._goal_current051(st,source,foreign_phase),record) and held.capability==capability and not is_same(held.capability,capability) and held.capability_phase051==null,"active foreign encounter phase cannot borrow the current owner's capability proof")
+	T._close_numeric051(foreign.state);D._end_battle_phase043(foreign_phase)
+	T.retire_planning051(foreign.state);T.drain_planning051()
+	# A real public priority writer changes the existing equipment generation.
+	var scout: Dictionary=arena.actors[1]
+	var scout_id: String=str(scout.id)
+	T._goal_current051(st,scout,phase)
+	check(D.set_repair_priority(scout,"engine")=="engine" and T._goal_current051(st,scout,phase).is_empty() and not st.tactical.goals051.has(scout_id),"dirty repair priority invalidates the real owned capability and its joined goal immediately")
+	# Use the actual movement kernel to cross positive fuel to zero between helm
+	# and fire. Readiness remains live even if the earlier capability was reused.
+	source.fuel=0.00001;source.vx=60.0;source.vy=0.0
+	T._goal_current051(st,source,phase);T.helm(st,source,phase)
+	B._move(st,source,1.0/60.0,float(source.angle),1.0,false,phase)
+	T.after_motion(st,phase)
+	check(float(source.fuel)==0.0 and T.fire_gates(st,source,phase).is_empty() and not st.tactical.goals051.has(id),"actual motion fuel-zero crossing revokes the former goal before live fire despite same-phase capability reuse")
+	check(float(record.chosenAt)==chosen and float(record.sampledAt)==sampled and float(st.tactical.lastDecision[id])==sampled,"owned and full-read paths preserve original choice/sample deadlines and the last real tactical observation")
+	observations.append({"case":"goals051-phase-guards","chosenAt":record.chosenAt,"sampledAt":record.sampledAt,"time":st.time,"fuel":source.fuel,"reason":st.tactical.reasons.get(id,"")})
+	T._close_numeric051(st);D._end_battle_phase043(phase)
+	T.retire_planning051(st);T.drain_planning051()
+
 func goals051() -> void:
 	goals_fleet051();goals_expiry051();goals_invalidations051();goals_live051();goals_retirement051()
+	goals_phase_guards051()
 	var arena: Dictionary=boarding_arena()
 	T.enable_planning051(arena,true)
 	check(not arena.tactical.has("workers051"),"explicit sampled policy preserves the ordinary duel's synchronous workload")

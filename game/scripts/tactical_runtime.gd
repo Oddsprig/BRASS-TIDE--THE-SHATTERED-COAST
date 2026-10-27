@@ -22,6 +22,11 @@ class _Goal051 extends RefCounted:
 	var primary: Array=[]
 	var capability: Array=[]
 	var capability_at: float=-1.0
+	var capability_phase051=null
+	var capability_entry051: Dictionary={}
+	var capability_status051: Dictionary={}
+	var capability_generation051: int=-1
+	var capability_revision051: int=-1
 	var generation: int=-1
 	var snapshot_revision: int=-1
 	var index: int=0
@@ -141,7 +146,7 @@ static func _goal_current051(st: Dictionary,ship: Dictionary,frame_cache=null) -
 				reason="Target or protected ally unavailable";break
 			if not Routes.point(target).is_finite() or not Vector2(target.vx,target.vy).is_finite() or not is_finite(float(target.angle)):
 				reason="Checking current target motion";break
-	if reason.is_empty():
+	if reason.is_empty() and not _goal_capability_reusable051(st,ship,held,frame_cache):
 		var actual: Array=_goal_capability051(st,id,frame_cache)
 		var heat: Vector2=Certification._heat_wear(ship,maxf(0.0,now-held.capability_at),float(held.capability[1][2]))
 		if actual.is_empty() or actual[0]!=held.capability[0] or Certification._live_capability_lost(actual[1],held.capability[1],heat):
@@ -150,6 +155,7 @@ static func _goal_current051(st: Dictionary,ship: Dictionary,frame_cache=null) -
 			# This is a REAL capability read, never a renewed tactical observation,
 			# chosenAt, static route proof or physical certificate timestamp.
 			held.capability=actual;held.capability_at=now
+			_remember_goal_capability051(st,ship,held,frame_cache)
 	if not reason.is_empty():
 		_drop_goal051(t,id,not expired)
 		if not t.pending.has(id):t.pending[id]=now
@@ -159,6 +165,54 @@ static func _goal_current051(st: Dictionary,ship: Dictionary,frame_cache=null) -
 
 static func _fleet_goals051(t: Dictionary) -> bool:
 	return bool(t.get("workers051",{}).get("fleetGoals051",false))
+
+static func _goal_capability_entry051(st: Dictionary,ship: Dictionary,frame_cache) -> Dictionary:
+	# Reuse the numeric epoch's existing encounter/phase admission. No new
+	# context, public cache admission, path result or clearance is constructed.
+	if not frame_cache is Damage.BattlePhase043 or not frame_cache.active or not frame_cache.readsSealed051:return {}
+	var t: Dictionary=st.tactical
+	var numeric: Routes._Numeric051=Routes._numeric_for051(t.get("cells",{}),ship)
+	if numeric==null or not is_same(numeric.context,st) or not is_same(numeric.phase,frame_cache):return {}
+	var owned=Damage._battle_owned_for051(st.get("_damageOwned051"),st.get("ships",[]),t.get("damageCache",{}))
+	if owned==null or not is_same(owned,frame_cache.owned) or not is_same(owned.source,frame_cache.source):return {}
+	var slot: String=Damage._cache_slot_key(ship)
+	var entry: Dictionary=frame_cache.sealedEntries051.get(slot,{})
+	if (entry.is_empty() or not is_same(owned.entries.get(slot),entry) or not is_same(entry.get("shipRef"),ship)
+		or not bool(entry.get("valid",false)) or int(entry.infoGeneration)!=int(entry.generation)
+		or not ship.get("moduleCondition") is Dictionary or entry.priority!=ship.moduleCondition.get("repairPriority")
+		or entry.statusInputs.size()<=12 or (float(ship.fuel)>0.0)!=bool(entry.statusInputs[12])):return {}
+	return entry
+
+static func _remember_goal_capability051(st: Dictionary,ship: Dictionary,held: _Goal051,frame_cache) -> void:
+	# Stage only in the current numeric epoch. The complete owned-entry proof
+	# is required at consumption; do not repeat that walk on every first read.
+	var entry: Dictionary={}
+	if frame_cache is Damage.BattlePhase043 and frame_cache.active and frame_cache.readsSealed051:
+		var numeric: Routes._Numeric051=Routes._numeric_for051(st.tactical.get("cells",{}),ship)
+		if numeric!=null and is_same(numeric.context,st) and is_same(numeric.phase,frame_cache):
+			var candidate: Dictionary=frame_cache.sealedEntries051.get(Damage._cache_slot_key(ship),{})
+			if is_same(candidate.get("shipRef"),ship):entry=candidate
+	held.capability_phase051=frame_cache if not entry.is_empty() else null
+	held.capability_entry051=entry
+	held.capability_status051=entry.get("status",{})
+	held.capability_generation051=int(entry.get("generation",-1))
+	held.capability_revision051=int(st.tactical.snapshotRevision)
+
+static func _goal_capability_reusable051(st: Dictionary,ship: Dictionary,held: _Goal051,frame_cache) -> bool:
+	# Default/UI calls, another begin/tick, foreign or closed phases never reuse.
+	# Battle's phase has no condition/crew/fit writers between begin and fire;
+	# official dirty/revoke/priority writes invalidate the existing entry proof.
+	if not frame_cache is Damage.BattlePhase043 or not is_same(held.capability_phase051,frame_cache) or held.capability_at!=float(st.time) or held.capability_revision051!=int(st.tactical.snapshotRevision):return false
+	var entry: Dictionary=_goal_capability_entry051(st,ship,frame_cache)
+	if entry.is_empty() or not is_same(held.capability_entry051,entry) or held.capability_generation051!=int(entry.generation) or not is_same(held.capability_status051,entry.status):return false
+	var live: Array=held.capability[1]
+	if ship.hp!=live[0] or ship.water!=live[1] or ship.fire!=live[2] or ship.engine!=live[3] or ship.crew!=live[4] or ship.wounded!=live[5] or (float(ship.fuel)>0.0)!=bool(held.capability[0][12]):return false
+	# Only these finite scalar inputs can change in motion/emission. Keep their
+	# real reads, including fuel-zero; no readiness, target or pose is cached.
+	for key: String in ["x","y","vx","vy","angle","fuel","ammo"]:
+		var value: Variant=ship.get(key)
+		if not (value is int or value is float) or not is_finite(float(value)):return false
+	return true
 
 static func _goal_capability051(st: Dictionary,id: String,frame_cache=null) -> Array:
 	var ship: Dictionary=st.tactical.ships[id]
@@ -269,6 +323,7 @@ static func _publish_goal051(st: Dictionary,id: String,slot: Dictionary,frame_ca
 	held.source=source;held.guard=guard;held.owners=owners;held.workers=t.workers051
 	held.generation=int(slot.generation051);held.snapshot_revision=int(slot.snapshotRevision)
 	held.capability=actual;held.capability_at=now
+	_remember_goal_capability051(st,ship,held,frame_cache)
 	held.points=Certification.execution(candidate)
 	held.primary=Certification.primary_mounts(t.mountCache[id].mounts,candidate)
 	held.record={"candidate":candidate,"state":state,"chosenAt":chosen,"sampledAt":sample,"owner":ship,"encounterGeneration051":t.workers051,"generation051":int(slot.generation051),"snapshotRevision":int(slot.snapshotRevision),"terrainKey":str(slot.terrainKey),"terrainRevision":int(slot.terrainRevision),"sampledRisk":risk,"scope":"sampled-fleet-goal"}
