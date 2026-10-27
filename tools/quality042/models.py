@@ -193,8 +193,15 @@ def width_at(stations, x):
     raise ValueError(x)
 
 
-def hull_shell(m, name, stations, offset, deck_z, mat, stripe="brass", samples=56):
-    """Smooth round-bilge hull, clipped precisely at Z=0; crowned deck and rim."""
+def hull_shell(m, name, stations, offset, deck_z, mat, stripe="brass", samples=56, bow_rise=0.0):
+    """Round-bilge hull at Z=0; optional local forefoot rise, same sheer and XY."""
+    # Only explicitly selected light hulls lift their keel through the last
+    # two station intervals. Default zero retains every other authored shell.
+    def forefoot_at(x):
+        span = stations[-1][0]-stations[-3][0]
+        u = max(0.0, min(1.0, (x-stations[-3][0])/span))
+        return bow_rise*u*u*(3-2*u), bow_rise*6*u*(1-u)/span
+
     p = m.part(name, mat)
     # Every transverse strip is curved, with 12 vertical samples per side.
     ring = 25
@@ -204,19 +211,30 @@ def hull_shell(m, name, stations, offset, deck_z, mat, stripe="brass", samples=5
         dx = .001
         dw = (width_at(stations, min(x+dx, stations[-1][0]))-width_at(stations, max(x-dx, stations[0][0])))/(2*dx)
         sheer = .45*(abs(x)/max(abs(stations[0][0]), stations[-1][0]))**3
+        rise, rise_slope = forefoot_at(x)
+        height = deck_z+sheer
         for j in range(ring):
             t = -pi/2 + pi*j/(ring-1)
             # Narrow visible waterline rising to a generously rounded topside.
             y = w*sin(t)
-            z = (deck_z+sheer)*(abs(sin(t))**1.6)
-            # Central bottom (j=12) is on the waterline; sheer meets deck at sides.
+            curve = abs(sin(t))**1.6
+            z = height*(rise+(1-rise)*curve)
+            # Midbody keel stays at the waterline; the selected forefoot rises.
             p.vertices.append(m.p(x, offset+y, z))
             dt = .0001
             def sect(q):
-                return (w*sin(q)*m.size, (deck_z+sheer)*(abs(sin(q))**1.6))
+                return (w*sin(q)*m.size, height*(rise+(1-rise)*abs(sin(q))**1.6))
             yl, zl = sect(t-dt)
             yh, zh = sect(t+dt)
-            n = unit((-dw*sin(t)*(zh-zl), zh-zl, -(yh-yl)))
+            nx = -dw*sin(t)*(zh-zl)
+            if rise > 0.0:
+                # Longitudinal forefoot slope belongs in the surface normal.
+                length = max(abs(stations[0][0]), stations[-1][0])
+                sheer_slope = 1.35*x*abs(x)/length**3
+                dzdx = (sheer_slope*(rise+(1-rise)*curve)
+                        +height*rise_slope*(1-curve))/m.size
+                nx += dzdx*(yh-yl)
+            n = unit((nx, zh-zl, -(yh-yl)))
             p.normals.append(n)
     for i in range(samples):
         for j in range(ring-1):
@@ -253,7 +271,11 @@ def hull_shell(m, name, stations, offset, deck_z, mat, stripe="brass", samples=5
             w = width_at(stations, x)
             z = deck_z+.45*(abs(x)/max(abs(stations[0][0]), stations[-1][0]))**3
             pts.append(m.p(x, offset+side*w, z+.20))
-            belt.append(m.p(x, offset+side*w*.96, deck_z*.65))
+            # Carry the existing strake with the lifted shell so no
+            # unchanged low rail remains underneath the corrected bow.
+            belt_z = deck_z*.65
+            belt_z += (z-belt_z)*forefoot_at(x)[0]
+            belt.append(m.p(x, offset+side*w*.96, belt_z))
         tube(m, name+"_caprail", pts, .30, stripe, 8)
         tube(m, name+"_rubbing_strake", belt, .32, "rubber", 8)
 
@@ -396,7 +418,7 @@ def tin_skiff():
     m = Model("tin_skiff", 14)
     m.sockets = sockets_for(m.hull_id, m.size, "skiff", 1, "compact")
     st = [(-1.86,.42),(-1.62,.52),(-.95,.58),(-.15,.60),(.55,.58),(1.22,.46),(1.78,.22),(2.02,.002)]
-    hull_shell(m, "rolled_aluminum_launch", st, 0, 9.7, "tin", "teal")
+    hull_shell(m, "rolled_aluminum_launch", st, 0, 9.7, "tin", "teal", bow_rise=.90)
     # Inset cockpit tub and two fixed helm assets; no generated people.
     box(m, "cockpit_well", m.p(-.30, 0, 10.2), (10.2, 6.8, .5), "seam", .8)
     box(m, "cockpit_floor", m.p(-.30, 0, 10.5), (9.2, 5.9, .35), "deck", .6)

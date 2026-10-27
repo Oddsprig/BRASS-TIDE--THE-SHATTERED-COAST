@@ -1,0 +1,95 @@
+051 FOUR-HULL FOREFOOT - APPROVED SOURCE CANDIDATE, VISUAL UNRUN
+27 October 2026. Integrate only after Root's sequential050 delivery.
+
+EXACT IDS
+tin_skiff
+gullwing_daysailer
+kelpnet_dory
+osprey_cabin_cruiser
+
+ACTUAL FINDING / CAUSE
+Viewed all four existing390x245 roster-<id>.png files in:
+C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/roster-fitted-review049-r1/
+Also viewed the existing049 release's Tin and Kelpnet portrait.png sources.
+The wedge is already present in these actual baked hulls. It is legitimate
+attached lower-hull surface, not a detached part, weapon, procedural fallback,
+portrait transform or alpha-border artifact. Source hull_shell keeps j12 at
+Z=0 along the complete keel while the half-beam collapses to .002 at the bow.
+Its sheer still reaches10.15worldunits on Tin and8.65 on the other three;
+the black rubbing strake remains at .65*deck_z. The resulting tall narrow stem
+and broad lower bow face read as a hanging fin at normal portrait size.
+The native trace references the actual heading0 portrait for every reviewed ID.
+BoatArt's successful authored-hull branch omits the procedural hull; SpriteArt
+draws the existing texture about its declared pivot. No runtime sprite edit.
+
+ROOT-APPROVED CORRECTION
+Only models.py hull_shell's optional bow_rise and Tin's explicit .90 call,
+plus recipes.py's explicit three-ID selection. The remaining32 use zero.
+Smoothstep rises from0 to90% of local sheer height over the final two station
+intervals: Tin1.22..2.02; Gullwing1.50..2.30; Kelpnet1.40..2.08;
+Osprey1.60..2.42 (hull-local X). It lifts only the lower forefoot, retains the
+same sheer/deck/XY station outline, and includes its slope in surface normals.
+The existing strake follows that same compression; retaining its old Z would
+leave a low rail beneath the revised bow. Bow cap reuses the changed ring.
+No hull redesign, materials, deck, cabin, motors, wells, socket or weapon change.
+The .90 choice and visual benefit remain unrendered, not accepted finished art.
+
+EXACT BAKE SOURCE BINDINGS (SHA256)
+Order for concatenated bundle: models.py, bake.py, recipes.py, catalog.json.
+Frozen baseline directory:
+C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/bake-source049-230eebfb5a0b
+Frozen baseline bundle, verified unchanged before AND after comparison:
+230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506
+Candidate bundle:
+e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a
+
+tools/quality042/models.py
+old e2ee11abefa612efd15c7ab041c9336590a691fd87086d3a513c753a1be63153
+new 694efa97ecb7bdf2ba6a468e4f23d392043f8f0023cc6c8d36061df05a9d739b
+tools/quality049/recipes.py
+old 33c2fead9da66e3b912859acd2459cd797edba24c14fda864470afcbade56e89
+new 9d86a4df409b40a34a9a89fa998832de774f307d77a3413349fa80d58fdb83fd
+tools/quality042/bake.py UNCHANGED
+f66f1e2a3d910769e20f36c9bb90f8a954d97ae6e40965ea3690c907ae2ac694
+tools/quality049/catalog.json UNCHANGED
+1e02941dffe273ac690d5038c20eb3537aa4960235cc8fddec358677370ae879
+Existing049 seed/source-binding/preview plans remain historical and untouched.
+Root must copy fresh immutable051 inputs; do not relabel230eeb cache pixels.
+
+BOUNDED READ-ONLY SOURCE COMPARISON
+Root explicitly authorized this Python import/model comparison. Existing
+Python312 with -B;40second internal deadline, completed4.204137seconds
+(process wall4.318095). Imported frozen and candidate models separately;
+constructed each of36 once per source, releasing each pair after comparison.
+No render, bake, engine, assets, imports into Godot or runtime tests executed.
+
+32 default models identical by SHA256 of canonical JSON covering hull ID,
+size, ordered part names/materials, vertices, normals, triangle indices,
+full sockets and roster049 metadata. These are the exact36 minus the4 above.
+Digest of sorted[id,identical_model_SHA256] pairs (JSON sort_keys=True,
+separators=(',',':'), allow_nan=False, UTF8):
+d8261c84ad4e9c8a57d55fd438ac25928681caa6d091b96bd00cdc035cdd4fef
+All36 full socket arrays are unchanged. Each selected hull retains two sockets.
+All4 full-model XYZ minimum/maximum bounds also remain exactly unchanged.
+In each selected hull only shell, forward cap and the two strake parts differ;
+part ordering, counts, names, materials and triangle indices are unchanged.
+Shell vertices preserve XY; Z only rises forward of the specified start.
+All other parts, including complete deck/cabin/motor/well meshes, are identical.
+
+Selected socket-array SHA256 (same canonical JSON):
+tin_skiff 2e31ad6c31a2fc93e75541fac6ce18b96e12f92a21806958c26a9e346aac640c
+gullwing_daysailer af9ca1605323f6f812d273b37fbc6910c737b1865038b32d61dca78ffd9986c4
+kelpnet_dory 7ce8fea1bb98f0df6297e44582fe6acb7f8a80d97d2c5465a65c51c56d756580
+osprey_cabin_cruiser 7af661ad9a663e5e5b0d02f1baeaa198b528bb4d51dc6ad1355572169b6dcd09
+
+ROOT NEXT / LIMITS
+Root alone copies the fresh inputs and renders only these4 heading0 portraits
+first through the existing adapter/shared lane. Inspect the shortened stem,
+curved lower face and attached strake at390x245; confirm wells/weapons retain
+their existing relation. Only if visually better, Root may schedule these4
+32-heading atlases and packs, with actual new bounds/receipts. No36/33 rebake.
+No source claim of improved live battle, motion, FPS, audio or quality parity.
+No version/metadata/package changes here; Root prepared051 metadata ONCE.
+Commit allowlist is exactly the two source files plus this handoff TXT.
+Pre-existing AGENTS.md modification, prior FITTED REVIEW.txt and reference
+diff artifact stay out of the commit. Frozen230eeb directory and assets intact.

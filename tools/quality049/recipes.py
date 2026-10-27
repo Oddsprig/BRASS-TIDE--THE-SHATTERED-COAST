@@ -568,7 +568,8 @@ def build(hull_id, api):
         # Centerline sockets sit on a real connected deck, never in the cat gap.
         y.block("structural_bridge_deck",-.15,0,3.34,1.30,6.9,8.4,"timber",.5)
     else:
-        api["hull_shell"](y.m,"authored_rounded_hull",st,0,8.2,d["hull_material"],d["trim_material"],samples=40)
+        bow_rise = .90 if hull_id in ("kelpnet_dory", "gullwing_daysailer", "osprey_cabin_cruiser") else 0.0
+        api["hull_shell"](y.m,"authored_rounded_hull",st,0,8.2,d["hull_material"],d["trim_material"],samples=40,bow_rise=bow_rise)
     # Deck material is specified independently of paint; originals remain intact.
     for p in y.m.parts:
         if p.name.endswith("_deck"):p.material=d["deck_material"]
