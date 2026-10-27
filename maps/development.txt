@@ -1,4 +1,4 @@
-BRASS TIDE — DEVELOPMENT MAP (generated; v0.041)
+BRASS TIDE — DEVELOPMENT MAP (generated; v0.042)
 
 Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 

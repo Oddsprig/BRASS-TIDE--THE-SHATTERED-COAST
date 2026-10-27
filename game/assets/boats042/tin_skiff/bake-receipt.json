@@ -1,0 +1,12 @@
+{
+  "source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
+  "hull_id": "tin_skiff",
+  "headings": 32,
+  "atlas_sha256": "da666bd44f991996366e251f5db3a37aa00384d283a5173c9ec526189644bdb2",
+  "atlas_size_px": [
+    3072,
+    1280
+  ],
+  "gpu_rgba8_bytes": 15728640,
+  "status": "baked; visual and native integration review still required"
+}

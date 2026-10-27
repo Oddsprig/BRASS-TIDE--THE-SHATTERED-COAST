@@ -1,4 +1,4 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.041)
+BRASS TIDE — PRESENTATION MAP (generated; v0.042)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
@@ -10,19 +10,20 @@ game/scripts/chart.gd: 48661 bytes; extends Node2D
   game/scripts/chart.gd:101 noise()
   game/scripts/chart.gd:104 nautical_chart()
   game/scripts/chart.gd:108 project()
-game/scripts/boat_art.gd: 32665 bytes; extends RefCounted
-  game/scripts/boat_art.gd:29 archetype()
-  game/scripts/boat_art.gd:84 palette()
-  game/scripts/boat_art.gd:145 mounts_of()
-  game/scripts/boat_art.gd:416 draw_boat()
-  game/scripts/boat_art.gd:548 draw_wake()
-  game/scripts/boat_art.gd:583 draw_trail()
-game/scripts/boat_portrait.gd: 6111 bytes; class_name BoatPortrait
-  game/scripts/boat_portrait.gd:49 set_spec()
-  game/scripts/boat_portrait.gd:44 _init()
-  game/scripts/boat_portrait.gd:52 _gui_input()
-  game/scripts/boat_portrait.gd:58 _draw()
-  game/scripts/boat_portrait.gd:112 _draw_socket_arc()
+game/scripts/boat_art.gd: 33052 bytes; extends RefCounted
+  game/scripts/boat_art.gd:30 archetype()
+  game/scripts/boat_art.gd:85 palette()
+  game/scripts/boat_art.gd:146 mounts_of()
+  game/scripts/boat_art.gd:417 draw_boat()
+  game/scripts/boat_art.gd:555 draw_wake()
+  game/scripts/boat_art.gd:590 draw_trail()
+game/scripts/boat_portrait.gd: 7540 bytes; class_name BoatPortrait
+  game/scripts/boat_portrait.gd:50 set_spec()
+  game/scripts/boat_portrait.gd:64 framing()
+  game/scripts/boat_portrait.gd:81 draw_contents()
+  game/scripts/boat_portrait.gd:45 _init()
+  game/scripts/boat_portrait.gd:53 _gui_input()
+  game/scripts/boat_portrait.gd:59 _draw()
 game/scripts/interface.gd: 49140 bytes; extends CanvasLayer
   game/scripts/interface.gd:71 setup()
   game/scripts/interface.gd:96 create_theme()

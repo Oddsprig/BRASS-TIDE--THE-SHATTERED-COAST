@@ -1,17 +1,25 @@
 {
   "schema": "brass-tide-boats042-v1",
   "source_revision": "042-authored-hulls-r1",
-  "asset_status": "source_candidate_no_bakes_executed",
+  "asset_status": "baked_pending_native_and_visual_review",
   "coordinates": {
     "hull_local_x": "bow",
     "hull_local_y": "starboard",
     "physical_xy": "hull_local_xy multiplied by hull size",
     "physical_z": "world elevation; never multiplied by hull size",
     "pivot": "waterline origin [0,0,0]",
-    "projection": [0.82, 0.41, -1.0],
+    "projection": [
+      0.82,
+      0.41,
+      -1.0
+    ],
     "screen_formula": "u=(world_x-world_y)*0.82;v=(world_x+world_y)*0.41-height",
     "heading": "index*TAU/32; rotate physical XY before projection;0=+worldX",
-    "light_world_direction": [-0.55, -0.65, 1.0],
+    "light_world_direction": [
+      -0.55,
+      -0.65,
+      1.0
+    ],
     "weapon_geometry_base_elevation": 9.7,
     "socket_authority": "res://scripts/mount_layout.gd",
     "socket_source": "tools/quality042/models.py:sockets_for (DJB2 signed32 hash, role/tier/faction variation)",
@@ -21,72 +29,906 @@
     "tin_skiff": {
       "name": "Tinwake Skiff",
       "size": 14,
-      "asset_status": "source_candidate_no_bakes_executed",
+      "asset_status": "baked_pending_native_and_visual_review",
       "atlas": "res://assets/boats042/tin_skiff/hull-atlas.png",
       "headings": 32,
       "columns": 8,
       "rows": 4,
-      "cell_px": [384, 320],
-      "pivot_px": [192, 200],
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
       "pixels_per_world_unit": 2,
       "portrait": "res://assets/boats042/tin_skiff/portrait.png",
-      "portrait_heading": 28,
-      "portrait_cell_px": [768, 640],
-      "portrait_pivot_px": [384, 400],
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        768,
+        640
+      ],
+      "portrait_pivot_px": [
+        384,
+        400
+      ],
       "portrait_pixels_per_world_unit": 4,
-      "frame_bounds_px": [],
-      "portrait_bounds_px": [],
-      "socket_ids": ["mount0", "mount1"],
+      "frame_bounds_px": [
+        [
+          132,
+          146,
+          110,
+          80
+        ],
+        [
+          141,
+          143,
+          92,
+          87
+        ],
+        [
+          153,
+          140,
+          72,
+          91
+        ],
+        [
+          162,
+          139,
+          56,
+          94
+        ],
+        [
+          169,
+          139,
+          46,
+          95
+        ],
+        [
+          166,
+          139,
+          56,
+          94
+        ],
+        [
+          159,
+          140,
+          72,
+          91
+        ],
+        [
+          151,
+          143,
+          92,
+          87
+        ],
+        [
+          142,
+          146,
+          110,
+          80
+        ],
+        [
+          134,
+          151,
+          126,
+          70
+        ],
+        [
+          128,
+          154,
+          137,
+          61
+        ],
+        [
+          124,
+          154,
+          143,
+          55
+        ],
+        [
+          123,
+          154,
+          144,
+          50
+        ],
+        [
+          124,
+          154,
+          143,
+          58
+        ],
+        [
+          128,
+          154,
+          137,
+          65
+        ],
+        [
+          134,
+          155,
+          126,
+          70
+        ],
+        [
+          142,
+          153,
+          110,
+          77
+        ],
+        [
+          151,
+          149,
+          92,
+          85
+        ],
+        [
+          159,
+          146,
+          72,
+          91
+        ],
+        [
+          166,
+          144,
+          56,
+          94
+        ],
+        [
+          169,
+          143,
+          46,
+          95
+        ],
+        [
+          162,
+          144,
+          56,
+          94
+        ],
+        [
+          153,
+          146,
+          72,
+          91
+        ],
+        [
+          141,
+          149,
+          92,
+          85
+        ],
+        [
+          132,
+          153,
+          110,
+          77
+        ],
+        [
+          124,
+          155,
+          126,
+          70
+        ],
+        [
+          119,
+          154,
+          137,
+          65
+        ],
+        [
+          117,
+          154,
+          143,
+          58
+        ],
+        [
+          117,
+          154,
+          144,
+          50
+        ],
+        [
+          117,
+          154,
+          143,
+          55
+        ],
+        [
+          119,
+          154,
+          137,
+          61
+        ],
+        [
+          124,
+          151,
+          126,
+          70
+        ]
+      ],
+      "portrait_bounds_px": [
+        266,
+        295,
+        215,
+        154
+      ],
+      "socket_ids": [
+        "mount0",
+        "mount1"
+      ],
       "model_source": "tools/quality042/models.py:tin_skiff",
-      "features": ["smooth rolled aluminum hull", "teal rolled gunwales", "open cockpit and fitted helm", "raked screen", "twin sculpted outboards and prop guards", "engine louvers", "deck hatch", "cleats and rope", "rivet rows", "empty mounting wells"]
+      "features": [
+        "smooth rolled aluminum hull",
+        "teal rolled gunwales",
+        "open cockpit and fitted helm",
+        "raked screen",
+        "twin sculpted outboards and prop guards",
+        "engine louvers",
+        "deck hatch",
+        "cleats and rope",
+        "rivet rows",
+        "empty mounting wells"
+      ],
+      "source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
+      "atlas_sha256": "da666bd44f991996366e251f5db3a37aa00384d283a5173c9ec526189644bdb2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ],
+      "portrait_sha256": "ddcf67fdbdd881967c5566daa9794accc15b29ccdd6968290c492e048790fb08",
+      "atlas_source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
+      "portrait_source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6"
     },
     "ash_corvette": {
       "name": "Ashwake Escort Corvette",
       "size": 21,
-      "asset_status": "source_candidate_no_bakes_executed",
+      "asset_status": "baked_pending_native_and_visual_review",
       "atlas": "res://assets/boats042/ash_corvette/hull-atlas.png",
       "headings": 32,
       "columns": 8,
       "rows": 4,
-      "cell_px": [384, 320],
-      "pivot_px": [192, 200],
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
       "pixels_per_world_unit": 2,
       "portrait": "res://assets/boats042/ash_corvette/portrait.png",
-      "portrait_heading": 28,
-      "portrait_cell_px": [768, 640],
-      "portrait_pivot_px": [384, 400],
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        768,
+        640
+      ],
+      "portrait_pivot_px": [
+        384,
+        400
+      ],
       "portrait_pixels_per_world_unit": 4,
-      "frame_bounds_px": [],
-      "portrait_bounds_px": [],
-      "socket_ids": ["mount0", "mount1", "mount2"],
+      "frame_bounds_px": [
+        [
+          98,
+          131,
+          170,
+          108
+        ],
+        [
+          113,
+          126,
+          143,
+          119
+        ],
+        [
+          128,
+          122,
+          118,
+          126
+        ],
+        [
+          142,
+          120,
+          93,
+          132
+        ],
+        [
+          155,
+          121,
+          74,
+          131
+        ],
+        [
+          149,
+          120,
+          93,
+          132
+        ],
+        [
+          138,
+          122,
+          118,
+          126
+        ],
+        [
+          128,
+          126,
+          143,
+          119
+        ],
+        [
+          116,
+          131,
+          170,
+          108
+        ],
+        [
+          104,
+          133,
+          193,
+          98
+        ],
+        [
+          94,
+          135,
+          210,
+          87
+        ],
+        [
+          88,
+          136,
+          220,
+          77
+        ],
+        [
+          87,
+          138,
+          220,
+          71
+        ],
+        [
+          88,
+          140,
+          220,
+          80
+        ],
+        [
+          94,
+          142,
+          210,
+          88
+        ],
+        [
+          104,
+          140,
+          193,
+          99
+        ],
+        [
+          116,
+          134,
+          170,
+          112
+        ],
+        [
+          128,
+          129,
+          143,
+          123
+        ],
+        [
+          138,
+          126,
+          118,
+          130
+        ],
+        [
+          149,
+          124,
+          93,
+          134
+        ],
+        [
+          155,
+          123,
+          74,
+          135
+        ],
+        [
+          142,
+          124,
+          93,
+          134
+        ],
+        [
+          128,
+          126,
+          118,
+          130
+        ],
+        [
+          113,
+          129,
+          143,
+          123
+        ],
+        [
+          98,
+          134,
+          170,
+          112
+        ],
+        [
+          87,
+          140,
+          193,
+          99
+        ],
+        [
+          80,
+          142,
+          210,
+          88
+        ],
+        [
+          76,
+          140,
+          220,
+          80
+        ],
+        [
+          77,
+          138,
+          220,
+          71
+        ],
+        [
+          76,
+          136,
+          220,
+          77
+        ],
+        [
+          80,
+          135,
+          210,
+          87
+        ],
+        [
+          87,
+          133,
+          193,
+          98
+        ]
+      ],
+      "portrait_bounds_px": [
+        199,
+        265,
+        335,
+        210
+      ],
+      "socket_ids": [
+        "mount0",
+        "mount1",
+        "mount2"
+      ],
       "model_source": "tools/quality042/models.py:ash_corvette",
-      "features": ["smooth round-bilge steel hull", "individual beveled belt plates and fasteners", "turtleback conning house", "gasketed wraparound windows", "copper exhaust header and ringed stack", "diesel louvers", "twin stern drives", "railings and life rings", "service hatches", "empty mounting wells"]
+      "features": [
+        "smooth round-bilge steel hull",
+        "individual beveled belt plates and fasteners",
+        "turtleback conning house",
+        "gasketed wraparound windows",
+        "copper exhaust header and ringed stack",
+        "diesel louvers",
+        "twin stern drives",
+        "railings and life rings",
+        "service hatches",
+        "empty mounting wells"
+      ],
+      "source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
+      "atlas_sha256": "81f8a52b9d29a11c73188f1056c2b8f30d37ee1bca4089d1ebea70fbcae37f82",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ],
+      "portrait_sha256": "a78693cb7ea8715b3f7ce41dba3bf7809c5c47af7982fc249e6995251066057c",
+      "atlas_source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
+      "portrait_source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6"
     },
     "brasswind_motor_galleon": {
       "name": "Brasswind Motor-Galleon",
       "size": 28,
-      "asset_status": "source_candidate_no_bakes_executed",
+      "asset_status": "baked_pending_native_and_visual_review",
       "atlas": "res://assets/boats042/brasswind_motor_galleon/hull-atlas.png",
       "headings": 32,
       "columns": 8,
       "rows": 4,
-      "cell_px": [384, 320],
-      "pivot_px": [192, 200],
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
       "pixels_per_world_unit": 2,
       "portrait": "res://assets/boats042/brasswind_motor_galleon/portrait.png",
-      "portrait_heading": 28,
-      "portrait_cell_px": [768, 640],
-      "portrait_pivot_px": [384, 400],
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        800,
+        640
+      ],
+      "portrait_pivot_px": [
+        400,
+        400
+      ],
       "portrait_pixels_per_world_unit": 4,
-      "frame_bounds_px": [],
-      "portrait_bounds_px": [],
-      "socket_ids": ["mount0", "mount1", "mount2", "mount3"],
+      "frame_bounds_px": [
+        [
+          34,
+          95,
+          320,
+          182
+        ],
+        [
+          54,
+          88,
+          279,
+          197
+        ],
+        [
+          76,
+          84,
+          231,
+          205
+        ],
+        [
+          103,
+          83,
+          179,
+          207
+        ],
+        [
+          131,
+          85,
+          138,
+          203
+        ],
+        [
+          118,
+          83,
+          179,
+          207
+        ],
+        [
+          93,
+          84,
+          231,
+          205
+        ],
+        [
+          67,
+          88,
+          279,
+          197
+        ],
+        [
+          46,
+          95,
+          320,
+          182
+        ],
+        [
+          31,
+          104,
+          351,
+          163
+        ],
+        [
+          22,
+          109,
+          369,
+          145
+        ],
+        [
+          20,
+          112,
+          374,
+          127
+        ],
+        [
+          25,
+          115,
+          364,
+          109
+        ],
+        [
+          20,
+          116,
+          374,
+          124
+        ],
+        [
+          22,
+          115,
+          369,
+          142
+        ],
+        [
+          31,
+          110,
+          351,
+          161
+        ],
+        [
+          46,
+          100,
+          320,
+          182
+        ],
+        [
+          67,
+          92,
+          279,
+          198
+        ],
+        [
+          93,
+          88,
+          231,
+          207
+        ],
+        [
+          118,
+          87,
+          179,
+          210
+        ],
+        [
+          131,
+          89,
+          138,
+          206
+        ],
+        [
+          103,
+          87,
+          179,
+          210
+        ],
+        [
+          76,
+          88,
+          231,
+          207
+        ],
+        [
+          54,
+          92,
+          279,
+          198
+        ],
+        [
+          34,
+          100,
+          320,
+          182
+        ],
+        [
+          18,
+          110,
+          351,
+          161
+        ],
+        [
+          9,
+          115,
+          369,
+          142
+        ],
+        [
+          6,
+          111,
+          374,
+          129
+        ],
+        [
+          11,
+          107,
+          364,
+          117
+        ],
+        [
+          6,
+          104,
+          374,
+          135
+        ],
+        [
+          9,
+          101,
+          369,
+          153
+        ],
+        [
+          18,
+          100,
+          351,
+          167
+        ]
+      ],
+      "portrait_bounds_px": [
+        72,
+        194,
+        632,
+        359
+      ],
+      "socket_ids": [
+        "mount0",
+        "mount1",
+        "mount2",
+        "mount3"
+      ],
       "model_source": "tools/quality042/models.py:brasswind_motor_galleon",
-      "features": ["two long smooth demi-hulls at physical offsets+/-0.62", "timber bridge deck and transverse frames", "two-level packet house", "brass wraparound balcony", "twin diesel machinery and stern drives", "slatted cargo hatches", "canvas-covered bound bales", "twin cargo derricks with booms and rigging", "cleats and hawsers", "four empty mounting wells"]
+      "features": [
+        "two long smooth demi-hulls at physical offsets+/-0.62",
+        "timber bridge deck and transverse frames",
+        "two-level packet house",
+        "brass wraparound balcony",
+        "twin diesel machinery and stern drives",
+        "slatted cargo hatches",
+        "canvas-covered bound bales",
+        "twin cargo derricks with booms and rigging",
+        "cleats and hawsers",
+        "four empty mounting wells"
+      ],
+      "source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6",
+      "atlas_source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6",
+      "atlas_sha256": "7997542e4fa502bb644d56c9a7482811ce6de99d18bae540e4d0ba2708ffb121",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ],
+      "portrait_sha256": "52aa640eb6e37c6d0e134a9e7419f86b544d916be9f60f6836d2d219ca57d4a3",
+      "portrait_source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6"
     }
   },
   "memory_budget": {
-    "hull_atlas_size_px": [3072, 1280],
+    "hull_atlas_size_px": [
+      3072,
+      1280
+    ],
     "hull_atlas_rgba8_bytes_each": 15728640,
     "all_three_hull_atlases_rgba8_bytes": 47185920,
     "portrait_rgba8_bytes_each": 1966080,

@@ -1,4 +1,4 @@
-BRASS TIDE — WORKSHOP MAP (generated; v0.041)
+BRASS TIDE — WORKSHOP MAP (generated; v0.042)
 
 Owned living hull and knowledge-only draft -> physical-socket preview, finite stock/workforce/coin bill, stale-quote refusal and atomic main-thread publication preserving live hull/harbor references. Templates survive career restore; UI drafts never become equipment.
 
@@ -29,12 +29,14 @@ game/scripts/workshop_ui.gd: 21533 bytes; extends RefCounted
   game/scripts/workshop_ui.gd:36 _spec_text()
   game/scripts/workshop_ui.gd:39 _arc_text()
   game/scripts/workshop_ui.gd:46 _picker()
-game/scripts/boat_portrait.gd: 6111 bytes; class_name BoatPortrait
-  game/scripts/boat_portrait.gd:49 set_spec()
-  game/scripts/boat_portrait.gd:44 _init()
-  game/scripts/boat_portrait.gd:52 _gui_input()
-  game/scripts/boat_portrait.gd:58 _draw()
-  game/scripts/boat_portrait.gd:112 _draw_socket_arc()
+game/scripts/boat_portrait.gd: 7540 bytes; class_name BoatPortrait
+  game/scripts/boat_portrait.gd:50 set_spec()
+  game/scripts/boat_portrait.gd:64 framing()
+  game/scripts/boat_portrait.gd:81 draw_contents()
+  game/scripts/boat_portrait.gd:45 _init()
+  game/scripts/boat_portrait.gd:53 _gui_input()
+  game/scripts/boat_portrait.gd:59 _draw()
+  game/scripts/boat_portrait.gd:135 _draw_socket_arc()
 game/scripts/refit.gd: 30398 bytes; extends RefCounted
   game/scripts/refit.gd:26 catalog()
   game/scripts/refit.gd:58 hardpoints()

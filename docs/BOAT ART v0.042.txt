@@ -1,0 +1,9 @@
+BRASS TIDE v0.042 - AUTHORED BOATS
+
+Three original hulls now use authored directional boat assets: Tinwake Skiff, Ashwake Escort Corvette and Brasswind Motor-Galleon.
+The hull artwork includes propulsion, decks, fittings and empty physical weapon sockets. Fitted guns, cannons, rockets and torpedo tubes are separate interchangeable layers. They follow the actual mounts, aim and firing events. Removing a weapon removes that weapon from the boat.
+Open Fleet Battle Lab and choose Finished boats to inspect and launch the representative fleet under the normal 300-point limit. Inspect a boat's refit portrait to see its physical mounts.
+The other 33 boats retain their existing presentation until the dedicated roster milestone. This version does not change the economy, boat statistics or AI.
+The pipeline bakes lit 3D geometry offline into cached 2D directional images; the game does not render the source models in real time. Water remains inexpensive.
+
+Validation status: production asset generation and focused runtime/visual review in progress. This note is not a claim of final art quality, measured rendered FPS or Starsector parity.

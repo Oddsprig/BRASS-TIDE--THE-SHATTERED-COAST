@@ -1,0 +1,23 @@
+v0.042 authored art - build evidence
+
+Runtime: cached directional 2D hull and weapon layers. Source models are authored original geometry, baked offline with the installed CPU renderer; no runtime 3D or expensive water simulation.
+Representative hulls: Tinwake Skiff, Ashwake Escort Corvette, Brasswind Motor-Galleon. Remaining33 preserve existing art pending0.049.
+Seven weapon variants across10 separate static/recoil-layer atlases. Existing actual mount/aim/shot state remains authoritative.
+
+Recorded production jobs (not gameplay acceptance):
+ac7a0094181542b2ba9b6d824acd9e8d - three first-angle previews passed.
+b65b6f1007ab430bae54bba05dee1fb3 - skiff production interrupted when lane yielded; cached completed frames preserved. Not passed.
+6ba84712bd09493aae0ca8ced733b84e - escort atlas/portrait passed.
+8534bc78b8484ad6b0e6ae714eb82ae2 - merchant rejected at heading11 by image-boundary guard. Not passed. Merchant-only canvas correction in progress.
+de78214ffa474d97b3acbe778d0560aa - gun/cannon atlases passed.
+81af8543bdc9454999d98f155213d4ea - rocket/torpedo atlases passed.
+9bb8cc8d438a4f58ba920139a4ee54b6 - skiff resumed from completed cache and passed.
+
+Each production job is bounded, CPU-only, in the shared test lane with identity-safe cleanup. Production receipts retain actual source and output hashes. Completed assets may have different source revisions when a later correction affects only one hull; preserve their individual recorded provenance.
+Root visual/runtime acceptance remains pending. Background headless logic and CPU drawing-call replays cannot prove displayed FPS, audio quality or Starsector parity.
+
+Correction production passed:
+e833c23f3c2b4fe88fcd46d8a2c5e5c0 - merchant first16 headings,51.829s including setup.
+bff1bca2a84846f3bdc835c90654fc45 - merchant final16 headings +atlas,52.797s including setup.
+f489ebe7e1434e0f87c7718c5c8346f0 - all3 heading-zero high-density portraits,18.422s including setup.
+Merchant canvas400x320,pivot200,200; no geometry scaling. Old skiff/escort atlases retain their completed source provenance; new portraits have their own source hashes.

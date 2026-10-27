@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-SERVICE MAP (generated; v0.041)
+BRASS TIDE — EQUIPMENT-SERVICE MAP (generated; v0.042)
 
 Paid installed-part and hull restoration: detached quote/validation/staging, real kits/materials/purses/workers, in-place commit, stable UIDs and untouched locker spares. Combined career/save/UI service is integrated; live battle is now a working integration candidate; remaining gates stay open.
 

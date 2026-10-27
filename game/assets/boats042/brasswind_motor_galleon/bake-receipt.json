@@ -1,0 +1,32 @@
+{
+  "source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6",
+  "hull_id": "brasswind_motor_galleon",
+  "headings": 32,
+  "atlas_sha256": "7997542e4fa502bb644d56c9a7482811ce6de99d18bae540e4d0ba2708ffb121",
+  "canvas_config": {
+    "cell_px": [
+      400,
+      320
+    ],
+    "pivot_px": [
+      200,
+      200
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      800,
+      640
+    ],
+    "portrait_pivot_px": [
+      400,
+      400
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
+  "atlas_size_px": [
+    3200,
+    1280
+  ],
+  "gpu_rgba8_bytes": 16384000,
+  "status": "baked; visual and native integration review still required"
+}
