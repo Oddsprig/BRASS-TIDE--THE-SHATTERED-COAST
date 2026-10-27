@@ -420,11 +420,30 @@ func cadence_checks(world: Dictionary) -> void:
 	check(Battle.issue_order(st,[id],"hold",{"x":ship.x,"y":ship.y}),"new explicit hold replaces the unreachable move")
 	st.time+=DT;Tactical.begin(st,DT)
 	check(float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and Certification.current(st,ship,st.tactical.intents.get(id,{})).ok,"explicit order bypasses the blocked-route retry wait on the next begin")
+	var hold_intent: Dictionary=st.tactical.intents.get(id,{})
+	var hold_diagnostic: Dictionary={"time":float(st.time),"lastDecision":float(st.tactical.lastDecision.get(id,-1.0)),"currentReason":str(Certification.current(st,ship,hold_intent).reason),"runtimeReason":str(st.tactical.reasons.get(id,""))}
 	st.time+=DT;Tactical.begin(st,DT,{"manual":true})
 	check(str(st.tactical.manualId)==id and not st.tactical.intents.has(id),"temporary manual control takes helm authority immediately")
 	st.time+=DT;Tactical.begin(st,DT)
 	check(str(st.tactical.manualId).is_empty() and float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and Certification.current(st,ship,st.tactical.intents.get(id,{})).ok,"manual release immediately requests autopilot rather than waiting for retry cadence")
-	report.cadence046={"observationTicks":13,"attemptTimes":attempts,"profile":profile,"physicsAdvanced":false}
+	var released_intent: Dictionary=st.tactical.intents.get(id,{})
+	var released_diagnostic: Dictionary={"time":float(st.time),"lastDecision":float(st.tactical.lastDecision.get(id,-1.0)),"currentReason":str(Certification.current(st,ship,released_intent).reason),"runtimeReason":str(st.tactical.reasons.get(id,""))}
+	# A nearby target behind the actual pocket wall must not veto legal holding.
+	st.ships[1].x=850.0
+	check(Battle.issue_order(st,[id],"hold",{"x":ship.x,"y":ship.y}),"occluded-shot probe repeats the same public hold order")
+	st.time+=DT;Tactical.begin(st,DT)
+	var sight_budget: Dictionary={"clearanceTests":0,"clearanceLimit":4096,"exhaustions":0}
+	var mount: Dictionary=st.tactical.mountCache[id].mounts[0]
+	check(Routes.point(ship).distance_to(Routes.point(st.ships[1]))<float(mount.range) and Routes.sweep(st.tactical.geometry,Routes.point(ship),Routes.point(st.ships[1]),0.0,sight_budget)=="blocked","hold probe has an in-range enemy actually occluded by land")
+	var occluded_intent: Dictionary=st.tactical.intents.get(id,{})
+	check(float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and Certification.current(st,ship,occluded_intent).ok,"an occluded firing lane still permits the existing nonfiring hold fallback")
+	check(int(st.tactical.budget.rollouts)==0 and int(st.tactical.budget.samples)==0 and int(st.tactical.metrics.planningCalls.certify)<=2 and int(st.tactical.budget.clearanceTests)<=2900,"hold fallback stays within live-only work and the shared clearance cap")
+	var shot_permits: int=0
+	for intent: Dictionary in [hold_intent,released_intent,occluded_intent]:
+		for gate: Dictionary in intent.get("fireGate",{}).values():
+			if bool(gate.get("permit",false)):shot_permits+=1
+	check(shot_permits==0,"out-of-range and occluded hold fallbacks grant no false firing authority")
+	report.cadence046={"observationTicks":13,"attemptTimes":attempts,"profile":profile,"physicsAdvanced":false,"commandHold":hold_diagnostic,"manualRelease":released_diagnostic,"holdShotPermits":shot_permits}
 
 func run() -> void:
 	started=Time.get_ticks_usec()

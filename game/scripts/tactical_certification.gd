@@ -280,6 +280,10 @@ static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate:
 		if firing.is_empty():
 			cert.status="pending" if fire_pending else "blocked"
 			cert.reason="Checking firing lanes" if cert.status=="pending" else "No usable firing lane at this station"
+			# A denied live hold shot must leave its existing nonfiring offer eligible.
+			# Shared clearance debits, pending refusals and physical rollout caps stay.
+			if live_step and not fire_pending and str(ship.get("order","engage"))=="hold":
+				budget.rolled.erase(id)
 			return cert
 	cert.status="valid";cert.reachable=true;cert.exitReachable=true
 	cert.validUntil=float(view.time)+Planner.CERT_SECONDS
