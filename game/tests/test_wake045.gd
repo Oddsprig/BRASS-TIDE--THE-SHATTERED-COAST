@@ -99,7 +99,7 @@ func recorded(samples: Array, opts: Dictionary = {}, isometric: bool = false, vi
 	var before: PackedByteArray = var_to_bytes([samples, opts, view])
 	var projector: Callable = recorder.iso if isometric else recorder.project
 	var paint_options: Dictionary = opts.duplicate()
-	paint_options.affine_water = true # Same explicit affine path used by Chart.
+	paint_options.affine_water = bool(opts.get("affine_water", true)) # Chart path by default.
 	var count: int = Wake.draw(recorder, projector, samples, paint_options)
 	if first_invalid_polygon.is_empty() and not recorder.first_invalid.is_empty():
 		first_invalid_polygon = recorder.first_invalid.duplicate(true)
@@ -250,8 +250,15 @@ func slow_turn_cases() -> void:
 	for index in range(8):
 		var angle: float = index * 0.10
 		offender.append({"p": Vector2(1350,850) + Vector2(sin(angle),1.0-cos(angle)) * 0.12 * 10.0, "age": (7-index) * 0.002, "w": 12.0})
-	var repaired: Recorder = recorded(offender, {}, true, {"origin": Vector2(1280,800), "camera": Vector2(1100,850), "scale": 0.49, "label": "exact native conditioning offender"})
+	var offender_view: Dictionary = {"origin": Vector2(1280,800), "camera": Vector2(1100,850), "scale": 0.49, "label": "exact native conditioning offender"}
+	var repaired: Recorder = recorded(offender, {"affine_water": false}, true, offender_view)
 	check(repaired.polygons.size() >= 2 and repaired.polygons[1] == measured, "the actual failed band retains every exact screen vertex under local submission")
+	var affine_repaired: Recorder = recorded(offender, {}, true, offender_view)
+	var same_paint: bool = affine_repaired.polygons.size() >= 2 and affine_repaired.polygons[1].size() == measured.size()
+	if same_paint:
+		for index in range(measured.size()):
+			same_paint = same_paint and Vector2(affine_repaired.polygons[1][index]).distance_to(measured[index]) <= 0.002
+	check(same_paint, "affine projection preserves the native offender's paint within0.002 screen pixels, with unchanged native triangulation checks")
 
 func boat_for(spec: Dictionary, uid: String = "wake045") -> Dictionary:
 	return {"uid": uid, "spec": spec, "x": 300.0, "y": 300.0, "angle": 0.0, "vx": 60.0, "vy": 0.0, "sunk": false, "crew": 7.0, "fuel": 11.0, "ammo": 13.0, "supplies": 2.0}
