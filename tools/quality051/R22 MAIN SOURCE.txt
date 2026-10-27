@@ -52,3 +52,52 @@ runtime and existing tactical fixture: zero issues, engineInvoked=false.
 Manual diff review completed; no engine/test/build/GPU/benchmark/helper run.
 Only the two allowed GDScript files and this note belong to this handoff.
 Pre-existing untracked .bigbridge/ metadata is excluded and left untouched.
+
+R48 FIXTURE ISOLATION REPAIR (source only)
+R48 job61277a5cd82747f697b2554472bf6fb9 FAILED38.125s overall; voyage274
+and geometry695 passed, retained357/3 failed. Its retained-ai/native.log and
+retained-ai/retained-ai.json record both original-certificate failures and
+the original+.45 cutoff failure at30Hz. This failure is preserved, not a pass.
+Root combined release391b8e72d54db8e3342ca9a82eabc694e938f4e9 includes
+WorkerSol f50ca74 and this80308b7 source. Its runtime is identical to this
+checkout; its extra tactical-fixture changes are worker cases only.
+
+The NEW direct _observe_retained051(...,true) assertion was inserted between
+the old pure candidate-preparation checks and their real recertification loop.
+Unlike those pure checks, it publishes decision.state, lastDecision and a real
+observation counter. That changes begin eligibility and the worker handoff
+deadline before the old scenario runs. WorkerSol independently confirmed this
+can admit a worker's independently computed full choice instead of recertifying
+the old choice. Planner._work051 gives a newly computed choice its actual
+sample time; _prepare_with_worker051 carries that provenance, while _publish
+keeps any supplied original choice time. This is distinct from extending an
+old choice merely by recertification; no production clock change is justified
+by the three compound assertion failures alone.
+
+Moved ONLY the new retry-observation check to its own real admitted arena at
+each original30/60Hz variant, after the untouched original recertification
+scenario. It uses the existing admission and physical-veto helpers and retires
+its planning state. The original scenario no longer receives the extra direct
+memory/clock publication. All original recertification/cutoff assertions and
+their preceding scenario remain verbatim. No runtime or Planner edits.
+
+WorkerSol's follow-up correctly identifies that isolation alone is insufficient:
+normal begin may also observe-only, then dispatch an unseeded NEW full choice.
+The recertification fixture now passes its EXISTING prepared decision to the
+existing _dispatch_batch051 seam and uses the existing bounded _worker_join051
+helper outside Battle.update. This obtains a real joined BORROWED decision
+before normal battle ticks. It asserts complete decision/original-age parity
+and real normal-begin adoption; no completion flag, clock, certificate or guard
+is forged. Normal live-input/semantic/geometry/certification guards still run.
+An immediate compact source receipt records originalChosenAt, workerChosenAt,
+recertifiedChosenAt, borrowedAdopted and source (including other-or-missing on
+failure). Every pre-existing assertion is unchanged; only setup/provenance and
+the independent new observation scenario are added to the R47 fixture.
+
+One read-only preload-call advisory reported zero issues/engineInvoked=false
+before the final borrowed-handoff additions. Their existing APIs and call
+signatures were reviewed directly; no second advisory was run. Final diff
+review compares against80308b7 and the pre-change R47 fixture ated876cb.
+
+Native validation remains pending with Root. No engine/test/build/GPU or
+benchmark was run for this repair; source review cannot certify an R48 pass.

@@ -740,17 +740,23 @@ func retained_semantic_preference051() -> void:
 		check(not prepared.candidates.is_empty() and not st.tactical.intents.has(id) and not st.tactical.retained051.has(id) and var_to_bytes(st.tactical.memory.player.byId[id])==memory and float(st.tactical.lastDecision[id])==observed_at,"candidate preparation grants no certificate, memory publication or observation clock dt="+str(dt))
 		var repeated: Dictionary=Planner._prepare_begin(view,st.tactical.memory.player,current.indexes.player,current.freshDecisions051)
 		check(int(repeated.scored)>0 and not repeated.get("originalPreferenceChosenAt051",{}).has(id),"consumed fresh records cannot skip another full choice dt="+str(dt))
-		var retry_at051: float=float(st.tactical.physicalRetry051[id].observedAt)
-		var attempt051: float=float(st.tactical.certificationAttempts[id])
-		var decisions051: int=int(st.tactical.counters.decisions)
-		var physical051: PackedByteArray=var_to_bytes([st.ships,st.rng.state,held.record.certificate])
-		var retry_current051: Dictionary={}
-		check(T._observe_retained051(st,id,null,retry_current051,true) and float(st.tactical.lastDecision[id])==float(st.time) and int(st.tactical.counters.decisions)==decisions051+1 and float(st.tactical.physicalRetry051[id].observedAt)==retry_at051 and float(st.tactical.certificationAttempts[id])==attempt051 and not retry_current051.has("freshDecisions051") and not st.tactical.intents.has(id) and not st.tactical.retained051.has(id) and not st.tactical.memory.player.reservations.has(id) and var_to_bytes([st.ships,st.rng.state,held.record.certificate])==physical051,"stable physical retry publishes a real current observation without rebuilding, moving its retry deadline or restoring authority dt="+str(dt))
+		# Recertify THIS borrowed choice through a real joined worker. An unseeded
+		# worker may legitimately make a NEW choice with its own sample timestamp.
+		Planner._dispatch_batch051(st,st.tactical.ships.keys(),T._worker_view051,T._worker_capability051,null,{"player":prepared})
+		var borrowed_slot051: Dictionary=Planner._member_slot051(st.tactical,id)
+		var borrowed_ready051: bool=not borrowed_slot051.is_empty() and _worker_join051(borrowed_slot051)
+		var borrowed_plan051: Dictionary=borrowed_slot051.capsule.result.planning if borrowed_ready051 else {}
+		var borrowed_at051: float=float(borrowed_plan051.get("originalPreferenceChosenAt051",{}).get(id,-1.0))
+		check(borrowed_ready051 and borrowed_at051==original and var_to_bytes(borrowed_plan051.decisions.get(id,{}))==var_to_bytes(fresh.decision),"recertification worker borrows the complete prepared decision and its ORIGINAL choice time dt="+str(dt))
 		var recertified: Variant=null
 		for tick: int in range(ceili(0.2/dt)):
 			B.update(st,dt);B.pop_events(st)
 			recertified=st.tactical.retained051.get(id)
 			if recertified is C._Retained051:break
+		var recertified_at051: float=recertified.chosen_at if recertified is C._Retained051 else -1.0
+		var borrowed_adopted051: bool=id in borrowed_slot051.get("adopted",[])
+		observations.append({"case":"semantic-recertification-source051","dt":dt,"originalChosenAt":original,"workerChosenAt":borrowed_at051,"recertifiedChosenAt":recertified_at051,"source":"borrowed-worker" if borrowed_adopted051 and recertified_at051==borrowed_at051 else "other-or-missing","borrowedAdopted":borrowed_adopted051})
+		check(borrowed_adopted051,"normal battle begin consumes the real borrowed worker in the original recertification scenario dt="+str(dt))
 		check(recertified is C._Retained051,"real battle ticks recertify the restored clear route dt="+str(dt))
 		if not recertified is C._Retained051:continue
 		check(not is_same(recertified,held) and recertified.chosen_at==original and recertified.record.certificate.checkedAt>held.record.certificate.checkedAt and T._current051(st,source,st.tactical.intents[id]).ok,"new current certificate retains the ORIGINAL semantic cutoff dt="+str(dt))
@@ -763,6 +769,24 @@ func retained_semantic_preference051() -> void:
 			B.update(st,dt);B.pop_events(st)
 		check(not is_same(st.tactical.retained051.get(id),recertified) and not C._retained_current051(st,source,recertified).ok,"recertification and stable observations cannot extend original chosenAt+0.45 dt="+str(dt))
 		observations.append({"case":"semantic-preference051","dt":dt,"originalChosenAt":original,"recertifiedAt":recertified.record.certificate.checkedAt,"cutoffObservedAt":st.time})
+		T.retire_planning051(st);T.drain_planning051()
+	# A direct observation publishes memory/time and changes worker scheduling.
+	# Keep it on its own admitted state so the old recertification case above
+	# still measures reusing a choice, not a worker's independently NEW choice.
+	for dt: float in [1.0/30.0,1.0/60.0]:
+		var arena: Dictionary=local_arena();var st: Dictionary=arena.state;var source: Dictionary=arena.source;var id: String=str(source.id)
+		var held: Variant=_admit_retained051(st,source,dt,"physical-retry-observation")
+		check(held is C._Retained051,"physical retry observation begins with its own real maneuver dt="+str(dt))
+		if not held is C._Retained051:continue
+		T.enable_planning051(st);worker_states051.append(st)
+		var preference: Variant=_physical_preference_drop051(arena,held,"retry observation "+str(dt))
+		if not preference is C._Preference051:continue
+		var retry_at051: float=float(st.tactical.physicalRetry051[id].observedAt)
+		var attempt051: float=float(st.tactical.certificationAttempts[id])
+		var decisions051: int=int(st.tactical.counters.decisions)
+		var physical051: PackedByteArray=var_to_bytes([st.ships,st.rng.state,held.record.certificate])
+		var retry_current051: Dictionary={}
+		check(T._observe_retained051(st,id,null,retry_current051,true) and float(st.tactical.lastDecision[id])==float(st.time) and int(st.tactical.counters.decisions)==decisions051+1 and float(st.tactical.physicalRetry051[id].observedAt)==retry_at051 and float(st.tactical.certificationAttempts[id])==attempt051 and not retry_current051.has("freshDecisions051") and not st.tactical.intents.has(id) and not st.tactical.retained051.has(id) and not st.tactical.memory.player.reservations.has(id) and var_to_bytes([st.ships,st.rng.state,held.record.certificate])==physical051,"stable physical retry publishes a real current observation without rebuilding, moving its retry deadline or restoring authority dt="+str(dt))
 		T.retire_planning051(st);T.drain_planning051()
 	# The same physical revocation must retire a PUBLIC intent's reservation,
 	# even when its private retained descriptor has already been removed.
