@@ -15,7 +15,8 @@ Terrain is prepared once and drawn from three cached detail levels.
 Water, world size, island shapes, ports, routes, inventories, purses and
 boat construction costs are unchanged. Boat assets remain the v0.049 set.
 
-Verification is pending in this source candidate. Full 300-point battle
+Verified567 focused checks/0failures and portable startup. Root reviewed all24
+actual exported chart stills at1600x1000 and1280x800. Full 300-point battle
 performance remains below target in the prior actual measurement.
 Core quality review v0.051 remains open; this map pass is not proof of
 Starsector quality, smooth combat, complete motion or sound acceptance.
