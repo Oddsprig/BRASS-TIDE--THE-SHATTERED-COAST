@@ -10,6 +10,9 @@ const MAX_PRIMITIVES: int = 3
 const MAX_LENGTH: float = 96.0
 const MAX_WIDTH: float = 12.0
 const MAX_VERTICES: int = MAX_SAMPLES * 2 - 1
+const MIN_PAINT_AREA: float = 0.01 # Screen pixels squared, below visible paint.
+const MIN_EDGE_SQUARED: float = 0.000001
+const MIN_CORNER_CROSS: float = 0.0001
 
 static func _life(opts: Dictionary) -> float:
 	var value: float = float(opts.get("life", LIFE_SEC))
@@ -55,7 +58,9 @@ static func _path(samples: Array, life: float) -> Array:
 			if distance + step > limit:
 				var fraction: float = (limit - distance) / step
 				if fraction > 0.001:
-					newest_first.append({"p": Vector2(newer.p).lerp(point, fraction), "age": lerpf(float(newer.age), age, fraction), "w": lerpf(float(newer.w), width, fraction)})
+					var clipped: Vector2 = Vector2(newer.p).lerp(point, fraction)
+					if clipped != Vector2(newer.p): # Float32 clipping must not add a duplicate tail.
+						newest_first.append({"p": clipped, "age": lerpf(float(newer.age), age, fraction), "w": lerpf(float(newer.w), width, fraction)})
 				break
 			distance += step
 		newest_first.append({"p": point, "age": age, "w": width})
@@ -64,8 +69,54 @@ static func _path(samples: Array, life: float) -> Array:
 	newest_first.reverse()
 	return newest_first
 
+## _path admits a direction sector of at most 135 degrees. Its bisector has a
+## positive dot product with EVERY segment, even when a short slow turn follows
+## a long step. Parallel sections normal to that axis are strictly ordered;
+## neither edge nor the full-width stern cap can fold across an older section.
+## Rotating local normals did not have that guarantee at nonuniform spacing.
+static func _side(path: Array) -> Vector2:
+	var first: Vector2 = (Vector2(path[1].p) - Vector2(path[0].p)).normalized()
+	var previous: Vector2 = first
+	var angle: float = 0.0
+	var low: float = 0.0
+	var high: float = 0.0
+	for index in range(2, path.size()):
+		var direction: Vector2 = (Vector2(path[index].p) - Vector2(path[index - 1].p)).normalized()
+		angle += previous.angle_to(direction)
+		low = minf(low, angle)
+		high = maxf(high, angle)
+		previous = direction
+	return first.rotated((low + high) * 0.5).orthogonal()
+
+## Affine water projection can round the fading tip's two edges to the same
+## screen point. Remove only subpixel edges/zero-area corners, including a
+## collapsed out-and-back tip. Do not reject a visible path on triangulation
+## failure: the ordered construction above supplies the noncrossing boundary.
+static func _paint_polygon(points: PackedVector2Array) -> PackedVector2Array:
+	var polygon: PackedVector2Array = points.duplicate()
+	var changed: bool = true
+	while changed and polygon.size() >= 3:
+		changed = false
+		for index in range(polygon.size()):
+			var before: Vector2 = polygon[(index + polygon.size() - 1) % polygon.size()]
+			var point: Vector2 = polygon[index]
+			var after: Vector2 = polygon[(index + 1) % polygon.size()]
+			if before.distance_squared_to(point) <= MIN_EDGE_SQUARED or absf((point - before).cross(after - point)) <= MIN_CORNER_CROSS:
+				polygon.remove_at(index)
+				changed = true
+				break
+	if polygon.size() < 3:
+		return PackedVector2Array()
+	# Translation-relative area avoids subtracting large screen coordinates.
+	var origin: Vector2 = polygon[0]
+	var twice_area: float = 0.0
+	for index in range(1, polygon.size() - 1):
+		twice_area += (polygon[index] - origin).cross(polygon[index + 1] - origin)
+	return polygon if absf(twice_area) >= MIN_PAINT_AREA * 2.0 else PackedVector2Array()
+
 ## Canvas contract: draw_colored_polygon(PackedVector2Array, Color).
-## projector(world: Vector2, height: float) -> Vector2. Every height is zero.
+## projector(world: Vector2, height: float) -> Vector2 is the affine water plane.
+## Every height is zero. Geometry cleanup is in projected screen coordinates.
 ## opts.life may shorten the wash; opts.clip_rect is a screen-space cull rect.
 ## The CanvasItem/viewport performs the final edge crop, including partial strips.
 static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary = {}) -> int:
@@ -80,22 +131,12 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 	if length < 0.1:
 		return 0
 	var fade: float = pow(1.0 - float(path.back().age) / life, 1.6)
-	var sides: Array[Vector2] = []
+	var side: Vector2 = _side(path)
 	var widths: Array[float] = []
 	for index in range(path.size()):
-		var incoming: Vector2 = (Vector2(path[index].p) - Vector2(path[maxi(0, index - 1)].p)).normalized()
-		var outgoing: Vector2 = (Vector2(path[mini(index + 1, path.size() - 1)].p) - Vector2(path[index].p)).normalized()
-		var tangent: Vector2 = (incoming + outgoing).normalized()
-		sides.append(tangent.orthogonal())
 		var along: float = distances[index] / length
 		var age_fade: float = sqrt(maxf(0.0, 1.0 - float(path[index].age) / life))
 		var width: float = minf(float(path[index].w) * 0.62, length * 0.24)
-		if index > 0 and index + 1 < path.size():
-			# Stay inside the bend radius; a slow tight turn must not fold its ribbon.
-			var sine_half: float = sqrt(maxf(0.0, (1.0 - incoming.dot(outgoing)) * 0.5))
-			if sine_half > 0.01:
-				var spacing: float = minf(distances[index] - distances[index - 1], distances[index + 1] - distances[index])
-				width = minf(width, spacing / (2.0 * sine_half) * 0.42)
 		widths.append(width * smoothstep(0.0, 0.65, along) * age_fade)
 	var colors: Array[Color] = [Color(0.58, 0.81, 0.78, 0.13 * fade), Color(0.75, 0.91, 0.86, 0.17 * fade), Color(0.92, 0.98, 0.93, 0.18 * fade)]
 	var scales: Array[float] = [1.0, 0.57, 0.20]
@@ -103,18 +144,21 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 	for layer in range(MAX_PRIMITIVES):
 		var polygon := PackedVector2Array()
 		for index in range(path.size()):
-			var world: Vector2 = Vector2(path[index].p) + sides[index] * widths[index] * scales[layer]
+			var world: Vector2 = Vector2(path[index].p) + side * widths[index] * scales[layer]
 			var projected = projector.call(world, 0.0)
 			if not (projected is Vector2) or not projected.is_finite():
 				return count
 			polygon.append(projected)
 		# The tail is one shared point, not duplicate zero-width edge vertices.
 		for index in range(path.size() - 1, 0, -1):
-			var world: Vector2 = Vector2(path[index].p) - sides[index] * widths[index] * scales[layer]
+			var world: Vector2 = Vector2(path[index].p) - side * widths[index] * scales[layer]
 			var projected = projector.call(world, 0.0)
 			if not (projected is Vector2) or not projected.is_finite():
 				return count
 			polygon.append(projected)
+		polygon = _paint_polygon(polygon)
+		if polygon.is_empty():
+			continue
 		var bounds := Rect2(polygon[0], Vector2.ZERO)
 		for point in polygon:
 			bounds = bounds.expand(point)

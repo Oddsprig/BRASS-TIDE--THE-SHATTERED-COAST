@@ -1,4 +1,84 @@
-BRASS TIDE v0.045 - SHORT CONNECTED STERN WASH (SOURCE CANDIDATE)
+BRASS TIDE v0.045 - MOVIE TRIANGULATION REPAIR (SOURCE CANDIDATE)
+
+REPAIR HANDOFF - 27 OCTOBER 2026
+Exact repair base: 140beab7beab5a51582a6e27c82cfb9cc5214154.
+Only wake_art045.gd, tests/test_wake045.gd and this handoff are changed.
+The pre-existing AGENTS.md working edit belongs to coordination and is excluded.
+No Chart, BoatArt, simulation, weapons/audio, metadata, saves or music edits.
+
+Root's combined a0c9d3770054c85a1665968a0800551ff2318681 movie FAILED:
+TestBridge dff6b1a771ad439aa6ec063fdebdd329, attempt-001, all_weapons,
+300 frames at60Hz. It emitted181 invalid-polygon/triangulation errors despite
+native exit0 and earlier3415headless checks. Keep that failed evidence intact.
+Raw native-runtime.log and the existing battle.png were read, not replayed.
+No engines, tests, GPU/render/bake jobs, video apps, audio playback or helpers
+were used by this specialist for the repair. No native pass is claimed.
+
+SOURCE DEFECT AND REPAIR
+The former per-station rotating normals, with interior-only bend-width limits,
+do not guarantee a simple polygon. A retained path can turn <135deg overall,
+yet the wide final cap can cross a previous longer leg after short steps.
+Concrete legal regression centers: (0,0), (10,0), (10.02,1), (9.32,1.72).
+All four centers remain in _path; the repair must paint all three bands.
+Also, the former fixture's identity/isometric projectors lacked the screen
+translation and actual scale that round fading narrow tips to repeated points.
+These are identifiable source defects; attribution of every movie error still
+requires Root's old/new native isolation and the actual rerender.
+
+Sections now share the normal of the admitted directions' angular bisector.
+Every segment projects positively onto that axis because their direction
+sector spans at most135deg. The cross-sections therefore stay strictly ordered,
+preventing edge/cap crossings without removing the accepted traveled path.
+Centers, age taper, width maxima, three layer colors and opacity are preserved.
+The former bend-spacing width pinch is removed; slow curved wash stays visible.
+Cross-sections are oblique to some local tangents in a turn; Root must review
+the resulting continuous curved wash in the real movie, not just a still.
+Length clipping also avoids appending a tail identical to its newer neighbor.
+
+Projection cleanup removes adjacent edges <=0.001pixel or corner cross product
+<=0.0001pixel squared, including collapsed out-and-back tip spurs. It culls a
+whole band only when <3 vertices survive or its area is <0.01screen pixel
+squared. This is documented subpixel paint removal, with no catch-and-skip on
+triangulation failure, convex-hull substitute, blanket path omission or log
+suppression. Triangulation assertions live in the fixture, not the runtime.
+Public draw(canvas, projector, samples, opts)->int and Canvas calls are unchanged.
+Projection uses Chart's affine water plane. Primitive/profile counts still
+count only actual submissions after clip/subpixel rejection.
+Caps remain .7sec/12samples/3primitives/23vertices per polygon/69projections.
+Cleanup adds no projections or primitives. Its vertex work is bounded by23;
+actual submission cost and smoothness have not been measured for this repair.
+
+FOCUSED REGRESSION PREPARED, NOT EXECUTED
+Recorder now requires full Geometry2D.triangulate_polygon output and tests
+nonadjacent edge intersections on EVERY submitted polygon. New cases include
+the concrete nonuniform slow turn, mirrored/rotated/translated battle and
+tactical-scale paths, tiny/fading float32 tips, and a collapsed tip whose
+visible triangle must remain. Visible slow-turn cases require all three bands.
+The existing oversize-input check still requires12retained samples; submitted
+vertices may be fewer than23after redundant subpixel vertex cleanup.
+
+Actual movie regression: Lab.preset(world,"all_weapons"), Lab.create seed83,
+300 unmodified Battle.update ticks at1/60s; Chart._update_wakes on actual boat
+poses every frame. Uses Chart's camera-follow math and isometric constants at
+the project's1600x1000logical canvas, normal and0.52tactical scale. Checks
+polygon validity/caps and source-boat immutability every frame, plus five
+actual combat seconds, curved travel and visible wash from multiple boats.
+No synthetic movement, hull mutation, physics edit, new meters or audio.
+It bypasses viewport culling during this geometry probe so all live paths
+are inspected; the original offscreen/partial-visible cases remain.
+
+ROOT INTEGRATION / ACCEPTANCE STILL OPEN
+Apply this repair atop the combined045 source, keeping Root's BoatArt thin
+delegation from9756f82 and all sibling changes. This isolated base still has
+the pre-delegation BoatArt, so do not interpret its parity assertion as a
+standalone pass. Run the amended wake fixture in Root's bounded native subset;
+an old-module/new-fixture comparison can isolate the prior wake defect.
+Then rerun the meaningful all_weapons movie and inspect normal/tactical
+continuous motion. Require zero runtime polygon errors even if exit0.
+Preserve the failed log/still/movie. Test success, movie correctness,
+appearance, measured cost and sound acceptance remain separate conclusions.
+
+ORIGINAL CANDIDATE CONTRACT (HISTORICAL WHERE REPAIR ABOVE SUPERSEDES IT)
 
 Actual starting source: a0362bb999c2289b4defc7973bbc469d61f05fb5.
 Scope: wake_art045.gd, Chart _update_wakes/_draw_wakes only,
