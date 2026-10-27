@@ -1197,9 +1197,13 @@ func draw_battle():
 		text_at("TACTICAL PAUSE", Vector2(size.x * 0.5, 128), 28, GOLD, serif, true)
 		text_at("SET CREW PRIORITIES AND FLEET ORDERS · SPACE TO RESUME", Vector2(size.x * 0.5, 155), 11, Color("c6d2be"), mono, true)
 
-func draw_minimap():
+func battle_minimap_rect() -> Rect2:
 	var size = get_viewport_rect().size
-	var box = Rect2(size.x - 240, size.y - 275, 190, 140)
+	# Keep the chart above the compact selected-status band (height minus192).
+	return Rect2(size.x - 240, size.y - 344, 190, 140)
+
+func draw_minimap():
+	var box: Rect2 = battle_minimap_rect()
 	draw_rect(box, Color(0.025, 0.10, 0.14, 0.88))
 	draw_rect(box, Color(0.5, 0.70, 0.59, 0.35), false, 1)
 	for island in host.battle.islands:

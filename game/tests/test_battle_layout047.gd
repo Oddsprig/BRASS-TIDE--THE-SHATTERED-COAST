@@ -42,6 +42,8 @@ func geometry(viewport: Vector2i) -> void:
 	for i in range(panels.size()):
 		for j in range(i):no_overlap=no_overlap and not panels[i].get_global_rect().intersects(panels[j].get_global_rect())
 	check(no_overlap,"four occupied HUD bands do not overlap at "+str(viewport))
+	var minimap: Rect2=game.chart.battle_minimap_rect()
+	check(screen.encloses(minimap) and panels.all(func(panel):return not panel.get_global_rect().intersects(minimap.grow(1.0))),"actual drawn minimap stays visible above occupied HUD bands at "+str(viewport))
 	var visible_fit: bool=true
 	var buttons: Array=[]
 	for node in descendants(game.ui.chrome):
