@@ -10,9 +10,10 @@ All realtime performance targets remain UNMET:42light4.605FPS;16mixed17.084FPS.
 Mixed is worse than matched045. Core-quality051 remainsOPEN; no052breadth
 until it passes. Scoped delivery does not certify art, audio, fun or parity.
 
-Next0.048 refittingdepth: two source-only BridgeSol6.1MAX worktrees prepare
-workshop/builds; thirdSolprepares049hull source. Metadata048 NOT yet prepared.
-Finish047package/Desktopverification before048integration.
+Active0.048 refittingdepth metadata PREPARED ONCE. Desktop047 is verified.
+RootMain draft-trial seam and isolated actual-capture hook prepared; two
+source-only BridgeSol6.1MAX worktrees finish workshop/builds. ThirdSolprepares
+049hull source only. Integrate048, verify/package/install before049metadata.
 Root coordinates/integrates all engine/render/bake/shared-queue jobs and
 versions. Helpers source-only, maximum3activeSol6.1MAX; optionalGrok4.7HIGH.
 No ask_project/delegate/AIbrain/providerfallback/nestedhelpers. Earlier seats
