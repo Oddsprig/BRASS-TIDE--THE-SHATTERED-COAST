@@ -121,7 +121,19 @@ static func create(world: Dictionary,config: Dictionary,seed_value: int) -> Dict
 			break
 	var role_error: String=_assign_roles(battle,config.get("roles",{}) if config.get("roles") is Dictionary else {},carrier_id)
 	if not role_error.is_empty(): return {"ok":false,"error":role_error}
+	_practice_damage(battle,str(config.get("preset","")))
 	return {"ok":true,"battle":battle}
+
+static func _practice_damage(battle: Dictionary,preset_id: String) -> void:
+	# Two labelled practice starts, not a general initial-state or event schema.
+	# A real shell hit uses canonical armor, breach, fire and crew rules. Never
+	# manufacture a projectile, shot acknowledgement, water level or combat win.
+	if preset_id not in ["tactical_withdrawal","tactical_wounded_cover"]: return
+	for ship in battle.ships:
+		if str(ship.team)!="player" or str(ship.type)!="tin_skiff": continue
+		Damage.apply_hit(ship,{"damage":260.0 if preset_id=="tactical_withdrawal" else 130.0,"kind":"shell","section":"hull"},battle.rng)
+		Damage.set_policy(ship,"bail" if preset_id=="tactical_withdrawal" else "repair")
+		break # Only the first friendly Tinwake, even after editing its quantity.
 
 static func _assign_roles(battle: Dictionary,roles: Dictionary,carrier_id: String) -> String:
 	for hull_id in roles:

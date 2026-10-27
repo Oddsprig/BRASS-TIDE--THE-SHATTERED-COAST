@@ -1,0 +1,114 @@
+BRASS TIDE 0.046 - SIX PUBLIC LAB PRACTICES, SOURCE HANDOFF
+
+STATUS / EXACT INPUT
+Source only. No engines, tests, imports/exports, native builds, GPU, rendering,
+audio, bakes, downloads, helpers or computer control ran in this seat.
+Branch: source/lab046-scenarios, created directly from frozen current HEAD
+925f899d99734f7eff14ce49b5e0bfdfda9e7672. No reset/rebase or metadata change.
+Root integrates this separate commit ONLY AFTER delivering 0.045 and with:
+- Runtime046: 925f899d99734f7eff14ce49b5e0bfdfda9e7672.
+- Roles046: 0471f57e724081623f038c447bb033658e6e5cc8.
+Those role/station sources are NOT copied into this branch. In particular,
+the mixed Cobalt/secondary-tube heavy assertion requires that Roles046 patch.
+Root's later authored 0.045 wake/feedback changes are absent here; this patch
+does not touch those files, weapons/assets, sound, saves, music or desktop.
+Preexisting Bridge-injected AGENTS.md memory edits are excluded from the commit.
+
+Exact four-file allowlist:
+game/scripts/fleet_lab.gd
+game/data/lab_presets.json
+game/tests/test_tactical_scenarios046.gd (new)
+tools/quality046/SCENARIOS.txt (new)
+
+PUBLIC PRESETS / WHAT TO WATCH
+tactical_flanker_heavy: 2v1, rapid-gun Tinwake and Bilgewater versus one
+  heavy-cannon Furnace. Separated light approaches/bursts/exits and heavy arcs.
+tactical_escort_raider: 2v2, loaded Fourport Packet plus screen Ashwake versus
+  rapid-gun Marsh Dart and Bilgewater. Existing real escort objective/exit,
+  ammo4/fuel2 carrier cargo, public protected ally id; no forced completion.
+tactical_strike_pass: 1v1, main-fitted light torpedo Tinwake versus heavy-cannon
+  Furnace. Fitted range, aligned actual launch, real pass acknowledgement/exit.
+tactical_withdrawal: 1v1, damaged rapid-gun Tinwake versus heavy-cannon Furnace.
+  Actual hull-danger withdrawal under pressure; Bail water initially selected.
+tactical_wounded_cover: 2v2, damaged rapid-gun Tinwake and screen Ashwake versus
+  two fast gun raiders. Natural wounded-ally selection and paid damage control;
+  public player escort remains available to make that assignment explicit.
+tactical_mixed: 4v3, Cobalt cannon/secondary tube, light Tinwake, main-tube Fen
+  Stinger and unarmed rear-support Packet versus Furnace, Marsh Dart and a
+  fitted main-rocket Sparkrack. Cobalt remains heavy despite its secondary tube.
+
+All six are ordinary existing-format Lab presets: real legal fits, both teams,
+existing closing formation and default finite ammunition, fuel120, kits20 and
+real optimal crew. The JSON seconds24 metadata does not force a timed result.
+Existing LabUI enumerates them and shows the supplied player guidance. No new
+picker, scenario/state schema, telemetry, options API, content or test harness.
+Role enum/archetypes and PLAYER-only options policy coordinated at shared point
+brass-tide-quality-042-061 (77891880/cffb9300/dfa14f3f, with our03c9ff48/162e637d).
+Enemy roles come from actual fits and the existing objective/default AI; player
+options remain through Battle.set_tactical_options. No enemy authority bypass.
+
+DECLARED INITIAL DAMAGE
+Only withdrawal and wounded-cover invoke the small private Lab._practice_damage
+helper, selected by their existing preset id. Once per construction, the first
+friendly tin_skiff receives Damage.apply_hit with {damage:260 or130, kind:shell,
+section:hull}, using the battle's seeded RNG. Then Damage.set_policy selects
+bail or repair. The supplied stock-armor fit starts at about39.7% or70.0% HP.
+Armor condition, breach chance/area, fire and casualties are the actual canonical
+rules. Water is NOT injected; any flood develops during normal damage ticks.
+No projectile, shot/event/acknowledgement, reward or result is manufactured.
+Guidance/labels disclose these two starts. Editing fits changes normal armor
+mitigation; editing quantity still damages only the first friendly Tinwake;
+removing that hull means no boat receives this initial hit. Other presets and
+custom Lab construction with no matching preset id keep their old behavior.
+
+COMPACT FIXTURE, PREPARED BUT NOT RUN
+One seed46046, one construction per class; no matrix or long sim benchmark.
+Five cases advance36 actual60Hz ticks each; strike advances90 actual60Hz ticks
+for a first real tube discharge. Total270 updates /900 boat-ticks across22 boats.
+No direct planner/fire calls or state injection during chronology; only normal
+Battle.update(...,1.0/60.0,{}) and the public Battle.pop_events event drain.
+Checks real fits/specs/canonical equipment/unique item custody, normal carried
+stores/crew, only labelled damaged starts, both-team actual AI participation,
+finite motion/state and chronological event sequences. Fire event mount IDs
+must belong to real fits; their exact ammo costs explain ammunition debits.
+Checks actual role inference, carrier cargo, screen leader id and hull-danger
+withdrawal. Strike must emit a real finite-ammo torpedo. Input world/catalogue
+and preset configs remain unchanged. Output is existing-style stdout/checks and
+exit status; no new report/capture format or persistent diagnostics.
+
+ROOT-ONLY EXACT VALIDATION CALLS
+Use the existing read-only detector and TestBridge-owned shared lane. Do NOT
+start an engine here, nest a lane lease or invoke an all-presets/full-game suite.
+Native raw executable: <existing Godot console executable>.
+Arguments (array, on the exact clean integrated046 source):
+["--headless","--path","<integrated game absolute path>","--audio-driver",
+ "Dummy","--script","res://tests/test_tactical_scenarios046.gd"]
+Root supplies synthetic APPDATA/user data and an owned artifact/log directory.
+Desired fixture native budget5-10s is UNMEASURED. Entire selected batch including
+import/export/startups/cleanup must stay below120s. Queued/interrupted is no pass.
+
+Public source API, unchanged:
+  var config:Dictionary=FleetLab.preset(world,"tactical_strike_pass")
+  var built:Dictionary=FleetLab.create(world,config,46046)
+  Battle.update(built.battle,1.0/60.0,{})
+Existing Main launch/capture selector, through Root's bounded silent background
+capture adapter, with any one of the six ids above:
+["--path","<integrated game absolute path>","--audio-driver","Dummy",
+ "--","--qa-lab=tactical_strike_pass","--qa-capture"]
+Keep Root's existing external timeout/owned cleanup; this selector alone does
+not set a deadline. Main.capture_after_start saves battle.png under absolute
+GAME_TEST_ARTIFACTS after its existing delay. Existing DevTools.snapshot() writes
+config/seed/ships/DP/AI reasons under dev-reports; no keyboard/F8/CUA required.
+Use Root's existing motion recording for actual pass/withdrawal/cover review.
+
+REMAINING LIMITS
+Source JSON decoding, API/declaration review and whitespace/diff inspection are
+not native parsing or assertion passes. This prefix fixture cannot establish a
+complete strike/exit, long escort outcome, fun, readable motion, rendering or
+audio quality. No new art/animation, campaign rewards or campaign AI added.
+Root must review the six normal public starts and motion on integrated046;
+the shorter fixture does not simulate six complete24s fights. Reused initial
+formations and station spacing need actual visual review. Offline fixed-fps
+movies do not establish real-time frame rate. Keep Root's full300DP light/mixed
+actual runtime profile and unresolved smoothness targets separate from this
+small source fixture; no60FPS or quality-milestone acceptance is claimed.

@@ -72,6 +72,98 @@
         }
       }
     },
+    "tactical_flanker_heavy": {
+      "label": "Practice: flank a heavy",
+      "seconds": 24,
+      "formation": "closing",
+      "guidance": "Tinwake and Bilgewater carry rapid guns against Furnace's heavy cannon. Watch the light boats choose separated approaches, fire useful bursts and turn away; Furnace should keep its main arc useful. Try an explicit attack or hold order and compare. Both fleets start on autopilot with finite ammunition and fuel. Space pauses, Tab opens orders, WASD moves the camera.",
+      "roles": {"tin_skiff": "skirmisher", "bilge_punt": "skirmisher"},
+      "player": ["tin_skiff", "bilge_punt"],
+      "enemy": ["furnace_turret"],
+      "fits": {
+        "tin_skiff": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "bilge_punt": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "furnace_turret": {"weapons": ["heavy_cannon", "", "", ""], "engine": "stock_engine", "armor": "stock_armor"}
+      }
+    },
+    "tactical_escort_raider": {
+      "label": "Practice: escort against raiders",
+      "seconds": 24,
+      "formation": "closing",
+      "objective": "escort",
+      "carrierHull": "fourport_packet",
+      "carrierCargo": {"ammo": 4, "fuel": 2},
+      "exit": {"x": 2180, "y": 850, "radius": 70},
+      "guidance": "Ashwake screens the loaded Fourport Packet against a Marsh Dart and Bilgewater raider. Watch the escort interpose without chasing beyond its protected ally; the packet must actually reach the eastern exit with its cargo. Its loss or capture ends the escort. All boats begin undamaged with finite stores. This is isolated Lab practice with no career rewards. Space pauses; Tab shows orders; right-click an ally to escort it.",
+      "roles": {"fourport_packet": "support", "ash_corvette": "screen"},
+      "player": ["fourport_packet", "ash_corvette"],
+      "enemy": ["marsh_dart", "bilge_punt"],
+      "fits": {
+        "fourport_packet": {"weapons": ["stock_primary", "", ""], "engine": "economy_drive", "armor": "stock_armor"},
+        "ash_corvette": {"weapons": ["stock_primary", "rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "marsh_dart": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "bilge_punt": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"}
+      }
+    },
+    "tactical_strike_pass": {
+      "label": "Practice: fitted strike pass",
+      "seconds": 24,
+      "formation": "closing",
+      "guidance": "Tinwake's fitted torpedo tube, rather than its stock gun, sets this strike pass. Watch it stage at the tube's actual range, align, launch a real salvo and leave room to turn away while Furnace holds its cannon arc. A launch spends carried ammunition; a kill is not required. Autopilot starts on. Space pauses, WASD moves the camera; U takes manual helm with arrow keys and mouse.",
+      "roles": {"tin_skiff": "striker"},
+      "player": ["tin_skiff"],
+      "enemy": ["furnace_turret"],
+      "fits": {
+        "tin_skiff": {"weapons": ["light_torpedo", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "furnace_turret": {"weapons": ["heavy_cannon", "", "", ""], "engine": "stock_engine", "armor": "stock_armor"}
+      }
+    },
+    "tactical_withdrawal": {
+      "label": "Practice: pressured withdrawal (damaged start)",
+      "seconds": 24,
+      "formation": "closing",
+      "guidance": "INITIAL DAMAGE: the first friendly Tinwake starts after one shell hit to its hull, with about 40% hull remaining on this fit. Armor damage, possible breaches, fire and wounded crew follow normal damage rules. Bail water starts selected. Watch its autopilot seek a withdrawal under Furnace's loaded cannon, then patch and repair when clear. Fuel, ammunition, crew and kits are finite. Space pauses; Tab shows orders; explicit orders still take priority.",
+      "roles": {"tin_skiff": "skirmisher"},
+      "player": ["tin_skiff"],
+      "enemy": ["furnace_turret"],
+      "fits": {
+        "tin_skiff": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "furnace_turret": {"weapons": ["heavy_cannon", "", "", ""], "engine": "stock_engine", "armor": "stock_armor"}
+      }
+    },
+    "tactical_wounded_cover": {
+      "label": "Practice: cover a wounded ally (damaged start)",
+      "seconds": 24,
+      "formation": "closing",
+      "guidance": "INITIAL DAMAGE: the first friendly Tinwake starts after one shell hit to its hull, with about 70% hull remaining on this fit. Armor damage, possible breaches, fire and wounded crew follow normal damage rules. Patch & repair starts selected and spends carried kits and crew work. Ashwake screens the damaged ally against two fast raiders; watch it protect instead of chasing. Right-click Tinwake with Ashwake selected to make that escort explicit. Space pauses; Tab shows orders; WASD moves the camera.",
+      "roles": {"tin_skiff": "skirmisher", "ash_corvette": "screen"},
+      "player": ["tin_skiff", "ash_corvette"],
+      "enemy": ["marsh_dart", "bilge_punt"],
+      "fits": {
+        "tin_skiff": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "ash_corvette": {"weapons": ["stock_primary", "rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "marsh_dart": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "bilge_punt": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"}
+      }
+    },
+    "tactical_mixed": {
+      "label": "Practice: mixed roles and rear support",
+      "seconds": 24,
+      "formation": "closing",
+      "guidance": "Cobalt's main cannon and secondary torpedo should retain a heavy station, while Tinwake flanks and Fen Stinger makes its fitted torpedo pass. An unarmed Fourport Packet should stay behind armed protection. Furnace, a Marsh Dart and Sparkrack provide heavy, light and rocket opposition through their own autopilot. Watch spacing, actual launches and exits; no boat is promised a shot or a win. Both fleets start undamaged with finite fuel, ammunition and kits. Space pauses; Tab shows orders; U takes manual helm.",
+      "roles": {"cobalt_frigate": "auto", "tin_skiff": "skirmisher", "reed_stinger": "striker", "fourport_packet": "support"},
+      "player": ["cobalt_frigate", "tin_skiff", "reed_stinger", "fourport_packet"],
+      "enemy": ["furnace_turret", "marsh_dart", "barbed_lance"],
+      "fits": {
+        "cobalt_frigate": {"weapons": ["stock_primary", "rapid_gun", "light_torpedo"], "engine": "stock_engine", "armor": "stock_armor"},
+        "tin_skiff": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "reed_stinger": {"weapons": ["light_torpedo", "rapid_gun"], "engine": "stock_engine", "armor": "stock_armor"},
+        "fourport_packet": {"weapons": ["", "", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "furnace_turret": {"weapons": ["heavy_cannon", "rapid_gun", "", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "marsh_dart": {"weapons": ["rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"},
+        "barbed_lance": {"weapons": ["fire_rocket", "rapid_gun", ""], "engine": "stock_engine", "armor": "stock_armor"}
+      }
+    },
     "duel": {
       "label": "Starter skiff duel",
       "seconds": 12,
