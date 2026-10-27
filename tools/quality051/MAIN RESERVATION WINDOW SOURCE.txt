@@ -1,0 +1,30 @@
+MAIN RESERVATION WINDOW - SOURCE CANDIDATE / NATIVE UNRUN
+Base: 1f23103cb371985560687efa7e0ab247e5e9af3a; NEW v051-reservation-window-sol.
+Owned files: tactical_runtime.gd, existing test_role_geometry046.gd, this note.
+
+Exactly two production horizon arguments now share the existing
+Planner.CERT_PREFIX_SECONDS (9/30 = 0.3s): Runtime._reserved_path ->
+Stations._reservation_begin051, and Runtime.begin -> Planner._resolve_planned.
+The latter governs both conflict checking and published renewable reservations.
+These are MAIN planning claims; they grant no future physical/fire permission.
+
+Stations.LIVE_TRAFFIC_SECONDS051 remains 2s. No worker forecast, complete
+static-land route/ETA, public/full-path API, eight-offer limit, 0.15s freshness,
+60Hz physical/fire check, budget or R40 ordinary-duel retention policy changed.
+
+Append only to existing reservation_egress051; all old fixture source retained,
+including actual Ash/Tin chain. Controlled healthy Ash/Tin copies with explicit
+move orders and speed100 (nominal80), perpendicular nominal paths and currently
+stationary Tin. The unrun fixture asserts later crossing acceptance by BOTH
+0.3s main gates, still refused
+by 2s capsules/resolution. Actual certified helm step advances Ash; fresh next
+renewal refuses the now-imminent nominal crossing before physical collision.
+Both exhausted-budget gates stay pending. Complete land route/ETA retained.
+This controlled case does not reconstruct or explain all six R19 light stalls;
+P16's other cause is NOT solved or investigated.
+
+One final check_preload_calls.py advisory: engineInvoked=false, issues=[].
+Source diff clean; every prior fixture byte retained after newline normalization.
+Native fixtures/engagement/performance UNRUN, UNVERIFIED.
+No engine/helper/profile/new harness/GPU/export/build/package/install run.
+Root alone owns combined native then actual rendered checks. No051release/no052.

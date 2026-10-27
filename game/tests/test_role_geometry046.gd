@@ -1038,3 +1038,73 @@ func reservation_egress051(world: Dictionary) -> void:
 	check(not Stations._conflict_begin051(corners_a,corners_b,merged,4096) and merged.clearanceTests==5,"different arrival clocks merge into four charged relative pieces including the terminal hold")
 	var partial: Dictionary={"clearanceTests":0,"clearanceExhausted":0}
 	check(Stations._conflict_begin051(corners_a,corners_b,partial,4) and partial.clearanceTests==4 and partial.clearanceExhausted==1,"late piece exhaustion cannot reuse a partial monotonic proof")
+
+	# R19 bounded main-window case: nominal allied paths cross later, while
+	# current physical traffic remains clear. Keep the R18 chain above intact.
+	var window_ships: Array=[ash.duplicate(true),tin.duplicate(true)]
+	var mover: Dictionary=window_ships[0]
+	var ally: Dictionary=window_ships[1]
+	mover.x=746.0;mover.y=800.0;mover.angle=0.0;mover.vx=80.0;mover.vy=0.0
+	ally.x=800.0;ally.y=746.0;ally.angle=PI/2.0;ally.vx=0.0;ally.vy=0.0
+	mover.orderTarget={"x":1000.0,"y":800.0};ally.orderTarget={"x":800.0,"y":1000.0}
+	var window_context: Dictionary={}
+	for boat: Dictionary in window_ships:
+		boat.order="move";boat.spec.speed=100.0
+		boat.status=Damage.get_status(boat)
+		window_context[str(boat.id)]=boat
+	var window_st: Dictionary={"time":now+1.0,"ships":window_ships,"islands":[]}
+	var window_t: Dictionary=Tactical.ensure(window_st)
+	window_t.ships=window_context;window_t.observed=window_context
+	window_t.terrainRevision=73;window_t.dt=1.0/60.0
+	window_t.geometry={"key":"main-reservation-window051","revision":73,"obstacles":[]}
+	window_t.metrics={"planningDetailUs":{},"orderApplyAges":[],"certificateAges":[]}
+	window_t.mountCache[str(mover.id)]={"mounts":[],"baseMounts":[]}
+	for renewal: int in range(2):
+		window_t.snapshotRevision=renewal+2
+		window_t.cells=Routes.grid(window_ships,true);window_t.budget=egress_budget051()
+		var at: float=float(window_st.time)
+		var ally_path: Array=[Roles.pos(ally),Vector2(800,1000)]
+		var short_ally: Dictionary=reservation_path051(ally,ally_path,at,Planner.CERT_PREFIX_SECONDS)
+		var window_memory: Dictionary={"byId":{},"reservations":{str(ally.id):short_ally}}
+		window_t.memory.enemy=window_memory
+		var window_view: Dictionary={"time":at,"snapshotRevision":window_t.snapshotRevision,"terrainRevision":73,"dt":window_t.dt,"side":"enemy","dueIds":[str(mover.id)],"ships":window_ships,"options":{"byId":{}}}
+		var window_plan: Dictionary=Planner._prepare_begin(window_view,window_memory)
+		check(not window_plan.candidates.is_empty() and window_plan.candidates.size()<=8,"main-window case uses actual bounded move generation at each renewal")
+		if window_plan.candidates.is_empty():return
+		var window_refined: Dictionary=Routes._refine_begin051(window_st,window_t.geometry,mover,window_plan.candidates[0],window_t.budget,null,Stations.LIVE_TRAFFIC_SECONDS051)
+		check(window_refined.status=="valid" and window_refined.candidate.exit[-1]==Vector2(1000,800) and window_refined.eta>2.0,"short reservations preserve complete future land routes and unchanged current traffic checks")
+		if window_refined.status!="valid":return
+		var window_candidate: Dictionary=window_refined.candidate
+		var gate: String=Tactical._reserved_path(window_st,"enemy",mover,window_candidate)
+		var long_own: Dictionary=Stations._reservation_begin051(window_candidate,mover,at,Stations.LIVE_TRAFFIC_SECONDS051)
+		var long_ally: Dictionary=reservation_path051(ally,ally_path,at,Stations.LIVE_TRAFFIC_SECONDS051)
+		check(Stations._conflict_begin051(long_own,long_ally,{"clearanceTests":0,"clearanceExhausted":0},4096),"unchanged two-second nominal capsules still refuse the later crossing")
+		var window_cert: Dictionary=Certification._certify_refined_live(window_st,window_view,mover,window_refined,Stations.fingerprint(window_candidate),window_t.budget)
+		check(window_cert.status=="valid","each reservation renewal still requires a fresh current physical certificate")
+		if window_cert.status!="valid":return
+		var window_offer: Dictionary={"candidate":window_candidate,"certificate":window_cert}
+		var window_resolved: Dictionary=Planner._resolve_planned(window_view,window_memory,[window_offer],window_plan,Planner.CERT_PREFIX_SECONDS)
+		var long_memory: Dictionary={"byId":{},"reservations":{str(ally.id):long_ally}}
+		var long_resolved: Dictionary=Planner._resolve_planned(window_view,long_memory,[window_offer],window_plan,Stations.LIVE_TRAFFIC_SECONDS051)
+		check(long_resolved.counters.accepted==0 and long_resolved.counters.reservationConflicts>0,"two-second final resolution retains the ordinary crossing veto")
+		if renewal==1:
+			check(gate=="blocked" and window_resolved.counters.accepted==0 and window_resolved.counters.reservationConflicts>0 and window_resolved.byId[str(mover.id)].phase=="pending","after actual movement both renewed main gates refuse the now-imminent nominal crossing")
+			check(Roles.pos(mover).distance_to(Roles.pos(ally))>Roles.radius(mover)+Roles.radius(ally),"renewal refuses before hull collision; a short claim grants no future physical permission")
+			continue
+		check(gate=="valid" and window_resolved.counters.accepted==1,"both main gates admit a later crossing outside their shared 0.3-second claims")
+		if window_resolved.counters.accepted!=1:return
+		var published: Dictionary=window_resolved.memory.reservations[str(mover.id)]
+		check(absf(float(published.until)-at-Planner.CERT_PREFIX_SECONDS)<0.000001 and published.approach[-1]!=window_candidate.approach[-1],"final resolution publishes only the shared short claim while retaining the complete candidate")
+		window_t.budget=egress_budget051(0)
+		check(Tactical._reserved_path(window_st,"enemy",mover,window_candidate)=="pending","main pre-certification budget refusal remains pending even for a clear short prefix")
+		window_t.budget=egress_budget051()
+		var limited_view: Dictionary=window_view.duplicate(true)
+		limited_view.options.clearanceRemaining=0
+		var limited: Dictionary=Planner._resolve_planned(limited_view,window_memory,[window_offer],window_plan,Planner.CERT_PREFIX_SECONDS)
+		check(limited.counters.accepted==0 and limited.counters.clearanceExhausted==1 and limited.byId[str(mover.id)].phase=="pending","main final resolution never turns an exhausted short-prefix check into authority")
+		window_t.intents=window_resolved.byId;window_t.memory.enemy=window_resolved.memory
+		var window_control: Dictionary=Tactical.helm(window_st,mover)
+		var window_next: Dictionary=Certification.motion(mover,window_t.dt,float(window_control.angle),float(window_control.throttle))
+		check(not window_control.get("blocked",false) and float(window_control.throttle)>0.0 and float(window_next.x)>float(mover.x)+0.5,"admitted main claim produces real current-checked helm movement before renewal")
+		for key: String in ["x","y","vx","vy","angle","fuel"]:mover[key]=window_next[key]
+		window_st.time=at+float(window_t.dt)

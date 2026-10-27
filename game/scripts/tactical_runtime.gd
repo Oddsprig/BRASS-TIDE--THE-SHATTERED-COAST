@@ -523,7 +523,9 @@ static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidat
 	# Reject a known swept conflict BEFORE the one physical rollout. A still
 	# repeats its authoritative final check after B certifies the chosen route.
 	var t: Dictionary=st.tactical
-	var shape: Dictionary=Stations._reservation_begin051(candidate,ship,float(st.time),Stations.LIVE_TRAFFIC_SECONDS051)
+	# Match current physical-prefix time for renewable MAIN planning claims.
+	# The same horizon reaches final resolution; future helm/fire stay live.
+	var shape: Dictionary=Stations._reservation_begin051(candidate,ship,float(st.time),Planner.CERT_PREFIX_SECONDS)
 	var counters: Dictionary={"clearanceTests":int(t.budget.clearanceTests),"clearanceExhausted":0}
 	var status: String="valid"
 	for other_id in t.memory[side].get("reservations",{}):
@@ -824,7 +826,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if not snapshots.has(side):continue
 		var snapshot: Dictionary=snapshots[side]
 		snapshot.options.clearanceRemaining=maxi(0,int(t.budget.clearanceLimit)-int(t.budget.clearanceTests))
-		var resolved: Dictionary=Planner._resolve_planned(snapshot,memories[side],offers[side],planning[side],Stations.LIVE_TRAFFIC_SECONDS051)
+		var resolved: Dictionary=Planner._resolve_planned(snapshot,memories[side],offers[side],planning[side],Planner.CERT_PREFIX_SECONDS)
 		var spent: int=int(resolved.get("counters",{}).get("clearanceTests",0))
 		if spent<0 or spent>int(snapshot.options.clearanceRemaining):
 			t.counters.rejectedIntents+=1;continue
