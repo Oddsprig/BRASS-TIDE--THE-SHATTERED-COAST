@@ -1,8 +1,12 @@
 extends SceneTree
-## Pure-contract fixtures only. Synthetic certificates below make NO physical claim.
+## Pure-contract fixtures plus one actual Kelp terrain-routing regression.
+## Synthetic certificates below make NO physical claim.
 ## Helper A has no engine lease; C/root must run this suite and independent motion.
 const P = preload("res://scripts/tactical_planner.gd")
 const R = preload("res://scripts/tactical_role_plans.gd")
+const Routes = preload("res://scripts/tactical_routes.gd")
+const Coast = preload("res://scripts/coastal_terrain.gd")
+const Refit = preload("res://scripts/refit.gd")
 var checks: int = 0
 var failures: int = 0
 
@@ -364,6 +368,82 @@ func test_time_window_and_detailed_shortlist() -> void:
 		ordered_ids[str(entry.id)] = true
 	check(ordered.size() == 16 and ordered_ids.size() == 16 and ordered[0].id == "ally-threat" and forced.detailedIds.size() == 16 and forced.state.targetId == "ally-threat" and forced.targets == ["ally-threat"], "explicit target stays mandatory and strict without erasing the bounded nearby danger shortlist")
 
+func route_budget051(limit: int = 2900) -> Dictionary:
+	return {"fullRoutes":0, "cacheHits":0, "clearanceTests":0, "clearanceLimit":limit, "exhaustions":0}
+
+func kelp_route051(st: Dictionary, geometry: Dictionary, a: Vector2, b: Vector2, radius: float, moving_goal: bool = false) -> Dictionary:
+	var result: Dictionary = {"status":"pending", "path":[]}
+	var pending_calls: int = 0
+	var goal: Vector2 = b
+	# First model a partly spent shared allowance, then normal planning calls.
+	# This must still exercise a yield if a later sweep broadphase gets faster.
+	for attempt: int in range(32):
+		goal = b + Vector2(0, float(attempt) * 0.03125) if moving_goal else b
+		var work: Dictionary = route_budget051(128 if attempt == 0 else 2900)
+		result = Routes.route(st, geometry, a, goal, radius, work)
+		check(int(work.clearanceTests) <= int(work.clearanceLimit) and int(work.fullRoutes) <= 1, "Kelp route respects each call's work/query limits")
+		check(st.tactical.routeCache.size() <= 128, "Kelp route cache stays bounded")
+		if result.status != "pending":
+			break
+		pending_calls += 1
+		check(result.path.is_empty(), "pending Kelp work never publishes an unchecked path")
+	print("Kelp route: pending_calls=%d status=%s points=%d" % [pending_calls, result.status, result.path.size()])
+	return {"route":result, "pendingCalls":pending_calls, "goal":goal}
+
+func test_kelp_route_progress051() -> void:
+	var data = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
+	check(data is Dictionary, "actual Kelp route world loads")
+	if not data is Dictionary:
+		return
+	var port: Dictionary = data.PORTS.filter(func(p):return p.id == "kelp_reach")[0]
+	var arena: Dictionary = Coast.arena(data, port)
+	var st: Dictionary = {"islands":arena.islands, "tactical":{"routeCache":{}}}
+	var geometry: Dictionary = Routes.terrain(st)
+	check(st.islands.size() == 1 and st.islands[0].id == "isl_kelp" and st.islands[0].points.size() == 76, "first-voyage Kelp Reach uses the real 76-vertex coast")
+	var hull: Dictionary = data.HULLS.filter(func(h):return h.id == "tin_skiff")[0]
+	var spec: Dictionary = Refit.effective_spec(hull, Refit.defaults(hull))
+	var radius: float = Routes.planning_radius({"spec":spec})
+	# Actual stalled Tin pose from job1110785; a water goal beyond Kelp's east
+	# promontory deliberately needs a land detour, not a synthetic certificate.
+	var a: Vector2 = Vector2(756.238525390625, 689.843505859375)
+	var b: Vector2 = Vector2(1200, 1200)
+	var unchanged: PackedByteArray = var_to_bytes([st.islands, spec, a, b])
+	check(Routes.sweep(geometry, a, a, radius, route_budget051()) == "valid" and Routes.sweep(geometry, b, b, radius, route_budget051()) == "valid", "Kelp route endpoints admit the actual fitted Tin planning radius")
+	check(Routes.sweep(geometry, a, b, radius, route_budget051()) == "blocked", "Kelp regression actually crosses land")
+	var empty_work: Dictionary = route_budget051(0)
+	check(Routes.route(st, geometry, a, b, radius, empty_work).status == "pending" and int(empty_work.clearanceTests) == 0 and st.tactical.routeCache.is_empty(), "zero budget cannot publish or seed a partial clearance proof")
+	var progress: Dictionary = kelp_route051(st, geometry, a, b, radius)
+	var found: Dictionary = progress.route
+	check(progress.pendingCalls > 0 and found.status == "valid", "real Kelp route yields then completes instead of restarting indefinitely")
+	if found.status != "valid":
+		return
+	check(not found.path.is_empty() and found.path.size() <= 8 and found.path[-1] == b, "completed Kelp route preserves the real goal and existing eight-point cap")
+	var cursor: Vector2 = a
+	for waypoint: Vector2 in found.path:
+		check(Routes.sweep(geometry, cursor, waypoint, radius, route_budget051()) == "valid", "each returned Kelp edge independently passes the authoritative full land sweep")
+		cursor = waypoint
+	var warm: Dictionary = route_budget051(0)
+	check(Routes.route(st, geometry, a, b, radius, warm) == found and int(warm.cacheHits) == 1, "completed exact Kelp route remains a bounded cache hit")
+	var graph: Dictionary = st.tactical.routeCache.values()[0].graph
+	# Start cold again and change the goal on EVERY retry. Only exact static
+	# and unchanged-origin visibility may carry over, never the old goal path.
+	var moving: Dictionary = {"islands":st.islands, "tactical":{"routeCache":{}}}
+	var moving_geometry: Dictionary = Routes.terrain(moving)
+	var moved: Dictionary = kelp_route051(moving, moving_geometry, a, b, radius, true)
+	check(moved.pendingCalls > 0 and moved.route.status == "valid" and moving.tactical.routeCache.size() > 1, "changing goals retain terrain progress without borrowing an old endpoint path")
+	check(is_same(moving.tactical.routeCache.values()[0].graph, moving.tactical.routeCache.values()[-1].graph), "separate exact-endpoint searches share their exact terrain/radius graph")
+	var moved_cursor: Vector2 = a
+	for waypoint: Vector2 in moved.route.path:
+		check(Routes.sweep(moving_geometry, moved_cursor, waypoint, radius, route_budget051()) == "valid", "moving-goal route independently passes full land sweeps")
+		moved_cursor = waypoint
+	check(moved.route.status == "valid" and moved_cursor == moved.goal, "moving-goal route ends at the current exact goal")
+	Routes.route(st, geometry, a, b, radius + 1.0, route_budget051())
+	check(st.tactical.routeCache.size() == 2 and not is_same(st.tactical.routeCache.values()[1].graph, graph), "a changed fitted radius cannot borrow the old static visibility graph")
+	check(var_to_bytes([st.islands, spec, a, b]) == unchanged, "routing preserves the real coast, hull statistics and endpoints")
+	st.islands[0].points[0][0] += 0.125
+	var changed: Dictionary = Routes.terrain(st)
+	check(changed.key != geometry.key and int(changed.revision) > int(geometry.revision) and st.tactical.routeCache.is_empty(), "actual coast edits invalidate completed routes, frontiers and shared visibility together")
+
 func _initialize() -> void:
 	test_detachment_and_authorship()
 	test_certificate_rejection()
@@ -373,5 +453,6 @@ func _initialize() -> void:
 	test_screen_doctrine_and_memory_bounds()
 	test_commitments_holds_and_formations()
 	test_time_window_and_detailed_shortlist()
+	test_kelp_route_progress051()
 	print("tactical_planner: %d checks, %d failures" % [checks, failures])
 	quit(1 if failures > 0 else 0)

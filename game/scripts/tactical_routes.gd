@@ -290,61 +290,110 @@ static func route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: f
 	return _route(st,geometry,a,b,r,budget)
 
 static func _route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary,proofs: _BeginProofs051=null,owner: Dictionary={}) -> Dictionary:
-	var key: String=JSON.stringify([geometry.key,r,a.x,a.y,b.x,b.y]).sha256_text()
+	# Exact endpoint/radius identity; terrain() clears this battle-local cache
+	# on a coast edit. Never borrow endpoint edges from a nearby moving query.
+	var key: String=var_to_bytes([geometry.key,geometry.revision,r,a,b]).hex_encode()
 	var cache: Dictionary=st.tactical.routeCache
-	if cache.has(key):
+	var entry: Dictionary=cache.get(key,{})
+	if not entry.is_empty() and entry.status!="pending":
 		budget.cacheHits+=1
-		return {"status":"valid","path":cache[key].duplicate()}
-	# Direct segment checks are bounded geometry, not graph searches.
-	var direct: String=sweep(geometry,a,b,r,budget) if proofs==null else _sweep_begin051(proofs,owner,geometry,a,b,r,budget)
-	if direct=="pending":return {"status":"pending","path":[]}
-	if direct=="valid":return {"status":"valid","path":[b]}
+		return {"status":entry.status,"path":entry.path.duplicate()}
+	if entry.is_empty():
+		# A pending primitive is never a clearance proof. Once terminal, this
+		# direct result belongs to the exact query and need not restart either.
+		var direct: String=sweep(geometry,a,b,r,budget) if proofs==null else _sweep_begin051(proofs,owner,geometry,a,b,r,budget)
+		if direct=="pending":return {"status":"pending","path":[]}
+		if direct=="valid":return {"status":"valid","path":[b]}
 	if int(budget.fullRoutes)>=4:
 		budget.exhaustions+=1
 		return {"status":"pending","path":[]}
-	budget.fullRoutes+=1 # Failed searches spend the same global query allowance.
-	var nodes: Array=[a,b]
+	budget.fullRoutes+=1 # Resumed searches still spend the global query slot.
+	if entry.is_empty():
+		var graph: Dictionary=_route_graph051(cache,geometry,r)
+		if graph.is_empty():return {"status":"pending","path":[]}
+		var initial_nodes: Array=[a,b]
+		initial_nodes.append_array(graph.nodes)
+		var initial_costs: Array=[]
+		var initial_previous: Array=[]
+		for i in range(initial_nodes.size()):initial_costs.append(INF);initial_previous.append(-1)
+		initial_costs[0]=0.0
+		entry={"status":"pending","path":[],"graph":graph,"nodes":initial_nodes,"costs":initial_costs,"previous":initial_previous,"closed":{},"edges":{Vector2i(0,1):"blocked"},"endpointEdges":[_route_endpoint051(graph,a),_route_endpoint051(graph,b)],"current":-1,"next":0}
+		if cache.size()>=CACHE_LIMIT:cache.erase(cache.keys()[0])
+		cache[key]=entry
+	var nodes: Array=entry.nodes
+	while true:
+		if int(entry.current)<0:
+			var best: float=INF
+			for i in range(nodes.size()):
+				if not entry.closed.has(i) and float(entry.costs[i])+nodes[i].distance_to(b)<best:
+					best=float(entry.costs[i])+nodes[i].distance_to(b);entry.current=i
+			if int(entry.current)<0:return _route_done051(entry,"blocked",[])
+			if int(entry.current)==1:
+				var path: Array=[]
+				var at: int=1
+				while at>0:
+					path.push_front(nodes[at]);at=int(entry.previous[at])
+					if path.size()>8:return _route_done051(entry,"blocked",[])
+				return _route_done051(entry,"valid",path)
+			entry.closed[int(entry.current)]=true;entry.next=0
+		var current: int=int(entry.current)
+		while int(entry.next)<nodes.size():
+			var next: int=int(entry.next)
+			if entry.closed.has(next) or next==current:
+				entry.next+=1;continue
+			# Cached graph traversal is bounded work too. On refusal keep the
+			# current node AND neighbour cursor, not just a half-closed frontier.
+			if not spend(budget):return {"status":"pending","path":[]}
+			var edge_key: Vector2i=Vector2i(mini(current,next),maxi(current,next))
+			# Reuse land visibility only for exact static/radius/endpoint inputs;
+			# a moving goal must not discard checks from an unchanged origin.
+			var edges: Dictionary=entry.graph.edges if current>=2 and next>=2 else entry.edges
+			if mini(current,next)<2 and maxi(current,next)>=2:
+				edges=entry.endpointEdges[mini(current,next)]
+				edge_key=Vector2i(maxi(current,next),maxi(current,next))
+			if not edges.has(edge_key):
+				var status: String=sweep(geometry,nodes[current],nodes[next],r,budget) if proofs==null else _sweep_begin051(proofs,owner,geometry,nodes[current],nodes[next],r,budget)
+				if status=="pending":return {"status":"pending","path":[]}
+				edges[edge_key]=status
+			if edges[edge_key]=="valid":
+				var cost: float=float(entry.costs[current])+nodes[current].distance_to(nodes[next])
+				if cost<float(entry.costs[next]):entry.costs[next]=cost;entry.previous[next]=current
+			entry.next+=1
+		entry.current=-1
+	return {"status":"pending","path":[]}
+
+static func _route_graph051(cache: Dictionary,geometry: Dictionary,r: float) -> Dictionary:
+	# Shared only through the existing <=128 route entries; <=126 static nodes
+	# and <=7875 undirected static edges per exact terrain/revision/radius.
+	var signature: PackedByteArray=var_to_bytes([geometry.key,geometry.revision,r])
+	for cached in cache.values():
+		if cached is Dictionary and cached.graph.signature==signature:return cached.graph
+	var nodes: Array=[]
 	for obstacle in geometry.obstacles:
 		var center: Vector2=Vector2.ZERO
 		for p in obstacle.points:center+=Vector2(p[0],p[1])
 		center/=float(obstacle.points.size())
 		for p in obstacle.points:
+			if nodes.size()>=126:return {}
 			var v: Vector2=Vector2(p[0],p[1])
-			var n: Vector2=v+(v-center).normalized()*(r*2.5+12.0)
-			if nodes.size()>=128:return {"status":"pending","path":[]}
-			nodes.append(n)
-	var costs: Array=[]
-	var previous: Array=[]
-	var closed: Dictionary={}
-	var edges: Dictionary={}
-	for i in range(nodes.size()):costs.append(INF);previous.append(-1)
-	costs[0]=0.0
-	for iteration in range(nodes.size()):
-		var current: int=-1
-		var best: float=INF
-		for i in range(nodes.size()):
-			if not closed.has(i) and float(costs[i])+nodes[i].distance_to(b)<best:
-				best=float(costs[i])+nodes[i].distance_to(b);current=i
-		if current<0:break
-		if current==1:
-			var path: Array=[]
-			var at: int=1
-			while at>0:
-				path.push_front(nodes[at]);at=int(previous[at])
-				if path.size()>8:return {"status":"blocked","path":[]}
-			if cache.size()>=CACHE_LIMIT:cache.erase(cache.keys()[0])
-			cache[key]=path.duplicate()
-			return {"status":"valid","path":path}
-		closed[current]=true
-		for next in range(nodes.size()):
-			if closed.has(next) or next==current:continue
-			var edge_key: Vector2i=Vector2i(mini(current,next),maxi(current,next))
-			if not edges.has(edge_key):edges[edge_key]=sweep(geometry,nodes[current],nodes[next],r,budget) if proofs==null else _sweep_begin051(proofs,owner,geometry,nodes[current],nodes[next],r,budget)
-			if edges[edge_key]=="pending":return {"status":"pending","path":[]}
-			if edges[edge_key]!="valid":continue
-			var cost: float=float(costs[current])+nodes[current].distance_to(nodes[next])
-			if cost<float(costs[next]):costs[next]=cost;previous[next]=current
-	return {"status":"blocked","path":[]}
+			nodes.append(v+(v-center).normalized()*(r*2.5+12.0))
+	return {"signature":signature,"nodes":nodes,"edges":{},"endpoints":{}}
+
+static func _route_endpoint051(graph: Dictionary,endpoint: Vector2) -> Dictionary:
+	# Each exact endpoint's <=126 terminal sweeps remain useful when only the
+	# other endpoint changes. Keep at most 128 recently used endpoint records.
+	var key: String=var_to_bytes(endpoint).hex_encode()
+	var edges: Dictionary=graph.endpoints.get(key,{})
+	graph.endpoints.erase(key)
+	if graph.endpoints.size()>=CACHE_LIMIT:graph.endpoints.erase(graph.endpoints.keys()[0])
+	graph.endpoints[key]=edges
+	return edges
+
+static func _route_done051(entry: Dictionary,status: String,path: Array) -> Dictionary:
+	entry.status=status;entry.path=path.duplicate()
+	# Completed searches retain their static graph, not their frontier arrays.
+	for field: String in ["nodes","costs","previous","closed","edges","endpointEdges","current","next"]:entry.erase(field)
+	return {"status":status,"path":path}
 
 static func refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary) -> Dictionary:
 	return _refine(st,geometry,ship,candidate,budget,false)

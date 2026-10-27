@@ -1,0 +1,65 @@
+051 COASTAL ROUTE STARVATION - SOURCE CANDIDATE; NATIVE UNRUN
+2026-10-27
+Fresh checkout: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v051-coastal-route-sol
+Base: fb60cda810f8e96457e7ce2315c45191774195c3
+
+CAUSE / CHANGE
+Actual first-voyage job1110785f58ed4d51bb5b72ea304ad87b ended at90s with
+stationary Tin / Route check pending. The old _route discarded every A* cost,
+predecessor, closed node and edge at each clearance-budget refusal. Its next
+call repeated the same prefix instead of finishing the 76-vertex coast search.
+
+Only tactical_routes.gd _route changed, with three private helpers inserted
+AFTER _route and BEFORE refine: _route_graph051, _route_endpoint051,
+_route_done051. Existing routeCache now owns exact-query records. Pending
+queries retain A* costs/predecessors/closed set/current node/next-neighbour
+cursor. Cached traversal spends one clearance unit; new edges still use the
+actual full sweep / existing closed-begin sweep proof path. Pending sweep
+results are NEVER stored, and pending routes return no executable path.
+
+The static graph shares terminal land visibility for exact terrain key,
+revision and radius. Exact per-endpoint terminal visibility also survives a
+change to only the opposite endpoint. No rounded keys, approximate endpoint
+substitution, traffic proofs, physical-prefix shortcut or unsafe edge permit.
+Paths/queries use typed endpoint identity. Coast edits still clear everything
+through existing terrain(); signatures also bind revision/key/radius.
+
+BOUNDS / OWNERSHIP
+Existing routeCache <=128 entries, total graph nodes <=128 including endpoints,
+static edges <=7875 per graph, endpoint index <=128 recently used exact points
+per graph (each <=126 terminal static-node sweeps). Pending queries hold only
+their bounded frontier/endpoint references. Terminal queries release frontier
+arrays; route entries retain their shared graph. Four full-route query slots,
+the existing spend/refusal API, eight-point paths and normal runtime caps remain.
+No new top-level state fields/classes/framework, no engine or test submission.
+Full static land clearance remains authoritative. No changes to _refine,
+_refine_begin051, broadphase/sweep/occupied, Runtime/Planner/Certification,
+traffic policy, boat state, 90s/60Hz combat, results, versions or assets.
+
+EXISTING FIXTURE EXTENSION
+test_tactical_planner.gd adds one actual Kelp Reach route case. It reads current
+world.json, CoastalTerrain.arena at the real port, its actual 76-vertex coast,
+and default-fitted Tin planning radius. Start is the stalled Tin pose from
+job1110785; goal(1200,1200) is deliberately a land-detour water goal, NOT a claim
+that the failed planner requested that exact point. Both endpoints and the
+blocked direct line are checked with full sweeps.
+Two bounded variants: fixed goal, and cold graph with goal changing by0.03125
+each retry. Each has <=32 calls: first128 remaining clearance units, then the
+normal2900 cap; never more than one graph-query slot per call. Initial partial
+allowance guarantees the regression exercises pending even after broadphase
+improvements. Verify completion, empty pending paths, every returned edge by
+independent full sweep, exact final goal, shared static identity, different
+radius isolation, zero-budget refusal, cache bounds and terrain invalidation.
+All16 prior test functions preserved verbatim except one added initialize call.
+Target whole existing fixture <20 native seconds; timing/completion UNMEASURED.
+
+VERIFICATION / ROOT INTEGRATION
+Source scope comparison: all text before _route and from refine onward matches
+fb60cda; original fixture bodies retained. Preload advisory and git diff --check
+clean. No native parsing/navigation/journey success or performance claim.
+Root owns native tests and all queue jobs; preserve earlier R3/R4/90s failures.
+Combine with CoastSol's SAME-FILE edits by function/cherry-pick, never replace
+the entire routes file. Helpers are inserted directly above existing refine;
+this insertion boundary is the only nearby merge-context overlap. Root should
+verify the existing planner fixture and combined role-geometry checks, then
+the unchanged first-voyage case; no additional horizon or auto-result.
