@@ -1,10 +1,10 @@
-BRASS TIDE v0.042 - AUTHORED BOATS AND INTERCHANGEABLE MOUNTS
+BRASS TIDE v0.043 - REAL RENDERED PERFORMANCE AND RUNTIME BUDGET
 26 October2026 |36 boat designs
 
 THIS VERSION
-- Three representative original boats receive authored directional hull assets with consistent materials, lighting and propulsion detail.
-- Interchangeable fitted weapon layers retain actual physical mounting and aim, and are absent when sockets are empty.
-- The new assets appear in actual battles and boat/refit portraits; remaining33 hulls keep their existing assets for the later roster milestone.
+- Measure actual exported mixed and light300point battles through the real renderer with active combat and declared hardware/resolution.
+- Attribute simulation and draw costs through opt-in counters, then apply bounded fixes to demonstrated bottlenecks while preserving actors,60Hz and authoritative state.
+- Keep real rendered background profiling separate from capped headless checks, and preserve actual limits and unmet targets.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

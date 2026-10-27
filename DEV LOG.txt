@@ -1,3 +1,7 @@
+26OCT2026 - v0.043 REAL RENDERED PERFORMANCE AND RUNTIME BUDGET
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.042 VERIFIED AND PACKAGED: 194/0 focused checks, selected batch 66.017s, TestBridge b78417f1289847a1a490dd8a5f575812. Source c234ada6ee84b3731a54a24d3bef1be5ebd8fb33.
 
 26OCT2026 - v0.042 AUTHORED BOATS AND INTERCHANGEABLE MOUNTS

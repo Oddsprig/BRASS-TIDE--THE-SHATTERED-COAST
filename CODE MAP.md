@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.042: Authored boats and interchangeable mounts. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: boat_art.gd, boat_sprite_art.gd, boat_portrait.gd, fleet_lab.gd, assets/boats042/asset-manifest.json.
+v0.043: Real rendered performance and runtime budget. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: main.gd, runtime_profile043.gd, damage.gd, tactical_runtime.gd, chart.gd, boat_mesh_cache.gd, combat_art.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
