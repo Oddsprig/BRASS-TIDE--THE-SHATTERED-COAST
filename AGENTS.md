@@ -1,26 +1,21 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
 VALIDATION UPDATE - 27 October 2026
-R37 d25e0f06988745e4868b87443bce8f43 PASS1669/0,84.656s inclsetup/export/
-three starts. Actual R18 c32b538e651d44fd99cddcc35cf95a66 quality FAILED:
-42light8.889FPS/17.692ms;16mixed59.901FPS/7.002ms;5light/1mixed deadlocks.
-Light41ever moved/31moving/83shots. Movement improved; performance unacceptable.
-Next bounded source candidates reviewed and integrated:
-- Nav0203279 ->27ad5a5: synchronized relative reservation-prefix egress above
-  physical floors; actual Ash/Tin generation-to-reservation-to-helm fixture.
-- Perf4e1c4f3 ->e0980a5: independently joined fair-cap cohorts, TWO unfinished
-  tasks including retired; SIDE150ms allowances2900traffic+128proof/fourroutes.
-- Roles04a2bcd ->d680e14: semantic eligibility has no movement/fire authority;
-  physical veto clears intents/reservations immediately. Fresh complete decision
-  consumed once; recertification preserves ORIGINAL chosenAt+.45 hard deadline.
-R38 b843538eff984dd3aeadc60a8a44b355 stopped29.390s at worker fixture:198/2
-plus missing-clock lookup. Earlier route95/geometry652/contact208 passed.
-Reviewed repair c38b962 ->be2c529 consumes expired unfinished members before
-retained observation; both deadline assertions preserved, missing clock fixed.
-Six unchanged geometry/route/contact file hashes retain R38 passed receipts.
-Next R39 workers/retained/currenttraffic/fire/actualvoyage/export hard119swhole;
-only after PASS actual R19 full42/16/300DP/current60Hz. No extra framework.
-Grok source render-cost proposal retained, implementation deferred as unmeasured.
+Actual R18 fullfleet quality FAILED:42light8.889FPS/17.692ms simulation;
+16mixed59.901FPS/7.002ms;5light/1mixed deadlocks. No quality acceptance yet.
+R38 b843538eff984dd3aeadc60a8a44b355: route95/geometry652/contact208 passed,
+then worker fixture failed. Six unchanged source/fixture hashes retain passes.
+R39 5764f01c0db24e808e070566fe634c5f: worker204/retained266/traffic40/fire123
+passed; actual opening LOST54.617simsec/9shots. Whole batch45.437s, no export.
+Reviewed repair73c0cc5 ->955df64 restores ordinary synchronous .30s semantic
+reconsideration and full choice after physical veto. This is the existing
+general workload policy, same for both sides; no mission/hull/seed exception.
+Pooled fleet .45s ORIGINAL semantic deadline, cohorts and immediate movement/
+fire/reservation revocation remain. Real boat, enemy, seed,90s cap, reward,
+stores and coin costs are unchanged. Worker assertions/selectors preserved.
+R40 will run the SAME actual paid opening voyage FIRST, then affected retained/
+worker/traffic/fire checks, export and three starts; hard119s whole batch.
+Only after current native PASS: actual R19 full42/16/300DP per side/current60Hz.
 Desktop050 retained; no051tag/package/install/no052 while core gate OPEN.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
