@@ -85,6 +85,7 @@ func run() -> void:
 	check(Roles.decide(ordered_view, ordered_context[own_id], {}, ordered_context, reservations).state.targetId == first.state.targetId, "team pressure cannot divert an explicit attack")
 	check(world == original_world, "Lab and planning preserve source world data")
 	view_parity051(battle, own_id, friend_id)
+	selected_target_order051(world)
 	solo_recovery051(view, context[friend_id])
 	proof_reuse051()
 	finite_traffic051()
@@ -97,6 +98,34 @@ func run() -> void:
 	r20_escape_components051(world)
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
+
+func selected_target_order051(world: Dictionary) -> void:
+	var spec: Dictionary = Lab.hull(world, "bilge_punt").duplicate(true)
+	var owner: Dictionary = {"id":"player-selected051","team":"player","x":1000.0,"y":700.0,"vx":0.0,"vy":0.0,"angle":0.0,"fuel":120.0,"ammo":80.0,"order":"engage","orderRevision":1,"formationIndex":0,"spec":spec,"status":{"speedFactor":1.0,"weaponFactor":1.0},"mounts":[{"id":"mount0","kind":"gun","range":spec.range,"damage":spec.damage,"fireRate":spec.fireRate,"speed":850.0,"arc":TAU}]}
+	var ships: Array = [owner]
+	var ids: Array = []
+	for i: int in range(3):
+		var enemy: Dictionary = owner.duplicate(true)
+		enemy.id = "enemy-selected051-%d" % i
+		enemy.team = "enemy";enemy.x = 1290.0 + float(i) * 10.0;enemy.angle = PI
+		ships.append(enemy);ids.append(str(enemy.id))
+	var view: Dictionary = {"time":0.0,"snapshotRevision":1,"ships":ships,"options":{"byId":{}}}
+	var context: Dictionary = Roles.ships_by_id(view)
+	var public_choice: Dictionary = Roles.choose_target(view, owner, {"targetId":ids[2],"commitUntil":1.0}, context, {}, "skirmisher")
+	check(public_choice.targetId == ids[2] and public_choice.targets == [ids[2],ids[0],ids[1]], "public full choice keeps the committed third hostile first")
+	var decision: Dictionary = {"state":{"role":"skirmisher","phase":"approach","targetId":ids[2]},"range":Roles.role_range(view, owner, "skirmisher"),"targets":ids,"detailedIds":ids}
+	var full_decision: Dictionary = decision.duplicate(true)
+	full_decision.targets = public_choice.targets
+	var before: PackedByteArray = var_to_bytes([view,decision,full_decision,public_choice])
+	var offers: Array = Stations.candidates(view, owner, decision, context)
+	var full_offers: Array = Stations.candidates(view, owner, full_decision, context)
+	check(offers.size() == 8, "third-selected shortlist preserves all eight station offers")
+	# Returned offers are ranked; their IDs retain the original generation slot.
+	for offer: Dictionary in offers:
+		var slot: int = int(str(offer.candidateId).get_slice(":", 3))
+		check(offer.targetId == (ids[2] if slot < 6 else ids[0]), "offer %d uses the selected hostile for the first six slots and the retained alternative for the last two" % slot)
+	check(var_to_bytes(offers) == var_to_bytes(full_offers), "geometric shortlist and normal selected-first full choice generate identical ranked offers")
+	check(var_to_bytes([view,decision,full_decision,public_choice]) == before, "selected-first consumer preserves input target membership, detail order and snapshots")
 
 func view_parity051(source: Dictionary, own_id: String, ally_id: String) -> void:
 	# Pure views of the existing real Lab boats. No update, certificate or result

@@ -554,7 +554,11 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 	if old_sector >= 0 and old_sector < 8 and Roles.number(state.get("commitUntil")) > Roles.number(view.get("time")):
 		sectors.erase(old_sector)
 		sectors.push_front(old_sector)
-	var targets: Array = Roles.array(decision.get("targets"))
+	var targets: Array = Roles.array(decision.get("targets")).duplicate()
+	var selected_target: String = str(state.get("targetId", ""))
+	if selected_target in targets:
+		targets.erase(selected_target)
+		targets.push_front(selected_target)
 	var incoming_by_target: Dictionary = {}
 	for i: int in range(MAX_OFFERS):
 		var target_index: int = 1 if i >= 6 and targets.size() > 1 and order not in ["attack", "board"] else 0
