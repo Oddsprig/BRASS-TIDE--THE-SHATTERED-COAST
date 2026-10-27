@@ -360,6 +360,12 @@ func _end_case() -> void:
 	if not render_verified:missing.append("verified visible viewport rendering, object/draw counters and two nonblank PNGs")
 	current.summary={"frames":frames,"physicsTicks":ticks,"observer":_stats(observer_us),"renderingVerified":render_verified,"visibleActiveFrames":visible_frames,"positiveObjectAndDrawFrames":drawn_frames,"nonblankPNGs":pngs_valid,"renderedFPS":fps,"fractionFramesWithin20ms":ratio if render_verified else null,"framesAbove50ms":stutters,"framesWithMultiplePhysicsTicks":catchup_frames,"wallMinusSimUs":deficit_us,"engineAccumulatorUs":null,"coverage":coverage,"missingActiveCoverage":missing,"targets":target,"targetNote":"Unmet targets are measured performance misses, never fabricated logic-test failures. Coverage and full duration must be complete before this can support active-runtime acceptance. Recurring means at least two occurrences; catch-up also misses if final wall-minus-sim deficit exceeds 100ms.","exportedRenderedEvidence":render_verified and _exported_release() and missing.is_empty() and errors.is_empty()}
 	current.endState=_state_sample();current.endMemory=_memory()
+	# Preserve the existing bounded developer trace once, AFTER measurement.
+	# This explains fleet stalls without new per-tick sampling or a second harness.
+	current.endTacticalTrace051=host.battle.get("tactical",{}).get("trace",[]).duplicate(true)
+	current.endBoatMotion051=[]
+	for ship: Dictionary in host.battle.ships:
+		current.endBoatMotion051.append({"id":str(ship.id),"x":float(ship.x),"y":float(ship.y),"vx":float(ship.vx),"vy":float(ship.vy)})
 	current.counterTotals={"damage":Damage.runtime_profile043(),"tactical":Tactical.runtime_profile043(),"chart":_optional(host.chart,"profile_read")}
 	current.complete=bool(current.get("activeIntervalComplete",false))
 	_write_json("runtime043-%s.json"%current.id,current)
