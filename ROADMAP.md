@@ -1,14 +1,8 @@
-# v0.044 combat commitment/recovery delivered
+# Current step: v0.045 - Weapons, impacts, wakes and recorded sound
 
-Source/tag4f76384/v0.044. Heavy momentum, shared cannon reload/arc, selected
-readiness and two ordinary practice battles. Six focused groups pass3149/0,
-including991retained only after exact unchanged-production proof. Final native
-batch51.783seconds; actual exported private still32.719seconds. Root reviewed
-the screenshot; no motion/audio/full-fleet FPS acceptance is claimed.
+- Use authored interchangeable weapon sprites across the roster while preserving real mounts, bearings and shot-driven recoil.
+- Replace segmented stern marks with short inexpensive foam that follows actual travel and fades naturally.
+- Make gun, cannon, rocket and torpedo events readable through distinct impacts and bounded mixing of existing licensed recordings.
 
-Next0.045: authored weapon presentation on every hull, distinct real impacts,
-restrained travel-following stern wash and bounded recorded audio. Preserve
-actual mount IDs/bearings, damage, shot events, finite stores and cheap water.
-Keep it separate from0.046 tacticalAI,0.049remaining hull art and0.050coast art.
-043's42boat performance case remains unacceptable; carry it into046and051.
-Do not pass051or move into052breadth while the core quality gate remains open.
+Finish this scope, run focused checks under120seconds, package, then advance
+to the next saved scope. No speculative fine-tuning or full-game gate.

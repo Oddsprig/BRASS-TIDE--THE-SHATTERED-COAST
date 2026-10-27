@@ -1,19 +1,10 @@
-# Brass Tide v0.044 delivered
+# Brass Tide v0.045
 
-BRASS TIDE v0.044 - Combat commitment and recovery
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 4f76384a32f71b6b2ff7e8aa46f8c17572519f45 / v0.044
-Test Bridge: f0a2cd30d9074ed59330de5c9f9138d7
-2158 focused checks, 0 failures; menu/campaign/battle startup passed.
-Selected batch plus setup: 51.783s; owned cleanup verified.
+Current candidate: Weapons, impacts, wakes and recorded sound.
 
-- Heavy boats retain momentum and need more water to brake, while light craft keep responsive movement.
-- Heavy cannons expose a visible reload window and a shared forward firing arc on their primary heavy mount.
-- Selected-boat readiness shows real reload, water trend, engine and repair reserves through existing combat widgets.
-- Two small Fleet battle laboratory presets let you practice torpedo crossings and covering a breakaway with normal finite stores.
+- Use authored interchangeable weapon sprites across the roster while preserving real mounts, bearings and shot-driven recoil.
+- Replace segmented stern marks with short inexpensive foam that follows actual travel and fades naturally.
+- Make gun, cannon, rocket and torpedo events readable through distinct impacts and bounded mixing of existing licensed recordings.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
-
-All six focused groups pass:55movement/recovery+249weaponcommitment+30HUD+173practice+484existingrefit+2158existinglayout=3149 checks/0. The final batch runs2158checks/export/3starts;991 earlier passed checks are retained only after exact source-hash proof that all production code is unchanged and only named tests differ. Initial HUDfixture had one gun, corrected to realtwo-gunfit. Existinglayout expected24boats, corrected to existing36. Earlier failedwholebatches remain failed. Source4f76384a32f71b6b2ff7e8aa46f8c17572519f45. Actual exported private still f8941f17ff7849428ef863036a69f2c1 completed32.719s; Root inspected selectedreload/water/engine/repair text and ordinary fourboatbattle. No motion/audio/full-fleet FPS orqualityparity acceptance. 043performance targets remainOPEN.
-
-Continue with the next saved version scope after v0.044; preserve the shared lane and120-second limit.
+Focused native checks/export are pending. Root owns all TestBridge work;
+helpers stay in source-only roles. Continue this version before the next.

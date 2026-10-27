@@ -14,7 +14,7 @@ Three representative boats prove a coherent, inexpensive asset pipeline.
 0.043 - RENDERED PERFORMANCE [MEASURED FIXES DELIVERED; 60FPS TARGET OPEN]
 Real active300-vs-300 battles meet the stated frame and simulation budgets.
 
-0.044 - COMBAT FEEL [PLANNED] [DONE]
+0.044 - COMBAT FEEL [SCOPED BUILD DELIVERED; PLAY FEEL NOT CERTIFIED]
 Weight, weapon windows, damage pressure and disengagement create useful decisions.
 
 0.045 - WEAPONS AND FEEDBACK [PLANNED]

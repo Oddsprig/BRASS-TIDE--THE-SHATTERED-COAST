@@ -1,35 +1,13 @@
-BRASS TIDE v0.044 - COMBAT COMMITMENT AND RECOVERY
-26 October2026 |36boat designs
+BRASS TIDE v0.045 - WEAPONS, IMPACTS, WAKES AND RECORDED SOUND
+27 October2026 |36 boat designs
 
 THIS VERSION
-Light skiffs retain their response. Larger boats build/shed velocity more slowly
-and carry momentum through turns. Live movement and AI forecasts share the same
-math; bow turn limits, top speeds, existing damage and fuel costs are unchanged.
+- Use authored interchangeable weapon sprites across the roster while preserving real mounts, bearings and shot-driven recoil.
+- Replace segmented stern marks with short inexpensive foam that follows actual travel and fades naturally.
+- Make gun, cannon, rocket and torpedo events readable through distinct impacts and bounded mixing of existing licensed recordings.
 
-Size3 heavy cannons have a1.8second base reload at full efficiency. Cannons on
-the large primary forward socket have135degrees of traverse. Smaller weapons,
-rear/side mounts and launchers retain their rules. Runtime, fitting chooser,
-physical mounts and art use the shared values. Crew and equipment damage can
-lengthen the actual reload; no ammunition or repair resources are invented.
-
-The selected-boat HUD reports actual reload, water trend, engine/fuel and repair
-hands/kits. Loaded means only the timer expired: aim/range/clear-shot rules still
-apply. Crew-priority buttons act on the FLAGSHIP. No new pressure meter.
-
-PRACTICE
-Main menu -> Fleet battle laboratory -> Preset:
-  Practice: torpedo crossing (two boats)
-  Practice: cover a breakaway (four boats)
-Both use normal canonical fittings, finite supplies and ordinary battle rules.
-They provide guidance, not forced damage, rewards, free repairs or scripted wins.
-Autopilot starts ON; Space pauses; WASD camera; right-click selected orders.
-U toggles manual flagship helm with arrows/mouse. Escape opens the menu.
-
-SCOPE AND LIMITS
-Read docs/COMBAT LOOP v0.044.txt and the portable test receipts for results.
-Numerical checks and still captures do not certify game feel or audio quality.
-043's full-fleet performance targets remain OPEN: light4.330FPS/mixed28.686FPS.
-This version makes no fresh full-fleet FPS or Starsector-quality claim.
-045 is combat presentation/sound;046tacticalAI retains the concrete slow-case
-constraint. Milestone051must not pass while the core experience remains weak.
-Coins,100coins per sailor-day, real purses/materials and numerical crews remain.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.

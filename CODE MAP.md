@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.044: Combat commitment and recovery. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: equipment_rollout.gd, combat_balance044.gd, mount_layout.gd, refit.gd, tactics_ui.gd, combat_pressure_view044.gd.
+v0.045: Weapons, impacts, wakes and recorded sound. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: boat_sprite_art.gd, weapon_art.gd, boat_art.gd, chart.gd, combat_art.gd, hull_feedback.gd, sound.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
