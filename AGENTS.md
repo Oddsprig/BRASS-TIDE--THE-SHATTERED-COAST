@@ -1,4 +1,22 @@
-# Latest owner request - Starsector quality roadmap (planning)
+# Active owner authorization - sequential quality builds0.042-0.061
+
+Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
+USE GROK 4.7 ON HIGH TO HELP."
+This supersedes the planning-only instruction below. Build and deliver each
+saved scope in order, preserving the previous release/saves. Start0.042: three
+finished representative original boat assets with separate fitted weapons in
+actual battle/refit. Do not jump ahead to later scopes or treat tests as art.
+Three Bridge Sol6.1MAX seats: hull art, weapons/live rendering, showcase/proof.
+Grok4.7HIGH may review concrete output. Root coordinates/integrates and owns
+all shared-queue native/bake execution, versions, delivery and desktop updates.
+Common brief: work/quality-v042-v061/OWNER SCOPE.txt in the task workspace.
+Root source is outputs/brass-tide. Helpers stay source-only in isolated worktrees.
+No nested helpers, paid fallback, downloads, unqueued engine/render/GPU work,
+foreground/input takeover or test audio. Selected complete test batches remain
+below120seconds. Respect other apps/leases and recorded GPU/resource authority.
+Currently installed build0.041 stays preserved until the next verified release.
+
+# Latest owner request - Starsector quality roadmap (planning, superseded)
 
 Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
 The current turn prepares the plan; do not infer a new game build from it.

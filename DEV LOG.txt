@@ -1,3 +1,7 @@
+26OCT2026 - v0.042 AUTHORED BOATS AND INTERCHANGEABLE MOUNTS
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 26OCT2026 - STARSECTOR QUALITY ROADMAP (NO BUILD)
 Owner rejected feature-checklist interpretation and requested an overall-quality
 roadmap. Prepared20proposed versions0.042-0.061, three quality milestones,
