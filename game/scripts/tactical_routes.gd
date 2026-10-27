@@ -256,7 +256,30 @@ static func _neighbours(cells: Dictionary,a: Vector2,b: Vector2,r: float) -> Arr
 		cells._queryCache[query]=result
 	return result
 
+static func _is_crowd_escape051(candidate: Dictionary) -> bool:
+	# Only this optional, fingerprinted nonfiring terminal shape can request
+	# checked alignment. A flag never supplies a route/certificate/helm lease.
+	if not candidate.get("crowdEscape051") is bool or not candidate.get("crowdEscape051",false) or candidate.get("targetId","")!="" or candidate.get("sector",-2)!=-1 or candidate.has("fireMountTargets"):
+		return false
+	if not candidate.get("fireMountIds") is Array or not candidate.fireMountIds.is_empty():return false
+	var approach: Variant=candidate.get("approach")
+	var pass_path: Variant=candidate.get("pass")
+	var exit_path: Variant=candidate.get("exit")
+	if not approach is Array or approach.is_empty() or approach.size()>8 or not pass_path is Array or pass_path.size()!=1 or not exit_path is Array or exit_path.size()!=1:return false
+	for point051: Variant in approach:
+		if not point051 is Vector2 or not point051.is_finite():return false
+	return pass_path[0]==approach[-1] and exit_path[0]==approach[-1]
+
 static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool=false,contact_id: String="") -> String:
+	return _occupied051(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id,false)
+
+static func _checked_alignment051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,dt: float,budget: Dictionary) -> String:
+	# Private current integrated ZERO-throttle step only, never a route proof.
+	# No ram/boarding exception: every hostile and ally retains its true floor.
+	if not bool(budget.get("separatingEgress051",false)) or not is_finite(dt) or dt<=0.0 or dt>1.0/30.0 or not a.is_finite() or not b.is_finite():return "blocked"
+	return _occupied051(cells,ship,a,b,r,0.0,dt,budget,true,"",true)
+
+static func _occupied051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool,contact_id: String,checked_alignment051: bool) -> String:
 	var separating_egress051: bool=bool(budget.get("separatingEgress051",false))
 	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
 	var query_radius: float=r+80.0+extra
@@ -292,6 +315,9 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 			# continuously separating motion; no approach or crossing through it.
 			if separating_egress051:
 				if _can_escape_padding051(ship,relative,delta,r,maxf(10.0,float(other.spec.get("size",16))),a==b and from==0.0 and until==0.0):continue
+				# Equality is exclusive to the actual checked alignment step. Same
+				# floor and derivative; ordinary departure stays strictly separating.
+				if checked_alignment051 and _can_escape_padding051(ship,relative,delta,r,maxf(10.0,float(other.spec.get("size",16))),true) and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>=relative.length_squared():continue
 			elif hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
 			return "blocked"
 	return "valid"

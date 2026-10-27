@@ -1038,7 +1038,7 @@ static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary
 	var control: Dictionary=Certification.steering(ship,points,int(record.get("index",0)),target,primary)
 	record.index=int(control.index)
 	var safety_started: int=Time.get_ticks_usec()
-	var safe: Dictionary=Certification.safe_step(st,ship,control,t.budget,frame_cache)
+	var safe: Dictionary=Certification._crowd_step051(st,ship,record.candidate,control,t.budget,frame_cache) if Routes._is_crowd_escape051(record.candidate) else Certification.safe_step(st,ship,control,t.budget,frame_cache)
 	if held is Certification._Retained051:
 		held.step_at=float(st.time);held.step_ok=not bool(safe.get("blocked",false))
 	if not detail.is_empty():detail.helmSafety+=Time.get_ticks_usec()-safety_started

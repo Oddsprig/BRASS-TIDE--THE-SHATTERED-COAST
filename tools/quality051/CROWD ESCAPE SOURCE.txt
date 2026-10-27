@@ -1,0 +1,46 @@
+CROWD ESCAPE051 - SOURCE CANDIDATE, NATIVE UNVERIFIED
+2026-10-27; clean parent f1cbc6c0e6983a5f4bbfa85ae35c7104a14af9e2.
+Only this new v051-crowd-escape-sol checkout was edited; old checkout preserved.
+
+Actual evidence: R17 job102dae1893494d578970c64ae2da6327, runtime043-49688-2081649.
+Enemy-9's three current allied contacts allow only23.60..27.02degrees;
+enemy-17's three-contact intersection is empty. Real overlap grants no escape.
+R17 did NOT record final headings; controlled turn/drift cases are fixtures,
+not a claim that the historical stopped boats had those headings.
+
+Stations._candidates_crowd051 has the same arguments as public candidates.
+It preserves first<=7 normal offers and appends ONE feasible final escape,
+within the existing8 cap. Public candidates body/default propose stay intact.
+Heading intervals intersect ALL current padded contacts' relative-velocity
+halfplanes; choose a midpoint, then recheck the actual float32 requested edge.
+Context>80 abstains (existing40-per-side ceiling); no angular sampling/solver,
+new worker/cache, radius/stat/actor/clock/resource or manual-order changes.
+The short32..80m terminal request is NONFIRING and still needs all ordinary
+worker2s land/traffic, fresh main connector/current traffic, reservations,
+certification and every60Hz helm check. Empty cone/physical penetration abstain.
+
+Optional crowdEscape051=true is shape-validated and fingerprint/same_request
+bound; it survives worker ID remint. Its presence grants NO certificate.
+Runtime HELM ONLY selects private Certification._crowd_step051 AFTER current
+owner/order/terrain/capability/intent checks. During misalignment, integrate
+actual ZERO throttle using unchanged motion and require actual heading progress.
+Sweep actual drift against land and every ally/hostile through the original
+occupied loop. Private Routes._checked_alignment051 allows equal separation
+only here, above the same physical floor and nonnegative relative derivative.
+Inward drift/traffic, physical penetration or pending debits cannot pass.
+Aligned departure still calls unchanged safe_step and requires strict egress;
+a nonturning hold cannot borrow equality. No memoized alignment proof exists.
+
+REQUIRED PERF-OWNED ACTIVATION (meeting57ad3561/f2206a30 and direct message):
+Use Stations._candidates_crowd051 in owned _prepare_begin/_prepare_with_worker051
+candidate generation; keep public propose generation on Stations.candidates.
+Nav did NOT edit Planner or Runtime.begin. Root must integrate Perf's seam
+with this commit; by itself this Nav commit does not activate generation.
+
+Existing geometry fixture gains ONLY focused R17 cone/no-cone, true overlap,
+flag/fingerprint/remint, worker/current-route, checked turn/drift/debit cases.
+All prior bodies/assertions incl13 exact R16 contacts remain unchanged.
+ONE check_preload_calls source advisory:0 issues, engineInvoked=false.
+git diff --check clean; default occupied body preserved behind false policy.
+No helper/engine/test/build/profile/GPU/export run. Tests and sustained fleet
+engagement/performance remain UNVERIFIED; Root alone schedules acceptance.

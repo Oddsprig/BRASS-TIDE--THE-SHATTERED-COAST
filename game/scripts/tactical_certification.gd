@@ -426,6 +426,21 @@ static func safe_step(st: Dictionary,ship: Dictionary,control: Dictionary,budget
 	if clear=="valid":return control
 	return {"angle":float(ship.angle),"throttle":0.0,"reason":"Braking; checking clearance" if clear=="pending" else "Braking for land or nearby hulls","blocked":true}
 
+static func _crowd_step051(st: Dictionary,ship: Dictionary,candidate: Dictionary,control: Dictionary,budget: Dictionary,frame_cache=null) -> Dictionary:
+	# Runtime has already checked the exact current owner/order/certificate.
+	# Rotate only an owned nonfiring escape; public safe_step is unchanged.
+	if not Routes._is_crowd_escape051(candidate) or str(candidate.get("shipId",""))!=str(ship.id) or int(candidate.get("orderRevision",-1))!=int(ship.get("orderRevision",0)) or float(control.throttle)<=0.0 or absf(angle_difference(float(ship.angle),float(control.angle)))<=0.000001:
+		return safe_step(st,ship,control,budget,frame_cache)
+	var alignment: Dictionary=control.duplicate()
+	alignment.throttle=0.0
+	var next: Dictionary=motion(ship,float(st.tactical.dt),float(alignment.angle),0.0,false,frame_cache)
+	if absf(angle_difference(float(ship.angle),float(next.angle)))<=0.000001:return safe_step(st,ship,control,budget,frame_cache)
+	var r: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
+	var clear: String=Routes.sweep(st.tactical.geometry,Routes.point(ship),Routes.point(next),r,budget)
+	if clear=="valid":clear=Routes._checked_alignment051(st.tactical.cells,ship,Routes.point(ship),Routes.point(next),r,float(st.tactical.dt),budget)
+	if clear=="valid":return alignment
+	return {"angle":float(ship.angle),"throttle":0.0,"reason":"Braking; checking clearance" if clear=="pending" else "Braking for land or nearby hulls","blocked":true}
+
 static func brake(st: Dictionary,ship: Dictionary,budget: Dictionary,reason: String,frame_cache=null) -> Dictionary:
 	var control: Dictionary={"angle":float(ship.angle),"throttle":0.0,"reason":reason}
 	var checked: Dictionary=safe_step(st,ship,control,budget,frame_cache)

@@ -92,6 +92,7 @@ func run() -> void:
 	static_rejections051(world)
 	static_completion051()
 	padding_egress051(world)
+	crowd_escape051(world)
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
 
@@ -848,3 +849,81 @@ func padding_egress051(world: Dictionary) -> void:
 	check(Certification.safe_step(state,drifting,{"angle":0.0,"throttle":0.5},egress_budget051()).get("blocked",false),"outward requested steering cannot excuse actual inward braking drift")
 	var pending: Dictionary=egress_budget051(0)
 	check(Certification.safe_step(state,owner,{"angle":0.0,"throttle":0.5},pending).get("blocked",false) and pending.exhaustions==1,"live 60Hz step cannot turn a budget refusal into clearance")
+
+func crowd_escape051(world: Dictionary) -> void:
+	# Exact R17 endBoatMotion051, job102dae18; headings were NOT captured.
+	# These five hulls contain enemy-9's 23.60..27.02 degree cone and enemy-17's
+	# empty cone. Only the turn/drift input below is a controlled fixture input.
+	var samples: Array=[
+		["enemy-9-bilge_punt","bilge_punt",Vector2(1367.20446777344,761.511779785156),Vector2.ZERO],
+		["enemy-3-bilge_punt","bilge_punt",Vector2(1341.17980957031,762.465942382813),Vector2(9.27106066228589e-6,-3.91227922591497e-6)],
+		["enemy-16-tin_skiff","tin_skiff",Vector2(1378.01574707031,736.770812988281),Vector2(-5.46002892692302e-14,-2.70252655025722e-14)],
+		["enemy-17-tin_skiff","tin_skiff",Vector2(1354.8447265625,785.752563476563),Vector2(-7.5797573377339e-15,-5.4255183482563e-15)],
+		["enemy-4-bilge_punt","bilge_punt",Vector2(1348.86999511719,812.083190917969),Vector2(0.000448718055849895,-0.000187288242159411)]
+	]
+	var ships: Array=[]
+	var context: Dictionary={}
+	for sample: Array in samples:
+		var boat: Dictionary=Damage.create_ship(Lab.hull(world,sample[1]),{"id":sample[0],"team":"enemy","x":sample[2].x,"y":sample[2].y,"vx":sample[3].x,"vy":sample[3].y,"fuel":120.0,"order":"engage","orderRevision":0,"orderTarget":{},"mounts":[]})
+		boat.status=Damage.get_status(boat)
+		ships.append(boat);context[str(boat.id)]=boat
+	var owner: Dictionary=ships[0]
+	var view: Dictionary={"time":0.0,"snapshotRevision":1,"ships":ships,"options":{"byId":{}}}
+	var state: Dictionary={"role":"skirmisher","phase":"regroup","targetId":"","leaderId":""}
+	var decision: Dictionary={"state":state}
+	var before: PackedByteArray=var_to_bytes([view,state])
+	var reference: Array=Stations.candidates(view,owner,decision,context)
+	var offers: Array=Stations._candidates_crowd051(view,owner,decision,context)
+	check(offers.size()<=8 and not offers.is_empty() and Routes._is_crowd_escape051(offers[-1]),"R17 narrow cone supplies exactly one final owned nonfiring terminal fallback within eight offers")
+	if offers.is_empty() or not Routes._is_crowd_escape051(offers[-1]):return
+	var request: Dictionary=offers[-1]
+	check(offers.slice(0,offers.size()-1)==reference.slice(0,mini(reference.size(),7)),"owned fallback preserves the first seven normal alternatives and public generation")
+	var origin: Vector2=Routes.point(owner)
+	var delta: Vector2=request.approach[-1]-origin
+	check(rad_to_deg(delta.angle())>23.60 and rad_to_deg(delta.angle())<27.03,"actual enemy-9 escape lies inside the captured narrow cone, without angular sampling")
+	for other: Dictionary in [ships[1],ships[2],ships[3]]:
+		var relative: Vector2=origin-Routes.point(other)
+		var moving_delta: Vector2=delta-Vector2(other.vx,other.vy)*delta.length()/(Roles.speed(owner)*0.8)
+		check(relative.dot(moving_delta)>=0.0 and (relative+moving_delta).length_squared()>relative.length_squared(),"R17 departure separates from EACH current contact including its actual velocity")
+	check(Stations._crowd_escape051(view,ships[3],state,context).is_empty(),"actual enemy-17 empty intersection supplies no escape authority")
+	var overlap: Dictionary=owner.duplicate(true)
+	overlap.x=ships[1].x;overlap.y=ships[1].y
+	check(Stations._crowd_escape051(view,overlap,state,context).is_empty(),"true physical penetration supplies no crowd candidate")
+	check(Stations.valid_candidate(request) and not Stations.fingerprint(request).is_empty(),"owned terminal flag has a bounded valid schema and fingerprint")
+	var unmarked: Dictionary=request.duplicate(true)
+	unmarked.erase("crowdEscape051")
+	check(Stations.valid_candidate(unmarked) and Stations.fingerprint(unmarked)!=Stations.fingerprint(request) and not Stations.same_request(request,unmarked),"removing the owned alignment flag changes fingerprint and request identity")
+	var reminted: Dictionary=request.duplicate(true)
+	reminted.candidateId="joined-current-crowd051";reminted.snapshotRevision=2
+	check(Stations.valid_candidate(reminted) and Routes._is_crowd_escape051(reminted),"worker request-ID remint retains the fingerprinted optional policy flag")
+	var firing: Dictionary=request.duplicate(true)
+	firing.fireMountIds=["mount0"]
+	check(not Stations.valid_candidate(firing),"crowd alignment flag cannot be attached to a firing request")
+	var geometry: Dictionary={"key":"crowd051","revision":61,"obstacles":[]}
+	var st: Dictionary=proof_state051(ships)
+	st.time=0.0;st.tactical.geometry=geometry;st.tactical.dt=1.0/60.0
+	var prepared: Dictionary=Routes._prepare_detached051(st,geometry,owner,request,egress_budget051(2900),{},true)
+	check(prepared.status=="valid" and prepared.trafficSeconds051==2.0,"R17 crowd request still passes full worker static route and two-second snapshot traffic")
+	var adopted: Dictionary=Routes._adopt_prepared051(st,geometry,owner,request,prepared,egress_budget051(),null,0.3)
+	check(adopted.status=="valid" and Stations.same_request(request,adopted.candidate),"fresh main connector/current traffic preserves exact owned request identity")
+	var turning: Dictionary=owner.duplicate(true)
+	turning.angle=wrapf(delta.angle()+PI,-PI,PI)
+	var control: Dictionary={"angle":delta.angle(),"throttle":0.5,"index":1}
+	check(Certification.safe_step(st,turning,control,egress_budget051()).get("blocked",false),"unchanged reference moving turn points inward and brakes")
+	var alignment: Dictionary=Certification._crowd_step051(st,turning,request,control,egress_budget051())
+	check(not alignment.get("blocked",false) and alignment.throttle==0.0 and alignment.angle==control.angle,"owned escape preserves the requested heading with checked zero throttle")
+	var next: Dictionary=Certification.motion(turning,1.0/60.0,float(alignment.angle),float(alignment.throttle))
+	check(Routes.point(next)==origin and absf(angle_difference(float(turning.angle),float(next.angle)))>0.01,"actual integrated stationary alignment changes heading without moving the circular hull")
+	check(Certification._crowd_step051(st,turning,unmarked,control,egress_budget051()).get("blocked",false),"unmarked public request cannot borrow equality-only alignment")
+	var drifting: Dictionary=turning.duplicate(true)
+	drifting.vx=-delta.normalized().x*10.0;drifting.vy=-delta.normalized().y*10.0
+	check(Certification._crowd_step051(st,drifting,request,control,egress_budget051()).get("blocked",false),"requested zero throttle cannot excuse actual inward residual drift against any contact")
+	var pending: Dictionary=egress_budget051(1)
+	var pending_step: Dictionary=Certification._crowd_step051(st,turning,request,control,pending)
+	check(pending_step.get("blocked",false) and pending_step.reason=="Braking; checking clearance" and pending.clearanceTests==1 and pending.exhaustions==1,"alignment still debits the land sweep then keeps neighbor-budget refusal pending")
+	var departed: Dictionary=turning.duplicate(true)
+	departed.angle=control.angle
+	check(not Certification._crowd_step051(st,departed,request,control,egress_budget051()).get("blocked",false),"aligned departure still passes strict ordinary current physical/traffic clearance")
+	var stationary: Dictionary={"angle":control.angle,"throttle":0.0}
+	check(Certification._crowd_step051(st,departed,request,stationary,egress_budget051()).get("blocked",false),"completed nonturning hold cannot borrow alignment equality inside padding")
+	check(var_to_bytes([view,state])==before,"crowd generation, preparation and checked alignment preserve captured inputs")

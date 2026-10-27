@@ -6,6 +6,7 @@ const MAX_OFFERS: int = 8
 const MAX_LEG: int = 8
 const MAX_POINTS: int = 24
 const MAX_MOUNT_TARGETS: int = 4
+const MAX_CROWD_CONTEXT051: int = 80 # Existing 40-per-side deployment ceiling.
 const LIVE_TRAFFIC_SECONDS051: float = 2.0
 const FIELDS: Array = ["candidateId", "shipId", "targetId", "leaderId", "role", "sector", "approach", "pass", "exit", "fireMountIds", "orderRevision", "snapshotRevision"]
 
@@ -19,7 +20,10 @@ static func valid_path(value: Variant) -> bool:
 
 static func valid_candidate(candidate: Dictionary) -> bool:
 	var has_mount_targets: bool = candidate.has("fireMountTargets")
-	if candidate.size() != FIELDS.size() + (1 if has_mount_targets else 0):
+	var crowd_escape051: bool = candidate.has("crowdEscape051")
+	if crowd_escape051 and not Routes._is_crowd_escape051(candidate):
+		return false
+	if candidate.size() != FIELDS.size() + (1 if has_mount_targets else 0) + (1 if crowd_escape051 else 0):
 		return false
 	for key: String in FIELDS:
 		if not candidate.has(key):
@@ -101,9 +105,13 @@ static func fingerprint(candidate: Dictionary) -> String:
 			canonical.append(candidate[key])
 	if candidate.has("fireMountTargets"):
 		canonical.append(canonical_mount_targets(candidate))
+	if candidate.has("crowdEscape051"):
+		canonical.append(["crowdEscape051", true])
 	return JSON.stringify(canonical).sha256_text()
 
 static func same_request(a: Dictionary, b: Dictionary) -> bool:
+	if a.get("crowdEscape051") != b.get("crowdEscape051"):
+		return false
 	for key: String in FIELDS:
 		if key not in ["approach", "pass", "exit"] and a.get(key) != b.get(key):
 			return false
@@ -354,6 +362,87 @@ static func _target_approach(position: Vector2, goal: Vector2, target: Dictionar
 		path.append(center + Vector2.from_angle(first_angle + turn * float(i) / float(steps)) * orbit_radius)
 	path.append(goal)
 	return path
+
+static func _candidates_crowd051(view: Dictionary, ship: Dictionary, decision: Dictionary, context: Dictionary, reservations: Dictionary = {}) -> Array:
+	# Owned worker/main generation only. Public candidates/propose keep their
+	# original offers. This last fallback never displaces the first seven.
+	var result: Array = candidates(view, ship, decision, context, reservations)
+	var escape: Dictionary = _crowd_escape051(view, ship, decision.state, context)
+	if not escape.is_empty():
+		if result.size() >= MAX_OFFERS:
+			result.resize(MAX_OFFERS - 1)
+		result.append(escape)
+	return result
+
+static func _crowd_escape051(view: Dictionary, ship: Dictionary, state: Dictionary, context: Dictionary) -> Dictionary:
+	# A short request, never clearance authority. Intersect the allowed heading
+	# intervals of EVERY current padded contact: relative.dot(v-own - v-other)
+	# must be nonnegative. Midpoints retain narrow cones without angle sampling.
+	if str(ship.get("order", "engage")) != "engage" or context.size() > MAX_CROWD_CONTEXT051 or Roles.speed(ship) <= 0.01:
+		return {}
+	var speed: float = maxf(1.0, Roles.speed(ship) * 0.8)
+	var position: Vector2 = Roles.pos(ship)
+	var own_radius: float = Roles.radius(ship)
+	var intervals: Array = [[0.0, TAU]]
+	var contacts: Array = []
+	for other: Dictionary in context.values():
+		if str(other.get("id", "")) == str(ship.id) or not Roles.active(other):
+			continue
+		var relative: Vector2 = position - Roles.pos(other)
+		var distance: float = relative.length()
+		var other_radius: float = Roles.radius(other)
+		var clearance: float = own_radius + other_radius + 7.0
+		if other.get("team") != ship.get("team"):
+			clearance = Routes.navigation_radius(ship) + Routes.navigation_radius(other) + 7.0
+		if distance >= clearance:
+			continue
+		# The existing contact roundoff only; genuine overlap has NO escape.
+		if distance + 0.0001 < own_radius + other_radius:
+			return {}
+		contacts.append(other)
+		var bound: float = relative.dot(Roles.velocity(other)) / (distance * speed)
+		if bound >= 1.0:
+			return {}
+		if bound <= -1.0:
+			continue
+		var center: float = fposmod(relative.angle(), TAU)
+		var half: float = acos(bound)
+		var low: float = center - half
+		var high: float = center + half
+		var allowed: Array = [[low, high]]
+		if low < 0.0:
+			allowed = [[0.0, high], [low + TAU, TAU]]
+		elif high > TAU:
+			allowed = [[low, TAU], [0.0, high - TAU]]
+		var clipped: Array = []
+		for interval: Array in intervals:
+			for span: Array in allowed:
+				var begin: float = maxf(float(interval[0]), float(span[0]))
+				var end: float = minf(float(interval[1]), float(span[1]))
+				if end > begin:
+					clipped.append([begin, end])
+		intervals = clipped
+		if intervals.is_empty():
+			return {}
+	if contacts.is_empty():
+		return {}
+	var widest: Array = intervals[0]
+	for interval: Array in intervals:
+		if float(interval[1]) - float(interval[0]) > float(widest[1]) - float(widest[0]):
+			widest = interval
+	var heading: float = (float(widest[0]) + float(widest[1])) * 0.5
+	var goal: Vector2 = position + Vector2.from_angle(heading) * clampf(speed * 0.5, 32.0, 80.0)
+	var duration: float = position.distance_to(goal) / speed
+	# Recheck the actual float32 requested edge, including moving contacts.
+	# All noncontacts, land and reservations still go through ordinary routing.
+	for other: Dictionary in contacts:
+		var relative: Vector2 = position - Roles.pos(other)
+		var delta: Vector2 = (goal - position) - Roles.velocity(other) * duration
+		if not Routes._can_escape_padding051(ship, relative, delta, own_radius + 4.0, Roles.radius(other), false):
+			return {}
+	var candidate: Dictionary = _candidate(view, ship, state, "", -1, [position, goal], [goal], [goal], [], MAX_OFFERS)
+	candidate["crowdEscape051"] = true
+	return candidate
 
 static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary, context: Dictionary, reservations: Dictionary = {}) -> Array:
 	var state: Dictionary = decision.state
