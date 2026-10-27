@@ -364,8 +364,16 @@ func _end_case() -> void:
 	# This explains fleet stalls without new per-tick sampling or a second harness.
 	current.endTacticalTrace051=host.battle.get("tactical",{}).get("trace",[]).duplicate(true)
 	current.endBoatMotion051=[]
+	current.plannerDeadlocks051=[]
+	var final_tactical051: Dictionary=host.battle.tactical
 	for ship: Dictionary in host.battle.ships:
 		current.endBoatMotion051.append({"id":str(ship.id),"x":float(ship.x),"y":float(ship.y),"vx":float(ship.vx),"vy":float(ship.vy)})
+		var id051: String=str(ship.id)
+		var pending_age051: float=float(host.battle.time)-float(final_tactical051.pending.get(id051,host.battle.time))
+		if not ship.sunk and not ship.get("captureSecured",false) and not final_tactical051.intents.has(id051) and Vector2(ship.vx,ship.vy).length_squared()<0.01 and pending_age051>=3.0:
+			current.plannerDeadlocks051.append({"id":id051,"pendingSeconds":pending_age051,"reason":str(final_tactical051.reasons.get(id051,""))})
+	# An idle, unresolved fleet is not a valid route to a higher frame rate.
+	current.summary.targets.noPersistentPlannerDeadlocks="met" if current.plannerDeadlocks051.is_empty() else "unmet"
 	current.counterTotals={"damage":Damage.runtime_profile043(),"tactical":Tactical.runtime_profile043(),"chart":_optional(host.chart,"profile_read")}
 	current.complete=bool(current.get("activeIntervalComplete",false))
 	_write_json("runtime043-%s.json"%current.id,current)
