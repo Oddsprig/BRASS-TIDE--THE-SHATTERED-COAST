@@ -1,0 +1,27 @@
+051 NAVIGATION SHORT CIRCUITS - SOURCE CANDIDATE; NATIVE UNRUN
+2026-10-27; base 0c31fb473e6d17493129cbfe6f5ae1e350cf259b, clean tracked start.
+
+R8 job72c0042b0da84982bac689e8d9fdfd12 light recorded about2425 clearance
+debits/tick; certification remains roughly4ms. No measured saving claimed.
+
+Routes only: A* computes tentative cost before visibility, avoiding full land
+sweeps for edges that cannot improve an already-known node. Traversal still
+spends, pending keeps its cursor, useful edges retain authoritative full sweeps.
+Both traffic walks reject a relative segment wholly beyond one side of the
+clearance square before solving closest approach. A conservative float32 guard
+leaves all near-boundary cases to the ORIGINAL narrow phase. Debit/refusal
+order, hostile navigation radii, inherited separation, contacts and full times
+remain. No new cache, state, planner policy or worker ABI. Current connector,
+all land routing, full ETA, existing traffic horizons and live safety stay.
+
+Existing test_tactical_planner adds65 checks:13 traffic cases against the old
+solver at0/1/4096 budgets, matching public/recorded results and budget values;
+tangent/one-float32-step boundaries, crossings, oversized hostile, separation,
+contact, default allied-only, zero-time holds and9-to11s crossing. Original
+Kelp76-vertex/progress assertions and all earlier test bodies remain unchanged.
+The existing --case=coastal-route051 runs both bounded geometry cases.
+
+Only Routes + existing planner fixture + this handoff. Other named coastal/
+geometry files do not exist in this checkout and were not substituted. No
+Runtime/Planner/Certification/route-adoption changes, no engine/helpers. Root
+owns strict native, worker, unchanged90s/60Hz first-voyage and GPU validation.

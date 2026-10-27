@@ -233,8 +233,8 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 		# covers both exact hostile/allied margins; extra covers later motion.
 		var padding: float=float(cells._maxNavigationRadius)+7.0 if cells.has("_maxNavigationRadius") else 220.0
 		query_radius=own_navigation+padding+extra
-	# Borrow only the phase-local read-only broadphase. All exact ally sweeps and
-	# their ordered budget debits still run on every route/live safety query.
+	# Borrow only the phase-local read-only broadphase. Ordered debits remain;
+	# a disjoint relative segment needs no closest-approach solve.
 	for other in _neighbours(cells,a,b,query_radius):
 		if str(other.id)==str(ship.id):continue
 		var hostile: bool=other.team!=ship.team
@@ -250,9 +250,10 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 		var d: Vector2=point(other)+velocity*until
 		var relative: Vector2=a-c
 		var delta: Vector2=(b-a)-(d-c)
-		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
 		var clearance: float=r+maxf(10.0,float(other.spec.get("size",16)))+3.0
 		if hostile:clearance=own_navigation+navigation_radius(other)+7.0
+		if _traffic_apart051(relative,delta,clearance):continue
+		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
 		if (relative+delta*fraction).length()<clearance:
 			# An inherited close pass must still be able to leave. Permit only
 			# continuously separating motion; no approach or crossing through it.
@@ -278,13 +279,23 @@ static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b:
 		var d: Vector2=point(other)+velocity*until
 		var relative: Vector2=a-c
 		var delta: Vector2=(b-a)-(d-c)
-		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
 		var clearance: float=r+maxf(10.0,float(other.spec.get("size",16)))+3.0
 		if hostile:clearance=own_navigation+navigation_radius(other)+7.0
+		if _traffic_apart051(relative,delta,clearance):continue
+		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
 		if (relative+delta*fraction).length()<clearance:
 			if hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
 			return "blocked"
 	return "valid"
+
+static func _traffic_apart051(relative: Vector2,delta: Vector2,clearance: float) -> bool:
+	# The same clamped relative segment used below stays outside the clearance
+	# circle if both endpoints lie beyond one of its enclosing square's sides.
+	# Leave float32 boundary cases to the unchanged exact solve, never widen a
+	# physical clearance or skip its budget debit. No result survives this call.
+	var outside: float=clearance+maxf(0.001,absf(clearance)*0.000001)
+	var end: Vector2=relative+delta
+	return (relative.x>outside and end.x>outside) or (relative.x< -outside and end.x< -outside) or (relative.y>outside and end.y>outside) or (relative.y< -outside and end.y< -outside)
 
 static func route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary) -> Dictionary:
 	return _route(st,geometry,a,b,r,budget)
@@ -344,6 +355,11 @@ static func _route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: 
 			# Cached graph traversal is bounded work too. On refusal keep the
 			# current node AND neighbour cursor, not just a half-closed frontier.
 			if not spend(budget):return {"status":"pending","path":[]}
+			var cost: float=float(entry.costs[current])+nodes[current].distance_to(nodes[next])
+			# Visibility cannot help a relaxation that cannot improve this node.
+			# Keep its traversal debit/cursor, but do not sweep an irrelevant edge.
+			if cost>=float(entry.costs[next]):
+				entry.next+=1;continue
 			var edge_key: Vector2i=Vector2i(mini(current,next),maxi(current,next))
 			# Reuse land visibility only for exact static/radius/endpoint inputs;
 			# a moving goal must not discard checks from an unchanged origin.
@@ -356,7 +372,6 @@ static func _route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: 
 				if status=="pending":return {"status":"pending","path":[]}
 				edges[edge_key]=status
 			if edges[edge_key]=="valid":
-				var cost: float=float(entry.costs[current])+nodes[current].distance_to(nodes[next])
 				if cost<float(entry.costs[next]):entry.costs[next]=cost;entry.previous[next]=current
 			entry.next+=1
 		entry.current=-1

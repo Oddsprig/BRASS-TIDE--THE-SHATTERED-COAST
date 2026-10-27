@@ -444,9 +444,80 @@ func test_kelp_route_progress051() -> void:
 	var changed: Dictionary = Routes.terrain(st)
 	check(changed.key != geometry.key and int(changed.revision) > int(geometry.revision) and st.tactical.routeCache.is_empty(), "actual coast edits invalidate completed routes, frontiers and shared visibility together")
 
+func traffic_reference051(cells: Dictionary, own: Dictionary, a: Vector2, b: Vector2, radius: float, from: float, until: float, work: Dictionary, avoid: bool, contact: String) -> String:
+	# Independent pre-optimization closest-approach walk, including discovery
+	# order, debit/refusal and the inherited-close-pass/contact exceptions.
+	var extra: float = maxf(0.0, until - 2.0) * float(cells.get("_maxSpeed", 0.0))
+	var query: float = radius + 80.0 + extra
+	var navigation: float = maxf(radius, Routes.navigation_radius(own)) if avoid else radius
+	if avoid:
+		query = navigation + (float(cells._maxNavigationRadius) + 7.0 if cells.has("_maxNavigationRadius") else 220.0) + extra
+	for other: Dictionary in Routes.neighbours(cells, a, b, query):
+		if str(other.id) == str(own.id):continue
+		var hostile: bool = other.team != own.team
+		if hostile and (not avoid or str(other.id) == contact):continue
+		if hostile and a == b and until <= from:continue
+		if not Routes.spend(work):return "pending"
+		var velocity: Vector2 = Vector2(other.vx, other.vy)
+		var c: Vector2 = Routes.point(other) + velocity * from
+		var d: Vector2 = Routes.point(other) + velocity * until
+		var relative: Vector2 = a - c
+		var delta: Vector2 = (b - a) - (d - c)
+		var fraction: float = clampf(-relative.dot(delta) / maxf(0.000001, delta.length_squared()), 0.0, 1.0)
+		var clearance: float = radius + maxf(10.0, float(other.spec.get("size", 16))) + 3.0
+		if hostile:clearance = navigation + Routes.navigation_radius(other) + 7.0
+		if (relative + delta * fraction).length() < clearance:
+			if hostile and relative.length() < clearance and relative.dot(delta) >= 0.0 and (relative + delta).length_squared() > relative.length_squared() + 0.0001:continue
+			return "blocked"
+	return "valid"
+
+func test_traffic_clearance051() -> void:
+	var own: Dictionary = ship("traffic-own051")
+	var a: Vector2 = Routes.point(own)
+	var b: Vector2 = a + Vector2(160, 0)
+	# Allied clearance is exactly 20+16+3=39. Boundary offsets straddle one
+	# float32 step; moving crossings must not be culled by endpoint distances.
+	var cases: Array = [
+		{"label":"disjoint y", "position":a + Vector2(80, 80), "expected":"valid"},
+		{"label":"just outside", "position":a + Vector2(80, 39.00006103515625), "expected":"valid"},
+		{"label":"tangent", "position":a + Vector2(80, 39), "expected":"valid"},
+		{"label":"just inside", "position":a + Vector2(80, 38.99993896484375), "expected":"blocked"},
+		{"label":"moving crossing", "position":a + Vector2(80, 120), "vy":-120.0, "expected":"blocked"},
+		{"label":"oversized hostile", "position":a + Vector2(500, 0), "team":"enemy", "size":120.0, "expected":"blocked"},
+		{"label":"separating hostile", "position":a - Vector2(10, 0), "team":"enemy", "expected":"valid"},
+		{"label":"approaching hostile", "position":a + Vector2(10, 0), "team":"enemy", "expected":"blocked"},
+		{"label":"contact exception", "position":a + Vector2(80, 0), "team":"enemy", "contact":"traffic-other051", "expected":"valid"},
+		{"label":"public allied-only default", "position":a + Vector2(80, 0), "team":"enemy", "avoid":false, "expected":"valid"},
+		{"label":"allied hold", "position":a, "hold":true, "expected":"blocked"},
+		{"label":"hostile zero-time hold", "position":a, "team":"enemy", "hold":true, "expected":"valid"},
+		{"label":"full ETA crossing", "position":a + Vector2(80, 1200), "vy":-120.0, "from":9.0, "until":11.0, "expected":"blocked"}
+	]
+	for trial: Dictionary in cases:
+		var other: Dictionary = ship("traffic-other051", str(trial.get("team", "player")), trial.position)
+		other.spec.size = float(trial.get("size", 16.0));other.vy = float(trial.get("vy", 0.0))
+		var cells: Dictionary = Routes.grid([own, other], true)
+		var goal: Vector2 = a if trial.get("hold", false) else b
+		var from: float = float(trial.get("from", 0.0))
+		var until: float = float(trial.get("until", 0.0 if trial.get("hold", false) else 2.0))
+		var avoid: bool = bool(trial.get("avoid", true))
+		var contact: String = str(trial.get("contact", ""))
+		var held: PackedByteArray = var_to_bytes([own, other])
+		for limit: int in [0, 1, 4096]:
+			var reference_work: Dictionary = route_budget051(limit)
+			var expected: String = traffic_reference051(cells, own, a, goal, 20.0, from, until, reference_work, avoid, contact)
+			var public_work: Dictionary = route_budget051(limit)
+			var actual: String = Routes.occupied(cells, own, a, goal, 20.0, from, until, public_work, avoid, contact)
+			var private_work: Dictionary = route_budget051(limit)
+			var debits: Array[int] = []
+			var recorded: String = Routes._occupied_record051(cells, own, a, goal, 20.0, from, until, private_work, avoid, contact, debits)
+			check(actual == expected and recorded == expected and public_work == reference_work and private_work == reference_work, str(trial.label) + ": public/recorded results and exact budget refusals match the old narrow phase")
+			if limit == 4096:check(actual == trial.expected, str(trial.label) + ": independently specified physical result")
+		check(var_to_bytes([own, other]) == held, str(trial.label) + ": traffic checks preserve actual hull inputs")
+
 func _initialize() -> void:
 	if "--case=coastal-route051" in OS.get_cmdline_user_args():
 		test_kelp_route_progress051()
+		test_traffic_clearance051()
 		print("tactical_planner coastal-route051: %d checks, %d failures" % [checks, failures])
 		quit(1 if failures > 0 else 0)
 		return
@@ -459,5 +530,6 @@ func _initialize() -> void:
 	test_commitments_holds_and_formations()
 	test_time_window_and_detailed_shortlist()
 	test_kelp_route_progress051()
+	test_traffic_clearance051()
 	print("tactical_planner: %d checks, %d failures" % [checks, failures])
 	quit(1 if failures > 0 else 0)
