@@ -1,7 +1,7 @@
 049 ROSTER ART - SOURCE CANDIDATE / NATIVE UNRUN
 Base a157241f6d817f08cf231299d35e6539c61e2359. Metadata remains047.
-Root delivers047 then048 before integrating/preparing049. No version/tag,
-runtime art enablement, assets, import, bake, render or native result is supplied.
+Root reports048 packaged/Desktop-verified at da06715/v048 and is ready for049.
+No version/tag/assets/import/bake/render/native result is supplied by this seat.
 
 DELIVERED SOURCE
 33 original design functions in recipes.py; existing3 builder function ASTs
@@ -67,18 +67,18 @@ frames into one120second batch. Root chooses later slice sizes from real receipt
 with setup/cleanup headroom, then reviews battle zoom and normal workshop scale.
 
 After Root's preview judgment, production raw argv is the SAME existing baker:
-python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode frames --start0
-  --frames1 --aa2 --seconds75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
+python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode frames --start 0
+  --frames 1 --aa 2 --seconds 75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
 Schedule remaining0..31 bounded slices through existing adapter/TestBridge only.
-python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode pack --aa2
-  --seconds75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
-python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode portrait --heading0
-  --aa2 --seconds75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
+python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode pack --aa 2
+  --seconds 75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
+python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode portrait --heading 0
+  --aa 2 --seconds 75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
 Source changes invalidate the full new cache key. Pack refuses missing/mismatched
 frames. Exit3=INCOMPLETE_BOUNDED, never a pass; completed valid cache survives.
 Use only the33 IDs in catalog.json, not --hull all, preserving old3 real assets.
 
-MANIFEST MERGE / RUNTIME PROPOSAL - REQUIRES ROOT'S EXACT APPROVAL
+MANIFEST MERGE / EXACT ROOT-APPROVED RUNTIME CONTRACT
 manifest-seed.json contains ONLY33 pending entries and names the existing3 to
 preserve verbatim. Never replace the game's live manifest with this seed. Root
 merges additions in isolated staging before production, then moves actual baked
@@ -86,13 +86,15 @@ fields/PNGs/receipts into its sequential049 candidate. Empty arrays/hashes are
 UNBAKED, not ready. prepare_sources.py writes only source JSON/matrices from
 canonical source; it never imports recipes/models, constructs meshes or images.
 
-BoatSpriteArt is UNCHANGED. After all33 real assets and native coverage exist,
-proposal for hull_entry: remove only `if id not in IDS:return {}`; retain schema
-guard and dictionary guard; reject entries unless headings==32 and actual
-frame_bounds_px.size()==32. Existing _cell_ready and portrait texture check
-continue actual missing-resource fallback. Do not compute PNG hashes per draw.
-Root must explicitly approve/apply this minimal change; this helper has not.
-The new fixture intentionally fails production lookup for new IDs until then.
+Root explicitly approved the BoatSpriteArt follow-up on27October: IDS stays for
+legacy callers, but does not gate hull_entry. Eligibility is cached ONCE per ID
+(including invalid/missing entries): schema,32headings,8x4,density2, finite positive
+integer cells, finite in-cell pivot,32 nonempty integer in-cell alpha rectangles,
+and actual atlas ResourceLoader.exists. Cache retains the original dictionary
+reference. No per-draw validation, SHA, file-content reads or dictionary copy.
+clear_cache clears eligibility too. Existing transforms/drawing are unchanged;
+old3 need no new status fields. New33 remain ineligible until Root merges actual
+completed bounds/resources. Seed is never installed as a valid runtime manifest.
 
 ROOT NATIVE / QUALITY ACCEPTANCE STILL REQUIRED
 game/tests/test_roster_art049.gd is ONE compact source fixture, UNRUN. After
@@ -104,8 +106,10 @@ It compares all36 actual PNG dimensions/32alpha cells/hashes/portraits, producti
 heading lookup and actual MountLayout wells; new receipts verify profile stations,
 physical extents and high-structure clearance. It does not retain all atlases in
 the GPU texture cache. Missing assets/bounds fail; source counts cannot pass it.
-Existing042 actual battle/refit empty-fit, live aim and independent weapon tests
-remain relevant; Root selects focused coverage and real captures below120s.
+Existing042 actual battle/refit empty-fit, live aim and independent weapon checks
+remain relevant. Its old line198 bilge_punt fallback assertion becomes historical
+after all33 bakes; Root must use an actual unknown ID for that missing-asset case
+if selecting that fixture. This seat does not alter old assertions or report pass.
 
 FOLLOWUPS / PHYSICAL FOOTPRINT AUDIT
 Read docs/roadmap/QUALITY REVIEW FOLLOWUPS.txt: dark bow faces, thin rails and
@@ -113,6 +117,8 @@ weak stock-gun contrast are observed prior issues. New broad faces use tin,
 armor_light, ivory or medium teal; deck value is separated from tiny machinery.
 Prior042 palettes/light are unchanged; only Root's actual small-scale images
 can judge whether the low dark-face/weapon contrast problem is solved.
+CONCRETE049: Root inspected the actual048 Tin portrait and reports a dark lower
+bow/shadow-like gray triangle. It remains OPEN, not implicitly approved old art.
 
 Root's observed friendly projected overlap is NOT certified collision contact
 by this source work. FOOTPRINTS.tsv calculates actual canonical station length/

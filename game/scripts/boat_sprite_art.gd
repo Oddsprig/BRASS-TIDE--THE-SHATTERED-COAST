@@ -1,5 +1,5 @@
 extends RefCounted
-## Three authored hulls and seven interchangeable weapons for the whole roster.
+## Manifest-backed authored hulls and seven interchangeable weapon variants.
 ## BoatArt retains procedural hulls, non-isometric charts and missing-asset art.
 ## An atlas cell is an offline render, never a viewport rendered at runtime.
 
@@ -12,6 +12,7 @@ const ISO := Transform2D(Vector2(0.82, 0.41), Vector2(-0.82, 0.41), Vector2.ZERO
 const HULL_REFERENCE_HEIGHT := 9.7
 static var _manifests: Dictionary = {}
 static var _textures: Dictionary = {}
+static var _hull_entries: Dictionary = {}
 
 static func _manifest(path: String) -> Dictionary:
 	if not _manifests.has(path):
@@ -25,13 +26,41 @@ static func _texture(path: String) -> Texture2D:
 		_textures[path] = resource if resource is Texture2D else null
 	return _textures[path]
 
+static func _finite_hull_array(value, count: int) -> bool:
+	if not value is Array or value.size() != count: return false
+	for number in value:
+		if not (number is int or number is float) or not is_finite(float(number)): return false
+	return true
+
+## Called once per cached entry. Root supplies completed actual bake bounds;
+## source seeds lack32 real bounds and cannot become runtime-eligible.
+static func _valid_hull_entry(entry: Dictionary) -> bool:
+	if entry.get("headings", 0) != 32 or entry.get("columns", 0) != 8 or entry.get("rows", 0) != 4 or entry.get("pixels_per_world_unit", 0) != 2: return false
+	var cell = entry.get("cell_px", [])
+	var pivot = entry.get("pivot_px", [])
+	var bounds = entry.get("frame_bounds_px", [])
+	if not _finite_hull_array(cell, 2) or not _finite_hull_array(pivot, 2): return false
+	for dimension in cell:
+		if float(dimension) <= 0 or float(dimension) != floorf(float(dimension)): return false
+	if float(pivot[0]) < 0 or float(pivot[1]) < 0 or float(pivot[0]) > float(cell[0]) or float(pivot[1]) > float(cell[1]): return false
+	if not bounds is Array or bounds.size() != 32: return false
+	for bound in bounds:
+		if not _finite_hull_array(bound, 4): return false
+		for number in bound:
+			if float(number) != floorf(float(number)): return false
+		if float(bound[0]) < 0 or float(bound[1]) < 0 or float(bound[2]) <= 0 or float(bound[3]) <= 0: return false
+		if float(bound[0]) + float(bound[2]) > float(cell[0]) or float(bound[1]) + float(bound[3]) > float(cell[1]): return false
+	var atlas = entry.get("atlas", "")
+	return atlas is String and not atlas.is_empty() and ResourceLoader.exists(atlas)
+
 static func hull_entry(spec: Dictionary) -> Dictionary:
 	var id: String = str(spec.get("id", ""))
-	if id not in IDS: return {}
-	var manifest: Dictionary = _manifest(HULL_MANIFEST)
-	if str(manifest.get("schema", "")) != "brass-tide-boats042-v1": return {}
-	var entry = manifest.get("hulls", {}).get(id, {})
-	return entry if entry is Dictionary else {}
+	if not _hull_entries.has(id):
+		var manifest: Dictionary = _manifest(HULL_MANIFEST)
+		var hulls = manifest.get("hulls", {})
+		var entry = hulls.get(id, {}) if hulls is Dictionary else {}
+		_hull_entries[id] = entry if str(manifest.get("schema", "")) == "brass-tide-boats042-v1" and entry is Dictionary and _valid_hull_entry(entry) else {}
+	return _hull_entries[id]
 
 ## Inspection shared by the actual renderer, the portrait and native recorder.
 ## Coordinates are pixel rectangles in the original atlas; no mock geometry.
@@ -225,3 +254,4 @@ static func bounds(spec: Dictionary, angle: float, portrait: bool = false) -> Re
 static func clear_cache() -> void:
 	_manifests.clear()
 	_textures.clear()
+	_hull_entries.clear()
