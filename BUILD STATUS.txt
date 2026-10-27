@@ -12,6 +12,14 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
+VALIDATION UPDATE: R30 5941424197ae443789860abb6cf6a18d stopped after25.484s
+on three legacy private-view ownership failures; damage450/coastal95 passed.
+Compatibility patch c9113ae restores detached/frozen omitted-context views;
+explicit closed-begin contexts retain borrowing. No assertions weakened.
+R31 77ef6c15635f416ea3c9033031db7cfc independent diagnostic5460/0 in52.125s:
+scar5080/workers106/actualvoyage274. No export; not core acceptance.
+Full combined validation/export pending; actual performance stillR13FAILED.
+
 LATEST MEASURED CHECKPOINT - 27 October 2026
 R29 8613de56778f420e87eadc78eb7b3c32: scoped1271/0,82.390s including
 setup/export/three starts; actual default voyage completes paid return/refit.

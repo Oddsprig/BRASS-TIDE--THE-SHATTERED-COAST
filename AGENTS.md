@@ -1,5 +1,13 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
+VALIDATION UPDATE: R30 5941424197ae443789860abb6cf6a18d stopped after25.484s
+on three legacy private-view ownership failures; damage450/coastal95 passed.
+Compatibility patch c9113ae restores detached/frozen omitted-context views;
+explicit closed-begin contexts retain borrowing. No assertions weakened.
+R31 77ef6c15635f416ea3c9033031db7cfc independent diagnostic5460/0 in52.125s:
+scar5080/workers106/actualvoyage274. No export; not core acceptance.
+Full combined validation/export pending; actual performance stillR13FAILED.
+
 LATEST MEASURED CHECKPOINT - 27 October 2026
 R29 8613de56778f420e87eadc78eb7b3c32: scoped1271/0,82.390s including
 setup/export/three starts; actual default voyage completes paid return/refit.
@@ -270,7 +278,7 @@ quality is a design target, not a verified existing achievement.
 
 All game tests remain hidden/background/silent and serialized, one engine at a
 time. Never take mouse, keyboard or focus. Prefer question-specific bounded checks;
-never weaken assertions to pass. Preserve the owner’s saves/settings/music. Use
+never weaken assertions to pass. Preserve the ownerâ€™s saves/settings/music. Use
 only owned explicit PIDs for timeout cleanup. No global installs/system changes.
 Use the existing Godot 4.7.2 and local Python. Source/CPU tests, visual review,
 listening, Windows export, launcher and remote publication require separate proof.
