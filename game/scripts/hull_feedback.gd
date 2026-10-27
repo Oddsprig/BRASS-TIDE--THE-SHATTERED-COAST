@@ -10,14 +10,27 @@ const MAX_EQUIPMENT_MARKS: int=6
 const SCAR_OUTER051 := [[-1.0,-0.3,0.0],[-0.3,-0.8,0.0],[0.9,-0.5,0.0],[1.0,0.4,0.0],[0.1,0.65,0.0],[-0.7,0.4,0.0]]
 const SCAR_INNER051 := [[-0.45,-0.2,0.15],[0.6,-0.22,0.15],[0.22,0.3,0.15],[-0.35,0.22,0.15]]
 
-static func equipment_marks(boat: Dictionary,mounts: Array) -> Array:
+static func _equipment_anchors051(spec: Dictionary) -> Dictionary:
+	# Detached static geometry only. Never freeze/retain live spec or condition.
+	var structure: Dictionary=Layout.structure(spec)
+	var anchors: Dictionary={}
+	for location in ["engine","pumps"]:
+		var part: Dictionary=structure.engine if location=="engine" else structure.cabin
+		var anchor: Dictionary={"at":Vector2(part.x,part.y),"height":float(part.height)+1.5}
+		anchor.make_read_only()
+		anchors[location]=anchor
+	anchors.make_read_only()
+	return anchors
+
+static func equipment_marks(boat: Dictionary,mounts: Array,_anchors051: Dictionary={}) -> Array:
 	# Live presentation reads the already validated installed records, never locker
 	# parts or a second full damage status. No cached condition/repair state.
 	var marks: Array=[]
 	var condition=boat.get("moduleCondition")
 	if bool(boat.get("sunk",false)) or not condition is Dictionary:return marks
 	if condition.get("version")!=1 or not condition.get("items") is Dictionary:return marks
-	var structure: Dictionary={}
+	# BoatArt supplies its private prepared geometry; default callers stay fresh.
+	var anchors: Dictionary=_anchors051
 	for value in condition.items.values():
 		if not value is Dictionary or str(value.get("status","ok")) not in ["damaged","disabled"]:continue
 		var location: String=str(value.get("location",""))
@@ -29,10 +42,10 @@ static func equipment_marks(boat: Dictionary,mounts: Array) -> Array:
 				if str(mount.get("id",""))==location:
 					anchor=Vector2(mount.x,mount.y);found=true;break
 		elif location in ["engine","pumps"] and str(value.get("family","")) in ["engines","pumps"]:
-			if structure.is_empty():structure=Layout.structure(boat.spec)
+			if anchors.is_empty():anchors=_equipment_anchors051(boat.spec)
 			# Integral pumps occupy the cabin/bilge damage box, not a gun socket.
-			var part: Dictionary=structure.engine if location=="engine" else structure.cabin
-			anchor=Vector2(part.x,part.y);height=float(part.height)+1.5;found=true
+			var marker: Dictionary=anchors[location]
+			anchor=marker.at;height=float(marker.height);found=true
 		if found and marks.size()<MAX_EQUIPMENT_MARKS:
 			marks.append({"location":location,"at":anchor,"height":height,"status":str(value.status),"hp":float(value.hp)})
 	return marks
@@ -47,10 +60,10 @@ static func _engine_hp(boat: Dictionary) -> float:
 				return clampf(float(item.hp),0,1)
 	return clampf(float(boat.get("engine",1)),0,1)
 
-static func draw_equipment(ctx: Dictionary,boat: Dictionary,mounts: Array) -> void:
+static func draw_equipment(ctx: Dictionary,boat: Dictionary,mounts: Array,_anchors051: Dictionary={}) -> void:
 	if int(ctx.lod)>=2:return
 	var scale: float=clampf(float(ctx.px)/maxf(4,float(ctx.size)),0.65,2.0)
-	for mark in equipment_marks(boat,mounts):
+	for mark in equipment_marks(boat,mounts,_anchors051):
 		var p: Vector2=_p(ctx,mark.at,float(mark.height))
 		var disabled: bool=str(mark.status)=="disabled"
 		var r: float=(3.6 if disabled else 3.0)*scale

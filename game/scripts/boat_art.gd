@@ -26,8 +26,8 @@ const WakeArt045=preload("res://scripts/wake_art045.gd")
 static var _station_cache: Dictionary = {}
 static var _audit_geometry: bool = "--qa-geometry" in OS.get_cmdline_user_args()
 const DRAW_INPUT_LIMIT: int = 128
-# Complete inputs to archetype(), palette() and mounts_of(), including the
-# bare-hull Layout fallback. Presence matters as well as value/defaults.
+# Complete inputs to archetype(), palette(), mounts_of() and static equipment
+# anchors, including bare-hull Layout fallback. Presence and values both matter.
 const DRAW_INPUT_FIELDS := ["id", "role", "faction", "civilianRole", "armor", "size", "tier", "weapon", "weaponMounts"]
 static var _draw_input_cache: Dictionary = {}
 
@@ -230,11 +230,12 @@ static func _draw_inputs(spec: Dictionary, accent: Color, enemy: bool) -> Dictio
 	var colors: Dictionary = palette(spec, accent, enemy)
 	var motor_colors: Dictionary = MotorArt._palette(colors, spec)
 	var mounts: Array = mounts_of(spec)
+	var equipment_anchors051: Dictionary = HullFeedback._equipment_anchors051(spec)
 	colors.make_read_only()
 	motor_colors.make_read_only()
 	for mount in mounts: mount.make_read_only()
 	mounts.make_read_only()
-	var prepared: Dictionary = {"source": source.duplicate(true), "archetype": archetype(spec), "palette": colors, "motor_palette": motor_colors, "mounts": mounts}
+	var prepared: Dictionary = {"source": source.duplicate(true), "archetype": archetype(spec), "palette": colors, "motor_palette": motor_colors, "mounts": mounts, "equipment_anchors051": equipment_anchors051}
 	prepared.make_read_only()
 	if cached == null and _draw_input_cache.size() >= DRAW_INPUT_LIMIT:
 		_draw_input_cache.clear()
@@ -538,7 +539,7 @@ static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: D
 		profile051.boat_weapons_us += Time.get_ticks_usec() - phase_started051
 		phase_started051 = Time.get_ticks_usec()
 	_damage(ctx, boat, stations, arch, c)
-	HullFeedback.draw_equipment(ctx,boat,mounts)
+	HullFeedback.draw_equipment(ctx,boat,mounts,prepared.equipment_anchors051)
 	if profile_enabled051:
 		profile051.boat_damage_us += Time.get_ticks_usec() - phase_started051
 	return {"primitives": int(ctx.n), "polygons": int(ctx.npoly), "lines": int(ctx.nline),

@@ -1,0 +1,49 @@
+R31 STATIC EQUIPMENT MARKER ANCHORS - SOURCE CANDIDATE
+Base: 70e9c84. Owner: isolated marker checkout. 27 October 2026.
+
+API for Root / proof Sol:
+- HullFeedback._equipment_anchors051(spec) returns detached, read-only metadata:
+  {"engine": {"at": Vector2, "height": float},
+   "pumps": {"at": Vector2, "height": float}}.
+- BoatArt._draw_inputs(...).equipment_anchors051 holds this metadata in the
+  EXISTING bounded prepared cache. Each anchor and the outer map are read-only.
+- equipment_marks(boat, mounts, _anchors051: Dictionary = {}) and
+  draw_equipment(ctx, boat, mounts, _anchors051: Dictionary = {}) accept the
+  private prepared argument. Their public/default calls still prepare fresh
+  anchors lazily from boat.spec when a damaged engine/pump actually needs one.
+- BoatArt passes only prepared.equipment_anchors051. All installed condition
+  items, status, hp, repairs and the supplied current weapon mounts remain live.
+
+Dependency review:
+Layout.structure uses hull_size, _hull_variation, hardpoints and _budget. The
+complete chain reads only id, role, faction, tier and size. These fields already
+belong to DRAW_INPUT_FIELDS; field presence and values are compared on each hit.
+The existing detached source comparison also covers weapon/weaponMounts,
+civilianRole and armor. Same-ID mutation, fit edits, accent and enemy palette
+changes retain their existing invalidation. No hull-ID-only/global cache added.
+The new metadata copies only Vector2 coordinates and numeric heights; it keeps
+no structure, spec, boat, condition, canvas, callable or other live reference.
+Geometry is still Layout.structure engine/cabin x,y and height + 1.5; pumps use
+the cabin/bilge anchor. No duplicated layout formula or rounded height packing.
+
+Unchanged scope:
+42 light / 16 mixed, 300 DP per side, 60 Hz, physical collision/fire/damage,
+fuel/crew/stores/coins/RNG/boats/art; all eight scars, flame/smoke/flood shapes,
+colors, projection, marker status/order/limit and LOD behavior remain untouched.
+
+Evidence and limits:
+Source-only candidate; no CLI validation, native/engine/import/export/GPU test,
+profiler, helper, download, cleanup, tag, install or push in this checkout.
+Root owns all acceptance and bounded background Test Bridge FIFO jobs.
+R61 73405bdce40a42e9839d8da2270827b9: logic 18150/0, 81.265 s whole.
+R62 1f4afa2a86eb4a7197175d1d13beba98: draw 7585/0, 87.360 s whole.
+Those receipts are baseline evidence only, not passes for this candidate.
+R30 OFF f4c5cf3462cc4ed182d954919b947f1a: light 22.297 FPS / 11.8095 ms.
+R31 ON 1f0447b973e5454883b53c600c192a23: light 20.754 FPS / 11.728 ms.
+Both had zero stalls; instrumentation was not the primary slowdown.
+Root's observed damage draw cost: light 2.419 ms / mixed 1.9625 ms; hull sprite
+0.2835 / 0.174 ms. No speedup or quality claim before actual R32 measurement.
+Native proof and performance measurement remain UNRUN for this candidate.
+Manual source/diff review completed; only the two allowed scripts and this note
+are changed. No test files or assertions were edited. Root retains ownership of
+integration, native proof and actual R32 acceptance.
