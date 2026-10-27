@@ -181,9 +181,9 @@ func slow_turn_cases() -> void:
 			recorded(slow, {}, true, {"origin": Vector2(1280, 800), "camera": Vector2(1100, 850), "scale": 0.49, "label": "slow/fading projected tip"})
 	var invisible: Array = [{"p": Vector2.ZERO, "age": 0.01, "w": 6.0}, {"p": Vector2(0.11, 0), "age": 0.0, "w": 6.0}]
 	check(recorded(invisible, {}, true, {"origin": Vector2(800, 500), "scale": 0.49}).polygons.is_empty(), "paint below 0.01 screen pixel squared is safely culled")
-	var collapsed := PackedVector2Array([Vector2(800, 500), Vector2(801, 500), Vector2(803, 499), Vector2(803, 501), Vector2(801, 500)])
-	var cleaned: PackedVector2Array = Wake._paint_polygon(collapsed)
-	check(cleaned.size() == 3 and Geometry2D.triangulate_polygon(cleaned).size() == 3, "a rounded out-and-back tip is removed without discarding its visible triangle")
+	var collapsed: Array = [{"p": Vector2.ZERO, "age": 0.699999999999, "w": 6.0}, {"p": Vector2(2, 0), "age": 0.69999999999, "w": 6.0}, {"p": Vector2(6, 0), "age": 0.0, "w": 6.0}]
+	var tip_rec: Recorder = recorded(collapsed, {}, false, {"origin": Vector2(800, 500), "label": "rounded out-and-back tip"})
+	check(tip_rec.polygons.size() == Wake.MAX_PRIMITIVES and tip_rec.polygons.all(func(p): return p.size() == 3), "a rounded out-and-back tip is removed without discarding any visible band")
 
 func boat_for(spec: Dictionary, uid: String = "wake045") -> Dictionary:
 	return {"uid": uid, "spec": spec, "x": 300.0, "y": 300.0, "angle": 0.0, "vx": 60.0, "vy": 0.0, "sunk": false, "crew": 7.0, "fuel": 11.0, "ammo": 13.0, "supplies": 2.0}
