@@ -20,6 +20,7 @@ const HullFeedback=preload("res://scripts/hull_feedback.gd")
 const MotorArt=preload("res://scripts/motor_art.gd")
 const MeshCache=preload("res://scripts/boat_mesh_cache.gd")
 const DeckDetail=preload("res://scripts/boat_deck_detail.gd")
+const SpriteArt=preload("res://scripts/boat_sprite_art.gd")
 
 static var _station_cache: Dictionary = {}
 static var _audit_geometry: bool = "--qa-geometry" in OS.get_cmdline_user_args()
@@ -432,23 +433,29 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 		"clock": float(opts.get("clock",boat.get("battleTime",0.0))), "speed": vel.length(),
 		"shot_clock":float(opts.get("battle_clock",boat.get("battleTime",0.0))),
 		"combat":bool(opts.get("combat",boat.has("battleTime"))),
+		"portrait":bool(opts.get("portrait",false)),
 		"shots":boat.get("mountShotTimes",{}) if bool(opts.get("combat",boat.has("battleTime"))) else {},"localAimAngles":boat.get("localAimAngles",{}),
 		"n": 0, "npoly": 0, "nline": 0, "ncirc": 0,
 	}
 	var stations := _stations(spec)
 	var mounts := mounts_of(spec)
-	if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
+	ctx.authored_hull=SpriteArt.draw_hull(ctx,spec)
+	if bool(ctx.authored_hull):
+		MotorArt.draw_motion(ctx,spec,boat,c)
+	elif bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
 		_cached_base(ctx,spec,boat,c,arch)
 		MotorArt.draw_motion(ctx,spec,boat,c)
 	else:_static(ctx,spec,boat,c,arch)
 	for m in mounts:
 		var local_bearing: float=float(ctx.localAimAngles.get(str(m.get("id","mount0")),m.angle))
+		if SpriteArt.draw_weapon(ctx,m,float(ctx.angle)+local_bearing):continue
 		if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c)
 		else:_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
 	_damage(ctx, boat, stations, arch, c)
 	HullFeedback.draw_equipment(ctx,boat,mounts)
 	return {"primitives": int(ctx.n), "polygons": int(ctx.npoly), "lines": int(ctx.nline),
-		"circles": int(ctx.ncirc), "archetype": arch, "mounts": mounts.size(), "lod": int(ctx.lod)}
+		"circles": int(ctx.ncirc), "archetype": arch, "mounts": mounts.size(), "lod": int(ctx.lod),
+		"authored_hull":bool(ctx.authored_hull),"sprites":int(ctx.get("nsprite",0))}
 
 static func _cached_base(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Dictionary,arch: String) -> void:
 	var engine_id: String=MotorArt._engine_id(spec,boat)
