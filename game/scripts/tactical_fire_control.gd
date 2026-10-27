@@ -17,9 +17,18 @@ static func ally_clearance(radius: float,ally: Dictionary) -> float:
 	return radius+maxf(10.0,float(ally.spec.get("size",16)))+4.0
 
 static func intercept(ship: Dictionary,mount: Dictionary,target: Dictionary) -> Dictionary:
-	var origin: Vector2=Routes.point(ship)+Vector2(mount.x,mount.y).rotated(float(ship.angle))
-	var delta: Vector2=Routes.point(target)-origin
-	var velocity: Vector2=Vector2(target.vx,target.vy)-Vector2(ship.vx,ship.vy)*0.2
+	return _intercept051(ship,mount,target,null)
+
+static func _intercept051(ship: Dictionary,mount: Dictionary,target: Dictionary,numeric: Routes._Numeric051) -> Dictionary:
+	var own_body=Routes._numeric_body051(numeric,ship)
+	var target_body=Routes._numeric_body051(numeric,target)
+	var own_point: Vector2=own_body[1] if own_body!=null else Routes.point(ship)
+	var target_point: Vector2=target_body[1] if target_body!=null else Routes.point(target)
+	var own_velocity: Vector2=own_body[2] if own_body!=null else Vector2(ship.vx,ship.vy)
+	var target_velocity: Vector2=target_body[2] if target_body!=null else Vector2(target.vx,target.vy)
+	var origin: Vector2=own_point+Vector2(mount.x,mount.y).rotated(float(ship.angle))
+	var delta: Vector2=target_point-origin
+	var velocity: Vector2=target_velocity-own_velocity*0.2
 	var speed: float=float(mount.speed)
 	var length: float=float(mount.muzzleDistance)
 	var a: float=velocity.length_squared()-speed*speed
@@ -41,7 +50,7 @@ static func intercept(ship: Dictionary,mount: Dictionary,target: Dictionary) -> 
 			if one>0.0:time=one
 			if two>0.0:time=minf(time,two)
 	if not is_finite(time) or time>float(mount.range)/speed:return {"ok":false,"reason":"Target cannot be intercepted in range"}
-	var aim: Vector2=Routes.point(target)+velocity*time
+	var aim: Vector2=target_point+velocity*time
 	if (aim-origin).length()>float(mount.range):return {"ok":false,"reason":"Target is outside fitted range"}
 	var bearing: float=(aim-origin).angle()
 	if absf(angle_difference(float(ship.angle)+float(mount.angle),bearing))>float(mount.arc)*0.5+0.00001:return {"ok":false,"reason":"Aligning weapon"}
@@ -56,7 +65,8 @@ static func solution(st: Dictionary,ship: Dictionary,mount: Dictionary,target: D
 		var status: Dictionary=EquipmentCombat.status_of(ship,ship_status,frame_cache)
 		if not bool(status.get("equipmentOk",true)) or EquipmentCombat.mount_factor(ship,mount,int(mount.get("mountIndex",0)),status,frame_cache)<=0.01 or float(mount.get("damage",1.0))<=0.0:return {"ok":false,"reason":"Weapon disabled"}
 		if status.weaponFactor<=0.01:return {"ok":false,"reason":"Guns need working crew"}
-	var shot: Dictionary=intercept(ship,mount,target)
+	var numeric051: Routes._Numeric051=Routes._numeric_for051(cells,ship)
+	var shot: Dictionary=_intercept051(ship,mount,target,numeric051)
 	if not shot.ok:return shot
 	var clear: String=Routes.sweep(geometry,shot.origin,shot.muzzle,float(shot.radius),budget)
 	if clear!="valid":return {"ok":false,"status":clear,"reason":"Checking firing lane" if clear=="pending" else "Land blocks the shot"}
@@ -70,10 +80,14 @@ static func solution(st: Dictionary,ship: Dictionary,mount: Dictionary,target: D
 	for ally in Routes.neighbours(cells,shot.muzzle,finish,extra):
 		if ally.team!=ship.team or str(ally.id)==str(ship.id):continue
 		if not Routes.spend(budget):return {"ok":false,"status":"pending","reason":"Checking allied firing lane"}
-		var relative: Vector2=shot.muzzle-Routes.point(ally)
-		var travel: Vector2=(finish-shot.muzzle)-Vector2(ally.vx,ally.vy)*float(shot.time)
+		var body051=Routes._numeric_body051(numeric051,ally)
+		var ally_point: Vector2=body051[1] if body051!=null else Routes.point(ally)
+		var ally_velocity: Vector2=body051[2] if body051!=null else Vector2(ally.vx,ally.vy)
+		var ally_radius: float=float(body051[3]) if body051!=null else _hull_radius(ally)
+		var relative: Vector2=shot.muzzle-ally_point
+		var travel: Vector2=(finish-shot.muzzle)-ally_velocity*float(shot.time)
 		var t: float=clampf(-relative.dot(travel)/maxf(0.000001,travel.length_squared()),0.0,1.0)
-		if (relative+travel*t).length()<ally_clearance(float(shot.radius),ally):return {"ok":false,"reason":"Ally in firing lane"}
+		if (relative+travel*t).length()<float(shot.radius)+ally_radius+4.0:return {"ok":false,"reason":"Ally in firing lane"}
 	return shot
 
 static func pass_key(ship_id: String,mount_id: String,revision: int,pass_id: String) -> String:
@@ -123,12 +137,14 @@ static func gate(st: Dictionary,ship: Dictionary,mount: Dictionary,index: int,in
 static func _hull_radius(ship: Dictionary) -> float:
 	return maxf(10.0,float(ship.spec.get("size",16)))
 
-static func _crossing_time(origin: Vector2,velocity: Vector2,other: Dictionary,life: float,reach: float) -> float:
+static func _crossing_time(origin: Vector2,velocity: Vector2,other: Dictionary,life: float,reach: float,body051=null) -> float:
 	# Closest approach of the scattered shot and one hull, both at the velocities
 	# observed now. Battle._projectiles uses this parameter, not circle entry, and
 	# removes the shot there when it falls inside boat radius + shot radius.
-	var relative: Vector2=origin-Routes.point(other)
-	var closing: Vector2=velocity-Vector2(float(other.vx),float(other.vy))
+	var other_point: Vector2=body051[1] if body051!=null else Routes.point(other)
+	var other_velocity: Vector2=body051[2] if body051!=null else Vector2(float(other.vx),float(other.vy))
+	var relative: Vector2=origin-other_point
+	var closing: Vector2=velocity-other_velocity
 	var speed2: float=closing.length_squared()
 	if speed2<=0.000001:return 0.0 if relative.length()<reach else INF
 	var time: float=clampf(-relative.dot(closing)/speed2,0.0,life)
@@ -150,16 +166,22 @@ static func actual_lane(st: Dictionary,ship: Dictionary,mount: Dictionary,muzzle
 	var extra: float=maxf(0.0,life-2.0)*float(cells.get("_maxSpeed",0.0))+90.0
 	var horizon: float=life
 	var allies: Array=[]
+	var numeric051: Routes._Numeric051=Routes._numeric_for051(cells,ship)
 	for other in Routes.neighbours(cells,muzzle,far,extra):
 		if str(other.id)==str(ship.id):continue
 		if not Routes.spend(budget):return {"ok":false,"status":"pending","reason":"Checking projectile travel"}
-		if other.team!=ship.team:horizon=minf(horizon,_crossing_time(muzzle,velocity,other,life,_hull_radius(other)+radius))
+		if other.team!=ship.team:
+			var body051=Routes._numeric_body051(numeric051,other)
+			var other_radius: float=float(body051[3]) if body051!=null else _hull_radius(other)
+			horizon=minf(horizon,_crossing_time(muzzle,velocity,other,life,other_radius+radius,body051))
 		else:allies.append(other)
 	var finish: Vector2=muzzle+velocity*horizon
 	var clear: String=Routes.sweep(geometry,muzzle,finish,radius,budget)
 	if clear!="valid":return {"ok":false,"status":clear,"reason":"Checking projectile travel" if clear=="pending" else "Land blocks projectile travel"}
 	for ally in allies:
-		if _crossing_time(muzzle,velocity,ally,horizon,ally_clearance(radius,ally))<INF:return {"ok":false,"reason":"Ally in firing lane"}
+		var body051=Routes._numeric_body051(numeric051,ally)
+		var ally_radius: float=float(body051[3]) if body051!=null else _hull_radius(ally)
+		if _crossing_time(muzzle,velocity,ally,horizon,radius+ally_radius+4.0,body051)<INF:return {"ok":false,"reason":"Ally in firing lane"}
 	return {"ok":true,"reason":"Firing lane ready"}
 
 static func emitted(st: Dictionary,ship: Dictionary,mount: Dictionary,intent: Dictionary,before: float,after: float) -> void:

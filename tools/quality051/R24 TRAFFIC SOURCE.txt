@@ -1,0 +1,44 @@
+R24 NUMERIC TRAFFIC/FIRE SOURCE - source-only candidate
+Base: e55211f03e6415825bc51c412623ab278d72362d (R24 production).
+
+One numeric input preparation per owned grid build: exact Vector2 position,
+velocity and physical hull radius. The pre-motion epoch covers begin/helm;
+existing _BeginProofs051 borrows its immutable bodies instead of preparing a
+second set. It closes before _move. After all motion, a separate grid/table
+serves fire and closes before Damage phase end, Boarding and contacts.
+Existing early/end-battle cleanup and retirement also close the input epoch.
+
+Runtime admits only the actual active, sealed Damage phase, bound once through
+Damage._battle_owned_for051 to exact battle ships/cache/owned/source identities.
+Admission reads this existing fence without admitting/writing owners. Guards use
+its active/sealed flags, exact grid/context/owner identities and time/revision;
+body lookup uses exact source identity. No per-query serialization, whole-table
+scan, new counters, shared globals or worker handle. Public/null/forged/copied
+inputs fall back to current hull reads. An ended Damage phase rejects reuse
+even when explicit Tactical close has not yet run.
+
+Only numeric inputs are shared. Ordered neighbours, Vector2 operations,
+margins, comparisons, each debit/exhaustion, refusal reasons, current land and
+traffic checks, reservations, projectile horizon and actual shot checks stay.
+No request/certificate/clearance result, semantic clock or permission is cached.
+All actors,60Hz,300DPside,eight offers,old assertions,RNG/stats/coins preserved.
+Battle edits are only the three Root-approved lifecycle seams and corresponding
+early/end cleanup; contact implementation is untouched.
+
+Existing combat_runtime041 gains paired numeric/public route/solution/actual-ray
+cases (overlap,crossing,clear; exhausted/tight/full budgets), pre/post lifetime,
+copied grid/owner/context,forged table,time/revision,foreign active phase and
+ended-Damage/current-pose fallback checks. Bounded selector in the SAME fixture:
+res://tests/test_combat_runtime041.gd -- --case=numeric051
+Selector runs canonical Lab creation, numeric case and the unchanged common
+artifact/report footer; default keeps ALL old checks/benchmark plus numeric.
+Native execution belongs to Root; these are unrun source checks.
+
+Cost ceiling: only parts of R24's1.254ms helmSafety and1.372ms fire, with some
+shared preparation during begin. Those phase medians are not additive savings;
+new lookups/preparation also cost work. No3ms/FPS/speedup claim. Actual combined
+native correctness and rendered measurement are required.
+
+Single permitted source advisory: zero issues,engineInvoked=false, before the
+final requested ownership-fence/selector follow-up. No second advisory run.
+Final diff review/whitespace check: clean. No engine/import/export/GPU run.

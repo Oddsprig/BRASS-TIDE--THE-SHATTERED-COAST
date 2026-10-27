@@ -141,6 +141,7 @@ static func create(options: Dictionary) -> Dictionary:
 	return st
 
 static func _close_damage_owned051(st: Dictionary) -> void:
+	Tactical._close_numeric051(st)
 	var cache: Dictionary=Tactical.ensure(st).get("damageCache",{})
 	Damage._close_battle_owned051(Damage._battle_owned_for051(st.get("_damageOwned051"),st.ships,cache))
 
@@ -809,6 +810,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		return st
 	dt=clampf(Damage.number(dt),0.0,1.0/30.0)
 	if dt<=0.0:
+		Tactical._close_numeric051(st)
 		return st
 	CombatEvents.begin_step(st)
 	st.time+=dt
@@ -871,6 +873,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	ai_phases.planning=Time.get_ticks_usec()-planning_started
 	ai_phases.helm=int(ai_phases.planning)-int(ai_phases.begin)
 	ai_us+=int(ai_phases.planning)
+	Tactical._close_numeric051(st)
 	var motion_started: int=Time.get_ticks_usec()
 	for id in active_ids:
 		var s: Dictionary=st.tactical.ships[id]
@@ -878,7 +881,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		_move(st,s,dt,float(control.angle),float(control.throttle),bool(control.get("boost",false)),checked_phase)
 	ai_phases.motion=Time.get_ticks_usec()-motion_started
 	var lanes_started: int=Time.get_ticks_usec()
-	Tactical.after_motion(st)
+	Tactical.after_motion(st,checked_phase)
 	ai_phases.lanes=Time.get_ticks_usec()-lanes_started
 	ai_us+=int(ai_phases.lanes)
 	for id in active_ids:
@@ -899,6 +902,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			if not gates.is_empty():_fire(st,s,Vector2.ZERO,{},true,gates,checked_phase)
 			var firing_us: int=Time.get_ticks_usec()-fire_started
 			ai_us+=firing_us;ai_phases.firing+=firing_us
+	Tactical._close_numeric051(st)
 	Damage._end_battle_phase043(checked_phase)
 	var contact_started: int=Time.get_ticks_usec()
 	BoardingCombat.tick(st,dt)

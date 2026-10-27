@@ -49,6 +49,7 @@ static func enable_planning051(st: Dictionary) -> void:
 	Planner._retire_workers051(t)
 
 static func retire_planning051(st: Dictionary) -> void:
+	_close_numeric051(st)
 	if st.get("tactical") is Dictionary:Planner._retire_workers051(st.tactical)
 
 static func poll_planning051() -> void:
@@ -652,7 +653,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		detail.observationPrep=Time.get_ticks_usec()-profile_started051
 		profile_started051=Time.get_ticks_usec()
 	_prune(t,t.ships,float(st.time))
-	t.cells=Routes.grid(t.observed.values(),true)
+	t.cells=_numeric_grid051(st,t.observed.values(),frame_cache)
 	if profile051:
 		detail.observationPruneGrid=Time.get_ticks_usec()-profile_started051
 		profile_started051=Time.get_ticks_usec()
@@ -1239,9 +1240,30 @@ static func finish(st: Dictionary,ai_us: int) -> void:
 	# once, keeping the same last 512 rows and the existing Array reference.
 	if t.trace.size()>512:t.trace.assign(t.trace.slice(t.trace.size()-512))
 
-static func after_motion(st: Dictionary) -> void:
+static func _close_numeric051(st: Dictionary) -> void:
+	var t: Dictionary=st.get("tactical",{})
+	var numeric=t.get("_numeric051")
+	# A cloned battle must not close the original battle's input epoch.
+	if numeric is Routes._Numeric051 and is_same(numeric.context,st):Routes._close_numeric051(numeric)
+	t.erase("_numeric051")
+
+static func _numeric_grid051(st: Dictionary,ships: Array,frame_cache=null) -> Dictionary:
+	_close_numeric051(st)
+	# Public/default/null callers keep current live hull reads. Battle alone
+	# binds the table after its complete prepass, in the sealed owned phase.
+	if not frame_cache is Damage.BattlePhase043 or not frame_cache.active or not frame_cache.readsSealed051:return Routes.grid(ships,true)
+	var cache: Dictionary=st.tactical.get("damageCache",{})
+	var owned=Damage._battle_owned_for051(st.get("_damageOwned051"),st.get("ships",[]),cache)
+	# Admission is read-only and once per build: an active foreign phase cannot
+	# supply this encounter's epoch or keep it alive after its own phase closes.
+	if owned==null or not is_same(owned,frame_cache.owned) or not is_same(cache,frame_cache.source):return Routes.grid(ships,true)
+	var numeric: Routes._Numeric051=Routes._numeric_grid051(st,ships,frame_cache)
+	st.tactical._numeric051=numeric
+	return numeric.cells
+
+static func after_motion(st: Dictionary,frame_cache=null) -> void:
 	# All real helm movement publishes before ANY automatic fire target lookup.
-	st.tactical.cells=Routes.grid(st.tactical.ships.values(),true)
+	st.tactical.cells=_numeric_grid051(st,st.tactical.ships.values(),frame_cache)
 
 static func _battle_fire_gates051(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
 	# Only Battle's closed fire phase: its prepass has refreshed mutable fittings

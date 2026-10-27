@@ -62,6 +62,50 @@ class _BeginProofs051 extends RefCounted:
 	var entries: Dictionary={}
 	var traffic_bodies: Dictionary={}
 
+class _Numeric051 extends RefCounted:
+	# Private synchronous inputs, never clearance/certificate results. Runtime
+	# closes this epoch before motion and before contact/boarding writes.
+	var active: bool=true
+	var context: Dictionary={}
+	var cells: Dictionary={}
+	var owners: Dictionary={}
+	var bodies: Dictionary={}
+	var phase=null # Actual Damage phase, admitted once by Runtime; no preload cycle.
+	var at: float=0.0
+	var revision: int=0
+
+static func _numeric_grid051(st: Dictionary,ships: Array,phase) -> _Numeric051:
+	var numeric: _Numeric051=_Numeric051.new()
+	numeric.phase=phase
+	numeric.context=st;numeric.at=float(st.time);numeric.revision=int(st.tactical.snapshotRevision)
+	numeric.owners=st.tactical.ships.duplicate()
+	numeric.cells=_grid051(ships,true,numeric)
+	numeric.owners.make_read_only();numeric.bodies.make_read_only()
+	numeric.cells._numeric051=numeric
+	return numeric
+
+static func _close_numeric051(numeric: _Numeric051) -> void:
+	numeric.active=false
+	if is_same(numeric.cells.get("_numeric051"),numeric):numeric.cells.erase("_numeric051")
+	# Break the phase's container references as well as revoking the epoch.
+	numeric.context={};numeric.cells={};numeric.owners={};numeric.bodies={};numeric.phase=null
+
+static func _numeric_for051(cells: Dictionary,ship: Dictionary) -> _Numeric051:
+	var numeric=cells.get("_numeric051")
+	if not numeric is _Numeric051 or not numeric.active or not is_same(numeric.cells,cells):return null
+	if numeric.phase==null or not numeric.phase.active or not numeric.phase.readsSealed051:return null
+	var t: Dictionary=numeric.context.get("tactical",{})
+	if not is_same(t.get("_numeric051"),numeric) or not is_same(t.get("cells"),cells):return null
+	if numeric.at!=float(numeric.context.get("time",-INF)) or numeric.revision!=int(t.get("snapshotRevision",-1)):return null
+	return numeric if is_same(numeric.owners.get(str(ship.id)),ship) else null
+
+static func _numeric_body051(numeric: _Numeric051,ship: Dictionary):
+	# Construction already checked the complete table. Only exact source/owner
+	# identity is read here; copied/forged grids and hulls take the public math.
+	if numeric==null:return null
+	var body=numeric.bodies.get(str(ship.id))
+	return body if body!=null and (is_same(body[0],ship) or is_same(numeric.owners.get(str(ship.id)),ship)) else null
+
 static func _begin_proofs051(geometry: Dictionary,cells: Dictionary,owners: Dictionary) -> _BeginProofs051:
 	# Runtime.begin alone owns this closed, synchronous observation scope. None
 	# of these geometry/ship observations move or mutate during certification.
@@ -69,10 +113,12 @@ static func _begin_proofs051(geometry: Dictionary,cells: Dictionary,owners: Dict
 	proofs.geometry=geometry;proofs.obstacles=geometry.obstacles
 	proofs.geometry_stamp=var_to_bytes([geometry.key,geometry.revision])
 	proofs.cells=cells;proofs.owners=owners.duplicate()
+	var numeric=cells.get("_numeric051")
+	if numeric is _Numeric051 and numeric.active and is_same(numeric.cells,cells) and numeric.phase!=null and numeric.phase.active and numeric.phase.readsSealed051:proofs.traffic_bodies=numeric.bodies
 	return proofs
 
 static func _close_begin_proofs051(proofs: _BeginProofs051) -> void:
-	proofs.active=false;proofs.entries.clear();proofs.owners.clear();proofs.traffic_bodies.clear()
+	proofs.active=false;proofs.entries.clear();proofs.owners.clear();proofs.traffic_bodies={}
 	proofs.geometry={};proofs.obstacles=[];proofs.cells={}
 
 static func _proof_scope051(proofs: _BeginProofs051,geometry: Dictionary,cells: Dictionary,ship: Dictionary) -> bool:
@@ -269,6 +315,9 @@ static func _veto_land051(budget: Dictionary,geometry: Dictionary,obstacle: Dict
 	return "blocked"
 
 static func grid(ships: Array,reuse_queries: bool=false) -> Dictionary:
+	return _grid051(ships,reuse_queries)
+
+static func _grid051(ships: Array,reuse_queries: bool,numeric: _Numeric051=null) -> Dictionary:
 	var cells: Dictionary={"_maxSpeed":0.0,"_maxNavigationRadius":0.0}
 	# Only Runtime's synchronous observation/post-motion phases opt in. Cell
 	# membership is fixed until the next grid build; no result survives that build.
@@ -276,11 +325,16 @@ static func grid(ships: Array,reuse_queries: bool=false) -> Dictionary:
 	for ship in ships:
 		if ship.get("sunk",false) or ship.get("captureSecured",false):continue
 		var r: float=maxf(10.0,float(ship.spec.get("size",16)))
+		var origin: Vector2=point(ship)
+		var velocity: Vector2=Vector2(ship.vx,ship.vy)
+		if numeric!=null:
+			var body: Array=[ship,origin,velocity,r]
+			body.make_read_only();numeric.bodies[str(ship.id)]=body
 		cells._maxNavigationRadius=maxf(float(cells._maxNavigationRadius),r*2.75)
-		cells._maxSpeed=maxf(float(cells._maxSpeed),Vector2(ship.vx,ship.vy).length())
-		var future: Vector2=point(ship)+Vector2(ship.vx,ship.vy)*2.0
-		var lo: Vector2=point(ship).min(future)-Vector2.ONE*(r+8.0)
-		var hi: Vector2=point(ship).max(future)+Vector2.ONE*(r+8.0)
+		cells._maxSpeed=maxf(float(cells._maxSpeed),velocity.length())
+		var future: Vector2=origin+velocity*2.0
+		var lo: Vector2=origin.min(future)-Vector2.ONE*(r+8.0)
+		var hi: Vector2=origin.max(future)+Vector2.ONE*(r+8.0)
 		for x in range(maxi(-2,floori(lo.x/160.0)),mini(17,floori(hi.x/160.0))+1):
 			for y in range(maxi(-2,floori(lo.y/160.0)),mini(13,floori(hi.y/160.0))+1):
 				var cell: Vector2i=Vector2i(x,y)
@@ -342,6 +396,7 @@ static func _checked_alignment051(cells: Dictionary,ship: Dictionary,a: Vector2,
 	return _occupied051(cells,ship,a,b,r,0.0,dt,budget,true,"",true)
 
 static func _occupied051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool,contact_id: String,checked_alignment051: bool) -> String:
+	var numeric051: _Numeric051=_numeric_for051(cells,ship)
 	var separating_egress051: bool=bool(budget.get("separatingEgress051",false))
 	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
 	var query_radius: float=r+80.0+extra
@@ -361,25 +416,28 @@ static func _occupied051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector
 		# decide whether a close pass escapes; check the following swept leg.
 		if hostile and a==b and until<=from and not separating_egress051:continue
 		if not spend(budget):return _veto_primitive051(budget,"pending","traffic","clearance budget",a,b,r,from,until,str(other.id))
-		var velocity: Vector2=Vector2(other.vx,other.vy)
+		var body051=_numeric_body051(numeric051,other)
+		var velocity: Vector2=body051[2] if body051!=null else Vector2(other.vx,other.vy)
+		var origin051: Vector2=body051[1] if body051!=null else point(other)
+		var radius051: float=float(body051[3]) if body051!=null else maxf(10.0,float(other.spec.get("size",16)))
 		# Full corridor occupancy uses observed constant-velocity prediction. Beyond
 		# the two-second physical prefix it is conditional, never an escape promise.
-		var c: Vector2=point(other)+velocity*from
-		var d: Vector2=point(other)+velocity*until
+		var c: Vector2=origin051+velocity*from
+		var d: Vector2=origin051+velocity*until
 		var relative: Vector2=a-c
 		var delta: Vector2=(b-a)-(d-c)
-		var clearance: float=r+maxf(10.0,float(other.spec.get("size",16)))+3.0
-		if hostile:clearance=own_navigation+navigation_radius(other)+7.0
+		var clearance: float=r+radius051+3.0
+		if hostile:clearance=own_navigation+radius051*2.75+7.0
 		if _traffic_apart051(relative,delta,clearance):continue
 		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
 		if (relative+delta*fraction).length()<clearance:
 			# An inherited close pass must still be able to leave. Permit only
 			# continuously separating motion; no approach or crossing through it.
 			if separating_egress051:
-				if _can_escape_padding051(ship,relative,delta,r,maxf(10.0,float(other.spec.get("size",16))),a==b and from==0.0 and until==0.0):continue
+				if _can_escape_padding051(ship,relative,delta,r,radius051,a==b and from==0.0 and until==0.0):continue
 				# Equality is exclusive to the actual checked alignment step. Same
 				# floor and derivative; ordinary departure stays strictly separating.
-				if checked_alignment051 and _can_escape_padding051(ship,relative,delta,r,maxf(10.0,float(other.spec.get("size",16))),true) and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>=relative.length_squared():continue
+				if checked_alignment051 and _can_escape_padding051(ship,relative,delta,r,radius051,true) and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>=relative.length_squared():continue
 			elif hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
 			return _veto_traffic051(budget,ship,other,a,b,r,from,until,clearance,relative,delta,c,d,fraction,checked_alignment051)
 	return "valid"
@@ -406,7 +464,7 @@ static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b:
 		if body.is_empty() or not is_same(body[0],other):
 			# Source identity, exact observed origin/velocity, physical hull radius.
 			body=[other,point(other),Vector2(other.vx,other.vy),maxf(10.0,float(other.spec.get("size",16)))]
-			if proofs!=null and proofs.traffic_bodies.size()<BEGIN_PROOF_LIMIT051:
+			if proofs!=null and not proofs.traffic_bodies.is_read_only() and proofs.traffic_bodies.size()<BEGIN_PROOF_LIMIT051:
 				body.make_read_only();proofs.traffic_bodies[other_id]=body
 		var origin: Vector2=body[1]
 		var velocity: Vector2=body[2]

@@ -9,6 +9,7 @@ const Certification=preload("res://scripts/tactical_certification.gd")
 const Planner=preload("res://scripts/tactical_planner.gd")
 const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
+const Fire=preload("res://scripts/tactical_fire_control.gd")
 const Benchmark=preload("res://scripts/runtime_benchmark.gd")
 const DT: float=1.0/60.0
 var checks: int=0
@@ -263,6 +264,100 @@ func traffic_query_checks(source: Dictionary) -> void:
 	hostile.y=1550.0;hostile.vy=-175.0;tight=Routes.grid([actor,hostile],true)
 	check(Routes.occupied(tight,actor,Vector2(500,850),Vector2(510,850),20.0,3.0,4.0,route_budget(),true)=="blocked","tight query retains future hostile crossings beyond two seconds with the existing speed padding")
 	report.trafficBroadphase.hostileQuery={"lightQueryRadius":Routes.navigation_radius(actor)+38.5+7.0,"legacyQueryRadius":Routes.navigation_radius(actor)+220.0,"tightClearance":tight_budget.clearanceTests,"legacyClearance":legacy_budget.clearanceTests}
+
+func numeric_phase_checks051(source: Dictionary) -> void:
+	var ship: Dictionary=source.duplicate(true)
+	ship.id="numeric-own051";ship.team="player";ship.x=500.0;ship.y=850.0;ship.vx=0.0;ship.vy=0.0;ship.angle=0.0
+	var ally: Dictionary=ship.duplicate(true);ally.id="numeric-ally051";ally.x=650.0
+	var target: Dictionary=ship.duplicate(true);target.id="numeric-target051";target.team="enemy";target.x=900.0
+	var ships: Array=[ship,ally,target]
+	var cache: Dictionary={}
+	Damage.begin_frame_cache(cache,ships)
+	var owned=Damage._create_battle_owned051(ships,cache)
+	var phase=Damage._begin_battle_phase043(cache)
+	Damage._bind_battle_owned051(phase,owned,ships,cache)
+	Damage._seal_battle_reads051(phase)
+	var st: Dictionary={"time":4.0,"ships":ships,"_damageOwned051":owned}
+	var t: Dictionary=Tactical.ensure(st)
+	t.damageCache=cache
+	t.snapshotRevision=51
+	for member in ships:t.ships[str(member.id)]=member
+	t.geometry={"key":"numeric051","revision":51,"obstacles":[]}
+	var mount: Dictionary={"kind":"gun","x":0.0,"y":0.0,"angle":0.0,"arc":TAU,"range":900.0,"speed":600.0,"muzzleDistance":12.0}
+	# B has its own real active/sealed phase. Supplying A's equally active phase
+	# must leave B on live reads, including after B's own phase has ended.
+	var foreign_ships: Array=ships.duplicate(true)
+	var foreign_cache: Dictionary={}
+	Damage.begin_frame_cache(foreign_cache,foreign_ships)
+	var foreign_owned=Damage._create_battle_owned051(foreign_ships,foreign_cache)
+	var foreign_phase=Damage._begin_battle_phase043(foreign_cache)
+	Damage._bind_battle_owned051(foreign_phase,foreign_owned,foreign_ships,foreign_cache)
+	Damage._seal_battle_reads051(foreign_phase)
+	var foreign: Dictionary={"time":4.0,"ships":foreign_ships,"_damageOwned051":foreign_owned}
+	var foreign_t: Dictionary=Tactical.ensure(foreign)
+	foreign_t.damageCache=foreign_cache;foreign_t.snapshotRevision=51
+	for member in foreign_ships:foreign_t.ships[str(member.id)]=member
+	Tactical.after_motion(foreign,phase)
+	Damage._end_battle_phase043(foreign_phase)
+	foreign_ships[1].y=930.0
+	var foreign_clear: bool=Routes.occupied(foreign_t.cells,foreign_ships[0],Vector2(500,850),Vector2(700,850),20.0,0.0,1.0,route_budget())=="valid"
+	foreign_ships[1].y=850.0
+	check(not foreign_t.has("_numeric051") and Routes._numeric_for051(foreign_t.cells,foreign_ships[0])==null and phase.active and foreign_clear and Routes.occupied(foreign_t.cells,foreign_ships[0],Vector2(500,850),Vector2(700,850),20.0,0.0,1.0,route_budget())=="blocked","foreign active Damage phase cannot bind B's numeric epoch; ended B phase retains current-pose fallback")
+	Damage._close_battle_owned051(foreign_owned)
+	# Exact detached pre-motion observations, followed by independently rebuilt
+	# live post-motion inputs. The public math is the paired reference throughout.
+	t.cells=Tactical._numeric_grid051(st,ships.duplicate(true),phase)
+	var pre=t.get("_numeric051")
+	check(pre is Routes._Numeric051 and is_same(Routes._numeric_for051(t.cells,ship),pre),"sealed pre-motion observations bind to their exact live owner")
+	var proofs: Routes._BeginProofs051=Routes._begin_proofs051(t.geometry,t.cells,t.ships)
+	check(is_same(proofs.traffic_bodies,pre.bodies),"begin route proofs borrow the existing immutable numeric inputs")
+	Routes._close_begin_proofs051(proofs)
+	check(is_same(Routes._numeric_for051(t.cells,ship),pre),"closing begin proofs leaves the independent helm input epoch live")
+	Tactical._close_numeric051(st)
+	check(not pre.active and pre.context.is_empty() and pre.phase==null,"pre-motion close revokes and releases all numeric phase references")
+	for row: Dictionary in [{"name":"overlap","y":850.0,"vy":0.0},{"name":"crossing","y":930.0,"vy":-350.0},{"name":"clear","y":930.0,"vy":0.0}]:
+		Tactical._close_numeric051(st)
+		ally.y=row.y;ally.vy=row.vy
+		Tactical.after_motion(st,phase)
+		var plain: Dictionary=Routes.grid(ships,true)
+		for limit in [0,4,4096]:
+			var old_budget: Dictionary=route_budget();old_budget.clearanceLimit=limit
+			var new_budget: Dictionary=old_budget.duplicate(true)
+			var expected: String=Routes.occupied(plain,ship,Vector2(500,850),Vector2(700,850),20.0,0.0,1.0,old_budget,true)
+			var actual: String=Routes.occupied(t.cells,ship,Vector2(500,850),Vector2(700,850),20.0,0.0,1.0,new_budget,true)
+			check(actual==expected and new_budget==old_budget,"numeric traffic preserves outcome and every debit: "+row.name+"/"+str(limit))
+			old_budget=route_budget();old_budget.clearanceLimit=limit;new_budget=old_budget.duplicate(true)
+			var old_shot: Dictionary=Fire.solution(st,ship,mount,target,old_budget,t.geometry,plain,false)
+			var new_shot: Dictionary=Fire.solution(st,ship,mount,target,new_budget,t.geometry,t.cells,false)
+			check(var_to_bytes(new_shot)==var_to_bytes(old_shot) and new_budget==old_budget,"numeric solution preserves intercept, refusal and debits: "+row.name+"/"+str(limit))
+			old_budget=route_budget();old_budget.clearanceLimit=limit;t.budget=old_budget.duplicate(true)
+			var reference: Dictionary={"tactical":{"geometry":t.geometry,"cells":plain,"budget":old_budget}}
+			old_shot=Fire.actual_lane(reference,ship,mount,Vector2(512,850),Vector2(600,0),2.0)
+			new_shot=Fire.actual_lane(st,ship,mount,Vector2(512,850),Vector2(600,0),2.0)
+			check(new_shot==old_shot and t.budget==old_budget,"numeric scattered ray preserves hostile horizon, ally checks and debits: "+row.name+"/"+str(limit))
+	var post=t._numeric051
+	check(Routes._numeric_for051(t.cells.duplicate(true),ship)==null and Routes._numeric_for051(t.cells,ship.duplicate(true))==null,"copied grids and same-ID alien owners cannot borrow numeric inputs")
+	var forged: Dictionary=Routes.grid(ships,true);forged._numeric051={"active":true,"bodies":post.bodies}
+	check(Routes._numeric_for051(forged,ship)==null,"a dictionary cannot forge the private numeric epoch")
+	st.time=5.0
+	check(Routes._numeric_for051(t.cells,ship)==null,"another simulation time cannot borrow numeric inputs")
+	st.time=4.0;t.snapshotRevision+=1
+	check(Routes._numeric_for051(t.cells,ship)==null,"another begin revision cannot borrow numeric inputs")
+	t.snapshotRevision-=1
+	var clone: Dictionary=st.duplicate(true);Tactical._close_numeric051(clone)
+	check(is_same(Routes._numeric_for051(t.cells,ship),post),"closing a copied context cannot revoke the real phase")
+	# End Damage's phase WITHOUT the ordinary Tactical close. Both route/fire
+	# must fall back to the now-current hull pose in the same broadphase window.
+	Damage._end_battle_phase043(phase)
+	ally.y=850.0
+	check(Routes._numeric_for051(t.cells,ship)==null,"ended Damage phase immediately disables an otherwise matching numeric epoch")
+	check(Routes.occupied(t.cells,ship,Vector2(500,850),Vector2(700,850),20.0,0.0,1.0,route_budget())=="blocked","ended-phase traffic fallback sees the current ally pose")
+	t.budget=route_budget()
+	check(not Fire.solution(st,ship,mount,target,t.budget,t.geometry,t.cells,false).ok,"ended-phase solution fallback sees the current ally pose")
+	t.budget=route_budget()
+	check(not Fire.actual_lane(st,ship,mount,Vector2(512,850),Vector2(600,0),2.0).ok,"ended-phase scattered-ray fallback sees the current ally pose")
+	Tactical._close_numeric051(st);Damage._close_battle_owned051(owned)
+	check(not post.active and post.cells.is_empty() and not t.has("_numeric051"),"post-motion close releases its input epoch before contact writes")
 
 func route_checks(source: Dictionary) -> void:
 	var ship: Dictionary=source.duplicate(true)
@@ -530,12 +625,18 @@ func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	var created: Dictionary=Lab.create(world,{"player":[Lab.entry(world,"tin_skiff")],"enemy":[Lab.entry(world,"tin_skiff")]},4101)
 	check(bool(created.get("ok",false)),"canonical fixture boats use actual public fitting and deployment")
+	if "--case=numeric051" in OS.get_cmdline_user_args():
+		report.selectedCase="numeric051"
+		if bool(created.get("ok",false)):numeric_phase_checks051(created.battle.ships[0])
+		finish_report051()
+		return
 	if bool(created.get("ok",false)):
 		cache_checks(created.battle.ships[0])
 		var candidate_source: Dictionary=created.battle.ships[0].duplicate(true)
 		candidate_source.mounts=Battle._mounts(created.battle.ships[0])
 		candidate_input_checks(candidate_source)
 		traffic_query_checks(created.battle.ships[0])
+		numeric_phase_checks051(created.battle.ships[0])
 		route_checks(created.battle.ships[0])
 		authority_checks(created.battle)
 		recovery_checks(world)
@@ -545,6 +646,9 @@ func run() -> void:
 		benchmark.action_sample(world,report,started)
 		check(benchmark.failures.is_empty(),"shared compact action sample completes, moves both sides and emits/debits real automatic shots")
 		report.actionFailures=benchmark.failures
+	finish_report051()
+
+func finish_report051() -> void:
 	var folder: String=OS.get_environment("GAME_TEST_ARTIFACTS")
 	check(not folder.is_empty(),"Root supplies the focused artifact directory")
 	if not folder.is_empty():
