@@ -1,0 +1,27 @@
+BRASS TIDE v0.047 - FLEET COMMAND
+
+The battle now uses compact full-width information bands. Crew/roster and
+selected tactics open on demand, leaving the water visible.
+
+Select living friendly boats. Engage lets fitted roles choose targets; Harass
+uses cautious light pressure. Focus asks for an enemy, Escort a friendly boat,
+Defend an open-water marker and Rally a nonfiring move destination. These four
+commands await a world right-click. Invalid targets leave the picker open with
+a reason. Escape cancels it. Hold brakes at current positions; Withdraw sends
+selected boats toward their local rally. Whole-fleet escape remains separate.
+Orders acknowledge acceptance; actual turning, range and safety still apply.
+Manual flagship orders wait for autopilot; U changes that control.
+
+WASD camera; scroll zoom; Space pause; Tab overview. F1-F4 recall selections,
+Ctrl+F1-F4 save them. Selected tactics exposes actual formations, weapon holds,
+ammunition reserves and optional arcs, threat reach and current routes.
+Those overlays begin off. Red range does not promise line of sight or a hit.
+
+Small engagements begin closer. Larger fleets retain their original overview.
+Deployment points/reserves and selected mounted readiness are actual battle
+state. Finite crew, cargo, ammunition, supplies, wages and coins are unchanged.
+
+VERIFICATION
+Focused native and actual rendered review receipts are recorded under tests/.
+All realtime performance targets remain UNMET after v0.046. Quality gate051
+remains OPEN. Scope completion cannot certify performance, listening or fun.
