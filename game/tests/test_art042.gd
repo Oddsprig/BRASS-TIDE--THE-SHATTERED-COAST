@@ -174,8 +174,9 @@ func capture(game) -> void:
 	check(game.mode=="battle" and game.lab_active and game.battle.autopilot,"normal launch enters isolated battle on autopilot")
 	game.chart.step(0.0)
 	if not within_deadline():return
-	var normal_scale: float=clampf(game.chart.get_viewport_rect().size.x/1700.0,0.65,1.2)
-	check(game.chart.follow_camera and is_equal_approx(game.chart.zoom,1.0) and not game.chart.tactical and is_equal_approx(game.chart.scale_factor,normal_scale),"representative trace uses real default follow camera and normal zoom")
+	var entry_zoom: float=1.4 if game.battle.ships.size()<=8 else 1.0
+	var normal_scale: float=clampf(game.chart.get_viewport_rect().size.x/1700.0,0.65,1.2)*entry_zoom
+	check(game.chart.follow_camera and is_equal_approx(game.chart.zoom,entry_zoom) and not game.chart.tactical and is_equal_approx(game.chart.scale_factor,normal_scale),"representative trace retains the047 small-engagement follow camera")
 	var before: Dictionary=game.battle.duplicate(true)
 	var battle=Trace.battle_canvas(game)
 	check(battle.invalid==0,"actual normal-zoom battle trace is finite")
@@ -195,9 +196,17 @@ func capture(game) -> void:
 	var fallback: Dictionary=Art.preview_boat(Refit.effective_spec(fallback_spec,Refit.defaults(fallback_spec)))
 	var fallback_before: Dictionary=fallback.duplicate(true)
 	var old=boat_canvas(fallback)
-	check(old.invalid==0 and Sprite.hull_entry(fallback.spec).is_empty() and old.mesh_draws>0 and subset(old,"/bilge_punt/").is_empty(),"other33 hulls retain actual existing unbaked fallback hull geometry")
-	check(old.texture_draws==2 and subset(old,"/weapons/gun_single-base.png").size()==1 and subset(old,"/weapons/gun_single-moving.png").size()==1,"045 fallback hull's fitted single gun uses its actual authored base/moving textures")
-	check(fallback==fallback_before,"045 fallback hull/weapon draws preserve complete ship state")
+	check(old.invalid==0 and not Sprite.hull_entry(fallback.spec).is_empty() and subset(old,"/bilge_punt/").size()==1,"049 former fallback hull now submits its actual authored hull texture")
+	check(old.texture_draws==3 and subset(old,"/weapons/gun_single-base.png").size()==1 and subset(old,"/weapons/gun_single-moving.png").size()==1,"049 newly authored hull retains its independently fitted gun textures")
+	check(fallback==fallback_before,"authored hull/weapon draws preserve complete ship state")
+	# Exercise missing-asset fallback without pretending a shipped hull is unbaked.
+	var missing: Dictionary=fallback.duplicate(true)
+	missing.spec.id="__missing_art_fixture__"
+	var missing_before: Dictionary=missing.duplicate(true)
+	var absent=boat_canvas(missing)
+	check(absent.invalid==0 and Sprite.hull_entry(missing.spec).is_empty() and absent.mesh_draws>0,"genuinely missing hull art still uses valid procedural fallback")
+	check(absent.texture_draws==2 and subset(absent,"/weapons/gun_single-base.png").size()==1 and subset(absent,"/weapons/gun_single-moving.png").size()==1,"missing hull art retains its independently authored fitted gun")
+	check(missing==missing_before,"missing-asset fallback remains read-only")
 	check(game.data==world_before,"Lab and art leave world data unchanged")
 	game.return_to_title()
 	check(game.core==captain and captain.state==captain_state,"leaving Lab restores captain object and full state")
