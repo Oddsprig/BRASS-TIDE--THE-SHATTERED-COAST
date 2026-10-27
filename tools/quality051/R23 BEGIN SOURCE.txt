@@ -1,0 +1,41 @@
+R23 BEGIN / ROLE SOURCE REVIEW - NO PRODUCTION PATCH
+Base: 9767beb81d25fb89aa3c16e036073056d15c295a, exact R23 production.
+Root owns native validation. No new engine, test, advisory or timing run.
+
+Existing actual input: job abcedd437773435cb6a3ba82eb1d53cd, light JSON
+attempt-001/runtime/runtime043-52612-1973083/runtime043-light.json.
+592 ticks; selection median1651.5us. fullDue1676, workerAdoptions1020,
+workerSyncFallbacks656, retainedDue1182. These are supplied run observations,
+not new performance evidence. Quality remains FAILED.
+
+Concrete repeat checked: retained observation followed by same-begin full
+planning. Runtime550-583 already transfers the wait/observe result once and
+prepares one existing Roles._Observation051 per side. Roles35-61 guards that
+preparation by context/options/groups/mission identity, time/revision/side;
+leader244-286 uses its friendly facts and shortlist352-398 shares the
+protector interception pool. Retained526-553 passes the already inferred role
+and protector into _decide, avoiding another leader/role choice there.
+Runtime1155-1157 supplies freshDecisions051 to planning at780; Planner575-578
+is only a passthrough and Planner581-594 consumes the prepared decision once.
+This recertification seam is already shared, including original choice time.
+
+The 656 synchronous fallback slots are an UPPER bound on new main full-role
+choices: prepared decisions can fill them too. The retained and full planning
+views have different context/options/groups identities. Runtime338-429 also
+applies current boarding contact and phase-dependent default rally choices.
+Lending a complete role/target/phase result across those views is not justified
+by matching tick/revision alone. Per-owner previous memory, protected ally,
+local geometry and HP/phase evaluation still differ between retained readers.
+
+Existing tick-only grouping: 34 ticks with no fullDue had selection median
+2324.5us; 103 ticks with no retainedDue had383us. Groups overlap other work;
+this is NOT a causal timing estimate. It does not establish a >=1ms redundant
+scan removable by another same-begin cache. Smaller residual repeated role/
+mount helpers on fallback paths do not substantiate that material target.
+
+Decision: no demonstrated material safe sharing correction in this assigned
+lane. No speculative microcache, new preparation, counters or fixture changes.
+Production, all old assertions, worker handoff/budgets, current guards and
+public behavior remain byte-for-byte unchanged. Only this source note changes.
+Review: git diff --check plus production/assertion equality against the base.
+No speedup, native pass, FPS acceptance or closed quality-gate claim.
