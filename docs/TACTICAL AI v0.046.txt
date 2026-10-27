@@ -1,0 +1,37 @@
+BRASS TIDE v0.046 - TACTICAL AI
+
+Autopilot remains the default. Light boats seek separated firing passes;
+strike boats use their fitted launcher range and turn away after real salvos.
+Heavies hold useful firing water and can use secondary tubes without charging.
+Escorts screen a carrier or wounded ally; unarmed support seeks protection.
+Nearby allied assignments share pressure without overriding a direct order.
+
+Gradual repairs and bailing no longer cancel a useful maneuver every tick.
+Actual damage, disabled machinery, urgent danger and new orders still matter.
+Ordinary autopilot checks hostile hull space and seeks a separating exit from
+a close pass. Deliberate boarding and manual contact remain available.
+When a route is unsafe or blocked, the existing selected-boat information
+explains the wait; an AI plan does not grant impossible clearance or free shots.
+
+PRACTICE FROM THE MAIN MENU
+Open Fleet battle laboratory and choose one of the six named practices:
+- Flank a heavy: two light gun boats against a heavy cannon boat.
+- Escort against raiders: protect actual loaded cargo reaching an eastern exit.
+- Fitted strike pass: a small torpedo boat against a heavy cannon.
+- Pressured withdrawal: one labelled damaged starter seeks an escape.
+- Cover a wounded ally: an escort protects a labelled damaged boat.
+- Mixed roles and rear support: heavy, light, strike and civilian boats together.
+
+The two damaged practices begin after one actual shell hit, disclosed in their
+guidance. Crews, repair kits, fuel and ammunition remain finite. These are
+isolated practices and grant no campaign reward. Edited fits use normal rules.
+WASD camera; Space pause; select a boat and right-click for orders; U toggles
+manual flagship control; Escape opens the menu.
+
+VERIFICATION
+This source candidate still needs its focused native checks, portable export,
+actual scenario review and full300DP rendered measurement. Final receipts live
+under tests/. Short prefixes cannot prove a whole escort voyage or firing pass;
+offline recordings cannot certify realtime60FPS. Sound tests stay silent.
+The043performance miss and051whole-core quality gate remain OPEN.
+047command layout,048workshop,049remaining hull art and050coast stay separate.

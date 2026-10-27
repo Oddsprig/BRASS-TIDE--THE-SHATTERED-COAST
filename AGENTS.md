@@ -5,13 +5,14 @@ USE GROK 4.7 ON HIGH TO HELP."
 This supersedes the planning-only instruction below. Build and deliver each
 saved scope in order, preserving the previous release/saves. Current scoped
 delivery is0.045 weapons/impacts/wakes/audio, testedsource611d081.
-Next046sourcepatches are prepared in isolated checkouts; integrate only after
-045package/desktop verification. Do not prepare045metadata again.
+045package/desktop verification is complete; one launcher preserves2voyages
+and18music tracks. Active046metadata is prepared ONCE and the three source
+patches are integrated. Focused native/export/scenario/performance work is next.
 v0.043 measured fixes are delivered at source/tag5ea0d04/v0.043 with419
 focused checks and actual rendered baseline/final measurements. The smoothness
 target remains OPEN: light4.330FPS, mixed28.686FPS at full300DP per side. Do not jump ahead to later scopes or treat tests as art.
 Three Bridge Sol6.1MAX seats retain their045 Weapons/Wakes/Feedback project IDs.
-046runtime925f899, roles0471f57 andLab0ddf14c are source-only, not yet tested.
+046runtime925f899, roles0471f57 andLab0ddf14c are integrated, not yet tested.
 Root owns all native jobs. Earlier
 043seats are finished/idle and must not resume historical assignments.
 Grok4.7HIGH may review concrete output. Root coordinates/integrates and owns
