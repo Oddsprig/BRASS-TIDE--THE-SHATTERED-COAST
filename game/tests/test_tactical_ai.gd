@@ -1661,16 +1661,25 @@ func workers051() -> void:
 	observations.append({"case":"workers-counters","profile":profile})
 	T.set_runtime_profile043(profiling)
 
-func _goals_arena051(close: bool=false) -> Dictionary:
+func _goals_arena051(close: bool=false,owned_phase: bool=false) -> Dictionary:
 	# Ordinary fleet policy, enabled explicitly; every legacy fixture keeps its
 	# original enable_planning051(st) call and synchronous/public contract.
 	var spec: Dictionary=SPEC.duplicate(true)
+	if owned_phase:spec.id="ai_probe" # Canonical hull type tokens cannot contain '-'.
 	spec.weaponMounts=[{"id":"goal-gun","kind":"gun","damage":1.0,"fireRate":2.0,"range":900.0,"speed":600.0,"ammoCost":2,"x":8.0,"y":0.0,"arc":TAU,"angle":0.0}]
 	var fleet: Array=[]
 	for index: int in range(3):fleet.append(D.create_ship(spec.duplicate(true),{"uid":"goal-owner-"+str(index),"supplies":8.0}))
 	var enemy_spec: Dictionary=spec.duplicate(true);enemy_spec.speed=0.0
 	var enemies: Array=[]
 	for index: int in range(2):enemies.append(D.create_ship(enemy_spec.duplicate(true),{"uid":"goal-target-"+str(index),"ammo":0.0}))
+	if owned_phase:
+		# Legacy create_ship does not initialize equipment. Seed before Battle
+		# admits owners, using the same records API as the actual fleet profiler.
+		var known: Array=[]
+		for ship: Dictionary in fleet+enemies:
+			var seeded: Dictionary=D.EquipmentDamage.Records.initialize(ship,{"base":ship.spec,"loadout":Refit.defaults(ship.spec),"catalog":Refit.catalog(),"identity":str(ship.uid),"knownUids":known.duplicate()})
+			check(bool(seeded.get("ok",false)),"owned goal fixture initializes canonical equipment: "+str(seeded.get("error","")))
+			for uid in seeded.get("itemUids",[]):known.append(str(uid))
 	var st: Dictionary=B.create({"fleet":fleet,"enemyFleet":enemies,"seed":30011,"islands":[]})
 	st.islands=[];st.autoBoard=false
 	var ys: Array=[850.0,350.0,1350.0]
@@ -2029,13 +2038,24 @@ func _goals_guard_phase051(st: Dictionary):
 	# completion or clearance. The joined goals come from _goals_ready051.
 	var cache: Dictionary=st.tactical.damageCache
 	var phase=D._begin_battle_phase043(cache)
+	D.begin_frame_cache(cache,st.ships)
 	D._bind_battle_owned051(phase,st.get("_damageOwned051"),st.ships,cache)
+	# Match Battle.update's complete prepass at zero elapsed time: establish
+	# live equipment/status/mounts without advancing the joined goal's clocks.
+	for ship: Dictionary in st.ships:
+		ship.battleTime=st.time
+		if ship.sunk:continue
+		D._tick_ship_in_battle051(ship,0.0,phase,false)
+		var mounts: Array=B._combat_mounts(st,ship,phase)
+		B._tick_cooldowns(ship,0.0,mounts)
+		B.CombatEvents.check_ship_engine(st,ship)
+	B.Objectives.retarget(st,{})
 	D._seal_battle_reads051(phase)
 	T.after_motion(st,phase)
 	return phase
 
 func goals_phase_guards051() -> void:
-	var arena: Dictionary=_goals_arena051(true)
+	var arena: Dictionary=_goals_arena051(true,true)
 	var st: Dictionary=arena.state
 	var ready: Dictionary=_goals_ready051(arena)
 	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
@@ -2066,7 +2086,7 @@ func goals_phase_guards051() -> void:
 	T._close_numeric051(st);D._end_battle_phase043(phase)
 	check(is_same(T._goal_current051(st,source,phase),record) and held.capability==capability and not is_same(held.capability,capability) and held.capability_phase051==null,"closed phase takes the full checked read instead of retaining its capability proof")
 	phase=_goals_guard_phase051(st);T._goal_current051(st,source,phase);capability=held.capability
-	var foreign: Dictionary=_goals_arena051(true)
+	var foreign: Dictionary=_goals_arena051(true,true)
 	var foreign_phase=_goals_guard_phase051(foreign.state)
 	check(is_same(T._goal_current051(st,source,foreign_phase),record) and held.capability==capability and not is_same(held.capability,capability) and held.capability_phase051==null,"active foreign encounter phase cannot borrow the current owner's capability proof")
 	T._close_numeric051(foreign.state);D._end_battle_phase043(foreign_phase)
@@ -2075,7 +2095,9 @@ func goals_phase_guards051() -> void:
 	var scout: Dictionary=arena.actors[1]
 	var scout_id: String=str(scout.id)
 	T._goal_current051(st,scout,phase)
-	check(D.set_repair_priority(scout,"engine")=="engine" and T._goal_current051(st,scout,phase).is_empty() and not st.tactical.goals051.has(scout_id),"dirty repair priority invalidates the real owned capability and its joined goal immediately")
+	var scout_entry: Dictionary=phase.sealedEntries051.get(D._cache_slot_key(scout),{})
+	var scout_generation: int=int(scout_entry.get("generation",-1))
+	check(D.set_repair_priority(scout,"engine")=="engine" and T._goal_current051(st,scout,phase).is_empty() and not st.tactical.goals051.has(scout_id) and int(scout_entry.get("generation",-1))>scout_generation and scout_entry.get("priority")=="engine","dirty repair priority invalidates the real owned capability and its joined goal immediately")
 	# Use the actual movement kernel to cross positive fuel to zero between helm
 	# and fire. Readiness remains live even if the earlier capability was reused.
 	source.fuel=0.00001;source.vx=60.0;source.vy=0.0

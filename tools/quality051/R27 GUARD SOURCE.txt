@@ -57,3 +57,41 @@ helper/provider call was run. Root must run combined native checks on the
 integrated source. This is an unaccepted source candidate; the added admission
 and comparison overhead may offset savings. No speedup or quality acceptance
 is claimed before actual R28. No tag/package/install/push or other files changed.
+
+R57 BOUNDED FIXTURE CORRECTION - 27 October 2026
+Read actual job453547aee55a471cad0bd3567026f8b8/attempt-001/
+sampled-goals/native.log:820 checks,4 failures, all newly added phase checks.
+Root reports whole38.328s, cleanuptrue. These are FAILED evidence, not passes.
+Correction based on checkout1f44b6a (current Root source plus source maps).
+
+Exact cause: _goals_arena051 used Damage.create_ship, which only creates legacy
+scalars and does not initialize moduleCondition. _admit_battle_owner051 admits
+only EquipmentDamage.inspect_owner mode canonical. Its owned entries therefore
+remained empty; sealing/numeric admission cannot manufacture equipment proof.
+This explains failed capability staging and both reuse checks. Public priority
+setter rejects legacy owners and Damage returns "auto", explaining failure4.
+The legacy probe id "ai-probe" also violates canonical Core._token hull ids.
+
+Only the new owned-phase test opts into "ai_probe" and genuine Records.initialize
+before Battle.create, with stock Refit.defaults/catalog, distinct existing hull
+identities and shared knownUids. Original goals fixtures retain their exact
+legacy default. The custom goal-gun is mapped to mount0 by EquipmentCombat's
+existing mount_location index fallback; _battle_descriptor051 records validated
+condition topology, without imposing a new requirement on custom display ids.
+No production admission is loosened. The helper now runs Battle's full damage,
+mount, cooldown, engine-event and retarget prepass at zero elapsed time before
+seal, then creates the numeric epoch. Joined sample/choice clocks stay fixed.
+
+Retain the original priority immediate-goal-removal assertion. A real canonical
+setter changes repairPriority; Damage._battle_entry051 dirties the generation
+and rebuilds info/status. Certification._live_capability includes current status
+repairPriority at index13; _live_capability_lost explicitly rejects its change.
+Thus capability is unequal even when every numerical factor stays healthy.
+The assertion additionally requires advanced generation and current entry
+priority "engine". No forced production tactical drop, weakened assertion or
+changed old goal check is introduced. Runtime production source is unchanged.
+
+Manually reviewed diff and complete relevant constructor/admission/priority
+chains only. NO tests, engine/import/export, profiler, source-advisory or helpers
+run. Root owns the combined native rerun and actual R28; this correction remains
+an unvalidated source candidate with no speedup/acceptance claim.
