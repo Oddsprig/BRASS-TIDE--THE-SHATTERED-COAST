@@ -8,6 +8,7 @@ const HULL_MANIFEST := "res://assets/boats042/asset-manifest.json"
 const WEAPON_MANIFEST := "res://assets/boats042/weapons/asset-manifest.json"
 const IDS := ["tin_skiff", "ash_corvette", "brasswind_motor_galleon"]
 const ISO := Transform2D(Vector2(0.82, 0.41), Vector2(-0.82, 0.41), Vector2.ZERO)
+const HULL_REFERENCE_HEIGHT := 9.7
 static var _manifests: Dictionary = {}
 static var _textures: Dictionary = {}
 
@@ -86,8 +87,20 @@ static func _draw_cell(ctx: Dictionary, info: Dictionary, origin: Vector2, scale
 	ctx.nsprite = int(ctx.get("nsprite", 0)) + 1
 	return true
 
+## Rotate residual XY in the ISO basis about the actual weapon-base plane.
+## The cell still uses its authored waterline pixel pivot. A flattened image
+## cannot separate every pixel's elevation: points at other heights lean by
+## at most ~0.196 * height difference * scale over the half-heading interval.
+static func _hull_transform(info: Dictionary, angle: float, scale: float) -> Transform2D:
+	var residual: float = wrapf(angle - float(info.angle), -PI, PI)
+	var transform: Transform2D = ISO * Transform2D(residual, Vector2.ZERO) * ISO.affine_inverse()
+	var plane: Vector2 = Vector2(0, -HULL_REFERENCE_HEIGHT * scale)
+	transform.origin = plane - transform * plane
+	return transform
+
 static func draw_hull(ctx: Dictionary, spec: Dictionary) -> bool:
 	if not ctx.canvas.has_method("draw_texture_rect_region"): return false
+	if not ctx.canvas.has_method("draw_set_transform_matrix"): return false
 	# Legacy enlargement scales XY but deliberately leaves world heights alone.
 	# A single bitmap cannot represent that anisotropic 3D operation accurately.
 	if not is_equal_approx(float(ctx.get("enlargement", 1.0)), 1.0): return false
@@ -97,7 +110,12 @@ static func draw_hull(ctx: Dictionary, spec: Dictionary) -> bool:
 	if info.is_empty(): return false
 	var entry: Dictionary = hull_entry(spec)
 	if not is_equal_approx(float(spec.get("size", 0)), float(entry.get("size", 0))): return false
-	return _draw_cell(ctx, info, ctx.proj.call(ctx.pos, 0.0), scale)
+	var transform: Transform2D = _hull_transform(info, float(ctx.angle), scale)
+	transform.origin += Vector2(ctx.proj.call(ctx.pos, 0.0))
+	ctx.canvas.draw_set_transform_matrix(transform)
+	var drew: bool = _draw_cell(ctx, info, Vector2.ZERO, scale)
+	ctx.canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+	return drew
 
 static func weapon_variant(mount: Dictionary) -> String:
 	var kind: String = str(mount.get("kind", "gun"))
@@ -175,6 +193,11 @@ static func bounds(spec: Dictionary, angle: float, portrait: bool = false) -> Re
 	if supplied is Array and supplied.size() == 4:
 		occupied = Rect2(float(supplied[0]), float(supplied[1]), float(supplied[2]), float(supplied[3]))
 	var result := Rect2((occupied.position - Vector2(info.pivot)) / density, occupied.size / density)
+	# Frame the same residual-corrected bitmap that draw_hull actually submits.
+	var transform: Transform2D = _hull_transform(info, angle, 1.0)
+	var corners := [result.position, Vector2(result.end.x, result.position.y), result.end, Vector2(result.position.x, result.end.y)]
+	result = Rect2(transform * Vector2(corners[0]), Vector2.ZERO)
+	for corner in corners: result = result.expand(transform * Vector2(corner))
 	# Include the largest installed mechanism at its physical fitting anchor.
 	# This envelope includes recoil, bases, feeds and tube mouths in every pose.
 	for mount in spec.get("weaponMounts", []):
