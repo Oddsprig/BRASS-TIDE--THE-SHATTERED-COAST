@@ -58,10 +58,24 @@ driver06dd17a->Root7ee77b4, presentationd6a4dc9->5f574f8, commandscfef2a9
 Chart interpolates detached visual records. Commands/boarding/crew/repair and
 Lab-only refill queue to the worker; result/exit retires before settlement.
 Root source API advisory found no issues; this is NOT native validation.
-R64 selected worker/goal/fire/damage checks andR65 drawing/export/3starts are
-prepared, each whole batch below119seconds. Actual renderedR32 will measure
-worker capacity, completed steps/lag and Main publication separately fromFPS.
-Three BridgeSol6.1MAX passes completed; no extra helpers or framework.
+R64 native import/parsePASS; worker110/2 onlyterminalfixture assumed18000
+projectiles despite public5000limit. Correctedfixture378183c->Rootec316d6,
+release756688b; no productionchange. R65/R32 prereqguards launchedNOengine.
+R66 d58a7ed4f56345f189784b960af166fa PASS1537/0 in44.641s whole:
+worker112, goals851, fire123, damage451. R67 dd313a78ee3d4693923f5ffe828b79f9
+PASS7618/0 in90.688s inclArt205/Weapons2292/Feedback5121/export/3starts.
+Identical705trackedgameinputs acrossR66/R67; cleanuptrue inboth.
+R33 6a8fa34477eb4b7983d11da00d25479e actualCOMPLETE58.344s/cleanuptrue,
+QUALITYFALSE: worker30Hz moves numerical combat offMain and light42/full300DP
+renders59.998FPS versusoldroughly22; mixed16 renders60.012. Bothfullcoverage,
+zero50msstutters/unresolvedstalls; all42/all16evermoved. EndPNGsRootviewed.
+MainpublicationP950.326/0.220ms; lightworker snapshotmedian43.008ms/mixed24.221
+creates283/120msmaxlag; workerP95capacity36.768/35.305ms. Current bounded
+follow-up: cheaper detachedpublication, no actor/stat/cadence/gameplay change.
+Separateworkerstep/job/snapshot/Mainpoll/lag costs; no zeroMain=zeroSimulation.
+Nativeproof and real60FPS gain do not yet accept remaininglag or gamequality.
+Three BridgeSol6.1MAX passes completed; driver/proof owners handle one measured
+publicationcopy follow-up; third stays idle. No extrahelpers/framework.
 No tag/install/push, Desktop050 preserved; no052 breadth until usable core.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 
