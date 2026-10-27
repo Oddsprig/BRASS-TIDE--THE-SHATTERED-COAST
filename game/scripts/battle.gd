@@ -268,7 +268,22 @@ static func get_flagship(st: Dictionary) -> Dictionary:
 			return s
 	return {}
 
+static func _driver051(st: Dictionary):
+	var link=st.get("_battleDriver051")
+	return link.get_ref() if link is WeakRef else null
+
+static func _queue051(st: Dictionary,kind: String,payload: Dictionary={}) -> bool:
+	var driver=_driver051(st)
+	return driver!=null and driver.queue_command(kind,payload)
+
 static func select_flagship(st: Dictionary,id) -> bool:
+	if bool(st.get("_battleMirror051",false)):
+		var selected: Dictionary=_ship_with_id(st,str(id))
+		if selected.is_empty() or str(selected.team)!="player":return false
+		if not _queue051(st,"flagship",{"id":id}):return false
+		st.playerId=id
+		for ship: Dictionary in st.ships:ship.selected=ship.id==id
+		return true
 	for s in st.ships:
 		if s.id==id and s.team=="player" and not s.sunk and not s.get("captureSecured",false):
 			st.playerId=id
@@ -278,6 +293,9 @@ static func select_flagship(st: Dictionary,id) -> bool:
 	return false
 
 static func set_autopilot(st: Dictionary,enabled: bool) -> bool:
+	if bool(st.get("_battleMirror051",false)):
+		if _queue051(st,"autopilot",{"enabled":enabled}):st.autopilot=enabled
+		return bool(st.get("autopilot",true))
 	if bool(st.get("autopilot",true))!=enabled:Tactical.control_changed(st)
 	st.autopilot=enabled
 	return enabled
@@ -289,6 +307,8 @@ static func _ship_with_id(st: Dictionary,id: String) -> Dictionary:
 	return {}
 
 static func issue_order(st: Dictionary,ids: Array,order: String,target: Dictionary={}) -> bool:
+	if bool(st.get("_battleMirror051",false)):
+		return _queue051(st,"order",{"ids":ids,"order":order,"target":target})
 	if st.result!=null or ids.is_empty() or order not in ["move","attack","escort","hold","engage","withdraw"]:
 		return false
 	var boats: Array=[]
@@ -330,6 +350,8 @@ static func issue_order(st: Dictionary,ids: Array,order: String,target: Dictiona
 	return true
 
 static func set_tactical_options(st: Dictionary,ids: Array,options: Dictionary) -> bool:
+	if bool(st.get("_battleMirror051",false)):
+		return _queue051(st,"options",{"ids":ids,"options":options})
 	if options.get("rally") is Dictionary and not options.rally.is_empty():
 		var x: float=Damage.number(options.rally.get("x"),NAN)
 		var y: float=Damage.number(options.rally.get("y"),NAN)
@@ -343,6 +365,9 @@ static func tactical_status(st: Dictionary,id: String) -> Dictionary:
 	return Tactical.status(st,id)
 
 static func set_order(st: Dictionary,order: String,target: Dictionary={}) -> String:
+	if bool(st.get("_battleMirror051",false)):
+		if _queue051(st,"fleet_order",{"order":order,"target":target}):st.order=order
+		return str(st.get("order","engage"))
 	var ids: Array=[]
 	for s in st.ships:
 		if s.team=="player" and not s.sunk and not s.get("captureSecured",false):
@@ -352,6 +377,9 @@ static func set_order(st: Dictionary,order: String,target: Dictionary={}) -> Str
 	return st.order
 
 static func retreat(st: Dictionary) -> void:
+	if bool(st.get("_battleMirror051",false)):
+		_queue051(st,"retreat")
+		return
 	if st.result!=null or st.retreatTimer!=null:
 		return
 	st.retreatTimer=12.0
@@ -359,7 +387,38 @@ static func retreat(st: Dictionary) -> void:
 	set_order(st,"withdraw")
 	_log(st,"Fleet withdrawal — 12 seconds")
 
+static func set_crew_policy(st: Dictionary,ids: Array,policy: String) -> bool:
+	if bool(st.get("_battleMirror051",false)):
+		return _queue051(st,"crew_policy",{"ids":ids,"policy":policy})
+	if policy not in ["balanced","bail","repair","fight"] or ids.is_empty() or st.get("result")!=null:return false
+	var boats: Array=[]
+	for id in ids:
+		var ship: Dictionary=_ship_with_id(st,str(id))
+		if ship.is_empty() or str(ship.team)!="player":return false
+		boats.append(ship)
+	for ship: Dictionary in boats:Damage.set_policy(ship,policy)
+	return true
+
+static func set_repair_priority(st: Dictionary,ids: Array,priority: String) -> bool:
+	if bool(st.get("_battleMirror051",false)):
+		return _queue051(st,"repair_priority",{"ids":ids,"priority":priority})
+	if ids.is_empty() or st.get("result")!=null or priority not in Damage.EquipmentDamage.Core.PRIORITIES:return false
+	var boats: Array=[]
+	for id in ids:
+		var ship: Dictionary=_ship_with_id(st,str(id))
+		if ship.is_empty() or str(ship.team)!="player":return false
+		var info: Dictionary=Damage.EquipmentDamage.inspect_owner(ship)
+		if not bool(info.get("ok",false)) or str(info.get("mode",""))!="canonical":return false
+		boats.append(ship)
+	# Equipment's setter owns the accepted priority vocabulary and validation.
+	var accepted: bool=true
+	for ship: Dictionary in boats:
+		if Damage.set_repair_priority(ship,priority)!=priority:accepted=false
+	return accepted
+
 static func _combat_mounts(st: Dictionary,s: Dictionary,frame_cache=null) -> Array:
+	if bool(st.get("_battleMirror051",false)):
+		return st.get("tactical",{}).get("mountsById051",{}).get(str(s.get("id","")),[]).duplicate(true)
 	var t: Dictionary=Tactical.ensure(st)
 	var id: String=str(s.id)
 	var source=s.spec.get("weaponMounts",s.spec)
@@ -822,6 +881,8 @@ static func _age_effects(st: Dictionary,dt: float) -> void:
 	st.effects=effects
 
 static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionary:
+	# A presentation mirror must never silently execute the heavy reference path.
+	if bool(st.get("_battleMirror051",false)):return st
 	CombatEvents.ensure_state(st)
 	Objectives.configure(st)
 	if st.result!=null:

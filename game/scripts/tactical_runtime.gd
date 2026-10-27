@@ -1,5 +1,5 @@
 extends RefCounted
-## Main-thread battle lifetime; detached A boundary and authoritative publication.
+## Battle-owner lifetime; synchronous reference or exclusive 30Hz simulation worker.
 const Planner=preload("res://scripts/tactical_planner.gd")
 const Stations=preload("res://scripts/tactical_stations.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
@@ -35,6 +35,9 @@ class _Goal051 extends RefCounted:
 
 # Optional cumulative diagnostics; independent of authoritative tactical state.
 static var _runtime_profile043_enabled: bool=false
+# Main-only acquisition flag. While held, only the authoritative worker may
+# touch Planner's existing global child-task list; UI/menu polling is suspended.
+static var _battle_worker_owned051: bool=false
 static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,"observedCalls":0,"observedUs":0,"observedMountsCopied":0,"observedMountCopyUs":0,"ownCopies":0,"ownCopyUs":0,"enemyCopies":0,"enemyCopyUs":0,"enemyMountsCopied":0,
 	"retainedAdmissions":0,"retainedDue":0,"fullDue":0,"retainedMissOwnerDeadline":0,"retainedMissConditions":0,"retainedMissTarget":0,"retainedMissCapability":0,"retainedMissOther":0,
 	"retainedDropTime":0,"retainedDropEvents":0,"retainedDropPhase":0,"retainedDropCompletion":0,"retainedDropBoarding":0,
@@ -55,7 +58,18 @@ static func runtime_profile043() -> Dictionary:
 static func defaults() -> Dictionary:
 	return {"doctrine":"steady","role":"auto","group":0,"formation":"line","protectedAllyId":"","rally":{},"leash":600.0,"conditionalWithdrawal":false,"mounts":{}}
 
+static func claim_battle_worker051() -> bool:
+	if _battle_worker_owned051:return false
+	Planner._poll_tasks051(true)
+	_battle_worker_owned051=true
+	return true
+
+static func release_battle_worker051() -> void:
+	# Driver calls only after its authoritative and detached tactical jobs joined.
+	_battle_worker_owned051=false
+
 static func enable_planning051(st: Dictionary,sampled_goals051: bool=false) -> void:
+	if bool(st.get("_battleMirror051",false)):return
 	# Main and the real voyage use this SAME workload policy. Ordinary duels
 	# keep immediate synchronous role planning; side batches serve actual fleets.
 	var t: Dictionary=ensure(st)
@@ -78,15 +92,18 @@ static func enable_planning051(st: Dictionary,sampled_goals051: bool=false) -> v
 	_clear_goals051(t);Planner._retire_workers051(t)
 
 static func retire_planning051(st: Dictionary) -> void:
+	if bool(st.get("_battleMirror051",false)):return
 	_close_numeric051(st)
 	if st.get("tactical") is Dictionary:
 		_clear_goals051(st.tactical);Planner._retire_workers051(st.tactical)
 
 static func poll_planning051() -> void:
+	if _battle_worker_owned051:return
 	Planner._poll_tasks051()
 
 static func drain_planning051() -> void:
 	# Owner shutdown/fixture teardown ONLY. Never called by Battle.update.
+	if _battle_worker_owned051:return
 	Planner._poll_tasks051(true)
 
 static func _worker_capability051(st: Dictionary,id: String,previous: Array=[],frame_cache=null,reason051: int=-1,amount051: int=1) -> Array:
@@ -1719,6 +1736,9 @@ static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dict
 	return out
 
 static func status(st: Dictionary,id: String) -> Dictionary:
+	# HUD never admits/drops authoritative goals or touches phase/owner handles.
+	if bool(st.get("_battleMirror051",false)):
+		return st.get("tactical",{}).get("statusById051",{}).get(id,{}).duplicate(true)
 	var t: Dictionary=ensure(st)
 	var ship: Dictionary=_live(st,id)
 	if ship.is_empty() or ship.team!="player":return {}

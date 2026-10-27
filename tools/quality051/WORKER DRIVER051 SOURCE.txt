@@ -1,0 +1,126 @@
+WORKER DRIVER051 SOURCE - SHARED API / SOURCE CANDIDATE
+27 October 2026. Owner-authorized 30Hz policy supersedes old Main/60Hz notes.
+Simulation owner only: battle_driver051.gd, battle.gd, tactical_runtime.gd.
+Existing d49a4eb demanded-observation candidate remains intact.
+
+EARLY API FOR MAIN/CHART/INTERFACE AND PROOF OWNERS
+const Driver051=preload("res://scripts/battle_driver051.gd")
+var driver=Driver051.new(initial_battle) # transfers a detached state; no engine work
+battle=driver.advance(0.0,{},true) # initial Main-owned display dictionary
+battle=driver.advance(delta,input,paused) # call EVERY render frame, even paused
+driver.queue_command(kind,payload) -> bool # accepted to FIFO, worker validates
+driver.take_events() -> Array # drains published audio/feedback exactly once
+battle=driver.retire() # explicit join + tactical child drain, canonical final data
+driver.telemetry() -> Dictionary # published counters + Main polling/lag
+driver.presentation_fraction() -> float # interpolation fraction [0,1]
+driver.presentation_poses() -> Dictionary # {previous:{id:pose},current:{id:pose}}
+  pose={x,y,angle,turretAngle}; only render uses lerp/lerp_angle, never physics.
+
+advance never joins an unfinished ordinary task. Fixed 1/30 steps, at most four
+per job to catch up after a slow rendering frame; normally one per due job.
+outstanding real-time debt is retained/reported, never silently discarded.
+Pause blocks new physics (an already submitted bounded job can complete). Commands are
+FIFO at the next owned boundary; paused command-only jobs do not tick physics.
+retire is idempotent and joins only this driver and its detached tactical jobs.
+Retire BEFORE campaign settlement and before replacing/clearing an encounter.
+Driver retains original ship dictionaries on Main only. retire reconciles the
+joined final ships/reserves/escaped ships into those original owners in place
+before returning canonical data; call it BEFORE campaign settlement. No caller
+fleet reconciliation is required. Worker never receives these originals.
+Ship owners match stable UID (battle ID fallback for anonymous lab actors).
+Reserve owners retain side/index identity. Captured and escaped arrays plus
+convoy.actors are explicitly relinked to this state's ships; Variant deep copy
+does not preserve those aliases across containers. Retire also restores coastal
+battery port records in place so campaign ammunition/stores remain conserved.
+The final retired result reconstructs a fresh Main-owned RNG from the joined
+seed/state: Boarding.settle/_setup requires it even when no prizes are present.
+Active display snapshots contain no RNG; no worker RNG object is published.
+
+Battle proxies on a mirror queue instead of mutating authoritative state:
+select_flagship, set_autopilot, issue_order, set_order, set_tactical_options,
+retreat, NEW set_crew_policy(st,ids,policy), set_repair_priority(st,ids,priority).
+Queue kinds/payloads: flagship {id}; autopilot {enabled}; order {ids,order,target};
+fleet_order {order,target}; options {ids,options}; retreat {};
+crew_policy {ids,policy}; repair_priority {ids,priority}.
+Boolean queue success is admission, not a claim of worker validation success.
+Mirror uses _battleMirror051=true and _battleDriver051=WeakRef (Main-only).
+No weak references, RNG, phase/goal/task handles enter worker publications.
+Tactical.status(mirror,id) reads published tactical.statusById051, never runs
+goal admission or physical certification on Main. UI reads published fields only.
+Tactical.poll_planning051/drain_planning051 skip the global task list while a
+driver owns it; retirement drains on the simulation-owned boundary.
+
+Telemetry minimum: workerStepHz=30, workerThreadId, completedSteps, stateTime,
+workerJobUs, snapshotUs, mainPollUs, simulationLagSeconds. Worker cost includes
+actual Battle.update; source candidate makes no speed or correctness claim.
+simulationUs is total update time in the latest job, stepsInJob its actual fixed
+steps. Command-only/retirement jobs correctly report zero steps; capacity analysis
+must select physical jobs, not present those zeros as simulation performance.
+totalWorkerJobUs/totalSimulationUs/totalSnapshotUs accumulate joined work;
+lastSimulationJobUs/lastSimulationUs/lastSimulationSnapshotUs retain the last
+physical job through retirement, so final reports need not lose combat costs.
+Mirror has simulation051=driver.telemetry() and tactical.metrics/trace/counters,
+options/groups/intents/reasons/fireReasons/statusById051; no private tactical
+memory, damage cache, goal wrappers, slots or handles. _combat_mounts on a mirror
+returns published mounts only. Initial mirror is available before the first job.
+Also tactical.mountsById051 and damageStatusById051; mountCache contains ONLY
+plain {mounts:[...]} rows for battle_commands047's existing availability gate.
+It contains no authoritative source/condition/cache identity. Battle's flagship,
+autopilot and fleet-order proxies can update display intent optimistically;
+actual validation and authoritative changes still occur in FIFO on the worker.
+The existing global detailed Damage/Records/Tactical counter sinks are disabled
+at driver acquisition (not reset), avoiding concurrent UI counter writes. Proof
+must use published per-step phaseUs and simulation051, not turn global sinks on
+or poll raw worker state while running. No new profiling framework is added.
+Original fine-counter enabled flags are restored only after every job is joined.
+
+STATIC / MAIN-WRITE AUDIT (CURRENT SOURCE, NO NATIVE VERIFICATION)
+Refit, MountLayout, WeaponGeometry, HullProfiles and WeaponArt have no mutable
+static caches in this checkout. HullFeedback.record calls pure Profiles.stations;
+the numerical path never calls HullFeedback drawing methods or any Canvas API.
+BoatArt._station_cache/_draw_input_cache, MotorArt._render_cache and SpriteArt's
+atlas caches, BoatMeshCache._meshes/_order stay entirely on Main; worker neither
+warms nor accesses them. There is no shared mutable actor-geometry cache in the
+current numerical hit path requiring warm-up. These files were READ ONLY here.
+Planner._tasks051 is mutable: single-driver acquisition drains old jobs, blocks
+Main poll/drain, worker owns subsequent mutation, retirement drains on worker.
+Routes._veto_* is a thread-bound optional diagnostic sink. Existing Main-enabled
+sink never admits worker rows; observer must not reconfigure/read globals while
+simulation runs. Published telemetry is the worker observation boundary.
+Boarding's campaign callback globals are only used by campaign service/settlement;
+worker launch/tick/capture/take_defense_shot use their detached battle/port data.
+
+Known direct-control seams for presentation owner:
+main.gd set_crew_policy -> Damage.set_policy(flagship,...)
+interface.gd fleet policy button -> host.Damage.set_policy(s,...)
+equipment_ui_controller.gd repair priority -> Damage.set_repair_priority(...)
+Those in-battle paths must queue Battle.set_crew_policy/set_repair_priority.
+tactics_ui.gd reads get_status_cached with tactical.damageCache; use the published
+damageStatusById051 for the battle mirror, keep synchronous behavior otherwise.
+FleetLab's initial policy setup is before driver acquisition and is safe.
+Main battle replacement setter's Tactical.retire(mirror) is a harmless facade;
+it does NOT substitute for driver.retire before title/new encounter/exit/result.
+
+Source-only pass: NO tests/engine/import/export/profiler/CLI validation/helpers.
+Root integrates narrow commits and owns every test. Native parsing and combined
+Main/Lab wiring, commands/accounting/pause/retire/collision remain unverified.
+
+ROOT VERIFICATION OBLIGATIONS / LIMITS
+Native parse/type checks first; this author did not execute any script.
+Driver is a concrete core source candidate, not an accepted build or performance
+result. Main/Chart/UI/observer are peer-owned and intentionally not edited here.
+Actual encounter integration must retire before campaign settlement/title/exit
+and attach after Lab/campaign fixture modifications and coastal-defense setup.
+Pause prevents new step submission, cannot cancel a job already in flight.
+One simulation job is active; WorkerThreadPool may use a different OS worker on
+successive jobs. Each receipt reports the actual caller thread, never Main.
+Lag is desired unpaused simulation time minus last completed published time;
+debt is not clamped away. Jobs execute at most four actual fixed 1/30 steps.
+Existing 100ms sampled-goal policy and swept projectile/contact code are reused;
+no crew-frequency/fire-balance rewrite or physics assertion is weakened.
+Verify ordinary advance never waits on unfinished work, queued commands retain
+FIFO order, paused commands tick zero steps, source/campaign owners are untouched
+until retire, public snapshots have no objects, and whole-job/snapshot/lag numbers
+are nonzero during real motion/fire/hits. After retire verify UID-stable original
+ships, equipment dictionaries, captured/escaped/convoy aliases, battery ammo,
+crew/fuel/ammo/supplies/purses, exact RNG state and actual settlement success.
