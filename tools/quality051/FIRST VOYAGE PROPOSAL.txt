@@ -1,3 +1,37 @@
+051 FIRST VOYAGE - FAILURE PROJECTION V2; NATIVE UNRUN
+Baseline fixture a0a2b6a matches Root dfb4474. Read actual failed job
+1110785f58ed4d51bb5b72ea304ad87b snapshot/native.log:120 checks/1 failure,
+17.065s file, actual90s combat resultnull, Tin hp96.019/ammo69/kits19.388.
+This is a combat failure, not a timeout or pass. R3/R4 and later failed evidence
+remain untouched. Runtime route-check work belongs to PerfSol/Root.
+
+Only the existing failure projection changes, plus this handoff. Schema read
+at Root dfb4474: tactical_runtime.ensure/begin/_publish/finish/status and
+tactical_role_plans._decide state; tactical_planner._intent/_fire_gates.
+ships[].memory reads tactical.memory[actual_ship.team].byId[id], including
+role/phase/reason/localRecovery/localRally/phaseSince/targetId and bounded
+progress/pass/failure timing fields. Vector2 localRally/progressPos become{x,y}.
+ships[].intent uses actual intents[id] keys, <=24 points per path and <=16
+fire gates. Empty accepted intent stays{}, distinct from remembered role/phase.
+pending is the actual pending-since timestamp or null if absent. work retains
+lastDecision/lastSafety/orderTimes/certificationAttempts/lastCertified/
+appliedRevisions; retained051 reports presence, safety/options bounded fields.
+tacticalWork includes raw revision/manualId/dt, bounded budget/counters/metrics
+and metrics.work/planningCalls. No new eligibility decision or route validation.
+Raw per-ship fields are copied before the existing player-only public status
+call, which can validate/drop an intent. No planner/recovery function is run.
+Last12 traces preserve their actual keys (including nested paths, shot stamps,
+withheld reasons, condition/stores); missing aliases no longer appear as null.
+Both actual trace shapes (publication and finish) remain distinguishable.
+Limits remain16 ships/32 islands/128 island points/12 traces+events/256 chars;
+new paths24 points, scalar maps32 fields/nested maps16, all explicitly recorded.
+Every assertion, legacy body, case selector,18s/36s guards,301 fleet checks,
+30 campaign seconds and90 combat seconds at60Hz remain byte-identical.
+Failure-only call sites unchanged: no output/projection work on a passing run.
+Source preservation/preload advisory/diff checks only; native parsing, artifact
+contents and gameplay outcome await Root. No engine/test/bake/helper invoked.
+
+HISTORICAL CASE-SPLIT HANDOFF (preserved below)
 051 FIRST VOYAGE - CASE-SPLIT CANDIDATE; R3 FAILED, JOURNEY UNRUN
 Root source: outputs/brass-tide f41cf7b; relevant journey APIs unchanged through
 5a583b5/e42e4c0. Only test_campaign_guidance.gd extension + this handoff.

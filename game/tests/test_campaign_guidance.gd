@@ -278,11 +278,22 @@ func test_real_fleet_and_dangers() -> void:
 func failure_fields(source: Dictionary, keys: Array) -> Dictionary:
 	var out: Dictionary = {}
 	for key in keys:
+		if not source.has(key):
+			continue # Absent fields stay absent; trace row schemas differ.
 		var value = source.get(key)
 		if value is String or value is StringName:
 			out[key] = str(value).left(256)
+		elif value is Vector2:
+			out[key] = {"x":value.x, "y":value.y}
 		elif value == null or value is bool or value is int or value is float:
 			out[key] = value
+	return out
+
+func failure_path(points: Array) -> Array:
+	var out: Array = []
+	for point in points.slice(0, 24):
+		if point is Vector2:
+			out.append({"x":point.x, "y":point.y})
 	return out
 
 func save_first_voyage_failure(battle: Dictionary) -> void:
@@ -296,18 +307,35 @@ func save_first_voyage_failure(battle: Dictionary) -> void:
 	for actual_ship in battle.get("ships", []).slice(0, 16):
 		var id: String = str(actual_ship.id)
 		var intent: Dictionary = tactical.get("intents", {}).get(id, {})
-		var status: Dictionary = Battle.tactical_status(battle, id) # Public status is player-only.
+		var memory: Dictionary = tactical.get("memory", {}).get(str(actual_ship.team), {}).get("byId", {}).get(id, {})
 		var row: Dictionary = failure_fields(actual_ship, ["id", "type", "team", "angle", "hp", "maxHp", "water", "ammo", "fuel", "supplies", "order", "sunk", "captureSecured"])
 		row.position = {"x":actual_ship.x, "y":actual_ship.y}
 		row.velocity = {"x":actual_ship.vx, "y":actual_ship.vy}
-		row.tacticalStatus = failure_fields(status, ["order", "reason", "role", "phase", "targetName"])
-		row.tacticalStatusAvailable = not status.is_empty()
 		row.tacticalReason = str(tactical.get("reasons", {}).get(id, "")).left(256)
-		row.intent = failure_fields(intent, ["candidateId", "role", "phase", "targetId", "leaderId", "firingPassId", "reason", "validUntil", "orderRevision", "snapshotRevision"])
+		row.memory = failure_fields(memory, ["role", "phase", "reason", "localRecovery", "localRally", "phaseSince", "targetId", "leaderId", "orderRevision", "firingPassId", "passSince", "pursuitSince", "progressAt", "progressPos", "commitUntil", "safeSince", "lastUsefulShot", "failedTargetId", "failedUntil", "waitSince", "blockedStation", "passShots", "passShortShots", "passOpportunitySince"])
+		row.intent = failure_fields(intent, ["candidateId", "pathFingerprint", "role", "phase", "sector", "targetId", "leaderId", "reason", "validUntil", "orderRevision", "snapshotRevision"])
+		for key in ["waypoints", "exit"]:
+			if intent.has(key):row.intent[key] = failure_path(intent[key])
+		if intent.has("fireGate"):
+			row.intent.fireGate = {}
+			for mount_id in intent.fireGate.keys().slice(0, 16):
+				row.intent.fireGate[mount_id] = failure_fields(intent.fireGate[mount_id], ["targetId", "permit", "shotLimit", "reason", "leaseKind", "firingPassId"])
+		row.pending = tactical.get("pending", {}).get(id) # Actual pending-since timestamp, or absent/null.
+		row.work = {}
+		for key in ["lastDecision", "lastSafety", "orderTimes", "certificationAttempts", "lastCertified", "appliedRevisions"]:
+			if tactical.get(key, {}).has(id):row.work[key] = tactical[key][id]
+		row.retained051 = tactical.get("retained051", {}).has(id)
+		var safety: Dictionary = tactical.get("safety", {}).get(id, {})
+		row.safety = failure_fields(safety, safety.keys().slice(0, 16))
+		row.options = failure_fields(tactical.get("options", {}).get("byId", {}).get(id, {}), ["doctrine", "role", "group", "conditionalWithdrawal", "leash"])
 		row.firingPass = failure_fields(tactical.get("passes", {}).get(id, {}), ["id", "phase", "released", "revision"])
 		row.orderTarget = failure_fields(actual_ship.get("orderTarget", {}), ["shipId", "x", "y"])
 		var fire_reasons: Dictionary = tactical.get("fireReasons", {}).get(id, {})
 		row.fireReasons = failure_fields(fire_reasons, fire_reasons.keys().slice(0, 16))
+		# Read raw planner/scheduler state first: public player status may validate/drop an intent.
+		var status: Dictionary = Battle.tactical_status(battle, id)
+		row.tacticalStatus = failure_fields(status, ["order", "reason", "role", "phase", "targetName"])
+		row.tacticalStatusAvailable = not status.is_empty()
 		ships.append(row)
 	var islands: Array = []
 	for island in battle.get("islands", []).slice(0, 32):
@@ -318,12 +346,24 @@ func save_first_voyage_failure(battle: Dictionary) -> void:
 	var trace: Array = tactical.get("trace", [])
 	var trace_tail: Array = []
 	for entry in trace.slice(maxi(0, trace.size() - 12)):
-		trace_tail.append(failure_fields(entry, ["time", "sim_time", "shipId", "hull_uid", "order", "phase", "reason", "intent_reason", "targetId", "observed_target", "role", "station", "withdrawal_reason", "objective_state"]))
+		var trace_row: Dictionary = failure_fields(entry, entry.keys().slice(0, 32))
+		for key in ["approach_path", "exit_path"]:
+			if entry.has(key):trace_row[key] = failure_path(entry[key])
+		for key in ["weapon_opportunity", "withheld_reason", "condition", "stores"]:
+			if entry.has(key):trace_row[key] = failure_fields(entry[key], entry[key].keys().slice(0, 16))
+		trace_tail.append(trace_row)
 	var events: Array = battle.get("events", [])
 	var event_tail: Array = []
 	for entry in events.slice(maxi(0, events.size() - 12)):
 		event_tail.append(failure_fields(entry, ["seq", "kind", "time", "reason", "sourceId", "targetId", "mountId", "x", "y", "damage", "material"]))
-	var report: Dictionary = {"schema":1, "phase":file_phase, "battleTime":battle.time, "result":battle.result, "autopilot":battle.autopilot, "order":battle.order, "shipsTotal":battle.ships.size(), "ships":ships, "islandsTotal":battle.islands.size(), "islands":islands, "tacticalTraceTotal":trace.size(), "tacticalTrace":trace_tail, "eventsTotal":events.size(), "events":event_tail, "limits":{"ships":16, "islands":32, "islandPoints":128, "traceRows":12, "events":12, "mountReasons":16, "textChars":256}}
+	var tactical_work: Dictionary = failure_fields(tactical, ["snapshotRevision", "terrainRevision", "dt", "manualId"])
+	for key in ["budget", "counters", "metrics"]:
+		var values: Dictionary = tactical.get(key, {})
+		tactical_work[key] = failure_fields(values, values.keys().slice(0, 32))
+	for key in ["work", "planningCalls"]:
+		var values: Dictionary = tactical.get("metrics", {}).get(key, {})
+		tactical_work.metrics[key] = failure_fields(values, values.keys().slice(0, 16))
+	var report: Dictionary = {"schema":2, "phase":file_phase, "battleTime":battle.time, "result":battle.result, "autopilot":battle.autopilot, "order":battle.order, "shipsTotal":battle.ships.size(), "ships":ships, "tacticalWork":tactical_work, "islandsTotal":battle.islands.size(), "islands":islands, "tacticalTraceTotal":trace.size(), "tacticalTrace":trace_tail, "eventsTotal":events.size(), "events":event_tail, "limits":{"ships":16, "islands":32, "islandPoints":128, "traceRows":12, "traceFields":32, "pathPoints":24, "events":12, "mountReasons":16, "mapFields":32, "nestedMapFields":16, "textChars":256}}
 	var directory_error: int = DirAccess.make_dir_recursive_absolute(folder)
 	var path: String = folder.path_join("first-voyage-failure.json")
 	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE) if directory_error == OK else null
