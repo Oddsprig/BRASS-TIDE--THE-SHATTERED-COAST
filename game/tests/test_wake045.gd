@@ -98,7 +98,9 @@ func recorded(samples: Array, opts: Dictionary = {}, isometric: bool = false, vi
 	var label: String = " " + str(view.get("label", ""))
 	var before: PackedByteArray = var_to_bytes([samples, opts, view])
 	var projector: Callable = recorder.iso if isometric else recorder.project
-	var count: int = Wake.draw(recorder, projector, samples, opts)
+	var paint_options: Dictionary = opts.duplicate()
+	paint_options.affine_water = true # Same explicit affine path used by Chart.
+	var count: int = Wake.draw(recorder, projector, samples, paint_options)
 	if first_invalid_polygon.is_empty() and not recorder.first_invalid.is_empty():
 		first_invalid_polygon = recorder.first_invalid.duplicate(true)
 		first_invalid_polygon.case = str(view.get("label", "unlabelled geometry case"))

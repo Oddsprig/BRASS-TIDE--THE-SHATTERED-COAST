@@ -12,7 +12,10 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-STATUS: current source candidate;530 focused checks and export/three starts pass.
-Actual300DP light4.743FPS/mixed44.079FPS;60FPS targets unmet. Opening battle
-still unfinished after90 simulated seconds. Route correction in progress.
-Core gate OPEN; Desktop050;052 breadth remains planned.
+STATUS: R17PASS752/0,83.719s inclsetup/export/three starts.
+Actualworker-enabled starter wins67.767simseconds, returns and pays for upgrade.
+ActualR8full300DP light5.380FPS/mixed49.894FPS;60FPS targets UNMET.
+Worker suggestions are used but copying/validation erase most of their benefit.
+Three Sol6.1MAX specialists own measured planning/navigation/damage corrections.
+Rootaffine wake projection reuse is SOURCEONLY, pending existing geometry proof.
+Core gate OPEN; Desktop050;052 planned. No new performance acceptance.

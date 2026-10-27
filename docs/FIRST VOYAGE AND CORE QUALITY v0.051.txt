@@ -1,21 +1,24 @@
 BRASS TIDE v0.051 - FIRST VOYAGE AND CORE QUALITY
 
-This is the active source candidate on delivered v0.050. The opening voyage
-now completes. Full-fleet performance still misses the milestone target.
+ACTIVE CANDIDATE: opening complete, performance gate OPEN.
+R17 jobde288b47feea4ba693fc0e0cf4f4b170:752 checks/0, export and three
+startup paths in83.719seconds including setup/cleanup. Real background-worker
+planning: starter autopilot wins67.767simseconds, receives34545 funded reward
+plus5400 captured coins, returns and pays1355 repair/2126 stores/26379 boost.
+Captain25085 remains, including protected payroll reserve1000. Booked day1
+wages0;82.222-coin wage allowance is an estimate, not a transaction.
+Earlier42.367s opening used synchronous planning; outcomes can differ when
+asynchronous suggestions arrive. Both actual runs used unchanged60Hz/90s cap.
 
-Latest:479 checks/0, export and three starts in68.282s including setup/cleanup,
-job67c737ce6ea14b068d081692827f9a04. Actual first fight wins on autopilot in
-42.367s, collects34545 funded reward plus5400 captured coins, returns, pays
-1145 repair +1873 refill, buys the26379-coin engine fitting and retains25548.
-Day1 wages booked0; separate80.370-coin wage allowance remains an estimate.
-All coin transfers and paid fitting use actual inventories, workers and purses.
-Actual coastal regression36/0; traffic geometry171/0; prefix AI34/0; voyage274/0.
-
-Actual exported benchmark2652adca046e421ba6d276ac90eb055c:42 light boats at
-300DP/side4.930FPS;16 mixed boats45.173FPS. Both60FPS targets remain unmet.
-Simulation median25.279ms/light,9.255ms/mixed. The next measured work targets
-AI copying, healthy damage ticking and detached background planning.
-No052 breadth until the core gate clears. Desktop remains0.050.
+Actual exported R8 job72c0042b0da84982bac689e8d9fdfd12:42 light boats at
+300DP/side5.380FPS;16 mixed49.894FPS. Simulation medians22.820/9.127ms,
+P9527.541/11.464ms. Both60FPS targets UNMET. Light worker adoption1389/1978
+due hulls proves actual use, not a performance win: main copies and validation
+still cost too much. Three Sol6.1MAX helpers own planning, navigation and damage
+corrections. Root owns bounded background validation; no new test framework.
+Wake affine projection reuse is source-only until its existing geometry checks
+and actual rendered run pass. No claimed benefit from source inspection.
+Desktop remains0.050. No051 delivery or052 breadth before the core gate clears.
 
 Earlier candidate evidence follows; the recorded failures remain failures.
 

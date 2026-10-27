@@ -1,15 +1,20 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
-Latest051checkpoint: Rootdfb4474 combines damage-owned d64a34d and solo
-recovery6d33e46. Native530/0, export+three starts60.094s including setup.
-Actual full300DP GPU a5eaf57e7dea4842baaf26da3b0fc150: light4.743FPS,
-mixed44.079FPS. Both60FPS targets UNMET; light planning18.096ms dominates.
-Opening90s first battle still fails120/1: starter stationary Route check pending.
-RoutesSol owns tactical_routes.gd measured geometry/search correction; PerfSol
-owns other tactical runtime/candidate analysis; HullSol owns only bounded
-failure projection in existing campaign guidance test. No new breadth/framework.
-All eight corrected title/home/voyage/harbor screens reviewed. Desktop050.
-The earlier pending/source-only statuses below are historical when conflicting.
+Latest051checkpoint: sourceRoot0c31fb4/release95d9d50, R17PASS752/0,
+83.719s including setup/export/three starts; realworker-enabled voyage279/0.
+Starterwin67.767simseconds,1355repair/2126stores/26379boost,25085captainleft.
+PreviousSYNC42.367s journey is historical; both actual runs completed.
+ActualR8GPU72c0042b0da84982bac689e8d9fdfd12 qualityFALSE: light5.380FPS,
+mixed49.894FPS; simmedians22.820/9.127ms. Actual1389/1978lightdueadoptions
+show worker use without material performance gain. Core gateOPEN, no052.
+Three BridgeSol6.1MAX active: PerfSolPlanner/Runtime/Main/AItests; CoastSol
+Damage/Equipment and damagefixture; HullSolRoutes/Coastal/existinggeometrytests.
+RootaloneChart/Wakeaffineprojection and existingWakefixture; no file overlap.
+Rootownsallnative, export, GPU and lane; wholebatches<120s/background/muted.
+No helpernative, nestedhelpers, newframework, broad QA or speculativecachework.
+Desktop050, preserve two voyages and actual music; one plain Desktoplauncher.
+Corrected8opening screens/fourforefootpreviews reviewed. TaskCURRENT STATE.txt
+is the concise handoff; older status text below is historical where conflicting.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."

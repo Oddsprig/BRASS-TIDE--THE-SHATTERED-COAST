@@ -12,23 +12,25 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-ACTIVE CANDIDATE: the first voyage completes; full-fleet performance is unfinished.
-Latest selected batch:479 checks/0, export and three portable starts in68.282
-seconds including setup/cleanup (67c737ce6ea14b068d081692827f9a04).
-The starter wins on autopilot in42.367 simulated seconds, returns, pays1145
-coins for repairs and1873 for stores, then buys the26379-coin engine upgrade.
-Actual funded reward34545 coins plus5400 captured;25548 captain coins remain.
-First-day booked wages are0 because the voyage takes0.161days; the separate
-80.370-coin wage allowance is an estimate, not a fabricated payroll entry.
-Nearby traffic171/0, actual prefix/avoidance34/0 and voyage274/0 pass.
-Actual76-point coastal search36/0 also passes, yielding twice before completion.
+ACTIVE CANDIDATE: opening complete, performance gate OPEN.
+R17 jobde288b47feea4ba693fc0e0cf4f4b170:752 checks/0, export and three
+startup paths in83.719seconds including setup/cleanup. Real background-worker
+planning: starter autopilot wins67.767simseconds, receives34545 funded reward
+plus5400 captured coins, returns and pays1355 repair/2126 stores/26379 boost.
+Captain25085 remains, including protected payroll reserve1000. Booked day1
+wages0;82.222-coin wage allowance is an estimate, not a transaction.
+Earlier42.367s opening used synchronous planning; outcomes can differ when
+asynchronous suggestions arrive. Both actual runs used unchanged60Hz/90s cap.
 
-Latest actual rendered300DP/side:42 light boats4.930FPS,16 mixed45.173FPS
-(2652adca046e421ba6d276ac90eb055c). Simulation medians25.279ms/light and
-9.255ms/mixed. Light planning16.192ms remains too expensive. Both60FPS targets
-remain UNMET. Next corrections target measured owner/view copying and healthy
-damage work; detached background planning is under source review.
-Gate051 remains OPEN. Desktop050; no052 breadth yet.
+Actual exported R8 job72c0042b0da84982bac689e8d9fdfd12:42 light boats at
+300DP/side5.380FPS;16 mixed49.894FPS. Simulation medians22.820/9.127ms,
+P9527.541/11.464ms. Both60FPS targets UNMET. Light worker adoption1389/1978
+due hulls proves actual use, not a performance win: main copies and validation
+still cost too much. Three Sol6.1MAX helpers own planning, navigation and damage
+corrections. Root owns bounded background validation; no new test framework.
+Wake affine projection reuse is source-only until its existing geometry checks
+and actual rendered run pass. No claimed benefit from source inspection.
+Desktop remains0.050. No051 delivery or052 breadth before the core gate clears.
 
 EARLIER FAILED/INTERMEDIATE CANDIDATES (preserved for diagnosis)
 Combined damage/solo source:530 checks/0 failures, export and three starts

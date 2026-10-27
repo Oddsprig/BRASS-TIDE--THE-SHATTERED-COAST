@@ -141,22 +141,40 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 		widths.append(width * smoothstep(0.0, 0.65, along) * age_fade)
 	var colors: Array[Color] = [Color(0.58, 0.81, 0.78, 0.13 * fade), Color(0.75, 0.91, 0.86, 0.17 * fade), Color(0.92, 0.98, 0.93, 0.18 * fade)]
 	var scales: Array[float] = [1.0, 0.57, 0.20]
+	# The water projector is affine. Project each center once, then share its
+	# screen-space side vector across all three bands instead of invoking the
+	# projector twice per vertex per band. The foam geometry and fades stay live.
+	var affine: bool = bool(opts.get("affine_water", false))
+	var centers := PackedVector2Array()
+	var screen_side := Vector2.ZERO
+	if affine:
+		for sample: Dictionary in path:
+			var center = projector.call(Vector2(sample.p), 0.0)
+			if not (center is Vector2) or not center.is_finite():
+				return 0
+			centers.append(center)
+		var side_point = projector.call(Vector2(path[0].p) + side, 0.0)
+		if not (side_point is Vector2) or not side_point.is_finite():
+			return 0
+		screen_side = Vector2(side_point) - centers[0]
 	var count: int = 0
 	for layer in range(MAX_PRIMITIVES):
 		var polygon := PackedVector2Array()
 		for index in range(path.size()):
-			var world: Vector2 = Vector2(path[index].p) + side * widths[index] * scales[layer]
-			var projected = projector.call(world, 0.0)
-			if not (projected is Vector2) or not projected.is_finite():
-				return count
-			polygon.append(projected)
+			if affine:
+				polygon.append(centers[index] + screen_side * widths[index] * scales[layer])
+			else:
+				var projected = projector.call(Vector2(path[index].p) + side * widths[index] * scales[layer], 0.0)
+				if not (projected is Vector2) or not projected.is_finite():return count
+				polygon.append(projected)
 		# The tail is one shared point, not duplicate zero-width edge vertices.
 		for index in range(path.size() - 1, 0, -1):
-			var world: Vector2 = Vector2(path[index].p) - side * widths[index] * scales[layer]
-			var projected = projector.call(world, 0.0)
-			if not (projected is Vector2) or not projected.is_finite():
-				return count
-			polygon.append(projected)
+			if affine:
+				polygon.append(centers[index] - screen_side * widths[index] * scales[layer])
+			else:
+				var projected = projector.call(Vector2(path[index].p) - side * widths[index] * scales[layer], 0.0)
+				if not (projected is Vector2) or not projected.is_finite():return count
+				polygon.append(projected)
 		polygon = _paint_polygon(polygon)
 		if polygon.is_empty():
 			continue
