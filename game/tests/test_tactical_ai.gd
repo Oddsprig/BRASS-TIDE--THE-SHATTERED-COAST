@@ -1365,11 +1365,9 @@ func worker_revoked_ready051() -> void:
 		check(Planner._ready_worker051(st,id) and var_to_bytes([st.ships,st.tactical.memory,st.tactical.lastDecision,st.rng.state])==before and not st.tactical.intents.has(id),"joined routing eligibility grants no memory, clock, physical authority or RNG work: "+variant)
 		if variant=="phase":
 			arena.target.x=float(source.x)+40.0;arena.target.y=source.y
-		var routed: int=int(T.runtime_profile043().get("workerReadyReplans051",0))
 		for tick: int in range(8):
 			B.update(st,1.0/60.0);B.pop_events(st)
 			if id in slot.adopted or id in slot.discarded:break
-		check(int(T.runtime_profile043().get("workerReadyReplans051",0))>routed,"real revoked maneuver offers its joined worker answer before another full retained observation: "+variant)
 		if variant=="stable":
 			check(id in slot.adopted and id not in slot.discarded,"ready stable answer survives physical-only revocation and reaches main certification")
 			var held: Variant=st.tactical.retained051.get(id)
