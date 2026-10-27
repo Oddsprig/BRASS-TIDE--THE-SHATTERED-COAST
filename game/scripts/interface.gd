@@ -233,10 +233,12 @@ func title_screen():
 	var actions = column(v)
 	actions.custom_minimum_size.x = 345
 	actions.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	var first: Button=add_coastal_clash(actions)
+	var first: Button
 	if host.has_save():
-		button(actions, "Continue voyage", host.load_game)
-	button(actions, "New voyage", host.new_game)
+		first=button(actions, "Continue voyage", host.load_game, true)
+	var new_voyage: Button=button(actions, "New voyage", host.new_game, first==null)
+	if first==null:first=new_voyage
+	add_coastal_clash(actions, false)
 	button(actions, "Fleet battle laboratory", host.open_lab)
 	button(actions, "Options & music", open_settings)
 	button(actions, "Guide & acknowledgements", open_guide, false, false)
@@ -299,17 +301,14 @@ func build_campaign_hud(size: Vector2):
 	flagship_label = label(left_body, "", 26, TEXT, true)
 	paragraph(left_body, "A captain is only as strong as the boats and sailors that come home.", 14)
 	rule(left_body)
-	button(left_body,"Captain's priorities",func():GuidanceUI.open(self),true,false)
-	button(left_body, "Fleet & damage control     F", open_fleet)
-	button(left_body, "Cargo & supplies               C", open_cargo)
-	button(left_body, "Contracts & logbook          J", open_contracts)
-	button(left_body,"Prepare expedition",func():CampaignUI.expedition(self))
-	button(left_body,"Island charts & surveys     I",func():CampaignUI.islands(self))
-	button(left_body,"Wrecks & recovery",func():RecoveryUI.open(self))
-	button(left_body,"Voyage jobs & contacts     K",func():VoyageUI.open(self))
-	button(left_body,"Coastal stories & leads",func():StoryUI.open(self))
-	button(left_body,"Home harbors & warehouses",func():HomeUI.open(self))
-	button(left_body,"Regional goals                    L",func():RegionalUI.open(self))
+	var active: Dictionary=host.core.state.activeContract
+	if not active.is_empty():
+		paragraph(left_body,str(active.title),18,GOLD)
+	elif not host.core.state.completed and host.core.state.missionIndex<host.data.MISSIONS.size():
+		paragraph(left_body,str(host.data.MISSIONS[host.core.state.missionIndex].title),18,GOLD)
+	paragraph(left_body,"Review the route, paid crew and return reserves before committing.",14)
+	button(left_body,"Prepare first voyage" if host.core.state.missionIndex==0 and active.is_empty() else "Review voyage",func():GuidanceUI.open_voyage(self),true,false)
+	button(left_body,"More charts & business",open_campaign_tools,false,false)
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
 	if not host.core.state.activeContract.is_empty():
@@ -339,8 +338,21 @@ func build_campaign_hud(size: Vector2):
 	voyage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	dock_button = button(actions, "Enter harbor  ↗", func(): open_port(), true)
 
-func add_coastal_clash(actions: Node) -> Button:
-	var clash: Button=button(actions, "Coastal Clash", host.start_coastal_clash, true)
+func open_campaign_tools():
+	modal_kind="campaign_tools"
+	var body=modal("More charts & business")
+	button(body,"Captain's priorities",func():GuidanceUI.open(self),true,false)
+	button(body,"Prepare expedition",func():CampaignUI.expedition(self))
+	button(body,"Island charts & surveys     I",func():CampaignUI.islands(self))
+	button(body,"Wrecks & recovery",func():RecoveryUI.open(self))
+	button(body,"Voyage jobs & contacts     K",func():VoyageUI.open(self))
+	button(body,"Coastal stories & leads",func():StoryUI.open(self))
+	button(body,"Home harbors & warehouses",func():HomeUI.open(self))
+	button(body,"Regional goals                    L",func():RegionalUI.open(self))
+	button(body,"Close",close_modal,false,false)
+
+func add_coastal_clash(actions: Node, primary: bool=true) -> Button:
+	var clash: Button=button(actions, "Coastal Clash", host.start_coastal_clash, primary)
 	clash.name="CoastalClash"
 	paragraph(actions, "One loaded packet, a mixed escort, raiders already in range.", 14, GOLD)
 	return clash
@@ -409,7 +421,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities"])
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services"])
 	rule(outer)
 	var scroll = ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -458,9 +470,34 @@ func open_port(tab: String = ""):
 	var body = modal(p.name, "%s · %s" % [host.core.faction(p.faction).name, p.industry.to_upper()])
 	paragraph(body, p.description, 16)
 	paragraph(body,access.reason,14,TEAL)
+	host.core.Contacts.visit(host.core.state,p,host.core.state.day)
+	var tabs = row(body)
+	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
+		var value: String = item
+		var b = button(tabs, value, func(): open_port(value))
+		b.add_theme_color_override("font_color", GOLD if port_tab == value else MUTED)
+	button(body,"Advanced harbor services",open_harbor_services)
+	match port_tab:
+		"Market": market_view(body, p)
+		"Boatyard": yard_view(body, p)
+		"Crew & repairs": fleet_view(body, true)
+		"Refit": RefitUI.roster(self, body)
+		"Economy": economy_view(body, p)
+		"Contracts": contracts_view(body)
+	spacer(body, 10)
+	var actions = row(body)
+	button(actions, "Wait one day", func(): host.wait_one_day())
+	button(actions, "Sail on  ↗", close_modal, true)
+
+func open_harbor_services():
+	var p: Dictionary=host.core.current_port()
+	if p.is_empty():
+		toast("Sail to a harbor first.",true)
+		return
+	modal_kind="harbor_services"
+	var body=modal("Advanced harbor services",str(p.name))
 	button(body,"Trade estimates & observed shortages",func():TradeUI.open(self))
 	button(body,"Faction standing & safe passage",func():FactionUI.open(self))
-	host.core.Contacts.visit(host.core.state,p,host.core.state.day)
 	button(body,"Voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	button(body,"Fishing crews & civilian voyages",func():VoyageUI.open(self,"Fishing"))
 	button(body,"Coastal stories & expedition leads",func():StoryUI.open(self))
@@ -475,22 +512,7 @@ func open_port(tab: String = ""):
 	button(body,"Boarding crews & coastal defense",func():BoardingUI.open(self))
 	button(body,"Regional crises & civilian passage",func():CrisisUI.open(self))
 	if p.industry=="shipyard":button(body,"Recovered drawings & design licenses",func():RecoveryUI.blueprints(self))
-	var tabs = row(body)
-	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
-		var value: String = item
-		var b = button(tabs, value, func(): open_port(value))
-		b.add_theme_color_override("font_color", GOLD if port_tab == value else MUTED)
-	match port_tab:
-		"Market": market_view(body, p)
-		"Boatyard": yard_view(body, p)
-		"Crew & repairs": fleet_view(body, true)
-		"Refit": RefitUI.roster(self, body)
-		"Economy": economy_view(body, p)
-		"Contracts": contracts_view(body)
-	spacer(body, 10)
-	var actions = row(body)
-	button(actions, "Wait one day", func(): host.wait_one_day())
-	button(actions, "Sail on  ↗", close_modal, true)
+	button(body,"Back to harbor",func():open_port())
 
 func market_view(body: Node, p: Dictionary):
 	paragraph(body, "Prices follow local stocks, labor and trade. Working stores aboard boats are separate from cargo. Buy reserves here, then load them through the Hold screen.", 14)

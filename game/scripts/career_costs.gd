@@ -14,6 +14,7 @@ const Deployment=preload("res://scripts/deployment.gd")
 const Factions=preload("res://scripts/factions.gd")
 const Routes=preload("res://scripts/route_cache.gd")
 const Navigation=preload("res://scripts/navigation.gd")
+const Contracts=preload("res://scripts/contracts.gd")
 const CAREERS=["explorer","merchant","escort","privateer","fisher","passenger"]
 
 class QuoteView extends RefCounted:
@@ -35,6 +36,11 @@ class QuoteView extends RefCounted:
 	func capacity() -> float:return Expedition.capacity(state)
 	func cargo_weight() -> float:return Expedition.cargo_weight(state)
 	func travel_speed() -> float:return speed
+	func crew_count() -> int:
+		var crew: int=0
+		for b in state.get("fleet",[]):
+			if not b.get("sunk",false):crew+=int(b.get("crew",0))
+		return crew
 	func distance(a: Dictionary,b: Dictionary) -> float:return Vector2(a.x,a.y).distance_to(Vector2(b.x,b.y))
 	func current_port() -> Dictionary:
 		for p in state.get("ports",[]):
@@ -89,6 +95,69 @@ static func _budget(v,distance: float,work_days: float=0.0,kits: float=0.0) -> D
 		"food":food,"foodCoins":ceili(food*prices.food),"fuelReserve":fuel,"fuelCoins":ceili(fuel*prices.fuel),"workKits":kits,"workKitCoins":ceili(kits*prices.supplies),
 		"repairQuoteCoins":repair,"repairQuoteAvailable":repair_available,"repairNote":repair_reason,"repairKitUnitCoins":prices.supplies,"ammoCaseCoins":prices.ammo,"roundsPerCase":Goods.ROUNDS_PER_CASE,
 		"allowanceCoins":total,"freeHold":e.freeCapacity,"capacity":e.usableCapacity,"prices":prices,"pricePort":p.get("id",""),"summary":summary}
+
+static func contract_offers(c) -> Array:
+	return Contracts.available(QuoteView.new(c))
+
+static func contract_quote(c,actual_offer: Dictionary) -> Dictionary:
+	if actual_offer.is_empty():return {}
+	var v=QuoteView.new(c)
+	var j: Dictionary=actual_offer.duplicate(true)
+	var current: Dictionary=v.state.get("activeContract",{})
+	var active: bool=not current.is_empty() and str(current.id)==str(j.id)
+	var listed: bool=active
+	if active:j=current.duplicate(true)
+	else:
+		for offer in Contracts.available(v):
+			if str(offer.id)==str(j.id):j=offer;listed=true;break
+	var sponsor: Dictionary=v.port(str(j.get("port","")))
+	var target: Dictionary=v.port(str(j.get("targetPort","")))
+	var reached: bool=not target.is_empty() and v.distance(v.state.position,target)<90.0
+	var distance: float=-1.0 if target.is_empty() else (0.0 if reached else _length(v,v.state.position,target))
+	var budget: Dictionary=_budget(v,maxf(0,distance))
+	var endurance: Dictionary=Expedition.report(v.state,v.data,maxf(0,distance))
+	var payer: String=str(j.get("payerKey","cash" if j.get("kind","")=="delivery" else "governmentPurse"))
+	var reward: int=int(j.get("reward",0))
+	var funded: bool=int(j.get("escrow",0))==reward if active else int(sponsor.get(payer,0))>=reward
+	var blockers: Array=[]
+	if not listed:blockers.append("This offer is no longer available; refresh the work board.")
+	if distance<0:blockers.append("No safe sailing route. Sailing quote unavailable; allowance excludes travel.")
+	if not funded:blockers.append("Contract escrow is incomplete." if active else "The sponsor cannot fund this contract's escrow today.")
+	if not active and not current.is_empty():blockers.append("Finish or abandon the active contract first.")
+	var dock: Dictionary=v.current_port()
+	var at_sponsor: bool=not dock.is_empty() and str(dock.id)==str(j.get("port",""))
+	var cargo_ok: bool=true
+	if not active and j.has("cargo"):
+		var good: String=str(j.cargo.good);var qty: float=float(j.cargo.qty)
+		cargo_ok=float(sponsor.get("stocks",{}).get(good,0))>=qty and v.cargo_weight()+qty*float(Goods.ITEMS[good].weight)<=v.capacity()
+		if not cargo_ok:blockers.append("The sponsor lacks that sealed cargo, or your hold is full.")
+	if active and v.state.get("freight",{}).get("lost",false):blockers.append("Sealed freight was lost; the delivery cannot be collected.")
+	var can_accept: bool=not active and listed and current.is_empty() and at_sponsor and funded and cargo_ok and distance>=0
+	if not active and not at_sponsor:blockers.append("Accept at %s; this route quote excludes any detour to the sponsor."%str(sponsor.get("name","the sponsoring harbor")))
+	if v.active_fleet().is_empty():blockers.append("Prepare a seaworthy, crewed traveling boat.")
+	if int(v.state.get("wageArrears",0))>0:blockers.append("Existing crew wage arrears are still due.")
+	if float(endurance.affordableDays)<float(budget.days):blockers.append("Current purse cannot cover the quoted payroll allowance.")
+	if float(endurance.foodDays)<float(budget.days):blockers.append("Food does not cover the return and contingency allowance.")
+	if float(endurance.fuelDays)<float(budget.days):blockers.append("Working fuel does not cover the allowance; load loose reserves through Hold.")
+	if float(endurance.overload)>0:blockers.append("Holds are overloaded.")
+	if not budget.repairQuoteAvailable:blockers.append("Current dock repair quote unavailable at sea.")
+	elif int(budget.repairQuoteCoins)>0:blockers.append("Paid hull and installed-module repairs remain quoted separately below.")
+	return {"offer":j,"active":active,"atSponsor":at_sponsor,"atDestination":reached,"canAccept":can_accept,"funded":funded,"payerKey":payer,
+		"routeAvailable":distance>=0,"routeDistance":distance,"operatingCosts":budget,"endurance":endurance,"grossRewardCoins":reward,
+		"estimatedSurplusCoins":reward-int(budget.allowanceCoins) if distance>=0 else null,"secondHull":_second_hull(v,budget,reward),"blockers":blockers,"ready":blockers.is_empty()}
+
+static func _second_hull(v,budget: Dictionary,reward: int) -> Dictionary:
+	var p: Dictionary=v.current_port();var best: Dictionary={}
+	for id in Harbor.catalogue(v,p):
+		var h: Dictionary=v.hull(str(id));var q: Dictionary=Harbor.quote(v,h,p)
+		var crew: int=Economy.recruit_cost(p,int(h.crewMin))
+		var total: int=int(q.readyPrice)+crew
+		if best.is_empty() or total<int(best.entryCoins):
+			best={"id":id,"name":h.name,"readyCoins":q.readyPrice,"commissionCoins":q.commissionPrice,"minimumCrew":h.crewMin,"crewAdvanceCoins":crew,"entryCoins":total,"stock":p.get("shipStock",{}).get(id,0)}
+	if not best.is_empty():
+		var after: int=int(v.state.get("coins",0))-int(v.state.get("wageArrears",0))+reward-int(budget.allowanceCoins)
+		best["gapCoins"]=maxi(0,int(best.entryCoins)-after)
+	return best
 
 static func _offer(v,kind: String) -> Dictionary:
 	for j in Jobs.available(v):

@@ -1,0 +1,74 @@
+051 OPENING SOURCE HANDOFF - APPROVED FOUR-FILE IMPLEMENTATION
+
+Base: dce9511974498ef60febb4f23357029fe79c3a9c.
+Source candidate only. Native fixture and exported visual review remain UNRUN.
+No engine, QA, import/export, render, GPU, helper or framework work performed.
+Metadata051 was already prepared; no versions, saves, packages or launcher edited.
+
+Exact commit allowlist:
+  game/scripts/interface.gd
+  game/scripts/guidance_ui.gd
+  game/scripts/career_costs.gd
+  game/tests/test_career_flow038.gd
+  tools/quality051/OPENING SOURCE.txt (this handoff)
+The pre-existing untracked OPENING_PROPOSAL.txt is preserved, unstaged.
+
+Implemented:
+- Continue/New voyage is the title's focused primary campaign action. Coastal
+  Clash remains visible, secondary; its existing reusable helper keeps the
+  previous default primary argument for other callers.
+- Campaign HUD shows the actual active/next story title and one voyage-review
+  action. Fleet/Hold/Contracts stay in the bottom strip. Eight specialist links
+  retain their callbacks under More charts & business.
+- Harbor retains its synchronization, access/inspection checks and contact visit.
+  Six ordinary tabs precede Advanced harbor services. All fifteen specialist
+  callbacks and conditional shipyard blueprint callback are retained there.
+- GuidanceUI.open_voyage quotes on opening/refresh only. No quote construction
+  runs in update_hud. It recommends the actual story offer or active contract;
+  an existing Contracts sealed dispatch is the secondary alternative.
+- CareerCosts.contract_offers/contract_quote use detached QuoteView state and
+  actual Contracts.available, route_cache path/_length, _budget and Expedition.
+  The tiny crew_count adapter matches the existing campaign offer API.
+- The review shows actual destination, hostile hull count, gross reward and
+  sponsor/escrow funding, safe-route distance, daily/return payroll, two reserve
+  days, food/working-fuel coverage, repair kits and current paid service quote.
+  Unsafe routes produce reserve-only costs and no surplus estimate. Funding,
+  sealed cargo/hold shortages and preparation blockers remain visible.
+- Reward-minus-allowance and second-hull gap are conditional estimates. The
+  allowance values all replacement stores, not only missing purchases. Cheapest
+  local catalogue ready-hull entry includes the actual minimum crew advance;
+  stock and commission price are shown. Future damage/ammunition, fitting,
+  fighting time and the new boat's stores/payroll are extra.
+- Accept -> fresh review, chart destination -> existing course API, engage and
+  collect all call existing Main methods. No action is automatically triggered
+  by opening a quote. Existing validation/save behavior remains authoritative.
+  Paid repairs/crew, paid fitting and local boatyard links open existing tabs.
+
+Fixture changes (source only, UNRUN):
+- Preserve every original _flow assertion. Append bounded opening and compact
+  menu cases in the same test_career_flow038.gd; no new runner or framework.
+- Real opening route/payroll/allowance and second-hull arithmetic; alternate
+  dispatch; missing sponsor funding, sealed cargo, free hold and safe route.
+- Complete typed state/world nonmutation and pending economy preserved while
+  opening/closing a review. Actual accept/chart/collect callbacks, engagement
+  button without battle execution, and refusal of a second reward collection.
+- Retained campaign/harbor callback presence, immediate tabs, and representative
+  actual priorities/trade menu callbacks.
+
+Source review completed:
+- Read touched APIs in Contracts, Main, Expedition, Harbor, Economy,
+  route_cache and construction quote declarations; no invented method calls.
+- Inspected all four diffs and named-file scope. Original interface.gd is
+  explicitly -text/CRLF; preserve that convention and review whitespace with
+  core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol.
+- No native/parser/API-advisory/QA command was run under the latest no-QA brief.
+  This commit is an implementation handoff, not a passing-test claim.
+
+Root review points:
+- Run the existing career-flow fixture in Root's bounded background TestBridge
+  batch. All candidate native assertions still require actual execution.
+- Review actual title/HUD/harbor/voyage modal at1600x1000 and1280x800; check
+  scroll, buttons, six-tab row and long contract/harbor names.
+- Play the actual first voyage, check paid fitting and verify the displayed
+  conditional second-hull shortfall against current local prices and stores.
+  No FPS, profit,30-minute playfeel, campaign-completion or051 acceptance claim.
