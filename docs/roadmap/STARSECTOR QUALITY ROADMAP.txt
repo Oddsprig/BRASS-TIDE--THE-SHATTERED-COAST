@@ -2,16 +2,16 @@ BRASS TIDE - STARSECTOR QUALITY ROADMAP
 27 October 2026 | Sequential execution from the v0.041 baseline
 
 CURRENT EXECUTION STATUS
-Delivered through v0.050; v0.051 active, MilestoneA OPEN, no052 breadth.
-Desktop remains050. R42 actualvoyage274/geometry669/retained351/worker204/
-traffic43/fire123/Art205 PASS; the weapon test hit its512MiB memory ceiling
-at the final catalogue hull (one decode failure,2283checks). R43 will validate
-fixture-only bounded texture lifetime and export; passed R42 input hashes and
-receipts are retained. Shared battle projection/atlas preparation is integrated.
-ActualR19 remains last measurement:42light8.359FPS/18.118ms/6stalls;
-16mixed59.991FPS/7.3965ms/no stalls. Quality gate still failed. New runtime
-measurement follows a passed current export; no speedup or051delivery claimed.
-Earlier baseline findings below are historical context.
+Delivered through v0.050;051 active, MilestoneA OPEN, no052 breadth.
+Desktop050 retained. R43 Weapon2283/export/three startsPASS55.172s; all R42
+passed AI/Art receipts retained against700 identical other game input hashes.
+Actual R20 quality FAILED:42light7.279FPS/sim17.3605ms/two route stalls;
+16mixed59.9988FPS/sim7.2635ms/three route stalls. Root reviewed both end PNGs.
+Next R44 tests ready-worker handoff before duplicate main decisions plus narrow
+current-step fire views; same actual opening and all live safety guards remain.
+Separate three-SolMAX work addresses the real R20 stalled cone request and
+Grok4.7HIGH's exact-order wake batching proposal; source only until validated.
+No051 tag/package/install or quality claim. Earlier findings are historical.
 
 THE TARGET
 A naval fleet RPG with the presentation, responsiveness, tactical decisions,

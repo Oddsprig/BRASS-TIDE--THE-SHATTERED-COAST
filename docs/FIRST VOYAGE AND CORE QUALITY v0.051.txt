@@ -1,26 +1,29 @@
 BRASS TIDE v0.051 - FIRST VOYAGE AND CORE QUALITY
 
 VALIDATION UPDATE - 27 October 2026
-R42 stopped69.250s including setup: actualvoyage274, geometry669, retained351,
-workers204, traffic43, fire123 and authoredArt205 allPASS. Weapon2283checks
-reported one last-hull WebP decode failure while peak job memory538894336B
-crossed the512MiB test ceiling. New batch-camera comparisons otherwise passed.
-Fixture-only a3a811a clears textures after each roster hull; no production/cap change.
-R43 will rerun Weapon045 and export/three starts only. R42 production and the
-passed fixtures remain unchanged; their receipts will be pinned by source hashes.
-R40 remains the last completed export; no new export/runtime result is claimed.
-R19 actual quality remains FAILED:42light8.359FPS/18.118ms/6stalls;
-16mixed59.9905FPS/7.3965ms/NOstalls. Fullfleet quality not accepted.
-Integrated source corrections:
-- eadce39: main reservations use existing .3s current prefix; full static land,
-  public paths and worker2s forecasts remain. d5a46af corrects the old fixture
-  crossing while retaining imminent/no-origin/public2s coverage (R42PASS43).
-- f201191: one side batch per150ms plus guarded once-current observation;
-  budgets/deadlines/60Hz and synchronous.30/pooledoriginal.45 policy preserved.
-- e856363: private canonical battle projector/scale once per draw and fresh
-  field-validated atlas warm hits; public/custom projections remain checked.
-Only after passed current export: actualfull42/16boats,300DPside,60Hz runtime.
-No051tag/package/install/no052. Desktop050 and earlier build receipts retained.
+R43 PASS: all2,283 Weapon045 assertions, export and three portable starts,
+55.172 seconds including setup. Fixture-only texture cleanup reduces peak
+memory from538,894,336 to334,090,240 bytes with the512MiB cap unchanged.
+R42 passed actualvoyage274/geometry669/retained351/workers204/traffic43/
+fire123/Art205. Their700 unchanged game inputs match R43 by SHA256; only the
+Weapon045 fixture and these developer notes changed. R42 failures are retained.
+Actual rendered R20 completed57.875 seconds, QUALITY FAILED:
+-42 light boats,300DP per side:7.279FPS; simulation median17.3605ms,
+ P95 23.360ms; all42 moved,36 moving at end, two persistent route stalls.
+-16 mixed boats,300DP per side:59.9988FPS; simulation median7.2635ms,
+ P95 10.017ms; all16 moved, six moving at end, three persistent route stalls.
+Root reviewed both actual end images. No foreground/input/audio control used.
+Light planning median11.3825ms, begin9.565ms, observation3.498ms,
+certification2.5825ms; worker584 adoptions versus2,204 synchronous fallbacks.
+Active draw median7.0125ms (boats4.201ms, wake1.637ms). All actors and60Hz
+remain; SAFE rendering model1,24 allowed CPU cores, RTX5090Laptop recorded.
+Reviewed source f4ef660 narrows current-step fire views; 9aada13/3d8924e lets
+ready worker answers reach existing guarded joins before duplicate selection.
+R44 validates these with actualvoyageFIRST/affectedAI/export/starts119swhole.
+The third SolMAX continues the actual stalled-route fix; a free Sol implements
+Grok4.7HIGH's reviewed frame-local wake-batch proposal. Neither delays R44.
+No new campaign breadth,
+no051 tag/package/install; Desktop050 retained. R20 is not a quality pass.
 All earlier checkpoints below are historical context.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
