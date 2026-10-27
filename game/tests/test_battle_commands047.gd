@@ -46,6 +46,7 @@ func run():
 	var reserves: Dictionary = st.reserves.duplicate(true)
 	var deployment: Dictionary = st.deployment.duplicate(true)
 	var rng_state: int = st.rng.state
+	var survival_choice_preserved: bool = Battle.set_tactical_options(st, [id], {"conditionalWithdrawal": true})
 	for command: String in ["engage", "harass", "focus", "escort", "defend", "rally", "hold", "withdraw"]:
 		var target: Dictionary = {}
 		if command == "focus":target.shipId = str(foe.id)
@@ -56,12 +57,14 @@ func run():
 		check(int(own.orderRevision) == revision + 1 and host.battle_command_ack.count == 1 and not host.ui.message.is_empty(), command + " publishes an immediate visible acknowledgement")
 		check(float(st.tactical.counters.orderAcks[-1].age) == 0.0 and st.tactical.counters.orderAcks[-1].shipId == id, command + " uses the immediate authoritative order acknowledgement")
 		var opts: Dictionary = st.tactical.options.byId[id]
+		if command in ["focus", "hold"]:survival_choice_preserved = survival_choice_preserved and bool(opts.conditionalWithdrawal)
 		if command == "harass":check(own.order == "engage" and opts.doctrine == "cautious" and opts.role == "skirmisher", "harass is cautious pressure")
 		if command == "focus":check(own.order == "attack" and own.orderTarget.shipId == foe.id and opts.doctrine == "aggressive", "focus locks the actual enemy")
 		if command == "escort":check(own.order == "escort" and opts.protectedAllyId == ally.id, "escort protects the actual ally")
 		if command == "defend":check(own.order == "hold" and own.orderTarget == target, "defend holds the named water")
 		if command == "rally":check(own.order == "move" and opts.rally == target, "rally uses real move then hold lifecycle")
 		if command == "hold":check(own.order == "hold" and own.orderTarget == {"x":float(own.x),"y":float(own.y)}, "hold brakes at its own position")
+	check(survival_choice_preserved, "focus and hold preserve the explicit survival withdrawal choice")
 	var before: PackedByteArray = var_to_bytes([st.ships, st.tactical])
 	for bad: Dictionary in [{"shipId":str(ally.id)}, {"shipId":"gone"}]:
 		check(not host.request_battle_command("focus", bad), "invalid focus rejected visibly")

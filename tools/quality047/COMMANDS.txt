@@ -30,6 +30,10 @@ Legacy command_selected remains raw Battle.issue_order, preserving chosen
 role/doctrine/conditional settings, select-all fallback, keys1/2/3 and normal
 right-click context. It now acknowledges success as well as rejection.
 Battle.set_tactical_options and Battle.issue_order remain the mutation APIs.
+Root review fix: new bar commands preserve each hull's chosen conditional
+survival withdrawal policy; the default remains false. One added assertion
+preconfigures true and verifies focus/hold preserve it. Existing wrong-target
+byte-for-byte nonmutation checks follow with that choice still enabled. UNRUN.
 The small stateless adapter exists to keep target validation/mapping testable
 without main._ready, saves, music, native input or a second AI/order system.
 Its only extra dependency is read-only Battle._blocked for point preflight;

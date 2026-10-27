@@ -29,7 +29,7 @@ static func apply(st: Dictionary, ids: Array, command: String, target: Dictionar
 		if str(id) not in recipients:recipients.append(str(id));boats.append(boat)
 	var clean: Dictionary = {}
 	var order: String = str({"harass": "engage", "focus": "attack", "defend": "hold", "rally": "move"}.get(command, command))
-	var patch: Dictionary = {"doctrine": "steady", "role": "auto", "protectedAllyId": "", "conditionalWithdrawal": false}
+	var patch: Dictionary = {"doctrine": "steady", "role": "auto", "protectedAllyId": ""}
 	if order in ["attack", "escort"]:
 		if not (target.get("shipId") is String or target.get("shipId") is StringName):
 			return reply(command, false, "Choose an enemy to focus." if order == "attack" else "Choose a friendly boat to protect.")
