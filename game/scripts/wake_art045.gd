@@ -222,8 +222,10 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 		var origin: Vector2 = polygon[0]
 		for index in range(polygon.size()):
 			polygon[index] -= origin
-		var indices: PackedInt32Array = _band_indices(polygon, uncut)
 		if canvas is CanvasItem:
+			# Only Chart's explicit affine water projection proves parallel rails.
+			# Arbitrary public/custom projectors retain native triangulation.
+			var indices: PackedInt32Array = _band_indices(polygon, uncut and affine)
 			if not indices.is_empty():
 				canvas.draw_set_transform_matrix(Transform2D(0.0, origin))
 				# One color is copied onto every vertex, as draw_colored_polygon does.
