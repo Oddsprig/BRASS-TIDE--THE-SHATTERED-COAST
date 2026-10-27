@@ -3,20 +3,20 @@ BRASS TIDE — PRESENTATION MAP (generated; v0.051)
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 55168 bytes; extends Node2D
+game/scripts/chart.gd: 55892 bytes; extends Node2D
   game/scripts/chart.gd:63 profile_enable()
   game/scripts/chart.gd:68 profile_reset()
   game/scripts/chart.gd:74 profile_read()
   game/scripts/chart.gd:78 setup()
   game/scripts/chart.gd:102 polygon()
   game/scripts/chart.gd:108 polygon_center()
-game/scripts/boat_art.gd: 33610 bytes; extends RefCounted
-  game/scripts/boat_art.gd:36 archetype()
-  game/scripts/boat_art.gd:91 palette()
-  game/scripts/boat_art.gd:152 mounts_of()
-  game/scripts/boat_art.gd:455 draw_boat()
-  game/scripts/boat_art.gd:596 draw_wake()
-  game/scripts/boat_art.gd:601 draw_trail()
+game/scripts/boat_art.gd: 34884 bytes; extends RefCounted
+  game/scripts/boat_art.gd:53 archetype()
+  game/scripts/boat_art.gd:108 palette()
+  game/scripts/boat_art.gd:169 mounts_of()
+  game/scripts/boat_art.gd:472 draw_boat()
+  game/scripts/boat_art.gd:619 draw_wake()
+  game/scripts/boat_art.gd:624 draw_trail()
 game/scripts/boat_portrait.gd: 7540 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:50 set_spec()
   game/scripts/boat_portrait.gd:64 framing()

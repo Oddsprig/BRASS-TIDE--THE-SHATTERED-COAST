@@ -13,21 +13,25 @@ The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
 VALIDATION UPDATE - 27 October 2026
-R40 PASS933/0,77.047s inclsetup/export/three starts; same actualopening restored
-41.767sim/HP126.292/ammo46 with paidreturn/repair/refill/boost. Native game works.
-R19 actual57.844s quality FAILED:42light8.359FPS/18.118ms/6stalls;
-16mixed59.9905FPS/7.3965ms/NOstalls. No fullfleet quality acceptance.
-Reviewed source corrections now integrated:
-- Nave38b0c9 ->eadce39: ONLY two main reservation calls use existing .3s
-  physical-prefix horizon. Full static land/public paths and worker2s remain.
-- Perfbbc9939 ->f201191: roll back eager refill to one side batch per150ms;
-  guarded once-only current observation reuse. All budgets/deadlines/60Hz and
-  ordinary synchronous .30 / pooled original .45 preference policies remain.
-Next R41 SAMEactualvoyageFIRST, geometry/retained/workers/traffic/fire/export,
-119swhole. OnlyafterPASS actualR20 full42/16/300DPside at nativeplayresolution.
-Five rendering source hashes still match R40; prior art receipts retained.
-Separate shared-draw preparation is in progress, not included or claimed here.
-No051tag/package/install/no052 while core gate OPEN. Desktop050 retained.
+R41 stopped after44.172s including setup: actual voyage274, geometry669,
+retained351 and workers204 passed. The traffic40 fixture failed two crossings
+outside the new.3s main window. Source d5a46af corrects the crossing fixture;
+imminent-crossing/no-origin/public2s coverage stays. No export or FPS claim.
+R40 remains last full native pass933/0 in77.047s with the same paidopening.
+R19 actual quality remains FAILED:42light8.359FPS/18.118ms/6stalls;
+16mixed59.9905FPS/7.3965ms/NOstalls. Fullfleet quality not accepted.
+Integrated source candidates:
+- eadce39: two main reservation calls use the existing .3s current prefix;
+  full static land routes, public paths and worker2s forecasts remain.
+- f201191: one side batch per150ms plus guarded once-current observation;
+  unchanged budgets/deadlines/60Hz and synchronous.30/pooledoriginal.45 policy.
+- e856363: one private canonical battle projector/scale per draw, and fresh
+  field-validated atlas warm hits; public/custom projections remain checked.
+The rendering patch has source review only; native art validation is pending.
+Next bounded batch includes actualvoyageFIRST, affected AI, Art042/Weapon045,
+export and three starts; whole batch119s maximum. Only after pass, actualfull
+42/16 boats,300DPside,60Hz runtime measurement. No051tag/package/install/no052.
+Installed Desktop050 retained; every earlier checkpoint below is historical.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
 R29 8613de56778f420e87eadc78eb7b3c32: scoped1271/0,82.390s including

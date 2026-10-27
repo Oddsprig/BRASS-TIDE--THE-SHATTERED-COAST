@@ -3,13 +3,18 @@ BRASS TIDE - STARSECTOR QUALITY ROADMAP
 
 CURRENT EXECUTION STATUS
 Delivered through v0.050; v0.051 is active. The installed launcher remains
-v0.050. Milestone A is OPEN; v0.052 breadth has not started. R37's focused
-1,669 checks, actual opening voyage, export and three starts pass in84.656s.
-Actual R18 full300DP battles still miss runtime targets and retain5 light /
-1 mixed planner deadlocks. Three Bridge Sol6.1MAX handoffs now add synchronized
-reservation egress, semantic-only retention and smaller planning cohorts.
-These new source changes await native R38 and actual runtime R19 verification.
-The baseline findings below are historical context, not current measurements.
+v0.050. Milestone A is OPEN; v0.052 breadth has not started. R40 passes933
+checks, the actual unchanged paid opening voyage, export and three starts
+in77.047s. Actual R19 full300DP battles still miss the quality target:
+42 light boats8.359FPS /18.118ms median simulation, with6 persistent stalls;
+16 mixed boats59.991FPS /7.3965ms, with no persistent stalls.
+R41 now validates two source corrections: main reservations use the current
+0.3s prefix; worker planning dispatches one side batch per150ms and shares
+one fresh observation within a begin. These changes are not yet a native pass.
+The third Bridge Sol6.1MAX specialist separately reduces repeated projection
+and atlas metadata work while preserving artwork. Optional Grok edits have
+not applied; the Sol route keeps that work moving. No051 delivery or052 work
+is claimed. Earlier baseline findings below are historical context.
 
 THE TARGET
 A naval fleet RPG with the presentation, responsiveness, tactical decisions,
