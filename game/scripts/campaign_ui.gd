@@ -35,7 +35,9 @@ static func notes(ui) -> void:
 	var path="res://data/DEVELOPER NOTES.txt"
 	ui.paragraph(body,FileAccess.get_file_as_string(path) if FileAccess.file_exists(path) else "Development notes are being prepared for this build.",15,ui.TEXT)
 	ui.rule(body)
-	ui.paragraph(body,"Processor: %s · %d logical threads\nHarbor production: up to %d copied-state workers · Separate rendering enabled"%[OS.get_processor_name(),OS.get_processor_count(),clampi(OS.get_processor_count()-2,1,8)],14,ui.TEAL)
+	var render_mode: int = int(ProjectSettings.get_setting("rendering/driver/threads/thread_model", 1))
+	var render_label: String = "Separate" if render_mode == 2 else ("Safe" if render_mode == 1 else "Single")
+	ui.paragraph(body,"Processor: %s · %d logical threads\nHarbor production: up to %d copied-state workers · Rendering mode: %s"%[OS.get_processor_name(),OS.get_processor_count(),clampi(OS.get_processor_count()-2,1,8),render_label],14,ui.TEAL)
 
 static func islands(ui) -> void:
 	ui.modal_kind="islands"
