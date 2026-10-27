@@ -1,0 +1,131 @@
+BRASS TIDE046 - ROLE BEHAVIOR SOURCE CANDIDATE
+27 October2026 | SOURCE ONLY; Root integrates ONLY after045 delivery.
+
+ACTUAL INPUT / OWNERSHIP
+Clean starting HEAD674df61ffcc99f5fea1fa69e5c755d95a6d45c48, frozen045 feedback.
+New separate branch source/roles046-feedback. No rebase/reset or metadata edits.
+Root reference a0c9d37 and a0362bb have identical role/station/planner input.
+Exactly four owned files: tactical_role_plans.gd, tactical_stations.gd,
+tests/test_role_geometry046.gd and this report. Previous045 commit unchanged.
+
+INTEGRATION CONTRACT - AGREED WITH RUNTIME046
+Meeting brass-tide-quality-042-061: proposals b5e7f72c/bf25573c/0bc26df6;
+agreements be6a3505/32fd8c0c/d6991f01/892658a6. No new record fields or schemas.
+Roles.decide(view,ship,previous,context,reservations:Dictionary={}) and
+choose_target(...,role,reservations:Dictionary={}) append an optional argument.
+Runtime owns passing the EXISTING _planning local reservations as argument5.
+Only existing targetId/sector/until records from live friendly owners count;
+expired/dead/hostile/self owners and nonstation sectors do not supply pressure.
+Penalty saturates at3 friends; existing commitment/hysteresis wins small changes.
+Explicit attack/board targets and screen protection are not diverted by pressure.
+
+Runtime's agreed new pure API Routes.navigation_radius(ship)->float returns
+2.75*max(10,spec.size). Read actual declaration in sibling v045-weapons-sol.
+Roles/Stations preload Routes; Routes must not preload Roles (no dependency cycle).
+THIS COMMIT NEEDS Runtime046's routes helper/caller on integration. It is NOT
+standalone native-validated against the old local045 Routes file.
+Runtime commit925f899 supplies that helper/caller and opt-in hostile occupancy,
+corridor and live safety edits. Integrate the pair together, after045 delivery.
+Boarding retains its explicit physical-radius contact goal; manual helm, weapons,
+physics, collision/damage, custody, purses, Lab JSON and certification untouched.
+
+CONCRETE BEHAVIOR
+- Cannon-primary large/cruiser hulls infer heavy despite secondary fixed tubes.
+  A main-tube fit or explicit striker role still selects a strike boat. Explicit
+  escort always screens its named ally. Light role uses fitted nominal speed;
+  live damage/speed/turn still govern travel and survival, without role jitter.
+- Strike distance comes from the usable principal launcher, not a longer gun.
+  Its fitted angle/range drive staging; actual per-mount/legacy reload timers
+  distinguish staging from launch-window. Time alone never reports a salvo.
+  Existing real shot acknowledgements/spent pass identity still cause turn-away.
+- Light orbit direction stays tied to existing formation index, not sector parity.
+  Wider range-band stations and short bounded bends offer an approach around the
+  observed target. Existing actual burst, breakaway, regroup and failed pursuit
+  memory remain; no fabricated damage, hits or new readiness meter.
+- Heavies stop advancing once inside a useful fitted range band, keep stationary
+  pass points and let the existing helm bring working arcs to bear. Heavy/screen
+  holds no longer expire merely because an18second pursuit clock has elapsed.
+  A loaded/aligned/unspent secondary fixed tube can request launch-window while
+  KEEPING heavy station geometry. Each tube retains the existing one-shot pass
+  lease and actual acknowledgement. Holding never increments passSequence or
+  rearms a tube; a real retreat/regroup+separation or new explicit attack is still
+  required. Guns retain their continuous gates. Runtime confirmed this seam.
+- Screens score observed closing danger to the real protected ally, lead an
+  intercept modestly and keep its leash. Formation remains for clear transit;
+  front and lateral alternatives preserve room around the protected hull.
+  Unnamed protection can move to a newly wounded ally with160score hysteresis.
+  Explicit escort/protectedAllyId cannot silently switch to another hull.
+- Support prefers an armed protector (especially its actual assigned escort),
+  discounts a failing protector and asks for a rear position outside its hull.
+  Friendly HP/flood/guns and observed hostile arcs are the only inputs here.
+- Severe live mobility loss under focused fire, flood/fire/HP danger, exhausted
+  stores or an autonomous close target envelope cause an explained local retreat.
+  Existing conditional-withdrawal and explicit order rules still apply.
+
+ACTUAL045 MOTION STEERING
+Viewed frame09(1.5s) and frame14(4.983s) in motion-review-v045-failed-r1. The
+Dreadnought/Cobalt overlap and checking/reform texts are real observations from a
+FAILED wake-render diagnostic. No rendered performance or successful motion
+claim is inferred. Root owns a fresh integrated motion comparison.
+Route occupancy previously skipped hostiles. New candidate stand-off uses both
+agreed navigation envelopes plus12units, with a further station/runout margin.
+At most four45degree bends replace a chord through the observed target; chords
+stay outside the envelope after any inherited separating egress. Strike pass length stops before that envelope instead
+of blindly driving60/90units toward the hull. A crowded autonomous ship seeks
+separating egress, and a threatened rally inside the target gets a local escape.
+Retreat offers both sides before allied detours. An allied detour that crosses
+the selected hostile is omitted. Approach/pass/exit are still only requests:
+existing terrain, allied traffic, whole-path/live hostile and actual fire checks
+can reject them. No unconditional escape-water promise is made.
+Navigation's conservative circle intentionally differs from Battle contact and
+projectile radius=size. Full art/contact footprint alignment remains049 evidence;
+no collision/ramming/weapon geometry or asset changes are included here.
+
+BOUNDS / OWNERSHIP
+At most16 detailed observed hostiles,16 mounts,8 offers,8 points per leg and24
+points per candidate remain. Around-target helper returns at most7points; a final
+staging point can use the eighth. No new history/cache/thread/job/meter/framework.
+Ordinary leader scoring does not scan other allies' fitted weapons; support's
+protector choice inspects known friendly guns only. Shared pressure is counted
+once per decision, saturated per target. Motion/contacts/firing remain60Hz under
+Runtime. No reduction in actors, fleet DP, physics rate or worker availability.
+All state changes stay in detached role memory, never live ammo/crew/fuel/kits.
+
+FOCUSED FIXTURE - PREPARED, NOT EXECUTED
+test_role_geometry046.gd builds a real canonical mixed-fit Lab fleet, performs
+one public1/60s Battle.update and reads Tactical.view. It checks inferred heavy
+role with secondary tubes; pressure sharing versus live target commitment and
+public explicit attack; bounded unchanged candidate schema; approach/pass/exit
+target-envelope clearance; one opposite-side orbit chord case; nonmutation of
+snapshot/reservations/world. It contains no manufactured shot/event/certificate,
+store refills, audio playback or simulation/capture framework. It is not six-
+scenario proof. Native parsing/assertions/walltime remain UNKNOWN until Root.
+Root-only TestBridge: --headless --path <integrated-game> --audio-driver Dummy
+--script res://tests/test_role_geometry046.gd ; selected whole batch <120seconds.
+Existing tactical memory/order/ammo/cap assertions are unchanged, not weakened.
+
+OBSERVABLE SIX-SCENARIO PROOF - ROOT / RUNTIME SEAT, BOTH SIDES
+1 Flanker vs heavy: meaningful lateral setup, real shots/ammo debit, stable turn
+  direction; heavy holds useful arc water; light leaves after an actual burst.
+2 Escort vs raider: named carrier stays the leader; screen interposes against
+  closing raider while remaining leashed; nearby harmless decoy does not steal it.
+3 Strike pass: actual fitted tube range/angle, loading and launch; one paid real
+  pass acknowledgement then separation/regroup, not timestamp-free fake firing.
+4 Withdrawal: actual damage/flood/engine/finite stores trigger a safe local exit
+  request, with either separating motion or a truthful blocked reason; no hull
+  overlap, repeated direction flips or fake repairs/ammo to produce success.
+5 Wounded ally cover: an automatically protected real wounded ally can displace a
+  less urgent assignment; explicit escort remains on its commanded hull; screen
+  covers the wounded boat's retreat rather than all ships chasing the attacker.
+6 Mixed fleet: distinct heavy/light/strike/support positions, distributed target
+  pressure and rear support; record actual fire/denials, path waits and contacts.
+Use actual60Hz motion and real stores/events on each side, preserve failed and
+interrupted results. No guaranteed duel wins, performance acceptance, listening,
+fun or Starsector parity claim follows from these source requests or checks.
+
+SOURCE REVIEW
+Read actual role/station/planner/runtime observation, physical helm/fire, route
+and hull profile declarations narrowly. git diff --check is clean at handoff.
+No engines/tests/native/GPU/Blender/bakes/audio/CUA/downloads/helpers/paid calls,
+remote push, metadata change, saves/music/launcher change or Git maintenance run.
+Commit uses named files only, hooks disabled, gc.auto=0, maintenance.auto=false.

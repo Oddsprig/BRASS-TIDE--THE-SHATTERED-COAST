@@ -1,6 +1,7 @@
 extends RefCounted
 ## Candidate geometry is a REQUEST. Only B's certificate permits execution.
 const Roles = preload("res://scripts/tactical_role_plans.gd")
+const Routes = preload("res://scripts/tactical_routes.gd")
 const MAX_OFFERS: int = 8
 const MAX_LEG: int = 8
 const MAX_POINTS: int = 24
@@ -125,7 +126,7 @@ static func rally(view: Dictionary, ship: Dictionary, protected: Dictionary, tar
 		return _point(supplied, position)
 	if not protected.is_empty():
 		var away: Vector2 = (Roles.pos(protected) - Roles.pos(target)).normalized() if not target.is_empty() else -Vector2.from_angle(Roles.number(protected.get("angle")))
-		return Roles.pos(protected) + away * (Roles.radius(protected) + Roles.radius(ship) + 90.0)
+		return Roles.pos(protected) + away * (Routes.navigation_radius(protected) + Routes.navigation_radius(ship) + 90.0)
 	var direction: Vector2 = (position - Roles.pos(target)).normalized() if not target.is_empty() else Vector2.LEFT
 	if direction.length_squared() < 0.01:
 		direction = Vector2.LEFT if str(ship.get("team", "")) == "player" else Vector2.RIGHT
@@ -135,17 +136,7 @@ static func _incoming_threat(enemy: Dictionary, protected: Dictionary, leash: fl
 	# Only an already shortlisted target is inspected. Formation remains useful
 	# in transit; real weapon cover or closing into its bounded protection zone
 	# makes the screen interpose instead of crossing behind its protected hull.
-	if Roles.threat(enemy, protected, now) > 0.0:
-		return true
-	var delta: Vector2 = Roles.pos(enemy) - Roles.pos(protected)
-	var relative: Vector2 = Roles.velocity(enemy) - Roles.velocity(protected)
-	if delta.dot(relative) >= 0.0:
-		return false
-	var reach: float = 0.0
-	for mount: Dictionary in Roles.mounts(enemy):
-		reach = maxf(reach, Roles.number(mount.get("range")))
-	var closest_time: float = clampf(-delta.dot(relative) / maxf(0.00001, relative.length_squared()), 0.0, 2.0)
-	return reach > 0.0 and (delta + relative * closest_time).length() <= reach + leash
+	return Roles.protection_threat(enemy, protected, now, leash) > 0.0
 
 static func formation_offset(view: Dictionary, ship: Dictionary, protected: Dictionary) -> Vector2:
 	var opts: Dictionary = Roles.options(view, ship)
@@ -156,7 +147,7 @@ static func formation_offset(view: Dictionary, ship: Dictionary, protected: Dict
 	var index: int = members.find(str(ship.id))
 	if index < 0:
 		index = maxi(0, int(Roles.number(ship.get("formationIndex"))))
-	var spacing: float = Roles.radius(ship) * 2.0 + 30.0
+	var spacing: float = maxf(Roles.radius(ship) * 2.0 + 30.0, Routes.navigation_radius(ship) + Routes.navigation_radius(protected) + 24.0)
 	var side: float = 1.0 if index % 2 == 0 else -1.0
 	var row: int = int(floor(float(index) / 2.0))
 	var offset: Vector2 = Vector2(-70.0, side * spacing * float(row + 1))
@@ -340,6 +331,29 @@ static func _move_detours(ship: Dictionary, position: Vector2, goal: Vector2, co
 		result.append([position, center - forward * lead + offset, center + forward * lead + offset, goal])
 	return result
 
+static func _target_approach(position: Vector2, goal: Vector2, target: Dictionary, clearance: float, side: float) -> Array:
+	# A bounded request around the observed hull, never a reachability verdict.
+	# The chord between successive 45-degree corners stays outside clearance.
+	var center: Vector2 = Roles.pos(target)
+	if goal.distance_to(center) < clearance:
+		return []
+	if _distance(center, position, goal) >= clearance:
+		return [position, goal]
+	var start: Vector2 = position - center
+	if start.length_squared() < 0.0001:
+		start = -Vector2.from_angle(Roles.number(target.get("angle")))
+	var first_angle: float = start.angle()
+	var turn: float = angle_difference(first_angle, (goal - center).angle())
+	if absf(absf(turn) - PI) < 0.0001:
+		turn = PI * side
+	var steps: int = maxi(1, ceili(absf(turn) / (PI / 4.0)))
+	var orbit_radius: float = clearance / cos(PI / 8.0) + 4.0
+	var path: Array = [position, center + Vector2.from_angle(first_angle) * orbit_radius]
+	for i: int in range(1, steps + 1):
+		path.append(center + Vector2.from_angle(first_angle + turn * float(i) / float(steps)) * orbit_radius)
+	path.append(goal)
+	return path
+
 static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary, context: Dictionary, reservations: Dictionary = {}) -> Array:
 	var state: Dictionary = decision.state
 	var protected: Dictionary = Roles.dictionary(context.get(str(state.get("leaderId", ""))))
@@ -348,6 +362,9 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 	var phase: String = str(state.phase)
 	var order: String = str(ship.get("order", "engage"))
 	var opts: Dictionary = Roles.options(view, ship)
+	var orbit_side: float = 1.0 if int(Roles.number(ship.get("formationIndex"))) % 2 == 0 else -1.0
+	var own_envelope: float = Routes.navigation_radius(ship)
+	var target_clearance: float = own_envelope + Routes.navigation_radius(target) + 12.0 if not target.is_empty() else 0.0
 	var fire_mounts: Array = []
 	var longest_reach: float = 0.0
 	var has_gun: bool = false
@@ -376,26 +393,45 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 			goal = position
 		elif phase == "protected" and not protected.is_empty():
 			var away: Vector2 = (Roles.pos(protected) - Roles.pos(target)).normalized() if not target.is_empty() else -Vector2.from_angle(Roles.number(protected.get("angle")))
-			goal = Roles.pos(protected) + away * (Roles.radius(protected) + Roles.radius(ship) + 65.0) + formation_offset(view, ship, protected)
+			goal = Roles.pos(protected) + away * (Routes.navigation_radius(protected) + own_envelope + 135.0) + away.orthogonal() * orbit_side * (Roles.radius(ship) * 2.0 + 30.0)
+		if retreating and not target.is_empty() and goal.distance_to(Roles.pos(target)) < target_clearance + 24.0:
+			var away: Vector2 = (position - Roles.pos(target)).normalized()
+			if away.length_squared() < 0.01:
+				away = -Vector2.from_angle(Roles.number(target.get("angle")))
+			goal = position + away * maxf(target_clearance + 45.0, Roles.speed(ship) * 2.0)
 		var defend: bool = not nonfiring and order == "hold" and not fire_mounts.is_empty()
 		var move_target_id: String = str(target.get("id", "")) if (defend or order == "board") else ""
 		var hold_targets: Dictionary = _select_mount_targets(view, ship, decision, context, str(target.get("id", "")), goal) if defend else {}
-		result.append(_candidate(view, ship, state, str(target.get("id", "")), -1, [position, goal], [goal], [goal], fire_mounts if defend else [], 0, hold_targets))
+		var departure: Array = [position, goal]
+		if retreating and not target.is_empty():
+			departure = _target_approach(position, goal, target, target_clearance, orbit_side)
+		if not departure.is_empty():
+			result.append(_candidate(view, ship, state, str(target.get("id", "")), -1, departure, [goal], [goal], fire_mounts if defend else [], 0, hold_targets))
 		# A blocked shot must not prevent a legal nonfiring hold/move/rally.
 		if defend:
 			result.append(_candidate(view, ship, state, "", -1, [position, goal], [goal], [goal], [], 1))
+		if retreating:
+			var away: Vector2 = goal - position
+			for side: float in [orbit_side, -orbit_side]:
+				if result.size() >= MAX_OFFERS:
+					break
+				var alternate: Vector2 = position + away.rotated(side * 0.55)
+				var path: Array = [position, alternate] if target.is_empty() else _target_approach(position, alternate, target, target_clearance, side)
+				if not path.is_empty():
+					result.append(_candidate(view, ship, state, "", -1, path, [alternate], [alternate], [], result.size()))
 		if Roles.speed(ship) > 0.01 and position.distance_to(goal) > 1.0 and (order in ["move", "withdraw", "board"] or retreating):
 			for detour: Array in _move_detours(ship, position, goal, context):
 				if result.size() >= MAX_OFFERS:
 					break
+				var crosses_target: bool = false
+				if retreating and not target.is_empty():
+					for k: int in range(detour.size() - 1):
+						if _distance(Roles.pos(target), detour[k], detour[k + 1]) < target_clearance:
+							crosses_target = true
+							break
+				if crosses_target:
+					continue
 				result.append(_candidate(view, ship, state, move_target_id, -1, detour, [goal], [goal], [], result.size()))
-		if retreating:
-			var away: Vector2 = goal - position
-			for side: float in [-1.0, 1.0]:
-				if result.size() >= MAX_OFFERS:
-					break
-				var alternate: Vector2 = position + away.rotated(side * 0.55)
-				result.append(_candidate(view, ship, state, "", -1, [position, alternate], [alternate], [alternate], [], result.size()))
 		return result
 	if target.is_empty():
 		return [_candidate(view, ship, state, "", -1, [position], [position], [position], [], 0)]
@@ -419,7 +455,8 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 		var course: float = Roles.velocity(other).angle() if Roles.velocity(other).length() > 2.0 else Roles.number(other.get("angle"))
 		var angle: float = course + float(sector) * TAU / 8.0
 		var reach: float = float(decision.range)
-		var separation: float = maxf(Roles.radius(ship) + Roles.radius(other) + 45.0, reach * 0.62)
+		var clearance: float = own_envelope + Routes.navigation_radius(other) + 12.0
+		var separation: float = maxf(clearance + 20.0, reach * (0.78 if str(state.role) in ["skirmisher", "striker"] else 0.62))
 		var radial: Vector2 = Vector2.from_angle(angle)
 		var anchor: Vector2 = Roles.pos(other) + radial * separation
 		if sector == old_sector and str(other.id) == str(state.get("targetId", "")) and Roles.number(state.get("commitUntil")) > Roles.number(view.get("time")):
@@ -428,35 +465,39 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 				anchor = committed_anchor
 				if anchor.distance_squared_to(Roles.pos(other)) > 1.0:
 					radial = (anchor - Roles.pos(other)).normalized()
-		var tangent: Vector2 = radial.orthogonal() * (1.0 if sector % 2 == 0 else -1.0)
-		var pass_end: Vector2 = Roles.pos(other) + (anchor - Roles.pos(other)).rotated(0.28 if sector % 2 == 0 else -0.28)
+		var tangent: Vector2 = radial.orthogonal() * orbit_side
+		var pass_end: Vector2 = Roles.pos(other) + (anchor - Roles.pos(other)).rotated(0.28 * orbit_side)
 		var entry: Vector2 = anchor
 		var exit_point: Vector2 = pass_end + radial * 180.0 + tangent * 100.0
 		var screen_exit_corner: Variant = null
 		if str(state.role) == "striker":
 			var launch_heading: float = (Roles.pos(other) - anchor).angle()
-			for mount: Dictionary in Roles.useful_mounts(view, ship):
-				if Roles.fixed_tube(mount):
-					launch_heading -= Roles.number(mount.get("angle"))
-					break
+			var launcher: Dictionary = Roles.launch_mount(view, ship)
+			launch_heading -= Roles.number(launcher.get("angle"))
 			var forward: Vector2 = Vector2.from_angle(launch_heading)
 			entry = anchor - forward * maxf(65.0, Roles.speed(ship) * 0.65)
-			pass_end = anchor + forward * minf(90.0, separation * 0.3)
+			if _distance(Roles.pos(other), entry, anchor) < clearance:
+				entry = anchor + radial * maxf(65.0, Roles.speed(ship) * 0.65)
+			pass_end = anchor + forward * minf(90.0, maxf(0.0, anchor.distance_to(Roles.pos(other)) - clearance - 24.0))
+			if phase == "stage":
+				pass_end = anchor
 			exit_point = pass_end + radial * 180.0 + tangent * 130.0
 			if phase == "launch-window" and str(other.id) == str(state.get("targetId", "")):
 				# Already aligned: do not first drive backwards to a distant staging point.
 				entry = position
 				anchor = position
-				pass_end = position + Vector2.from_angle(Roles.number(ship.get("angle"))) * 60.0
+				pass_end = position + Vector2.from_angle(Roles.number(ship.get("angle"))) * minf(60.0, maxf(0.0, position.distance_to(Roles.pos(other)) - clearance - 24.0))
 				exit_point = pass_end + (position - Roles.pos(other)).normalized() * 180.0 + tangent * 130.0
 		elif str(state.role) == "screen" and not protected.is_empty():
-			var leash: float = maxf(Roles.radius(protected) + Roles.radius(ship) + 35.0, minf(Roles.number(opts.get("leash"), 600.0), maxf(240.0, reach)))
-			var threat_direction: Vector2 = (Roles.pos(other) - Roles.pos(protected)).normalized()
-			var lateral: Vector2 = threat_direction.orthogonal() * float((sector % 3) - 1) * (Roles.radius(ship) * 2.0 + 18.0)
-			anchor = Roles.pos(protected) + (threat_direction * minf(leash * 0.6, separation * 0.6) + lateral).limit_length(leash)
+			var ally_clearance: float = Routes.navigation_radius(protected) + own_envelope + 24.0
+			var leash: float = maxf(ally_clearance, minf(Roles.number(opts.get("leash"), 600.0), maxf(240.0, reach)))
+			var threat_direction: Vector2 = (Roles.pos(other) + Roles.velocity(other) * 0.75 - Roles.pos(protected) - Roles.velocity(protected) * 0.75).normalized()
+			var lateral: Vector2 = threat_direction.orthogonal() * float((sector % 3) - 1) * maxf(Roles.radius(ship) * 2.0 + 18.0, clearance + 12.0)
+			var guard_distance: float = minf(leash, maxf(ally_clearance, Roles.pos(other).distance_to(Roles.pos(protected)) - reach * 0.7))
+			anchor = Roles.pos(protected) + (threat_direction * guard_distance + lateral + Roles.velocity(protected) * 0.5).limit_length(leash)
 			if not incoming_by_target.has(str(other.id)):
 				incoming_by_target[str(other.id)] = _incoming_threat(other, protected, leash, Roles.number(view.get("time")))
-			if order == "escort" and str(opts.get("formation", "line")) != "screen" and not bool(incoming_by_target[str(other.id)]):
+			if str(opts.get("formation", "line")) != "screen" and not bool(incoming_by_target[str(other.id)]):
 				anchor = Roles.pos(protected) + formation_offset(view, ship, protected).limit_length(leash)
 			entry = anchor
 			pass_end = anchor
@@ -467,20 +508,35 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 				# checks both bounded segments, including the moving ally's occupancy.
 				var exit_side: float = signf((anchor - Roles.pos(protected)).dot(threat_direction.orthogonal()))
 				if exit_side == 0.0:exit_side = 1.0 if sector % 2 == 0 else -1.0
-				screen_exit_corner = Roles.pos(protected) + threat_direction.orthogonal() * exit_side * (Roles.radius(protected) + Roles.radius(ship) + 35.0)
+				screen_exit_corner = Roles.pos(protected) + threat_direction.orthogonal() * exit_side * (ally_clearance + 12.0)
 		elif str(state.role) == "heavy":
-			# Pressure stations stay modest; hull rotation brings working arcs to bear.
+			# Anchor useful water once in the firing band instead of chasing every
+			# target refresh. The unchanged helm rotates the fitted working arcs.
 			var toward: Vector2 = (Roles.pos(other) - position).normalized()
-			var advance: float = clampf(position.distance_to(Roles.pos(other)) - reach * 0.72, -60.0, 150.0)
-			anchor = position + toward * advance + toward.orthogonal() * float((sector % 3) - 1) * (Roles.radius(ship) * 2.0 + 24.0)
+			var distance: float = position.distance_to(Roles.pos(other))
+			var advance: float = 0.0 if distance >= maxf(clearance + 24.0, reach * 0.55) and distance <= reach * 0.88 else clampf(distance - maxf(clearance + 24.0, reach * 0.78), -90.0, 150.0)
+			anchor = position + toward * advance + toward.orthogonal() * float((sector % 3) - 1) * (Roles.radius(ship) + 12.0)
 			entry = anchor
 			pass_end = anchor
 			exit_point = rally(view, ship, protected, other)
-		var approach: Array = [position, entry, anchor]
+		var approach: Array = _target_approach(position, entry, other, clearance, orbit_side)
+		if approach.is_empty() or anchor.distance_to(Roles.pos(other)) < clearance:
+			continue
+		if entry.distance_to(anchor) > 0.0001:
+			approach.append(anchor)
 		var pass_path: Array = [anchor, pass_end]
 		var exit_path: Array = []
-		if screen_exit_corner is Vector2:exit_path.append(screen_exit_corner)
-		exit_path.append(exit_point)
+		var exit_goals: Array = [screen_exit_corner, exit_point] if screen_exit_corner is Vector2 else [exit_point]
+		var cursor: Vector2 = pass_end
+		for goal: Vector2 in exit_goals:
+			var escape: Array = _target_approach(cursor, goal, other, clearance, orbit_side)
+			if escape.is_empty():
+				exit_path = []
+				break
+			exit_path.append_array(escape.slice(1))
+			cursor = goal
+		if approach.size() > MAX_LEG or exit_path.is_empty() or exit_path.size() > MAX_LEG or _distance(Roles.pos(other), anchor, pass_end) < clearance:
+			continue
 		var pass_targets: Dictionary = _select_mount_targets(view, ship, decision, context, str(other.id), anchor)
 		var requested_fire: Array = fire_mounts
 		if str(state.role) == "screen":
@@ -504,7 +560,8 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 			# It certifies no continuation or exit at the remote firing anchor.
 			# The chosen sector still supplies the approach direction; B checks
 			# all offered geometry, the real physical prefix and every live step.
-			var local_station: Vector2 = position.move_toward(entry, stage_distance)
+			var next_point: Vector2 = approach[1] if approach.size() > 1 else entry
+			var local_station: Vector2 = position.move_toward(next_point, stage_distance)
 			approach = [position, local_station]
 			pass_path = [local_station]
 			exit_path = [local_station]

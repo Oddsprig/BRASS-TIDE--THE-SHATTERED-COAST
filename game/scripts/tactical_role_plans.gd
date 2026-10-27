@@ -1,5 +1,6 @@
 extends RefCounted
 ## Pure observations and role/phase decisions. Never changes a snapshot or real stores.
+const Routes = preload("res://scripts/tactical_routes.gd")
 const MAX_TARGETS: int = 16
 const MAX_MOUNTS: int = 16
 const COMMIT_SECONDS: float = 1.2
@@ -95,6 +96,32 @@ static func working_mounts(ship: Dictionary) -> Array:
 			result.append(mount)
 	return result
 
+static func mount_reload(ship: Dictionary, mount: Dictionary) -> float:
+	var timers: Array = array(ship.get("weaponCooldowns"))
+	var installed: Array = mounts(ship)
+	for i: int in range(installed.size()):
+		if str(installed[i].id) == str(mount.get("id", "")):
+			var remaining: float = number(timers[i]) if i < timers.size() else 0.0
+			return maxf(0.0, maxf(remaining, number(ship.get("cooldown"))) if i == 0 else remaining)
+	return INF
+
+static func launch_mount(view: Dictionary, ship: Dictionary) -> Dictionary:
+	# Stable fitted preference; a changing cooldown never flips the staging side.
+	var best: Dictionary = {}
+	var weight: float = -1.0
+	for mount: Dictionary in useful_mounts(view, ship):
+		if not fixed_tube(mount):
+			continue
+		var value: float = number(mount.get("damage")) * maxf(0.01, number(mount.get("fireRate"), 1.0))
+		if value > weight or (is_equal_approx(value, weight) and str(mount.id) < str(best.get("id", "~"))):
+			best = mount
+			weight = value
+	return best
+
+static func role_range(view: Dictionary, ship: Dictionary, role: String) -> float:
+	var launcher: Dictionary = launch_mount(view, ship) if role == "striker" else {}
+	return maxf(1.0, number(launcher.get("range"), 80.0)) if not launcher.is_empty() else useful_range(view, ship)
+
 static func weapon_range(ship: Dictionary) -> float:
 	var best: float = 80.0
 	for mount: Dictionary in mounts(ship):
@@ -120,6 +147,25 @@ static func useful_range(view: Dictionary, ship: Dictionary) -> float:
 			return float(item.range)
 	return float(weighted[-1].range)
 
+static func _leader_score(view: Dictionary, ship: Dictionary, other: Dictionary, support: bool) -> float:
+	var score: float = radius(other) * 3.0 - pos(ship).distance_to(pos(other)) * 0.04
+	var hp: float = clampf(number(other.get("hp"), 1.0) / maxf(1.0, number(other.get("maxHp"), 1.0)), 0.0, 1.0)
+	var flood: float = clampf(number(other.get("water")) / maxf(1.0, number(other.get("capacity"), 200.0)), 0.0, 1.0)
+	if support:
+		# A supply/civilian hull needs an armed protector, not another civilian.
+		score += (450.0 if not working_mounts(other).is_empty() else -450.0) - (1.0 - hp + flood) * 240.0
+		var guarding: String = str(dictionary(other.get("orderTarget")).get("shipId", "")) if str(other.get("order", "")) == "escort" else str(options(view, other).get("protectedAllyId", ""))
+		if guarding == str(ship.id):
+			score += 350.0
+	else:
+		if str(other.get("uid", "")) in array(dictionary(view.get("mission")).get("allyUids")):
+			score += 500.0
+		if str(options(view, other).get("role", "")) == "support" or str(dictionary(other.get("spec")).get("role", "")) in ["support", "civilian", "cargo", "tanker", "yacht", "fishing"]:
+			score += 300.0
+		if hp < 0.72 or flood > 0.18:
+			score += minf(650.0, (1.0 - hp + flood) * 650.0)
+	return score
+
 static func leader(view: Dictionary, ship: Dictionary, context: Dictionary) -> Dictionary:
 	var opts: Dictionary = options(view, ship)
 	var order: String = str(ship.get("order", "engage"))
@@ -131,27 +177,23 @@ static func leader(view: Dictionary, ship: Dictionary, context: Dictionary) -> D
 	var group_id: int = int(number(opts.get("group")))
 	var groups: Dictionary = dictionary(view.get("groups"))
 	var group: Array = array(groups.get(group_id, groups.get(str(group_id))))
-	var ally_uids: Array = array(dictionary(view.get("mission")).get("allyUids"))
 	var best: Dictionary = {}
 	var best_score: float = -INF
+	var support: bool = infer_role(view, ship) == "support"
 	for other: Dictionary in context.values():
 		if other.get("team") != ship.get("team") or other.id == ship.id:
 			continue
 		if group_id > 0 and not str(other.id) in group:
 			continue
-		var score: float = radius(other) * 3.0 - pos(ship).distance_to(pos(other)) * 0.04
-		if str(other.get("uid", "")) in ally_uids:
-			score += 500.0
-		if str(options(view, other).get("role", "")) == "support":
-			score += 300.0
+		var score: float = _leader_score(view, ship, other, support)
 		if score > best_score or (is_equal_approx(score, best_score) and str(other.id) < str(best.get("id", "~"))):
 			best = other
 			best_score = score
 	return best
 
 static func protected_ally(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary) -> Dictionary:
-	# Shared position-only shortlist context; retaining a leader changes no
-	# target score and performs no extra detailed threat/arc inspection.
+	# Only friendly condition/assignments are inspected here. Enemy arc work
+	# remains behind the independent position-only sixteen-target shortlist.
 	var opts: Dictionary = options(view, ship)
 	var protected: Dictionary = leader(view, ship, context)
 	var retained: Dictionary = dictionary(context.get(str(previous.get("leaderId", ""))))
@@ -159,29 +201,35 @@ static func protected_ally(view: Dictionary, ship: Dictionary, previous: Diction
 	var group: Array = array(dictionary(view.get("groups")).get(group_id, dictionary(view.get("groups")).get(str(group_id))))
 	var changed: bool = not previous.is_empty() and int(number(previous.get("orderRevision"))) != int(number(ship.get("orderRevision")))
 	if not changed and str(ship.get("order", "engage")) != "escort" and str(opts.get("protectedAllyId", "")).is_empty() and not retained.is_empty() and retained.get("team") == ship.get("team") and (group_id == 0 or str(retained.id) in group):
-		protected = retained
+		# Preserve the assignment through small changes, but a newly wounded ally
+		# or a lost protector's guns can justify a real change of responsibility.
+		var support: bool = infer_role(view, ship) == "support"
+		if protected.is_empty() or _leader_score(view, ship, protected, support) <= _leader_score(view, ship, retained, support) + 160.0:
+			protected = retained
 	return protected
 
 static func infer_role(view: Dictionary, ship: Dictionary) -> String:
+	if str(ship.get("order", "engage")) == "escort":
+		return "screen"
 	var requested: String = str(options(view, ship).get("role", "auto"))
 	if requested in ROLES and requested != "auto":
 		return requested
-	if str(ship.get("order", "engage")) == "escort":
-		return "screen"
 	if not str(options(view, ship).get("protectedAllyId", "")).is_empty():
 		return "screen"
 	if str(ship.get("uid", "")) in array(dictionary(view.get("mission")).get("allyUids")):
 		return "support"
-	var useful: Array = working_mounts(ship)
+	var useful: Array = useful_mounts(view, ship)
 	if useful.is_empty():
 		return "support"
-	for mount: Dictionary in useful:
-		if fixed_tube(mount):
-			return "striker"
 	var spec: Dictionary = dictionary(ship.get("spec"))
 	if str(spec.get("role", "")) in ["support", "civilian", "cargo", "tanker", "yacht", "fishing"]:
 		return "support"
-	return "skirmisher" if radius(ship) <= 24.0 and speed(ship) >= 95.0 else "heavy"
+	if not fixed_tube(useful[0]) and (radius(ship) > 24.0 or str(spec.get("role", "")) in ["gunboat", "cruiser"]):
+		return "heavy"
+	for mount: Dictionary in useful:
+		if fixed_tube(mount):
+			return "striker"
+	return "skirmisher" if radius(ship) <= 24.0 and number(spec.get("speed")) >= 95.0 else "heavy"
 
 static func threat(enemy: Dictionary, ally: Dictionary, now: float) -> float:
 	if ally.is_empty():
@@ -197,6 +245,23 @@ static func threat(enemy: Dictionary, ally: Dictionary, now: float) -> float:
 	for stamp: Variant in dictionary(enemy.get("mountShotTimes")).values():
 		recent = maxf(recent, number(stamp, -1.0))
 	return result * (1.5 if recent >= 0.0 and now - recent <= 2.0 else 1.0)
+
+static func protection_threat(enemy: Dictionary, ally: Dictionary, now: float, leash: float = 0.0) -> float:
+	var present: float = threat(enemy, ally, now)
+	if ally.is_empty():
+		return present
+	var delta: Vector2 = pos(enemy) - pos(ally)
+	var relative: Vector2 = velocity(enemy) - velocity(ally)
+	if delta.dot(relative) >= 0.0:
+		return present
+	var reach: float = 0.0
+	for mount: Dictionary in mounts(enemy):
+		reach = maxf(reach, number(mount.get("range")))
+	if reach <= 0.0:
+		return present
+	var closest: float = clampf(-delta.dot(relative) / maxf(0.00001, relative.length_squared()), 0.0, 2.0)
+	var gap: float = (delta + relative * closest).length()
+	return maxf(present, 0.75 * (1.0 - clampf(gap / maxf(1.0, reach + leash), 0.0, 1.0)))
 
 static func _geometric_insert(entries: Array, id: String, cost: float) -> void:
 	var at: int = 0
@@ -242,14 +307,19 @@ static func shortlist(view: Dictionary, ship: Dictionary, context: Dictionary, p
 				seen[str(entry.id)] = true
 	return result
 
-static func choose_target(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, protected: Dictionary, role: String) -> Dictionary:
+static func choose_target(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, protected: Dictionary, role: String, reservations: Dictionary = {}) -> Dictionary:
 	var scored: Array = []
-	var reach: float = useful_range(view, ship)
-	if role == "striker":
-		for mount: Dictionary in useful_mounts(view, ship):
-			if fixed_tube(mount):
-				reach = maxf(reach, number(mount.get("range"), reach))
+	var reach: float = role_range(view, ship, role)
 	var now: float = number(view.get("time"))
+	var pressure: Dictionary = {}
+	# Existing team memory only. Expired, removed and hostile owners do not count.
+	for owner_id: Variant in reservations:
+		var owner: Dictionary = dictionary(context.get(str(owner_id)))
+		var held: Dictionary = dictionary(reservations[owner_id])
+		if owner.is_empty() or str(owner_id) == str(ship.id) or owner.get("team") != ship.get("team") or number(held.get("until")) <= now or int(number(held.get("sector"), -1.0)) < 0:
+			continue
+		var held_target: String = str(held.get("targetId", ""))
+		pressure[held_target] = mini(3, int(pressure.get(held_target, 0)) + 1)
 	var detailed_ids: Array = []
 	var named: String = str(dictionary(ship.get("orderTarget")).get("shipId", "")) if str(ship.get("order", "")) in ["attack", "board"] else ""
 	for entry: Dictionary in shortlist(view, ship, context, protected):
@@ -267,7 +337,12 @@ static func choose_target(view: Dictionary, ship: Dictionary, previous: Dictiona
 		var fit: float = 1.0 if (role == "striker" and radius(other) > radius(ship)) or (role == "heavy" and radius(other) < radius(ship)) else 0.0
 		var access: float = 1.0 if distance <= reach else 0.0
 		var cost: float = distance / maxf(80.0, reach)
-		var score: float = 3.0 * threat(other, protected, now) + 2.0 * fit + 2.0 * access + vulnerability - cost
+		var protection: float = protection_threat(other, protected, now, minf(600.0, maxf(0.0, number(options(view, ship).get("leash"), 600.0)))) if role == "screen" else threat(other, protected, now)
+		var score: float = (6.0 if role == "screen" else 3.0) * protection + 2.0 * fit + 2.0 * access + vulnerability - cost
+		if role == "skirmisher" and radius(other) > radius(ship) and threat(other, ship, now) < protection:
+			score += 0.75 # Observed guns face the ally: exploit the distracted hull.
+		if str(ship.get("order", "engage")) == "engage" and role != "screen":
+			score -= float(pressure.get(str(entry.id), 0)) * 0.9
 		if str(previous.get("targetId", "")) == entry.id:
 			score += 0.6
 		scored.append({"id": entry.id, "score": score})
@@ -355,7 +430,7 @@ static func _skirmisher_burst_done(view: Dictionary, ship: Dictionary, state: Di
 		return true
 	return pass_shots >= required_shots and pass_short_shots >= required_short and burst_elapsed >= min_window and active_elapsed >= min_window
 
-static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary) -> Dictionary:
+static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, reservations: Dictionary = {}) -> Dictionary:
 	var now: float = number(view.get("time"))
 	var opts: Dictionary = options(view, ship)
 	var order: String = str(ship.get("order", "engage"))
@@ -368,10 +443,12 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 			state[key] = previous[key]
 	var protected: Dictionary = protected_ally(view, ship, previous, context)
 	var role: String = infer_role(view, ship)
-	var target_choice: Dictionary = choose_target(view, ship, {} if changed_order else previous, context, protected, role)
+	var target_choice: Dictionary = choose_target(view, ship, {} if changed_order else previous, context, protected, role, reservations)
 	var target: Dictionary = dictionary(context.get(str(target_choice.targetId)))
 	var target_changed: bool = not previous.is_empty() and str(previous.get("targetId", "")) != str(target_choice.targetId)
-	var range_value: float = useful_range(view, ship)
+	var range_value: float = role_range(view, ship, role)
+	var launcher: Dictionary = launch_mount(view, ship) if role == "striker" else {}
+	var reloading: bool = not launcher.is_empty() and mount_reload(ship, launcher) > 0.000001
 	var target_distance: float = pos(ship).distance_to(pos(target)) if not target.is_empty() else INF
 	var doctrine: String = str(opts.get("doctrine", "steady"))
 	var hp_limit: float = 0.60 if doctrine == "cautious" else (0.30 if doctrine == "aggressive" else 0.45)
@@ -389,7 +466,9 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 		if threat(other, ship, now) > 0.75:
 			focused += 1
 	var loss: float = float(history.loss)
-	var danger: bool = hp <= hp_limit or flood >= flood_limit or sinking_soon or number(ship.get("fire")) >= 25.0 or (focused >= 2 and loss >= number(ship.get("maxHp"), 1.0) * 0.08)
+	var impaired: bool = number(dictionary(ship.get("spec")).get("speed")) > 0.0 and (number(status.get("speedFactor"), 1.0) < 0.45 or number(status.get("turnFactor"), 1.0) < 0.45)
+	var crowded: bool = not target.is_empty() and target_distance < Routes.navigation_radius(ship) + Routes.navigation_radius(target) + 24.0
+	var danger: bool = hp <= hp_limit or flood >= flood_limit or sinking_soon or number(ship.get("fire")) >= 25.0 or (focused >= 2 and loss >= number(ship.get("maxHp"), 1.0) * 0.08) or (impaired and focused > 0) or (crowded and order != "board")
 	var dry: bool = working_mounts(ship).is_empty()
 	var immobile: bool = speed(ship) <= 0.01
 	var phase: String = str(previous.get("phase", "stage" if role == "striker" else "approach"))
@@ -407,6 +486,9 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 		state["passFirstShotAt"] = -1.0
 		state["passOpportunitySince"] = -1.0
 	elif target_changed:
+		state["pursuitSince"] = now
+		state["progressAt"] = now
+		state["progressPos"] = pos(ship)
 		state["passShots"] = 0
 		state["passShortShots"] = 0
 		state["passFirstShotAt"] = -1.0
@@ -469,7 +551,7 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 		state["progressPos"] = pos(ship)
 		state["progressAt"] = now
 	var stalled: bool = not immobile and now - number(state.get("progressAt"), now) >= 3.0
-	var failed_pursuit: bool = not target.is_empty() and now - number(state.get("pursuitSince"), now) >= PURSUIT_SECONDS
+	var failed_pursuit: bool = role in ["skirmisher", "striker"] and not target.is_empty() and now - number(state.get("pursuitSince"), now) >= PURSUIT_SECONDS
 	var explicit_survival: bool = order == "engage" or bool(opts.get("conditionalWithdrawal", false))
 	var survival_trigger: bool = danger or dry or number(ship.get("fuel")) <= 0.0
 	var break_origin: Vector2 = state.get("launchPos", state.get("breakawayFrom", pos(ship)))
@@ -477,6 +559,10 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 	if survival_trigger and explicit_survival:
 		phase = "regroup" if dry else "breakaway"
 		reason = "Fire or flooding danger; seek a local rally." if danger else ("Ammunition or guns unavailable; seek protection." if dry else "Working fuel exhausted; preserve the boat.")
+		if crowded and order != "board":
+			reason = "Target hull too close; open escape room."
+		elif impaired and focused > 0:
+			reason = "Mobility compromised under fire; seek protection."
 		state["safeSince"] = now
 	elif phase in ["breakaway", "turn-away", "regroup"]:
 		if phase in ["breakaway", "turn-away"] and elapsed >= 2.0:
@@ -509,7 +595,7 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 	elif not immobile and role == "skirmisher" and (phase == "fire-pass" or pass_short_shots > 0) and _skirmisher_burst_done(view, ship, state, now, range_value):
 		phase = "breakaway"
 		reason = "Firing pass completed; peel away from return fire."
-	elif failed_pursuit or (stalled and phase in ["approach", "stage", "align"]):
+	elif failed_pursuit or (stalled and phase in ["approach", "stage", "align"] and not (reloading and target_distance <= range_value * 1.2)):
 		phase = "regroup"
 		reason = "Pursuit failed; abandon the blocked or faster target."
 		state["failedTargetId"] = str(target_choice.targetId)
@@ -520,15 +606,12 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 		var distance: float = target_distance
 		if role == "striker":
 			var tube_range: float = range_value
+			phase = "stage" if reloading else ("align" if immobile or distance <= tube_range * 0.85 else "stage")
 			for mount: Dictionary in useful_mounts(view, ship):
-				if fixed_tube(mount):
-					tube_range = maxf(tube_range, number(mount.get("range"), range_value))
-			phase = "align" if immobile or distance <= tube_range * 0.85 else "stage"
-			for mount: Dictionary in useful_mounts(view, ship):
-				if fixed_tube(mount) and distance <= number(mount.get("range")) and absf(angle_difference(number(ship.get("angle")) + number(mount.get("angle")), (pos(target) - pos(ship)).angle())) <= number(mount.get("arc")) * 0.45:
+				if fixed_tube(mount) and mount_reload(ship, mount) <= 0.000001 and distance <= number(mount.get("range")) and absf(angle_difference(number(ship.get("angle")) + number(mount.get("angle")), (pos(target) - pos(ship)).angle())) <= number(mount.get("arc")) * 0.45:
 					phase = "launch-window"
 					break
-			reason = "Salvo spent; holding stationary alignment." if immobile and not pass_spent.is_empty() else "Align fixed tubes for a certified launch."
+			reason = "Salvo spent; holding stationary alignment." if immobile and not pass_spent.is_empty() else ("Launcher reloading; stage before the next real pass." if reloading and phase != "launch-window" else "Align fixed tubes for a certified launch.")
 		elif role == "skirmisher":
 			var anchor: Vector2 = previous.get("anchor", pos(ship))
 			var near_anchor: bool = pos(ship).distance_to(anchor) < maxf(45.0, speed(ship) * 0.4)
@@ -551,7 +634,14 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 		elif role == "heavy":
 			phase = "pressure"
 			reason = "Keep useful gun arcs toward approaching flankers."
-		if not immobile and phase in ["stage", "align", "launch-window", "approach", "fire-pass"] and pass_opportunity_since >= 0.0 and now - maxf(pass_opportunity_since, number(state.get("lastUsefulShot"), pass_opportunity_since)) >= 6.0:
+			for mount: Dictionary in useful_mounts(view, ship):
+				# Keep heavy station geometry and the same finite pass identity. A
+				# loaded secondary tube can use its real opportunity without a charge.
+				if fixed_tube(mount) and not pass_spent.get(str(mount.id), false) and mount_reload(ship, mount) <= 0.000001 and distance <= number(mount.get("range")) and absf(angle_difference(number(ship.get("angle")) + number(mount.get("angle")), (pos(target) - pos(ship)).angle())) <= number(mount.get("arc")) * 0.45:
+					phase = "launch-window"
+					reason = "Hold the gun station; loaded secondary tube has a launch opportunity."
+					break
+		if role in ["skirmisher", "striker"] and not immobile and phase in ["stage", "align", "launch-window", "approach", "fire-pass"] and not (phase == "stage" and reloading) and pass_opportunity_since >= 0.0 and now - maxf(pass_opportunity_since, number(state.get("lastUsefulShot"), pass_opportunity_since)) >= 6.0:
 			phase = "regroup"
 			reason = "No useful shot; stop the pass and reassess."
 			state["safeSince"] = now
@@ -593,4 +683,4 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 	state["passSequence"] = int(number(state.get("passSequence")))
 	if not state.has("firingPassId") or int(state["passSequence"]) != int(number(previous.get("passSequence"))) or (changed_order and order == "attack"):
 		state["firingPassId"] = "%s:pass:%d:%d" % [str(ship.id).sha256_text().substr(0, 16), revision, int(state["passSequence"])]
-	return {"state": state, "targets": target_choice.targets, "detailedIds": target_choice.detailedIds, "scored": target_choice.scored, "danger": danger, "range": useful_range(view, ship), "riskLimit": 0.35 if doctrine == "cautious" else (0.85 if doctrine == "aggressive" else 0.60)}
+	return {"state": state, "targets": target_choice.targets, "detailedIds": target_choice.detailedIds, "scored": target_choice.scored, "danger": danger, "range": range_value, "riskLimit": 0.35 if doctrine == "cautious" else (0.85 if doctrine == "aggressive" else 0.60)}
