@@ -270,8 +270,13 @@ def sockets_for(hull_id, size, role, tier, faction):
     # Exact current MountLayout._ROLE_TABLE and _hull_variation, not art guesses.
     role_data = {
         "skiff": (.98, -1.48, .48, .42, 11.0),
+        "cutter": (1.02, -1.49, .49, .42, 12.0),
+        "torpedo": (1.04, -1.50, .50, .43, 12.0),
         "corvette": (1.02, -1.50, .50, .43, 11.5),
         "raider": (1.00, -1.48, .52, .56, 11.5),
+        "gunboat": (1.00, -1.50, .49, .44, 12.5),
+        "rocket": (1.01, -1.50, .50, .44, 12.0),
+        "cruiser": (1.05, -1.52, .51, .44, 13.0),
     }
     bow, aft, side_x, side_y, h = role_data[role]
     f = {"forge": -.012, "reed": .014, "raiders": .008}.get(faction, 0)
@@ -537,6 +542,17 @@ def brasswind_motor_galleon():
 
 
 BUILDERS={"tin_skiff":tin_skiff,"ash_corvette":ash_corvette,"brasswind_motor_galleon":brasswind_motor_galleon}
+
+
+# Load only recipe declarations. Construction remains lazy and creates no files.
+# Passing this module's primitives avoids a circular import or a second renderer.
+from importlib.util import spec_from_file_location, module_from_spec
+from pathlib import Path
+
+_roster_spec = spec_from_file_location("brass_tide_roster049", Path(__file__).resolve().parents[1]/"quality049"/"recipes.py")
+_roster = module_from_spec(_roster_spec)
+_roster_spec.loader.exec_module(_roster)
+BUILDERS.update({hid: (lambda hid=hid: _roster.build(hid, globals())) for hid in _roster.DESIGNS})
 
 
 def build(hull_id):

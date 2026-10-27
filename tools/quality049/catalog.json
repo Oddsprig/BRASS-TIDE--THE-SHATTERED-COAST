@@ -1,0 +1,1850 @@
+{
+  "bilge_punt": {
+    "name": "Bilgewater Punt",
+    "size": 13,
+    "role": "skiff",
+    "tier": 1,
+    "faction": "raiders",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.9,
+        0.34
+      ],
+      [
+        -1.6,
+        0.48
+      ],
+      [
+        -0.85,
+        0.62
+      ],
+      [
+        -0.05,
+        0.61
+      ],
+      [
+        0.58,
+        0.58
+      ],
+      [
+        1.2,
+        0.4
+      ],
+      [
+        1.82,
+        0.12
+      ],
+      [
+        2.14,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "oxide",
+    "deck_material": "deck",
+    "height_ceiling_world": 19.0,
+    "source_radius_envelope_world": 32.129608,
+    "cell_px": [
+      168,
+      128
+    ],
+    "pivot_px": [
+      84,
+      82
+    ],
+    "identity": "Open patched scout; offset exposed motor and salvage reel"
+  },
+  "lantern_skiff": {
+    "name": "Lantern Ward Skiff",
+    "size": 15,
+    "role": "skiff",
+    "tier": 2,
+    "faction": "compact",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.96,
+        0.48
+      ],
+      [
+        -1.68,
+        0.58
+      ],
+      [
+        -0.9,
+        0.64
+      ],
+      [
+        0.05,
+        0.65
+      ],
+      [
+        0.66,
+        0.61
+      ],
+      [
+        1.3,
+        0.48
+      ],
+      [
+        1.84,
+        0.2
+      ],
+      [
+        2.08,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 23.0,
+    "source_radius_envelope_world": 37.606181,
+    "cell_px": [
+      192,
+      152
+    ],
+    "pivot_px": [
+      96,
+      96
+    ],
+    "identity": "Customs canopy; raised searchlight; twin transom motors"
+  },
+  "marsh_dart": {
+    "name": "Marsh Dart Hydro",
+    "size": 14,
+    "role": "cutter",
+    "tier": 1,
+    "faction": "reed",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.86,
+        0.35
+      ],
+      [
+        -1.6,
+        0.48
+      ],
+      [
+        -0.92,
+        0.55
+      ],
+      [
+        -0.1,
+        0.59
+      ],
+      [
+        0.52,
+        0.6
+      ],
+      [
+        1.18,
+        0.42
+      ],
+      [
+        1.86,
+        0.11
+      ],
+      [
+        2.16,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 19.0,
+    "source_radius_envelope_world": 33.877044,
+    "cell_px": [
+      176,
+      136
+    ],
+    "pivot_px": [
+      88,
+      84
+    ],
+    "identity": "Stepped open hydroplane; center jet and transverse foil"
+  },
+  "scab_cutter": {
+    "name": "Scabfin Cutter",
+    "size": 17,
+    "role": "cutter",
+    "tier": 2,
+    "faction": "raiders",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.92,
+        0.44
+      ],
+      [
+        -1.64,
+        0.54
+      ],
+      [
+        -0.88,
+        0.58
+      ],
+      [
+        0.0,
+        0.62
+      ],
+      [
+        0.6,
+        0.63
+      ],
+      [
+        1.28,
+        0.52
+      ],
+      [
+        1.8,
+        0.24
+      ],
+      [
+        2.06,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "oxide",
+    "deck_material": "armor_light",
+    "height_ceiling_world": 22.0,
+    "source_radius_envelope_world": 41.650576,
+    "cell_px": [
+      208,
+      160
+    ],
+    "pivot_px": [
+      104,
+      99
+    ],
+    "identity": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
+  },
+  "gale_cutter": {
+    "name": "Galeblade Interceptor",
+    "size": 18,
+    "role": "cutter",
+    "tier": 3,
+    "faction": "reed",
+    "civilian_role": "",
+    "stations": [
+      [
+        -2.02,
+        0.38
+      ],
+      [
+        -1.7,
+        0.52
+      ],
+      [
+        -0.95,
+        0.55
+      ],
+      [
+        -0.05,
+        0.63
+      ],
+      [
+        0.58,
+        0.65
+      ],
+      [
+        1.32,
+        0.45
+      ],
+      [
+        1.96,
+        0.14
+      ],
+      [
+        2.24,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 20.0,
+    "source_radius_envelope_world": 45.737465,
+    "cell_px": [
+      232,
+      160
+    ],
+    "pivot_px": [
+      116,
+      100
+    ],
+    "identity": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
+  },
+  "silt_lugger": {
+    "name": "Silt Runner Lugger",
+    "size": 17,
+    "role": "raider",
+    "tier": 1,
+    "faction": "reed",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.88,
+        0.2
+      ],
+      [
+        -1.6,
+        0.24
+      ],
+      [
+        -0.75,
+        0.25
+      ],
+      [
+        0.25,
+        0.25
+      ],
+      [
+        0.95,
+        0.22
+      ],
+      [
+        1.52,
+        0.16
+      ],
+      [
+        1.88,
+        0.08
+      ],
+      [
+        2.02,
+        0.0
+      ]
+    ],
+    "hull_material": "timber",
+    "trim_material": "ivory",
+    "deck_material": "deck",
+    "height_ceiling_world": 20.0,
+    "source_radius_envelope_world": 42.055135,
+    "cell_px": [
+      208,
+      152
+    ],
+    "pivot_px": [
+      104,
+      95
+    ],
+    "identity": "Broad dry-cargo cat; low canopy; paired holds and side bales"
+  },
+  "hook_raider": {
+    "name": "Grapnel Blockade Runner",
+    "size": 20,
+    "role": "raider",
+    "tier": 2,
+    "faction": "raiders",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.96,
+        0.16
+      ],
+      [
+        -1.66,
+        0.21
+      ],
+      [
+        -0.8,
+        0.22
+      ],
+      [
+        0.2,
+        0.24
+      ],
+      [
+        0.88,
+        0.23
+      ],
+      [
+        1.5,
+        0.14
+      ],
+      [
+        1.94,
+        0.05
+      ],
+      [
+        2.15,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "oxide",
+    "deck_material": "deck",
+    "height_ceiling_world": 24.0,
+    "source_radius_envelope_world": 50.588003,
+    "cell_px": [
+      248,
+      184
+    ],
+    "pivot_px": [
+      124,
+      113
+    ],
+    "identity": "Narrow contraband cat; offset davit; low bridge and paired jets"
+  },
+  "mercantile_clipper": {
+    "name": "Sovereign Armed Packet",
+    "size": 23,
+    "role": "raider",
+    "tier": 3,
+    "faction": "compact",
+    "civilian_role": "",
+    "stations": [
+      [
+        -2.06,
+        0.19
+      ],
+      [
+        -1.74,
+        0.25
+      ],
+      [
+        -0.85,
+        0.27
+      ],
+      [
+        0.25,
+        0.27
+      ],
+      [
+        1.02,
+        0.24
+      ],
+      [
+        1.66,
+        0.16
+      ],
+      [
+        2.06,
+        0.06
+      ],
+      [
+        2.26,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "brass_light",
+    "deck_material": "deck",
+    "height_ceiling_world": 30.0,
+    "source_radius_envelope_world": 60.032616,
+    "cell_px": [
+      296,
+      216
+    ],
+    "pivot_px": [
+      148,
+      136
+    ],
+    "identity": "Fine treasury cat bows; stepped packet house and bonded safes"
+  },
+  "harbor_sloop": {
+    "name": "Breakwater Patrol Sloop",
+    "size": 17,
+    "role": "corvette",
+    "tier": 1,
+    "faction": "compact",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.86,
+        0.45
+      ],
+      [
+        -1.6,
+        0.56
+      ],
+      [
+        -0.82,
+        0.62
+      ],
+      [
+        0.05,
+        0.62
+      ],
+      [
+        0.65,
+        0.59
+      ],
+      [
+        1.26,
+        0.46
+      ],
+      [
+        1.78,
+        0.18
+      ],
+      [
+        2.04,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "brass",
+    "deck_material": "tin",
+    "height_ceiling_world": 27.0,
+    "source_radius_envelope_world": 40.649117,
+    "cell_px": [
+      208,
+      168
+    ],
+    "pivot_px": [
+      104,
+      108
+    ],
+    "identity": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
+  },
+  "aegis_corvette": {
+    "name": "Vanguard Line Corvette",
+    "size": 24,
+    "role": "corvette",
+    "tier": 3,
+    "faction": "compact",
+    "civilian_role": "",
+    "stations": [
+      [
+        -2.02,
+        0.48
+      ],
+      [
+        -1.72,
+        0.6
+      ],
+      [
+        -0.9,
+        0.66
+      ],
+      [
+        0.1,
+        0.66
+      ],
+      [
+        0.76,
+        0.62
+      ],
+      [
+        1.42,
+        0.44
+      ],
+      [
+        1.96,
+        0.16
+      ],
+      [
+        2.22,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 31.0,
+    "source_radius_envelope_world": 60.234358,
+    "cell_px": [
+      296,
+      216
+    ],
+    "pivot_px": [
+      148,
+      138
+    ],
+    "identity": "Fine escort prow; full rangefinder wing and damage-control chests"
+  },
+  "reed_stinger": {
+    "name": "Fen Stinger Torpedo Launch",
+    "size": 17,
+    "role": "torpedo",
+    "tier": 2,
+    "faction": "reed",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.88,
+        0.36
+      ],
+      [
+        -1.6,
+        0.48
+      ],
+      [
+        -0.88,
+        0.56
+      ],
+      [
+        0.12,
+        0.62
+      ],
+      [
+        0.62,
+        0.6
+      ],
+      [
+        1.24,
+        0.42
+      ],
+      [
+        1.84,
+        0.12
+      ],
+      [
+        2.14,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 20.0,
+    "source_radius_envelope_world": 40.982833,
+    "cell_px": [
+      208,
+      152
+    ],
+    "pivot_px": [
+      104,
+      94
+    ],
+    "identity": "Low open marsh launch; single jet and air-receiver manifold"
+  },
+  "krill_torpedo": {
+    "name": "Tallowfin Torpedo Boat",
+    "size": 20,
+    "role": "torpedo",
+    "tier": 3,
+    "faction": "raiders",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.96,
+        0.44
+      ],
+      [
+        -1.68,
+        0.56
+      ],
+      [
+        -0.86,
+        0.63
+      ],
+      [
+        0.1,
+        0.65
+      ],
+      [
+        0.68,
+        0.63
+      ],
+      [
+        1.34,
+        0.46
+      ],
+      [
+        1.9,
+        0.16
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "oxide",
+    "deck_material": "tin",
+    "height_ceiling_world": 22.0,
+    "source_radius_envelope_world": 49.388532,
+    "cell_px": [
+      248,
+      176
+    ],
+    "pivot_px": [
+      124,
+      108
+    ],
+    "identity": "Low wolfpack hood; empty reload skid; split motor and stack"
+  },
+  "manta_strike": {
+    "name": "Manta Flotilla Leader",
+    "size": 24,
+    "role": "torpedo",
+    "tier": 4,
+    "faction": "reed",
+    "civilian_role": "",
+    "stations": [
+      [
+        -2.05,
+        0.4
+      ],
+      [
+        -1.72,
+        0.52
+      ],
+      [
+        -0.92,
+        0.58
+      ],
+      [
+        0.05,
+        0.68
+      ],
+      [
+        0.64,
+        0.7
+      ],
+      [
+        1.36,
+        0.48
+      ],
+      [
+        1.98,
+        0.15
+      ],
+      [
+        2.28,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 28.0,
+    "source_radius_envelope_world": 60.943857,
+    "cell_px": [
+      296,
+      216
+    ],
+    "pivot_px": [
+      148,
+      133
+    ],
+    "identity": "Swept wide foil; tall narrow command fin and paired jets"
+  },
+  "slag_gunboat": {
+    "name": "Slagclast River Gunboat",
+    "size": 22,
+    "role": "gunboat",
+    "tier": 2,
+    "faction": "forge",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.87,
+        0.58
+      ],
+      [
+        -1.6,
+        0.7
+      ],
+      [
+        -0.82,
+        0.75
+      ],
+      [
+        0.1,
+        0.75
+      ],
+      [
+        0.75,
+        0.68
+      ],
+      [
+        1.36,
+        0.52
+      ],
+      [
+        1.8,
+        0.25
+      ],
+      [
+        2.01,
+        0.0
+      ]
+    ],
+    "hull_material": "armor_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 24.0,
+    "source_radius_envelope_world": 52.154812,
+    "cell_px": [
+      256,
+      184
+    ],
+    "pivot_px": [
+      128,
+      115
+    ],
+    "identity": "Blunt ironclad; single armor course; low casemate and twin stacks"
+  },
+  "bellows_gunboat": {
+    "name": "Bellows Siege Gunboat",
+    "size": 26,
+    "role": "gunboat",
+    "tier": 3,
+    "faction": "forge",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.96,
+        0.62
+      ],
+      [
+        -1.68,
+        0.74
+      ],
+      [
+        -0.9,
+        0.78
+      ],
+      [
+        0.18,
+        0.78
+      ],
+      [
+        0.84,
+        0.72
+      ],
+      [
+        1.46,
+        0.55
+      ],
+      [
+        1.88,
+        0.26
+      ],
+      [
+        2.08,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "ivory",
+    "deck_material": "armor_light",
+    "height_ceiling_world": 26.0,
+    "source_radius_envelope_world": 63.530281,
+    "cell_px": [
+      312,
+      216
+    ],
+    "pivot_px": [
+      156,
+      132
+    ],
+    "identity": "Broad siege hull; double belt; external bilge manifolds and paired engines"
+  },
+  "furnace_turret": {
+    "name": "Furnace Sovereign Monitor",
+    "size": 30,
+    "role": "gunboat",
+    "tier": 4,
+    "faction": "forge",
+    "civilian_role": "",
+    "stations": [
+      [
+        -2.06,
+        0.66
+      ],
+      [
+        -1.76,
+        0.79
+      ],
+      [
+        -0.95,
+        0.85
+      ],
+      [
+        0.2,
+        0.85
+      ],
+      [
+        0.92,
+        0.78
+      ],
+      [
+        1.54,
+        0.6
+      ],
+      [
+        1.94,
+        0.28
+      ],
+      [
+        2.16,
+        0.0
+      ]
+    ],
+    "hull_material": "armor_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 29.0,
+    "source_radius_envelope_world": 75.91662,
+    "cell_px": [
+      368,
+      248
+    ],
+    "pivot_px": [
+      184,
+      153
+    ],
+    "identity": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
+  },
+  "barbed_lance": {
+    "name": "Sparkrack Rocket Scow",
+    "size": 20,
+    "role": "rocket",
+    "tier": 2,
+    "faction": "raiders",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.86,
+        0.66
+      ],
+      [
+        -1.58,
+        0.78
+      ],
+      [
+        -0.8,
+        0.8
+      ],
+      [
+        0.2,
+        0.8
+      ],
+      [
+        0.88,
+        0.76
+      ],
+      [
+        1.5,
+        0.62
+      ],
+      [
+        1.84,
+        0.34
+      ],
+      [
+        2.0,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "ivory",
+    "deck_material": "deck",
+    "height_ceiling_world": 20.0,
+    "source_radius_envelope_world": 47.422516,
+    "cell_px": [
+      232,
+      168
+    ],
+    "pivot_px": [
+      116,
+      101
+    ],
+    "identity": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
+  },
+  "cinder_monitor": {
+    "name": "Pyreclast Rocket Monitor",
+    "size": 25,
+    "role": "rocket",
+    "tier": 3,
+    "faction": "forge",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.95,
+        0.62
+      ],
+      [
+        -1.66,
+        0.76
+      ],
+      [
+        -0.78,
+        0.86
+      ],
+      [
+        0.25,
+        0.88
+      ],
+      [
+        0.9,
+        0.8
+      ],
+      [
+        1.48,
+        0.58
+      ],
+      [
+        1.88,
+        0.26
+      ],
+      [
+        2.06,
+        0.0
+      ]
+    ],
+    "hull_material": "armor_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 27.0,
+    "source_radius_envelope_world": 60.927039,
+    "cell_px": [
+      296,
+      208
+    ],
+    "pivot_px": [
+      148,
+      131
+    ],
+    "identity": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
+  },
+  "wraith_rocket": {
+    "name": "Hellbore Salvo Cruiser",
+    "size": 29,
+    "role": "rocket",
+    "tier": 4,
+    "faction": "raiders",
+    "civilian_role": "",
+    "stations": [
+      [
+        -2.04,
+        0.58
+      ],
+      [
+        -1.74,
+        0.72
+      ],
+      [
+        -0.88,
+        0.82
+      ],
+      [
+        0.2,
+        0.84
+      ],
+      [
+        0.94,
+        0.74
+      ],
+      [
+        1.56,
+        0.52
+      ],
+      [
+        1.96,
+        0.22
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "ivory",
+    "deck_material": "armor_light",
+    "height_ceiling_world": 33.0,
+    "source_radius_envelope_world": 72.888495,
+    "cell_px": [
+      352,
+      248
+    ],
+    "pivot_px": [
+      176,
+      157
+    ],
+    "identity": "Long salvo hull; narrow fire-control tower and paired jet plants"
+  },
+  "cobalt_frigate": {
+    "name": "Cobalt Commodore Frigate",
+    "size": 24,
+    "role": "cruiser",
+    "tier": 2,
+    "faction": "compact",
+    "civilian_role": "",
+    "stations": [
+      [
+        -1.96,
+        0.48
+      ],
+      [
+        -1.68,
+        0.6
+      ],
+      [
+        -0.88,
+        0.66
+      ],
+      [
+        0.12,
+        0.66
+      ],
+      [
+        0.82,
+        0.61
+      ],
+      [
+        1.48,
+        0.45
+      ],
+      [
+        1.94,
+        0.18
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 34.0,
+    "source_radius_envelope_world": 58.81614,
+    "cell_px": [
+      288,
+      224
+    ],
+    "pivot_px": [
+      144,
+      143
+    ],
+    "identity": "Command frigate; stepped flag bridge and dual turbine exhaust"
+  },
+  "iron_bastion": {
+    "name": "Bastion Armored Cruiser",
+    "size": 31,
+    "role": "cruiser",
+    "tier": 3,
+    "faction": "compact",
+    "civilian_role": "",
+    "stations": [
+      [
+        -2.04,
+        0.54
+      ],
+      [
+        -1.76,
+        0.67
+      ],
+      [
+        -0.92,
+        0.73
+      ],
+      [
+        0.16,
+        0.73
+      ],
+      [
+        0.9,
+        0.67
+      ],
+      [
+        1.56,
+        0.5
+      ],
+      [
+        2.02,
+        0.21
+      ],
+      [
+        2.24,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "brass_light",
+    "deck_material": "armor_light",
+    "height_ceiling_world": 38.0,
+    "source_radius_envelope_world": 77.761186,
+    "cell_px": [
+      376,
+      272
+    ],
+    "pivot_px": [
+      188,
+      173
+    ],
+    "identity": "Heavy flagship; double belt; high signal house and pump dome"
+  },
+  "maiden_dreadnought": {
+    "name": "Shatter Throne Dreadnought",
+    "size": 36,
+    "role": "cruiser",
+    "tier": 4,
+    "faction": "forge",
+    "civilian_role": "",
+    "stations": [
+      [
+        -2.1,
+        0.62
+      ],
+      [
+        -1.82,
+        0.75
+      ],
+      [
+        -0.98,
+        0.81
+      ],
+      [
+        0.22,
+        0.81
+      ],
+      [
+        0.98,
+        0.74
+      ],
+      [
+        1.64,
+        0.56
+      ],
+      [
+        2.08,
+        0.25
+      ],
+      [
+        2.3,
+        0.0
+      ]
+    ],
+    "hull_material": "armor_light",
+    "trim_material": "ivory",
+    "deck_material": "tin",
+    "height_ceiling_world": 41.0,
+    "source_radius_envelope_world": 92.075233,
+    "cell_px": [
+      440,
+      312
+    ],
+    "pivot_px": [
+      220,
+      195
+    ],
+    "identity": "Long capital bow; triple belt; triple funnels and three transom drives"
+  },
+  "kelpnet_dory": {
+    "name": "Kelpnet Dory",
+    "size": 13,
+    "role": "skiff",
+    "tier": 1,
+    "faction": "reed",
+    "civilian_role": "fishing",
+    "stations": [
+      [
+        -2.06,
+        0.56
+      ],
+      [
+        -1.78,
+        0.6
+      ],
+      [
+        -1.0,
+        0.59
+      ],
+      [
+        0.0,
+        0.56
+      ],
+      [
+        0.7,
+        0.52
+      ],
+      [
+        1.4,
+        0.38
+      ],
+      [
+        1.92,
+        0.15
+      ],
+      [
+        2.08,
+        0.0
+      ]
+    ],
+    "hull_material": "timber",
+    "trim_material": "ivory",
+    "deck_material": "deck",
+    "height_ceiling_world": 17.0,
+    "source_radius_envelope_world": 34.170778,
+    "cell_px": [
+      176,
+      128
+    ],
+    "pivot_px": [
+      88,
+      80
+    ],
+    "identity": "Short open fishing dory; hand reel; net stack and catch well"
+  },
+  "brinehook_longliner": {
+    "name": "Brinehook Longliner",
+    "size": 15,
+    "role": "skiff",
+    "tier": 2,
+    "faction": "compact",
+    "civilian_role": "fishing",
+    "stations": [
+      [
+        -2.32,
+        0.5
+      ],
+      [
+        -2.0,
+        0.59
+      ],
+      [
+        -1.15,
+        0.62
+      ],
+      [
+        -0.1,
+        0.58
+      ],
+      [
+        0.66,
+        0.54
+      ],
+      [
+        1.42,
+        0.36
+      ],
+      [
+        1.98,
+        0.14
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "deck",
+    "height_ceiling_world": 24.0,
+    "source_radius_envelope_world": 42.921743,
+    "cell_px": [
+      216,
+      160
+    ],
+    "pivot_px": [
+      108,
+      104
+    ],
+    "identity": "Long working stern; paired line reels and offset davit under canopy"
+  },
+  "mother_gull_trawler": {
+    "name": "Mother Gull Trawler",
+    "size": 19,
+    "role": "raider",
+    "tier": 2,
+    "faction": "reed",
+    "civilian_role": "fishing",
+    "stations": [
+      [
+        -2.2,
+        0.25
+      ],
+      [
+        -1.8,
+        0.3
+      ],
+      [
+        -0.8,
+        0.32
+      ],
+      [
+        0.2,
+        0.32
+      ],
+      [
+        1.1,
+        0.27
+      ],
+      [
+        1.7,
+        0.2
+      ],
+      [
+        2.12,
+        0.06
+      ],
+      [
+        2.28,
+        0.0
+      ]
+    ],
+    "hull_material": "timber",
+    "trim_material": "ivory",
+    "deck_material": "deck",
+    "height_ceiling_world": 25.0,
+    "source_radius_envelope_world": 52.569248,
+    "cell_px": [
+      256,
+      184
+    ],
+    "pivot_px": [
+      128,
+      117
+    ],
+    "identity": "Broad trawling cat; stern net reels and full-width working gantry"
+  },
+  "fenhopper_lighter": {
+    "name": "Fenhopper Lighter",
+    "size": 17,
+    "role": "raider",
+    "tier": 1,
+    "faction": "reed",
+    "civilian_role": "transport",
+    "stations": [
+      [
+        -2.2,
+        0.31
+      ],
+      [
+        -1.85,
+        0.32
+      ],
+      [
+        -0.85,
+        0.33
+      ],
+      [
+        0.35,
+        0.33
+      ],
+      [
+        1.2,
+        0.3
+      ],
+      [
+        1.72,
+        0.24
+      ],
+      [
+        2.05,
+        0.13
+      ],
+      [
+        2.18,
+        0.0
+      ]
+    ],
+    "hull_material": "timber",
+    "trim_material": "ivory",
+    "deck_material": "deck",
+    "height_ceiling_world": 18.0,
+    "source_radius_envelope_world": 47.28345,
+    "cell_px": [
+      232,
+      160
+    ],
+    "pivot_px": [
+      116,
+      97
+    ],
+    "identity": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
+  },
+  "tideledger_coaster": {
+    "name": "Tideledger Coaster",
+    "size": 21,
+    "role": "raider",
+    "tier": 2,
+    "faction": "compact",
+    "civilian_role": "transport",
+    "stations": [
+      [
+        -2.38,
+        0.28
+      ],
+      [
+        -1.95,
+        0.32
+      ],
+      [
+        -0.85,
+        0.34
+      ],
+      [
+        0.35,
+        0.34
+      ],
+      [
+        1.22,
+        0.29
+      ],
+      [
+        1.86,
+        0.2
+      ],
+      [
+        2.28,
+        0.08
+      ],
+      [
+        2.45,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "ivory",
+    "deck_material": "deck",
+    "height_ceiling_world": 28.0,
+    "source_radius_envelope_world": 61.517707,
+    "cell_px": [
+      304,
+      216
+    ],
+    "pivot_px": [
+      152,
+      134
+    ],
+    "identity": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
+  },
+  "fourport_packet": {
+    "name": "Fourport Packet",
+    "size": 24,
+    "role": "raider",
+    "tier": 3,
+    "faction": "compact",
+    "civilian_role": "transport",
+    "stations": [
+      [
+        -2.3,
+        0.3
+      ],
+      [
+        -1.92,
+        0.35
+      ],
+      [
+        -0.9,
+        0.36
+      ],
+      [
+        0.4,
+        0.35
+      ],
+      [
+        1.2,
+        0.29
+      ],
+      [
+        1.86,
+        0.18
+      ],
+      [
+        2.32,
+        0.06
+      ],
+      [
+        2.52,
+        0.0
+      ]
+    ],
+    "hull_material": "teal_light",
+    "trim_material": "brass_light",
+    "deck_material": "deck",
+    "height_ceiling_world": 32.0,
+    "source_radius_envelope_world": 68.109692,
+    "cell_px": [
+      328,
+      240
+    ],
+    "pivot_px": [
+      164,
+      149
+    ],
+    "identity": "High two-level packet house; long covered hatches and twin exhaust"
+  },
+  "seepoil_tanker": {
+    "name": "Seepoil Tanker Barge",
+    "size": 20,
+    "role": "corvette",
+    "tier": 2,
+    "faction": "forge",
+    "civilian_role": "tanker",
+    "stations": [
+      [
+        -2.16,
+        0.62
+      ],
+      [
+        -1.8,
+        0.72
+      ],
+      [
+        -0.8,
+        0.78
+      ],
+      [
+        0.25,
+        0.78
+      ],
+      [
+        1.18,
+        0.71
+      ],
+      [
+        1.78,
+        0.48
+      ],
+      [
+        2.12,
+        0.28
+      ],
+      [
+        2.3,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "ivory",
+    "deck_material": "armor_light",
+    "height_ceiling_world": 19.0,
+    "source_radius_envelope_world": 53.328291,
+    "cell_px": [
+      264,
+      176
+    ],
+    "pivot_px": [
+      132,
+      106
+    ],
+    "identity": "Round tank barge; four secured casks and raised copper transfer banks"
+  },
+  "blackwater_fleet_tanker": {
+    "name": "Blackwater Fleet Tanker",
+    "size": 27,
+    "role": "corvette",
+    "tier": 3,
+    "faction": "forge",
+    "civilian_role": "tanker",
+    "stations": [
+      [
+        -2.48,
+        0.63
+      ],
+      [
+        -2.08,
+        0.76
+      ],
+      [
+        -1.0,
+        0.83
+      ],
+      [
+        0.4,
+        0.83
+      ],
+      [
+        1.35,
+        0.74
+      ],
+      [
+        1.96,
+        0.48
+      ],
+      [
+        2.42,
+        0.22
+      ],
+      [
+        2.62,
+        0.0
+      ]
+    ],
+    "hull_material": "tin",
+    "trim_material": "ivory",
+    "deck_material": "armor_light",
+    "height_ceiling_world": 25.0,
+    "source_radius_envelope_world": 79.753355,
+    "cell_px": [
+      384,
+      248
+    ],
+    "pivot_px": [
+      192,
+      149
+    ],
+    "identity": "Long fleet tanker; four tank volumes with domes; three transom drives"
+  },
+  "gullwing_daysailer": {
+    "name": "Gullwing Daysailer",
+    "size": 14,
+    "role": "cutter",
+    "tier": 1,
+    "faction": "reed",
+    "civilian_role": "yacht",
+    "stations": [
+      [
+        -2.0,
+        0.48
+      ],
+      [
+        -1.7,
+        0.57
+      ],
+      [
+        -0.85,
+        0.58
+      ],
+      [
+        0.15,
+        0.59
+      ],
+      [
+        0.86,
+        0.54
+      ],
+      [
+        1.5,
+        0.34
+      ],
+      [
+        2.1,
+        0.07
+      ],
+      [
+        2.3,
+        0.0
+      ]
+    ],
+    "hull_material": "ivory",
+    "trim_material": "teal_light",
+    "deck_material": "deck",
+    "height_ceiling_world": 19.0,
+    "source_radius_envelope_world": 35.800057,
+    "cell_px": [
+      184,
+      136
+    ],
+    "pivot_px": [
+      92,
+      86
+    ],
+    "identity": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
+  },
+  "osprey_cabin_cruiser": {
+    "name": "Lacquered Osprey Cruiser",
+    "size": 17,
+    "role": "cutter",
+    "tier": 2,
+    "faction": "compact",
+    "civilian_role": "yacht",
+    "stations": [
+      [
+        -2.18,
+        0.54
+      ],
+      [
+        -1.82,
+        0.62
+      ],
+      [
+        -0.9,
+        0.65
+      ],
+      [
+        0.18,
+        0.67
+      ],
+      [
+        0.92,
+        0.59
+      ],
+      [
+        1.6,
+        0.36
+      ],
+      [
+        2.22,
+        0.1
+      ],
+      [
+        2.42,
+        0.0
+      ]
+    ],
+    "hull_material": "ivory",
+    "trim_material": "brass_light",
+    "deck_material": "deck",
+    "height_ceiling_world": 24.0,
+    "source_radius_envelope_world": 45.999854,
+    "cell_px": [
+      232,
+      168
+    ],
+    "pivot_px": [
+      116,
+      108
+    ],
+    "identity": "Long lacquered cabin launch; raised glazed day salon and twin motors"
+  },
+  "aurelian_court_yacht": {
+    "name": "Aurelian Viceroy Yacht",
+    "size": 25,
+    "role": "cruiser",
+    "tier": 3,
+    "faction": "compact",
+    "civilian_role": "yacht",
+    "stations": [
+      [
+        -2.34,
+        0.56
+      ],
+      [
+        -1.94,
+        0.68
+      ],
+      [
+        -0.95,
+        0.72
+      ],
+      [
+        0.2,
+        0.72
+      ],
+      [
+        0.96,
+        0.66
+      ],
+      [
+        1.64,
+        0.45
+      ],
+      [
+        2.34,
+        0.16
+      ],
+      [
+        2.58,
+        0.0
+      ]
+    ],
+    "hull_material": "ivory",
+    "trim_material": "brass_light",
+    "deck_material": "deck",
+    "height_ceiling_world": 34.0,
+    "source_radius_envelope_world": 70.547196,
+    "cell_px": [
+      344,
+      248
+    ],
+    "pivot_px": [
+      172,
+      156
+    ],
+    "identity": "Long court yacht; two-level household bridge; wide signal wing and settee"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "status": "SOURCE_CONFIGURED_ALLOCATION; actual PNG sizes and bake durations UNMEASURED",
+  "headings": 32,
+  "density": 2,
+  "atlas_layout": [
+    8,
+    4
+  ],
+  "hulls": 36,
+  "missing_recipes": 33,
+  "atlas_rgba8_base_bytes": 278069248,
+  "atlas_rgba8_with_full_mip_chain_bytes": 370755008,
+  "portrait_rgba8_base_bytes": 34758656,
+  "portrait_rgba8_with_full_mip_chain_bytes": 46341996,
+  "all_hull_textures_with_mips_bytes": 417097004,
+  "all_hull_textures_with_mips_MiB": 397.7747,
+  "limits": "Uncompressed upper allocation for all36 resident; excludes weapons, driver alignment, import compression, staging/cache and other game textures"
+}

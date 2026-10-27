@@ -1,0 +1,147 @@
+049 ROSTER ART - SOURCE CANDIDATE / NATIVE UNRUN
+Base a157241f6d817f08cf231299d35e6539c61e2359. Metadata remains047.
+Root delivers047 then048 before integrating/preparing049. No version/tag,
+runtime art enablement, assets, import, bake, render or native result is supplied.
+
+DELIVERED SOURCE
+33 original design functions in recipes.py; existing3 builder function ASTs
+unchanged. catalog.json freezes actual HullProfiles stations + world size,
+role/tier/faction, independent hull/deck/trim materials and each design's purpose.
+ROSTER.tsv maps all36 designs, source ceiling canvases/pivots and base bytes.
+Fishing reels/davits/catch wells, freight holds/bales/safes, tank casks/manifolds,
+pleasure cockpits/salons and household bridge differ from the military layouts.
+No hull, weapon, economy, fitting or combat stats are added/changed.
+
+models.py adds the five missing MountLayout role rows and lazily registers33
+recipes over the existing geometric parts. New hulls use separate round-bilge
+shells, physical motor/jet hardware, broad glazing, low uncluttered decks and
+empty mounting wells. Every high structure's XY AABB must clear every actual
+socket radius by >=.04*size before a Root bake can proceed. Root must inspect
+representative fitted weapons, roof projection and wells in real battle/refit;
+metadata/AABB checks cannot establish visual quality or every barrel clearance.
+MountLayout elevation and WeaponGeometry's9.7 weapon base remain their existing
+distinct contracts. No roof covers a physical mounting footprint. No fixed gun,
+rocket rack or torpedo is baked into a hull. Refit weapons remain independent.
+
+CANVAS, TRUE BOUNDS AND MEMORY
+Density2,32headings,8x4 cells. Only new33 cells are fitted to the min/max of actual
+model vertices over all32 headings, with >=6pixels AA padding and8pixel dimension
+rounding. Pivot remains the projected physical [0,0,0] waterline, even when it
+differs from the alpha center. Portrait doubles that exact cell/pivot at density4.
+Prior3 geometry, materials, canvas and pivot branches are preserved.
+catalog/manifest-seed cells are conservative SOURCE ALLOCATION CEILINGS. They
+are NOT measured alpha or executed mesh bounds. Baker replaces cells/pivots
+and records actual nonempty alpha bounds and projected vertex bounds; clipping
+raises. Frame/pack receipts bind full source, AA, heading, density, canvas and
+PNG hashes. Model geometry and33 audit records are unexecuted until Root runs.
+
+Full36 RGBA8 budget ceiling (budget.json, exact full rectangular mip chains):
+Atlases base278069248B; with mips370755008B.
+Portraits base34758656B; with mips46341996B.
+All hull textures with mips417097004B =397.774700MiB.
+Actual tight-cell allocation will be lower and MUST be reported from receipts;
+no measured reduction claimed. Excludes weapons, driver alignment, import
+compression, CPU caches/staging, water and other textures. Compressed PNG bytes
+and per-frame/batch cost are UNMEASURED. Runtime does not load all36 via a new
+roster preload; fixture streams one actual atlas at a time. Existing texture
+cache retention can still make a long roster session expensive. Current300DP
+FPS remains bad; these assets are not a measured performance correction.
+
+ROOT PRODUCTION / EXISTING ADAPTER ONLY
+preview-kelpnet.plan.json is a concrete first single-frame batch for this exact
+isolated workspace. It binds the four bake sources by hash and uses existing
+run_asset_job.py, requiring no GPU/download/input. Submit that adapter through
+Test Bridge; it owns the shared lane. Do not nest another lane lease.
+The plan runs existing Python312, -B, bake.py --hull kelpnet_dory --mode preview
+--heading0 --aa2 --seconds75 to a NEW source-hash-named review/cache directory.
+Actual argv, cwd, hashes and expected PNG/receipt paths are in the plan. It has
+not been submitted. Root retains queued/interrupted/failed evidence separately.
+Adapter setup debit10s + native stop95s + cleanup stays under119s; one owned job.
+No install, default all-roster bake, hidden retry or new QA framework is needed.
+
+Small preview sequence: first kelpnet_dory heading0 (open fishing layout), then
+seepoil_tanker heading0 (tank/mount contrast), manta_strike heading28 (swept foil),
+and maiden_dreadnought heading0 (largest military cell). Each is a separately
+bounded selected batch, with actual cost pending; do NOT bundle four unmeasured
+frames into one120second batch. Root chooses later slice sizes from real receipts
+with setup/cleanup headroom, then reviews battle zoom and normal workshop scale.
+
+After Root's preview judgment, production raw argv is the SAME existing baker:
+python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode frames --start0
+  --frames1 --aa2 --seconds75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
+Schedule remaining0..31 bounded slices through existing adapter/TestBridge only.
+python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode pack --aa2
+  --seconds75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
+python -B tools/quality042/bake.py --hull <EXACT_NEW_ID> --mode portrait --heading0
+  --aa2 --seconds75 --out <NEW_049_STAGE> --cache <SAME_SOURCE_CACHE>
+Source changes invalidate the full new cache key. Pack refuses missing/mismatched
+frames. Exit3=INCOMPLETE_BOUNDED, never a pass; completed valid cache survives.
+Use only the33 IDs in catalog.json, not --hull all, preserving old3 real assets.
+
+MANIFEST MERGE / RUNTIME PROPOSAL - REQUIRES ROOT'S EXACT APPROVAL
+manifest-seed.json contains ONLY33 pending entries and names the existing3 to
+preserve verbatim. Never replace the game's live manifest with this seed. Root
+merges additions in isolated staging before production, then moves actual baked
+fields/PNGs/receipts into its sequential049 candidate. Empty arrays/hashes are
+UNBAKED, not ready. prepare_sources.py writes only source JSON/matrices from
+canonical source; it never imports recipes/models, constructs meshes or images.
+
+BoatSpriteArt is UNCHANGED. After all33 real assets and native coverage exist,
+proposal for hull_entry: remove only `if id not in IDS:return {}`; retain schema
+guard and dictionary guard; reject entries unless headings==32 and actual
+frame_bounds_px.size()==32. Existing _cell_ready and portrait texture check
+continue actual missing-resource fallback. Do not compute PNG hashes per draw.
+Root must explicitly approve/apply this minimal change; this helper has not.
+The new fixture intentionally fails production lookup for new IDs until then.
+
+ROOT NATIVE / QUALITY ACCEPTANCE STILL REQUIRED
+game/tests/test_roster_art049.gd is ONE compact source fixture, UNRUN. After
+actual staging import/activation, run with existing headless/Dummy QA adapter:
+godot --headless --path game --script res://tests/test_roster_art049.gd
+Root uses exact installed engine path and existing synthetic app profile; no
+direct helper submission. Internal85s bound leaves outer setup/cleanup headroom.
+It compares all36 actual PNG dimensions/32alpha cells/hashes/portraits, production
+heading lookup and actual MountLayout wells; new receipts verify profile stations,
+physical extents and high-structure clearance. It does not retain all atlases in
+the GPU texture cache. Missing assets/bounds fail; source counts cannot pass it.
+Existing042 actual battle/refit empty-fit, live aim and independent weapon tests
+remain relevant; Root selects focused coverage and real captures below120s.
+
+FOLLOWUPS / PHYSICAL FOOTPRINT AUDIT
+Read docs/roadmap/QUALITY REVIEW FOLLOWUPS.txt: dark bow faces, thin rails and
+weak stock-gun contrast are observed prior issues. New broad faces use tin,
+armor_light, ivory or medium teal; deck value is separated from tiny machinery.
+Prior042 palettes/light are unchanged; only Root's actual small-scale images
+can judge whether the low dark-face/weapon contrast problem is solved.
+
+Root's observed friendly projected overlap is NOT certified collision contact
+by this source work. FOOTPRINTS.tsv calculates actual canonical station length/
+beam versus Battle._radius=max(10,size), before drives/rails. Station radii exceed
+collision radii by roughly2.02..2.65 times, while the circular physical contacts
+and projectile hit checks still use radius=size. Route planning adds a speed/
+turn allowance; navigation_radius uses2.75*size for hostile navigation. Those
+are different envelopes. Projected heights can overlap even with separate XY
+footprints; the undersized contact circle also permits genuine profile overlap.
+Root should compare world XY silhouettes and friendly centers at the observed
+frame before changing contacts, steering or deployment. No collision/stat/
+spacing fix is included or implied by new atlas padding or crop boundaries.
+
+Minor-fire issue remains OPEN049: prior sampled real tongues were about4px wide
+and3-7px tall and blended into deck fittings. hull_feedback.gd paints existing
+live fire at actual scar positions; its scale floor.45 makes minimum-height
+parts very small. Smoke is centered near(-.1,0), independently of scar tongues;
+dark cloud/bright fittings may obscure the small hit. These are source findings,
+not a motion review. Root should inspect ONE actually damaged tongue at normal
+zoom, minimum on-screen height/core separation and smoke position at that hit.
+Do not add fire to healthy hulls. HullFeedback is outside this source allowlist.
+No animation was changed, so no motion claim/recording is supplied.
+
+SOURCE REVIEW / LIMITS
+Python AST parsing and read-only source/diff review only; original3 builder AST
+comparison unchanged. No models module import/construction, engine, test suite,
+import/export/render/bake/GPU/Blender/audio/CUA/input/focus/download/helper/push/
+maintenance execution. Native fixture and all art remain UNRUN/UNREVIEWED.
+source-binding.json binds the four production sources and actual source inputs;
+commit ID is supplied in Root's meeting handoff, not embedded recursively here.
+Root reviews/tests this candidate before acceptance. Stand by for actual preview
+findings; fix only concrete049 art defects inside the same allowed source files.

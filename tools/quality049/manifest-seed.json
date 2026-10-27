@@ -1,0 +1,1437 @@
+{
+  "schema": "brass-tide-boats042-v1",
+  "source_revision": "049-roster-source-r1",
+  "asset_status": "SOURCE_SEED_ONLY_NOT_A_RUNTIME_MANIFEST",
+  "preserve_existing_hulls": [
+    "tin_skiff",
+    "ash_corvette",
+    "brasswind_motor_galleon"
+  ],
+  "merge_rule": "Add only these33 entries in Root staging; never overwrite existing3 receipts/bounds",
+  "source_inputs_sha256": {
+    "game/data/world.json": "ab66ce729ca8b8d14a95d5c39da0f1fdc4b8f112f8ced8a02cd9ca76e33a5182",
+    "game/scripts/hull_profiles.gd": "7c34b7f76b2053fbd12dec723b8ab169603fd70d56373f3cc355add161fd5757",
+    "game/scripts/mount_layout.gd": "48c17e969781762633895e5ac4479a3d40831773516298aac0df340ef3e10ef8"
+  },
+  "hulls": {
+    "bilge_punt": {
+      "name": "Bilgewater Punt",
+      "size": 13,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/bilge_punt/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        168,
+        128
+      ],
+      "pivot_px": [
+        84,
+        82
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/bilge_punt/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        336,
+        256
+      ],
+      "portrait_pivot_px": [
+        168,
+        164
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.9,
+        -0.62,
+        2.14,
+        0.62
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 32.129608,
+      "height_ceiling_world": 19.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "lantern_skiff": {
+      "name": "Lantern Ward Skiff",
+      "size": 15,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/lantern_skiff/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        192,
+        152
+      ],
+      "pivot_px": [
+        96,
+        96
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/lantern_skiff/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        384,
+        304
+      ],
+      "portrait_pivot_px": [
+        192,
+        192
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.96,
+        -0.65,
+        2.08,
+        0.65
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 37.606181,
+      "height_ceiling_world": 23.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "marsh_dart": {
+      "name": "Marsh Dart Hydro",
+      "size": 14,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/marsh_dart/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        176,
+        136
+      ],
+      "pivot_px": [
+        88,
+        84
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/marsh_dart/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        352,
+        272
+      ],
+      "portrait_pivot_px": [
+        176,
+        168
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.86,
+        -0.6,
+        2.16,
+        0.6
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 33.877044,
+      "height_ceiling_world": 19.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "scab_cutter": {
+      "name": "Scabfin Cutter",
+      "size": 17,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/scab_cutter/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        208,
+        160
+      ],
+      "pivot_px": [
+        104,
+        99
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/scab_cutter/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        416,
+        320
+      ],
+      "portrait_pivot_px": [
+        208,
+        198
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.92,
+        -0.63,
+        2.06,
+        0.63
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 41.650576,
+      "height_ceiling_world": 22.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "gale_cutter": {
+      "name": "Galeblade Interceptor",
+      "size": 18,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/gale_cutter/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        232,
+        160
+      ],
+      "pivot_px": [
+        116,
+        100
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/gale_cutter/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        464,
+        320
+      ],
+      "portrait_pivot_px": [
+        232,
+        200
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.02,
+        -0.65,
+        2.24,
+        0.65
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 45.737465,
+      "height_ceiling_world": 20.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "silt_lugger": {
+      "name": "Silt Runner Lugger",
+      "size": 17,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/silt_lugger/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        208,
+        152
+      ],
+      "pivot_px": [
+        104,
+        95
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/silt_lugger/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        416,
+        304
+      ],
+      "portrait_pivot_px": [
+        208,
+        190
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.88,
+        -0.87,
+        2.02,
+        0.87
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 42.055135,
+      "height_ceiling_world": 20.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "hook_raider": {
+      "name": "Grapnel Blockade Runner",
+      "size": 20,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/hook_raider/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        248,
+        184
+      ],
+      "pivot_px": [
+        124,
+        113
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/hook_raider/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        496,
+        368
+      ],
+      "portrait_pivot_px": [
+        248,
+        226
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.96,
+        -0.86,
+        2.15,
+        0.86
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 50.588003,
+      "height_ceiling_world": 24.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "mercantile_clipper": {
+      "name": "Sovereign Armed Packet",
+      "size": 23,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/mercantile_clipper/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        296,
+        216
+      ],
+      "pivot_px": [
+        148,
+        136
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/mercantile_clipper/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        592,
+        432
+      ],
+      "portrait_pivot_px": [
+        296,
+        272
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.06,
+        -0.89,
+        2.26,
+        0.89
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 60.032616,
+      "height_ceiling_world": 30.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "harbor_sloop": {
+      "name": "Breakwater Patrol Sloop",
+      "size": 17,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/harbor_sloop/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        208,
+        168
+      ],
+      "pivot_px": [
+        104,
+        108
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/harbor_sloop/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        416,
+        336
+      ],
+      "portrait_pivot_px": [
+        208,
+        216
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.86,
+        -0.62,
+        2.04,
+        0.62
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 40.649117,
+      "height_ceiling_world": 27.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "aegis_corvette": {
+      "name": "Vanguard Line Corvette",
+      "size": 24,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/aegis_corvette/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        296,
+        216
+      ],
+      "pivot_px": [
+        148,
+        138
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/aegis_corvette/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        592,
+        432
+      ],
+      "portrait_pivot_px": [
+        296,
+        276
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.02,
+        -0.66,
+        2.22,
+        0.66
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 60.234358,
+      "height_ceiling_world": 31.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "reed_stinger": {
+      "name": "Fen Stinger Torpedo Launch",
+      "size": 17,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/reed_stinger/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        208,
+        152
+      ],
+      "pivot_px": [
+        104,
+        94
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/reed_stinger/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        416,
+        304
+      ],
+      "portrait_pivot_px": [
+        208,
+        188
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.88,
+        -0.62,
+        2.14,
+        0.62
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 40.982833,
+      "height_ceiling_world": 20.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "krill_torpedo": {
+      "name": "Tallowfin Torpedo Boat",
+      "size": 20,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/krill_torpedo/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        248,
+        176
+      ],
+      "pivot_px": [
+        124,
+        108
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/krill_torpedo/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        496,
+        352
+      ],
+      "portrait_pivot_px": [
+        248,
+        216
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.96,
+        -0.65,
+        2.18,
+        0.65
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 49.388532,
+      "height_ceiling_world": 22.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "manta_strike": {
+      "name": "Manta Flotilla Leader",
+      "size": 24,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/manta_strike/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        296,
+        216
+      ],
+      "pivot_px": [
+        148,
+        133
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/manta_strike/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        592,
+        432
+      ],
+      "portrait_pivot_px": [
+        296,
+        266
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.05,
+        -0.7,
+        2.28,
+        0.7
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 60.943857,
+      "height_ceiling_world": 28.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "slag_gunboat": {
+      "name": "Slagclast River Gunboat",
+      "size": 22,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/slag_gunboat/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        256,
+        184
+      ],
+      "pivot_px": [
+        128,
+        115
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/slag_gunboat/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        512,
+        368
+      ],
+      "portrait_pivot_px": [
+        256,
+        230
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.87,
+        -0.75,
+        2.01,
+        0.75
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 52.154812,
+      "height_ceiling_world": 24.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "bellows_gunboat": {
+      "name": "Bellows Siege Gunboat",
+      "size": 26,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/bellows_gunboat/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        312,
+        216
+      ],
+      "pivot_px": [
+        156,
+        132
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/bellows_gunboat/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        624,
+        432
+      ],
+      "portrait_pivot_px": [
+        312,
+        264
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.96,
+        -0.78,
+        2.08,
+        0.78
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 63.530281,
+      "height_ceiling_world": 26.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "furnace_turret": {
+      "name": "Furnace Sovereign Monitor",
+      "size": 30,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/furnace_turret/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        368,
+        248
+      ],
+      "pivot_px": [
+        184,
+        153
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/furnace_turret/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        736,
+        496
+      ],
+      "portrait_pivot_px": [
+        368,
+        306
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.06,
+        -0.85,
+        2.16,
+        0.85
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 75.91662,
+      "height_ceiling_world": 29.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "barbed_lance": {
+      "name": "Sparkrack Rocket Scow",
+      "size": 20,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/barbed_lance/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        232,
+        168
+      ],
+      "pivot_px": [
+        116,
+        101
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/barbed_lance/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        464,
+        336
+      ],
+      "portrait_pivot_px": [
+        232,
+        202
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.86,
+        -0.8,
+        2.0,
+        0.8
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 47.422516,
+      "height_ceiling_world": 20.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "cinder_monitor": {
+      "name": "Pyreclast Rocket Monitor",
+      "size": 25,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/cinder_monitor/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        296,
+        208
+      ],
+      "pivot_px": [
+        148,
+        131
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/cinder_monitor/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        592,
+        416
+      ],
+      "portrait_pivot_px": [
+        296,
+        262
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.95,
+        -0.88,
+        2.06,
+        0.88
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 60.927039,
+      "height_ceiling_world": 27.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "wraith_rocket": {
+      "name": "Hellbore Salvo Cruiser",
+      "size": 29,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/wraith_rocket/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        352,
+        248
+      ],
+      "pivot_px": [
+        176,
+        157
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/wraith_rocket/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        704,
+        496
+      ],
+      "portrait_pivot_px": [
+        352,
+        314
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.04,
+        -0.84,
+        2.18,
+        0.84
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 72.888495,
+      "height_ceiling_world": 33.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "cobalt_frigate": {
+      "name": "Cobalt Commodore Frigate",
+      "size": 24,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/cobalt_frigate/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        288,
+        224
+      ],
+      "pivot_px": [
+        144,
+        143
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/cobalt_frigate/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        576,
+        448
+      ],
+      "portrait_pivot_px": [
+        288,
+        286
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -1.96,
+        -0.66,
+        2.18,
+        0.66
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 58.81614,
+      "height_ceiling_world": 34.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "iron_bastion": {
+      "name": "Bastion Armored Cruiser",
+      "size": 31,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/iron_bastion/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        376,
+        272
+      ],
+      "pivot_px": [
+        188,
+        173
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/iron_bastion/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        752,
+        544
+      ],
+      "portrait_pivot_px": [
+        376,
+        346
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.04,
+        -0.73,
+        2.24,
+        0.73
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 77.761186,
+      "height_ceiling_world": 38.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "maiden_dreadnought": {
+      "name": "Shatter Throne Dreadnought",
+      "size": 36,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/maiden_dreadnought/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        440,
+        312
+      ],
+      "pivot_px": [
+        220,
+        195
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/maiden_dreadnought/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        880,
+        624
+      ],
+      "portrait_pivot_px": [
+        440,
+        390
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.1,
+        -0.81,
+        2.3,
+        0.81
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 92.075233,
+      "height_ceiling_world": 41.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "kelpnet_dory": {
+      "name": "Kelpnet Dory",
+      "size": 13,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/kelpnet_dory/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        176,
+        128
+      ],
+      "pivot_px": [
+        88,
+        80
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/kelpnet_dory/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        352,
+        256
+      ],
+      "portrait_pivot_px": [
+        176,
+        160
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.06,
+        -0.6,
+        2.08,
+        0.6
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 34.170778,
+      "height_ceiling_world": 17.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "brinehook_longliner": {
+      "name": "Brinehook Longliner",
+      "size": 15,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/brinehook_longliner/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        216,
+        160
+      ],
+      "pivot_px": [
+        108,
+        104
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/brinehook_longliner/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        432,
+        320
+      ],
+      "portrait_pivot_px": [
+        216,
+        208
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.32,
+        -0.62,
+        2.18,
+        0.62
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 42.921743,
+      "height_ceiling_world": 24.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "mother_gull_trawler": {
+      "name": "Mother Gull Trawler",
+      "size": 19,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/mother_gull_trawler/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        256,
+        184
+      ],
+      "pivot_px": [
+        128,
+        117
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/mother_gull_trawler/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        512,
+        368
+      ],
+      "portrait_pivot_px": [
+        256,
+        234
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.2,
+        -0.94,
+        2.28,
+        0.94
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 52.569248,
+      "height_ceiling_world": 25.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "fenhopper_lighter": {
+      "name": "Fenhopper Lighter",
+      "size": 17,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/fenhopper_lighter/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        232,
+        160
+      ],
+      "pivot_px": [
+        116,
+        97
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/fenhopper_lighter/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        464,
+        320
+      ],
+      "portrait_pivot_px": [
+        232,
+        194
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.2,
+        -0.95,
+        2.18,
+        0.95
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 47.28345,
+      "height_ceiling_world": 18.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "tideledger_coaster": {
+      "name": "Tideledger Coaster",
+      "size": 21,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/tideledger_coaster/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        304,
+        216
+      ],
+      "pivot_px": [
+        152,
+        134
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/tideledger_coaster/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        608,
+        432
+      ],
+      "portrait_pivot_px": [
+        304,
+        268
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.38,
+        -0.96,
+        2.45,
+        0.96
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 61.517707,
+      "height_ceiling_world": 28.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "fourport_packet": {
+      "name": "Fourport Packet",
+      "size": 24,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/fourport_packet/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        328,
+        240
+      ],
+      "pivot_px": [
+        164,
+        149
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/fourport_packet/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        656,
+        480
+      ],
+      "portrait_pivot_px": [
+        328,
+        298
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.3,
+        -0.98,
+        2.52,
+        0.98
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 68.109692,
+      "height_ceiling_world": 32.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "seepoil_tanker": {
+      "name": "Seepoil Tanker Barge",
+      "size": 20,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/seepoil_tanker/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        264,
+        176
+      ],
+      "pivot_px": [
+        132,
+        106
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/seepoil_tanker/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        528,
+        352
+      ],
+      "portrait_pivot_px": [
+        264,
+        212
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.16,
+        -0.78,
+        2.3,
+        0.78
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 53.328291,
+      "height_ceiling_world": 19.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "blackwater_fleet_tanker": {
+      "name": "Blackwater Fleet Tanker",
+      "size": 27,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/blackwater_fleet_tanker/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        384,
+        248
+      ],
+      "pivot_px": [
+        192,
+        149
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/blackwater_fleet_tanker/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        768,
+        496
+      ],
+      "portrait_pivot_px": [
+        384,
+        298
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.48,
+        -0.83,
+        2.62,
+        0.83
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 79.753355,
+      "height_ceiling_world": 25.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "gullwing_daysailer": {
+      "name": "Gullwing Daysailer",
+      "size": 14,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/gullwing_daysailer/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        184,
+        136
+      ],
+      "pivot_px": [
+        92,
+        86
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/gullwing_daysailer/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        368,
+        272
+      ],
+      "portrait_pivot_px": [
+        184,
+        172
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.0,
+        -0.59,
+        2.3,
+        0.59
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 35.800057,
+      "height_ceiling_world": 19.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "osprey_cabin_cruiser": {
+      "name": "Lacquered Osprey Cruiser",
+      "size": 17,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/osprey_cabin_cruiser/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        232,
+        168
+      ],
+      "pivot_px": [
+        116,
+        108
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/osprey_cabin_cruiser/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        464,
+        336
+      ],
+      "portrait_pivot_px": [
+        232,
+        216
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.18,
+        -0.67,
+        2.42,
+        0.67
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 45.999854,
+      "height_ceiling_world": 24.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    },
+    "aurelian_court_yacht": {
+      "name": "Aurelian Viceroy Yacht",
+      "size": 25,
+      "asset_status": "source_recipe_only_UNBAKED",
+      "atlas": "res://assets/boats042/aurelian_court_yacht/hull-atlas.png",
+      "headings": 32,
+      "columns": 8,
+      "rows": 4,
+      "cell_px": [
+        344,
+        248
+      ],
+      "pivot_px": [
+        172,
+        156
+      ],
+      "pixels_per_world_unit": 2,
+      "cell_status": "source ceiling; Root baker tightens to actual all32-heading model geometry",
+      "portrait": "res://assets/boats042/aurelian_court_yacht/portrait.png",
+      "portrait_heading": 0,
+      "portrait_cell_px": [
+        688,
+        496
+      ],
+      "portrait_pivot_px": [
+        344,
+        312
+      ],
+      "portrait_pixels_per_world_unit": 4,
+      "frame_bounds_px": [],
+      "portrait_bounds_px": [],
+      "source_station_bounds_local": [
+        -2.34,
+        -0.72,
+        2.58,
+        0.72
+      ],
+      "geometry_envelope_status": "source arithmetic only; actual mesh and alpha UNMEASURED",
+      "source_radius_envelope_world": 70.547196,
+      "height_ceiling_world": 34.0,
+      "sockets": [],
+      "installed_guns_in_hull": false
+    }
+  }
+}

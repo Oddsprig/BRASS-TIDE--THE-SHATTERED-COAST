@@ -17,7 +17,7 @@ import time
 import numpy as np
 from PIL import Image
 
-from models import BUILDERS, MATERIALS, REVISION, build
+from models import BUILDERS, MATERIALS, REVISION, build, _roster
 
 DEFAULT_CELL = (384, 320)
 DEFAULT_PIVOT = (192, 200)
@@ -31,11 +31,32 @@ VIEW = np.array((1, 1, .82), dtype=np.float32)
 VIEW /= np.linalg.norm(VIEW)
 
 
-def configure_canvas(hull_id):
-    """Select each hull's canvas before construction; never rescale geometry."""
+def configure_canvas(hull_id, model=None):
+    """Fit the new hulls' all-heading canvas; never rescale physical geometry."""
     global CELL, PIVOT
     if hull_id == "brasswind_motor_galleon":
         CELL, PIVOT = (400, 320), (200, 200)
+    elif hull_id in _roster.CATALOG:
+        config = _roster.CATALOG[hull_id]
+        CELL, PIVOT = tuple(config["cell_px"]), tuple(config["pivot_px"])
+        if model is not None:
+            # New hulls reserve only their actual all-heading projected geometry
+            # plus six AA pixels. The source seed remains an allocation ceiling,
+            # never a claim to measured alpha. Legacy042 cells stay byte-compatible.
+            vertices=np.asarray([v for p in model.parts for v in p.vertices],np.float64)
+            low=np.array((np.inf,np.inf));high=-low.copy()
+            for heading in range(HEADINGS):
+                angle=heading*math.tau/HEADINGS
+                c,s=math.cos(angle),math.sin(angle)
+                x=vertices[:,0]*c-vertices[:,1]*s
+                y=vertices[:,0]*s+vertices[:,1]*c
+                screen=np.column_stack(((x-y)*.82,(x+y)*.41-vertices[:,2]))*DENSITY
+                low=np.minimum(low,screen.min(axis=0));high=np.maximum(high,screen.max(axis=0))
+            tight_cell=tuple(int(math.ceil((high[i]-low[i]+13)/8))*8 for i in range(2))
+            tight_pivot=tuple(int(math.ceil(6-low[i])) for i in range(2))
+            if any(tight_cell[i]>CELL[i] for i in range(2)):
+                raise ValueError(f"{hull_id}: geometry exceeds source allocation ceiling {tight_cell} > {CELL}")
+            CELL,PIVOT=tight_cell,tight_pivot
     else:
         CELL, PIVOT = DEFAULT_CELL, DEFAULT_PIVOT
 
@@ -65,6 +86,8 @@ def source_hash():
     h = hashlib.sha256()
     for name in ("models.py", "bake.py"):
         h.update(Path(__file__).with_name(name).read_bytes())
+    for name in ("recipes.py", "catalog.json"):
+        h.update((Path(__file__).resolve().parents[1]/"quality049"/name).read_bytes())
     return h.hexdigest()
 
 
@@ -210,7 +233,11 @@ def render(model, heading, density, supersample, deadline):
     if supersample > 1:
         # Pillow's premultiplied mode prevents dark transparent fringes.
         img = img.convert("RGBa").resize(cell,Image.Resampling.LANCZOS).convert("RGBA")
-    return img, {"bounds_px":img.getbbox(),"vertices":len(v),"triangles":len(faces),"parts":len(model.parts)}
+    local = texture_pos
+    return img, {"bounds_px":img.getbbox(),"vertices":len(v),"triangles":len(faces),"parts":len(model.parts),
+                 "projected_vertex_bounds_px":[*lo.tolist(),*hi.tolist()],
+                 "physical_bounds_world":[*local.min(axis=0).tolist(),*local.max(axis=0).tolist()],
+                 "roster049":getattr(model,"roster049",None)}
 
 
 def cache_key(source, hull_id, heading, density, aa):
@@ -247,7 +274,8 @@ def save_frame(model, heading, density, args, deadline, source):
         return path,metadata
     started = time.perf_counter()
     img, metadata = render(model,heading,density,args.aa,deadline)
-    metadata.update({"source_sha256":source,"revision":REVISION,"hull_id":model.hull_id,
+    revision=_roster.REVISION if model.hull_id in _roster.CATALOG else REVISION
+    metadata.update({"source_sha256":source,"revision":revision,"hull_id":model.hull_id,
                      "heading":heading,"density":density,"aa":args.aa,"cell_px":list(img.size),
                      "pivot_px":[round(v*density/DENSITY) for v in PIVOT],
                      "canvas_config":canvas_metadata(),
@@ -264,6 +292,7 @@ def save_frame(model, heading, density, args, deadline, source):
 def pack(model,args,source,deadline):
     paths=[]
     bounds=[]
+    frame_receipts=[]
     for h in range(HEADINGS):
         if time.perf_counter() >= deadline:
             raise TimeoutError("bounded deadline during pack")
@@ -274,6 +303,11 @@ def pack(model,args,source,deadline):
         metadata=json.loads(receipt.read_text(encoding="utf-8"))
         if metadata.get("source_sha256") != source or metadata.get("png_sha256") != hashlib.sha256(path.read_bytes()).hexdigest():
             raise ValueError(f"frame/source receipt mismatch: {path}")
+        if (metadata.get("hull_id") != model.hull_id or metadata.get("heading") != h
+                or metadata.get("density") != DENSITY or metadata.get("aa") != args.aa
+                or metadata.get("canvas_config") != canvas_metadata()):
+            raise ValueError(f"frame identity/canvas mismatch: {path}")
+        frame_receipts.append(metadata)
         paths.append(path)
     atlas=Image.new("RGBA",(CELL[0]*8,CELL[1]*4))
     for h,path in enumerate(paths):
@@ -292,12 +326,16 @@ def pack(model,args,source,deadline):
             "atlas_sha256":hashlib.sha256(target.read_bytes()).hexdigest(),
             "canvas_config":canvas_metadata(),
             "atlas_size_px":list(atlas.size),"gpu_rgba8_bytes":atlas.width*atlas.height*4,
+            "frame_bounds_px":bounds,"frames":frame_receipts,
+            "roster049":getattr(model,"roster049",None),
             "status":"baked; visual and native integration review still required"}
     (folder/"bake-receipt.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
     asset_metadata(args,model.hull_id,frame_bounds_px=bounds,asset_status="baked_pending_visual_review",
                    source_sha256=source,atlas_source_sha256=source,
-                   atlas_sha256=report["atlas_sha256"],sockets=model.sockets)
-    print(json.dumps(report),flush=True)
+                   atlas_sha256=report["atlas_sha256"],sockets=model.sockets,
+                   physical_bounds_world=frame_receipts[0].get("physical_bounds_world"),
+                   roster049=getattr(model,"roster049",None))
+    print(json.dumps({k:v for k,v in report.items() if k != "frames"}),flush=True)
 
 
 def main():
@@ -322,8 +360,8 @@ def main():
     hulls=BUILDERS if args.hull == "all" else (args.hull,)
     try:
         for hull_id in hulls:
-            configure_canvas(hull_id)
             model=build(hull_id)
+            configure_canvas(hull_id,model)
             if args.mode == "pack":
                 pack(model,args,source,deadline)
                 continue

@@ -1,0 +1,37 @@
+id	size	role	civilian	cell_px	waterline_pivot_px	atlas_RGBA8_bytes	status	identity
+tin_skiff	14	skiff	combat	384x320	192,200	15728640	PRESERVE_EXISTING_042	Prior authored recipe and runtime asset entry unchanged
+bilge_punt	13	skiff	combat	168x128	84,82	2752512	SOURCE_RECIPE_ONLY	Open patched scout; offset exposed motor and salvage reel
+lantern_skiff	15	skiff	combat	192x152	96,96	3735552	SOURCE_RECIPE_ONLY	Customs canopy; raised searchlight; twin transom motors
+marsh_dart	14	cutter	combat	176x136	88,84	3063808	SOURCE_RECIPE_ONLY	Stepped open hydroplane; center jet and transverse foil
+scab_cutter	17	cutter	combat	208x160	104,99	4259840	SOURCE_RECIPE_ONLY	Sawtooth bow cheeks; low slit house; split exhaust and twin screws
+gale_cutter	18	cutter	combat	232x160	116,100	4751360	SOURCE_RECIPE_ONLY	Swept pursuit foil; narrow canopy; twin supercharged jet machinery
+silt_lugger	17	raider	combat	208x152	104,95	4046848	SOURCE_RECIPE_ONLY	Broad dry-cargo cat; low canopy; paired holds and side bales
+hook_raider	20	raider	combat	248x184	124,113	5840896	SOURCE_RECIPE_ONLY	Narrow contraband cat; offset davit; low bridge and paired jets
+mercantile_clipper	23	raider	combat	296x216	148,136	8183808	SOURCE_RECIPE_ONLY	Fine treasury cat bows; stepped packet house and bonded safes
+harbor_sloop	17	corvette	combat	208x168	104,108	4472832	SOURCE_RECIPE_ONLY	Round patrol hull; brass wheelhouse; one stack and tow capstan
+ash_corvette	21	corvette	combat	384x320	192,200	15728640	PRESERVE_EXISTING_042	Prior authored recipe and runtime asset entry unchanged
+aegis_corvette	24	corvette	combat	296x216	148,138	8183808	SOURCE_RECIPE_ONLY	Fine escort prow; full rangefinder wing and damage-control chests
+reed_stinger	17	torpedo	combat	208x152	104,94	4046848	SOURCE_RECIPE_ONLY	Low open marsh launch; single jet and air-receiver manifold
+krill_torpedo	20	torpedo	combat	248x176	124,108	5586944	SOURCE_RECIPE_ONLY	Low wolfpack hood; empty reload skid; split motor and stack
+manta_strike	24	torpedo	combat	296x216	148,133	8183808	SOURCE_RECIPE_ONLY	Swept wide foil; tall narrow command fin and paired jets
+slag_gunboat	22	gunboat	combat	256x184	128,115	6029312	SOURCE_RECIPE_ONLY	Blunt ironclad; single armor course; low casemate and twin stacks
+bellows_gunboat	26	gunboat	combat	312x216	156,132	8626176	SOURCE_RECIPE_ONLY	Broad siege hull; double belt; external bilge manifolds and paired engines
+furnace_turret	30	gunboat	combat	368x248	184,153	11681792	SOURCE_RECIPE_ONLY	Bulged bastion; triple belt; raised conning cupola and three ejectors
+barbed_lance	20	rocket	combat	232x168	116,101	4988928	SOURCE_RECIPE_ONLY	Wide ore scow; timber push cheeks; covered hold and igniter boxes
+cinder_monitor	25	rocket	combat	296x208	148,131	7880704	SOURCE_RECIPE_ONLY	Full-bodied monitor; low bunker; one broad stack and insulated safes
+wraith_rocket	29	rocket	combat	352x248	176,157	11173888	SOURCE_RECIPE_ONLY	Long salvo hull; narrow fire-control tower and paired jet plants
+cobalt_frigate	24	cruiser	combat	288x224	144,143	8257536	SOURCE_RECIPE_ONLY	Command frigate; stepped flag bridge and dual turbine exhaust
+iron_bastion	31	cruiser	combat	376x272	188,173	13090816	SOURCE_RECIPE_ONLY	Heavy flagship; double belt; high signal house and pump dome
+maiden_dreadnought	36	cruiser	combat	440x312	220,195	17571840	SOURCE_RECIPE_ONLY	Long capital bow; triple belt; triple funnels and three transom drives
+kelpnet_dory	13	skiff	fishing	176x128	88,80	2883584	SOURCE_RECIPE_ONLY	Short open fishing dory; hand reel; net stack and catch well
+brinehook_longliner	15	skiff	fishing	216x160	108,104	4423680	SOURCE_RECIPE_ONLY	Long working stern; paired line reels and offset davit under canopy
+mother_gull_trawler	19	raider	fishing	256x184	128,117	6029312	SOURCE_RECIPE_ONLY	Broad trawling cat; stern net reels and full-width working gantry
+fenhopper_lighter	17	raider	transport	232x160	116,97	4751360	SOURCE_RECIPE_ONLY	Flat twin-hull lighter; compressed bale stacks and loading ramp
+tideledger_coaster	21	raider	transport	304x216	152,134	8404992	SOURCE_RECIPE_ONLY	Long coastal cat; raised cargo davit; covered holds and bonded safes
+fourport_packet	24	raider	transport	328x240	164,149	10076160	SOURCE_RECIPE_ONLY	High two-level packet house; long covered hatches and twin exhaust
+brasswind_motor_galleon	28	raider	transport	400x320	200,200	16384000	PRESERVE_EXISTING_042	Prior authored recipe and runtime asset entry unchanged
+seepoil_tanker	20	corvette	tanker	264x176	132,106	5947392	SOURCE_RECIPE_ONLY	Round tank barge; four secured casks and raised copper transfer banks
+blackwater_fleet_tanker	27	corvette	tanker	384x248	192,149	12189696	SOURCE_RECIPE_ONLY	Long fleet tanker; four tank volumes with domes; three transom drives
+gullwing_daysailer	14	cutter	yacht	184x136	92,86	3203072	SOURCE_RECIPE_ONLY	Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck
+osprey_cabin_cruiser	17	cutter	yacht	232x168	116,108	4988928	SOURCE_RECIPE_ONLY	Long lacquered cabin launch; raised glazed day salon and twin motors
+aurelian_court_yacht	25	cruiser	yacht	344x248	172,156	10919936	SOURCE_RECIPE_ONLY	Long court yacht; two-level household bridge; wide signal wing and settee
