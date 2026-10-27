@@ -198,26 +198,72 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 		tally.dispatches += 1
 	return tally
 
-static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, old: Dictionary, sampled: Dictionary, baseline: Dictionary) -> Dictionary:
+static func _phase_due051(view: Dictionary, ship: Dictionary, state: Dictionary, target: Dictionary, range_value: float) -> bool:
+	# Only actual phase boundaries need main's full decision. A batch period is
+	# not a new burst/recovery/pursuit clock, nor permission to miss its deadline.
+	var now: float = float(view.time)
+	var phase: String = str(state.phase)
+	var elapsed: float = now - float(state.get("phaseSince", now))
+	if phase in ["breakaway", "turn-away", "regroup"]:
+		if bool(state.get("localRecovery", false)):
+			var recovery: float = clampf(PI / maxf(0.01, Roles.turn_rate(ship)), 0.75, 2.0)
+			if elapsed >= recovery and Roles.pos(ship).distance_to(state.get("breakawayFrom", Roles.pos(ship))) >= maxf(60.0, Roles.radius(ship) * 2.0):
+				var recovery_guns: Array = Roles.solo_recovery_guns(view, ship, state)
+				for mount: Dictionary in Roles.mounts(ship):
+					if str(mount.id) in recovery_guns and (Roles.mount_reload(ship, mount) <= 0.000001 or float(ship.get("mountShotTimes", {}).get(mount.id, -1.0)) > float(state.get("phaseSince", now))): return true
+		else:
+			return (phase in ["breakaway", "turn-away"] and elapsed >= 2.0) or (phase == "regroup" and now - float(state.get("safeSince", now)) >= 4.0)
+		return false
+	if Roles.speed(ship) <= 0.01: return false
+	var distance: float = Roles.pos(ship).distance_to(Roles.pos(target)) if not target.is_empty() else INF
+	var role: String = str(state.role)
+	if role in ["skirmisher", "striker"] and not target.is_empty():
+		if now - float(state.get("pursuitSince", now)) >= Roles.PURSUIT_SECONDS: return true
+		var opportunity: float = float(state.get("passOpportunitySince", -1.0))
+		var launcher: Dictionary = Roles.launch_mount(view, ship) if role == "striker" else {}
+		var reloading: bool = not launcher.is_empty() and Roles.mount_reload(ship, launcher) > 0.000001
+		if phase in ["stage", "align", "launch-window", "approach", "fire-pass"] and not (phase == "stage" and reloading) and opportunity >= 0.0 and now - maxf(opportunity, float(state.get("lastUsefulShot", opportunity))) >= 6.0: return true
+		if phase in ["approach", "stage", "align"] and now - float(state.get("progressAt", now)) >= 3.0 and not (reloading and distance <= range_value * 1.2): return true
+		if role == "skirmisher" and phase in ["approach", "fire-pass"]:
+			var near_anchor: bool = Roles.pos(ship).distance_to(state.get("anchor", Roles.pos(ship))) < maxf(45.0, Roles.speed(ship) * 0.4)
+			var keep_pass: bool = (phase == "fire-pass" or int(state.get("passShortShots", 0)) > 0) and distance <= range_value * 1.05
+			if ((distance <= range_value * 0.9 and near_anchor) or keep_pass) != (phase == "fire-pass"): return true
+			if Roles.speed(ship) <= Roles.velocity(target).length() * 1.05 and distance > range_value: return true
+	return false
+
+static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, old: Dictionary, sampled_context: Dictionary, baseline: Dictionary) -> Dictionary:
 	# Preferences are bounded-age suggestions. Only meaningful changes demand a
 	# full role search; this guard neither certifies a path nor permits a shot.
+	var sampled: Dictionary = sampled_context[str(ship.id)]
 	if ship.get("order") != sampled.get("order") or ship.get("orderTarget") != sampled.get("orderTarget"): return {}
-	for key: String in ["role", "phase", "targetId", "leaderId", "firingPassId", "passSequence", "passShots", "passShortShots", "passSpent", "localRecovery"]:
+	for key: String in ["role", "phase", "targetId", "leaderId", "firingPassId", "passSequence", "passShots", "passShortShots", "passSpent", "localRecovery", "phaseSince", "passSince", "passFirstShotAt", "passOpportunitySince", "shotTimes", "lastUsefulShot", "safeSince"]:
 		if previous.get(key) != baseline.get(key): return {}
 	if ship.get("mountShotTimes", {}) != sampled.get("mountShotTimes", {}): return {}
+	var target_id: String = str(old.state.targetId)
+	var leader_id: String = str(old.state.leaderId)
+	if not target_id.is_empty() and (not context.has(target_id) or context[target_id].team == ship.team): return {}
+	if not leader_id.is_empty() and (not context.has(leader_id) or context[leader_id].team != ship.team): return {}
+	var target: Dictionary = context.get(target_id, {})
+	var sampled_target: Dictionary = sampled_context.get(target_id, {})
+	var distance: float = Roles.pos(ship).distance_to(Roles.pos(target)) if not target.is_empty() else INF
+	var sampled_distance: float = Roles.pos(sampled).distance_to(Roles.pos(sampled_target)) if not sampled_target.is_empty() else INF
 	var timers: Array = Roles.array(ship.get("weaponCooldowns"))
 	var old_timers: Array = Roles.array(sampled.get("weaponCooldowns"))
 	for index: int in range(mini(Roles.MAX_MOUNTS, ship.mounts.size())):
+		var mount: Dictionary = ship.mounts[index]
 		var reload: float = float(timers[index]) if index < timers.size() else 0.0
 		var old_reload: float = float(old_timers[index]) if index < old_timers.size() else 0.0
 		if index == 0:
 			reload = maxf(reload, float(ship.get("cooldown", 0.0)))
 			old_reload = maxf(old_reload, float(sampled.get("cooldown", 0.0)))
 		if (reload <= 0.000001) != (old_reload <= 0.000001): return {}
-	var target_id: String = str(old.state.targetId)
-	var leader_id: String = str(old.state.leaderId)
-	if not target_id.is_empty() and (not context.has(target_id) or context[target_id].team == ship.team): return {}
-	if not leader_id.is_empty() and (not context.has(leader_id) or context[leader_id].team != ship.team): return {}
+		# Match the retained range event BEFORE sealing a new maneuver. Otherwise
+		# an old nonfiring stage silently inherits the new in-range event baseline.
+		if (distance <= float(mount.range) + Roles.radius(target) + 1.0) != (sampled_distance <= float(mount.range) + Roles.radius(sampled_target) + 1.0): return {}
+		if Roles.fixed_tube(mount) and not target.is_empty() and reload <= 0.000001:
+			var aligned: bool = distance <= float(mount.range) and absf(angle_difference(float(ship.angle) + float(mount.angle), (Roles.pos(target) - Roles.pos(ship)).angle())) <= float(mount.arc) * 0.45
+			var sampled_aligned: bool = sampled_distance <= float(mount.range) and absf(angle_difference(float(sampled.angle) + float(mount.angle), (Roles.pos(sampled_target) - Roles.pos(sampled)).angle())) <= float(mount.arc) * 0.45
+			if aligned != sampled_aligned: return {}
 	var opts: Dictionary = Roles.options(view, ship)
 	var doctrine: String = str(opts.get("doctrine", "steady"))
 	var hp_limit: float = 0.60 if doctrine == "cautious" else (0.30 if doctrine == "aggressive" else 0.45)
@@ -246,6 +292,15 @@ static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Di
 	if str(old.state.role) == "skirmisher" and str(old.state.phase) == "fire-pass" and Roles._skirmisher_burst_done(view, ship, old.state, float(view.time), float(old.range)): return {}
 	var decision: Dictionary = old.duplicate()
 	decision.state = old.state.duplicate()
+	# Keep newer observed travel, and observe REAL current progress before
+	# testing a stall. Joining a preference must not rewind these clocks/poses.
+	if float(previous.get("progressAt", -1.0)) > float(decision.state.get("progressAt", -1.0)):
+		decision.state.progressAt = previous.progressAt
+		decision.state.progressPos = previous.progressPos
+	if Roles.pos(ship).distance_to(decision.state.get("progressPos", Roles.pos(ship))) >= 18.0:
+		decision.state.progressAt = float(view.time)
+		decision.state.progressPos = Roles.pos(ship)
+	if _phase_due051(view, ship, decision.state, target, float(old.range)): return {}
 	decision.state.observations = hp.observations
 	var detailed: Array = []
 	if old.get("detailedIds", []).size() > Roles.MAX_TARGETS: return {}
@@ -274,7 +329,7 @@ static func _prepare_with_worker051(view: Dictionary, memory: Dictionary, sugges
 		var requests: Array = []
 		if id in suggestion.allowed:
 			var old: Dictionary = suggestion.planning.decisions[id]
-			decision = _join_preference051(view, ship, previous, context, old, suggestion.planning.context[id], suggestion.guards[id].memory)
+			decision = _join_preference051(view, ship, previous, context, old, suggestion.planning.context, suggestion.guards[id].memory)
 			if not decision.is_empty():
 				for raw: Dictionary in suggestion.requests.get(id, []):
 					# Joined output is transferred once to main, not copied eight

@@ -741,6 +741,42 @@ func workers051() -> void:
 		check(checked_membership.detailed==[str(arena.target.id)] and C._begin_inputs(now_view,now_owner,[],true).detailed.is_empty(),"private prepared membership checks current live hostile IDs, deduplicates and preserves an empty selection")
 		observations.append({"case":"workers-retained-expiry","createdAt":slot.createdAt,"chosenAt":lease.held.chosen_at,"adoptedAt":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"workerPose":C.pose(worker_view),"mainCheckedPose":record.get("certificate",{}).get("checkedPose",{}),"budgets":output.budgets})
 	T.retire_planning051(st);T.drain_planning051()
+	# A REAL batch contains only nonfiring distant stations. Moving the hostile
+	# inside gun range must not seal that old fire hold into a new retained plan.
+	arena=local_arena();st=arena.state;source=arena.source;id=str(source.id)
+	lease=_worker_slot051(arena)
+	if not lease.is_empty() and _worker_join051(lease.slot):
+		var slot: Dictionary=lease.slot
+		var requests: Array=slot.capsule.result.requests.get(id,[])
+		check(not requests.is_empty() and requests.all(func(candidate):return candidate.fireMountIds.is_empty()),"range fixture starts with actual nonfiring worker requests")
+		var event_at: float=float(st.time)
+		var observed_at: float=-1.0
+		var recovery_at: float=-1.0
+		var reengaged: bool=false
+		var requested_fire: bool=false
+		var emitted: Array=[]
+		var ammo: float=float(source.ammo)
+		var pass_sequence: int=int(st.tactical.memory.player.byId[id].get("passSequence",0))
+		arena.target.x=float(source.x)+200.0;arena.target.y=float(source.y)
+		for tick: int in range(600): # Bounded real10s, unchanged60Hz physics/fire.
+			B.update(st,1.0/60.0)
+			var shots: Array=fire_events(st,source)
+			emitted.append_array(shots)
+			var memory: Dictionary=st.tactical.memory.player.byId.get(id,{})
+			var history: Array=memory.get("observations",[])
+			if observed_at<0.0 and not history.is_empty() and float(history[-1].lastAt)>event_at:observed_at=float(history[-1].lastAt)
+			var intent: Dictionary=st.tactical.intents.get(id,{})
+			var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
+			requested_fire=requested_fire or not record.get("candidate",{}).get("fireMountIds",[]).is_empty()
+			if recovery_at<0.0 and str(memory.get("phase","")) in ["breakaway","turn-away","regroup"]:recovery_at=float(st.time)
+			if recovery_at>=0.0 and int(memory.get("passSequence",0))>pass_sequence and not shots.is_empty():reengaged=true
+			if id in slot.discarded and reengaged:break
+			OS.delay_usec(100) # Fixture scheduling only; never a runtime wait.
+		check(id in slot.discarded and id not in slot.adopted and observed_at>event_at and observed_at-event_at<=0.2+0.000001,"range crossing discards the obsolete fire request and observes current range within0.2s")
+		check(requested_fire and not emitted.is_empty() and is_equal_approx(ammo-float(source.ammo),float(emitted.size())),"worker range fallback obtains actual certified gun requests and exactly paid emitted fire")
+		check(recovery_at>=0.0 and reengaged,"real worker-driven gun pass recovers and emits again on a new finite pass")
+		observations.append({"case":"workers-range-fire","createdAt":slot.createdAt,"eventAt":event_at,"observedAt":observed_at,"time":st.time,"recoveryAt":recovery_at,"reengaged":reengaged,"events":emitted,"ammoBefore":ammo,"ammoAfter":source.ammo,"memory":st.tactical.memory.player.byId.get(id,{}),"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate()})
+	T.retire_planning051(st);T.drain_planning051()
 	# A real joined land route on the right remains geometrically valid there.
 	# Move its owner across the SAME wall: only a fresh main connector can reject
 	# adoption from that new pose. No terrain/revision invalidation can do it.

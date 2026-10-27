@@ -1,0 +1,35 @@
+051 BATCH FIRE/PHASE CORRECTION - SOURCE CANDIDATE, NATIVE UNRUN
+Base1882044 plus Nav245871f. Root6ebfb21 production matches this base;
+Root's later-physical-veto fixture assertion is preserved unchanged.
+
+Actual R24 job664f62e8d2ce43fe9ca55bd657b4d8ff FAILED: Tinwake lost at
+51.3167s, ammo75, last useful shot25.45s. The bounded failure JSON contains
+the final damaged regroup, not the first diverging earlier decision. It does
+not establish a complete causal replay or prove this candidate wins.
+
+Concrete source defect: join checked shot/reload events but omitted range.
+An old nonfiring worker stage could survive a range crossing, then _retain051
+would seal the old fireMountIds with a NEW in-range event baseline. Retained
+observation could consequently miss the event which should replace that hold.
+Join also copied phase/progress bookkeeping without checking elapsed phase
+boundaries, allowing stale recovery/approach preferences or older travel data.
+
+Planner now rejects changed per-mount range/fixed-tube alignment, newer main
+shot/pass observations, and actual burst/recovery/pursuit/stall/approach phase
+boundaries. Only those meaningful cases use existing fresh main planning.
+Real newer travel observations are preserved; an actual18-unit current travel
+observation advances progress normally. Actual HP sample times stay intact.
+No changed phase duration, reserve, RNG, weapon, hull or victory criteria.
+
+Whole-side0.15s batching/cheap ordinary joins remain. Fresh main land/traffic,
+certificate/reservation/current helm/fire authority and60Hz physics remain.
+No Runtime/Certification/Routes/Damage/Battle/Art/Main edits or new metrics.
+
+Existing workers fixture adds ONE real range-crossing case: joined nonfiring
+batch, actual changed hostile pose, <=0.2s current observation, actual certified
+gun requests/exact emitted-event ammo debit, then recovery and a new firing
+pass. Bounded600 public60Hz ticks (10sim seconds), with owned task cleanup.
+All prior worker/physical-veto assertions remain. Root owns every engine test.
+
+Source preload advisory0 issues; whitespace clean. Native/voyage/GPU UNRUN
+here. R24 remains FAILED and051 OPEN until Root's actual unchanged voyage.
