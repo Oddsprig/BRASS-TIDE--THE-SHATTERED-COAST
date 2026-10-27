@@ -1,0 +1,21 @@
+QUALITY REVIEW FOLLOWUPS - 27 OCTOBER 2026
+
+These observations are future saved scopes, not new requirements for043.
+Actual rendered screenshot: TestBridge389a6188d033445289995878d360533d,
+case mixed-end.png. This is a still, not motion/audio evidence.
+
+047: The permanent battle sidebars consume substantial scene space. Keep
+selection, damage control and orders compact; make expanded information
+optional. Long targeting/route lines need clear on-demand presentation.
+
+049: Only three hulls use authored directional assets. The remaining hulls
+still use the procedural fallback; the complete roster is not finished.
+Root and Grok previously noted dark bow faces, fine rail readability and weak
+stock-gun contrast in the authored samples. Review normal combat scale and
+representative headings, not only showcase closeups. Preserve physical mounts.
+
+050: Battle islands are still simple polygon bands. Replace them through the
+original coastal art scope; keep displayed shorelines and navigation aligned.
+
+051: Rendering completion/native assertions do not establish engaging play.
+The actual smoothness and whole first-voyage loop remain open gates.

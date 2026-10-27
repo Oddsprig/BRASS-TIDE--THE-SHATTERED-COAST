@@ -1,8 +1,12 @@
-# Current step: v0.043 - Real rendered performance and runtime budget
+# Current step: v0.043 - Real rendered performance
 
-- Measure actual exported mixed and light300point battles through the real renderer with active combat and declared hardware/resolution.
-- Attribute simulation and draw costs through opt-in counters, then apply bounded fixes to demonstrated bottlenecks while preserving actors,60Hz and authoritative state.
-- Keep real rendered background profiling separate from capped headless checks, and preserve actual limits and unmet targets.
+Measure active light and mixed300-point battles, attribute actual costs, and
+remove repeated validation/preparation inside the existing simulation. Preserve
+all boats,60Hz, usefulAI, damage/custody and worker threads. Final candidate
+measurement and focused portable checks are pending. Smoothness targets and
+milestone0.051 remain separate quality gates.
 
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+Next saved step0.044 is combat commitment and recovery. Its movement, cannon
+window and compact readiness candidates are prepared separately; integrate them
+only after0.043 is verified and delivered. Then continue the saved roadmap in
+order; no speculative feature sprawl or new testing framework.

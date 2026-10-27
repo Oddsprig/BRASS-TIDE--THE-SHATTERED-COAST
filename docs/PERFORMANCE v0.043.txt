@@ -1,0 +1,35 @@
+BRASS TIDE v0.043 - PERFORMANCE WORK IN PROGRESS
+
+Actualexported300-point light/mixed fleets are being measured through the normalMobile/Vulkan renderer at2560x1600 on a private backgroundWindowsdesktop. No input/focus/audio control.
+
+Baselinebuildf8e88d5 passed import/export/menu/campaign/battle startup in55.109seconds(active+setup), job81e2748d789d4b51967aabc470e9703f. This doesnotprove renderedperformance.
+Firstgraphicsjobd14595bd71144e58b46251ec44a352fa launchedonNVIDIAGeForceRTX5090LaptopGPU,Vulkan1.4.341, butprobeScriptparsingstoppedbeforemeasurements. Whole14.171secondsinclsetup;cleanupverified. Correctclass/staticintrospectioninprobesourcebeforeanotherattempt. Thiswasnot a performance pass.
+Rendererstartuppeak1053683712bytes leaveslittleheadroomunder1GiB; nextGPUprofilecap2GiB. Thesearetest-onlylimits, notnormalgame settings. Existingphysics/AI/actors/threadsandownerprofilesunchanged.
+
+Frame/tick/counterdataandactualscreenshotswillguideoneboundedperformancepass. Targetsremainunverified; noStarsector-quality ordisplayedFPSclaim.
+
+Real default-threadedprofiled1624ac5f3c64ee48f2da604055bc898 completedbothcases butwasNOTaccepted: RTX5090LaptopGPU/VulkanMobile,42boats300DPperside about3.366FPS,simulationmedian34.520ms/P9546.679ms;16mixedboatsabout12.993FPS,simulation13.145ms/P9516.578ms. Rendererempty-image/finalizeerrors andincompleteactivecoverage werepreserved. Cleanuptrue,58.078s inclsetup.
+Exactsameexport/rosterswithCLI--render-threadsafe, diagnostic23a5ab2417fb427a9de96417c63d06ae attempt003, completedin58.125swithnoERRORlines. Twoearlierattemptsyieldedwhenanothergamestarted. Light3.284FPS,35.176/46.025mssim;Mixed16.562FPS,13.542/17.062mssim. Diagnostictrue,qualitytargetfalse; thisdoesnotacceptrelease/performancecoverage. ItisolatestheengineerrorsfromtheCPUcosts.
+Defaultgraphicsnowsafe(threadmodel1)forthisversionbecauseexperimentalSeparatemode2raisedactualrenderererrors. Existingworkerthreadsandeconomyconcurrencyremain; physics/actors/AIarenotreduced. No globaldriver/systemsettingschanged.
+Profilercoveragecorrectedbeforeafreshbaseline: rendererwarmuponlypausedbeforecombat, activeintervalnowincludesfirstactualsalvos. Eachside'sfirstlightboatdeclaresa6cm2initialbreachand8percentwatercapacityforrealpump/repairwork; nofakehitevents,invulnerability, alteredstatisticsor actor removal. Theolddataremainasevidenceoftheproblem,notanidenticalbefore/after comparisonwiththecorrectedscenario.
+
+CORRECTED MATCHED COMPARISON - 27 OCTOBER 2026
+Baseline b1d61fc, TestBridge 6a9ed609f8644b3cad4c253dd3732045:
+light 42 boats / 300 DP each side: 3.749 FPS; simulation median32.274ms,
+P95 44.712ms. Mixed16 boats / 300 DP each side:16.903FPS; median13.324ms,
+P95 16.982ms. Complete requested activity; measurement passed57.828s.
+
+Three-fix candidate c81ad62, job389a6188d033445289995878d360533d:
+light3.947FPS; simulation median30.612ms/P95 42.023ms.
+Mixed23.227FPS; simulation median12.475ms/P95 15.788ms.
+Measurement complete57.516s including setup; all owned cleanup verified.
+This is one matched short sample, not a claim of repeatability or60FPS.
+Both runs used the same corrected workload, full actors,60Hz, safe graphics,
+RTX5090LaptopGPU, CoreUltra9 275HX, VulkanMobile. Requested2560x1600;
+Windows client2560x1570, logical viewport1600x1000. Test-only process job
+cap2GiB, CPU unthrottled on24 logical CPUs. Peak job memory about1.70GB.
+No foreground, input, focus or audio control. No renderer errors in either.
+
+Native359checks/0, import/export and menu/campaign/battle startup passed in
+58.031s including setup, job84da0cf55c8a4a12ac8532cb04016905.
+A final bounded correction is pending. Performance targets remain UNMET.

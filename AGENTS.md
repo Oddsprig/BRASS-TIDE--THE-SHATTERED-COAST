@@ -6,7 +6,8 @@ This supersedes the planning-only instruction below. Build and deliver each
 saved scope in order, preserving the previous release/saves. v0.042 is delivered at source/tagc234ada/v0.042 with194focusedchecks and
 reviewedactualboat/refitdrawing-call assets. Current0.043 measures actualrendered
 performance before bounded fixes; its target acceptance remains open. Do not jump ahead to later scopes or treat tests as art.
-Three Bridge Sol6.1MAX seats: hull art, weapons/live rendering, showcase/proof.
+Three Bridge Sol6.1MAX seats are currently simulation043, runtime043 and
+rendering043. They own isolated source checkouts; Root owns all native jobs.
 Grok4.7HIGH may review concrete output. Root coordinates/integrates and owns
 all shared-queue native/bake execution, versions, delivery and desktop updates.
 Common brief: work/quality-v042-v061/OWNER SCOPE.txt in the task workspace.
@@ -14,7 +15,15 @@ Root source is outputs/brass-tide. Helpers stay source-only in isolated worktree
 No nested helpers, paid fallback, downloads, unqueued engine/render/GPU work,
 foreground/input takeover or test audio. Selected complete test batches remain
 below120seconds. Respect other apps/leases and recorded GPU/resource authority.
-Currently installed build0.042 is preserved until the next verified sequentialrelease.
+Currently installed build0.042 is preserved until the next verified sequential release.
+0.043 uses safe graphics submission after an exact-build comparison removed
+actual separate-mode texture/finalization errors. Keep economy workers and
+the existing worker pool enabled. Do not restore experimental separate mode
+from the historical instruction farther below without new evidence.
+First measured fixes passed359 focused checks, but actual full-fleet targets
+remain unmet (about4FPS light,23FPS mixed). A final bounded cost correction
+is underway. Native correctness and rendered measurement completion are
+separate from smoothness, game feel and the milestone0.051 acceptance.
 PlainDesktopBrassTide.lnk is the singlelatestlauncher; oldernumberedlaunchers are
 archivedinsideDesktop/BrassTide/Archivedlaunchers andoldbuildsremainintact.
 

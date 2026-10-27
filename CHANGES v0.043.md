@@ -1,9 +1,13 @@
-# Brass Tide v0.043 - Real rendered performance and runtime budget
+# Brass Tide v0.043 - Real rendered performance
 
-Owner: "stick to the scope of each one".
+This pass measures actual exported battles and reduces repeated equipment,
+traffic and drawing preparation. It keeps the full300-point fleets,60Hz
+physics, original combat rules and existing economy workers.
 
-- Measure actual exported mixed and light300point battles through the real renderer with active combat and declared hardware/resolution.
-- Attribute simulation and draw costs through opt-in counters, then apply bounded fixes to demonstrated bottlenecks while preserving actors,60Hz and authoritative state.
-- Keep real rendered background profiling separate from capped headless checks, and preserve actual limits and unmet targets.
+The experimental separate graphics mode raised engine texture errors. A matched
+same-build comparison removed those errors in safe graphics mode, now default.
+The performance targets remain open; read docs/PERFORMANCE v0.043.txt for actual
+numbers and the distinction between complete measurement and smooth play.
 
-See docs/TEST RESULTS v0.043.md for actual focused checks and remaining limits.
+The final combined correction and portable verification are pending. Current
+completed installation stays0.042 until this candidate is verified and packaged.
