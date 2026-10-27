@@ -1,0 +1,26 @@
+051 DRAW SUBMISSION - SOURCE CANDIDATE, native/profile UNRUN
+Parent85c7909; exact v051-routes-owned-sol checkout. Three drawing scripts,
+existing test_weapon_presentation045.gd and this handoff only. Audit preserved.
+
+Actual R9 job735066ce5e5e44459f2e4872ade3e793 counterTotals.chart.last_frame:
+light42boats/126sprites/405primitives/4868us; mixed16/44/621/4805us.
+These are recorded CPU submission samples, not medians or predicted savings.
+
+BoatArt computes ISO eligibility/scale once per synchronous draw, shared by
+hull and weapons. Standalone callers still validate their actual projector.
+SpriteArt retains immutable32-heading rectangles/readiness in a bounded128-atlas
+table. Its value key includes current metadata, texture identity and dimensions;
+in-place edits, missing layers and resized/replaced textures cannot reuse stale
+rectangles. Both weapon layers remain eligible before either is submitted.
+clear_cache releases descriptors. Public frame inspection stays fresh/mutable;
+full portraits, custom heading counts, noniso/enlargement fallbacks remain checked.
+The fixed inverse ISO matrix is computed once. All live physical formulas remain.
+
+Motor colors reuse existing static draw preparation. Idle healthy motors avoid
+unused layout/models; engine health, fuel, motion, recoil, fire and marks stay live.
+No assets, LOD/detail, actor count or animation math changed.
+
+Existing fixture assertions retained; bounded preparation/fallback cases added.
+One read-only source advisory: issues[], engineInvokedfalse. Diff checks clean.
+No engine/helpers/tests/profile run. Savings unmeasured; Root owns native/GPU.
+Desktop050/gateOPEN. STOP after commit.

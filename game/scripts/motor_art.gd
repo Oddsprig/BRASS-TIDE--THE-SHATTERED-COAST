@@ -668,14 +668,16 @@ static func _plan(eff_spec: Dictionary,boat: Dictionary) -> Dictionary:
 		_render_cache[cache_key]=layout(eff_spec,{"loadout":{"engine":engine_id}})
 	return _render_cache[cache_key]
 
-static func draw_motion(ctx: Dictionary,spec: Dictionary,boat: Dictionary,palette: Dictionary) -> void:
+static func draw_motion(ctx: Dictionary,spec: Dictionary,boat: Dictionary,palette: Dictionary,prepared_palette: Dictionary={}) -> void:
 	if int(ctx.lod)>=2:return
-	var plan: Dictionary=_plan(spec,boat)
 	var health: float=_engine_health(spec,boat)
-	var c: Dictionary=_palette(palette,spec)
-	for unit in plan.units:
-		var model: Dictionary=_model(ctx,Vector2(unit.transomX,unit.y))
-		if float(ctx.speed)>1.0 and health>0.05 and _num(boat.get("fuel"),60)>0:
+	var turning: bool=float(ctx.speed)>1.0 and health>0.05 and _num(boat.get("fuel"),60)>0
+	if not turning and health>=0.55:return
+	var plan: Dictionary=_plan(spec,boat)
+	var c: Dictionary=prepared_palette if not prepared_palette.is_empty() else _palette(palette,spec)
+	if turning:
+		for unit in plan.units:
+			var model: Dictionary=_model(ctx,Vector2(unit.transomX,unit.y))
 			var phase: float=sin(float(ctx.clock)*9+unit.index*1.5)*0.04
 			var spin: float=float(ctx.clock)*15+unit.index
 			var blade:=Vector3(0,cos(spin)*0.07,sin(spin)*0.95)

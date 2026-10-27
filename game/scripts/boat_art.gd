@@ -208,11 +208,13 @@ static func _draw_inputs(spec: Dictionary, accent: Color, enemy: bool) -> Dictio
 	for field in DRAW_INPUT_FIELDS:
 		if spec.has(field): source[field] = spec[field]
 	var colors: Dictionary = palette(spec, accent, enemy)
+	var motor_colors: Dictionary = MotorArt._palette(colors, spec)
 	var mounts: Array = mounts_of(spec)
 	colors.make_read_only()
+	motor_colors.make_read_only()
 	for mount in mounts: mount.make_read_only()
 	mounts.make_read_only()
-	var prepared: Dictionary = {"source": source.duplicate(true), "archetype": archetype(spec), "palette": colors, "mounts": mounts}
+	var prepared: Dictionary = {"source": source.duplicate(true), "archetype": archetype(spec), "palette": colors, "motor_palette": motor_colors, "mounts": mounts}
 	prepared.make_read_only()
 	if cached == null and _draw_input_cache.size() >= DRAW_INPUT_LIMIT:
 		_draw_input_cache.clear()
@@ -476,16 +478,21 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 	}
 	var stations := _stations(spec)
 	var mounts: Array = prepared.mounts
-	ctx.authored_hull=SpriteArt.draw_hull(ctx,spec)
+	# This context lives for one synchronous draw. Custom/chart projectors still
+	# pass the actual ISO test; no camera/scale proof survives into another draw.
+	var sprite_scale: float = 0.0
+	if is_equal_approx(enlargement, 1.0) and canvas.has_method("draw_texture_rect_region") and canvas.has_method("draw_set_transform_matrix"):
+		sprite_scale = SpriteArt._screen_scale(ctx)
+	ctx.authored_hull=SpriteArt.draw_hull(ctx,spec,sprite_scale)
 	if bool(ctx.authored_hull):
-		MotorArt.draw_motion(ctx,spec,boat,c)
+		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
 	elif bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
 		_cached_base(ctx,spec,boat,c,arch)
-		MotorArt.draw_motion(ctx,spec,boat,c)
+		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
 	else:_static(ctx,spec,boat,c,arch)
 	for m in mounts:
 		var local_bearing: float=float(ctx.localAimAngles.get(str(m.get("id","mount0")),m.angle))
-		if SpriteArt.draw_weapon(ctx,m,float(ctx.angle)+local_bearing):continue
+		if SpriteArt.draw_weapon(ctx,m,float(ctx.angle)+local_bearing,sprite_scale):continue
 		if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c)
 		else:_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
 	_damage(ctx, boat, stations, arch, c)

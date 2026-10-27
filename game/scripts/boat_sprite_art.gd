@@ -13,6 +13,9 @@ const HULL_REFERENCE_HEIGHT := 9.7
 static var _manifests: Dictionary = {}
 static var _textures: Dictionary = {}
 static var _hull_entries: Dictionary = {}
+static var _atlas_frames: Dictionary = {}
+static var _iso_inverse: Transform2D = ISO.affine_inverse()
+const ATLAS_FRAME_LIMIT: int = 128
 
 static func _manifest(path: String) -> Dictionary:
 	if not _manifests.has(path):
@@ -112,9 +115,44 @@ static func _cell_ready(info: Dictionary) -> bool:
 	var source: Rect2 = info.source
 	return source.position.x >= 0.0 and source.position.y >= 0.0 and source.size.x > 0.0 and source.size.y > 0.0 and source.end.x <= texture.get_width() and source.end.y <= texture.get_height()
 
+# Only atlas geometry/readiness is retained. Keys copy the actual metadata and
+# texture dimensions, so replaced OR in-place edited manifests/textures cannot
+# reuse old rectangles. No boat, mount, aim, recoil or condition enters here.
+static func _ready_frame(entry: Dictionary, angle: float) -> Dictionary:
+	var path: String = str(entry.get("atlas", ""))
+	var texture: Texture2D = _texture(path)
+	if texture == null: return {}
+	var headings: int = maxi(1, int(entry.get("headings", 32)))
+	var columns: int = maxi(1, int(entry.get("columns", 8)))
+	var key: Array = [path, texture, texture.get_size(), headings, columns,
+		_v2(entry.get("cell_px", [384, 320])), _v2(entry.get("pivot_px", [192, 200])),
+		float(entry.get("pixels_per_world_unit", 2.0))]
+	# Nonstandard heading counts keep the checked reference path, without
+	# allocating an arbitrary number of descriptors from custom metadata.
+	if headings != 32:
+		var info: Dictionary = _frame(entry, angle)
+		if not _cell_ready(info): return {}
+		info.texture = texture
+		return info
+	var frames = _atlas_frames.get(key)
+	if frames == null:
+		frames = []
+		for heading in range(headings):
+			var info: Dictionary = _frame(entry, float(heading) * TAU / headings)
+			if _cell_ready(info): info.texture = texture
+			else: info = {}
+			info.make_read_only()
+			frames.append(info)
+		frames.make_read_only()
+		if _atlas_frames.size() >= ATLAS_FRAME_LIMIT: _atlas_frames.clear()
+		_atlas_frames[key] = frames
+	return frames[posmod(int(roundf(angle / TAU * headings)), headings)]
+
 static func _draw_cell(ctx: Dictionary, info: Dictionary, origin: Vector2, scale: float) -> bool:
 	if not _cell_ready(info): return false
-	var texture: Texture2D = _texture(str(info.path))
+	return _draw_ready_cell(ctx, info, _texture(str(info.path)), origin, scale)
+
+static func _draw_ready_cell(ctx: Dictionary, info: Dictionary, texture: Texture2D, origin: Vector2, scale: float) -> bool:
 	var source: Rect2 = info.source
 	var factor: float = scale / float(info.density)
 	ctx.canvas.draw_texture_rect_region(texture, Rect2(origin - Vector2(info.pivot) * factor, source.size * factor), source, Color.WHITE, false, true)
@@ -128,27 +166,36 @@ static func _draw_cell(ctx: Dictionary, info: Dictionary, origin: Vector2, scale
 ## at most ~0.196 * height difference * scale over the half-heading interval.
 static func _hull_transform(info: Dictionary, angle: float, scale: float) -> Transform2D:
 	var residual: float = wrapf(angle - float(info.angle), -PI, PI)
-	var transform: Transform2D = ISO * Transform2D(residual, Vector2.ZERO) * ISO.affine_inverse()
+	var transform: Transform2D = ISO * Transform2D(residual, Vector2.ZERO) * _iso_inverse
 	var plane: Vector2 = Vector2(0, -HULL_REFERENCE_HEIGHT * scale)
 	transform.origin = plane - transform * plane
 	return transform
 
-static func draw_hull(ctx: Dictionary, spec: Dictionary) -> bool:
+static func draw_hull(ctx: Dictionary, spec: Dictionary, screen_scale: float = -1.0) -> bool:
 	if not ctx.canvas.has_method("draw_texture_rect_region"): return false
 	if not ctx.canvas.has_method("draw_set_transform_matrix"): return false
 	# Legacy enlargement scales XY but deliberately leaves world heights alone.
 	# A single bitmap cannot represent that anisotropic 3D operation accurately.
 	if not is_equal_approx(float(ctx.get("enlargement", 1.0)), 1.0): return false
-	var scale: float = _screen_scale(ctx)
+	var scale: float = _screen_scale(ctx) if screen_scale < 0.0 else screen_scale
 	if scale <= 0.0: return false
-	var info: Dictionary = frame_info(spec, float(ctx.angle), bool(ctx.get("portrait", false)) or scale > 2.0)
-	if info.is_empty(): return false
 	var entry: Dictionary = hull_entry(spec)
+	if entry.is_empty(): return false
 	if not is_equal_approx(float(spec.get("size", 0)), float(entry.get("size", 0))): return false
+	# Public inspection remains fresh/mutable. The exceptional exact-heading
+	# portrait uses its existing checked selection instead of mutating a frame.
+	var info: Dictionary
+	if bool(ctx.get("portrait", false)) or scale > 2.0:
+		info = frame_info(spec, float(ctx.angle), true)
+		if info.is_empty() or not _cell_ready(info): return false
+		info.texture = _texture(str(info.path))
+	else:
+		info = _ready_frame(entry, float(ctx.angle))
+		if info.is_empty(): return false
 	var transform: Transform2D = _hull_transform(info, float(ctx.angle), scale)
 	transform.origin += Vector2(ctx.proj.call(ctx.pos, 0.0))
 	ctx.canvas.draw_set_transform_matrix(transform)
-	var drew: bool = _draw_cell(ctx, info, Vector2.ZERO, scale)
+	var drew: bool = _draw_ready_cell(ctx, info, info.texture, Vector2.ZERO, scale)
 	ctx.canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 	return drew
 
@@ -165,7 +212,7 @@ static func weapon_variant(mount: Dictionary) -> String:
 ## Both sprite layers rotate from the physical fitting bearing. The moving
 ## receiver/barrel layer translates after a REAL mount shot, leaving its cradle
 ## fixed. No invented firing clock, extra projectiles, or cached damage state.
-static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float) -> bool:
+static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float, screen_scale: float = -1.0) -> bool:
 	# A fitting's physical size and pivot do not depend on the hull's art path.
 	if not ctx.canvas.has_method("draw_texture_rect_region"): return false
 	if not ctx.canvas.has_method("draw_set_transform_matrix"): return false
@@ -175,23 +222,23 @@ static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float) -> b
 	if str(manifest.get("schema", "")) != "brass-tide-weapons042-v1": return false
 	var entry: Dictionary = manifest.get("weapons", {}).get(weapon_variant(mount), {})
 	if entry.is_empty(): return false
-	var scale: float = _screen_scale(ctx)
+	var scale: float = _screen_scale(ctx) if screen_scale < 0.0 else screen_scale
 	if scale <= 0.0: return false
 	var tier: int = clampi(int(mount.get("size", 1)), 1, 3)
 	var unit: float = Geometry.unit(float(ctx.hull_size), tier)
 	var kind: String = str(mount.kind)
 	var base: Dictionary = entry.get("base", {})
 	var moving: Dictionary = entry.get("moving", {})
-	var base_info: Dictionary = _frame(base, bearing)
-	var moving_info: Dictionary = _frame(moving, bearing) if not moving.is_empty() else {}
+	var base_info: Dictionary = _ready_frame(base, bearing)
+	var moving_info: Dictionary = _ready_frame(moving, bearing) if not moving.is_empty() else {}
 	# Refuse the whole mechanism before submitting either layer. A partial
 	# atlas must not leave a sprite over the procedural fallback weapon.
-	if not _cell_ready(base_info): return false
-	if not moving_info.is_empty() and not _cell_ready(moving_info): return false
+	if base_info.is_empty(): return false
+	if not moving.is_empty() and moving_info.is_empty(): return false
 	var position: Vector2 = ctx.pos + Vector2(mount.x, mount.y).rotated(float(ctx.angle)) * float(ctx.size)
 	var origin: Vector2 = ctx.proj.call(position, 9.7)
 	var residual: float = wrapf(bearing - float(base_info.angle), -PI, PI)
-	var transform: Transform2D = ISO * Transform2D(residual, Vector2.ZERO) * ISO.affine_inverse()
+	var transform: Transform2D = ISO * Transform2D(residual, Vector2.ZERO) * _iso_inverse
 	# Correct the residual about the shared firing plane, keeping the actual
 	# WeaponGeometry muzzle position exact even between baked directions.
 	var muzzle_h: float = Geometry.height(kind, float(ctx.hull_size), tier) - 9.7
@@ -199,13 +246,13 @@ static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float) -> b
 	var plane: Vector2 = Vector2(0, -muzzle_h * scale)
 	transform.origin = origin + plane - transform * plane
 	ctx.canvas.draw_set_transform_matrix(transform)
-	var drew: bool = _draw_cell(ctx, base_info, Vector2.ZERO, scale * unit)
+	var drew: bool = _draw_ready_cell(ctx, base_info, base_info.texture, Vector2.ZERO, scale * unit)
 	if not moving_info.is_empty():
 		var recoil: float = WeaponArt.recoil_offset(ctx, mount)
 		# Offset is expressed in the baked frame before the residual transform.
 		var xy: Vector2 = Vector2.from_angle(float(base_info.angle)) * recoil * unit
 		var shift: Vector2 = Vector2((xy.x - xy.y) * 0.82, (xy.x + xy.y) * 0.41) * scale
-		_draw_cell(ctx, moving_info, shift, scale * unit)
+		_draw_ready_cell(ctx, moving_info, moving_info.texture, shift, scale * unit)
 	ctx.canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 	return drew
 
@@ -252,6 +299,7 @@ static func bounds(spec: Dictionary, angle: float, portrait: bool = false) -> Re
 	return result
 
 static func clear_cache() -> void:
+	_atlas_frames.clear()
 	_manifests.clear()
 	_textures.clear()
 	_hull_entries.clear()

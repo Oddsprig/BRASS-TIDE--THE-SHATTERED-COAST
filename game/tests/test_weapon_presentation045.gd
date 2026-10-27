@@ -214,6 +214,13 @@ func inspect_fallbacks(hull: Dictionary) -> void:
 	var partial=record(boat,10.0,true,false)
 	check(weapons(partial).is_empty() and partial.prims.size()>empty.prims.size(),str(hull.id)+" out-of-bounds moving cell refuses both layers before drawing")
 	live.weapons.cannon.moving=moving
+	# The atlas table must also follow edits to the very same source Array.
+	var restored: Array=weapons(record(boat,10.0,true,false))
+	var width=moving.cell_px[0]
+	moving.cell_px[0]=9999
+	check(weapons(record(boat,10.0,true,false)).is_empty(),str(hull.id)+" in-place atlas dimension edit invalidates warm readiness")
+	moving.cell_px[0]=width
+	check(weapons(record(boat,10.0,true,false))==restored,str(hull.id)+" restoring atlas dimensions restores the exact warm layers")
 	var rec=Trace.Canvas.new()
 	var topdown=func(p: Vector2,_h: float):return p*2.0
 	Art.draw_boat(rec,topdown,boat,{"lod":0,"px":float(hull.size)*2.0})
@@ -223,6 +230,56 @@ func inspect_fallbacks(hull: Dictionary) -> void:
 	check(rec.texture_draws==0 and rec.invalid==0 and not rec.prims.is_empty(),str(hull.id)+" anisotropic legacy enlargement retains mechanical art")
 	var bare=preview(spec)
 	check(weapons(bare).is_empty(),str(hull.id)+" bare sockets remain visible without fitted weapons")
+
+func inspect_draw_preparation(hull: Dictionary) -> void:
+	var fit: Dictionary=Refit.defaults(hull);fit.weapons.fill("")
+	fit.weapons[0]="heavy_cannon";fit.weapons[1]="rapid_gun"
+	var spec: Dictionary=Refit.effective_spec(hull,fit)
+	var boat: Dictionary=Art.preview_boat(spec,0.061)
+	var before: Dictionary=boat.duplicate(true)
+	var entry: Dictionary=Sprite.hull_entry(spec)
+	for heading in range(32):
+		var angle: float=float(heading)*TAU/32+0.001
+		var ready: Dictionary=Sprite._ready_frame(entry,angle)
+		var actual: Dictionary=ready.duplicate();actual.erase("texture")
+		check(actual==Sprite._frame(entry,angle) and Sprite._cell_ready(ready),"prepared hull rectangle/pivot/density exactly match reference heading%d"%heading)
+	var exposed: Dictionary=Sprite.frame_info(spec,0.061)
+	exposed.source=Rect2(-999,-999,1,1)
+	check(Sprite.frame_info(spec,0.061).source!=exposed.source,"public frame inspection stays mutable and cannot alter prepared rectangles")
+	var rec=Trace.Canvas.new();rec.origin=Vector2(240,180);rec.scale_factor=1.0
+	var calls: Array=[0]
+	var project=func(p: Vector2,h: float):
+		calls[0]+=1
+		return rec.project(p,h)
+	var opts: Dictionary={"lod":0,"px":float(spec.size)*0.82,"combat":true,"clock":1000.0,"battle_clock":10.0}
+	Art.draw_boat(rec,project,boat,opts)
+	var mounts: Array=Art.mounts_of(spec)
+	check(calls[0]==5+mounts.size() and rec.invalid==0,"one four-probe projection check per boat plus actual hull/mount origins")
+	# Direct callers retain independent projection validation. Compare their
+	# actual transformed quads with the shared per-draw path, not a mock image.
+	var direct=Trace.Canvas.new();direct.origin=rec.origin;direct.scale_factor=rec.scale_factor
+	var ctx: Dictionary={"canvas":direct,"proj":direct.project,"pos":Vector2.ZERO,"angle":float(boat.angle),"size":float(spec.size),"hull_size":float(spec.size),"enlargement":1.0,"n":0}
+	check(Sprite.draw_hull(ctx,spec),"standalone hull caller keeps its checked projection path")
+	for mount in mounts:
+		check(Sprite.draw_weapon(ctx,mount,float(boat.angle)+float(mount.angle)),"standalone weapon caller keeps its checked projection path")
+	check(direct.prims==rec.prims,"sharing projection and ready cells preserves every actual transformed draw")
+	var warm: Array=rec.prims.duplicate(true)
+	check(record(boat).prims==warm,"warm atlas frames preserve the complete cold drawing trace")
+	rec.prims.clear();rec.scale_factor=1.7;rec.origin+=Vector2(21,-13);calls[0]=0
+	Art.draw_boat(rec,project,boat,opts)
+	check(calls[0]==5+mounts.size() and rec.prims!=warm,"same callable rechecks changed camera and scale on the next draw")
+	check_layers(rec,boat,"changed per-draw projection")
+	# A custom heading count is checked per call, outside the32-frame table.
+	var custom: Dictionary=entry.duplicate(true);custom.headings=16
+	var custom_ready: Dictionary=Sprite._ready_frame(custom,1.0)
+	var custom_info: Dictionary=custom_ready.duplicate();custom_info.erase("texture")
+	check(custom_info==Sprite._frame(custom,1.0) and Sprite._cell_ready(custom_ready),"nonstandard atlas headings retain checked reference geometry")
+	var incomplete: Dictionary=Sprite._frame(entry,0.0);incomplete.source=Rect2(0,0,99999,99999)
+	var rejected=Trace.Canvas.new();ctx.canvas=rejected
+	check(not Sprite._draw_cell(ctx,incomplete,Vector2.ZERO,1.0) and rejected.prims.is_empty(),"public cell submission still refuses invalid source rectangles")
+	Sprite.clear_cache()
+	check(Sprite._atlas_frames.is_empty() and Sprite._textures.is_empty(),"clear_cache releases prepared atlas frames and their texture references")
+	check(record(boat).prims==warm and boat==before,"cache clearing reloads identical art without changing any boat state")
 
 func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
@@ -236,5 +293,6 @@ func run() -> void:
 		inspect_recoil(found[0],"rapid_gun")
 		inspect_recoil(found[0],"heavy_cannon")
 		inspect_fallbacks(found[0])
+		if id=="brasswind_motor_galleon":inspect_draw_preparation(found[0])
 	print("WEAPON045: %d checks, %d failures; native texture/geometry/event fixture only"%[checks,failures])
 	quit(0 if failures==0 else 1)
