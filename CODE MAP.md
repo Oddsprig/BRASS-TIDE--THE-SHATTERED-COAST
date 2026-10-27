@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.045: Weapons, impacts, wakes and recorded sound. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: boat_sprite_art.gd, weapon_art.gd, boat_art.gd, chart.gd, combat_art.gd, hull_feedback.gd, sound.gd.
+v0.046: Tactical AI: useful roles, stable maneuvers and hull clearance. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: tactical_runtime.gd, tactical_certification.gd, tactical_routes.gd, tactical_planner.gd, tactical_role_plans.gd, tactical_stations.gd, fleet_lab.gd, lab_presets.json.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

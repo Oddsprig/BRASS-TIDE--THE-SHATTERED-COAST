@@ -1,8 +1,8 @@
-# Current step: v0.045 - Weapons, impacts, wakes and recorded sound
+# Current step: v0.046 - Tactical AI: useful roles, stable maneuvers and hull clearance
 
-- Use authored interchangeable weapon sprites across the roster while preserving real mounts, bearings and shot-driven recoil.
-- Replace segmented stern marks with short inexpensive foam that follows actual travel and fades naturally.
-- Make gun, cannon, rocket and torpedo events readable through distinct impacts and bounded mixing of existing licensed recordings.
+- Keep useful maneuvers through gradual repairs and bailing, bound blocked-route retries and retain immediate live damage and safety responses.
+- Use fitted launcher ranges, stable flanks, useful heavy firing positions, shared pressure and protection of carriers or wounded allies.
+- Give normal autopilot hostile hull clearance and separating exits, with six public Fleet Laboratory practice scenarios using real stores and damage.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

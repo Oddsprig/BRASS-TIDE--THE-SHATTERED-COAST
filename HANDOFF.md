@@ -1,18 +1,10 @@
-# Brass Tide v0.045 delivered
+# Brass Tide v0.046
 
-BRASS TIDE v0.045 - Weapons, impacts, wakes and recorded sound
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 611d081f04a87c145da612b419ad9fc34909dca5 / v0.045
-Test Bridge: 3f85a716f0de4ffb9f151253c7ab723f
-4762 focused checks, 0 failures; menu/campaign/battle startup passed.
-Selected batch plus setup: 59.913s; owned cleanup verified.
+Current candidate: Tactical AI: useful roles, stable maneuvers and hull clearance.
 
-- Use authored interchangeable weapon sprites across the roster while preserving real mounts, bearings and shot-driven recoil.
-- Replace segmented stern marks with short inexpensive foam that follows actual travel and fades naturally.
-- Make gun, cannon, rocket and torpedo events readable through distinct impacts and bounded mixing of existing licensed recordings.
+- Keep useful maneuvers through gradual repairs and bailing, bound blocked-route retries and retain immediate live damage and safety responses.
+- Use fitted launcher ranges, stable flanks, useful heavy firing positions, shared pressure and protection of carriers or wounded allies.
+- Give normal autopilot hostile hull clearance and separating exits, with six public Fleet Laboratory practice scenarios using real stores and damage.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
-
-Final selected batch checks the corrected mesh capture helper, export and three startups. Six earlier passed groups total26031checks, retained ONLY after exact production-source hash equality and the sole changed file game/tests/test_feedback.gd. All previous whole failures remainfailed. Wake22851checks cover actual300Labticks atnormal/tacticalzoom and localCanvasconditioning. Actual motion/audio/performance acceptance is separate;043fullfleet smoothness and051core quality remainOPEN. Total seven groups30793/0 (4762final+26031retained); finalnative3f85a716f0de4ffb9f151253c7ab723f59.829s. CleanactualexportMovie17e015a19d73494fa9d48d4599a15b0b36.516s/noerrors/cleanuptrue; actual300frames5simseconds offline1440x900. Rootreviewednormalstill+sampled.15/1.5/4.983secondchronology: shortsternwash, actualfiring/impacts; latehostileoverlapandloadedreassessmentremain046. Encodinga2a7403a913841c5adf3b2a0003a03b412.672s productiononly. No realtime60FPS/audio/fun/parityacceptance. Source611d081f04a87c145da612b419ad9fc34909dca5.
-
-Continue with the next saved version scope after v0.045; preserve the shared lane and120-second limit.
+Focused native checks/export are pending. Root owns all TestBridge work;
+helpers stay in source-only roles. Continue this version before the next.
