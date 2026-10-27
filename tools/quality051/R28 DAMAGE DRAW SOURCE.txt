@@ -1,0 +1,66 @@
+BRASS TIDE 0.051 - R28 DAMAGE DRAW SOURCE CANDIDATE
+27 October 2026
+
+Base: 9fcb29482d713c6c79d8698e2d8d6ca2492bdac4 (initially clean isolated checkout).
+Status: SOURCE ONLY / NATIVE UNRUN / NOT ACCEPTED. No speedup claim.
+Owned changes: hull_feedback.gd, the existing test_feedback.gd (subsequently
+authorized by Root for a necessary batching regression), and this source note.
+BoatArt/WeaponArt, simulation, other fixtures and all assets are unchanged.
+
+Measured reason for this bounded change
+Parent R28 engagement and cost findings.json preserves actual job
+b491da26cf504b2aaaf05bfa45a08ba0, tested source 0b5b26dc8e760218e2612ae843a0089f1aca8487:
+QUALITY FAILED; whole 58.500s, cleanup true. Light 42/full300DP per side:
+19.062FPS, simulation median12.377ms; CPU damage drawing2946us versus hull278us.
+Mixed16/full300DP per side: 59.997FPS, simulation median5.482ms; damage2502.5us
+versus hull173us. CPU submission subclocks do not measure GPU execution.
+The mixed pending-route stall is outside this drawing task.
+
+Concrete source changes
+1. Flame polygons keep the same Geometry2D triangulation, ordered indices and
+   abs(cross)<1 rejection. Compact only the surviving indices, then use the
+   existing scar immediate canvas_item_add_triangle_array API once per layer.
+   The former code created a three-point packed array and submitted a separate
+   colored polygon for every surviving triangle (retriangulated by CanvasItem).
+   A full tongue's 7+3+1 triangles can now use three submissions; triangle-level
+   accounting remains unchanged. Mock canvases keep one polygon per triangle.
+   No retained RID/Canvas renderer, mesh resources or lifetime management added.
+2. Scar fans share one hull rotation per draw and one hit rotation per scar.
+   Each vertex still applies hit rotation, model unit, anchor, hull rotation,
+   hull size, position, height and the caller's actual projector in the same
+   order. No affine-camera assumption or screen-space cache is introduced.
+   The two scar outlines use constant scalar coefficients, multiplying before
+   Vector3 construction as before. This avoids rebuilding two outline arrays
+   per scar. The inner height0.15 and original fan/sliver rule remain.
+
+Preservation and limits
+Existing crack lines, old-save breach seams, timed/material-specific flashes,
+fire shape/phase/alpha/layers, engine/fire smoke, sparks and LOD/count limits stay.
+Equipment marks and installed-engine HP reads are untouched: current repairs,
+same-hull installed records and legacy scalar/missing-record fallback stay live.
+BoatArt flooding remains untouched. No boat state, RNG, physics, crew, stores,
+coins, guards, actor count, culling, simulation60Hz or 300DP limits are changed.
+No claim that all2946/2502.5us is recoverable: live condition reads, projection,
+per-layer triangulation, smoke/circles/lines and existing scar submissions remain.
+Rotation arithmetic is mathematically equivalent; native finite/threshold and
+rendered parity still require Root's execution. No performance result inferred.
+
+Review and execution handoff
+Read AGENTS/current state/roadmap checkpoint, relevant maps/lessons, full bounded
+HullFeedback and relevant BoatArt/WeaponArt callers, source and existing fixtures.
+Every old test_feedback assertion remains. Added only test_flame_batch051:
+eight assertions over rejected, exact-threshold, partially rejected and concave
+flame contours, comparing counts/order/color/sliver gaps with the old loop.
+Existing scar tests independently compare to WeaponArt projection and old fans;
+existing repaired-hull/motor/geometry/RNG/result-tail checks are retained.
+
+Static advisory: tools/check_preload_calls.py on hull_feedback.gd, boat_art.gd,
+test_feedback.gd returned issues[], advisoryOnly:true, engineInvoked:false.
+Whitespace diff check clean. These are source checks, not native validation.
+No engine, native test, import, export, profiler, GPU, helper, download or gameplay
+job was run here. No new harness, tags, package/install, cleanup or publication.
+Root owns R62 art205/weapon2292/current feedback/export3starts (<119s whole,
+max14s feedback) and subsequent actual42light/16mixed/full300DP/60Hz comparison.
+R28 QUALITY FAILED remains authoritative; Desktop050/core051OPEN/no052.
+Root retains ownership of shared status/maps because this task's file allowlist
+excludes those files. Commit is a reviewable source candidate only.

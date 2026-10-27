@@ -5,6 +5,10 @@ const Faces=preload("res://scripts/weapon_art.gd")
 const Layout=preload("res://scripts/mount_layout.gd")
 const MAX_SCARS: int=8
 const MAX_EQUIPMENT_MARKS: int=6
+# The same scar outlines at unit radius; height offsets are not radius-scaled.
+# Scalar coefficients preserve the original multiply-before-Vector3 rounding.
+const SCAR_OUTER051 := [[-1.0,-0.3,0.0],[-0.3,-0.8,0.0],[0.9,-0.5,0.0],[1.0,0.4,0.0],[0.1,0.65,0.0],[-0.7,0.4,0.0]]
+const SCAR_INNER051 := [[-0.45,-0.2,0.15],[0.6,-0.22,0.15],[0.22,0.3,0.15],[-0.35,0.22,0.15]]
 
 static func equipment_marks(boat: Dictionary,mounts: Array) -> Array:
 	# Live presentation reads the already validated installed records, never locker
@@ -83,11 +87,30 @@ static func _p(ctx: Dictionary,at: Vector2,h: float) -> Vector2:
 
 static func _poly(ctx: Dictionary,points: PackedVector2Array,col: Color) -> void:
 	var indices: PackedInt32Array=Geometry2D.triangulate_polygon(points)
+	var kept: int=0
 	for i in range(0,indices.size(),3):
 		var a: Vector2=points[indices[i]];var b: Vector2=points[indices[i+1]];var c: Vector2=points[indices[i+2]]
 		if absf((b-a).cross(c-a))<1.0:continue
-		ctx.canvas.draw_colored_polygon(PackedVector2Array([a,b,c]),col)
-		ctx.n+=1;ctx.npoly+=1
+		# Compact only after reading this triangle. Its original order and the
+		# exact subpixel rejection remain, including for the animated flame tips.
+		indices[kept]=indices[i];indices[kept+1]=indices[i+1];indices[kept+2]=indices[i+2]
+		kept+=3
+	indices.resize(kept)
+	_triangle_batch051(ctx,points,indices,col)
+
+static func _triangle_batch051(ctx: Dictionary,points: PackedVector2Array,indices: PackedInt32Array,color: Color) -> void:
+	if indices.is_empty():return
+	var canvas=ctx.canvas
+	if canvas is CanvasItem:
+		# Immediate draw submission, using the existing scar batching API. No
+		# retained canvas/RID, mesh resource, new lifetime or screen-space cache.
+		RenderingServer.canvas_item_add_triangle_array(canvas.get_canvas_item(),indices,points,PackedColorArray([color]))
+	else:
+		for step in range(0,indices.size(),3):
+			canvas.draw_colored_polygon(PackedVector2Array([points[indices[step]],points[indices[step+1]],points[indices[step+2]]]),color)
+	var triangles: int=indices.size()/3
+	ctx.n=int(ctx.n)+triangles
+	ctx.npoly=int(ctx.npoly)+triangles
 
 static func _line(ctx: Dictionary,a: Vector2,b: Vector2,col: Color,w: float=1.0) -> void:
 	ctx.canvas.draw_line(a,b,col,w)
@@ -97,33 +120,37 @@ static func _circle(ctx: Dictionary,p: Vector2,r: float,col: Color) -> void:
 	ctx.canvas.draw_circle(p,maxf(0.6,r),col)
 	ctx.n+=1;ctx.ncirc+=1
 
-## Read-only scar fan. Projection is WeaponArt._p. A step survives only when
+## Read-only scar fan. Projection follows WeaponArt._p. A step survives only when
 ## abs(cross) >= 1, using the old `< 1` skip, so an omitted step is not filled.
-static func _scar_fan(model: Dictionary, vertices: Array) -> Dictionary:
+static func _scar_fan(model: Dictionary, vertices: Array, radius: float=1.0) -> Dictionary:
 	var points := PackedVector2Array()
-	for vertex in vertices: points.append(Faces._p(model, vertex))
+	var ctx: Dictionary=model.ctx
+	# Share trigonometry and dictionary reads across both patches of this hit.
+	# Keep the two rotations, scales, translation and arbitrary projector in
+	# their original order; this does not assume an affine camera projection.
+	var hull_rotation: Transform2D=model.hull_rotation051 if model.has("hull_rotation051") else Transform2D(float(ctx.angle),Vector2.ZERO)
+	var hit_rotation: Transform2D=model.hit_rotation051 if model.has("hit_rotation051") else Transform2D(float(model.bearing),Vector2.ZERO)
+	var at: Vector2=model.at
+	var pos: Vector2=ctx.pos
+	var unit: float=float(model.u)
+	var size: float=float(ctx.size)
+	var height: float=float(model.h)
+	var world_unit: float=float(model.world_unit)
+	var projector: Callable=ctx.proj
+	for vertex in vertices:
+		var point:=Vector3(vertex[0]*radius,vertex[1]*radius,vertex[2])
+		var local: Vector2=at+hit_rotation.basis_xform(Vector2(point.x,point.y))*unit
+		var world: Vector2=pos+hull_rotation.basis_xform(local)*size
+		points.append(projector.call(world,height+point.z*world_unit))
 	var indices := PackedInt32Array()
 	for i in range(1, points.size()-1):
 		if absf((points[i]-points[0]).cross(points[i+1]-points[0]))<1.0: continue
 		indices.append(0); indices.append(i); indices.append(i+1)
 	return {"points": points, "indices": indices}
 
-static func _face_batch(model: Dictionary, vertices: Array, color: Color) -> void:
-	var fan: Dictionary=_scar_fan(model, vertices)
-	var indices: PackedInt32Array=fan.indices
-	if indices.is_empty(): return
-	var points: PackedVector2Array=fan.points
-	var canvas=model.ctx.canvas
-	var ctx: Dictionary=model.ctx
-	if canvas is CanvasItem:
-		# One color is copied onto every vertex, the same rule as draw_colored_polygon.
-		RenderingServer.canvas_item_add_triangle_array(canvas.get_canvas_item(), indices, points, PackedColorArray([color]))
-	else:
-		for step in range(0, indices.size(), 3):
-			canvas.draw_colored_polygon(PackedVector2Array([points[indices[step]], points[indices[step+1]], points[indices[step+2]]]), color)
-	var triangles: int=indices.size()/3
-	ctx.n=int(ctx.n)+triangles
-	ctx.npoly=int(ctx.npoly)+triangles
+static func _face_batch(model: Dictionary, vertices: Array, color: Color, radius: float=1.0) -> void:
+	var fan: Dictionary=_scar_fan(model,vertices,radius)
+	_triangle_batch051(model.ctx,fan.points,fan.indices,color)
 
 static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 	var hp: float=float(boat.get("hp",boat.get("maxHp",100)))
@@ -134,15 +161,16 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 	var scale: float=maxf(0.45,float(ctx.px)/maxf(4,float(ctx.size)))
 	if damaged:
 		var count: int=mini(MAX_SCARS if lod==0 else 4 if lod==1 else 2,scars.size())
+		var hull_rotation:=Transform2D(float(ctx.angle),Vector2.ZERO)
 		for i in range(count):
 			var hit: Dictionary=scars[scars.size()-1-i]
 			var at:=Vector2(hit.get("x",0),hit.get("y",0))
 			var power: float=clampf(float(hit.get("power",1)),0.2,2.4)
 			var r: float=(0.045+0.035*power)*float(ctx.size)
-			var model: Dictionary={"ctx":ctx,"at":at,"bearing":float(hit.get("angle",0)),"u":1.0/float(ctx.size),"world_unit":1.0,"lod":lod,"h":10.1}
-			var patch: Array=[Vector3(-r,-r*0.3,0),Vector3(-r*0.3,-r*0.8,0),Vector3(r*0.9,-r*0.5,0),Vector3(r,r*0.4,0),Vector3(r*0.1,r*0.65,0),Vector3(-r*0.7,r*0.4,0)]
-			_face_batch(model,patch,Color("3b352c"))
-			_face_batch(model,[Vector3(-r*0.45,-r*0.2,0.15),Vector3(r*0.6,-r*0.22,0.15),Vector3(r*0.22,r*0.3,0.15),Vector3(-r*0.35,r*0.22,0.15)],Color("121e20"))
+			var bearing: float=float(hit.get("angle",0))
+			var model: Dictionary={"ctx":ctx,"at":at,"bearing":bearing,"u":1.0/float(ctx.size),"world_unit":1.0,"lod":lod,"h":10.1,"hull_rotation051":hull_rotation,"hit_rotation051":Transform2D(bearing,Vector2.ZERO)}
+			_face_batch(model,SCAR_OUTER051,Color("3b352c"),r)
+			_face_batch(model,SCAR_INNER051,Color("121e20"),r)
 			if lod==0:
 				Faces._line(model,Vector3(-r,-r*0.3,0.3),Vector3(-r*1.6,-r*0.85,0.3),Color("ac9d77"),0.7)
 				Faces._line(model,Vector3(r,r*0.35,0.3),Vector3(r*1.65,r*0.7,0.3),Color("292a23"),0.8)

@@ -252,6 +252,33 @@ func _same_tri(prim: Dictionary,points: PackedVector2Array,a: int,b: int,c: int,
 		if not is_equal_approx(float(got[i][0]),expect[i].x) or not is_equal_approx(float(got[i][1]),expect[i].y): return false
 	return is_equal_approx(float(cols[0]),color.r) and is_equal_approx(float(cols[1]),color.g) and is_equal_approx(float(cols[2]),color.b) and is_equal_approx(float(cols[3]),color.a)
 
+func test_flame_batch051() -> void:
+	# Compare the batched path with the old per-triangle flame loop. Include
+	# empty, exactly-threshold and partially rejected triangulations.
+	var contours: Array=[
+		PackedVector2Array([Vector2.ZERO,Vector2(2,0),Vector2(2,0.499)]),
+		PackedVector2Array([Vector2.ZERO,Vector2(2,0),Vector2(2,0.5)]),
+		PackedVector2Array([Vector2.ZERO,Vector2(2,0),Vector2(2,4),Vector2(0,4),Vector2(-0.01,0.499)]),
+		PackedVector2Array([Vector2(-3,1),Vector2(-2.7,-3),Vector2(-1,-7),Vector2(-2,-11),Vector2(1,-17),Vector2(1.4,-12),Vector2(0.65,-8),Vector2(2.4,-4),Vector2(3,1)])]
+	var color:=Color(0.94,0.25,0.045,0.88)
+	for points in contours:
+		var old: PackedInt32Array=Geometry2D.triangulate_polygon(points)
+		var expected:=PackedInt32Array()
+		for i in range(0,old.size(),3):
+			var a: Vector2=points[old[i]];var b: Vector2=points[old[i+1]];var c: Vector2=points[old[i+2]]
+			if absf((b-a).cross(c-a))<1.0:continue
+			expected.append(old[i]);expected.append(old[i+1]);expected.append(old[i+2])
+		var rec:=Recorder.new()
+		var ctx: Dictionary={"canvas":rec,"n":0,"npoly":0,"nline":0,"ncirc":0}
+		Feedback._poly(ctx,points,color)
+		var count: int=expected.size()/3
+		check(rec.invalid==0 and rec.prims.size()==count and int(ctx.n)==count and int(ctx.npoly)==count,"flame batch keeps the old visible triangle count")
+		var same: bool=rec.prims.size()==count
+		if same:
+			for i in range(count):
+				if not _same_tri(rec.prims[i],points,expected[i*3],expected[i*3+1],expected[i*3+2],color):same=false
+		check(same,"flame batch keeps original triangle order, color and sliver gaps")
+
 func _check_fan(model: Dictionary,vertices: Array,label: String) -> PackedInt32Array:
 	var canvas=model.ctx.canvas
 	var before: int=canvas.prims.size() if canvas is Recorder else -1
@@ -361,6 +388,7 @@ func run() -> void:
 	check(ship.visualHits.size()==Feedback.MAX_SCARS,"long engagements keep at most eight scars per hull")
 	check(ship.visualHits[0].at==32 and ship.visualHits[-1].at==39,"oldest scars expire in order")
 	test_scar_fan()
+	test_flame_batch051()
 	ship.hp=ship.maxHp*0.5;ship.engine=0.25;ship.fire=48.0
 	var hashes: Dictionary={}
 	for lod in range(3):
