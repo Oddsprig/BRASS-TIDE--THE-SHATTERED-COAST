@@ -29,3 +29,24 @@ No engine/native/test/build/profile/export/
 GPU/helper run. Correctness and savings UNPROVED; Root owns native/GPU acceptance.
 Grok checkout untouched. No051 release/no052. Git mutations disable gc, maintenance
 and hooks using the prescribed empty hooks path; no amend/maintenance.
+
+R42 FIXTURE-ONLY TEXTURE LIFETIME FOLLOW-UP - 27 October 2026
+Base: 826dee67f0ed0118286c84ba46c331e9d220d089 (Root integrated e856363).
+R42 job c78ea5df4dbe4ad2b0cb48e3240f6797: Weapon2283 checks/1 failure,
+last aurelian_court_yacht hull WebP decode; reported538894336-byte peak exceeded
+unchanged512MiB cap536870912. Prior native result remains preserved.
+
+Only test_weapon_presentation045.gd changes: Sprite.clear_cache() after each
+roster hull's FINAL assertion. Canvas texture records keep resource paths,
+source/quad/colors/scalars, not Texture references; inherited Recorder ignores
+its mesh texture argument. Fixture images retains only weapon PNG Images.
+Clearing Sprite's texture/frame/manifest caches releases the completed hull's
+atlas/portrait references before the next roster hull. Every within-hull draw
+and assertion completes before cleanup. All prior check statements, all36 hulls,
+real assets, warm/cold/reload/metadata cases, three-boat camera batches and exact
+warm replay remain unchanged; all2283 runtime checks remain selected.
+
+No production change, cap raise, skipped asset, new harness or performance claim.
+One final read-only preload API advisory plus diff review only. Native/tests/
+engines/export/GPU/helpers UNRUN here; Root owns the affected Weapon rerun and
+export/three starts. R42 unchanged production/Art/AI receipts remain untouched.

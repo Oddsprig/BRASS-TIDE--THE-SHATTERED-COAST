@@ -126,6 +126,9 @@ func inspect_roster(hulls: Array) -> void:
 		check(empty.has("weaponMounts") and empty.weaponMounts.is_empty(),str(raw.id)+" actual fitting permits empty weapons")
 		check(weapons(record(Art.preview_boat(empty))).is_empty() and weapons(preview(empty)).is_empty(),str(raw.id)+" empty battle/workshop have no weapon layer")
 		check(boat==before and raw==original,str(raw.id)+" rendering preserves complete boat/catalogue state")
+		# Traces retain paths/scalars only. Release this hull after all its checks;
+		# keep every within-hull draw warm and the separate multi-boat batch intact.
+		Sprite.clear_cache()
 
 func inspect_variants(hull: Dictionary) -> void:
 	var cases: Array=[["rapid_gun","gun_single"],["heavy_gun","gun_twin"],["heavy_cannon","cannon"],["fire_rocket","rocket_three"],["salvo_rocket","rocket_six"],["light_torpedo","torpedo_single"],["heavy_torpedo","torpedo_twin"]]
