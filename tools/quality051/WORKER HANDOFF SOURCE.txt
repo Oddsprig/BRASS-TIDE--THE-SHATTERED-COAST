@@ -1,0 +1,44 @@
+051 WORKER HANDOFF - SOURCE CANDIDATE; NATIVE/GPU UNRUN
+Base f1cbc6c0e6983a5f4bbfa85ae35c7104a14af9e2 in NEW v051-worker-handoff-sol.
+Root exclusively owns actual validation. No helper/engine/test/build/profile,
+export, Git maintenance, reset, sync or amend was run here.
+
+R36 PRIOR source native1387/0,81.563s; R17 actual102dae1893494d578970c64ae2da6327
+quality FALSE: light16.078ms simulation,10.917ms planning; mixed7.041ms.
+Root supplied light1866 synchronous fallbacks/3093 due,1227 worker adoptions,
+1891 drops. These observations identify waste, not savings from this patch.
+
+Unfinished members remain pending until join, current invalidation, or earlier
+sample+150ms / last useful observation+200ms-one actual physics step. Dispatch
+and waiting do not advance observation clocks, publish memory or grant authority.
+At deadline main consumes the member and performs current synchronous planning.
+Owner/spec/mount/side/order/target/options/terrain/capability checks stay current;
+shot/reload/range/alignment and semantic/physical phase changes cannot wait.
+Dispatch memory and orderTarget are detached main-owned guard baselines.
+
+Oldest-first selection retains the existing ceil(active/10) cap; waiting counts
+against selection, never observation. Expensive wait checks are capped by that
+same allowance and memoized ONLY in the exact closed begin, including refusal.
+Consumption reuses that result; no per-frame all-hull phase scan or lasting cache.
+Current60Hz helm/fire, all actors, actual300DP, full2s forecast, public defaults,
+current guards, route alternatives and normal worker budgets remain unchanged.
+
+Existing workers fixture adds ONLY four bounded real-arena handoff cases: late
+completion past former33ms cutoff, exact-deadline fallback, urgent command and
+physical engine invalidation. Real joined worker output is held behind an owned
+Semaphore/WorkerThreadPool completion fence; every fence is released and joined.
+Checks include no clock/authority grant, isolated nested baseline and single-begin
+guard reuse. All OLD assertions remain unchanged. Native results are UNRUN.
+
+ACK Nav57ad3561/f2206a30 activation: private _prepare_begin opts _planning into
+Stations._candidates_crowd051; _prepare_with_worker051 fallback does likewise.
+Public propose keeps default _planning -> original candidates. Candidate rekey
+retains optional crowdEscape051. Final commit REQUIRES Nav's matching Stations /
+Certification patch: isolated f1cbc6c does not define this new private method.
+Actual declaration read in v051-crowd-escape-sol/game/scripts/tactical_stations.gd.
+
+ONE local preload/API source advisory BEFORE late Nav activation:0 issues,
+advisoryOnly=true,engineInvoked=false. Nav's late four-line activation separately
+matches its actual declared API; it was not included in that earlier advisory.
+Final whitespace check clean. No native/parsing/behavior/performance acceptance;
+savings UNMEASURED, R17 failure preserved, quality051 OPEN. STOP for Root.

@@ -17,7 +17,6 @@ const CERT_FIELDS: Array = ["status", "reachable", "exitReachable", "eta", "fire
 static var _tasks051: Array = []
 const WORKER_DEADLINE051: float = 0.15
 const WORKER_BATCH_SECONDS051: float = 0.15
-const WORKER_WAIT051: float = 1.0 / 30.0
 const OBSERVATION_SECONDS051: float = 0.15
 const MAX_TASKS051: int = 2
 
@@ -88,34 +87,91 @@ static func _release_slot051(t: Dictionary, side: String) -> void:
 	_retire_slot051(slot)
 	t.workers051.slots.erase(side)
 
-static func _take_worker051(st: Dictionary, side: String, due: Array, capability: Callable, frame_cache) -> Dictionary:
+static func _worker_inputs_current051(st: Dictionary, side: String, id: String, slot: Dictionary, capability: Callable, frame_cache) -> bool:
+	var t: Dictionary = st.tactical
+	if not t.ships.has(id) or not slot.guards.has(id) or not t.mountCache.has(id): return false
+	var guard: Dictionary = slot.guards[id]
+	var ship: Dictionary = t.ships[id]
+	if str(t.geometry.key) != str(slot.terrainKey) or int(t.geometry.revision) != int(slot.terrainRevision): return false
+	if not is_same(ship, guard.owner) or not is_same(ship.spec, guard.spec) or not is_same(t.mountCache[id].baseMounts, guard.mounts): return false
+	if str(ship.team) != side or id == str(t.manualId) or int(ship.orderRevision) != int(guard.revision): return false
+	if str(ship.order) != str(guard.order) or ship.orderTarget != guard.orderTarget or t.options.byId.get(id) != guard.options: return false
+	return not (capability.call(st, id, guard.capability, frame_cache) as Array).is_empty()
+
+static func _worker_wait_events051(st: Dictionary, id: String, memory: Dictionary) -> Array:
+	# Main-owned discrete events only; never read an unjoined worker capsule.
+	var t: Dictionary = st.tactical
+	var ship: Dictionary = t.ships[id]
+	var target: Dictionary = t.ships.get(str(memory.get("targetId", "")), {})
+	var distance: float = Roles.pos(ship).distance_to(Roles.pos(target)) if not target.is_empty() else INF
+	var timers: Array = ship.get("weaponCooldowns", [])
+	var events: Array = []
+	var mounts: Array = t.mountCache[id].mounts
+	for index: int in range(mounts.size()):
+		var mount: Dictionary = mounts[index]
+		var reload: float = float(timers[index]) if index < timers.size() else 0.0
+		if index == 0: reload = maxf(reload, float(ship.get("cooldown", 0.0)))
+		events.append(ship.get("mountShotTimes", {}).get(str(mount.id), -1.0))
+		events.append(reload <= 0.000001)
+		events.append(distance <= float(mount.range) + Roles.radius(target) + 1.0)
+		if Roles.fixed_tube(mount):
+			events.append(not target.is_empty() and reload <= 0.000001 and distance <= float(mount.range) and absf(angle_difference(float(ship.angle) + float(mount.angle), (Roles.pos(target) - Roles.pos(ship)).angle())) <= float(mount.arc) * 0.45)
+	return events
+
+static func _worker_wait_until051(st: Dictionary, id: String, slot: Dictionary) -> float:
+	# A dispatched sample never advances lastDecision. Leave one actual physics
+	# step for fair main fallback before the unchanged useful-observation bound.
+	return minf(float(slot.createdAt) + WORKER_DEADLINE051, float(st.tactical.lastDecision.get(id, -1.0)) + CERT_SECONDS - float(st.tactical.dt))
+
+static func _waiting_worker051(st: Dictionary, id: String, capability: Callable, wait_guard: Callable, frame_cache, current051: Dictionary) -> bool:
+	# Only this closed begin owns the memo. Selection and consumption must not
+	# repeat a phase/context scan, and at most the existing fair cap may try one.
+	if not current051.has("workerWait051"):
+		current051.workerWait051 = {}; current051.workerWaitChecks051 = 0
+	if not current051.workerWait051.has(id):
+		current051.workerWait051[id] = _can_wait_worker051(st, id, capability, wait_guard, frame_cache, current051)
+	return bool(current051.workerWait051[id])
+
+static func _can_wait_worker051(st: Dictionary, id: String, capability: Callable, wait_guard: Callable, frame_cache, current051: Dictionary) -> bool:
+	var t: Dictionary = st.tactical
+	if not t.has("workers051") or not t.ships.has(id): return false
+	var side: String = str(t.ships[id].team)
+	if not t.workers051.slots.has(side): return false
+	var slot: Dictionary = t.workers051.slots[side]
+	if id not in slot.remaining or bool(slot.joined): return false
+	if float(t.lastDecision.get(id, -1.0)) < 0.0 or float(st.time) >= _worker_wait_until051(st, id, slot) - 0.000001: return false
+	var limit: int = maxi(1, ceili(float(t.ships.size()) / 10.0))
+	if int(current051.workerWaitChecks051) >= limit: return false
+	current051.workerWaitChecks051 += 1
+	if not _worker_inputs_current051(st, side, id, slot, capability, frame_cache): return false
+	if _worker_wait_events051(st, id, slot.guards[id].memory) != slot.guards[id].waitEvents051: return false
+	return wait_guard.call(st, id, slot, frame_cache, current051) == true
+
+static func _take_worker051(st: Dictionary, side: String, due: Array, capability: Callable, frame_cache, wait_guard: Callable, current051: Dictionary) -> Dictionary:
 	var t: Dictionary = st.tactical
 	if not t.has("workers051") or not t.workers051.slots.has(side):
 		return {}
 	var slot: Dictionary = t.workers051.slots[side]
 	var allowed: Array = []
+	var pending: Array = []
 	var dropped: int = 0
 	for id: String in due:
 		if id not in slot.remaining:
 			continue
+		if not bool(slot.joined) and _waiting_worker051(st, id, capability, wait_guard, frame_cache, current051):
+			pending.append(id)
+			continue # Keep ownership until join, invalidation or the hard deadline.
 		slot.remaining.erase(id)
-		var guard: Dictionary = slot.guards[id]
-		var ship: Dictionary = t.ships[id]
 		var current: bool = bool(slot.joined) and float(st.time) - float(slot.createdAt) <= WORKER_DEADLINE051 + 0.000001
-		current = current and str(t.geometry.key) == str(slot.terrainKey) and int(t.geometry.revision) == int(slot.terrainRevision)
-		current = current and is_same(ship, guard.owner) and is_same(ship.spec, guard.spec) and is_same(t.mountCache[id].baseMounts, guard.mounts)
-		current = current and id != str(t.manualId) and int(ship.orderRevision) == int(guard.revision) and t.options.byId[id] == guard.options
+		current = current and _worker_inputs_current051(st, side, id, slot, capability, frame_cache)
 		# Normal retained observations may replace memory after the batch sample.
 		# Semantic phase/pass changes are checked at adoption, not record identity.
-		current = current and str(ship.order) == str(guard.order)
 		if current:
 			var state: Dictionary = slot.capsule.result.planning.decisions[id].state
 			for key: String in ["targetId", "leaderId"]:
 				var target_id: String = str(state.get(key, ""))
 				if not target_id.is_empty() and not is_same(t.ships.get(target_id), slot.owners.get(target_id)):
 					current = false; break
-		if current:
-			current = not (capability.call(st, id, guard.capability, frame_cache) as Array).is_empty()
 		if current:
 			allowed.append(id)
 		else:
@@ -128,20 +184,8 @@ static func _take_worker051(st: Dictionary, side: String, due: Array, capability
 	if slot.remaining.is_empty():
 		_release_slot051(t, side)
 	result.dropped051 = dropped
+	result.pending051 = pending
 	return result
-
-static func _waiting_worker051(st: Dictionary, id: String) -> bool:
-	var t: Dictionary = st.tactical
-	if not t.has("workers051"): return false
-	var side: String = str(t.ships[id].team)
-	if not t.workers051.slots.has(side): return false
-	var slot: Dictionary = t.workers051.slots[side]
-	if id not in slot.remaining or bool(slot.joined): return false
-	var guard: Dictionary = slot.guards[id]
-	var last: float = float(t.lastDecision.get(id, -1.0))
-	# Only a dispatched batch member may wait. No observation clock is
-	# advanced by dispatch, and one physics step remains for the main fallback.
-	return last >= 0.0 and int(t.ships[id].orderRevision) == int(guard.revision) and str(t.geometry.key) == str(slot.terrainKey) and float(st.time) - float(slot.createdAt) < WORKER_WAIT051 - 0.000001 and float(st.time) - last + float(t.dt) < CERT_SECONDS - 0.000001
 
 static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callable, capability: Callable, frame_cache) -> Dictionary:
 	var t: Dictionary = st.tactical
@@ -175,7 +219,7 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 			ids.append(id)
 			var memory: Dictionary = t.memory[side].byId.get(id, {})
 			if not memory.is_empty(): memory_copy.byId[id] = memory.duplicate(true)
-			guards[id] = {"owner": ship, "spec": ship.spec, "mounts": t.mountCache[id].baseMounts, "revision": int(ship.orderRevision), "order": str(ship.order), "options": t.options.byId[id].duplicate(true), "decisionAt": t.lastDecision.get(id, -1.0), "memory": memory, "capability": capability.call(st, id, [], frame_cache)}
+			guards[id] = {"owner": ship, "spec": ship.spec, "mounts": t.mountCache[id].baseMounts, "revision": int(ship.orderRevision), "order": str(ship.order), "orderTarget": ship.orderTarget.duplicate(true), "options": t.options.byId[id].duplicate(true), "decisionAt": t.lastDecision.get(id, -1.0), "memory": memory.duplicate(true), "waitEvents051": _worker_wait_events051(st, id, memory), "capability": capability.call(st, id, [], frame_cache)}
 		# Independent PURE work, not a second debit of main's current budget.
 		# All hulls get eight offers; finite route work is sliced in global age order.
 		var clearance: int = 2900
@@ -354,7 +398,7 @@ static func _prepare_with_worker051(view: Dictionary, memory: Dictionary, sugges
 		if id not in prepared.workerIds051:
 			# A changed phase already has a CURRENT observation above. Generate
 			# its new offers without repeating the whole role/HP/phase decision.
-			requests = Stations.candidates(view, ship, decision, context, reservations)
+			requests = Stations._candidates_crowd051(view, ship, decision, context, reservations)
 		prepared.decisions[id] = decision
 		prepared.scored += int(decision.scored)
 		prepared.candidates.append_array(requests)
@@ -399,14 +443,14 @@ static func propose(view: Dictionary, memory: Dictionary) -> Array:
 
 static func _prepare_begin(view: Dictionary, memory: Dictionary, current_context051: Dictionary = {}) -> Dictionary:
 	# Keep propose's validation before any same-begin planning work.
-	return _planning(view, memory, current_context051) if _view_ok(view) else {}
+	return _planning(view, memory, current_context051, true) if _view_ok(view) else {}
 
 static func _observe_retained051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary) -> Dictionary:
 	# Private authoritative inputs, already admitted by Runtime. No proposal,
 	# scored preference, source reconstruction or public certificate is produced.
 	return Roles._observe_retained051(view, ship, previous, context)
 
-static func _planning(view: Dictionary, memory: Dictionary, current_context051: Dictionary = {}) -> Dictionary:
+static func _planning(view: Dictionary, memory: Dictionary, current_context051: Dictionary = {}, crowd_escape051: bool = false) -> Dictionary:
 	var context: Dictionary = Roles.ships_by_id(view) if current_context051.is_empty() else current_context051
 	var by_id: Dictionary = Roles.dictionary(memory.get("byId"))
 	var result: Array = []
@@ -420,7 +464,7 @@ static func _planning(view: Dictionary, memory: Dictionary, current_context051: 
 		var decision: Dictionary = Roles.decide(view, ship, Roles.dictionary(by_id.get(ship_id)), context, reservations)
 		decisions[ship_id] = decision
 		scored += int(decision.scored)
-		var requests: Array = Stations.candidates(view, ship, decision, context, reservations)
+		var requests: Array = Stations._candidates_crowd051(view, ship, decision, context, reservations) if crowd_escape051 else Stations.candidates(view, ship, decision, context, reservations)
 		result.append_array(requests)
 		for candidate: Dictionary in requests:
 			sources[candidate.candidateId] = candidate

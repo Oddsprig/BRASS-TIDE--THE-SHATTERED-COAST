@@ -541,6 +541,40 @@ static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidat
 	t.budget.exhaustions+=int(counters.clearanceExhausted)
 	return status
 
+static func _worker_wait_guard051(st: Dictionary,id: String,slot: Dictionary,frame_cache,current051: Dictionary) -> bool:
+	# An unfinished preference cannot justify delaying changed current inputs.
+	# This pure retained observer neither publishes memory nor renews authority.
+	var t: Dictionary=st.tactical
+	var ship: Dictionary=t.ships[id]
+	var side: String=str(ship.team)
+	var baseline: Dictionary=slot.guards[id].memory
+	var previous: Dictionary=t.memory[side].byId.get(id,{})
+	if baseline.is_empty() or previous.is_empty():return false
+	var keys: Array=["role","phase","targetId","leaderId","firingPassId","passSequence","passShots","passShortShots","passSpent","localRecovery","phaseSince","passSince","passFirstShotAt","passOpportunitySince","shotTimes","lastUsefulShot","safeSince"]
+	for key: String in keys:
+		if previous.get(key)!=baseline.get(key):return false
+	for key: String in ["targetId","leaderId"]:
+		var target_id: String=str(previous.get(key,""))
+		if target_id.is_empty():continue
+		var target: Dictionary=t.ships.get(target_id,{})
+		if target.is_empty() or not is_same(target,slot.owners.get(target_id)):return false
+		if (str(target.team)==side)!=(key=="leaderId"):return false
+	if not _boarding_contact(st,ship,frame_cache).is_empty():return false
+	for other: Dictionary in t.ships.values():
+		if str(ship.order)!="board" and other.team!=ship.team and Roles.pos(ship).distance_to(Roles.pos(other))<Routes.navigation_radius(ship)+Routes.navigation_radius(other)+24.0:return false
+	var context: Dictionary=_begin_context051(st,side,frame_cache,current051)
+	var own: Dictionary=_begin_owner051(st,id,frame_cache,current051)
+	own.orderSince=float(t.orderTimes.get(id,0.0));own.failedTargetIds=t.failures.get(id,[])
+	var old_owner: Dictionary=context[id]
+	context[id]=own
+	var view051: Dictionary={"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"ships":context.values(),"mission":current051.mission}
+	var observed: Dictionary=Planner._observe_retained051(view051,own,previous,context)
+	context[id]=old_owner
+	if observed.is_empty():return false
+	for key: String in keys:
+		if observed.state.get(key)!=previous.get(key):return false
+	return true
+
 static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null) -> void:
 	var begin_started: int=Time.get_ticks_usec()
 	Planner._poll_tasks051()
@@ -615,6 +649,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	t.metrics.activeCount=queued.size();t.metrics.normalLimit=cap
 	var due: Array=[]
 	var observed_due051: int=0
+	var selected_due051: int=0
 	var current051: Dictionary={}
 	for id in queued:
 		if id==t.manualId:continue
@@ -628,9 +663,11 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		# Existing command/condition/control invalidations set last=-1 and bypass
 		# this bounded retry delay. Live helm/fire checks never wait for it.
 		var interval: float=Planner.OBSERVATION_SECONDS051 if t.has("workers051") else (0.15 if t.intents.has(id) else 0.1)
-		if Planner._waiting_worker051(st,str(id)):continue
 		if last>=0.0 and float(st.time)-last<interval-0.000001:continue
-		if observed_due051>=cap:continue
+		# Waiting owns a fair selection slot, never an observation or authority.
+		if selected_due051>=cap:continue
+		selected_due051+=1
+		if Planner._waiting_worker051(st,str(id),_worker_capability051,_worker_wait_guard051,frame_cache,current051):continue
 		observed_due051+=1
 		if not _observe_retained051(st,str(id),frame_cache,current051):due.append(id)
 	if _runtime_profile043_enabled:
@@ -653,6 +690,13 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if t.ships[id].team==side:side_due.append(id)
 		if side_due.is_empty():continue
 		phase_started=Time.get_ticks_usec()
+		var suggestion051: Dictionary=Planner._take_worker051(st,side,side_due,_worker_capability051,frame_cache,_worker_wait_guard051,current051)
+		for id in suggestion051.get("pending051",[]):
+			side_due.erase(id);due.erase(id)
+		# Pending members keep their slot and receive no synchronous duplicate.
+		detail.proposals+=Time.get_ticks_usec()-phase_started
+		if side_due.is_empty():continue
+		phase_started=Time.get_ticks_usec()
 		var snapshot: Dictionary=_begin_view051(st,side,side_due,frame_cache,current051)
 		snapshots[side]=snapshot
 		# Private synchronous readers construct fresh due records. Resolution
@@ -660,7 +704,6 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		memories[side]=t.memory[side]
 		detail.snapshots+=Time.get_ticks_usec()-phase_started
 		phase_started=Time.get_ticks_usec()
-		var suggestion051: Dictionary=Planner._take_worker051(st,side,side_due,_worker_capability051,frame_cache)
 		planning[side]=Planner._prepare_with_worker051(snapshot,memories[side],suggestion051,current051.indexes[side])
 		for id in side_due:copies[id]=planning[side].context[id]
 		# Admission evidence belongs ONLY to this closed begin and exact offers.

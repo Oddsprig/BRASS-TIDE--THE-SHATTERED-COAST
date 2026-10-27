@@ -991,11 +991,73 @@ func current_begin051() -> void:
 	check(not is_same(next.owners[id],old) and int(old.orderRevision)==old_revision and int(next.owners[id].orderRevision)==int(arena.source.orderRevision) and int(next_plan.decisions[id].state.orderRevision)==int(arena.source.orderRevision),"a fresh begin observes the actual command revision without lending old scope authority")
 	observations.append({"case":"current-begin-ownership","sides":current.indexes.size(),"fullOwners":current.owners.size(),"oldRevision":old_revision,"currentRevision":arena.source.orderRevision})
 
+func worker_handoff051() -> void:
+	for variant: String in ["late", "deadline", "command", "physical"]:
+		var arena: Dictionary=local_arena()
+		var st: Dictionary=arena.state
+		var source: Dictionary=arena.source
+		var id: String=str(source.id)
+		var lease: Dictionary=_worker_slot051(arena)
+		if lease.is_empty():T.retire_planning051(st);T.drain_planning051();continue
+		var slot: Dictionary=lease.slot
+		if not _worker_join051(slot):T.retire_planning051(st);T.drain_planning051();continue
+		# Hold REAL worker output behind a REAL owned completion fence. Poll/join
+		# still use WorkerThreadPool; no fabricated output/certificate or timer.
+		var release: Semaphore=Semaphore.new()
+		slot.joined=false
+		slot.taskId=WorkerThreadPool.add_task(release.wait,false,"AI fixture bounded handoff fence")
+		Planner._tasks051.append(slot)
+		var last: float=float(st.tactical.lastDecision[id])
+		var intent: Dictionary=st.tactical.intents.get(id,{})
+		var guard_memory: Dictionary=slot.guards[id].memory
+		var baseline: Dictionary=guard_memory.duplicate(true)
+		var previous: Dictionary=st.tactical.memory.player.byId[id]
+		var memory_before: Dictionary=previous.duplicate(true)
+		check(not is_same(slot.guards[id].memory,previous) and not is_same(slot.guards[id].memory.get("shotTimes",{}),previous.get("shotTimes",{})),"dispatch semantic baseline independently owns nested main memory: "+variant)
+		var current051: Dictionary={}
+		var pending: Dictionary=Planner._take_worker051(st,"player",[id],T._worker_capability051,null,T._worker_wait_guard051,current051)
+		var repeated: bool=Planner._waiting_worker051(st,id,T._worker_capability051,T._worker_wait_guard051,null,current051)
+		check(pending.get("pending051",[])==[id] and repeated and int(current051.workerWaitChecks051)==1 and id in slot.remaining and id not in slot.discarded,"unfinished member remains pending and reuses one exact-begin guard: "+variant)
+		check(float(st.tactical.lastDecision[id])==last and is_same(st.tactical.intents.get(id),intent) and st.tactical.memory.player.byId[id]==memory_before,"pending handoff grants no observation or authority: "+variant)
+		var deadline: float=Planner._worker_wait_until051(st,id,slot)
+		check(is_equal_approx(deadline,minf(float(slot.createdAt)+0.15,last+0.2-1.0/60.0)),"pending deadline is the earlier real sample/observation limit: "+variant)
+		if variant=="late":
+			for tick: int in range(2):B.update(st,1.0/60.0);B.pop_events(st)
+			check(float(st.time)-float(slot.createdAt)>=1.0/30.0-0.000001 and float(st.time)<deadline-0.000001 and id in slot.remaining and id not in slot.discarded and float(st.tactical.lastDecision[id])==last,"real pending result survives the former33ms consumption point")
+		elif variant=="deadline":
+			for tick: int in range(12):
+				if float(st.time)+1.0/60.0>=deadline-0.000001:break
+				B.update(st,1.0/60.0);B.pop_events(st)
+			check(id in slot.remaining and not bool(slot.joined) and float(st.tactical.lastDecision[id])==last,"unfinished result retains its member immediately before the exact deadline")
+			B.update(st,1.0/60.0);B.pop_events(st)
+			var history: Array=st.tactical.memory.player.byId.get(id,{}).get("observations",[])
+			check(is_equal_approx(float(st.time),deadline) and id in slot.discarded and id not in slot.adopted and not history.is_empty() and float(history[-1].lastAt)==float(st.time) and float(st.time)-last<=0.2+0.000001,"exact deadline consumes unfinished member and publishes real synchronous fallback")
+		else:
+			if variant=="command":check(B.issue_order(st,[id],"move",{"x":450.0,"y":600.0}),"command accepted during unfinished handoff")
+			else:source.engine=0.0
+			var event_at: float=float(st.time)
+			B.update(st,1.0/60.0);B.pop_events(st)
+			check(id in slot.discarded and id not in slot.adopted and float(st.time)<deadline-0.000001 and guard_memory==baseline,"current invalidation bypasses waiting before deadline without rewriting dispatch memory: "+variant)
+			check(variant!="command" or (str(source.order)=="move" and int(source.orderRevision)>int(lease.held.revision)),"unfinished worker cannot restore a superseded command")
+			check(variant!="physical" or (float(source.engine)==0.0 and not is_same(st.tactical.intents.get(id),intent) and float(T.helm(st,source).throttle)==0.0),"current physical invalidation revokes the old maneuver while worker is unfinished")
+			observations.append({"case":"workers-handoff-invalidation","variant":variant,"eventAt":event_at,"fallbackAt":st.time,"deadline":deadline})
+		# Always release our fence before teardown; no runtime wait or leaked task.
+		release.post()
+		if _worker_join051(slot) and variant=="late":
+			for tick: int in range(12):
+				B.update(st,1.0/60.0);B.pop_events(st)
+				if id in slot.adopted or id in slot.discarded:break
+			check(id in slot.adopted and id not in slot.discarded and float(st.time)-last<=0.2+0.000001,"late real worker result adopts before unchanged observation expiry")
+		observations.append({"case":"workers-handoff","variant":variant,"createdAt":slot.createdAt,"deadline":deadline,"time":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate()})
+		T.retire_planning051(st);T.drain_planning051()
+		check(bool(slot.joined) and slot.capsule==null and Planner._tasks051.is_empty(),"bounded handoff case joins every owned task: "+variant)
+
 func workers051() -> void:
 	var profiling: bool=bool(T.runtime_profile043().enabled)
 	T.set_runtime_profile043(true);T.reset_runtime_profile043()
 	current_begin051()
 	duel_policy051()
+	worker_handoff051()
 	var arena: Dictionary=local_arena()
 	var st: Dictionary=arena.state
 	var source: Dictionary=arena.source
