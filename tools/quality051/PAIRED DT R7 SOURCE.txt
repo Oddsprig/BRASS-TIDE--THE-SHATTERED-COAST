@@ -1,0 +1,33 @@
+051 PAIRED DT R7 COMPATIBILITY - SOURCE ONLY; NATIVE UNRUN
+Parent98abcc6b8a19def4721ab115abda566083dd8a3e, own v051-retained-sol.
+Only game/tests/test_tactical_dt.gd and this handoff change.
+
+Actual R7 8b154e6c701c4a11ae0cb7d3684859db retained-ai22/0 PASSED.
+Paired dt2/0 JSON is INVALID: native.log has fatal missing poses/capabilities
+at original lines41/75 at BOTH rates. No dt pass/export/profile claim.
+Actual live-step records contain owner/motion/capability/equipment inputs and
+a public0.2s lease; no stored future array. Full public prefix remains9 coarse
+steps/0.3s (tactical_planner constants), replacing historical60/2s expectations.
+
+Fix scope-dispatches on the actual certificate scope before array access:
+- Live: actual owner identity, checked pre-motion pose, current motion/capability
+  guards, caller dt,0.2s public horizon/expiry; no future arrays/rollout debit.
+- Full prefix only: real poses/capabilities counts, exact charged integrations,
+  sample dt, public configured horizon, unchanged0.0001 capability tolerance.
+  No invented full reference call or fabricated forecast. An unobserved full
+  branch is reported as empty firstFullPrefix/fullComparedFrames0; its capability
+  error is null. No claim it ran when Battle supplied only live-step records.
+- Every real step in both original scenarios also checks position=previous
+  position+actual velocity*dt and actual heading delta<=live turnFactor*turn*dt,
+  tolerance0.0001. Original distance>20/fuel, real paid shots, nonterminal3s,
+  gradual repair/supply/bailing/fire and current-authority bounds stay intact.
+- Original real projectile setup and immediate HP-loss/old-authority refusal
+  assertions remain unchanged. Added actual T.helm throttle0 after that hit.
+Original seeds, initial conditions, durations, dt30/60,840 cap, legacy90-tick
+observation and dispatcher remain unchanged. Runtime/metadata unchanged.
+
+Read actual certification/current/motion/Battle APIs. Existing preload advisory
+issues[], advisoryOnly:true, engineInvoked:false; git diff --check clean.
+No engine/tests/GPU/profile/helpers/new framework. Root reviews and owns native
+verification/export; script-error evidence and R5/R6 failures stay preserved.
+Acceptance/smoothness/60FPS gate051 remains OPEN. Solo proposal is separate.
