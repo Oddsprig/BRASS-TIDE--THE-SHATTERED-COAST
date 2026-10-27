@@ -193,8 +193,11 @@ func capture(game) -> void:
 	if not within_deadline():return
 	var fallback_spec: Dictionary=Lab.hull(game.data,"bilge_punt")
 	var fallback: Dictionary=Art.preview_boat(Refit.effective_spec(fallback_spec,Refit.defaults(fallback_spec)))
+	var fallback_before: Dictionary=fallback.duplicate(true)
 	var old=boat_canvas(fallback)
-	check(old.invalid==0 and old.texture_draws==0 and old.mesh_draws>0,"other33 hulls retain actual existing fallback geometry")
+	check(old.invalid==0 and Sprite.hull_entry(fallback.spec).is_empty() and old.mesh_draws>0 and subset(old,"/bilge_punt/").is_empty(),"other33 hulls retain actual existing unbaked fallback hull geometry")
+	check(old.texture_draws==2 and subset(old,"/weapons/gun_single-base.png").size()==1 and subset(old,"/weapons/gun_single-moving.png").size()==1,"045 fallback hull's fitted single gun uses its actual authored base/moving textures")
+	check(fallback==fallback_before,"045 fallback hull/weapon draws preserve complete ship state")
 	check(game.data==world_before,"Lab and art leave world data unchanged")
 	game.return_to_title()
 	check(game.core==captain and captain.state==captain_state,"leaving Lab restores captain object and full state")

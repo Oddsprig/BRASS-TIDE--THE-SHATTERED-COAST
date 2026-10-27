@@ -1,9 +1,10 @@
 extends RefCounted
-## Authored 0.042 assets only. BoatArt retains procedural art for other hulls,
-## non-isometric charts, missing bakes and recorders without texture support.
+## Three authored hulls and seven interchangeable weapons for the whole roster.
+## BoatArt retains procedural hulls, non-isometric charts and missing-asset art.
 ## An atlas cell is an offline render, never a viewport rendered at runtime.
 
 const Geometry = preload("res://scripts/weapon_geometry.gd")
+const WeaponArt = preload("res://scripts/weapon_art.gd")
 const HULL_MANIFEST := "res://assets/boats042/asset-manifest.json"
 const WEAPON_MANIFEST := "res://assets/boats042/weapons/asset-manifest.json"
 const IDS := ["tin_skiff", "ash_corvette", "brasswind_motor_galleon"]
@@ -76,11 +77,16 @@ static func _screen_scale(ctx: Dictionary) -> float:
 	if ex.distance_to(Vector2(0.82, 0.41) * scale) > tolerance or ey.distance_to(Vector2(-0.82, 0.41) * scale) > tolerance or eh.distance_to(Vector2(0, -scale)) > tolerance: return 0.0
 	return scale
 
-static func _draw_cell(ctx: Dictionary, info: Dictionary, origin: Vector2, scale: float) -> bool:
+static func _cell_ready(info: Dictionary) -> bool:
 	var texture: Texture2D = _texture(str(info.path))
 	if texture == null or float(info.density) <= 0.0: return false
 	var source: Rect2 = info.source
-	if source.end.x > texture.get_width() or source.end.y > texture.get_height(): return false
+	return source.position.x >= 0.0 and source.position.y >= 0.0 and source.size.x > 0.0 and source.size.y > 0.0 and source.end.x <= texture.get_width() and source.end.y <= texture.get_height()
+
+static func _draw_cell(ctx: Dictionary, info: Dictionary, origin: Vector2, scale: float) -> bool:
+	if not _cell_ready(info): return false
+	var texture: Texture2D = _texture(str(info.path))
+	var source: Rect2 = info.source
 	var factor: float = scale / float(info.density)
 	ctx.canvas.draw_texture_rect_region(texture, Rect2(origin - Vector2(info.pivot) * factor, source.size * factor), source, Color.WHITE, false, true)
 	ctx.n += 1
@@ -131,8 +137,11 @@ static func weapon_variant(mount: Dictionary) -> String:
 ## receiver/barrel layer translates after a REAL mount shot, leaving its cradle
 ## fixed. No invented firing clock, extra projectiles, or cached damage state.
 static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float) -> bool:
-	if not bool(ctx.get("authored_hull", false)) or not ctx.canvas.has_method("draw_texture_rect_region"): return false
+	# A fitting's physical size and pivot do not depend on the hull's art path.
+	if not ctx.canvas.has_method("draw_texture_rect_region"): return false
 	if not ctx.canvas.has_method("draw_set_transform_matrix"): return false
+	# Legacy enlargement changes XY but not height; retain its mechanical art.
+	if not is_equal_approx(float(ctx.get("enlargement", 1.0)), 1.0): return false
 	var manifest: Dictionary = _manifest(WEAPON_MANIFEST)
 	if str(manifest.get("schema", "")) != "brass-tide-weapons042-v1": return false
 	var entry: Dictionary = manifest.get("weapons", {}).get(weapon_variant(mount), {})
@@ -145,9 +154,11 @@ static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float) -> b
 	var base: Dictionary = entry.get("base", {})
 	var moving: Dictionary = entry.get("moving", {})
 	var base_info: Dictionary = _frame(base, bearing)
-	if _texture(str(base_info.path)) == null: return false
 	var moving_info: Dictionary = _frame(moving, bearing) if not moving.is_empty() else {}
-	if not moving_info.is_empty() and _texture(str(moving_info.path)) == null: return false
+	# Refuse the whole mechanism before submitting either layer. A partial
+	# atlas must not leave a sprite over the procedural fallback weapon.
+	if not _cell_ready(base_info): return false
+	if not moving_info.is_empty() and not _cell_ready(moving_info): return false
 	var position: Vector2 = ctx.pos + Vector2(mount.x, mount.y).rotated(float(ctx.angle)) * float(ctx.size)
 	var origin: Vector2 = ctx.proj.call(position, 9.7)
 	var residual: float = wrapf(bearing - float(base_info.angle), -PI, PI)
@@ -161,8 +172,7 @@ static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float) -> b
 	ctx.canvas.draw_set_transform_matrix(transform)
 	var drew: bool = _draw_cell(ctx, base_info, Vector2.ZERO, scale * unit)
 	if not moving_info.is_empty():
-		var age: float = float(ctx.get("shot_clock", 0.0)) - float(ctx.get("shots", {}).get(str(mount.get("id", "")), -100.0))
-		var recoil: float = -1.1 * maxf(0.0, 1.0 - age / 0.16) if age >= 0.0 and age < 0.16 else 0.0
+		var recoil: float = WeaponArt.recoil_offset(ctx, mount)
 		# Offset is expressed in the baked frame before the residual transform.
 		var xy: Vector2 = Vector2.from_angle(float(base_info.angle)) * recoil * unit
 		var shift: Vector2 = Vector2((xy.x - xy.y) * 0.82, (xy.x + xy.y) * 0.41) * scale

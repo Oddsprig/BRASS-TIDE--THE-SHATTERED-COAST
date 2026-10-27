@@ -1,0 +1,98 @@
+Brass Tide v0.045 weapon presentation - source-only handoff
+
+Base: a0362bb999c2289b4defc7973bbc469d61f05fb5 (045 metadata on delivered044).
+This specialist ran no tests, engine, bake, render, GPU job, audio playback,
+download, helper, input/focus operation, Git maintenance or remote operation.
+Source inspection and git diff --check are not a native pass.
+
+Production change
+BoatSpriteArt.draw_weapon no longer depends on ctx.authored_hull. The existing
+seven authored variants now serve every valid isometric fitting across all36
+boats, including the normal BoatPortrait/workshop composition. The three
+authored hulls and33 procedural hulls retain their existing hull paths.
+No assets or bake sources changed; no new bake is requested.
+
+Single/twin machine gun, cannon, three/six-cell rocket and single/twin torpedo
+selection still uses the actual kind, fitting tier and moduleId. Every position
+uses the existing normalized mount x/y, stable mount ID and localAimAngles.
+Sizes, muzzle stations and firing heights still come from WeaponGeometry.
+MountLayout/Refit still own firing arcs, including044's135degree heavy forward
+cannon socket and the fixed launchers'0.9radian arc. Rendering does not invent
+aim, rounds, projectiles, timestamps, condition or firing capacity.
+
+WeaponArt.recoil_offset(ctx,mount) is the only new public callable. It returns
+canonical model X displacement from that mount's shots[id] and shot_clock:
+-1.1units immediately after discharge, recovering linearly over0.16seconds.
+RECOIL_SECONDS and RECOIL_DISTANCE name the existing values. Authored moving
+assemblies and mechanical fallback share this calculation; only gun/cannon
+mechanisms use it. A missing/future/expired timestamp produces zero displacement.
+The display clock alone cannot drive recoil. BoatArt still suppresses saved
+shot timestamps outside combat and still overlays real disabled/damaged marks.
+No game/save/data schema, worker, economy or simulation API changed.
+
+Both weapon cells must be loaded and fully inside their actual PNG before
+either layer is submitted. Missing base/moving atlases and invalid regions
+therefore return to the existing mechanical art without partial sprite layers.
+Nonisometric projection, texture-incapable recorders and legacy enlargement
+also retain mechanical rendering. Legacy enlargement scales XY but leaves
+height alone; an isometric bitmap cannot represent it faithfully.
+
+Files
+game/scripts/boat_sprite_art.gd
+game/scripts/weapon_art.gd
+game/tests/test_weapon_presentation045.gd (new, NOT RUN)
+game/tests/test_art042.gd (explicitly extended allowlist)
+tools/quality045/WEAPON PRESENTATION.txt
+BoatArt, draw_wake and all wake helpers are untouched for Root's sibling merge.
+
+Root's focused native validation, still required
+Use the existing TestBridge/shared lane and private test profile. Submit only
+one bounded selected batch under120seconds including setup/startups/cleanup.
+Do not run these commands directly while another lease is held or queued.
+New fixture arguments for Root's existing Godot command/adapter:
+  --headless --path game --audio-driver Dummy -s res://tests/test_weapon_presentation045.gd
+Existing geometry/retained-art fixtures to include in the bounded selected batch
+as Root chooses:
+  res://tests/test_mount_layout.gd
+  res://tests/test_art_workshop.gd
+  res://tests/test_art042.gd
+The specialist has not measured any fixture or batch duration.
+
+The new fixture uses the retained art042_trace.Canvas, production BoatArt,
+normal390x245 BoatPortrait, real PNG regions/alpha bounds, Refit and Battle._fire.
+It checks all36 default fits in cached normal-scale battle drawing and normal
+workshop drawing, every empty fitting and clickable socket, actual seven-variant
+selection on Brasswind and procedural Maiden, live arc-boundary headings,
+manifest muzzle/WeaponGeometry agreement and unchanged complete boat/catalogue
+state. Real gun/cannon shots must consume ammunition exactly once and drive
+only their own moving layer; the cradle and second mount must remain fixed.
+It also checks recovery/future/noncombat timing, empty-ammo nonfiring, condition
+marks and missing-layer/invalid-region/nonisometric/enlargement fallback on both
+hull paths. It temporarily suppresses cached texture entries and supplies an
+oversized moving-cell rectangle only inside its test process, then restores
+them. It never changes source assets, player saves or settings.
+
+The retained042 fixture's sole behavior update replaces the obsolete demand
+for zero textures on Bilgewater Punt. It now requires unbaked procedural hull
+geometry plus exactly gun_single-base and gun_single-moving, and unchanged
+complete ship state. The original three-authored-hull, frame, geometry, aiming,
+empty-fit, captain/world state and other retained checks remain in place.
+
+Exact limits
+The inspected reference images were docs/ART REVIEW v0.042.png and
+docs/COMBAT v0.044.png. This patch has no new rendered image or native result.
+Real normal-zoom gun readability, scale, deck contact and all36 workshop fits
+remain pending Root's visual review. No hull/coast redesign is included.
+
+The retained32direction atlas correction is affine about the firing plane. It
+keeps the projected canonical muzzle and that mount's firing-plane origin exact;
+pixels at other heights still lean slightly between baked headings (up to about
+0.196 * height difference * screen scale). It does not reconstruct3D depth or
+occlusion. Torpedo tubes stay on deck; gameplay torpedoes start at height0.
+
+Recoil source/timestamp checks and still PNGs cannot prove motion quality.
+Root has confirmed built-in Godot MovieMaker for five fixed-simulation seconds
+on the exported game/private desktop; gun/wake motion review remains Root's
+separate task, without a new capture framework. Such capture is not realtime
+60FPS or a performance acceptance result. Audio quality, synchrony/listening,
+mixing and sibling impact/wake changes remain outside this specialist's proof.

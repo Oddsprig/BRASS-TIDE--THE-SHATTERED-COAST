@@ -3,6 +3,18 @@ extends RefCounted
 ## Every shaded face is culled below half a screen pixel, including end-on tubes.
 
 const Geometry=preload("res://scripts/weapon_geometry.gd")
+const RECOIL_SECONDS: float=0.16
+const RECOIL_DISTANCE: float=1.1
+
+## Canonical model units, from this mount's actual battle shot timestamp.
+## Both the authored layer and mechanical fallback use the same recovery.
+static func recoil_offset(ctx: Dictionary, mount: Dictionary) -> float:
+	var id: String=str(mount.get("id",""))
+	var shots: Dictionary=ctx.get("shots",{})
+	if not shots.has(id):return 0.0
+	var age: float=float(ctx.get("shot_clock",0.0))-float(shots[id])
+	if age<0.0 or age>=RECOIL_SECONDS:return 0.0
+	return -RECOIL_DISTANCE*(1.0-age/RECOIL_SECONDS)
 
 static func draw(ctx: Dictionary, mount: Dictionary, world_bearing: float, palette: Dictionary) -> void:
 	var kind: String = str(mount.kind)
@@ -14,8 +26,7 @@ static func draw(ctx: Dictionary, mount: Dictionary, world_bearing: float, palet
 		"u":unit, "world_unit":world_unit, "lod":int(ctx.lod), "h":9.7}
 	var dark := Color("1e2c31")
 	var steel := Color("52656b")
-	var age: float = float(ctx.get("shot_clock",ctx.get("clock",0.0)))-float(ctx.get("shots",{}).get(str(mount.get("id","")),-100.0))
-	var recoil: float = -1.1 * maxf(0.0,1.0-age/0.16) if age>=0.0 else 0.0
+	var recoil: float = recoil_offset(ctx,mount)
 	# A bolt-down octagonal deck plate, bearing race and pedestal: no black discs.
 	_pad(model,2.1 if kind=="gun" else 3.0,0.25,dark)
 	_box(model,Vector3(-1.1,-1.0,0.3),Vector3(1.1,1.0,2.2),steel)
