@@ -1,7 +1,8 @@
 extends Node2D
 
-const Damage = preload("res://scripts/damage.gd")
+const DamageReference051 = preload("res://scripts/damage.gd")
 const Battle = preload("res://scripts/battle.gd")
+const BattleDriver051 = preload("res://scripts/battle_driver051.gd")
 const Tactical = preload("res://scripts/tactical_runtime.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Version = preload("res://scripts/version.gd")
@@ -23,6 +24,40 @@ const RuntimeBenchmark=preload("res://scripts/runtime_benchmark.gd")
 const RuntimeProfile043=preload("res://scripts/runtime_profile043.gd")
 const BattleCommands047=preload("res://scripts/battle_commands047.gd")
 
+class _DamageView051 extends RefCounted:
+	var owner: WeakRef
+	func _init(main):owner=weakref(main)
+	func _published(ship: Dictionary) -> Dictionary:
+		var main=owner.get_ref()
+		if main==null or main.battle_driver051==null:return {}
+		for boat: Dictionary in main.battle.get("ships",[]):
+			if str(boat.get("id",""))==str(ship.get("id","")) or (not str(ship.get("uid","")).is_empty() and str(boat.get("uid",""))==str(ship.uid)):
+				return boat
+		return {}
+	func get_status(ship: Dictionary) -> Dictionary:
+		return get_status_cached(ship)
+	func get_status_cached(ship: Dictionary,cache=null) -> Dictionary:
+		var boat: Dictionary=_published(ship)
+		if not boat.is_empty():
+			var main=owner.get_ref()
+			return main.battle.get("tactical",{}).get("damageStatusById051",{}).get(str(boat.id),{}).duplicate(true)
+		return DamageReference051.get_status_cached(ship,cache)
+	func set_policy(ship: Dictionary,policy: String) -> String:
+		var boat: Dictionary=_published(ship)
+		if not boat.is_empty():
+			var main=owner.get_ref()
+			return policy if main.Battle.set_crew_policy(main.battle,[str(boat.id)],policy) else str(boat.get("policy","balanced"))
+		return DamageReference051.set_policy(ship,policy)
+	func apply_hit(ship: Dictionary,hit: Dictionary,rng: RandomNumberGenerator=null,cache=null) -> Array:
+		# Synchronous test fixtures retain their old API; active player commands
+		# never manufacture damage or mutate the published display dictionary.
+		if not _published(ship).is_empty():return []
+		return DamageReference051.apply_hit(ship,hit,rng,cache)
+
+# Existing host.Damage UI callers get published data during worker ownership.
+# Raw component scripts still preload damage.gd and keep their synchronous APIs.
+var Damage=_DamageView051.new(self)
+
 var data: Dictionary
 var core
 var chart
@@ -36,8 +71,15 @@ var selected_port = "brass_haven"
 var selected_site: String=""
 var battle: Dictionary = {}:
 	set(value):
-		Tactical.retire_planning051(battle)
+		if not _publishing_battle051:
+			_retire_battle_driver051()
+			Tactical.retire_planning051(battle)
 		battle = value
+var battle_driver051=null
+var battle_publication_us051: int=0
+var _publishing_battle051: bool=false
+var _battle_ports051: Dictionary={}
+var _battle_ack_sequence051: int=0
 var battle_context: Dictionary = {}
 var battle_report: Dictionary = {}
 var battle_enemies: Array = []
@@ -93,6 +135,7 @@ func _ready():
 		get_tree().quit(1)
 		return
 	if "--qa-performance" in OS.get_cmdline_user_args():
+		print("QA synchronous 60Hz component reference; not the worker30Hz/rendered acceptance cohort.")
 		get_tree().quit(RuntimeBenchmark.new().run(data))
 		return
 	core = Campaign.new(data)
@@ -159,6 +202,8 @@ func _process(dt: float):
 	Tactical.poll_planning051() # Also joins abandoned encounters while in menus.
 	if chart == null:
 		return
+	if mode=="battle" and battle_driver051!=null:
+		poll_battle051(dt,paused or ui.modal_open or result_handled)
 	_finish_economy(false)
 	if not core.state.is_empty() and core.pending_days > 0 and economy_task < 0:
 		start_economy()
@@ -208,29 +253,98 @@ func _physics_process(dt: float):
 				"encounter":
 					show_patrol_encounter(event.patrol)
 				"survey_complete":ui.toast("%s: %s"%[event.siteName,event.levelName])
-	elif mode == "battle" and not battle.is_empty() and not result_handled:
-		var started: int=Time.get_ticks_usec()
-		var aim = chart.world_at(get_global_mouse_position())
-		var flagship = Battle.get_flagship(battle)
-		var manual = not bool(battle.get("autopilot", true)) and not tactical_mode
-		Battle.update(battle, dt, {"manual":manual,"forward":Input.is_key_pressed(KEY_UP),"backward":Input.is_key_pressed(KEY_DOWN),"left":Input.is_key_pressed(KEY_LEFT),"right":Input.is_key_pressed(KEY_RIGHT),"boost":Input.is_key_pressed(KEY_CTRL),"fire":manual and fire_held,"aimX":aim.x,"aimY":aim.y})
-		simulation_us=Time.get_ticks_usec()-started
-		if runtime_profile043!=null:runtime_profile043.after_physics(dt)
-		audio.consume(Battle.pop_events(battle),chart)
-		if battle.result != null:
-			Tactical.retire_planning051(battle)
-			result_handled = true
-			settle_battle.call_deferred()
+	# Battle numerical work belongs to the driver; rendering polls it in _process.
+
+func _publish_battle051(display: Dictionary) -> void:
+	_publishing_battle051=true
+	battle=display
+	_publishing_battle051=false
+
+func _battle_input051() -> Dictionary:
+	var aim: Vector2=chart.world_at(get_global_mouse_position())
+	var manual: bool=not bool(battle.get("autopilot",true)) and not tactical_mode
+	return {"manual":manual,"forward":Input.is_key_pressed(KEY_UP),"backward":Input.is_key_pressed(KEY_DOWN),"left":Input.is_key_pressed(KEY_LEFT),"right":Input.is_key_pressed(KEY_RIGHT),"boost":Input.is_key_pressed(KEY_CTRL),"fire":manual and fire_held,"aimX":aim.x,"aimY":aim.y}
+
+func poll_battle051(dt: float, stopped: bool) -> void:
+	if battle_driver051==null:return
+	var started: int=Time.get_ticks_usec()
+	_publish_battle051(battle_driver051.advance(dt,_battle_input051(),stopped))
+	battle_publication_us051=Time.get_ticks_usec()-started
+	# Historical name retained for consumers; this is Main cost, NOT worker time.
+	simulation_us=battle_publication_us051
+	if runtime_profile043!=null and runtime_profile043.has_method("after_battle_publication051"):
+		runtime_profile043.after_battle_publication051(dt)
+	for receipt: Dictionary in battle_driver051.telemetry().get("commandResults",[]):
+		var sequence: int=int(receipt.get("sequence",0))
+		if sequence<=_battle_ack_sequence051:continue
+		_battle_ack_sequence051=sequence
+		if not receipt.get("ok",false):
+			battle_command_ack=BattleCommands047.reply(str(receipt.get("kind","")),false,str(receipt.get("message","Command declined after checking the current battle state.")))
+			ui.toast(str(battle_command_ack.message),true)
+		elif str(receipt.get("kind",""))=="player_command":
+			battle_command_ack=BattleCommands047.reply("player_command",true,str(receipt.get("message","Fleet command applied.")))
+	var events: Array=battle_driver051.take_events()
+	if runtime_profile043!=null and runtime_profile043.has_method("observe_events051"):
+		runtime_profile043.observe_events051(events)
+	audio.consume(events,chart)
+	if battle.get("result")!=null and not result_handled:
+		_retire_battle_driver051()
+		result_handled=true
+		settle_battle.call_deferred()
+
+func _start_battle_driver051() -> void:
+	_battle_ports051.clear()
+	# Keep campaign identities on Main, outside every worker input/publication.
+	if not lab_active and not quick_mode:
+		for fort: Dictionary in battle.get("coastalDefenses",[]):
+			var port: Dictionary=fort.get("port",{})
+			if not port.is_empty():_battle_ports051[str(port.id)]=port
+	battle._labCommands051=lab_active
+	battle_driver051=BattleDriver051.new(battle)
+	_publish_battle051(battle_driver051.advance(0.0,{},true))
+	battle_publication_us051=0;simulation_us=0
+	_battle_ack_sequence051=0
+	chart.reset_battle_presentation051()
+
+func _reconcile_coastal_ports051(final: Dictionary) -> void:
+	# Driver restores original boat identities; Main also publishes spent coastal
+	# ammunition into the original campaign ports after worker ownership ends.
+	for fort: Dictionary in final.get("coastalDefenses",[]):
+		var port: Dictionary=fort.get("port",{})
+		var target: Dictionary=_battle_ports051.get(str(port.get("id","")),{})
+		if target.is_empty():continue
+		if not is_same(target,port) and port.get("defenses") is Dictionary:
+			var defenses: Dictionary=target.get("defenses",{})
+			defenses.clear();defenses.merge(port.defenses.duplicate(true),true)
+			target.defenses=defenses
+		fort.port=target
+
+func _retire_battle_driver051() -> void:
+	if battle_driver051==null:return
+	var final: Dictionary=battle_driver051.retire()
+	battle_driver051=null
+	if not _battle_ports051.is_empty():_reconcile_coastal_ports051(final)
+	_publish_battle051(final)
+	_battle_ports051.clear()
+	if chart!=null:chart.clear_battle_poses051()
+
+func queue_battle_command051(kind: String,payload: Dictionary={}) -> bool:
+	if mode!="battle" or result_handled or battle_driver051==null:return false
+	return battle_driver051.queue_command(kind,payload)
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed and not event.echo:
 		if dev_enabled:
 			if event.keycode==KEY_F9: dev_tools.shown=not dev_tools.shown;return
-			if event.keycode==KEY_F6: dev_tools.refill();return
+			if event.keycode==KEY_F6:
+				if lab_active and battle_driver051!=null:
+					queue_battle_command051("lab_refill",{})
+				else:dev_tools.refill()
+				return
 			if event.keycode==KEY_F8: dev_tools.snapshot();return
 			if event.keycode==KEY_PERIOD and lab_active and paused and not ui.modal_open:
-				Battle.update(battle,1.0/30.0,{})
-				if battle.result!=null and not result_handled: result_handled=true;settle_battle()
+				# One asynchronous owned step; the paused render loop polls completion.
+				poll_battle051(1.0/30.0,false)
 				return
 		if event.keycode == KEY_F11:
 			toggle_fullscreen()
@@ -316,6 +430,7 @@ func _input(event):
 
 func toggle_pause():
 	paused = not paused
+	if mode=="battle":poll_battle051(0.0,true)
 	ui.update_hud()
 
 func toggle_fullscreen():
@@ -336,6 +451,7 @@ func music_context() -> String:
 	return "travel"
 
 func new_game():
+	_retire_battle_driver051()
 	_leave_lab()
 	sync_economy()
 	var begun: Dictionary = core.new_game(int(Time.get_unix_time_from_system()))
@@ -627,7 +743,7 @@ func open_lab():
 	ui.title_screen()
 	LabUI.open(ui)
 
-func start_lab():
+func start_lab(prepare051: Callable=Callable()):
 	sync_economy()
 	if lab_config.is_empty():lab_config=FleetLab.preset(data,"mixed")
 	var built: Dictionary=FleetLab.create(data,lab_config,lab_seed)
@@ -641,13 +757,14 @@ func start_lab():
 	lab_active=true
 	quick_mode=true
 	battle=built.battle
+	# Observer formation/damage setup is Main-only and precedes ownership transfer.
+	if prepare051.is_valid():prepare051.call(battle)
 	battle_enemies=battle.ships.filter(func(s):return s.team=="enemy").map(func(s):return s.spec)
 	var skirmish: bool=str(lab_config.get("context",""))=="coastal_clash"
 	battle_context={"kind":"coastal_clash" if skirmish else "laboratory","name":str(lab_config.get("label","Coastal Clash")) if skirmish else "Fleet battle laboratory"}
 	_enter_battle()
 
 func _enter_battle():
-	Tactical.enable_planning051(battle, true)
 	audio.reset_battle()
 	ui.modal_kind = ""
 	mode = "battle"
@@ -663,6 +780,7 @@ func _enter_battle():
 	selected_battle_ids = [battle.playerId] if battle.playerId != null else []
 	battle_command_pending = "";battle_command_ack = {}
 	battle_selection_groups={1:[],2:[],3:[],4:[]}
+	_start_battle_driver051()
 	chart.battle_overlays={"arcs":false,"threat":false,"routes":false}
 	chart.zoom = 1.4 if battle.ships.size() <= 8 else 1.0
 	chart.set_tactical(false)
@@ -688,10 +806,11 @@ func switch_flagship():
 func toggle_autopilot():
 	if mode != "battle" or battle.is_empty():
 		return
-	Battle.set_autopilot(battle, not bool(battle.get("autopilot", true)))
-	if tactical_mode:pre_tactical_autopilot=bool(battle.autopilot)
+	var enabled: bool=not bool(battle.get("autopilot",true))
+	Battle.set_autopilot(battle, enabled)
+	if tactical_mode:pre_tactical_autopilot=enabled
 	fire_held = false
-	ui.toast("Flagship autopilot engaged." if battle.autopilot else "Manual flagship: arrow keys steer, mouse aims/fires. WASD still moves the camera.")
+	ui.toast("Flagship autopilot engaged." if enabled else "Manual flagship: arrow keys steer, mouse aims/fires. WASD still moves the camera.")
 	ui.update_hud()
 
 func toggle_tactical():
@@ -786,7 +905,7 @@ func finish_battle_selection(position: Vector2, additive: bool = false):
 		var distance = 42.0
 		for boat in battle.ships:
 			if boat.team == "player" and not boat.sunk and not boat.get("captureSecured",false):
-				var d = chart.project(Vector2(boat.x, boat.y)).distance_to(position)
+				var d = chart.project(chart.battle_boat_position051(boat)).distance_to(position)
 				if d < distance:
 					distance = d
 					nearest = str(boat.id)
@@ -796,7 +915,7 @@ func finish_battle_selection(position: Vector2, additive: bool = false):
 		if not additive:
 			selected_battle_ids.clear()
 		for boat in battle.ships:
-			if boat.team == "player" and not boat.sunk and not boat.get("captureSecured",false) and rectangle.has_point(chart.project(Vector2(boat.x, boat.y))) and not boat.id in selected_battle_ids:
+			if boat.team == "player" and not boat.sunk and not boat.get("captureSecured",false) and rectangle.has_point(chart.project(chart.battle_boat_position051(boat))) and not boat.id in selected_battle_ids:
 				selected_battle_ids.append(boat.id)
 	selection_box = Rect2()
 	ui.update_hud()
@@ -828,7 +947,11 @@ func request_battle_command(command: String, target: Dictionary = {}) -> bool:
 		battle_command_ack = BattleCommands047.reply(command, true, prompt, selected_battle_ids.size())
 	else:
 		battle_command_pending = command if BattleCommands047.needs_target(command) else ""
-		battle_command_ack = BattleCommands047.apply(battle, selected_battle_ids.duplicate(), command, target)
+		if battle_driver051!=null:
+			var queued: bool=queue_battle_command051("player_command",{"ids":selected_battle_ids.duplicate(),"command":command,"target":target})
+			battle_command_ack=BattleCommands047.reply(command,queued,"Command queued for the fleet." if queued else "That command could not be queued.",selected_battle_ids.size() if queued else 0)
+		else:
+			battle_command_ack = BattleCommands047.apply(battle, selected_battle_ids.duplicate(), command, target)
 		if battle_command_ack.ok:battle_command_pending = ""
 	ui.toast(str(battle_command_ack.message), not bool(battle_command_ack.ok))
 	ui.update_hud()
@@ -842,7 +965,7 @@ func order_at(position: Vector2):
 	for boat in battle.ships:
 		if boat.sunk or boat.get("captureSecured",false):
 			continue
-		var distance = chart.project(Vector2(boat.x, boat.y)).distance_to(position)
+		var distance = chart.project(chart.battle_boat_position051(boat)).distance_to(position)
 		if distance < closest:
 			closest = distance
 			target = boat
@@ -897,11 +1020,16 @@ func workshop_delete_template(id: String) -> Dictionary:
 func set_crew_policy(policy: String):
 	var flagship = Battle.get_flagship(battle)
 	if not flagship.is_empty():
-		Damage.set_policy(flagship, policy)
+		Battle.set_crew_policy(battle,[str(flagship.id)],policy)
 	ui.update_hud()
+
+func set_repair_priority(id: String,priority: String) -> bool:
+	if mode!="battle" or battle.is_empty():return false
+	return Battle.set_repair_priority(battle,[id],priority)
 
 func settle_battle():
 	if mode!="battle" or battle.get("result")==null:return
+	_retire_battle_driver051()
 	fire_held = false
 	result_handled=true
 	if lab_active:
@@ -953,6 +1081,7 @@ func recover_salvage(id: String):
 	respond(result)
 
 func return_to_campaign():
+	_retire_battle_driver051()
 	Tactical.retire_planning051(battle)
 	_leave_lab()
 	if core.state.is_empty():
@@ -980,6 +1109,7 @@ func accept_rescue():
 	respond(result)
 
 func return_to_title():
+	_retire_battle_driver051()
 	if mode == "campaign":
 		save_game(false)
 	_leave_lab()
@@ -1054,6 +1184,7 @@ func save_game(show_notice: bool = true,allow_settled_battle: bool = false):
 		ui.toast("The save file could not be written.", true)
 
 func load_game():
+	_retire_battle_driver051()
 	sync_economy()
 	_leave_lab()
 	if not has_save():
@@ -1085,12 +1216,14 @@ func load_game():
 	respond(result)
 
 func quit_game():
+	_retire_battle_driver051()
 	save_preferences()
 	save_game(false)
 	sync_economy()
 	get_tree().quit()
 
 func _exit_tree():
+	_retire_battle_driver051()
 	Tactical.retire_planning051(battle)
 	Tactical.drain_planning051()
 	if economy_task >= 0:

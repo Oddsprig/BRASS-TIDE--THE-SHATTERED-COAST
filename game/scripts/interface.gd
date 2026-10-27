@@ -10,7 +10,7 @@ const RecoveryUI=preload("res://scripts/recovery_ui.gd")
 const HomeUI=preload("res://scripts/home_ui.gd")
 const GuidanceUI=preload("res://scripts/guidance_ui.gd")
 const CrisisUI=preload("res://scripts/crisis_ui.gd")
-const BoardingUI=preload("res://scripts/boarding_ui.gd")
+const BoardingUIReference051=preload("res://scripts/boarding_ui.gd")
 const LawUI=preload("res://scripts/law_ui.gd")
 const CompanyUI=preload("res://scripts/company_ui.gd")
 const RegionalGoodsUI=preload("res://scripts/regional_goods_ui.gd")
@@ -28,6 +28,13 @@ const Politics=preload("res://scripts/politics.gd")
 const VoyageUI=preload("res://scripts/voyage_ui.gd")
 const EquipmentController=preload("res://scripts/equipment_ui_controller.gd")
 const EquipmentPicker=preload("res://scripts/equipment_picker.gd")
+
+class BoardingUI extends RefCounted:
+	static func open(ui) -> void:
+		BoardingUIReference051.open(ui)
+	static func battle(ui) -> void:
+		if ui.host.battle.get("_battleMirror051",false):ui.open_worker_boarding051()
+		else:BoardingUIReference051.battle(ui)
 
 const INK = Color("102731")
 const LINE = Color("3b5a60")
@@ -381,6 +388,8 @@ func update_hud():
 		return
 	if host.mode == "battle":
 		clock_label.text = "PAUSED" if host.paused else "%02d:%02d" % [int(host.battle.time) / 60, int(host.battle.time) % 60]
+		var cadence: Dictionary=host.battle.get("simulation051",{})
+		clock_label.tooltip_text="Authoritative worker: %d Hz · %d completed steps\nPresentation: %.0f FPS · Main poll %.3f ms\nSimulation lag %.3f s"%[int(cadence.get("workerStepHz",30)),int(cadence.get("completedSteps",0)),Engine.get_frames_per_second(),float(cadence.get("mainPollUs",0))/1000.0,float(cadence.get("simulationLagSeconds",0.0))] if not cadence.is_empty() else "Synchronous reference battle"
 		TacticsUI.update(self, true)
 		return
 	var w = host.core.state
@@ -410,6 +419,8 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 		notices.reparent(root, false)
 	clear(overlay)
 	modal_open = true
+	# Poll only completed publications; an open panel never schedules physics.
+	if host.has_method("poll_battle051"):host.poll_battle051(0.0,true)
 	var size = root.get_viewport_rect().size
 	var shade = ColorRect.new()
 	shade.color = Color(0.012, 0.04, 0.065, 0.78)
@@ -661,7 +672,69 @@ func open_single_refit(uid: String):
 	RefitUI.open(self, uid)
 
 func open_equipment(uid: String):
+	if host.mode=="battle" and host.battle.get("_battleMirror051",false):
+		open_worker_equipment051(uid)
+		return
 	EquipmentController.open(self, uid)
+
+func open_worker_equipment051(uid: String) -> void:
+	var boat: Dictionary={}
+	for candidate: Dictionary in host.battle.get("ships",[]):
+		if str(candidate.get("uid",""))==uid or str(candidate.get("id",""))==uid:boat=candidate;break
+	if boat.is_empty() or boat.sunk or boat.team!="player":
+		toast("Choose a living friendly boat.",true);return
+	var condition: Dictionary=boat.get("moduleCondition",{})
+	var installed: Dictionary=EquipmentController.Core.inspect_installed(condition)
+	var locker: Dictionary=EquipmentController.Core.list_locker(condition)
+	if not installed.get("ok",false) or not locker.get("ok",false):
+		toast("These fittings could not be inspected.",true);return
+	var rows: Array=[];var spares: Array=[]
+	for item: Dictionary in installed.get("items",[]):rows.append(EquipmentController._part_row(item,false))
+	for item: Dictionary in locker.get("items",[]):spares.append(EquipmentController._part_row(item,true))
+	var flow: Dictionary=host.battle.get("tactical",{}).get("damageStatusById051",{}).get(str(boat.id),{})
+	var model: Dictionary={"uid":str(boat.get("uid",boat.id)),"name":str(boat.name),"priority":str(condition.get("repairPriority","auto")),"rows":rows,"spares":spares,"supplies":float(boat.supplies),"repairCrew":float(flow.get("crewRepair",0.0)),"juryCap":EquipmentController.Core.JURY_CAP,"inPort":false,"debug":host.dev_enabled,"quote":{"ok":false,"message":"Battle repairs use the crew and kits aboard this boat.","cost":0.0,"ordinary":0.0,"expert":0.0,"fee":0.0,"materials":{}}}
+	var id: String=str(boat.id)
+	var actions: Dictionary={
+		"setPriority":func(chosen: String):
+			var queued: bool=host.set_repair_priority(id,chosen)
+			toast("Repair priority queued." if queued else "That repair priority could not be queued.",not queued),
+		"repair":func():toast("Battle repairs use the crew and kits aboard this boat."),
+		"workshop":func():toast("Return to a harbor to change fittings."),
+		"refresh":func():open_worker_equipment051(id)}
+	EquipmentController.EquipmentUI.open(self,model,actions)
+
+func open_worker_boarding051() -> void:
+	modal_kind="boarding_orders"
+	var body=modal("Boarding orders","WEAKEN · APPROACH · CAPTURE",1000,760)
+	var st: Dictionary=host.battle
+	paragraph(body,"Choose spare trained boarders and a weakened enemy. The party leaves only at physical contact; crew, losses and berths remain real.",16)
+	var automatic: bool=not bool(st.get("autoBoard",true))
+	button(body,"Cautious automatic boarding: "+("ON" if st.get("autoBoard",true) else "OFF"),func():_queue_boarding051("boarding_auto",{"enabled":automatic}),false,false)
+	var sources=OptionButton.new();var source_ids: Array=[]
+	var targets=OptionButton.new();var target_ids: Array=[]
+	for boat: Dictionary in st.ships:
+		if boat.sunk:continue
+		if boat.team=="player" and not boat.get("captureSecured",false):
+			source_ids.append(str(boat.id));sources.add_item("%s · %d boarders"%[str(boat.name),int(boat.get("boarders",0))])
+		elif boat.team=="enemy":
+			target_ids.append(str(boat.id));targets.add_item("%s · %.0f%% hull"%[str(boat.name),100.0*float(boat.hp)/maxf(1.0,float(boat.maxHp))])
+	var controls=row(body);controls.add_child(sources);controls.add_child(targets)
+	var count=SpinBox.new();count.min_value=1;count.max_value=128;count.value=3;controls.add_child(count)
+	if not source_ids.is_empty() and not target_ids.is_empty():
+		button(body,"Approach and board selected target",func():
+			if _queue_boarding051("boarding_order",{"sourceId":str(source_ids[sources.selected]),"targetId":str(target_ids[targets.selected]),"count":int(count.value)}):close_modal(),true,false)
+	for job: Dictionary in st.get("boarding",{}).get("jobs",[]):
+		paragraph(body,"%s · %s · %d aboard target / %d returned / %d lost or killed"%[str(job.id),str(job.status),int(job.alive),int(job.returned),int(job.lost)+int(job.killed)],14)
+		if job.status=="active":
+			var id: String=str(job.id)
+			button(body,"Recall "+id+" if still in contact",func():_queue_boarding051("boarding_abort",{"id":id}),false,false)
+	button(body,"Check current orders",open_worker_boarding051,false,false)
+	button(body,"Close",close_modal,true,false)
+
+func _queue_boarding051(kind: String,payload: Dictionary) -> bool:
+	var queued: bool=host.queue_battle_command051(kind,payload)
+	toast("Boarding command queued; the crew will check the current situation." if queued else "That boarding command could not be queued.",not queued)
+	return queued
 
 func refresh_fleet():
 	if modal_kind == "port":

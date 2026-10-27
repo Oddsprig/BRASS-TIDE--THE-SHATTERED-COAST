@@ -1,0 +1,115 @@
+WORKER PRESENTATION051 - SOURCE HANDOFF (27 October 2026)
+
+Owner: marker/presentation checkout, preserved marker commit fdb2613 on 70e9c84.
+Latest HUMAN steer overrides historical mandatory 60Hz/Main numerical work.
+SOURCE ONLY. Root owns all native, engine, import, export and performance proof.
+
+EARLY integration boundary for driver/proof peers:
+- Main._enter_battle is the shared campaign/quick/Lab/workshop/runtime-observer
+  entry. BattleDriver051 attaches there after all initial battle setup, replaces
+  Main.battle with the driver-owned Main presentation mirror. Raw Battle.create
+  and FleetLab.create remain synchronous fixtures; no opt-in inside those APIs.
+- Main._process polls/schedules driver.advance(dt, plain input, paused/modal).
+  No numerical Battle.update call in Main._physics_process; campaign remains.
+- Driver initial mirror must preserve current ship/UI shapes, tactical status,
+  objective data and events; public Battle command proxies route to its queue.
+- Main.set_crew_policy and Main.set_repair_priority queue the public Battle
+  proxies with ids:[id] plus policy/priority. Interface's repair picker calls Main rather
+  than mutating a presentation boat. Public raw component APIs remain intact.
+- Chart builds Main-only shallow visual ship copies from previous/current
+  authoritative x/y/angle using lerp/lerp_angle. Render copies never go into the
+  mirror or worker state. Camera, selection, wakes and HP bars use those poses.
+- On result/replacement/title/campaign/exit, retire owned driver explicitly,
+  use final canonical data for campaign settlement and keep visual-only tail.
+- Main.battle_driver051 is the public observer handle; Main.simulation_us is
+  Main polling/publication cost only, not authoritative worker simulation cost.
+
+DRIVER API RECEIVED: using new, advance, queue_command, take_events, retire,
+telemetry, presentation_fraction, presentation_poses exactly as driver handoff.
+Main observer callback after_battle_publication051(delta) runs every render
+poll before audio drains, including paused polls. Read completedSteps deltas
+rather than treating callback cadence as worker cadence. The single take_events
+batch goes to observer.observe_events051(events) then audio.consume(events,chart).
+
+ADDITIONAL COMMANDS REQUIRED from simulation owner (actual existing UI):
+lab_refill {} (Main F6, Lab-only); boarding_auto {enabled};
+boarding_order {sourceId,targetId,count}; boarding_abort {id};
+player_command {ids,command,target} invoking BattleCommands047.apply on worker.
+That adapter requires tactical.mountCache; mirrors deliberately do not have it.
+Main uses this compound command for the actual command bar (legacy raw
+fixtures still call the unmodified synchronous BattleCommands047 adapter).
+Main queues these. Interface wraps BoardingUI.battle with Main-only UI to
+avoid its current st.autoBoard assignment and Combat.order/Boarding.abort on
+the mirror. No edits to the out-of-allowlist boarding UI/operations modules.
+Main sets initial._labCommands051=lab_active before driver creation. Driver
+must transfer that private plain flag and reject lab_refill unless it is true.
+Command receipt sequence/ok are consumed once; optional message is displayed.
+
+Driver handoff now assigns ship/reserve/escape reconciliation to Driver.retire;
+Main does NOT duplicate it. Main retains coastal port identities only, publishing
+final fort.port data after retire because shore fire spends actual port ammo.
+Snapshot has tactical.damageStatusById051; Main's small host.Damage presentation
+facade returns those published statuses to existing TacticsUI/DevTools reads
+instead of re-running Damage numerical inspection on Main during active combat.
+
+Static-cache audit for Root/driver owner:
+- mount_layout.gd, weapon_geometry.gd, EquipmentCondition/Damage/Combat and
+  Refit.catalog have no mutable static caches (catalog builds fresh dictionaries).
+- Damage/EquipmentRecords/Tactical detailed counter dictionaries are global;
+  driver handoff disables these at acquisition. Do not re-enable concurrently.
+- BoatArt._station_cache/_draw_input_cache and SpriteArt manifest/texture/atlas
+  caches stay Main-only via Chart/UI. Never warm texture/render caches in worker.
+- TacticalPlanner global owned-task registry must remain exclusively polled by
+  simulation owner while running; Main calls only the guarded public poll.
+
+PEER/ROOT ACTIONS identified while reading actual consumers:
+- Main.start_lab(prepare051: Callable=Callable()) accepts a Main-only setup
+  callback(raw_battle) BEFORE driver creation. RuntimeProfile043._start_case
+  formerly repositioned boats/tactical.home AFTER start_lab. Proof owner has
+  adopted this callback in sibling source; integrate both named commits.
+- runtime_benchmark.gd is a legacy synchronous component probe called before
+  Main creates any scene. It contains intentional 1/60 assertions and is outside
+  my allowlist. Latest coordination retains old60 cases as references; Main now
+  explicitly prints that classification for --qa-performance. The actual rendered
+  runtime observer goes through start_lab and attaches the authoritative driver.
+- commander_ui.gd does not exist. Direct battle repair-priority UI is currently
+  absent: EquipmentController.set_priority_action only resolves campaign fleet.
+  Interface.open_equipment handles active-battle DTOs with Main queues so
+  EquipmentController can retain its harbor-only synchronous semantics.
+- DevTools.refill directly mutates mirror boats; Main F6 queues lab_refill
+  instead. Simulation lead must support lab_refill for an isolated Lab only.
+- Main's observer hook calls after_battle_publication051 if supplied. Proof
+  owner should read driver telemetry there; no relabelled 60Hz physics callback.
+
+CONCRETE SOURCE RESULT
+- All actual campaign, quick/Coastal Clash, Lab, workshop draft and rendered
+  observer entry paths share Main._enter_battle -> Driver.new.
+- Numerical Battle.update and the old after_physics observer call are removed
+  from Main. Single-step Lab control schedules one driver step asynchronously.
+- Pause/modal polls do not join unfinished jobs or schedule physics. Retirement
+  explicitly joins the driver at result, encounter replacement, campaign/title,
+  new/load voyage and exit. Result-only sinking/effect tail is unchanged.
+- Chart interpolates x/y/angle/turretAngle with render-time driver fraction;
+  camera, picking, minimap, wakes, order overlays and HP bars use draw copies.
+  The Main mirror and worker physics never receive those interpolated poses.
+- Clock tooltip identifies actual worker Hz/completed steps, render FPS, Main
+  poll time and lag separately. simulation_us remains Main publication cost.
+- Main command receipts use monotonically increasing sequence IDs; rejected
+  worker validation is shown once. Queue admission is not validation success.
+- Raw damage.gd/Battle/FleetLab APIs are untouched. Main's presentation Damage
+  facade retains get_status/get_status_cached/set_policy and raw apply_hit for
+  synchronous fixtures; active battles do not allow direct synthetic damage.
+
+REMAINING INTEGRATION DEPENDENCIES / HONEST LIMITATIONS
+At last source review the sibling driver accepted the eight original queue
+kinds only. The five additional kinds above MUST be implemented there before
+the command bar, boarding panel and F6 refill are accepted. Main safely reports
+queue rejection until then; it never silently executes these on Main.
+Need Root combined native parsing/assertions, worker accounting/collision and
+lifecycle proof, actual 42/16/full300DP worker30Hz rendered measurement and
+motion/audio review. No test, engine, import, export, profiler, source-advisory
+script or helper was run; manual source/diff review only. No speed/acceptance
+claim, release tag/package/install or remote push.
+
+Allowed changes: game/scripts/main.gd, chart.gd, interface.gd and this note.
+FleetLab/commander/worker/observer/tests remain untouched in this checkout.

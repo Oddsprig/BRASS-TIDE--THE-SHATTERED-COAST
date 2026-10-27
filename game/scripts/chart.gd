@@ -57,6 +57,47 @@ var _chart_ready: bool = false
 var _chart_towns: Dictionary={}
 var _coast_battle_source=null
 var _battle_coast: Array=[]
+var _battle_render051: Dictionary={}
+
+func reset_battle_presentation051() -> void:
+	clear_battle_poses051()
+	_wakes.clear();_trails.clear();_last_trail_stamp=-1.0
+
+func clear_battle_poses051() -> void:
+	_battle_render051={}
+
+func _prepare_battle_presentation051() -> void:
+	_battle_render051={}
+	if host==null or host.mode!="battle" or host.battle.is_empty():return
+	if not "battle_driver051" in host or host.battle_driver051==null:return
+	var poses: Dictionary=host.battle_driver051.presentation_poses()
+	var previous: Dictionary=poses.get("previous",{})
+	var current: Dictionary=poses.get("current",{})
+	var fraction: float=clampf(host.battle_driver051.presentation_fraction(),0.0,1.0)
+	var ships: Array=[]
+	for ship: Dictionary in host.battle.ships:
+		var id: String=str(ship.id)
+		var now: Dictionary=current.get(id,ship)
+		var before: Dictionary=previous.get(id,now)
+		# Only these disposable Main draw records receive interpolated poses.
+		# All conditions, stores, mount state and HP retain the latest publication.
+		var visual: Dictionary=ship.duplicate()
+		visual.x=lerpf(float(before.x),float(now.x),fraction)
+		visual.y=lerpf(float(before.y),float(now.y),fraction)
+		visual.angle=lerp_angle(float(before.angle),float(now.angle),fraction)
+		visual.turretAngle=lerp_angle(float(before.get("turretAngle",before.angle)),float(now.get("turretAngle",now.angle)),fraction)
+		ships.append(visual)
+	_battle_render051=host.battle.duplicate()
+	_battle_render051.ships=ships
+
+func battle_boats051() -> Array:
+	if not _battle_render051.is_empty():return _battle_render051.ships
+	return host.battle.get("ships",[]) if host!=null else []
+
+func battle_boat_position051(boat: Dictionary) -> Vector2:
+	for visual: Dictionary in battle_boats051():
+		if str(visual.id)==str(boat.id):return Vector2(visual.x,visual.y)
+	return Vector2(boat.x,boat.y)
 
 ## Main-thread opt-in attribution only. Timings are CPU submission, not GPU/FPS.
 ## Static child counters include every caller in this process, including UI.
@@ -145,6 +186,7 @@ func _plane_to_world(p: Vector2) -> Vector2:
 
 func step(dt: float):
 	clock += dt
+	_prepare_battle_presentation051()
 	var viewport = get_viewport_rect().size
 	if host != null and "tactical_mode" in host:
 		tactical = bool(host.tactical_mode)
@@ -157,12 +199,12 @@ func step(dt: float):
 			_wakes.clear()
 			_trails.clear()
 		if follow_camera:
-			var boat = host.Battle.get_flagship(host.battle)
+			var boat = host.Battle.get_flagship(_battle_render051 if not _battle_render051.is_empty() else host.battle)
 			if not boat.is_empty():
 				camera = camera.lerp(Vector2(boat.x, boat.y), 1.0 - exp(-dt * 4.0))
 		scale_factor = clampf(viewport.x / 1700.0, 0.65, 1.2) * zoom * (0.52 if tactical else 1.0)
 		var wake_started: int=Time.get_ticks_usec() if _profile_enabled else 0
-		_update_wakes(host.battle.ships)
+		_update_wakes(battle_boats051())
 		if _profile_enabled:
 			_profile_wake_update_us+=Time.get_ticks_usec()-wake_started
 			_profile_wake_updates+=1
@@ -213,7 +255,7 @@ func center_camera():
 	if host.mode == "battle" and not host.battle.is_empty():
 		var boat = host.Battle.get_flagship(host.battle)
 		if not boat.is_empty():
-			camera = Vector2(boat.x, boat.y)
+			camera = battle_boat_position051(boat)
 	elif host.mode != "menu" and host.core != null and not host.core.state.is_empty():
 		zoom=1.0
 		_campaign_follow = true
@@ -1008,7 +1050,7 @@ func draw_title():
 	text_at("14° 27′ N  /  108° 12′ E", Vector2(size.x - 290, size.y - 35), 11, Color(0.7, 0.83, 0.72, 0.5), mono)
 
 func draw_battle():
-	var battle = host.battle
+	var battle: Dictionary=_battle_render051 if not _battle_render051.is_empty() else host.battle
 	if battle.is_empty():
 		return
 	if _profile_drawing:
@@ -1149,7 +1191,7 @@ func draw_minimap():
 		for p in island.points:
 			points.append(box.position + Vector2(p[0] / 2300.0 * box.size.x, p[1] / 1700.0 * box.size.y))
 		draw_colored_polygon(points, Color("5f7861"))
-	for boat in host.battle.ships:
+	for boat in battle_boats051():
 		if not boat.sunk:
 			var p = box.position + Vector2(boat.x / 2300.0 * box.size.x, boat.y / 1700.0 * box.size.y)
 			draw_circle(p, 3 if boat.id == host.battle.playerId else 2, ENEMY if boat.team == "enemy" else GOLD if boat.id == host.battle.playerId else FRIEND)
