@@ -630,6 +630,16 @@ static func _view_read_only051(value: Variant) -> void:
 static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false,current051: Variant=null) -> Dictionary:
 	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
 	var t: Dictionary=st.tactical
+	var sampled051: bool=_fleet_goals051(t)
+	if sampled051:
+		# Only an actual snapshot request pays for full observations. In pooled
+		# battles the dispatcher calls this AFTER cadence/occupancy/task gates;
+		# public requests also observe NOW, even after this tick's motion/fire.
+		# Rebuild unconditionally: a prior SIDE/public request is not fresh input.
+		t.observed={}
+		for id in t.ships:
+			var ship: Dictionary=t.ships[id]
+			t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache),true)
 	var ships: Array=[]
 	var choices: Dictionary={}
 	var main051: bool=closed_begin051 and not worker_owned051 and current051 is Dictionary
@@ -654,6 +664,10 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 				t.observed[id]=observed051
 			# Explicit main readers finish before helm/motion/fire writes; their
 			# borrowed live mount/status/option graphs must stay mutable.
+		elif sampled051 and ship.team==side:
+			# Public sampled views use this request's fresh base, then enrich ALL
+			# friendly owners. Detach before _own's shallow enrichment as usual.
+			observed051=t.observed[id].duplicate(true)
 		if ship.team==side:
 			var own: Dictionary
 			if not closed_begin051 or id in due:
@@ -933,18 +947,25 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	if profile051:
 		detail.observationTerrain=Time.get_ticks_usec()-profile_started051
 		profile_started051=Time.get_ticks_usec()
+	var sampled051: bool=_fleet_goals051(t)
 	t.ships={};t.observed={}
 	for ship in st.ships:
 		if ship.sunk or ship.get("captureSecured",false):continue
 		var id: String=str(ship.id)
 		t.ships[id]=ship
 		_order_lifetime(st,ship)
-		t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache),true)
+		# Mount condition and live owner/order reads remain current every tick.
+		# Legacy helm/certification still consume the full pre-motion table;
+		# sampled goals consume it only when _view051 is actually requested.
+		var mounts: Array=refresh_mounts(st,ship,frame_cache)
+		if not sampled051:t.observed[id]=_observed(ship,mounts,true)
 	if profile051:
 		detail.observationPrep=Time.get_ticks_usec()-profile_started051
 		profile_started051=Time.get_ticks_usec()
 	_prune(t,t.ships,float(st.time))
-	t.cells=_numeric_grid051(st,t.observed.values(),frame_cache)
+	# Sampled physical checks must use current live owners even on ticks with
+	# no worker dispatch. Never use a previous sample's positions for the grid.
+	t.cells=_numeric_grid051(st,t.ships.values() if sampled051 else t.observed.values(),frame_cache)
 	if profile051:
 		detail.observationPruneGrid=Time.get_ticks_usec()-profile_started051
 		profile_started051=Time.get_ticks_usec()

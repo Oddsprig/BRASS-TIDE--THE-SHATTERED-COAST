@@ -1,0 +1,81 @@
+R31 OBSERVATION DEMAND - SOURCE CANDIDATE, 27 OCTOBER 2026
+
+Base: 70e9c84c31cf2983843a99de49e3218f27dd2412.
+Owner allowlist: game/scripts/tactical_runtime.gd,
+game/scripts/tactical_planner.gd, this source note ONLY.
+No tests, engines, native parsing, imports, exports, GPU work, profiler runs,
+CLI validation, helpers or downloads were run in this source-only checkout.
+Root owns integration and all bounded background FIFO testing. Proof Sol owns
+AI fixture edits; no test assertions are changed here.
+
+INTERFACE FOR ROOT / PROOF SOL
+No signatures or snapshot schema change. Only explicitly opted-in
+enable_planning051(st,true) fleetGoals051 mode changes observation preparation.
+Ordinary/default/one-argument legacy planning retains its eager per-begin
+observations and existing private current-begin/retained/wait-helper contracts.
+
+For N active t.ships at a sampled begin, the unconditional owner/order/mount
+loop now makes ZERO _observed calls. Each actual _view051 request rebuilds N
+full base observations from current owners and refreshed mounts. Thus each
+actual sampled SIDE dispatch makes N _observed calls and one view call;
+two actual SIDE dispatches make 2*N, with separate detached inputs. A sampled
+tick with no dispatch and no explicit view request makes ZERO _observed calls.
+An explicit public view(st,side,due) in sampled mode also makes exactly N
+_observed calls, enriches ALL friendly owners, and detaches every returned
+nested record. It always rebuilds, including repeated requests at the same
+clock after live input changes. No previous sample is reused or relabeled.
+Direct _worker_view051 requests have the same N-call demand semantics.
+These counts use the existing opt-in counters; no new profiler is added.
+Each sampled begin clears t.observed; it stays empty if no snapshot is requested.
+A demand rebuild populates that internal observation table until the next begin,
+but the next request always replaces it rather than relying on that lifetime.
+Preparing this table grants no decision/adoption/safety timestamps or authority.
+
+Expected regressions to preserve/add in Root's test lane: skipped cadence,
+occupied SIDE and global task-cap refusals build no views; dispatched samples
+contain current poses, time/revision, shot/cooldown state, equipment, commands,
+options and targetless attack's current nearest hostile; subsequent owner,
+mount, order/options or shot-time mutations cannot change a retained capsule.
+Public full snapshots remain fresh and mutable without changing live inputs.
+Retain existing owner/order/terrain/capability/age, traffic, post-motion shot,
+damage, fuel/crew/stores/coins/RNG and legacy parity assertions. No obsolete
+implementation assertion has been waived; Root approval is required for any.
+
+CONSUMER AUDIT
+begin still indexes live owners, applies order lifetime, refreshes mounts,
+prunes, and runs current status/safety at the original physical cadence.
+Its sampled numeric grid now uses t.ships.values(), not t.observed.values().
+The legacy grid still uses the unchanged eager pre-motion observations.
+_begin_goals051 / _publish_goal051 / _goal_current051 retain all joined-task,
+actual owner/order/options/capability/terrain/age admission and revocation.
+Sampled _helm_goal051 gets targets from t.ships; safe_step/brake/crowd_step use
+the current numeric grid. after_motion rebuilds from live owners as before.
+Sampled fire_gates / Fire._goal_gates051 use current owners/poses and post-motion
+lanes. No sample becomes a physical certificate or ready-shot permission.
+
+_view051 is the snapshot boundary for view, _worker_view051 and _begin_view051.
+In sampled mode it freshly populates t.observed BEFORE all view consumers,
+including targetless attack-nearest selection; worker/public records detach.
+The current-context helpers (_begin_context051 / _begin_owner051), retained
+observation/wait helpers and legacy helm/certification/EquipmentRollout readers
+are reached by the unchanged legacy begin/helm branch, bypassed by sampled
+goals. They retain their complete eager observation table. There is no actual
+_current_context or snapshot function in this runtime; those responsibilities
+are the begin-context and view functions above. finish/trace reads live owners
+and intents; status/HUD uses _live, current goals and refreshed mounts, with no
+dependency on an observation left over from a worker sample. BattleObjectives
+only erases removed observation IDs and never requires a populated table.
+
+BOUNDARIES / EVIDENCE
+No extra tasks, frequencies, clearance budgets or per-frame full preparation
+have been introduced. No physics, workload, assets, economy or RNG changes.
+The existing main-thread mount refresh intentionally remains every begin for
+direct callers as well as Battle's prepass; only unused full snapshots move.
+Demand preparation is now inside the existing _begin_goals051 dispatch/proposals
+clock, not observationPrep. Compare total begin/simulation work, not that subclock
+alone; neither a timing-field reduction nor this source review proves a speedup.
+R61 18150/0 and R62 7585/0 are BASELINE ONLY, not validation of this candidate.
+R30 OFF light22.297FPS/11.8095ms and R31 ON20.754FPS/11.728ms, zero stalls both:
+instrumentation was not the primary demonstrated cost. No speed or quality
+claim is made before Root's actual R32 measurement and source-bound tests.
+0.051 remains OPEN; Desktop0.050 retained; no052/tag/package/install/push.

@@ -395,7 +395,11 @@ static func _dispatch_goals051(st: Dictionary, order: Array, build_view: Callabl
 		var capsule: _Detached051=_Detached051.new()
 		var pool: Array=w.cache[side]
 		var cache: Dictionary=pool.pop_back() if not pool.is_empty() else {}
-		capsule.input={"fleetGoals051":true,"view":build_view.call(st,side,ids,frame_cache),"memory":memory,"geometry":t.geometry.duplicate(true),"cache":cache,"order":ids.duplicate(),"budgets":budgets}
+		# Demand boundary: exactly ONE fresh detached view per actual SIDE
+		# dispatch, after all task/cadence/occupied/empty-side refusals above.
+		# Runtime must not prepare this view on intervening physical ticks.
+		var snapshot051: Dictionary=build_view.call(st,side,ids,frame_cache)
+		capsule.input={"fleetGoals051":true,"view":snapshot051,"memory":memory,"geometry":t.geometry.duplicate(true),"cache":cache,"order":ids.duplicate(),"budgets":budgets}
 		w.generation051+=1
 		var generation: int=int(w.generation051)
 		var slot: Dictionary={"fleetGoals051":true,"side":side,"generation051":generation,"periodAt051":float(st.time),"capsule":capsule,"guards":guards,"owners":t.ships.duplicate(),"remaining":ids,"createdAt":float(st.time),"snapshotRevision":int(t.snapshotRevision),"terrainKey":str(t.geometry.key),"terrainRevision":int(t.geometry.revision),"joined":false,"retired":false,"adopted":[],"discarded":[],"taskId":-1}
