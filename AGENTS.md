@@ -2,15 +2,17 @@
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
-Build the saved scopes in order. Current scoped delivery:0.046 tacticalAI,
-source/tag0fd35d1/v0.046. Native15283/0 plus export/three startups passed in
-61.009s with setup/cleanup. Seven five-second offline recordings sampled.
+Build the saved scopes in order. Current scoped delivery:0.047 fleetcommand,
+source/tag9cc0f35/v0.047 (root4a4e55e identical game tree). Native260/0 plus
+export/three startups passed in71.287s with setup/cleanup. Actual exported HUD
+stills reviewed at1600x1000 and1280x800, including corrected visible minimap.
 All realtime performance targets remain UNMET:42light4.605FPS;16mixed17.084FPS.
 Mixed is worse than matched045. Core-quality051 remainsOPEN; no052breadth
 until it passes. Scoped delivery does not certify art, audio, fun or parity.
 
-Next0.047 fleetcommand: sources prepared in two isolated BridgeSol6.1MAX
-worktrees; metadata NOT prepared until046package/Desktopverification.
+Next0.048 refittingdepth: two source-only BridgeSol6.1MAX worktrees prepare
+workshop/builds; thirdSolprepares049hull source. Metadata048 NOT yet prepared.
+Finish047package/Desktopverification before048integration.
 Root coordinates/integrates all engine/render/bake/shared-queue jobs and
 versions. Helpers source-only, maximum3activeSol6.1MAX; optionalGrok4.7HIGH.
 No ask_project/delegate/AIbrain/providerfallback/nestedhelpers. Earlier seats
@@ -72,7 +74,7 @@ shortcut. Headless correctness does not establish graphics, FPS or game feel.
 
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
-This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.046; continue with the next saved scope only. Earlier planning-only/stop-v031
+This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.047; continue with the next saved scope only. Earlier planning-only/stop-v031
 paragraphs below are historical and superseded by this new instruction.
 
 Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol

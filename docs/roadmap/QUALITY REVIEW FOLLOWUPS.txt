@@ -4,9 +4,10 @@ These observations are future saved scopes, not new requirements for043.
 Actual rendered screenshot: TestBridge389a6188d033445289995878d360533d,
 case mixed-end.png. This is a still, not motion/audio evidence.
 
-047: The permanent battle sidebars consume substantial scene space. Keep
-selection, damage control and orders compact; make expanded information
-optional. Long targeting/route lines need clear on-demand presentation.
+047: Delivered compact full-width HUD, on-demand roster/tactics and opt-in
+arcs/threat/routes. Actual two-size exported review caught minimap overlap;
+corrected and reviewed visible at1600x1000/1280x800. Native260/0 plus export.
+This closes this scoped layout followup, not whole battle playfeel acceptance.
 
 049: Only three hulls use authored directional assets. The remaining hulls
 still use the procedural fallback; the complete roster is not finished.

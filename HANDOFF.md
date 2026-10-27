@@ -1,10 +1,18 @@
-# Brass Tide v0.047
+# Brass Tide v0.047 delivered
 
-Current candidate: Fleet command and readable battle information.
+BRASS TIDE v0.047 - Fleet command and readable battle information
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 9cc0f35af3c1be3b9a764ce80696c8433b0bc5c5 / v0.047
+Test Bridge: 0d02c1e892234a778177b5554c85d60a
+260 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 71.287s; owned cleanup verified.
 
 - Replace permanent battle sidebars with a compact full-width HUD, on-demand crew/roster and selected tactics details.
 - Give selected boats clear engage, harass, focus, escort, defend, rally, hold and withdraw orders with target prompts and honest acknowledgments.
 - Use actual saved groups/formations and optional bounded weapon arcs, threat and route overlays; bring small engagements closer on entry.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+260 focused native checks/0 failures:57 command semantics,57 actual Control geometry/callbacks across1600x1000 and1280x800 including visible minimap,146 tactical runtime regressions. Export+three portable startups passed, whole batch71.287s including setup/cleanup. Native0d02c1e892234a778177b5554c85d60a. Root inspected actual exported stills aff259a4b41c4747b3d04b96f8859830 and09c0f04afc8a492cbf55ffd26cc9d891 at those sizes; minimap overlap from first review corrected. No motion/listening/playfeel/performance acceptance claim. v0.046 measured full300DP light4.605FPS/mixed17.084FPS remainsUNMET;051gateOPEN. Tested source9cc0f35af3c1be3b9a764ce80696c8433b0bc5c5; root4a4e55e has identical game tree.
+
+Continue with the next saved version scope after v0.047; preserve the shared lane and120-second limit.

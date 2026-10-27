@@ -1,3 +1,5 @@
+v0.047 VERIFIED AND PACKAGED: 260/0 focused checks, selected batch 71.287s, TestBridge 0d02c1e892234a778177b5554c85d60a. Source 9cc0f35af3c1be3b9a764ce80696c8433b0bc5c5.
+
 27OCT2026 - v0.047 FLEET COMMAND AND READABLE BATTLE INFORMATION
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

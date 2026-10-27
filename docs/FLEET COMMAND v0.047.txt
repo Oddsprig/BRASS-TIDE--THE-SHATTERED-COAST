@@ -22,6 +22,12 @@ Deployment points/reserves and selected mounted readiness are actual battle
 state. Finite crew, cargo, ammunition, supplies, wages and coins are unchanged.
 
 VERIFICATION
-Focused native and actual rendered review receipts are recorded under tests/.
+260 focused native checks passed: command semantics57, actual layout/callbacks
+at two sizes57, tactical runtime146. Export and three portable startups passed;
+whole selected batch71.287seconds including setup and owned cleanup.
+Root inspected actual exported1600x1000 and1280x800 stills. The first review
+caught a covered minimap; its position and actual layout check were corrected.
+Final minimap is fully visible. Receipts and stills are included.
+No motion, listening, complete-battle or playfeel acceptance claim.
 All realtime performance targets remain UNMET after v0.046. Quality gate051
-remains OPEN. Scope completion cannot certify performance, listening or fun.
+remains OPEN. Scope completion cannot certify smoothness or overall quality.

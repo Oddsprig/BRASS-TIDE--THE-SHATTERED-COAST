@@ -48,7 +48,7 @@ Earlier records follow unchanged.
 
 # Delivered version ledger
 
-Current delivered game is **v0.046**. Each playable version advances by 0.001.
+Current delivered game is **v0.047**. Each playable version advances by 0.001.
 All original annotated tags and portable/source archives are preserved. This
 context-only cleanup creates no new playable version. Detailed historical changes
 remain in Git/tag snapshots and cold archives; current CHANGES v0.028.md stays active.
@@ -119,3 +119,5 @@ Next ten .029–.038 scopes remain planned in VERSION MAP.txt and ROADMAP.md.
 | v0.045 | `611d081f04a87c145da612b419ad9fc34909dca5` | 27 October2026; Weapons, impacts, wakes and recorded sound; 4762 focused checks/0 failures; outputs/Brass Tide v0.045 |
 
 | v0.046 | `0fd35d1fa30862a9055354154a8539e924fc9ffa` | 27 October2026; Tactical AI: useful roles, stable maneuvers and hull clearance; 15283 focused checks/0 failures; outputs/Brass Tide v0.046 |
+
+| v0.047 | `9cc0f35af3c1be3b9a764ce80696c8433b0bc5c5` | 27 October2026; Fleet command and readable battle information; 260 focused checks/0 failures; outputs/Brass Tide v0.047 |

@@ -1,15 +1,15 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.046)
+BRASS TIDE — PRESENTATION MAP (generated; v0.047)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 55081 bytes; extends Node2D
-  game/scripts/chart.gd:53 profile_enable()
-  game/scripts/chart.gd:58 profile_reset()
-  game/scripts/chart.gd:64 profile_read()
-  game/scripts/chart.gd:68 setup()
-  game/scripts/chart.gd:113 polygon()
-  game/scripts/chart.gd:119 polygon_center()
+game/scripts/chart.gd: 58239 bytes; extends Node2D
+  game/scripts/chart.gd:60 profile_enable()
+  game/scripts/chart.gd:65 profile_reset()
+  game/scripts/chart.gd:71 profile_read()
+  game/scripts/chart.gd:75 setup()
+  game/scripts/chart.gd:120 polygon()
+  game/scripts/chart.gd:126 polygon_center()
 game/scripts/boat_art.gd: 33031 bytes; extends RefCounted
   game/scripts/boat_art.gd:36 archetype()
   game/scripts/boat_art.gd:91 palette()
@@ -24,20 +24,20 @@ game/scripts/boat_portrait.gd: 7540 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:45 _init()
   game/scripts/boat_portrait.gd:53 _gui_input()
   game/scripts/boat_portrait.gd:59 _draw()
-game/scripts/interface.gd: 49140 bytes; extends CanvasLayer
-  game/scripts/interface.gd:71 setup()
-  game/scripts/interface.gd:96 create_theme()
-  game/scripts/interface.gd:116 box()
-  game/scripts/interface.gd:128 clear()
-  game/scripts/interface.gd:133 label()
-  game/scripts/interface.gd:143 paragraph()
-game/scripts/tactics_ui.gd: 15053 bytes; extends RefCounted
+game/scripts/interface.gd: 48292 bytes; extends CanvasLayer
+  game/scripts/interface.gd:74 setup()
+  game/scripts/interface.gd:99 create_theme()
+  game/scripts/interface.gd:119 box()
+  game/scripts/interface.gd:131 clear()
+  game/scripts/interface.gd:136 label()
+  game/scripts/interface.gd:146 paragraph()
+game/scripts/tactics_ui.gd: 26673 bytes; extends RefCounted
   game/scripts/tactics_ui.gd:5 build()
-  game/scripts/tactics_ui.gd:63 update()
-  game/scripts/tactics_ui.gd:89 plain()
-  game/scripts/tactics_ui.gd:92 selected_choices()
-  game/scripts/tactics_ui.gd:104 apply_choices()
-  game/scripts/tactics_ui.gd:107 number_choice()
+  game/scripts/tactics_ui.gd:72 compact_panel()
+  game/scripts/tactics_ui.gd:80 compact_button()
+  game/scripts/tactics_ui.gd:93 limited_label()
+  game/scripts/tactics_ui.gd:99 update()
+  game/scripts/tactics_ui.gd:136 update_compact()
 game/scripts/refit_ui.gd: 12020 bytes; extends RefCounted
   game/scripts/refit_ui.gd:7 module_name()
   game/scripts/refit_ui.gd:16 roster()

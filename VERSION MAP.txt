@@ -1,5 +1,5 @@
 BRASS TIDE - STARSECTOR QUALITY VERSION MAP
-27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.046
+27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.047
 
 Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
 The target is the complete experience, not a matching list of features.
@@ -23,7 +23,7 @@ Distinct gun models, impacts, wakes and recorded sound feel coherent in combat.
 0.046 - TACTICAL AI [SCOPED BUILD DELIVERED; PERFORMANCE/WHOLE QUALITY OPEN]
 Flankers, strike boats, heavies, escorts and support perform their actual roles.
 
-0.047 - FLEET COMMAND [PLANNED]
+0.047 - FLEET COMMAND [SCOPED BUILD DELIVERED; WHOLE QUALITY OPEN]
 Deployment, orders, groups and battle information are clear and responsive.
 
 0.048 - REFITTING DEPTH [PLANNED]
