@@ -1,0 +1,123 @@
+0.050 COAST ART - SOURCE CANDIDATE / NATIVE UNRUN
+
+Isolated input: da06715a041961dcd69e47cad78ccc024975234d.
+Preparation only. Root integrates 048, then 049, then this saved 050 scope.
+No version, metadata, tag, package, assets, launcher or owner-save change.
+No engine, test, import, render, bake, GPU, audio, download or helper run here.
+
+OWNED FILES
+game/scripts/coast_art050.gd (new)
+game/scripts/nautical_art.gd
+game/scripts/chart.gd (island/harbor preparation, paint and label hooks only)
+game/tests/test_coast_art050.gd (new, UNRUN)
+tools/quality050/COAST.txt (this handoff)
+
+ACTUAL INPUT AND CHANGE
+Campaign was already a top-down 10400x7200 chart with eight real islands and
+ten ports. Previous NauticalArt settlements were a shared 3x4 roof grid;
+battle land was expanded polygon shelves, radial bands and mountain fans.
+This candidate replaces those active paint paths. The established chart
+projection, harbor/fleet click centers, navigation, sea routes and markers stay
+authoritative. No world.json, port coordinates, collision or economy edit.
+
+Eight original bounds-relative terrain compositions follow the real island
+IDs: Lantern chalk/orchards, Kelp tidal reeds, Sawtooth ironwood/crags,
+Verdigris polder terraces, Cinder ash/quarries, Kettle Fen wooded levees,
+Oilstone slate benches, Shatter basalt/heath. Actual source polygon points
+are the land silhouette. Every beach/cliff/ridge/field/grove fill, roof,
+shadow, road and landmark is intersected with that ring during preparation.
+There are no decorative islands, opaque offshore rocks or false lagoon holes.
+Approach ink is transparent, broken seabed hatching; it is navigable water,
+not a new reef obstacle. Thin shore-to-berth ink replaces the old pier symbol
+without adding filled blocking land. All coast mesh vertices have height zero;
+ridge / cliff shading stays inside the collision silhouette in isometric view.
+
+TEN WORKING HARBORS
+Brass Haven: bonded exchange / packet court / arcade; canonical trade.
+Kelp Reach: curing sheds / drying fans; canonical fishery.
+Sawtooth Mill: saw hall / stepped timber yard; canonical timber.
+Silt Hollow: three granaries / farm court; canonical agriculture.
+Cinder Quay: twin furnace batteries / casting floor; canonical foundry.
+Anvil Dock: parallel assembly slips / gantry court; canonical shipyard.
+Reedwater Floats: barter crescent / covered market; canonical trade.
+Naphtha Bay: tank farm / cracking hall / pipe run; canonical refinery.
+Rust Anchorage: salvage fan / prize sheds; canonical fishery plus its actual
+  Wreck Salvage & Whaling Stores specialty, not an invented industry change.
+Shatter Spire: bastioned gun court / armored yard; canonical shipyard.
+Layouts use separate authored roof/road coordinates, land-clipped at each
+actual shore anchor. Art depicts the harbor quarter, not population simulation.
+No fabricated passenger port or faction/economy system was added.
+
+API / CACHE CONTRACT
+CoastArt050.prepare_island(island:Dictionary)->Dictionary
+CoastArt050.prepare_harbor(port:Dictionary,islands:Array)->Dictionary
+CoastArt050.draw(canvas,projector:Callable,plan:Dictionary,
+  chart_scale:float=0.6,viewport:Rect2=Rect2())->int paint calls
+CoastArt050.lod(chart_scale:float)->int: 0 below .22, 1 below .8, else 2.
+CoastArt050.harbor_caption(port:Dictionary)->String
+NauticalArt settlement_plan / draw_settlement / draw / screen_ring remain
+the shared facade. Existing argument lists still work; optional scale/viewport
+arguments and draw-call return counts serve the production chart. The existing
+040 fixture's roofs key and older non-050 sheet fallback remain supported.
+
+_ensure_chart_sheet prepares once at Chart.setup; it remains callable by the
+existing fixture. _prepare_battle_coast guards on the actual battle islands
+array identity in Chart.step before redraw, then prepares the translated rings
+once per encounter. Empty ocean stays empty. No preparation happens in _draw,
+draw_island or draw_harbor. No triangle clipping, triangulation, noise, random
+tree copying, texture generation or material creation occurs in coast drawing.
+Transforms derive from actual Chart.project and reset to identity after drawing.
+Separate campaign and battle caches never substitute a campaign-index polygon
+for encounter geometry. One current / last battle cache is retained, not history.
+
+Three immutable ArrayMeshes per island / harbor, one selected per draw. Mesh
+triangulation and storage use local coordinates to retain small roof features.
+Per-LOD hard vertex ceilings: 2500 / 9000 / 18000, position Vector3 + RGBA.
+At most three native paint calls per visible plan: mesh + outline + reef batch,
+or harbor mesh + two pier strokes. Offshore stroke count <=20; roof pieces <=26.
+Affine projected bounds cull whole plans; larger meshes are still GPU clipped.
+These are source limits, not measured time/VRAM/FPS or proof of visual quality.
+The existing CPU presentation/boat/wake/trail/effect profiling is preserved;
+coast_draw_calls and coast_us are additive fields. counted_primitives retains
+its existing boat/wake/trail/projectile/effect/wreck definition. No RuntimeSpy
+or profiling wrapper is edited. battle_minimap_rect remains exactly the input.
+
+LABELS
+Existing collision-avoiding label placement handles actual island names at
+lower priority than ports/fleet, and short canonical working-harbor captions
+at both overview and near view. Selected / contract destination priority and
+original harbor/fleet hit centers remain unchanged. No HUD or harbor panel edit.
+Title / career flow / campaign breadth remain Root's later scopes.
+
+ROOT NATIVE AND ACTUAL REVIEW POINTS
+Run only the new existing-style fixture test_coast_art050.gd as part of Root's
+bounded TestBridge batch (<120 seconds including setup/export/cleanup), private
+profile, background/headless where appropriate, Dummy/muted, shared lane.
+There is no new wrapper, QA framework or deferred full-game gate here.
+Fixture uses the real world, two actual translated coastal windows and an empty
+window; exact source rings, canonical industries/specialties, 36-unit water-safe
+berths, every near-LOD triangle including bay-spanning samples, three fixed LODs,
+culling, cached mesh identity, source-byte equality and two overview label sizes.
+It uses the existing feedback Recorder, adding draw_multiline recording only.
+It does zero Battle.update and no campaign initialization or route rewriting.
+Peak vertex counts will be printed by Root's native execution; unmeasured here.
+
+After native parsing/assertions, review the actual exported chart at normal Home
+zoom, M overview and near harbor view at 1600x1000 and 1280x800. Check selected
+port / destination / fleet labels, long captions and region-label clutter;
+collision avoidance may omit lower-priority names in crowded views.
+Check Brass vs Kelp vs Cinder/Anvil vs Naphtha vs Rust/Shatter landmark identity,
+roof clipping on sharp shore corners and whether the flat nautical style reads
+as designed terrain in a real isometric coastal encounter. Battle art uses only
+the actual encounter islands; this source hook does not add battle towns or new
+mechanics. Review the shore visually against the existing Nav/collision boundary.
+Check RuntimeSpy/all-draw attribution and 047's visible minimap at both sizes.
+Root owns every render/export/capture and acceptance decision. No screenshot,
+motion, FPS, audio, fun or parity verdict is claimed from this source work.
+
+SOURCE REVIEW RECEIPT
+Existing read-only tools/check_preload_calls.py across all four GDScript files:
+advisoryOnly=true, engineInvoked=false, issues=[]. This does not prove native
+parsing, dynamic CanvasItem APIs, assertions, resource submission or art quality.
+Named diff/whitespace and exact file/parent/commit readbacks accompany handoff.
+No tests were run; this candidate is not an accepted or installed 0.050 release.

@@ -3,6 +3,7 @@ extends Node2D
 const BoatArt = preload("res://scripts/boat_art.gd")
 const CombatArt = preload("res://scripts/combat_art.gd")
 const NauticalArt=preload("res://scripts/nautical_art.gd")
+const CoastArt050=preload("res://scripts/coast_art050.gd")
 const GOLD = Color("dfbd7d")
 const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
@@ -54,6 +55,8 @@ const ISO_Y := 0.41
 var _chart_sheet: Array = []
 var _chart_ready: bool = false
 var _chart_towns: Dictionary={}
+var _coast_battle_source=null
+var _battle_coast: Array=[]
 
 ## Main-thread opt-in attribution only. Timings are CPU submission, not GPU/FPS.
 ## Static child counters include every caller in this process, including UI.
@@ -93,29 +96,8 @@ func setup(game_host):
 	for x in range(128):
 		shade_image.set_pixel(x, 0, Color(0.025, 0.08, 0.12, 0.9 * (1.0 - smoothstep(0.0, 0.68, float(x) / 127.0))))
 	title_shade = ImageTexture.create_from_image(shade_image)
-	for i in range(host.data.ISLANDS.size()):
-		var island = host.data.ISLANDS[i]
-		var center = polygon_center(island.points)
-		var trees: Array = []
-		for k in range(38):
-			var p = center + Vector2((noise(i * 79 + k * 3) - 0.5) * 230, (noise(i * 47 + k * 9 + 5) - 0.5) * 160)
-			if Geometry2D.is_point_in_polygon(p, polygon(island.points)):
-				trees.append({"p": p, "height": 17.0 + noise(k + i * 97) * 22.0, "tone": k % 3})
-		foliage.append(trees)
-	for port in host.data.PORTS:
-		var pos = Vector2(port.x, port.y)
-		var nearest = Vector2.ZERO
-		var center = Vector2.ZERO
-		var distance_best = INF
-		for island in host.data.ISLANDS:
-			var pts = polygon(island.points)
-			for j in range(pts.size()):
-				var v = Geometry2D.get_closest_point_to_segment(pos, pts[j], pts[(j + 1) % pts.size()])
-				if v.distance_to(pos) < distance_best:
-					distance_best = v.distance_to(pos)
-					nearest = v
-					center = polygon_center(island.points)
-		villages.append({"shore": nearest, "inland": nearest.move_toward(center, 35), "center": center})
+	_ensure_chart_sheet()
+	_prepare_battle_coast()
 
 func polygon(points: Array) -> PackedVector2Array:
 	var result = PackedVector2Array()
@@ -169,6 +151,7 @@ func step(dt: float):
 	var mode_now: String = str(host.mode) if host != null else ""
 	var mode_changed := mode_now != _last_mode
 	_last_mode = mode_now
+	if mode_now=="battle":_prepare_battle_coast()
 	if host != null and host.mode == "battle" and not host.battle.is_empty():
 		if mode_changed:
 			_wakes.clear()
@@ -552,7 +535,8 @@ func _draw():
 			"wake_paths":0,"wake_samples":0,"wake_primitives":0,"trail_primitives":0,
 			"projectiles_total":0,"projectile_primitives":0,"projectiles_us":0,
 			"effects_total":0,"effects_submitted":0,"effect_primitives":0,"effects_us":0,
-			"wrecks_total":0,"wrecks_submitted":0,"wreck_primitives":0,"wrecks_us":0}
+			"wrecks_total":0,"wrecks_submitted":0,"wreck_primitives":0,"wrecks_us":0,
+			"coast_draw_calls":0,"coast_us":0}
 		_profile_wake_update_us=0;_profile_trail_update_us=0;_profile_wake_updates=0
 	draw_texture_rect(background, Rect2(Vector2.ZERO, viewport), false)
 	for i in range(65):
@@ -645,33 +629,19 @@ func _ensure_chart_sheet() -> void:
 		return
 	_chart_sheet.clear()
 	for island in host.data.ISLANDS:
-		var pts := polygon(island.points)
-		var center := polygon_center(island.points)
-		var shoal := _outset_ring(center, pts, 130.0)
-		if not _simple_ring(shoal):
-			shoal = PackedVector2Array()
-		var contours: Array = []
-		for factor in [0.72, 0.46]:
-			var ring := _scaled_ring(center, pts, factor)
-			if not _simple_ring(ring):
-				continue
-			var inside_land := true
-			for vertex in ring:
-				if not Geometry2D.is_point_in_polygon(vertex, pts):
-					inside_land = false
-					break
-			if inside_land:
-				contours.append(ring)
-		var tint := Color(str(island.get("color", "#6d7d62")))
-		_chart_sheet.append({
-			"ground": Color("82956b").lerp(tint, 0.20),
-			"high": Color("506b4c").lerp(tint, 0.18),
-			"shoal": shoal,
-			"contours": contours,
-			"marks": _chart_marks(str(island.get("id", "")), pts, center),
-		})
+		_chart_sheet.append(CoastArt050.prepare_island(island))
 	for port in host.data.PORTS:_chart_towns[str(port.id)]=NauticalArt.settlement_plan(port,host.data.ISLANDS)
 	_chart_ready = true
+
+func _prepare_battle_coast() -> void:
+	if host==null or str(host.mode)!="battle":return
+	var islands: Array=host.battle.get("islands",[])
+	if is_same(_coast_battle_source,islands):return
+	# Encounter islands are immutable terrain authority, including an empty sea.
+	# Never key this by campaign index: translated encounter rings differ.
+	_battle_coast.clear()
+	for island in islands:_battle_coast.append(CoastArt050.prepare_island(island))
+	_coast_battle_source=islands
 
 func _draw_cached_ring(pts: PackedVector2Array, color: Color) -> void:
 	if pts.size() < 3:
@@ -682,49 +652,15 @@ func _draw_cached_ring(pts: PackedVector2Array, color: Color) -> void:
 	draw_colored_polygon(screen, color)
 
 func draw_island(island: Dictionary, index: int, tactical: bool = false):
-	var points = polygon(island.points)
-	var center = polygon_center(island.points)
-	var bounds=Rect2(project(points[0]),Vector2.ZERO)
-	for p in points: bounds=bounds.expand(project(p))
-	if not get_viewport_rect().grow(160).intersects(bounds.grow(100)):return
-	if nautical_chart():
-		_ensure_chart_sheet()
-		var sheet: Dictionary = _chart_sheet[index] if index < _chart_sheet.size() else {}
-		var close: bool = not campaign_overview()
-		NauticalArt.draw(self,_projector(),points,sheet,close)
-		if close and not str(island.get("name", "")).is_empty():
-			text_at(str(island.get("name", "")).to_upper(), project(center), 12, Color(0.86, 0.88, 0.74, 0.7), serif, true)
-		return
-	for expansion in [1.22, 1.12, 1.055]:
-		var shelf: Array = []
-		for p in points:
-			shelf.append(center + (p - center) * expansion)
-		world_poly(shelf, Color(0.28, 0.50, 0.44, 0.12 if expansion > 1.15 else 0.19), -10)
-	var array: Array = []
-	for p in points:
-		array.append(p)
-	world_poly(array, Color("0c2933"), -20)
-	world_poly(array, Color("c4b788"), 0)
-	var inner: Array = []
-	for p in points:
-		inner.append(center + (p - center) * 0.91)
-	world_poly(inner, Color("506f55") if not tactical else Color("637563"), 10)
-	var core: Array = []
-	for p in points:
-		core.append(center + (p - center) * 0.72)
-	world_poly(core, Color("315547"), 22)
-	for j in range(points.size()):
-		var a = center + (points[j] - center) * 0.49
-		var b = center + (points[(j + 1) % points.size()] - center) * 0.49
-		var color = Color("6a7b60") if j % 3 == 0 else Color("466652") if j % 2 == 0 else Color("385847")
-		var tri = PackedVector2Array([project(a, 24), project(b, 24), project(center + Vector2(-15, -8), 70)])
-		draw_colored_polygon(tri, color)
-	if not tactical and index < foliage.size():
-		for tree in foliage[index]:
-			draw_tree(tree.p, tree.height, tree.tone)
-	if host.mode=="campaign":world_line(array+[array[0]],Color("cfbf92"),1.5)
-	if host.mode != "menu" and not str(island.get("name","")).is_empty():
-		text_at(str(island.get("name", "")).to_upper(), project(center, 85), 11, Color(0.83, 0.86, 0.69, 0.55), serif, true)
+	var sheets: Array=_chart_sheet if nautical_chart() else _battle_coast
+	if index<0 or index>=sheets.size():return
+	var sheet: Dictionary=sheets[index]
+	var started: int=Time.get_ticks_usec() if _profile_drawing else 0
+	var calls: int=NauticalArt.draw(self,_projector(),sheet.land,sheet,not campaign_overview(),scale_factor,get_viewport_rect())
+	if _profile_drawing:
+		_profile_frame.coast_draw_calls+=calls;_profile_frame.coast_us+=Time.get_ticks_usec()-started
+	if not nautical_chart() and calls>0 and not str(island.get("name","")).is_empty():
+		text_at(str(island.name).to_upper(),project(sheet.label),11,Color(0.86,0.88,0.74,0.7),serif,true)
 
 func draw_tree(p: Vector2, height: float, tone: int):
 	var base = project(p, 20)
@@ -749,32 +685,11 @@ func draw_harbor(p: Dictionary, index: int):
 	if not get_viewport_rect().grow(240).has_point(screen):return
 	var color = Color(host.core.faction(p.faction).get("color", "#8fb8a3"))
 	var selected: bool = host.selected_port == p.id
-	if nautical_chart():
-		if not campaign_overview():
-			_ensure_chart_sheet()
-			NauticalArt.draw_settlement(self,_projector(),_chart_towns.get(str(p.id),{}))
-		draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
-		return
-	if campaign_overview():
-		draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
-		return
-	var v = villages[index]
-	var tangent = (v.inland - position).normalized().orthogonal()
-	world_line([v.inland, position], Color("5a7468"), maxf(4, 11 * scale_factor), 6)
-	world_line([position - tangent * 24, position + tangent * 24], Color("9d9b75"), maxf(3, 7 * scale_factor), 6)
-	for i in range(8):
-		var home = v.inland + tangent * (i - 3.5) * 17.0 + (v.center - v.inland).normalized() * (18 + (i % 3) * 18)
-		draw_house(home, 6 + i % 3, 10 + (i % 4) * 3, Color("b09466") if i % 3 else color.darkened(0.1))
-	if p.industry in ["shipyard", "foundry", "refinery"]:
-		draw_house(v.inland + (v.center - v.inland).normalized() * 60, 16, 22, Color("5b6b66"))
-		var foot = project(v.inland + tangent * 19, 20)
-		var top = project(v.inland + tangent * 19, 76)
-		draw_line(foot, top, Color("b2a88c"), maxf(2.0, scale_factor * 7))
-		world_line([v.inland + tangent * 19, position + tangent * 35], color, maxf(1, 3 * scale_factor), 76)
+	var started: int=Time.get_ticks_usec() if _profile_drawing else 0
+	var calls: int=NauticalArt.draw_settlement(self,_projector(),_chart_towns.get(str(p.id),{}),scale_factor,get_viewport_rect())
+	if _profile_drawing:
+		_profile_frame.coast_draw_calls+=calls;_profile_frame.coast_us+=Time.get_ticks_usec()-started
 	draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
-	var flag = project(position + Vector2(10, 0), 56)
-	draw_line(project(position + Vector2(10, 0), 8), flag, Color("c5c9a7"), 1.3)
-	draw_colored_polygon(PackedVector2Array([flag, flag + Vector2(16, 5), flag + Vector2(0, 10)]), color)
 
 func campaign_overview() -> bool:
 	return scale_factor<0.32
@@ -896,6 +811,8 @@ func draw_campaign():
 			draw_dashed_line(project(path[i-1]),project(path[i]),Color(0.64,0.80,0.65,0.12),1.0,3.0,true)
 	for i in range(host.data.ISLANDS.size()):
 		draw_island(host.data.ISLANDS[i], i)
+		if i<_chart_sheet.size():
+			labels.append({"at":project(_chart_sheet[i].label),"text":str(host.data.ISLANDS[i].name),"priority":25,"color":Color("b5c5a0")})
 	if not world.path.is_empty():
 		var previous = Vector2(world.position.x, world.position.y)
 		for step_point in world.path:
@@ -913,7 +830,7 @@ func draw_campaign():
 	for i in range(world.ports.size()):
 		var p: Dictionary=world.ports[i]
 		draw_harbor(p, i)
-		labels.append({"at":project(Vector2(p.x,p.y)),"text":str(p.name),"priority":110 if p.id==host.selected_port else 100 if p.id==target_id else 80 if p.id==world.lastPort else 60,"subtitle":"CONTRACT DESTINATION" if p.id==target_id else str(p.industry).to_upper() if not overview else "","color":GOLD if p.id==host.selected_port or p.id==target_id else Color("d7e1cc")})
+		labels.append({"at":project(Vector2(p.x,p.y)),"text":str(p.name),"priority":110 if p.id==host.selected_port else 100 if p.id==target_id else 80 if p.id==world.lastPort else 60,"subtitle":"CONTRACT DESTINATION" if p.id==target_id else CoastArt050.harbor_caption(p),"color":GOLD if p.id==host.selected_port or p.id==target_id else Color("d7e1cc")})
 	var knowledge: Dictionary=world.get("exploration",{})
 	for site in knowledge.get("catalog",[]):
 		var level: int=int(knowledge.get("sites",{}).get(site.id,{}).get("level",0))
