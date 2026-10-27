@@ -565,6 +565,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		detail.certificationInputs=0;detail.certificationValidation=0
 		detail.certificationRefine=0;detail.certificationAdopt=0;detail.certificationReservedPath=0
 	t.budget={"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":2900}
+	t.budget.separatingEgress051=true # Shared by owned planning and every actual helm step.
 	if profile051:
 		t.budget.profileRoutes051=true # Only this main-owned budget, never worker capsules.
 		profile_started051=Time.get_ticks_usec()

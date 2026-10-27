@@ -7,6 +7,8 @@ const Planner = preload("res://scripts/tactical_planner.gd")
 const Roles = preload("res://scripts/tactical_role_plans.gd")
 const Stations = preload("res://scripts/tactical_stations.gd")
 const Routes = preload("res://scripts/tactical_routes.gd")
+const Certification = preload("res://scripts/tactical_certification.gd")
+const Damage = preload("res://scripts/damage.gd")
 var checks: int = 0
 var failures: int = 0
 
@@ -89,6 +91,7 @@ func run() -> void:
 	detached_routes051()
 	static_rejections051(world)
 	static_completion051()
+	padding_egress051(world)
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
 
@@ -720,3 +723,128 @@ func static_completion051() -> void:
 	var unbounded: Dictionary=Routes._prepare_detached051(worker,geometry,owner,oversized,proof_budget051(2900),{},true)
 	check(unbounded.status=="blocked" and not unbounded.has("staticComplete051"),"worker completion preserves the existing eight-point bound on every routed leg")
 	check(var_to_bytes([geometry,owner,blocker,request])==held,"worker completion and all current/fallback paths preserve source geometry, hulls and request inputs")
+
+func egress_budget051(limit: int=4096) -> Dictionary:
+	var budget: Dictionary=proof_budget051(limit)
+	budget.separatingEgress051=true
+	return budget
+
+func padding_egress051(world: Dictionary) -> void:
+	# EXACT R16 endBoatMotion051 binary positions/velocities, job d7551b6f.
+	# All thirteen resolved 26/27m contacts, including the -9.4e-5m roundoff.
+	# The player-2 case also retains its third, padding-only player-9 neighbor.
+	var contacts: Array=[
+		["enemy-14-bilge_punt","bilge_punt",Vector2(1342.71118164063,677.167053222656),Vector2(-3.31222852964497e-12,4.35917645838675e-14),"enemy-8-bilge_punt","bilge_punt",Vector2(1328.28125,698.795227050781),Vector2(-1.09413568519998e-16,3.76436364098062e-17)],
+		["enemy-15-tin_skiff","tin_skiff",Vector2(1336.36877441406,724.555480957031),Vector2(-7.35727559604549e-13,2.60965619773568e-13),"enemy-8-bilge_punt","bilge_punt",Vector2(1328.28125,698.795227050781),Vector2(-1.09413568519998e-16,3.76436364098062e-17)],
+		["enemy-16-tin_skiff","tin_skiff",Vector2(1275.60095214844,781.056396484375),Vector2(-1.04687978819129e-06,-2.9610541787406e-06),"enemy-2-bilge_punt","bilge_punt",Vector2(1291.59985351563,759.307067871094),Vector2(0.0,0.0)],
+		["enemy-17-tin_skiff","tin_skiff",Vector2(1404.79992675781,849.729797363281),Vector2(-4.34420203025702e-17,1.32339881739808e-17),"enemy-3-bilge_punt","bilge_punt",Vector2(1377.80004882813,849.768676757813),Vector2(0.001701032044366,-0.000314727454679087)],
+		["enemy-19-tin_skiff","tin_skiff",Vector2(1301.3076171875,1013.95440673828),Vector2(-6.24666681567549e-15,-9.36724842522585e-15),"enemy-5-bilge_punt","bilge_punt",Vector2(1289.78149414063,989.538208007813),Vector2(0.0,0.0)],
+		["enemy-2-bilge_punt","bilge_punt",Vector2(1291.59985351563,759.307067871094),Vector2(0.0,0.0),"enemy-9-bilge_punt","bilge_punt",Vector2(1298.56079101563,734.256164550781),Vector2(-3.35618805899387e-17,-1.27592692204366e-17)],
+		["enemy-4-bilge_punt","bilge_punt",Vector2(1295.83251953125,915.571594238281),Vector2(0.0,0.0),"enemy-6-bilge_punt","bilge_punt",Vector2(1270.97802734375,907.93896484375),Vector2(1.92907191376435e-06,2.35772674272994e-07)],
+		["player-1-bilge_punt","bilge_punt",Vector2(958.461120605469,605.418273925781),Vector2(-8.75024792207357e-12,6.63040423346667e-13),"player-14-bilge_punt","bilge_punt",Vector2(935.976867675781,592.362243652344),Vector2(5.92037053062655e-12,-4.72820697525189e-12)],
+		["player-10-bilge_punt","bilge_punt",Vector2(917.75,834.2890625),Vector2(0.0,0.0),"player-3-bilge_punt","bilge_punt",Vector2(937.655578613281,851.015258789063),Vector2(-6.06461938446046e-08,-1.53820032267049e-08)],
+		["player-12-bilge_punt","bilge_punt",Vector2(979.892028808594,1004.52996826172),Vector2(5.17485216917134e-17,2.51762262879803e-17),"player-5-bilge_punt","bilge_punt",Vector2(1001.01977539063,989.376770019531),Vector2(0.0,0.0)],
+		["player-13-bilge_punt","bilge_punt",Vector2(986.298828125,1081.2626953125),Vector2(2.42314454077406e-18,1.15580075495899e-18),"player-19-tin_skiff","tin_skiff",Vector2(961.624328613281,1070.30053710938),Vector2(3.54223757530886e-15,2.77722663998546e-15)],
+		["player-2-bilge_punt","bilge_punt",Vector2(1000.03430175781,762.109558105469),Vector2(0.0,0.0),"player-15-tin_skiff","tin_skiff",Vector2(993.778442382813,735.844299316406),Vector2(3.00875969104497e-13,-6.68978286937245e-14)],
+		["player-18-tin_skiff","tin_skiff",Vector2(1001.94848632813,956.336853027344),Vector2(3.63225041136086e-14,-3.58656831515283e-15),"player-6-bilge_punt","bilge_punt",Vector2(1028.45715332031,961.464294433594),Vector2(-2.37335854080811e-07,-1.16917782122528e-07)]
+	]
+	var specs: Dictionary={}
+	for spec: Dictionary in world.HULLS:specs[str(spec.id)]=spec
+	var geometry: Dictionary={"key":"padding-egress051","revision":59,"obstacles":[]}
+	for sample: Array in contacts:
+		var origin: Vector2=sample[2]
+		var velocity: Vector2=sample[3]
+		var other_origin: Vector2=sample[6]
+		var other_velocity: Vector2=sample[7]
+		var team: String=str(sample[0]).get_slice("-",0)
+		var owner: Dictionary=Damage.create_ship(specs[sample[1]],{"id":sample[0],"team":team,"x":origin.x,"y":origin.y,"vx":velocity.x,"vy":velocity.y,"fuel":100.0,"order":"engage","orderTarget":{}})
+		owner.status=Damage.get_status(owner)
+		var friend: Dictionary=Damage.create_ship(specs[sample[5]],{"id":sample[4],"team":team,"x":other_origin.x,"y":other_origin.y,"vx":other_velocity.x,"vy":other_velocity.y})
+		var ships: Array=[owner,friend]
+		var outward: Vector2=(origin-other_origin).normalized()
+		if str(owner.id)=="player-2-bilge_punt":
+			ships.append(Damage.create_ship(specs.bilge_punt,{"id":"player-9-bilge_punt","team":"player","x":976.313842773438,"y":784.154052734375,"vx":5.45179273456246e-18,"vy":2.74511466804298e-18}))
+			outward=Vector2.RIGHT # Separates from BOTH actual neighbors.
+		owner.angle=outward.angle()
+		var st: Dictionary=proof_state051(ships)
+		st.time=0.0;st.tactical.geometry=geometry;st.tactical.dt=1.0/60.0
+		var end: Vector2=origin+outward*160.0
+		var request: Dictionary={"shipId":owner.id,"approach":[origin,end],"pass":[],"exit":[]}
+		var label: String=str(owner.id)
+		var public_budget: Dictionary=proof_budget051(2900)
+		check(Routes._prepare_detached051(st,geometry,owner,request,public_budget).status=="blocked" and not public_budget.has("separatingEgress051"),label+": unchanged public/default padding refusal")
+		var prepared: Dictionary=Routes._prepare_detached051(st,geometry,owner,request,egress_budget051(2900),{},true)
+		check(prepared.status=="valid" and prepared.trafficSeconds051==2.0,label+": exact captured contact escapes through the full worker forecast")
+		var adopted: Dictionary=Routes._adopt_prepared051(st,geometry,owner,request,prepared,egress_budget051(),null,0.3)
+		check(adopted.status=="valid" and adopted.eta==prepared.eta,label+": current connector/traffic retains the complete route ETA")
+		var control: Dictionary={"angle":outward.angle(),"throttle":0.5}
+		check(not Certification.safe_step(st,owner,control,egress_budget051()).get("blocked",false),label+": actual float32 60Hz outward motion clears the unchanged physical floor")
+		check(Certification.safe_step(st,owner,control,proof_budget051(4096)).get("blocked",false),label+": default live-step reference still refuses its planning padding")
+		var turning: Dictionary=owner.duplicate(true)
+		turning.angle=wrapf(outward.angle()+PI,-PI,PI)
+		check(Certification.safe_step(st,turning,control,egress_budget051()).get("blocked",false),label+": actual limited turn still points inward and must brake")
+		var inward: Dictionary=request.duplicate(true)
+		inward.approach[1]=origin-outward*40.0
+		check(Routes._prepare_detached051(st,geometry,owner,inward,egress_budget051()).status=="blocked",label+": deferred zero-time origin cannot authorize its next inward leg")
+		var proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,st.tactical.cells,{str(owner.id):owner})
+		var radius: float=Battle._radius(owner)+4.0
+		check(Routes._occupied_begin051(proofs,st.tactical.cells,owner,origin,end,radius,0.0,1.0,proof_budget051(4096),true)=="blocked",label+": first store the independent default refusal")
+		var direct_budget: Dictionary=egress_budget051()
+		var memo_budget: Dictionary=egress_budget051()
+		var direct: String=Routes.occupied(st.tactical.cells,owner,origin,end,radius,0.0,1.0,direct_budget,true)
+		check(Routes._occupied_begin051(proofs,st.tactical.cells,owner,origin,end,radius,0.0,1.0,memo_budget,true)==direct and direct=="valid" and memo_budget==direct_budget,label+": egress key cannot borrow default refusal; numeric/debit parity")
+		var warm_budget: Dictionary=egress_budget051()
+		check(Routes._occupied_begin051(proofs,st.tactical.cells,owner,origin,end,radius,0.0,1.0,warm_budget,true)==direct and warm_budget==direct_budget,label+": warm exact proof replays every neighbor debit")
+		var pending_budget: Dictionary=egress_budget051(0)
+		check(Routes._occupied_begin051(proofs,st.tactical.cells,owner,origin,end,radius,0.0,1.0,pending_budget,true)=="pending" and pending_budget.clearanceTests==0 and pending_budget.exhaustions==1,label+": warm proof cannot bypass a pending debit")
+		if ships.size()==3:
+			var partial_budget: Dictionary=egress_budget051(1)
+			check(Routes._occupied_begin051(proofs,st.tactical.cells,owner,origin,end,radius,0.0,1.0,partial_budget,true)=="pending" and partial_budget.clearanceTests==1 and partial_budget.exhaustions==1,"actual three-boat escape still debits BOTH neighbors; partial work is pending")
+		check(Routes._prepare_detached051(st,geometry,owner,request,egress_budget051(0),{},true).status=="pending",label+": worker budget exhaustion remains pending")
+		var changed: Dictionary=friend.duplicate(true)
+		changed.vx=outward.x*240.0;changed.vy=outward.y*240.0
+		var current: Dictionary=proof_state051([owner,changed])
+		current.time=0.05
+		check(Routes._adopt_prepared051(current,geometry,owner,request,prepared,egress_budget051(),proofs,0.3).status=="blocked",label+": changed current traffic vetoes the old worker escape and old begin scope")
+		Routes._close_begin_proofs051(proofs)
+	# Independent analytic cases separate padding from genuine hull penetration,
+	# ordinary entry/crossing, nonseparating tangent co-motion and swept curvature.
+	var owner: Dictionary=Damage.create_ship(specs.bilge_punt,{"id":"egress-own051","team":"player","x":400.0,"y":800.0,"fuel":100.0,"order":"engage","orderTarget":{}})
+	owner.status=Damage.get_status(owner)
+	var friend: Dictionary=owner.duplicate(true)
+	friend.id="egress-other051";friend.x=374.0
+	var cases: Array=[
+		{"name":"outward contact","end":Vector2(420,800),"status":"valid"},
+		{"name":"inward contact","end":Vector2(380,800),"status":"blocked"},
+		{"name":"cross through hull","end":Vector2(340,800),"status":"blocked"},
+		{"name":"stationary padding","end":Vector2(400,800),"status":"blocked"},
+		{"name":"nonseparating tangent co-motion","end":Vector2(400,810),"vy":10.0,"status":"blocked"},
+		{"name":"straight tangent strictly separates","end":Vector2(400,810),"status":"valid"},
+		{"name":"closing relative velocity","end":Vector2(420,800),"vx":30.0,"status":"blocked"},
+		{"name":"true hull overlap","x":374.001,"end":Vector2(420,800),"status":"blocked"},
+		{"name":"penetration just beyond contact precision","x":374.0002,"end":Vector2(420,800),"status":"blocked"},
+		{"name":"outside padding inward entry","start":Vector2(420,800),"end":Vector2(400,800),"status":"blocked"},
+		{"name":"outside padding crossing","start":Vector2(420,800),"end":Vector2(340,800),"status":"blocked"},
+		{"name":"ordinary clear outside segment","start":Vector2(450,800),"end":Vector2(470,800),"status":"valid"},
+		{"name":"single initial origin knot","end":Vector2(400,800),"until":0.0,"status":"valid"},
+		{"name":"later zero-time station","end":Vector2(400,800),"from":0.1,"until":0.1,"status":"blocked"},
+		{"name":"curved capsule retains deviation","end":Vector2(420,800),"deviation":2.0,"status":"blocked"},
+		{"name":"hostile padding outward","end":Vector2(420,800),"team":"enemy","status":"valid"},
+		{"name":"hostile inward","end":Vector2(380,800),"team":"enemy","status":"blocked"},
+		{"name":"hostile true hull overlap","x":374.001,"end":Vector2(420,800),"team":"enemy","status":"blocked"}
+	]
+	for trial: Dictionary in cases:
+		var other: Dictionary=friend.duplicate(true)
+		other.x=trial.get("x",374.0);other.vx=trial.get("vx",0.0);other.vy=trial.get("vy",0.0);other.team=trial.get("team","player")
+		var cells: Dictionary=Routes.grid([owner,other],true)
+		var a: Vector2=trial.get("start",Vector2(400,800))
+		var r: float=Battle._radius(owner)+4.0+float(trial.get("deviation",0.0))
+		var work: Dictionary=egress_budget051()
+		check(Routes.occupied(cells,owner,a,trial.end,r,float(trial.get("from",0.0)),float(trial.get("until",1.0)),work,true)==trial.status and work.clearanceTests==1,str(trial.name)+": exact safety predicate and ordered debit")
+	var state: Dictionary=proof_state051([owner,friend])
+	state.tactical.geometry=geometry;state.tactical.dt=1.0/60.0
+	var drifting: Dictionary=owner.duplicate(true)
+	drifting.vx=-10.0
+	check(Certification.safe_step(state,drifting,{"angle":0.0,"throttle":0.5},egress_budget051()).get("blocked",false),"outward requested steering cannot excuse actual inward braking drift")
+	var pending: Dictionary=egress_budget051(0)
+	check(Certification.safe_step(state,owner,{"angle":0.0,"throttle":0.5},pending).get("blocked",false) and pending.exhaustions==1,"live 60Hz step cannot turn a budget refusal into clearance")

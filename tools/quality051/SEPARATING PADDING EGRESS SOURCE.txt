@@ -1,0 +1,44 @@
+SEPARATING PADDING EGRESS051 - SOURCE CANDIDATE ONLY
+2026-10-27; parent cf79ff8fce7230b30a570e650cd787d7355eefef.
+
+Evidence: actual R16 job d7551b6f419a4829ad6959b1f8896e13,
+runtime/runtime043-55512-2068138/runtime043-light.json plus Root's
+work/quality-v042-v061/R16 stopped neighbor audit.json. All31 stopped hulls
+are in allied extra planning padding, without physical overlap beyond contact
+roundoff. Final trace has empty/no-checked-maneuver and checking-fire holds.
+FPS from this idle fleet is not an accepted performance/engagement result.
+
+Mechanism: budget.separatingEgress051 opts ONLY owned Runtime.begin and
+Planner._work051 budgets into the existing ordered occupied loop. Same budget
+flows through worker2s traffic, main connector/current0.3s, and actual60Hz
+Certification.safe_step; Certification and motion need no edits/API changes.
+The existing exact begin proof key separates opted-in and reference results.
+Unflagged public/default results, keys on budgets and old assertions remain.
+
+Inside the original clearance margin, require the true physical radius sum,
+relative.dot(delta)>=0 and strictly greater squared final separation. The
+quadratic distance derivative is then nonnegative over the entire segment;
+outside approaches/crossings, inward drift and stationary co-motion fail.
+Only the initial a==b/from==until==0 knot may defer to its next swept leg.
+No positive-duration hold/helm authority comes from that knot. Keep capsule
+deviation above hull+4 in the physical floor for conservative curved prefixes.
+Use only existing1e-4 geometric/contact precision at the initial physical
+floor; actual captured roundoff reaches -0.00009407748m. No collider shrink.
+All visited traffic checks still debit; memo replay and pending refusal stay.
+The owned hostile path also enforces the physical floor; existing explicit
+ram/board contact identity exceptions and unflagged hostile reference stay.
+
+Fixture: all13 exact R16 float32 contact pairs/velocities using original hull
+specs, including the actual26/27m cases and third player-9 padding neighbor.
+Cover worker/current adoption, ETA, actual60Hz outward/inward-turn/drift,
+changed traffic, physical penetration, tangent co-motion, outside crossing,
+capsule deviation, ally/hostile, zero-time origin, memo/default separation,
+all-neighbor debits and pending. These checks are WRITTEN, NOT EXECUTED here.
+
+Read-only source review:41 other Routes,26 Planner,46 Runtime and all12 old
+fixture helper bodies unchanged; run only appends the new case. All136 old
+assertion sites preserved.13 captured literal bindings match raw float32.
+One check_preload_calls advisory:0 issues; git diff --check clean.
+No helpers, engines, tests, builds, GPU, exports or profiling runs. Native
+behavior/engagement and cost remain UNVERIFIED. Root alone runs acceptance.
+Runtime diff is ONE flag line: preserve Root's independent fire/view/nav hooks.

@@ -77,6 +77,7 @@ static func _occupied_begin051(proofs: _BeginProofs051,cells: Dictionary,ship: D
 	var started051: int=Time.get_ticks_usec() if profile051 else 0
 	var own_navigation: float=maxf(r,navigation_radius(ship)) if avoid_hostiles else r
 	var key: String=var_to_bytes(["traffic",str(ship.id),str(ship.team),proofs.geometry_stamp,a,b,r,from,until,own_navigation,contact_id,avoid_hostiles]).hex_encode()
+	if bool(budget.get("separatingEgress051",false)):key+=":egress051"
 	if proofs.entries.has(key):
 		var replay051: String=_proof_replay051(proofs.entries[key],budget)
 		if profile051:_route_timing051(budget,"occupiedMemo",Time.get_ticks_usec()-started051)
@@ -256,6 +257,7 @@ static func _neighbours(cells: Dictionary,a: Vector2,b: Vector2,r: float) -> Arr
 	return result
 
 static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool=false,contact_id: String="") -> String:
+	var separating_egress051: bool=bool(budget.get("separatingEgress051",false))
 	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
 	var query_radius: float=r+80.0+extra
 	var own_navigation: float=maxf(r,navigation_radius(ship)) if avoid_hostiles else r
@@ -272,7 +274,7 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 		if hostile and (not avoid_hostiles or str(other.id)==contact_id):continue
 		# Candidates start with their present point. A zero-time point cannot
 		# decide whether a close pass escapes; check the following swept leg.
-		if hostile and a==b and until<=from:continue
+		if hostile and a==b and until<=from and not separating_egress051:continue
 		if not spend(budget):return "pending"
 		var velocity: Vector2=Vector2(other.vx,other.vy)
 		# Full corridor occupancy uses observed constant-velocity prediction. Beyond
@@ -288,11 +290,14 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 		if (relative+delta*fraction).length()<clearance:
 			# An inherited close pass must still be able to leave. Permit only
 			# continuously separating motion; no approach or crossing through it.
-			if hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
+			if separating_egress051:
+				if _can_escape_padding051(ship,relative,delta,r,maxf(10.0,float(other.spec.get("size",16))),a==b and from==0.0 and until==0.0):continue
+			elif hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
 			return "blocked"
 	return "valid"
 
 static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool,contact_id: String,debits: Array[int],proofs: _BeginProofs051=null) -> String:
+	var separating_egress051: bool=bool(budget.get("separatingEgress051",false))
 	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
 	var query_radius: float=r+80.0+extra
 	var own_navigation: float=maxf(r,navigation_radius(ship)) if avoid_hostiles else r
@@ -305,7 +310,7 @@ static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b:
 		if other_id==owner_id:continue
 		var hostile: bool=other.team!=ship.team
 		if hostile and (not avoid_hostiles or other_id==contact_id):continue
-		if hostile and a==b and until<=from:continue
+		if hostile and a==b and until<=from and not separating_egress051:continue
 		if not _proof_spend051(budget,debits):return "pending"
 		# Only the existing closed begin may borrow immutable hull inputs. Keep
 		# both time projections and all per-query debits/closest-approach math.
@@ -326,9 +331,28 @@ static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b:
 		if _traffic_apart051(relative,delta,clearance):continue
 		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
 		if (relative+delta*fraction).length()<clearance:
-			if hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
+			if separating_egress051:
+				if _can_escape_padding051(ship,relative,delta,r,float(body[3]),a==b and from==0.0 and until==0.0):continue
+			elif hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
 			return "blocked"
 	return "valid"
+
+static func _can_escape_padding051(ship: Dictionary,relative: Vector2,delta: Vector2,r: float,other_radius: float,initial_knot: bool) -> bool:
+	# Owned planning/helm only. The existing closest-approach solve calls this
+	# solely inside its original margin. A segment that ENTERS that margin must
+	# still fail: its radial derivative is negative before the closest point.
+	var own_radius: float=maxf(10.0,float(ship.spec.get("size",16)))
+	# A curved prefix adds capsule deviation above hull+4. Keep that deviation
+	# in the physical floor; a separating chord cannot prove a curved escape.
+	var physical_floor: float=own_radius+other_radius+maxf(0.0,r-own_radius-4.0)
+	# Battle's existing contact precision is 1e-4. R16 float32 resolved contacts
+	# straddle the exact sum by <1e-4; never subtract a gameplay-sized margin.
+	if relative.length()+0.0001<physical_floor:return false
+	if initial_knot:return true # This grants no positive-duration helm step.
+	# d/dt |relative+t*delta|^2 = 2*(relative.dot(delta)+t*|delta|^2).
+	# Its minimum is at t=0 here: all separation is monotone, including the
+	# physical closest approach. Equal-velocity/stationary padding cannot pass.
+	return relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()
 
 static func _traffic_apart051(relative: Vector2,delta: Vector2,clearance: float) -> bool:
 	# The same clamped relative segment used below stays outside the clearance

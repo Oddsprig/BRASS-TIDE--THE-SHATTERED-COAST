@@ -38,6 +38,7 @@ static func _work051(job: _Detached051) -> void:
 	var proof_budget051: Dictionary = {"clearanceTests": 0, "clearanceLimit": 128, "exhaustions": 0} # One allowance for the ENTIRE side job.
 	for id: String in data.order:
 		var budget: Dictionary = data.budgets[id]
+		budget.separatingEgress051 = true # Same bounded traffic rule as main/actual helm.
 		var ship: Dictionary = prepared.context[id]
 		for candidate: Dictionary in requests.get(id, []):
 			var path: Dictionary = Routes._prepare_detached051(private_state, data.geometry, ship, candidate, budget, proof_budget051, true)
