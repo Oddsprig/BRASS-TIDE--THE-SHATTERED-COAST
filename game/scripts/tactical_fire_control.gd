@@ -134,6 +134,54 @@ static func gate(st: Dictionary,ship: Dictionary,mount: Dictionary,index: int,in
 	if str(plan.get("targetId",""))!=expected_target or expected_target!=str(target.get("id","")):return {"ok":false,"reason":"Target unavailable"}
 	return solution(st,ship,mount,target,budget,t.geometry,t.cells,true,false,frame_cache,ship_status)
 
+static func _goal_gates051(st: Dictionary,ship: Dictionary,goal: Dictionary,frame_cache=null) -> Dictionary:
+	# Runtime alone admits the exact current sampled goal after a successful
+	# same-tick helm check. This is a live shot request, never a prediction or a
+	# complete-route certificate. Battle still checks the actual scattered ray.
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	var out: Dictionary={}
+	t.fireReasons[id]={}
+	if goal.is_empty() or not is_same(goal.get("owner"),ship):return out
+	var candidate: Dictionary=goal.candidate
+	var state: Dictionary=goal.state
+	var mounts: Array=t.mountCache[id].mounts
+	var choices: Dictionary=t.options.byId.get(id,{}).get("mounts",{})
+	var mount_targets: Dictionary=candidate.get("fireMountTargets",{})
+	var pass_spent: Dictionary=state.get("passSpent",{})
+	var pass_id: String=str(state.get("firingPassId",""))
+	var pass_state: Dictionary=t.passes.get(id,{})
+	var order: String=str(ship.get("order","engage"))
+	var ordered_id: String=str(ship.get("orderTarget",{}).get("shipId",""))
+	var ship_status: Dictionary=Damage._read_status_in_phase043(ship,frame_cache) if not mounts.is_empty() else {}
+	for index in range(mounts.size()):
+		var mount: Dictionary=mounts[index]
+		var mount_id: String=str(mount.id)
+		var target_id: String=str(mount_targets.get(mount_id,candidate.get("targetId","")))
+		var target: Dictionary=t.ships.get(target_id,{})
+		var choice: Dictionary=choices.get(mount_id,{})
+		var reason: String=""
+		if EquipmentCombat.mount_factor(ship,mount,index,ship_status,frame_cache)<=0.01 or float(mount.get("damage",1.0))<=0.0:reason="Weapon disabled"
+		elif not mount_id in candidate.get("fireMountIds",[]):reason="Waiting for a firing opportunity"
+		elif order in ["move","withdraw","board"]:reason="Holding fire during maneuver"
+		elif order=="attack" and ((not ordered_id.is_empty() and target_id!=ordered_id) or candidate.has("fireMountTargets")):reason="Aligning with ordered target"
+		elif bool(choice.get("hold",false)):reason="Automatic fire held"
+		elif float(ship.ammo)-float(mount.ammoCost)<float(choice.get("reserve",0)):reason="Keeping working ammunition reserve"
+		elif (index<ship.weaponCooldowns.size() and float(ship.weaponCooldowns[index])>0.0) or (index==0 and float(ship.cooldown)>0.0):reason="Reloading"
+		if reason.is_empty() and fixed(mount):
+			# As in the legacy planner, an assigned secondary tube may already
+			# bear while the primary phase aligns. Its live intercept/lane still
+			# must pass, and neither a new goal nor a resample resets spending.
+			var secondary: bool=candidate.has("fireMountTargets") and target_id!=str(candidate.get("targetId",""))
+			if bool(pass_spent.get(mount_id,false)):reason="Salvo spent; turning away"
+			elif str(state.get("phase",""))!="launch-window" and not secondary:reason="Aligning fixed tubes"
+			elif pass_id.is_empty() or pass_id!=str(pass_state.get("id","")):reason="Waiting for a new launch pass"
+			elif int(t.salvoSpent.get(pass_key(id,mount_id,int(ship.get("orderRevision",0)),pass_id),0))>=1:reason="Salvo spent; turning away"
+		var result: Dictionary={"ok":false,"reason":reason} if not reason.is_empty() else solution(st,ship,mount,target,t.budget,t.geometry,t.cells,true,false,frame_cache,ship_status)
+		t.fireReasons[id][mount_id]=str(result.reason)
+		if result.ok:result.target=target;out[mount_id]=result
+	return out
+
 static func _hull_radius(ship: Dictionary) -> float:
 	return maxf(10.0,float(ship.spec.get("size",16)))
 

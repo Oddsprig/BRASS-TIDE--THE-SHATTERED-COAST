@@ -1,0 +1,34 @@
+FLEET GOALS051 - FireSol source handoff, 27 October 2026
+Base c89b9ec72a4d0b9ee133f8eb56dfb59975987767. SOURCE ONLY; not executed.
+
+Owned: game/scripts/tactical_fire_control.gd and this note only.
+Read the fleet-goal contract and EgressSol's pinned FLEET GOALS051 SOURCE.txt,
+Runtime._Goal051 wrapper and _goal_current051 API before implementation.
+
+Added Fire._goal_gates051(st,ship,goal,frame_cache=null) -> Dictionary.
+It takes Runtime's exact checked record (candidate/state/owner), rejects an
+empty record or different owner, and returns the existing mountId->shot gate
+shape with the exact live target. It publishes current per-mount fireReasons.
+
+Runtime owns current-record/lifetime/generation, original chosenAt+.45,
+sampledAt+.15, command/options/terrain/capability invalidation and successful
+same-time safe helm checks. It must publish matching t.intents[id].fireGate
+leaseKind/firingPassId metadata and call existing Fire.accept_pass at adoption;
+Battle._fire's unchanged Fire.emitted then records real fixed-tube spending.
+
+Fire follows sampled fireMountIds/per-mount target assignments, but checks live
+mount condition, maneuver/ordered-target restrictions, per-mount/group holds,
+ammunition reserves, reload timers, sampled phase/passSpent, the current pass
+identity and persistent one-shot salvoSpent ledger. Assigned secondary tubes
+keep the existing phase exception and still require every physical shot check.
+
+Permitted requests call unchanged Fire.solution with actual ship/target,
+post-motion cells/geometry, the existing finite clearance budget, real stores,
+projectile cap, crew/mount status and the same frame cache. Intercept/arcs,
+land/muzzle/projectile sweeps and allied motion remain there; Battle still owns
+seeded scatter, actual_lane, actual ammunition/reload/shot accounting and RNG.
+No prediction, certificate, fireWindow or renewed observation is manufactured.
+
+Review: additive function only; existing gates/solution/pass helpers unchanged.
+No engine, tests, source-advisory script, profiler or benchmark run here. Root
+owns the combined advisory/native validation and actual performance gate.
