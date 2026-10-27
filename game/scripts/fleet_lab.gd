@@ -23,6 +23,7 @@ static func preset(world: Dictionary,id: String) -> Dictionary:
 	var source: Dictionary=table.get(id,table.duel)
 	var fits: Dictionary=source.get("fits",{}) if source.get("fits") is Dictionary else {}
 	var config: Dictionary={
+		"preset":id,
 		"player":[],
 		"enemy":[],
 		"formation":str(source.get("formation","")),

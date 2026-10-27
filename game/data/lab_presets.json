@@ -2,6 +2,21 @@
   "schema": 1,
   "note": "Isolated test fixtures, never career fleets or economy transactions.",
   "scenarios": {
+    "finished_boats": {
+      "label": "Tinwake, Ashwake and Brasswind",
+      "seconds": 8,
+      "guidance": "Three hulls, three sizes. Launch the engagement to see them afloat, or use Fit to inspect each boat and change its weapons. WASD moves the camera; the fleet starts on autopilot.",
+      "player": [
+        "tin_skiff",
+        "ash_corvette",
+        "brasswind_motor_galleon"
+      ],
+      "enemy": [
+        "tin_skiff",
+        "ash_corvette",
+        "brasswind_motor_galleon"
+      ]
+    },
     "duel": {
       "label": "Starter skiff duel",
       "seconds": 12,

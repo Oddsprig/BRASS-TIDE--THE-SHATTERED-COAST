@@ -18,14 +18,14 @@ static func picker(parent: Node,options: Array,current: String,action: Callable)
 
 static func open(ui):
 	var host=ui.host
-	if host.lab_config.is_empty(): host.lab_config=Lab.preset(host.data,"mixed")
+	if host.lab_config.is_empty(): host.lab_config=Lab.preset(host.data,"finished_boats")
 	ui.modal_kind="lab"
 	var body=ui.modal("Fleet battle laboratory","SANDBOX · NO CAREER REWARDS OR SAVES",1240,820)
 	var top=ui.row(body)
 	ui.label(top,"Preset",15,ui.GOLD)
 	var choices: Array=[]
 	for id in Lab.presets(): choices.append({"id":id,"label":Lab.presets()[id].label})
-	picker(top,choices,"",func(id):host.lab_config=Lab.preset(host.data,id);open(ui))
+	picker(top,choices,str(host.lab_config.get("preset","")),func(id):host.lab_config=Lab.preset(host.data,id);open(ui))
 	picker(top,[{"id":"","label":"Fleet engagement"},{"id":"escort","label":"Escort the first boat to the exit"}],str(host.lab_config.get("objective","")),func(id):host.lab_config.objective=id;open(ui))
 	ui.label(top,"Seed",15)
 	var seed_box=SpinBox.new()
@@ -34,6 +34,8 @@ static func open(ui):
 	seed_box.value_changed.connect(func(value):host.lab_seed=int(value))
 	top.add_child(seed_box)
 	ui.paragraph(body,"Choose both fleets and their fittings. Each side may deploy 300 points. All boats start crewed and supplied; both fleets default to autopilot.",15)
+	if not str(host.lab_config.get("guidance","")).is_empty():
+		ui.paragraph(body,str(host.lab_config.guidance),14,ui.MUTED)
 	var summary=ui.label(body,"",17,ui.GOLD)
 	var sides=ui.row(body)
 	for team in ["player","enemy"]:
