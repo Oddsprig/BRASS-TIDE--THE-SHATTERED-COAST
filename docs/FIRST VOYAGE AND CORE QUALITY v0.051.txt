@@ -11,8 +11,26 @@ No new campaign breadth until the core-quality milestone clears. The previous
 full300DP measurement was4.605FPS light /17.084FPS mixed, all targets unmet.
 Assertion counts and offline captures do not establish smoothness or fun.
 
-Candidatee42e4c0:104opening-flow +7497roster checks pass in67.566s
-including export/startups/setup. Root reviewed eight actual exported screens
-and the four corrected fitted previews. Two screenshot-driven UI fixes are
-integrated, final native/visual review pending. First-voyage journey and
-retained-maneuver runtime patch remain in progress. Desktop stays0.050.
+Opening:104 checks pass. Root reviewed all eight corrected actual exported
+screens at1280x800 and1600x1000: modal headings stay clear of notices and the
+focused gold primary button has dark readable text. Four corrected fitted
+boat previews and7497 strict whole-roster asset checks pass.
+
+Combined source dfb4474:530 focused checks pass with export and three portable
+starts in60.094seconds including setup. Encounter-owned damage descriptors
+retain the original numerical results; healthy solo gun boats recover locally.
+Test Bridge fd3f2eb7b824423b8118a47b01efb769, plan r10.
+
+Actual exported benchmark a5eaf57e7dea4842baaf26da3b0fc150:42 light boats
+at300DP/side average4.743FPS;16 mixed boats at300DP/side average44.079FPS.
+Simulation medians26.325ms/light and10.105ms/mixed. Light planning18.096ms;
+damage3.569ms/light and2.246ms/mixed. The mixed case improves from the previous
+18.817FPS sample, but both still miss60FPS and the core gate remains OPEN.
+Actors, deployment and60Hz physics are unchanged. No offline-movie FPS claim.
+
+The actual first combat still has no result after90 simulation seconds:
+120 checks/1 failure, job1110785f58ed4d51bb5b72ea304ad87b. Its starter boat
+stops with Route check pending. This is a recorded gameplay defect, not a
+successful voyage. No payout/return/paid-fitting completion is claimed yet.
+Helpers are correcting the demonstrated route failure and measured route cost.
+Desktop stays0.050. No052 breadth or051 delivery until the core gate clears.

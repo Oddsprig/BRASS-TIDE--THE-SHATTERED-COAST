@@ -35,7 +35,7 @@ All36 boats and their guns reach the proven visual and role standard.
 0.050 - COASTAL WORLD ART [SCOPED BUILD DELIVERED; WHOLE QUALITY OPEN]
 Distinct designed ports/regions, authored terrain and readable real navigation.
 
-0.051 - FIRST-VOYAGE MILESTONE [PLANNED]
+0.051 - FIRST-VOYAGE MILESTONE [IN PROGRESS; CORE QUALITY GATE OPEN]
 A satisfying opening voyage and fleet decision clear the whole core-quality bar.
 
 

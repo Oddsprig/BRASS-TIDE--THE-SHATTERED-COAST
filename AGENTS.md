@@ -1,5 +1,16 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
+Latest051checkpoint: Rootdfb4474 combines damage-owned d64a34d and solo
+recovery6d33e46. Native530/0, export+three starts60.094s including setup.
+Actual full300DP GPU a5eaf57e7dea4842baaf26da3b0fc150: light4.743FPS,
+mixed44.079FPS. Both60FPS targets UNMET; light planning18.096ms dominates.
+Opening90s first battle still fails120/1: starter stationary Route check pending.
+RoutesSol owns tactical_routes.gd measured geometry/search correction; PerfSol
+owns other tactical runtime/candidate analysis; HullSol owns only bounded
+failure projection in existing campaign guidance test. No new breadth/framework.
+All eight corrected title/home/voyage/harbor screens reviewed. Desktop050.
+The earlier pending/source-only statuses below are historical when conflicting.
+
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
 Build the saved scopes in order. Current scoped delivery:0.049 authored roster,

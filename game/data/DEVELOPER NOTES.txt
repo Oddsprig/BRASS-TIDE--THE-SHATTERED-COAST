@@ -12,13 +12,18 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-ACTIVE CANDIDATE: native checks, final exported measurement and first-voyage
-review remain pending. The previous full300DP benchmark was4.605FPS light /
-17.084FPS mixed; all performance targets unmet. Two prepared optimizations
-are source candidates only until measured. Gate051 remains OPEN and blocks052.
+ACTIVE CANDIDATE: first-voyage and full-fleet quality remain unfinished.
+Combined damage/solo source:530 checks/0 failures, export and three starts
+in60.094seconds including setup (fd3f2eb7b824423b8118a47b01efb769).
+Actual rendered300DP/side:42 light boats4.743FPS,16 mixed boats44.079FPS
+(a5eaf57e7dea4842baaf26da3b0fc150). Both miss60FPS; light planning18.096ms
+is the largest measured cost. Damage medians3.569ms/light,2.246ms/mixed.
+The90-second first battle still has no result: starter stops with Route check
+pending (1110785f58ed4d51bb5b72ea304ad87b). No successful payout/return/refit
+claim. Route fixes in progress. Gate051 remains OPEN and blocks052.
 Background tests use the shared lane and whole batches below120seconds.
 
-PARTIAL VERIFICATION (not milestone acceptance)
+EARLIER PARTIAL VERIFICATION (not milestone acceptance)
 - Initial memo/geometry candidate:430checks/0; export+3starts66.531s.
 - Opening/roster candidate:7601checks/0; export+3starts67.566s.
   Includes104actual UI-flow checks and7497strict all36asset checks.

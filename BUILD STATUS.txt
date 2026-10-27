@@ -12,4 +12,7 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-STATUS: current source candidate; focused checks/export pending.
+STATUS: current source candidate;530 focused checks and export/three starts pass.
+Actual300DP light4.743FPS/mixed44.079FPS;60FPS targets unmet. Opening battle
+still unfinished after90 simulated seconds. Route correction in progress.
+Core gate OPEN; Desktop050;052 breadth remains planned.

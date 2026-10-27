@@ -1,0 +1,41 @@
+BRASS TIDE 0.051 - COMBINED CANDIDATE, CORE GATE OPEN
+
+Root source dfb4474; release checkout 6e835f2 has identical game bytes before
+the subsequent developer-notes update. Not a delivered build or quality signoff.
+
+Focused native batch fd3f2eb7b824423b8118a47b01efb769:530 checks/0 failures;
+damage337, role geometry131, retained AI22, paired time step40. Export and
+menu/campaign/battle starts pass.60.094seconds including setup and cleanup.
+
+Actual exported measurement a5eaf57e7dea4842baaf26da3b0fc150,57.593seconds:
+- Light:42 actors,300DP each side,4.743FPS; median frame220.427ms,
+  P95237.956ms. Simulation median26.325ms/P9530.400ms.
+- Mixed:16 actors,300DP each side,44.079FPS; median frame20.153ms,
+  P9532.866ms. Simulation median10.105ms/P9513.444ms.
+- Physics60Hz, actual movement, finite ammunition, hits, flooding and effects.
+  Mixed case also covers missiles. No actor/deployment/physics reduction.
+- Light planning median18.096ms: route certification6.488ms, observations
+  2.924ms, snapshots2.124ms, proposals3.243ms, helm1.697ms. Component
+  medians are separate samples and need not sum to the whole median.
+- Damage median3.569ms/light and2.246ms/mixed, down from previous sample
+  5.223ms/light and6.990ms/mixed. Mixed FPS previously18.817. Scene behavior
+  varies; these short samples do not establish a universal speedup ratio.
+
+60FPS and simulation/frame targets remain unmet. Light recurring stutter and
+catch-up remain unacceptable. Mixed has no measured50ms frame, but still
+misses frame95%,60FPS, simulation and catch-up targets. No parity claim.
+
+GPU:RTX5090 Laptop;CPU:Core Ultra9 275HX; recorded actual hardware/rendering
+metadata in the report. Private background Windows desktop, no input/focus,
+test-local muted audio. Safe graphics submission retained after the earlier
+separate-thread driver errors; economy and existing worker pool remain on.
+
+The first positional-wrapper submission 0b1cd037460d4989ae948c739ec2dd6e
+failed before launching an engine because Root passed an unsupported --plan
+flag. Corrected invocation is a5eaf57e7dea4842baaf26da3b0fc150 above.
+
+Actual opening voyage1110785f58ed4d51bb5b72ea304ad87b remains failed120/1:
+90 simulated seconds without a battle result. Player stops at(756.239,689.844)
+with Route check pending,96.019HP/69 rounds; enemy91.598HP/62 rounds.
+This needs an actual planner fix. Do not lengthen the test, force a win, change
+damage to satisfy it, or claim payout/return/service/fitting succeeded.
