@@ -1,12 +1,3237 @@
 {
-  "source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
+  "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
   "hull_id": "tin_skiff",
   "headings": 32,
-  "atlas_sha256": "da666bd44f991996366e251f5db3a37aa00384d283a5173c9ec526189644bdb2",
+  "atlas_sha256": "28032322b8a120ee3d1ff9faa106ec95746210018842527b39a013c7ffbc65b5",
+  "canvas_config": {
+    "cell_px": [
+      384,
+      320
+    ],
+    "pivot_px": [
+      192,
+      200
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      768,
+      640
+    ],
+    "portrait_pivot_px": [
+      384,
+      400
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
   "atlas_size_px": [
     3072,
     1280
   ],
   "gpu_rgba8_bytes": 15728640,
+  "frame_bounds_px": [
+    [
+      132,
+      146,
+      110,
+      71
+    ],
+    [
+      141,
+      143,
+      92,
+      77
+    ],
+    [
+      153,
+      140,
+      72,
+      82
+    ],
+    [
+      162,
+      139,
+      56,
+      84
+    ],
+    [
+      169,
+      139,
+      46,
+      84
+    ],
+    [
+      166,
+      139,
+      56,
+      84
+    ],
+    [
+      159,
+      140,
+      72,
+      82
+    ],
+    [
+      151,
+      143,
+      92,
+      77
+    ],
+    [
+      142,
+      146,
+      110,
+      71
+    ],
+    [
+      134,
+      151,
+      126,
+      63
+    ],
+    [
+      128,
+      154,
+      137,
+      57
+    ],
+    [
+      124,
+      154,
+      143,
+      53
+    ],
+    [
+      123,
+      154,
+      144,
+      50
+    ],
+    [
+      124,
+      154,
+      143,
+      58
+    ],
+    [
+      128,
+      154,
+      137,
+      65
+    ],
+    [
+      134,
+      155,
+      126,
+      70
+    ],
+    [
+      142,
+      153,
+      110,
+      77
+    ],
+    [
+      151,
+      149,
+      92,
+      85
+    ],
+    [
+      159,
+      146,
+      72,
+      91
+    ],
+    [
+      166,
+      144,
+      56,
+      94
+    ],
+    [
+      169,
+      143,
+      46,
+      95
+    ],
+    [
+      162,
+      144,
+      56,
+      94
+    ],
+    [
+      153,
+      146,
+      72,
+      91
+    ],
+    [
+      141,
+      149,
+      92,
+      85
+    ],
+    [
+      132,
+      153,
+      110,
+      77
+    ],
+    [
+      124,
+      155,
+      126,
+      70
+    ],
+    [
+      119,
+      154,
+      137,
+      65
+    ],
+    [
+      117,
+      154,
+      143,
+      58
+    ],
+    [
+      117,
+      154,
+      144,
+      50
+    ],
+    [
+      117,
+      154,
+      143,
+      53
+    ],
+    [
+      119,
+      154,
+      137,
+      57
+    ],
+    [
+      124,
+      151,
+      126,
+      63
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        132,
+        146,
+        242,
+        217
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        134.2639617919922,
+        148.96441650390625,
+        239.1650848388672,
+        214.3686981201172
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.046,
+      "png_sha256": "ffd661e64bb6f668a495718c43c07dfa5483fe28157d45135317b8c267037d73",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        141,
+        143,
+        233,
+        220
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        143.9559783935547,
+        145.41690063476562,
+        230.75531005859375,
+        217.0482635498047
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.012,
+      "png_sha256": "65f7de33c12f093cb45fbdb1d67ed533fe7fdff58a053ef389d83c93b934d267",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        153,
+        140,
+        225,
+        222
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        155.3382568359375,
+        143.01895141601562,
+        222.12564086914062,
+        219.03936767578125
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.011,
+      "png_sha256": "b8a1a21cf9f683375ada57a0d170e5c03edf21d0c90d744f79f9fde5fa2ff471",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        162,
+        139,
+        218,
+        223
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        164.5182647705078,
+        141.89715576171875,
+        215.41473388671875,
+        220.26547241210938
+      ],
+      "physical_bounds_world": [
+        -31.220001220703125,
+        -8.703167915344238,
+        0.0,
+        28.498950958251953,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.009,
+      "png_sha256": "6814e504cc9c8a1d72b36e26315aaf77886745bcfa731f6322e880ca0cbcb9ef",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        169,
+        139,
+        215,
+        223
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        171.8146514892578,
+        142.0796661376953,
+        212.1853485107422,
+        220.6794891357422
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.982,
+      "png_sha256": "c48452ac4599689ef2213b621a81c9e7308602f6f7ba1e2b6ac98a89b7c86940",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        166,
+        139,
+        222,
+        223
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        168.58526611328125,
+        141.89715576171875,
+        219.4817352294922,
+        220.26547241210938
+      ],
+      "physical_bounds_world": [
+        -31.220001220703125,
+        -8.703167915344238,
+        0.0,
+        28.498950958251953,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.001,
+      "png_sha256": "b4f4ac64953b9522b7e81840eef0bf4e89b3c42eb94bd71c6023c6728210af2c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        159,
+        140,
+        231,
+        222
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        161.87435913085938,
+        143.01895141601562,
+        228.6617431640625,
+        219.03936767578125
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.027,
+      "png_sha256": "07f6a6227f2214e3e7e9d4e24587ed9df6f91b89a72269323c1968d74f97eec5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        151,
+        143,
+        243,
+        220
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        153.24468994140625,
+        145.41690063476562,
+        240.0440216064453,
+        217.0482635498047
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.005,
+      "png_sha256": "bfee6d57316e12e9274a2073a28d2124786a2dc16982b5ce0c278ebadf29a537",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        142,
+        146,
+        252,
+        217
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        144.8349151611328,
+        148.96441650390625,
+        249.7360382080078,
+        214.3686981201172
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.021,
+      "png_sha256": "0224e2a68980724506af98340a80b69437f689cf4b075b21ed840eb55121448c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        134,
+        151,
+        260,
+        214
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        136.70626831054688,
+        153.51300048828125,
+        257.20928955078125,
+        211.27088928222656
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.017,
+      "png_sha256": "567c32675f445de306660417ba26f703896d4ba3554ca11616f581cb58c17243",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        128,
+        154,
+        265,
+        211
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        130.7025146484375,
+        156.575927734375,
+        262.2220153808594,
+        207.828125
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.008,
+      "png_sha256": "3e637549a85d37f111cfb384a5fe88f312201c0f439da6478eb7d427750a9be7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        124,
+        154,
+        267,
+        207
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        127.05438995361328,
+        156.37815856933594,
+        264.5831298828125,
+        204.05126953125
+      ],
+      "physical_bounds_world": [
+        -31.220001220703125,
+        -8.703167915344238,
+        0.0,
+        28.498950958251953,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.004,
+      "png_sha256": "fe9ff64562d49ae04b9b9061a48af54ef56575371f27d3e199f2df11164af218",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        123,
+        154,
+        267,
+        204
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        125.902099609375,
+        156.35415649414062,
+        264.40887451171875,
+        203.00357055664062
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.01,
+      "png_sha256": "c8585bed23ba349e09f31d6d93763edabd12e85e90b76576098bde281d6234c8",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        124,
+        154,
+        267,
+        212
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        127.05438995361328,
+        156.50485229492188,
+        264.5831298828125,
+        209.93905639648438
+      ],
+      "physical_bounds_world": [
+        -31.220001220703125,
+        -8.703167915344238,
+        0.0,
+        28.498950958251953,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.997,
+      "png_sha256": "f169f861565ffa846d4985f7333acd0182a433fe9a7ef74fe9283f67e6030df4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        128,
+        154,
+        265,
+        219
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        130.7025146484375,
+        156.82444763183594,
+        262.2220153808594,
+        216.4454803466797
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.001,
+      "png_sha256": "e97c4bef99c1305a5c2df4c6894474bddab959528562188166696e5393250fcc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        134,
+        155,
+        260,
+        225
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        136.70626831054688,
+        157.3006591796875,
+        257.20928955078125,
+        222.29754638671875
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.0,
+      "png_sha256": "cf0a02859eef85de6bdbe1d0fd8272c20846f6a3219f524b559e182f1c64ba89",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        142,
+        153,
+        252,
+        230
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        144.8349151611328,
+        155.41751098632812,
+        249.7360382080078,
+        227.26100158691406
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.028,
+      "png_sha256": "12945ba702bf7860ecd67620cd6367effbb5a4e11b955415d75ae441924efb3f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        151,
+        149,
+        243,
+        234
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        153.24468994140625,
+        151.35081481933594,
+        240.0440216064453,
+        231.14071655273438
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.042,
+      "png_sha256": "2e97a83e8c7d76969b7df39e155da6e4fd04ed22d0241fd989cbb4457135a1c6",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        159,
+        146,
+        231,
+        237
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        161.87435913085938,
+        148.3418731689453,
+        228.6617431640625,
+        233.78761291503906
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.002,
+      "png_sha256": "6f4a3bd71f0a5cfbb70c7e8df1c9588bf2fd05bb11e05efa444e61d651cfd050",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        166,
+        144,
+        222,
+        238
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        168.58526611328125,
+        146.50634765625,
+        219.4817352294922,
+        235.13223266601562
+      ],
+      "physical_bounds_world": [
+        -31.220001220703125,
+        -8.703167915344238,
+        0.0,
+        28.498950958251953,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.014,
+      "png_sha256": "31bf8f4afca30fa99ae796f4ae24a3da3a83c6bc56d91018b40846f51b095913",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        169,
+        143,
+        215,
+        238
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        171.8146514892578,
+        145.91348266601562,
+        212.1853485107422,
+        235.1265106201172
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.986,
+      "png_sha256": "effa4a4755533a5604d9593f8e922d1025a535f70a9b75cd8c44ed1b66f9f1fd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        162,
+        144,
+        218,
+        238
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        164.5182647705078,
+        146.50634765625,
+        215.41473388671875,
+        235.13223266601562
+      ],
+      "physical_bounds_world": [
+        -31.220001220703125,
+        -8.703167915344238,
+        0.0,
+        28.498950958251953,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.019,
+      "png_sha256": "ae50b00332ba81fb3069e8ad0306cc7233b51599a63de1679669590dbb71cac4",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        153,
+        146,
+        225,
+        237
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        155.3382568359375,
+        148.3418731689453,
+        222.12564086914062,
+        233.78761291503906
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.04,
+      "png_sha256": "5f57f72f4066192d46e701168ccc299ab4722014d30684a7de4543cc3b08834d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        141,
+        149,
+        233,
+        234
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        143.9559783935547,
+        151.35081481933594,
+        230.75531005859375,
+        231.14071655273438
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.031,
+      "png_sha256": "b49701e73daeefeb321015ff1bc15f7516d06413f95f157b79ec1e5b6e3297b2",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        132,
+        153,
+        242,
+        230
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        134.2639617919922,
+        155.41751098632812,
+        239.1650848388672,
+        227.26100158691406
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.018,
+      "png_sha256": "907298b08931f658c0afdfa315690c5e73383a90daa7a2085809d7d0d784c886",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        124,
+        155,
+        250,
+        225
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        126.79071044921875,
+        157.3006591796875,
+        247.29373168945312,
+        222.29754638671875
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.023,
+      "png_sha256": "5e780e8b4cedc478782e7071215005cb45a710e2c525718accd51307b1cd6516",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        119,
+        154,
+        256,
+        219
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        121.77799224853516,
+        156.82444763183594,
+        253.2974853515625,
+        216.4454803466797
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.005,
+      "png_sha256": "3a533eca20d10ef680873aab8e52ebd575e4f68e4b243cc31368639ff3165c03",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        117,
+        154,
+        260,
+        212
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        119.41688537597656,
+        156.50485229492188,
+        256.94561767578125,
+        209.93905639648438
+      ],
+      "physical_bounds_world": [
+        -31.220001220703125,
+        -8.703167915344238,
+        0.0,
+        28.498950958251953,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.015,
+      "png_sha256": "1fd48bb8ad4e067988c677248e2a7ce73a4f8463aa4f1263eb3447a06cd835c0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        117,
+        154,
+        261,
+        204
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        119.59114074707031,
+        156.35415649414062,
+        258.097900390625,
+        203.00357055664062
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 0.987,
+      "png_sha256": "49c92a46a560cd9c41f3468d11b94980858203c1fd96e6d37e9bb7f198d3ec62",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        117,
+        154,
+        260,
+        207
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        119.41688537597656,
+        156.37815856933594,
+        256.94561767578125,
+        204.05126953125
+      ],
+      "physical_bounds_world": [
+        -31.220001220703125,
+        -8.703167915344238,
+        0.0,
+        28.498950958251953,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.014,
+      "png_sha256": "d5292e07c09d4bec15ea5313f492fbbf4e3ca15f7dc7242817704ae11b836cd1",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        119,
+        154,
+        256,
+        211
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        121.77799224853516,
+        156.575927734375,
+        253.2974853515625,
+        207.828125
+      ],
+      "physical_bounds_world": [
+        -31.21999740600586,
+        -8.703166961669922,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.007,
+      "png_sha256": "a4e3249fa4a030a0f8e58e1d02587106f482c14ca6c3adc87937ce3efb2c1d68",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        124,
+        151,
+        250,
+        214
+      ],
+      "vertices": 11480,
+      "triangles": 21460,
+      "parts": 139,
+      "projected_vertex_bounds_px": [
+        126.79071044921875,
+        153.51300048828125,
+        247.29373168945312,
+        211.27088928222656
+      ],
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703166961669922,
+        19.549999237060547
+      ],
+      "roster049": null,
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "revision": "042-authored-hulls-r1",
+      "hull_id": "tin_skiff",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 1.018,
+      "png_sha256": "99bc039d5386abac7610374931f6a84bbcf424d71635a5ca524568a759e19d9e",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            0.966,
+            0
+          ],
+          "world_xy": [
+            13.524,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.479,
+            0
+          ],
+          "world_xy": [
+            -20.706000000000003,
+            0
+          ],
+          "elevation": 11.0,
+          "size": 1,
+          "radius": 2.24,
+          "angle": 3.141592653589793
+        }
+      ]
+    }
+  ],
+  "roster049": null,
   "status": "baked; visual and native integration review still required"
 }

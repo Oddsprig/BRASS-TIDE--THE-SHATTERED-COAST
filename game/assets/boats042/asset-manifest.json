@@ -1,7 +1,7 @@
 {
   "schema": "brass-tide-boats042-v1",
   "source_revision": "042-original-three+049-roster-detail-r2",
-  "asset_status": "ALL36_BAKED; native/exported/fitted-visual acceptance recorded separately",
+  "asset_status": "051_FOUR_FOREFOOT_CORRECTIONS_PENDING_NATIVE_FITTED_REVIEW",
   "coordinates": {
     "hull_local_x": "bow",
     "hull_local_y": "starboard",
@@ -29,7 +29,7 @@
     "tin_skiff": {
       "name": "Tinwake Skiff",
       "size": 14,
-      "asset_status": "baked_pending_native_and_visual_review",
+      "asset_status": "baked_pending_visual_review",
       "atlas": "res://assets/boats042/tin_skiff/hull-atlas.png",
       "headings": 32,
       "columns": 8,
@@ -59,73 +59,73 @@
           132,
           146,
           110,
-          80
+          71
         ],
         [
           141,
           143,
           92,
-          87
+          77
         ],
         [
           153,
           140,
           72,
-          91
+          82
         ],
         [
           162,
           139,
           56,
-          94
+          84
         ],
         [
           169,
           139,
           46,
-          95
+          84
         ],
         [
           166,
           139,
           56,
-          94
+          84
         ],
         [
           159,
           140,
           72,
-          91
+          82
         ],
         [
           151,
           143,
           92,
-          87
+          77
         ],
         [
           142,
           146,
           110,
-          80
+          71
         ],
         [
           134,
           151,
           126,
-          70
+          63
         ],
         [
           128,
           154,
           137,
-          61
+          57
         ],
         [
           124,
           154,
           143,
-          55
+          53
         ],
         [
           123,
@@ -233,26 +233,26 @@
           117,
           154,
           143,
-          55
+          53
         ],
         [
           119,
           154,
           137,
-          61
+          57
         ],
         [
           124,
           151,
           126,
-          70
+          63
         ]
       ],
       "portrait_bounds_px": [
         266,
         295,
         215,
-        154
+        136
       ],
       "socket_ids": [
         "mount0",
@@ -271,8 +271,8 @@
         "rivet rows",
         "empty mounting wells"
       ],
-      "source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
-      "atlas_sha256": "da666bd44f991996366e251f5db3a37aa00384d283a5173c9ec526189644bdb2",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "atlas_sha256": "28032322b8a120ee3d1ff9faa106ec95746210018842527b39a013c7ffbc65b5",
       "sockets": [
         {
           "id": "mount0",
@@ -305,9 +305,18 @@
           "angle": 3.141592653589793
         }
       ],
-      "portrait_sha256": "ddcf67fdbdd881967c5566daa9794accc15b29ccdd6968290c492e048790fb08",
-      "atlas_source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
-      "portrait_source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6"
+      "portrait_sha256": "f5ca3a3eb1d5ac9447c112ab7d3e02d17a5be5fc287d22e91853c9c53408eeb3",
+      "atlas_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "portrait_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "physical_bounds_world": [
+        -31.219999313354492,
+        -8.703167915344238,
+        0.0,
+        28.49894905090332,
+        8.703167915344238,
+        19.549999237060547
+      ],
+      "roster049": null
     },
     "ash_corvette": {
       "name": "Ashwake Escort Corvette",
@@ -8399,73 +8408,73 @@
           21,
           13,
           107,
-          77
+          70
         ],
         [
           28,
           9,
           91,
-          84
+          77
         ],
         [
           37,
           6,
           73,
-          90
+          82
         ],
         [
           48,
           4,
           55,
-          93
+          85
         ],
         [
           58,
           4,
           44,
-          94
+          85
         ],
         [
           57,
           4,
           55,
-          93
+          85
         ],
         [
           50,
           6,
           73,
-          90
+          82
         ],
         [
           41,
           9,
           91,
-          84
+          77
         ],
         [
           32,
           13,
           107,
-          77
+          70
         ],
         [
-          25,
+          24,
           18,
-          120,
-          67
+          121,
+          62
         ],
         [
           19,
           22,
           132,
-          58
+          54
         ],
         [
           15,
           26,
           140,
-          48
+          46
         ],
         [
           14,
@@ -8573,26 +8582,26 @@
           5,
           26,
           140,
-          48
+          46
         ],
         [
           9,
           22,
           132,
-          58
+          54
         ],
         [
           15,
           18,
-          120,
-          67
+          121,
+          62
         ]
       ],
       "portrait_bounds_px": [
         45,
         29,
         208,
-        148
+        134
       ],
       "source_station_bounds_local": [
         -2.06,
@@ -8636,9 +8645,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "c88e324c13beca8c151d92aa0a0c6d58f92a745ee13e85702c53d0aa0e6f0a89",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "atlas_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "atlas_sha256": "fa33fcdef55558a4c77529dac55c361fc475a88f1687d0fc584feba869ed21c2",
       "physical_bounds_world": [
         -31.59000015258789,
         -8.129188537597656,
@@ -8688,8 +8697,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "portrait_sha256": "b8103142fcbb4153fe1e231bd8502e8627a4b963885b038ec85f6c89af0e2759",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "61fbe2d30b9adbd5c714e37d1f4646fcf08a406ca4d51be2bfa27f202205074a",
+      "portrait_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a"
     },
     "brinehook_longliner": {
       "name": "Brinehook Longliner",
@@ -11043,7 +11052,7 @@
       "rows": 4,
       "cell_px": [
         168,
-        112
+        104
       ],
       "pivot_px": [
         81,
@@ -11055,7 +11064,7 @@
       "portrait_heading": 0,
       "portrait_cell_px": [
         336,
-        224
+        208
       ],
       "portrait_pivot_px": [
         162,
@@ -11067,73 +11076,73 @@
           21,
           13,
           116,
-          78
+          69
         ],
         [
           29,
           9,
           97,
-          86
+          77
         ],
         [
           38,
           6,
           75,
-          92
+          82
         ],
         [
           49,
           4,
           59,
-          95
+          85
         ],
         [
           55,
           4,
           52,
-          95
+          86
         ],
         [
           54,
           4,
           59,
-          95
+          85
         ],
         [
           49,
           6,
           75,
-          92
+          82
         ],
         [
           36,
           9,
           97,
-          86
+          77
         ],
         [
           25,
           13,
           116,
-          78
+          69
         ],
         [
           16,
           15,
           131,
-          70
+          64
         ],
         [
           9,
           18,
           141,
-          61
+          56
         ],
         [
           5,
           22,
           148,
-          50
+          48
         ],
         [
           3,
@@ -11241,26 +11250,26 @@
           9,
           22,
           148,
-          50
+          48
         ],
         [
           12,
           18,
           141,
-          61
+          56
         ],
         [
           15,
           15,
           131,
-          70
+          64
         ]
       ],
       "portrait_bounds_px": [
         44,
         28,
         228,
-        151
+        134
       ],
       "source_station_bounds_local": [
         -2.0,
@@ -11304,9 +11313,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "2a24c16b0e118cf2d75fd11be23fba50c1a97db14b8621eabade0f42107cf4c8",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "atlas_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "atlas_sha256": "a3a7436932563775f66493c5ea4b132c48a1627de9b52c62109d783e673e7669",
       "physical_bounds_world": [
         -30.239999771118164,
         -10.061624526977539,
@@ -11356,8 +11365,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
       },
-      "portrait_sha256": "f85eb5fa89cad0ec509b3a924d19a2daa4477d40d58ffca747a7c58ac9921ee3",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "6d40922fc9bb2503927daca071eab9cf5b31c5d3da44bb1996c120c20fe286a9",
+      "portrait_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a"
     },
     "osprey_cabin_cruiser": {
       "name": "Lacquered Osprey Cruiser",
@@ -11393,73 +11402,73 @@
           26,
           14,
           152,
-          100
+          90
         ],
         [
           38,
           9,
           125,
-          111
+          99
         ],
         [
           51,
           6,
           97,
-          117
+          105
         ],
         [
           65,
           4,
           75,
-          121
+          109
         ],
         [
           77,
           4,
           60,
-          122
+          110
         ],
         [
           74,
           4,
           75,
-          121
+          109
         ],
         [
           66,
           6,
           97,
-          117
+          105
         ],
         [
           51,
           9,
           125,
-          111
+          99
         ],
         [
           36,
           14,
           152,
-          100
+          90
         ],
         [
           24,
           21,
           175,
-          86
+          78
         ],
         [
           16,
           27,
           190,
-          72
+          66
         ],
         [
           10,
           29,
           200,
-          61
+          58
         ],
         [
           9,
@@ -11492,9 +11501,9 @@
           96
         ],
         [
-          51,
+          50,
           17,
-          125,
+          126,
           107
         ],
         [
@@ -11530,7 +11539,7 @@
         [
           38,
           17,
-          125,
+          126,
           107
         ],
         [
@@ -11567,26 +11576,26 @@
           4,
           29,
           200,
-          61
+          58
         ],
         [
           8,
           27,
           190,
-          72
+          66
         ],
         [
           15,
           21,
           175,
-          86
+          78
         ]
       ],
       "portrait_bounds_px": [
         54,
         31,
         299,
-        195
+        174
       ],
       "source_station_bounds_local": [
         -2.18,
@@ -11630,9 +11639,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "0c0b2d4e79f0caa7c9b15260db0ac58220fcf0a5ac2073dcabdead96c27d92ff",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "atlas_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "atlas_sha256": "cf4dbc059f293d4204335bfad972ef956a98ffab2d563a01487374b48a292340",
       "physical_bounds_world": [
         -43.349998474121094,
         -11.745073318481445,
@@ -11682,8 +11691,8 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "portrait_sha256": "42df967d9d18df7460cc87e37d58db9f41ef94cf230aa83161d50e0d196b46d6",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "6c3c40a71417756550bfc84d19d223a40b749638cae2f33368fdd3ac0f193942",
+      "portrait_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a"
     },
     "aurelian_court_yacht": {
       "name": "Aurelian Viceroy Yacht",

@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
   "hull_id": "osprey_cabin_cruiser",
   "headings": 32,
-  "atlas_sha256": "0c0b2d4e79f0caa7c9b15260db0ac58220fcf0a5ac2073dcabdead96c27d92ff",
+  "atlas_sha256": "cf4dbc059f293d4204335bfad972ef956a98ffab2d563a01487374b48a292340",
   "canvas_config": {
     "cell_px": [
       216,
@@ -33,73 +33,73 @@
       26,
       14,
       152,
-      100
+      90
     ],
     [
       38,
       9,
       125,
-      111
+      99
     ],
     [
       51,
       6,
       97,
-      117
+      105
     ],
     [
       65,
       4,
       75,
-      121
+      109
     ],
     [
       77,
       4,
       60,
-      122
+      110
     ],
     [
       74,
       4,
       75,
-      121
+      109
     ],
     [
       66,
       6,
       97,
-      117
+      105
     ],
     [
       51,
       9,
       125,
-      111
+      99
     ],
     [
       36,
       14,
       152,
-      100
+      90
     ],
     [
       24,
       21,
       175,
-      86
+      78
     ],
     [
       16,
       27,
       190,
-      72
+      66
     ],
     [
       10,
       29,
       200,
-      61
+      58
     ],
     [
       9,
@@ -132,9 +132,9 @@
       96
     ],
     [
-      51,
+      50,
       17,
-      125,
+      126,
       107
     ],
     [
@@ -170,7 +170,7 @@
     [
       38,
       17,
-      125,
+      126,
       107
     ],
     [
@@ -207,19 +207,19 @@
       4,
       29,
       200,
-      61
+      58
     ],
     [
       8,
       27,
       190,
-      72
+      66
     ],
     [
       15,
       21,
       175,
-      86
+      78
     ]
   ],
   "frames": [
@@ -228,7 +228,7 @@
         26,
         14,
         178,
-        114
+        104
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -237,7 +237,7 @@
         28.32115936279297,
         17.009613037109375,
         175.22393798828125,
-        111.73480224609375
+        101.10094451904297
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -288,7 +288,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 0,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.023,
-      "png_sha256": "743edd5c9f58b8edad58bec1e652eb32ba34e9f50c381cc17189535354585eb7",
+      "seconds": 1.07,
+      "png_sha256": "6b6af2ef617f65c4038787327773f47340f9dd7a40c0f38abba433b4887468b6",
       "sockets": [
         {
           "id": "mount0",
@@ -362,7 +362,7 @@
         38,
         9,
         163,
-        120
+        108
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -371,7 +371,7 @@
         40.88825988769531,
         11.901481628417969,
         160.8084716796875,
-        117.66792297363281
+        105.34239196777344
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -422,7 +422,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 1,
@@ -456,8 +456,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.098,
-      "png_sha256": "7bfd8b21f2bc0d7aa5afdff025b75e0546ea7322959945fff1a9183d370551f8",
+      "seconds": 1.096,
+      "png_sha256": "ee9187f19fe7469d070e9cd1c957c1681f0507afae7f809969e76f3bd8dbb6ee",
       "sockets": [
         {
           "id": "mount0",
@@ -496,7 +496,7 @@
         51,
         6,
         148,
-        123
+        111
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -505,7 +505,7 @@
         53.748008728027344,
         8.409675598144531,
         145.08058166503906,
-        122.0766372680664
+        108.49407958984375
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -556,7 +556,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 2,
@@ -590,8 +590,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.053,
-      "png_sha256": "834cea65c60e9857ab1a543bbb0962336d2256e192c6b9679bbb9aba50fab7a6",
+      "seconds": 1.065,
+      "png_sha256": "0464d0f3fba49484f1eb756fb2d36e6bdd01c2be41dc2c54249ba7d4ce9faf9c",
       "sockets": [
         {
           "id": "mount0",
@@ -630,7 +630,7 @@
         65,
         4,
         140,
-        125
+        113
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -639,7 +639,7 @@
         68.16642761230469,
         6.6673736572265625,
         137.5839385986328,
-        124.79150390625
+        110.43487548828125
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -690,7 +690,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 3,
@@ -724,8 +724,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.06,
-      "png_sha256": "29c19713679770526c8f839620679067406c8491831afa7745437818aae45b6c",
+      "seconds": 1.033,
+      "png_sha256": "4b1861ebb2168d74b0e5d1561cd256f9835e38839fd0cb7c666b223717e32ffa",
       "sockets": [
         {
           "id": "mount0",
@@ -764,7 +764,7 @@
         77,
         4,
         137,
-        126
+        114
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -773,7 +773,7 @@
         79.75952911376953,
         6.740562438964844,
         134.24046325683594,
-        125.70820617675781
+        111.13009643554688
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -824,7 +824,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 4,
@@ -858,8 +858,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.037,
-      "png_sha256": "417c707674f0ef2c44740e95072e310e34e576262bc9281feb00eb414db429ef",
+      "seconds": 1.01,
+      "png_sha256": "8a3c67347ffb1b57e14c16e8c8b1bdb522a6f0aefa69b69228d2c1b2da07cf1b",
       "sockets": [
         {
           "id": "mount0",
@@ -898,7 +898,7 @@
         74,
         4,
         149,
-        125
+        113
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -907,7 +907,7 @@
         76.41606140136719,
         6.6673736572265625,
         145.8335723876953,
-        124.79150390625
+        110.43487548828125
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -958,7 +958,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 5,
@@ -992,8 +992,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.063,
-      "png_sha256": "d993b152e3adbe6e2ad3eaba106bd44d616dbed4bb1a5b5d9c6d24648d616ba3",
+      "seconds": 1.035,
+      "png_sha256": "462b2e1b3bf2e95964650636dd0f79a2354d455f77f05f4122865f22c977b2df",
       "sockets": [
         {
           "id": "mount0",
@@ -1032,7 +1032,7 @@
         66,
         6,
         163,
-        123
+        111
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -1041,7 +1041,7 @@
         68.91941833496094,
         8.409675598144531,
         160.25198364257812,
-        122.0766372680664
+        108.49407958984375
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -1092,7 +1092,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 6,
@@ -1126,8 +1126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.052,
-      "png_sha256": "90bf4979a4abf3ddab4a6f457217b82304149922baefb19da6dd7fcdd5ad6c82",
+      "seconds": 1.032,
+      "png_sha256": "668f17f50dbb085bc50cc7e2bbf241cd11ef3b75c992b3e6a0e25158d29c1707",
       "sockets": [
         {
           "id": "mount0",
@@ -1166,7 +1166,7 @@
         51,
         9,
         176,
-        120
+        108
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -1175,7 +1175,7 @@
         53.1915283203125,
         11.901481628417969,
         173.1117401123047,
-        117.66792297363281
+        105.34239196777344
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -1226,7 +1226,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 7,
@@ -1260,8 +1260,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.075,
-      "png_sha256": "30ee44e2428d7866ead393a18655efa3347f753c4782b2b436308318c697373f",
+      "seconds": 1.049,
+      "png_sha256": "65f47083b04ac96bb87879ad1991bc226a81b3e27f90d9131845ed0273ba1d76",
       "sockets": [
         {
           "id": "mount0",
@@ -1300,7 +1300,7 @@
         36,
         14,
         188,
-        114
+        104
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -1309,7 +1309,7 @@
         38.77606964111328,
         17.009613037109375,
         185.6788330078125,
-        111.73480224609375
+        101.10094451904297
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -1360,7 +1360,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 8,
@@ -1394,8 +1394,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.068,
-      "png_sha256": "67c56ff717084dc070c19c451fd108106712b5b9bfc612ab81d84ae5a1d6d083",
+      "seconds": 1.054,
+      "png_sha256": "7b91006fa6249c3189469e3b45e23d44c33b0c233b817785dd853c1ca87a68fc",
       "sockets": [
         {
           "id": "mount0",
@@ -1434,7 +1434,7 @@
         24,
         21,
         199,
-        107
+        99
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -1443,7 +1443,7 @@
         26.982421875,
         23.53479766845703,
         196.3874969482422,
-        104.50526428222656
+        95.989990234375
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -1494,7 +1494,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 9,
@@ -1528,8 +1528,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.056,
-      "png_sha256": "ae1461641912bb2584c95ce5d7864c9a063969e88c9b3bd30c6bd2e9256d6b4d",
+      "seconds": 1.083,
+      "png_sha256": "c3d811b6d43acb06c77d243f40749315077cb8db2c2e068dfda473904feccce1",
       "sockets": [
         {
           "id": "mount0",
@@ -1568,7 +1568,7 @@
         16,
         27,
         206,
-        99
+        93
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -1577,7 +1577,7 @@
         18.263809204101562,
         29.976715087890625,
         203.70645141601562,
-        96.25714111328125
+        90.370849609375
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -1628,7 +1628,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 10,
@@ -1662,8 +1662,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.057,
-      "png_sha256": "86e11d4bb39bc02ee0909d5621e5c1f192fef99f85f3d719ae4dceb457a2cbac",
+      "seconds": 1.086,
+      "png_sha256": "5c3444417a2d9224e0d6e78782129362e15d3e0800c9a9c6d1329287939a0888",
       "sockets": [
         {
           "id": "mount0",
@@ -1702,7 +1702,7 @@
         10,
         29,
         210,
-        90
+        87
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -1711,7 +1711,7 @@
         12.955276489257812,
         31.913135528564453,
         207.39747619628906,
-        87.30741119384766
+        84.45008087158203
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -1762,7 +1762,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 11,
@@ -1796,8 +1796,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.041,
-      "png_sha256": "b8015fb5a45ccef9ef1e110ab6336b24a585167801ca85f02f5345d830085e3d",
+      "seconds": 1.073,
+      "png_sha256": "cd3ac705895b64e4e77030a51510721046c0b658ed4d43c39a62d31eee1d1d19",
       "sockets": [
         {
           "id": "mount0",
@@ -1896,7 +1896,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 12,
@@ -1930,8 +1930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.031,
-      "png_sha256": "092d820eca15a554cfae96e11131788ca90b4188d549faa3937b604d9618122a",
+      "seconds": 1.028,
+      "png_sha256": "2544a99e643ef07043a8d0563c5033b42cb92300363ab86723ba3665fa435f3c",
       "sockets": [
         {
           "id": "mount0",
@@ -2030,7 +2030,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 13,
@@ -2064,8 +2064,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.064,
-      "png_sha256": "76bcffb0aa7be1b664468287dd5b5944f0e86c4f9f3cc016f1c17c5424d3a4da",
+      "seconds": 1.036,
+      "png_sha256": "4823d8fd27c44b9f730c94c113578f689d9c54684402bee6b8fa1a552d8eadc2",
       "sockets": [
         {
           "id": "mount0",
@@ -2164,7 +2164,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 14,
@@ -2198,8 +2198,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.066,
-      "png_sha256": "02559e8a546899550b77c41b6c45137ed9ec328b71e370968958b7016e989a37",
+      "seconds": 1.046,
+      "png_sha256": "ff879a3bfac56060f22200e6a294e9879c5acd25a408438e333f823dc0570f98",
       "sockets": [
         {
           "id": "mount0",
@@ -2298,7 +2298,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 15,
@@ -2332,8 +2332,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.048,
-      "png_sha256": "353c4b0f476ef45ca868a36b961f6700bf45546718e90bce531eea1cb5cbb355",
+      "seconds": 1.055,
+      "png_sha256": "c61c3ff78cbcbc62cde99a5c731341c27d900b97308eaa083a115c5fea3ae3e6",
       "sockets": [
         {
           "id": "mount0",
@@ -2432,7 +2432,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 16,
@@ -2466,8 +2466,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.06,
-      "png_sha256": "a7dd911059eda3915f2ac880e8298323268514bcfa4ca857dcccd662506d3dd9",
+      "seconds": 1.113,
+      "png_sha256": "f0d5d64e409eadb42caf0cc0ef7e946c281e11fc001d998fd390244bb8979565",
       "sockets": [
         {
           "id": "mount0",
@@ -2503,7 +2503,7 @@
     },
     {
       "bounds_px": [
-        51,
+        50,
         17,
         176,
         124
@@ -2566,7 +2566,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 17,
@@ -2600,8 +2600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.087,
-      "png_sha256": "eb4f0ad8286dde988396497ad07a1ebddc809da8bd65d715120f449377972af7",
+      "seconds": 1.069,
+      "png_sha256": "b3c4b03160c68ba83a7d9686b00a4cb2a7c837528ee990026efb85c8035b0460",
       "sockets": [
         {
           "id": "mount0",
@@ -2700,7 +2700,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 18,
@@ -2734,8 +2734,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.07,
-      "png_sha256": "a8079ef21bcee1f3525f1552100ca85bb27433d6017897622ce2444613fca816",
+      "seconds": 1.058,
+      "png_sha256": "a212ef2722356dbed214e711a38ac5bfadb57bb11c487edd41934b8c67f9aaac",
       "sockets": [
         {
           "id": "mount0",
@@ -2834,7 +2834,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 19,
@@ -2868,8 +2868,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.05,
-      "png_sha256": "3d37ff6c7368fd993faec6ab666d6d77e2dccdbaab680ca6fd4409e981f1900e",
+      "seconds": 1.051,
+      "png_sha256": "0edda9ba7ef2043d35417a99b8caf38de41c1476f4de5a2e60ca39dbda6fd42a",
       "sockets": [
         {
           "id": "mount0",
@@ -2968,7 +2968,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 20,
@@ -3002,8 +3002,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.05,
-      "png_sha256": "81f0e0cb56abfa6592316447a9313d7d23385f32b301f6c889dc608b3e3e357b",
+      "seconds": 1.044,
+      "png_sha256": "9cd0158a0023c1e8b6ae3bb9b8c540b2315b7f804cf5e141e8b3da724b3f284e",
       "sockets": [
         {
           "id": "mount0",
@@ -3102,7 +3102,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 21,
@@ -3136,8 +3136,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.051,
-      "png_sha256": "bb0e63c16f7fd505cb7d71f3b5b5b24e507f019974eb50264e490d3162c435fe",
+      "seconds": 1.043,
+      "png_sha256": "eb2db433bd74422b31c47503ee56ef2ac47220d823d8d04c4bdf61f5aa94729c",
       "sockets": [
         {
           "id": "mount0",
@@ -3236,7 +3236,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 22,
@@ -3270,8 +3270,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.063,
-      "png_sha256": "8ed30349576456228107010b198ef54d734d2346f431686b2d9e77461fa9826d",
+      "seconds": 1.046,
+      "png_sha256": "781c300a84729e39f7cfc4ce2de10af1bec3e9487c234b7003b3233e0c7ab151",
       "sockets": [
         {
           "id": "mount0",
@@ -3309,7 +3309,7 @@
       "bounds_px": [
         38,
         17,
-        163,
+        164,
         124
       ],
       "vertices": 11630,
@@ -3370,7 +3370,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 23,
@@ -3404,8 +3404,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.07,
-      "png_sha256": "699b8fb3af27077bba55ea86d47589aa66e79b1efd38a4f584fe2a6379500dde",
+      "seconds": 1.058,
+      "png_sha256": "2f4e732ef7e78b3a1f73975c5fcbee786298f9a7c612c37a150d44f61130daad",
       "sockets": [
         {
           "id": "mount0",
@@ -3504,7 +3504,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 24,
@@ -3538,8 +3538,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.079,
-      "png_sha256": "aca1fde74217b4cb4ada29d8337579179ad93e5175433d2f98a1465e81f14f52",
+      "seconds": 1.06,
+      "png_sha256": "88f558a3ebc62ce35303933c484e95e28d11c0b4f1e6c9d494478b77c1131bcb",
       "sockets": [
         {
           "id": "mount0",
@@ -3638,7 +3638,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 25,
@@ -3672,8 +3672,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.052,
-      "png_sha256": "8d78643fdeb2336045ab02b2e0a2782d3d09ada7721afd4f4b1432f11e3766a3",
+      "seconds": 1.064,
+      "png_sha256": "7ad0c4cfb4b9e4c9a0e2de1af76a6993ed48fc799e48d89934d11c495fc8c7a5",
       "sockets": [
         {
           "id": "mount0",
@@ -3772,7 +3772,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 26,
@@ -3806,8 +3806,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.071,
-      "png_sha256": "4cf599ce1ae04621f5bd0dc27e7a955a40fd1f3c7354ad3ada911a6e147ccec2",
+      "seconds": 1.04,
+      "png_sha256": "bc036b98e6bb9fad6e0050fe6e44896e80b3c4b711ce651387621753238483c2",
       "sockets": [
         {
           "id": "mount0",
@@ -3906,7 +3906,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 27,
@@ -3940,8 +3940,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.042,
-      "png_sha256": "53dba918001d921e8ba749bc061816eb41e83f0c782673b8831c6e1e3072697c",
+      "seconds": 1.064,
+      "png_sha256": "4bfe737b115a4d0b4eeb39d86742b18ba35013615eb769c1ced95dd037ca26b1",
       "sockets": [
         {
           "id": "mount0",
@@ -4040,7 +4040,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 28,
@@ -4074,8 +4074,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.041,
-      "png_sha256": "fbe50b9726f1b4bb7af1ac1de332a44d121c174f5057a6cbd1cc67fa3ab9cc75",
+      "seconds": 1.019,
+      "png_sha256": "a46c576fb538665fcd5d03fa585fa54b2869cbf2d1e323fd43125b010db60ea8",
       "sockets": [
         {
           "id": "mount0",
@@ -4114,7 +4114,7 @@
         4,
         29,
         204,
-        90
+        87
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -4123,7 +4123,7 @@
         6.6025238037109375,
         31.913135528564453,
         201.0447235107422,
-        87.30741119384766
+        84.45008087158203
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -4174,7 +4174,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 29,
@@ -4208,8 +4208,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.054,
-      "png_sha256": "c25df11dee9ec669a6664240934bdbb21c3518dd25dfc494b892878f7d680473",
+      "seconds": 1.051,
+      "png_sha256": "6ad2d2ce64ce2c47b746f6aeb9c79cdc303b49b5d73cf6aecbd8f4a120086e4a",
       "sockets": [
         {
           "id": "mount0",
@@ -4248,7 +4248,7 @@
         8,
         27,
         198,
-        99
+        93
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -4257,7 +4257,7 @@
         10.293548583984375,
         29.976715087890625,
         195.73619079589844,
-        96.25714111328125
+        90.370849609375
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -4308,7 +4308,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 30,
@@ -4342,8 +4342,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.06,
-      "png_sha256": "58e9add8d209999d47eda432aee07e8cd32caab59fbf9dad4711bd9657328724",
+      "seconds": 1.083,
+      "png_sha256": "99f61da67651d6a44616fe8dbb0b5f65d22b91e970b0de603f26c1c3f66adfd1",
       "sockets": [
         {
           "id": "mount0",
@@ -4382,7 +4382,7 @@
         15,
         21,
         190,
-        107
+        99
       ],
       "vertices": 11630,
       "triangles": 22000,
@@ -4391,7 +4391,7 @@
         17.612503051757812,
         23.53479766845703,
         187.017578125,
-        104.50526428222656
+        95.989990234375
       ],
       "physical_bounds_world": [
         -43.349998474121094,
@@ -4442,7 +4442,7 @@
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
       "revision": "049-roster-detail-r2",
       "hull_id": "osprey_cabin_cruiser",
       "heading": 31,
@@ -4476,8 +4476,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.056,
-      "png_sha256": "824fc38ad9da1e7b6e0a65a167ad61658a103d257bacc6d71536a9d72bd757df",
+      "seconds": 1.061,
+      "png_sha256": "875241d60011d2005c7e0bc1e9ea3fb3583829e9eff0a878ac03273409cc5ab0",
       "sockets": [
         {
           "id": "mount0",

@@ -1,0 +1,29 @@
+BRASS TIDE v0.051 - FIRST ACTUAL CANDIDATE MEASUREMENT
+Source dce9511974498ef60febb4f23357029fe79c3a9c; not final milestone.
+Native bcfde4a6b995477caee9b8fcb0151f08:430/0, export+3starts66.531s inclsetup.
+GPU 7261cf811712452ab90dec09d43082d7: actual exported rendered measurement
+57.688s inclsetup, owned cleanup complete. Full300DP/side and60Hz retained.
+Light42boats:4.629551FPS; sim median26.288ms/P9540.179ms;
+frame median227.019ms/P95245.385ms;55/56multitickframes,4.980s wall-sim deficit.
+Mixed16boats:24.823361FPS; sim median13.324ms/P9515.772ms;
+frame median37.509ms/P9564.136ms;261/298multitickframes.
+ALL60FPS/frame20ms/sim6/10ms and recurring-stutter/catch-up targets UNMET.
+Gate051OPEN; no052breadth. These failures remain visible.
+
+Active-tick median containing costs (nested values MUST NOT be summed):
+Light planning17.699ms (begin16.095,helm1.545), damage4.534.
+Inside begin: observation1.951,snapshots1.976,proposals3.614,
+certification6.991(live.117),resolution1.212ms.
+Mixed planning5.135,damage6.377ms. Inside begin: observation.821,
+snapshots.451,proposals.958,certification1.200(live.118),resolution.592ms.
+The per-begin proof cache has not rescued light-boat planning.
+
+Hardware:RTX5090Laptop GPU; CoreUltra9 275HX;24logicalCPUs;
+VulkanMobile,renderthread1SAFE,physics60Hz,framecap120. Allowed24CPUs,
+100%CPU,2GiBownedjobcap. Actualwindow2560x1570; viewport1600x1000.
+Release/template/export true; editor/debug false. Private background desktop,
+Dummy audio, no input/focus control. Neither elapsed profiling nor checked
+logic constitutes play-feel, listening or Starsector-parity acceptance.
+No attribution of mixed improvement to two optimizations alone: art changed
+between prior046 and this candidate. A further measured-cost correction is
+being scoped, with no runtime change accepted until reviewed/tested.
