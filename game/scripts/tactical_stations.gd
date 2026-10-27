@@ -518,7 +518,10 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 			anchor = position + toward * advance + toward.orthogonal() * float((sector % 3) - 1) * (Roles.radius(ship) + 12.0)
 			entry = anchor
 			pass_end = anchor
-			exit_point = rally(view, ship, protected, other)
+			# This pressure maneuver ends in a checked hold at the gun station.
+			# A later danger/withdrawal uses the separate routed branch above;
+			# this request grants no future escape to a distant rally.
+			exit_point = anchor
 		var approach: Array = _target_approach(position, entry, other, clearance, orbit_side)
 		if approach.is_empty() or anchor.distance_to(Roles.pos(other)) < clearance:
 			continue

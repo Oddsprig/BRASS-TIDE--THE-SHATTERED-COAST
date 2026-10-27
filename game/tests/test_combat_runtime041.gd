@@ -469,6 +469,62 @@ func cadence_checks(world: Dictionary) -> void:
 	check(shot_permits==0,"out-of-range and occluded hold fallbacks grant no false firing authority")
 	report.cadence046={"observationTicks":13,"attemptTimes":attempts,"profile":profile,"physicsAdvanced":false,"commandHold":hold_diagnostic,"manualRelease":released_diagnostic,"holdShotPermits":shot_permits}
 
+func heavy_pressure_checks(world: Dictionary) -> void:
+	var config: Dictionary=Lab.preset(world,"all_weapons")
+	var original: Dictionary=config.duplicate(true)
+	var created: Dictionary=Lab.create(world,config,83)
+	check(bool(created.get("ok",false)),"seed-83 all-weapons regression uses the unchanged public Lab preset")
+	if not bool(created.get("ok",false)):return
+	var st: Dictionary=created.battle
+	var ship: Dictionary=Battle.get_flagship(st)
+	var id: String=str(ship.id)
+	var opening: Dictionary={"ammo":float(ship.ammo),"fuel":float(ship.fuel),"supplies":float(ship.supplies),"boats":st.ships.size()}
+	var costs: Dictionary={}
+	for mount: Dictionary in ship.spec.weaponMounts:costs[str(mount.id)]=float(mount.ammoCost)
+	check(st.autopilot and st.result==null and st.events.is_empty() and st.projectiles.is_empty() and opening.boats==5 and costs.size()==4 and opening.ammo==float(ship.spec.ammoCapacity),"real surrounded flagship and four opponents start loaded without manufactured shots")
+	var first_shot_tick: int=-1
+	var shots: int=0
+	var spent: float=0.0
+	var checked_holds: int=0
+	var local_holds: bool=true
+	var real_events: bool=true
+	var within_caps: bool=true
+	var timeline: Array=[]
+	# Eighteen ordinary 60Hz ticks, with no pose/stat edits, private planner call,
+	# injected hit/fire, refills or forced result. Winning is not this assertion.
+	for tick: int in range(18):
+		Battle.update(st,DT,{})
+		var intent: Dictionary=st.tactical.intents.get(id,{})
+		var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
+		if str(intent.get("role",""))=="heavy" and str(intent.get("phase",""))=="pressure" and not record.is_empty():
+			checked_holds+=1
+			var candidate: Dictionary=record.candidate
+			local_holds=local_holds and str(record.certificate.status)=="valid" and candidate.exit.size()==1 and not candidate.approach.is_empty() and not candidate.pass.is_empty() and candidate.exit[0]==candidate.approach[-1] and candidate.pass[-1]==candidate.exit[0]
+		for event: Dictionary in Battle.pop_events(st):
+			if str(event.kind)!="fire" or str(event.sourceId)!=id:continue
+			var mount_id: String=str(event.mountId)
+			real_events=real_events and costs.has(mount_id) and float(event.time)>0.0 and float(event.time)<=float(st.time) and Battle.mount_shot_time(ship,mount_id)>0.0
+			spent+=float(costs.get(mount_id,0.0));shots+=1
+			if first_shot_tick<0:first_shot_tick=tick+1
+		within_caps=within_caps and int(st.tactical.budget.clearanceTests)<=4096 and int(st.tactical.budget.rollouts)==0 and int(st.tactical.budget.samples)==0
+		if tick in [0,8,17]:timeline.append({"tick":tick+1,"time":st.time,"ammo":ship.ammo,"phase":intent.get("phase",""),"reason":st.tactical.reasons.get(id,""),"fireReasons":st.tactical.fireReasons.get(id,{}).duplicate(true)})
+	check(shots>0 and first_shot_tick>0 and first_shot_tick<=18 and float(ship.ammo)<float(opening.ammo),"surrounded heavy fires through normal AI within 0.3s instead of indefinitely checking a future rally")
+	check(real_events and is_equal_approx(float(opening.ammo)-float(ship.ammo),spent) and float(ship.ammo)>=0.0,"real installed-mount fire events and acknowledgements explain every flagship ammo debit")
+	check(checked_holds>0 and local_holds,"accepted pressure certificate ends at the checked gun station and promises no remote rally")
+	check(within_caps and st.autopilot and str(st.tactical.manualId).is_empty() and is_equal_approx(float(st.time),18.0*DT) and st.result==null and st.ships.size()==int(opening.boats),"all-weapons prefix retains 60Hz autopilot, boats, route budgets and ordinary outcome")
+	check(float(ship.fuel)>=0.0 and float(ship.fuel)<=float(opening.fuel) and float(ship.supplies)>=0.0 and float(ship.supplies)<=float(opening.supplies) and config==original and Lab.preset(world,"all_weapons")==original,"prefix uses finite stores and leaves ambush roster, fits and preset unchanged")
+	# The same real battle must still obey the existing explicit routed escape.
+	var rally: Dictionary=st.tactical.home[id].duplicate(true)
+	var pressure_intent: Dictionary=st.tactical.intents.get(id,{}).duplicate(true)
+	check(Battle.issue_order(st,[id],"withdraw",rally) and not Certification.current(st,ship,pressure_intent).ok,"explicit withdrawal immediately revokes the pressure hold")
+	var before_withdraw: float=ship.ammo
+	Battle.update(st,DT,{})
+	var withdrawal: Dictionary=st.tactical.intents.get(id,{})
+	var withdraw_record: Dictionary=st.tactical.predictions.get(str(withdrawal.get("pathFingerprint","")),{})
+	var routed: bool=withdrawal.is_empty() or (not withdraw_record.is_empty() and str(withdrawal.get("phase",""))=="withdraw" and withdraw_record.candidate.fireMountIds.is_empty() and not withdraw_record.candidate.exit.is_empty() and withdraw_record.candidate.exit[-1]==Vector2(rally.x,rally.y))
+	check(str(ship.order)=="withdraw" and routed and float(ship.ammo)==before_withdraw,"withdrawal needs its own checked route to rally and cannot borrow pressure fire authority")
+	report.heavyPressure046={"seed":83,"dt":DT,"opening":opening,"ticks":18,"firstShotTick":first_shot_tick,"fireEvents":shots,"ammoSpent":spent,"checkedHoldTicks":checked_holds,"timeline":timeline,"withdrawReason":st.tactical.reasons.get(id,"")}
+
 func run() -> void:
 	started=Time.get_ticks_usec()
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
@@ -484,6 +540,7 @@ func run() -> void:
 		authority_checks(created.battle)
 		recovery_checks(world)
 		cadence_checks(world)
+		heavy_pressure_checks(world)
 		var benchmark=Benchmark.new()
 		benchmark.action_sample(world,report,started)
 		check(benchmark.failures.is_empty(),"shared compact action sample completes, moves both sides and emits/debits real automatic shots")
