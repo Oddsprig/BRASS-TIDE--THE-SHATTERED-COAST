@@ -1,0 +1,47 @@
+051 DAMAGE OWNED CONTEXT - SOURCE CANDIDATE, native/profile UNRUN
+Base bf6d89d53b1dbdcb2c459291dbc2e94a63d9e03f; exact damage-owned checkout.
+
+Scope: four production files plus existing test_damage_hotpath040.gd. One
+encounter RefCounted context at Battle._damageOwned051, never a boat/campaign
+save field or global. It binds the exact ships array and public-cache object;
+a copied encounter cannot borrow it. First phase admits fully checked owners,
+up to 128. Owner/identity/condition/items/spec/baseSpec/loadout references must
+still match. Detached topology/spec/loadout descriptors and equipment/status
+projections are immutable. Removed/sunk owners are pruned; results close it.
+
+Writer boundaries (all caller glue included):
+- Battle._deploy finishes before admission. No live fitting/topology writer
+  was found in the reachable update chain. Replacement refs revoke proof;
+  unknown/overflow/closed owners use checked tick/status paths.
+- Damage._tick_ship_in_battle051 uses the unchanged _tick_canonical_with.
+  Legacy engine absorption dirties before lowering condition. Repair/fire use
+  the existing Core._repair_installed_with/_apply_component_damage_with via
+  Records._battle_write051: invalidate derived generations before writes;
+  failed kernels drop authority, including rollback/ref replacement failures.
+  Structural records come from admission; live engine HP/watermark, finite
+  request/budget checks, arithmetic, task order and rollback stay in the kernels.
+- Battle._projectiles/_blast revoke before the unchanged checked hit body.
+  Re-admission requires successful component work AND publication, then full
+  inspection again. Rejected/partial hits leave no private authority.
+- Boarding.launch/tick changes crew/wounded/capture, not equipment topology.
+  Crew, shore labor, water/breaches, fire, stores, sinking, policy, motion and
+  firing scalars stay live. Status input checks include these physical inputs;
+  a changed repair priority dirties before the next private reader. Fuel-zero
+  pump/motion changes remain immediate within the phase.
+- Public calls given the private phase drop its owner proof and retain full
+  checks. Public dictionaries, snapshot APIs and twelve-frame expiry remain.
+  An additional unsupported writer must revoke the context/owner before using
+  its new mutation path. Private reads do not audit arbitrary external in-place
+  Dictionary corruption; public APIs retain those defenses.
+
+Existing fixture retains original public corruption/expiry and full 043
+state/cache/RNG comparisons. Added: 14-frame private/public boat+report parity,
+live hit/fire/flood/legacy repair/fuel/crew, generation refresh, refusal/copy/
+replacement/removal/closure/128-bound fallbacks, and 14 actual Battle updates
+against the checked reference. Only runtime context/public-cache storage is
+excluded in the NEW packet arm; original cache equality remains unchanged.
+
+Source review: git diff --check clean. Existing read-only preload API advisory
+issues []; engineInvoked false. No fixture/native/QA/profile/export/GPU run.
+Root owns native parsing/assertions and final combined performance evidence.
+Savings unmeasured; Desktop 050 and core gate OPEN. No tactical/UI/metadata edit.

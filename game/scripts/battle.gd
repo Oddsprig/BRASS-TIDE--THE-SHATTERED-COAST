@@ -136,7 +136,13 @@ static func create(options: Dictionary) -> Dictionary:
 			st.playerId=ship.id
 			ship.selected=true
 			break
+	st.tactical.damageCache=st.tactical.get("damageCache",{})
+	st["_damageOwned051"]=Damage._create_battle_owned051(st.ships,st.tactical.damageCache)
 	return st
+
+static func _close_damage_owned051(st: Dictionary) -> void:
+	var cache: Dictionary=Tactical.ensure(st).get("damageCache",{})
+	Damage._close_battle_owned051(Damage._battle_owned_for051(st.get("_damageOwned051"),st.ships,cache))
 
 static func objective_snapshot(st: Dictionary) -> Dictionary:
 	return Objectives.snapshot(st)
@@ -630,7 +636,7 @@ static func _collisions(st: Dictionary) -> void:
 					b.x=bp.x
 					b.y=bp.y
 
-static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String,frame_cache=null) -> void:
+static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String,frame_cache=null,damage_owned=null) -> void:
 	var radius: float=Damage.number(p.get("blastRadius"))
 	if radius<=0.0:
 		return
@@ -641,12 +647,12 @@ static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String
 		if distance<radius+_radius(s) and _clear_shot(st,point,_pos(s),1.0):
 			var before_hp: float=Damage.number(s.get("hp"))
 			Damage.invalidate_frame_cache(frame_cache,s)
-			var events: Array=Damage.apply_hit(s,{"damage":p.damage*0.45*clampf(1.0-distance/(radius+_radius(s)),0.0,1.0),"kind":"rocket","incendiary":true,"section":"deck"},st.rng,frame_cache)
+			var events: Array=Damage._apply_hit_in_battle051(s,{"damage":p.damage*0.45*clampf(1.0-distance/(radius+_radius(s)),0.0,1.0),"kind":"rocket","incendiary":true,"section":"deck"},st.rng,frame_cache,damage_owned)
 			if EquipmentCombat.is_canonical_owner(s,frame_cache):_combat_mounts(st,s,frame_cache)
 			if not events.is_empty():
 				CombatEvents.emit_hit(st,p,s,_pos(s),"deck",events,maxf(0.0,before_hp-Damage.number(s.get("hp"))),false)
 
-static func _projectiles(st: Dictionary,dt: float,frame_cache=null) -> void:
+static func _projectiles(st: Dictionary,dt: float,frame_cache=null,damage_owned=null) -> void:
 	var survivors: Array=[]
 	for p in st.projectiles:
 		p.px=p.x
@@ -685,10 +691,10 @@ static func _projectiles(st: Dictionary,dt: float,frame_cache=null) -> void:
 				section=str(p.get("section","")) if not str(p.get("section","")).is_empty() else EquipmentCombat.canonical_hit_section(hit,point,str(p.kind),eng_roll,frame_cache)
 			var before_hp: float=Damage.number(hit.get("hp"))
 			Damage.invalidate_frame_cache(frame_cache,hit)
-			var events: Array=Damage.apply_hit(hit,{"damage":p.damage,"kind":p.kind,"penetration":p.get("penetration",0.0),"incendiary":p.get("incendiary",false),"section":section},st.rng,frame_cache)
+			var events: Array=Damage._apply_hit_in_battle051(hit,{"damage":p.damage,"kind":p.kind,"penetration":p.get("penetration",0.0),"incendiary":p.get("incendiary",false),"section":section},st.rng,frame_cache,damage_owned)
 			if EquipmentCombat.is_canonical_owner(hit,frame_cache):_combat_mounts(st,hit,frame_cache)
 			CombatEvents.emit_hit(st,p,hit,point,section,events,maxf(0.0,before_hp-Damage.number(hit.get("hp"))),true)
-			_blast(st,p,point,str(hit.id),frame_cache)
+			_blast(st,p,point,str(hit.id),frame_cache,damage_owned)
 			if not events.is_empty():
 				_log(st,hit.name+": "+events[0])
 		elif land_t!=INF or p.life<=0.0:
@@ -718,6 +724,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	CombatEvents.ensure_state(st)
 	Objectives.configure(st)
 	if st.result!=null:
+		_close_damage_owned051(st)
 		return st
 	dt=clampf(Damage.number(dt),0.0,1.0/30.0)
 	if dt<=0.0:
@@ -735,9 +742,11 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	var frame_cache: Dictionary=Tactical.ensure(st).get("damageCache",{})
 	st.tactical.damageCache=frame_cache
 	Damage.begin_frame_cache(frame_cache,st.ships)
+	var damage_owned=Damage._battle_owned_for051(st.get("_damageOwned051"),st.ships,frame_cache)
 	# Local synchronous borrow: equipment writes are completed per owner below;
 	# planning/helm/motion/fire only read equipment. Contact and hits come later.
 	var checked_phase=Damage._begin_battle_phase043(frame_cache)
+	Damage._bind_battle_owned051(checked_phase,damage_owned,st.ships,frame_cache)
 	# One complete prepass precedes either side's snapshot or helm. In particular
 	# the manual flagship never receives a second damage/cooldown decrement.
 	for s in st.ships:
@@ -746,7 +755,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			continue
 		# Exactly one decrement of each timer, including the manual flagship.
 		var damage_started: int=Time.get_ticks_usec()
-		Damage.tick_ship(s,dt,{"inCombat":true},frame_cache)
+		Damage._tick_ship_in_battle051(s,dt,checked_phase)
 		ai_phases.damage+=Time.get_ticks_usec()-damage_started
 		var mount_started: int=Time.get_ticks_usec()
 		var cached_mounts: Array=_combat_mounts(st,s,checked_phase)
@@ -810,7 +819,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	_collisions(st)
 	ai_phases.contact=Time.get_ticks_usec()-contact_started
 	var projectile_started: int=Time.get_ticks_usec()
-	_projectiles(st,dt,frame_cache)
+	_projectiles(st,dt,frame_cache,damage_owned)
 	ai_phases.projectiles=Time.get_ticks_usec()-projectile_started
 	var finish_started: int=Time.get_ticks_usec()
 	Tactical.finish(st,ai_us)
@@ -834,7 +843,9 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			enemies.append(s)
 	if get_flagship(st).is_empty() and not players.is_empty():
 		select_flagship(st,players[0].id)
-	if st.result!=null:return st
+	if st.result!=null:
+		_close_damage_owned051(st)
+		return st
 	if players.is_empty():
 		st.result="lost"
 	elif enemies.is_empty() and not Objectives.is_convoy(st):
@@ -843,4 +854,5 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		st.retreatTimer=maxf(0.0,st.retreatTimer-dt)
 		if st.retreatTimer<=0.00000001:
 			st.result="retreated"
+	if st.result!=null:_close_damage_owned051(st)
 	return st

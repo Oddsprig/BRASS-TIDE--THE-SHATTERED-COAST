@@ -543,6 +543,37 @@ static func _tick_repair_step_with_records(boat: Dictionary, h: float, crew_repa
 	# exact, unchanged condition can reuse a successful validation within this tick.
 	return _repair_step_from_info(boat, h, crew_repair, options, info, Core._repair_installed_with.bind(validate), Core._apply_component_damage_with.bind(validate), Records._publish_with.bind(validate))
 
+# These callbacks are admitted only by Damage's encounter-owned context. They
+# use the same live substeps/transactions, never the forecast/rollout adapters.
+static func _battle_info051(boat: Dictionary, entry: Dictionary) -> Dictionary:
+	if not bool(entry.get("valid",false)): return inspect_owner(boat)
+	if int(entry.infoGeneration) != int(entry.generation):
+		var snap: Dictionary = Records._snapshot_with_records(boat,Records._battle_records051.bind(entry))
+		if not bool(snap.get("ok",false)):
+			entry.valid = false
+			return inspect_owner(boat)
+		entry.info = Records._battle_freeze051({"ok":true,"mode":"canonical","needsInitialize":false,"snapshot":snap})
+		entry.infoGeneration = entry.generation
+	return entry.info
+
+static func _battle_absorb051(boat: Dictionary, entry: Dictionary) -> Dictionary:
+	var validate: Callable = Records._battle_records051.bind(entry)
+	var records: Dictionary = validate.call(boat.moduleCondition)
+	if not records.ok: return records
+	if records.hasEngine and Core._unit(boat.get("engine")) and float(boat.engine) < float(records.engineHp)-0.0001:
+		Records._battle_dirty051(entry)
+	var result: Dictionary = Records._absorb_legacy_damage_with(boat,validate)
+	if not bool(result.get("ok",false)): entry.valid = false
+	return result
+
+static func _battle_repair051(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, entry: Dictionary) -> Dictionary:
+	var result: Dictionary = _repair_step_from_info(boat,h,crew_repair,options,info,
+		Records._battle_write051.bind(entry,Core._repair_installed_with),
+		Records._battle_write051.bind(entry,Core._apply_component_damage_with),
+		Records._battle_publish051.bind(entry))
+	if not bool(result.get("ok",false)): entry.valid = false
+	return result
+
 static func _is_string_value(value) -> bool:
 	var value_type: int = typeof(value)
 	return value_type == TYPE_STRING or value_type == TYPE_STRING_NAME

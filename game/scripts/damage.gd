@@ -7,6 +7,16 @@ const _UNSET_OWNER: String = "__unset_owner__"
 const OWNER_CACHE_FRAMES: int = 12 # At most 0.2s at the live 60Hz rate.
 const OWNER_CACHE_LIMIT: int = 128
 
+# Runtime object owned by one encounter, outside boats and campaign saves.
+# Binding both containers prevents a duplicated battle borrowing its proof.
+class BattleOwned051:
+	extends RefCounted
+	var ships: Array = []
+	var source: Dictionary = {}
+	var entries: Dictionary = {}
+	var active: bool = true
+	var admitted: bool = false
+
 # Battle owns this local handle only from its damage/mount prepass through fire.
 # It is closed before boarding/contact/projectile writes and never stored on st.
 class BattlePhase043:
@@ -14,6 +24,7 @@ class BattlePhase043:
 	var source: Dictionary = {}
 	var entries: Dictionary = {}
 	var active: bool = true
+	var owned = null
 
 # Opt-in, process-local diagnostics only. Never retained in a boat or battle.
 static var _runtime_profile043_enabled: bool = false
@@ -119,13 +130,18 @@ static func _find_cache_slot(s: Dictionary, frame_cache: Dictionary) -> String:
 	return ""
 
 static func clear_frame_cache(frame_cache) -> void:
-	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
+	if frame_cache is BattlePhase043:
+		_close_battle_owned051(frame_cache.owned)
+		frame_cache = frame_cache.source
 	if frame_cache is Dictionary:
 		if _runtime_profile043_enabled: _runtime_profile043_counts.explicitEvictions += frame_cache.size()
 		frame_cache.clear()
 
 static func invalidate_frame_cache(frame_cache, s = _UNSET_OWNER) -> void:
-	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
+	if frame_cache is BattlePhase043:
+		if s is Dictionary: _drop_battle_owner051(frame_cache.owned,s)
+		else: _close_battle_owned051(frame_cache.owned)
+		frame_cache = frame_cache.source
 	if not (frame_cache is Dictionary) or frame_cache.is_empty():
 		return
 	if s is String and s == _UNSET_OWNER:
@@ -206,7 +222,9 @@ static func _cache_entry_valid(s: Dictionary, entry: Dictionary) -> bool:
 
 static func _cached_entry(s, frame_cache) -> Dictionary:
 	# Public APIs retain their full owner/value guard, even if given the handle.
-	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
+	if frame_cache is BattlePhase043:
+		if s is Dictionary: _drop_battle_owner051(frame_cache.owned,s)
+		frame_cache = frame_cache.source
 	if _runtime_profile043_enabled: _runtime_profile043_counts.cacheLookups += 1
 	if not (frame_cache is Dictionary) or frame_cache.is_empty() or not (s is Dictionary):
 		if _runtime_profile043_enabled: _runtime_profile043_miss("unavailableMisses")
@@ -243,12 +261,122 @@ static func _end_battle_phase043(phase) -> void:
 	if phase is BattlePhase043:
 		phase.active = false
 		phase.entries.clear()
+		phase.owned = null
+
+static func _create_battle_owned051(ships: Array, source: Dictionary) -> BattleOwned051:
+	var owned: BattleOwned051 = BattleOwned051.new()
+	owned.ships = ships; owned.source = source
+	return owned
+
+static func _battle_owned_for051(owned, ships: Array, source: Dictionary):
+	return owned if owned is BattleOwned051 and owned.active and is_same(owned.ships,ships) and is_same(owned.source,source) else null
+
+static func _close_battle_owned051(owned) -> void:
+	if not (owned is BattleOwned051): return
+	owned.active = false
+	for entry in owned.entries.values(): entry.valid = false
+	owned.entries.clear(); owned.ships = []; owned.source = {}
+
+static func _drop_battle_owner051(owned, s: Dictionary) -> void:
+	if not (owned is BattleOwned051): return
+	var slot: String = _cache_slot_key(s)
+	var entry: Dictionary = owned.entries.get(slot,{})
+	if not is_same(entry.get("shipRef"),s):
+		for key in owned.entries:
+			if is_same(owned.entries[key].shipRef,s):
+				slot = str(key); entry = owned.entries[key]; break
+	if is_same(entry.get("shipRef"),s):
+		entry.valid = false; owned.entries.erase(slot)
+
+static func _admit_battle_owner051(owned: BattleOwned051, s: Dictionary, generation: int = 0) -> void:
+	if not owned.active or s.get("sunk",false) or owned.entries.size() >= OWNER_CACHE_LIMIT: return
+	var slot: String = _cache_slot_key(s)
+	if slot.is_empty() or owned.entries.has(slot): return
+	var info: Dictionary = EquipmentDamage.inspect_owner(s)
+	if not bool(info.get("ok",false)) or str(info.get("mode","")) != "canonical": return
+	if not (s.get("spec") is Dictionary) or not (s.get("breaches") is Array): return
+	for key in ["baseSpec","loadout"]:
+		if s.has(key) and not (s[key] is Dictionary): return
+	for value in [s,s.spec,s.get("baseSpec"),s.get("loadout"),s.breaches]:
+		if is_same(value,s.moduleCondition) or is_same(value,s.moduleCondition.items): return
+	var present: bool = false
+	for other in owned.ships:
+		if is_same(other,s): present = true
+		elif other is Dictionary and other.get("moduleCondition") is Dictionary:
+			if is_same(other.moduleCondition,s.moduleCondition) or is_same(other.moduleCondition.get("items"),s.moduleCondition.items): return
+	if not present: return
+	for key in ["hp","maxHp","water","capacity","fire","engine","crew","wounded","crewMin","crewOptimal","crewMax","supplies","ammo","fuel","cooldown","armor","vx","vy"]:
+		if not EquipmentDamage.Core._number(s.get(key)): return
+	for breach in s.breaches:
+		if not (breach is Dictionary) or not EquipmentDamage.Core._number(breach.get("area")): return
+	var descriptor: Dictionary = EquipmentDamage.Records._battle_descriptor051(s)
+	if not bool(descriptor.get("ok",false)): return
+	var entry: Dictionary = {"valid":true,"shipRef":s,"conditionRef":s.moduleCondition,"itemsRef":s.moduleCondition.items,"specRef":s.spec,"baseSpecRef":s.get("baseSpec"),"loadoutRef":s.get("loadout"),"identity":[s.get("id"),s.get("uid"),s.get("type")],"descriptor":descriptor,"generation":generation,"infoGeneration":generation,"projectionGeneration":-1,"info":EquipmentDamage.Records._battle_freeze051(info),"projection":{},"statusInputs":[],"status":{},"healthy":false,"priority":s.moduleCondition.repairPriority}
+	owned.entries[slot] = entry
+
+static func _bind_battle_owned051(phase, owned, ships: Array, source: Dictionary) -> void:
+	if not (phase is BattlePhase043) or not phase.active or _battle_owned_for051(owned,ships,source) == null: return
+	phase.owned = owned
+	if not owned.admitted:
+		owned.admitted = true
+		for s in ships: _admit_battle_owner051(owned,s)
+	var live: Dictionary = {}
+	for s in ships: live[_cache_slot_key(s)] = s
+	for slot in owned.entries.keys():
+		var entry: Dictionary = owned.entries[slot]
+		if not is_same(live.get(slot),entry.shipRef) or entry.shipRef.get("sunk",false):
+			_drop_battle_owner051(owned,entry.shipRef)
+
+static func _battle_entry051(s: Dictionary, owned) -> Dictionary:
+	if not (owned is BattleOwned051) or not owned.active: return {}
+	var entry: Dictionary = owned.entries.get(_cache_slot_key(s),{})
+	if not is_same(entry.get("shipRef"),s): return {}
+	var valid: bool = bool(entry.get("valid",false)) and [s.get("id"),s.get("uid"),s.get("type")] == entry.identity
+	for pair in [["conditionRef","moduleCondition"],["specRef","spec"],["baseSpecRef","baseSpec"],["loadoutRef","loadout"]]:
+		valid = valid and is_same(entry.get(pair[0]),s.get(pair[1]))
+	valid = valid and s.get("moduleCondition") is Dictionary and is_same(entry.itemsRef,s.moduleCondition.get("items"))
+	if not valid:
+		_drop_battle_owner051(owned,s); return {}
+	# The public priority setter is also a reachable between-frame writer. It
+	# changes no topology; a fresh generation observes it before any private read.
+	if s.moduleCondition.get("repairPriority") != entry.priority:
+		if not s.moduleCondition.get("repairPriority") in EquipmentDamage.Core.PRIORITIES:
+			_drop_battle_owner051(owned,s); return {}
+		EquipmentDamage.Records._battle_dirty051(entry)
+		entry.priority = s.moduleCondition.repairPriority
+	entry.info = EquipmentDamage._battle_info051(s,entry)
+	if not bool(entry.valid):
+		_drop_battle_owner051(owned,s); return {}
+	return entry
+
+static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase) -> Dictionary:
+	var entry: Dictionary = _battle_entry051(s,phase.owned) if phase is BattlePhase043 and phase.active else {}
+	if entry.is_empty(): return tick_ship(s,dt,{"inCombat":true},phase)
+	invalidate_frame_cache(phase.source,s)
+	var result: Dictionary = _tick_canonical_with(s,maxf(0.0,number(dt)),{"inCombat":true},
+		EquipmentDamage._battle_info051.bind(entry),EquipmentDamage._battle_repair051.bind(entry),
+		EquipmentDamage.Records._battle_publish051.bind(entry),EquipmentDamage._battle_absorb051.bind(entry),
+		null,null,_healthy_canonical_no_work(s,entry.info))
+	if not bool(entry.valid): _drop_battle_owner051(phase.owned,s)
+	return result
+
+static func _apply_hit_in_battle051(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator, frame_cache, owned) -> Array:
+	var entry: Dictionary = _battle_entry051(s,owned)
+	var generation: int = int(entry.get("generation",0)) + 1
+	_drop_battle_owner051(owned,s) # A failed/partial transaction never keeps proof.
+	var receipt: Dictionary = {}
+	var events: Array = _apply_hit_checked051(s,hit,rng,frame_cache,receipt)
+	if not entry.is_empty() and bool(receipt.get("ok",false)):
+		_admit_battle_owner051(owned,s,generation)
+	return events
 
 static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
 	# The synchronous Battle call chain owns equipment writes. Scalar inputs are
 	# still live below; source-entry identity detects every owned invalidation.
 	if not (frame_cache is BattlePhase043) or not frame_cache.active:
 		return _cached_entry(s, frame_cache)
+	var owned_entry: Dictionary = _battle_entry051(s,frame_cache.owned)
+	if not owned_entry.is_empty(): return owned_entry
 	if _runtime_profile043_enabled: _runtime_profile043_counts.phaseLookups += 1
 	var slot: String = _find_cache_slot(s, frame_cache.source)
 	var entry = frame_cache.entries.get(slot)
@@ -331,6 +459,9 @@ static func _roll(rng: RandomNumberGenerator) -> float:
 	return local.randf()
 
 static func apply_hit(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator = null, frame_cache = null) -> Array:
+	return _apply_hit_checked051(s,hit,rng,frame_cache,{})
+
+static func _apply_hit_checked051(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator, frame_cache, receipt: Dictionary) -> Array:
 	var events: Array=[]
 	invalidate_frame_cache(frame_cache, s)
 	if not s is Dictionary or not hit is Dictionary:
@@ -393,7 +524,8 @@ static func apply_hit(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator
 				s.wounded+=1.0
 				events.append("One crew wounded")
 		_sanitize(s)
-		EquipmentDamage.Records.publish(s)
+		var published: Dictionary = EquipmentDamage.Records.publish(s)
+		receipt["ok"] = bool(comp_res.get("ok",false)) and bool(published.get("ok",false))
 		invalidate_frame_cache(frame_cache, s)
 		if s.sunk:
 			events.append("Ship sunk")
@@ -461,7 +593,9 @@ static func _healthy_canonical_no_work(s: Dictionary, info: Dictionary) -> bool:
 	return true
 
 static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame_cache = null) -> Dictionary:
-	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
+	if frame_cache is BattlePhase043:
+		_drop_battle_owner051(frame_cache.owned,s)
+		frame_cache = frame_cache.source
 	if not s is Dictionary: return get_status({})
 	var entry: Dictionary = _cached_entry(s,frame_cache)
 	if not entry.is_empty() and bool(entry.get("healthy",false)) and _options == {"inCombat":true} and _status_inputs(s) == entry.statusInputs:

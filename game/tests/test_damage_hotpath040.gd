@@ -271,6 +271,15 @@ func phase_battle043(source: Dictionary) -> void:
 	var code: String = FileAccess.get_file_as_string("res://scripts/battle.gd")
 	var needle: String = "Damage._begin_battle_phase043(frame_cache)"
 	check(code.count(needle) == 1, "043 one explicit Battle phase constructor")
+	var owned_needle: String = "Damage._create_battle_owned051(st.ships,st.tactical.damageCache)"
+	check(code.count(owned_needle) == 1, "051 one encounter context at successful battle creation")
+	# Keep the original whole-state/public-cache comparison for the 043 seam.
+	# The separate 051 arm below then enables the new lifetime on the same battle.
+	code = code.replace(owned_needle,"null")
+	var borrowed: GDScript = GDScript.new()
+	borrowed.source_code = code
+	if borrowed.reload() != OK:
+		check(false, "043 borrowed reference update compiles"); return
 	var reference: GDScript = GDScript.new()
 	reference.source_code = code.replace(needle, "frame_cache")
 	if reference.reload() != OK:
@@ -283,7 +292,7 @@ func phase_battle043(source: Dictionary) -> void:
 		check(bool(seeded.ok), "043 phase battle canonical birth " + id)
 		if not bool(seeded.ok): return
 		boats.append(boat)
-	var a: Dictionary = Battle.create({"fleet": [boats[0]], "enemyFleet": [boats[1]], "seed": 43043, "islands": []})
+	var a: Dictionary = borrowed.create({"fleet": [boats[0]], "enemyFleet": [boats[1]], "seed": 43043, "islands": []})
 	check(a.result == null and a.ships.size() == 2, "043 bounded actual battle opens")
 	if a.result != null or a.ships.size() != 2: return
 	for i in range(2):
@@ -303,7 +312,7 @@ func phase_battle043(source: Dictionary) -> void:
 	var equal: bool = true
 	for _i in range(12):
 		var input: Dictionary = {"manual": true, "forward": true, "fire": true, "aimX": float(a.ships[1].x), "aimY": float(a.ships[1].y)}
-		Battle.update(a, 1.0 / 60.0, input)
+		borrowed.update(a, 1.0 / 60.0, input)
 		reference.update(b, 1.0 / 60.0, input)
 		for i in range(2):
 			# Public boundary guards must agree too, including any newly added keys.
@@ -311,6 +320,116 @@ func phase_battle043(source: Dictionary) -> void:
 		equal = equal and a.rng.state == b.rng.state and var_to_bytes(battle_state043(a)) == var_to_bytes(battle_state043(b))
 	check(equal, "043 every full battle state/cache, RNG, shot, contact, order and equipment result equals fully guarded reads")
 	check(a.ships[0].fuel == 0.0 and a.ships[0].supplies < supplies_before and a.ships[1].hp < hp_before, "043 actual battle covers exhausted fuel, finite repair and a swept projectile hit")
+	a["_damageOwned051"] = Damage._create_battle_owned051(a.ships,a.tactical.damageCache)
+	equal = true
+	for _i in range(14):
+		var input: Dictionary = {"manual":true,"forward":true,"fire":true,"aimX":float(a.ships[1].x),"aimY":float(a.ships[1].y)}
+		Battle.update(a,1.0/60.0,input)
+		reference.update(b,1.0/60.0,input)
+		for i in range(2):
+			equal = equal and var_to_bytes(Damage.get_status(a.ships[i])) == var_to_bytes(Damage.get_status(b.ships[i]))
+		var actual: Dictionary = battle_state043(a)
+		var expected: Dictionary = battle_state043(b)
+		# Only derived validation caches/lifetime handles differ in this arm.
+		# The original cache-equality assertion above remains intact.
+		for state in [actual,expected]:
+			state.erase("_damageOwned051"); state.tactical.erase("damageCache")
+		equal = equal and a.rng.state == b.rng.state and var_to_bytes(actual) == var_to_bytes(expected)
+	check(equal, "051 every authoritative battle packet/status/RNG equals the public reference past frame twelve")
+	var owned = a._damageOwned051
+	var copied: Dictionary = a.duplicate(true)
+	check(Damage._battle_owned_for051(copied._damageOwned051,copied.ships,copied.tactical.damageCache) == null and owned.active, "051 copied encounter cannot borrow or close the original authority")
+	a.result = "retreated"
+	Battle.update(a,1.0/60.0)
+	check(not owned.active and owned.entries.is_empty(), "051 actual battle result tears down every owned proof")
+
+func owned_context051(source: Dictionary) -> void:
+	var live: Dictionary = source.duplicate(true)
+	var expected: Dictionary = source.duplicate(true)
+	var ships: Array = [live]
+	var cache: Dictionary = {}
+	var owned = Damage._create_battle_owned051(ships,cache)
+	var phase = Damage._begin_battle_phase043(cache)
+	var before: PackedByteArray = var_to_bytes(live)
+	Damage._bind_battle_owned051(phase,owned,ships,cache)
+	var entry: Dictionary = Damage._battle_entry051(live,owned)
+	check(not entry.is_empty() and var_to_bytes(live) == before, "051 private admission fully validates without changing its boat")
+	if entry.is_empty(): return
+	check(entry.descriptor.is_read_only() and entry.descriptor.items.is_read_only() and entry.descriptor.spec.is_read_only() and entry.info.snapshot.installed.engine.is_read_only(), "051 descriptor and detached equipment projections are deeply immutable")
+	var descriptor: Dictionary = entry.descriptor
+	var info: Dictionary = entry.info
+	Damage._end_battle_phase043(phase)
+	var equal: bool = true
+	for _i in range(14):
+		Damage.begin_frame_cache(cache,ships)
+		phase = Damage._begin_battle_phase043(cache)
+		Damage._bind_battle_owned051(phase,owned,ships,cache)
+		var report: Dictionary = Damage._tick_ship_in_battle051(live,1.0/60.0,phase)
+		var reference: Dictionary = Damage.tick_ship(expected,1.0/60.0,{"inCombat":true})
+		equal = equal and var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
+		Damage._end_battle_phase043(phase)
+	entry = Damage._battle_entry051(live,owned)
+	check(equal and is_same(entry.descriptor,descriptor) and is_same(entry.info,info) and int(entry.generation) == 0, "051 unchanged private proof survives frame twelve with exact public boat/report parity")
+	var previous_entry: Dictionary = entry
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	var old_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = 51040; old_rng.seed = rng.seed
+	var events: Array = Damage._apply_hit_in_battle051(live,{"damage":12.0,"kind":"rocket","section":"engine"},rng,cache,owned)
+	var old_events: Array = Damage.apply_hit(expected,{"damage":12.0,"kind":"rocket","section":"engine"},old_rng)
+	entry = Damage._battle_entry051(live,owned)
+	check(not entry.is_empty() and not previous_entry.valid and not is_same(entry.descriptor,descriptor) and int(entry.generation) == int(previous_entry.generation)+1, "051 successful public hit re-admits after revoking the old generation")
+	check(var_to_bytes(live) == var_to_bytes(expected) and events == old_events and rng.state == old_rng.state and live.fire > 0.0, "051 official hit, equipment loss, fire and RNG equal public reference")
+	Damage.set_policy(live,"repair"); Damage.set_policy(expected,"repair")
+	Damage.set_repair_priority(live,"engine"); Damage.set_repair_priority(expected,"engine")
+	live.engine = 0.5; expected.engine = live.engine # Real legacy absorption, below the jury cap.
+	live.fuel = 0.00001; expected.fuel = live.fuel
+	live.shoreCrew = 1.0; expected.shoreCrew = 1.0
+	var supplies: float = float(live.supplies)
+	var used: float = 0.0
+	for _i in range(3):
+		phase = Damage._begin_battle_phase043(cache)
+		Damage._bind_battle_owned051(phase,owned,ships,cache)
+		var report: Dictionary = Damage._tick_ship_in_battle051(live,1.0/30.0,phase)
+		var reference: Dictionary = Damage.tick_ship(expected,1.0/30.0,{"inCombat":true})
+		used += float(report.usedSupplies)
+		check(var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference) and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(expected)), "051 live fire/flood/crew/repair/report parity " + str(_i))
+		Damage._end_battle_phase043(phase)
+	check(used > 0.0 and live.supplies < supplies and live.fuel == 0.0 and live.crew == expected.crew, "051 real finite supplies, exhausted fuel and crew remain live")
+	entry = Damage._battle_entry051(live,owned)
+	check(not entry.is_empty() and int(entry.generation) > 1 and entry.infoGeneration == entry.generation, "051 official fire/repair/legacy writes refresh derived generations before reuse")
+	before = var_to_bytes(live)
+	var refused: Array = Damage._apply_hit_in_battle051(live,{"damage":1.0,"impactX":0.0},rng,cache,owned)
+	check(refused.is_empty() and not entry.valid and Damage._battle_entry051(live,owned).is_empty() and var_to_bytes(live) == before, "051 failed public hit drops all authority without keeping a stale projection")
+	Damage._admit_battle_owner051(owned,live)
+	var copy: Dictionary = live.duplicate(true)
+	copy.moduleCondition.nextItemSeq = 0
+	phase = Damage._begin_battle_phase043(cache)
+	Damage._bind_battle_owned051(phase,owned,ships,cache)
+	check(Damage._battle_entry051(copy,owned).is_empty() and not bool(Damage._tick_ship_in_battle051(copy,0.0,phase).equipmentOk), "051 same-ID corrupt copy takes the fully checked refusal path")
+	check(not Damage._battle_entry051(live,owned).is_empty(), "051 copy refusal leaves the exact original owner authoritative")
+	live.spec = live.spec.duplicate(true)
+	check(Damage._battle_entry051(live,owned).is_empty(), "051 spec replacement revokes authority rather than reusing a stale descriptor")
+	check(var_to_bytes(Damage._tick_ship_in_battle051(live,0.0,phase)) == var_to_bytes(Damage.tick_ship(expected,0.0,{"inCombat":true})), "051 unsupported writer uses fully checked tick fallback")
+	Damage._end_battle_phase043(phase)
+	Damage._close_battle_owned051(owned)
+	check(not owned.active and owned.entries.is_empty() and owned.ships.is_empty() and owned.source.is_empty(), "051 closure releases proofs and encounter references")
+	var bounded_ships: Array = []
+	for i in range(Damage.OWNER_CACHE_LIMIT+1):
+		var ship: Dictionary = source.duplicate(true)
+		ship.id = "owned051-%d" % i
+		bounded_ships.append(ship)
+	var bounded_cache: Dictionary = {}
+	var bounded = Damage._create_battle_owned051(bounded_ships,bounded_cache)
+	phase = Damage._begin_battle_phase043(bounded_cache)
+	Damage._bind_battle_owned051(phase,bounded,bounded_ships,bounded_cache)
+	check(bounded.entries.size() == Damage.OWNER_CACHE_LIMIT and Damage._battle_entry051(bounded_ships[-1],bounded).is_empty(), "051 encounter proof is bounded to 128 entries; overflow stays fully checked")
+	var overflow: Dictionary = bounded_ships[-1].duplicate(true)
+	check(var_to_bytes(Damage._tick_ship_in_battle051(bounded_ships[-1],0.0,phase)) == var_to_bytes(Damage.tick_ship(overflow,0.0,{"inCombat":true})), "051 overflow uses the unchanged public tick")
+	var departed: Dictionary = bounded_ships.pop_front()
+	Damage._bind_battle_owned051(phase,bounded,bounded_ships,bounded_cache)
+	check(bounded.entries.size() == Damage.OWNER_CACHE_LIMIT-1 and Damage._battle_entry051(departed,bounded).is_empty(), "051 removal releases its exact owner proof")
+	Damage._end_battle_phase043(phase)
+	Damage._close_battle_owned051(bounded)
 
 func probe(source: Dictionary) -> Dictionary:
 	var old_us: int = 0
@@ -386,6 +505,7 @@ func run() -> void:
 	fresh_records051(ship)
 	phase_reads043(ship)
 	phase_battle043(ship)
+	owned_context051(ship)
 	var measured: Dictionary = probe(ship)
 	altered = ship.duplicate(true)
 	altered.hp -= 25.0; altered.water = 25.0; altered.fire = 12.0

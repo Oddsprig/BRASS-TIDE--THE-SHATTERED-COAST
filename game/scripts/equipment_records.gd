@@ -420,6 +420,62 @@ static func _tick_records_exact(condition: Dictionary, proof: Dictionary) -> Dic
 		proof.records = records
 	return records
 
+# Private live-battle proof. Only the audited numerical writers below may keep
+# this topology; public records/snapshots still run their original full checks.
+static func _battle_freeze051(value):
+	if value is Dictionary:
+		for child in value.values(): _battle_freeze051(child)
+		value.make_read_only()
+	elif value is Array:
+		for child in value: _battle_freeze051(child)
+		value.make_read_only()
+	return value
+
+static func _battle_descriptor051(boat: Dictionary) -> Dictionary:
+	var records: Dictionary = Core._records(boat.moduleCondition)
+	if not records.ok: return records
+	var topology: Dictionary = boat.moduleCondition.items.duplicate(true)
+	for item in topology.values():
+		for key in ["hp", "status", "cause"]: item.erase(key)
+	return _battle_freeze051({"ok":true,"hasEngine":records.hasEngine,"locations":records.locations,"locker":records.locker,"items":topology,"spec":boat.spec.duplicate(true),"baseSpec":boat.get("baseSpec",{}).duplicate(true),"loadout":boat.get("loadout",{}).duplicate(true)})
+
+static func _battle_dirty051(entry: Dictionary) -> void:
+	entry.generation = int(entry.generation) + 1
+	entry.info = {}; entry.projection = {}; entry.statusInputs = []
+	entry.infoGeneration = -1; entry.projectionGeneration = -1
+	entry.healthy = false
+
+static func _battle_records051(condition: Dictionary, entry: Dictionary) -> Dictionary:
+	if not bool(entry.get("valid",false)) or not is_same(condition,entry.get("conditionRef")) or not is_same(condition.get("items"),entry.get("itemsRef")):
+		entry.valid = false
+		return _fail("Battle equipment authority was revoked.")
+	var descriptor: Dictionary = entry.descriptor
+	var engine_hp: float = -1.0
+	if descriptor.hasEngine:
+		var hp = condition.items[descriptor.locations.engine].hp
+		if not Core._unit(hp) or not Core._unit(condition.get("legacyEngineSynced")) or absf(float(hp)-float(condition.legacyEngineSynced)) > 0.0001:
+			entry.valid = false
+			return _fail("Battle engine condition is not finite or synchronized.")
+		engine_hp = float(hp)
+	# UIDs, placement, schema and locker count are immutable admission facts.
+	# Engine HP is live; the shared mutation kernels retain request/budget guards.
+	return {"ok":true,"hasEngine":descriptor.hasEngine,"engineHp":engine_hp,"locations":descriptor.locations,"locker":descriptor.locker}
+
+static func _battle_write051(condition: Dictionary, request: Dictionary, entry: Dictionary, kernel: Callable) -> Dictionary:
+	_battle_dirty051(entry) # Revoke derived generations before an official write.
+	var result: Dictionary = kernel.call(condition,request,_battle_records051.bind(entry))
+	if not bool(result.get("ok",false)): entry.valid = false
+	return result
+
+static func _battle_publish051(boat: Dictionary, entry: Dictionary) -> Dictionary:
+	if not bool(entry.get("valid",false)): return publish(boat)
+	if int(entry.projectionGeneration) != int(entry.generation):
+		var records: Dictionary = _battle_records051(boat.moduleCondition,entry)
+		if not records.ok: return records
+		entry.projection = _battle_freeze051(Core._publish_fields_from_records(boat.moduleCondition,records))
+		entry.projectionGeneration = entry.generation
+	return _publish_projection(boat,entry.projection)
+
 static func absorb_legacy_damage(boat: Dictionary) -> Dictionary:
 	return _absorb_legacy_damage_with(boat, Core._records)
 
