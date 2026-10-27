@@ -1,0 +1,42 @@
+BRASS TIDE v0.044 - COMMIT, BREAK AWAY, RECOVER
+
+WHAT CHANGED
+Light skiffs retain their response. Larger hulls build and shed velocity more
+slowly, and carry momentum through changes of course. Bow turn limits and top
+speed are unchanged; live boats and AI forecasts use the same movement math.
+
+Large cannons have a1.8-second base reload at full efficiency. Cannons on the
+large primary forward socket have135degrees of traverse. Crew/equipment damage
+can lengthen the real interval. Smaller weapons, rear and side mounts keep
+their existing rules. Fitting values, mount arcs and actual firing agree.
+
+Select a boat to read its real reload time, water trend, engine/fuel condition
+and repair hands/kits. Loaded means the timer expired; aim, range and a clear
+shot are still required. The crew-priority buttons act on the FLAGSHIP.
+No new shield, heat, fatigue or pressure meter was added.
+
+TRY THE LOOP
+Main menu -> Fleet battle laboratory -> Preset.
+- Practice: torpedo crossing. Take the Tinwake across the heavy gun's bearing,
+  line up the tube, fire, and leave during the reload. A kill is not required.
+- Practice: cover a breakaway. Use the escort to cover Tinwake after its pass.
+  Bail rising water, patch with carried kits when safe, and judge another pass.
+These are normal isolated battles, with normal finite stores and no career
+rewards. They give no scripted win, free repair, extra ammunition or hull buff.
+
+Autopilot starts ON. Space pauses. WASD moves the camera. Right-click issues
+movement/attack/escort orders to selected boats. U toggles manual flagship helm;
+manual steering uses arrows and mouse. Escape opens the menu.
+
+Damage control uses real crew time. Water costs speed; leaving late can remove
+the advantage that let the skiff escape. Bailing, patching, fire suppression,
+machinery work and guns compete for hands. Repairs use finite kits; reloading
+returns no ammunition. Keep enough crew, fuel, ammunition and kits to return.
+
+VERIFICATION AND LIMITS
+Focused044checks, Windows startup and actual still-capture results are recorded
+in tests/RESULTS.txt and docs/TEST RESULTS v0.044.md after verification.
+Numerical trajectories and stills do not establish feel, audio, motion quality
+or tacticalAI polish. The major42-boat performance miss from043 remains OPEN;
+this version is not a new full-fleet performance or Starsector parity claim.
+TacticalAI0.046 and the0.051 core milestone retain that concrete failing case.

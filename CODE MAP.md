@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.043: Real rendered performance and runtime budget. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: main.gd, runtime_profile043.gd, damage.gd, tactical_runtime.gd, chart.gd, boat_mesh_cache.gd, combat_art.gd.
+v0.044: Combat commitment and recovery. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: equipment_rollout.gd, combat_balance044.gd, mount_layout.gd, refit.gd, tactics_ui.gd, combat_pressure_view044.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

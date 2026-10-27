@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.042)
+BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.044)
 
 Physical part condition and exact spare/new selection -> real refit/repair UI and96-hull drafts. NPC/company owners pay conserved coins, finite materials and workers; installed condition affects offscreen power. Canonical careers and saves are integrated; live battle is now a working integration candidate; remaining gates stay open.
 
@@ -24,14 +24,14 @@ game/scripts/equipment_ui.gd: 10067 bytes; extends RefCounted
   game/scripts/equipment_ui.gd:115 _quote()
   game/scripts/equipment_ui.gd:129 _part()
   game/scripts/equipment_ui.gd:154 _num()
-game/scripts/workshop_ui.gd: 21533 bytes; extends RefCounted
-  game/scripts/workshop_ui.gd:60 open()
-  game/scripts/workshop_ui.gd:125 draft_set()
-  game/scripts/workshop_ui.gd:136 choose()
-  game/scripts/workshop_ui.gd:216 review()
-  game/scripts/workshop_ui.gd:248 templates()
-  game/scripts/workshop_ui.gd:277 compare()
-game/scripts/refit_ui.gd: 11882 bytes; extends RefCounted
+game/scripts/workshop_ui.gd: 21763 bytes; extends RefCounted
+  game/scripts/workshop_ui.gd:59 open()
+  game/scripts/workshop_ui.gd:124 draft_set()
+  game/scripts/workshop_ui.gd:135 choose()
+  game/scripts/workshop_ui.gd:214 review()
+  game/scripts/workshop_ui.gd:246 templates()
+  game/scripts/workshop_ui.gd:275 compare()
+game/scripts/refit_ui.gd: 12020 bytes; extends RefCounted
   game/scripts/refit_ui.gd:7 module_name()
   game/scripts/refit_ui.gd:16 roster()
   game/scripts/refit_ui.gd:34 preview()

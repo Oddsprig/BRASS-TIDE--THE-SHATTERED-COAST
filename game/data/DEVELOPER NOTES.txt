@@ -1,30 +1,35 @@
-BRASS TIDE v0.043 - RENDERED PERFORMANCE PASS
-26 October 2026 (local; 27 October UTC) | 36 boat designs
+BRASS TIDE v0.044 - COMBAT COMMITMENT AND RECOVERY
+26 October2026 |36boat designs
 
-CURRENT SCOPE
-Actual exported 300-point battles now have a repeatable background profile.
-The profile measures active movement, firing, impacts, flooding and effects.
-It keeps all boats, the normal 60 Hz simulation and the existing worker pool.
-Weapon, damage and crew rules are unchanged in this version.
+THIS VERSION
+Light skiffs retain their response. Larger boats build/shed velocity more slowly
+and carry momentum through turns. Live movement and AI forecasts share the same
+math; bow turn limits, top speeds, existing damage and fuel costs are unchanged.
 
-THREE MEASURED FIXES
-- Reuse exact equipment validation inside one synchronous damage transaction.
-- Reuse identical traffic broadphase queries within one tactical grid phase.
-- Reuse immutable hull palette and mount drawing inputs; live aim, recoil and
-  damage continue to update normally.
+Size3 heavy cannons have a1.8second base reload at full efficiency. Cannons on
+the large primary forward socket have135degrees of traverse. Smaller weapons,
+rear/side mounts and launchers retain their rules. Runtime, fitting chooser,
+physical mounts and art use the shared values. Crew and equipment damage can
+lengthen the actual reload; no ammunition or repair resources are invented.
 
-The experimental separate graphics submission mode produced actual engine
-texture errors. Safe graphics submission removed those errors on the same
-build. Economy workers and the existing thread pool remain enabled.
+The selected-boat HUD reports actual reload, water trend, engine/fuel and repair
+hands/kits. Loaded means only the timer expired: aim/range/clear-shot rules still
+apply. Crew-priority buttons act on the FLAGSHIP. No new pressure meter.
 
-The first measured comparison remains far below the target of smooth combat.
-The additional correction reuses checked equipment data only inside the closed
-synchronous battle phase, and unchanged planning inputs for one due boat.
-Public reads retain their checks; contacts and projectiles run after the phase
-closes. Performance acceptance remains open until actual measurements meet the
-targets. Exact numbers and limits are in docs/PERFORMANCE v0.043.txt.
-This version is not an assertion of Starsector quality.
+PRACTICE
+Main menu -> Fleet battle laboratory -> Preset:
+  Practice: torpedo crossing (two boats)
+  Practice: cover a breakaway (four boats)
+Both use normal canonical fittings, finite supplies and ordinary battle rules.
+They provide guidance, not forced damage, rewards, free repairs or scripted wins.
+Autopilot starts ON; Space pauses; WASD camera; right-click selected orders.
+U toggles manual flagship helm with arrows/mouse. Escape opens the menu.
 
-Later steps remain separate: 0.044 combat commitment/recovery; 0.045 combat
-presentation and sound; 0.046 tactical AI; 0.049 the remaining boat art.
-Coin, material, inventory and numerical crew accounting remain unchanged.
+SCOPE AND LIMITS
+Read docs/COMBAT LOOP v0.044.txt and the portable test receipts for results.
+Numerical checks and still captures do not certify game feel or audio quality.
+043's full-fleet performance targets remain OPEN: light4.330FPS/mixed28.686FPS.
+This version makes no fresh full-fleet FPS or Starsector-quality claim.
+045 is combat presentation/sound;046tacticalAI retains the concrete slow-case
+constraint. Milestone051must not pass while the core experience remains weak.
+Coins,100coins per sailor-day, real purses/materials and numerical crews remain.

@@ -1,4 +1,4 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.042)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.044)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 
@@ -22,19 +22,19 @@ game/scripts/music.gd: 4480 bytes; extends Node
   game/scripts/music.gd:18 _ready()
   game/scripts/music.gd:29 _scan()
   game/scripts/music.gd:98 _process()
-game/scripts/combat_art.gd: 39780 bytes; extends RefCounted
-  game/scripts/combat_art.gd:211 effect()
-  game/scripts/combat_art.gd:584 wreck()
-  game/scripts/combat_art.gd:108 _num()
-  game/scripts/combat_art.gd:113 _scale()
-  game/scripts/combat_art.gd:118 _lod()
-  game/scripts/combat_art.gd:131 _project()
-  game/scripts/combat_art.gd:144 _det_unit()
-  game/scripts/combat_art.gd:148 _det_signed()
-  game/scripts/combat_art.gd:151 _det_angle()
-  game/scripts/combat_art.gd:157 _fx_poly()
-  game/scripts/combat_art.gd:165 _fx_line()
-  game/scripts/combat_art.gd:171 _fx_circle()
+game/scripts/combat_art.gd: 41032 bytes; extends RefCounted
+  game/scripts/combat_art.gd:31 profile_enable()
+  game/scripts/combat_art.gd:34 profile_reset()
+  game/scripts/combat_art.gd:38 profile_read()
+  game/scripts/combat_art.gd:243 effect()
+  game/scripts/combat_art.gd:616 wreck()
+  game/scripts/combat_art.gd:140 _num()
+  game/scripts/combat_art.gd:145 _scale()
+  game/scripts/combat_art.gd:150 _lod()
+  game/scripts/combat_art.gd:163 _project()
+  game/scripts/combat_art.gd:176 _det_unit()
+  game/scripts/combat_art.gd:180 _det_signed()
+  game/scripts/combat_art.gd:183 _det_angle()
 game/scripts/combat_events.gd: 38412 bytes; extends RefCounted
   game/scripts/combat_events.gd:15 number()
   game/scripts/combat_events.gd:20 weapon_family()

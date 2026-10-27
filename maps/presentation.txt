@@ -1,22 +1,22 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.042)
+BRASS TIDE — PRESENTATION MAP (generated; v0.044)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 48661 bytes; extends Node2D
-  game/scripts/chart.gd:44 setup()
-  game/scripts/chart.gd:89 polygon()
-  game/scripts/chart.gd:95 polygon_center()
-  game/scripts/chart.gd:101 noise()
-  game/scripts/chart.gd:104 nautical_chart()
-  game/scripts/chart.gd:108 project()
-game/scripts/boat_art.gd: 33052 bytes; extends RefCounted
-  game/scripts/boat_art.gd:30 archetype()
-  game/scripts/boat_art.gd:85 palette()
-  game/scripts/boat_art.gd:146 mounts_of()
-  game/scripts/boat_art.gd:417 draw_boat()
-  game/scripts/boat_art.gd:555 draw_wake()
-  game/scripts/boat_art.gd:590 draw_trail()
+game/scripts/chart.gd: 53970 bytes; extends Node2D
+  game/scripts/chart.gd:53 profile_enable()
+  game/scripts/chart.gd:58 profile_reset()
+  game/scripts/chart.gd:64 profile_read()
+  game/scripts/chart.gd:68 setup()
+  game/scripts/chart.gd:113 polygon()
+  game/scripts/chart.gd:119 polygon_center()
+game/scripts/boat_art.gd: 34924 bytes; extends RefCounted
+  game/scripts/boat_art.gd:35 archetype()
+  game/scripts/boat_art.gd:90 palette()
+  game/scripts/boat_art.gd:151 mounts_of()
+  game/scripts/boat_art.gd:452 draw_boat()
+  game/scripts/boat_art.gd:591 draw_wake()
+  game/scripts/boat_art.gd:626 draw_trail()
 game/scripts/boat_portrait.gd: 7540 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:50 set_spec()
   game/scripts/boat_portrait.gd:64 framing()
@@ -31,14 +31,14 @@ game/scripts/interface.gd: 49140 bytes; extends CanvasLayer
   game/scripts/interface.gd:128 clear()
   game/scripts/interface.gd:133 label()
   game/scripts/interface.gd:143 paragraph()
-game/scripts/tactics_ui.gd: 14493 bytes; extends RefCounted
-  game/scripts/tactics_ui.gd:4 build()
-  game/scripts/tactics_ui.gd:61 update()
-  game/scripts/tactics_ui.gd:87 plain()
-  game/scripts/tactics_ui.gd:90 selected_choices()
-  game/scripts/tactics_ui.gd:102 apply_choices()
-  game/scripts/tactics_ui.gd:105 number_choice()
-game/scripts/refit_ui.gd: 11882 bytes; extends RefCounted
+game/scripts/tactics_ui.gd: 15053 bytes; extends RefCounted
+  game/scripts/tactics_ui.gd:5 build()
+  game/scripts/tactics_ui.gd:63 update()
+  game/scripts/tactics_ui.gd:89 plain()
+  game/scripts/tactics_ui.gd:92 selected_choices()
+  game/scripts/tactics_ui.gd:104 apply_choices()
+  game/scripts/tactics_ui.gd:107 number_choice()
+game/scripts/refit_ui.gd: 12020 bytes; extends RefCounted
   game/scripts/refit_ui.gd:7 module_name()
   game/scripts/refit_ui.gd:16 roster()
   game/scripts/refit_ui.gd:34 preview()
@@ -57,13 +57,13 @@ game/scripts/boat_deck_detail.gd: 17315 bytes; extends RefCounted
   game/scripts/boat_deck_detail.gd:154 cabin()
   game/scripts/boat_deck_detail.gd:215 draw_items()
   game/scripts/boat_deck_detail.gd:9 _model()
-game/scripts/workshop_ui.gd: 21533 bytes; extends RefCounted
-  game/scripts/workshop_ui.gd:60 open()
-  game/scripts/workshop_ui.gd:125 draft_set()
-  game/scripts/workshop_ui.gd:136 choose()
-  game/scripts/workshop_ui.gd:216 review()
-  game/scripts/workshop_ui.gd:248 templates()
-  game/scripts/workshop_ui.gd:277 compare()
+game/scripts/workshop_ui.gd: 21763 bytes; extends RefCounted
+  game/scripts/workshop_ui.gd:59 open()
+  game/scripts/workshop_ui.gd:124 draft_set()
+  game/scripts/workshop_ui.gd:135 choose()
+  game/scripts/workshop_ui.gd:214 review()
+  game/scripts/workshop_ui.gd:246 templates()
+  game/scripts/workshop_ui.gd:275 compare()
 
 TESTS (game/tests/*.gd)
 test_runtime, test_art_workshop, test_workshop_ui; play questions in TO BE TESTED.md

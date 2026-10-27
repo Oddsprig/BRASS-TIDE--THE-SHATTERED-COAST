@@ -1,4 +1,4 @@
-BRASS TIDE — LABORATORY MAP (generated; v0.042)
+BRASS TIDE — LABORATORY MAP (generated; v0.044)
 
 Title builder -> isolated normal300point battle, seeded replay/results and opt-in developer metrics.
 

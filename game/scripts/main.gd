@@ -998,7 +998,9 @@ func capture_after_start():
 	await get_tree().create_timer(2.0).timeout
 	await RenderingServer.frame_post_draw
 	var image = get_viewport().get_texture().get_image()
-	var path = ProjectSettings.globalize_path("res://../qa")
+	var path: String = OS.get_environment("GAME_TEST_ARTIFACTS")
+	if not path.is_absolute_path():
+		path = ProjectSettings.globalize_path("res://../qa")
 	DirAccess.make_dir_recursive_absolute(path)
 	image.save_png(path.path_join("%s.png" % mode))
 	print("QA_CAPTURE ", path.path_join("%s.png" % mode))

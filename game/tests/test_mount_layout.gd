@@ -107,10 +107,12 @@ func test_aim_and_mounts_normalization() -> void:
 	for i in range(pts.size()):
 		var p: Dictionary = pts[i]
 		var orig_aim: Dictionary = Layout.weapon_aim(p, "cannon", true)
-		check(is_equal_approx(float(orig_aim.arc), float(p.arc)) and is_zero_approx(float(orig_aim.angle)), "original primary aim on " + p.id)
+		var cannon_arc: float = PI * 0.75 if i == 0 else float(p.arc)
+		check(is_equal_approx(float(orig_aim.arc), cannon_arc) and is_zero_approx(float(orig_aim.angle)), "declared original cannon aim on " + p.id)
 		for gun_kind in ["gun", "cannon"]:
 			var g_aim: Dictionary = Layout.weapon_aim(p, gun_kind, false)
-			check(is_equal_approx(float(g_aim.arc), float(p.arc)) and is_equal_approx(float(g_aim.angle), expected_angles[i]), "normal gun arc preserved on " + p.id)
+			var expected_arc: float = cannon_arc if gun_kind == "cannon" else float(p.arc)
+			check(is_equal_approx(float(g_aim.arc), expected_arc) and is_equal_approx(float(g_aim.angle), expected_angles[i]), "declared weapon arc on " + p.id)
 		for fixed_kind in ["rocket", "torpedo"]:
 			var f_aim: Dictionary = Layout.weapon_aim(p, fixed_kind, false)
 			check(is_equal_approx(float(f_aim.arc), 0.9) and is_equal_approx(float(f_aim.angle), expected_angles[i]), "fixed launcher outward angle on " + p.id)
