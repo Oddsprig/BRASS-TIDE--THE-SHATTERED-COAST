@@ -45,3 +45,38 @@ Source review: git diff --check clean. Existing read-only preload API advisory
 issues []; engineInvoked false. No fixture/native/QA/profile/export/GPU run.
 Root owns native parsing/assertions and final combined performance evidence.
 Savings unmeasured; Desktop 050 and core gate OPEN. No tactical/UI/metadata edit.
+
+051 HEALTHY PRIVATE TICK FOLLOW-UP - SOURCE CANDIDATE, native/profile UNRUN
+Owned checkout v051-routes-owned-sol, parent 9762e5e on dfb4474. Before editing,
+damage.gd AND the existing fixture had zero diff against Root main2fc7bcb;
+damage SHA256 FD9587EDA12F8CDF117B4037BDA72B03614B0070D88AF2F98AB00C8B8BC1DB28.
+Only damage.gd, test_damage_hotpath040.gd and this handoff changed.
+
+Actual input evidence: job2652adca046e421ba6d276ac90eb055c, runtime043-58660-2163663.
+Read saved raw ticks, not a new run: light456 ticks, damage median3.693ms/P954.029;
+mixed697 ticks, median2.160ms/P952.411. Public expiry evictions0 in both cases.
+Those are baseline whole damage-phase times, not healthy-wrapper attribution
+or a prediction of savings; no new timing/profile/native execution was made.
+
+30 added/2 removed production lines. _tick_ship_in_battle051 reuses the existing
+_tick_healthy_cached numerical fuel/cooldown/sanitation/publication substeps.
+The current exact-owner/ref/generation checks run first. Healthy/status proof
+is retained only for matching _status_inputs; changes in crew/shore labor,
+wounds, water, fire, breaches, hull, supplies, policy and fuel-zero re-prove it.
+Fuel/ammo/cooldown are live finite/nonnegative guards; vx/vy stay finite and the
+existing helper reads actual speed each substep. Engine and legacy watermark
+must both be1 before fast publication, preserving real engine absorption.
+Official priority/equipment changes still dirty generation and clear healthy.
+Existing immutable projection is prepared once per official generation; a
+failed preparation revokes authority before the fully checked public fallback.
+Otherwise a non-healthy owner uses the existing canonical math without a
+duplicate no-work eligibility scan. Public entry guards/cache12 expiry remain.
+No Equipment/Battle/tactical edits, new context, RNG/store/work math or actors.
+
+Existing fixture keeps every prior assertion and adds17: immutable status reuse
+past frame12 plus16 warmed transitions with full public boat/report/status
+comparisons (including fuel exhaust/refill, paid repair and legacy engine loss).
+Existing hit/RNG/refusal/copy/closure/128-entry and real battle comparisons stay.
+Diff/whitespace and existing read-only API advisory clean; engineInvoked false.
+Fixture/native/profile UNRUN. Root owns all execution and acceptance. Desktop050,
+core gateOPEN; stop source work after this handoff pending actual findings.

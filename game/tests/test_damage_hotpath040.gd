@@ -360,6 +360,7 @@ func owned_context051(source: Dictionary) -> void:
 	var info: Dictionary = entry.info
 	Damage._end_battle_phase043(phase)
 	var equal: bool = true
+	var retained_status: Dictionary = {}
 	for _i in range(14):
 		Damage.begin_frame_cache(cache,ships)
 		phase = Damage._begin_battle_phase043(cache)
@@ -367,9 +368,11 @@ func owned_context051(source: Dictionary) -> void:
 		var report: Dictionary = Damage._tick_ship_in_battle051(live,1.0/60.0,phase)
 		var reference: Dictionary = Damage.tick_ship(expected,1.0/60.0,{"inCombat":true})
 		equal = equal and var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
+		if _i == 0: retained_status = entry.status
 		Damage._end_battle_phase043(phase)
 	entry = Damage._battle_entry051(live,owned)
 	check(equal and is_same(entry.descriptor,descriptor) and is_same(entry.info,info) and int(entry.generation) == 0, "051 unchanged private proof survives frame twelve with exact public boat/report parity")
+	check(entry.healthy and is_same(entry.status,retained_status) and entry.status.is_read_only() and int(entry.projectionGeneration) == int(entry.generation), "051 healthy ticks reuse the immutable status and current projection past frame twelve")
 	var previous_entry: Dictionary = entry
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	var old_rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -430,6 +433,48 @@ func owned_context051(source: Dictionary) -> void:
 	check(bounded.entries.size() == Damage.OWNER_CACHE_LIMIT-1 and Damage._battle_entry051(departed,bounded).is_empty(), "051 removal releases its exact owner proof")
 	Damage._end_battle_phase043(phase)
 	Damage._close_battle_owned051(bounded)
+
+func healthy_owned_changes051(source: Dictionary) -> void:
+	for change in [
+		{"label":"crew and shore labor","fields":{"crew":float(source.crew)-1.0,"shoreCrew":0.5}},
+		{"label":"wounds","fields":{"wounded":1.0}},
+		{"label":"water","fields":{"water":3.0}},
+		{"label":"fire","fields":{"fire":2.0}},
+		{"label":"breach","fields":{"breaches":[{"area":2.0,"section":"bow"}]}},
+		{"label":"paid hull repair","fields":{"hp":float(source.hp)-5.0,"policy":"repair"}},
+		{"label":"empty supplies","fields":{"supplies":0.0}},
+		{"label":"fight policy","fields":{"policy":"fight"}},
+		{"label":"repair priority","fields":{},"priority":"hull"},
+		{"label":"fuel exhaustion","fields":{"fuel":0.00001}},
+		{"label":"fuel refill","fields":{"fuel":0.0},"refill":true},
+		{"label":"stationary","fields":{"vx":0.0,"vy":0.0}},
+		{"label":"moving threshold","fields":{"vx":0.0,"vy":1.001}},
+		{"label":"ammunition and cooldown","fields":{"ammo":0.0,"cooldown":0.001}},
+		{"label":"negative stores","fields":{"fuel":-1.0,"ammo":-1.0,"cooldown":-0.1}},
+		{"label":"legacy engine loss","fields":{"engine":0.5}}
+	]:
+		var live: Dictionary = source.duplicate(true)
+		var expected: Dictionary = source.duplicate(true)
+		var ships: Array = [live]
+		var cache: Dictionary = {}
+		var owned = Damage._create_battle_owned051(ships,cache)
+		var phase = Damage._begin_battle_phase043(cache)
+		Damage._bind_battle_owned051(phase,owned,ships,cache)
+		var report: Dictionary = Damage._tick_ship_in_battle051(live,0.0,phase)
+		var reference: Dictionary = Damage.tick_ship(expected,0.0,{"inCombat":true})
+		var equal: bool = var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
+		live.merge(change.fields.duplicate(true),true); expected.merge(change.fields.duplicate(true),true)
+		if change.has("priority"):
+			Damage.set_repair_priority(live,str(change.priority)); Damage.set_repair_priority(expected,str(change.priority))
+		for _i in range(2):
+			report = Damage._tick_ship_in_battle051(live,1.0/30.0,phase)
+			reference = Damage.tick_ship(expected,1.0/30.0,{"inCombat":true})
+			equal = equal and var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
+			equal = equal and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(expected))
+			if _i == 0 and bool(change.get("refill",false)): live.fuel = 1.0; expected.fuel = 1.0
+		check(equal, "051 warmed private healthy guard and full public parity: " + str(change.label))
+		Damage._end_battle_phase043(phase)
+		Damage._close_battle_owned051(owned)
 
 func probe(source: Dictionary) -> Dictionary:
 	var old_us: int = 0
@@ -506,6 +551,7 @@ func run() -> void:
 	phase_reads043(ship)
 	phase_battle043(ship)
 	owned_context051(ship)
+	healthy_owned_changes051(ship)
 	var measured: Dictionary = probe(ship)
 	altered = ship.duplicate(true)
 	altered.hp -= 25.0; altered.water = 25.0; altered.fire = 12.0

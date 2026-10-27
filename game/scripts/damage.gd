@@ -349,14 +349,42 @@ static func _battle_entry051(s: Dictionary, owned) -> Dictionary:
 		_drop_battle_owner051(owned,s); return {}
 	return entry
 
+static func _healthy_battle_entry051(s: Dictionary, entry: Dictionary) -> bool:
+	# The encounter generation owns equipment proof; these scalars remain live.
+	# Engine changes must reach legacy absorption before any projection publish.
+	if s.get("engine") != 1.0 or s.moduleCondition.get("legacyEngineSynced") != 1.0:
+		entry.healthy = false; return false
+	for key in ["fuel","ammo","cooldown"]:
+		if not EquipmentDamage.Core._number(s.get(key)) or s[key] < 0.0:
+			entry.healthy = false; return false
+	for key in ["vx","vy"]:
+		if not EquipmentDamage.Core._number(s.get(key)):
+			entry.healthy = false; return false
+	# Crew, fire, water, breaches, policy, supplies and fuel-zero affect status.
+	# Priority/official equipment writes already revoke healthy in _battle_entry051.
+	if not bool(entry.healthy) or _status_inputs(s) != entry.statusInputs:
+		entry.healthy = false
+		if not _healthy_canonical_no_work(s,entry.info): return false
+		if int(entry.projectionGeneration) != int(entry.generation):
+			var published: Dictionary = EquipmentDamage.Records._battle_publish051(s,entry)
+			if not bool(published.get("ok",false)) or not bool(entry.valid):
+				entry.valid = false; return false
+		_status_from_entry043(s,entry)
+		entry.healthy = true
+	return true
+
 static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase) -> Dictionary:
 	var entry: Dictionary = _battle_entry051(s,phase.owned) if phase is BattlePhase043 and phase.active else {}
 	if entry.is_empty(): return tick_ship(s,dt,{"inCombat":true},phase)
 	invalidate_frame_cache(phase.source,s)
+	if _healthy_battle_entry051(s,entry):
+		return _tick_healthy_cached(s,maxf(0.0,number(dt)),entry,phase.source)
+	if not bool(entry.valid):
+		_drop_battle_owner051(phase.owned,s)
+		return tick_ship(s,dt,{"inCombat":true},phase)
 	var result: Dictionary = _tick_canonical_with(s,maxf(0.0,number(dt)),{"inCombat":true},
 		EquipmentDamage._battle_info051.bind(entry),EquipmentDamage._battle_repair051.bind(entry),
-		EquipmentDamage.Records._battle_publish051.bind(entry),EquipmentDamage._battle_absorb051.bind(entry),
-		null,null,_healthy_canonical_no_work(s,entry.info))
+		EquipmentDamage.Records._battle_publish051.bind(entry),EquipmentDamage._battle_absorb051.bind(entry))
 	if not bool(entry.valid): _drop_battle_owner051(phase.owned,s)
 	return result
 
