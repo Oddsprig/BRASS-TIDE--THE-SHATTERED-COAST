@@ -10,13 +10,13 @@ game/scripts/chart.gd: 56255 bytes; extends Node2D
   game/scripts/chart.gd:78 setup()
   game/scripts/chart.gd:102 polygon()
   game/scripts/chart.gd:108 polygon_center()
-game/scripts/boat_art.gd: 36230 bytes; extends RefCounted
+game/scripts/boat_art.gd: 36399 bytes; extends RefCounted
   game/scripts/boat_art.gd:56 archetype()
   game/scripts/boat_art.gd:111 palette()
   game/scripts/boat_art.gd:172 mounts_of()
-  game/scripts/boat_art.gd:475 draw_boat()
-  game/scripts/boat_art.gd:640 draw_wake()
-  game/scripts/boat_art.gd:645 draw_trail()
+  game/scripts/boat_art.gd:476 draw_boat()
+  game/scripts/boat_art.gd:641 draw_wake()
+  game/scripts/boat_art.gd:646 draw_trail()
 game/scripts/boat_portrait.gd: 7540 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:50 set_spec()
   game/scripts/boat_portrait.gd:64 framing()

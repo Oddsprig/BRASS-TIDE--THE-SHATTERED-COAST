@@ -29,16 +29,23 @@ queue atomic Move/access; preserved separately, unchanged retry measured above.
 Normal and detailed runs vary with worker timing; no exact attribution of small
 timing differences. Fine counters off means attribution absent, not zero work.
 
-Next bounded pass: reuse existing draw preparation for static engine/pump mark
-anchors; build full AI observations when 100ms worker planning actually requests
-them. Current poses/physics/collisions/status/ready-shot checks remain60Hz.
-Main remains responsible for live simulation; current role/target/maneuver jobs
-and campaign economy already use copied-data workers. Separate render thread
-remains disabled after native errors; actual Godot renderer mode1 is safe.
-No speculative parallel-helm implementation: read-only audit found limited
-net opportunity without a deeper data split. No new profiler/framework/features.
-Three BridgeSol6.1MAX source tasks; Root owns all muted background FIFO tests,
-each whole batch below120seconds. No051tag/package/install/no052 expansion.
+LATEST USER-AUTHORIZED ARCHITECTURE CHANGE
+Owner explicitly rejects60Hz calculations and heavy Main-thread simulation.
+Implement30Hz authoritative battle on a data-only worker, independent60+FPS
+presentation/interpolation; existing role/target planning stays100ms. Earlier
+60Hz physical-policy statements are historical baseline, superseded here.
+Main input/commands/UI/audio/rendering only; owned simulation state stays on
+worker, and plain presentation/events/telemetry cross an explicit boundary.
+Do not silently report Main publication time as total simulation cost. Native
+proof must cover actual worker identity, commands/current collisions/resources,
+pause/result/retirement and real-time30Hz capacity/lag plus rendered60FPS.
+See WORKER BATTLE051 CONTRACT.txt in the current task for shared ownership/API.
+Prepared marker geometry/demand observations/regressions are merged as source
+candidates only; no native validation yet. Dedicated worker change now takes
+priority over further microtuning. Three BridgeSol6.1MAX helpers implement
+driver, presentation/commands, and proof/observer. Root owns every muted
+background FIFO test; each whole batch below120seconds. No tag/install/push,
+Desktop050 preserved and no052 breadth until usable core.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 
 HISTORICAL CHECKPOINTS (superseded where current status differs)
