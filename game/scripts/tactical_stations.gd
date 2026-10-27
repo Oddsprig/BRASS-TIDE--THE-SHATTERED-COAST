@@ -829,19 +829,29 @@ static func _reservation_egress051(requested: Dictionary, existing: Dictionary, 
 	while at < finish:
 		if int(counters.clearanceTests) >= limit:
 			counters.clearanceExhausted = int(counters.clearanceExhausted) + 1
+			_conflict_veto051(requested,existing,counters,"pending","synchronized egress budget")
 			return "pending"
 		counters.clearanceTests = int(counters.clearanceTests) + 1
 		var end: float = minf(finish, minf(float(a[i][1]), float(b[j][1])))
-		var relative: Vector2 = _reservation_point051(a[i], at) - _reservation_point051(b[j], at)
-		last = _reservation_point051(a[i], end) - _reservation_point051(b[j], end)
+		var own_start: Vector2 = _reservation_point051(a[i], at)
+		var other_start: Vector2 = _reservation_point051(b[j], at)
+		var own_end: Vector2 = _reservation_point051(a[i], end)
+		var other_end: Vector2 = _reservation_point051(b[j], end)
+		var relative: Vector2 = own_start - other_start
+		last = own_end - other_end
 		var delta: Vector2 = last - relative
-		if relative.length() + 0.0001 < physical or relative.dot(delta) < 0.0 or last.length() + 0.0001 < physical:return "blocked"
+		if relative.length() + 0.0001 < physical or relative.dot(delta) < 0.0 or last.length() + 0.0001 < physical:
+			if bool(counters.get("vetoCapture051",false)):
+				_conflict_veto051(requested,existing,counters,"blocked","synchronized egress physical floor or approach",own_start,own_end,{"pieceFrom":at,"pieceUntil":end,"threshold":clearance,"physicalFloor":physical,"initialDistance":relative.length(),"endDistance":last.length(),"separationDot":relative.dot(delta),"blockerSegment":[[other_start.x,other_start.y],[other_end.x,other_end.y]]})
+			return "blocked"
 		at = end
 		if at >= float(a[i][1]):i += 1
 		if at >= float(b[j][1]):j += 1
 	# Arrival holds may preserve an earlier gain, but a stationary whole prefix
 	# supplies no separating departure. Actual drift/turn still checks at 60Hz.
-	return "valid" if last.length_squared() > initial.length_squared() else "blocked"
+	if last.length_squared() > initial.length_squared():return "valid"
+	_conflict_veto051(requested,existing,counters,"blocked","synchronized egress gains no separation")
+	return "blocked"
 
 static func _distance(point: Vector2, a: Vector2, b: Vector2) -> float:
 	var delta: Vector2 = b - a
@@ -862,22 +872,39 @@ static func conflict(requested: Dictionary, existing: Dictionary, counters: Dict
 	return _conflict(requested, existing, counters, limit, false)
 
 static func _conflict_begin051(requested: Dictionary, existing: Dictionary, counters: Dictionary, limit: int) -> bool:
-	return _conflict(requested, existing, counters, limit, true)
+	if not Routes._veto_enabled051():return _conflict(requested, existing, counters, limit, true)
+	counters.vetoCapture051=Routes._veto_due051(str(requested.get("shipId","")),float(requested.get("from",-1.0)),"reservation")
+	if not counters.vetoCapture051:return _conflict(requested, existing, counters, limit, true)
+	counters.profileRoutes051=true;counters.clearanceLimit=limit;counters.erase("vetoPrimitive051")
+	var result: bool=_conflict(requested, existing, counters, limit, true)
+	if result:
+		var status: String="pending" if int(counters.clearanceExhausted)>0 else "blocked"
+		Routes._veto_record051(counters,str(requested.get("shipId","")),float(requested.get("from",-1.0)),"reservation",status,"Current reservation conflict","",{"blocker":str(existing.get("shipId","")),"absoluteHorizon":[float(requested.get("from",-1.0)),float(requested.get("until",-1.0))]})
+	counters.vetoCapture051=false
+	return result
+
+static func _conflict_veto051(requested: Dictionary,existing: Dictionary,counters: Dictionary,status: String,reason: String,a: Variant=null,b: Variant=null,extra: Dictionary={}) -> bool:
+	if not bool(counters.get("vetoCapture051",false)):return true
+	var start: Vector2=a if a is Vector2 else Vector2.ZERO
+	var finish: Vector2=b if b is Vector2 else Vector2.ZERO
+	Routes._veto_primitive051(counters,status,"reservation",reason,start,finish,Roles.number(requested.get("radius")),Roles.number(requested.get("from")),Roles.number(requested.get("until")),str(existing.get("shipId","")),extra)
+	if not a is Vector2 or not b is Vector2:counters.vetoPrimitive051["segment"]=null
+	return true
 
 static func _conflict(requested: Dictionary, existing: Dictionary, counters: Dictionary, limit: int, live_prefix051: bool) -> bool:
 	# Count occupancy primitives before execution. Exhaustion is a pending decision.
 	if int(counters.clearanceTests) >= limit:
 		counters.clearanceExhausted = int(counters.clearanceExhausted) + 1
-		return true
+		return _conflict_veto051(requested,existing,counters,"pending","reservation primitive budget")
 	counters.clearanceTests = int(counters.clearanceTests) + 1
 	for key: String in ["approach", "pass", "exit"]:
 		if not valid_path(existing.get(key)):
-			return true
+			return _conflict_veto051(requested,existing,counters,"blocked","existing reservation path invalid")
 	var clearance: float = Roles.number(requested.get("radius")) + Roles.number(existing.get("radius"))
 	if not live_prefix051 and anchor(requested).distance_to(anchor(existing)) < clearance:
-		return true
+		return _conflict_veto051(requested,existing,counters,"blocked","anchor clearance")
 	if not live_prefix051 and str(requested.get("targetId", "")) != "" and requested.targetId == existing.get("targetId") and int(requested.sector) >= 0 and int(requested.sector) == int(Roles.number(existing.get("sector"), -1.0)):
-		return true
+		return _conflict_veto051(requested,existing,counters,"blocked","occupied target sector")
 	# Public paths stay complete. Only private, already-padded pairs may prove
 	# synchronized separation; every ordinary pair keeps its original capsules.
 	var lane_clearance: float = maxf(0.0, clearance - 9.0)
@@ -889,7 +916,7 @@ static func _conflict(requested: Dictionary, existing: Dictionary, counters: Dic
 	if live_prefix051:
 		var a_origin: Variant = requested.get("origin051")
 		var b_origin: Variant = existing.get("origin051")
-		if not a_origin is Vector2 or not b_origin is Vector2 or not a_origin.is_finite() or not b_origin.is_finite():return true
+		if not a_origin is Vector2 or not b_origin is Vector2 or not a_origin.is_finite() or not b_origin.is_finite():return _conflict_veto051(requested,existing,counters,"blocked","invalid reservation origins")
 		if a_path.is_empty() or a_path[0] != a_origin:a_path.push_front(a_origin)
 		if b_path.is_empty() or b_path[0] != b_origin:b_path.push_front(b_origin)
 		if a_path.size() == 1:a_path.append(a_origin)
@@ -898,8 +925,10 @@ static func _conflict(requested: Dictionary, existing: Dictionary, counters: Dic
 		for j: int in range(maxi(0, b_path.size() - 1)):
 			if int(counters.clearanceTests) >= limit:
 				counters.clearanceExhausted = int(counters.clearanceExhausted) + 1
-				return true
+				return _conflict_veto051(requested,existing,counters,"pending","reservation capsule budget",a_path[i],a_path[i+1])
 			counters.clearanceTests = int(counters.clearanceTests) + 1
 			if _capsules(a_path[i], a_path[i + 1], b_path[j], b_path[j + 1], lane_clearance):
+				if bool(counters.get("vetoCapture051",false)):
+					_conflict_veto051(requested,existing,counters,"blocked","reservation capsules intersect",a_path[i],a_path[i+1],{"threshold":lane_clearance,"blockerSegment":[[b_path[j].x,b_path[j].y],[b_path[j+1].x,b_path[j+1].y]],"segmentIndex":i,"blockerSegmentIndex":j})
 				return true
 	return false

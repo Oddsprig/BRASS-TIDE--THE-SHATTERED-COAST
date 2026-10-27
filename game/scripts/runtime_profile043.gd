@@ -5,6 +5,7 @@ const Lab=preload("res://scripts/fleet_lab.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Tactical=preload("res://scripts/tactical_runtime.gd")
+const Routes=preload("res://scripts/tactical_routes.gd")
 const Preferences=preload("res://scripts/preferences.gd")
 const WARMUP_US: int=3000000
 const ACTIVE_US: int=12000000
@@ -83,6 +84,7 @@ func _counters(enabled: bool,reset: bool=false) -> void:
 	_optional(host.chart,"profile_enable",[enabled])
 	Damage.set_runtime_profile043(enabled)
 	Tactical.set_runtime_profile043(enabled)
+	Routes._profile_veto051(enabled,reset)
 	if reset:
 		Damage.reset_runtime_profile043()
 		Tactical.reset_runtime_profile043()
@@ -363,6 +365,7 @@ func _end_case() -> void:
 	# Preserve the existing bounded developer trace once, AFTER measurement.
 	# This explains fleet stalls without new per-tick sampling or a second harness.
 	current.endTacticalTrace051=host.battle.get("tactical",{}).get("trace",[]).duplicate(true)
+	current.endVeto051=Routes._veto_snapshot051()
 	current.endBoatMotion051=[]
 	current.plannerDeadlocks051=[]
 	var final_tactical051: Dictionary=host.battle.tactical
@@ -370,6 +373,13 @@ func _end_case() -> void:
 		current.endBoatMotion051.append({"id":str(ship.id),"x":float(ship.x),"y":float(ship.y),"vx":float(ship.vx),"vy":float(ship.vy),"angle":float(ship.angle)})
 		var id051: String=str(ship.id)
 		var pending_age051: float=float(host.battle.time)-float(final_tactical051.pending.get(id051,host.battle.time))
+		var veto_hulls051: Dictionary=current.endVeto051.get("byHull",{})
+		if not veto_hulls051.has(id051) and veto_hulls051.size()<Routes.VETO_ACTOR_LIMIT051:veto_hulls051[id051]={}
+		if veto_hulls051.has(id051):
+			# Main-owned slot metadata only. Never read an unjoined capsule/result.
+			var workers051: Dictionary=final_tactical051.get("workers051",{})
+			var slot051: Dictionary=workers051.get("slots",{}).get(workers051.get("members051",{}).get(id051,-1),{})
+			veto_hulls051[id051]["final"]={"time":float(host.battle.time),"reason":str(final_tactical051.reasons.get(id051,"")),"hasIntent":final_tactical051.intents.has(id051),"pendingSeconds":pending_age051,"position":[float(ship.x),float(ship.y)],"velocity":[float(ship.vx),float(ship.vy)],"angle":float(ship.angle),"lastDecision":float(final_tactical051.lastDecision.get(id051,-1.0)),"worker":{"hasSlot":not slot051.is_empty(),"joined":bool(slot051.get("joined",false)),"retired":bool(slot051.get("retired",false)),"createdAt":float(slot051.get("createdAt",-1.0)),"remaining":id051 in slot051.get("remaining",[])}}
 		if not ship.sunk and not ship.get("captureSecured",false) and not final_tactical051.intents.has(id051) and Vector2(ship.vx,ship.vy).length_squared()<0.01 and pending_age051>=3.0:
 			current.plannerDeadlocks051.append({"id":id051,"pendingSeconds":pending_age051,"reason":str(final_tactical051.reasons.get(id051,""))})
 	# An idle, unresolved fleet is not a valid route to a higher frame rate.

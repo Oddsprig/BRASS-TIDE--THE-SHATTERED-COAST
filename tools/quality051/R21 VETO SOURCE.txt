@@ -1,0 +1,47 @@
+R21 VETO RECEIPTS - source candidate, 27 October 2026
+Base: 45bf6632ea0bb39935bb1f62376ef7836aea4766; measured game 8fd0f96.
+Evidence: Test Bridge b1279d7e1fc64f0d9aa15f9ba4c806bd, attempt-001/runtime/
+runtime043-43908-1938594/runtime043-light.json and runtime043-mixed.json.
+Root summary: work/quality-v042-v061/R21 engagement and cost findings.json.
+R21 quality FAILED. No performance improvement or stall fix claimed here.
+
+R21's final trace has broad route/exit messages, not precise final clearance
+vetoes. It cannot establish a proven geometric fix for the eight current stalls:
+light enemy3/10/11/12 Bilge, mixed player7 Gale/enemy4 Reed Stinger/enemy5
+Barbed Lance/enemy7 Gale. No speculative movement change or new fixture added.
+
+Existing runtime043 now writes endVeto051 after the active interval. At most
+80 hull bundles retain five fixed rejection slots: route, certificate,
+reservation, helm, current. Each slot overwrites only on a NONvalid result,
+at most once per 0.1 simulated seconds; threshold precedes receipt creation
+and deep copies. Valid results produce no receipt. Empty-intent current checks
+produce no receipt. Primitive capture is also disabled when a slot is not due.
+Each refusal has time/serial/candidate, stage/reason, primitive segment,
+blocker, horizon, radius/threshold and applicable budget counts. Traffic adds
+the actual predicted blocker segment, closest separation, derivative and
+physical floor. Memoized blocked checks retain their original primitive;
+pending replays identify budget refusal. Reservation receipts distinguish
+capsule conflicts, synchronized egress and exhausted clearance allowance.
+
+The final snapshot separately records actual pose, intent/reason/pending time,
+last decision and main-owned worker-slot metadata. It never reads an unjoined
+capsule, waits for a worker, or reruns clearance/physics. Workers never publish
+to the sink: only the profiler-enabling thread can write, and detached budgets
+never opt into capture. No authority, dynamics, RNG, clocks, actors, gameplay,
+stores, statistics or existing work limits change. Runtime/Planner unchanged.
+
+Interpretation: rows are sampled refusals, not a final selected candidate or
+proof of a current obstruction; inspect their timestamps against final state.
+Missing stages mean no sampled refusal. Earlier refused routes may later pass.
+Joined static-proof receipts use the WORKER observation clock (explicitly
+labelled), list bounded requested points and use -1 for unavailable budgets;
+the worker's original proof does not identify which endpoint caused rejection.
+Reservation counters are that resolver's allowance, not necessarily the whole
+tick's clearance total. Null primitive segments mean no segment was evaluated
+at that refusal. No worker-private decision trace is claimed.
+
+Validation: diff reviewed, all old assertions unchanged. Exactly one read-only
+check_preload_calls.py advisory over the four changed scripts: issues:[].
+git diff --check was clean. No Godot/Unity/game/test/build/GPU/benchmark launched. Native
+parsing, behavior and profiling cost remain UNVERIFIED and belong to Root's
+sole queued Test Bridge batch. Root retains R21 failures and R45 native proof.

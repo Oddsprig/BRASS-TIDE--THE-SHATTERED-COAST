@@ -6,6 +6,52 @@ const CACHE_LIMIT: int=128
 const GRID_QUERY_LIMIT: int=128
 const BEGIN_PROOF_LIMIT051: int=512
 
+# Opt-in observer receipts, not navigation state. Workers never write this sink:
+# only the thread which enabled the real-runtime profiler can publish a row.
+const VETO_ACTOR_LIMIT051: int=80
+static var _veto_thread051: int=-1
+static var _veto_serial051: int=0
+static var _veto_hulls051: Dictionary={}
+
+static func _profile_veto051(enabled: bool,reset: bool=false) -> void:
+	_veto_thread051=OS.get_thread_caller_id() if enabled else -1
+	if reset or not enabled:
+		_veto_hulls051.clear();_veto_serial051=0
+
+static func _veto_enabled051() -> bool:
+	return _veto_thread051>=0 and OS.get_thread_caller_id()==_veto_thread051
+
+static func _veto_snapshot051() -> Dictionary:
+	return {"schema":1,"actorLimit":VETO_ACTOR_LIMIT051,"minimumIntervalSeconds":0.1,"scope":"Last sampled main-thread refusal per fixed gate per hull; at most one per gate per 0.1 simulated seconds. Times/serials identify older refusals. No worker trace or clearance authority.","byHull":_veto_hulls051.duplicate(true)} if _veto_enabled051() else {}
+
+static func _veto_due051(id: String,at: float,slot: String) -> bool:
+	if not _veto_enabled051():return false
+	if not _veto_hulls051.has(id):return _veto_hulls051.size()<VETO_ACTOR_LIMIT051
+	var hull: Dictionary=_veto_hulls051[id]
+	return not hull.has(slot) or at-float(hull[slot].time)>=0.1
+
+static func _veto_record051(budget: Dictionary,id: String,at: float,slot: String,status: String,reason: String,candidate_id: String="",extra: Dictionary={}) -> void:
+	# Throttle BEFORE constructing the receipt or copying any primitive.
+	if status=="valid" or not bool(budget.get("profileRoutes051",false)) or slot not in ["route","certificate","reservation","helm","current"] or not _veto_due051(id,at,slot):return
+	if not _veto_hulls051.has(id):
+		if _veto_hulls051.size()>=VETO_ACTOR_LIMIT051:return
+		_veto_hulls051[id]={}
+	_veto_serial051+=1
+	var row: Dictionary={"time":at,"serial":_veto_serial051,"status":status,"reason":reason,"candidateId":candidate_id,"clearanceTests":int(budget.get("clearanceTests",-1)),"clearanceLimit":int(budget.get("clearanceLimit",-1)),"exhaustions":int(budget.get("exhaustions",budget.get("clearanceExhausted",-1))),"fullRoutes":int(budget.get("fullRoutes",-1)),"rollouts":int(budget.get("rollouts",-1)),"samples":int(budget.get("samples",-1))}
+	row["primitive"]=budget.get("vetoPrimitive051",{}).duplicate(true)
+	row.merge(extra,true);_veto_hulls051[id][slot]=row
+
+static func _veto_primitive051(budget: Dictionary,status: String,stage: String,reason: String,a: Vector2,b: Vector2,r: float,from: float=0.0,until: float=0.0,blocker: String="",extra: Dictionary={}) -> String:
+	if bool(budget.get("profileRoutes051",false)) and bool(budget.get("vetoCapture051",false)):
+		budget.vetoPrimitive051={"stage":stage,"reason":reason,"status":status,"segment":[[a.x,a.y],[b.x,b.y]],"radius":r,"from":from,"until":until,"blocker":blocker,"leg":str(budget.get("vetoLeg051",""))}
+		budget.vetoPrimitive051.merge(extra,true)
+	return status
+
+static func _veto_result051(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,result: Dictionary,source: String,extra: Dictionary={}) -> void:
+	if result.status=="valid" or not bool(budget.get("profileRoutes051",false)) or not _veto_due051(str(ship.id),float(st.time),"route"):return
+	extra=extra.duplicate();extra["source"]=source
+	_veto_record051(budget,str(ship.id),float(st.time),"route",str(result.status),str(result.get("reason","Static route search "+str(result.status))),str(candidate.get("candidateId","")),extra)
+
 class _BeginProofs051 extends RefCounted:
 	var active: bool=true
 	var geometry: Dictionary={}
@@ -44,10 +90,11 @@ static func _proof_replay051(proof: Dictionary,budget: Dictionary) -> String:
 		if not spend(budget,count):return "pending"
 	return str(proof.status)
 
-static func _proof_store051(proofs: _BeginProofs051,key: String,status: String,debits: Array[int]) -> void:
+static func _proof_store051(proofs: _BeginProofs051,key: String,status: String,debits: Array[int],budget: Dictionary={}) -> void:
 	if status not in ["valid","blocked"]:return
 	debits.make_read_only()
 	var proof: Dictionary={"status":status,"debits":debits}
+	if bool(budget.get("profileRoutes051",false)) and bool(budget.get("vetoCapture051",false)) and status=="blocked":proof["veto051"]=budget.get("vetoPrimitive051",{}).duplicate(true)
 	proof.make_read_only();proofs.entries[key]=proof
 
 static func _sweep_begin051(proofs: _BeginProofs051,ship: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary) -> String:
@@ -58,6 +105,7 @@ static func _sweep_begin051(proofs: _BeginProofs051,ship: Dictionary,geometry: D
 	var key: String=var_to_bytes(["terrain",str(ship.id),proofs.geometry_stamp,a,b,r]).hex_encode()
 	if proofs.entries.has(key):
 		var replay051: String=_proof_replay051(proofs.entries[key],budget)
+		_veto_replay051(budget,proofs.entries[key],replay051,"land",a,b,r)
 		if profile051:_route_timing051(budget,"sweepMemo",Time.get_ticks_usec()-started051)
 		return replay051
 	if profile051:_route_timing051(budget,"sweepMemo",Time.get_ticks_usec()-started051)
@@ -68,7 +116,7 @@ static func _sweep_begin051(proofs: _BeginProofs051,ship: Dictionary,geometry: D
 		return fallback051
 	var debits: Array[int]=[]
 	var status: String=_sweep_record051(geometry,a,b,r,budget,debits)
-	_proof_store051(proofs,key,status,debits)
+	_proof_store051(proofs,key,status,debits,budget)
 	if profile051:_route_timing051(budget,"sweepNumeric",Time.get_ticks_usec()-numeric_started051)
 	return status
 
@@ -80,6 +128,7 @@ static func _occupied_begin051(proofs: _BeginProofs051,cells: Dictionary,ship: D
 	if bool(budget.get("separatingEgress051",false)):key+=":egress051"
 	if proofs.entries.has(key):
 		var replay051: String=_proof_replay051(proofs.entries[key],budget)
+		_veto_replay051(budget,proofs.entries[key],replay051,"traffic",a,b,r,from,until)
 		if profile051:_route_timing051(budget,"occupiedMemo",Time.get_ticks_usec()-started051)
 		return replay051
 	if profile051:_route_timing051(budget,"occupiedMemo",Time.get_ticks_usec()-started051)
@@ -90,7 +139,7 @@ static func _occupied_begin051(proofs: _BeginProofs051,cells: Dictionary,ship: D
 		return fallback051
 	var debits: Array[int]=[]
 	var status: String=_occupied_record051(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id,debits,proofs)
-	_proof_store051(proofs,key,status,debits)
+	_proof_store051(proofs,key,status,debits,budget)
 	if profile051:_route_timing051(budget,"occupiedNumeric",Time.get_ticks_usec()-numeric_started051)
 	return status
 
@@ -101,6 +150,14 @@ static func _route_timing051(budget: Dictionary,stage: String,elapsed_us: int) -
 	var timing: Dictionary=budget.routeTiming051
 	timing[stage+"Us"]=int(timing[stage+"Us"])+elapsed_us
 	timing[stage+"Calls"]=int(timing[stage+"Calls"])+1
+
+static func _veto_replay051(budget: Dictionary,proof: Dictionary,status: String,stage: String,a: Vector2,b: Vector2,r: float,from: float=0.0,until: float=0.0) -> void:
+	if not bool(budget.get("profileRoutes051",false)) or not bool(budget.get("vetoCapture051",false)) or status=="valid":return
+	if status=="pending":
+		_veto_primitive051(budget,status,stage,"clearance budget during proof replay",a,b,r,from,until)
+	else:
+		budget.vetoPrimitive051=proof.get("veto051",{}).duplicate(true)
+		budget.vetoPrimitive051["memoReplay"]=true
 
 static func spend(budget: Dictionary, count: int=1) -> bool:
 	if int(budget.clearanceTests)+count>int(budget.get("clearanceLimit",4096)):
@@ -169,42 +226,47 @@ static func terrain(st: Dictionary) -> Dictionary:
 	return {"revision":int(t.terrainRevision),"key":key,"obstacles":t.obstacles}
 
 static func sweep(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary) -> String:
-	if not spend(budget):return "pending"
-	if not a.is_finite() or not b.is_finite() or minf(a.x,b.x)<r or maxf(a.x,b.x)>WIDTH-r or minf(a.y,b.y)<r or maxf(a.y,b.y)>HEIGHT-r:return "blocked"
+	if not spend(budget):return _veto_primitive051(budget,"pending","land","clearance budget",a,b,r)
+	if not a.is_finite() or not b.is_finite() or minf(a.x,b.x)<r or maxf(a.x,b.x)>WIDTH-r or minf(a.y,b.y)<r or maxf(a.y,b.y)>HEIGHT-r:return _veto_primitive051(budget,"blocked","land","nonfinite endpoint or map boundary",a,b,r)
 	var lo: Vector2=a.min(b)-Vector2.ONE*r
 	var hi: Vector2=a.max(b)+Vector2.ONE*r
 	for obstacle in geometry.obstacles:
-		if not spend(budget):return "pending"
+		if not spend(budget):return _veto_primitive051(budget,"pending","land","obstacle budget",a,b,r)
 		if hi.x<float(obstacle.lo.x) or hi.y<float(obstacle.lo.y) or lo.x>float(obstacle.hi.x) or lo.y>float(obstacle.hi.y):continue
 		var vertices: Array=obstacle.points
-		if not spend(budget,2):return "pending"
-		if inside(a,vertices) or inside(b,vertices):return "blocked"
+		if not spend(budget,2):return _veto_primitive051(budget,"pending","land","endpoint budget",a,b,r)
+		if inside(a,vertices) or inside(b,vertices):return _veto_land051(budget,geometry,obstacle,-1,a,b,r)
 		for i in range(vertices.size()):
-			if not spend(budget):return "pending"
+			if not spend(budget):return _veto_primitive051(budget,"pending","land","edge budget",a,b,r)
 			var c: Vector2=Vector2(vertices[i][0],vertices[i][1])
 			var d: Vector2=Vector2(vertices[(i+1)%vertices.size()][0],vertices[(i+1)%vertices.size()][1])
-			if segment_distance(a,b,c,d)<r+0.001:return "blocked"
+			if segment_distance(a,b,c,d)<r+0.001:return _veto_land051(budget,geometry,obstacle,i,a,b,r)
 	return "valid"
 
 # These private recorders mirror the unchanged public checks, recording debits
 # and borrowing closed-begin hull inputs. Pending never creates a terminal proof.
 static func _sweep_record051(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary,debits: Array[int]) -> String:
-	if not _proof_spend051(budget,debits):return "pending"
-	if not a.is_finite() or not b.is_finite() or minf(a.x,b.x)<r or maxf(a.x,b.x)>WIDTH-r or minf(a.y,b.y)<r or maxf(a.y,b.y)>HEIGHT-r:return "blocked"
+	if not _proof_spend051(budget,debits):return _veto_primitive051(budget,"pending","land","clearance budget",a,b,r)
+	if not a.is_finite() or not b.is_finite() or minf(a.x,b.x)<r or maxf(a.x,b.x)>WIDTH-r or minf(a.y,b.y)<r or maxf(a.y,b.y)>HEIGHT-r:return _veto_primitive051(budget,"blocked","land","nonfinite endpoint or map boundary",a,b,r)
 	var lo: Vector2=a.min(b)-Vector2.ONE*r
 	var hi: Vector2=a.max(b)+Vector2.ONE*r
 	for obstacle in geometry.obstacles:
-		if not _proof_spend051(budget,debits):return "pending"
+		if not _proof_spend051(budget,debits):return _veto_primitive051(budget,"pending","land","obstacle budget",a,b,r)
 		if hi.x<float(obstacle.lo.x) or hi.y<float(obstacle.lo.y) or lo.x>float(obstacle.hi.x) or lo.y>float(obstacle.hi.y):continue
 		var vertices: Array=obstacle.points
-		if not _proof_spend051(budget,debits,2):return "pending"
-		if inside(a,vertices) or inside(b,vertices):return "blocked"
+		if not _proof_spend051(budget,debits,2):return _veto_primitive051(budget,"pending","land","endpoint budget",a,b,r)
+		if inside(a,vertices) or inside(b,vertices):return _veto_land051(budget,geometry,obstacle,-1,a,b,r)
 		for i in range(vertices.size()):
-			if not _proof_spend051(budget,debits):return "pending"
+			if not _proof_spend051(budget,debits):return _veto_primitive051(budget,"pending","land","edge budget",a,b,r)
 			var c: Vector2=Vector2(vertices[i][0],vertices[i][1])
 			var d: Vector2=Vector2(vertices[(i+1)%vertices.size()][0],vertices[(i+1)%vertices.size()][1])
-			if segment_distance(a,b,c,d)<r+0.001:return "blocked"
+			if segment_distance(a,b,c,d)<r+0.001:return _veto_land051(budget,geometry,obstacle,i,a,b,r)
 	return "valid"
+
+static func _veto_land051(budget: Dictionary,geometry: Dictionary,obstacle: Dictionary,edge: int,a: Vector2,b: Vector2,r: float) -> String:
+	if bool(budget.get("vetoCapture051",false)):
+		_veto_primitive051(budget,"blocked","land","endpoint inside island" if edge<0 else "island edge clearance",a,b,r,0.0,0.0,"island:%d"%geometry.obstacles.find(obstacle),{"edge":edge,"threshold":r+0.001})
+	return "blocked"
 
 static func grid(ships: Array,reuse_queries: bool=false) -> Dictionary:
 	var cells: Dictionary={"_maxSpeed":0.0,"_maxNavigationRadius":0.0}
@@ -298,7 +360,7 @@ static func _occupied051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector
 		# Candidates start with their present point. A zero-time point cannot
 		# decide whether a close pass escapes; check the following swept leg.
 		if hostile and a==b and until<=from and not separating_egress051:continue
-		if not spend(budget):return "pending"
+		if not spend(budget):return _veto_primitive051(budget,"pending","traffic","clearance budget",a,b,r,from,until,str(other.id))
 		var velocity: Vector2=Vector2(other.vx,other.vy)
 		# Full corridor occupancy uses observed constant-velocity prediction. Beyond
 		# the two-second physical prefix it is conditional, never an escape promise.
@@ -319,7 +381,7 @@ static func _occupied051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector
 				# floor and derivative; ordinary departure stays strictly separating.
 				if checked_alignment051 and _can_escape_padding051(ship,relative,delta,r,maxf(10.0,float(other.spec.get("size",16))),true) and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>=relative.length_squared():continue
 			elif hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
-			return "blocked"
+			return _veto_traffic051(budget,ship,other,a,b,r,from,until,clearance,relative,delta,c,d,fraction,checked_alignment051)
 	return "valid"
 
 static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool,contact_id: String,debits: Array[int],proofs: _BeginProofs051=null) -> String:
@@ -337,7 +399,7 @@ static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b:
 		var hostile: bool=other.team!=ship.team
 		if hostile and (not avoid_hostiles or other_id==contact_id):continue
 		if hostile and a==b and until<=from and not separating_egress051:continue
-		if not _proof_spend051(budget,debits):return "pending"
+		if not _proof_spend051(budget,debits):return _veto_primitive051(budget,"pending","traffic","clearance budget",a,b,r,from,until,other_id)
 		# Only the existing closed begin may borrow immutable hull inputs. Keep
 		# both time projections and all per-query debits/closest-approach math.
 		var body: Array=[] if proofs==null else proofs.traffic_bodies.get(other_id,[])
@@ -360,8 +422,13 @@ static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b:
 			if separating_egress051:
 				if _can_escape_padding051(ship,relative,delta,r,float(body[3]),a==b and from==0.0 and until==0.0):continue
 			elif hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
-			return "blocked"
+			return _veto_traffic051(budget,ship,other,a,b,r,from,until,clearance,relative,delta,c,d,fraction,false)
 	return "valid"
+
+static func _veto_traffic051(budget: Dictionary,ship: Dictionary,other: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,clearance: float,relative: Vector2,delta: Vector2,c: Vector2,d: Vector2,fraction: float,alignment: bool) -> String:
+	if bool(budget.get("vetoCapture051",false)):
+		_veto_primitive051(budget,"blocked","traffic","predicted hull clearance",a,b,r,from,until,str(other.id),{"hostile":other.team!=ship.team,"threshold":clearance,"closest":(relative+delta*fraction).length(),"initialDistance":relative.length(),"separationDot":relative.dot(delta),"physicalFloor":maxf(10.0,float(ship.spec.get("size",16)))+maxf(10.0,float(other.spec.get("size",16))),"blockerSegment":[[c.x,c.y],[d.x,d.y]],"separatingEgress":bool(budget.get("separatingEgress051",false)),"checkedAlignment":alignment})
+	return "blocked"
 
 static func _can_escape_padding051(ship: Dictionary,relative: Vector2,delta: Vector2,r: float,other_radius: float,initial_knot: bool) -> bool:
 	# Owned planning/helm only. The existing closest-approach solve calls this
@@ -407,6 +474,7 @@ static func _route_core051(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vec
 	var entry: Dictionary=cache.get(key,{})
 	if not entry.is_empty() and entry.status!="pending":
 		budget.cacheHits+=1
+		if entry.status=="blocked":_veto_primitive051(budget,"blocked","route","cached terminal static route refusal",a,b,r)
 		return {"status":entry.status,"path":entry.path.duplicate()}
 	if entry.is_empty():
 		# A pending primitive is never a clearance proof. Once terminal, this
@@ -416,11 +484,14 @@ static func _route_core051(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vec
 		if direct=="valid":return {"status":"valid","path":[b]}
 	if int(budget.fullRoutes)>=4:
 		budget.exhaustions+=1
+		_veto_primitive051(budget,"pending","route","four full-route slots used",a,b,r)
 		return {"status":"pending","path":[]}
 	budget.fullRoutes+=1 # Resumed searches still spend the global query slot.
 	if entry.is_empty():
 		var graph: Dictionary=_route_graph051(cache,geometry,r)
-		if graph.is_empty():return {"status":"pending","path":[]}
+		if graph.is_empty():
+			_veto_primitive051(budget,"pending","route","static graph unavailable",a,b,r)
+			return {"status":"pending","path":[]}
 		var initial_nodes: Array=[a,b]
 		initial_nodes.append_array(graph.nodes)
 		var initial_costs: Array=[]
@@ -437,13 +508,17 @@ static func _route_core051(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vec
 			for i in range(nodes.size()):
 				if not entry.closed.has(i) and float(entry.costs[i])+nodes[i].distance_to(b)<best:
 					best=float(entry.costs[i])+nodes[i].distance_to(b);entry.current=i
-			if int(entry.current)<0:return _route_done051(entry,"blocked",[])
+			if int(entry.current)<0:
+				_veto_primitive051(budget,"blocked","route","no static visibility path",a,b,r)
+				return _route_done051(entry,"blocked",[])
 			if int(entry.current)==1:
 				var path: Array=[]
 				var at: int=1
 				while at>0:
 					path.push_front(nodes[at]);at=int(entry.previous[at])
-					if path.size()>8:return _route_done051(entry,"blocked",[])
+					if path.size()>8:
+						_veto_primitive051(budget,"blocked","route","static path exceeds eight points",a,b,r)
+						return _route_done051(entry,"blocked",[])
 				return _route_done051(entry,"valid",path)
 			entry.closed[int(entry.current)]=true;entry.next=0
 		var current: int=int(entry.current)
@@ -453,7 +528,9 @@ static func _route_core051(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vec
 				entry.next+=1;continue
 			# Cached graph traversal is bounded work too. On refusal keep the
 			# current node AND neighbour cursor, not just a half-closed frontier.
-			if not spend(budget):return {"status":"pending","path":[]}
+			if not spend(budget):
+				_veto_primitive051(budget,"pending","route","graph traversal budget",a,b,r)
+				return {"status":"pending","path":[]}
 			var cost: float=float(entry.costs[current])+nodes[current].distance_to(nodes[next])
 			# Visibility cannot help a relaxation that cannot improve this node.
 			# Keep its traversal debit/cursor, but do not sweep an irrelevant edge.
@@ -521,8 +598,12 @@ static func refine_live(st: Dictionary,geometry: Dictionary,ship: Dictionary,can
 static func _refine_begin051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float=-1.0) -> Dictionary:
 	if not bool(budget.get("profileRoutes051",false)):return _refine_begin_core051(st,geometry,ship,candidate,budget,proofs,live_traffic_seconds051)
 	var started051: int=Time.get_ticks_usec()
+	budget.vetoCapture051=_veto_due051(str(ship.id),float(st.time),"route")
+	if budget.vetoCapture051:budget.erase("vetoPrimitive051")
 	var result051: Dictionary=_refine_begin_core051(st,geometry,ship,candidate,budget,proofs,live_traffic_seconds051)
 	_route_timing051(budget,"refine",Time.get_ticks_usec()-started051)
+	if result051.status!="valid" and budget.vetoCapture051 and _veto_due051(str(ship.id),float(st.time),"route"):_veto_result051(st,ship,candidate,budget,result051,"current-refine",{"trafficHorizon":live_traffic_seconds051})
+	budget.vetoCapture051=false
 	return result051
 
 static func _refine_begin_core051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
@@ -623,13 +704,25 @@ static func _reject_prepared_static051(geometry: Dictionary,ship: Dictionary,can
 	var legs: Array=["approach","pass","exit"]
 	for i: int in range(3):
 		if not paths[i] is Array or not paths[i].is_read_only() or not candidate.get(legs[i]) is Array or paths[i]!=candidate[legs[i]]:return false
+	if _veto_due051(str(ship.id),float(prepared.get("observedAt051",-1.0)),"route"):
+		var receipt_budget051: Dictionary={"profileRoutes051":true}
+		var requested_paths051: Array=[]
+		for path051: Array in paths:
+			var points051: Array=[]
+			for goal051: Vector2 in path051:points051.append([goal051.x,goal051.y])
+			requested_paths051.append(points051)
+		_veto_record051(receipt_budget051,str(ship.id),float(prepared.get("observedAt051",-1.0)),"route","blocked","Joined worker fixed-endpoint land proof",str(candidate.get("candidateId","")),{"source":"joined-static-proof","clock":"worker observation; current publication time unavailable here","requestedPaths":requested_paths051})
 	return true
 
 static func _adopt_prepared051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,prepared: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
 	if not bool(budget.get("profileRoutes051",false)):return _adopt_prepared_core051(st,geometry,ship,candidate,prepared,budget,proofs,live_traffic_seconds051)
 	var started051: int=Time.get_ticks_usec()
+	budget.vetoCapture051=_veto_due051(str(ship.id),float(st.time),"route")
+	if budget.vetoCapture051:budget.erase("vetoPrimitive051")
 	var result051: Dictionary=_adopt_prepared_core051(st,geometry,ship,candidate,prepared,budget,proofs,live_traffic_seconds051)
 	_route_timing051(budget,"adopt",Time.get_ticks_usec()-started051)
+	if result051.status!="valid" and budget.vetoCapture051 and _veto_due051(str(ship.id),float(st.time),"route"):_veto_result051(st,ship,candidate,budget,result051,"joined-worker-adoption",{"workerStatus":str(prepared.get("status","")),"workerObservedAt":float(prepared.get("observedAt051",-1.0)),"workerAge":float(st.time)-float(prepared.get("observedAt051",-1.0)),"workerTrafficHorizon":float(prepared.get("trafficSeconds051",-1.0)),"currentTrafficHorizon":0.3})
+	budget.vetoCapture051=false
 	return result051
 
 static func _adopt_prepared_core051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,prepared: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
@@ -650,6 +743,7 @@ static func _adopt_prepared_core051(st: Dictionary,geometry: Dictionary,ship: Di
 	var connector: bool=true
 	var total: int=0
 	for leg: String in ["approach","pass","exit"]:
+		if bool(budget.get("vetoCapture051",false)):budget.vetoLeg051=leg
 		var points: Array=prepared.candidate.get(leg,[]).duplicate()
 		# A zero-distance deployment origin is not a future station. Connect
 		# from the ACTUAL pose to the first remaining fully land-routed waypoint.
@@ -683,11 +777,13 @@ static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candida
 	var speed: float=1.0
 	if live_corridor:speed=maxf(1.0,float(ship.spec.get("speed",90))*float(ship.status.speedFactor)*(1.0 if float(ship.fuel)>0.0 else 0.2)*0.8)
 	for leg in ["approach","pass","exit"]:
+		if bool(budget.get("vetoCapture051",false)):budget.vetoLeg051=leg
 		var points: Array=[]
 		for goal in candidate.get(leg,[]):
 			if not goal is Vector2 or not goal.is_finite():return {"status":"blocked","candidate":result}
 			var found: Dictionary=route(st,geometry,previous,goal,planning_radius(ship),budget) if proofs==null else _route(st,geometry,previous,goal,planning_radius(ship),budget,proofs,ship)
 			if found.status!="valid":return {"status":found.status,"candidate":result}
+			if bool(budget.get("vetoCapture051",false)):budget.erase("vetoPrimitive051")
 			if live_corridor:
 				var cursor: Vector2=previous
 				for waypoint: Vector2 in found.path:

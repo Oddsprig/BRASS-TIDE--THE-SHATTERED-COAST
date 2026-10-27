@@ -350,6 +350,17 @@ static func _certify_refined_live(st: Dictionary,view: Dictionary,ship: Dictiona
 	return _certify(st,view,ship,refined.candidate,fingerprint,budget,membership,true,frame_cache,refined,begin_inputs)
 
 static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array,live_step: bool,frame_cache,refined_corridor: Dictionary={},begin_inputs: Dictionary={}) -> Dictionary:
+	if not bool(budget.get("profileRoutes051",false)):return _certify_core051(st,view,ship,candidate,fingerprint,budget,membership,live_step,frame_cache,refined_corridor,begin_inputs)
+	budget.vetoCapture051=Routes._veto_due051(str(ship.id),float(st.time),"certificate")
+	if budget.vetoCapture051:
+		budget.erase("vetoPrimitive051");budget.vetoLeg051="certificate"
+	var result: Dictionary=_certify_core051(st,view,ship,candidate,fingerprint,budget,membership,live_step,frame_cache,refined_corridor,begin_inputs)
+	if result.status!="valid" and budget.vetoCapture051:
+		Routes._veto_record051(budget,str(ship.id),float(st.time),"certificate",str(result.status),str(result.reason),str(candidate.get("candidateId","")),{"liveStep":live_step,"physicalHorizonEnd":result.get("physicalHorizonEnd",-1.0)})
+	budget.vetoCapture051=false
+	return result
+
+static func _certify_core051(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array,live_step: bool,frame_cache,refined_corridor: Dictionary,begin_inputs: Dictionary) -> Dictionary:
 	var cert: Dictionary=_begin_certificate(view,ship,candidate,fingerprint,begin_inputs)
 	if not _candidate_valid(candidate,view,ship,membership,begin_inputs):
 		cert.status="blocked";cert.reason="Weapon assignment outside bounded observed targets";return cert
@@ -449,6 +460,16 @@ static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate:
 	return cert
 
 static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offset: float=0.0,frame_cache=null) -> Dictionary:
+	var result: Dictionary=_current_core051(st,ship,intent,pose_offset,frame_cache)
+	if result.ok or intent.is_empty():return result
+	var budget: Dictionary=st.get("tactical",{}).get("budget",{})
+	if bool(budget.get("profileRoutes051",false)) and Routes._veto_due051(str(ship.id),float(st.time),"current"):
+		# This gate performs no primitive; never attribute another hull's check.
+		var receipt_budget: Dictionary=budget.duplicate();receipt_budget.vetoPrimitive051={}
+		Routes._veto_record051(receipt_budget,str(ship.id),float(st.time),"current","blocked",str(result.reason),str(intent.get("candidateId","")),{"poseOffset":pose_offset,"hasIntent":true})
+	return result
+
+static func _current_core051(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offset: float,frame_cache) -> Dictionary:
 	if intent.is_empty():return {"ok":false,"reason":"Choosing a safe maneuver"}
 	var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
 	if record.is_empty():return {"ok":false,"reason":"Checking the next safe maneuver"}
@@ -486,6 +507,10 @@ static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offs
 	return {"ok":true,"reason":str(intent.get("reason","Following maneuver")),"record":record}
 
 static func safe_step(st: Dictionary,ship: Dictionary,control: Dictionary,budget: Dictionary,frame_cache=null) -> Dictionary:
+	if bool(budget.get("profileRoutes051",false)):
+		budget.vetoCapture051=Routes._veto_due051(str(ship.id),float(st.time),"helm")
+		if budget.vetoCapture051:
+			budget.erase("vetoPrimitive051");budget.vetoLeg051="helm"
 	var next: Dictionary=motion(ship,float(st.tactical.dt),float(control.angle),float(control.throttle),false,frame_cache)
 	var r: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
 	var clear: String=Routes.sweep(st.tactical.geometry,Routes.point(ship),Routes.point(next),r,budget)
@@ -496,6 +521,9 @@ static func safe_step(st: Dictionary,ship: Dictionary,control: Dictionary,budget
 		contact_id=str(intent.get("targetId",""))
 	if bool(st.tactical.get("safety",{}).get(str(ship.id),{}).get("withdraw",false)):contact_id=""
 	if clear=="valid":clear=Routes.occupied(st.tactical.cells,ship,Routes.point(ship),Routes.point(next),r,0.0,float(st.tactical.dt),budget,true,contact_id)
+	if clear!="valid" and bool(budget.get("vetoCapture051",false)):
+		Routes._veto_record051(budget,str(ship.id),float(st.time),"helm",clear,"Live helm clearance",str(intent.get("candidateId","")),{"throttle":float(control.throttle),"brake":float(control.throttle)==0.0,"dt":float(st.tactical.dt)})
+	if bool(budget.get("profileRoutes051",false)):budget.vetoCapture051=false
 	if clear=="valid":return control
 	return {"angle":float(ship.angle),"throttle":0.0,"reason":"Braking; checking clearance" if clear=="pending" else "Braking for land or nearby hulls","blocked":true}
 
@@ -509,8 +537,15 @@ static func _crowd_step051(st: Dictionary,ship: Dictionary,candidate: Dictionary
 	var next: Dictionary=motion(ship,float(st.tactical.dt),float(alignment.angle),0.0,false,frame_cache)
 	if absf(angle_difference(float(ship.angle),float(next.angle)))<=0.000001:return safe_step(st,ship,control,budget,frame_cache)
 	var r: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
+	if bool(budget.get("profileRoutes051",false)):
+		budget.vetoCapture051=Routes._veto_due051(str(ship.id),float(st.time),"helm")
+		if budget.vetoCapture051:
+			budget.erase("vetoPrimitive051");budget.vetoLeg051="alignment"
 	var clear: String=Routes.sweep(st.tactical.geometry,Routes.point(ship),Routes.point(next),r,budget)
 	if clear=="valid":clear=Routes._checked_alignment051(st.tactical.cells,ship,Routes.point(ship),Routes.point(next),r,float(st.tactical.dt),budget)
+	if clear!="valid" and bool(budget.get("vetoCapture051",false)):
+		Routes._veto_record051(budget,str(ship.id),float(st.time),"helm",clear,"Live crowd alignment clearance",str(candidate.get("candidateId","")),{"throttle":0.0,"requestedThrottle":float(control.throttle),"dt":float(st.tactical.dt)})
+	if bool(budget.get("profileRoutes051",false)):budget.vetoCapture051=false
 	if clear=="valid":return alignment
 	return {"angle":float(ship.angle),"throttle":0.0,"reason":"Braking; checking clearance" if clear=="pending" else "Braking for land or nearby hulls","blocked":true}
 
