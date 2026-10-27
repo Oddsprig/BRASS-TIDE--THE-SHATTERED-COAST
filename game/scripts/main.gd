@@ -618,7 +618,7 @@ func _enter_battle():
 	battle_command_pending = "";battle_command_ack = {}
 	battle_selection_groups={1:[],2:[],3:[],4:[]}
 	chart.battle_overlays={"arcs":false,"threat":false,"routes":false}
-	chart.zoom = 1.0
+	chart.zoom = 1.4 if battle.ships.size() <= 8 else 1.0
 	chart.set_tactical(false)
 	chart.center_camera()
 	ui.close_modal()
