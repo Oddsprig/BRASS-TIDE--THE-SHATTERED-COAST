@@ -1,0 +1,38 @@
+051 SEMANTIC PREFERENCE RETENTION - SOURCE CANDIDATE ONLY
+Base: 963b6a68cd25ce9a8543c7bf779dc4986a203142
+Checkout: work/quality-v042-v061/v051-preference-retention-sol
+Approval: proposal966ff191 and shared_contract051; no helper/engine/test/build/profile.
+
+Mechanism:
+- Separate typed semantic eligibility from retained execution authority. Mutable
+  predicate snapshots are detached; live owner/spec/mount/target references are
+  identity guards only. No intent, route, certificate or fire gate in eligibility.
+- A real blocked helm retires intent, retained authority and reservations[id]
+  immediately, even for a current public intent without a retained descriptor.
+  Other reservations and byId role memory survive; actual drift still faces the
+  existing brake/safe_step occupied-hull, land and current60Hz fire checks.
+- Scheduled fresh observer can validate the semantic-only preference. Stable
+  complete decisions pass once through current051.freshDecisions051, with exact
+  observed-owner identity, snapshotRevision, time and originalPreferenceChosenAt.
+  Runtime leaves due memory/observation publication to current resolve/_publish.
+- Stable authorized observation deliberately replaces unconditional .30 teardown.
+  ORIGINAL chosenAt+.45 remains the hard bound. New current certificates from
+  semantic reuse inherit that original chosen_at; no recertification renewal.
+  Owner/order/options/groups/terrain/targets/capability/phase/events still revoke.
+
+Integration contract with Perf (Planner is not edited here):
+Runtime passes optional FIFTH prepared_decisions051 to _prepare_with_worker051.
+Existing retained fixture exercises optional FOURTH argument to _prepare_begin.
+Planner validates and erases records once; returns originalPreferenceChosenAt051
+map for _publish (semantic original OR a newly computed full choice timestamp).
+Matching Perf patch REQUIRED before native parsing/execution.
+No worker/cohort/Planner/dispatch code, physics, actor count, forecast, resource,
+RNG, role algorithm, public default or certificate thresholds changed here.
+
+Existing test_tactical_ai --case=retained extended only; all old assertions and
+selectors retained. New cases: actual contact drop -> eager complete decision
+parity -> one-use prepared planning -> new real certificate, original deadline,
+.30 stable observation/.45 cutoff; public-intent cleanup; urgent changes.
+SINGLE final tools/check_preload_calls.py advisory: issues=[]; engineInvoked=false.
+Reviewed exact diff: no prior fixture lines/assertions/selectors removed.
+Native/tests/build/GPU UNRUN. Savings and behavior not claimed; Root owns proof.

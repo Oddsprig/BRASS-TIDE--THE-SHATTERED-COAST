@@ -659,6 +659,108 @@ func retained_role_predicate_parity051(st: Dictionary,source: Dictionary) -> voi
 		if variant=="missing-target":check(actual.is_empty(),"removed current target still forces a full choice")
 	check(var_to_bytes([st.ships,st.tactical.memory,st.tactical.options])==live_before,"detached retained predicate trials preserve the actual admitted battle")
 
+func _physical_preference_drop051(arena: Dictionary,held: Variant,label: String,retained: bool=true) -> Variant:
+	var st: Dictionary=arena.state;var source: Dictionary=arena.source;var id: String=str(source.id)
+	var preference: Variant=st.tactical.preferences051.get(id)
+	check(preference is C._Preference051 and st.tactical.memory.player.reservations.has(id),"semantic case starts with real authority and its hard reservation: "+label)
+	if not preference is C._Preference051:return null
+	var others: Dictionary={}
+	for side: String in ["player","enemy"]:
+		others[side]=st.tactical.memory[side].reservations.duplicate(true);others[side].erase(id)
+	var memory: PackedByteArray=var_to_bytes(st.tactical.memory.player.byId[id])
+	var blocker: Dictionary=arena.alternate
+	var old: Vector2=F.pos(blocker)
+	blocker.x=float(source.x)+30.0;blocker.y=source.y
+	if not retained:st.tactical.retained051.erase(id) # Leave the real public certificate current.
+	T.after_motion(st)
+	var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state])
+	var control: Dictionary=T.helm(st,source)
+	check(bool(control.get("blocked",false)) and float(control.throttle)==0.0 and (not retained or not held.step_ok) and not st.tactical.intents.has(id) and not st.tactical.retained051.has(id),"actual occupied next step immediately revokes movement/fire authority: "+label)
+	check(is_same(st.tactical.preferences051.get(id),preference) and preference.chosen_at==held.chosen_at and not st.tactical.memory.player.reservations.has(id),"physical-only drop preserves original semantic deadline and retires its reservation: "+label)
+	check(st.tactical.memory.player.reservations==others.player and st.tactical.memory.enemy.reservations==others.enemy and var_to_bytes(st.tactical.memory.player.byId[id])==memory,"revocation preserves unrelated reservations and role memory: "+label)
+	var gates: Dictionary=T.fire_gates(st,source)
+	var braked: Dictionary=T.helm(st,source)
+	check(gates.is_empty() and float(braked.throttle)==0.0 and bool(braked.get("blocked",false)) and var_to_bytes([st.ships,st.rng.state])==physical,"semantic eligibility cannot waive live contact, fire, integrate motion, spend stores or advance RNG: "+label)
+	blocker.x=old.x;blocker.y=old.y;T.after_motion(st)
+	return preference
+
+func retained_semantic_preference051() -> void:
+	for dt: float in [1.0/30.0,1.0/60.0]:
+		var arena: Dictionary=local_arena();var st: Dictionary=arena.state;var source: Dictionary=arena.source;var id: String=str(source.id)
+		var held: Variant=_admit_retained051(st,source,dt,"semantic-recertification")
+		check(held is C._Retained051,"semantic recertification begins with a real maneuver dt="+str(dt))
+		if not held is C._Retained051:continue
+		var preference: Variant=_physical_preference_drop051(arena,held,"recertification "+str(dt))
+		if not preference is C._Preference051:continue
+		var original: float=preference.chosen_at
+		var memory: PackedByteArray=var_to_bytes(st.tactical.memory.player.byId[id])
+		var observed_at: float=float(st.tactical.lastDecision[id])
+		var current: Dictionary={}
+		check(not T._observe_retained051(st,id,null,current) and current.get("freshDecisions051",{}).has(id),"physical-drop observation prepares a fresh decision and still requires new geometry dt="+str(dt))
+		if not current.get("freshDecisions051",{}).has(id):continue
+		var fresh: Dictionary=current.freshDecisions051[id]
+		var context: Dictionary=current.sides.player.duplicate();context[id]=current.owners[id]
+		var read_view: Dictionary={"time":float(st.time),"side":"player","options":st.tactical.options,"groups":st.tactical.groups,"ships":context.values(),"mission":current.mission}
+		# Eager canonical decision with the current shortlist is the reference;
+		# it recomputes protector/focus instead of calling the optimized observer.
+		var previous: Dictionary=st.tactical.memory.player.byId[id]
+		var protected: Dictionary=Roles.protected_ally(read_view,context[id],previous,context)
+		var detailed: Array=[]
+		for entry: Dictionary in Roles.shortlist(read_view,context[id],context,protected):detailed.append(str(entry.id))
+		var expected: Dictionary=Roles._decide(read_view,context[id],previous,context,{}, {"targetId":str(previous.targetId),"targets":detailed,"detailedIds":detailed,"scored":0})
+		check(var_to_bytes(fresh.decision)==var_to_bytes(expected) and not is_same(fresh.decision.state,expected.state),"prepared decision preserves EVERY current role/result/HP field and owns its memory dt="+str(dt))
+		check(is_same(fresh.owner,current.owners[id]) and int(fresh.revision)==int(st.tactical.snapshotRevision) and float(fresh.at)==float(st.time) and float(fresh.originalPreferenceChosenAt)==original,"prepared provenance binds exact owner observation, begin generation/time and original choice dt="+str(dt))
+		var view: Dictionary=T._begin_view051(st,"player",[id],null,current)
+		var prepared: Dictionary=Planner._prepare_begin(view,st.tactical.memory.player,current.indexes.player,current.freshDecisions051)
+		check(var_to_bytes(prepared.decisions[id])==var_to_bytes(fresh.decision) and int(prepared.scored)==0 and not current.freshDecisions051.has(id) and float(prepared.originalPreferenceChosenAt051.get(id,-1.0))==original,"owned planning consumes the complete fresh decision ONCE without target rescoring dt="+str(dt))
+		check(not prepared.candidates.is_empty() and not st.tactical.intents.has(id) and not st.tactical.retained051.has(id) and var_to_bytes(st.tactical.memory.player.byId[id])==memory and float(st.tactical.lastDecision[id])==observed_at,"candidate preparation grants no certificate, memory publication or observation clock dt="+str(dt))
+		var repeated: Dictionary=Planner._prepare_begin(view,st.tactical.memory.player,current.indexes.player,current.freshDecisions051)
+		check(int(repeated.scored)>0 and not repeated.get("originalPreferenceChosenAt051",{}).has(id),"consumed fresh records cannot skip another full choice dt="+str(dt))
+		var recertified: Variant=null
+		for tick: int in range(ceili(0.2/dt)):
+			B.update(st,dt);B.pop_events(st)
+			recertified=st.tactical.retained051.get(id)
+			if recertified is C._Retained051:break
+		check(recertified is C._Retained051,"real battle ticks recertify the restored clear route dt="+str(dt))
+		if not recertified is C._Retained051:continue
+		check(not is_same(recertified,held) and recertified.chosen_at==original and recertified.record.certificate.checkedAt>held.record.certificate.checkedAt and T._current051(st,source,st.tactical.intents[id]).ok,"new current certificate retains the ORIGINAL semantic cutoff dt="+str(dt))
+		for tick: int in range(ceili(0.36/dt)):
+			if float(st.time)-original>=0.35-0.000001:break
+			B.update(st,dt);B.pop_events(st)
+		check(is_same(st.tactical.retained051.get(id),recertified) and float(st.tactical.lastDecision[id])-original>=0.30-0.000001,"fresh stable observations retain the same original preference beyond the intentionally replaced0.30 policy dt="+str(dt))
+		for tick: int in range(ceili(0.16/dt)):
+			if float(st.time)-original>0.45+0.000001:break
+			B.update(st,dt);B.pop_events(st)
+		check(not is_same(st.tactical.retained051.get(id),recertified) and not C._retained_current051(st,source,recertified).ok,"recertification and stable observations cannot extend original chosenAt+0.45 dt="+str(dt))
+		observations.append({"case":"semantic-preference051","dt":dt,"originalChosenAt":original,"recertifiedAt":recertified.record.certificate.checkedAt,"cutoffObservedAt":st.time})
+	# The same physical revocation must retire a PUBLIC intent's reservation,
+	# even when its private retained descriptor has already been removed.
+	var public_arena: Dictionary=local_arena()
+	var public_held: Variant=_admit_retained051(public_arena.state,public_arena.source,1.0/60.0,"semantic-public-intent")
+	check(public_held is C._Retained051,"non-retained helm case obtains its public certificate from real admission")
+	if public_held is C._Retained051:_physical_preference_drop051(public_arena,public_held,"public-intent",false)
+	for variant: String in ["command","options","direct-options","terrain","owner","target","capability","phase","shot","manual","deadline"]:
+		var arena: Dictionary=local_arena();var st: Dictionary=arena.state;var source: Dictionary=arena.source;var id: String=str(source.id)
+		var held: Variant=_admit_retained051(st,source,1.0/60.0,"semantic-urgent-"+variant)
+		check(held is C._Retained051,"urgent semantic case begins with actual authority: "+variant)
+		if not held is C._Retained051:continue
+		var preference: Variant=_physical_preference_drop051(arena,held,variant)
+		if not preference is C._Preference051:continue
+		match variant:
+			"command":check(B.issue_order(st,[id],"withdraw") and not st.tactical.preferences051.has(id),"command acceptance erases semantic eligibility immediately")
+			"options":check(T.set_options(st,[id],{"doctrine":"cautious"}) and not st.tactical.preferences051.has(id),"option transaction erases semantic eligibility immediately")
+			"direct-options":st.tactical.options.byId[id].doctrine="cautious"
+			"manual":B.set_autopilot(st,false);check(not st.tactical.preferences051.has(id),"manual-control transaction immediately erases semantic eligibility")
+			"terrain":st.islands=[F.rectangle(100.0,100.0,140.0,140.0)];st.tactical.geometry=Routes.terrain(st)
+			"owner":st.tactical.ships[id]=source.duplicate(true)
+			"target":st.tactical.ships[str(preference.target_id)].sunk=true
+			"capability":source.engine=0.0
+			"phase":st.tactical.memory.player.byId[id].phase="breakaway"
+			"shot":source.mountShotTimes[str(st.tactical.mountCache[id].mounts[0].id)]=float(st.time)
+			"deadline":st.time=preference.chosen_at+0.45
+		var current: Dictionary={}
+		check(not T._observe_retained051(st,id,null,current) and not current.get("freshDecisions051",{}).has(id) and not st.tactical.preferences051.has(id) and not st.tactical.retained051.has(id) and not st.tactical.intents.has(id) and not st.tactical.memory.player.reservations.has(id),"current urgent change/hard deadline cannot lend a semantic decision or authority: "+variant)
+
 func retained_maneuver051() -> void:
 	for dt: float in [1.0/30.0,1.0/60.0]:
 		var arena: Dictionary=local_arena()
@@ -712,6 +814,8 @@ func retained_maneuver051() -> void:
 				B.update(st,dt)
 				var events: Array=B.pop_events(st)
 				check(events.any(func(event):return event.kind=="hit" and str(event.targetId)==id) and float(source.hp)<hp-1.0 and not T._current051(st,source,held.intent,dt).ok,"actual impact immediately invalidates retained capability authority")
+
+	retained_semantic_preference051()
 
 func traffic_budget051(limit: int=4096) -> Dictionary:
 	return {"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":limit}

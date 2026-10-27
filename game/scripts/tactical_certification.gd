@@ -31,6 +31,74 @@ class _Retained051 extends RefCounted:
 	var step_at: float=-1.0
 	var step_ok: bool=false
 
+# Semantic eligibility has no intent, candidate, path, certificate or fire gate.
+# The owner/target references are identity guards ONLY; all mutable predicates
+# are detached, and the original chosen_at is never renewed by recertification.
+class _Preference051 extends RefCounted:
+	var owner: Dictionary
+	var spec: Dictionary
+	var mount_source: Array
+	var targets: Dictionary
+	var target_sides: Dictionary={}
+	var options: Dictionary
+	var groups: Dictionary
+	var order_target: Dictionary
+	var identity: Dictionary={}
+	var motion_inputs: Array
+	var capability_inputs: Array
+	var events: Array
+	var target_id: String
+	var side: String
+	var revision: int
+	var terrain_revision: int
+	var chosen_at: float
+	var checked_at: float
+
+static func _preference051(st: Dictionary,ship: Dictionary,held: _Retained051) -> _Preference051:
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	var preference: _Preference051=_Preference051.new()
+	preference.owner=ship;preference.spec=ship.spec;preference.mount_source=held.mount_source
+	preference.targets=held.targets.duplicate()
+	for target_id in preference.targets:preference.target_sides[target_id]=str(preference.targets[target_id].get("team",""))
+	preference.options=t.options.byId[id].duplicate(true);preference.groups=t.groups.duplicate(true)
+	preference.order_target=ship.orderTarget.duplicate(true)
+	var memory: Dictionary=t.memory[str(ship.team)].byId.get(id,{})
+	for key in ["role","phase","targetId","leaderId","firingPassId"]:preference.identity[key]=memory.get(key)
+	preference.motion_inputs=held.motion_inputs.duplicate(true)
+	preference.capability_inputs=held.capability_inputs.duplicate(true)
+	preference.events=held.events.duplicate(true);preference.target_id=str(held.record.candidate.targetId)
+	preference.side=str(ship.team);preference.revision=held.revision;preference.terrain_revision=held.terrain_revision
+	preference.chosen_at=held.chosen_at;preference.checked_at=float(st.time)
+	return preference
+
+static func _preference_semantics051(st: Dictionary,ship: Dictionary,preference: _Preference051) -> bool:
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	if str(ship.team)!=preference.side or ship.orderTarget!=preference.order_target or t.options.byId.get(id,{})!=preference.options or t.groups!=preference.groups:return false
+	var memory: Dictionary=t.memory[str(ship.team)].byId.get(id,{})
+	for key in preference.identity:
+		if memory.get(key)!=preference.identity[key]:return false
+	return true
+
+static func _preference_conditions051(st: Dictionary,ship: Dictionary,preference: _Preference051) -> bool:
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	if not is_same(ship,preference.owner) or str(ship.order)!="engage" or int(ship.orderRevision)!=preference.revision:return false
+	if float(st.time)<preference.chosen_at or float(st.time)-preference.chosen_at>0.45+0.000001:return false
+	if int(t.terrainRevision)!=preference.terrain_revision or not is_same(ship.spec,preference.spec) or not is_same(t.mountCache[id].baseMounts,preference.mount_source) or _motion_inputs(ship)!=preference.motion_inputs or not _preference_semantics051(st,ship,preference):return false
+	for target_id in preference.targets:
+		var target: Dictionary=t.ships.get(target_id,{})
+		if not is_same(target,preference.targets[target_id]) or target.get("sunk",false) or target.get("captureSecured",false) or str(target.get("team",""))!=preference.target_sides[target_id]:return false
+	return true
+
+static func _preference_current051(st: Dictionary,ship: Dictionary,preference: _Preference051,frame_cache=null) -> bool:
+	if not _preference_conditions051(st,ship,preference):return false
+	var actual: Array=_live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache))
+	if _live_capability_lost(actual,preference.capability_inputs,_heat_wear(ship,maxf(0.0,float(st.time)-preference.checked_at),float(preference.capability_inputs[2]))):return false
+	preference.capability_inputs=actual.duplicate(true);preference.checked_at=float(st.time)
+	return true
+
 static func _retain051(st: Dictionary,ship: Dictionary,intent: Dictionary,record: Dictionary,frame_cache=null) -> _Retained051:
 	if str(ship.get("order",""))!="engage" or str(record.get("certificate",{}).get("scope",""))!=Planner.LIVE_CERT_SCOPE:return null
 	var held: _Retained051=_Retained051.new()
@@ -56,8 +124,11 @@ static func _retain051(st: Dictionary,ship: Dictionary,intent: Dictionary,record
 	return held
 
 static func _retained_events051(st: Dictionary,ship: Dictionary,held: _Retained051) -> Array:
+	return _preference_events051(st,ship,str(held.record.candidate.targetId))
+
+static func _preference_events051(st: Dictionary,ship: Dictionary,target_id: String) -> Array:
 	var result: Array=[]
-	var target: Dictionary=st.tactical.ships.get(str(held.record.candidate.targetId),{})
+	var target: Dictionary=st.tactical.ships.get(target_id,{})
 	var distance: float=Routes.point(ship).distance_to(Routes.point(target)) if not target.is_empty() else INF
 	var mounts: Array=st.tactical.mountCache[str(ship.id)].mounts
 	var timers: Array=ship.get("weaponCooldowns",[])
@@ -70,12 +141,14 @@ static func _retained_events051(st: Dictionary,ship: Dictionary,held: _Retained0
 		result.append(distance<=float(mount.range)+(Roles.radius(target) if not target.is_empty() else 0.0)+1.0)
 	return result
 
-static func _retained_current051(st: Dictionary,ship: Dictionary,held: _Retained051,frame_cache=null) -> Dictionary:
+static func _retained_current051(st: Dictionary,ship: Dictionary,held: _Retained051,frame_cache=null,preference: _Preference051=null) -> Dictionary:
 	var t: Dictionary=st.tactical
 	if not is_same(held.owner,ship) or not is_same(t.intents.get(str(ship.id)),held.intent) or int(ship.orderRevision)!=held.revision or str(ship.order)!="engage" or float(st.time)-held.chosen_at>0.45+0.000001:return {"ok":false,"reason":"Reconsidering maneuver"}
+	if preference!=null and not _preference_semantics051(st,ship,preference):return {"ok":false,"reason":"Conditions changed; checking maneuver"}
 	if int(t.terrainRevision)!=held.terrain_revision or not is_same(ship.spec,held.spec) or not is_same(t.mountCache[str(ship.id)].baseMounts,held.mount_source) or _motion_inputs(ship)!=held.motion_inputs:return {"ok":false,"reason":"Conditions changed; checking maneuver"}
 	for id in held.targets:
 		if not is_same(t.ships.get(id),held.targets[id]) or held.targets[id].get("sunk",false) or held.targets[id].get("captureSecured",false):return {"ok":false,"reason":"Target or leader unavailable"}
+		if preference!=null and str(held.targets[id].get("team",""))!=preference.target_sides[id]:return {"ok":false,"reason":"Target or leader unavailable"}
 	var actual: Array=_live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache))
 	if _live_capability_lost(actual,held.capability_inputs,_heat_wear(ship,float(t.dt),float(held.capability_inputs[2]))):return {"ok":false,"reason":"Damage or capability changed; reassessing"}
 	held.capability_inputs=actual.duplicate(true)

@@ -70,6 +70,7 @@ static func ensure(st: Dictionary) -> Dictionary:
 	if not st.tactical.has("certificationAttempts"):
 		st.tactical.certificationAttempts={};st.tactical.lastCertified={};st.tactical.safety={}
 	if not st.tactical.has("retained051"):st.tactical.retained051={}
+	if not st.tactical.has("preferences051"):st.tactical.preferences051={}
 	return st.tactical
 
 static func register(st: Dictionary,ship: Dictionary,mounts: Array) -> void:
@@ -108,8 +109,7 @@ static func accept_command(st: Dictionary,ship: Dictionary,order: String,target:
 	# Only approach metadata is cancelled. Launched parties/jobs own real crew
 	# independently in Boarding and are deliberately never recalled here.
 	ship.erase("boardingOrder")
-	t.intents.erase(id);t.pending[id]=float(st.time)
-	t.retained051.erase(id)
+	_drop_retained051(t,id);t.pending[id]=float(st.time)
 	t.lastDecision[id]=-1.0;t.orderTimes[id]=float(st.time)
 	t.certificationAttempts[id]=-2.0
 	t.reasons[id]="Order received: "+order.capitalize()
@@ -124,8 +124,7 @@ static func accept_command(st: Dictionary,ship: Dictionary,order: String,target:
 static func control_changed(st: Dictionary) -> void:
 	var t: Dictionary=ensure(st)
 	var id: String=str(st.get("playerId",""))
-	t.intents.erase(id);t.lastDecision[id]=-1.0
-	t.retained051.erase(id)
+	_drop_retained051(t,id)
 	t.certificationAttempts[id]=-2.0
 	t.reasons[id]="Checking order after control change"
 
@@ -237,8 +236,7 @@ static func set_options(st: Dictionary,ids: Array,patch: Dictionary) -> bool:
 	# No live option or order changes until every recipient and mount validates.
 	for id in staged:
 		t.options.byId[id]=staged[id]
-		t.intents.erase(id);t.lastDecision[id]=-1.0;t.pending[id]=float(st.time)
-		t.retained051.erase(id)
+		_drop_retained051(t,id);t.pending[id]=float(st.time)
 		t.reasons[id]="Tactical choices updated"
 	t.groups={1:[],2:[],3:[],4:[]}
 	for id in t.options.byId:
@@ -458,7 +456,7 @@ static func _order_lifetime(st: Dictionary,ship: Dictionary) -> void:
 			t.reasons[id]="Attack complete; target unavailable" if lost else "Attack could not reach a firing lane; regrouping"
 
 static func _prune(t: Dictionary,live: Dictionary,now: float) -> void:
-	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety","retained051"]:
+	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety","retained051","preferences051"]:
 		for id in t[key].keys():
 			if not live.has(id):t[key].erase(id)
 	for id in t.options.byId.keys():
@@ -514,13 +512,11 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	# This is an actual condition/authority reevaluation, separate from the fair
 	# physical-certification queue. It cannot invent an unchecked escape path.
 	if danger and allowed and id!=str(t.manualId) and not bool(previous.get("withdraw",false)):
-		t.intents.erase(id);t.certificationAttempts[id]=-2.0;t.lastDecision[id]=-1.0
-		t.retained051.erase(id)
+		_drop_retained051(t,id);t.certificationAttempts[id]=-2.0
 		if not t.pending.has(id):t.pending[id]=now
 		t.reasons[id]="Fire or flooding danger; seeking a safe local rally"
 	elif (abrupt or discrete_equip) and id!=str(t.manualId):
-		t.intents.erase(id);t.certificationAttempts[id]=-2.0;t.lastDecision[id]=-1.0
-		t.retained051.erase(id)
+		_drop_retained051(t,id);t.certificationAttempts[id]=-2.0
 		if not t.pending.has(id):t.pending[id]=now
 
 static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidate: Dictionary) -> String:
@@ -627,8 +623,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	if new_manual_id!=str(t.manualId):
 		if not str(t.manualId).is_empty():
 			t.certificationAttempts[t.manualId]=-2.0;t.lastDecision[t.manualId]=-1.0
-			t.retained051.erase(t.manualId)
-		if not new_manual_id.is_empty():t.intents.erase(new_manual_id);t.retained051.erase(new_manual_id)
+			_drop_retained051(t,str(t.manualId))
+		if not new_manual_id.is_empty():_drop_retained051(t,new_manual_id)
 		t.manualId=new_manual_id
 	for ship in t.ships.values():safety_check(st,ship,frame_cache)
 	if profile051:
@@ -920,13 +916,26 @@ static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,of
 				distinct_targets[expected_target]=true
 		if not valid or distinct_targets.size()>4:t.counters.rejectedIntents+=1;continue
 		accepted[id]=intent.duplicate(true)
-	for id in accepted:
+	var original_choices051: Dictionary=prepared051.get("originalPreferenceChosenAt051",{})
+	for id in accepted.keys():
+		# A fresh certificate does not renew semantic eligibility. Only a new
+		# full role choice may start another .45s preference window.
+		if original_choices051.has(id):
+			var original: float=float(original_choices051[id])
+			# Planner has checked this begin's owner/generation/time or joined a
+			# current worker choice. Its original may be an old semantic choice
+			# OR a newly computed full choice; neither starts at recertification.
+			if not is_finite(original) or original<0.0 or float(st.time)<original or float(st.time)-original>0.45+0.000001:
+				accepted.erase(id);_drop_retained051(t,str(id));continue
 		t.intents[id]=accepted[id]
 		t.retained051.erase(id)
 		t.reasons[id]=str(accepted[id].get("reason","Following maneuver"))
 		Fire.accept_pass(st,t.ships[id],accepted[id])
 		var held: Certification._Retained051=Certification._retain051(st,t.ships[id],accepted[id],t.predictions.get(str(accepted[id].pathFingerprint),{}),frame_cache)
-		if held!=null:t.retained051[id]=held
+		if held!=null:
+			if original_choices051.has(id):held.chosen_at=float(original_choices051[id])
+			t.retained051[id]=held
+		else:t.preferences051.erase(id)
 		if _runtime_profile043_enabled and held!=null:_runtime_profile043_counts.retainedAdmissions+=1
 		t.trace.append({"time":float(st.time),"shipId":id,"order":str(t.ships[id].order),"phase":str(accepted[id].get("phase","")),"reason":t.reasons[id],"targetId":str(accepted[id].get("targetId",""))})
 	# dueIds alone can publish per-hull memory/reservations; non-due state stays.
@@ -940,6 +949,11 @@ static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,of
 				var count: Dictionary={"nodes":0}
 				if memory[key][id] is Dictionary and bounded_value(memory[key][id],count):t.memory[side][key][id]=memory[key][id].duplicate(true)
 			elif not memory[key].has(id):t.memory[side][key].erase(id)
+	# Capture semantic predicates AFTER the current decision memory publishes.
+	# This detached eligibility never contains the new geometry/fire authority.
+	for id in accepted:
+		var held=t.retained051.get(id)
+		if held is Certification._Retained051:t.preferences051[id]=Certification._preference051(st,t.ships[id],held)
 
 static func bounded_value(value: Variant,count: Dictionary,depth: int=0) -> bool:
 	count.nodes+=1
@@ -977,16 +991,29 @@ static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dic
 		if goal.has("x") and (candidate.approach.is_empty() or candidate.approach[-1].distance_to(Vector2(goal.x,goal.y))>0.000001):return false
 	return true
 
-static func _drop_retained051(t: Dictionary,id: String,preference_expiry051: bool=false) -> void:
+static func _drop_retained051(t: Dictionary,id: String,preference_expiry051: bool=false,physical_only051: bool=false) -> void:
+	var held=t.retained051.get(id)
+	var preference=t.get("preferences051",{}).get(id)
+	if held is Certification._Retained051:
+		held.step_ok=false
+		if physical_only051 and preference is Certification._Preference051:
+			# Preserve the latest real capability baseline, not an old lower HP
+			# value after repair. No corridor or fire grant survives this transfer.
+			preference.capability_inputs=held.capability_inputs.duplicate(true)
+			preference.checked_at=maxf(preference.checked_at,held.step_at)
+	if not physical_only051:t.get("preferences051",{}).erase(id)
 	t.retained051.erase(id);t.intents.erase(id)
+	for side in t.memory:t.memory[side].get("reservations",{}).erase(id)
 	# Normal expiry removes authority, not the last useful observation. Preserve
 	# its generation for a matching prefetch; every urgent/event drop still -1s.
 	if not preference_expiry051:t.lastDecision[id]=-1.0
 
 static func _current051(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offset: float=0.0,frame_cache=null) -> Dictionary:
-	var held=st.tactical.retained051.get(str(ship.id))
+	var id: String=str(ship.id)
+	var held=st.tactical.retained051.get(id)
 	if not held is Certification._Retained051:return Certification.current(st,ship,intent,pose_offset,frame_cache)
-	var result: Dictionary=Certification._retained_current051(st,ship,held,frame_cache)
+	var preference=st.tactical.preferences051.get(id)
+	var result: Dictionary=Certification._retained_current051(st,ship,held,frame_cache,preference if preference is Certification._Preference051 else null)
 	if not result.ok:
 		if _runtime_profile043_enabled:
 			match str(result.reason):
@@ -995,19 +1022,24 @@ static func _current051(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_
 				"Target or leader unavailable":_runtime_profile043_counts.retainedMissTarget+=1
 				"Damage or capability changed; reassessing":_runtime_profile043_counts.retainedMissCapability+=1
 				_:_runtime_profile043_counts.retainedMissOther+=1
-		_drop_retained051(st.tactical,str(ship.id))
+		_drop_retained051(st.tactical,id)
 	return result
 
 static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,current051: Dictionary={}) -> bool:
 	var t: Dictionary=st.tactical
 	var held=t.retained051.get(id)
-	if not held is Certification._Retained051:return false
-	# Full preference becomes eligible at .30; fair slots still bound it by .45.
-	if float(st.time)-held.chosen_at>=0.30-0.000001:
+	var preference=t.preferences051.get(id)
+	if not preference is Certification._Preference051:return false
+	# Fresh stable observations may cross .30s. This ORIGINAL .45s hard bound
+	# is not refreshed by semantic reuse, physical drops or recertification.
+	if float(st.time)-preference.chosen_at>=0.45-0.000001:
 		if _runtime_profile043_enabled:_runtime_profile043_counts.retainedDropTime+=1
 		_drop_retained051(t,id,t.has("workers051"));return false
 	var ship: Dictionary=t.ships[id]
-	if not _current051(st,ship,t.intents.get(id,{}),0.0,frame_cache).ok:return false
+	if held is Certification._Retained051:
+		if not _current051(st,ship,t.intents.get(id,{}),0.0,frame_cache).ok:return false
+	elif not Certification._preference_current051(st,ship,preference,frame_cache):
+		_drop_retained051(t,id);return false
 	if not _boarding_contact(st,ship,frame_cache).is_empty():
 		if _runtime_profile043_enabled:_runtime_profile043_counts.retainedDropBoarding+=1
 		_drop_retained051(t,id);return false
@@ -1018,12 +1050,12 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,curr
 	var previous_own051: Dictionary=context[id]
 	context[id]=own
 	var view051: Dictionary={"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"ships":context.values(),"mission":current051.mission}
-	var previous: Dictionary=t.memory[str(ship.team)].byId.get(id,{})
+	var previous: Dictionary=t.memory[side].byId.get(id,{})
 	var decision: Dictionary=Planner._observe_retained051(view051,own,previous,context)
 	context[id]=previous_own051
-	var changed: bool=decision.is_empty() or held.events!=Certification._retained_events051(st,ship,held)
+	var changed: bool=decision.is_empty() or preference.events!=Certification._preference_events051(st,ship,preference.target_id)
 	if _runtime_profile043_enabled and changed:_runtime_profile043_counts["retainedDropPhase" if decision.is_empty() else "retainedDropEvents"]+=1
-	if int(held.record.index)>=held.points.size() and str(held.intent.phase) in ["approach","stage","align"]:
+	if held is Certification._Retained051 and int(held.record.index)>=held.points.size() and str(held.intent.phase) in ["approach","stage","align"]:
 		if _runtime_profile043_enabled and not changed:_runtime_profile043_counts.retainedDropCompletion+=1
 		changed=true
 	if not decision.is_empty():
@@ -1032,7 +1064,13 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,curr
 				if _runtime_profile043_enabled and not changed:_runtime_profile043_counts.retainedDropPhase+=1
 				changed=true
 	if changed:_drop_retained051(t,id);return false
-	t.memory[str(ship.team)].byId[id]=decision.state
+	if not held is Certification._Retained051:
+		# This is a fresh complete decision for THIS begin, not stored authority.
+		# Planner consumes it once, then generates current paths/certification.
+		if not current051.has("freshDecisions051"):current051.freshDecisions051={}
+		current051.freshDecisions051[id]={"owner":own,"revision":int(t.snapshotRevision),"at":float(st.time),"decision":decision.duplicate(true),"originalPreferenceChosenAt":preference.chosen_at}
+		return false
+	t.memory[side].byId[id]=decision.state
 	var age: float=float(st.time)-float(t.lastDecision.get(id,st.time))
 	t.metrics.decisionAges.append(age);t.counters.oldestDecisionAge=maxf(float(t.counters.oldestDecisionAge),age)
 	if age>0.2+0.000001:t.counters.lateDecisions+=1
@@ -1054,6 +1092,7 @@ static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary
 		t.metrics.orderApplyAges.append(maxf(0.0,float(st.time)-float(t.orderTimes.get(id,st.time))))
 		t.appliedRevisions[id]=int(ship.get("orderRevision",0))
 	if not current.ok:
+		if not intent.is_empty():_drop_retained051(t,id)
 		if not t.pending.has(id):t.pending[id]=float(st.time)
 		if not intent.is_empty() or not t.reasons.has(id):t.reasons[id]=str(current.reason)
 		var brake_started: int=Time.get_ticks_usec()
@@ -1065,7 +1104,7 @@ static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary
 	var target_id: String=str(intent.get("targetId",""))
 	var target: Dictionary=t.observed.get(target_id,{})
 	if not target_id.is_empty() and (target.is_empty() or target.team==ship.team):
-		t.intents.erase(id);t.lastDecision[id]=-1.0
+		_drop_retained051(t,id)
 		var brake_started: int=Time.get_ticks_usec()
 		var braked: Dictionary=Certification.brake(st,ship,t.budget,"Target unavailable; reassessing",frame_cache)
 		if not detail.is_empty():
@@ -1085,8 +1124,8 @@ static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary
 		held.step_at=float(st.time);held.step_ok=not bool(safe.get("blocked",false))
 	if not detail.is_empty():detail.helmSafety+=Time.get_ticks_usec()-safety_started
 	if safe.get("blocked",false):
-		t.reasons[id]=str(safe.reason);t.intents.erase(id)
-		if held is Certification._Retained051:_drop_retained051(t,id)
+		t.reasons[id]=str(safe.reason)
+		_drop_retained051(t,id,false,true)
 		if not t.pending.has(id):t.pending[id]=float(st.time)
 	if not detail.is_empty():detail.helmTotal+=Time.get_ticks_usec()-helm_started
 	return safe
