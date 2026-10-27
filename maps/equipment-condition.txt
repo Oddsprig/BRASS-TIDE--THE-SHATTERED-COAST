@@ -31,7 +31,7 @@ game/scripts/equipment_fitting.gd: 23353 bytes; extends RefCounted
   game/scripts/equipment_fitting.gd:86 matches()
   game/scripts/equipment_fitting.gd:98 wants_initialize()
   game/scripts/equipment_fitting.gd:101 wants_new()
-game/scripts/equipment_damage.gd: 58857 bytes; extends RefCounted
+game/scripts/equipment_damage.gd: 58985 bytes; extends RefCounted
   game/scripts/equipment_damage.gd:41 number()
   game/scripts/equipment_damage.gd:55 empty_task_map()
   game/scripts/equipment_damage.gd:58 inspect_owner()
