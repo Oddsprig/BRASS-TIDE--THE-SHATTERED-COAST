@@ -1,0 +1,29 @@
+BRASS TIDE v0.045 - COMBAT PRESENTATION
+
+Weapons: authored gun/cannon/rocket/torpedo equipment across all36boats, real
+physical mounts, shared actual-shot recoil and safe mechanical fallback. Three
+hull sprites are authored;33hull models still await049. Fitting/crew/ammo rules
+are unchanged.
+
+Water: short connected stern wash follows real travel and fades at rest. Three
+bands,12samples and0.7seconds maximum history; no ghost hull, long V rails,
+bubble-chain wake, new fluid simulation or expensive water shader.
+
+Contacts: real breach vs ricochet, cool torpedo water impacts, canonical disabled
+machinery smoke and recorded burning/sinking state. Effects never invent damage.
+
+Sound: existing CC0 recorded weapon/contact banks, wet-first torpedo layering,
+sharp rocket reports, distance attenuation and bounded priorities. Existing
+voice caps remain. Supplied music and settings are preserved. Engine ambience
+remains an original procedural loop. Credits: docs/audio/RECORDED AUDIO CREDITS.txt.
+
+TRY IT
+Main menu -> Fleet battle laboratory -> Four fitted weapons against surrounding
+threats. The existing044torpedo crossing and cover-breakaway practices also work.
+Autopilot is default. WASD camera, Space pause, right-click orders, Escape menu.
+
+VERIFICATION IS PENDING FOR THIS SOURCE CANDIDATE
+Actual final native/recorded proof belongs in tests/RESULTS.txt and this version's
+verification notes after Root checks it. A still does not show motion. An offline
+60frame/s movie is not evidence of realtime60FPS. Tests remain silent; no audible
+quality claim. Full-fleet performance and the051core quality gate remain OPEN.

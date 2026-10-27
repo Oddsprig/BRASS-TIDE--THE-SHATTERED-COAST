@@ -1,13 +1,38 @@
 BRASS TIDE v0.045 - WEAPONS, IMPACTS, WAKES AND RECORDED SOUND
-27 October2026 |36 boat designs
+27 October2026 |36boat designs
 
 THIS VERSION
-- Use authored interchangeable weapon sprites across the roster while preserving real mounts, bearings and shot-driven recoil.
-- Replace segmented stern marks with short inexpensive foam that follows actual travel and fades naturally.
-- Make gun, cannon, rocket and torpedo events readable through distinct impacts and bounded mixing of existing licensed recordings.
+The seven authored interchangeable weapon variants now render on every hull
+under the supported isometric projection, including workshop views. Physical
+mounts, traverse and actual shot timestamps drive their origins and recoil.
+Missing textures, chart projection and legacy enlargement keep safe mechanical
+fallback art. Only THREE HULLS have authored sprites; the other33hull models
+remain the later049scope. This is not a claim that all boat art is finished.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Stern wash follows recorded travel, not bow rotation. Three connected tapered
+bands replace separate foam patches. The producer retains at most12samples
+per boat and0.7seconds of history; stopped boats fade. No ghost hull/reflection,
+long wake rails, expensive water simulation, shader or particle system is added.
+
+Breach feedback differs from ricochets. Torpedo contacts use cooler water
+feedback; sinking fire follows the wreck's actual recorded fire. Equipment
+smoke and disable marks read actual canonical condition. No damage, hit, death,
+RNG, crew, ammunition or repair rule is changed for visual effects.
+
+Weapon/impact sound uses existing licensed CC0 recordings. Torpedoes mix water
+first, rockets have a sharper report, and damage gets bounded priority. Distance
+attenuation is continuous; the existing32voice/12eventvoice limits remain.
+The engine loop is original procedural audio, not a claimed real recording.
+Supplied music and player volume preferences remain separate and preserved.
+
+VERIFICATION
+Root owns all queued native, GPU and offline recording work. See portable
+receipts and COMBAT PRESENTATION v0.045.txt for actual results. Silent tests
+cannot certify audible quality. Fixed60frame/s offline capture cannot certify
+realtime60FPS or close the043performance miss. Overall051quality gate is OPEN.
+
+CONTROLS / NEXT SCOPE
+Autopilot defaults ON. WASD camera; Space pause; right-click selected orders;
+U manual flagship toggle; Escape menu. The044practice battles remain available.
+Next046is tacticalAI. It must retain the concrete slow42boatcase; don't hide it
+by reducing fleet size or physics.047commands,049hullart and050coast stay separate.
