@@ -1947,6 +1947,26 @@ func goals_escape_preference051() -> void:
 	var retry_input: Dictionary=data.duplicate(true);retry_input.memory.byId[id]=pending.state.duplicate(true)
 	var retry: Dictionary=Planner.Goals051.plan051(retry_input).goals051[id]
 	check(not retry.candidate.is_empty() and Stations.same_request(retry.candidate,requests[0]),"fresh route budget after pending still selects the ordinary station before the vetoed escape")
+	# Every ordinary heavy station needs >=5 static sweeps; the existing short
+	# escape needs4. Repeating a4-test slice used to restart the ordinary prefix
+	# forever, so its demoted last fallback never received a usable route slice.
+	var fair_input: Dictionary=data.duplicate(true)
+	var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state])
+	var recovered: Dictionary={}
+	var attempts: Array=[]
+	for sample051: int in range(requests.size()):
+		fair_input.view.time=float(view.time)+float(sample051)*Planner.Goals051.BATCH_SECONDS
+		fair_input.budgets[id]={"clearanceTests":0,"clearanceLimit":4,"fullRoutes":0,"exhaustions":0,"cacheHits":0}
+		var result051: Dictionary=Planner.Goals051.plan051(fair_input).goals051[id]
+		check(int(fair_input.budgets[id].clearanceTests)<=4 and int(fair_input.budgets[id].fullRoutes)<=4,"pending-offer recovery keeps the original finite route and clearance slice")
+		attempts.append({"sampledAt":result051.sampledAt,"cursor":result051.state.get("routeOfferCursor051",-1),"candidate":result051.candidate})
+		if sample051==0:check(result051.candidate.is_empty() and int(result051.state.get("routeOfferCursor051",0))>0,"a real exhausted ordinary search remains pending and yields its next sample to another offer")
+		if not result051.candidate.is_empty():
+			recovered=result051;break
+		fair_input.memory.byId[id]=result051.state.duplicate(true)
+	check(not recovered.is_empty() and Routes._is_crowd_escape051(recovered.candidate) and Stations.same_request(recovered.candidate,requests[-1]),"bounded fresh samples reach the fully routed last escape after giving ordinary alternatives their finite turns")
+	check(not recovered.is_empty() and not recovered.state.has("routeOfferCursor051") and not recovered.state.has("blockedCrowdEscape051") and float(recovered.chosenAt)==float(fair_input.view.time) and float(recovered.sampledAt)==float(fair_input.view.time) and var_to_bytes([st.ships,st.rng.state])==physical,"successful fair recovery clears private retry state, preserves real sample clocks and cannot move ships or spend stores/RNG")
+	observations.append({"case":"goals051-pending-offer-fairness","attempts":attempts,"recovered":recovered})
 	observations.append({"case":"goals051-escape-preference","promoted":promoted.candidate,"ordinary":vetoed.candidate,"pendingState":pending.state,"retry":retry.candidate})
 
 func goals_attack051() -> void:

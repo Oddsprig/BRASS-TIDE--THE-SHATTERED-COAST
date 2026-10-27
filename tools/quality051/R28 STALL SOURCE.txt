@@ -1,0 +1,54 @@
+R28 STALL SOURCE - 27 October 2026
+Base: 9fcb29482d713c6c79d8698e2d8d6ca2492bdac4
+Status: SOURCE ONLY / NATIVE UNRUN / NOT ACCEPTED.
+
+Read AGENTS, current roadmap/checkpoint, parent R28 targeted stall.json and
+the mixed deployment/deadlock sections of R28 engagement and cost findings.
+R28 measured enemy-5-barbed_lance pending3.183s at(1286.14343,995.01685),
+speed~0, no intent; last brake veto enemy-4-reed_stinger at41.552 distance,
+physical floor37/planning44. This receipt is a brake veto, NOT evidence that
+the worker checked or rejected every possible escape. Worker timing varies.
+
+Concrete source starvation path:
+Goals051 always restarted at offer0, even after a partial static route consumed
+the finite per-actor clearance slice. Later ordinary offers and the existing
+demoted last crowd escape could repeatedly see only an exhausted budget. The
+next real route-pending observation advanced lastDecision but did not advance
+which offer received useful route work. The SIDE's fair actor cursor does not
+provide fairness among that actor's offers.
+
+Small correction, tactical_goals051.gd only:
+An unsuccessful sampled search records one bounded routeOfferCursor051. The
+next same-order blocked sample starts there and wraps across the same <=8
+freshly generated requests. The first pending route after actual clearance
+work yields to that unserved offer; when it already started the sample, its
+next offer receives first turn instead. A zero-work/zero-budget sample keeps
+the current start. All remaining offers are still tried in the current slice.
+Terminal blocked results do not trigger rotation on their own. No candidate,
+route proof or physical certificate is carried. Roles' existing fixed state
+copy discards the cursor on success; changed orderRevision ignores it.
+
+The 3b9fdf3 escape-veto correction remains: a newly live-vetoed escape is still
+last on the next fresh search, after ordinary alternatives. Only a subsequently
+route-pending search can continue among offers; no permanently promoted escape.
+No Runtime/Routes/Roles edits. No changes to collision, planning margins, live
+safe_step/crowd checks, reservations, RNG, equipment, boats/art/water/resources,
+42light/16mixed/full300DPside,60Hz,8offers,2900SIDE tests/fourA*,100ms batches,
+150ms sample or450ms choice limits. Every published clock remains the actual
+new full-search input sample; no old goal age or pending age is refreshed here.
+
+ONE focused regression added inside existing goals_escape_preference051:
+The existing west-contact heavy fixture, same true escape-veto marker, empty
+terrain/reservations, fresh4-clearance-test slices. Ordinary stations need
+at least5 static sweeps and cannot complete; the strict short escape needs4.
+Within the existing offer count, repeated real fresh searches must route that
+fallback, retain all work bounds and actual sample times, clear retry markers
+on success, and leave live ships/stores/RNG unchanged. Old assertions remain.
+This is an UNRUN deterministic reproduction of the source starvation path,
+not a reproduction or proof of the entire nondeterministic R28 battle.
+
+Root owns ALL native engines/tests/import/export/profiler and actual remeasure.
+No such jobs, helpers, downloads, tags, installation or publication were run.
+Source diff/whitespace review only. Root should run existing goals051 selector
+and unchanged relevant physical regressions, then actual representative battle.
+No measured speedup, resolved-stall claim, gameplay pass or051 acceptance.

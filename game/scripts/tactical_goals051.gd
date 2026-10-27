@@ -38,14 +38,29 @@ static func plan051(data: Dictionary) -> Dictionary:
 		var candidate: Dictionary={}
 		var reservation: Dictionary={}
 		var risk: float=clampf(float(ship.water)/maxf(1.0,float(ship.capacity)),0.0,1.0)
-		for index: int in range(mini(Stations.MAX_OFFERS,requests.size())):
+		var offer_count051: int=mini(Stations.MAX_OFFERS,requests.size())
+		var first_offer051: int=0
+		if bool(previous.get("blockedStation",false)) and int(previous.get("orderRevision",-1))==int(ship.orderRevision):
+			first_offer051=clampi(int(previous.get("routeOfferCursor051",0)),0,maxi(0,offer_count051-1))
+		var next_offer051: int=first_offer051
+		var pending_offer051: bool=false
+		var initial_tests051: int=int(budget.clearanceTests)
+		for offset051: int in range(offer_count051):
+			var index: int=(first_offer051+offset051)%offer_count051
 			var request: Dictionary=requests[index]
 			if not Stations.valid_candidate(request):continue
 			if str(ship.order)=="engage" and not request.fireMountIds.is_empty() and risk>float(decision.riskLimit):continue
 			# Static land routing ONLY. No long-horizon moving-hull forecast and
 			# no Fire/rollout/certificate work: real safe_step owns current traffic.
 			var routed: Dictionary=Routes.refine(private_state,data.geometry,ship,request,budget)
-			if routed.status!="valid":continue
+			if routed.status!="valid":
+				if routed.status=="pending" and not pending_offer051 and int(budget.clearanceTests)>initial_tests051:
+					# A fresh sample must not spend every slice on the same costly
+					# prefix. Give the first unserved offer a turn; if it already
+					# started this sample, yield to its next ordinary/fallback offer.
+					next_offer051=(index+1)%offer_count051 if offset051==0 else index
+					pending_offer051=true
+				continue
 			var choice: Dictionary=routed.candidate
 			# Deployment/sample origin is not a station to drive BACK toward at
 			# adoption. Main starts the selected route at its actual current pose.
@@ -70,6 +85,9 @@ static func plan051(data: Dictionary) -> Dictionary:
 			# An actual sampled observation may publish while no route is ready.
 			# It grants neither helm nor fire and never becomes a complete proof.
 			state.blockedStation=true;state.commitUntil=0.0
+			# Only an unsuccessful real search carries this bounded preference.
+			# Roles' fixed state copy clears it on success or a changed command.
+			state.routeOfferCursor051=next_offer051
 			# Route-pending samples cannot forget the last real escape veto.
 			if blocked_escape051:state.blockedCrowdEscape051=true
 			if float(state.get("waitSince",-1.0))<0.0:state.waitSince=float(view.time)
