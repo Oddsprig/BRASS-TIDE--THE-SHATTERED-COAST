@@ -1,0 +1,35 @@
+051 SIDE BATCH OBSERVATION - SOURCE ONLY
+Base: 1f23103cb371985560687efa7e0ab247e5e9af3a
+Checkout: work/quality-v042-v061/v051-once-observed-sol
+
+Approved partial rollback23abbe90: only worker cohort-size/refill policy rolls
+back. One whole deadline-ordered SIDE batch per existing150ms side period;
+joining/consuming a member never opens another refill. Main fair selection
+is unchanged. All eight alternatives remain; actor-generation membership,
+consume-once/late-result retirement and maxTWO unfinished tasks INCLUDING
+retired tasks remain. Each side period still owns2900traffic +128separate
+proof checks/four routes; none are multiplied or refilled.
+
+Runtime shares one pure semantic observation across wait/normal observation.
+Its begin-local record transfers once, guarded by live owner, exact own sample,
+observed sample and previous-memory identities plus snapshot revision/time.
+A mismatched proof supplies no decision. Normal current/phase/event/completion/
+physical checks still run; sharing cannot publish memory, renew clocks or grant
+helm/fire authority. No lifetime cache. Fresh complete decision consume API and
+original fleet.45/synchronous.30 policy remain. All original wait/sample/useful
+observation deadlines and current60Hz physical/fire/command checks are unchanged.
+Nav reserved-path/resolve hunks, Roles, stats and mounts are untouched.
+
+Existing workers/retained fixtures cover side cadence/order, no eager refill,
+independent sides/member invalidation, aggregate budgets, retired task seats,
+exact-result reuse, provenance mismatch and urgent-change rejection. Original
+handoff deadline/late completion/command/physical assertions are preserved.
+No new selector/harness/timer.
+
+ONE final advisory: python tools/check_preload_calls.py game
+scripts/tactical_planner.gd scripts/tactical_runtime.gd tests/test_tactical_ai.gd
+issues=[]; advisoryOnly=true; engineInvoked=false. git diff --check clean.
+No engine/native/test/profile/export/GPU/helper run. R40 PASS/R19 quality FALSE
+retained. Savings UNMEASURED; >=2ms NOT guaranteed. Root alone owns R41 then R20.
+No051 release/no052; quality051 OPEN. All Git mutations disable gc/maintenance/
+hooks, no amend. STOP after exact commit.

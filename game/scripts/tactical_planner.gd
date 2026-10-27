@@ -195,9 +195,9 @@ static func _worker_period051(st: Dictionary, side: String, order: Array) -> Dic
 	var ids: Array = []
 	for id: String in order:
 		if str(st.tactical.ships[id].team) == side and id != str(st.tactical.manualId): ids.append(id)
-	period = {"at": float(st.time), "slices": {}, "sent": {}, "clearanceAllocated": 0, "proofAllocated": 0, "routesAllocated": 0}
+	period = {"at": float(st.time), "slices": {}, "sent": {}, "dispatched051": false, "clearanceAllocated": 0, "proofAllocated": 0, "routesAllocated": 0}
 	# One SIDE allowance per original 150ms period: 2900 traffic tests PLUS
-	# 128 fixed-endpoint proofs. Cohorts cannot multiply either allowance.
+	# 128 fixed-endpoint proofs. One side batch cannot refill either allowance.
 	var clearance: int = 2900
 	var proofs: int = 128
 	var routes: int = 4
@@ -222,17 +222,24 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 			_release_slot051(t, slot)
 	if _tasks051.size() >= MAX_TASKS051:
 		return tally
+	# Completion/consumption never opens another dispatch in this SIDE period.
+	# Most frames stop here, before sorting or rebuilding any detached view.
+	var available: bool = false
+	for side: String in ["player", "enemy"]:
+		var period: Dictionary = t.workers051.periods051.get(side, {})
+		if period.is_empty() or float(st.time) >= float(period.at) + WORKER_BATCH_SECONDS051 - 0.000001 or not bool(period.dispatched051):
+			available = true; break
+	if not available: return tally
 	var ordered: Array = order.duplicate()
 	ordered.sort_custom(func(a: String, b: String) -> bool:
 		var aa: float = float(t.lastDecision.get(a, -1.0))
 		var bb: float = float(t.lastDecision.get(b, -1.0))
 		return aa < bb if aa != bb else order.find(a) < order.find(b))
-	var cap: int = maxi(1, ceili(float(order.size()) / 10.0))
 	var eligible: Array = []
 	for id: String in ordered:
 		var side: String = str(t.ships[id].team)
 		var period: Dictionary = _worker_period051(st, side, ordered)
-		if id != str(t.manualId) and _member_slot051(t, id).is_empty() and period.slices.has(id) and not period.sent.has(id): eligible.append(id)
+		if not bool(period.dispatched051) and id != str(t.manualId) and _member_slot051(t, id).is_empty() and period.slices.has(id) and not period.sent.has(id): eligible.append(id)
 	while not eligible.is_empty() and _tasks051.size() < MAX_TASKS051:
 		var side: String = str(t.ships[eligible[0]].team)
 		var period: Dictionary = t.workers051.periods051[side]
@@ -242,7 +249,7 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 		var memory_copy: Dictionary = {"byId": {}, "reservations": t.memory[side].reservations.duplicate(true)}
 		for id: String in eligible.duplicate():
 			var ship: Dictionary = t.ships[id]
-			if str(ship.team) != side or ids.size() >= cap: continue
+			if str(ship.team) != side: continue
 			ids.append(id)
 			eligible.erase(id); period.sent[id] = true
 			slices[id] = period.slices[id].duplicate(true)
@@ -252,6 +259,7 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 			var memory: Dictionary = t.memory[side].byId.get(id, {})
 			if not memory.is_empty(): memory_copy.byId[id] = memory.duplicate(true)
 			guards[id] = {"owner": ship, "spec": ship.spec, "mounts": t.mountCache[id].baseMounts, "revision": int(ship.orderRevision), "order": str(ship.order), "orderTarget": ship.orderTarget.duplicate(true), "options": t.options.byId[id].duplicate(true), "decisionAt": t.lastDecision.get(id, -1.0), "memory": memory.duplicate(true), "waitEvents051": _worker_wait_events051(st, id, memory), "capability": capability.call(st, id, [], frame_cache)}
+		period.dispatched051 = true # A whole deadline-ordered SIDE batch; no eager cohorts.
 		var capsule: _Detached051 = _Detached051.new()
 		var snapshot: Dictionary = build_view.call(st, side, ids, frame_cache)
 		var detached: Dictionary = Roles.ships_by_id(snapshot)

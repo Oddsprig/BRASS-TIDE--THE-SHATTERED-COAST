@@ -539,6 +539,33 @@ static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidat
 	t.budget.exhaustions+=int(counters.clearanceExhausted)
 	return status
 
+static func _retained_observation051(st: Dictionary,id: String,frame_cache,current051: Dictionary,share051: bool=false) -> Dictionary:
+	# One pure semantic read may cross ONLY the wait/observe seam in this begin.
+	# Main has not moved/fired/published this owner between those two readers;
+	# normal current/phase/event/physical guards still run at consumption.
+	var t: Dictionary=st.tactical
+	var ship: Dictionary=t.ships[id]
+	var side: String=str(ship.team)
+	var context: Dictionary=_begin_context051(st,side,frame_cache,current051)
+	var own: Dictionary=_begin_owner051(st,id,frame_cache,current051)
+	var previous: Dictionary=t.memory[side].byId.get(id,{})
+	var shared: Dictionary=current051.get("retainedObservation051",{}).get(id,{})
+	if not shared.is_empty():
+		current051.retainedObservation051.erase(id) # Transfer once, including an empty result.
+		if not is_same(shared.owner,ship) or not is_same(shared.own,own) or not is_same(shared.observed,t.observed.get(id)) or not is_same(shared.previous,previous):return {}
+		if int(shared.revision)!=int(t.snapshotRevision) or float(shared.at)!=float(st.time):return {}
+		return shared.decision
+	own.orderSince=float(t.orderTimes.get(id,0.0));own.failedTargetIds=t.failures.get(id,[])
+	var old_owner: Dictionary=context[id]
+	context[id]=own
+	var view051: Dictionary={"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"ships":context.values(),"mission":current051.mission}
+	var decision: Dictionary=Planner._observe_retained051(view051,own,previous,context)
+	context[id]=old_owner
+	if share051:
+		if not current051.has("retainedObservation051"):current051.retainedObservation051={}
+		current051.retainedObservation051[id]={"owner":ship,"own":own,"observed":t.observed[id],"previous":previous,"revision":int(t.snapshotRevision),"at":float(st.time),"decision":decision}
+	return decision
+
 static func _worker_wait_guard051(st: Dictionary,id: String,slot: Dictionary,frame_cache,current051: Dictionary) -> bool:
 	# An unfinished preference cannot justify delaying changed current inputs.
 	# This pure retained observer neither publishes memory nor renews authority.
@@ -560,14 +587,7 @@ static func _worker_wait_guard051(st: Dictionary,id: String,slot: Dictionary,fra
 	if not _boarding_contact(st,ship,frame_cache).is_empty():return false
 	for other: Dictionary in t.ships.values():
 		if str(ship.order)!="board" and other.team!=ship.team and Roles.pos(ship).distance_to(Roles.pos(other))<Routes.navigation_radius(ship)+Routes.navigation_radius(other)+24.0:return false
-	var context: Dictionary=_begin_context051(st,side,frame_cache,current051)
-	var own: Dictionary=_begin_owner051(st,id,frame_cache,current051)
-	own.orderSince=float(t.orderTimes.get(id,0.0));own.failedTargetIds=t.failures.get(id,[])
-	var old_owner: Dictionary=context[id]
-	context[id]=own
-	var view051: Dictionary={"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"ships":context.values(),"mission":current051.mission}
-	var observed: Dictionary=Planner._observe_retained051(view051,own,previous,context)
-	context[id]=old_owner
+	var observed: Dictionary=_retained_observation051(st,id,frame_cache,current051,true)
 	if observed.is_empty():return false
 	for key: String in keys:
 		if observed.state.get(key)!=previous.get(key):return false
@@ -849,8 +869,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		t.metrics.pendingAges.append(age)
 		t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
 	detail.resolution=Time.get_ticks_usec()-phase_started
-	# Deadline-ordered cohorts join independently. All cohorts share ONE side's
-	# 150ms pure 2900/4 allowance; current main certification stays unchanged.
+	# One deadline-ordered SIDE batch per 150ms; completion never refills it.
+	# Pure 2900 traffic/128 proof/4 route allowances and main checks stay unchanged.
 	phase_started=Time.get_ticks_usec()
 	var worker_tally051: Dictionary=Planner._dispatch_batch051(st,queued,_worker_view051,_worker_capability051,frame_cache,planning)
 	if _runtime_profile043_enabled:
@@ -1058,15 +1078,8 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,curr
 		if _runtime_profile043_enabled:_runtime_profile043_counts.retainedDropBoarding+=1
 		_drop_retained051(t,id);return false
 	var side: String=str(ship.team)
-	var context: Dictionary=_begin_context051(st,side,frame_cache,current051)
-	var own: Dictionary=_begin_owner051(st,id,frame_cache,current051)
-	own.orderSince=float(t.orderTimes.get(id,0.0));own.failedTargetIds=t.failures.get(id,[])
-	var previous_own051: Dictionary=context[id]
-	context[id]=own
-	var view051: Dictionary={"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"ships":context.values(),"mission":current051.mission}
 	var previous: Dictionary=t.memory[side].byId.get(id,{})
-	var decision: Dictionary=Planner._observe_retained051(view051,own,previous,context)
-	context[id]=previous_own051
+	var decision: Dictionary=_retained_observation051(st,id,frame_cache,current051)
 	var changed: bool=decision.is_empty() or preference.events!=Certification._preference_events051(st,ship,preference.target_id)
 	if _runtime_profile043_enabled and changed:_runtime_profile043_counts["retainedDropPhase" if decision.is_empty() else "retainedDropEvents"]+=1
 	if held is Certification._Retained051 and int(held.record.index)>=held.points.size() and str(held.intent.phase) in ["approach","stage","align"]:
@@ -1082,7 +1095,7 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,curr
 		# This is a fresh complete decision for THIS begin, not stored authority.
 		# Planner consumes it once, then generates current paths/certification.
 		if not current051.has("freshDecisions051"):current051.freshDecisions051={}
-		current051.freshDecisions051[id]={"owner":own,"revision":int(t.snapshotRevision),"at":float(st.time),"decision":decision.duplicate(true),"originalPreferenceChosenAt":preference.chosen_at}
+		current051.freshDecisions051[id]={"owner":current051.owners[id],"revision":int(t.snapshotRevision),"at":float(st.time),"decision":decision.duplicate(true),"originalPreferenceChosenAt":preference.chosen_at}
 		return false
 	t.memory[side].byId[id]=decision.state
 	var age: float=float(st.time)-float(t.lastDecision.get(id,st.time))

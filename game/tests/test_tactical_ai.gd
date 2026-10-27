@@ -698,9 +698,12 @@ func retained_semantic_preference051() -> void:
 		var memory: PackedByteArray=var_to_bytes(st.tactical.memory.player.byId[id])
 		var observed_at: float=float(st.tactical.lastDecision[id])
 		var current: Dictionary={}
+		var shared: Dictionary=T._retained_observation051(st,id,null,current,true)
+		check(not shared.is_empty() and float(st.tactical.lastDecision[id])==observed_at and var_to_bytes(st.tactical.memory.player.byId[id])==memory,"shared fleet observation alone preserves the revoked authority and observation clock dt="+str(dt))
 		check(not T._observe_retained051(st,id,null,current) and current.get("freshDecisions051",{}).has(id),"physical-drop observation prepares a fresh decision and still requires new geometry dt="+str(dt))
 		if not current.get("freshDecisions051",{}).has(id):continue
 		var fresh: Dictionary=current.freshDecisions051[id]
+		check(not current.retainedObservation051.has(id) and fresh.decision==shared and not is_same(fresh.decision,shared),"fresh-decision API receives the consumed same-begin observation as its detached complete decision dt="+str(dt))
 		var context: Dictionary=current.sides.player.duplicate();context[id]=current.owners[id]
 		var read_view: Dictionary={"time":float(st.time),"side":"player","options":st.tactical.options,"groups":st.tactical.groups,"ships":context.values(),"mission":current.mission}
 		# Eager canonical decision with the current shortlist is the reference;
@@ -744,7 +747,7 @@ func retained_semantic_preference051() -> void:
 	if public_held is C._Retained051:
 		T.enable_planning051(public_arena.state);worker_states051.append(public_arena.state)
 		_physical_preference_drop051(public_arena,public_held,"public-intent",false)
-	for variant: String in ["command","options","direct-options","terrain","owner","target","capability","phase","shot","manual","deadline"]:
+	for variant: String in ["command","options","direct-options","terrain","owner","target","capability","phase","shot","manual","deadline","begin-revision","begin-time","begin-own","begin-observed","begin-memory"]:
 		var arena: Dictionary=local_arena();var st: Dictionary=arena.state;var source: Dictionary=arena.source;var id: String=str(source.id)
 		var held: Variant=_admit_retained051(st,source,1.0/60.0,"semantic-urgent-"+variant)
 		check(held is C._Retained051,"urgent semantic case begins with actual authority: "+variant)
@@ -752,6 +755,9 @@ func retained_semantic_preference051() -> void:
 		T.enable_planning051(st);worker_states051.append(st)
 		var preference: Variant=_physical_preference_drop051(arena,held,variant)
 		if not preference is C._Preference051:continue
+		var current: Dictionary={}
+		var shared: Dictionary=T._retained_observation051(st,id,null,current,true)
+		check(not shared.is_empty() and current.retainedObservation051.has(id),"urgent case starts with a real same-begin semantic observation: "+variant)
 		match variant:
 			"command":check(B.issue_order(st,[id],"withdraw") and not st.tactical.preferences051.has(id),"command acceptance erases semantic eligibility immediately")
 			"options":check(T.set_options(st,[id],{"doctrine":"cautious"}) and not st.tactical.preferences051.has(id),"option transaction erases semantic eligibility immediately")
@@ -764,7 +770,11 @@ func retained_semantic_preference051() -> void:
 			"phase":st.tactical.memory.player.byId[id].phase="breakaway"
 			"shot":source.mountShotTimes[str(st.tactical.mountCache[id].mounts[0].id)]=float(st.time)
 			"deadline":st.time=preference.chosen_at+0.45
-		var current: Dictionary={}
+			"begin-revision":st.tactical.snapshotRevision+=1
+			"begin-time":st.time=float(st.time)+1.0/60.0
+			"begin-own":current.owners[id]=current.owners[id].duplicate(true)
+			"begin-observed":st.tactical.observed[id]=st.tactical.observed[id].duplicate(true)
+			"begin-memory":st.tactical.memory.player.byId[id]=st.tactical.memory.player.byId[id].duplicate(true)
 		check(not T._observe_retained051(st,id,null,current) and not current.get("freshDecisions051",{}).has(id) and not st.tactical.preferences051.has(id) and not st.tactical.retained051.has(id) and not st.tactical.intents.has(id) and not st.tactical.memory.player.reservations.has(id),"current urgent change/hard deadline cannot lend a semantic decision or authority: "+variant)
 
 func retained_synchronous_policy051() -> void:
@@ -830,6 +840,12 @@ func retained_maneuver051() -> void:
 		check(held is C._Retained051,"real accepted engage maneuver admits one typed descriptor dt="+str(dt))
 		if not held is C._Retained051:continue
 		retained_role_predicate_parity051(st,source)
+		var current: Dictionary={}
+		var last: float=float(st.tactical.lastDecision[id])
+		var prior: PackedByteArray=var_to_bytes(st.tactical.memory.player.byId[id])
+		var semantic: Dictionary=T._retained_observation051(st,id,null,current,true)
+		check(not semantic.is_empty() and is_same(current.retainedObservation051[id].decision,semantic) and float(st.tactical.lastDecision[id])==last and var_to_bytes(st.tactical.memory.player.byId[id])==prior and is_same(st.tactical.retained051.get(id),held),"sharing a real pure observation grants no memory/clock/authority dt="+str(dt))
+		check(T._observe_retained051(st,id,null,current) and not current.retainedObservation051.has(id) and is_same(st.tactical.memory.player.byId[id],semantic.state) and held.chosen_at==last,"normal retained observation consumes the EXACT same semantic result once and preserves original choice dt="+str(dt))
 		var certificate_bytes: PackedByteArray=var_to_bytes(held.record.certificate)
 		var old_intent: Dictionary=held.intent.duplicate(true)
 		var start: Vector2=F.pos(source)
@@ -1024,7 +1040,7 @@ func _worker_slot051(arena: Dictionary, expiry051: bool=true) -> Dictionary:
 	var st: Dictionary=arena.state
 	var id: String=str(arena.source.id)
 	T.enable_planning051(st);worker_states051.append(st)
-	# Obtain a REAL cohort sample before the ORIGINAL .45s preference expiry.
+	# Obtain a REAL side-batch sample before the ORIGINAL .45s preference expiry.
 	# No fabricated task, descriptor, completion flag or physical certificate.
 	var batch_times: Dictionary={}
 	var spaced: bool=true
@@ -1041,13 +1057,17 @@ func _worker_slot051(arena: Dictionary, expiry051: bool=true) -> Dictionary:
 			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at<0.45+0.000001 and spaced,"actor samples debit distinct150ms side periods before original preference expiry")
 			check(float(st.tactical.lastDecision[id])==float(slot.guards[id].decisionAt) and float(slot.createdAt)==float(st.time) and is_same(st.tactical.intents.get(id),held.intent),"batch dispatch preserves real observation clocks and grants no new helm authority")
 			var complete: bool=true
-			for cohort: Dictionary in slots.values():complete=complete and cohort.guards.size()<=int(st.tactical.metrics.normalLimit)
+			var side_periods: Dictionary={}
+			for batch: Dictionary in slots.values():
+				var key: String=str(batch.side)+":"+str(batch.periodAt051)
+				complete=complete and not side_periods.has(key)
+				side_periods[key]=true
 			for ship: Dictionary in st.tactical.ships.values():
 				if str(ship.id)!=str(st.tactical.manualId):complete=complete and st.tactical.workers051.periods051[str(ship.team)].slices.has(str(ship.id))
-			check(complete and Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"cohorts obey the consumption cap and side periods allocate every automated hull inside main/global caps")
+			check(complete and Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"one batch per side period covers every automated hull while main fair/global caps remain unchanged")
 			return {"slot":slot,"held":held}
 		OS.delay_usec(500) # Fixture scheduling only, outside public physics.
-	check(false,"worker case obtains a real cohort expiry sample within60 public ticks")
+	check(false,"worker case obtains a real side-batch expiry sample within60 public ticks")
 	observations.append({"case":"workers-start-failed","time":st.time,"intent":st.tactical.intents.get(id,{}),"memory":st.tactical.memory.player.byId.get(id,{}),"reason":st.tactical.reasons.get(id,""),"slots":st.tactical.workers051.slots.keys()})
 	return {}
 
@@ -1179,6 +1199,8 @@ func worker_handoff051() -> void:
 		var pending: Dictionary=Planner._take_worker051(st,"player",[id],T._worker_capability051,null,T._worker_wait_guard051,current051)
 		var repeated: bool=Planner._waiting_worker051(st,id,T._worker_capability051,T._worker_wait_guard051,null,current051)
 		check(pending.get("pending051",[])==[id] and repeated and int(current051.workerWaitChecks051)==1 and id in slot.remaining and id not in slot.discarded,"unfinished member remains pending and reuses one exact-begin guard: "+variant)
+		var shared: Dictionary=current051.get("retainedObservation051",{}).get(id,{})
+		check(not shared.is_empty() and is_same(shared.owner,source) and is_same(shared.own,current051.owners[id]) and is_same(shared.observed,st.tactical.observed[id]) and is_same(shared.previous,previous) and int(shared.revision)==int(st.tactical.snapshotRevision) and float(shared.at)==float(st.time),"real wait guard shares only its exact current owner/observation/memory/begin proof: "+variant)
 		check(float(st.tactical.lastDecision[id])==last and is_same(st.tactical.intents.get(id),intent) and st.tactical.memory.player.byId[id]==memory_before,"pending handoff grants no observation or authority: "+variant)
 		var deadline: float=Planner._worker_wait_until051(st,id,slot)
 		check(is_equal_approx(deadline,minf(float(slot.createdAt)+0.15,last+0.2-1.0/60.0)),"pending deadline is the earlier real sample/observation limit: "+variant)
@@ -1219,7 +1241,7 @@ func worker_handoff051() -> void:
 		T.retire_planning051(st);T.drain_planning051()
 		check(bool(slot.joined) and slot.capsule==null and Planner._tasks051.is_empty(),"bounded handoff case joins every owned task: "+variant)
 
-func worker_cohorts051() -> void:
+func worker_side_batches051() -> void:
 	var spec: Dictionary=SPEC.duplicate(true);spec.range=300.0
 	var fleet: Array=[]
 	for index: int in range(12):fleet.append(D.create_ship(spec,{"uid":"cohort-"+str(index)}))
@@ -1233,10 +1255,16 @@ func worker_cohorts051() -> void:
 	T.enable_planning051(st);worker_states051.append(st)
 	B.update(st,1.0/60.0);B.pop_events(st)
 	var initial: Array=st.tactical.workers051.slots.values()
-	check(initial.size()==2 and int(st.tactical.metrics.normalLimit)==2,"real13-hull frame dispatches two independently owned cap-two cohorts")
+	check(initial.size()==2 and int(st.tactical.metrics.normalLimit)==2,"real13-hull frame dispatches one whole batch per side without changing the cap-two main selection")
 	if initial.size()!=2:T.retire_planning051(st);T.drain_planning051();return
-	var slow: Dictionary=initial[0]
-	var ready: Dictionary=initial[1]
+	var slow: Dictionary=initial[0] if str(initial[0].side)=="enemy" else initial[1]
+	var ready: Dictionary=initial[0] if str(initial[0].side)=="player" else initial[1]
+	check(slow.remaining.size()==1 and ready.remaining.size()==12,"only cohort-size policy rolls back: every automated hull belongs to its one deadline-ordered side batch")
+	var ordered: bool=true
+	for batch: Dictionary in initial:
+		for index: int in range(1,batch.remaining.size()):
+			ordered=ordered and float(batch.guards[batch.remaining[index-1]].decisionAt)<=float(batch.guards[batch.remaining[index]].decisionAt)
+	check(ordered,"whole side batches retain useful-observation deadline order")
 	if not _worker_join051(slow) or not _worker_join051(ready):T.retire_planning051(st);T.drain_planning051();return
 	var outputs: Array=[slow.capsule.result,ready.capsule.result] # Both REAL results already joined; retain their costs before the fence.
 	var release: Semaphore=Semaphore.new()
@@ -1244,16 +1272,17 @@ func worker_cohorts051() -> void:
 	Planner._tasks051.append(slow)
 	var clocks: Dictionary=st.tactical.lastDecision.duplicate(true)
 	var invalid: String=str(ready.remaining[0])
-	var neighbor: String=str(ready.remaining[1])
-	check(B.issue_order(st,[invalid],"move",{"x":300.0,"y":1450.0}),"one joined cohort member receives a real superseding command")
+	var neighbors: Array=ready.remaining.duplicate();neighbors.erase(invalid)
+	var neighbor: String=str(neighbors[0])
+	check(B.issue_order(st,[invalid],"move",{"x":300.0,"y":1450.0}),"one joined side-batch member receives a real superseding command")
 	var offered: Dictionary=Planner._take_worker051(st,str(ready.side),ready.remaining.duplicate(),T._worker_capability051,null,T._worker_wait_guard051,{})
-	check(offered.allowed==[neighbor] and invalid in ready.discarded and neighbor not in ready.discarded and not bool(slow.joined) and not slow.remaining.is_empty(),"completed cohort is usable independently; invalidating one member preserves its neighbor and the unfinished cohort")
+	check(offered.allowed==neighbors and invalid in ready.discarded and neighbors.all(func(id):return id not in ready.discarded) and not bool(slow.joined) and not slow.remaining.is_empty(),"completed side is usable independently; invalidating one member preserves every neighbor and the unfinished side")
 	check(Planner._take_worker051(st,str(ready.side),[neighbor],T._worker_capability051,null,T._worker_wait_guard051,{}).get("allowed",[]).is_empty(),"a joined member generation transfers at most once")
 	var order: Array=st.tactical.ships.keys()
 	for round051: int in range(10):
 		Planner._poll_tasks051()
-		Planner._dispatch_batch051(st,order,T._worker_view051,T._worker_capability051,null)
-		check(Planner._tasks051.size()<=2,"independent cohorts retain the global unfinished task cap")
+		var refill: Dictionary=Planner._dispatch_batch051(st,order,T._worker_view051,T._worker_capability051,null)
+		check(int(refill.dispatches)==0 and Planner._tasks051.size()<=2,"joining/consuming a side never eagerly refills its period or exceeds the global unfinished task cap")
 		var complete: bool=true
 		for period: Dictionary in st.tactical.workers051.periods051.values():
 			complete=complete and period.sent.size()==period.slices.size()
@@ -1273,22 +1302,30 @@ func worker_cohorts051() -> void:
 			var budget: Dictionary=output.budgets[id]
 			totals[side].clearance+=int(budget.clearanceTests)
 			totals[side].routes+=int(budget.fullRoutes)-4+int(budget.routeAllowance051)
-			check(int(budget.clearanceTests)<=int(budget.clearanceLimit) and output.requests.get(id,[]).size()<=8,"every independently joined cohort preserves all bounded candidate generation and its owned slice")
+			check(int(budget.clearanceTests)<=int(budget.clearanceLimit) and output.requests.get(id,[]).size()<=8,"every side-batch member preserves all bounded candidate generation and its owned slice")
 	for period: Dictionary in st.tactical.workers051.periods051.values():
 		issued+=period.sent.size()
-		check(int(period.clearanceAllocated)==2900 and int(period.proofAllocated)==128 and int(period.routesAllocated)==4 and period.sent.size()==period.slices.size(),"all cohorts collectively allocate original2900traffic PLUS128proof/four-route side allowances once per150ms period")
-	for spent: Dictionary in totals.values():check(int(spent.clearance)<=2900 and int(spent.proof)<=128 and int(spent.routes)<=4,"actual completed cohort traffic/proof work stays inside separate aggregate side bounds")
+		check(int(period.clearanceAllocated)==2900 and int(period.proofAllocated)==128 and int(period.routesAllocated)==4 and period.sent.size()==period.slices.size() and bool(period.dispatched051),"each side batch allocates original2900traffic PLUS128proof/four-route allowances once per150ms period")
+	for spent: Dictionary in totals.values():check(int(spent.clearance)<=2900 and int(spent.proof)<=128 and int(spent.routes)<=4,"actual completed side-batch traffic/proof work stays inside separate aggregate side bounds")
 	check(issued==13 and float(st.time)==1.0/60.0 and st.tactical.lastDecision.get(neighbor)==clocks.get(neighbor),"dispatch/join covers every actor without advancing simulation or useful-observation clocks")
 	var old_generation: int=int(slow.generation051)
 	var slow_ids: Array=slow.remaining.duplicate()
 	Planner._release_slot051(st.tactical,slow)
-	check(bool(slow.retired) and Planner._tasks051.has(slow) and not bool(slow.joined),"retired unfinished cohort retains its global task seat until real completion")
+	check(bool(slow.retired) and Planner._tasks051.has(slow) and not bool(slow.joined),"retired unfinished side batch retains its global task seat until real completion")
 	var retired_dispatch: Dictionary=Planner._dispatch_batch051(st,order,T._worker_view051,T._worker_capability051,null)
-	check(int(retired_dispatch.dispatches)==0 and Planner._tasks051.size()==1,"retiring a cohort cannot refill already spent side-period actor slices")
+	check(int(retired_dispatch.dispatches)==0 and Planner._tasks051.size()==1,"retiring a side batch cannot refill already spent side-period actor slices")
+	var before_boundary: Dictionary=st.tactical.lastDecision.duplicate(true)
+	var period_at: float=float(st.tactical.workers051.periods051.player.at)
+	st.time=period_at+0.15-0.000002
+	check(int(Planner._dispatch_batch051(st,order,T._worker_view051,T._worker_capability051,null).dispatches)==0,"side cadence remains closed immediately before its existing150ms boundary")
+	st.time=period_at+0.15
+	var next_period: Dictionary=Planner._dispatch_batch051(st,order,T._worker_view051,T._worker_capability051,null)
+	check(int(next_period.dispatches)==1 and Planner._tasks051.size()==2 and Planner._tasks051.has(slow) and bool(slow.retired),"next side period can use only the free task seat while retired unfinished work still owns the other")
+	check(int(Planner._dispatch_batch051(st,order,T._worker_view051,T._worker_capability051,null).dispatches)==0 and st.tactical.lastDecision==before_boundary,"two tasks including retired work prevent another dispatch and all cadence checks grant no observation clocks")
 	release.post();_worker_join051(slow)
 	check(slow.capsule==null and not st.tactical.workers051.slots.has(old_generation) and slow_ids.all(func(id):return Planner._member_slot051(st.tactical,str(id)).is_empty()),"late retired completion cannot restore any consumed generation")
 	T.retire_planning051(st);T.drain_planning051()
-	check(Planner._tasks051.is_empty(),"independent cohort case joins every owned task")
+	check(Planner._tasks051.is_empty(),"independent side-batch case joins every owned task")
 
 func worker_prepared051() -> void:
 	var arena: Dictionary=local_arena()
@@ -1323,7 +1360,7 @@ func workers051() -> void:
 	T.set_runtime_profile043(true);T.reset_runtime_profile043()
 	current_begin051()
 	duel_policy051()
-	worker_cohorts051()
+	worker_side_batches051()
 	worker_prepared051()
 	worker_handoff051()
 	var arena: Dictionary=local_arena()
