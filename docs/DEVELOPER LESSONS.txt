@@ -1,3 +1,12 @@
+27 October2026 - native RefCounted PREDELETE cleanup
+R51 jobb63bbeddbc8045ebbae4345e99c11c25:2639 weapon assertions/0failures,
+but132 real script errors made the batch FAIL. Item/owner PREDELETE callbacks
+called their own release() while their RefCounted script instance was dying.
+Inline native RID cleanup/reference release in that notification; keep ordinary
+explicit child-first release idempotent. Preserve native error detection and
+existing lifecycle assertions. Source review did not detect this runtime defect;
+headless assertion counts alone must never override engine errors.
+
 V0.041 DELIVERY LESSONS
 Use explicit bool for an expression involving Variant array metadata; native
 import caught has_edges inference despite the source API advisory being clean.

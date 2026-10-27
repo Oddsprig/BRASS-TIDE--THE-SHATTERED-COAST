@@ -21,9 +21,13 @@ ordered packed contact positions/radii with immediate correction publication,
 and bounded retained native boat commands with explicit original PRE/BOAT/POST
 order, live effects and owned cleanup. Original math/actors/60Hz/old assertions
 retained. Existing profile exposes native-path active/count scalars. Source
-advisory zero issues; native/export/rendered validation PENDING. OptionalGrok
-review has not completed; no independent Grok approval claimed. Advisory
-request cache declined for low ceiling. Root owns the queued bounded batch. Grok's independent structural
+advisory zero issues. R51 FAILED74.953s: all logic andArt checks passed, but
+Weapon2639/0assertions logged132 native PREDELETE self-call errors. No export.
+R52 source fixes only those two destruction callbacks; old assertions andall
+simulation code unchanged. Drawing/export validation pending; failedR51receipt
+retained. OptionalGrok source review found no defect but missed the native
+cleanup error; source review is not engine acceptance. Advisory request cache
+declined for low ceiling. Root owns the queued bounded batch. Grok's independent structural
 review is saved; phase medians are attribution, not additive savings proof.
 Root alone queues whole background batches below120s, no input/focus/audio.
 Desktop050 retained; no051tag/package/install/no052 breadth. Core gate OPEN.

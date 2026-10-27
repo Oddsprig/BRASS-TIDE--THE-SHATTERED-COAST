@@ -12,7 +12,10 @@ remain unusable. R51 integrates three reviewed Sol6.1MAX source handoffs:
 phase-local numeric traffic/fire with Battle/phase guards, ordered packed
 contacts and bounded retained native boat commands with original draw order
 and owned cleanup. Old assertions/math/60Hz/actors retained; no saving claim.
-Current native/export/rendered validation pending. No new harness or breadth. Root owns queued background batches
+R51 FAILED74.953s at132 nativePREDELETEself-call errors despiteWeapon2639/0
+assertions; all logic andArt phases passed. R52 fixes only destruction callbacks,
+old assertions/simulation unchanged. Drawing/export validation pending.
+No new harness or breadth. Root owns queued background batches
 below120s; no051delivery/no052 until core is usable. Earlier findings historical.
 
 THE TARGET
