@@ -1,0 +1,153 @@
+048 BUILD DEPTH - SOURCE CANDIDATE, NATIVE UNRUN
+27 October 2026 | Base a157241f6d817f08cf231299d35e6539c61e2359
+Metadata remains047. Root must FINISH047 before integrating048.
+
+OWNED FILES ONLY
+NEW game/scripts/workshop_builds048.gd
+NEW game/tests/test_workshop_builds048.gd
+NEW tools/quality048/BUILDS.txt
+No existing core, accounting, refit, equipment-condition, save schema, UI,
+Lab/preset, balance, assets, workers, version or launcher changes.
+Do not stage any Bridge-injected AGENTS coordination block.
+
+AGREED SEAM BEFORE IMPLEMENTATION
+Meeting brass-tide-quality-042-061: question185203c6; Workshop b9489f04;
+proposal36ee6976; Workshop ACK23795875; final fit/ownership note8a10cd30.
+WorkshopSol048 / brass-tide048-workshop-sol-1f3bc7 owns workshop_ui.gd and
+its comparison presentation. This seat owns the new pure build model only.
+Root owns workshop_try_draft(uid:String,loadout:Dictionary)->bool and real
+Lab entry/return flow. UI passes its local draft copy through that seam.
+No new Lab API or Lab/preset edits were needed for this fixture.
+
+PUBLIC API: res://scripts/workshop_builds048.gd
+const HULL_ID:String="iron_bastion"
+static examples(base:Dictionary)->Array
+  Entries: {id,name,role,summary,tradeoff,loadout}.
+  Only iron_bastion is supported; other hulls return[]. Each descriptor uses
+  actual Refits.normalize; invalid examples are omitted, never coerced.
+  role is a RECOMMENDATION only. Reading/loading a recipe never changes AI,
+  weapon groups, equipment ownership, condition, stores, money or inventory.
+static describe_fit(base:Dictionary,loadout:Dictionary)->Dictionary
+  Bad fit: {ok:false,message}. Good fit: {ok:true,message,loadout,usedPoints,
+  maxPoints,spec,mounts,range,deploymentPoints,handling,survival,ammo,basis}.
+  The actual Refits.normalize/effective_spec are authoritative. Detached output.
+static metrics(spec:Dictionary)->Dictionary
+  {mounts,range,deploymentPoints,handling,survival,ammo,basis}.
+  UI can pass the real quote.beforeSpec/afterSpec to include existing identity
+  and morale bonuses; a base-design description does not include those bonuses.
+  mounts retain actual id/moduleId/x/y/angle/arc/range/fireRate/ammoCost/size/
+  damage/projectile speed, plus reloadSeconds=1/fireRate, arcDegrees,
+  capacityShotsAlone and fullRateAmmoPerSecond. Damage is the catalog/spec
+  input, not a forecast after actual projectile-family/penetration/hit rules.
+  handling:{speed,turn,fuelUse,minimumHalfTurnSeconds=PI/turn}.
+  survival:{hp,armor,pumps,crewMin,crewOptimal}.
+  ammo:{capacity,fullRateUnitsPerSecond,fullRateSeconds}.
+  Turning is a full-efficiency minimum, not a travel-time promise. Counts per
+  mount assume that mount ALONE spends the same shared rounds. Full-rate
+  seconds assume every mount fires continuously in arc without safety/crew/
+  reserve holds. These are design figures, never actual carried stores or a
+  claim of battle/voyage endurance. No DPS or win prediction is invented.
+  Cost/stock/payment comes ONLY from existing Workshop.preview(core,uid,
+  loadout,request); WorkshopSol's presentation consumes that exact quote.
+
+THREE LEGAL CATALOG FITS - DESIGN MATH, NOT OBSERVED NATIVE RESULTS
+Hull: Bastion Armored Cruiser (iron_bastion), size31/tier3, 27 fitting points;
+stable physical sockets mount0/1/2/3 size3/2/2/2. All three use only mount0/1,
+leaving both side sockets empty. All have hp560, pumps6, optimal crew24,
+160-round design capacity. A career preview does NOT refill carried rounds.
+
+bastion_harasser048: Fast gun pressure, recommended Skirmisher
+  weapons [heavy_gun,rapid_gun,"",""]; boost_drive; stock_armor; 12/27points.
+  speed99.12, turn1.512rad/s, armor16, fuelUse1.35.
+  Main470range, .238095s base reload, full360deg arc, 1round/shot;
+  aft420range, .25s, full360deg, 1round/shot.
+  Fastest/most agile of these builds; rapid short-range pressure. Highest
+  fuel demand and light per-hit fire against armor; least reach/protection.
+  Actual046 automatic role inference still calls this size31 cruiser a
+  heavy. The captain can explicitly select existing Skirmisher tactics.
+  This is a faster cruiser, not a promised interceptor or autonomous flanker.
+
+bastion_anchor048: Armored cannon anchor, recommended Heavy
+  weapons [heavy_cannon,heavy_gun,"",""]; stock_engine; naval_plating;
+  18/27points. speed74.76, turn1.33rad/s, armor24, fuelUse1.0.
+  Main620range, 1.8s base reload, 135deg forward arc, 2rounds/shot;
+  aft470range, .238095s, full360deg, 1round/shot.
+  Strongest belt and heavy shell, without extra hull hp or pumps. Slowest
+  turning/speed and punishable main arc/reload; it cannot chase the gun fit.
+
+bastion_strike048: Economical torpedo striker, recommended Striker
+  weapons [heavy_torpedo,rapid_gun,"",""]; economy_drive; scout_plating;
+  16/27points. speed76.5912, turn1.44144rad/s, armor19, fuelUse.68.
+  Main620range, 1.818182s base reload, .9rad/51.5662deg forward arc,
+  3rounds/launch, projectile speed270 vs cannon690; aft420range/.25s/1round.
+  Lower fuel demand and more turning than anchor, launch range beyond the
+  gun fit. Narrow launch alignment, slow projectile, expensive missed shots;
+  less armor than anchor, far slower than gun fit. Cannon matches its reach.
+
+REAL COST DISTINCTIONS
+No constant coin prices: exact quotes depend on current harbor scarcity,
+ownership/locker parts, current installed fit and permissions/workforce.
+From an original fit with no spares, the existing catalog/shared fitting_bill
+implies these direct inputs and labor (source arithmetic, native UNRUN):
+  harasser: guns3, iron3.3, engines1, copper1, supplies5;
+            11 worker-days +3 expert-days.
+  anchor:   guns4, iron13, timber2, supplies8;
+            15 worker-days +3.5 expert-days.
+  striker:  guns3, iron8.3, copper1.5, fuel2, engines1, timber.5, supplies8;
+            15.5 worker-days +4 expert-days.
+The anchor retains the original engine; the other engines require a real
+assembly. Assembly prices include existing recursively paid production.
+Shipwright125/expert engineer200 coins/day are current trade rates; the
+sailor wage anchor remains100. Tax/margin and all purse recipients come from
+the existing quote. No new cash, stock, workers, grants or equipment minted
+by the model. These are useful starting choices, not optimized shopping lists.
+
+ONE COMPACT FIXTURE - ROOT EXECUTION REQUIRED, UNRUN
+test_workshop_builds048.gd uses one real world-created Economy port with its
+actual stocks, available workforce and price rules, one canonically initialized
+quote hull with an EMPTY captain's purse, plus three two-boat practice starts.
+The real Workshop.preview quotes each fit, correctly unaffordable. It verifies
+aggregate real changed-slot bills, recipient sums, wage-day rates, stock/price
+availability, 100coins/sailor-day payroll, finite labor and distinct costs.
+var_to_bytes checks complete quote state/draft/condition/stock/purse nonmutation.
+No actual payment/owned career changes, refills, artificial funding or stock
+overrides; paid apply is the existing Workshop authority, not reimplemented.
+
+All three trials: iron_bastion vs SAME original-fit furnace_turret, seed48048,
+same existing Lab formation="closing", no explicit role/doctrine/order override.
+Root's UI draft-trial host uses ash_corvette at seed48048/closing instead.
+The three comparisons here share their Furnace encounter; they do not claim
+the same opponent or fixture as the UI trial. Root confirmed this distinction.
+One Lab.create each; actual canonical equipment and normal finite Lab birth
+stores. The existing closing formation establishes opening positions. The
+fixture never changes positions, cooldowns, shots, projectiles, damage, results
+or stores after creation. It calls ONLY ordinary Battle.update and pop_events.
+Exactly120 ordinary60Hz updates/2simseconds each:360 total updates,720boat-ticks,
+six practice boats plus one quote-only hull. No full battles, matrix or new
+framework. Assertions check equal seeded physical openings, actual normalized
+effective mounted fits, real chronology, finite crew/condition/stores, all ammo
+debits reconciled to actual fire events, and pairwise movement or store-use
+differences. No forced missiles, expected wins, synthetic performance results
+or claims that 2seconds establish sustained tactical quality. Prints actual
+observations and bills for Root; these numbers have NOT been produced yet.
+
+After integrating WITH WorkshopSol and Root's host seam, Root submits through
+Test Bridge ONLY, using the existing console Godot4.7.2 raw arguments:
+  --headless --audio-driver Dummy --path <clean-integrated048-game-path>
+  --script res://tests/test_workshop_builds048.gd
+Root's ENTIRE selected batch including setup/import/UI fixture/export/startup/
+cleanup stays below120seconds. No nested lane. Native parse/runtime failures
+remain failures; source advisory cannot establish native acceptance.
+Root separately reviews actual workshop/draft trial, motions and fitting feel.
+
+SOURCE REVIEW / LIMITS
+Only ordinary source reads/edits, existing read-only preload API advisory and
+whitespace inspection are allowed here, then one named-three-files commit with
+hooks disabled, gc.auto=0, maintenance.auto=false. No engines/native tests,
+imports/export/render/GPU/Blender/bakes/audio/CUA/input/focus/downloads/helpers,
+AI brain/provider/delegate/fallback calls, maintenance, pushes, tags or packaging.
+Native verification remains UNRUN. Scoped delivery does not certify FPS,
+rendered art/audio/fun/parity or the still-open051 quality gate.
+Read-only check_preload_calls.py completed: advisoryOnly:true,
+engineInvoked:false, issues:[]. Root reviewed the current model/fixture and
+requested the named commit without expanding tests or tuning for a pass.
