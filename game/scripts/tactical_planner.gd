@@ -434,7 +434,7 @@ static func _hex_key(value: Variant) -> bool:
 			return false
 	return true
 
-static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: Dictionary, certificate: Dictionary, shortlisted_targets: Array = []) -> String:
+static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: Dictionary, certificate: Dictionary, shortlisted_targets: Array = [], begin_fingerprint051: String = "") -> String:
 	for key: String in CERT_FIELDS:
 		if not certificate.has(key):
 			return "Waiting for a fully checked maneuver."
@@ -454,7 +454,7 @@ static func _certificate_reason(view: Dictionary, ship: Dictionary, candidate: D
 		return "Checking the next safe maneuver."
 	if not certificate.snapshotRevision is int or not certificate.orderRevision is int or not certificate.terrainRevision is int or certificate.snapshotRevision != view.snapshotRevision or certificate.snapshotRevision != candidate.snapshotRevision or certificate.orderRevision != ship.get("orderRevision", 0) or certificate.orderRevision != candidate.orderRevision or certificate.terrainRevision != view.terrainRevision:
 		return "Order or terrain changed; checking a new maneuver."
-	if not _hex_key(certificate.pathFingerprint) or certificate.pathFingerprint != fingerprint(candidate) or not _hex_key(certificate.geometryKey) or not _hex_key(certificate.dynamicsKey):
+	if not _hex_key(certificate.pathFingerprint) or certificate.pathFingerprint != (fingerprint(candidate) if begin_fingerprint051.is_empty() else begin_fingerprint051) or not _hex_key(certificate.geometryKey) or not _hex_key(certificate.dynamicsKey):
 		return "Maneuver changed; checking it again."
 	var live_step: bool = certificate.scope == LIVE_CERT_SCOPE
 	var expected_samples: int = 0 if live_step else CERT_PREFIX_STEPS
@@ -572,6 +572,15 @@ static func resolve(view: Dictionary, memory: Dictionary, offers: Array) -> Dict
 	# Public r2 calls always plan afresh; only Runtime.begin owns the local seam.
 	return _resolve_planned(view, memory, offers, {})
 
+static func _admitted_begin_offer051(view: Dictionary, prepared: Dictionary, offer: Dictionary) -> bool:
+	# Identity, not a caller-supplied flag/hash, proves which immutable offer
+	# Runtime admitted during this exact synchronous begin. Public/default
+	# resolve never supplies that scope and retains its complete validation.
+	if not is_same(prepared.get("beginView051"), view): return false
+	var candidate: Dictionary = Roles.dictionary(offer.get("candidate"))
+	var certificate: Dictionary = Roles.dictionary(offer.get("certificate"))
+	return is_same(Roles.dictionary(prepared.get("beginOffers051")).get(candidate.get("candidateId")), offer) and offer.is_read_only() and candidate.is_read_only() and certificate.is_read_only()
+
 static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array, prepared: Dictionary, live_traffic_seconds051: float = -1.0) -> Dictionary:
 	# Runtime alone opts into renewable hard prefixes. Public/default calls
 	# retain complete reservations, including their station/sector vetoes.
@@ -615,12 +624,13 @@ static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array
 		var candidate: Dictionary = Roles.dictionary(raw.get("candidate"))
 		var certificate: Dictionary = Roles.dictionary(raw.get("certificate"))
 		var source: Dictionary = Roles.dictionary(sources.get(candidate.get("candidateId")))
+		var admitted051: bool = private_begin051 and _admitted_begin_offer051(view, planning, raw)
 		var ship_id: String = str(candidate.get("shipId", ""))
 		offered_per_hull[ship_id] = int(offered_per_hull.get(ship_id, 0)) + 1
 		if int(offered_per_hull[ship_id]) > MAX_OFFERS:
 			counters.offerOverflow = int(counters.offerOverflow) + 1
 			continue
-		if source.is_empty() or not grouped.has(ship_id) or not Stations.valid_candidate(candidate) or not Stations.same_request(source, candidate):
+		if source.is_empty() or not grouped.has(ship_id) or (not admitted051 and (not Stations.valid_candidate(candidate) or not Stations.same_request(source, candidate))):
 			counters.rejected = int(counters.rejected) + 1
 			continue
 		if seen_candidates.has(str(candidate.candidateId)):
@@ -630,7 +640,7 @@ static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array
 		if grouped[ship_id].size() >= MAX_OFFERS:
 			counters.offerOverflow = int(counters.offerOverflow) + 1
 			continue
-		var rejection: String = _certificate_reason(view, context[ship_id], candidate, certificate, Roles.array(decisions[ship_id].get("targets")))
+		var rejection: String = _certificate_reason(view, context[ship_id], candidate, certificate, Roles.array(decisions[ship_id].get("targets")), str(raw.fingerprint051) if admitted051 else "")
 		if not rejection.is_empty():
 			counters.rejected = int(counters.rejected) + 1
 			if certificate.get("status") == "pending":

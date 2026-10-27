@@ -616,6 +616,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		phase_started=Time.get_ticks_usec()
 		var suggestion051: Dictionary=Planner._take_worker051(st,side,side_due,_worker_capability051,frame_cache)
 		planning[side]=Planner._prepare_with_worker051(snapshot,memories[side],suggestion051)
+		# Admission evidence belongs ONLY to this closed begin and exact offers.
+		planning[side].beginView051=snapshot;planning[side].beginOffers051={}
 		if _runtime_profile043_enabled and t.has("workers051"):
 			var adopted051: int=planning[side].get("workerIds051",[]).size()
 			_runtime_profile043_counts.workerAdoptions+=adopted051
@@ -640,8 +642,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var snapshot: Dictionary=snapshots[side]
 		var real_attempt: bool=false
 		if profile051:profile_started051=Time.get_ticks_usec()
-		var worker_membership051: bool=id in planning[side].get("workerIds051",[])
-		var membership: Array=planning[side].decisions[id].detailedIds if worker_membership051 else Certification.detailed_targets(snapshot,ship,t.memory[side].get("byId",{}).get(id,{}))
+		# Both synchronous decisions and joined preferences already selected their
+		# bounded targets. Recheck CURRENT hostile membership below, not roles.
+		var membership: Array=planning[side].decisions[id].detailedIds
 		var candidate_inputs: Dictionary={}
 		if profile051:detail.certificationInputs+=Time.get_ticks_usec()-profile_started051
 		for raw in proposed.get(id,[]):
@@ -652,13 +655,15 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			t.metrics.planningCalls.candidates+=1
 			if candidate_inputs.is_empty():
 				if profile051:profile_started051=Time.get_ticks_usec()
-				candidate_inputs=Certification._begin_inputs(snapshot,ship,membership,worker_membership051)
+				candidate_inputs=Certification._begin_inputs(snapshot,ship,membership,true)
 				membership=candidate_inputs.detailed
 				if profile051:
 					detail.certificationInputs+=Time.get_ticks_usec()-profile_started051
 					_runtime_profile043_counts.certificationInputCalls+=1
 			if profile051:profile_started051=Time.get_ticks_usec()
-			var rejected051: bool=not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw)
+			# fingerprint(raw).is_empty() only tested this schema. Hash the final
+			# routed candidate once; no raw-path JSON/hash is used as authority.
+			var rejected051: bool=not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or not Stations.valid_candidate(raw) or not order_candidate(snapshot,ship,raw)
 			if profile051:detail.certificationValidation+=Time.get_ticks_usec()-profile_started051
 			if rejected051:continue
 			if profile051:profile_started051=Time.get_ticks_usec()
@@ -684,8 +689,12 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 					real_attempt=true
 					continue
 			if profile051:profile_started051=Time.get_ticks_usec()
-			var fingerprint: String=Planner.fingerprint(candidate)
+			# A denied corridor cannot acquire authority. Validate its final shape
+			# without serializing/hashing a path that resolution will only reject.
+			var fingerprint: String=Planner.fingerprint(candidate) if refined.status=="valid" else ""
+			var shape_valid051: bool=not fingerprint.is_empty() if refined.status=="valid" else Stations.valid_candidate(candidate)
 			if profile051:detail.certificationValidation+=Time.get_ticks_usec()-profile_started051
+			if not shape_valid051:continue
 			var cert: Dictionary
 			if refined.status=="valid":
 				var certify_started: int=Time.get_ticks_usec()
@@ -697,7 +706,10 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 				cert.status=refined.status
 				cert.reason=refined.get("reason","Checking a route around land" if refined.status=="pending" else "No clear route to this station")
 			if cert.status in ["valid","blocked"] or int(cert.rolloutSamples)>0:real_attempt=true
-			offers[side].append({"candidate":candidate.duplicate(true),"certificate":cert.duplicate(true)})
+			var offer051: Dictionary=_seal_begin_offer051(raw,candidate,cert,fingerprint)
+			if offer051.is_empty():t.counters.rejectedIntents+=1;continue
+			offers[side].append(offer051)
+			planning[side].beginOffers051[str(candidate.candidateId)]=offer051
 			t.reasons[id]=str(cert.reason)
 			if cert.status=="valid":break
 		if real_attempt or proposed.get(id,[]).is_empty():
@@ -717,7 +729,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if spent<0 or spent>int(snapshot.options.clearanceRemaining):
 			t.counters.rejectedIntents+=1;continue
 		t.budget.clearanceTests+=spent
-		_publish(st,snapshot,resolved,offers[side],frame_cache)
+		_publish(st,snapshot,resolved,offers[side],frame_cache,planning[side])
 		for id in snapshot.dueIds:
 			var previous_time: float=float(t.lastDecision.get(id,0.0))
 			if previous_time<0.0:previous_time=float(t.orderTimes.get(id,st.time))
@@ -747,7 +759,24 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	t.budget.clearanceLimit=4096 # Reserved current helm/fire legality work.
 	detail.beginTotal=Time.get_ticks_usec()-begin_started
 
-static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,offers: Array,frame_cache=null) -> void:
+static func _seal_begin_offer051(source: Dictionary,candidate: Dictionary,cert: Dictionary,fingerprint: String) -> Dictionary:
+	# The raw request passed current membership/order checks, and the routed
+	# candidate just passed complete schema validation. Route
+	# refinement may change paths ONLY. Seal the exact values before lending
+	# their admission to resolve/publication, never a later tick/public caller.
+	if (fingerprint.is_empty() and cert.get("status") not in ["pending","blocked"]) or str(cert.get("pathFingerprint",""))!=fingerprint or not Stations.same_request(source,candidate):return {}
+	# Fixed schemas: seal only their known containers, without recursive walks
+	# or deep copies of every scalar on every rejected route offer.
+	for key in ["approach","pass","exit","fireMountIds"]:candidate[key].make_read_only()
+	if candidate.has("fireMountTargets"):candidate.fireMountTargets.make_read_only()
+	candidate.make_read_only()
+	cert.fireWindow.mountIds.make_read_only();cert.fireWindow.mountTargets.make_read_only()
+	cert.fireWindow.make_read_only();cert.checkedPose.make_read_only();cert.make_read_only()
+	var offer: Dictionary={"candidate":candidate,"certificate":cert,"fingerprint051":fingerprint}
+	offer.make_read_only()
+	return offer
+
+static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,offers: Array,frame_cache=null,prepared051: Dictionary={}) -> void:
 	var t: Dictionary=st.tactical
 	var side: String=str(snapshot.side)
 	var accepted: Dictionary={}
@@ -765,7 +794,9 @@ static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,of
 			continue
 		var candidate: Dictionary=offer.candidate
 		var cert: Dictionary=offer.certificate
-		if str(candidate.shipId)!=str(id) or str(intent.get("pathFingerprint",""))!=Planner.fingerprint(candidate) or str(intent.get("pathFingerprint",""))!=str(cert.pathFingerprint) or int(intent.get("snapshotRevision",-1))!=int(snapshot.snapshotRevision) or int(intent.get("orderRevision",-1))!=int(t.ships[id].get("orderRevision",0)):t.counters.rejectedIntents+=1;continue
+		var admitted051: bool=Planner._admitted_begin_offer051(snapshot,prepared051,offer)
+		var fingerprint051: String=str(offer.fingerprint051) if admitted051 else Planner.fingerprint(candidate)
+		if str(candidate.shipId)!=str(id) or str(intent.get("pathFingerprint",""))!=fingerprint051 or str(intent.get("pathFingerprint",""))!=str(cert.pathFingerprint) or int(intent.get("snapshotRevision",-1))!=int(snapshot.snapshotRevision) or int(intent.get("orderRevision",-1))!=int(t.ships[id].get("orderRevision",0)):t.counters.rejectedIntents+=1;continue
 		if not intent.get("waypoints",[]) is Array or not intent.get("exit",[]) is Array or intent.waypoints.size()+intent.exit.size()>24:continue
 		var combined: Array=intent.waypoints.duplicate();combined.append_array(intent.exit)
 		if combined!=Certification.paths(candidate) or str(intent.get("targetId",""))!=str(candidate.targetId) or str(intent.get("leaderId",""))!=str(candidate.leaderId) or str(intent.get("role",""))!=str(candidate.role) or int(intent.get("sector",-2))!=int(candidate.sector):t.counters.rejectedIntents+=1;continue

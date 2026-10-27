@@ -649,6 +649,27 @@ func traffic_resolve051() -> void:
 	check(public_result==default_result and int(public_result.counters.accepted)==0,"public resolve and omitted private float retain the full hard station veto")
 	check(int(live.counters.accepted)==1 and live.memory.reservations[str(own.id)].until==float(view.time)+Stations.LIVE_TRAFFIC_SECONDS051,"private resolve publishes the accepted two-second hard prefix")
 	check(var_to_bytes([view,memory,offers])==before,"public/private resolution preserves source view, memory and actual offer")
+	# Same real route/certificate, admitted once by the closed begin. The fast
+	# path must produce the exact same result and lend no proof to copies.
+	var admitted_plan: Dictionary=Planner._prepare_begin(view,memory)
+	var admitted: Dictionary=T._seal_begin_offer051(admitted_plan.sources[str(refined.candidate.candidateId)],refined.candidate,certificate,Planner.fingerprint(refined.candidate))
+	check(not admitted.is_empty() and admitted.is_read_only() and admitted.candidate.is_read_only() and admitted.candidate.approach.is_read_only() and admitted.certificate.fireWindow.is_read_only(),"same-begin actual offer seals its request paths and physical certificate")
+	admitted_plan.beginView051=view;admitted_plan.beginOffers051={str(refined.candidate.candidateId):admitted}
+	var admitted_result: Dictionary=Planner._resolve_planned(view,memory,[admitted],admitted_plan,Stations.LIVE_TRAFFIC_SECONDS051)
+	check(admitted_result==live,"same-begin admission preserves exact current certificate, choices, memory and reservation debits")
+	check(Planner._admitted_begin_offer051(view,admitted_plan,admitted) and not Planner._admitted_begin_offer051(view.duplicate(true),admitted_plan,admitted) and not Planner._admitted_begin_offer051(view,admitted_plan,admitted.duplicate(true)),"same-begin proof requires both exact view and exact immutable offer identity")
+	var counterfeit: Dictionary=admitted.duplicate(true)
+	counterfeit.candidate.approach=[Vector2(1234,4321)]
+	var counterfeit_result: Dictionary=Planner._resolve_planned(view,memory,[counterfeit],admitted_plan,Stations.LIVE_TRAFFIC_SECONDS051)
+	check(int(counterfeit_result.counters.accepted)==0,"copied offer with changed path must revalidate and cannot borrow a sealed fingerprint")
+	check(Planner.resolve(view,memory,[admitted])==public_result,"public resolve ignores private admission and preserves full default checks")
+	var denied_certificate: Dictionary=certificate.duplicate(true)
+	denied_certificate.status="pending";denied_certificate.pathFingerprint=""
+	var denied: Dictionary=T._seal_begin_offer051(admitted_plan.sources[str(refined.candidate.candidateId)],refined.candidate,denied_certificate,"")
+	var denied_plan: Dictionary=Planner._prepare_begin(view,memory)
+	denied_plan.beginView051=view;denied_plan.beginOffers051={str(refined.candidate.candidateId):denied}
+	var denied_result: Dictionary=Planner._resolve_planned(view,memory,[denied],denied_plan,Stations.LIVE_TRAFFIC_SECONDS051)
+	check(int(denied_result.counters.accepted)==0 and int(denied_result.counters.pending)==1,"unhashed pending offer remains pending and grants no maneuver or reservation")
 	view.options.clearanceRemaining=0
 	var pending: Dictionary=Planner._resolve_planned(view,memory,offers,Planner._prepare_begin(view,memory),Stations.LIVE_TRAFFIC_SECONDS051)
 	check(int(pending.counters.accepted)==0 and int(pending.counters.clearanceExhausted)>0 and int(pending.counters.clearanceTests)==0,"private resolve cannot accept through exhausted reservation work")

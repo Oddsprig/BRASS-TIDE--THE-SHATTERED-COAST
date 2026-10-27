@@ -1,0 +1,34 @@
+051 CLOSED-BEGIN OFFER ADMISSION - SOURCE ONLY
+Base ad1cb417f70ad33d0974be8c5b296bd5f9eeabd7; its instrumentation already
+matches Root3594827. No duplicate instrumentation cherry-pick.
+R12 actual233b874cb02a4bfbbf8fe72c4122d91e remains quality FAILED:
+light6.849FPS/sim18.683ms; mixed57.069FPS/sim8.235ms. NativeR28 was804/0.
+R12 light:2098due/601ticks,8471adopt+2164refine,1671workeradopts/427sync.
+Validation .792ms, route adoption .943ms, inputs .227ms (actual medians).
+
+Runtime replaces the unused raw request SHA with identical schema validity.
+Only fully routed candidates get a final SHA. Rejected/pending routes still
+pass final schema validation; their empty hash never grants authority.
+Runtime verifies unchanged nonpath request fields, seals known candidate
+and certificate containers read-only, and lends exact offer/view identity
+ONLY through the local planning dictionary during this closed begin.
+Resolve/publication reuse admitted schema/fingerprint instead of rechecking
+or deep-copying the same offer. Prediction copies remain for retained use.
+Public/default resolve/certification/publication retain their full checks.
+Both sync and worker decisions lend their actual bounded detailedIds;
+_begin_inputs still rechecks CURRENT hostile membership before route work.
+
+No offer filtering: STATICblocked, snapshottrafficblocked and budgetpending
+all retain existing main route handling and alternate-offer order. No single
+blind fallback, new starvation policy, route proof, cache, global or worker.
+Escorts/civilian escape/manual/orders/duels retain existing alternatives.
+Current owner, command, membership, phase/range, survival, connector, traffic,
+certificate, reservation, 60Hz physics/fire, .2s observations are unchanged.
+No targets/counts/stats/seed/limits/visuals/assertions/wrapper changes.
+
+Existing traffic selector adds6 assertions using its real route/certificate:
+immutable containers; exact result/debit parity; view/offer identity scope;
+copied changed-path refusal; public-default parity; unhashed pending refusal.
+Single preload advisory:issues[],engineInvoked=false. Diff whitespace clean.
+Native parsing/behavior/performance UNRUN here; Root owns combined tests.
+No measured savings or quality acceptance.051OPEN. Commit then STOP.
