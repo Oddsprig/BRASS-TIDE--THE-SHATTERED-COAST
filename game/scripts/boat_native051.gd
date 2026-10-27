@@ -26,10 +26,7 @@ class Item extends RefCounted:
 		rid = RID()
 
 	func _notification(what: int) -> void:
-		if what == NOTIFICATION_PREDELETE:
-			# Self-method dispatch is unavailable while the script instance dies.
-			if rid.is_valid(): RenderingServer.free_rid(rid)
-			rid = RID()
+		if what == NOTIFICATION_PREDELETE: release()
 
 # Narrow live-command target for existing art and Chart's post-boat commands.
 # Uses the same RenderingServer primitives/flags as CanvasItem, including the
@@ -298,9 +295,4 @@ func release() -> void:
 	if root != null: root.release()
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_PREDELETE:
-		# Drop the owned graph inline; every Item frees only its own RID.
-		# Chart's explicit release path still frees children before their parents.
-		boats.clear()
-		post = null
-		root = null
+	if what == NOTIFICATION_PREDELETE: release()
