@@ -3,6 +3,7 @@ extends SceneTree
 const Lab = preload("res://scripts/fleet_lab.gd")
 const Battle = preload("res://scripts/battle.gd")
 const Tactical = preload("res://scripts/tactical_runtime.gd")
+const Planner = preload("res://scripts/tactical_planner.gd")
 const Roles = preload("res://scripts/tactical_role_plans.gd")
 const Stations = preload("res://scripts/tactical_stations.gd")
 const Routes = preload("res://scripts/tactical_routes.gd")
@@ -81,11 +82,97 @@ func run() -> void:
 	var ordered_context: Dictionary = Roles.ships_by_id(ordered_view)
 	check(Roles.decide(ordered_view, ordered_context[own_id], {}, ordered_context, reservations).state.targetId == first.state.targetId, "team pressure cannot divert an explicit attack")
 	check(world == original_world, "Lab and planning preserve source world data")
+	view_parity051(battle, own_id, friend_id)
 	solo_recovery051(view, context[friend_id])
 	proof_reuse051()
 	finite_traffic051()
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
+
+func view_parity051(source: Dictionary, own_id: String, ally_id: String) -> void:
+	# Pure views of the existing real Lab boats. No update, certificate or result
+	# grant; the public full view remains the independent decision reference.
+	var source_before: PackedByteArray=var_to_bytes([source.ships,source.tactical.mountCache,source.tactical.options,source.tactical.observed])
+	var st: Dictionary=source.duplicate(true)
+	var t: Dictionary=st.tactical
+	# Deep duplication need not preserve aliases across the two containers.
+	t.ships={}
+	for boat: Dictionary in st.ships:t.ships[str(boat.id)]=boat
+	var own: Dictionary=t.ships[own_id]
+	var ally: Dictionary=t.ships[ally_id]
+	var ally_ammo: float=float(ally.ammo)
+	var ally_hp: float=float(ally.hp)
+	var ally_water: float=float(ally.water)
+	var enemy_id: String=""
+	for id in t.ships:
+		if t.ships[id].team!=own.team:enemy_id=str(id);break
+	var cases: Array=[{"role":"auto"},{"role":"skirmisher"},{"role":"striker"},{"role":"screen"},{"role":"heavy"},{"role":"support"},{"role":"support","dry":true},{"role":"screen","wounded":true},{"role":"auto","escort":true}]
+	var slim: Dictionary={}
+	var full: Dictionary={}
+	var profiling: bool=bool(Tactical.runtime_profile043().enabled)
+	for trial: Dictionary in cases:
+		own.order="escort" if trial.get("escort",false) else "engage"
+		own.orderTarget={"shipId":ally_id} if trial.get("escort",false) else {}
+		ally.order="escort";ally.orderTarget={"shipId":own_id}
+		ally.ammo=0.0 if trial.get("dry",false) else ally_ammo
+		ally.hp=float(ally.maxHp)*0.4 if trial.get("wounded",false) else ally_hp
+		ally.water=float(ally.capacity)*0.25 if trial.get("wounded",false) else ally_water
+		t.options.byId[own_id].role=trial.role
+		# Match the actual closed-begin seam: observations precede planning, with
+		# no motion or live input mutation between either side's snapshot calls.
+		t.observed={}
+		for id in t.ships:t.observed[id]=Tactical._observed(t.ships[id],t.mountCache[id].mounts)
+		var held: PackedByteArray=var_to_bytes([st.ships,t.mountCache,t.options,t.memory])
+		full=Tactical.view(st,str(own.team),[own_id])
+		Tactical.set_runtime_profile043(true);Tactical.reset_runtime_profile043()
+		slim=Tactical._begin_view051(st,str(own.team),[own_id])
+		var counts: Dictionary=Tactical.runtime_profile043()
+		Tactical.set_runtime_profile043(profiling)
+		check(int(counts.ownCopies)==1 and int(counts.observedCalls)==0 and int(counts.enemyCopies)==0,"private view builds only the due owner and reuses closed observations")
+		var full_context: Dictionary=Roles.ships_by_id(full)
+		var slim_context: Dictionary=Roles.ships_by_id(slim)
+		check(var_to_bytes(slim_context[own_id])==var_to_bytes(full_context[own_id]),"due owner retains every full public field and value")
+		var ally_fields_match: bool=true
+		for key: String in ["ammo","order","orderTarget","status"]:
+			ally_fields_match=ally_fields_match and var_to_bytes(slim_context[ally_id][key])==var_to_bytes(full_context[ally_id][key])
+		check(ally_fields_match and not slim_context[ally_id].has("breaches") and not slim_context[ally_id].has("crew") and not slim_context[ally_id].has("supplies") and not slim_context[ally_id].has("fuel"),"non-due protector retains current decision inputs without unused owner stores")
+		check(full_context[ally_id].has("breaches") and full_context[ally_id].has("crew") and full_context[ally_id].has("fuel"),"public view still includes full non-due owner schema")
+		var full_header: Dictionary=full.duplicate();full_header.erase("ships")
+		var slim_header: Dictionary=slim.duplicate();slim_header.erase("ships")
+		check(var_to_bytes(slim_header)==var_to_bytes(full_header),"private view preserves revisions, due IDs, options, groups and public mission")
+		var inputs_before: PackedByteArray=var_to_bytes([full,slim,t.memory])
+		var memory: Dictionary=t.memory[str(own.team)]
+		var expected: Dictionary=Planner._prepare_begin(full,memory)
+		var actual: Dictionary=Planner._prepare_begin(slim,memory)
+		for key: String in ["dueIds","decisions","sources","candidates","scored"]:
+			check(var_to_bytes(actual[key])==var_to_bytes(expected[key]),"private/public %s parity for %s"%[key,str(trial)])
+		var expected_result: Dictionary=Planner._resolve_planned(full,memory,[],expected,Stations.LIVE_TRAFFIC_SECONDS051)
+		var actual_result: Dictionary=Planner._resolve_planned(slim,memory,[],actual,Stations.LIVE_TRAFFIC_SECONDS051)
+		check(var_to_bytes(actual_result)==var_to_bytes(expected_result),"actual no-offer resolution parity without manufactured certificates")
+		check(var_to_bytes([full,slim,t.memory])==inputs_before and var_to_bytes([st.ships,t.mountCache,t.options,t.memory])==held,"pure planning/resolution cannot mutate views or their live source")
+	var last_full: Dictionary=Roles.ships_by_id(full)
+	var last_slim: Dictionary=Roles.ships_by_id(slim)
+	var enemy: Dictionary=last_slim[enemy_id]
+	check(var_to_bytes(enemy)==var_to_bytes(last_full[enemy_id]) and is_same(enemy,t.observed[enemy_id]),"private enemy reuses exactly the public observation with no hidden knowledge")
+	check(enemy.is_read_only() and enemy.spec.is_read_only() and enemy.mounts.is_read_only() and enemy.mounts[0].is_read_only() and enemy.mountShotTimes.is_read_only(),"shared enemy and nested observations are immutable")
+	check(last_slim[own_id].mounts.is_read_only() and not is_same(enemy.mounts,t.mountCache[enemy_id].mounts),"due owners share frozen observations detached from live mount fits")
+	var reverse_full: Dictionary=Tactical.view(st,"enemy",[enemy_id])
+	var reverse_slim: Dictionary=Tactical._begin_view051(st,"enemy",[enemy_id])
+	check(var_to_bytes(Roles.ships_by_id(reverse_slim)[enemy_id])==var_to_bytes(Roles.ships_by_id(reverse_full)[enemy_id]),"opposite side also receives a complete fresh due owner")
+	check(not enemy.has("ammo") and not enemy.has("status") and not enemy.has("order") and var_to_bytes(enemy)==var_to_bytes(last_full[enemy_id]),"opposite-side owner enrichment cannot leak into shared enemy observations")
+	var slim_before: PackedByteArray=var_to_bytes(slim)
+	var live_before: PackedByteArray=var_to_bytes([st.ships,t.mountCache,t.options])
+	last_full[enemy_id].mounts[0].range+=1.0
+	last_full[ally_id].orderTarget["copySafety051"]=true
+	last_full[own_id].status.speedFactor=0.0
+	check(var_to_bytes(slim)==slim_before and var_to_bytes([st.ships,t.mountCache,t.options])==live_before,"public copies remain mutable without poisoning private or live inputs")
+	own.spec.speed+=1.0;own.orderTarget["copySafety051"]=true
+	t.mountCache[enemy_id].mounts[0].range+=1.0
+	t.ships[enemy_id].mountShotTimes["copySafety051"]=float(st.time)
+	check(var_to_bytes(slim)==slim_before,"saved private snapshot stays detached after live nested inputs change")
+	var fresh: Dictionary=Roles.ships_by_id(Tactical.view(st,str(own.team),[own_id]))
+	check(fresh[own_id].spec.speed==own.spec.speed and fresh[own_id].orderTarget.has("copySafety051"),"public owner reads stay fresh after the private begin closes")
+	check(var_to_bytes([source.ships,source.tactical.mountCache,source.tactical.options,source.tactical.observed])==source_before,"view parity cases preserve the actual source battle")
 
 func solo_recovery051(source_view: Dictionary,source: Dictionary) -> void:
 	# Detached role observations only: no synthetic certificate or battle grant.

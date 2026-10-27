@@ -230,9 +230,9 @@ static func _observed(ship: Dictionary,mounts: Array) -> Dictionary:
 		_runtime_profile043_counts.observedCalls+=1
 	return out
 
-static func _own(ship: Dictionary,mounts: Array,frame_cache=null) -> Dictionary:
+static func _own(ship: Dictionary,mounts: Array,frame_cache=null,observed051: Dictionary={}) -> Dictionary:
 	var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
-	var out: Dictionary=_observed(ship,mounts)
+	var out: Dictionary=_observed(ship,mounts) if observed051.is_empty() else observed051.duplicate()
 	for key in ["crew","wounded","crewMin","crewOptimal","crewMax","supplies","ammo","fuel","cooldown","policy","shoreCrew","order","orderTarget","orderRevision","formationIndex","boardingOrder","breaches","supportRepairFactor"]:
 		if ship.has(key):out[key]=ship[key].duplicate(true) if ship[key] is Dictionary or ship[key] is Array else ship[key]
 	# Keep only numerical movement/crew/pump inputs, never the full catalogue fit.
@@ -247,6 +247,20 @@ static func _own(ship: Dictionary,mounts: Array,frame_cache=null) -> Dictionary:
 	return out
 
 static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dictionary:
+	# Public callers retain full, detached, mutable owner and enemy records.
+	return _view051(st,side,due,frame_cache,false)
+
+static func _begin_view051(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dictionary:
+	# Only the closed synchronous begin borrows already detached observations.
+	return _view051(st,side,due,frame_cache,true)
+
+static func _view_read_only051(value: Variant) -> void:
+	if value is Dictionary or value is Array:
+		if value.is_read_only():return
+		for child in (value.values() if value is Dictionary else value):_view_read_only051(child)
+		value.make_read_only()
+
+static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool) -> Dictionary:
 	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
 	var t: Dictionary=st.tactical
 	var ships: Array=[]
@@ -254,8 +268,23 @@ static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dic
 	for id in t.ships:
 		var ship: Dictionary=t.ships[id]
 		var mounts: Array=t.mountCache[id].mounts
+		var observed051: Dictionary={}
+		if closed_begin051:
+			observed051=t.observed[id]
+			# Freeze once per observation, including nested mount data. Both sides
+			# may share it without exposing mutable live fits or private stores.
+			_view_read_only051(observed051)
 		if ship.team==side:
-			var own: Dictionary=_own(ship,mounts,frame_cache)
+			var own: Dictionary
+			if not closed_begin051 or id in due:
+				own=_own(ship,mounts,frame_cache,observed051)
+			else:
+				# Roles._leader_score/working_mounts need these current friendly
+				# inputs, but never crew, breaches, fuel/supplies or cooldown copies.
+				own=observed051.duplicate()
+				for key in ["ammo","order","orderTarget"]:
+					if ship.has(key):own[key]=ship[key].duplicate(true) if ship[key] is Dictionary else ship[key]
+				own.status=Damage._read_status_in_phase043(ship,frame_cache).duplicate(true)
 			own.orderSince=float(t.orderTimes.get(id,0.0))
 			own.failedTargetIds=t.failures.get(id,[]).duplicate()
 			var contact: String=_boarding_contact(st,ship,frame_cache)
@@ -292,13 +321,16 @@ static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dic
 					choices[id].defaultRally051=true # Detached default, never a user option.
 			if own.order=="withdraw" and own.orderTarget.has("x"):choices[id].rally=own.orderTarget.duplicate(true)
 		else:
-			var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
-			ships.append(t.observed[id].duplicate(true))
-			if _runtime_profile043_enabled:
-				_runtime_profile043_counts.enemyCopyUs+=Time.get_ticks_usec()-profile_started
-				_runtime_profile043_counts.enemyCopies+=1
-				var copied_mounts = t.observed[id].get("mounts",[])
-				if copied_mounts is Array:_runtime_profile043_counts.enemyMountsCopied+=copied_mounts.size()
+			if closed_begin051:
+				ships.append(observed051)
+			else:
+				var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
+				ships.append(t.observed[id].duplicate(true))
+				if _runtime_profile043_enabled:
+					_runtime_profile043_counts.enemyCopyUs+=Time.get_ticks_usec()-profile_started
+					_runtime_profile043_counts.enemyCopies+=1
+					var copied_mounts = t.observed[id].get("mounts",[])
+					if copied_mounts is Array:_runtime_profile043_counts.enemyMountsCopied+=copied_mounts.size()
 	var groups: Dictionary={1:[],2:[],3:[],4:[]}
 	for group in t.groups:
 		for id in t.groups[group]:
@@ -508,7 +540,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if t.ships[id].team==side:side_due.append(id)
 		if side_due.is_empty():continue
 		phase_started=Time.get_ticks_usec()
-		var snapshot: Dictionary=view(st,side,side_due,frame_cache)
+		var snapshot: Dictionary=_begin_view051(st,side,side_due,frame_cache)
 		snapshots[side]=snapshot
 		for ship in snapshot.ships:
 			if ship.team==side:copies[str(ship.id)]=ship

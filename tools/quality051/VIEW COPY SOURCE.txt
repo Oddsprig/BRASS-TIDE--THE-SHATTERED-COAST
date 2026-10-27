@@ -1,0 +1,77 @@
+051 CLOSED-BEGIN VIEW COPY SOURCE CANDIDATE
+
+Workspace: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v051-coastal-route-sol
+Parent: d4a2d55cefd74401a2590b67d48f83b5ca2ccb1e. Before edits, every game
+file matched Root 2fc7bcb796755ea64a47327b5dc125b46f4a60e6 (git diff empty).
+Latest owner brief supersedes the older route-only AGENTS scope.
+
+ONLY CHANGES
+- game/scripts/tactical_runtime.gd: _own's optional observation input; public
+  view wrapper; private _begin_view051/_view051/_view_read_only051 helpers;
+  exactly one begin snapshot call. _observed itself remains unchanged.
+- game/tests/test_role_geometry046.gd: Planner preload, one new pure
+  view_parity051 case and its call. All existing assertions/bodies preserved.
+- This handoff. No route graph, other begin logic, counters, planner,
+  certification, damage, campaign, assets, versions or packaging edits.
+
+ACTUAL CONSUMER BASIS AND MECHANISM
+Roles._leader_score uses other allies' observed UID/pose/size/role/HP/flood,
+their escort order/target and the existing options/mission. Its support branch
+calls working_mounts(other), which needs current ammo, status.weaponFactor and
+the already observed fitted mounts. protected_ally retains those assignments.
+Stations' ally/rally/formation/detour reads use observed geometry/pose. Planner
+only decides/proposes/resolves for dueIds; physical owner inputs stay complete.
+Therefore non-due friendly rows keep all observed fields plus current ammo,
+order, detached orderTarget and detached status, but omit unused crew, breach,
+fuel/supply, cooldown and extra owner-spec copies. Options, groups, boarding
+continuity, targetless attack selection and rally handling are unchanged.
+
+The closed begin already built t.observed from current ships/mounts. The private
+view freezes each detached observation recursively once, then shares it across
+both sides' read-only consumers. Due owner rows shallow-copy that frozen base
+and add the SAME full owner fields/status/spec as before. Other allies get the
+small extension above. Enemy rows reuse ONLY the exact frozen public observation;
+private owner fields never get inserted into t.observed. No persistent cache,
+worker, save field or cross-frame validity rule was added. Next begin rebuilds
+observations normally. Retained observation and helm/fire functions are untouched.
+
+Public Tactical.view still reconstructs full current owner rows, including
+non-due owners, and deeply copies enemy rows. Public copies remain mutable.
+The optional _own input defaults to the original behavior for every other caller.
+Within one isolated private view, existing diagnostics should show ownCopies
+equal to due owner count, observedCalls=0 and enemyCopies=0. Whole-frame counters
+can still include _own work in the UNCHANGED retained-observation path.
+
+BOUNDED EXISTING FIXTURE ADDITION
+Uses the existing four actual Lab boats as detached pure source observations;
+no extra Battle.update, simulation horizon, forced result or fake certificate.
+Nine small cases cover all six role settings, dry/wounded protection and escort.
+Compares complete due owner bytes, headers/options, required ally fields, actual
+role decisions, candidates/sources and no-offer resolution bytes with public view.
+Checks input immutability, public mutable-copy isolation, frozen nested mounts,
+opposite-side enrichment without enemy knowledge leaks, later live mutation
+isolation and public freshness. No success-state artifact/output path added.
+Accepted physical offers/first-voyage behavior still require Root's native proof.
+
+SOURCE CHECKS (NO ENGINE)
+Read-only preload advisory: issues=[] for both changed GDScripts.
+git diff --check clean. Function comparison against Root 2fc7bcb: 32 other
+runtime functions unchanged; begin differs ONLY at its snapshot call; _own
+differs ONLY by the appended input and base selection. Eight pre-existing
+fixture function bodies unchanged; run differs ONLY by its new parity call.
+Only the two named game files differ from Root. Runtime is 58,220 bytes.
+
+SHA256 at source handoff:
+tactical_runtime.gd 2194b9bfe70671e814341198b61ba58fd695d17b6cf19ecfdb2d35d45d37c392
+test_role_geometry046.gd 8bc4ad6d00a881e87fef39422badc4403d286bc3aae9cfef0b2f4c5efa61ee7a
+
+NATIVE UNRUN. No parsing, timing, FPS or behavioral pass claimed. Root owns
+existing geometry/journey checks and the same 42-actor/300DP/60Hz GPU workload.
+Keep the R14 functional voyage proof and all older failures distinct from this
+candidate's pending validation. Fair due slots, cadence and the 90s/60Hz journey
+are untouched. Merge this scoped commit, preserving PerfSol's separately owned
+profile-counter changes; do not replace Root's Runtime file wholesale.
+
+Workspace note: before Root's path clarification, a clean, unused
+v051-view-owned-sol worktree was created at 2fc7bcb. No edits or jobs used it;
+all work above used the requested existing coastal-route checkout.
