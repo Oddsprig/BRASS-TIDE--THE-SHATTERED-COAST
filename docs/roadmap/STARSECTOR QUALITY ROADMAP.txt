@@ -1,5 +1,14 @@
 BRASS TIDE - STARSECTOR QUALITY ROADMAP
-26 October 2026 | Planning from delivered v0.041 | No new game build
+27 October 2026 | Sequential execution from the v0.041 baseline
+
+CURRENT EXECUTION STATUS
+Delivered through v0.050; v0.051 is active. The installed launcher remains
+v0.050. Milestone A is OPEN; v0.052 breadth has not started. R36's focused
+1,387 checks, actual opening voyage, export and three starts pass in81.563s.
+Actual R17 full300DP battles still miss runtime targets and retain11 light /
+1 mixed planner deadlocks. Three Bridge Sol6.1MAX helpers are implementing
+bounded worker-handoff, contact-convergence and crowd-escape corrections.
+The baseline findings below are historical context, not current measurements.
 
 THE TARGET
 A naval fleet RPG with the presentation, responsiveness, tactical decisions,
