@@ -4,6 +4,7 @@ const BoatArt = preload("res://scripts/boat_art.gd")
 const CombatArt = preload("res://scripts/combat_art.gd")
 const NauticalArt=preload("res://scripts/nautical_art.gd")
 const CoastArt050=preload("res://scripts/coast_art050.gd")
+const NativeBoat051=preload("res://scripts/boat_native051.gd")
 const GOLD = Color("dfbd7d")
 const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
@@ -57,6 +58,47 @@ var _chart_ready: bool = false
 var _chart_towns: Dictionary={}
 var _coast_battle_source=null
 var _battle_coast: Array=[]
+var _native_boats051: NativeBoat051
+var _native_battle051: Dictionary = {}
+var _owned_draw051: bool = false
+
+func _release_native051() -> void:
+	if _native_boats051 != null: _native_boats051.release()
+	_native_boats051 = null; _native_battle051 = {}
+
+func _exit_tree() -> void:
+	_release_native051()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE: _release_native051()
+
+func _begin_native051(batch: BoatArt._BattleDraw051, ships: Array, battle: Dictionary) -> bool:
+	# Only the owned canonical draw opts in. Unknown host drawing/materials and
+	# ANY unsupported hull/fit use the complete old frame, never mixed ordering.
+	if (not _owned_draw051 or batch == null or get_script().resource_path != "res://scripts/chart.gd"
+		or get_child_count() != 0 or y_sort_enabled or material != null or self_modulate != Color.WHITE):
+		_release_native051(); return false
+	var ids: Array = []
+	var inputs: Array = []
+	for boat in ships:
+		if boat.sunk: continue
+		if ids.size() >= NativeBoat051.MAX_HULLS:
+			_release_native051(); return false
+		var color: Color = ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND
+		var prepared: Dictionary = BoatArt._native_inputs051(batch, boat, color, boat.team == "enemy")
+		if prepared.is_empty() or prepared.weapons.size() > NativeBoat051.MAX_MOUNTS:
+			_release_native051(); return false
+		ids.append(str(boat.id)); inputs.append(prepared)
+	if _native_boats051 == null or not is_same(_native_battle051, battle):
+		_release_native051()
+		_native_boats051 = NativeBoat051.new(get_canvas_item())
+		_native_battle051 = battle
+	if not _native_boats051.begin_frame(ids, inputs):
+		_release_native051(); return false
+	_native_boats051.post.proj = batch.projector
+	_native_boats051.post.scale_factor = scale_factor
+	_native_boats051.post.tactical = tactical
+	return true
 
 ## Main-thread opt-in attribution only. Timings are CPU submission, not GPU/FPS.
 ## Static child counters include every caller in this process, including UI.
@@ -73,9 +115,12 @@ func profile_reset() -> void:
 
 func profile_read() -> Dictionary:
 	return {"enabled":_profile_enabled,"draws":_profile_draws,"last_frame":_profile_frame.duplicate(),
+		"native051_active":_native_boats051 != null,
+		"native051_boat_count":0 if _native_boats051 == null else _native_boats051.boats.size(),
 		"mesh_cache":BoatArt.MeshCache.profile_read(),"combat_art":CombatArt.profile_read()}
 
 func setup(game_host):
+	_release_native051()
 	host = game_host
 	serif = SystemFont.new()
 	serif.font_names = PackedStringArray(["Georgia", "Noto Serif"])
@@ -149,6 +194,8 @@ func step(dt: float):
 	if host != null and "tactical_mode" in host:
 		tactical = bool(host.tactical_mode)
 	var mode_now: String = str(host.mode) if host != null else ""
+	if mode_now != "battle" or host.battle.is_empty() or not is_same(_native_battle051, host.battle):
+		_release_native051()
 	var mode_changed := mode_now != _last_mode
 	_last_mode = mode_now
 	if mode_now=="battle":_prepare_battle_coast()
@@ -398,7 +445,8 @@ func _selected_battle_ids(battle: Dictionary) -> Array:
 		out.append(battle.playerId)
 	return out
 
-func _draw_order_indicator(battle: Dictionary, boat: Dictionary, show_route: bool = false):
+func _draw_order_indicator(battle: Dictionary, boat: Dictionary, show_route: bool = false, canvas = null):
+	var target_canvas = self if canvas == null else canvas
 	if show_route:
 		var intent: Dictionary=host.Battle.tactical_status(battle,str(boat.id))
 		var previous: Vector2=Vector2(boat.x,boat.y)
@@ -408,15 +456,15 @@ func _draw_order_indicator(battle: Dictionary, boat: Dictionary, show_route: boo
 				if segments>=OVERLAY_PATH_SEGMENTS:break
 				segments+=1
 				if next is Vector2:
-					if key=="path":draw_line(project(previous),project(next),Color(GOLD,0.68),1.5,true)
-					else:draw_dashed_line(project(previous),project(next),Color(FRIEND,0.35),1.2,5.0,true)
+					if key=="path":target_canvas.draw_line(project(previous),project(next),Color(GOLD,0.68),1.5,true)
+					else:target_canvas.draw_dashed_line(project(previous),project(next),Color(FRIEND,0.35),1.2,5.0,true)
 					previous=next
 		# A current observed target link, never a promise of a future projectile hit.
 		if not intent.get("path",[]).is_empty():
 			var target_id: String=str(battle.get("tactical",{}).get("intents",{}).get(str(boat.id),{}).get("targetId",""))
 			for other in battle.ships:
 				if str(other.id)==target_id and not other.sunk:
-					draw_dashed_line(project(Vector2(boat.x,boat.y)),project(Vector2(other.x,other.y)),Color(ENEMY,0.4),1.0,7.0,true)
+					target_canvas.draw_dashed_line(project(Vector2(boat.x,boat.y)),project(Vector2(other.x,other.y)),Color(ENEMY,0.4),1.0,7.0,true)
 					break
 	var order: String = str(boat.get("order", "engage"))
 	var target_data: Dictionary = boat.get("orderTarget", {})
@@ -433,9 +481,9 @@ func _draw_order_indicator(battle: Dictionary, boat: Dictionary, show_route: boo
 	var color = ENEMY if order == "attack" else FRIEND if order == "escort" else GOLD
 	# Destination marks are orders, never an invented straight navigable path.
 	var point = project(target)
-	draw_line(point-Vector2(6,6), point+Vector2(6,6), Color(color,0.9),1.4,true)
-	draw_line(point+Vector2(6,-6), point+Vector2(-6,6), Color(color,0.9),1.4,true)
-	world_ring(target,14.0,Color(color,0.5),1.0)
+	target_canvas.draw_line(point-Vector2(6,6), point+Vector2(6,6), Color(color,0.9),1.4,true)
+	target_canvas.draw_line(point+Vector2(6,-6), point+Vector2(-6,6), Color(color,0.9),1.4,true)
+	world_ring(target,14.0,Color(color,0.5),1.0,target_canvas)
 
 func _draw_mount_ranges(battle: Dictionary, boat: Dictionary, color: Color, budget: int) -> int:
 	if budget <= 0:return 0
@@ -501,12 +549,13 @@ func _step_v001(dt: float):
 		scale_factor = minf((viewport.x - 450.0) / 3050.0, (viewport.y - 210.0) / 1850.0) * zoom
 	queue_redraw()
 
-func world_line(points: Array, color: Color, width: float = 1.0, height: float = 0.0):
+func world_line(points: Array, color: Color, width: float = 1.0, height: float = 0.0, canvas = null):
 	var output = PackedVector2Array()
 	for p in points:
 		output.append(project(p, height))
 	if output.size() > 1:
-		draw_polyline(output, color, width, true)
+		var target_canvas = self if canvas == null else canvas
+		target_canvas.draw_polyline(output, color, width, true)
 
 func world_poly(points: Array, color: Color, height: float = 0.0):
 	var output = PackedVector2Array()
@@ -515,24 +564,28 @@ func world_poly(points: Array, color: Color, height: float = 0.0):
 	if output.size() > 2:
 		draw_colored_polygon(output, color)
 
-func world_ring(center: Vector2, radius: float, color: Color, width: float = 1.0):
+func world_ring(center: Vector2, radius: float, color: Color, width: float = 1.0, canvas = null):
 	var points: Array = []
 	for i in range(49):
 		points.append(center + Vector2.from_angle(float(i) / 48 * TAU) * radius)
-	world_line(points, color, width)
+	world_line(points, color, width, 0.0, canvas)
 
-func text_at(text: String, pos: Vector2, font_size: int, color: Color, font: Font = null, centered: bool = false):
+func text_at(text: String, pos: Vector2, font_size: int, color: Color, font: Font = null, centered: bool = false, canvas = null):
 	if font == null:
 		font = sans
 	var position = pos
 	if centered:
 		position.x -= font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x * 0.5
-	draw_string(font, position + Vector2(0, 2), text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(0.02, 0.09, 0.13, color.a * 0.8))
-	draw_string(font, position, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+	var target_canvas = self if canvas == null else canvas
+	target_canvas.draw_string(font, position + Vector2(0, 2), text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(0.02, 0.09, 0.13, color.a * 0.8))
+	target_canvas.draw_string(font, position, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
 func _draw():
 	if host == null or background == null:
+		_release_native051()
 		return
+	_owned_draw051 = true
+	if host.mode != "battle": _release_native051()
 	var started: int=Time.get_ticks_usec()
 	var viewport = get_viewport_rect().size
 	_profile_drawing=_profile_enabled
@@ -570,6 +623,7 @@ func _draw():
 			+int(_profile_frame.trail_primitives)+int(_profile_frame.projectile_primitives)
 			+int(_profile_frame.effect_primitives)+int(_profile_frame.wreck_primitives))
 	_profile_drawing=false
+	_owned_draw051 = false
 
 func _segments_cross(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> bool:
 	var ab := b - a
@@ -880,7 +934,7 @@ func boat_shape(p: Vector2, angle: float, shape: Array, size_value: float, heigh
 func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bool = false, enlargement: float = 1.0, no_bars: bool = false):
 	_draw_boat051(boat, color, selected, enemy, enlargement, no_bars, null)
 
-func _draw_boat051(boat: Dictionary, color: Color, selected: bool, enemy: bool, enlargement: float, no_bars: bool, battle_draw051: BoatArt._BattleDraw051):
+func _draw_boat051(boat: Dictionary, color: Color, selected: bool, enemy: bool, enlargement: float, no_bars: bool, battle_draw051: BoatArt._BattleDraw051, native051 = null):
 	# v0.002: rich BoatArt geometry with offscreen culling + zoom LOD.
 	# Persistent wakes are recorded in step() and drawn by _draw_wakes().
 	var spec_v = boat.get("spec", {})
@@ -897,7 +951,7 @@ func _draw_boat051(boat: Dictionary, color: Color, selected: bool, enemy: bool, 
 		if _profile_drawing:_profile_frame.boats_culled+=1
 		return
 	if selected:
-		world_ring(p, boat_size * 2.6, Color(GOLD, 0.65), 1.0)
+		world_ring(p, boat_size * 2.6, Color(GOLD, 0.65), 1.0,native051.pre if native051 != null else null)
 	var screen_len: float = boat_size * 3.9 * scale_factor * 0.82
 	var lod := 0 if screen_len > 78.0 else (1 if screen_len > 36.0 else 2)
 	if tactical:
@@ -907,7 +961,8 @@ func _draw_boat051(boat: Dictionary, color: Color, selected: bool, enemy: bool, 
 		"cache":true,
 		"combat":host.mode=="battle","battle_clock":float(host.battle.get("time",0))+float(host.battle.get("visualTailTime",0)) if host.mode=="battle" else 0.0,
 		"px": maxf(2.0, boat_size * scale_factor * 0.82), "enlargement": enlargement}
-	var draw_stats: Dictionary = BoatArt._draw_battle_boat051(self, battle_draw051, boat, opts) if battle_draw051 != null else BoatArt.draw_boat(self, projector, boat, opts)
+	var boat_canvas = self if native051 == null else native051.motor
+	var draw_stats: Dictionary = BoatArt._draw_battle_boat051(boat_canvas, battle_draw051, boat, opts,native051) if battle_draw051 != null else BoatArt.draw_boat(self, projector, boat, opts)
 	if _profile_drawing:
 		_profile_frame.boats_visible+=1
 		if view.has_point(screen):_profile_frame.boat_centers_on_screen+=1
@@ -918,13 +973,14 @@ func _draw_boat051(boat: Dictionary, color: Color, selected: bool, enemy: bool, 
 		elif lod==1:_profile_frame.lod1+=1
 		else:_profile_frame.lod2+=1
 	if not no_bars and boat.has("hp") and boat.has("maxHp"):
+		var target_canvas = self if native051 == null else native051.after
 		var center: Vector2 = projector.call(p, -35.0)
 		var width = maxf(35, boat_size * scale_factor * 2.5)
 		var hp_frac = clampf(float(boat.hp) / maxf(1.0, float(boat.maxHp)), 0, 1)
-		draw_rect(Rect2(center - Vector2(width / 2, 0), Vector2(width, 4)), Color("0b2632"))
-		draw_rect(Rect2(center - Vector2(width / 2, 0), Vector2(width * hp_frac, 4)), ENEMY if hp_frac < 0.25 else color)
+		target_canvas.draw_rect(Rect2(center - Vector2(width / 2, 0), Vector2(width, 4)), Color("0b2632"))
+		target_canvas.draw_rect(Rect2(center - Vector2(width / 2, 0), Vector2(width * hp_frac, 4)), ENEMY if hp_frac < 0.25 else color)
 		if float(boat.get("water", 0.0)) > 0.0 and boat.has("capacity"):
-			draw_rect(Rect2(center + Vector2(-width / 2, 6), Vector2(width * clampf(float(boat.water) / maxf(1.0, float(boat.capacity)), 0, 1), 2)), Color("75b9d7"))
+			target_canvas.draw_rect(Rect2(center + Vector2(-width / 2, 6), Vector2(width * clampf(float(boat.water) / maxf(1.0, float(boat.capacity)), 0, 1), 2)), Color("75b9d7"))
 
 func _draw_boat_v001(boat: Dictionary, color: Color, selected: bool = false, enemy: bool = false, enlargement: float = 1.0, no_bars: bool = false):
 	var spec = boat.spec
@@ -1009,6 +1065,7 @@ func draw_title():
 func draw_battle():
 	var battle = host.battle
 	if battle.is_empty():
+		_release_native051()
 		return
 	if _profile_drawing:
 		_profile_frame.boats_total=battle.ships.size()
@@ -1077,19 +1134,22 @@ func draw_battle():
 	if _profile_drawing:_profile_frame.sort_us=Time.get_ticks_usec()-phase_started
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	var battle_draw051: BoatArt._BattleDraw051 = null if nautical_chart() else BoatArt._BattleDraw051.new(get_viewport_rect(), camera, scale_factor, true)
+	var retained051: bool = _begin_native051(battle_draw051, sorted_ships, battle)
 	for boat in sorted_ships:
 		if not boat.sunk:
 			if _profile_drawing:_profile_frame.boats_live+=1
 			var is_sel: bool = boat.id in selected_ids
-			_draw_boat051(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, is_sel, boat.team == "enemy", 1.0, false, battle_draw051)
-			if boat.get("captureSecured",false):text_at("SECURED PRIZE",project(Vector2(boat.x,boat.y))+Vector2(0,-38),11,GOLD,mono,true)
+			var native051 = _native_boats051.boats[str(boat.id)] if retained051 else null
+			_draw_boat051(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, is_sel, boat.team == "enemy", 1.0, false, battle_draw051,native051)
+			if boat.get("captureSecured",false):text_at("SECURED PRIZE",project(Vector2(boat.x,boat.y))+Vector2(0,-38),11,GOLD,mono,true,native051.after if native051 != null else null)
 			if is_sel and boat.team == "player":
-				_draw_order_indicator(battle, boat, bool(battle_overlays.routes) and route_boats < OVERLAY_BOATS)
+				_draw_order_indicator(battle, boat, bool(battle_overlays.routes) and route_boats < OVERLAY_BOATS,native051.after if native051 != null else null)
 				route_boats += 1
 	if _profile_drawing:_profile_frame.boats_us=Time.get_ticks_usec()-phase_started
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
+	var post_canvas = _native_boats051.post if retained051 else self
 	for shot in battle.projectiles:
-		var primitives: int=BoatArt.draw_projectile(self, _projector(), shot, {})
+		var primitives: int=BoatArt.draw_projectile(post_canvas, _projector(), shot, {})
 		if _profile_drawing:_profile_frame.projectile_primitives+=primitives
 		pass # projectile body drawn by BoatArt above
 		pass
@@ -1101,7 +1161,7 @@ func draw_battle():
 	for effect in battle.effects:
 		var margin: float=maxf(100,float(effect.get("radius",20))*scale_factor*3.0)
 		if get_viewport_rect().grow(margin).has_point(project(Vector2(effect.x,effect.y),float(effect.get("height",0)))):
-			var primitives: int=CombatArt.effect(self,effect)
+			var primitives: int=CombatArt.effect(post_canvas,effect)
 			if _profile_drawing:
 				_profile_frame.effects_submitted+=1;_profile_frame.effect_primitives+=primitives
 	if _profile_drawing:_profile_frame.effects_us=Time.get_ticks_usec()-phase_started
@@ -1121,37 +1181,38 @@ func draw_battle():
 			var clamped = Vector2(clampf(p.x, 355, size.x - 355), clampf(p.y, 125, size.y - 180))
 			if clamped.distance_to(p) > 15:
 				var direction = (p - clamped).normalized()
-				draw_colored_polygon(PackedVector2Array([clamped + direction * 12, clamped - direction * 7 + direction.orthogonal() * 6, clamped - direction * 7 - direction.orthogonal() * 6]), ENEMY)
-				text_at("%d m" % best, clamped + Vector2(0, 27), 12, ENEMY, mono, true)
+				post_canvas.draw_colored_polygon(PackedVector2Array([clamped + direction * 12, clamped - direction * 7 + direction.orthogonal() * 6, clamped - direction * 7 - direction.orthogonal() * 6]), ENEMY)
+				text_at("%d m" % best, clamped + Vector2(0, 27), 12, ENEMY, mono, true,post_canvas)
 	var mouse = get_global_mouse_position()
-	draw_arc(mouse, 9, 0, TAU, 24, Color(GOLD, 0.75), 1, true)
-	draw_line(mouse - Vector2(15, 0), mouse - Vector2(5, 0), Color(GOLD, 0.8), 1, true)
-	draw_line(mouse + Vector2(5, 0), mouse + Vector2(15, 0), Color(GOLD, 0.8), 1, true)
-	draw_minimap()
+	post_canvas.draw_arc(mouse, 9, 0, TAU, 24, Color(GOLD, 0.75), 1, true)
+	post_canvas.draw_line(mouse - Vector2(15, 0), mouse - Vector2(5, 0), Color(GOLD, 0.8), 1, true)
+	post_canvas.draw_line(mouse + Vector2(5, 0), mouse + Vector2(15, 0), Color(GOLD, 0.8), 1, true)
+	draw_minimap(post_canvas)
 	if host.paused and not host.ui.modal_open:
 		var size = get_viewport_rect().size
-		text_at("TACTICAL PAUSE", Vector2(size.x * 0.5, 128), 28, GOLD, serif, true)
-		text_at("SET CREW PRIORITIES AND FLEET ORDERS · SPACE TO RESUME", Vector2(size.x * 0.5, 155), 11, Color("c6d2be"), mono, true)
+		text_at("TACTICAL PAUSE", Vector2(size.x * 0.5, 128), 28, GOLD, serif, true,post_canvas)
+		text_at("SET CREW PRIORITIES AND FLEET ORDERS · SPACE TO RESUME", Vector2(size.x * 0.5, 155), 11, Color("c6d2be"), mono, true,post_canvas)
 
 func battle_minimap_rect() -> Rect2:
 	var size = get_viewport_rect().size
 	# Keep the chart above the compact selected-status band (height minus192).
 	return Rect2(size.x - 240, size.y - 344, 190, 140)
 
-func draw_minimap():
+func draw_minimap(canvas = null):
+	var target_canvas = self if canvas == null else canvas
 	var box: Rect2 = battle_minimap_rect()
-	draw_rect(box, Color(0.025, 0.10, 0.14, 0.88))
-	draw_rect(box, Color(0.5, 0.70, 0.59, 0.35), false, 1)
+	target_canvas.draw_rect(box, Color(0.025, 0.10, 0.14, 0.88))
+	target_canvas.draw_rect(box, Color(0.5, 0.70, 0.59, 0.35), false, 1)
 	for island in host.battle.islands:
 		var points = PackedVector2Array()
 		for p in island.points:
 			points.append(box.position + Vector2(p[0] / 2300.0 * box.size.x, p[1] / 1700.0 * box.size.y))
-		draw_colored_polygon(points, Color("5f7861"))
+		target_canvas.draw_colored_polygon(points, Color("5f7861"))
 	for boat in host.battle.ships:
 		if not boat.sunk:
 			var p = box.position + Vector2(boat.x / 2300.0 * box.size.x, boat.y / 1700.0 * box.size.y)
-			draw_circle(p, 3 if boat.id == host.battle.playerId else 2, ENEMY if boat.team == "enemy" else GOLD if boat.id == host.battle.playerId else FRIEND)
-	text_at("TACTICAL CHART", box.position - Vector2(0, 9), 10, Color("acc6b4"), mono)
+			target_canvas.draw_circle(p, 3 if boat.id == host.battle.playerId else 2, ENEMY if boat.team == "enemy" else GOLD if boat.id == host.battle.playerId else FRIEND)
+	text_at("TACTICAL CHART", box.position - Vector2(0, 9), 10, Color("acc6b4"), mono,false,target_canvas)
 
 func draw_compass(p: Vector2):
 	draw_arc(p, 27, 0, TAU, 48, Color(0.69, 0.79, 0.65, 0.35), 1, true)

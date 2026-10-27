@@ -12,6 +12,8 @@ const Battle=preload("res://scripts/battle.gd")
 const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Trace=preload("res://tests/art042_trace.gd")
+const Native051=preload("res://scripts/boat_native051.gd")
+const Chart051=preload("res://scripts/chart.gd")
 var checks: int=0
 var failures: int=0
 var manifest: Dictionary={}
@@ -362,6 +364,135 @@ func inspect_batch_camera051(hull: Dictionary) -> void:
 		Art.draw_boat(spoofed,custom,boats[0],opts)
 		check(control.texture_draws==0 and spoofed.prims==control.prims and spoofed.invalid==0,"public custom projector keeps checked mechanical fallback after a shared batch")
 
+func check_native_quads051(group, reference, label: String) -> void:
+	var cells: Array = [group.hull]
+	for weapon in group.weapons:
+		cells.append(weapon.base)
+		if not weapon.frames.moving.is_empty(): cells.append(weapon.moving)
+	var draws: Array = reference.textures()
+	check(cells.size()==draws.size(),label+" retained native hull/weapon layer count")
+	for i in range(mini(cells.size(),draws.size())):
+		var cell = cells[i]
+		var rect: Rect2 = cell.rect
+		var corners: Array = [rect.position,rect.position+Vector2(rect.size.x,0),rect.end,rect.position+Vector2(0,rect.size.y)]
+		check(str(cell.texture.resource_path)==str(draws[i].path) and cell.info.source==Rect2(draws[i].src[0],draws[i].src[1],draws[i].src[2],draws[i].src[3]),label+" retained native layer uses the original atlas/region")
+		for j in range(4):
+			check((cell.transform*corners[j]).distance_to(Vector2(draws[i].pts[j][0],draws[i].pts[j][1]))<0.02,label+" native residual affine, physical pivot and recoil match original quad")
+
+func inspect_native051(hull: Dictionary) -> void:
+	var fit: Dictionary=Refit.defaults(hull);fit.weapons.fill("")
+	fit.weapons[0]="heavy_cannon";fit.weapons[1]="rapid_gun"
+	var spec: Dictionary=Refit.effective_spec(hull,fit)
+	var boat: Dictionary=Art.preview_boat(spec,0.061)
+	boat.id="native-fixture";boat.team="player";boat.sunk=false
+	boat.x=113.25;boat.y=-31.75;boat.maxHp=100.0;boat.hp=60.0
+	boat.localAimAngles={"mount0":0.61,"mount1":-0.37};boat.mountShotTimes={"mount0":9.97}
+	boat.vx=37.0;boat.fire=12.0;boat.water=4.0
+	var hit: Dictionary={"x":-0.2,"y":0.1,"at":9.98,"power":0.7,"material":"metal","section":"deck","angle":0.3}
+	boat.visualHits=[hit]
+	var before: Dictionary=boat.duplicate(true)
+	var chart=Chart051.new();root.add_child(chart)
+	chart._owned_draw051=true
+	var battle: Dictionary={"playerId":boat.id}
+	var held_group = null
+	var held_cell = null
+	var had_rejected: bool=false
+	var had_surviving: bool=false
+	for scale in [0.07,0.18,0.65,1.0,1.7]:
+		var camera:=Vector2(41.25,-17.5)
+		var batch:=Art._BattleDraw051.new(Rect2(0,0,1280,720),camera,scale,true)
+		chart.scale_factor=scale
+		check(chart._begin_native051(batch,[boat],battle),"owned Chart accepts the complete authored native frame")
+		var owner=chart._native_boats051
+		var group=owner.boats[str(boat.id)]
+		if held_group!=null:check(is_same(group,held_group) and is_same(group.hull,held_cell),"zoom updates reuse the bounded hull owner instead of leaking groups")
+		held_group=group;held_cell=group.hull
+		var opts: Dictionary={"cache":true,"lod":0,"px":maxf(2.0,float(spec.size)*float(scale)*0.82),"combat":true,"clock":10.0,"battle_clock":10.0}
+		var stats: Dictionary=Art._draw_battle_boat051(group.motor,batch,boat,opts,group)
+		var reference=Trace.Canvas.new()
+		var expected: Dictionary=Art._draw_battle_boat051(reference,batch,boat,opts)
+		check(stats==expected,"native ownership preserves all original primitive/sprite/LOD counts")
+		check_native_quads051(group,reference,"zoom %.2f"%scale)
+		check(group.root.parent==owner.root.rid and owner.root.parent==chart.get_canvas_item() and owner.post.order==Native051.MAX_HULLS,"PRE is Chart, whole boats are its ordered subtree, POST follows every bounded hull")
+		check(group.pre.order<group.hull.order and group.hull.order<group.motor.order and group.motor.order<group.weapons_root.order and group.weapons_root.order<group.scars_root.order and group.scars_root.order<group.after.order,"native boat retains selection/hull/motor/weapons/scars/live-overlay ordering")
+		var scar=group.scars[0]
+		var radius: float=(0.045+0.035*float(hit.power))*float(spec.size)
+		var patch: Array=[Vector3(-radius,-radius*0.3,0),Vector3(-radius*0.3,-radius*0.8,0),Vector3(radius*0.9,-radius*0.5,0),Vector3(radius,radius*0.4,0),Vector3(radius*0.1,radius*0.65,0),Vector3(-radius*0.7,radius*0.4,0)]
+		var ctx: Dictionary={"proj":batch.projector,"pos":Vector2(boat.x,boat.y),"angle":boat.angle,"size":float(spec.size)}
+		var model: Dictionary={"ctx":ctx,"at":Vector2(hit.x,hit.y),"bearing":float(hit.angle),"u":1.0/float(spec.size),"world_unit":1.0,"h":10.1}
+		var original: Dictionary=Feedback._scar_fan(model,patch)
+		check(scar.outer.screen_points==original.points and scar.outer.indices==original.indices,"retained scar uses EXACT original current screen-area rejection, including omitted triangles")
+		had_rejected=had_rejected or original.indices.size()<12
+		had_surviving=had_surviving or not original.indices.is_empty()
+		for i in range(scar.outer.points.size()):
+			check((scar.outer.transform*scar.outer.points[i]).distance_to(original.points[i])<0.02,"native scar affine follows current boat/zoom without changing the original vertices")
+		# Move and rotate within a heading cell; exercise independent live aim and
+		# recoil recovery without rebuilding a baked texture rectangle.
+		var old_rect: Rect2=group.hull.rect
+		boat.x+=3.125;boat.y-=1.75;boat.angle+=0.003
+		boat.localAimAngles.mount0+=0.004;opts.battle_clock=10.03
+		var moved:=Art._BattleDraw051.new(batch.view,camera,scale,true)
+		check(chart._begin_native051(moved,[boat],battle),"next native frame accepts current transform inputs")
+		Art._draw_battle_boat051(group.motor,moved,boat,opts,group)
+		reference=Trace.Canvas.new();Art._draw_battle_boat051(reference,moved,boat,opts)
+		check_native_quads051(group,reference,"moved/aimed/recoil")
+		check(group.hull.rect==old_rect,"within-cell movement keeps the authored command rectangle")
+		boat.x=before.x;boat.y=before.y;boat.angle=before.angle;boat.localAimAngles=before.localAimAngles.duplicate(true)
+	check(had_rejected and had_surviving,"native scar fixture covers both sides of the unchanged <1 area threshold")
+	# Metadata edits, including in-place arrays, get fresh checked descriptors on
+	# the next complete frame; retained commands must follow the new pivot.
+	var entry: Dictionary=Sprite.hull_entry(spec)
+	var saved_pivot: Array=entry.pivot_px.duplicate()
+	entry.pivot_px[0]+=2
+	var batch:=Art._BattleDraw051.new(Rect2(0,0,1280,720),Vector2.ZERO,1.0,true)
+	check(chart._begin_native051(batch,[boat],battle),"next frame rechecks edited atlas metadata")
+	var group=chart._native_boats051.boats[str(boat.id)]
+	var opts: Dictionary={"lod":0,"px":float(spec.size)*0.82,"combat":true,"clock":10.0,"battle_clock":10.0}
+	Art._draw_battle_boat051(group.motor,batch,boat,opts,group)
+	check(group.hull.info.pivot.x==float(entry.pivot_px[0]),"retained hull command invalidates an in-place atlas pivot edit")
+	entry.pivot_px[0]=saved_pivot[0]
+	batch=Art._BattleDraw051.new(batch.view,Vector2.ZERO,1.0,true)
+	var old_root=chart._native_boats051.root
+	var replacement: Dictionary={"playerId":boat.id}
+	check(chart._begin_native051(batch,[boat],replacement) and not old_root.rid.is_valid(),"same IDs in a new battle free only the prior owned subtree")
+	var owner=chart._native_boats051
+	check(bool(chart.profile_read().native051_active) and int(chart.profile_read().native051_boat_count)==1,"existing profile exposes a detached snapshot of the active native owner")
+	# A culled body must submit nothing; its whole-boat group still owns the
+	# following live order/secured slot, whose destination may be on screen.
+	boat.x=1000000.0
+	var culled:=Art._BattleDraw051.new(batch.view,Vector2.ZERO,1.0,true)
+	check(chart._begin_native051(culled,[boat],replacement),"culling retains the supported bounded frame")
+	group=owner.boats[str(boat.id)]
+	chart._draw_boat051(boat,Chart051.GOLD,false,false,1.0,false,culled,group)
+	check(group.hull.info.is_empty() and group.scars.is_empty() and group.after.rid.is_valid(),"culled hull submits no body while preserving its subsequent live overlay slot")
+	boat.x=before.x
+	var second: Dictionary=boat.duplicate(true);second.id="native-second"
+	check(chart._begin_native051(batch,[boat,second],replacement),"two whole boats enter one bounded ordered subtree")
+	var second_root=owner.boats[str(second.id)].root
+	check(chart._begin_native051(batch,[second,boat],replacement) and owner.boats[str(second.id)].root.order==0 and owner.boats[str(boat.id)].root.order==1,"next sorted order reorders whole native boats, including all live children")
+	check(chart._begin_native051(batch,[boat],replacement) and not second_root.rid.is_valid(),"removed/sunk hull releases its complete owned subtree")
+	var overflow_ids: Array=[];var overflow_inputs: Array=[]
+	for i in range(Native051.MAX_HULLS+1):
+		overflow_ids.append(str(i));overflow_inputs.append(owner.boats[str(boat.id)].inputs)
+	check(not owner.begin_frame(overflow_ids,overflow_inputs) and owner.boats.size()==1,"97 hulls refuse the whole native frame before allocating or changing current groups")
+	old_root=owner.root
+	boat.spec=spec.duplicate(true);boat.spec.size=float(spec.size)+1.0
+	check(not chart._begin_native051(batch,[boat],replacement) and chart._native_boats051==null and not old_root.rid.is_valid(),"one unsupported hull switches the entire frame back and releases every owned RID")
+	check(not bool(chart.profile_read().native051_active) and int(chart.profile_read().native051_boat_count)==0,"fallback profile cannot report retained commands as active")
+	boat.spec=spec
+	check(chart._begin_native051(batch,[boat],replacement),"supported frame can return after whole-frame fallback")
+	old_root=chart._native_boats051.root
+	chart.host={"mode":"menu","battle":{}};chart._last_mode="menu"
+	chart.step(0.0)
+	check(chart._native_boats051==null and not old_root.rid.is_valid(),"mode exit releases retained resources before another draw")
+	check(chart._begin_native051(batch,[boat],replacement),"lifecycle fixture recreates one owned subtree")
+	old_root=chart._native_boats051.root
+	var unrelated:=Native051.Item.new(chart.get_canvas_item(),200)
+	chart.free()
+	check(not old_root.rid.is_valid() and unrelated.rid.is_valid(),"host cleanup frees only owned RIDs; another owner's RID is untouched")
+	unrelated.release()
+	check(boat==before,"native draw/lifecycle checks preserve the entire boat state")
+
 func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	manifest=JSON.parse_string(FileAccess.get_file_as_string(Sprite.WEAPON_MANIFEST))
@@ -377,5 +508,6 @@ func run() -> void:
 		if id=="brasswind_motor_galleon":
 			inspect_draw_preparation(found[0])
 			inspect_batch_camera051(found[0])
+			inspect_native051(found[0])
 	print("WEAPON045: %d checks, %d failures; native texture/geometry/event fixture only"%[checks,failures])
 	quit(0 if failures==0 else 1)

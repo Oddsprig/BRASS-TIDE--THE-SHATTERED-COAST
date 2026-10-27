@@ -132,10 +132,16 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 	var scars: Array=boat.get("visualHits",[]) if boat.get("visualHits") is Array else []
 	var lod: int=int(ctx.lod)
 	var scale: float=maxf(0.45,float(ctx.px)/maxf(4,float(ctx.size)))
+	var native051 = ctx.get("_native051")
+	if native051 != null:
+		native051.finish_scars(mini(MAX_SCARS if lod==0 else 4 if lod==1 else 2,scars.size()) if damaged else 0)
 	if damaged:
 		var count: int=mini(MAX_SCARS if lod==0 else 4 if lod==1 else 2,scars.size())
 		for i in range(count):
 			var hit: Dictionary=scars[scars.size()-1-i]
+			if native051 != null:
+				_native_scar051(ctx,hit,i,native051)
+				continue
 			var at:=Vector2(hit.get("x",0),hit.get("y",0))
 			var power: float=clampf(float(hit.get("power",1)),0.2,2.4)
 			var r: float=(0.045+0.035*power)*float(ctx.size)
@@ -193,6 +199,43 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 			var p: Vector2=_p(ctx,fire_at+Vector2(-0.05-rise*0.15,sin(clock+i)*0.1),18+rise*25)
 			_line(ctx,p,p+Vector2(0,2)*scale,Color(1,0.57,0.14,(1-rise)*0.8),maxf(0.7,scale))
 	_smoke(ctx,fire_at,true,clock,scale,5 if lod==0 else 3)
+
+static func _native_scar051(ctx: Dictionary, hit: Dictionary, index: int, native051) -> void:
+	var scar = native051.scar_at(index)
+	var screen_scale: float = float(native051.inputs.scale)
+	var lod: int = int(ctx.lod)
+	# These are the original vertices and local-coordinate operations from
+	# _scar_fan/Faces._p. Only their immutable boat-local preparation is retained.
+	# The native fan still evaluates every original screen-area test this frame.
+	if not scar.matches(hit,ctx,screen_scale):
+		var power: float = clampf(float(hit.get("power",1)),0.2,2.4)
+		var radius: float = (0.045+0.035*power)*float(ctx.size)
+		var patch: Array = [Vector3(-radius,-radius*0.3,0),Vector3(-radius*0.3,-radius*0.8,0),Vector3(radius*0.9,-radius*0.5,0),Vector3(radius,radius*0.4,0),Vector3(radius*0.1,radius*0.65,0),Vector3(-radius*0.7,radius*0.4,0)]
+		var hole: Array = [Vector3(-radius*0.45,-radius*0.2,0.15),Vector3(radius*0.6,-radius*0.22,0.15),Vector3(radius*0.22,radius*0.3,0.15),Vector3(-radius*0.35,radius*0.22,0.15)]
+		scar.configure(hit,ctx,screen_scale,_scar_locals051(ctx,hit,patch),_scar_locals051(ctx,hit,hole))
+		# Vector3.z is float32, as in the original Faces._p height expression.
+		scar.inner.height = 10.1 + float(Vector3(0,0,0.15).z)
+		scar.outer.height = 10.1
+	scar.update_scar(ctx)
+	if lod == 0:
+		# Screen-width scratches remain live, interleaved after this hit's two
+		# fills. Affine-transforming their widths would change their appearance.
+		var power: float = clampf(float(hit.get("power",1)),0.2,2.4)
+		var radius: float = (0.045+0.035*power)*float(ctx.size)
+		var model: Dictionary = {"ctx":ctx,"at":Vector2(hit.get("x",0),hit.get("y",0)),"bearing":float(hit.get("angle",0)),"u":1.0/float(ctx.size),"world_unit":1.0,"lod":lod,"h":10.1}
+		var live_canvas = ctx.canvas
+		ctx.canvas = scar.lines
+		Faces._line(model,Vector3(-radius,-radius*0.3,0.3),Vector3(-radius*1.6,-radius*0.85,0.3),Color("ac9d77"),0.7)
+		Faces._line(model,Vector3(radius,radius*0.35,0.3),Vector3(radius*1.65,radius*0.7,0.3),Color("292a23"),0.8)
+		ctx.canvas = live_canvas
+
+static func _scar_locals051(ctx: Dictionary, hit: Dictionary, vertices: Array) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	var at := Vector2(hit.get("x",0),hit.get("y",0))
+	var bearing: float = float(hit.get("angle",0))
+	var unit: float = 1.0/float(ctx.size)
+	for vertex in vertices: points.append(at + Vector2(vertex.x,vertex.y).rotated(bearing)*unit)
+	return points
 
 static func _smoke(ctx: Dictionary,at: Vector2,dark: bool,clock: float,scale: float,count: int) -> void:
 	for i in range(count):
