@@ -52,23 +52,53 @@ static func _proof_store051(proofs: _BeginProofs051,key: String,status: String,d
 static func _sweep_begin051(proofs: _BeginProofs051,ship: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary) -> String:
 	# Context identities are checked at _refine_begin051. Typed bytes preserve
 	# exact ordered endpoints/radii; no rounded keys or hash-only equality.
+	var profile051: bool=bool(budget.get("profileRoutes051",false))
+	var started051: int=Time.get_ticks_usec() if profile051 else 0
 	var key: String=var_to_bytes(["terrain",str(ship.id),proofs.geometry_stamp,a,b,r]).hex_encode()
-	if proofs.entries.has(key):return _proof_replay051(proofs.entries[key],budget)
-	if proofs.entries.size()>=BEGIN_PROOF_LIMIT051:return sweep(geometry,a,b,r,budget)
+	if proofs.entries.has(key):
+		var replay051: String=_proof_replay051(proofs.entries[key],budget)
+		if profile051:_route_timing051(budget,"sweepMemo",Time.get_ticks_usec()-started051)
+		return replay051
+	if profile051:_route_timing051(budget,"sweepMemo",Time.get_ticks_usec()-started051)
+	var numeric_started051: int=Time.get_ticks_usec() if profile051 else 0
+	if proofs.entries.size()>=BEGIN_PROOF_LIMIT051:
+		var fallback051: String=sweep(geometry,a,b,r,budget)
+		if profile051:_route_timing051(budget,"sweepNumeric",Time.get_ticks_usec()-numeric_started051)
+		return fallback051
 	var debits: Array[int]=[]
 	var status: String=_sweep_record051(geometry,a,b,r,budget,debits)
 	_proof_store051(proofs,key,status,debits)
+	if profile051:_route_timing051(budget,"sweepNumeric",Time.get_ticks_usec()-numeric_started051)
 	return status
 
 static func _occupied_begin051(proofs: _BeginProofs051,cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool=false,contact_id: String="") -> String:
+	var profile051: bool=bool(budget.get("profileRoutes051",false))
+	var started051: int=Time.get_ticks_usec() if profile051 else 0
 	var own_navigation: float=maxf(r,navigation_radius(ship)) if avoid_hostiles else r
 	var key: String=var_to_bytes(["traffic",str(ship.id),str(ship.team),proofs.geometry_stamp,a,b,r,from,until,own_navigation,contact_id,avoid_hostiles]).hex_encode()
-	if proofs.entries.has(key):return _proof_replay051(proofs.entries[key],budget)
-	if proofs.entries.size()>=BEGIN_PROOF_LIMIT051:return occupied(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id)
+	if proofs.entries.has(key):
+		var replay051: String=_proof_replay051(proofs.entries[key],budget)
+		if profile051:_route_timing051(budget,"occupiedMemo",Time.get_ticks_usec()-started051)
+		return replay051
+	if profile051:_route_timing051(budget,"occupiedMemo",Time.get_ticks_usec()-started051)
+	var numeric_started051: int=Time.get_ticks_usec() if profile051 else 0
+	if proofs.entries.size()>=BEGIN_PROOF_LIMIT051:
+		var fallback051: String=occupied(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id)
+		if profile051:_route_timing051(budget,"occupiedNumeric",Time.get_ticks_usec()-numeric_started051)
+		return fallback051
 	var debits: Array[int]=[]
 	var status: String=_occupied_record051(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id,debits)
 	_proof_store051(proofs,key,status,debits)
+	if profile051:_route_timing051(budget,"occupiedNumeric",Time.get_ticks_usec()-numeric_started051)
 	return status
+
+static func _route_timing051(budget: Dictionary,stage: String,elapsed_us: int) -> void:
+	# Opt-in caller-owned scalars only; never shared with detached worker budgets.
+	if not budget.has("routeTiming051"):
+		budget.routeTiming051={"sweepMemoUs":0,"sweepMemoCalls":0,"sweepNumericUs":0,"sweepNumericCalls":0,"occupiedMemoUs":0,"occupiedMemoCalls":0,"occupiedNumericUs":0,"occupiedNumericCalls":0,"routeUs":0,"routeCalls":0,"refineUs":0,"refineCalls":0,"adoptUs":0,"adoptCalls":0}
+	var timing: Dictionary=budget.routeTiming051
+	timing[stage+"Us"]=int(timing[stage+"Us"])+elapsed_us
+	timing[stage+"Calls"]=int(timing[stage+"Calls"])+1
 
 static func spend(budget: Dictionary, count: int=1) -> bool:
 	if int(budget.clearanceTests)+count>int(budget.get("clearanceLimit",4096)):
@@ -301,6 +331,13 @@ static func route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: f
 	return _route(st,geometry,a,b,r,budget)
 
 static func _route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary,proofs: _BeginProofs051=null,owner: Dictionary={}) -> Dictionary:
+	if not bool(budget.get("profileRoutes051",false)):return _route_core051(st,geometry,a,b,r,budget,proofs,owner)
+	var started051: int=Time.get_ticks_usec()
+	var result051: Dictionary=_route_core051(st,geometry,a,b,r,budget,proofs,owner)
+	_route_timing051(budget,"route",Time.get_ticks_usec()-started051)
+	return result051
+
+static func _route_core051(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary,proofs: _BeginProofs051,owner: Dictionary) -> Dictionary:
 	# Exact endpoint/radius identity; terrain() clears this battle-local cache
 	# on a coast edit. Never borrow endpoint edges from a nearby moving query.
 	var key: String=var_to_bytes([geometry.key,geometry.revision,r,a,b]).hex_encode()
@@ -420,6 +457,13 @@ static func refine_live(st: Dictionary,geometry: Dictionary,ship: Dictionary,can
 	return _refine(st,geometry,ship,candidate,budget,true)
 
 static func _refine_begin051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float=-1.0) -> Dictionary:
+	if not bool(budget.get("profileRoutes051",false)):return _refine_begin_core051(st,geometry,ship,candidate,budget,proofs,live_traffic_seconds051)
+	var started051: int=Time.get_ticks_usec()
+	var result051: Dictionary=_refine_begin_core051(st,geometry,ship,candidate,budget,proofs,live_traffic_seconds051)
+	_route_timing051(budget,"refine",Time.get_ticks_usec()-started051)
+	return result051
+
+static func _refine_begin_core051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
 	# Never borrow a proof for a new owner, geometry, grid, tick or closed batch.
 	# The public path and all live after-motion/helm/fire calls have no context.
 	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):return _refine(st,geometry,ship,candidate,budget,true,null,live_traffic_seconds051)
@@ -438,6 +482,13 @@ static func _prepare_detached051(st: Dictionary,geometry: Dictionary,ship: Dicti
 	return prepared
 
 static func _adopt_prepared051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,prepared: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
+	if not bool(budget.get("profileRoutes051",false)):return _adopt_prepared_core051(st,geometry,ship,candidate,prepared,budget,proofs,live_traffic_seconds051)
+	var started051: int=Time.get_ticks_usec()
+	var result051: Dictionary=_adopt_prepared_core051(st,geometry,ship,candidate,prepared,budget,proofs,live_traffic_seconds051)
+	_route_timing051(budget,"adopt",Time.get_ticks_usec()-started051)
+	return result051
+
+static func _adopt_prepared_core051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,prepared: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
 	# Private, completed+joined worker output, NEVER a corridor/certificate.
 	# Missing, stale or mismatched snapshot checks use the existing main policy.
 	var age: float=float(st.get("time",INF))-float(prepared.get("observedAt051",-INF))

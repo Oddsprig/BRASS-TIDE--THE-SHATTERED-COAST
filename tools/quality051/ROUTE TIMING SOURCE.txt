@@ -1,0 +1,19 @@
+051 ROUTE TIMING - SOURCE ONLY
+Parent bfb8b8e; original Routes blob b94f7c8 matches Root c937.
+
+PerfSol seam posted 5dc772d3: Runtime alone sets budget.profileRoutes051=true
+under its existing profile, then copies optional budget.routeTiming051 into
+metrics.work.routeTiming051. Worker budgets leave the flag absent/false.
+
+routeTiming051 is a fixed 14-scalar integer dictionary, paired Us/Calls for:
+sweepMemo, sweepNumeric, occupiedMemo, occupiedNumeric, route, refine, adopt.
+Memo measures key encoding/lookup and hit debit replay. Numeric measures the
+existing private recorder plus proof storage, or capacity fallback sweep/occupied.
+route includes cache/direct/A* static walk; refine/adopt include scope/fallbacks.
+Totals are inclusive and overlap; do not sum parent and child timings.
+
+Absent/false flag: no clock reads or timing keys; same results/debits. No global
+counters, shared worker state, gameplay optimization, tests or framework added.
+Existing signatures preserved; 34 other bodies unchanged or moved verbatim.
+Preload advisory: 0 issues, engineInvoked=false. Diff clean. Native/GPU UNRUN;
+Root owns the existing validation/probe. No speed claim. STOPPED.
