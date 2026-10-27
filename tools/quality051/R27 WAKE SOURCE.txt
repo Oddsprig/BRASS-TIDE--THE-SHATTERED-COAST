@@ -1,0 +1,45 @@
+R27 WAKE SOURCE - 27 October 2026
+Base: f5381ee232227a5b3b8f5ff0ac85cc1f12b15ac9
+
+Source-only candidate. Root owns all native, import/export, engine/GPU,
+profile, PNG and motion checks. No tests, source advisory, helpers or engines
+were run here. No speedup, appearance, motion or quality acceptance is claimed.
+
+Input: R27 job b004006fa03847e9add1313605d14080, retained in the parent
+R27 engagement and cost findings.json. Its recorded draw attribution is
+light wake_draw_us1663 / wake_update_us264 (33paths/95bands/279samples),
+mixed884/117 (13paths/39bands/145samples). These are unchanged baseline
+observations, not measurements of this candidate. R27 quality FAILED;
+the accepted sampled-goal policy and its R55/R56 evidence are untouched.
+
+One reduction in wake_art045.gd: after unchanged screen cleanup and culling,
+an uncut affine band in the existing active _FrameBatch051 can append its
+original screen polygon and _ribbon_indices(vertex_count) immediately.
+Previously it duplicated the same screen polygon, translated every point
+to a local origin, then generated those indices using ONLY vertex count.
+This removes that unused duplicate and per-vertex GDScript subtraction for
+each eligible band (up to23points), without reimplementing frame batching.
+
+The fast branch submits the exact original screen coordinates and the same
+ordered indices/color. No rounding, projection, cleanup or compositing rule
+changes. A cut outline still copies and conditions its local coordinates for
+the existing native triangulation. Capacity rejection still flushes the
+retained prefix before the ordinary band and disables batching; inactive,
+public/custom/mock and non-CanvasItem paths retain their prior behavior.
+No geometry persists between frames. Chart and its call boundary are unchanged.
+
+The inspected packed Chart projection alternative would reassociate float32
+arithmetic, affecting screen cleanup near existing narrow fading-tip cases.
+It is deferred rather than included in this exact-coordinate reduction.
+Path validation/preparation, actual stern history/bends, all sample/life/
+length/width caps, three bands/colors, and every projector call are unchanged.
+No actor, physics, 60Hz helm/fire, visual density or accounting changes.
+
+Existing test_wake045.gd assertions are unchanged. Its frame_batch_case051
+already checks six overlapping bands, ordered vertices/indices/colors, a cut
+tip using native triangulation, and recorder/custom fallback parity. Its
+appearance/projection/read-only and slow-turn/fading-tip checks are retained.
+No new fixture or harness is needed for this narrower internal branch.
+Root must run the existing native fixture and review actual R28 paint/motion
+and timings before accepting this candidate. Source diff review alone is not
+native parsing, visual validation or measured performance evidence.

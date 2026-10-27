@@ -275,6 +275,14 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 		# Cleaned vertices and screen paint stay the same. An uncut band does
 		# not call the triangulator; a cut band asks for its exact indices.
 		var uncut: bool = polygon.size() == built
+		# An uncut ribbon's indices depend only on vertex count. The frame
+		# batch consumes screen points, so no local copy/translation is needed.
+		# Cut bands still condition their coordinates for native triangulation.
+		if batch != null and batch.active and uncut and affine:
+			var ribbon: PackedInt32Array = _ribbon_indices(polygon.size())
+			if batch._append_band(polygon, ribbon, colors[layer]):
+				count += 1
+				continue
 		# Keep the original projected points, before float32 origin subtraction.
 		# Indices still come from the exact same conditioned local polygon.
 		var screen_polygon: PackedVector2Array = polygon.duplicate() if batch != null and batch.active else PackedVector2Array()
