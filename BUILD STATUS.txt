@@ -13,20 +13,18 @@ The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
 VALIDATION UPDATE - 27 October 2026
-Current source includes reviewed bounded separating egress from inherited
-planning padding. Physical collider clearance, current limited turns, drift,
-ordered neighbor debits, pending refusals and default public behavior remain.
-The existing geometry fixture adds all13 exact captured float32 contacts,
-a three-boat contact and inward/crossing/budget cases. Native verification pending.
-R35 fe08379bf54c4762a9780e2c317032f5 PASS14744/0 in53.797s including setup,
-export and three starts. Actual R16 d7551b6f419a4829ad6959b1f8896e13 completed
-57.703s: light42 22.332FPS/13.336ms simulation; mixed16 59.998FPS/6.6555ms.
-Quality FAILED:31 light boats stopped in allied extra safety padding. All31
-clear physical hulls within existing1e-4 contact precision. Idle-fleet FPS is
-not acceptance. Existing end trace proves the trap; current fix is UNVERIFIED.
-Wake14744 native assertions passed; Root reviewed both actual end-frame PNGs.
-Post-measurement observation now reports persistent planner deadlocks without
-adding per-tick diagnostic work. Next R36 native, then one actual R17 profile.
+R36 2ba74f7e791e481c855136fa77b01d9d PASS1387/0 in81.563s including setup,
+export and three starts. Geometry601 includes all13 captured contact pairs,
+three-body contacts, current limited turns, physical clearance and default parity.
+Actual R17 102dae1893494d578970c64ae2da6327 completed57.812s, quality FAILED:
+42light10.299FPS/16.078ms simulation;16mixed59.999FPS/7.041ms. Light39 actors
+ever moved,22 moving at end and80 shots. Separating egress improves engagement
+versus R16 but leaves11 light and1 mixed persistent planner deadlocks.
+Root reviewed both actual end-frame PNGs. No still-image motion/audio verdict.
+Three Bridge Sol6.1MAX source-only diagnoses now cover remaining candidate
+escapes, worker rejection/synchronous fallback and real multibody penetration.
+No engine job active. No additional implementation approved before diagnosis.
+Physical hull sizes/current60Hz/actors/default APIs and materials stay unchanged.
 Desktop050 retained; no051tag/package/install/no052 while core gate OPEN.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026

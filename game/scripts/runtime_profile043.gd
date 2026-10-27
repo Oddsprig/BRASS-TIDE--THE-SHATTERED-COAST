@@ -367,7 +367,7 @@ func _end_case() -> void:
 	current.plannerDeadlocks051=[]
 	var final_tactical051: Dictionary=host.battle.tactical
 	for ship: Dictionary in host.battle.ships:
-		current.endBoatMotion051.append({"id":str(ship.id),"x":float(ship.x),"y":float(ship.y),"vx":float(ship.vx),"vy":float(ship.vy)})
+		current.endBoatMotion051.append({"id":str(ship.id),"x":float(ship.x),"y":float(ship.y),"vx":float(ship.vx),"vy":float(ship.vy),"angle":float(ship.angle)})
 		var id051: String=str(ship.id)
 		var pending_age051: float=float(host.battle.time)-float(final_tactical051.pending.get(id051,host.battle.time))
 		if not ship.sunk and not ship.get("captureSecured",false) and not final_tactical051.intents.has(id051) and Vector2(ship.vx,ship.vy).length_squared()<0.01 and pending_age051>=3.0:
