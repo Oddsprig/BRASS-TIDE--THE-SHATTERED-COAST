@@ -5,6 +5,7 @@ const Stations=preload("res://scripts/tactical_stations.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
 const Certification=preload("res://scripts/tactical_certification.gd")
 const Fire=preload("res://scripts/tactical_fire_control.gd")
+const Roles=preload("res://scripts/tactical_role_plans.gd")
 const Damage=preload("res://scripts/damage.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 
@@ -284,7 +285,9 @@ static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dic
 				var local_radius: float=maxf(60.0,maxf(10.0,float(ship.spec.size))*2.0)
 				var short_home: bool=departure is Vector2 and departure.distance_to(Vector2(home.x,home.y))<local_radius
 				var local_egress: bool=str(retained.get("phase","")) in ["breakaway","turn-away"] and spent_pass and short_home
-				if own.order=="withdraw" or not local_egress:choices[id].rally=home.duplicate(true)
+				if own.order=="withdraw" or not local_egress:
+					choices[id].rally=home.duplicate(true)
+					choices[id].defaultRally051=true # Detached default, never a user option.
 			if own.order=="withdraw" and own.orderTarget.has("x"):choices[id].rally=own.orderTarget.duplicate(true)
 		else:
 			var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
@@ -838,12 +841,21 @@ static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dict
 		# A current-step fire view, NOT a renewed complete-corridor certificate.
 		# Fire.gate keeps every real solution/stores/salvo/ally/land check intact.
 		var candidate: Dictionary=held.record.candidate
+		var own: Dictionary=ship.duplicate();own.mounts=mounts;own.status=ship_status
+		var memory: Dictionary=t.memory[str(ship.team)].byId[id]
+		var step_view: Dictionary={"time":float(st.time),"options":t.options}
+		var recovery_guns: Array=Roles.solo_recovery_guns(step_view,own,memory)
+		if not recovery_guns.is_empty() and not bool(t.safety.get(id,{}).get("withdraw",false)):
+			# Only this already-cleared physical step requests these guns. Neither
+			# the sealed route nor its nonfiring/expired public window is changed.
+			candidate=candidate.duplicate()
+			candidate.fireMountIds=recovery_guns
+			candidate.erase("fireMountTargets")
 		var targets: Dictionary={}
 		for mount_id in candidate.fireMountIds:targets[mount_id]=Certification.mount_target(candidate,str(mount_id))
 		var step_proof: Dictionary={"scope":"retained-current-step","checkedAt":float(st.time),"validUntil":float(st.time)+float(t.dt),"fireWindow":{"from":float(st.time),"until":float(st.time)+float(t.dt),"mountIds":candidate.fireMountIds,"mountTargets":targets}}
-		var own: Dictionary=ship.duplicate();own.mounts=mounts;own.status=ship_status
 		intent=intent.duplicate();intent.validUntil=step_proof.validUntil
-		intent.fireGate=Planner._fire_gates({"time":float(st.time),"options":t.options},own,t.memory[str(ship.team)].byId[id],candidate,step_proof)
+		intent.fireGate=Planner._fire_gates(step_view,own,memory,candidate,step_proof)
 		var fire_t: Dictionary=t.duplicate();fire_t.predictions={}
 		fire_t.predictions[str(intent.pathFingerprint)]={"candidate":candidate,"certificate":step_proof}
 		fire_state=st.duplicate();fire_state.tactical=fire_t

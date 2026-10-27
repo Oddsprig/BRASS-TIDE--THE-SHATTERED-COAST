@@ -81,9 +81,59 @@ func run() -> void:
 	var ordered_context: Dictionary = Roles.ships_by_id(ordered_view)
 	check(Roles.decide(ordered_view, ordered_context[own_id], {}, ordered_context, reservations).state.targetId == first.state.targetId, "team pressure cannot divert an explicit attack")
 	check(world == original_world, "Lab and planning preserve source world data")
+	solo_recovery051(view, context[friend_id])
 	proof_reuse051()
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
+
+func solo_recovery051(source_view: Dictionary,source: Dictionary) -> void:
+	# Detached role observations only: no synthetic certificate or battle grant.
+	var own: Dictionary=source.duplicate(true)
+	var enemy: Dictionary={}
+	for boat: Dictionary in source_view.ships:
+		if boat.team!=own.team:enemy=boat.duplicate(true);break
+	var v: Dictionary=source_view.duplicate(true)
+	v.time=2.0;v.ships=[own,enemy];v.dueIds=[str(own.id)]
+	own.x=500.0;own.y=850.0;enemy.x=1000.0;enemy.y=850.0
+	own.cooldown=0.0;own.weaponCooldowns=[0.0]
+	var gun_id: String=str(own.mounts[0].id)
+	own.mountShotTimes[gun_id]=1.5
+	var prior: Dictionary={"role":"skirmisher","phase":"fire-pass","targetId":str(enemy.id),"leaderId":"","orderRevision":own.orderRevision,"phaseSince":0.0,"pursuitSince":2.0,"progressAt":2.0,"progressPos":Roles.pos(own),"passShots":4,"passShortShots":4,"passFirstShotAt":0.1,"passOpportunitySince":0.1,"shotTimes":own.mountShotTimes.duplicate(true)}
+	var base: Dictionary=v.duplicate(true)
+	var choice: Dictionary=Roles.decide(v,own,prior,Roles.ships_by_id(v))
+	check(choice.state.get("localRecovery",false) and choice.state.phase=="breakaway","healthy solo gun burst enters bounded local recovery")
+	if not choice.state.get("localRecovery",false):return
+	var requests: Array=Stations.candidates(v,own,choice,Roles.ships_by_id(v))
+	check(not requests.is_empty() and requests[0].approach[-1]==choice.state.localRally and Roles.pos(own).distance_to(choice.state.localRally)<=maxf(90.0,Routes.navigation_radius(own)*2.0)+0.001,"routine solo rally is anchored near the pass instead of birth home")
+	check(requests.all(func(candidate):return candidate.fireMountIds.is_empty()),"local route requests claim no future firing window")
+	check(Roles.solo_recovery_guns(v,own,choice.state)==[gun_id],"current-step recovery requests the useful gun only")
+	v.time=4.1
+	var blocked: Dictionary=Roles.decide(v,own,choice.state,Roles.ships_by_id(v))
+	check(blocked.state.get("localRecovery",false),"elapsed recovery without observed travel cannot invent clearance")
+	own.x-=70.0;own.cooldown=1.0;own.weaponCooldowns=[1.0]
+	var loading: Dictionary=Roles.decide(v,own,choice.state,Roles.ships_by_id(v))
+	check(loading.state.get("localRecovery",false),"real travel alone cannot bypass an unfinished gun reload")
+	own.mountShotTimes[gun_id]=3.0
+	var resumed: Dictionary=Roles.decide(v,own,choice.state,Roles.ships_by_id(v))
+	check(resumed.state.phase=="approach" and not resumed.state.get("localRecovery",false),"observed completed reload/shot plus travel and turn time resumes the solo pass")
+	for variant: String in ["wounded","dry","flood","fire","impaired","protector","rocket","named-rally"]:
+		var trial: Dictionary=base.duplicate(true)
+		var boat: Dictionary=trial.ships[0]
+		match variant:
+			"wounded":boat.hp=float(boat.maxHp)*0.4
+			"dry":boat.ammo=0.0
+			"flood":boat.water=float(boat.capacity)*0.5
+			"fire":boat.fire=30.0
+			"impaired":boat.status.speedFactor=0.2
+			"protector":
+				var ally: Dictionary=boat.duplicate(true);ally.id="protector051";ally.x=250.0
+				trial.ships.append(ally)
+			"rocket":boat.mounts[0].kind="rocket";boat.mounts[0].arc=TAU
+			"named-rally":
+				trial.options.byId[str(boat.id)].rally={"x":80.0,"y":80.0}
+				trial.options.byId[str(boat.id)].erase("defaultRally051")
+		var refusal: Dictionary=Roles.decide(trial,boat,choice.state,Roles.ships_by_id(trial))
+		check(not refusal.state.get("localRecovery",false) and Roles.solo_recovery_guns(trial,boat,refusal.state).is_empty(),"routine solo recovery preserves "+variant+" refusal")
 
 func proof_budget051(limit: int) -> Dictionary:
 	return {"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":limit}

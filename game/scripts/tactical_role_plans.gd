@@ -105,6 +105,25 @@ static func mount_reload(ship: Dictionary, mount: Dictionary) -> float:
 			return maxf(0.0, maxf(remaining, number(ship.get("cooldown"))) if i == 0 else remaining)
 	return INF
 
+static func solo_recovery_guns(view: Dictionary, ship: Dictionary, state: Dictionary) -> Array:
+	# Routine gun recovery only. Real danger, explicit destinations and every
+	# missile/torpedo keep their existing withdrawal and salvo rules.
+	if not state.get("localRecovery", false) or str(state.get("role", "")) != "skirmisher" or str(state.get("phase", "")) not in ["breakaway", "regroup"] or not str(state.get("leaderId", "")).is_empty() or str(ship.get("order", "engage")) != "engage":
+		return []
+	var opts: Dictionary = options(view, ship)
+	var supplied: Variant = opts.get("rally")
+	if (supplied is Vector2 or not dictionary(supplied).is_empty()) and not opts.get("defaultRally051", false):return []
+	var doctrine: String = str(opts.get("doctrine", "steady"))
+	var hp_limit: float = 0.60 if doctrine == "cautious" else (0.30 if doctrine == "aggressive" else 0.45)
+	var flood_limit: float = 0.30 if doctrine == "cautious" else (0.60 if doctrine == "aggressive" else 0.45)
+	var status: Dictionary = dictionary(ship.get("status"))
+	if not bool(status.get("equipmentOk", true)) or number(ship.get("hp")) / maxf(1.0, number(ship.get("maxHp"))) <= hp_limit + 0.10 or number(ship.get("water")) / maxf(1.0, number(ship.get("capacity"), 200.0)) >= flood_limit - 0.10 or number(status.get("inflow")) > number(status.get("bailing")) or number(ship.get("fire")) >= 10.0 or number(ship.get("fuel")) <= 0.0 or number(status.get("speedFactor"), 1.0) < 0.45 or number(status.get("turnFactor"), 1.0) < 0.45 or speed(ship) <= 0.01 or turn_rate(ship) <= 0.01:
+		return []
+	var result: Array = []
+	for mount: Dictionary in useful_mounts(view, ship):
+		if str(mount.get("kind", "")) in ["gun", "cannon"]:result.append(str(mount.id))
+	return result
+
 static func launch_mount(view: Dictionary, ship: Dictionary) -> Dictionary:
 	# Stable fitted preference; a changing cooldown never flips the staging side.
 	var best: Dictionary = {}
@@ -452,7 +471,7 @@ static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, co
 	var changed_order: bool = not previous.is_empty() and int(number(previous.get("orderRevision"))) != revision
 	var state: Dictionary = {}
 	# Fixed private record schema. No accumulating proposal/certificate/target cache.
-	for key: String in ["role", "phase", "reason", "targetId", "leaderId", "orderRevision", "phaseSince", "passSince", "pursuitSince", "progressAt", "progressPos", "commitUntil", "safeSince", "lastUsefulShot", "failedTargetId", "failedUntil", "passSequence", "firingPassId", "sector", "anchor", "waitSince", "blockedStation", "launchPos", "breakawayFrom", "passShots", "passShortShots", "passFirstShotAt", "passOpportunitySince"]:
+	for key: String in ["role", "phase", "reason", "targetId", "leaderId", "orderRevision", "phaseSince", "passSince", "pursuitSince", "progressAt", "progressPos", "commitUntil", "safeSince", "lastUsefulShot", "failedTargetId", "failedUntil", "passSequence", "firingPassId", "sector", "anchor", "waitSince", "blockedStation", "launchPos", "breakawayFrom", "passShots", "passShortShots", "passFirstShotAt", "passOpportunitySince", "localRecovery", "localRally"]:
 		if previous.has(key):
 			state[key] = previous[key]
 	var protected: Dictionary = protected_ally(view, ship, previous, context)
@@ -570,6 +589,11 @@ static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, co
 	var survival_trigger: bool = danger or dry or number(ship.get("fuel")) <= 0.0
 	var break_origin: Vector2 = state.get("launchPos", state.get("breakawayFrom", pos(ship)))
 	var regroup_travelled: bool = pos(ship).distance_to(break_origin) >= maxf(60.0, radius(ship) * 2.0)
+	var recovery_guns: Array = solo_recovery_guns(view, ship, {"localRecovery": true, "role": role, "phase": "breakaway", "leaderId": str(protected.get("id", ""))}) if not survival_trigger and not target.is_empty() else []
+	if changed_order or target_changed or recovery_guns.is_empty():
+		state["localRecovery"] = false
+		state.erase("localRally")
+	var local_recovery: bool = bool(state.get("localRecovery", false))
 	if survival_trigger and explicit_survival:
 		phase = "regroup" if dry else "breakaway"
 		reason = "Fire or flooding danger; seek a local rally." if danger else ("Ammunition or guns unavailable; seek protection." if dry else "Working fuel exhausted; preserve the boat.")
@@ -579,11 +603,21 @@ static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, co
 			reason = "Mobility compromised under fire; seek protection."
 		state["safeSince"] = now
 	elif phase in ["breakaway", "turn-away", "regroup"]:
-		if phase in ["breakaway", "turn-away"] and elapsed >= 2.0:
-			phase = "regroup"
-			state["safeSince"] = now
-		elif phase == "regroup" and now - number(state.get("safeSince"), now) >= 4.0 and hp > hp_limit + 0.10 and flood < flood_limit - 0.10 and net_flood <= 0.0 and number(ship.get("fire")) < 10.0 and not dry and (role != "striker" or regroup_travelled):
+		var ready_gun: bool = false
+		if local_recovery:
+			for mount: Dictionary in mounts(ship):
+				if str(mount.id) in recovery_guns and (mount_reload(ship, mount) <= 0.000001 or number(shots.get(mount.id), -1.0) > number(state.get("phaseSince"), now)):
+					# A real recovery shot also proves its reload completed; otherwise
+					# continuous cover fire could hide every one-tick ready boundary.
+					ready_gun = true
+		# One nominal half-turn, bounded .75..2s, plus REAL travel/clearance and
+		# a ready gun. A blocked/stranded hull cannot complete recovery on time alone.
+		var recovery_seconds: float = clampf(PI / maxf(0.01, turn_rate(ship)), 0.75, 2.0)
+		var local_ready: bool = local_recovery and elapsed >= recovery_seconds and ready_gun and not crowded and pos(ship).distance_to(state.get("breakawayFrom", pos(ship))) >= maxf(60.0, radius(ship) * 2.0)
+		if local_ready or (not local_recovery and phase == "regroup" and now - number(state.get("safeSince"), now) >= 4.0 and hp > hp_limit + 0.10 and flood < flood_limit - 0.10 and net_flood <= 0.0 and number(ship.get("fire")) < 10.0 and not dry and (role != "striker" or regroup_travelled)):
 			phase = "stage" if role == "striker" else "approach"
+			state["localRecovery"] = false
+			state.erase("localRally")
 			state["passSequence"] = int(number(previous.get("passSequence"))) + 1
 			pass_spent = {}
 			pass_shots = 0
@@ -601,14 +635,22 @@ static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, co
 			state.erase("launchPos")
 			state["breakawayFrom"] = pos(ship)
 			state["commitUntil"] = 0.0
+		elif not local_recovery and phase in ["breakaway", "turn-away"] and elapsed >= 2.0:
+			phase = "regroup"
+			state["safeSince"] = now
 		else:
-			reason = "Reform behind protection before another pass."
+			reason = "Recover locally; guns cover the turn before re-engaging." if local_recovery else "Reform behind protection before another pass."
 	elif not immobile and (fixed_shot or not pass_spent.is_empty()) and role == "striker":
 		phase = "turn-away"
 		reason = "Salvo observed; turn away and reform."
 	elif not immobile and role == "skirmisher" and (phase == "fire-pass" or pass_short_shots > 0) and _skirmisher_burst_done(view, ship, state, now, range_value):
 		phase = "breakaway"
 		reason = "Firing pass completed; peel away from return fire."
+		if not recovery_guns.is_empty():
+			state["localRecovery"] = true
+			var away: Vector2 = (pos(ship) - pos(target)).normalized()
+			state["localRally"] = pos(ship) + away * maxf(90.0, Routes.navigation_radius(ship) * 2.0)
+			reason = "Completed gun burst; make a local covered turn."
 	elif failed_pursuit or (stalled and phase in ["approach", "stage", "align"] and not (reloading and target_distance <= range_value * 1.2)):
 		phase = "regroup"
 		reason = "Pursuit failed; abandon the blocked or faster target."

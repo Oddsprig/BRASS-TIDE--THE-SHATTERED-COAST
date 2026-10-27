@@ -1,0 +1,58 @@
+051 SOLO GUN RECOVERY SOURCE CANDIDATE - NATIVE UNRUN
+Parent04396dfa57e60fa88cd22a833c097e6cf2fe5a6f; own v051-retained-sol.
+EXACT5FILES: tactical_role_plans.gd, tactical_runtime.gd, tactical_stations.gd,
+existing test_role_geometry046.gd and this handoff. Runtime delta67 added/11
+removed lines. No new proposal wait: Root approved this actual combat fix.
+
+Read actual R6 c0d3e65405734e729eb41f209b0f15cd first-voyage-failure.json:
+90s no result,15 starter shots; final BOTH skirmishers regroup, no protector,
+472-unit gap, velocities separating, mount0 waiting for usable firing window.
+Actual five inspected tactical files byte-match R6 source5cd404c before patch.
+Source: ordinary burst ->2s breakaway ->at least4s regroup, default birth-home
+rally; every retreat route requests zero guns. Dump does not give phase ages,
+home or total regroup time; do not attribute all90s to one phase.
+
+Small general rule, no seed/hull/test-ID branches:
+- Only ordinary engage gun-skirmisher after a genuinely observed completed
+  burst, without protected ally, with current useful gun/cannon and original
+  recovery HP/flood margins, no growing flood/fire>=10, impaired mobility,
+  dry gun, bad equipment or exhausted fuel. Explicit rally remains authoritative.
+- Freeze localRally at peel entry: away from actual target, distance
+  max(90,2*navigation_radius). It does not march away each replanning tick.
+  Existing Stations paths, detours, stand-off and public route admission remain.
+- Re-entry eligibility after clamp(PI/current_turn_rate,.75,2.0) seconds: one
+  nominal half-turn's time, bounded, plus ACTUAL displacement>=max(60,2*hull
+  radius), no current crowded hull envelope, and a ready useful gun OR an
+  observed gun shot AFTER peel entry proving a completed reload. The latter
+  avoids missing a one-tick ready boundary during continuous real cover fire.
+  Actual turning/motion remain physical; elapsed time alone grants no path.
+  No additional4s/home lap for this routine recovery. Blocked/stranded boats
+  cannot invent travel. Genuine survival/failure-pursuit/other-role paths stay.
+- Existing retained-current-step fire view can REQUEST useful gun/cannon IDs
+  during healthy local recovery, only after this tick's successful actual helm
+  clearance. Requests still pass unchanged Planner gates and actual Fire.gate,
+  solution, muzzle/arc/intercept/allied/terrain/reload/stores, then Battle's
+  unchanged scattered actual_lane/emission. No rockets/torpedoes added, no
+  facing/hit/RNG/store edits or salvo-ledger bypass. This ephemeral view changes
+  neither the sealed nonfiring route nor its public certificate/window/expiry.
+
+Two fixed private memory fields (localRecovery/localRally); defaultRally051 only
+tags detached auto-home options, never persists or becomes a user option.
+No candidate schema change, new certificate, extra offer/attempt, spend replay,
+fair-slot/physics cadence, actor/DP/60Hz, worker, damage, asset, metadata, voyage
+or90s-limit edits.
+Public Certification, Fire, Routes, Battle and Planner byte-unchanged.
+
+Existing role/geometry fixture adds detached canonical Tin observation cases
+only, NO synthetic certificate/held authority or physical-win claim: local goal,
+no future firing request, real-observation travel/reload predicates, restart,
+wounded/dry/flood/fire/impaired/protector/rocket/named-rally refusals. All original
+assertions and paired geometry-proof functions remain unchanged. Actual real
+starter journey remains Root's unchanged90s/60Hz acceptance, still UNPASSED.
+
+Existing preload advisory issues[], engineInvoked:false; whitespace/source
+scope audits clean. No native/tests/GPU/profile/helper/observer/framework run.
+R5/R6/R7 failures preserved; Root reports R8 DT40/0 + retained22/0, but profile
+ALL TARGETS UNMET (light4.529FPS/26.724ms). This SOLO candidate UNRUN; no win,
+FPS or quality claim. Stop here for Root integration with Damage and native.
+Identity-churn idea was a hypothesis, not finding; no extra proposal/counters.

@@ -385,6 +385,8 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 		return result
 	if retreating or order in ["move", "hold", "withdraw", "board"] or phase == "hold" or (order == "escort" and protected.is_empty()):
 		var goal: Vector2 = rally(view, ship, protected, target) if retreating or order == "withdraw" else _point(ship.get("orderTarget"), position)
+		var local_recovery: bool = not Roles.solo_recovery_guns(view, ship, state).is_empty() and state.get("localRally") is Vector2
+		if local_recovery:goal = state.localRally
 		if phase == "hold" and order not in ["move", "hold"]:
 			goal = position
 		if order == "board" and not retreating and not target.is_empty():
@@ -400,7 +402,7 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 				away = -Vector2.from_angle(Roles.number(target.get("angle")))
 			goal = position + away * maxf(target_clearance + 45.0, Roles.speed(ship) * 2.0)
 		var defend: bool = not nonfiring and order == "hold" and not fire_mounts.is_empty()
-		var move_target_id: String = str(target.get("id", "")) if (defend or order == "board") else ""
+		var move_target_id: String = str(target.get("id", "")) if (defend or order == "board" or local_recovery) else ""
 		var hold_targets: Dictionary = _select_mount_targets(view, ship, decision, context, str(target.get("id", "")), goal) if defend else {}
 		var departure: Array = [position, goal]
 		if retreating and not target.is_empty():
@@ -418,7 +420,7 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 				var alternate: Vector2 = position + away.rotated(side * 0.55)
 				var path: Array = [position, alternate] if target.is_empty() else _target_approach(position, alternate, target, target_clearance, side)
 				if not path.is_empty():
-					result.append(_candidate(view, ship, state, "", -1, path, [alternate], [alternate], [], result.size()))
+					result.append(_candidate(view, ship, state, str(target.get("id", "")) if local_recovery else "", -1, path, [alternate], [alternate], [], result.size()))
 		if Roles.speed(ship) > 0.01 and position.distance_to(goal) > 1.0 and (order in ["move", "withdraw", "board"] or retreating):
 			for detour: Array in _move_detours(ship, position, goal, context):
 				if result.size() >= MAX_OFFERS:
