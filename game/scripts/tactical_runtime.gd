@@ -499,13 +499,15 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var snapshot: Dictionary=snapshots[side]
 		var real_attempt: bool=false
 		var membership: Array=Certification.detailed_targets(snapshot,ship,t.memory[side].get("byId",{}).get(id,{}))
+		var candidate_inputs: Dictionary={}
 		for raw in proposed.get(id,[]):
 			# The existing per-hull allowance cannot certify another offer after a
 			# corridor reaches firing checks. Do not refine the remaining routes
 			# only to have certification refuse them before its corridor walk.
 			if t.budget.rolled.has(id):break
 			t.metrics.planningCalls.candidates+=1
-			if not Certification.candidate_valid(raw,snapshot,ship,membership) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
+			if candidate_inputs.is_empty():candidate_inputs=Certification._begin_inputs(snapshot,ship,membership)
+			if not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
 			var refined: Dictionary=Routes.refine_live(st,t.geometry,ship,raw,t.budget)
 			var candidate: Dictionary=refined.candidate
 			if refined.status=="valid" and str(ship.get("order","engage"))=="engage" and candidate.fireMountIds.is_empty():
@@ -520,10 +522,10 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if refined.status=="valid":
 				var certify_started: int=Time.get_ticks_usec()
 				t.metrics.planningCalls.certify+=1
-				cert=Certification._certify_refined_live(st,snapshot,ship,refined,fingerprint,t.budget,membership,frame_cache)
+				cert=Certification._certify_refined_live(st,snapshot,ship,refined,fingerprint,t.budget,membership,frame_cache,candidate_inputs)
 				detail.liveCertification+=Time.get_ticks_usec()-certify_started
 			else:
-				cert=Certification.base_certificate(snapshot,ship,candidate,fingerprint)
+				cert=Certification._begin_certificate(snapshot,ship,candidate,fingerprint,candidate_inputs)
 				cert.status=refined.status
 				cert.reason=refined.get("reason","Checking a route around land" if refined.status=="pending" else "No clear route to this station")
 			if cert.status in ["valid","blocked"] or int(cert.rolloutSamples)>0:real_attempt=true

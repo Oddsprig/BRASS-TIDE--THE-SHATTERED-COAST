@@ -67,6 +67,27 @@ static func detailed_targets(view: Dictionary,ship: Dictionary,previous: Diction
 	return ids
 
 static func candidate_valid(candidate: Dictionary,view: Dictionary,ship: Dictionary,membership: Array=[]) -> bool:
+	return _candidate_valid(candidate,view,ship,membership)
+
+static func _begin_inputs(view: Dictionary,ship: Dictionary,membership: Array) -> Dictionary:
+	# Runtime.begin owns these detached observations for one synchronous due hull.
+	# Index only invariant observations, never a candidate/route/physical verdict.
+	var ids: Dictionary={}
+	for mount in ship.mounts:ids[str(mount.id)]=true
+	var hostiles: Dictionary={}
+	for raw in view.get("ships",[]):
+		if raw is Dictionary and str(raw.get("team",""))!=str(ship.get("team","")) and not raw.get("sunk",false) and not raw.get("captureSecured",false):
+			hostiles[str(raw.get("id",""))]=true
+	var detailed: Array=(membership if not membership.is_empty() else detailed_targets(view,ship)).duplicate()
+	var cert: Dictionary=base_certificate(view,ship,{},"")
+	cert.fireWindow.mountIds.make_read_only();cert.fireWindow.mountTargets.make_read_only()
+	cert.fireWindow.make_read_only();cert.checkedPose.make_read_only();cert.make_read_only()
+	ids.make_read_only();hostiles.make_read_only();detailed.make_read_only()
+	var inputs: Dictionary={"ids":ids,"hostiles":hostiles,"detailed":detailed,"certificate":cert}
+	inputs.make_read_only()
+	return inputs
+
+static func _candidate_valid(candidate: Dictionary,view: Dictionary,ship: Dictionary,membership: Array=[],begin_inputs: Dictionary={}) -> bool:
 	for field in ["candidateId","shipId","targetId","leaderId","role"]:
 		if not candidate.get(field,"") is String or str(candidate.get(field,"")).length()>128:return false
 	if str(candidate.get("candidateId","")).is_empty() or str(candidate.get("shipId",""))!=str(ship.id) or not str(ship.id) in view.dueIds:return false
@@ -78,19 +99,21 @@ static func candidate_valid(candidate: Dictionary,view: Dictionary,ship: Diction
 			if not p is Vector2 or not p.is_finite():return false
 		total+=candidate[leg].size()
 	if total>24 or not candidate.get("fireMountIds",[]) is Array or candidate.fireMountIds.size()>16:return false
-	var ids: Dictionary={}
-	for mount in ship.mounts:ids[str(mount.id)]=true
+	var ids: Dictionary=begin_inputs.get("ids",{})
+	if begin_inputs.is_empty():
+		for mount in ship.mounts:ids[str(mount.id)]=true
 	var fire_set: Dictionary={}
 	for id in candidate.get("fireMountIds",[]):
 		if not id is String or not ids.has(id) or fire_set.has(id):return false
 		fire_set[id]=true
-	var hostiles: Dictionary={}
-	for raw in view.get("ships",[]):
-		if raw is Dictionary and str(raw.get("team",""))!=str(ship.get("team","")) and not raw.get("sunk",false) and not raw.get("captureSecured",false):
-			hostiles[str(raw.get("id",""))]=true
+	var hostiles: Dictionary=begin_inputs.get("hostiles",{})
+	if begin_inputs.is_empty():
+		for raw in view.get("ships",[]):
+			if raw is Dictionary and str(raw.get("team",""))!=str(ship.get("team","")) and not raw.get("sunk",false) and not raw.get("captureSecured",false):
+				hostiles[str(raw.get("id",""))]=true
 	# Runtime independently builds this position-only set once per due hull,
 	# before any candidate can spend route, rollout or ballistic work.
-	var detailed: Array=membership if not membership.is_empty() else detailed_targets(view,ship)
+	var detailed: Array=begin_inputs.detailed if not begin_inputs.is_empty() else (membership if not membership.is_empty() else detailed_targets(view,ship))
 	if detailed.size()>16:return false
 	if not candidate.fireMountIds.is_empty() and (not hostiles.has(str(candidate.get("targetId",""))) or not str(candidate.targetId) in detailed):
 		return false
@@ -110,6 +133,12 @@ static func candidate_valid(candidate: Dictionary,view: Dictionary,ship: Diction
 
 static func base_certificate(view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String) -> Dictionary:
 	return {"status":"pending","reachable":false,"exitReachable":false,"eta":0.0,"fireWindow":{"from":float(view.time),"until":float(view.time),"mountIds":[],"mountTargets":{}},"risk":1.0,"checkedAt":float(view.time),"validUntil":float(view.time),"snapshotRevision":int(view.snapshotRevision),"orderRevision":int(ship.get("orderRevision",0)),"pathFingerprint":fingerprint,"terrainRevision":view.terrainRevision,"geometryKey":JSON.stringify([view.terrainRevision,maxf(10.0,float(ship.spec.get("size",16)))]).sha256_text(),"checkedPose":pose(ship),"dynamicsKey":dynamics_key(ship),"physicalHorizonEnd":float(view.time),"rolloutSamples":0,"scope":"complete-geometry+prefix-physical","reason":"Checking a safe route"}
+
+static func _begin_certificate(view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,begin_inputs: Dictionary) -> Dictionary:
+	if begin_inputs.is_empty():return base_certificate(view,ship,candidate,fingerprint)
+	var cert: Dictionary=begin_inputs.certificate.duplicate(true)
+	cert.pathFingerprint=fingerprint
+	return cert
 
 static func corridor(st: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary) -> Dictionary:
 	var points: Array=paths(candidate)
@@ -132,14 +161,14 @@ static func certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: 
 static func certify_live(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array=[],frame_cache=null) -> Dictionary:
 	return _certify(st,view,ship,candidate,fingerprint,budget,membership,true,frame_cache)
 
-static func _certify_refined_live(st: Dictionary,view: Dictionary,ship: Dictionary,refined: Dictionary,fingerprint: String,budget: Dictionary,membership: Array=[],frame_cache=null) -> Dictionary:
+static func _certify_refined_live(st: Dictionary,view: Dictionary,ship: Dictionary,refined: Dictionary,fingerprint: String,budget: Dictionary,membership: Array=[],frame_cache=null,begin_inputs: Dictionary={}) -> Dictionary:
 	# Runtime.begin alone supplies this same-begin Routes.refine_live result.
 	# No proof is retained or reused across poses, observations or physics ticks.
-	return _certify(st,view,ship,refined.candidate,fingerprint,budget,membership,true,frame_cache,refined)
+	return _certify(st,view,ship,refined.candidate,fingerprint,budget,membership,true,frame_cache,refined,begin_inputs)
 
-static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array,live_step: bool,frame_cache,refined_corridor: Dictionary={}) -> Dictionary:
-	var cert: Dictionary=base_certificate(view,ship,candidate,fingerprint)
-	if not candidate_valid(candidate,view,ship,membership):
+static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate: Dictionary,fingerprint: String,budget: Dictionary,membership: Array,live_step: bool,frame_cache,refined_corridor: Dictionary={},begin_inputs: Dictionary={}) -> Dictionary:
+	var cert: Dictionary=_begin_certificate(view,ship,candidate,fingerprint,begin_inputs)
+	if not _candidate_valid(candidate,view,ship,membership,begin_inputs):
 		cert.status="blocked";cert.reason="Weapon assignment outside bounded observed targets";return cert
 	var id: String=str(ship.id)
 	# Physics is 60Hz and Battle.update keeps that dt. A 30Hz sample rounded to

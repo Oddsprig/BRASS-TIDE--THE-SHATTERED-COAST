@@ -99,6 +99,86 @@ func route_state(ship: Dictionary,islands: Array,allies: Array=[]) -> Dictionary
 	t.cells=Routes.grid([ship]+allies);t.geometry=Routes.terrain(st)
 	return st
 
+func candidate_input_checks(source: Dictionary) -> void:
+	var ship: Dictionary=source.duplicate(true)
+	ship.x=600.0;ship.y=850.0;ship.team="player"
+	var ships: Array=[ship]
+	for index in range(21):
+		var enemy: Dictionary=ship.duplicate(true)
+		enemy.id="begin-enemy-"+str(index);enemy.team="enemy"
+		enemy.x=1000.0+float(index)*60.0
+		ships.append(enemy)
+	for marker in ["ally","sunk","secured"]:
+		var other: Dictionary=ship.duplicate(true)
+		other.id="begin-"+marker;other.team="player" if marker=="ally" else "enemy"
+		other.sunk=marker=="sunk";other.captureSecured=marker=="secured"
+		ships.append(other)
+	var view: Dictionary={"snapshotRevision":7,"terrainRevision":3,"time":2.0,"dt":DT,"side":"player","dueIds":[str(ship.id)],"ships":ships}
+	var before: PackedByteArray=var_to_bytes([view,ship])
+	var membership: Array=Certification.detailed_targets(view,ship)
+	var inputs: Dictionary=Certification._begin_inputs(view,ship,membership)
+	check(membership.size()==16,"same-begin preparation retains the independent sixteen-target shortlist")
+	check(inputs.is_read_only() and inputs.ids.is_read_only() and inputs.hostiles.is_read_only() and inputs.detailed.is_read_only() and inputs.certificate.is_read_only() and inputs.certificate.checkedPose.is_read_only() and inputs.certificate.fireWindow.mountIds.is_read_only(),"same-begin observation indexes and certificate template are immutable")
+	var candidate: Dictionary={"candidateId":"begin-candidate","shipId":str(ship.id),"targetId":str(membership[0]),"leaderId":"","role":"skirmisher","sector":0,"approach":[Vector2(750,850)],"pass":[Vector2(850,850)],"exit":[Vector2(950,850)],"fireMountIds":["mount0"],"orderRevision":int(ship.orderRevision),"snapshotRevision":7}
+	var cases: Array=[
+		{"name":"valid raw offer","patch":{},"valid":true},
+		{"name":"foreign hull","patch":{"shipId":"foreign"},"valid":false},
+		{"name":"old observation","patch":{"snapshotRevision":6},"valid":false},
+		{"name":"old order","patch":{"orderRevision":int(ship.orderRevision)-1},"valid":false},
+		{"name":"ally target","patch":{"targetId":"begin-ally"},"valid":false},
+		{"name":"sunk target","patch":{"targetId":"begin-sunk"},"valid":false},
+		{"name":"secured target","patch":{"targetId":"begin-secured"},"valid":false},
+		{"name":"outside shortlist","patch":{"targetId":"begin-enemy-20"},"valid":false},
+		{"name":"unknown mount","patch":{"fireMountIds":["foreign"]},"valid":false},
+		{"name":"duplicate mount","patch":{"fireMountIds":["mount0","mount0"]},"valid":false},
+		{"name":"non-string mount","patch":{"fireMountIds":[1]},"valid":false},
+		{"name":"non-array leg","patch":{"exit":{}},"valid":false},
+		{"name":"nonfinite path","patch":{"pass":[Vector2(INF,0)]},"valid":false},
+		{"name":"empty alternate map","patch":{"fireMountTargets":{}},"valid":false},
+		{"name":"non-map alternate targets","patch":{"fireMountTargets":[]},"valid":false},
+		{"name":"unfitted alternate mount","patch":{"fireMountTargets":{"foreign":str(membership[0])}},"valid":false},
+		{"name":"allied alternate target","patch":{"fireMountTargets":{"mount0":"begin-ally"}},"valid":false},
+		{"name":"far alternate target","patch":{"fireMountTargets":{"mount0":"begin-enemy-20"}},"valid":false},
+		{"name":"valid alternate target","patch":{"fireMountTargets":{"mount0":str(membership[1])}},"valid":true},
+		{"name":"unarmed departure","patch":{"fireMountIds":[],"targetId":""},"valid":true}]
+	for row in cases:
+		var offer: Dictionary=candidate.merged(row.patch,true)
+		var direct: bool=Certification.candidate_valid(offer,view,ship,membership)
+		var shared: bool=Certification._candidate_valid(offer,view,ship,membership,inputs)
+		check(direct==bool(row.valid) and shared==direct,"shared validation preserves exact refusal/acceptance: "+str(row.name))
+	var long_leg: Dictionary=candidate.duplicate(true)
+	for index in range(9):long_leg.approach.append(Vector2(index,0))
+	check(not Certification.candidate_valid(long_leg,view,ship,membership) and not Certification._candidate_valid(long_leg,view,ship,membership,inputs),"shared inputs do not weaken path-point limits")
+	var refined: Dictionary=candidate.duplicate(true)
+	refined.approach=[Vector2(650,850),Vector2(700,800),Vector2(750,850)]
+	check(Certification.candidate_valid(refined,view,ship,membership) and Certification._candidate_valid(refined,view,ship,membership,inputs),"refined geometry receives the same complete per-candidate validation")
+	for offer in [candidate,refined]:
+		var fingerprint: String=Planner.fingerprint(offer)
+		var direct: Dictionary=Certification.base_certificate(view,ship,offer,fingerprint)
+		var shared: Dictionary=Certification._begin_certificate(view,ship,offer,fingerprint,inputs)
+		check(not fingerprint.is_empty() and var_to_bytes(shared)==var_to_bytes(direct),"shared hull constants preserve every certificate field and refined fingerprint")
+		shared.checkedPose.x=-1.0;shared.fireWindow.mountIds.append("foreign")
+		check(var_to_bytes(Certification._begin_certificate(view,ship,offer,fingerprint,inputs))==var_to_bytes(direct),"returned certificate poses and fire windows cannot mutate the shared template")
+	var fallback: Dictionary=Certification._begin_inputs(view,ship,[])
+	check(Certification._candidate_valid(candidate,view,ship,[],fallback)==Certification.candidate_valid(candidate,view,ship),"empty supplied membership retains the original independently computed fallback")
+	check(before==var_to_bytes([view,ship]),"preparation and repeated raw/refined validation do not mutate snapshot, mounts or boat")
+	# Only a new local packet is used after observations change; none is saved in
+	# a boat/battle, and public calls always rebuild from the current arguments.
+	view.time=3.0;view.snapshotRevision=8;view.terrainRevision=4
+	ship.orderRevision+=1;ship.x+=5.0;ship.spec.speed+=1.0
+	ship.mounts=[]
+	ships[1].sunk=true
+	var next: Dictionary=Certification._begin_inputs(view,ship,Certification.detailed_targets(view,ship))
+	var next_candidate: Dictionary=candidate.duplicate(true)
+	next_candidate.snapshotRevision=8;next_candidate.orderRevision=ship.orderRevision
+	check(not next.ids.has("mount0") and not next.hostiles.has("begin-enemy-0") and not Certification._candidate_valid(next_candidate,view,ship,[],next) and not Certification.candidate_valid(next_candidate,view,ship),"new observations immediately remove lost weapons and sunk contacts")
+	check(next.certificate.snapshotRevision==8 and next.certificate.orderRevision==ship.orderRevision and next.certificate.terrainRevision==4 and next.certificate.checkedAt==3.0 and next.certificate.checkedPose.x==ship.x and next.certificate.dynamicsKey!=inputs.certificate.dynamicsKey,"next begin rebuilds pose, order, terrain, time and dynamics certificate inputs")
+	var empty_view: Dictionary=view.duplicate(true)
+	empty_view.ships=[ship]
+	var empty_inputs: Dictionary=Certification._begin_inputs(empty_view,ship,[])
+	var departure: Dictionary=next_candidate.merged({"targetId":"","fireMountIds":[]},true)
+	check(empty_inputs.detailed.is_empty() and Certification._candidate_valid(departure,empty_view,ship,[],empty_inputs)==Certification.candidate_valid(departure,empty_view,ship),"zero hostile contacts retains the empty-shortlist departure behavior")
+
 func traffic_query_checks(source: Dictionary) -> void:
 	var fleet: Array=[]
 	for index in range(42):
@@ -181,6 +261,19 @@ func route_checks(source: Dictionary) -> void:
 		var old_cert: Dictionary=Certification.certify_live(trial_reference,view,ship,trial_old_route.candidate,fingerprint,trial_old_budget)
 		var new_cert: Dictionary=Certification._certify_refined_live(trial_live,view,ship,trial_new_route,fingerprint,trial_new_budget)
 		check(old_cert.status=="valid" and old_cert==new_cert,"same-begin corridor result produces the complete unchanged live certificate")
+		var prepared_state: Dictionary=route_state(ship,islands)
+		var prepared_budget: Dictionary=route_budget()
+		var prepared_route: Dictionary=Routes.refine_live(prepared_state,prepared_state.tactical.geometry,ship,candidate,prepared_budget)
+		var prepared_inputs: Dictionary=Certification._begin_inputs(view,ship,[])
+		var prepared_cert: Dictionary=Certification._certify_refined_live(prepared_state,view,ship,prepared_route,fingerprint,prepared_budget,[],null,prepared_inputs)
+		check(var_to_bytes(prepared_cert)==var_to_bytes(new_cert) and var_to_bytes(prepared_state.tactical.predictions)==var_to_bytes(trial_live.tactical.predictions),"prepared certification preserves the full actual certificate and published prediction on clear/detoured routes")
+		check(prepared_budget==trial_new_budget,"same-begin observation reuse preserves every geometry/traffic/rollout budget debit")
+		var invalid_route: Dictionary=prepared_route.duplicate(true)
+		invalid_route.candidate.fireMountIds=["foreign"]
+		var refused_budget: Dictionary=route_budget();var prepared_refused_budget: Dictionary=route_budget()
+		var refused: Dictionary=Certification._certify_refined_live(prepared_state,view,ship,invalid_route,fingerprint,refused_budget)
+		var prepared_refused: Dictionary=Certification._certify_refined_live(prepared_state,view,ship,invalid_route,fingerprint,prepared_refused_budget,[],null,prepared_inputs)
+		check(refused.status=="blocked" and var_to_bytes(prepared_refused)==var_to_bytes(refused) and refused_budget==prepared_refused_budget and refused_budget==route_budget(),"refined weapon tampering is refused before any physical/traffic work by both paths")
 		check(int(trial_new_budget.clearanceTests)<int(trial_old_budget.clearanceTests),"complete valid route uses fewer bounded clearance operations")
 		comparisons.append({"islandDetour":not islands.is_empty(),"referenceClearance":trial_old_budget.clearanceTests,"combinedClearance":trial_new_budget.clearanceTests})
 	# The approach crosses an actual ally. Its later pass crosses land and would
@@ -240,6 +333,9 @@ func run() -> void:
 	check(bool(created.get("ok",false)),"canonical fixture boats use actual public fitting and deployment")
 	if bool(created.get("ok",false)):
 		cache_checks(created.battle.ships[0])
+		var candidate_source: Dictionary=created.battle.ships[0].duplicate(true)
+		candidate_source.mounts=Battle._mounts(created.battle.ships[0])
+		candidate_input_checks(candidate_source)
 		traffic_query_checks(created.battle.ships[0])
 		route_checks(created.battle.ships[0])
 		authority_checks(created.battle)
