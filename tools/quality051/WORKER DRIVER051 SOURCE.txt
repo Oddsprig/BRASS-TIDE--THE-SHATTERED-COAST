@@ -238,3 +238,58 @@ PRECISE ROOT/PROOF OBLIGATIONS
 Only battle_driver051.gd and this source note changed. Source/diff review only;
 NO tests, engine/import/export/native/advisories/profiler/helpers/downloads,
 cleanup/tag/install or push. Root retains all queued/failed/passed evidence.
+
+R34 BOUNDED CURRENT-STATUS PUBLICATION CANDIDATE - 27 October 2026
+Preserves 06dd17a, cfef2a9 and native-copy 9ea3101. Driver + this note ONLY.
+Root reports R68 PASS5297/0,90.203s whole, including119 worker/HUD,57 commands,
+5121 feedback and export3starts. Actual R34 completed58.234s/cleanuptrue:
+light snapshot median28.060ms/P9531.801; mixed12.719ms/P9513.914.
+Both59.986FPS, zero>50ms stutters, full coverage/no unresolved stalls.
+Mixed capacityP9525.325ms/lagmax66.613ms PASS; light capacityP9536.331ms/
+lagmax199.989ms still misses. These are reported PRE-CANDIDATE results.
+
+EXACT CHANGE AND CURRENTNESS BOUNDARY
+_snapshot creates one new LOCAL, UNSEALED Damage.BattlePhase043 only when
+with_status is true, result is null and the existing _damageOwned051 is active
+and bound to these exact ships/damageCache containers. Initial Main snapshot
+still uses with_status=false. All with_status=true calls are inside _work,
+after queued commands, every completed physical step and teardown checks.
+There are no concurrent Main writers to this state. Detached tactical planning
+jobs do not own ship equipment/status. No old pre-contact phase is reused.
+
+Bind the existing owned context; pass the phase to the existing _combat_mounts
+call. For damageStatusById051, require _battle_entry051 to validate the actual
+canonical owner, then use _read_status_in_phase043; otherwise call get_status.
+Result/retirement has already closed ownership and uses fresh get_status.
+Legacy, noncanonical, sunk/revoked/unadmitted owners keep fresh get_status.
+No public Damage/Battle/Tactical synchronous implementation was changed.
+
+The new phase is deliberately NOT sealed. _battle_entry051 verifies current
+owner/container identity and repair priority and refreshes dirty equipment info.
+Official repair/equipment writes dirty generations; checked projectile hits
+revoke/re-admit owners. _read_status_in_phase043 takes its UNSEALED path,
+so _status_from_entry043 compares complete current _status_inputs: hp/maxHp,
+water/capacity/fire, crew/wounded/shoreCrew and crew bounds, supplies, fuel-zero,
+sunk, armor, policy, supportRepairFactor and breaches. Changed inputs recompute
+from the current equipment generation. No pre-shot/pre-contact scalar status
+is borrowed blindly; fuel-zero, post-hit flooding/crew, repair and paused
+policy/priority/refill commands remain current. Pose/ammo/cooldown are still
+published live and used by the existing mount/fire APIs, not cached as status.
+
+Tactical.status remains its existing authoritative HUD call. All published
+statuses/mounts retain native deep detachment. End the local phase immediately
+after the ship publication loop; never store or publish it or any owner entry.
+No new cache, publication-frequency change, shared container, threshold change,
+actor/stat cut, timestep change or unrelated AI work was added.
+
+ROOT PROOF OBLIGATIONS / NO CANDIDATE RESULT YET
+Root runs the existing119 worker/HUD + owned451/current canonical-damage proof
+and export once. Preserve the existing assertions, including current canonical
+status equality against fresh Damage.get_status after shots/flooding/crew,
+fuel-zero, repair/equipment/policy/priority and paused commands; retain snapshot
+immutability/no handles, final exact accounting and retire/result fallback.
+No new fixture/framework requested. Then Root repeats the actual42/16,300DP
+per-side30Hz measurement with the same targets and reports snapshot/whole-job/
+per-completed-step capacity and lag. No speed or correctness claim for this
+candidate before those checks. Source/diff review only in this checkout;
+NO tests, engine/native/import/export/advisories/profiler/helpers or other jobs.

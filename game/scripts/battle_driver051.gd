@@ -316,16 +316,28 @@ static func _snapshot(st: Dictionary,with_status: bool) -> Dictionary:
 			result[key]=_copy_plain_owned051(st[key]) if key in PLAIN_STATE_GROUPS051 else _plain(st[key])
 	result.events=[] # Audio goes through take_events(), never repeated UI snapshots.
 	var t: Dictionary=st.get("tactical",{})
+	var damage_cache: Dictionary=t.get("damageCache",{})
+	var damage_owned=Damage._battle_owned_for051(st.get("_damageOwned051"),st.get("ships",[]),damage_cache) if with_status and st.get("result")==null else null
+	var status_phase=null
+	if damage_owned!=null:
+		# New post-step borrow, never the pre-contact/fire phase. Leave unsealed:
+		# every status read checks CURRENT scalars as well as owned generations.
+		status_phase=Damage._begin_battle_phase043(damage_cache)
+		Damage._bind_battle_owned051(status_phase,damage_owned,st.ships,damage_cache)
 	var public_t: Dictionary={"statusById051":{},"mountsById051":{},"damageStatusById051":{},"mountCache":{}}
 	for ship: Dictionary in st.get("ships",[]):
 		var id: String=str(ship.get("id",""))
-		public_t.mountsById051[id]=_copy_plain_owned051(Battle._combat_mounts(st,ship)) if with_status else _copy_plain_owned051(Battle._base_mounts(ship))
+		public_t.mountsById051[id]=_copy_plain_owned051(Battle._combat_mounts(st,ship,status_phase)) if with_status else _copy_plain_owned051(Battle._base_mounts(ship))
 		# Existing command adapter tests public mount availability. This is a
 		# detached publication row, never the live source/condition cache entry.
 		public_t.mountCache[id]={"mounts":public_t.mountsById051[id]}
 		if with_status:
 			public_t.statusById051[id]=_copy_plain_owned051(Tactical.status(st,id))
-			public_t.damageStatusById051[id]=_copy_plain_owned051(Damage.get_status(ship))
+			# Public/noncanonical/result reads retain fresh inspection. Only this
+			# exclusive worker stage borrows a still-validated canonical owner.
+			var owned_status: bool=status_phase!=null and not Damage._battle_entry051(ship,damage_owned).is_empty()
+			public_t.damageStatusById051[id]=_copy_plain_owned051(Damage._read_status_in_phase043(ship,status_phase) if owned_status else Damage.get_status(ship))
+	if status_phase!=null:Damage._end_battle_phase043(status_phase)
 	# status may retire an invalid goal on the authoritative owner. Publish the
 	# matching post-status public fields, rather than an older intent table.
 	for key in PUBLIC_TACTICAL:
