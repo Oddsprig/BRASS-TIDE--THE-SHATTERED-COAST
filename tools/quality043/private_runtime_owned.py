@@ -47,6 +47,11 @@ def launch_private_owned(command, environment, cwd, log, envelope):
     desktop_name = "BrassTideQA_" + uuid.uuid4().hex
 
     class Startup(base.Startup):
+        def __setattr__(self, name, value):
+            # OwnedChild assigns show=0 AFTER construction. Show only this
+            # private-desktop window without activation (SW_SHOWNOACTIVATE).
+            super().__setattr__(name, 4 if name == "show" else value)
+
         def __init__(self):
             super().__init__()
             self.desktop = desktop_name  # STARTUPINFOW.lpDesktop, same station.

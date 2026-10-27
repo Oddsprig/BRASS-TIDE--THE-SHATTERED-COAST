@@ -64,11 +64,19 @@ var dev_enabled=false
 var dev_tools
 var simulation_us: int=0
 var preferences_path=""
+var runtime_profile043=null
 
 func _ready():
-	preferences_path=ProjectSettings.globalize_path("res://../settings.json") if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("settings.json")
-	if DisplayServer.get_name()=="headless":preferences_path=OS.get_user_data_dir().path_join("qa-settings.json")
-	var options: Dictionary=Preferences.load_options(preferences_path)
+	if "--qa-runtime043" in OS.get_cmdline_user_args():
+		runtime_profile043=load("res://scripts/runtime_profile043.gd").new()
+		if not runtime_profile043.prepare(self):
+			get_tree().quit(2)
+			return
+		preferences_path=runtime_profile043.preferences_path
+	else:
+		preferences_path=ProjectSettings.globalize_path("res://../settings.json") if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("settings.json")
+		if DisplayServer.get_name()=="headless":preferences_path=OS.get_user_data_dir().path_join("qa-settings.json")
+	var options: Dictionary=Preferences.load_options(preferences_path) if runtime_profile043==null else runtime_profile043.options()
 	Engine.max_fps = options.frame_cap
 	dev_enabled=options.dev_enabled
 	data = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
@@ -88,6 +96,7 @@ func _ready():
 	add_child(audio)
 	music=Music.new()
 	music.enabled=options.music_enabled;music.volume=options.music_volume
+	if runtime_profile043!=null:music.include_desktop=false
 	add_child(music)
 	ui = Interface.new()
 	add_child(ui)
@@ -96,9 +105,13 @@ func _ready():
 	add_child(dev_tools)
 	dev_tools.setup(self)
 	save_directory = ProjectSettings.globalize_path("res://saves") if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("saves")
+	if runtime_profile043!=null:save_directory=runtime_profile043.save_directory
 	ui.title_screen()
 	get_viewport().size_changed.connect(_resize_interface)
 	print("BRASS TIDE v", Version.text(), " | ", OS.get_processor_name(), " | ", OS.get_processor_count(), " logical threads | ", RenderingServer.get_video_adapter_name())
+	if runtime_profile043!=null:
+		runtime_profile043.start.call_deferred()
+		return
 	# Development hooks are explicit launch arguments; retail controls do not expose them.
 	var args = OS.get_cmdline_user_args()
 	dev_enabled=dev_enabled or "--dev" in args
@@ -151,6 +164,7 @@ func _process(dt: float):
 		if save_timer > 20 and not ui.modal_open:
 			save_timer = 0
 			save_game(false)
+	if runtime_profile043!=null:runtime_profile043.after_process(dt)
 
 func _physics_process(dt: float):
 	if paused or ui == null or ui.modal_open:
@@ -182,6 +196,7 @@ func _physics_process(dt: float):
 		var manual = not bool(battle.get("autopilot", true)) and not tactical_mode
 		Battle.update(battle, dt, {"manual":manual,"forward":Input.is_key_pressed(KEY_UP),"backward":Input.is_key_pressed(KEY_DOWN),"left":Input.is_key_pressed(KEY_LEFT),"right":Input.is_key_pressed(KEY_RIGHT),"boost":Input.is_key_pressed(KEY_CTRL),"fire":manual and fire_held,"aimX":aim.x,"aimY":aim.y})
 		simulation_us=Time.get_ticks_usec()-started
+		if runtime_profile043!=null:runtime_profile043.after_physics(dt)
 		audio.consume(Battle.pop_events(battle),chart)
 		if battle.result != null:
 			result_handled = true

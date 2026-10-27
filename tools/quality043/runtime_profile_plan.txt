@@ -1,0 +1,176 @@
+RUNTIME043 SOURCE CANDIDATE - NATIVE EXECUTION PENDING
+
+Base a206b59bf1676ae0a9825847d5344e938a99e993 plus private-launcher
+51050bd. Owned main.gd, new runtime_profile043.gd, this plan and the explicitly
+authorized minimal private_runtime_owned.py per-launch Startup.show override.
+No version metadata, release notes, Chart, damage, tactical, art, backend or
+existing tests changed. No optimization is claimed; Root needs baseline first.
+
+ENTRY AND ISOLATION
+Only the explicit user argument --qa-runtime043 loads/constructs the observer.
+Without it, original Main preferences, startup and processing paths remain;
+the two observer seams are null-guarded. Before title/start, this flag uses
+fresh Preferences.defaults with audio/music disabled, all owned gains zero,
+fullscreen false. It never reads installed options. Music's desktop scan is
+disabled before its _ready. Save/settings paths are redirected before title.
+All writes go to a new GAME_TEST_ARTIFACTS/runtime043-<pid>-<ticks>/ directory;
+GAME_TEST_ARTIFACTS must be absolute. Existing artifacts are never overwritten.
+Root must additionally give the executable synthetic APPDATA/LOCALAPPDATA and
+its own private desktop. The probe never activates/manipulates a desktop/window
+or calls input/focus/window-control APIs. Existing real Main inputs stay intact.
+
+ROOT-ONLY FUTURE COMMAND (NOT EXECUTED HERE)
+Submit through TestBridge using Root's existing owned/private-desktop wrapper.
+Do not run this raw command on the active desktop or create another lane lease.
+Executable: <fresh exact-source exported Windows game>/BrassTide.exe
+Argument list:
+  --audio-driver Dummy --windowed --resolution 2560x1600 -- --qa-runtime043
+Root declared2560x1600 and normal Mobile/Vulkan threaded rendering. Both actual
+window pixels and logical viewport rect are recorded. No headless/Compatibility
+substitute is valid for the rendered baseline. Optional GPU timing was deferred.
+No --headless, --fixed-fps, --disable-render-loop or synthetic batch stepping.
+Optional single case: append --qa-runtime043-case=light or =mixed; default both.
+Other --qa- hooks are refused. Do not label a single case as a two-case result.
+
+One global <=70s wrapper deadline covers BOTH loads, FOUR PNGs, report writes,
+owned-process drain and cleanup. The probe has one 68s cooperative clock from
+early Main._ready, not a fresh timeout per case. Root's earlier launch clock
+also covers engine startup. Blocking renderer/readback/filesystem calls cannot
+be interrupted inside GDScript: the existing external owned-process deadline
+must enforce the bound and retain incomplete/interrupted results. Reserve the
+cleanup margin in the wrapper. Whole selected import/export/run/cleanup batch
+still remains <120s; latest Root plan is ONE standalone GPU batch <=100s native
++10s setup, no additional rendered cases. No engine or GPU job was submitted
+by this seat. The broader bound reflects measured042 Lab bootstrap/startup
+costs, not a longer active interval or soak.
+Use private_runtime_owned.py (51050bd plus this source patch); do not nest a
+lane lease. Startup.__setattr__ forces show=4 (SW_SHOWNOACTIVATE) even when
+the immutable base OwnedChild assigns show=0 after initialization. The owned
+window is shown only on its never-activated private desktop so its viewport can
+draw; desktop rights0x0083, immutable base source/SHA and job envelope stay
+unchanged. No desktop activation or active-desktop/focus API is introduced.
+Record actual wrapper CPU rate/affinity/priority/memory/process limits and
+process working set alongside these artifacts, rather than inventing caps from
+Godot's engine-static allocator counter. GPU/driver/desktop heap remain shared.
+
+REAL STOCK SCENARIOS
+Public Lab.entry -> Lab.inspect -> Main.start_lab -> Lab.create -> Battle.create.
+No direct Battle.update call, alternate scene, artificial damage/event injection,
+free refit, store refill, disabled AI or changed rendering/economy thread setting.
+Lab uses existing stock paid-design fits and finite stores; it is an isolated
+fixture, not a claim to have executed a campaign purchase or debited a treasury.
+
+Light, per side: 15 bilge_punt (14 DP) +6 tin_skiff (15 DP) =300, 21 boats.
+Mixed, per side: tin_skiff15 +ash_corvette38 +2*brasswind_motor_galleon49
+  +reed_stinger32 +barbed_lance37 +slag_gunboat44 +gale_cutter36 =300, 8 boats.
+Mixed stock primaries provide actual gun, cannon, rocket and torpedo families.
+Source arithmetic was read from actual Deployment.cost/Refit.effective_spec;
+runtime independently requires public inspection and deployed totals of 300,
+zero reserves, light42 total actors. Initial roster records actual DP, loadout,
+crew/ammo/fuel/supplies and every position. Each tick records live actor totals,
+movement, finite-store sums, missiles, water/fire, effects and terminal result.
+
+Bounded initial positions only, before first simulation step:
+  Each team's index i: row=i%7, column=floor(i/7).
+  Player (1000-76*column,610+76*row), angle0.
+  Enemy  (1290+76*column,610+76*row), anglePI.
+These lie in the existing default islands' central open-water corridor; default
+islands are retained and recorded. No velocities or physical/collision/AI rules
+are replaced. Fixed Chart camera (1145,838), normal zoom1, follow false, avoids
+following one edge boat and hiding most actors. Camera properties are fixture
+framing only; no tactical overview/culling override or window manipulation.
+
+Each case: opening actual-viewport PNG, >=3s wall warmup, >=12s wall active,
+end actual-viewport PNG. Interval endpoints and every frame timestamp occur
+after RenderingServer.frame_post_draw. First active elapsed interval is a full
+draw-to-draw interval, never a partial process-to-draw sample. Opening/end PNG
+readback/write stalls occur outside active intervals and remain in global wall
+time and screenshot rows. Case load-to-first-draw is separate from PNG cost.
+An early battle result/pause/modal ends collection as incomplete; outcome-panel
+frames cannot quietly fill a requested active interval. Active events and
+coverage are separate from warmup. Missing movement/fire/hits/missiles/flooding/
+effects is reported explicitly, never forced into existence. Light has no
+missile requirement; mixed requires active fire from all four real families.
+frame_post_draw alone is NOT rendering proof. Every active frame additionally
+records get_window().visible, Performance/global RenderingServer objects/draws,
+and actual RenderingServer.viewport_get_render_info(rootRID,CANVAS,...) object
+and draw-call counts. Render verification requires every active window sample
+visible, >=95% active frames with positive CANVAS object/draw counts, and two
+saved nonblank actual-viewport PNGs. Global render-info values can cover only3D
+(per official API docs), so their zero values are preserved without falsely
+rejecting a real2Dgame. PNG receipts
+include a bounded32x20 actual-image grid: >=8 uniqueRGBA, >=80% opaque and >=1%
+different from project clear color. Blank/missing images or inadequate draw
+evidence produce rendering unavailable and null FPS, never a rendered-FPS pass.
+This establishes real viewport work, not GPU duration, art or motion quality.
+Headless/dummy is rejected with rendered unavailable, before awaiting any draw;
+missing/stopped frame_post_draw also has a 2s cooperative guard plus global bound.
+
+COUNTER CONTRACT (PUBLISHED BOARD APIS)
+Render043 00aee0b0: Chart.profile_enable(bool), profile_reset(), profile_read().
+Damage and TacticalRuntime 3222dee2/e6f947f4:
+  set_runtime_profile043(bool), reset_runtime_profile043(), runtime_profile043().
+Optional has_method/callv guards preserve a baseline on the unchanged042 source
+without any new counter methods. Chart.presentation_us and existing tactical
+metrics are always available. Reset is per case and counters-only; live caches
+stay warm/intact. Read snapshots are detached, cumulative process-global since
+case start, warmup included. Adjacent per-tick/per-frame differences attribute
+counts. Damage includes EquipmentRecords; no separate Records preload needed.
+Existing tactical.metrics aiUs/phaseUs/planningDetailUs/work are copied per
+actual Main._physics_process before Battle.pop_events. Nested clocks overlap:
+do not sum AI/planning/detail clocks or snapshot/copy clocks as exclusive phases.
+Chart CPU presentation/draw/cache clocks are never GPU-frame durations.
+
+REPORTS AND INTERPRETATION
+runtime043-start.json: hardware/settings/API availability and startup wall time.
+runtime043-light.json / runtime043-mixed.json: per-frame elapsed/draw-submit CPU,
+steps-per-draw, summed simulation CPU, wall-minus-simulation deficit; per-tick
+simulation/AI phase/detail/work clocks and optional counters; timestamped event
+kinds/families/source/target/damage; state timeline; opening/end PNG receipts;
+loads and memory. In-memory observer costs are retained and included in observed
+runtime wall intervals. All raw rows remain available, including warmup.
+Events are capped at20000 retained rows; histograms still count every observed
+event and eventsOmitted discloses truncation. Existing battle.droppedEvents is
+not a probe event count. No fabricated logic-test check/failure counts exist.
+runtime043-report.json: completed/incomplete case receipts, targets and limits.
+Partial aborts additionally preserve runtime043-<case>-incomplete.json.
+
+Hardware exported/templateRelease and exportedRenderedEvidence require current
+Godot4 template &&release &&!editor &&!OS.is_debug_build(), never the old
+Godot3 standalone feature tag. Official feature table reviewed read-only:
+https://docs.godotengine.org/en/stable/tutorials/export/feature_tags.html
+rendererCandidate reflects adapter/display detection; renderedAvailable remains
+false until actual visible rendering/PNGs verify. Actual CPU/adapter/vendor/API,
+renderer method/driver when exposed, resolution,
+thread/60Hz settings and cap are recorded. Unknown methods yield null. Engine
+memory/VRAM allocation counters are explicitly scoped; static allocation
+monitors are null in release because the official API marks them unsupported.
+Zero VRAM can be unsupported,
+working set/total adapter VRAM capacity are not inferred. Internal engine
+accumulator/dropped-simulation-time is unavailable, marked null; catch-up uses
+actual physics calls per draw plus elapsed wall-minus-simulation time. FPS is
+post-render wall cadence, not measured GPU duration or physical display scanout.
+
+Per-case proposed targets: mean cadence>=60FPS; >=95% active complete frame
+intervals<=20ms; simulation median<=6ms and P95<=10ms; fewer than two50ms-plus
+stutters; fewer than two multi-physics-tick draws and final sim deficit<=100ms.
+The last rule is a conservative catch-up signal, not direct engine accumulator
+measurement; multi-tick draws can be normal below60renderFPS. All target misses
+are explicit unmet, not logic-test failures. Exit0 means both requested data
+collections finished, even when targets are unmet or coverage insufficient;
+exit3 is incomplete/error, exit2 is invalid launch configuration. Missing active
+coverage/full duration/exported renderer blocks exportedRenderedEvidence. This
+flag is evidence eligibility, not art/gameplay acceptance or a performance pass.
+
+VERIFICATION DONE IN THIS SEAT
+Read exact Main/Chart/FleetLab/Deployment/Refit/tactical/event/audio APIs and
+source schema. Existing read-only tools/check_preload_calls.py advisory on
+scripts/main.gd and scripts/runtime_profile043.gd returned issues[],
+engineInvoked:false. Python adapter AST parsed read-only without importing the
+module, loading DLLs or launching processes. Reviewed owned diff and source;
+git diff --check clean. Primary API scope reviewed at:
+https://docs.godotengine.org/en/stable/classes/class_renderingserver.html
+https://docs.godotengine.org/en/stable/classes/class_performance.html
+No engine/parser/test/import/export/bake/render/GPU/download/helper/CUA run.
+Root must perform bounded native parsing and actual private-desktop runtime
+validation before accepting this code or selecting any measured optimization.
