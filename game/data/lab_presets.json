@@ -17,6 +17,61 @@
         "brasswind_motor_galleon"
       ]
     },
+    "pressure_crossing": {
+      "label": "Practice: torpedo crossing",
+      "seconds": 20,
+      "formation": "closing",
+      "guidance": "Tinwake has one torpedo tube; Furnace has one heavy cannon. Watch Furnace fire, cross its bow and launch while lined up, then turn clear during its reload. Leave before flooding costs your speed; a kill is not required. Autopilot starts on. Space pauses, WASD moves the camera, U gives manual helm with arrow keys and mouse.",
+      "player": [
+        "tin_skiff"
+      ],
+      "enemy": [
+        "furnace_turret"
+      ],
+      "fits": {
+        "tin_skiff": {
+          "weapons": ["light_torpedo", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        },
+        "furnace_turret": {
+          "weapons": ["heavy_cannon", "", "", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        }
+      }
+    },
+    "pressure_breakaway": {
+      "label": "Practice: cover a breakaway",
+      "seconds": 24,
+      "formation": "closing",
+      "guidance": "Tinwake and Ashwake face Furnace's heavy cannon and a fast Bilge skiff. Select Ashwake, then right-click Tinwake to escort it. Pull Tinwake clear after its torpedo pass; cover the pursuer instead of chasing Furnace. If Tinwake floods, use Bail water, then Patch & repair when safe. Re-enter with water controlled, working weapons and ammunition. Kits are finite. Space pauses; Tab shows orders; WASD moves the camera.",
+      "player": [
+        "tin_skiff",
+        "ash_corvette"
+      ],
+      "enemy": [
+        "furnace_turret",
+        "bilge_punt"
+      ],
+      "fits": {
+        "tin_skiff": {
+          "weapons": ["light_torpedo", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        },
+        "ash_corvette": {
+          "weapons": ["stock_primary", "rapid_gun", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        },
+        "furnace_turret": {
+          "weapons": ["heavy_cannon", "", "", ""],
+          "engine": "stock_engine",
+          "armor": "stock_armor"
+        }
+      }
+    },
     "duel": {
       "label": "Starter skiff duel",
       "seconds": 12,

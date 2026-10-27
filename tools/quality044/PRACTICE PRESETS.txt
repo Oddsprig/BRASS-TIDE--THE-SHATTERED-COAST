@@ -1,0 +1,59 @@
+COMBAT PRESSURE PRACTICE - SOURCE CANDIDATE
+
+Actual parent: ad62701644d31e954b4ee98d0474a7b37b3d8c97, unchanged checkout.
+Root's delivered source is 5ea0d04496d0e9beec74144553e718dec7c4bd9d (v0.043).
+No dependency cherry-pick or rebase. Lab, its picker, refit and battle APIs
+inspected here match that delivered source. Root integrates on delivered043,
+with Runtime's weapon commitment and Render's inertia candidates, then verifies.
+No release/version/save/launcher or mechanics changes in this patch.
+
+HOW TO LAUNCH
+Main menu -> Fleet battle laboratory -> Preset -> choose either practice label
+-> Launch fleet engagement. The existing Lab.presets/preset/create and dynamic
+LabUI picker consume the JSON; no new API or scenario controller is needed.
+Both fleets start on autopilot, use the normal closing formation and obey the
+300 DP cap. Space pauses, Tab opens tactical orders, WASD moves the camera.
+U toggles manual flagship helm (arrows and mouse). Practice aims are guidance;
+these remain ordinary fleet battles with ordinary victory/defeat rules.
+
+pressure_crossing / Practice: torpedo crossing
+  Player: Tinwake, light_torpedo in mount0, empty aft mount; stock engine/armor.
+  Enemy: Furnace, heavy_cannon in mount0, three empty mounts; stock engine/armor.
+  Fitted points: 17 vs 72. Two boats, one launcher against one heavy cannon.
+  Watch the cannon shot, cross/line up the fixed tube, launch and exit while
+  it reloads. Practice leaving before water/engine damage removes the speed
+  advantage. A kill is not the practice aim and is not awarded separately.
+
+pressure_breakaway / Practice: cover a breakaway
+  Player: same Tinwake + Ashwake with stock_primary/rapid_gun/empty, stock
+  engine/armor. Enemy: same Furnace + stock Bilge skiff. Points: 56 vs 86.
+  Four boats. Ashwake's cannon and aft gun cover the faster Bilge pursuer while
+  Tinwake breaks away. Select Ashwake and right-click Tinwake to order escort;
+  move Tinwake clear with orders or manual helm. Tinwake starts as flagship,
+  so its existing Bail water / Patch & repair buttons control its crew.
+  If hit, stabilize water, patch with carried kits, check weapons/ammunition,
+  and decide whether another pass is affordable. Crew work competes with guns.
+  No starting flood, scripted hit, guaranteed recovery or forced win is added.
+
+NORMAL CONSTRUCTION AND INTEGRATION
+Refit.normalize validates every loadout; Lab.create uses Damage.create_ship,
+Records.initialize and Refit.ensure before Battle.create. Normal stores are
+80 rounds per fitted weapon, 120 fuel and 20 repair kits per boat, with actual
+optimal crew, full canonical HP and no locker spares. No career is initialized
+or billed by Lab.create. No hull/stat buffs, role overrides, cargo, events or
+new meters. Boats remain independently owned canonical equipment containers.
+Runtime044's WEAPON COMMITMENT.txt owns cannon reload/arc (proposed 1.8 s base,
+135-degree heavy forward arc); Render044's INERTIA AND RECOVERY.txt owns hull
+response. Presets copy neither timing nor inertia values, and promise no exit
+window: actual crew efficiency, damage, course and pursuit still matter.
+
+FOCUSED VERIFICATION PREPARED, NOT RUN
+game/tests/test_pressure_presets044.gd: public Lab preset/inspect/create for
+both entries; exact rosters/fits/DP, normal finite stores, canonical socket and
+item custody, detached public snapshots, independent same-seed constructions,
+24-90 real Battle.update calls each (at most three simulated seconds), actual
+first firing on both sides, some movement/fuel use and catalogue/config/replay
+isolation. Every hull need not move. No injected water, hits, victory or save IO.
+Root alone runs native checks with the integrated044 dependencies, within its
+selected batch under120 seconds including setup/cleanup. Source/static checks
+cannot establish native parsing, play quality or successful recovery.
