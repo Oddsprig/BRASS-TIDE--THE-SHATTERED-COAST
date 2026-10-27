@@ -1,0 +1,37 @@
+COUNTER CONTROL051 - SOURCE-ONLY DEVTOOL CANDIDATE
+27 October 2026; parent f41e64b111705a0d298f422f2b092edba6d617d6.
+
+Scope: runtime_profile043.gd and this note only. Hold this commit unmerged until
+Root has measured R29 detailed; frozen R61/R62/R29 sources remain unaffected.
+No tests, engines, imports, exports, helpers or runner edits performed here.
+
+BRASS_TIDE_RUNTIME043_COUNTERS is read only from this process in prepare().
+Absent/empty or exact on preserves detailed instrumentation; exact off selects
+NORMAL-RUNTIME CONTROL. Every other nonempty value fails prepare before artifact
+directory creation. No environment writes or other application inspection.
+_counters uses enabled AND detailed_counters for Chart, Damage (including Records),
+Tactical and Routes veto receipts. All existing resets and lifecycle calls remain.
+Hardware, start, per-case and final metadata identify the actual selected mode;
+counter API availability and disabled counter reads remain recorded separately.
+
+Read-only call-chain review: Chart.profile_enable propagates to MeshCache and
+CombatArt; flags gate clocks/counts, never draw submissions. Damage/Records flags
+gate clocks, miss diagnostics and counts, with guards/cache authority unchanged.
+Tactical flags gate optional counts/subclocks and main-budget profileRoutes051;
+Routes wrappers call the same route/refine/adopt cores and add only timings and
+veto receipts. Proof debit replay and physical clearance outcomes remain active.
+No authoritative gameplay branch depending on these flags was found in source.
+This is a source finding, not native equivalence or performance evidence.
+
+Frame validation remains based on RenderingServer per-viewport CANVAS object and
+draw-call counts plus visibility/nonblank screenshots, independent of Chart's
+detailed flag. host.simulation_us, Chart.presentation_us, frame_post_draw sampling,
+events/state/coverage, full rosters, stock stats, seeds, initial damage, warmup,
+12-second active intervals, 60Hz checks, captures and all acceptance expressions
+are unchanged. Off disables detailed attribution; zeros/empty receipts are not
+evidence that gameplay work vanished. Existing coarse timers remain enabled.
+
+Off is a separate NORMAL-RUNTIME CONTROL, not an accepted optimization, cheaper
+workload, relaxed threshold or quality pass. Instrumentation overhead remains
+UNMEASURED. Root owns native/default/on/off/invalid-value validation and any future
+R30 with a new export and explicit process-local mode after R29 detailed evidence.

@@ -21,6 +21,7 @@ var save_directory: String=""
 var output: String=""
 var rendered: bool=false
 var render_verified: bool=false
+var detailed_counters: bool=true
 var stage: String="boot"
 var requested: Array=["light","mixed"]
 var results: Array=[]
@@ -42,6 +43,11 @@ var errors: Array=[]
 func prepare(game_host) -> bool:
 	host=game_host
 	started_us=Time.get_ticks_usec()
+	var counter_setting: String=OS.get_environment("BRASS_TIDE_RUNTIME043_COUNTERS")
+	if counter_setting not in ["","on","off"]:
+		push_error("BRASS_TIDE_RUNTIME043_COUNTERS must be empty, on or off.")
+		return false
+	detailed_counters=counter_setting!="off"
 	var root: String=OS.get_environment("GAME_TEST_ARTIFACTS")
 	if root.is_empty() or not root.is_absolute_path():
 		push_error("--qa-runtime043 requires an absolute GAME_TEST_ARTIFACTS directory.")
@@ -81,18 +87,22 @@ func _optional(target: Object,method: String,args: Array=[]):
 	return target.callv(method,args) if target.has_method(method) else null
 
 func _counters(enabled: bool,reset: bool=false) -> void:
-	_optional(host.chart,"profile_enable",[enabled])
-	Damage.set_runtime_profile043(enabled)
-	Tactical.set_runtime_profile043(enabled)
-	Routes._profile_veto051(enabled,reset)
+	var detailed_enabled: bool=enabled and detailed_counters
+	_optional(host.chart,"profile_enable",[detailed_enabled])
+	Damage.set_runtime_profile043(detailed_enabled)
+	Tactical.set_runtime_profile043(detailed_enabled)
+	Routes._profile_veto051(detailed_enabled,reset)
 	if reset:
 		Damage.reset_runtime_profile043()
 		Tactical.reset_runtime_profile043()
 	if reset:_optional(host.chart,"profile_reset")
 
+func _counter_metadata() -> Dictionary:
+	return {"detailedEnabledDuringCases":detailed_counters,"mode":"DETAILED COUNTERS" if detailed_counters else "NORMAL-RUNTIME CONTROL","environment":"BRASS_TIDE_RUNTIME043_COUNTERS","scope":"Detailed instrumentation only; observer sampling and all performance, coverage and stall criteria remain active. Control is not an accepted optimization."}
+
 func start() -> void:
 	if stage!="boot":return
-	_write_json("runtime043-start.json",{"schema":1,"readyToStartWallUs":Time.get_ticks_usec()-started_us,"hardware":_hardware(),"cases":requested,"limits":_limits()})
+	_write_json("runtime043-start.json",{"schema":1,"readyToStartWallUs":Time.get_ticks_usec()-started_us,"hardware":_hardware(),"counterMode":_counter_metadata(),"cases":requested,"limits":_limits()})
 	if not rendered:
 		_abort("Headless/dummy rendering unavailable; no rendered FPS evidence or verdict.")
 		return
@@ -101,7 +111,7 @@ func start() -> void:
 
 func _hardware() -> Dictionary:
 	# Damage/Tactical counters are compiled static APIs in Root's instrumented baseline.
-	return {"engine":Engine.get_version_info(),"os":OS.get_name(),"cpu":OS.get_processor_name(),"logicalCPUs":OS.get_processor_count(),"pid":OS.get_process_id(),"editor":OS.has_feature("editor"),"template":OS.has_feature("template"),"release":OS.has_feature("release"),"debugBuild":OS.is_debug_build(),"exported":_exported_release(),"templateRelease":_exported_release(),"displayServer":DisplayServer.get_name(),"rendererCandidate":rendered,"renderedAvailable":rendered and render_verified,"windowVisible":host.get_window().visible,"adapter":RenderingServer.get_video_adapter_name(),"adapterVendor":_optional(RenderingServer,"get_video_adapter_vendor"),"apiVersion":_optional(RenderingServer,"get_video_adapter_api_version"),"renderingMethod":_optional(RenderingServer,"get_current_rendering_method"),"renderingDriver":_optional(RenderingServer,"get_current_rendering_driver_name"),"windowPixels":[host.get_tree().root.size.x,host.get_tree().root.size.y],"viewportRect":_viewport_size(),"threadModel":ProjectSettings.get_setting("rendering/driver/threads/thread_model"),"physicsHz":Engine.physics_ticks_per_second,"maxPhysicsStepsPerFrame":Engine.max_physics_steps_per_frame,"timeScale":Engine.time_scale,"frameCap":Engine.max_fps,"processPriority":null,"resourceEnvelope":"Record actual priority/affinity/job CPU and memory limits in Root's external owned-process wrapper.","memory":_memory(),"counterAPIs":{"chart":host.chart.has_method("profile_read"),"damage":true,"tactical":true}}
+	return {"engine":Engine.get_version_info(),"os":OS.get_name(),"cpu":OS.get_processor_name(),"logicalCPUs":OS.get_processor_count(),"pid":OS.get_process_id(),"editor":OS.has_feature("editor"),"template":OS.has_feature("template"),"release":OS.has_feature("release"),"debugBuild":OS.is_debug_build(),"exported":_exported_release(),"templateRelease":_exported_release(),"displayServer":DisplayServer.get_name(),"rendererCandidate":rendered,"renderedAvailable":rendered and render_verified,"windowVisible":host.get_window().visible,"adapter":RenderingServer.get_video_adapter_name(),"adapterVendor":_optional(RenderingServer,"get_video_adapter_vendor"),"apiVersion":_optional(RenderingServer,"get_video_adapter_api_version"),"renderingMethod":_optional(RenderingServer,"get_current_rendering_method"),"renderingDriver":_optional(RenderingServer,"get_current_rendering_driver_name"),"windowPixels":[host.get_tree().root.size.x,host.get_tree().root.size.y],"viewportRect":_viewport_size(),"threadModel":ProjectSettings.get_setting("rendering/driver/threads/thread_model"),"physicsHz":Engine.physics_ticks_per_second,"maxPhysicsStepsPerFrame":Engine.max_physics_steps_per_frame,"timeScale":Engine.time_scale,"frameCap":Engine.max_fps,"processPriority":null,"resourceEnvelope":"Record actual priority/affinity/job CPU and memory limits in Root's external owned-process wrapper.","memory":_memory(),"counterMode":_counter_metadata(),"counterAPIs":{"chart":host.chart.has_method("profile_read"),"damage":true,"tactical":true}}
 
 func _exported_release() -> bool:
 	return OS.has_feature("template") and OS.has_feature("release") and not OS.has_feature("editor") and not OS.is_debug_build()
@@ -185,6 +195,7 @@ func _start_case() -> void:
 	current.initialState=_state_sample()
 	last_state=current.initialState
 	current.counterScope="Cumulative since case start, warmup included. Per-tick/per-frame differences attribute work; counters never clear live caches."
+	current.counterMode=_counter_metadata()
 	_counters(true,true)
 	frame_ticks=0;frame_sim_us=0;last_draw_us=0;last_sample_us=0
 	stage="opening";phase_us=Time.get_ticks_usec()
@@ -416,7 +427,7 @@ func _finish() -> void:
 	_counters(false)
 	render_verified=not results.is_empty() and results.all(func(value):return bool(value.summary.renderingVerified))
 	var complete: bool=results.size()==requested.size() and results.all(func(value):return bool(value.complete)) and errors.is_empty()
-	var saved: bool=_write_json("runtime043-report.json",{"schema":1,"complete":complete,"errors":errors,"readyToFinishWallUs":Time.get_ticks_usec()-started_us,"hardware":_hardware(),"limits":_limits(),"requested":requested,"cases":results})
+	var saved: bool=_write_json("runtime043-report.json",{"schema":1,"complete":complete,"errors":errors,"readyToFinishWallUs":Time.get_ticks_usec()-started_us,"hardware":_hardware(),"counterMode":_counter_metadata(),"limits":_limits(),"requested":requested,"cases":results})
 	complete=complete and saved
 	print("RUNTIME043_ARTIFACTS ",output," complete=",complete," rendered=",render_verified)
 	host.get_tree().quit(0 if complete else 3)
