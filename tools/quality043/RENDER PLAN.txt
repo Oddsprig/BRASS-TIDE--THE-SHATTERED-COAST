@@ -1,4 +1,113 @@
-BRASS TIDE - 0.043 RENDER ATTRIBUTION SOURCE PREPARATION
+BRASS TIDE - 0.043 RENDER ATTRIBUTION AND MEASURED DRAWING CANDIDATE
+
+26 OCTOBER 2026 - ONE BOUNDED DRAWING FIX, NATIVE ACCEPTANCE PENDING
+
+Root supplied actual active baseline job d1624ac5f3c64ee48f2da604055bc898.
+Read the original frames/ticks, not just the summary, and viewed the existing
+light-opening.png and mixed-end.png. Evidence is preserved at:
+C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/d1624ac5f3c64ee48f2da604055bc898/attempt-001/runtime/runtime043-45388-2052444/
+Native errors are in the attempt-001/native-runtime.log, one directory above
+that runtime evidence folder. No failed or incomplete result was reclassified.
+
+Measured active rows:
+  Light: 41 frames, 328 ticks, all 42 actors visible, zero boat culls/invalid.
+    Boat submission median 6714us / P95 10568us; wake draw median 1766us;
+    sort median 49us; effect draw median 170us. Last cumulative mesh sample:
+    247 misses / 146318us build / max 1404us / zero evictions / 247 entries.
+  Mixed: 156 frames, 581 ticks, all 16 actors visible, zero culls/invalid.
+    Boat median 4138us in the report (4116us lower-nearest raw quantile);
+    wake median 732us; sort median 10us. Last cumulative mesh sample:
+    427 misses / 375936us build / max 1652us / 162 evictions / 512 entries.
+Mesh counters include warmup; the mixed case also inherits live cache entries
+from light because resetting counters does not clear geometry. These cumulative
+build times are not exclusive per-frame boat costs. Light remained about 3.366
+FPS and mixed 12.99 FPS; neither meets the performance target. Rendering was
+verified, but overall baseline FAILED with engine errors and missing coverage.
+
+Selected seam: BoatArt.draw_boat rebuilt its palette, archetype and normalized
+mount array on every draw, even for an equal detached fit on another actor.
+The station array already had a cache, so it is unchanged. No subphase timing
+proved palette/mount preparation alone dominates; this is a bounded allocation
+reuse candidate inside the measured dominant boat loop. Benefit is UNMEASURED.
+Do not infer that this closes the much larger simulation/FPS gap.
+
+Exact extra implementation/fixture allowlist published to Root:
+  game/scripts/boat_art.gd
+  game/tests/test_feedback.gd (existing fixture, narrow extension only)
+The earlier instrumentation files Chart, MeshCache and CombatArt are unchanged
+in this cost-fix commit; HullFeedback is also unchanged. This document is owned.
+
+Private BoatArt._draw_inputs shares read-only palette/mounts/archetype across
+equal fits. Cache keys contain hull-id string, exact Color and enemy bool;
+keys contain no live arrays or dictionaries. Every hit checks all source fields
+by value and presence against a detached snapshot, including the full nested
+weaponMounts array. This catches same-id replacements AND in-place nested edits
+immediately, with no TTL or gameplay invalidation hooks. Exact dependency fields:
+id, role, faction, civilianRole, armor, size, tier, weapon, weaponMounts.
+These cover the current bare Layout fallback as well as fitted normalization.
+Future edits to those derivation functions must review the dependency list.
+At most 128 entries are retained; a new distinct key at capacity clears only
+this small CPU preparation cache. Geometry cache policy/counters stay unchanged.
+
+Public palette() and mounts_of() retain their fresh detached return values.
+The render context stays fresh: canvas/projector, position, bearing, enlargement,
+pixel size, LOD, clocks, speed, live aim, shots, damage and feedback are read as
+before. No actor/effect/physics/AI/wake/geometry/socket/art call was removed.
+No new resource, static mesh, texture, render thread or worker is introduced.
+
+Existing test_feedback.gd adds a focused --qa-draw-inputs043 selector. It checks
+equal detached fits actually reuse preparation, uncached public value equality,
+public copy isolation, exact cold/warm recorded drawing, spec/boat preservation,
+same-id and nested in-place mount edits, removal/absence, bare layout/palette
+dependencies, enemy/accent, separately live pose/aim/recoil/damage, and the bound.
+All original fixture assertions remain. This source seat DID NOT run the fixture.
+Root may select only this fixture through Test Bridge (headless/Dummy is enough
+for these contracts); it is not FPS, real texture, animation or rendered proof.
+Keep the entire selected batch below 120s including import/startup/cleanup.
+Then compare Root's same real rendered active workloads/counter contracts.
+
+ENGINE ERROR INVESTIGATION - NO SPECULATIVE FIX
+
+The native log has 33 p_image null/empty update errors, one wrong-thread finalize
+error after the complete/rendered receipt, and two leaked ObjectDB instances.
+There is no script caller stack or per-error timestamp, so a source culprit is
+not established. Production scripts have only the two Chart.setup ImageTexture
+creation calls (filled RGBA8 128x128 and 128x1 images), and no texture update call.
+BoatSpriteArt loads/caches imported textures; MeshCache is texture-free.
+Retaining local Chart Images longer is not justified by a demonstrated update
+path, so their lifetime/creation code is unchanged.
+
+Primary-source inspection at the installed engine's advertised revision:
+https://raw.githubusercontent.com/godotengine/godot/ed1daf0bf/scene/resources/image_texture.cpp
+  create_from_image validates input and uses set_image/texture_2d_create;
+  ImageTexture.update instead forwards to texture_2d_update. That distinguishes
+  the creation-only Chart path from the reported failing update operation.
+https://raw.githubusercontent.com/godotengine/godot/ed1daf0bf/modules/text_server_adv/text_server_adv.cpp
+  Dirty glyph atlas paths call ImageTexture.update while drawing glyphs.
+  SystemFont/HUD text is therefore a plausible update producer, not a confirmed
+  error cause. This inspection does not prove an empty font image or race.
+https://raw.githubusercontent.com/godotengine/godot/ed1daf0bf/servers/rendering/rendering_device.cpp
+  finalize has a render-thread guard and the device destructor calls finalize.
+https://raw.githubusercontent.com/godotengine/godot/ed1daf0bf/servers/rendering/rendering_server_default.cpp
+  Separate-thread shutdown queues its finish then joins its task. The observed
+  exit error is consistent with an engine/thread teardown mismatch; it is not
+  attributable to a BoatArt script call from this log. Binary/source line-number
+  equality was not established; no patched engine or reproduction was run.
+
+Root may perform the already discussed CLI --render-thread safe comparison on
+the same private-background real game. This seat changes no project setting,
+font policy, error guard, FATAL regex, startup/shutdown code or profiling guard.
+Native error cause and missing action coverage remain OPEN independently of
+the drawing allocation candidate. No errors are swallowed or called harmless.
+
+Validation here: complete owned diff and dependency/caller inspection; existing
+read-only tools/check_preload_calls.py on boat_art.gd and test_feedback.gd reports
+issues[] and engineInvoked:false; git diff --check clean. This is a SOURCE
+CANDIDATE only: no native parse, fixture pass, renderer fix or speedup claimed.
+No engines/tests/build/bakes/render/GPU/download/CUA/helpers/paid fallback ran.
+No version metadata changed. Root alone owns native acceptance and integration.
+
+INITIAL COUNTER CONTRACT (2053a001, retained below)
 
 Base: tested 0.042 candidate a206b59bf1676ae0a9825847d5344e938a99e993.
 This is an instrumentation candidate, not a delivered 0.043 build or a

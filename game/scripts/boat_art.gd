@@ -24,6 +24,11 @@ const SpriteArt=preload("res://scripts/boat_sprite_art.gd")
 
 static var _station_cache: Dictionary = {}
 static var _audit_geometry: bool = "--qa-geometry" in OS.get_cmdline_user_args()
+const DRAW_INPUT_LIMIT: int = 128
+# Complete inputs to archetype(), palette() and mounts_of(), including the
+# bare-hull Layout fallback. Presence matters as well as value/defaults.
+const DRAW_INPUT_FIELDS := ["id", "role", "faction", "civilianRole", "armor", "size", "tier", "weapon", "weaponMounts"]
+static var _draw_input_cache: Dictionary = {}
 
 # --- classification -------------------------------------------------------
 
@@ -182,6 +187,36 @@ static func mounts_of(spec: Dictionary) -> Array:
 		mount.size=int(Layout.hardpoints(spec)[0].size)
 		mount.moduleId="stock_primary"
 	return bare
+
+# Private, read-only draw preparation. Public palette()/mounts_of() still
+# return fresh values. Never retain a boat, condition, aim, shot or canvas here.
+static func _same_draw_source(spec: Dictionary, source: Dictionary) -> bool:
+	for field in DRAW_INPUT_FIELDS:
+		if spec.has(field) != source.has(field) or spec.get(field) != source.get(field):
+			return false
+	return true
+
+static func _draw_inputs(spec: Dictionary, accent: Color, enemy: bool) -> Dictionary:
+	# Only immutable scalar values enter the dictionary key. Check the detached
+	# source by value on EVERY hit, so editing a fit array in place is immediate.
+	var key: Array = [str(spec.get("id", "")), accent, enemy]
+	var cached = _draw_input_cache.get(key)
+	if cached is Dictionary and _same_draw_source(spec, cached.source):
+		return cached
+	var source: Dictionary = {}
+	for field in DRAW_INPUT_FIELDS:
+		if spec.has(field): source[field] = spec[field]
+	var colors: Dictionary = palette(spec, accent, enemy)
+	var mounts: Array = mounts_of(spec)
+	colors.make_read_only()
+	for mount in mounts: mount.make_read_only()
+	mounts.make_read_only()
+	var prepared: Dictionary = {"source": source.duplicate(true), "archetype": archetype(spec), "palette": colors, "mounts": mounts}
+	prepared.make_read_only()
+	if cached == null and _draw_input_cache.size() >= DRAW_INPUT_LIMIT:
+		_draw_input_cache.clear()
+	_draw_input_cache[key] = prepared
+	return prepared
 
 # --- canvas helpers (ctx carries canvas/projector/transform/counts) ---------
 
@@ -417,9 +452,10 @@ static func _draw_mount(ctx: Dictionary, m: Dictionary, turret_world: float, c: 
 static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dictionary = {}) -> Dictionary:
 	var spec_v = boat.get("spec", {})
 	var spec: Dictionary = spec_v if spec_v is Dictionary else {}
-	var arch := archetype(spec)
 	var accent: Color = opts.get("accent", Color("8fc6b4")) if opts.get("accent") is Color else Color("8fc6b4")
-	var c := palette(spec, accent, bool(opts.get("enemy", false)))
+	var prepared: Dictionary = _draw_inputs(spec, accent, bool(opts.get("enemy", false)))
+	var arch: String = prepared.archetype
+	var c: Dictionary = prepared.palette
 	var enlargement := float(opts.get("enlargement", 1.0))
 	var vel := Vector2(float(boat.get("vx", 0.0)), float(boat.get("vy", 0.0)))
 	var ctx: Dictionary = {
@@ -438,7 +474,7 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 		"n": 0, "npoly": 0, "nline": 0, "ncirc": 0,
 	}
 	var stations := _stations(spec)
-	var mounts := mounts_of(spec)
+	var mounts: Array = prepared.mounts
 	ctx.authored_hull=SpriteArt.draw_hull(ctx,spec)
 	if bool(ctx.authored_hull):
 		MotorArt.draw_motion(ctx,spec,boat,c)

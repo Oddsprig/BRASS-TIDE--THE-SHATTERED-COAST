@@ -125,6 +125,58 @@ func test_meshes(hulls: Array) -> void:
 		check(mesh.get_surface_count()==1 and mesh.surface_get_array_len(0)%3==0,"valid native triangle surface")
 	MeshCache.clear()
 
+func test_draw_inputs(spec: Dictionary) -> void:
+	# Compare warm preparation with the public uncached values and actual drawing.
+	# This is a narrow source candidate fixture, not a rendered-performance probe.
+	Art._draw_input_cache.clear()
+	var fitted: Dictionary=Refit.effective_spec(spec,Refit.defaults(spec))
+	var before: Dictionary=fitted.duplicate(true)
+	var accent:=Color("dfbd7d")
+	var prepared: Dictionary=Art._draw_inputs(fitted,accent,false)
+	check(is_same(prepared,Art._draw_inputs(fitted.duplicate(true),accent,false)),"equal detached fits reuse drawing preparation")
+	check(prepared.palette==Art.palette(fitted,accent,false) and prepared.mounts==Art.mounts_of(fitted),"prepared palette and sockets equal uncached public values")
+	var exposed_palette: Dictionary=Art.palette(fitted,accent,false)
+	var exposed_mounts: Array=Art.mounts_of(fitted)
+	exposed_palette.top=Color.WHITE;exposed_mounts[0].x=999.0
+	check(prepared.palette!=exposed_palette and prepared.mounts!=exposed_mounts,"public inspection copies cannot change prepared art")
+	var ship: Dictionary=Art.preview_boat(fitted)
+	ship.battleTime=0.3
+	var opts: Dictionary={"cache":true,"lod":1,"px":float(spec.size)*2.0,"clock":0.3,"accent":accent}
+	Art._draw_input_cache.clear()
+	var cold:=Recorder.new();var warm:=Recorder.new()
+	Art.draw_boat(cold,cold.project,ship,opts);Art.draw_boat(warm,warm.project,ship,opts)
+	check(cold.invalid==0 and warm.invalid==0 and cold.prims==warm.prims,"warm preparation preserves every actual drawing primitive")
+	check(fitted==before,"preparing and drawing leave the fitted spec untouched")
+	# A new array identity and an in-place edit must both invalidate immediately.
+	for field in ["x","y","angle","size","kind","id","moduleId"]:
+		var changed: Dictionary=fitted.duplicate(true)
+		changed.weaponMounts[0][field]={"x":7.0,"y":-3.0,"angle":0.6,"size":2,"kind":"rocket","id":"mount043","moduleId":"043-fit"}[field]
+		Art._draw_inputs(fitted,accent,false)
+		var fresh: Dictionary=Art._draw_inputs(changed,accent,false)
+		check(fresh.mounts==Art.mounts_of(changed),"same-id fit edit is visible immediately: "+field)
+		changed.weaponMounts[0][field]=fitted.weaponMounts[0].get(field)
+		check(Art._draw_inputs(changed,accent,false).mounts==Art.mounts_of(changed),"in-place fit edit is visible immediately: "+field)
+	var empty: Dictionary=fitted.duplicate(true);empty.weaponMounts=[]
+	check(Art._draw_inputs(empty,accent,false).mounts.is_empty(),"removing the last fitted weapon leaves no cached gun")
+	empty.erase("weaponMounts")
+	for changes in [{"role":"raider"},{"size":31.0},{"tier":4},{"weapon":"rocket"},{"faction":"raiders"},{"civilianRole":"yacht"},{"armor":18}]:
+		var changed: Dictionary=empty.duplicate(true);changed.merge(changes,true)
+		var fresh: Dictionary=Art._draw_inputs(changed,accent,false)
+		check(fresh.archetype==Art.archetype(changed) and fresh.palette==Art.palette(changed,accent,false) and fresh.mounts==Art.mounts_of(changed),"same-id bare hull preparation follows "+str(changes.keys()))
+	check(Art._draw_inputs(fitted,Color("8fc6b4"),true).palette==Art.palette(fitted,Color("8fc6b4"),true),"accent and enemy tint remain exact per draw")
+	prepared=Art._draw_inputs(fitted,accent,false)
+	for changes in [{"x":19.0,"angle":0.35},{"localAimAngles":{"mount0":0.7}},{"mountShotTimes":{"mount0":0.28}},{"hp":50.0,"maxHp":100.0,"water":20.0,"fire":30.0,"engine":0.3,"fuel":10.0}]:
+		var animated: Dictionary=ship.duplicate(true);animated.merge(changes,true)
+		var live_before: Dictionary=animated.duplicate(true)
+		var live:=Recorder.new();Art.draw_boat(live,live.project,animated,opts)
+		check(is_same(prepared,Art._draw_inputs(fitted,accent,false)) and live.prims!=warm.prims and live.invalid==0,"shared static preparation keeps live draw fields: "+str(changes.keys()))
+		check(animated==live_before,"live drawing does not write boat state")
+	for i in range(Art.DRAW_INPUT_LIMIT+1):
+		var other: Dictionary=fitted.duplicate(true);other.id="prepared043-%d"%i
+		Art._draw_inputs(other,accent,false)
+	check(Art._draw_input_cache.size()<=Art.DRAW_INPUT_LIMIT,"drawing preparation stays bounded across hull identities")
+	Art._draw_input_cache.clear()
+
 func test_effects(hulls: Array) -> void:
 	var max_effect: int=0
 	for family in ["gun","cannon","rocket","torpedo"]:
@@ -163,6 +215,11 @@ func test_effects(hulls: Array) -> void:
 func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	var spec: Dictionary=world.HULLS[0]
+	test_draw_inputs(spec)
+	if "--qa-draw-inputs043" in OS.get_cmdline_user_args():
+		print("DRAW INPUTS043: %d checks, %d failures"%[checks,failures])
+		quit(0 if failures==0 else 1)
+		return
 	test_motors(world.HULLS)
 	test_effects(world.HULLS)
 	test_meshes(world.HULLS)
