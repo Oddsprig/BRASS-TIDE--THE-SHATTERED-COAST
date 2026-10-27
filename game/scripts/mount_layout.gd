@@ -3,6 +3,7 @@ extends RefCounted
 ## Preserves Refit hardpoint count, mount0..3 IDs, size thresholds, labels,
 ## normal gun firing arcs, and fitting budgets while separating fore/aft/side
 ## weapon sockets from central bridge/cabin and aft-midships engine/stack zones.
+const Commitment=preload("res://scripts/combat_balance044.gd")
 
 const DECK_MIN_X: float = -1.80
 const DECK_MAX_X: float = 2.20
@@ -122,6 +123,7 @@ static func weapon_aim(point: Dictionary, kind: String, original: bool = false) 
 	var clean_kind: String = str(kind).to_lower()
 	var fixed: bool = not original and clean_kind in ["rocket", "torpedo"]
 	var base_arc: float = _number(point.get("arc"), TAU)
+	base_arc=Commitment.firing_arc(clean_kind,str(point.get("id","")),int(_number(point.get("size"),1.0)),base_arc)
 	var outward: float = _number(point.get("outwardAngle"), _number(point.get("angle"), 0.0))
 	return {"arc": minf(base_arc, FIXED_LAUNCHER_ARC) if fixed else base_arc, "angle": 0.0 if original else outward, "fixed": fixed}
 
@@ -218,7 +220,8 @@ static func mounts_of(spec: Dictionary) -> Array:
 	var wkind: String = str(spec.get("weapon", "gun")).to_lower()
 	if wkind not in ["gun", "cannon", "rocket", "torpedo"]:
 		wkind = "gun"
-	out.append({"id": primary.id, "kind": wkind, "x": primary.localX, "y": primary.localY, "worldX": primary.x, "worldY": primary.y, "angle": 0.0, "arc": primary.arc, "scale": _mount_scale(primary.size), "footprintRadius": primary.footprintRadius, "elevation": primary.elevation, "muzzleOffset": primary.muzzleOffset, "originX": primary.originX, "originY": primary.originY})
+	var stock_aim: Dictionary=weapon_aim(primary,wkind,true)
+	out.append({"id": primary.id, "kind": wkind, "x": primary.localX, "y": primary.localY, "worldX": primary.x, "worldY": primary.y, "angle": stock_aim.angle, "arc": stock_aim.arc, "scale": _mount_scale(primary.size), "footprintRadius": primary.footprintRadius, "elevation": primary.elevation, "muzzleOffset": primary.muzzleOffset, "originX": primary.originX, "originY": primary.originY})
 	return out
 
 static func footprint_clearance(socket: Dictionary, item: Dictionary) -> float:

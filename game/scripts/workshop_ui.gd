@@ -5,7 +5,6 @@ const Refits=preload("res://scripts/refit.gd")
 const RefitUI=preload("res://scripts/refit_ui.gd")
 const Portrait=preload("res://scripts/boat_portrait.gd")
 const Deployment=preload("res://scripts/deployment.gd")
-const Layout=preload("res://scripts/mount_layout.gd")
 const EquipmentPicker=preload("res://scripts/equipment_picker.gd")
 
 static func _prune_drafts(ui) -> Dictionary:
@@ -170,9 +169,8 @@ static func choose(ui,uid: String,draft: Dictionary,slot: String):
 		ui.label(body,RefitUI.module_name(id),22,ui.GOLD,true)
 		ui.paragraph(body,str(item.get("description","")),14)
 		if position.index>=0 and not id.is_empty():
-			var weapon: Dictionary=base if id=="stock_primary" else item
-			var aim: Dictionary=Layout.weapon_aim(Refits.hardpoints(base)[position.index],str(weapon.get("kind",weapon.get("weapon","gun"))),id=="stock_primary")
-			ui.paragraph(body,"%.0f impact · %.2f shots/s · range %.0f · %.0f° arc · %d fitting points"%[float(weapon.get("damage",0)),float(weapon.get("fireRate",0)),float(weapon.get("range",0)),rad_to_deg(float(aim.arc)),int(item.op)],13,ui.TEAL)
+			var weapon: Dictionary=Refits.weapon_for_socket(base,item,Refits.hardpoints(base)[0 if id=="stock_primary" else position.index],id=="stock_primary")
+			ui.paragraph(body,"%.0f impact · %.2f shots/s · %.2f s base reload · range %.0f · %.0f° arc · %d fitting points"%[float(weapon.damage),float(weapon.fireRate),1.0/maxf(0.000001,float(weapon.fireRate)),float(weapon.range),rad_to_deg(float(weapon.arc)),int(item.op)],13,ui.TEAL)
 		else:ui.paragraph(body,"%d fitting points"%int(item.op),13,ui.TEAL)
 		var next: Dictionary=draft.duplicate(true)
 		if position.index>=0:next.weapons[position.index]=id

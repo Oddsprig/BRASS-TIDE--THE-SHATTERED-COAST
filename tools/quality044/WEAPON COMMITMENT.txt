@@ -1,0 +1,125 @@
+WEAPON COMMITMENT 0.044 - SOURCE CANDIDATE, NOT A RELEASE
+
+Root closes 0.043 before integrating this candidate. No native test, engine,
+export, render, GPU, listening or play acceptance has run in this seat.
+Branch: source/runtime044-weapon-commitment, starting at 616fb5c549f493f5111dabf2cebffda77b8bb9d6.
+The 0.043 certification reuse is a separate frozen commit. This diff contains
+only the seven files listed below; it requires no 0.043 API changes.
+
+LOOP AND EXACT RULES
+Commit a gun pass or a finite launcher salvo with an exit already chosen.
+A large cannon must reload and face its firing lane before another discharge.
+A light craft retains its speed/turn advantage for crossing or leaving that
+lane. Existing fire, flooding, crew work, bailing/repair and finite supplies
+can erase that advantage; regroup grants no health or rounds. Roles, orders,
+staggering, physics, acceleration, turn rates and repair rules are unchanged.
+
+combat_balance044.gd contains both shared bounds:
+  size >= 3 cannon rate = min(authored rate, 1 / 1.8) shots/second.
+  cannon on size >= 3 mount0 arc = min(socket arc, 0.75 * PI).
+The second is the large forward socket's cannon traverse, including a small
+cannon fitted there. It is not applied to guns, aft/side mounts or launchers.
+An already slower cannon or narrower authored arc stays slower/narrower.
+No hidden runtime arc multiplier is added. Refit.weapon_for_socket builds the
+same detached rate/arc descriptor for effective_spec and BOTH fitting choosers.
+Layout.weapon_aim and bare mounts_of share the bound; explicit fitted mount
+arcs remain the actual supplied runtime/art data. Socket IDs/positions/angles,
+muzzle distances/heights, hit strength, salvos and equipment identity remain.
+Fitted BoatArt draws the accepted per-mount localAimAngles on those same socket
+coordinates; BoatPortrait's existing sector reads the actual weapon.arc. No
+art-only traverse modifier or new rendering behavior is introduced.
+
+CHANGED VALUES (healthy weapon, full available gunnery crew)
+                              old rate/reload          new rate/reload
+  furnace_turret stock         1.10 / 0.909091 s       0.555556 / 1.8 s
+  iron_bastion stock           1.20 / 0.833333 s       0.555556 / 1.8 s
+  maiden_dreadnought stock     1.15 / 0.869565 s       0.555556 / 1.8 s
+  Long iron heavy_cannon      1.00 / 1.000000 s       0.555556 / 1.8 s
+All four previously had a full 360-degree forward-socket cannon arc; now 135
+degrees total, +/-67.5 degrees from the bow. Small/medium stock cannons retain
+their rates/arcs. Harbor cannon keeps 1.3 shots/s (0.769231 s base reload),
+including when fitted to the constrained large forward socket.
+
+Furnace still fires damage46, range575, speed620, ammoCost1. Long iron still
+fires damage48, range620, speed690, ammoCost2; one existing projectile/event
+per discharge, consuming those two rounds, not two invented projectiles.
+Long iron still costs 8 fitting points, materials guns2/iron5/timber1/supplies3,
+5 shipwright days and 1.25 expert days. Stock primary stays 2 fitting points
+and one round per discharge. All other prices, paid inputs and capacity rules
+are unchanged; world.json remains untouched.
+
+ACTUAL FORMULAS AND SCALE
+EquipmentCombat conditions an enabled mount once:
+  conditionedRate = clamp(baseRate * mountFactor, 0.01, 60).
+Battle._fire then sets cooldown = 1 / (conditionedRate * max(0.15,weaponFactor)).
+Zero/disabled equipment and inadequate stores still refuse to fire. Thus 1.8 s
+is the healthy minimum, not a promise for a damaged, burning or busy crew.
+Both choosers display actual shots/s, base reload seconds and the actual arc.
+Crew/equipment effects lengthen the live timer; no second cooldown system exists.
+
+Hull damage per hit = .35 * max(.22*D, D-.8*max(armor-penetration,0)).
+Shell penetration remains4. Furnace versus Tin armor2 has damage16.1 per hit:
+  continuous hull-only TTK = 150 / (.35*46*rate): 8.469791 -> 16.770186 s.
+  ten perfect hits from an immediate first shot: 9/rate = 8.181818 -> 16.2 s.
+Fitted Long iron versus Tin needs nine perfect hits: 8*1.8=14.4 s from the
+first shot; continuous hull-only TTK16.071429 s. These estimates exclude
+flooding/fire/crew/module damage, misses, repairs and maneuvering.
+
+Unchanged maximum travel = range / projectileSpeed, before muzzle/inherited
+velocity and moving-target interception: Furnace575/620=0.927419 s,
+Long iron620/690=0.898551 s, Reed torpedo480/280=1.714286 s. Reed reload remains
+1/.65=1.538462 s and costs2 rounds. Projectile origin is the rotated socket
+plus the weapon's existing muzzle offset; tests inspect the real projectile.
+
+Tin speed118/turn2.65 versus Furnace72/1.3 remain. Ideal PI turns take
+1.185507 s versus2.416610 s. An ideal turn-then-straight escape from340 beyond
+575 against a same-direction chase is PI/2.65+(575-340)/(118-72)=6.294202 s.
+Real eased acceleration, steering and heavy tracking differ. At25% flooding,
+the existing Tin speed factor gives94.99, below dry Ash102: leave early.
+A fixed-heading crossing demonstrates geometry only; it does not prove a
+turning AI heavy cannot track or hit a light boat.
+
+ONE FOCUSED SCRIPT FOR ROOT, NOT EXECUTED HERE
+  Godot 4.7.2 arguments:
+    --headless --path <candidate/game> --audio-driver Dummy
+    --script res://tests/test_commitment044.gd
+  Supply isolated GAME_TEST_ARTIFACTS and synthetic APPDATA as usual. Submit
+  raw executable/arguments via TestBridge; do not nest a test-lane lease.
+  Cooperative active bound20s; Root hard timeout/cleanup and the entire selected
+  batch including setup/import/export must remain under120s. No profile/save IO.
+  Output: GAME_TEST_ARTIFACTS/commitment044.json, explicit checks/failures/complete.
+
+This source fixture is written to check all stock and fitted descriptors against
+chooser/runtime/layout/art, exact unchanged hull/economic inputs, a real paid
+canonical heavy installation with finite stores/coin/material conservation,
+and stock/fitted live fire kernels. The kernels inspect socket/muzzle/speed,
+travel tick and real cooldown, move a light from rest with the real integrator
+across a declared fixed heavy heading during reload, reject an out-of-arc shot,
+and exhaust two real discharges without a third shot or free rounds.
+One duel of up to ten simulation seconds at normal60Hz uses Tin/light_torpedo and
+stock Furnace, seed4401, 330-unit opening, four starting rounds each, default
+autopilot, and exactly one player move order after the first actual torpedo
+launch. Enemy AI remains unchanged. Real events, reload intervals, movements,
+finite ammunition, final damage/water/stores and departure time are recorded.
+Whether the resulting pass/exit feels deliberate remains a Root play verdict.
+
+EXACT FILES / INTEGRATION NOTES
+  game/scripts/combat_balance044.gd - new pure shared rate/arc/text rules.
+  game/scripts/mount_layout.gd - shared aim + bare-art arc, no geometry changes.
+  game/scripts/refit.gd - rate normalization and public weapon_for_socket.
+  game/scripts/workshop_ui.gd - existing chooser value line, truthful helper.
+  game/scripts/refit_ui.gd - same, actual rate/base reload/arc, no layout redesign.
+  game/tests/test_commitment044.gd - the single focused scenario/contract script.
+  tools/quality044/WEAPON COMMITMENT.txt - this source handoff.
+Preloads remain the existing Refit/Layout/Geometry/condition chain plus the new
+pure helper. No world, Main, profile, damage, tactical roles, art or metadata
+edits. Refit's existing CRLF is deliberately retained (-text attribute).
+
+Old test_refit.test_defaults expects raw stock fireRate on all hulls: precisely
+the above three heavy stock rate assertions now need the declared new values.
+Old test_mount_layout.test_aim_and_mounts_normalization expects the size-3
+mount0 cannon arc to equal the socket maximum twice (stock/fitted): both need
+135 degrees; its gun and aft/side/launcher assertions remain intact. Those
+existing files are outside this seat's allowlist and are not silently weakened
+or changed. Root must update semantic expectations when integrating0.044.
+Static API/diff/source-isolation review is separate from native acceptance.

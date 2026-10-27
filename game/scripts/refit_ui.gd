@@ -115,8 +115,8 @@ static func choose(ui, uid: String, slot: String):
 		ui.label(body,module_name(id),23,ui.GOLD,true)
 		ui.paragraph(body,str(item.get("description",item.get("kind",""))),15)
 		if category == "weapons" and not id.is_empty():
-			var weapon: Dictionary = ship.baseSpec if id == "stock_primary" else item
-			ui.paragraph(body,"%s · %.1f shots/s · %.0f impact · range %.0f · %d fitting points" % [str(weapon.get("kind",weapon.get("weapon","gun"))).to_upper(),float(weapon.get("fireRate",1)),float(weapon.get("damage",0)),float(weapon.get("range",0)),int(item.get("op",0))],13,ui.TEAL)
+			var weapon: Dictionary = Refit.weapon_for_socket(base,item,Refit.hardpoints(base)[0 if id == "stock_primary" else int(slot.get_slice(":",1))],id == "stock_primary")
+			ui.paragraph(body,"%s · %.2f shots/s · %.2f s base reload · %.0f impact · range %.0f · %.0f° arc · %d fitting points" % [str(weapon.kind).to_upper(),float(weapon.fireRate),1.0/maxf(0.000001,float(weapon.fireRate)),float(weapon.damage),float(weapon.range),rad_to_deg(float(weapon.arc)),int(item.get("op",0))],13,ui.TEAL)
 		if not canonical or id.is_empty():
 			var quote: Dictionary = EquipmentPicker.quote_single(port,ship,slot,id,{})
 			var has_bill: bool = quote.has("newSpec")

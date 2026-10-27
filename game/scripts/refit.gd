@@ -2,6 +2,7 @@ extends RefCounted
 ## Paid, atomic fitting. Pure dictionaries; no campaign/economy dependency cycle.
 const Layout=preload("res://scripts/mount_layout.gd")
 const WeaponGeometry=preload("res://scripts/weapon_geometry.gd")
+const Commitment=preload("res://scripts/combat_balance044.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Money=preload("res://scripts/money.gd")
 const Deployment=preload("res://scripts/deployment.gd")
@@ -21,13 +22,16 @@ static func _fail(message: String) -> Dictionary:
 	return {"ok":false,"error":message,"message":message}
 
 static func _weapon(name: String,kind: String,size: int,op: int,damage: float,rate: float,distance: float,speed: float,ammo: int,materials: Dictionary,days: float,experts: float,description: String) -> Dictionary:
+	rate=Commitment.fire_rate(kind,size,rate)
+	if kind=="cannon" and size>=3:
+		description+=" "+Commitment.cannon_commitment_text()
 	return {"name":name,"label":name,"description":description,"kind":kind,"size":size,"op":op,"points":op,"damage":damage,"fireRate":rate,"range":distance,"speed":speed,"ammoCost":ammo,"materials":materials,"workerDays":days,"expertDays":experts}
 
 static func catalog() -> Dictionary:
 	return {
 		"weapons":{
 			"":{"name":"Empty hardpoint","label":"Empty hardpoint","description":"Remove the weapon into this boat's locker.","kind":"","size":0,"op":0,"points":0,"materials":{},"workerDays":0.5,"expertDays":0.25},
-			"stock_primary":_weapon("Original primary","stock",1,2,0,0,0,0,1,{"guns":1,"supplies":1},2.0,0.5,"The hull's original paid primary weapon; main hardpoint only."),
+			"stock_primary":_weapon("Original primary","stock",1,2,0,0,0,0,1,{"guns":1,"supplies":1},2.0,0.5,"The hull's original paid primary weapon; main hardpoint only. Large main-deck cannons: "+Commitment.cannon_commitment_text()),
 			"rapid_gun":_weapon("Needle machine gun","gun",1,3,11,4.0,420,900,1,{"guns":1,"iron":0.3,"supplies":1},2.0,0.5,"Rapid close defense; light mount and one round per shot."),
 			"heavy_gun":_weapon("Twin machine guns","gun",2,5,16,4.2,470,920,1,{"guns":2,"iron":1,"supplies":2},3.0,0.75,"Heavy rapid battery with better reach and sustained damage."),
 			"light_cannon":_weapon("Harbor cannon","cannon",1,5,26,1.3,480,650,1,{"guns":1,"iron":2,"timber":0.5,"supplies":2},3.0,0.75,"Compact impact cannon; moderate rate and range."),
@@ -95,6 +99,19 @@ static func normalize(spec: Dictionary,loadout: Dictionary) -> Dictionary:
 		return _fail("Fitting needs %d points; this hull has %d."%[points,maximum]).merged({"usedPoints":points,"maxPoints":maximum,"loadout":clean})
 	return {"ok":true,"loadout":clean,"usedPoints":points,"maxPoints":maximum}
 
+static func weapon_for_socket(base: Dictionary,item: Dictionary,point: Dictionary,original: bool=false) -> Dictionary:
+	# The fitting choosers and runtime specs consume this same detached descriptor.
+	var module: Dictionary=item.duplicate(true)
+	if original:
+		module.kind=str(base.get("weapon","gun"))
+		for key in ["damage","fireRate","range"]:module[key]=_number(base.get(key),12.0 if key=="damage" else (2.0 if key=="fireRate" else 340.0))
+		module.speed=240.0 if module.kind=="torpedo" else (730.0 if module.kind=="rocket" else (620.0 if module.kind=="cannon" else 850.0))
+		module.size=point.size
+	module.fireRate=Commitment.fire_rate(str(module.kind),int(module.size),float(module.fireRate))
+	var aim: Dictionary=Layout.weapon_aim(point,str(module.kind),original)
+	module.arc=aim.arc;module.angle=aim.angle
+	return module
+
 static func effective_spec(base: Dictionary,loadout: Dictionary) -> Dictionary:
 	var normalized: Dictionary=normalize(base,loadout)
 	if not normalized.ok: return {}
@@ -113,16 +130,9 @@ static func effective_spec(base: Dictionary,loadout: Dictionary) -> Dictionary:
 	for i in range(points.size()):
 		var id: String=fit.weapons[i]
 		if id.is_empty(): continue
-		var module: Dictionary=cat.weapons[id].duplicate(true)
-		var original: bool=id=="stock_primary"
-		if original:
-			module.kind=str(base.get("weapon","gun"))
-			for key in ["damage","fireRate","range"]: module[key]=_number(base.get(key),12.0 if key=="damage" else (2.0 if key=="fireRate" else 340.0))
-			module.speed=240.0 if module.kind=="torpedo" else (730.0 if module.kind=="rocket" else (620.0 if module.kind=="cannon" else 850.0))
 		var point: Dictionary=points[i]
-		if original: module.size=point.size
-		var aim: Dictionary=Layout.weapon_aim(point,module.kind,original)
-		result.weaponMounts.append({"id":point.id,"moduleId":id,"kind":module.kind,"damage":module.damage,"fireRate":module.fireRate,"range":module.range,"speed":module.speed,"ammoCost":module.ammoCost,"size":module.size,"x":point.x,"y":point.y,"arc":aim.arc,"angle":aim.angle,"muzzleDistance":WeaponGeometry.muzzle(module.kind,float(base.size),int(module.size)),"barrelHeight":WeaponGeometry.height(module.kind,float(base.size),int(module.size))})
+		var module: Dictionary=weapon_for_socket(base,cat.weapons[id],point,id=="stock_primary")
+		result.weaponMounts.append({"id":point.id,"moduleId":id,"kind":module.kind,"damage":module.damage,"fireRate":module.fireRate,"range":module.range,"speed":module.speed,"ammoCost":module.ammoCost,"size":module.size,"x":point.x,"y":point.y,"arc":module.arc,"angle":module.angle,"muzzleDistance":WeaponGeometry.muzzle(module.kind,float(base.size),int(module.size)),"barrelHeight":WeaponGeometry.height(module.kind,float(base.size),int(module.size))})
 	if not result.weaponMounts.is_empty():
 		var primary: Dictionary=result.weaponMounts[0]
 		result.weapon=primary.kind
