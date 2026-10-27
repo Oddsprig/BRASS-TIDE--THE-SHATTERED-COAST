@@ -241,9 +241,10 @@ static func _status_from_info(boat: Dictionary, able: float, area: float, inflow
 
 	var snap: Dictionary = info.snapshot
 	var priority: String = str(snap.get("repairPriority", "auto"))
-	var mod_need: bool = has_module_repair_need(snap)
 	var hull_need: bool = hp < max_hp and (policy == "repair" or priority == "hull")
-	var damaged_can: bool = area > 0.0 or fire > 0.0 or mod_need or hull_need
+	# These live conditions already establish repair need. Only inspect machinery
+	# when it can change that answer; the real repair step still checks each task.
+	var damaged_can: bool = area > 0.0 or fire > 0.0 or hull_need or has_module_repair_need(snap)
 	var bail_can: float = able * float(weights[1]) if active else 0.0
 	var repair_can: float = able * float(weights[2]) if damaged_can and (supplies > 0.0 or fire > 0.0) else 0.0
 	var guns_can: float = maxf(0.0, able - bail_can - repair_can)

@@ -1,0 +1,51 @@
+BRASS TIDE 0.051 - R27 DAMAGE PREPARATION SOURCE CANDIDATE
+
+Base: f5381ee232227a5b3b8f5ff0ac85cc1f12b15ac9
+Scope: equipment_damage.gd::_status_from_info only, plus this handoff.
+Status: SOURCE ONLY / UNRUN / NOT ACCEPTED. Root owns native and actual R28.
+
+Supported reduction
+Canonical status eagerly called has_module_repair_need(info.snapshot), scanning
+installed modules even when positive breach area, live fire, or an eligible hull
+deficit already made damaged_can true. That predicate is a pure snapshot read.
+Evaluate those existing live booleans first and short-circuit the module scan.
+Machinery-only damage still scans with the exact JURY_CAP/Core.EPS predicate.
+No retained output, new cache, lifetime authority, public field or option added.
+
+Why state and work remain exact
+The result is the same OR of four pure predicates. Existing owner validation,
+canonical snapshot construction and all status factors are unchanged. The actual
+_battle_repair051 machinery-need check and _repair_step_from_info task loop are
+unchanged: real fire/heat damage, water/bailing, repairs, wounded crew, finite
+supplies, working equipment condition, fuel-zero, timers and publication remain.
+Legacy/foreign/corrupt paths are unchanged; dirty owned generations still rebuild
+info through _battle_info051. This change retains no outputs between calls.
+No RNG, actor, 300DP, 60Hz, coins, stores, steering, firing or visual changes.
+
+Bounded review / existing mechanisms retained
+Read Battle.update/_combat_mounts/_tick_cooldowns/_fire, Tactical.refresh_mounts,
+EquipmentCombat.mount_cache_key/apply_mount_condition and Damage's owned/sealed
+phase and numerical tick paths. Existing owned status borrows, current mount
+cache, numeric traffic and omitted unused receipt construction were already in
+place. Another cache or a new authority seam was not justified by this review.
+Only the eager module scan above is changed; no Runtime/Fire/Chart edits.
+
+Cost ceiling and evidence limits
+R27 actual b004006fa03847e9add1313605d14080 remained QUALITY FAILED: light
+42 actors/full 300DP per side, 16.404FPS, simulation median 12.4545ms/P95 20.122ms.
+Reported light phase medians: damage 1554.5us, mounts 989us, firing 1223us.
+This removes AT MOST one installed-module traversal per qualifying canonical
+status evaluation. Machinery-only status, healthy ticks without status refresh,
+and the actual repair/task/module-write checks retain their original work.
+R27 did not isolate this scan: no measured microsecond saving can be assigned.
+Its possible saving is a small subset of status preparation, not those whole
+phase costs or the light-frame deficit. No speedup/FPS/acceptance claim before R28.
+
+Verification handoff
+Read the complete pure predicate and its canonical callers; reviewed the exact
+bounded diff for unchanged boolean/numeric behavior. No new behavior seam or
+test framework added. Existing test_damage_hotpath040.gd already pairs complete
+state/status against the public reference for fire, breaches, paid hull repair,
+machinery-only repair, jury-cap/EPS boundaries, crew and fuel-zero changes.
+No tests, engine/import/export/profilers, source-advisory scripts or GPU jobs run
+by this task. Root's combined source advisory and native checks remain pending.
