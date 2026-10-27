@@ -11,7 +11,10 @@ var failures: Array = []
 var first_invalid_polygon: Dictionary = {}
 
 class Recorder extends RefCounted:
+	var local_polygons: Array = []
 	var polygons: Array = []
+	var transform := Transform2D.IDENTITY
+	var transforms: Array[Transform2D] = []
 	var colors: Array[Color] = []
 	var heights: Array[float] = []
 	var invalid: int = 0
@@ -26,12 +29,21 @@ class Recorder extends RefCounted:
 		heights.append(height)
 		var d: Vector2 = point - camera
 		return screen_origin + Vector2((d.x - d.y) * Chart.ISO_X, (d.x + d.y) * Chart.ISO_Y - height) * view_scale
+	func draw_set_transform_matrix(value: Transform2D) -> void:
+		transform = value
+		transforms.append(value)
 	func draw_colored_polygon(points: PackedVector2Array, color: Color) -> void:
-		polygons.append(points.duplicate())
+		# Native triangulation consumes LOCAL submission points; the transform
+		# places the resulting triangles on the screen afterwards. Keep both.
+		local_polygons.append(points.duplicate())
+		var painted := PackedVector2Array()
+		for point in points:
+			painted.append(transform * point)
+		polygons.append(painted)
 		colors.append(color)
 		var nonfinite: Array[int] = []
 		for index in range(points.size()):
-			if not points[index].is_finite():
+			if not points[index].is_finite() or not painted[index].is_finite():
 				nonfinite.append(index)
 				invalid += 1
 		var triangle_indices: int = Geometry2D.triangulate_polygon(points).size()
@@ -98,6 +110,11 @@ func recorded(samples: Array, opts: Dictionary = {}, isometric: bool = false, vi
 		print("WAKE045_FIRST_INVALID " + JSON.stringify(first_invalid_polygon, "", true, true))
 	check(count == recorder.polygons.size() and count <= Wake.MAX_PRIMITIVES, "draw count equals actual bounded polygon calls")
 	check(recorder.invalid == 0, "every submitted polygon is finite, noncrossing and fully triangulable" + label)
+	var reset: bool = recorder.transform == Transform2D.IDENTITY and recorder.transforms.size() == count * 2
+	for index in range(1, recorder.transforms.size(), 2):
+		reset = reset and recorder.transforms[index] == Transform2D.IDENTITY
+	check(reset, "every submitted band restores identity, including clipped/empty/invalid-projector exits" + label)
+	check(recorder.local_polygons.all(func(p): return p[0] == Vector2.ZERO), "native submission is translation-relative while painted geometry stays in screen coordinates" + label)
 	check(recorder.heights.size() <= Wake.MAX_VERTICES * Wake.MAX_PRIMITIVES and recorder.heights.all(func(h): return h == 0.0), "bounded projection work stays on the water plane")
 	check(recorder.polygons.all(func(p): return p.size() >= 3 and p.size() <= Wake.MAX_VERTICES), "every strip has a hard vertex bound")
 	check(recorder.colors.all(func(c): return is_finite(c.a) and c.a >= 0.0 and c.a <= 0.180001), "foam is restrained finite translucency")
@@ -182,6 +199,12 @@ func geometry_cases() -> void:
 	var bad_projector: Callable = func(_p: Vector2, _h: float) -> Vector2: return Vector2(INF, 0)
 	var bad_rec := Recorder.new()
 	check(Wake.draw(bad_rec, bad_projector, line) == 0 and bad_rec.polygons.is_empty(), "invalid projected coordinates never reach a canvas call")
+	var calls: Array[int] = [0]
+	var late_bad_projector: Callable = func(p: Vector2, _h: float) -> Vector2:
+		calls[0] += 1
+		return p if calls[0] <= line.size() * 2 - 1 else Vector2(INF, 0)
+	var partial_rec := Recorder.new()
+	check(Wake.draw(partial_rec, late_bad_projector, line) == 1 and partial_rec.transforms.size() == 2 and partial_rec.transform == Transform2D.IDENTITY, "invalid projection after one visible band returns with identity restored")
 
 func slow_turn_cases() -> void:
 	# A long leg then two short turns totals <135 degrees, so _path retains it.
@@ -217,6 +240,16 @@ func slow_turn_cases() -> void:
 	var collapsed: Array = [{"p": Vector2.ZERO, "age": 0.699999999999, "w": 6.0}, {"p": Vector2(2, 0), "age": 0.69999999999, "w": 6.0}, {"p": Vector2(6, 0), "age": 0.0, "w": 6.0}]
 	var tip_rec: Recorder = recorded(collapsed, {}, false, {"origin": Vector2(800, 500), "label": "rounded out-and-back tip"})
 	check(tip_rec.polygons.size() == Wake.MAX_PRIMITIVES and tip_rec.polygons.all(func(p): return p.size() == 3), "a rounded out-and-back tip is removed without discarding any visible band")
+	# FIRST actual diagnostic offender, preserved verbatim from job4e0836a6.
+	# It had14finite/noncrossing points, screen area0, local area0.0205968767,
+	# and0native triangle indices at screen coordinates versus36near zero.
+	var measured := PackedVector2Array([Vector2(1380.449951171875,850.2249755859375),Vector2(1380.5030517578125,850.2485961914063),Vector2(1380.560302734375,850.2720947265625),Vector2(1380.6138916015625,850.2969970703125),Vector2(1380.65625,850.3247680664063),Vector2(1380.68115234375,850.3563842773438),Vector2(1380.6971435546875,850.3895263671875),Vector2(1380.7064208984375,850.4232177734375),Vector2(1380.5880126953125,850.4507446289063),Vector2(1380.5789794921875,850.4169921875),Vector2(1380.5631103515625,850.3837890625),Vector2(1380.543212890625,850.35107421875),Vector2(1380.5120849609375,850.2833251953125),Vector2(1380.4884033203125,850.251953125)])
+	var offender: Array = []
+	for index in range(8):
+		var angle: float = index * 0.10
+		offender.append({"p": Vector2(1350,850) + Vector2(sin(angle),1.0-cos(angle)) * 0.12 * 10.0, "age": (7-index) * 0.002, "w": 12.0})
+	var repaired: Recorder = recorded(offender, {}, true, {"origin": Vector2(1280,800), "camera": Vector2(1100,850), "scale": 0.49, "label": "exact native conditioning offender"})
+	check(repaired.polygons.size() >= 2 and repaired.polygons[1] == measured, "the actual failed band retains every exact screen vertex under local submission")
 
 func boat_for(spec: Dictionary, uid: String = "wake045") -> Dictionary:
 	return {"uid": uid, "spec": spec, "x": 300.0, "y": 300.0, "angle": 0.0, "vx": 60.0, "vy": 0.0, "sunk": false, "crew": 7.0, "fuel": 11.0, "ammo": 13.0, "supplies": 2.0}

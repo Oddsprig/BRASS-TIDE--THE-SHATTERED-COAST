@@ -114,7 +114,8 @@ static func _paint_polygon(points: PackedVector2Array) -> PackedVector2Array:
 		twice_area += (polygon[index] - origin).cross(polygon[index + 1] - origin)
 	return polygon if absf(twice_area) >= MIN_PAINT_AREA * 2.0 else PackedVector2Array()
 
-## Canvas contract: draw_colored_polygon(PackedVector2Array, Color).
+## Canvas contract: draw_colored_polygon and draw_set_transform_matrix.
+## Enter at identity; each submitted band restores identity before continuing.
 ## projector(world: Vector2, height: float) -> Vector2 is the affine water plane.
 ## Every height is zero. Geometry cleanup is in projected screen coordinates.
 ## opts.life may shorten the wash; opts.clip_rect is a screen-space cull rect.
@@ -164,6 +165,14 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 			bounds = bounds.expand(point)
 		if opts.get("clip_rect") is Rect2 and not Rect2(opts.clip_rect).intersects(bounds):
 			continue
+		# Native triangulation sums absolute float32 crosses for winding. Thin
+		# visible foam can lose that sign near a large screen origin. Translate
+		# ONLY the submission, preserving all cleaned vertices and screen paint.
+		var origin: Vector2 = polygon[0]
+		for index in range(polygon.size()):
+			polygon[index] -= origin
+		canvas.draw_set_transform_matrix(Transform2D(0.0, origin))
 		canvas.draw_colored_polygon(polygon, colors[layer])
+		canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 		count += 1
 	return count

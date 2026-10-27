@@ -1,5 +1,116 @@
 BRASS TIDE v0.045 - MOVIE TRIANGULATION REPAIR (SOURCE CANDIDATE)
 
+CONFIRMED CONDITIONING REPAIR - 27 OCTOBER 2026 (SOURCE ONLY)
+Repair starts at diagnostic725adfb1bead284ed0ecbb2741889095d0ad80a1;
+Root's corresponding combined source is6c8ff2d. The unchanged module before this
+patch is eee2f64, integrated by Root as ca247b6.
+
+Root diagnostic TestBridge4e0836a60d954be486b1d44ebc5be9cf FAILED21cases;
+20.828seconds including setup, cleanuptrue. Its FIRST offending polygon proves
+conditioning: slow/fading tip spacing0.12, age0, scale0.49, origin(1280,800),
+band1,14finite vertices, crossing_count0, native triangle indices0of36;
+native float32 absolute signed area0, translated area0.020596876740455627,
+translated native triangle indices36of36. Raw stern-wash/native.log was read.
+This establishes the first offender's cause; rerun must assess all21cases.
+
+Production now keeps path selection, widths, colors, cleanup and clipping
+unchanged, then subtracts the cleaned polygon's first screen point from every
+vertex, sets draw_set_transform_matrix(Transform2D(0,origin)), submits the SAME
+polygon near zero, and immediately resets Transform2D.IDENTITY. There is no
+branch/return between setting and resetting. Other returns/culls occur before
+any transform is set; every earlier band has already reset. The contract is
+identity on entry and return, matching Chart and existing sprite/mesh paths.
+No point is inflated, omitted or reordered by this conditioning repair.
+No production Geometry2D calls or extra triangulation, paths or draw primitives.
+Unchanged bounds:.7sec/12samples/3polygon calls/23vertices/69projections.
+At most six transform commands and69vector subtractions per painted path.
+
+Authorized files: game/scripts/wake_art045.gd, game/tests/test_wake045.gd,
+game/tests/test_feedback.gd, this note. No Chart/BoatArt/simulation/audio edits.
+The user explicitly permitted narrow old-Recorder transform compatibility.
+test_feedback.Recorder now applies its EXISTING matrix in draw_colored_polygon,
+after testing native triangulation on submitted local points. Its mesh path
+passes local vertices to that same method so the matrix is applied ONCE;
+screen mesh captures remain identical. Clash/presentation callers keep using
+this Recorder; no alternate absolute-coordinate runtime/capture branch exists.
+The wake Recorder separately retains local submissions and transformed screen
+paint. Full native triangulation/noncrossing checks still use every actual
+submitted polygon; existing real-path center/length/width checks use the screen
+paint. Every invocation checks local origins and paired identity resets.
+A late-invalid-projector case checks reset after a previously painted band.
+The14exact screen vertices from the failed diagnostic are frozen in a public
+draw regression, requiring the repaired band to preserve every one verbatim.
+All actual300Lab Battle/Chart frames and both zooms remain; no proof weakened.
+
+Source/whitespace review only. No engines, tests, GPU, rendering, audio, helpers
+or downloads ran on this seat. Native parsing, all21failures, six-fixture native
+subset, actual movie and continuous-motion acceptance remain Root's work.
+Retain earlier failed logs/movie and do not claim the candidate passed yet.
+The primary source behind the confirmed conditioning analysis is Godot4.7's
+Triangulate::get_area absolute real_t shoelace sum:
+https://github.com/godotengine/godot/blob/4.7-stable/core/math/triangulate.cpp
+
+EARLIER DIAGNOSTIC HANDOFF (HISTORICAL BELOW)
+
+DIAGNOSTIC FOLLOW-UP - 27 OCTOBER 2026
+This patch starts at bc31ba2, with wake_art045.gd unchanged from eee2f64.
+Root needs bc31ba2371467b88deafa4791e619220d2f0d196 first, then the
+TEST-ONLY diagnostic725adfb1bead284ed0ecbb2741889095d0ad80a1.
+Root integrated eee2f64 as ca247b6. Native TestBridge job
+b61d46a3ac9045d08797dbe135c013fe FAILED:17553checks/21failures.
+Five slow/fading cases and16actual Lab paths failed the combined finite /
+noncrossing / fully-triangulable assertion. The log merges those causes;
+it does not establish which predicate failed. All16Lab failures name the
+tactical projection, including enemy-1 frames291/292/293/295/296.
+Prior import/2159weapon assertions passed per Root; preserve both outcomes.
+
+Latest steering requests one FIRST offending polygon diagnostic before any
+speculative geometry repair. This follow-up therefore changes only the fixture
+and this note. The runtime renderer is deliberately unchanged pending evidence.
+All prior legal-path, five-second Battle/Chart, three-band, finite, full native
+triangulation, nonadjacent-intersection and geometry-bound assertions remain.
+
+Recorder now prints WAKE045_FIRST_INVALID once per whole run and retains that
+same bounded dictionary in --out JSON. It includes the exact case/spacing/age
+or frame/boat/tactical label, at most four source callstack frames, wake and
+fixture SHA256 source labels, view transform, submitted band, <=23points,
+native triangle-index count versus expected, nonfinite indices, full crossing
+count and at most eight crossing-edge pairs. Coordinates use full-precision
+JSON. No per-frame polygon dump and no suppression of existing failures.
+The same offending points are also translated by their first point and sent
+to Geometry2D.triangulate_polygon for a second diagnostic count. Native-style
+float32 signed areas are recorded before/after translation; a Vector2 scalar
+accumulator reproduces standard real_t rounding instead of a float64 sum.
+These extra calculations affect only diagnostic capture, never runtime paint.
+
+Source inspection identifies a conditioning hazard, NOT yet its attribution:
+Godot4.7 Triangulate::get_area sums absolute-coordinate Vector2 crosses in
+real_t, whereas the renderer's paint-area cleanup uses translation-relative
+edges. Small valid projected foam near a large screen origin can lose the
+native winding sign. The diagnostic separates this from actual crossings:
+original native count incomplete + local count complete + no reported crossing
+or nonfinite point supports coordinate conditioning. Any crossing or failed
+local triangulation still requires inspection; do not infer this cause from
+the combined assertion alone. Primary source inspected:
+https://github.com/godotengine/godot/blob/4.7-stable/core/math/triangulate.cpp
+
+Possible follow-up ONLY after confirmation: submit translation-relative paint
+under draw_set_transform(origin) and unconditionally restore the identity;
+mirror the actual transform in Recorder and assert reset on all return paths.
+Static caller search found Chart._draw_wakes as the only production caller
+through BoatArt.draw_wake; Chart has no draw_set_transform calls, while the
+existing boat sprite/mesh paths explicitly restore Transform2D.IDENTITY.
+Additional existing callers are clash_capture041 and presentation_flow040,
+both using test_feedback.Recorder. That Recorder has draw_set_transform_matrix,
+but applies the matrix to meshes only, NOT to draw_colored_polygon. It does not
+expose draw_set_transform. A follow-up must preserve these capture callers'
+polygon coordinates; do not assume its matrix method models CanvasItem fully.
+That inspection does not replace confirming the native failure category.
+No transform API/runtime change, width inflation, visible-path omission,
+assertion relaxation, new harness, tests or engines were used in this patch.
+Root owns the next single bounded queued native rerun and its interpretation.
+Native/movie/motion acceptance remains OPEN; the21failures remain failures.
+
 REPAIR HANDOFF - 27 OCTOBER 2026
 Exact repair base: 140beab7beab5a51582a6e27c82cfb9cc5214154.
 Only wake_art045.gd, tests/test_wake045.gd and this handoff are changed.

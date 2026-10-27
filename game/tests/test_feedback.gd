@@ -32,7 +32,7 @@ class Recorder extends RefCounted:
 		var colors: PackedColorArray=arrays[Mesh.ARRAY_COLOR]
 		for i in range(0,vertices.size(),3):
 			var points:=PackedVector2Array()
-			for j in range(3):points.append(transform*Vector2(vertices[i+j].x,vertices[i+j].y))
+			for j in range(3):points.append(Vector2(vertices[i+j].x,vertices[i+j].y))
 			draw_colored_polygon(points,colors[i])
 	func project(p: Vector2,h: float=0) -> Vector2:return origin+Vector2((p.x-p.y)*0.82,(p.x+p.y)*0.41-h)*scale_factor
 	func _points(p: PackedVector2Array) -> Array:
@@ -44,7 +44,9 @@ class Recorder extends RefCounted:
 	func _color(c: Color) -> Array:return [c.r,c.g,c.b,c.a]
 	func draw_colored_polygon(p: PackedVector2Array,c: Color) -> void:
 		if Geometry2D.triangulate_polygon(p).is_empty():invalid+=1
-		prims.append({"t":"poly","pts":_points(p),"c":_color(c)})
+		var painted:=PackedVector2Array()
+		for point in p:painted.append(transform*point)
+		prims.append({"t":"poly","pts":_points(painted),"c":_color(c)})
 	func draw_line(a: Vector2,b: Vector2,c: Color,w: float=-1,_aa: bool=false) -> void:
 		prims.append({"t":"seg","pts":_points(PackedVector2Array([a,b])),"c":_color(c),"w":maxf(0.5,w)})
 	func draw_polyline(p: PackedVector2Array,c: Color,w: float=-1,_aa: bool=false) -> void:
