@@ -1,5 +1,6 @@
 extends RefCounted
 const Deployment = preload("res://scripts/deployment.gd")
+const PressureView = preload("res://scripts/combat_pressure_view044.gd")
 
 static func build(ui, size: Vector2):
 	# Fleet/status controls stay reachable at smaller logical viewport heights.
@@ -24,7 +25,7 @@ static func build(ui, size: Vector2):
 		b.custom_minimum_size.y = 30
 		b.add_theme_font_size_override("font_size", 12)
 		ui.policy_buttons[policy] = b
-	ui.paragraph(ui.left_body, "Bailing needs hands. Patching needs hands and repair kits.", 12)
+	ui.paragraph(ui.left_body, "Fire, break away / reload, bail / patch, return. These priorities act on the flagship. Patching needs kits.", 12)
 	ui.eyebrow(ui.right_body, "FLEET COMMAND")
 	ui.objective_label=ui.paragraph(ui.right_body,preload("res://scripts/battle_objectives.gd").label(ui.host.battle),15,ui.GOLD)
 	ui.paragraph(ui.right_body, ui.host.battle.location.get("name","Coastal waters"), 22, ui.TEXT)
@@ -34,6 +35,7 @@ static func build(ui, size: Vector2):
 	ui.button(ui.right_body, "Select all active boats", ui.host.select_all_boats)
 	ui.button(ui.right_body,"Selected tactics & weapon groups",func():options(ui))
 	ui.tactical_intent_label=ui.paragraph(ui.right_body,"",13,ui.TEXT)
+	ui.tactical_intent_label.tooltip_text="First living selected boat. Water trend compares inflow with bailing. Loaded weapons still need aim and a clear shot. Crew priorities on the left act on the flagship."
 	ui.button(ui.right_body,"Boarding orders",func():ui.BoardingUI.battle(ui))
 	var scroll = ScrollContainer.new()
 	scroll.custom_minimum_size = Vector2(0, 150)
@@ -68,20 +70,20 @@ static func update(ui):
 	ui.battle_control_label.text = "WASD  Camera · Shift  Fast pan\nSCROLL  Zoom · HOME  Center\nCLICK / DRAG  Select · SHIFT  Add\nRIGHT-CLICK  Move / attack / escort\nSPACE  Pause · X  Change flagship\n" + ("ARROWS + MOUSE  Manual control" if not battle.get("autopilot",true) else "All boats steer and fire automatically.")
 	if is_instance_valid(ui.tactical_intent_label):
 		var lines: Array=[]
-		for id in ui.host.selected_battle_ids:
-			var status: Dictionary=ui.host.Battle.tactical_status(battle,str(id))
-			if status.is_empty():continue
-			var name: String="Boat"
-			for boat in battle.ships:
-				if str(boat.id)==str(id):name=str(boat.name);break
-			lines.append(name+" · "+plain(str(status.reason)))
+		var selection: Dictionary=PressureView.selection(battle,ui.host.selected_battle_ids)
+		var boat: Dictionary=selection.boat
+		var status: Dictionary=ui.host.Battle.tactical_status(battle,str(boat.id)) if not boat.is_empty() else {}
+		if not status.is_empty():
+			var flow: Dictionary=ui.host.Damage.get_status_cached(boat,battle.get("tactical",{}).get("damageCache"))
+			lines.append("SELECTED · "+str(boat.name)+(" (1 of %d)"%selection.count if int(selection.count)>1 else ""))
+			lines.append(plain(str(status.reason)))
+			lines.append_array(PressureView.readiness(boat,flow))
 			if not str(status.targetName).is_empty():lines.append("Watching "+str(status.targetName))
 			var index: int=0
 			for mount in status.mounts:
-				index+=1
 				var reason: String=str(status.weapons.get(str(mount.id),"Waiting for a firing opportunity"))
-				lines.append("%s %d · %s"%[str(mount.kind).capitalize(),index,plain(reason)])
-			break # Full selected-group controls live in the scrollable options sheet.
+				lines.append("%s %d · %s"%[str(mount.kind).capitalize(),index+1,PressureView.weapon_state(boat,mount,index,flow,plain(reason))])
+				index+=1
 		ui.tactical_intent_label.text="\n".join(lines) if not lines.is_empty() else "Select a boat to see its intent."
 
 static func plain(value: String) -> String:

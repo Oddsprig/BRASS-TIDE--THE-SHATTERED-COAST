@@ -1,0 +1,119 @@
+0.044 SELECTED-BOAT COMBAT READINESS - SOURCE CANDIDATE
+26 October 2026 | SolRender043 | Native and visual acceptance PENDING Root
+
+REFERENCE AND OWNERSHIP
+Root reference c81ad62 (043 focused native: Root reports 359 checks / 0 failures,
+58.031 seconds including setup; separate actual GPU candidate in progress).
+That result predates this 044 change and does not validate it.
+This isolated worktree starts at a4ead127, already integrated by Root as
+c81ad62. Pre-change interface.gd and tactics_ui.gd match c81ad62 exactly.
+Root must finish/deliver 043 before integrating the separate 044 commit.
+No version metadata, release, launcher, save or graphics setting changed.
+
+main_battle_ui.gd does not exist in c81ad62. Actual HUD entry points:
+  interface.gd: build_battle_hud -> TacticsUI.build; update_hud -> TacticsUI.update.
+  tactics_ui.gd: build/update own the existing selected-boat intent Label.
+Confirmed before editing via board post 8ffffb1b, then Root explicitly confirmed
+interface.gd, tactics_ui.gd, optional new combat_pressure_view044.gd, this note
+and test_pressure_view044.gd. Final implementation uses exactly FOUR files:
+  game/scripts/tactics_ui.gd
+  game/scripts/combat_pressure_view044.gd (new)
+  game/tests/test_pressure_view044.gd (new)
+  tools/quality044/PLAYER LOOP.txt (new)
+interface.gd remains unchanged. No main/chart/profile/tactical/physics/damage,
+art/model/weapon/wake/sound changes. No helper, engine, bake, render, GPU,
+download, CUA or paid fallback execution by this seat.
+
+THE PLAYER LOOP
+Commit to a firing pass. Read each fitted weapon's remaining reload and actual
+fire restriction. Break away with the existing move/withdraw/manual controls
+while reloading. Read whether water is rising or draining and whether engine,
+fuel, repair hands and kits remain. Use the existing flagship crew priorities
+to bail or patch, then choose when to return. No new pressure bar, recovery
+cooldown, damage value, ammunition pool, screen or automatic re-entry gate.
+The short existing damage-control hint now states this loop and clarifies
+that its crew-priority buttons act on the FLAGSHIP.
+
+WHAT CHANGES IN THE CURRENT HUD
+The same right-side intent Label names SELECTED plus the actual first living
+owned selected boat. For multiple selected boats it says '(1 of N)'; values
+belong to that named boat, not a group aggregate or an implicit flagship.
+Enemy, sunk, secured-prize, stale and repeated IDs do not inflate that count.
+An empty valid selection clears prior text. Existing intent, target, physical
+mount order/identity and aim/lane/automatic-fire restriction messages remain.
+The existing flagship bars, damage text and policy callbacks remain intact.
+No additional widget is allocated. The intent Label already wraps words and
+its existing right-side container already scrolls.
+
+Readiness adds three short lines, and a fire line only when fire is nonzero:
+  Water <current percent> - rising / draining <current L/s>, steady, or dry.
+  Engine <actual condition percent> [disabled] - actual fuel, or NO FUEL.
+  Repair <currently assigned hands> - actual kits, or NO KITS.
+  Fire <current percent> when relevant.
+These are current projections, not a prediction that the boat can safely
+return or that supplies/crew will last a future engagement.
+
+SOURCE CONTRACTS
+CombatPressureView.selection returns a synchronous borrowed live boat reference
+plus the distinct valid selection count. Callers must only read that reference.
+readiness(boat, flow) returns fresh text from the current boat and the existing
+Damage.get_status_cached projection on battle.tactical.damageCache. A miss
+uses Damage's existing full public validation; no snapshot stored on a boat,
+no new cache, no weakened equipment guard, no delayed state invalidation.
+An invalid equipment projection reads 'Damage control unavailable'.
+
+Water trend = flow.inflow minus flow.bailing. Bailing already includes real
+hands and pumps. Dry boats do not show fictional negative water. Engine uses
+flow.engineHp AND flow.engineFactor, so nonzero HP on a disabled engine is
+not described as working. Fuel is separate. Repair uses flow.crewRepair and
+boat.supplies; it does not call the projected patch capacity actual completed
+work or promise a repair deadline. Crew can still bail and fight fire with
+no kits; NO KITS refers to patch/hull/machinery repair material readiness.
+
+weapon_state reads the current fitted mount and existing EquipmentCombat
+mount_factor with the supplied current status. Disabled equipment, insufficient
+real ammo for mount.ammoCost and unavailable gun crew cannot read Loaded.
+Remaining reload is boat.weaponCooldowns[index], with the real primary timer
+maxed against boat.cooldown, exactly as the Battle compatibility path requires.
+Missing secondary timing reads 'Reload unavailable', never a generated zero.
+Positive timers show seconds; at zero, 'Loaded' proves reload completion only.
+The existing lane/aim/hold/reserve/manual reason stays visible. A stale prior
+'Reloading' reason becomes 'Loaded - waiting for shot'. No new shot permission,
+reserve calculation, salvo reset or firing decision is introduced.
+All numeric quantities use existing Damage.number and the existing canonical
+condition adapter; there are no newly tuned thresholds or balance parameters.
+
+FOCUSED NATIVE FIXTURE PREPARED, NOT RUN
+game/tests/test_pressure_view044.gd uses real Laboratory birth/fitting/deployment,
+Damage projections and one 1/60-second damage tick, canonical engine/weapon
+damage, and real Label/Button instances through the actual TacticsUI.update.
+It does not load Main, play audio, write saves or touch owner profiles.
+Checks cover first valid owned selection/group count; stale/sunk/prize selection;
+current rising/draining water and finite kit/fuel/hands changes; no-kit hand
+bailing with actual water reduction; disabled engine hysteresis; individual
+mount timers and the primary compatibility timer; preserved aim/lane/hold/reserve
+reasons; out-of-ammo and disabled weapons; unavailable/invalid data; exact input
+non-mutation; actual selected ally vs flagship text, switching and empty clearing.
+Optional --out=<Root-owned report path> writes checks/failures JSON.
+Root may add this one native fixture to a bounded shared Test Bridge batch:
+  <installed Godot> --headless --path <exact game> --audio-driver Dummy
+    --script res://tests/test_pressure_view044.gd -- --out=<owned report>
+Root owns executable, source binding, queue, synthetic profile and cleanup;
+the entire selected batch including setup/startup/cleanup stays below120 seconds.
+
+VALIDATION AND REMAINING ACCEPTANCE
+Source review read the complete owned diff, helper and fixture, plus the actual
+Battle timer/firing, EquipmentCombat mount-condition, Damage projection and
+HUD callbacks. Direct-preload API advisory: issues[], engineInvoked:false.
+Owned diff whitespace check is clean. Unchanged HUD bytes/line endings are
+preserved, so the existing module diff is limited to the intended hunks.
+These checks cannot establish native parsing, assertions, visual clarity or fun.
+No native test result is claimed by this seat.
+Root still needs the focused native fixture on the final integrated 044 source,
+then actual normal-zoom HUD review during a firing pass, reload/breakaway,
+flooding/bailing/repair and return. Check selected non-flagship and group labels,
+manual/auto restrictions, legibility/wrapping and access to the existing fleet
+buttons at supported viewport sizes. Long names/reasons or many mounts may
+require scrolling; no visual acceptance is inferred from Label.text tests.
+No weapon art/impact/audio 045 work, physical combat tuning or completed combat
+feel claim is part of this presentation-only candidate.
