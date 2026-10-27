@@ -29,9 +29,15 @@ WASD camera; Space pause; select a boat and right-click for orders; U toggles
 manual flagship control; Escape opens the menu.
 
 VERIFICATION
-This source candidate still needs its focused native checks, portable export,
-actual scenario review and full300DP rendered measurement. Final receipts live
-under tests/. Short prefixes cannot prove a whole escort voyage or firing pass;
-offline recordings cannot certify realtime60FPS. Sound tests stay silent.
-The043performance miss and051whole-core quality gate remain OPEN.
+15283 focused native checks passed, followed by Windows export and three
+portable startups. The whole selected batch stayed below120seconds including
+setup and owned cleanup. Seven real five-second offline battle recordings were
+sampled chronologically. Receipts and review limits are included under tests/.
+Short prefixes cannot prove a whole escort voyage; offline recordings cannot
+certify realtime60FPS. No listening or full-playfeel acceptance is claimed.
+
+Actual full300DP performance is still unacceptable:42light boats4.605FPS;
+16mixed boats17.084FPS. Mixed performance remains below the matchedv045 build.
+All60FPS/frame/simulation targets remain UNMET; see PERFORMANCE v0.046.txt.
+The051whole-core quality gate remains OPEN. Scope delivery does not close it.
 047command layout,048workshop,049remaining hull art and050coast stay separate.

@@ -2,39 +2,29 @@
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
-This supersedes the planning-only instruction below. Build and deliver each
-saved scope in order, preserving the previous release/saves. Current scoped
-delivery is0.045 weapons/impacts/wakes/audio, testedsource611d081.
-045package/desktop verification is complete; one launcher preserves2voyages
-and18music tracks. Active046metadata is prepared ONCE and the three source
-patches are integrated. Focused native/export/scenario/performance work is next.
-v0.043 measured fixes are delivered at source/tag5ea0d04/v0.043 with419
-focused checks and actual rendered baseline/final measurements. The smoothness
-target remains OPEN: light4.330FPS, mixed28.686FPS at full300DP per side. Do not jump ahead to later scopes or treat tests as art.
-Three Bridge Sol6.1MAX seats retain their045 Weapons/Wakes/Feedback project IDs.
-046runtime925f899, roles0471f57 andLab0ddf14c are integrated, not yet tested.
-Root owns all native jobs. Earlier
-043seats are finished/idle and must not resume historical assignments.
-Grok4.7HIGH may review concrete output. Root coordinates/integrates and owns
-all shared-queue native/bake execution, versions, delivery and desktop updates.
-Read taskCURRENT STATE andNEXT SCOPE0.046.txt; OWNER SCOPE042 is historical.
-Root source is outputs/brass-tide. Helpers stay source-only in isolated worktrees.
-No nested helpers, paid fallback, downloads, unqueued engine/render/GPU work,
-foreground/input takeover or test audio. Selected complete test batches remain
-below120seconds. Respect other apps/leases and recorded GPU/resource authority.
-Keep the single Desktop Brass Tide launcher on the latest verified release.
-Preserve its two voyage files,18music tracks and all older release folders.
-0.043 uses safe graphics submission after an exact-build comparison removed
-actual separate-mode texture/finalization errors. Keep economy workers and
-the existing worker pool enabled. Do not restore experimental separate mode
-from the historical instruction farther below without new evidence.
-The final419 focused checks pass and actual rendered measurement is complete,
-but all performance targets remain unmet (4.330FPS light,28.686FPS mixed).
-Native correctness and measurement completion remain separate from smoothness,
-game feel and milestone0.051 acceptance. Carry the concrete light-fleet cost
-case into tacticalAI0.046 and the quality milestone; do not reduce actors/Hz.
-PlainDesktopBrassTide.lnk is the singlelatestlauncher; oldernumberedlaunchers are
-archivedinsideDesktop/BrassTide/Archivedlaunchers andoldbuildsremainintact.
+Build the saved scopes in order. Current scoped delivery:0.046 tacticalAI,
+source/tag0fd35d1/v0.046. Native15283/0 plus export/three startups passed in
+61.009s with setup/cleanup. Seven five-second offline recordings sampled.
+All realtime performance targets remain UNMET:42light4.605FPS;16mixed17.084FPS.
+Mixed is worse than matched045. Core-quality051 remainsOPEN; no052breadth
+until it passes. Scoped delivery does not certify art, audio, fun or parity.
+
+Next0.047 fleetcommand: sources prepared in two isolated BridgeSol6.1MAX
+worktrees; metadata NOT prepared until046package/Desktopverification.
+Root coordinates/integrates all engine/render/bake/shared-queue jobs and
+versions. Helpers source-only, maximum3activeSol6.1MAX; optionalGrok4.7HIGH.
+No ask_project/delegate/AIbrain/providerfallback/nestedhelpers. Earlier seats
+finished/idle must not resume historical tasks without a new exact brief.
+Read work/quality-v042-v061/CURRENT STATE.txt for actual IDs and handoff.
+
+Background only, Dummy/muted synthetic profiles; no input, focus or existing
+app control. Respect GAME TESTING RULES/shared TestBridge and other apps.
+Each whole selected batch below120seconds including setup/export/cleanup.
+Keep safe graphics submission; exact-build separate mode caused native
+texture/finalization errors. Economy workers and existing worker pool stay on.
+Single Desktop Brass Tide launcher tracks latest verified installed release;
+preserve two voyages,18music tracks, older builds and archived launchers.
+Historical paragraphs below are superseded where they conflict with this.
 
 # Latest owner request - Starsector quality roadmap (planning, superseded)
 
@@ -82,7 +72,7 @@ shortcut. Headless correctness does not establish graphics, FPS or game feel.
 
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
-This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.045; continue with the next saved scope only. Earlier planning-only/stop-v031
+This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.046; continue with the next saved scope only. Earlier planning-only/stop-v031
 paragraphs below are historical and superseded by this new instruction.
 
 Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol

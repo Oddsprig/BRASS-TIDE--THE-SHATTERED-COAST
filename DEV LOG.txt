@@ -1,3 +1,5 @@
+v0.046 VERIFIED AND PACKAGED: 15283/0 focused checks, selected batch 61.009s, TestBridge 4368ea3f39ce45d487a2a458cb3e67a9. Source 0fd35d1fa30862a9055354154a8539e924fc9ffa.
+
 27OCT2026 - v0.046 TACTICAL AI: USEFUL ROLES, STABLE MANEUVERS AND HULL CLEARANCE
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

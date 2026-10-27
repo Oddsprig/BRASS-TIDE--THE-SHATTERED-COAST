@@ -1,0 +1,49 @@
+BRASS TIDE v0.046 - ACTUAL EXPORTED PERFORMANCE,27OCT2026
+
+STATUS: ALL60FPS/FRAME-TIME/SIMULATION TARGETS REMAIN UNMET.
+This scope improves tactical behavior; it does not close the043smoothness miss
+or the051whole-core quality gate. Do not advance to052campaign breadth if the
+core gate fails. A passed measurement means complete evidence, not good speed.
+
+Same declared42light boats or16mixed boats, full300deployment points PER SIDE,
+60Hz physics,120FPS game cap. No actors, useful AI or physics frequency removed.
+Intel Core Ultra9 275HX,24logicalCPUs; RTX5090Laptop, VulkanMobile, safe graphics
+submission1. Requested2560x1600; actualclient2560x1570/logical1600x1000, zoom1.
+Private non-input Windows desktop, BelowNormal,24CPU affinity,100percent owned
+CPU allowance,2GiB owned-process memory cap, Dummy audio. No desktop activation,
+focus/input control or other-app changes. These background runs do not establish
+a foreground-session guarantee. GPU/driver resources remain shared.
+
+MATCHED RUNS
+Version/source          Light FPS  Light sim median/P95   Mixed FPS  Mixed sim median/P95
+045/611d081              4.246      28.496/41.657ms         30.252     11.961/15.241ms
+046/d074400 first        4.173      29.160/41.513ms         22.004     13.478/16.461ms
+046/0fd35d1 corrected    4.605      25.825/40.579ms         17.084     13.748/16.082ms
+
+Matched045 job:f21410e8491a48a589ee61be1bc2cf0d,57.562s including setup.
+First046 job:cde7dcf69f6641cd8bcb739c84a122a7,57.766s including setup.
+Corrected046 job:3e7f1595cf2241d7bec9b9ca4eca4008,57.641s including setup.
+All three complete with active movement, fire, damage, flooding and effects;
+mixed cases also include actual missiles. Cleanup is complete; no native errors.
+The same roster/seed/envelope does NOT produce identical battle chronology
+after an AI behavior change. Corrected mixed battle records96real fire events
+versus88in045; light28versus73. This is context, not an excuse or a speed claim.
+Corrected light simulation is cheaper; mixed displayedFPS remains worse than045.
+
+BOUNDED046CORRECTIONS
+Hostile queries use the current grid's observed largest navigation envelope,
+replacing oversized220unit padding. Light query radius258.5becomes84units.
+Exact swept narrow-phase checks, margins, contact exceptions and live cadence
+remain. Edge, large-hull and future-crossing checks cover the tighter bound.
+Heavy pressure ends in a checked gun-station hold. It no longer demands a
+distant future rally route before firing; actual withdrawal remains separate.
+Seed83surrounded heavy now emits4real shots on tick5(.0833s), spends6actual
+ammunition and retains live firing denial and explicit withdrawal authority.
+
+LIMITS / NEXT QUALITY WORK
+Whole-core smoothness remains a demonstrated failure. Carry actual damage,
+planning/certification, helm and presentation costs into051's bounded fixes.
+047commands,048workshop,049roster art and050coast remain their saved scopes.
+Fixed60frame/s offline movies are NOT realtime60FPS evidence. Short native
+prefixes are not whole-scenario or play-feel certification. Preserve every
+earlier failed/interrupted result and the raw TestBridge case reports.
