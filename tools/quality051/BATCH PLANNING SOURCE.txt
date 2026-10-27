@@ -1,0 +1,46 @@
+051 WHOLE-SIDE PLANNING - SOURCE CANDIDATE, NATIVE/GPU UNRUN
+Own base36f51c0; Nav dependencybfb8b8e cherry-picked as245871f (parent).
+Root cherry-picks ONLY this final owned commit, not the whole branch.
+
+Runtime keeps the existing globally oldest-first main observation cap. Planner
+dispatches one owned whole-side batch per0.15s, including every automated hull;
+nextAt prevents redispatch when a small side consumes its results early. One
+outstanding task per side, two globally INCLUDING retired jobs. No task queue,
+physics await or new Main lifecycle. Poll/join/retire/drain remain in place.
+Startup/commands/manual/invalidations and missing/late output use main; bounded
+nonblocking waiting never advances observation clocks or spends the main cap.
+
+Each side job owns independent hard2900 clearance/four route-search slices in
+global age order. These are PURE work, no duplicate debit to main's normal
+2900 planning/4096 live allowance. All actors,300DP,60Hz/eight offers stay.
+_work051 owns view/memory/geometry/cache, builds time=data.view.time and
+tactical.cells=Routes.grid(data.view.ships,true), then calls Nav's exact
+Routes._prepare_detached051. Requests are grouped once per hull on the worker.
+
+Normal joins keep <=0.15s preferences without another protected-ally/shortlist/
+_decide pass. Current owner/spec/mounts/command/options/manual/terrain/capability,
+target/leader identity and phase/pass/shot/reload checks reject meaningful
+changes. Current survival/focus/close-hostile danger falls back to full planning.
+HP history preserves real snapshot sample times and adds actual current HP at
+the current clock; phase/pass timestamps are never relabeled as adoption time.
+Certification._begin_inputs has one DEFAULT-FALSE private membership argument.
+Worker detailedIds (<=16) are rechecked against current live hostile membership;
+normal public/default full membership construction is unchanged. No third
+protected-ally/shortlist pass for an accepted worker preference.
+
+Nav adoption still owns current actual-pose land connector/current0.3s traffic,
+full static route/ETA and fallback; fresh main certificates/reservations/current
+helm/contact/muzzles/actual emission remain authoritative. No Routes/Damage/
+Battle/Art/Main edits in this commit. Stores/crew/reserves/RNG remain unchanged.
+
+Existing workers fixture now checks real whole-side jobs beyond consumption
+cap,0.15s spacing, expiry adoption, independent work caps, actual sample clocks,
+cheap membership, blocked connector, danger/invalidations and cleanup. Root's
+R22 physical-veto correction is retained; a late hostile must trigger actual
+fresh breakaway observations within UNCHANGED0.2s, allowing a later helm veto.
+Other AI functions unchanged. Existing four counters retained; unused batched
+preferences may expire, so drops alone do not mean a safety rejection.
+
+Preload advisory:0 issues including actual Nav dependency. Whitespace clean.
+Source evidence ONLY: native, voyage, export and actual GPU belong to Root.
+No engine/downloads/helpers/new harness. Savings UNMEASURED;051 gate OPEN.

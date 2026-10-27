@@ -172,7 +172,7 @@ static func detailed_targets(view: Dictionary,ship: Dictionary,previous: Diction
 static func candidate_valid(candidate: Dictionary,view: Dictionary,ship: Dictionary,membership: Array=[]) -> bool:
 	return _candidate_valid(candidate,view,ship,membership)
 
-static func _begin_inputs(view: Dictionary,ship: Dictionary,membership: Array) -> Dictionary:
+static func _begin_inputs(view: Dictionary,ship: Dictionary,membership: Array,prepared_membership051: bool=false) -> Dictionary:
 	# Runtime.begin owns these detached observations for one synchronous due hull.
 	# Index only invariant observations, never a candidate/route/physical verdict.
 	var ids: Dictionary={}
@@ -181,7 +181,14 @@ static func _begin_inputs(view: Dictionary,ship: Dictionary,membership: Array) -
 	for raw in view.get("ships",[]):
 		if raw is Dictionary and str(raw.get("team",""))!=str(ship.get("team","")) and not raw.get("sunk",false) and not raw.get("captureSecured",false):
 			hostiles[str(raw.get("id",""))]=true
-	var detailed: Array=(membership if not membership.is_empty() else detailed_targets(view,ship)).duplicate()
+	var detailed: Array=(membership if prepared_membership051 or not membership.is_empty() else detailed_targets(view,ship)).duplicate()
+	if prepared_membership051:
+		# Private joined preference only. Its <=16 selected IDs are checked
+		# against CURRENT live hostile membership, without a third role search.
+		detailed=[]
+		if membership.size()<=16:
+			for raw: Variant in membership:
+				if raw is String and hostiles.has(raw) and raw not in detailed:detailed.append(raw)
 	var cert: Dictionary=base_certificate(view,ship,{},"")
 	cert.fireWindow.mountIds.make_read_only();cert.fireWindow.mountTargets.make_read_only()
 	cert.fireWindow.make_read_only();cert.checkedPose.make_read_only();cert.make_read_only()

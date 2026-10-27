@@ -528,7 +528,6 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	var cap: int=maxi(1,ceili(float(queued.size())/10.0))
 	t.metrics.activeCount=queued.size();t.metrics.normalLimit=cap
 	var due: Array=[]
-	var worker_due051: Array=[]
 	var observed_due051: int=0
 	var retained_contexts: Dictionary={}
 	for id in queued:
@@ -545,13 +544,6 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var interval: float=Planner.OBSERVATION_SECONDS051 if t.has("workers051") else (0.15 if t.intents.has(id) else 0.1)
 		if Planner._waiting_worker051(st,str(id)):continue
 		if last>=0.0 and float(st.time)-last<interval-0.000001:continue
-		var held051: Variant=t.retained051.get(id)
-		var full051: bool=not held051 is Certification._Retained051 or float(st.time)-held051.chosen_at>=0.30-0.000001
-		# Dispatch is NOT a useful observation and must not consume one of its
-		# fair slots too. Existing maneuvers still use the fresh observer below.
-		if full051 and worker_due051.size()<cap and Planner._can_dispatch051(st,str(id)):
-			if held051 is Certification._Retained051:_observe_retained051(st,str(id),frame_cache,retained_contexts)
-			worker_due051.append(id);continue
 		if observed_due051>=cap:continue
 		observed_due051+=1
 		if not _observe_retained051(st,str(id),frame_cache,retained_contexts):due.append(id)
@@ -608,7 +600,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var side: String=str(ship.team)
 		var snapshot: Dictionary=snapshots[side]
 		var real_attempt: bool=false
-		var membership: Array=Certification.detailed_targets(snapshot,ship,t.memory[side].get("byId",{}).get(id,{}))
+		var worker_membership051: bool=id in planning[side].get("workerIds051",[])
+		var membership: Array=planning[side].decisions[id].detailedIds if worker_membership051 else Certification.detailed_targets(snapshot,ship,t.memory[side].get("byId",{}).get(id,{}))
 		var candidate_inputs: Dictionary={}
 		for raw in proposed.get(id,[]):
 			# The existing per-hull allowance cannot certify another offer after a
@@ -616,7 +609,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			# only to have certification refuse them before its corridor walk.
 			if t.budget.rolled.has(id):break
 			t.metrics.planningCalls.candidates+=1
-			if candidate_inputs.is_empty():candidate_inputs=Certification._begin_inputs(snapshot,ship,membership)
+			if candidate_inputs.is_empty():
+				candidate_inputs=Certification._begin_inputs(snapshot,ship,membership,worker_membership051)
+				membership=candidate_inputs.detailed
 			if not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
 			var prepared_route051: Dictionary=planning[side].get("routes051",{}).get(str(raw.candidateId),{})
 			var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ship,raw,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051) if prepared_route051.is_empty() else Routes._adopt_prepared051(st,t.geometry,ship,raw,prepared_route051,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051)
@@ -678,12 +673,11 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		t.metrics.pendingAges.append(age)
 		t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
 	detail.resolution=Time.get_ticks_usec()-phase_started
-	# Actual due jobs use ONLY the remainder after main certification/resolution.
-	# There is no speculative timer/view rebuild and no second decision-slot
-	# charge. Missing slots/budget get main fallback next tick; dispatch admission
-	# and its bounded nonblocking wait leave the unchanged .2s observation limit.
+	# One owned whole-side sample every .15s, independent of the fair main cap.
+	# Worker pure route slices have their OWN hard 2900/4 limits; current main
+	# connectors/certification/resolution retain the normal budget above.
 	phase_started=Time.get_ticks_usec()
-	var worker_tally051: Dictionary=Planner._dispatch_due051(st,worker_due051,_worker_view051,_worker_capability051,frame_cache)
+	var worker_tally051: Dictionary=Planner._dispatch_batch051(st,queued,_worker_view051,_worker_capability051,frame_cache)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.workerDispatches+=int(worker_tally051.dispatches)
 		_runtime_profile043_counts.workerDrops+=int(worker_tally051.drops)

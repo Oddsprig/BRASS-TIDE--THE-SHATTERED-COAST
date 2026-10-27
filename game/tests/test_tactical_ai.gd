@@ -658,19 +658,33 @@ func _worker_slot051(arena: Dictionary) -> Dictionary:
 	var st: Dictionary=arena.state
 	var id: String=str(arena.source.id)
 	T.enable_planning051(st);worker_states051.append(st)
-	# Obtain a REAL retained maneuver and its actual due job. No fabricated
-	# task, retained descriptor, completion flag or physical certificate.
+	# Obtain a REAL whole-side sample just before retained preference expiry.
+	# No fabricated task, descriptor, completion flag or physical certificate.
+	var batch_times: Dictionary={}
+	var spaced: bool=true
+	var whole_side: bool=false
 	for tick: int in range(60):
-		var held: Variant=st.tactical.retained051.get(id)
 		B.update(st,1.0/60.0);B.pop_events(st)
 		var slots: Dictionary=st.tactical.workers051.slots
-		if slots.has("player") and id in slots.player.remaining and held is C._Retained051:
+		for side: String in slots:
+			var made_at: float=float(slots[side].createdAt)
+			if batch_times.has(side) and made_at>float(batch_times[side])+0.000001:spaced=spaced and made_at-float(batch_times[side])>=0.15-0.000001
+			batch_times[side]=made_at
+			whole_side=whole_side or slots[side].remaining.size()>int(st.tactical.metrics.normalLimit)
+		var held: Variant=st.tactical.retained051.get(id)
+		if slots.has("player") and id in slots.player.remaining and held is C._Retained051 and float(slots.player.createdAt)==float(st.time) and float(st.time)-held.chosen_at>=0.20-0.000001:
 			var slot: Dictionary=slots.player
-			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at>=0.30-0.000001,"worker case really dispatches only when its retained preference is due")
-			check(not st.tactical.retained051.has(id) and float(st.tactical.lastDecision[id])==float(slot.guards[id].decisionAt) and float(slot.createdAt)==float(st.time) and Planner._waiting_worker051(st,id),"due dispatch preserves the last real observation and waits without publishing worker authority")
-			check(Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"real dispatch reserves within the existing global work/task caps")
+			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at<0.30+0.000001 and spaced,"whole-side samples are at least0.15s apart, before normal preference expiry")
+			check(float(st.tactical.lastDecision[id])==float(slot.guards[id].decisionAt) and float(slot.createdAt)==float(st.time) and is_same(st.tactical.intents.get(id),held.intent),"batch dispatch preserves real observation clocks and grants no new helm authority")
+			var complete: bool=true
+			for side: String in slots:
+				if float(slots[side].createdAt)!=float(st.time):continue
+				for ship: Dictionary in st.tactical.ships.values():
+					if str(ship.team)==side and str(ship.id)!=str(st.tactical.manualId):complete=complete and str(ship.id) in slots[side].remaining
+			check(complete and whole_side and Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"whole-side jobs include every automated hull beyond the consumption cap without exceeding main/global task caps")
 			return {"slot":slot,"held":held}
-	check(false,"worker case obtains a real retained due job within60 public ticks")
+		OS.delay_usec(500) # Fixture scheduling only, outside public physics.
+	check(false,"worker case obtains a real whole-side expiry sample within60 public ticks")
 	observations.append({"case":"workers-start-failed","time":st.time,"intent":st.tactical.intents.get(id,{}),"memory":st.tactical.memory.player.byId.get(id,{}),"reason":st.tactical.reasons.get(id,""),"slots":st.tactical.workers051.slots.keys()})
 	return {}
 
@@ -703,13 +717,28 @@ func workers051() -> void:
 			before=C.pose(source)
 			B.update(st,1.0/60.0);B.pop_events(st)
 			if id in slot.adopted:break
-		check(id in slot.adopted and float(st.time)-lease.held.chosen_at>=0.30-0.000001 and float(st.time)-observed_at<=0.2+0.000001,"actual due job ADOPTS after normal0.30s expiry within the unchanged useful-observation bound")
+		check(id in slot.adopted and float(st.time)-lease.held.chosen_at>=0.30-0.000001 and float(st.time)-observed_at<=0.2+0.000001,"whole-side preference ADOPTS after normal0.30s expiry within the unchanged useful-observation bound")
 		check(not is_same(st.tactical.retained051.get(id),lease.held) and F.pos(source).distance_to(origin)>0.0,"adopted suggestion publishes a new real maneuver and moves the actual boat")
 		var intent: Dictionary=st.tactical.intents.get(id,{})
 		var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
 		check(not record.is_empty() and record.certificate.checkedPose==before and record.certificate.checkedAt==float(st.time) and record.certificate.snapshotRevision==int(st.tactical.snapshotRevision),"main creates a fresh pose/clock/revision certificate, never the worker's old observation")
 		check(F.pos(worker_view).distance_to(F.pos(source))>0.0 and not output.has("certificate") and output.planning.candidates.size()<=8,"worker output is detached, bounded station/path preference data only")
-		for budget: Dictionary in output.budgets.values():check(int(budget.clearanceTests)<=int(budget.clearanceLimit) and int(budget.fullRoutes)<=4,"pure worker stayed inside its preassigned work slice")
+		var clearance_limit: int=0
+		var route_limit: int=0
+		var routes_used: int=0
+		for budget: Dictionary in output.budgets.values():
+			clearance_limit+=int(budget.clearanceLimit)
+			route_limit+=int(budget.routeAllowance051)
+			routes_used+=int(budget.fullRoutes)-4+int(budget.routeAllowance051)
+			check(int(budget.clearanceTests)<=int(budget.clearanceLimit) and int(budget.fullRoutes)<=4,"pure worker stayed inside its preassigned work slice")
+		check(clearance_limit<=2900 and route_limit<=4 and routes_used<=4,"whole-side pure work has independent bounded2900 clearance/four route allowances")
+		var sampled_history: Array=output.planning.decisions[id].state.observations
+		var joined_history: Array=st.tactical.memory.player.byId[id].observations
+		check(float(sampled_history[-1].lastAt)==float(slot.createdAt) and float(joined_history[-1].lastAt)==float(st.time) and float(joined_history[-1].lastHp)==float(source.hp),"normal join preserves worker sample times and appends actual current HP without a role redecision")
+		var now_view: Dictionary=T.view(st,"player",[id])
+		var now_owner: Dictionary=Roles.ships_by_id(now_view)[id]
+		var checked_membership: Dictionary=C._begin_inputs(now_view,now_owner,[str(arena.target.id),"absent",id,str(arena.target.id)],true)
+		check(checked_membership.detailed==[str(arena.target.id)] and C._begin_inputs(now_view,now_owner,[],true).detailed.is_empty(),"private prepared membership checks current live hostile IDs, deduplicates and preserves an empty selection")
 		observations.append({"case":"workers-retained-expiry","createdAt":slot.createdAt,"chosenAt":lease.held.chosen_at,"adoptedAt":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"workerPose":C.pose(worker_view),"mainCheckedPose":record.get("certificate",{}).get("checkedPose",{}),"budgets":output.budgets})
 	T.retire_planning051(st);T.drain_planning051()
 	# A real joined land route on the right remains geometrically valid there.
@@ -738,7 +767,9 @@ func workers051() -> void:
 		var event_revision: int=int(st.tactical.snapshotRevision)
 		var decisions_before: int=int(st.tactical.counters.decisions)
 		arena.target.x=float(source.x)+45.0;arena.target.y=float(source.y)
-		B.update(st,1.0/60.0);B.pop_events(st)
+		for tick: int in range(12):
+			B.update(st,1.0/60.0);B.pop_events(st)
+			if id in slot.discarded:break
 		var fresh: Dictionary=st.tactical.memory.player.byId.get(id,{})
 		var history: Array=fresh.get("observations",[])
 		check(old_phase=="approach" and id in slot.discarded and id not in slot.adopted and str(fresh.get("phase",""))=="breakaway","changed live phase rejects worker offers and rebuilds from the fresh main escape decision")
