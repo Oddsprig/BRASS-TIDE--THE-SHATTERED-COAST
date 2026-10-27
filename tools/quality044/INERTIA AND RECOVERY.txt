@@ -1,0 +1,103 @@
+0.044 INERTIA AND RECOVERY - SOURCE CANDIDATE
+26 October 2026 | SolRender044 | Native and play acceptance PENDING Root
+
+SCOPE AND INTEGRATION
+Transferred from Simulation's parked proposal by Root; no movement edit was
+present there. Read simulation043/tools/quality044/COMBAT PRESSURE DESIGN.txt.
+This separate change is based on saved HUD commit 2b2cdb5. That HUD commit
+remains untouched. Root reference for the unchanged motion code is c81ad62;
+043 checked-phase work is separate. Integrate only AFTER Root delivers 043.
+The three owned files are:
+  game/scripts/equipment_rollout.gd
+  game/tests/test_combat_pressure044.gd (new)
+  tools/quality044/INERTIA AND RECOVERY.txt (new)
+Allowlist published before editing in meeting post 97e4362c.
+No damage, role AI, tactical, weapons, HUD, art, metadata or version edits.
+No engine, test fixture, build, bake, render, GPU, CUA, download or helper run.
+
+ONE TUNING POINT
+motion_with_status now divides the existing velocity response by one inertia
+factor: clamp(hull size / 14, 1, 2.5). This same response controls acceleration,
+braking and retention of the old velocity during a course change. There is no
+new hull data, saved momentum state, public API, cooldown or separate system.
+Tinwake's size 14 retains the exact previous response. Smaller or missing-size
+hulls also retain it. Size 21 Ashwake uses 1.5 times that response duration;
+size 30 Furnace uses about 2.14 times. The cap is 2.5 times for size 35+.
+These are authored parameter ratios, NOT measured stopping or turn results.
+
+The desired velocity, top-speed target, existing angle/turn-rate limit,
+throttle and boost multipliers are unchanged. Engine/crew/flood status and
+empty-fuel factors still enter through the existing code. Propulsion fuel
+debit and invalid-equipment handling are unchanged. Damage.tick_ship still
+owns crew allocation, bailing, patching, machinery work and finite supplies.
+Heavier boats can coast farther while braking or turning; no instant velocity
+rotation or extra force has been added. Light boats retain their escape tool.
+
+SHARED LIVE AND FORECAST PATH
+Battle._move -> Certification._motion_with_status ->
+EquipmentRollout.motion_with_status. Public Certification.motion and the private
+EquipmentRollout.prefix also call this exact numerical helper. No second
+forecast equation was added. Hull size is already part of Certification's
+motion input/dynamics key and the copied spec, so this tuning needs no key or
+guard change. Physical sweep/traffic clearance and status validation remain
+at their existing call sites. Actual obstacle stopping clearance still needs
+Root's integrated native checks because heavy braking distance has changed.
+
+ONE FOCUSED FIXTURE PREPARED, NOT RUN
+test_combat_pressure044.gd uses actual world hulls, stock fitting, canonical
+EquipmentRecords initialization and public Damage projections. No Main scene,
+planner loop, combat shots, rendering, audio, saves or owner profiles are exercised.
+The fixture has bounded loops at 30Hz and emits the observed numerical metrics:
+  - Tin/Ash/Furnace stopping time to <=0.5 units/s and distance at their actual
+    cruising speeds, plus equal-60-speed Tin/Furnace trials to isolate inertia.
+  - Speed fraction after one/three seconds; 90-degree bow and velocity-course
+    alignment times; course lag, forward travel and maximum angular step.
+  - Actual Battle._move versus Certification.motion and direct shared-helper
+    parity through boost, turn, fuel exhaustion, canonical engine damage and
+    braking. Forecast calls must leave their source boat/status unchanged.
+  - Two ten-second withdrawals: dry Tin versus an otherwise matching Tin with
+    25% water, area-90 breach and 0.02 carried kits. Both start outbound at the
+    same speed, at Tin's real firing range from identical pursuing Ash boats.
+    Damage.tick_ship and Battle._move advance all four boats. This intentionally
+    isolates withdrawal mechanics; no firing, hits, role decisions or tactical
+    certification success are inferred. The escape boundary is Ash's real range.
+  - The actual late-withdrawal state with a damaged installed engine is copied
+    into paired recovery cases carrying three versus zero kits from the start.
+    Six seconds on bail policy, then 24 on repair use real crew and Damage work.
+    The kit ledger must match actual debits, no-kit bailing cannot patch or
+    restore machinery, repair respects the existing jury cap, and crew/ammo
+    cannot appear. A separate one-second return leg starts the recovered boat
+    from rest and must consume propulsion fuel. That reset is a fixture boundary,
+    not a claim that recovery or throttle input instantly stops a live boat.
+
+Assertions compare measured outcomes and resource/trajectory consistency;
+there is no copied exponential response or computed expected stopping formula.
+Broad agility/momentum bounds are prospective acceptance criteria, not passing
+evidence. The fixture's worst-case loops are finite; wall time is UNMEASURED.
+It is one fixture for Root's existing bounded runner, not a new test framework.
+
+ROOT VALIDATION AND REMAINING LIMITS
+Only source/static review is authorized for this seat. Native parsing, actual
+assertions, timings and behavioral acceptance remain pending Root. This source
+candidate is not an accepted 044 release and has no gameplay-quality claim.
+The complete owned source/fixture was read against the real API declarations.
+Direct-preload API advisory: issues[], engineInvoked:false. This advisory does
+not validate native parsing, types, assertions or numerical outcomes. The
+production diff is limited to one inertia local, its comment and the existing
+velocity interpolation; the pre-change module matches Root reference c81ad62.
+Root may run the focused fixture through the shared Test Bridge after 043:
+  <installed Godot> --headless --path <exact integrated game> --audio-driver Dummy
+    --script res://tests/test_combat_pressure044.gd -- --out=<owned report path>
+The optional JSON report contains checks, failure messages and measured metrics;
+metrics also go to stdout. A missing/unwritable requested report fails the fixture.
+Root owns exact-source binding, synthetic profile, scheduling and cleanup;
+the entire selected batch including setup/startup/cleanup must stay below120s.
+Keep failed/queued/interrupted evidence distinct from passed results.
+
+Numerical success would establish only this fixture's trajectories, shared-math
+parity and finite damage-control work. Root still needs actual normal-zoom
+motion review: light boats should peel away usefully, heavy boats should carry
+readable momentum, and real approaches should brake safely without useless
+oscillation or obstacle/traffic contact. Inspect commit/reload/breakaway and
+bail/repair/return alongside the separate 044 HUD/weapon candidates. No video,
+normal-play feel, AI quality, GPU/FPS result or successful full battle is claimed.

@@ -66,7 +66,10 @@ static func motion_with_status(ship: Dictionary,dt: float,desired: float,throttl
 	var turn_rate: float=maxf(0.0,Damage.number(ship.spec.get("turn"),1.8))*clampf(Damage.number(status.get("turnFactor"),1.0),0.0,1.0)
 	var angle: float=wrapf(float(ship.angle)+clampf(angle_difference(float(ship.angle),desired),-turn_rate*dt,turn_rate*dt),-PI,PI)
 	var speed: float=maxf(0.0,Damage.number(ship.spec.get("speed"),90.0))*float(status.speedFactor)*(1.0 if float(ship.fuel)>0.0 else 0.2)*throttle*(1.2 if boost else 1.0)
-	var velocity: Vector2=Vector2(ship.vx,ship.vy).lerp(Vector2.from_angle(angle)*speed,1.0-exp(-dt*4.0))
+	# Keep the light hull response; larger hulls carry momentum through throttle
+	# changes and turns. This one factor serves both live motion and forecasts.
+	var inertia: float=clampf(Damage.number(ship.spec.get("size"),14.0)/14.0,1.0,2.5)
+	var velocity: Vector2=Vector2(ship.vx,ship.vy).lerp(Vector2.from_angle(angle)*speed,1.0-exp(-dt*4.0/inertia))
 	var p: Vector2=Routes.point(ship)+velocity*dt
 	var fuel: float=float(ship.fuel)
 	if velocity.length()>5.0:fuel=maxf(0.0,fuel-dt*(0.018 if boost else 0.01)*maxf(0.0,Damage.number(ship.spec.get("fuelUse"),1.0)))
