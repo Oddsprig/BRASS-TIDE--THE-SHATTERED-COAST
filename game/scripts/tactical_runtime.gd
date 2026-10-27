@@ -1498,10 +1498,11 @@ static func _helm_goal051(st: Dictionary,ship: Dictionary,frame_cache=null) -> D
 		safe=Certification._crowd_step051(st,ship,goal.candidate,control,t.budget,frame_cache) if Routes._is_crowd_escape051(goal.candidate) else Certification.safe_step(st,ship,control,t.budget,frame_cache)
 		held.step_at=float(st.time);held.step_ok=not bool(safe.get("blocked",false))
 		if not held.step_ok:
-			# The next copied job can favor the existing local crowd escape instead
-			# of repeating a committed lane that the REAL current helm just vetoed.
+			# Favor an escape after a blocked ordinary lane, but do not promote
+			# an escape that the REAL current helm itself just vetoed.
 			var memory: Dictionary=t.memory[str(ship.team)].byId.get(id,{})
 			memory.blockedStation=true;memory.commitUntil=0.0
+			memory.blockedCrowdEscape051=Routes._is_crowd_escape051(goal.candidate)
 			if float(memory.get("waitSince",-1.0))<0.0:memory.waitSince=float(st.time)
 			t.reasons[id]=str(safe.reason);_drop_goal051(t,id)
 			if not t.pending.has(id):t.pending[id]=float(st.time)

@@ -27,9 +27,11 @@ static func plan051(data: Dictionary) -> Dictionary:
 		# Candidates already rank sampled exposure, role, commitment and sectors.
 		# Keep the ordinary <=8 offers, including the existing local crowd escape.
 		var requests: Array=Stations._candidates_crowd051(view,ship,decision,context,reservations)
-		if bool(previous.get("blockedStation",false)):
+		var blocked_escape051: bool=bool(previous.get("blockedCrowdEscape051",false)) and int(previous.get("orderRevision",-1))==int(ship.orderRevision)
+		if bool(previous.get("blockedStation",false)) and not blocked_escape051:
 			# A sampled preference only: the ordinary existing escape still needs
 			# static routing here and current crowd-floor/terrain checks at helm.
+			# A live-vetoed escape keeps its ordinary final fallback position.
 			for request: Dictionary in requests:
 				if Routes._is_crowd_escape051(request):
 					requests.erase(request);requests.push_front(request);break
@@ -68,6 +70,8 @@ static func plan051(data: Dictionary) -> Dictionary:
 			# An actual sampled observation may publish while no route is ready.
 			# It grants neither helm nor fire and never becomes a complete proof.
 			state.blockedStation=true;state.commitUntil=0.0
+			# Route-pending samples cannot forget the last real escape veto.
+			if blocked_escape051:state.blockedCrowdEscape051=true
 			if float(state.get("waitSince",-1.0))<0.0:state.waitSince=float(view.time)
 			state.reason="Waiting for a route or a clear shared approach."
 		# Every job performs a full tactical search. chosenAt starts at this REAL

@@ -1,0 +1,69 @@
+R27 ESCAPE SOURCE - 27 October 2026
+Base: a97c21e3c654ebf25fd73079a17bd5b5bb67b188
+
+Source-only correction of Grok's repeated escape-preference finding.
+No engine, tests, import/export, profiler, source advisory or helpers ran.
+Root owns native verification, actual R28 and acceptance. No measured speedup
+or gameplay/quality pass is claimed. No test files changed.
+
+Verified source chain:
+- Stations._candidates_crowd051 keeps the ordinary first seven offers and
+  appends at most ONE existing crowd escape. It does not put escape first.
+- Runtime._helm_goal051 applies the real safe_step or _crowd_step051, then
+  marks ANY veto blockedStation, clears commitUntil and calls _drop_goal051.
+- _drop_goal051 increments goalRevisions051, removes held helm authority and
+  reservations. _goal_input_reason051 therefore rejects an older in-flight
+  slot, but the next fresh copied SIDE job receives blockedStation=true.
+- Goals051.plan051 previously promoted an escape for every blockedStation,
+  including the freshly generated version of an escape just vetoed live.
+  Static land routing can accept that escape again before ordinary stations.
+
+Small correction:
+Runtime records ONE bool, blockedCrowdEscape051, from the actually vetoed
+candidate using the existing strict Routes._is_crowd_escape051 predicate.
+An ordinary veto overwrites it false. Goals051 suppresses promotion only for
+that true marker at the SAME orderRevision; escape remains the normal last
+fallback, retaining every ordinary offer's order. A route-pending sample
+carries the true marker so budget exhaustion cannot re-enable promotion on
+the following sample. A selected candidate clears blockedStation as before;
+Roles.decide's existing fixed state copy excludes the private marker, so it
+does not survive a successful selection or a changed-order pending result.
+There is no new route, cooldown, retry loop or persistent candidate cache.
+
+Unchanged: safe_step/_crowd_step051 and ALL physical, land, crowd-floor and
+alignment guards; role/target requests; eight offers; reservations and goal
+revisions; task/clearance/route budgets; 100ms SIDE / 150ms sample / 450ms
+choice limits; actual 60Hz helm/fire/damage. No deadline is renewed here.
+
+Deterministic regression setup for Root / the existing test owner (unrun):
+1. Reuse test_tactical_ai.gd _goals_arena051(false). Before sampling put
+   actors[1] immediately WEST of source: x=source.x-Roles.radius(source)
+   -Roles.radius(actors[1])-1.0, y=source.y, vx=vy=0. All other hulls retain
+   the fixture's separated layout. Copy the player view/context; use source
+   as the only data.order member, empty reservations/cache and obstacle-free
+   geometry. Supply the existing full fresh route budget (clearanceTests=0,
+   clearanceLimit=2900, fullRoutes=0, exhaustions=0, cacheHits=0).
+   Build previous from Roles.decide(view,source,{},context).state; set
+   blockedStation=true, commitUntil=0.0. Verify the generated request list
+   contains both ordinary offers and one FINAL strict crowd escape.
+2. Run Goals051.plan051 on separate fresh deep copies of the SAME input:
+   A: blockedCrowdEscape051 absent/false -> chosen candidate is crowd escape.
+   B: blockedCrowdEscape051=true, same orderRevision -> first valid ordinary
+      request wins, not the crowd escape. Compare to the generated ordinary
+      request via Stations.same_request, not candidate ID alone.
+   Check chosenAt/sampledAt remain the real view.time; previous memory and
+   copied ship observations stay unchanged (route cache/budgets are outputs).
+3. Repeat B with clearanceLimit=0: no candidate; blockedStation and
+   blockedCrowdEscape051 remain true. Feed that returned state to another
+   fresh full-budget sample: ordinary wins again. A changed-order copy must
+   ignore the old true marker, and successful selection must omit the marker.
+4. Extend existing goals_live051 real joined-publication coverage to a real
+   crowd candidate. After adoption, move the existing blocker to actual
+   overlap (source.x/source.y), call T.after_motion then T.helm. Assert blocked,
+   zero throttle, blockedStation=true, blockedCrowdEscape051=true, unchanged
+   ships/RNG/stores and original goal timestamps, revoked goal/fire/reservation,
+   and incremented goalRevision051. An older already-dispatched slot must
+   still fail publication. An ordinary live veto must set the new bool false.
+
+This is a proposed regression setup, not executed evidence. Source diff review
+cannot prove native parsing, behavior under the fixture, motion or performance.
