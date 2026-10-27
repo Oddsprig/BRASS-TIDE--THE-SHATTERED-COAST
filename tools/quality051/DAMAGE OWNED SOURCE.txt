@@ -80,3 +80,25 @@ Existing hit/RNG/refusal/copy/closure/128-entry and real battle comparisons stay
 Diff/whitespace and existing read-only API advisory clean; engineInvoked false.
 Fixture/native/profile UNRUN. Root owns all execution and acceptance. Desktop050,
 core gateOPEN; stop source work after this handoff pending actual findings.
+
+051 PHASE ENTRY REUSE - SOURCE CANDIDATE, native/profile UNRUN
+Parent e778f61; damage.gd and fixture matched Root512e485 before editing.
+Only damage.gd, existing test_damage_hotpath040.gd and this append changed.
+The separate untracked DAMAGE PHASE READ AUDIT.txt is deliberately not staged.
+
+15 added/4 removed production lines reuse existing phase.entries. The first
+owned read uses _battle_entry051; hits require active phase/context, exact
+owned.entries membership and shipRef, valid proof, matching infoGeneration
+and generation, and actual repairPriority. Misses refresh through existing
+guards. Public fallback remains distinct by exact source-cache identity and
+twelve-frame expiry. Public reads/refusals revoke owned proof as before.
+Every private status read still calls _status_from_entry043, checking live
+crew/fire/water/breaches/stores/policy/fuel-zero inputs. No math or writers change.
+The phase remains main-thread synchronous without await; never a worker input.
+Existing gated phaseLookups/Hits now count owned and public-cache reads alike.
+
+Existing 354 assertions remain untouched; 12 added checks cover repeated
+32-read reuse, live scalars, real legacy absorption generation, public priority,
+same-ID copy, public tick/refusal, re-admission, encounter and phase closure.
+Source diff/whitespace review clean. No engine, fixture, QA or profile run.
+Savings unmeasured; Root owns combined native/GPU acceptance. Desktop050/gateOPEN.

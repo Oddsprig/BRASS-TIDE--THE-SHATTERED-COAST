@@ -399,13 +399,24 @@ static func _apply_hit_in_battle051(s: Dictionary, hit: Dictionary, rng: RandomN
 	return events
 
 static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
-	# The synchronous Battle call chain owns equipment writes. Scalar inputs are
-	# still live below; source-entry identity detects every owned invalidation.
+	# Main-thread Battle only, without await. Official writers revoke/dirty proof;
+	# every status reader still checks live scalar inputs in _status_from_entry043.
 	if not (frame_cache is BattlePhase043) or not frame_cache.active:
 		return _cached_entry(s, frame_cache)
-	var owned_entry: Dictionary = _battle_entry051(s,frame_cache.owned)
-	if not owned_entry.is_empty(): return owned_entry
 	if _runtime_profile043_enabled: _runtime_profile043_counts.phaseLookups += 1
+	var owned = frame_cache.owned
+	if owned is BattleOwned051 and owned.active:
+		var owner_slot: String = _cache_slot_key(s)
+		var borrowed: Dictionary = frame_cache.entries.get(owner_slot,{})
+		if (is_same(owned.entries.get(owner_slot),borrowed) and is_same(borrowed.get("shipRef"),s)
+				and bool(borrowed.get("valid",false)) and int(borrowed.infoGeneration) == int(borrowed.generation)
+				and borrowed.priority == s.moduleCondition.get("repairPriority")):
+			if _runtime_profile043_enabled: _runtime_profile043_counts.phaseHits += 1
+			return borrowed
+		var owned_entry: Dictionary = _battle_entry051(s,owned)
+		if not owned_entry.is_empty():
+			frame_cache.entries[owner_slot] = owned_entry
+			return owned_entry
 	var slot: String = _find_cache_slot(s, frame_cache.source)
 	var entry = frame_cache.entries.get(slot)
 	if entry is Dictionary and is_same(entry.get("shipRef"), s) and is_same(frame_cache.source.get(slot), entry) and int(entry.get("framesLeft", 0)) > 0:
