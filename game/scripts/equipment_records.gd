@@ -475,6 +475,11 @@ static func _factor_for(item: Dictionary) -> float:
 	return clampf(float(item.get("hp", 0.0)), 0.0, 1.0)
 
 static func snapshot(boat: Dictionary) -> Dictionary:
+	return _snapshot_with_records(boat, Core._records)
+
+static func _snapshot_with_records(boat: Dictionary, validate: Callable) -> Dictionary:
+	# Only Damage's synchronous tick supplies an exact-record memo. Public reads
+	# retain full validation; every snapshot still constructs detached live fields.
 	if not boat is Dictionary:
 		return _fail("Boat must be a dictionary.")
 	if Core._foreign(boat):
@@ -507,7 +512,8 @@ static func snapshot(boat: Dictionary) -> Dictionary:
 	if not boat.moduleCondition is Dictionary:
 		return _fail("Existing equipment condition is corrupt and was left untouched.")
 	var profile_started: int = Time.get_ticks_usec() if _runtime_profile043_enabled else 0
-	var projected: Dictionary = Core.project(boat.moduleCondition)
+	var records: Dictionary = validate.call(boat.moduleCondition)
+	var projected: Dictionary = Core._project_from_records(boat.moduleCondition, records) if records.ok else records
 	if not projected.ok:
 		if _runtime_profile043_enabled: _runtime_profile043_snapshot_finished(profile_started,false)
 		return projected

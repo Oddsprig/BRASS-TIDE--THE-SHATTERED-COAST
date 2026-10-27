@@ -56,6 +56,9 @@ static func empty_task_map() -> Dictionary:
 	return {"fire": 0.0, "patch": 0.0, "machinery": 0.0, "hull": 0.0}
 
 static func inspect_owner(boat: Dictionary) -> Dictionary:
+	return _inspect_owner_with_records(boat, Core._records)
+
+static func _inspect_owner_with_records(boat: Dictionary, validate: Callable) -> Dictionary:
 	if not boat is Dictionary:
 		return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": "Boat must be a dictionary."}
 	if Core._foreign(boat):
@@ -66,7 +69,7 @@ static func inspect_owner(boat: Dictionary) -> Dictionary:
 		return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": "Existing equipment condition is corrupt and was left untouched."}
 	if boat.has("engine") and not Core._unit(boat.get("engine")):
 		return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": "The legacy engine scalar is not a finite condition."}
-	var snap: Dictionary = Records.snapshot(boat)
+	var snap: Dictionary = Records._snapshot_with_records(boat, validate)
 	if not snap.ok:
 		return {"ok": false, "mode": "invalid", "needsInitialize": false, "error": str(snap.get("error", "Existing equipment condition is corrupt and was left untouched."))}
 	var base_spec: Dictionary = {}
@@ -664,7 +667,8 @@ static func _tick_status_public_local(boat: Dictionary, tick_ctx: Dictionary) ->
 		var cached_info = tick_ctx.get("info")
 		if cached_info is Dictionary and bool(cached_info.get("ok", false)) and _is_string_value(cached_info.get("mode")) and String(cached_info.get("mode")) == "canonical":
 			return cached_info
-	var fresh: Dictionary = inspect_owner(boat)
+	var validate = tick_ctx.get("records_validate")
+	var fresh: Dictionary = _inspect_owner_with_records(boat, validate) if validate is Callable else inspect_owner(boat)
 	if _tick_context_runtime_valid(boat, tick_ctx) and bool(fresh.get("ok", false)) and _is_string_value(fresh.get("mode")) and String(fresh.get("mode")) == "canonical" and (fresh.get("snapshot") is Dictionary):
 		tick_ctx["condition"] = boat.moduleCondition
 		tick_ctx["items"] = boat.moduleCondition.items

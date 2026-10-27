@@ -175,6 +175,43 @@ func live_records043(source: Dictionary) -> void:
 	check(var_to_bytes(live) == state and var_to_bytes(Damage.get_status_cached(live, cache)) == status_before, "043 public nested results stay detached from condition and cache")
 	check(not bool(Damage.runtime_profile043().enabled) and not bool(Records.runtime_profile043().enabled), "043 runtime profiling stays disabled by default")
 
+func fresh_records051(source: Dictionary) -> void:
+	# Public references always select full Core validation. old_tick above never
+	# receives records_validate, so its complete tick comparison stays independent.
+	for mutation in ["same", "copy", "typed_serial", "typed_birth", "damage", "engine", "pumps", "loadout", "foreign"]:
+		var live: Dictionary = source.duplicate(true)
+		var proof: Dictionary = {}
+		var validate: Callable = Records._tick_records_exact.bind(proof)
+		var original: Dictionary = validate.call(live.moduleCondition)
+		match mutation:
+			"copy": live.moduleCondition = live.moduleCondition.duplicate(true)
+			"typed_serial": live.moduleCondition.nextItemSeq = float(live.moduleCondition.nextItemSeq) if live.moduleCondition.nextItemSeq is int else int(live.moduleCondition.nextItemSeq)
+			"typed_birth": live.moduleCondition.birthNamespace = StringName(live.moduleCondition.birthNamespace)
+			"damage":
+				check(bool(Core.apply_component_damage(live.moduleCondition, {"itemUid": engine_uid(live), "loss": 0.5, "cause": "051 fresh snapshot"}).ok), "051 real component damage")
+			"engine": live.engine = -1.0
+			"pumps": live.baseSpec.pumps = 0.0 if float(live.baseSpec.get("pumps", 0.0)) > 0.0 else 1.0
+			"loadout": live.loadout.engine = "other_engine"
+			"foreign": live["equipmentCondition"] = {}
+		var before: PackedByteArray = var_to_bytes(live)
+		var expected_snapshot: Dictionary = Records.snapshot(live)
+		var actual_snapshot: Dictionary = Records._snapshot_with_records(live, validate)
+		var expected_info: Dictionary = EquipmentDamage.inspect_owner(live)
+		var actual_info: Dictionary = EquipmentDamage._inspect_owner_with_records(live, validate)
+		check(var_to_bytes(actual_snapshot) == var_to_bytes(expected_snapshot) and var_to_bytes(actual_info) == var_to_bytes(expected_info) and var_to_bytes(live) == before, "051 fresh snapshot/inspection matches full public guards read-only " + mutation)
+		if mutation in ["copy", "typed_serial", "damage"]:
+			check(not is_same(proof.records, original) and is_same(proof.condition, live.moduleCondition), "051 changed identity/value/type rebuilds exact proof " + mutation)
+		elif mutation == "typed_birth":
+			check(proof.is_empty(), "051 fresh refusal retains no record proof")
+		else:
+			check(is_same(proof.records, original), "051 unchanged condition keeps its exact proof " + mutation)
+		if mutation in ["typed_birth", "engine", "pumps", "loadout", "foreign"]:
+			check(not bool(actual_info.ok), "051 memo never bypasses owner refusal " + mutation)
+		if mutation == "same":
+			actual_snapshot.installed.engine.hp = 0.0
+			actual_info.snapshot.installedItems.clear()
+			check(var_to_bytes(Records._snapshot_with_records(live, validate)) == var_to_bytes(expected_snapshot) and var_to_bytes(EquipmentDamage._inspect_owner_with_records(live, validate)) == var_to_bytes(expected_info) and var_to_bytes(live) == before, "051 fresh results stay detached from owner and later snapshots")
+
 func phase_reads043(source: Dictionary) -> void:
 	var live: Dictionary = source.duplicate(true)
 	var cache: Dictionary = {}
@@ -346,6 +383,7 @@ func run() -> void:
 	check(var_to_bytes(copy) == var_to_bytes(reference) and var_to_bytes(actual_status) == var_to_bytes(expected_status), "same-ID wounded copy cannot reuse live healthy proof")
 	check(var_to_bytes(ship) == live_before and is_same(cache[str(ship.id)].shipRef, ship), "copy leaves exact live owner/cache entry intact")
 	live_records043(ship)
+	fresh_records051(ship)
 	phase_reads043(ship)
 	phase_battle043(ship)
 	var measured: Dictionary = probe(ship)

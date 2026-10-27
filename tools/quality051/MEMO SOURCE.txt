@@ -1,0 +1,55 @@
+v0.051 SAME-TICK RECORD MEMO - SOURCE CANDIDATE
+Parent: 2a702a11d79163645974d5432a0f67d56cd0ac26 on integrated048 da06715.
+Root approved only the first implementation in PERFORMANCE PROPOSAL.txt.
+Integrate only at051 after049/050. Local048 metadata remains unchanged.
+Native UNRUN. No correctness acceptance, measured saving or quality pass.
+
+EXACT SOURCE SEAM
+equipment_records.gd: snapshot delegates to private _snapshot_with_records with
+Core._records. The private path retains every original guard and constructs the
+same detached snapshot through unchanged Core._project_from_records. Only the
+validator can be the existing exact-record memo.
+equipment_damage.gd: public inspect_owner selects Core._records; private
+_inspect_owner_with_records retains the original foreign/scalar/pumps/loadout
+guards. _tick_status_public_local uses its same-tick validator for fresh reads;
+callers without that validator retain the full public inspection path.
+damage.gd: only the canonical fallback status callback changes, to the private
+inspector bound to the existing tick-local validator. Eligible-context fresh
+reads use the same validator through the change above. No new memo or lifetime.
+
+UNCHANGED CONTRACT
+Records._tick_records_exact is byte-for-byte unchanged: exact condition identity,
+deep value equality AND typed var_to_bytes equality; changed records run full
+Core._records; refusals clear proof; successful record/locations are read-only.
+No proof is stored in boat/frame-cache/output. Public guards, cache admission,
+twelve-frame expiry, owner binding and invalidation remain unchanged. No Core
+math, numeric rollout, repair, publication,60Hz, physics, worker or actor change.
+Fresh snapshots retain instantaneous factors; averaged tick flows stay separate.
+
+FOCUSED EXISTING FIXTURE, PREPARED ONLY
+game/tests/test_damage_hotpath040.gd: old_tick and every existing fixture
+function/assertion remain unchanged; run adds only fresh_records051. Nine tiny
+cases compare complete typed snapshot/inspection bytes with full public/Core
+references: same condition, equal foreign copy, numeric type change, invalid
+StringName birth namespace, real component damage, invalid scalar, pump mismatch,
+loadout mismatch and foreign condition metadata. Check proof identity/refusal,
+read-only owner and detached returned projections. Existing full tick comparisons
+cover both callback paths, repair/fire/breaches/finite stores/hits/expiry. The
+old_tick context receives no memo; it remains the independent public reference.
+Root owns any later fixture run and unchanged exported measurement protocol.
+
+SOURCE ADVISORY ONLY
+python -B tools/check_preload_calls.py game scripts/damage.gd
+scripts/equipment_damage.gd scripts/equipment_records.gd
+tests/test_damage_hotpath040.gd: issues[], engineInvoked:false.
+Read-only source comparison: all original guard bodies retained except the
+approved validator seam; memo, cache/expiry, Core math and old baseline fixture
+functions unchanged. git diff --check clean. These do not prove native parsing,
+runtime correctness, performance or gameplay quality. No engine/tests/import/
+export/render/GPU/audio/CUA/download/helper/push/maintenance job performed.
+
+LIMIT
+Prior all-caller snapshot increments cost0.879/1.195ms light/mixed per remaining
+tick; only some of that cost is avoidable validation. This candidate cannot
+rescue4.605FPS or the16.951ms light planning cost. Root must validate and measure
+the final integrated exported game.051 quality gate remains OPEN.
