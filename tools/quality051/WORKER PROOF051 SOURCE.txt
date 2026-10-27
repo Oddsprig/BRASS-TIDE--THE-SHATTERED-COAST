@@ -183,3 +183,29 @@ checks is a source count, UNRUN here. Peer coordination used brass-tide-worker05
 Manual source/diff review only. NO engine/native/tests/import/export/advisory/
 profiler/helpers/downloads/cleanup/tag/install/push. Root owns combined R68
 native/export and actual R34 measurement; new candidate acceptance UNRUN.
+
+R34 CURRENT DAMAGE PUBLICATION FOLLOW-UP - SOURCE ONLY
+Preserved41fc640,378183cf,31c2549 and all119 existing assertions. Root reports
+R68 PASS5297/0 including119 worker checks; R34 native-copy snapshot medians
+roughly28ms light/12.7ms mixed with light maxlag still200ms. Prior receipts only.
+
+Only the existing canonical commands/pause/children case changes: BEFORE
+Driver.new, the real Lab-created player hull gets75percent HP,25percent capacity
+water and a3-area waterline breach. Starting water/area/supplies are recorded.
+The same six actual joined steps must now change water, reduce breach area and
+spend supplies, in ONE additional assertion. The existing exact
+flow==D.get_status(current) comparison and all current module/mount/pose/HUD,
+retained-snapshot, pause, FIFO, retirement and reference assertions are unchanged.
+No new case, fake job, inserted projectile, stale cadence or production edit.
+
+Read peer's in-progress battle_driver051 snapshot phase boundary: after numerical
+work and before publication it binds a NEW unsealed phase to the current checked
+damage owner/cache; _read_status_in_phase043 checks current scalar inputs and
+owned generations. Current mounts use that phase; public/noncanonical/result
+status keeps fresh inspection; phase ends before return. No pre-contact sealed
+status or worker-private phase crosses into the copied publication. Coordinated
+the exact proof delta at brass-tide-worker051. Root owns integration and execution.
+
+Expected120 worker assertions is a source expectation, UNRUN here. Source/diff
+review only; NO engine/native/tests/advisory/import/export/profiler/helpers,
+downloads/cleanup/tag/install/push. No performance or acceptance claim.

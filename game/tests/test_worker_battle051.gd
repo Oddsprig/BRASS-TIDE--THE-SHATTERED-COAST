@@ -130,6 +130,14 @@ func commands_pause_and_child_cleanup() -> void:
 	check(bool(made.get("ok",false)),"public Lab factory admits the canonical command/priority fixture")
 	if not bool(made.get("ok",false)):return
 	var initial: Dictionary=made.battle
+	# Seed real numerical work before transfer; published status must describe
+	# this job's repaired/flooded hull, rather than an earlier healthy snapshot.
+	initial.ships[0].hp=float(initial.ships[0].maxHp)*0.75
+	initial.ships[0].water=float(initial.ships[0].capacity)*0.25
+	initial.ships[0].breaches=[{"area":3.0,"section":"waterline"}]
+	var starting_water: float=float(initial.ships[0].water)
+	var starting_area: float=D.sum_areas(initial.ships[0])
+	var starting_supplies: float=float(initial.ships[0].supplies)
 	var driver=Driver.new(initial)
 	var mirror: Dictionary=driver.advance(0.0,{},true)
 	# Retain and edit only the canonical Main copy, including nested equipment.
@@ -163,6 +171,7 @@ func commands_pause_and_child_cleanup() -> void:
 	mirror=await joined_steps(driver,{},6,events)
 	check(int(mirror.tactical.counters.decisions)>0,"factory-created SIDE jobs actually publish sampled decisions through real joins")
 	var current: Dictionary=mirror.ships[0]
+	check(not is_equal_approx(float(current.water),starting_water) and D.sum_areas(current)<starting_area and float(current.supplies)<starting_supplies,"six real canonical steps change flood water and perform supply-funded breach repair before HUD publication")
 	var id: String=str(current.id)
 	var flow: Dictionary=mirror.tactical.damageStatusById051[id]
 	var status: Dictionary=B.tactical_status(mirror,id)
