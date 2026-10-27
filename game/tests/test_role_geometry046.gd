@@ -88,6 +88,7 @@ func run() -> void:
 	finite_traffic051()
 	detached_routes051()
 	static_rejections051(world)
+	static_completion051()
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
 
@@ -585,3 +586,137 @@ func static_rejections051(world: Dictionary) -> void:
 	var origin_only: Dictionary=Routes._prepare_detached051(worker,origin_land,owner,legal,proof_budget051(4096),proof_budget051(128))
 	check(origin_only.status=="blocked" and not Routes._reject_prepared_static051(origin_land,owner,legal,origin_only),"sampled origin in land is never mistaken for a fixed future endpoint proof")
 	check(var_to_bytes([geometry,owner,request])==held,"provenance and read-only predicate preserve all source geometry, owner fields and request paths")
+
+func static_completion051() -> void:
+	# Existing main adoption is the independent reference for current authority;
+	# default/public refinement still stops at the first snapshot traffic refusal.
+	var geometry: Dictionary={"key":"complete-static051","revision":57,"obstacles":[{"points":[[430,650],[470,650],[470,750],[430,750]],"lo":Vector2(430,650),"hi":Vector2(470,750)}]}
+	var owner: Dictionary={"id":"complete-own051","team":"player","x":400.0,"y":800.0,"vx":0.0,"vy":0.0,"spec":{"size":12.0,"speed":100.0,"turn":2.0},"status":{"speedFactor":1.0},"fuel":100.0,"order":"engage","orderTarget":{}}
+	var blocker: Dictionary=owner.duplicate(true)
+	blocker.id="complete-old-traffic051"
+	var request: Dictionary={"shipId":owner.id,"approach":[Vector2(400,800),Vector2(1040,800)],"pass":[Vector2(1040,960)],"exit":[Vector2(1200,960)]}
+	var held: PackedByteArray=var_to_bytes([geometry,owner,blocker,request])
+	var worker: Dictionary=proof_state051([owner,blocker])
+	worker.time=0.0
+	var default_budget: Dictionary=proof_budget051(2900)
+	var original: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,default_budget)
+	check(original.status=="blocked" and not original.has("staticComplete051") and default_budget.clearanceTests==3,"default preparation still stops on the initial traffic block after the same three debits")
+	var worker_budget: Dictionary=proof_budget051(2900)
+	var prepared: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,worker_budget,{},true)
+	var clear_worker: Dictionary=proof_state051([owner])
+	clear_worker.time=worker.time
+	var clear_packet: Dictionary=Routes._prepare_detached051(clear_worker,geometry,owner,request,proof_budget051(2900))
+	check(prepared.status==original.status and prepared.reason==original.reason and prepared.trafficSeconds051==2.0,"worker completion retains the blocked snapshot forecast and its original two-second policy")
+	check(prepared.candidate==clear_packet.candidate and prepared.eta==12.0 and prepared.eta==clear_packet.eta,"after old traffic blocks, every static leg and the full twelve-second ETA still finish")
+	check(worker_budget.clearanceTests==10 and worker_budget.fullRoutes==0 and worker_budget.exhaustions==0,"completion debits all four static queries and both snapshot traffic queries on the original worker budget")
+	check(prepared.has("staticComplete051") and Routes._static_complete_matches051(owner,request,prepared),"only the fully completed traffic-blocked route lends an exact static proof")
+	var completed: Dictionary=prepared.get("staticComplete051",{})
+	check(completed.is_read_only() and completed.get("requests",[]).is_read_only() and completed.get("paths",[]).is_read_only(),"static completion seals its owner, request, routed paths and ETA")
+	if completed.is_empty():return
+	check(completed.requests[2].is_read_only() and completed.paths[2].is_read_only(),"future exit paths are detached and sealed as well as the first leg")
+	var current: Dictionary=proof_state051([owner])
+	current.time=0.125
+	var reference_budget: Dictionary=proof_budget051(4096)
+	var reference: Dictionary=Routes._adopt_prepared051(current,geometry,owner,request,clear_packet,reference_budget,null,2.0)
+	var current_budget: Dictionary=proof_budget051(4096)
+	var adopted: Dictionary=Routes._adopt_prepared051(current,geometry,owner,request,prepared,current_budget,null,2.0)
+	check(adopted.status=="valid" and var_to_bytes(adopted)==var_to_bytes(reference),"old snapshot traffic that CURRENTLY cleared reuses exactly the existing valid-worker adoption path")
+	check(current_budget==reference_budget and current_budget.clearanceTests==2,"reused blocked packet pays the same fresh connector debits as ordinary adoption")
+	var fallback_budget: Dictionary=proof_budget051(4096)
+	var fallback: Dictionary=Routes._refine_begin051(current,geometry,owner,request,fallback_budget,null,2.0)
+	check(fallback.status=="valid" and fallback.eta==adopted.eta and fallback_budget.clearanceTests>current_budget.clearanceTests,"full static work moves to the worker without changing the completed ETA")
+	var obstructed: Dictionary=proof_state051([owner,blocker])
+	obstructed.time=current.time
+	var blocked_budget: Dictionary=proof_budget051(4096)
+	var still_blocked: Dictionary=Routes._adopt_prepared051(obstructed,geometry,owner,request,prepared,blocked_budget,null,2.0)
+	var ordinary_budget: Dictionary=proof_budget051(4096)
+	var ordinary: Dictionary=Routes._adopt_prepared051(obstructed,geometry,owner,request,clear_packet,ordinary_budget,null,2.0)
+	check(still_blocked.status=="blocked" and var_to_bytes(still_blocked)==var_to_bytes(ordinary) and blocked_budget==ordinary_budget,"CURRENT traffic that remains blocked vetoes reuse with unchanged authority and debits")
+	var late: Dictionary=blocker.duplicate(true)
+	late.x=540.0
+	var late_state: Dictionary=proof_state051([owner,late])
+	late_state.time=0.0
+	var late_packet: Dictionary=Routes._prepare_detached051(late_state,geometry,owner,request,proof_budget051(2900),{},true)
+	check(late_packet.status=="blocked" and late_packet.has("staticComplete051"),"worker still checks traffic beyond the 0.3s main prefix through its full two-second snapshot")
+	var moved: Dictionary=owner.duplicate(true)
+	moved.y=700.0
+	var moved_state: Dictionary=proof_state051([moved])
+	moved_state.time=current.time
+	var connector: Dictionary=Routes._adopt_prepared051(moved_state,geometry,moved,request,prepared,proof_budget051(4096),null,2.0)
+	check(connector.status=="blocked" and connector.reason=="Checking current land connector","even a complete static packet cannot borrow the old origin's clear land connector")
+	check(Routes._adopt_prepared051(current,geometry,owner,request,prepared,proof_budget051(0),null,2.0).status=="pending","static reuse cannot waive a refused fresh-connector debit")
+	for limit: int in [0,1,2,3,4,5]:
+		var limited_budget: Dictionary=proof_budget051(limit)
+		var limited: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,limited_budget,{},true)
+		check(limited.status=="pending" and not limited.has("staticComplete051") and limited_budget.clearanceTests<=limit and limited_budget.exhaustions>0,"worker exhaustion %d before or AFTER the first traffic block never lends static completion"%limit)
+	var changes: Array=[
+		{"label":"stale blocked proof","field":"observedAt051","value":-0.1},
+		{"label":"changed terrain key","field":"terrainKey051","value":"other-complete051"},
+		{"label":"changed terrain revision","field":"terrainRevision051","value":58},
+		{"label":"changed radius","field":"radius051","value":prepared.radius051+1.0},
+		{"label":"changed snapshot forecast","field":"trafficSeconds051","value":0.3},
+		{"label":"changed full ETA","field":"eta","value":prepared.eta+0.125},
+		{"label":"pending packet","field":"status","value":"pending"},
+		{"label":"missing completion","field":"staticComplete051","erase":true}
+	]
+	for change: Dictionary in changes:
+		var invalid: Dictionary=prepared.duplicate()
+		if change.get("erase",false):invalid.erase(change.field)
+		else:invalid[change.field]=change.value
+		var work: Dictionary=proof_budget051(4096)
+		var actual: Dictionary=Routes._adopt_prepared051(current,geometry,owner,request,invalid,work,null,2.0)
+		check(var_to_bytes(actual)==var_to_bytes(fallback) and work==fallback_budget,str(change.label)+": unusable completion retains exact main fallback results and debits")
+	for leg: String in ["approach","pass","exit"]:
+		var changed: Dictionary=request.duplicate(true)
+		changed[leg][-1]+=Vector2(0.000244140625,0)
+		var expected_budget: Dictionary=proof_budget051(4096)
+		var expected: Dictionary=Routes._refine_begin051(current,geometry,owner,changed,expected_budget,null,2.0)
+		var work: Dictionary=proof_budget051(4096)
+		var actual: Dictionary=Routes._adopt_prepared051(current,geometry,owner,changed,prepared,work,null,2.0)
+		check(var_to_bytes(actual)==var_to_bytes(expected) and work==expected_budget,leg+": any exact request-path change falls back without borrowing old static land work")
+		var altered: Dictionary=prepared.duplicate()
+		altered.candidate=prepared.candidate.duplicate(true)
+		altered.candidate[leg][-1]+=Vector2(0.000244140625,0)
+		check(not Routes._static_complete_matches051(owner,request,altered),leg+": changed routed output cannot borrow the sealed path or ETA")
+	var foreign: Dictionary=owner.duplicate(true)
+	foreign.id="other-complete-owner051"
+	check(not Routes._static_complete_matches051(foreign,request,prepared),"a different owner cannot borrow a completed worker path")
+	var changed_geometry: Dictionary=geometry.duplicate()
+	changed_geometry.revision+=1
+	var changed_owner: Dictionary=owner.duplicate(true)
+	changed_owner.spec.size+=1.0
+	for inputs: Dictionary in [{"geometry":changed_geometry,"owner":owner},{"geometry":geometry,"owner":changed_owner}]:
+		var expected_budget: Dictionary=proof_budget051(4096)
+		var expected: Dictionary=Routes._refine_begin051(current,inputs.geometry,inputs.owner,request,expected_budget,null,2.0)
+		var work: Dictionary=proof_budget051(4096)
+		var actual: Dictionary=Routes._adopt_prepared051(current,inputs.geometry,inputs.owner,request,prepared,work,null,2.0)
+		check(var_to_bytes(actual)==var_to_bytes(expected) and work==expected_budget,"actual terrain/radius changes require the original full main walk and debits")
+	var late_land: Dictionary=geometry.duplicate(true)
+	late_land.key="late-static-fail051"
+	late_land.obstacles.append({"points":[[1180,940],[1220,940],[1220,980],[1180,980]],"lo":Vector2(1180,940),"hi":Vector2(1220,980)})
+	var failed: Dictionary=Routes._prepare_detached051(worker,late_land,owner,request,proof_budget051(2900),{},true)
+	check(failed.status=="blocked" and not failed.has("staticComplete051"),"land failure in the remaining exit AFTER old traffic blocks cannot lend static completion")
+	var exhausted_budget: Dictionary=proof_budget051(2900)
+	exhausted_budget.fullRoutes=4
+	var exhausted_worker: Dictionary=proof_state051([owner,blocker])
+	exhausted_worker.time=0.0
+	var exhausted: Dictionary=Routes._prepare_detached051(exhausted_worker,late_land,owner,request,exhausted_budget,{},true)
+	check(exhausted.status=="pending" and not exhausted.has("staticComplete051") and exhausted_budget.fullRoutes==4 and exhausted_budget.exhaustions>0,"the existing four-search worker cap also refuses later static completion")
+	var detour: Dictionary={"key":"complete-detour051","revision":58,"obstacles":[{"points":[[500,750],[600,750],[600,850],[500,850]],"lo":Vector2(500,750),"hi":Vector2(600,850)}]}
+	var detour_worker: Dictionary=proof_state051([owner,blocker])
+	detour_worker.time=0.0
+	var detour_budget: Dictionary=proof_budget051(2900)
+	var detour_packet: Dictionary=Routes._prepare_detached051(detour_worker,detour,owner,request,detour_budget,{},true)
+	var detour_clear: Dictionary=proof_state051([owner])
+	detour_clear.time=0.0
+	var detour_reference: Dictionary=Routes._prepare_detached051(detour_clear,detour,owner,request,proof_budget051(2900))
+	check(detour_packet.status=="blocked" and detour_packet.has("staticComplete051") and detour_packet.candidate==detour_reference.candidate and detour_packet.eta==detour_reference.eta and detour_budget.fullRoutes>0,"traffic-blocked worker finishes the SAME full static A-star detour and ETA as the clear snapshot")
+	var detour_main_budget: Dictionary=proof_budget051(4096)
+	var detour_adopted: Dictionary=Routes._adopt_prepared051(current,detour,owner,request,detour_packet,detour_main_budget,null,2.0)
+	check(detour_adopted.status=="valid" and detour_adopted.eta==detour_reference.eta and detour_main_budget.fullRoutes==0,"main reuse checks its fresh connector without repeating worker A-star or future static legs")
+	var oversized: Dictionary=request.duplicate(true)
+	oversized.exit=[]
+	for i: int in range(9):oversized.exit.append(Vector2(1200,960))
+	var unbounded: Dictionary=Routes._prepare_detached051(worker,geometry,owner,oversized,proof_budget051(2900),{},true)
+	check(unbounded.status=="blocked" and not unbounded.has("staticComplete051"),"worker completion preserves the existing eight-point bound on every routed leg")
+	check(var_to_bytes([geometry,owner,blocker,request])==held,"worker completion and all current/fallback paths preserve source geometry, hulls and request inputs")

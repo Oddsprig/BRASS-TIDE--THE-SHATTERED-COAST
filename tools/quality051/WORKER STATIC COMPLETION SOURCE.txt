@@ -1,0 +1,27 @@
+051 WORKER STATIC COMPLETION - SOURCE CANDIDATE
+Parent8c6a39c; three scoped source files matched Root889a202 before edits.
+
+Root R14 d6ab1dfd5c2a4d6ebc47ad1ccc832004 remains qualityFALSE:
+42light9.085FPS/sim15.635ms;16mixed60.011FPS/sim6.768ms.
+Root reports9339adopts/2691nestedrefines/2383due; no new profile run here.
+
+Planner._work051 alone passes seventh _prepare_detached051 arg true.
+The existing private refine loop then continues AFTER terminal snapshot
+traffic blocks, checking the full2s prefix and completing every land leg/ETA.
+Same per-hull2900 clearance/4 search limits; no cloned or extra route budget.
+Any pending/static failure or path overflow remains unusable. Defaults retain
+their original early return, results and debits.
+
+Only fully completed traffic-blocked packets gain sealed staticComplete051:
+owner, exact original/routed three paths and full ETA. Status stays blocked.
+Main requires that proof plus existing terrain/radius/origin/age gates, then
+uses the UNCHANGED fresh connector/current0.3 traffic adoption walk. Existing
+joined-worker ownership/order gates, certification/turn/helm/fire remain.
+No Runtime change, cache, instrumentation or extra authority.
+
+Existing geometry fixture adds43 bounded assertions: cleared/still-blocked
+traffic, full forecast, connector, exact inputs/ETA, pending/debit/search limits,
+remaining exit land failure, full A-star reuse and point caps. Old bodies kept.
+One preload advisory:0issues/engineInvoked=false; source diff checks clean.
+Native/tests/GPU UNRUN; Root alone validates. Hit rate/savings unmeasured;
+more worker work within the same caps may leave later offers pending.

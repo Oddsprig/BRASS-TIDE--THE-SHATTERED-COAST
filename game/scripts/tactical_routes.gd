@@ -481,20 +481,56 @@ static func _refine_begin_core051(st: Dictionary,geometry: Dictionary,ship: Dict
 	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):return _refine(st,geometry,ship,candidate,budget,true,null,live_traffic_seconds051)
 	return _refine(st,geometry,ship,candidate,budget,true,proofs,live_traffic_seconds051)
 
-static func _prepare_detached051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proof_budget051: Dictionary={}) -> Dictionary:
+static func _prepare_detached051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proof_budget051: Dictionary={},complete_static051: bool=false) -> Dictionary:
 	# Exclusively worker-owned state, clock, grid and cache. Complete land routes
 	# and ETA survive the advisory snapshot traffic prefix; pending stays pending.
-	var prepared: Dictionary=_refine(st,geometry,ship,candidate,budget,true,null,2.0)
+	var prepared: Dictionary=_refine(st,geometry,ship,candidate,budget,true,null,2.0,complete_static051)
 	prepared.origin051=point(ship)
 	prepared.radius051=planning_radius(ship)
 	prepared.terrainKey051=geometry.key
 	prepared.terrainRevision051=geometry.revision
 	prepared.observedAt051=float(st.time)
 	prepared.trafficSeconds051=2.0
-	if prepared.status=="blocked" and not proof_budget051.is_empty():
+	if prepared.get("staticComplete051",false):
+		prepared.erase("staticComplete051")
+		var completed: Dictionary=_static_complete_proof051(ship,candidate,prepared)
+		if not completed.is_empty():prepared.staticComplete051=completed
+	if prepared.status=="blocked" and not prepared.has("staticComplete051") and not proof_budget051.is_empty():
 		var rejection: Dictionary=_fixed_endpoint_rejection051(geometry,ship,candidate,proof_budget051)
 		if not rejection.is_empty():prepared.staticRejection051=rejection
 	return prepared
+
+static func _static_complete_proof051(ship: Dictionary,candidate: Dictionary,prepared: Dictionary) -> Dictionary:
+	# Only the completed opt-in walk can reach here. Seal both the request and
+	# its exact routed output; later main metadata may change, paths may not.
+	var requests: Array=[]
+	var paths: Array=[]
+	for leg: String in ["approach","pass","exit"]:
+		var original: Variant=candidate.get(leg,[])
+		var routed: Variant=prepared.candidate.get(leg,[])
+		if not original is Array or original.size()>8 or not routed is Array or routed.size()>8:return {}
+		var request: Array=original.duplicate()
+		var path: Array=routed.duplicate()
+		request.make_read_only();path.make_read_only()
+		requests.append(request);paths.append(path)
+	if not is_finite(float(prepared.eta)) or float(prepared.eta)<0.0:return {}
+	requests.make_read_only();paths.make_read_only()
+	var completed: Dictionary={"shipId":str(ship.id),"requests":requests,"paths":paths,"eta":prepared.eta}
+	completed.make_read_only()
+	return completed
+
+static func _static_complete_matches051(ship: Dictionary,candidate: Dictionary,prepared: Dictionary) -> bool:
+	# This lends STATIC work only. Joined ownership/order/age gates and every
+	# current connector/traffic/certification/physical authority remain required.
+	var completed: Variant=prepared.get("staticComplete051")
+	if prepared.get("status")!="blocked" or prepared.get("reason")!="Hull occupies this approach" or not completed is Dictionary or not completed.is_read_only() or completed.get("shipId")!=str(ship.id) or candidate.get("shipId",str(ship.id))!=str(ship.id) or completed.get("eta")!=prepared.get("eta"):return false
+	var requests: Variant=completed.get("requests")
+	var paths: Variant=completed.get("paths")
+	if not requests is Array or not requests.is_read_only() or requests.size()!=3 or not paths is Array or not paths.is_read_only() or paths.size()!=3 or not prepared.get("candidate") is Dictionary:return false
+	var legs: Array=["approach","pass","exit"]
+	for i: int in range(3):
+		if not requests[i] is Array or not requests[i].is_read_only() or not paths[i] is Array or not paths[i].is_read_only() or requests[i]!=candidate.get(legs[i],[]) or paths[i]!=prepared.candidate.get(legs[i],[]):return false
+	return true
 
 static func _fixed_endpoint_rejection051(geometry: Dictionary,ship: Dictionary,candidate: Dictionary,proof_budget051: Dictionary) -> Dictionary:
 	# Independent POINT proofs only: a blocked chord can have a legal detour,
@@ -550,7 +586,7 @@ static func _adopt_prepared_core051(st: Dictionary,geometry: Dictionary,ship: Di
 	# Private, completed+joined worker output, NEVER a corridor/certificate.
 	# Missing, stale or mismatched snapshot checks use the existing main policy.
 	var age: float=float(st.get("time",INF))-float(prepared.get("observedAt051",-INF))
-	if prepared.get("status","")!="valid" or prepared.get("terrainKey051")!=geometry.key or prepared.get("terrainRevision051")!=geometry.revision or prepared.get("radius051")!=planning_radius(ship) or prepared.get("trafficSeconds051")!=2.0 or not is_finite(age) or age<0.0 or age>0.15 or not prepared.get("origin051") is Vector2 or not prepared.origin051.is_finite():
+	if (prepared.get("status","")!="valid" and not _static_complete_matches051(ship,candidate,prepared)) or prepared.get("terrainKey051")!=geometry.key or prepared.get("terrainRevision051")!=geometry.revision or prepared.get("radius051")!=planning_radius(ship) or prepared.get("trafficSeconds051")!=2.0 or not is_finite(age) or age<0.0 or age>0.15 or not prepared.get("origin051") is Vector2 or not prepared.origin051.is_finite():
 		return _refine_begin051(st,geometry,ship,candidate,budget,proofs,live_traffic_seconds051)
 	# The worker checked snapshot traffic for 2s. Only this renewable CURRENT
 	# physical prefix is repeated here; current helm/contact/fire remain live.
@@ -586,11 +622,12 @@ static func _adopt_prepared_core051(st: Dictionary,geometry: Dictionary,ship: Di
 	if total>24 or connector:return {"status":"blocked","candidate":result,"eta":elapsed}
 	return {"status":"valid","candidate":result,"eta":elapsed,"reason":"Current connector and traffic clear"}
 
-static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,live_corridor: bool,proofs: _BeginProofs051=null,live_traffic_seconds051: float=-1.0) -> Dictionary:
+static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,live_corridor: bool,proofs: _BeginProofs051=null,live_traffic_seconds051: float=-1.0,complete_static051: bool=false) -> Dictionary:
 	var result: Dictionary=candidate.duplicate(true)
 	var previous: Vector2=point(ship)
 	var total: int=0
 	var elapsed: float=0.0
+	var traffic_blocked051: bool=false
 	var finite_traffic051: bool=is_finite(live_traffic_seconds051) and live_traffic_seconds051>=0.0
 	var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+4.0
 	var speed: float=1.0
@@ -612,12 +649,15 @@ static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candida
 						var traffic_until: float=minf(until,live_traffic_seconds051) if finite_traffic051 else until
 						var traffic_end: Vector2=cursor.lerp(waypoint,(traffic_until-elapsed)/(until-elapsed)) if traffic_until<until else waypoint
 						var traffic: String=occupied(st.tactical.cells,ship,cursor,traffic_end,radius,elapsed,traffic_until,budget,true,contact_target(ship)) if proofs==null else _occupied_begin051(proofs,st.tactical.cells,ship,cursor,traffic_end,radius,elapsed,traffic_until,budget,true,contact_target(ship))
-						if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking hull clearance" if traffic=="pending" else "Hull occupies this approach"}
+						if traffic!="valid":
+							if traffic=="blocked" and complete_static051:traffic_blocked051=true
+							else:return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking hull clearance" if traffic=="pending" else "Hull occupies this approach"}
 					elapsed=until;cursor=waypoint
 			points.append_array(found.path)
 			if points.size()>8:return {"status":"blocked","candidate":result}
 			previous=goal
 		result[leg]=points;total+=points.size()
 	if total>24:return {"status":"blocked","candidate":result}
+	if complete_static051 and traffic_blocked051:return {"status":"blocked","candidate":result,"eta":elapsed,"reason":"Hull occupies this approach","staticComplete051":true}
 	if live_corridor:return {"status":"valid","candidate":result,"eta":elapsed,"reason":"Route clear"}
 	return {"status":"valid","candidate":result}

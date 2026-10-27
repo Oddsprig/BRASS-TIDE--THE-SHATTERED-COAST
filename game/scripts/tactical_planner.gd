@@ -40,7 +40,7 @@ static func _work051(job: _Detached051) -> void:
 		var budget: Dictionary = data.budgets[id]
 		var ship: Dictionary = prepared.context[id]
 		for candidate: Dictionary in requests.get(id, []):
-			var path: Dictionary = Routes._prepare_detached051(private_state, data.geometry, ship, candidate, budget, proof_budget051)
+			var path: Dictionary = Routes._prepare_detached051(private_state, data.geometry, ship, candidate, budget, proof_budget051, true)
 			routes[str(candidate.candidateId)] = path
 	job.result = {"planning": prepared, "requests": requests, "routes": routes, "cache": data.cache, "budgets": data.budgets}
 	job.input = {} # All remaining output stays exclusively owned until joined.
