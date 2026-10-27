@@ -14,7 +14,8 @@ static var _runtime_profile043_enabled: bool=false
 static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,"observedCalls":0,"observedUs":0,"observedMountsCopied":0,"observedMountCopyUs":0,"ownCopies":0,"ownCopyUs":0,"enemyCopies":0,"enemyCopyUs":0,"enemyMountsCopied":0,
 	"retainedAdmissions":0,"retainedDue":0,"fullDue":0,"retainedMissOwnerDeadline":0,"retainedMissConditions":0,"retainedMissTarget":0,"retainedMissCapability":0,"retainedMissOther":0,
 	"retainedDropTime":0,"retainedDropEvents":0,"retainedDropPhase":0,"retainedDropCompletion":0,"retainedDropBoarding":0,
-	"workerDispatches":0,"workerAdoptions":0,"workerDrops":0,"workerSyncFallbacks":0}
+	"workerDispatches":0,"workerAdoptions":0,"workerDrops":0,"workerSyncFallbacks":0,
+	"certificationInputCalls":0,"certificationRefineCalls":0,"certificationAdoptCalls":0,"certificationReservedPathCalls":0}
 
 static func set_runtime_profile043(enabled: bool) -> void:
 	_runtime_profile043_enabled=enabled
@@ -507,8 +508,23 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	t.metrics.planningCalls={"candidates":0,"certify":0,"helm":0}
 	var detail: Dictionary=t.metrics.planningDetailUs
 	var phase_started: int=0
+	var profile051: bool=_runtime_profile043_enabled
+	var profile_started051: int=0
+	if profile051:
+		# Main-only opt-in subclocks. Each is contained in observation or
+		# certification; existing liveCertification is the physical call below.
+		detail.observationTerrain=0;detail.observationPrep=0;detail.observationPruneGrid=0
+		detail.observationSafety=0;detail.observationSelection=0
+		detail.certificationInputs=0;detail.certificationValidation=0
+		detail.certificationRefine=0;detail.certificationAdopt=0;detail.certificationReservedPath=0
 	t.budget={"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":2900}
+	if profile051:
+		t.budget.profileRoutes051=true # Only this main-owned budget, never worker capsules.
+		profile_started051=Time.get_ticks_usec()
 	t.geometry=Routes.terrain(st)
+	if profile051:
+		detail.observationTerrain=Time.get_ticks_usec()-profile_started051
+		profile_started051=Time.get_ticks_usec()
 	t.ships={};t.observed={}
 	for ship in st.ships:
 		if ship.sunk or ship.get("captureSecured",false):continue
@@ -516,8 +532,14 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		t.ships[id]=ship
 		_order_lifetime(st,ship)
 		t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache))
+	if profile051:
+		detail.observationPrep=Time.get_ticks_usec()-profile_started051
+		profile_started051=Time.get_ticks_usec()
 	_prune(t,t.ships,float(st.time))
 	t.cells=Routes.grid(t.observed.values(),true)
+	if profile051:
+		detail.observationPruneGrid=Time.get_ticks_usec()-profile_started051
+		profile_started051=Time.get_ticks_usec()
 	var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
 	var new_manual_id: String=str(st.get("playerId","")) if manual else ""
 	if new_manual_id!=str(t.manualId):
@@ -527,6 +549,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if not new_manual_id.is_empty():t.intents.erase(new_manual_id);t.retained051.erase(new_manual_id)
 		t.manualId=new_manual_id
 	for ship in t.ships.values():safety_check(st,ship,frame_cache)
+	if profile051:
+		detail.observationSafety=Time.get_ticks_usec()-profile_started051
+		profile_started051=Time.get_ticks_usec()
 	var queued: Array=t.ships.keys()
 	# Oldest decisions across BOTH sides own the fixed due slots, preserving the
 	# <=0.2s observation cadence. Actual certification attempts break age ties;
@@ -563,6 +588,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.retainedDue+=observed_due051-due.size()
 		_runtime_profile043_counts.fullDue+=due.size()
+	if profile051:detail.observationSelection=Time.get_ticks_usec()-profile_started051
 	detail.observation=Time.get_ticks_usec()-begin_started
 	var snapshots: Dictionary={}
 	# These bundles and all authority still belong to this synchronous begin.
@@ -613,9 +639,11 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var side: String=str(ship.team)
 		var snapshot: Dictionary=snapshots[side]
 		var real_attempt: bool=false
+		if profile051:profile_started051=Time.get_ticks_usec()
 		var worker_membership051: bool=id in planning[side].get("workerIds051",[])
 		var membership: Array=planning[side].decisions[id].detailedIds if worker_membership051 else Certification.detailed_targets(snapshot,ship,t.memory[side].get("byId",{}).get(id,{}))
 		var candidate_inputs: Dictionary={}
+		if profile051:detail.certificationInputs+=Time.get_ticks_usec()-profile_started051
 		for raw in proposed.get(id,[]):
 			# The existing per-hull allowance cannot certify another offer after a
 			# corridor reaches firing checks. Do not refine the remaining routes
@@ -623,20 +651,41 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if t.budget.rolled.has(id):break
 			t.metrics.planningCalls.candidates+=1
 			if candidate_inputs.is_empty():
+				if profile051:profile_started051=Time.get_ticks_usec()
 				candidate_inputs=Certification._begin_inputs(snapshot,ship,membership,worker_membership051)
 				membership=candidate_inputs.detailed
-			if not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
+				if profile051:
+					detail.certificationInputs+=Time.get_ticks_usec()-profile_started051
+					_runtime_profile043_counts.certificationInputCalls+=1
+			if profile051:profile_started051=Time.get_ticks_usec()
+			var rejected051: bool=not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw)
+			if profile051:detail.certificationValidation+=Time.get_ticks_usec()-profile_started051
+			if rejected051:continue
+			if profile051:profile_started051=Time.get_ticks_usec()
 			var prepared_route051: Dictionary=planning[side].get("routes051",{}).get(str(raw.candidateId),{})
 			var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ship,raw,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051) if prepared_route051.is_empty() else Routes._adopt_prepared051(st,t.geometry,ship,raw,prepared_route051,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051)
+			if profile051:
+				if prepared_route051.is_empty():
+					detail.certificationRefine+=Time.get_ticks_usec()-profile_started051
+					_runtime_profile043_counts.certificationRefineCalls+=1
+				else:
+					detail.certificationAdopt+=Time.get_ticks_usec()-profile_started051
+					_runtime_profile043_counts.certificationAdoptCalls+=1
 			var candidate: Dictionary=refined.candidate
 			if refined.status=="valid" and str(ship.get("order","engage"))=="engage" and candidate.fireMountIds.is_empty():
+				if profile051:profile_started051=Time.get_ticks_usec()
 				var reservation_status: String=_reserved_path(st,side,ship,candidate)
+				if profile051:
+					detail.certificationReservedPath+=Time.get_ticks_usec()-profile_started051
+					_runtime_profile043_counts.certificationReservedPathCalls+=1
 				if reservation_status!="valid":
 					t.reasons[id]="Checking reserved escape geometry" if reservation_status=="pending" else "Reserved escape blocked; checking another exit"
 					if reservation_status=="pending":break
 					real_attempt=true
 					continue
+			if profile051:profile_started051=Time.get_ticks_usec()
 			var fingerprint: String=Planner.fingerprint(candidate)
+			if profile051:detail.certificationValidation+=Time.get_ticks_usec()-profile_started051
 			var cert: Dictionary
 			if refined.status=="valid":
 				var certify_started: int=Time.get_ticks_usec()
@@ -929,6 +978,10 @@ static func finish(st: Dictionary,ai_us: int) -> void:
 	t.metrics.work={}
 	for key in ["fullRoutes","cacheHits","rollouts","samples","clearanceTests","exhaustions"]:t.metrics.work[key]=int(t.budget[key])
 	t.metrics.work.cacheEntries=t.routeCache.size()
+	# Optional fixed scalar route clocks belong to the same main-owned budget.
+	# Routes leaves this absent with profiling off and on all worker budgets.
+	if _runtime_profile043_enabled and t.budget.get("profileRoutes051",false) and t.budget.get("routeTiming051") is Dictionary:
+		for key in t.budget.routeTiming051:t.metrics.work[key]=int(t.budget.routeTiming051[key])
 	for id in t.ships:
 		var ship: Dictionary=t.ships[id]
 		var intent: Dictionary=t.intents.get(id,{})

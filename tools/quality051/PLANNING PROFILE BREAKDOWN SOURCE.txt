@@ -1,0 +1,47 @@
+051 EXISTING PLANNING PROFILE BREAKDOWN - SOURCE CANDIDATE
+Base9b5168d; owned Runtime matches Rootc9379b9 before this patch.
+R27 remains PASS15948/0; R11 fleet quality remains FAILED7.247/57.257FPS.
+This change instruments existing work only. No new performance claim.
+
+Only Runtime changed; Planner/Certification/AI fixtures and all behavior are
+unchanged. Existing runtime_profile043 enabled flag gates every new clock,
+field and counter write. No new arrays, dictionaries, workers, RNG calls,
+route calls or sample history. Candidate rejection uses the identical
+short-circuit predicate once, stored as a bool so its duration is recorded.
+
+New per-tick planningDetailUs fields (integer microseconds):
+observationTerrain: Routes.terrain.
+observationPrep: live ship/observed maps, order lifetime, refresh_mounts,
+  and _observed; existing ownCopyUs/observedUs remain available.
+observationPruneGrid: _prune plus current observed grid construction.
+observationSafety: manual/control invalidation plus safety_check loop.
+observationSelection: globally fair sort, due and retained selection.
+These are disjoint subregions of existing observation. Initial polling,
+profile/metric setup and clock overhead remain in the parent residual.
+
+certificationInputs: membership selection plus _begin_inputs, disjoint.
+certificationValidation: existing candidate/fingerprint/order short-circuit
+  and the existing post-refinement fingerprint.
+certificationRefine / certificationAdopt: route lookup and the one existing
+  selected main route call, separated by whether a prepared route exists.
+certificationReservedPath: the existing _reserved_path call, including
+  blocked/pending exits. Existing liveCertification is unchanged.
+These are subregions of certification. Proof setup/closure, offer copies,
+pending certificates and bookkeeping remain in the parent residual.
+
+Four fixed cumulative _runtime_profile043_counts fields count actual calls:
+certificationInputCalls, certificationRefineCalls, certificationAdoptCalls,
+certificationReservedPathCalls. Existing reset iterates these normally.
+
+Nav-only coordination: main begin sets budget.profileRoutes051=true only
+under the existing profile flag. Worker slices have no flag. At finish,
+optional budget.routeTiming051 fixed integer fields are copied directly
+into metrics.work (route-specific names, separate from existing work keys).
+No Routes edits/dependency are needed for this Runtime commit. The existing
+runtime_profile043 row already copies planningDetailUs/work/cumulative counts.
+
+Duel policy, range/phase guards, .15s fleet batching, .2s observations,
+current physical authority, budgets and every existing assertion retained.
+Root owns all native/export/probe tests. No engine/native/GPU run here.
+Source verification: existing preload advisory0issues, engineInvoked=false;
+git diff --check clean. Native parsing/behavior/performance UNRUN.051OPEN.
