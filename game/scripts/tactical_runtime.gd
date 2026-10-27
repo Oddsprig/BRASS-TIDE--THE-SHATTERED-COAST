@@ -671,11 +671,20 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	# Oldest decisions across BOTH sides own the fixed due slots, preserving the
 	# <=0.2s observation cadence. Actual certification attempts break age ties;
 	# budget-only deferral still never impersonates physical certification.
+	var observation_priority051: Dictionary={}
+	for id: String in queued:
+		var priority: float=float(t.lastDecision.get(id,0.0))
+		if t.has("workers051"):
+			# Useful observations never renew the original semantic deadline.
+			# Compute each hull's priority once, outside the hot sort comparator.
+			var preference: Variant=t.preferences051.get(id)
+			if priority>=0.0 and preference is Certification._Preference051:priority=minf(priority,preference.chosen_at+0.45-Planner.CERT_SECONDS)
+		observation_priority051[id]=priority
 	queued.sort_custom(func(a,b):
 		var aa: float=float(t.certificationAttempts.get(a,-1.0))
 		var bb: float=float(t.certificationAttempts.get(b,-1.0))
-		var ap: float=float(t.lastDecision.get(a,0.0))
-		var bp: float=float(t.lastDecision.get(b,0.0))
+		var ap: float=float(observation_priority051[a])
+		var bp: float=float(observation_priority051[b])
 		if ap!=bp:return ap<bp
 		return aa<bb if aa!=bb else str(a)<str(b))
 	var cap: int=maxi(1,ceili(float(queued.size())/10.0))
@@ -696,7 +705,11 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		# Existing command/condition/control invalidations set last=-1 and bypass
 		# this bounded retry delay. Live helm/fire checks never wait for it.
 		var interval: float=Planner.OBSERVATION_SECONDS051 if t.has("workers051") else (0.15 if t.intents.has(id) else 0.1)
-		if last>=0.0 and float(st.time)-last<interval-0.000001:continue
+		var preference_due051: bool=false
+		if t.has("workers051"):
+			var preference: Variant=t.preferences051.get(id)
+			preference_due051=preference is Certification._Preference051 and float(st.time)-preference.chosen_at>=0.45-0.000001
+		if last>=0.0 and float(st.time)-last<interval-0.000001 and not preference_due051:continue
 		# Waiting owns a fair selection slot, never an observation or authority.
 		if selected_due051>=cap:continue
 		selected_due051+=1

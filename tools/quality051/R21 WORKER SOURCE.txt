@@ -75,3 +75,63 @@ Exact source locations: Planner29(sample age),108(input categories),217(seed
 expiry correction),248(dispatch/release),355/359(join categories),456(main
 fallback categories); Runtime61(counter-only diagnostic branch); existing
 workers fixture1400/1403(seed boundaries),1441(real-output semantic age).
+
+R46 FOLLOW-UP - SOURCE ONLY; native failure retained
+Input6af66e1; combined Rootb391 includes other owners' pure-preparation and
+profile-only changes, which are not reverted or copied into this checkout.
+R46 job457b0194541d4be8bca827d30da2cd42 stopped42.156s: actualvoyage274 /
+geometry683 / retained355 PASS; worker232 checks FOUR ORIGINAL failures.
+No export, native acceptance or speedup is claimed for this follow-up.
+
+Read the R46 native log/worker JSON and R45b97b032d worker JSON. R45's expiry
+row selected sample0.466667, held chosen0.05, adopted0.5. R46 instead selected
+sample0.316667, held chosen0.016667, still unadopted/discarded at0.516667.
+Fresh full worker clocks can legitimately shift which generation the old
+age>=0.30 fixture selects. The four assertions remain substantive regressions
+until the final source passes Root's existing worker suite.
+
+The existing R46 counters show25 RELEASE_EXPIRED and zero semanticAge,
+memory, shot and freshMain rejections. These are whole-fixture site counts,
+not per-generation proof. The old receipt omitted guardDecisionAt, the final
+lastDecision, worker original age and certificate clock/revision, so it cannot
+identify the exact per-case intervening observation from the JSON alone.
+
+Proven production scheduling gap: begin eligibility considered ONLY
+lastDecision+0.15, while _observe_retained051 alone checked chosenAt+0.45.
+An actual retained observation after dispatch could push the next selection
+past the ORIGINAL semantic expiry and the ready batch's0.15 lifetime. At the
+end of that missed frame _dispatch_batch051 retires the untouched generation;
+later fallback cannot satisfy that generation's adoption/current-cert/current-HP
+checks. This path is consistent with the release counters; its exact R46
+per-case occurrence awaits the compact receipts, not an invented trace.
+
+Narrow production correction ONLY in Runtime.begin selection: pooled semantic
+expiry is independently eligible at the EXISTING .45-minus-epsilon boundary.
+Queue ordering compares the earlier of last useful observation+.2 and the
+ORIGINAL preference expiry, retaining original certification/id tie breaks.
+The adjusted float priority is computed ONCE per queued hull before sorting;
+the comparator performs no preference lookups/casts or minf calculation.
+Negative lastDecision commands/urgent invalidations retain first priority.
+This prevents a newer observation from concealing an earlier semantic deadline
+behind the normal cadence. The actual fair slot cap, worker wait guard, semantic
+observer, cached role preparation, all current main certification/land connector
+checks, worker150ms boundary, release timing and0.45 age gate are unchanged.
+No worker concurrency, batch size, geometry margin, fingerprint or gameplay change.
+
+Focused setup correction in existing _worker_slot051: expiry cases now require
+the REAL selected batch to cover the old held expiry inside BOTH its unchanged
+150ms lifetime AND the original assertion's guardDecisionAt+0.2 window. A
+post-dispatch observation cannot renew that captured guard clock. Non-expiry
+ready/handoff setup is unchanged. Every existing assertion, including the four
+failed original assertions and blocked connector/braking, remains byte-for-byte.
+The expiry and blocked-connector receipt rows now expose generation, captured
+guard/sample clocks, lastDecision, certificate clock/revision or intent presence,
+and reason, without another harness or production logging.
+
+Validation this pass: reviewed diff; git diff --check clean. One read-only
+source advisory on Runtime and existing worker fixture: advisoryOnly=true,
+engineInvoked=false, issues=[]. The final fixture generation filter uses only
+already-declared fields and minf; no second advisory or native run is performed.
+Root owns workers/retained/actual opening and all final native/rendered work.
+Remaining dispatch-time waste outside this semantic-deadline path is not solved
+or quantified by this correction. Native test and performance claims stay OPEN.

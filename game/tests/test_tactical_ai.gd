@@ -1092,7 +1092,13 @@ func _worker_slot051(arena: Dictionary, expiry051: bool=true) -> Dictionary:
 				batch_times[member]={"generation":int(cohort.generation051),"period":float(cohort.periodAt051)}
 		var held: Variant=st.tactical.retained051.get(id)
 		var slot: Dictionary=Planner._member_slot051(st.tactical,id)
-		if not slot.is_empty() and held is C._Retained051 and float(slot.createdAt)==float(st.time) and float(st.time)-held.chosen_at>=(0.30 if expiry051 else 0.10)-0.000001:
+		# The expiry case asserts BOTH original semantic age and useful age from
+		# this batch's guard. A newer observation after dispatch cannot make an
+		# ineligible old generation satisfy that unchanged same-age contract.
+		var expiry_sample051: bool=true
+		if expiry051 and not slot.is_empty() and held is C._Retained051:
+			expiry_sample051=held.chosen_at+0.45<=minf(float(slot.createdAt)+Planner.WORKER_DEADLINE051,float(slot.guards[id].decisionAt)+Planner.CERT_SECONDS)+0.000001
+		if not slot.is_empty() and held is C._Retained051 and float(slot.createdAt)==float(st.time) and float(st.time)-held.chosen_at>=(0.30 if expiry051 else 0.10)-0.000001 and expiry_sample051:
 			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at<0.45+0.000001 and spaced,"actor samples debit distinct150ms side periods before original preference expiry")
 			check(float(st.tactical.lastDecision[id])==float(slot.guards[id].decisionAt) and float(slot.createdAt)==float(st.time) and is_same(st.tactical.intents.get(id),held.intent),"batch dispatch preserves real observation clocks and grants no new helm authority")
 			var complete: bool=true
@@ -1488,7 +1494,8 @@ func workers051() -> void:
 		var now_owner: Dictionary=Roles.ships_by_id(now_view)[id]
 		var checked_membership: Dictionary=C._begin_inputs(now_view,now_owner,[str(arena.target.id),"absent",id,str(arena.target.id)],true)
 		check(checked_membership.detailed==[str(arena.target.id)] and C._begin_inputs(now_view,now_owner,[],true).detailed.is_empty(),"private prepared membership checks current live hostile IDs, deduplicates and preserves an empty selection")
-		observations.append({"case":"workers-retained-expiry","createdAt":slot.createdAt,"chosenAt":lease.held.chosen_at,"adoptedAt":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"workerPose":C.pose(worker_view),"mainCheckedPose":record.get("certificate",{}).get("checkedPose",{}),"budgets":output.budgets})
+		observations.append({"case":"workers-retained-expiry","createdAt":slot.createdAt,"chosenAt":lease.held.chosen_at,"adoptedAt":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"workerPose":C.pose(worker_view),"mainCheckedPose":record.get("certificate",{}).get("checkedPose",{}),"budgets":output.budgets,
+			"generation":slot.generation051,"guardDecisionAt":observed_at,"workerChosenAt":output.planning.originalPreferenceChosenAt051.get(id,-1.0),"lastDecision":st.tactical.lastDecision.get(id,-1.0),"memoryAt":joined_history[-1].lastAt,"certCheckedAt":record.get("certificate",{}).get("checkedAt",-1.0),"certRevision":record.get("certificate",{}).get("snapshotRevision",-1),"reason":st.tactical.reasons.get(id,"")})
 	T.retire_planning051(st);T.drain_planning051()
 	# A REAL batch contains only nonfiring distant stations. Moving the hostile
 	# inside gun range must not seal that old fire hold into a new retained plan.
@@ -1534,12 +1541,15 @@ func workers051() -> void:
 	lease=_worker_slot051(arena)
 	if not lease.is_empty() and _worker_join051(lease.slot):
 		var slot: Dictionary=lease.slot
+		var observed_at: float=float(slot.guards[id].decisionAt)
+		var worker_chosen_at: float=float(slot.capsule.result.planning.originalPreferenceChosenAt051.get(id,-1.0))
 		source.x=100.0;source.y=850.0
 		for tick: int in range(12):
 			B.update(st,1.0/60.0);B.pop_events(st)
 			if id in slot.adopted:break
 		check(id in slot.adopted and not st.tactical.intents.has(id),"real worker suggestion grants no authority across a blocked fresh land connector")
 		check(float(T.helm(st,source).throttle)==0.0,"fresh connector rejection brakes the actual hull")
+		observations.append({"case":"workers-blocked-connector","generation":slot.generation051,"createdAt":slot.createdAt,"chosenAt":lease.held.chosen_at,"guardDecisionAt":observed_at,"workerChosenAt":worker_chosen_at,"time":st.time,"lastDecision":st.tactical.lastDecision.get(id,-1.0),"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"hasIntent":st.tactical.intents.has(id),"reason":st.tactical.reasons.get(id,"")})
 	T.retire_planning051(st);T.drain_planning051()
 	# The worker chose an ordinary approach. A newly close hostile requires a
 	# CURRENT escape decision even though command/capability/terrain still match.
