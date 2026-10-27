@@ -876,6 +876,9 @@ func boat_shape(p: Vector2, angle: float, shape: Array, size_value: float, heigh
 	world_poly(points, color, height)
 
 func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bool = false, enlargement: float = 1.0, no_bars: bool = false):
+	_draw_boat051(boat, color, selected, enemy, enlargement, no_bars, null)
+
+func _draw_boat051(boat: Dictionary, color: Color, selected: bool, enemy: bool, enlargement: float, no_bars: bool, battle_draw051: BoatArt._BattleDraw051):
 	# v0.002: rich BoatArt geometry with offscreen culling + zoom LOD.
 	# Persistent wakes are recorded in step() and drawn by _draw_wakes().
 	var spec_v = boat.get("spec", {})
@@ -884,9 +887,11 @@ func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bo
 		return
 	var boat_size := maxf(4.0, float(spec_v.get("size", 16))) * enlargement
 	var p := Vector2(float(boat.get("x", 0.0)), float(boat.get("y", 0.0)))
-	var screen := project(p)
+	var view: Rect2 = battle_draw051.view if battle_draw051 != null else get_viewport_rect()
+	var projector: Callable = battle_draw051.projector if battle_draw051 != null else _projector()
+	var screen: Vector2 = projector.call(p, 0.0)
 	var margin: float = 120.0 + boat_size * scale_factor * 3.2
-	if not get_viewport_rect().grow(margin).has_point(screen):
+	if not view.grow(margin).has_point(screen):
 		if _profile_drawing:_profile_frame.boats_culled+=1
 		return
 	if selected:
@@ -895,14 +900,15 @@ func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bo
 	var lod := 0 if screen_len > 78.0 else (1 if screen_len > 36.0 else 2)
 	if tactical:
 		lod = maxi(lod, 1)
-	var draw_stats: Dictionary=BoatArt.draw_boat(self, _projector(), boat, {
+	var opts: Dictionary = {
 		"accent": color, "enemy": enemy, "lod": lod, "clock": clock,
 		"cache":true,
 		"combat":host.mode=="battle","battle_clock":float(host.battle.get("time",0))+float(host.battle.get("visualTailTime",0)) if host.mode=="battle" else 0.0,
-		"px": maxf(2.0, boat_size * scale_factor * 0.82), "enlargement": enlargement})
+		"px": maxf(2.0, boat_size * scale_factor * 0.82), "enlargement": enlargement}
+	var draw_stats: Dictionary = BoatArt._draw_battle_boat051(self, battle_draw051, boat, opts) if battle_draw051 != null else BoatArt.draw_boat(self, projector, boat, opts)
 	if _profile_drawing:
 		_profile_frame.boats_visible+=1
-		if get_viewport_rect().has_point(screen):_profile_frame.boat_centers_on_screen+=1
+		if view.has_point(screen):_profile_frame.boat_centers_on_screen+=1
 		_profile_frame.boat_primitives+=int(draw_stats.get("primitives",0))
 		_profile_frame.boat_sprites+=int(draw_stats.get("sprites",0))
 		_profile_frame.authored_hulls+=int(bool(draw_stats.get("authored_hull",false)))
@@ -910,7 +916,7 @@ func draw_boat(boat: Dictionary, color: Color, selected: bool = false, enemy: bo
 		elif lod==1:_profile_frame.lod1+=1
 		else:_profile_frame.lod2+=1
 	if not no_bars and boat.has("hp") and boat.has("maxHp"):
-		var center = project(p, -35)
+		var center: Vector2 = projector.call(p, -35.0)
 		var width = maxf(35, boat_size * scale_factor * 2.5)
 		var hp_frac = clampf(float(boat.hp) / maxf(1.0, float(boat.maxHp)), 0, 1)
 		draw_rect(Rect2(center - Vector2(width / 2, 0), Vector2(width, 4)), Color("0b2632"))
@@ -1068,11 +1074,12 @@ func draw_battle():
 	sorted_ships.sort_custom(func(a, b): return a.x + a.y < b.x + b.y)
 	if _profile_drawing:_profile_frame.sort_us=Time.get_ticks_usec()-phase_started
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
+	var battle_draw051: BoatArt._BattleDraw051 = null if nautical_chart() else BoatArt._BattleDraw051.new(get_viewport_rect(), camera, scale_factor)
 	for boat in sorted_ships:
 		if not boat.sunk:
 			if _profile_drawing:_profile_frame.boats_live+=1
 			var is_sel: bool = boat.id in selected_ids
-			draw_boat(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, is_sel, boat.team == "enemy")
+			_draw_boat051(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, is_sel, boat.team == "enemy", 1.0, false, battle_draw051)
 			if boat.get("captureSecured",false):text_at("SECURED PRIZE",project(Vector2(boat.x,boat.y))+Vector2(0,-38),11,GOLD,mono,true)
 			if is_sel and boat.team == "player":
 				_draw_order_indicator(battle, boat, bool(battle_overlays.routes) and route_boats < OVERLAY_BOATS)

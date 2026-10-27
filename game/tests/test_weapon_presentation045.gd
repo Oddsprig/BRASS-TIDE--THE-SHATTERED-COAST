@@ -281,6 +281,72 @@ func inspect_draw_preparation(hull: Dictionary) -> void:
 	check(Sprite._atlas_frames.is_empty() and Sprite._textures.is_empty(),"clear_cache releases prepared atlas frames and their texture references")
 	check(record(boat).prims==warm and boat==before,"cache clearing reloads identical art without changing any boat state")
 
+# The checked public scale subtracts projected float32 positions. Its roundoff
+# varies by boat; compare every quad within the existing .02px muzzle tolerance,
+# while keeping layer order, sources, colors, flags and other primitives exact.
+func same_batch_quads051(actual: Array, reference: Array) -> bool:
+	if actual.size()!=reference.size():return false
+	for i in range(actual.size()):
+		var a: Dictionary=actual[i];var b: Dictionary=reference[i]
+		if a.t!=b.t:return false
+		if a.t!="texture":
+			if a!=b:return false
+			continue
+		var af: Dictionary=a.duplicate();var bf: Dictionary=b.duplicate()
+		for field in ["pts","rect"]:af.erase(field);bf.erase(field)
+		if af!=bf or a.pts.size()!=4 or b.pts.size()!=4:return false
+		for j in range(4):
+			if Vector2(a.pts[j][0],a.pts[j][1]).distance_to(Vector2(b.pts[j][0],b.pts[j][1]))>0.02:return false
+			if absf(float(a.rect[j])-float(b.rect[j]))>0.02:return false
+	return true
+
+func inspect_batch_camera051(hull: Dictionary) -> void:
+	var fit: Dictionary=Refit.defaults(hull);fit.weapons.fill("")
+	fit.weapons[0]="heavy_cannon";fit.weapons[1]="rapid_gun"
+	var spec: Dictionary=Refit.effective_spec(hull,fit)
+	var boats: Array=[]
+	for i in range(3):
+		var boat: Dictionary=Art.preview_boat(spec,0.061+float(i)*0.41)
+		boat.localAimAngles={"mount0":0.6-float(i)*0.2,"mount1":-0.4}
+		boat.mountShotTimes={"mount0":9.97};boat.vx=37.0;boat.fire=float(i)*12.0
+		boat.visualHits=[{"x":-0.2,"y":0.1,"at":9.98,"power":0.7,"material":"metal","section":"deck","angle":0.3}]
+		boats.append(boat)
+	var previous: Array=[]
+	for camera_case in [[Vector2(480,360),Vector2.ZERO,1.0],[Vector2(1280,720),Vector2(1300,900),0.65],[Vector2(1600,900),Vector2(1234.5,845.75),1.7]]:
+		var view: Rect2=Rect2(Vector2.ZERO,camera_case[0])
+		var camera: Vector2=camera_case[1];var scale: float=float(camera_case[2])
+		var batch:=Art._BattleDraw051.new(view,camera,scale)
+		var combined=Trace.Canvas.new();var reference=Trace.Canvas.new()
+		reference.origin=view.size*0.5;reference.camera=camera;reference.scale_factor=scale
+		check(batch.view==view,"batch viewport is the current draw snapshot")
+		for i in range(boats.size()):
+			var boat: Dictionary=boats[i]
+			boat.x=camera.x-33.0+float(i)*57.0;boat.y=camera.y+17.0-float(i)*23.0
+			var before: Dictionary=boat.duplicate(true)
+			var opts: Dictionary={"cache":true,"lod":i,"px":float(spec.size)*scale*0.82,"combat":true,"clock":10.0,"battle_clock":10.0}
+			var shared: Dictionary=Art._draw_battle_boat051(combined,batch,boat,opts)
+			var checked: Dictionary=Art.draw_boat(reference,reference.project,boat,opts)
+			check(shared==checked and bool(shared.authored_hull),"batch retains public layer/count/LOD result for each boat")
+			check(boat==before,"shared camera leaves aim, recoil, scars and fire state untouched")
+			check(batch.projector.call(Vector2(boat.x,boat.y),9.7)==reference.project(Vector2(boat.x,boat.y),9.7),"batch mount plane uses the exact current camera projection")
+		check(combined.invalid==0 and reference.invalid==0 and combined.transform==Transform2D.IDENTITY,"batch submission restores transforms and finite geometry")
+		check(same_batch_quads051(combined.prims,reference.prims),"all batch quads/layers/materials and live feedback match the checked public drawing")
+		var warm=Trace.Canvas.new()
+		for i in range(boats.size()):
+			Art._draw_battle_boat051(warm,batch,boats[i],{"cache":true,"lod":i,"px":float(spec.size)*scale*0.82,"combat":true,"clock":10.0,"battle_clock":10.0})
+		check(warm.prims==combined.prims and warm.invalid==0,"warm batch is an exact complete drawing replay")
+		check(previous.is_empty() or previous!=combined.prims,"next battle draw uses its changed camera, viewport and scale")
+		previous=combined.prims.duplicate(true)
+		# A prior affine batch cannot authorize sprites for another callable, even
+		# if a caller puts a batch or a claimed scale into its ordinary opts.
+		var custom=func(p: Vector2,h: float) -> Vector2:return reference.project(p,h)+Vector2((p.x-camera.x)*0.12,h*0.25)
+		var control=Trace.Canvas.new();var spoofed=Trace.Canvas.new()
+		var opts: Dictionary={"cache":true,"lod":0,"px":float(spec.size)*scale*0.82,"combat":true,"clock":10.0,"battle_clock":10.0}
+		Art.draw_boat(control,custom,boats[0],opts)
+		opts.battle_draw051=batch;opts.screen_scale=scale
+		Art.draw_boat(spoofed,custom,boats[0],opts)
+		check(control.texture_draws==0 and spoofed.prims==control.prims and spoofed.invalid==0,"public custom projector keeps checked mechanical fallback after a shared batch")
+
 func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	manifest=JSON.parse_string(FileAccess.get_file_as_string(Sprite.WEAPON_MANIFEST))
@@ -293,6 +359,8 @@ func run() -> void:
 		inspect_recoil(found[0],"rapid_gun")
 		inspect_recoil(found[0],"heavy_cannon")
 		inspect_fallbacks(found[0])
-		if id=="brasswind_motor_galleon":inspect_draw_preparation(found[0])
+		if id=="brasswind_motor_galleon":
+			inspect_draw_preparation(found[0])
+			inspect_batch_camera051(found[0])
 	print("WEAPON045: %d checks, %d failures; native texture/geometry/event fixture only"%[checks,failures])
 	quit(0 if failures==0 else 1)

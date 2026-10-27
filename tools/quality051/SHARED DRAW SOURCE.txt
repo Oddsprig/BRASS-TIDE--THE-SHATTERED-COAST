@@ -1,0 +1,31 @@
+SHARED BATTLE DRAW PREPARATION - SOURCE CANDIDATE ONLY
+Base: 1f23103cb371985560687efa7e0ab247e5e9af3a
+Checkout: work/quality-v042-v061/v051-shared-draw-sol
+
+One stack-local BoatArt._BattleDraw051 per Chart battle boat loop copies the
+current viewport/camera/scale and constructs its own canonical ISO projector.
+Its known affine scale is shared across boats, hulls and mount layers. No camera
+proof persists; neither public draw_boat entry accepts an opts-provided proof.
+Default/custom/nonisometric callers retain actual projection validation and
+legacy enlargement fallback. Culling reuses the same viewport snapshot.
+
+Atlas preparation now indexes one immutable scalar snapshot per path. EVERY hit
+freshly compares actual texture identity/current size, headings, columns, cell,
+pivot and density; vector copies prevent in-place metadata aliasing. Any mismatch
+rebuilds checked immutable frames. Warm hits allocate no eight-field Array key.
+The existing128-path ceiling/clear_cache/nonstandard-heading fallback remain.
+
+No geometry, layers, material/color, mount aim, recoil, scars, fire, wake or LOD
+algorithm changed. Three production files only; no AI/physics/metadata edits.
+Existing Art042/Weapon045 checks preserved (all42/60 source check lines remain).
+Added only batch camera/viewport/zoom and custom-projector parity cases, including
+the real launched Chart projectors, live aim/recoil/scars/fire, exact warm replay
+and rejection of an opts-supplied scale/batch for an incompatible projector.
+Cross-path texture quads use existing .02px muzzle tolerance for the old per-boat
+projection-subtraction roundoff; order/source/colors/flags/nontexture calls exact.
+
+SINGLE final source advisory issues=[]/engineInvoked=false; whitespace diff clean.
+No engine/native/test/build/profile/export/
+GPU/helper run. Correctness and savings UNPROVED; Root owns native/GPU acceptance.
+Grok checkout untouched. No051 release/no052. Git mutations disable gc, maintenance
+and hooks using the prescribed empty hooks path; no amend/maintenance.

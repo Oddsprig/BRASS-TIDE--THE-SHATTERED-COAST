@@ -178,6 +178,11 @@ func capture(game) -> void:
 	var normal_scale: float=clampf(game.chart.get_viewport_rect().size.x/1700.0,0.65,1.2)*entry_zoom
 	check(game.chart.follow_camera and is_equal_approx(game.chart.zoom,entry_zoom) and not game.chart.tactical and is_equal_approx(game.chart.scale_factor,normal_scale),"representative trace retains the047 small-engagement follow camera")
 	var before: Dictionary=game.battle.duplicate(true)
+	var draw051:=Art._BattleDraw051.new(game.chart.get_viewport_rect(),game.chart.camera,game.chart.scale_factor)
+	var projected051: Callable=game.chart._projector()
+	for ship in game.battle.ships:
+		var at051:=Vector2(ship.x,ship.y)
+		check(draw051.projector.call(at051,0.0)==game.chart.project(at051) and draw051.projector.call(at051,9.7)==projected051.call(at051,9.7),"shared battle snapshot agrees with both actual Chart projectors at the hull and mount plane")
 	var battle=Trace.battle_canvas(game)
 	check(battle.invalid==0,"actual normal-zoom battle trace is finite")
 	for id in IDS:check(not subset(battle,"/"+str(id)+"/").is_empty(),str(id)+" actual battle uses baked hull")

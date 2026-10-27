@@ -10,6 +10,8 @@ const WEAPON_MANIFEST := "res://assets/boats042/weapons/asset-manifest.json"
 const IDS := ["tin_skiff", "ash_corvette", "brasswind_motor_galleon"]
 const ISO := Transform2D(Vector2(0.82, 0.41), Vector2(-0.82, 0.41), Vector2.ZERO)
 const HULL_REFERENCE_HEIGHT := 9.7
+const FRAME_CELL_DEFAULT := [384, 320]
+const FRAME_PIVOT_DEFAULT := [192, 200]
 static var _manifests: Dictionary = {}
 static var _textures: Dictionary = {}
 static var _hull_entries: Dictionary = {}
@@ -115,18 +117,19 @@ static func _cell_ready(info: Dictionary) -> bool:
 	var source: Rect2 = info.source
 	return source.position.x >= 0.0 and source.position.y >= 0.0 and source.size.x > 0.0 and source.size.y > 0.0 and source.end.x <= texture.get_width() and source.end.y <= texture.get_height()
 
-# Only atlas geometry/readiness is retained. Keys copy the actual metadata and
-# texture dimensions, so replaced OR in-place edited manifests/textures cannot
-# reuse old rectangles. No boat, mount, aim, recoil or condition enters here.
+# Only atlas geometry/readiness is retained. Each path has one bounded snapshot;
+# every hit compares fresh metadata values, texture identity and current size.
+# No warm Array key, aliased metadata, boat, aim or condition is retained.
 static func _ready_frame(entry: Dictionary, angle: float) -> Dictionary:
 	var path: String = str(entry.get("atlas", ""))
 	var texture: Texture2D = _texture(path)
 	if texture == null: return {}
 	var headings: int = maxi(1, int(entry.get("headings", 32)))
 	var columns: int = maxi(1, int(entry.get("columns", 8)))
-	var key: Array = [path, texture, texture.get_size(), headings, columns,
-		_v2(entry.get("cell_px", [384, 320])), _v2(entry.get("pivot_px", [192, 200])),
-		float(entry.get("pixels_per_world_unit", 2.0))]
+	var texture_size: Vector2 = texture.get_size()
+	var cell: Vector2 = _v2(entry.get("cell_px", FRAME_CELL_DEFAULT))
+	var pivot: Vector2 = _v2(entry.get("pivot_px", FRAME_PIVOT_DEFAULT))
+	var density: float = float(entry.get("pixels_per_world_unit", 2.0))
 	# Nonstandard heading counts keep the checked reference path, without
 	# allocating an arbitrary number of descriptors from custom metadata.
 	if headings != 32:
@@ -134,18 +137,26 @@ static func _ready_frame(entry: Dictionary, angle: float) -> Dictionary:
 		if not _cell_ready(info): return {}
 		info.texture = texture
 		return info
-	var frames = _atlas_frames.get(key)
-	if frames == null:
-		frames = []
-		for heading in range(headings):
-			var info: Dictionary = _frame(entry, float(heading) * TAU / headings)
-			if _cell_ready(info): info.texture = texture
-			else: info = {}
-			info.make_read_only()
-			frames.append(info)
-		frames.make_read_only()
-		if _atlas_frames.size() >= ATLAS_FRAME_LIMIT: _atlas_frames.clear()
-		_atlas_frames[key] = frames
+	var cached = _atlas_frames.get(path)
+	if (cached is Dictionary and is_same(cached.texture, texture)
+		and cached.texture_size == texture_size and cached.headings == headings
+		and cached.columns == columns and cached.cell == cell
+		and cached.pivot == pivot and cached.density == density):
+		return cached.frames[posmod(int(roundf(angle / TAU * headings)), headings)]
+	var frames: Array = []
+	for heading in range(headings):
+		var info: Dictionary = _frame(entry, float(heading) * TAU / headings)
+		if _cell_ready(info): info.texture = texture
+		else: info = {}
+		info.make_read_only()
+		frames.append(info)
+	frames.make_read_only()
+	if not _atlas_frames.has(path) and _atlas_frames.size() >= ATLAS_FRAME_LIMIT: _atlas_frames.clear()
+	var prepared: Dictionary = {"texture": texture, "texture_size": texture_size,
+		"headings": headings, "columns": columns, "cell": cell, "pivot": pivot,
+		"density": density, "frames": frames}
+	prepared.make_read_only()
+	_atlas_frames[path] = prepared
 	return frames[posmod(int(roundf(angle / TAU * headings)), headings)]
 
 static func _draw_cell(ctx: Dictionary, info: Dictionary, origin: Vector2, scale: float) -> bool:

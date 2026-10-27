@@ -31,6 +31,23 @@ const DRAW_INPUT_LIMIT: int = 128
 const DRAW_INPUT_FIELDS := ["id", "role", "faction", "civilianRole", "armor", "size", "tier", "weapon", "weaponMounts"]
 static var _draw_input_cache: Dictionary = {}
 
+# Private to Chart's synchronous battle boat loop. The projector is constructed
+# here from copied camera inputs, never supplied by opts or an arbitrary caller.
+# No instance is retained by BoatArt or Chart beyond that one loop.
+class _BattleDraw051 extends RefCounted:
+	var view: Rect2
+	var projector: Callable
+	var sprite_scale: float
+
+	func _init(view_rect: Rect2, view_camera: Vector2, view_scale: float) -> void:
+		view = view_rect
+		var view_origin: Vector2 = view_rect.size * 0.5
+		projector = func(p: Vector2, h: float) -> Vector2:
+			var d: Vector2 = p - view_camera
+			return view_origin + Vector2((d.x - d.y) * 0.82, (d.x + d.y) * 0.41 - h) * view_scale
+		# Nonpositive/nonfinite inputs retain the checked fallback as well.
+		sprite_scale = view_scale if is_finite(view_scale) and view_scale > 0.0 else -1.0
+
 # --- classification -------------------------------------------------------
 
 static func archetype(spec: Dictionary) -> String:
@@ -453,6 +470,12 @@ static func _draw_mount(ctx: Dictionary, m: Dictionary, turret_world: float, c: 
 ## px:float (screen pixels per boat-local unit, for circles/line widths),
 ## enlargement:float. Returns primitive counts + classification for QA.
 static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dictionary = {}) -> Dictionary:
+	return _draw_boat051(canvas, projector, boat, opts, -1.0)
+
+static func _draw_battle_boat051(canvas, batch: _BattleDraw051, boat: Dictionary, opts: Dictionary) -> Dictionary:
+	return _draw_boat051(canvas, batch.projector, boat, opts, batch.sprite_scale)
+
+static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: Dictionary, battle_scale051: float) -> Dictionary:
 	var spec_v = boat.get("spec", {})
 	var spec: Dictionary = spec_v if spec_v is Dictionary else {}
 	var accent: Color = opts.get("accent", Color("8fc6b4")) if opts.get("accent") is Color else Color("8fc6b4")
@@ -478,11 +501,11 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 	}
 	var stations := _stations(spec)
 	var mounts: Array = prepared.mounts
-	# This context lives for one synchronous draw. Custom/chart projectors still
-	# pass the actual ISO test; no camera/scale proof survives into another draw.
+	# Only the private, constructed affine battle projector shares scale across
+	# boats. Public/default/custom projectors still test their actual local basis.
 	var sprite_scale: float = 0.0
 	if is_equal_approx(enlargement, 1.0) and canvas.has_method("draw_texture_rect_region") and canvas.has_method("draw_set_transform_matrix"):
-		sprite_scale = SpriteArt._screen_scale(ctx)
+		sprite_scale = SpriteArt._screen_scale(ctx) if battle_scale051 < 0.0 else battle_scale051
 	ctx.authored_hull=SpriteArt.draw_hull(ctx,spec,sprite_scale)
 	if bool(ctx.authored_hull):
 		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
