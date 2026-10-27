@@ -950,8 +950,26 @@ func traffic_prefix051() -> void:
 	check(public_shape.approach==request.approach and public_shape["pass"]==request["pass"] and public_shape.exit==request.exit and public_shape.until==24.5 and not public_shape.has("origin051"),"public reservation arrays, ETA lifetime and schema stay unchanged")
 	var st: Dictionary={"time":10.0,"tactical":{"memory":{"player":{"reservations":{str(peer.id):peer_prefix}}},"budget":traffic_budget051()}}
 	check(T._reserved_path(st,"player",owner,request)=="valid","Runtime early hard-reservation gate uses the same prefix policy")
+	var main_seconds: float=Planner.CERT_PREFIX_SECONDS
 	peer.x=480.0;peer.y=700.0;peer_request.approach=[Vector2(480,700),Vector2(480,1100)]
-	st.tactical.memory.player.reservations[str(peer.id)]=Stations._reservation_begin051(peer_request,peer,10.0,seconds)
+	var later_peer: Dictionary=Stations._reservation_begin051(peer_request,peer,10.0,seconds)
+	counter={"clearanceTests":0,"clearanceExhausted":0}
+	check(Stations._conflict_begin051(own_prefix,later_peer,counter,4096),"old later crossing still blocks an explicitly requested two-second reservation")
+	st.tactical.memory.player.reservations[str(peer.id)]=Stations._reservation_begin051(peer_request,peer,10.0,main_seconds)
+	st.tactical.budget=traffic_budget051()
+	check(T._reserved_path(st,"player",owner,request)=="valid","old later crossing lies beyond both renewable main prefixes and can proceed now")
+	# Nominal speed80 gives 24 units in .3s. Old x480 crossing is 56 units
+	# beyond the owner's clipped endpoint, outside the 39-unit lane clearance.
+	# Imminent starts are 56.569 apart (>39 padding, >32 physical); endpoints
+	# (424,800)/(440,784) are 22.627 apart. Separation reaches39 at .1553s
+	# and32 at .2172s, both INSIDE .3s; the current starts never overlap.
+	peer.x=440.0;peer.y=760.0;peer_request.approach=[Vector2(440,760),Vector2(440,1100)]
+	var imminent_peer: Dictionary=Stations._reservation_begin051(peer_request,peer,10.0,main_seconds)
+	var imminent_owner: Dictionary=Stations._reservation_begin051(request,owner,10.0,main_seconds)
+	var physical: float=Roles.radius(owner)+Roles.radius(peer)
+	var lane_clearance: float=float(imminent_owner.radius)+float(imminent_peer.radius)-9.0
+	check(is_equal_approx(main_seconds,0.3) and imminent_owner.approach[-1]==Vector2(424,800) and imminent_peer.approach[-1]==Vector2(440,784) and Roles.pos(owner).distance_to(Roles.pos(peer))>lane_clearance and lane_clearance>physical and imminent_owner.approach[-1].distance_to(imminent_peer.approach[-1])<physical,"imminent crossing starts physically separate and enters physical clearance inside the actual .3s prefix")
+	st.tactical.memory.player.reservations[str(peer.id)]=imminent_peer
 	st.tactical.budget=traffic_budget051()
 	check(T._reserved_path(st,"player",owner,request)=="blocked","within-prefix crossing still blocks the Runtime early gate")
 	var no_origin: Dictionary=request.duplicate(true);no_origin.approach=[Vector2(1100,800)]
@@ -959,6 +977,8 @@ func traffic_prefix051() -> void:
 	check(T._reserved_path(st,"player",owner,no_origin)=="blocked","first current-position-to-waypoint edge is included without enlarging leg caps")
 	st.tactical.budget=traffic_budget051(0)
 	check(T._reserved_path(st,"player",owner,request)=="pending" and st.tactical.budget.clearanceTests==0 and st.tactical.budget.exhaustions==1,"prefix reservation exhaustion remains pending and respects the unchanged ledger")
+	# Retain the existing explicit two-second expiry coverage as well.
+	st.tactical.memory.player.reservations[str(peer.id)]=Stations._reservation_begin051(peer_request,peer,10.0,seconds)
 	st.time=12.0;st.tactical.budget=traffic_budget051()
 	check(T._reserved_path(st,"player",owner,request)=="valid" and st.tactical.budget.clearanceTests==0,"expired private reservations stop vetoing at their two-second lifetime")
 	check(var_to_bytes([geometry,owner,request])==before,"traffic and reservation policy cannot mutate original observations or full requests")

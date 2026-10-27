@@ -1,0 +1,24 @@
+TRAFFIC PREFIX FIXTURE - SOURCE CORRECTION / NATIVE UNRUN
+Parent: e38b0c96bce33ed23db6afdbd90ca4cc23532bb3; same clean worktree.
+R41 job0088fba0aca946bf94fe4cb717b494c6 traffic-ai/native.log preserves
+40 checks / 2 failures. Those two fixtures used the superseded 2s main window.
+
+Only traffic_prefix051 and this note changed; production is untouched.
+Keep all prior 40 check purposes, public/full and explicit 2s assertions,
+no-origin edge, exhaustion, expiry, immutability and actual braking checks.
+Add three assertions: old crossing still conflicts at explicit 2s; it can
+proceed at .3s; replacement imminent crossing has physically separate starts.
+
+Nominal speed80, main horizon Planner.CERT_PREFIX_SECONDS=.3, travel24.
+Old peer(480,700): owner's clipped x424 is 56 from peer lane, beyond39 padding.
+New peer(440,760), owner(400,800): start sqrt(40^2+40^2)=56.5685 >39 >32.
+At .3s endpoints(424,800)/(440,784) separate22.6274 <32 physical floor.
+Nominal separation sqrt(2)*(40-80*t) reaches39 at .1553s and32 at .2172s.
+Both blocked expectations remain, including the request omitting its origin.
+Reset to an explicit 2s stored prefix for the original expiry check.
+
+Source comparison: all prior local check sites retained; other functions
+unchanged. Single check_preload_calls.py advisory: engineInvoked=false,
+issues=[]. Source diff whitespace check clean. No engines/tests/helpers/
+profiles/harness/GPU/build/export run. Native outcome remains UNVERIFIED.
+Root alone schedules native verification; no051 release/no052.
