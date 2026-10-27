@@ -11,7 +11,9 @@ const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 
 # Optional cumulative diagnostics; independent of authoritative tactical state.
 static var _runtime_profile043_enabled: bool=false
-static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,"observedCalls":0,"observedUs":0,"observedMountsCopied":0,"observedMountCopyUs":0,"ownCopies":0,"ownCopyUs":0,"enemyCopies":0,"enemyCopyUs":0,"enemyMountsCopied":0}
+static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,"observedCalls":0,"observedUs":0,"observedMountsCopied":0,"observedMountCopyUs":0,"ownCopies":0,"ownCopyUs":0,"enemyCopies":0,"enemyCopyUs":0,"enemyMountsCopied":0,
+	"retainedAdmissions":0,"retainedDue":0,"fullDue":0,"retainedMissOwnerDeadline":0,"retainedMissConditions":0,"retainedMissTarget":0,"retainedMissCapability":0,"retainedMissOther":0,
+	"retainedDropTime":0,"retainedDropEvents":0,"retainedDropPhase":0,"retainedDropCompletion":0,"retainedDropBoarding":0}
 
 static func set_runtime_profile043(enabled: bool) -> void:
 	_runtime_profile043_enabled=enabled
@@ -486,6 +488,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	var retained_contexts: Dictionary={}
 	for id in due:
 		if not _observe_retained051(st,str(id),frame_cache,retained_contexts):full_due.append(id)
+	if _runtime_profile043_enabled:
+		_runtime_profile043_counts.retainedDue+=due.size()-full_due.size()
+		_runtime_profile043_counts.fullDue+=full_due.size()
 	due=full_due
 	var snapshots: Dictionary={}
 	# These detached bundles exist only during this synchronous begin.
@@ -653,6 +658,7 @@ static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,of
 		Fire.accept_pass(st,t.ships[id],accepted[id])
 		var held: Certification._Retained051=Certification._retain051(st,t.ships[id],accepted[id],t.predictions.get(str(accepted[id].pathFingerprint),{}),frame_cache)
 		if held!=null:t.retained051[id]=held
+		if _runtime_profile043_enabled and held!=null:_runtime_profile043_counts.retainedAdmissions+=1
 		t.trace.append({"time":float(st.time),"shipId":id,"order":str(t.ships[id].order),"phase":str(accepted[id].get("phase","")),"reason":t.reasons[id],"targetId":str(accepted[id].get("targetId",""))})
 	# dueIds alone can publish per-hull memory/reservations; non-due state stays.
 	var memory: Dictionary=resolved.get("memory",{})
@@ -709,7 +715,15 @@ static func _current051(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_
 	var held=st.tactical.retained051.get(str(ship.id))
 	if not held is Certification._Retained051:return Certification.current(st,ship,intent,pose_offset,frame_cache)
 	var result: Dictionary=Certification._retained_current051(st,ship,held,frame_cache)
-	if not result.ok:_drop_retained051(st.tactical,str(ship.id))
+	if not result.ok:
+		if _runtime_profile043_enabled:
+			match str(result.reason):
+				"Reconsidering maneuver":_runtime_profile043_counts.retainedMissOwnerDeadline+=1
+				"Conditions changed; checking maneuver":_runtime_profile043_counts.retainedMissConditions+=1
+				"Target or leader unavailable":_runtime_profile043_counts.retainedMissTarget+=1
+				"Damage or capability changed; reassessing":_runtime_profile043_counts.retainedMissCapability+=1
+				_:_runtime_profile043_counts.retainedMissOther+=1
+		_drop_retained051(st.tactical,str(ship.id))
 	return result
 
 static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,contexts: Dictionary={}) -> bool:
@@ -717,10 +731,14 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,cont
 	var held=t.retained051.get(id)
 	if not held is Certification._Retained051:return false
 	# Full preference becomes eligible at .30; fair slots still bound it by .45.
-	if float(st.time)-held.chosen_at>=0.30-0.000001:_drop_retained051(t,id);return false
+	if float(st.time)-held.chosen_at>=0.30-0.000001:
+		if _runtime_profile043_enabled:_runtime_profile043_counts.retainedDropTime+=1
+		_drop_retained051(t,id);return false
 	var ship: Dictionary=t.ships[id]
 	if not _current051(st,ship,t.intents.get(id,{}),0.0,frame_cache).ok:return false
-	if not _boarding_contact(st,ship,frame_cache).is_empty():_drop_retained051(t,id);return false
+	if not _boarding_contact(st,ship,frame_cache).is_empty():
+		if _runtime_profile043_enabled:_runtime_profile043_counts.retainedDropBoarding+=1
+		_drop_retained051(t,id);return false
 	var own: Dictionary=_own(ship,t.mountCache[id].mounts,frame_cache)
 	own.orderSince=float(t.orderTimes.get(id,0.0));own.failedTargetIds=t.failures.get(id,[])
 	var side: String=str(ship.team)
@@ -741,10 +759,15 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,cont
 	var previous: Dictionary=t.memory[str(ship.team)].byId.get(id,{})
 	var decision: Dictionary=Planner._observe_retained051(view051,own,previous,context)
 	var changed: bool=decision.is_empty() or held.events!=Certification._retained_events051(st,ship,held)
-	if int(held.record.index)>=held.points.size() and str(held.intent.phase) in ["approach","stage","align"]:changed=true
+	if _runtime_profile043_enabled and changed:_runtime_profile043_counts["retainedDropPhase" if decision.is_empty() else "retainedDropEvents"]+=1
+	if int(held.record.index)>=held.points.size() and str(held.intent.phase) in ["approach","stage","align"]:
+		if _runtime_profile043_enabled and not changed:_runtime_profile043_counts.retainedDropCompletion+=1
+		changed=true
 	if not decision.is_empty():
 		for key in ["role","phase","targetId","leaderId","firingPassId"]:
-			if decision.state.get(key)!=previous.get(key):changed=true
+			if decision.state.get(key)!=previous.get(key):
+				if _runtime_profile043_enabled and not changed:_runtime_profile043_counts.retainedDropPhase+=1
+				changed=true
 	if changed:_drop_retained051(t,id);return false
 	t.memory[str(ship.team)].byId[id]=decision.state
 	var age: float=float(st.time)-float(t.lastDecision.get(id,st.time))
