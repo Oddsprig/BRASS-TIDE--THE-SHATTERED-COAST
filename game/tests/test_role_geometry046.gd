@@ -250,12 +250,12 @@ func finite_traffic051() -> void:
 	var clear_full: Dictionary=Routes.refine_live(clear_state,geometry,owner,long_path,proof_budget051(4096))
 	check(clear_full.status=="valid" and clear_full.eta==12.0,"full public empty-water reference retains the twelve-second route")
 	# Edge two runs [1,3]. Its exact t=2 clip is (480,880), not the
-	# fraction 2/3 of that edge. Allied clearance is 14+12+3=29.
+	# fraction 2/3 of that edge. Allied clearance is (12+4)+12+3=31.
 	var straddle: Dictionary={"approach":[Vector2(400,800),Vector2(480,800),Vector2(480,960)],"pass":[Vector2(560,960)],"exit":[]}
 	var beyond: Dictionary=owner.duplicate(true)
-	beyond.id="beyond051";beyond.x=480.0;beyond.y=910.0
+	beyond.id="beyond051";beyond.x=480.0;beyond.y=912.0
 	var inside: Dictionary=beyond.duplicate(true)
-	inside.id="inside051";inside.y=908.0
+	inside.id="inside051";inside.y=910.0
 	var near: Dictionary=owner.duplicate(true)
 	near.id="near051";near.x=440.0
 	var hold: Dictionary={"approach":[Vector2(400,800)],"pass":[],"exit":[]}
