@@ -114,8 +114,38 @@ static func _paint_polygon(points: PackedVector2Array) -> PackedVector2Array:
 		twice_area += (polygon[index] - origin).cross(polygon[index + 1] - origin)
 	return polygon if absf(twice_area) >= MIN_PAINT_AREA * 2.0 else PackedVector2Array()
 
-## Canvas contract: draw_colored_polygon and draw_set_transform_matrix.
-## Enter at identity; each submitted band restores identity before continuing.
+## Uncut ribbon, plus-rail then minus-rail. The tip is one triangle. Each later
+## span is a trapezoid with sides parallel to _side, so these two triangles stay
+## inside that span and do not cover a neighbor. Not valid after a vertex is cut.
+static func _ribbon_indices(count: int) -> PackedInt32Array:
+	var indices := PackedInt32Array()
+	if count < 3:
+		return indices
+	var samples: int = (count + 1) / 2
+	indices.append(0)
+	indices.append(1)
+	indices.append(count - 1)
+	for index in range(1, samples - 1):
+		indices.append(index)
+		indices.append(index + 1)
+		indices.append(count - index)
+		indices.append(index + 1)
+		indices.append(count - index - 1)
+		indices.append(count - index)
+	return indices
+
+## Read-only. uncut means _paint_polygon removed nothing. A cut outline uses
+## Geometry2D.triangulate_polygon, the same indices draw_colored_polygon builds.
+static func _band_indices(polygon: PackedVector2Array, uncut: bool) -> PackedInt32Array:
+	if polygon.size() < 3:
+		return PackedInt32Array()
+	if uncut and polygon.size() % 2 == 1:
+		return _ribbon_indices(polygon.size())
+	return Geometry2D.triangulate_polygon(polygon)
+
+## Canvas contract: one colored band, then identity. Enter at identity.
+## A CanvasItem gets one triangle array per band. Any other canvas, including
+## recorders, still gets draw_colored_polygon with the same local vertices.
 ## projector(world: Vector2, height: float) -> Vector2 is the affine water plane.
 ## Every height is zero. Geometry cleanup is in projected screen coordinates.
 ## opts.life may shorten the wash; opts.clip_rect is a screen-space cull rect.
@@ -175,6 +205,7 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 				var projected = projector.call(Vector2(path[index].p) - side * widths[index] * scales[layer], 0.0)
 				if not (projected is Vector2) or not projected.is_finite():return count
 				polygon.append(projected)
+		var built: int = polygon.size()
 		polygon = _paint_polygon(polygon)
 		if polygon.is_empty():
 			continue
@@ -183,14 +214,24 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 			bounds = bounds.expand(point)
 		if opts.get("clip_rect") is Rect2 and not Rect2(opts.clip_rect).intersects(bounds):
 			continue
-		# Native triangulation sums absolute float32 crosses for winding. Thin
-		# visible foam can lose that sign near a large screen origin. Translate
-		# ONLY the submission, preserving all cleaned vertices and screen paint.
+		# Ear clipping sums absolute float32 crosses. Thin foam loses that sign
+		# near a large screen origin, so only the submission is translated.
+		# Cleaned vertices and screen paint stay the same. An uncut band does
+		# not call the triangulator; a cut band asks for its exact indices.
+		var uncut: bool = polygon.size() == built
 		var origin: Vector2 = polygon[0]
 		for index in range(polygon.size()):
 			polygon[index] -= origin
-		canvas.draw_set_transform_matrix(Transform2D(0.0, origin))
-		canvas.draw_colored_polygon(polygon, colors[layer])
-		canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+		var indices: PackedInt32Array = _band_indices(polygon, uncut)
+		if canvas is CanvasItem:
+			if not indices.is_empty():
+				canvas.draw_set_transform_matrix(Transform2D(0.0, origin))
+				# One color is copied onto every vertex, as draw_colored_polygon does.
+				RenderingServer.canvas_item_add_triangle_array(canvas.get_canvas_item(), indices, polygon, PackedColorArray([colors[layer]]))
+				canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+		else:
+			canvas.draw_set_transform_matrix(Transform2D(0.0, origin))
+			canvas.draw_colored_polygon(polygon, colors[layer])
+			canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 		count += 1
 	return count

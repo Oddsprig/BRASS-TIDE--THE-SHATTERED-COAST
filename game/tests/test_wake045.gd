@@ -135,6 +135,62 @@ func centers_follow(recorder: Recorder, path: Array, message: String) -> void:
 			follows = follows and center.distance_to(path[index].p) < 0.0001
 	check(follows, message)
 
+func same_indices(left: PackedInt32Array, right: PackedInt32Array) -> bool:
+	if left.size() != right.size():
+		return false
+	for index in range(left.size()):
+		if left[index] != right[index]:
+			return false
+	return true
+
+func twice_area(points: PackedVector2Array) -> float:
+	var area: float = 0.0
+	var previous: Vector2 = points[points.size() - 1]
+	for point in points:
+		area += previous.cross(point)
+		previous = point
+	return area
+
+func band_covers(points: PackedVector2Array, indices: PackedInt32Array) -> bool:
+	if points.size() < 3 or indices.size() != (points.size() - 2) * 3:
+		return false
+	var polygon_area: float = twice_area(points)
+	var sign_area: float = signf(polygon_area)
+	var signed_sum: float = 0.0
+	var absolute_sum: float = 0.0
+	for step in range(0, indices.size(), 3):
+		var a: int = indices[step]
+		var b: int = indices[step + 1]
+		var c: int = indices[step + 2]
+		if a < 0 or b < 0 or c < 0 or a >= points.size() or b >= points.size() or c >= points.size():
+			return false
+		var triangle: float = (points[b] - points[a]).cross(points[c] - points[a])
+		if sign_area != 0.0 and triangle * sign_area < -0.0001:
+			return false
+		signed_sum += triangle
+		absolute_sum += absf(triangle)
+	var limit: float = maxf(0.05, absf(polygon_area) * 0.001)
+	return absf(signed_sum - polygon_area) <= limit and absf(absolute_sum - absf(polygon_area)) <= limit
+
+func batch_parity(recorder: Recorder, samples: Array, message: String) -> void:
+	var path: Array = Wake._path(samples, Wake._life({}))
+	var full: int = path.size() * 2 - 1
+	var order: bool = recorder.local_polygons.size() == recorder.colors.size() and not recorder.local_polygons.is_empty()
+	var previous_alpha: float = -1.0
+	for index in range(recorder.local_polygons.size()):
+		var polygon: PackedVector2Array = recorder.local_polygons[index]
+		var uncut: bool = polygon.size() == full
+		var indices: PackedInt32Array = Wake._band_indices(polygon, uncut)
+		if uncut:
+			order = order and band_covers(polygon, indices)
+		else:
+			order = order and same_indices(indices, Geometry2D.triangulate_polygon(polygon))
+		order = order and not indices.is_empty()
+		var alpha: float = recorder.colors[index].a
+		order = order and alpha + 0.0000001 >= previous_alpha
+		previous_alpha = alpha
+	check(order, message)
+
 func geometry_cases() -> void:
 	var line: Array = straight()
 	var line_rec: Recorder = recorded(line)
@@ -207,6 +263,10 @@ func geometry_cases() -> void:
 		return p if calls[0] <= line.size() * 2 - 1 else Vector2(INF, 0)
 	var partial_rec := Recorder.new()
 	check(Wake.draw(partial_rec, late_bad_projector, line) == 1 and partial_rec.transforms.size() == 2 and partial_rec.transform == Transform2D.IDENTITY, "invalid projection after one visible band returns with identity restored")
+	batch_parity(line_rec, line, "straight bands cover the uncut ribbon without overlap and stay outer-to-inner")
+	batch_parity(curve_rec, curve, "curved bands cover the uncut ribbon without overlap and stay outer-to-inner")
+	check(Wake._band_indices(PackedVector2Array(), true).is_empty(), "empty outline submits no wake triangles")
+	check(Wake._band_indices(PackedVector2Array([Vector2.ZERO, Vector2.ONE]), false).is_empty(), "a two-point refusal has no wake triangles")
 
 func slow_turn_cases() -> void:
 	# A long leg then two short turns totals <135 degrees, so _path retains it.
@@ -242,6 +302,8 @@ func slow_turn_cases() -> void:
 	var collapsed: Array = [{"p": Vector2.ZERO, "age": 0.699999999999, "w": 6.0}, {"p": Vector2(2, 0), "age": 0.69999999999, "w": 6.0}, {"p": Vector2(6, 0), "age": 0.0, "w": 6.0}]
 	var tip_rec: Recorder = recorded(collapsed, {}, false, {"origin": Vector2(800, 500), "label": "rounded out-and-back tip"})
 	check(tip_rec.polygons.size() == Wake.MAX_PRIMITIVES and tip_rec.polygons.all(func(p): return p.size() == 3), "a rounded out-and-back tip is removed without discarding any visible band")
+	batch_parity(corner_rec, corner, "slow-turn bands match ribbon coverage or the native triangle indices")
+	batch_parity(tip_rec, collapsed, "a cut tip keeps the native triangle indices and outer-to-inner order")
 	# FIRST actual diagnostic offender, preserved verbatim from job4e0836a6.
 	# It had14finite/noncrossing points, screen area0, local area0.0205968767,
 	# and0native triangle indices at screen coordinates versus36near zero.

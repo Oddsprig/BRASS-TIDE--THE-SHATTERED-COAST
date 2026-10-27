@@ -1,0 +1,25 @@
+051 WAKE BAND BATCH - SOURCE ONLY, native/profile UNRUN
+Parent is current HEAD at commit time. Owned files only:
+game/scripts/wake_art045.gd, game/tests/test_wake045.gd, this note.
+No amend, reset, engine, GPU, benchmark, or helper.
+
+R14 wake draw is still three draw_colored_polygon bands. Godot 4.7
+canvas_item_add_polygon ear-clips each one (Geometry2D::triangulate_polygon)
+before it stores the same CommandPolygon a triangle array stores directly.
+
+An uncut band is a plus-rail then a minus-rail. _ribbon_indices emits the tip
+and two triangles per parallel cross-section. Those triangles meet the outline
+with no gap and no exterior. A band that lost a subpixel vertex is not that
+ribbon: _band_indices returns Geometry2D.triangulate_polygon of the local
+outline, the index list draw_colored_polygon would build. Empty and two-point
+outlines return no indices. Below-area and offscreen bands still submit nothing.
+
+Each surviving band is its own canvas_item_add_triangle_array, outer scale 1
+then 0.57 then 0.20, with PackedColorArray([band color]) and the existing
+origin translation restored to identity. One merged mesh would mix three colors
+and three origins. Recorders, including the 14738 geometry checks, still receive
+one draw_colored_polygon per band. Return count stays the band count.
+
+Fixture adds coverage for uncut ribbons, native index equality for a cut tip,
+outer-to-inner alpha order, and empty/two-point refusal. Godot was not run.
+Root owns the native canvas path and the profile.
