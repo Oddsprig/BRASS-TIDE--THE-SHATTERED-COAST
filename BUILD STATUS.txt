@@ -1,15 +1,15 @@
-BRASS TIDE v0.044 - COMBAT COMMITMENT AND RECOVERY
-26 October2026 |36 boat designs
+BRASS TIDE v0.044 - Combat commitment and recovery
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 4f76384a32f71b6b2ff7e8aa46f8c17572519f45 / v0.044
+Test Bridge: f0a2cd30d9074ed59330de5c9f9138d7
+2158 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 51.783s; owned cleanup verified.
 
-THIS VERSION
 - Heavy boats retain momentum and need more water to brake, while light craft keep responsive movement.
 - Heavy cannons expose a visible reload window and a shared forward firing arc on their primary heavy mount.
 - Selected-boat readiness shows real reload, water trend, engine and repair reserves through existing combat widgets.
+- Two small Fleet battle laboratory presets let you practice torpedo crossings and covering a breakaway with normal finite stores.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+All six focused groups pass:55movement/recovery+249weaponcommitment+30HUD+173practice+484existingrefit+2158existinglayout=3149 checks/0. The final batch runs2158checks/export/3starts;991 earlier passed checks are retained only after exact source-hash proof that all production code is unchanged and only named tests differ. Initial HUDfixture had one gun, corrected to realtwo-gunfit. Existinglayout expected24boats, corrected to existing36. Earlier failedwholebatches remain failed. Source4f76384a32f71b6b2ff7e8aa46f8c17572519f45. Actual exported private still f8941f17ff7849428ef863036a69f2c1 completed32.719s; Root inspected selectedreload/water/engine/repair text and ordinary fourboatbattle. No motion/audio/full-fleet FPS orqualityparity acceptance. 043performance targets remainOPEN.

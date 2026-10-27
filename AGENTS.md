@@ -3,8 +3,8 @@
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
 This supersedes the planning-only instruction below. Build and deliver each
-saved scope in order, preserving the previous release/saves. Current candidate
-is0.044 combat commitment/recovery; metadata has already advanced once.
+saved scope in order, preserving the previous release/saves. Current scoped delivery is0.044 combat commitment/recovery, source4f76384.
+Next authorized scope is0.045 weapons/impacts/wakes/audio.
 v0.043 measured fixes are delivered at source/tag5ea0d04/v0.043 with419
 focused checks and actual rendered baseline/final measurements. The smoothness
 target remains OPEN: light4.330FPS, mixed28.686FPS at full300DP per side. Do not jump ahead to later scopes or treat tests as art.
@@ -17,8 +17,8 @@ Root source is outputs/brass-tide. Helpers stay source-only in isolated worktree
 No nested helpers, paid fallback, downloads, unqueued engine/render/GPU work,
 foreground/input takeover or test audio. Selected complete test batches remain
 below120seconds. Respect other apps/leases and recorded GPU/resource authority.
-The single Desktop Brass Tide launcher is verified at0.043; preserve all older
-releases, the two voyage files and18music tracks until0.044 is verified.
+The0.044 desktop update is verified for packaging; preserve all older releases,
+the two voyage files and18music tracks. One latest launcher only.
 0.043 uses safe graphics submission after an exact-build comparison removed
 actual separate-mode texture/finalization errors. Keep economy workers and
 the existing worker pool enabled. Do not restore experimental separate mode
@@ -77,7 +77,7 @@ shortcut. Headless correctness does not establish graphics, FPS or game feel.
 
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
-This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.043; continue with the next saved scope only. Earlier planning-only/stop-v031
+This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.044; continue with the next saved scope only. Earlier planning-only/stop-v031
 paragraphs below are historical and superseded by this new instruction.
 
 Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol

@@ -1,3 +1,5 @@
+v0.044 VERIFIED AND PACKAGED: 2158/0 focused checks, selected batch 51.783s, TestBridge f0a2cd30d9074ed59330de5c9f9138d7. Source 4f76384a32f71b6b2ff7e8aa46f8c17572519f45.
+
 26OCT2026 - v0.044 COMBAT COMMITMENT AND RECOVERY
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

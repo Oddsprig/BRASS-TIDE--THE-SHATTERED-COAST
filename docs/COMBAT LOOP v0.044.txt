@@ -40,3 +40,14 @@ Numerical trajectories and stills do not establish feel, audio, motion quality
 or tacticalAI polish. The major42-boat performance miss from043 remains OPEN;
 this version is not a new full-fleet performance or Starsector parity claim.
 TacticalAI0.046 and the0.051 core milestone retain that concrete failing case.
+
+MEASURED FIXTURE RESULTS
+At an equal starting60units/s, neutral-throttle stopping distance was13.907
+units for Tinwake and30.894 for Furnace. This compares explicit fixture states;
+it is not a promise about every maneuver or human game feel.
+The early dry withdrawal escaped in5.633 simulated seconds. The declared leaking
+late departure did not escape within its bounded trial and consumed its kits.
+All55movement/recovery assertions and249weapon-commitment assertions passed.
+Actual private exported still inspected by Root: docs/COMBAT v0.044.png. Selected
+readiness is readable and the fourboatpracticefight is present. This still does
+not certify animation, sound mix or satisfying full combat.
