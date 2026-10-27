@@ -9,7 +9,7 @@ const Money = preload("res://scripts/money.gd")
 const Battle = preload("res://scripts/battle.gd")
 const CoastalTerrain = preload("res://scripts/coastal_terrain.gd")
 
-const FILE_WALL_US: int = 18000000
+const CASE_WALL_US: int = 18000000 # Selected case: 18s; default all: 36s total.
 const CAMPAIGN_STEPS: int = 900 # 30 simulated seconds shared by both legs.
 const COMBAT_STEPS: int = 5400 # 90 simulated seconds at production 60 Hz.
 
@@ -23,17 +23,18 @@ var checks = 0
 var failures = 0
 var world: Dictionary
 var file_started_us: int = 0
+var file_wall_us: int = CASE_WALL_US
 var file_phase: String = "startup"
 var file_timed_out: bool = false
 var voyage_complete: bool = false
 
 func in_time(phase: String) -> bool:
 	file_phase = phase
-	if not file_timed_out and Time.get_ticks_usec() - file_started_us < FILE_WALL_US:
+	if not file_timed_out and Time.get_ticks_usec() - file_started_us < file_wall_us:
 		return true
 	if not file_timed_out:
 		file_timed_out = true
-		ck(false, "entire file exceeded 18s wall guard in " + phase)
+		ck(false, "entire file exceeded %.0fs wall guard in %s" % [float(file_wall_us) / 1000000.0, phase])
 	return false
 
 func voyage_ck(value: bool, label: String) -> bool:
@@ -506,18 +507,37 @@ func test_first_voyage_public_loop() -> void:
 
 func _initialize() -> void:
 	file_started_us = Time.get_ticks_usec()
+	var selected: String = "all"
+	var case_supplied: bool = false
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--case="):
+			if case_supplied:
+				ck(false, "provide only one --case selector")
+				quit(2)
+				return
+			selected = arg.trim_prefix("--case=")
+			case_supplied = true
+	if selected not in ["all", "legacy-guidance", "first-voyage"]:
+		ck(false, "unknown case: " + selected)
+		quit(2)
+		return
+	file_wall_us = CASE_WALL_US * (2 if selected == "all" else 1)
+	print("campaign guidance case=%s wall_guard=%.0fs" % [selected, float(file_wall_us) / 1000000.0])
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	ck(parsed is Dictionary, "world JSON loads")
 	if parsed is Dictionary:
 		world = parsed
-		if in_time("prior pristine checks"):
-			test_pristine_and_inputs()
-		if in_time("prior fleet checks"):
-			test_real_fleet_and_dangers()
-		if in_time("first voyage"):
+		if selected in ["all", "legacy-guidance"]:
+			if in_time("prior pristine checks"):
+				test_pristine_and_inputs()
+			if in_time("prior fleet checks"):
+				test_real_fleet_and_dangers()
+		if selected in ["all", "first-voyage"] and in_time("first voyage"):
 			test_first_voyage_public_loop()
 	if not in_time(file_phase):
 		voyage_complete = false
-	print("first voyage status=%s phase=%s entire_file_wall=%.3fs" % ["complete" if voyage_complete else "INCOMPLETE", file_phase, float(Time.get_ticks_usec()-file_started_us)/1000000.0])
+	if selected in ["all", "first-voyage"]:
+		print("first voyage status=%s phase=%s entire_file_wall=%.3fs" % ["complete" if voyage_complete else "INCOMPLETE", file_phase, float(Time.get_ticks_usec()-file_started_us)/1000000.0])
+	print("campaign guidance case=%s entire_file_wall=%.3fs" % [selected, float(Time.get_ticks_usec()-file_started_us)/1000000.0])
 	print("campaign guidance: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)

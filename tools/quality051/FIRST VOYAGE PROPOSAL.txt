@@ -1,4 +1,4 @@
-051 FIRST VOYAGE - APPROVED SOURCE CANDIDATE; NATIVE UNRUN
+051 FIRST VOYAGE - CASE-SPLIT CANDIDATE; R3 FAILED, JOURNEY UNRUN
 Root source: outputs/brass-tide f41cf7b; relevant journey APIs unchanged through
 5a583b5/e42e4c0. Only test_campaign_guidance.gd extension + this handoff.
 Prior behavioral assertions retained. Root identified two historical expectation
@@ -9,10 +9,31 @@ passenger, harbormaster) and the explicit20 GuidanceUI.action dispatch IDs.
 No generic acceptance/loosening, runtime/economy, assets, metadata, CoastSol-file
 edits or engine execution. No other historical expectations changed.
 Source preload advisory: zero issues, engineInvoked=false; not native parsing.
-Named-file diff --check clean; native outcome and timing remain unmeasured.
-Root owns the native run with 24s external allowance. Candidate has one shared
-18s cooperative wall guard from _initialize, covering old checks + new journey;
-native startup/preloads and any single synchronous API overrun need Root's cap.
+Read-only baseline comparison: all3 test bodies/other helpers identical; only
+in_time/_initialize differ. One clock start; all simulation caps unchanged.
+Named-file diff --check clean. This verifies source preservation, not a pass.
+R3 job 9e7bb572a3af4c5892399fd16d0ced48 FAILED, whole batch39.031s;
+import PASS6.547s; guidance334 checks/1failure. Exact native.log failure:
+  FAIL guidance: entire file exceeded 18s wall guard in voyage start
+Elapsed18.602s. Legacy checks used the shared allowance; journey NEVER RAN.
+This failure remains evidence, not a journey result. The case-split candidate
+below has no native execution yet.
+Root runs BOTH cases in separate owned processes through Test Bridge, each
+with24s external phase cap and one18s cooperative file guard from _initialize:
+  --headless --audio-driver Dummy --path <exact-game> --script
+    res://tests/test_campaign_guidance.gd -- --case=legacy-guidance
+  --headless --audio-driver Dummy --path <exact-game> --script
+    res://tests/test_campaign_guidance.gd -- --case=first-voyage
+Append each raw argument list to Root's existing Godot executable/adapter.
+No selector (or --case=all) runs both with one continuous36s combined guard;
+the planned24s phase cap applies to selected cases, not defaultall. The clock
+starts once, never resets between tests; startup/preloads and any synchronous
+overrun still need Root's external cap. Unknown/duplicate case selectors exit2.
+Legacy case retains every prior assertion and the complete301-iteration fleet
+fixture bound; first-voyage retains the identical physical journey. Selected
+legacy logs no voyage result. Case/guard/elapsed time are explicit in logs.
+Root's entire selected batch, including setup/cleanup, remains under119s;
+UI/export only if that whole budget fits. No native rerun by this specialist.
 
 CONNECTED LOOP AND MONEY
 START/world.json + Campaign.new_game: Tinwake Skiff, 5 sailors, 15,000 captain
@@ -49,7 +70,7 @@ max(0, quote.cost + required_reserve - actual_coins), not an assumed purchase.
 
 IMPLEMENTED EXISTING-FILE EXTENSION
 Only game/tests/test_campaign_guidance.gd: test_first_voyage_public_loop()
-and its _initialize call, using existing ck/view helpers. No separate framework.
+and case-gated _initialize calls, using existing ck/view helpers. No framework.
 1. Campaign.new(world.duplicate(true)); new_game(123). Retain start UID, balances
    and Money.total. Accept the real offer; verify sponsor debit/escrow and that
    finish_contract refuses early payment without changing captain coins.
@@ -76,10 +97,11 @@ and its _initialize call, using existing ck/view helpers. No separate framework.
    the resulting real fleet. Do not edit CoastSol's career/UI/flow-owned files.
 
 BOUND / UNKNOWNS
-Target whole native file <20s, unmeasured. One scenario, shared 18s wall guard
-including career creation; <=30 campaign seconds total at 1/30 + <=90 combat
-seconds at 1/60 (<=6,300 updates). Wall guard wins. Stop/report phase on timeout,
-loss, extra encounter, stock/labor/cash shortage; no retry/forced win. These caps
+Target each selected native case <20s, unmeasured;18s internal/24s external cap.
+Defaultall has a combined36s internal guard, explicitly not a <20s target.
+First-voyage includes career creation; <=30 campaign seconds total at1/30 plus
+<=90 combat seconds at1/60 (<=6,300 updates). Wall guard wins. Stop/report phase
+on timeout, loss, extra encounter, stock/labor/cash shortage; no retry/forced win. These caps
 are implemented, not proven sufficient. COMPLETE requires every journey check;
 the file still fails if any prior assertion fails. Logs expose actual fight,
 payout, operating profit, wage allowance, fitting cost, cash gap and reserve.
