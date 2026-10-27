@@ -1,0 +1,30 @@
+051 DUEL/FLEET WORKLOAD POLICY - SOURCE CANDIDATE, NATIVE UNRUN
+Base2a67c56. R26 e3067e06c6b94c94908b1e843bc9a721 remains FAILED:
+unchanged actual opening lost61.200s, HP0/ammo70; workers77/0 passed.
+Range/phase guards improved shots but did not fix that voyage regression.
+
+Runtime.enable_planning051 now counts currently deployed live automated hulls
+per side. A side must have more than one before pooled whole-side preparation
+is enabled. Sunk/secured hulls and the manual flagship do not qualify; reserve
+hulls are not deployed. All other encounters retain the existing synchronous
+full-role planning path. Repeated activation of a duel retires any prior jobs
+through the existing bounded lifecycle. No mission/hull/story/seed exception.
+Main and the actual voyage keep their SAME unchanged activation call.
+
+Actual42/16 fleets still qualify; batching, finite budgets, fair consumption,
+0.2s observations, fresh main physical authority and2a67 range/phase guards
+are unchanged. No Planner, Certification, Main, Routes, Damage or Battle edit.
+
+Existing workers selector adds a duel-policy fixture covering either side's
+fleet, sunk/captured extras, manual control and a manual flagship opposed by
+a real enemy fleet. An actual60Hz duel must observe both hulls in its first
+two existing fair slots, emit exactly
+paid certified shots, handle the next command and manual retake immediately,
+and never dispatch/adopt a worker batch. Existing77 worker assertions remain.
+Root owns all native/voyage/GPU tests. The real90s voyage criteria, RNG, hulls,
+HP/ammo/repair/economy and result requirements are unchanged. No claimed win
+or performance acceptance. R24/R26 failures preserved; v051 gate stays OPEN.
+
+Source verification: existing preload API advisory reports0issues for Runtime
+and the AI fixture; git diff --check clean. Existing worker cases/Root's
+physical-veto correction and voyage assertions unchanged. Native/GPU UNRUN.

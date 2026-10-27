@@ -31,8 +31,21 @@ static func defaults() -> Dictionary:
 	return {"doctrine":"steady","role":"auto","group":0,"formation":"line","protectedAllyId":"","rally":{},"leash":600.0,"conditionalWithdrawal":false,"mounts":{}}
 
 static func enable_planning051(st: Dictionary) -> void:
-	# Main and the real voyage fixture use this SAME encounter opt-in.
-	Planner._enable_workers051(ensure(st))
+	# Main and the real voyage use this SAME workload policy. Ordinary duels
+	# keep immediate synchronous role planning; side batches serve actual fleets.
+	var t: Dictionary=ensure(st)
+	var counts: Dictionary={"player":0,"enemy":0}
+	var manual_id: String=str(st.get("playerId","")) if not bool(st.get("autopilot",true)) else str(t.manualId)
+	for ship: Dictionary in st.get("ships",[]):
+		if ship.sunk or ship.get("captureSecured",false) or str(ship.id)==manual_id:continue
+		var side: String=str(ship.team)
+		if not counts.has(side):continue
+		counts[side]+=1
+		if int(counts[side])>1:
+			Planner._enable_workers051(t)
+			return
+	# Also safe if the owner reactivates an encounter after its fleet shrinks.
+	Planner._retire_workers051(t)
 
 static func retire_planning051(st: Dictionary) -> void:
 	if st.get("tactical") is Dictionary:Planner._retire_workers051(st.tactical)

@@ -697,9 +697,58 @@ func _worker_join051(slot: Dictionary) -> bool:
 	check(bool(slot.joined) and int(slot.taskId)==-1,"real WorkerThreadPool task completes and is joined before any output inspection")
 	return bool(slot.joined)
 
+func duel_policy051() -> void:
+	for variant: String in ["duel","player-fleet","enemy-fleet","sunk-extra","captured-extra","manual-extra","manual-enemy-fleet"]:
+		var spec: Dictionary=SPEC.duplicate(true);spec.range=300.0
+		var source: Dictionary=D.create_ship(spec,{"uid":"policy-source"})
+		var target_spec: Dictionary=spec.duplicate(true);target_spec.speed=0.0
+		var target: Dictionary=D.create_ship(target_spec,{"uid":"policy-target","ammo":0.0})
+		var players: Array=[source]
+		var enemies: Array=[target]
+		if variant in ["player-fleet","sunk-extra","captured-extra","manual-extra"]:players.append(D.create_ship(spec,{"uid":"policy-ally"}))
+		if variant in ["enemy-fleet","manual-enemy-fleet"]:enemies.append(D.create_ship(target_spec,{"uid":"policy-enemy","ammo":0.0}))
+		var st: Dictionary=B.create({"fleet":players,"enemyFleet":enemies,"seed":30011,"islands":[]})
+		st.autoBoard=false
+		if variant=="sunk-extra":players[1].sunk=true
+		if variant=="captured-extra":players[1].captureSecured=true
+		if variant in ["manual-extra","manual-enemy-fleet"]:B.set_autopilot(st,false)
+		T.enable_planning051(st);worker_states051.append(st)
+		var pooled: bool=variant in ["player-fleet","enemy-fleet","manual-enemy-fleet"]
+		check(st.tactical.has("workers051")==pooled,"encounter policy batches only a side with multiple live automated boats: "+variant)
+		if variant=="duel":
+			source.x=500.0;source.y=850.0;source.angle=0.0
+			target.x=700.0;target.y=850.0;F.command(st,target,"hold")
+			var ammo: float=float(source.ammo)
+			B.update(st,1.0/60.0)
+			var emitted: Array=fire_events(st,source)
+			# The existing global cap is one due hull per tick in a duel; the
+			# enemy sorts first. Neither slot should wait for a pooled batch.
+			var enemy_memory: Dictionary=st.tactical.memory.enemy.byId.get(str(target.id),{})
+			var enemy_history: Array=enemy_memory.get("observations",[])
+			check(not enemy_history.is_empty() and float(enemy_history[-1].lastAt)==float(st.time),"ordinary duel observes the first fair hull on the first60Hz tick")
+			B.update(st,1.0/60.0);emitted.append_array(fire_events(st,source))
+			var memory: Dictionary=st.tactical.memory.player.byId.get(str(source.id),{})
+			var history: Array=memory.get("observations",[])
+			check(not memory.is_empty() and not history.is_empty() and float(history[-1].lastAt)==float(st.time) and int(st.tactical.counters.decisions)>=2,"ordinary duel publishes both full role observations in the first two fair60Hz slots")
+			for tick: int in range(60):
+				B.update(st,1.0/60.0);emitted.append_array(fire_events(st,source))
+			check(not emitted.is_empty() and is_equal_approx(ammo-float(source.ammo),float(emitted.size())),"ordinary synchronous duel emits real certified fire with exact ammunition debit")
+			check(B.issue_order(st,[source.id],"move",{"x":450.0,"y":600.0}),"ordinary duel accepts a current manual command")
+			B.update(st,1.0/60.0);B.pop_events(st)
+			memory=st.tactical.memory.player.byId.get(str(source.id),{});history=memory.get("observations",[])
+			check(source.order=="move" and int(memory.get("orderRevision",-1))==int(source.orderRevision) and not history.is_empty() and float(history[-1].lastAt)==float(st.time),"duel command receives fresh synchronous observations on the next60Hz tick")
+			B.set_autopilot(st,false)
+			B.update(st,1.0/60.0,{"manual":true,"left":true});B.pop_events(st)
+			check(str(st.tactical.manualId)==str(source.id) and not st.tactical.intents.has(str(source.id)),"ordinary duel manual helm immediately retains sole control")
+			var profile: Dictionary=T.runtime_profile043()
+			check(not st.tactical.has("workers051") and int(profile.workerDispatches)==0 and int(profile.workerAdoptions)==0,"actual duel never dispatches or adopts a pooled side batch")
+			observations.append({"case":"duel-policy","time":st.time,"events":emitted,"ammoBefore":ammo,"ammoAfter":source.ammo,"memory":memory,"profile":profile})
+		T.retire_planning051(st);T.drain_planning051()
+
 func workers051() -> void:
 	var profiling: bool=bool(T.runtime_profile043().enabled)
 	T.set_runtime_profile043(true);T.reset_runtime_profile043()
+	duel_policy051()
 	var arena: Dictionary=local_arena()
 	var st: Dictionary=arena.state
 	var source: Dictionary=arena.source
