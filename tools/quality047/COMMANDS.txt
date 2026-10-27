@@ -1,0 +1,101 @@
+047 COMMANDS - SOURCE CANDIDATE, NATIVE UNRUN
+CommandsSol047, 27 October 2026
+Base c86eb6dfd0f3f5a840eb2b688b0cd3d10c2d1feb (integrated046 candidate).
+Root must deliver046 BEFORE integrating047. Metadata remains046 here.
+
+ONLY FILES
+game/scripts/main.gd
+game/scripts/chart.gd
+game/scripts/battle_commands047.gd
+game/tests/test_battle_commands047.gd
+tools/quality047/COMMANDS.txt
+No injected AGENTS coordination block is included.
+
+AGREED HOST SEAM
+Posted9d748577/572d72e2 BEFORE UI callers; Layout ACK674352f3.
+request_battle_command(command:String,target:Dictionary={}) -> bool
+battle_command_pending:String; battle_command_ack:{ok,command,message,count}
+set_selected_formation(formation:String) -> bool: line|column|screen
+set_battle_overlay(kind:String,enabled:bool) -> bool: arcs|threat|routes
+chart.battle_overlays contains those three booleans, initially false.
+
+TARGET AND AUTHORITY
+New bar requires a living friendly selection. Focus/escort/defend/rally
+without a target acknowledge the PICKER, issue no order and await a world
+RIGHT click. Wrong targets give a reason and remain armed. Escape cancels.
+An actual accepted order updates the normal order revision/ack immediately.
+Manual flagship authority remains; acknowledgement explains waiting for U.
+No forced autopilot, simulation advance, teleport, stores, rewards or crew.
+Legacy command_selected remains raw Battle.issue_order, preserving chosen
+role/doctrine/conditional settings, select-all fallback, keys1/2/3 and normal
+right-click context. It now acknowledges success as well as rejection.
+Battle.set_tactical_options and Battle.issue_order remain the mutation APIs.
+The small stateless adapter exists to keep target validation/mapping testable
+without main._ready, saves, music, native input or a second AI/order system.
+Its only extra dependency is read-only Battle._blocked for point preflight;
+all recipients, targets, caches and rally-margin points validate first.
+
+HONEST EXISTING INTENT
+engage: engage, steady doctrine, automatic fitted role; ordinary safe AI.
+harass: engage, cautious doctrine, skirmisher role; earlier survival breakaway.
+focus: attack named live enemy, aggressive doctrine, automatic fitted role.
+escort: escort named live ally, screen role, preserve formation/leash; the
+protected leader is excluded from its own recipients, never made to escort self.
+defend: hold named water, fire within actual reach; no pursuit order.
+rally: move to named water without firing; existing arrival becomes hold.
+hold: brake/defend each boat's current position.
+withdraw: cautious existing local withdrawal to real rally/home, nonfiring;
+fleet escape remains the separate existing withdraw_fleet/twelve-second flow.
+Existing geometry/certification, physical turn/brake, finite fuel/ammo and
+manual authority can delay or refuse a maneuver. Acceptance is not path proof.
+
+GROUPS, SELECTION, CHART
+Group1-4 uses actual Tactical options/groups and existing formation_offset.
+Saving a replacement group releases prior members; moving membership removes
+stale saved ids; recall uses canonical live membership. Line/column/screen
+change real escort formation geometry, without inventing free movement orders.
+Chart respects an empty explicit selection; old flagship flags do not draw a
+false selection ring. Flagship color and normal context selection stay intact.
+Ranges/arcs/threat/routes start OFF. Removed the permanent flagship range ring.
+Selected arcs: <=4 boats, <=12 mounts total. Threat coverage: nearest<=4
+observed hostile boats to those selections, <=8 mounts total. Each arc uses
+16 segments and two boundary rays; actual condition-adjusted mount offsets,
+bearing, range and traverse are used. Red coverage is potential weapon reach,
+not a guaranteed shot, line of sight, reload readiness or forecast hit.
+Routes: <=4 boats, <=24 inspected path/exit entries each, with an optional
+current observed-target link. No future projectile or hit is fabricated.
+Routes OFF does not call tactical_status from chart order markers.
+Actual projectiles/trails, boarding, order destination markers and the existing
+Battle.objective_snapshot convoy exit remain. No reserve/deployment changes;
+Layout reads the actual Battle deployment/reserves and Deployment authority.
+
+ROOT VERIFICATION HANDOFF (UNRUN)
+One compact test_battle_commands047.gd, existing SceneTree/check/quit style.
+Uses one canonical tactical_escort_raider Lab, seed47047, four real boats;
+<=15 real Battle.update ticks at60Hz. No external keyboard/mouse/CUA input,
+fake projectiles, injected actions, initial damage, stores or result changes.
+QuietUI records acknowledgement only; main._ready is never called.
+Prepared assertions: eight semantic outcomes plus zero-age authoritative acks;
+invalid target/point rejection leaves ship+tactical bytes unchanged; target
+arming emits no order; no-selection new command refuses; real group overwrite,
+recall and actual formation offsets; additive selection and pause restoration;
+opt-in overlays; complete non-order physical state/DP/reserves/RNG conservation;
+manual authority; new safe intent within0.25simseconds; unchanged source world.
+This is intent publication evidence only if it passes, not visible motion/fun.
+Use Root's existing Godot4.7.2 executable and Test Bridge only; raw args:
+--headless --audio-driver Dummy --path <exact-integrated-game-path>
+--script res://tests/test_battle_commands047.gd
+No lane nested inside Test Bridge; include this in the one selected batch
+below120seconds total including setup/import/other fixture/export/cleanup.
+Do not duplicate historical QA suites or create a QA/telemetry framework.
+Root's actual native parser remains authoritative. A failure is not a pass.
+
+SOURCE REVIEW ONLY
+Read actual public Battle/Tactical/Stations/Refit/Deployment APIs and Layout
+ownership. Source API advisory reports issues[] (engineInvoked:false); named
+whitespace reviewed. No engine/import/native-test/build/export/render/GPU/Blender/bake/
+capture/audio/input/CUA/download/helper/model call was run by this seat.
+Existing main._ready QA hooks (--qa-runtime043, --qa-lab, --qa-capture) and
+capture_after_start including absolute GAME_TEST_ARTIFACTS are byte-preserved.
+No version/tag/desktop/save/music/worker/economy/refit/physics/AI rewrite.
+No performance, FPS, art, sound, fun or quality acceptance claim.

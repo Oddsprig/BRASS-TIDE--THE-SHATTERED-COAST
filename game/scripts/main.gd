@@ -20,6 +20,7 @@ const RecoveryFlow=preload("res://scripts/recovery_flow.gd")
 const CoastalTerrain=preload("res://scripts/coastal_terrain.gd")
 const RuntimeBenchmark=preload("res://scripts/runtime_benchmark.gd")
 const RuntimeProfile043=preload("res://scripts/runtime_profile043.gd")
+const BattleCommands047=preload("res://scripts/battle_commands047.gd")
 
 var data: Dictionary
 var core
@@ -44,6 +45,8 @@ var pre_tactical_paused = false
 var pre_tactical_autopilot = true
 var battle_selection_groups: Dictionary={1:[],2:[],3:[],4:[]}
 var selected_battle_ids: Array = []
+var battle_command_pending: String = ""
+var battle_command_ack: Dictionary = {}
 var selection_start = Vector2.ZERO
 var selection_box = Rect2()
 var selection_dragging = false
@@ -217,6 +220,11 @@ func _unhandled_input(event):
 			toggle_fullscreen()
 			return
 		if event.keycode == KEY_ESCAPE:
+			if mode == "battle" and not ui.modal_open and not battle_command_pending.is_empty():
+				battle_command_ack = BattleCommands047.reply(battle_command_pending, false, "Command canceled.")
+				battle_command_pending = ""
+				ui.toast("Command canceled.");ui.update_hud()
+				return
 			if ui.modal_open:
 				if ui.modal_kind == "outcome":
 					if quick_mode:
@@ -607,7 +615,9 @@ func _enter_battle():
 	battle_last_wrecks = 0
 	selection_dragging = false
 	selected_battle_ids = [battle.playerId] if battle.playerId != null else []
+	battle_command_pending = "";battle_command_ack = {}
 	battle_selection_groups={1:[],2:[],3:[],4:[]}
+	chart.battle_overlays={"arcs":false,"threat":false,"routes":false}
 	chart.zoom = 1.0
 	chart.set_tactical(false)
 	chart.center_camera()
@@ -671,21 +681,36 @@ func set_selected_tactical_options(options: Dictionary) -> bool:
 	ui.update_hud()
 	return ok
 
+func set_selected_formation(formation: String) -> bool:
+	return set_selected_tactical_options({"formation":formation})
+
+func set_battle_overlay(kind: String, enabled: bool) -> bool:
+	if mode != "battle" or chart == null or not chart.battle_overlays.has(kind):return false
+	chart.battle_overlays[kind] = enabled
+	chart.queue_redraw()
+	return true
+
 func save_selection_group(group: int) -> bool:
 	if mode!="battle" or group<1 or group>4 or selected_battle_ids.is_empty():return false
 	var ids: Array=[]
 	for id in selected_battle_ids:
 		if battle.ships.any(func(boat):return str(boat.id)==str(id) and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)):ids.append(str(id))
 	if ids.is_empty():return false
+	var previous: Array = battle.get("tactical",{}).get("groups",{}).get(group,[]).duplicate()
 	if not Battle.set_tactical_options(battle,ids,{"group":group}):return false
+	var released: Array = previous.filter(func(id):return id not in ids and battle.ships.any(func(boat):return str(boat.id)==str(id) and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)))
+	if not released.is_empty():Battle.set_tactical_options(battle,released,{"group":0})
+	for other in battle_selection_groups:
+		battle_selection_groups[other] = battle_selection_groups[other].filter(func(id):return id not in ids)
 	battle_selection_groups[group]=ids.duplicate()
-	ui.toast("Selection saved to group %d for this battle."%group)
+	ui.toast("Group %d saved. Formation choices apply when escorting."%group)
+	ui.update_hud()
 	return true
 
 func recall_selection_group(group: int) -> bool:
 	if mode!="battle" or group<1 or group>4:return false
 	var ids: Array=[]
-	for id in battle_selection_groups.get(group,[]):
+	for id in battle.get("tactical",{}).get("groups",{}).get(group,battle_selection_groups.get(group,[])):
 		if battle.ships.any(func(boat):return str(boat.id)==str(id) and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)):ids.append(str(id))
 	if ids.is_empty():ui.toast("Group %d has no living boats saved."%group);return false
 	selected_battle_ids=ids
@@ -738,9 +763,30 @@ func command_selected(order: String, target: Dictionary = {}):
 	selected_battle_ids = selected_battle_ids.filter(func(id):return battle.ships.any(func(boat):return boat.id==id and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)))
 	if selected_battle_ids.is_empty():
 		select_all_boats()
-	if not Battle.issue_order(battle, selected_battle_ids, order, target):
-		ui.toast("Choose navigable water or a living target for that order.", true)
+	# Existing keys/context/options callers retain their chosen role and doctrine.
+	battle_command_pending = ""
+	var ok: bool = Battle.issue_order(battle, selected_battle_ids, order, target)
+	battle_command_ack = BattleCommands047.reply(order, ok, "Order received: " + order.capitalize() + "." if ok else "Choose navigable water or a living target for that order.", selected_battle_ids.size() if ok else 0)
+	if ok and battle.playerId in selected_battle_ids and not bool(battle.get("autopilot", true)):battle_command_ack.message += " Flagship order waits for autopilot (U)."
+	ui.toast(str(battle_command_ack.message), not ok)
 	ui.update_hud()
+
+func request_battle_command(command: String, target: Dictionary = {}) -> bool:
+	if mode != "battle" or battle.is_empty():return false
+	selected_battle_ids = selected_battle_ids.filter(func(id):return battle.ships.any(func(boat):return str(boat.id)==str(id) and boat.team=="player" and not boat.sunk and not boat.get("captureSecured",false)))
+	if command not in BattleCommands047.COMMANDS or selected_battle_ids.is_empty():
+		battle_command_ack = BattleCommands047.reply(command, false, "Select living friendly boats to command.")
+	elif BattleCommands047.needs_target(command) and target.is_empty():
+		battle_command_pending = command
+		var prompt: String = {"focus":"Right-click an enemy to focus attack.","escort":"Right-click a friendly boat to protect.","defend":"Right-click open water to defend.","rally":"Right-click open water to rally."}[command]
+		battle_command_ack = BattleCommands047.reply(command, true, prompt, selected_battle_ids.size())
+	else:
+		battle_command_pending = command if BattleCommands047.needs_target(command) else ""
+		battle_command_ack = BattleCommands047.apply(battle, selected_battle_ids.duplicate(), command, target)
+		if battle_command_ack.ok:battle_command_pending = ""
+	ui.toast(str(battle_command_ack.message), not bool(battle_command_ack.ok))
+	ui.update_hud()
+	return bool(battle_command_ack.ok)
 
 func order_at(position: Vector2):
 	if battle.is_empty():
@@ -754,6 +800,13 @@ func order_at(position: Vector2):
 		if distance < closest:
 			closest = distance
 			target = boat
+	if not battle_command_pending.is_empty():
+		if battle_command_pending in ["focus", "escort"]:
+			request_battle_command(battle_command_pending, {"shipId":str(target.get("id", ""))})
+		else:
+			var destination: Vector2 = chart.world_at(position)
+			request_battle_command(battle_command_pending, {"x":destination.x,"y":destination.y})
+		return
 	if not target.is_empty():
 		command_selected("attack" if target.team == "enemy" else "escort", {"shipId":str(target.id)})
 	else:

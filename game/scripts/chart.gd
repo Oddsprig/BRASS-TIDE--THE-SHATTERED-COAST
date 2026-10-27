@@ -32,6 +32,13 @@ var _trade_revision: int=-1
 var _trade_paths: Array=[]
 var follow_camera: bool = true
 var tactical: bool = false
+var battle_overlays: Dictionary = {"arcs":false,"threat":false,"routes":false}
+const OVERLAY_BOATS: int = 4
+const OVERLAY_MOUNTS: int = 12
+const OVERLAY_THREATS: int = 4
+const OVERLAY_THREAT_MOUNTS: int = 8
+const OVERLAY_ARC_STEPS: int = 16
+const OVERLAY_PATH_SEGMENTS: int = 24
 var _campaign_follow: bool = false
 var _last_mode: String = ""
 var _map_labels: Array=[]
@@ -386,7 +393,7 @@ func _draw_trails():
 			if _profile_drawing:_profile_frame.trail_primitives+=primitives
 
 func _selected_battle_ids(battle: Dictionary) -> Array:
-	if host != null and "selected_battle_ids" in host and host.selected_battle_ids is Array and not host.selected_battle_ids.is_empty():
+	if host != null and "selected_battle_ids" in host and host.selected_battle_ids is Array:
 		return host.selected_battle_ids
 	var out: Array = []
 	for s in battle.get("ships", []):
@@ -396,15 +403,26 @@ func _selected_battle_ids(battle: Dictionary) -> Array:
 		out.append(battle.playerId)
 	return out
 
-func _draw_order_indicator(battle: Dictionary, boat: Dictionary):
-	var intent: Dictionary=host.Battle.tactical_status(battle,str(boat.id))
-	var path: Array=intent.get("path",[])
-	if not path.is_empty():
+func _draw_order_indicator(battle: Dictionary, boat: Dictionary, show_route: bool = false):
+	if show_route:
+		var intent: Dictionary=host.Battle.tactical_status(battle,str(boat.id))
 		var previous: Vector2=Vector2(boat.x,boat.y)
-		for next in path:
-			if next is Vector2:draw_line(project(previous),project(next),Color(GOLD,0.68),1.5,true);previous=next
-		for next in intent.get("exit",[]):
-			if next is Vector2:draw_dashed_line(project(previous),project(next),Color(FRIEND,0.35),1.2,5.0,true);previous=next
+		var segments: int=0
+		for key in ["path","exit"]:
+			for next in intent.get(key,[]):
+				if segments>=OVERLAY_PATH_SEGMENTS:break
+				segments+=1
+				if next is Vector2:
+					if key=="path":draw_line(project(previous),project(next),Color(GOLD,0.68),1.5,true)
+					else:draw_dashed_line(project(previous),project(next),Color(FRIEND,0.35),1.2,5.0,true)
+					previous=next
+		# A current observed target link, never a promise of a future projectile hit.
+		if not intent.get("path",[]).is_empty():
+			var target_id: String=str(battle.get("tactical",{}).get("intents",{}).get(str(boat.id),{}).get("targetId",""))
+			for other in battle.ships:
+				if str(other.id)==target_id and not other.sunk:
+					draw_dashed_line(project(Vector2(boat.x,boat.y)),project(Vector2(other.x,other.y)),Color(ENEMY,0.4),1.0,7.0,true)
+					break
 	var order: String = str(boat.get("order", "engage"))
 	var target_data: Dictionary = boat.get("orderTarget", {})
 	var target = Vector2.INF
@@ -423,6 +441,53 @@ func _draw_order_indicator(battle: Dictionary, boat: Dictionary):
 	draw_line(point-Vector2(6,6), point+Vector2(6,6), Color(color,0.9),1.4,true)
 	draw_line(point+Vector2(6,-6), point+Vector2(-6,6), Color(color,0.9),1.4,true)
 	world_ring(target,14.0,Color(color,0.5),1.0)
+
+func _draw_mount_ranges(battle: Dictionary, boat: Dictionary, color: Color, budget: int) -> int:
+	if budget <= 0:return 0
+	var mounts: Array = host.Battle._combat_mounts(battle, boat)
+	var used: int = 0
+	for mount: Dictionary in mounts:
+		if used >= budget:break
+		if float(mount.get("damage", 0.0)) <= 0.0:continue
+		var origin: Vector2 = Vector2(boat.x, boat.y) + Vector2(mount.x, mount.y).rotated(float(boat.angle))
+		var bearing: float = float(boat.angle) + float(mount.angle)
+		var arc: float = clampf(float(mount.arc), 0.01, TAU)
+		var reach: float = float(mount.range)
+		var points: Array = []
+		for i: int in range(OVERLAY_ARC_STEPS + 1):
+			points.append(origin + Vector2.from_angle(bearing - arc * 0.5 + arc * float(i) / float(OVERLAY_ARC_STEPS)) * reach)
+		world_line(points, color, 1.2)
+		if arc < TAU - 0.01:
+			world_line([origin, points[0]], Color(color, color.a * 0.5))
+			world_line([origin, points[-1]], Color(color, color.a * 0.5))
+		used += 1
+	return used
+
+func _draw_battle_ranges(battle: Dictionary, selected_ids: Array):
+	if not battle_overlays.arcs and not battle_overlays.threat:return
+	var selected: Array = []
+	for boat in battle.ships:
+		if boat.id in selected_ids and boat.team == "player" and not boat.sunk and not boat.get("captureSecured",false):
+			selected.append(boat)
+			if selected.size() >= OVERLAY_BOATS:break
+	var used: int = 0
+	if battle_overlays.arcs:
+		for boat: Dictionary in selected:
+			used += _draw_mount_ranges(battle, boat, Color(FRIEND, 0.35), OVERLAY_MOUNTS - used)
+	if not battle_overlays.threat or selected.is_empty():return
+	var nearest: Array = []
+	for enemy in battle.ships:
+		if enemy.team != "enemy" or enemy.sunk or enemy.get("captureSecured",false):continue
+		var distance: float = INF
+		for boat: Dictionary in selected:distance = minf(distance, Vector2(enemy.x-boat.x,enemy.y-boat.y).length_squared())
+		var index: int = 0
+		while index < nearest.size() and float(nearest[index].distance) <= distance:index += 1
+		if index < OVERLAY_THREATS:
+			nearest.insert(index, {"boat":enemy,"distance":distance})
+			if nearest.size() > OVERLAY_THREATS:nearest.pop_back()
+	used = 0
+	for entry: Dictionary in nearest:
+		used += _draw_mount_ranges(battle, entry.boat, Color(ENEMY, 0.23), OVERLAY_THREAT_MOUNTS - used)
 
 func _step_v001(dt: float):
 	clock += dt
@@ -1031,8 +1096,6 @@ func draw_battle():
 			draw_line(edge,edge+direction*22,GOLD,2,true)
 			text_at("CONVOY EXIT",edge+Vector2(0,-15),12,GOLD,mono,true)
 	var flagship = host.Battle.get_flagship(battle)
-	if not flagship.is_empty():
-		world_ring(Vector2(flagship.x, flagship.y), flagship.spec.range, Color(0.75, 0.84, 0.63, 0.07), 1.0)
 	var phase_started: int=Time.get_ticks_usec() if _profile_drawing else 0
 	var active_wrecks: int=0
 	for wreck in battle.wrecks:
@@ -1071,6 +1134,8 @@ func draw_battle():
 			draw_line(project(Vector2(source.x,source.y)),project(Vector2(target.x,target.y)),FRIEND,2,true)
 			text_at("BOARDING · %d"%int(job.alive),project(Vector2(target.x,target.y))+Vector2(0,-50),12,GOLD,mono,true)
 	var selected_ids := _selected_battle_ids(battle)
+	_draw_battle_ranges(battle, selected_ids)
+	var route_boats: int = 0
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	var sorted_ships = battle.ships.duplicate()
 	sorted_ships.sort_custom(func(a, b): return a.x + a.y < b.x + b.y)
@@ -1079,11 +1144,12 @@ func draw_battle():
 	for boat in sorted_ships:
 		if not boat.sunk:
 			if _profile_drawing:_profile_frame.boats_live+=1
-			var is_sel: bool = boat.id in selected_ids or bool(boat.get("selected", false))
+			var is_sel: bool = boat.id in selected_ids
 			draw_boat(boat, ENEMY if boat.team == "enemy" else GOLD if boat.id == battle.playerId else FRIEND, is_sel, boat.team == "enemy")
 			if boat.get("captureSecured",false):text_at("SECURED PRIZE",project(Vector2(boat.x,boat.y))+Vector2(0,-38),11,GOLD,mono,true)
 			if is_sel and boat.team == "player":
-				_draw_order_indicator(battle, boat)
+				_draw_order_indicator(battle, boat, bool(battle_overlays.routes) and route_boats < OVERLAY_BOATS)
+				route_boats += 1
 	if _profile_drawing:_profile_frame.boats_us=Time.get_ticks_usec()-phase_started
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	for shot in battle.projectiles:
