@@ -1,0 +1,31 @@
+BRASS TIDE v0.048 - FITTING WORKSHOP
+
+Open Fleet, choose a boat, then open its fitting bay. Current and draft boats
+use the actual interchangeable mounts. Select a numbered socket to compare
+compatibility, firing arc, bearing, range, reload and shared ammunition use.
+The Current / Draft / Change table shows handling, armor, hold, berths,
+ammunition capacity, fuel use and the existing fleet reserve calculation.
+
+Review the itemized yard bill before applying. Existing owned equipment,
+condition, scarce harbor stock, materials, workers, specialists, wages, tax
+and the yard's purse still determine the actual transaction. Coins move
+through the existing economy. Fitting a larger rack buys no ammunition.
+Integral pumps remain hull equipment; crew and repair kits do their real work.
+
+Three Bastion cruiser examples show fast gun pressure, an armored cannon
+anchor and an economical torpedo striker. Each uses current catalog equipment
+and has explicit weaknesses. Browse them from any owned fitting bay; loading
+one into a draft requires ownership of that hull. Loading is knowledge only;
+the normal yard quote and payment are still required before installation.
+
+Try current draft in Lab starts a repeatable isolated encounter with the
+current owned hull and draft against the same opponent. Practice equipment
+and finite stores stay in the Lab. Returning restores your voyage. Templates
+save weapons, engine and armor. Automatic weapon holds and round reserves
+last for a battle and use Selected tactics & weapon groups in the Lab.
+
+VERIFICATION
+This candidate still needs its focused native checks, portable export and
+actual workshop review. Final receipts will live under tests/.
+All measured full300DP performance targets remain UNMET after v0.046.
+Core quality gate051 remains OPEN; scope delivery does not certify the game.

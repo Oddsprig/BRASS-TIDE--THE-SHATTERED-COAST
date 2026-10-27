@@ -129,6 +129,10 @@ func _ready():
 			var preset: String=str(argument).trim_prefix("--qa-lab=")
 			if FleetLab.presets().has(preset):
 				lab_config=FleetLab.preset(data,preset);start_lab()
+	if "--qa-workshop048" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
+		# Existing capture harness supplies an isolated portable copy and profile.
+		new_game();paused = true
+		if not core.state.fleet.is_empty():ui.open_refit(str(core.state.fleet[0].uid))
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
