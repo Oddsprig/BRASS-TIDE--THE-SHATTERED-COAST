@@ -5,6 +5,9 @@ const EquipmentDamage = preload("res://scripts/equipment_damage.gd")
 const Records = preload("res://scripts/equipment_records.gd")
 const Core = preload("res://scripts/equipment_condition.gd")
 const Refit = preload("res://scripts/refit.gd")
+const Battle = preload("res://scripts/battle.gd")
+const EquipmentCombat = preload("res://scripts/equipment_combat.gd")
+const Certification = preload("res://scripts/tactical_certification.gd")
 const PROBE_TICKS: int = 32
 var checks: int = 0
 var failures: int = 0
@@ -172,6 +175,106 @@ func live_records043(source: Dictionary) -> void:
 	check(var_to_bytes(live) == state and var_to_bytes(Damage.get_status_cached(live, cache)) == status_before, "043 public nested results stay detached from condition and cache")
 	check(not bool(Damage.runtime_profile043().enabled) and not bool(Records.runtime_profile043().enabled), "043 runtime profiling stays disabled by default")
 
+func phase_reads043(source: Dictionary) -> void:
+	var live: Dictionary = source.duplicate(true)
+	var cache: Dictionary = {}
+	Damage.tick_ship(live, 0.0, {"inCombat": true}, cache)
+	var expected_info: Dictionary = Damage.inspect_owner_cached(live, cache).duplicate(true)
+	var expected_status: Dictionary = Damage.get_status_cached(live, cache)
+	var before: PackedByteArray = var_to_bytes(live)
+	var phase = Damage._begin_battle_phase043(cache)
+	Damage.set_runtime_profile043(true)
+	Damage.reset_runtime_profile043()
+	var equal: bool = true
+	for _i in range(16):
+		equal = equal and var_to_bytes(Damage._inspect_owner_in_phase043(live, phase)) == var_to_bytes(expected_info)
+		equal = equal and var_to_bytes(Damage._read_status_in_phase043(live, phase)) == var_to_bytes(expected_status)
+	var counters: Dictionary = Damage.runtime_profile043().cache
+	check(equal and var_to_bytes(live) == before, "043 phase borrows exact owner/status without changing the boat")
+	check(counters.cacheLookups == 1 and counters.phaseLookups == 32 and counters.phaseHits == 31, "043 repeated private consumers perform one full owner guard in the phase")
+	Damage.set_runtime_profile043(false)
+	Damage.reset_runtime_profile043()
+	live.fuel = 0.0 # Owned motion may exhaust fuel while the phase is open.
+	check(var_to_bytes(Damage._read_status_in_phase043(live, phase)) == var_to_bytes(Damage.get_status(live)), "043 same-phase fuel exhaustion refreshes every status factor")
+	check(Damage._read_status_in_phase043(live, phase).pump == 0.0, "043 no pump work from exhausted fuel")
+	check(var_to_bytes(Certification.motion(live, 1.0 / 60.0, 0.7, 0.8, false, phase)) == var_to_bytes(Certification.motion(live, 1.0 / 60.0, 0.7, 0.8, false, cache)), "043 non-Dictionary phase handle reaches the checked motion path")
+	check(EquipmentCombat.mount_cache_key(live, {}, phase) == EquipmentCombat.mount_cache_key(live, {}, cache), "043 equipment consumers use the same checked mount factors")
+	var copy: Dictionary = live.duplicate(true)
+	copy.moduleCondition.nextItemSeq = 0
+	check(not bool(Damage._inspect_owner_in_phase043(copy, phase).ok), "043 corrupt same-ID copy cannot borrow the real owner's proof")
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = 43043
+	Damage.apply_hit(live, {"damage": 10.0, "kind": "rocket", "section": "engine"}, rng, cache)
+	check(cache.is_empty() and live.hp < source.hp and live.fire > 0.0, "043 actual hit invalidates the source cache during a borrow")
+	check(var_to_bytes(Damage._read_status_in_phase043(live, phase)) == var_to_bytes(Damage.get_status(live)), "043 source-entry invalidation prevents stale same-phase damage factors")
+	Damage.tick_ship(live, 0.0, {"inCombat": true}, phase)
+	Damage._read_status_in_phase043(live, phase)
+	var valid_condition: Dictionary = live.moduleCondition.duplicate(true)
+	live.moduleCondition.nextItemSeq = 0
+	check(not bool(Damage.get_status_cached(live, phase).equipmentOk) and cache.is_empty(), "043 public cache read keeps full mutation guards even with a phase handle")
+	check(not bool(Damage._read_status_in_phase043(live, phase).equipmentOk), "043 public refusal also invalidates a borrowed entry")
+	Damage._end_battle_phase043(phase)
+	check(not phase.active and phase.entries.is_empty(), "043 closed handle retains no borrowed projections")
+	live.moduleCondition = valid_condition
+	Damage.tick_ship(live, 0.0, {"inCombat": true}, cache)
+	check(bool(Core.apply_component_damage(live.moduleCondition, {"itemUid": engine_uid(live), "loss": 0.1, "cause": "Between-phase write"}).ok), "043 real between-phase component damage")
+	Records.publish(live)
+	check(var_to_bytes(Damage._read_status_in_phase043(live, phase)) == var_to_bytes(Damage.get_status(live)), "043 closed handle returns to full external-write validation")
+
+func battle_state043(st: Dictionary) -> Dictionary:
+	var value: Dictionary = st.duplicate(true)
+	value.erase("rng") # Its exact state is compared separately.
+	for key in ["aiUs", "phaseUs", "planningDetailUs"]:
+		value.tactical.metrics.erase(key) # Only measured wall clocks differ.
+	return value
+
+func phase_battle043(source: Dictionary) -> void:
+	# Same production update with only the borrow constructor bypassed. All
+	# consumers then use their original fully guarded path; no combat math mirror.
+	var code: String = FileAccess.get_file_as_string("res://scripts/battle.gd")
+	var needle: String = "Damage._begin_battle_phase043(frame_cache)"
+	check(code.count(needle) == 1, "043 one explicit Battle phase constructor")
+	var reference: GDScript = GDScript.new()
+	reference.source_code = code.replace(needle, "frame_cache")
+	if reference.reload() != OK:
+		check(false, "043 fully guarded reference update compiles"); return
+	var boats: Array = []
+	for id in ["phase-player", "phase-enemy"]:
+		var boat: Dictionary = Damage.create_ship(source.baseSpec, {"id": id, "uid": id})
+		Refit.ensure(boat, source.baseSpec)
+		var seeded: Dictionary = Records.initialize(boat, {"base": source.baseSpec, "loadout": boat.loadout, "catalog": Refit.catalog(), "identity": id, "knownUids": []})
+		check(bool(seeded.ok), "043 phase battle canonical birth " + id)
+		if not bool(seeded.ok): return
+		boats.append(boat)
+	var a: Dictionary = Battle.create({"fleet": [boats[0]], "enemyFleet": [boats[1]], "seed": 43043, "islands": []})
+	check(a.result == null and a.ships.size() == 2, "043 bounded actual battle opens")
+	if a.result != null or a.ships.size() != 2: return
+	for i in range(2):
+		a.ships[i].x = 1000.0 + 160.0 * i; a.ships[i].y = 850.0
+		a.ships[i].vx = 12.0; a.ships[i].vy = 0.0; a.ships[i].angle = PI * i
+	a.ships[0].water = 25.0; a.ships[0].breaches = [{"area": 3.0, "section": "bow"}]
+	a.ships[0].fire = 2.0; a.ships[0].fuel = 0.00021; a.ships[0].policy = "repair"
+	check(bool(Core.apply_component_damage(a.ships[0].moduleCondition, {"itemUid": engine_uid(a.ships[0]), "loss": 0.5, "cause": "043 phase battle machinery"}).ok), "043 phase battle starts with real engine damage")
+	Records.publish(a.ships[0])
+	Damage.set_repair_priority(a.ships[0], "engine")
+	a.projectiles.append({"x": 1140.0, "y": 850.0, "px": 1140.0, "py": 850.0, "vx": 2400.0, "vy": 0.0, "team": "player", "damage": 12.0, "kind": "bullet", "penetration": 20.0, "life": 1.0, "owner": str(a.ships[0].id), "radius": 2.0})
+	var b: Dictionary = a.duplicate(true)
+	var rng_copy: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng_copy.state = a.rng.state; b.rng = rng_copy
+	var hp_before: float = float(a.ships[1].hp)
+	var supplies_before: float = float(a.ships[0].supplies)
+	var equal: bool = true
+	for _i in range(12):
+		var input: Dictionary = {"manual": true, "forward": true, "fire": true, "aimX": float(a.ships[1].x), "aimY": float(a.ships[1].y)}
+		Battle.update(a, 1.0 / 60.0, input)
+		reference.update(b, 1.0 / 60.0, input)
+		for i in range(2):
+			# Public boundary guards must agree too, including any newly added keys.
+			equal = equal and var_to_bytes(Damage.get_status_cached(a.ships[i], a.tactical.damageCache)) == var_to_bytes(Damage.get_status_cached(b.ships[i], b.tactical.damageCache))
+		equal = equal and a.rng.state == b.rng.state and var_to_bytes(battle_state043(a)) == var_to_bytes(battle_state043(b))
+	check(equal, "043 every full battle state/cache, RNG, shot, contact, order and equipment result equals fully guarded reads")
+	check(a.ships[0].fuel == 0.0 and a.ships[0].supplies < supplies_before and a.ships[1].hp < hp_before, "043 actual battle covers exhausted fuel, finite repair and a swept projectile hit")
+
 func probe(source: Dictionary) -> Dictionary:
 	var old_us: int = 0
 	var new_us: int = 0
@@ -243,6 +346,8 @@ func run() -> void:
 	check(var_to_bytes(copy) == var_to_bytes(reference) and var_to_bytes(actual_status) == var_to_bytes(expected_status), "same-ID wounded copy cannot reuse live healthy proof")
 	check(var_to_bytes(ship) == live_before and is_same(cache[str(ship.id)].shipRef, ship), "copy leaves exact live owner/cache entry intact")
 	live_records043(ship)
+	phase_reads043(ship)
+	phase_battle043(ship)
 	var measured: Dictionary = probe(ship)
 	altered = ship.duplicate(true)
 	altered.hp -= 25.0; altered.water = 25.0; altered.fire = 12.0

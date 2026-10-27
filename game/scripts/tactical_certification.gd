@@ -29,14 +29,14 @@ static func _live_equipment(ship: Dictionary) -> Array:
 	return [ship.get("moduleCondition"),ship.spec,ship.get("baseSpec"),ship.get("loadout")]
 
 static func capability(ship: Dictionary,mask_override: float=NAN,frame_cache=null) -> Dictionary:
-	var status: Dictionary=Damage.read_status_cached(ship,frame_cache) if frame_cache is Dictionary else Damage.get_status(ship)
+	var status: Dictionary=Damage._read_status_in_phase043(ship,frame_cache) if frame_cache != null else Damage.get_status(ship)
 	return _capability_with_status(ship,status,mask_override,frame_cache)
 
 static func _capability_with_status(ship: Dictionary,status: Dictionary,mask_override: float=NAN,frame_cache=null) -> Dictionary:
 	return EquipmentRollout.capability_with_status(ship,status,mask_override,frame_cache)
 
 static func motion(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool=false,frame_cache=null) -> Dictionary:
-	var status: Dictionary=Damage.read_status_cached(ship,frame_cache) if frame_cache is Dictionary else Damage.get_status(ship)
+	var status: Dictionary=Damage._read_status_in_phase043(ship,frame_cache) if frame_cache != null else Damage.get_status(ship)
 	return _motion_with_status(ship,dt,desired,throttle,boost,status)
 
 static func _motion_with_status(ship: Dictionary,dt: float,desired: float,throttle: float,boost: bool,status: Dictionary) -> Dictionary:
@@ -205,7 +205,7 @@ static func _certify(st: Dictionary,view: Dictionary,ship: Dictionary,candidate:
 		# damage/repair states bought no extra authority over those live checks.
 		cert.scope=Planner.LIVE_CERT_SCOPE
 		cert.physicalHorizonEnd=float(view.time)+Planner.CERT_SECONDS
-	var live_status: Dictionary=Damage.read_status_cached(live_ship,frame_cache)
+	var live_status: Dictionary=Damage._read_status_in_phase043(live_ship,frame_cache)
 	var target: Dictionary=st.tactical.observed.get(str(candidate.get("targetId","")),{})
 	# Firing access at the proposed station is geometric/observed prediction;
 	# current live fire gates still require a fresh physical intercept every tick.
@@ -271,7 +271,7 @@ static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offs
 	if st.tactical.terrainRevision!=cert.terrainRevision:return {"ok":false,"reason":"Terrain changed; checking maneuver"}
 	if str(cert.get("scope",""))==Planner.LIVE_CERT_SCOPE:
 		if not is_same(record.get("owner"),ship):return {"ok":false,"reason":"Boat owner changed; checking maneuver"}
-		if _motion_inputs(ship)!=record.motionInputs or _live_equipment(ship)!=record.equipmentInputs or _live_capability(ship,Damage.read_status_cached(ship,frame_cache))!=record.capabilityInputs:
+		if _motion_inputs(ship)!=record.motionInputs or _live_equipment(ship)!=record.equipmentInputs or _live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache))!=record.capabilityInputs:
 			return {"ok":false,"reason":"Damage or capability changed; reassessing"}
 		return {"ok":true,"reason":str(intent.get("reason","Following maneuver")),"record":record}
 	if dynamics_key(ship)!=str(record.motionKey):return {"ok":false,"reason":"Conditions changed; checking maneuver"}

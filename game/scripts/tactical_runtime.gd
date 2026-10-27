@@ -106,7 +106,7 @@ static func _survival_override(st: Dictionary,ship: Dictionary,frame_cache=null)
 	# explicit order with survival permission, still break for flood, dry guns, or no fuel.
 	if order!="engage" and not conditional:return false
 	if float(ship.get("fuel",0.0))<=0.0:return true
-	if float(Damage.read_status_cached(ship,frame_cache).get("weaponFactor",1.0))<=0.01:return true
+	if float(Damage._read_status_in_phase043(ship,frame_cache).get("weaponFactor",1.0))<=0.01:return true
 	for mount in t.mountCache.get(id,{}).get("mounts",[]):
 		if float(ship.get("ammo",0.0))>=float(mount.get("ammoCost",1.0)) and float(mount.get("damage",0.0))>0.0:return false
 	return true
@@ -233,7 +233,7 @@ static func _own(ship: Dictionary,mounts: Array,frame_cache=null) -> Dictionary:
 	for key in ["id","size","speed","turn","fuelUse","armor","role","tier","hp","pumps","repairFactor"]:
 		if ship.spec.has(key):out.spec[key]=ship.spec[key]
 	out.weaponCooldowns=ship.get("weaponCooldowns",[]).duplicate()
-	out.status=Damage.read_status_cached(ship,frame_cache).duplicate(true)
+	out.status=Damage._read_status_in_phase043(ship,frame_cache).duplicate(true)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.ownCopyUs+=Time.get_ticks_usec()-profile_started
 		_runtime_profile043_counts.ownCopies+=1
@@ -357,8 +357,8 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	var previous: Dictionary=t.safety.get(id,{})
 	var age: float=now-float(t.lastSafety.get(id,0.0))
 	# Resolve current condition before the cadence gate, then share that status.
-	# The frame cache still validates live equipment changes on every check.
-	var status: Dictionary=Damage.read_status_cached(ship,frame_cache)
+	# Battle may lend its checked projection until contact/projectile writes.
+	var status: Dictionary=Damage._read_status_in_phase043(ship,frame_cache)
 	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,previous,status,frame_cache)
 	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-0.01 or equip_abrupt)
 	if age<0.1-0.000001 and not abrupt and not previous.is_empty():return
@@ -741,7 +741,7 @@ static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dict
 		for mount in t.mountCache[id].mounts:t.fireReasons[id][str(mount.id)]="Checking the firing maneuver"
 		return out
 	var mounts: Array=t.mountCache[id].mounts
-	var ship_status: Dictionary=Damage.read_status_cached(ship,frame_cache) if not mounts.is_empty() else {}
+	var ship_status: Dictionary=Damage._read_status_in_phase043(ship,frame_cache) if not mounts.is_empty() else {}
 	for index in range(mounts.size()):
 		var mount: Dictionary=mounts[index]
 		var target_id: String=str(intent.get("fireGate",{}).get(str(mount.id),{}).get("targetId",""))

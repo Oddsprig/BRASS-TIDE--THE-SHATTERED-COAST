@@ -7,9 +7,17 @@ const _UNSET_OWNER: String = "__unset_owner__"
 const OWNER_CACHE_FRAMES: int = 12 # At most 0.2s at the live 60Hz rate.
 const OWNER_CACHE_LIMIT: int = 128
 
+# Battle owns this local handle only from its damage/mount prepass through fire.
+# It is closed before boarding/contact/projectile writes and never stored on st.
+class BattlePhase043:
+	extends RefCounted
+	var source: Dictionary = {}
+	var entries: Dictionary = {}
+	var active: bool = true
+
 # Opt-in, process-local diagnostics only. Never retained in a boat or battle.
 static var _runtime_profile043_enabled: bool = false
-static var _runtime_profile043_counts: Dictionary = {"cacheFrames":0,"cacheLookups":0,"cacheHits":0,"cacheMisses":0,"unavailableMisses":0,"missingOwnerMisses":0,"invalidEntryMisses":0,"ownerIdentityMisses":0,"valueMisses":0,"expiryMisses":0,"expiryEvictions":0,"ownerIdentityEvictions":0,"explicitEvictions":0,"limitEvictions":0,"cacheStores":0}
+static var _runtime_profile043_counts: Dictionary = {"cacheFrames":0,"cacheLookups":0,"cacheHits":0,"cacheMisses":0,"unavailableMisses":0,"missingOwnerMisses":0,"invalidEntryMisses":0,"ownerIdentityMisses":0,"valueMisses":0,"expiryMisses":0,"expiryEvictions":0,"ownerIdentityEvictions":0,"explicitEvictions":0,"limitEvictions":0,"cacheStores":0,"phaseLookups":0,"phaseHits":0}
 
 static func set_runtime_profile043(enabled: bool) -> void:
 	_runtime_profile043_enabled = enabled
@@ -111,11 +119,13 @@ static func _find_cache_slot(s: Dictionary, frame_cache: Dictionary) -> String:
 	return ""
 
 static func clear_frame_cache(frame_cache) -> void:
+	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
 	if frame_cache is Dictionary:
 		if _runtime_profile043_enabled: _runtime_profile043_counts.explicitEvictions += frame_cache.size()
 		frame_cache.clear()
 
 static func invalidate_frame_cache(frame_cache, s = _UNSET_OWNER) -> void:
+	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
 	if not (frame_cache is Dictionary) or frame_cache.is_empty():
 		return
 	if s is String and s == _UNSET_OWNER:
@@ -162,6 +172,7 @@ static func _freeze_status(status: Dictionary) -> Dictionary:
 	return status
 
 static func _store_cached_info(s: Dictionary, info: Dictionary, frame_cache) -> void:
+	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
 	if not (frame_cache is Dictionary) or not (s is Dictionary) or not (info is Dictionary): return
 	if not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical" or not (info.get("snapshot") is Dictionary): return
 	if not (s.get("moduleCondition") is Dictionary) or not (s.get("spec") is Dictionary): return
@@ -194,6 +205,8 @@ static func _cache_entry_valid(s: Dictionary, entry: Dictionary) -> bool:
 	return int(entry.get("framesLeft",0)) > 0
 
 static func _cached_entry(s, frame_cache) -> Dictionary:
+	# Public APIs retain their full owner/value guard, even if given the handle.
+	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
 	if _runtime_profile043_enabled: _runtime_profile043_counts.cacheLookups += 1
 	if not (frame_cache is Dictionary) or frame_cache.is_empty() or not (s is Dictionary):
 		if _runtime_profile043_enabled: _runtime_profile043_miss("unavailableMisses")
@@ -221,6 +234,44 @@ static func inspect_owner_cached(s = null, frame_cache = null) -> Dictionary:
 	if not cached.is_empty(): return cached
 	return EquipmentDamage.inspect_owner(s)
 
+static func _begin_battle_phase043(frame_cache: Dictionary) -> BattlePhase043:
+	var phase: BattlePhase043 = BattlePhase043.new()
+	phase.source = frame_cache
+	return phase
+
+static func _end_battle_phase043(phase) -> void:
+	if phase is BattlePhase043:
+		phase.active = false
+		phase.entries.clear()
+
+static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
+	# The synchronous Battle call chain owns equipment writes. Scalar inputs are
+	# still live below; source-entry identity detects every owned invalidation.
+	if not (frame_cache is BattlePhase043) or not frame_cache.active:
+		return _cached_entry(s, frame_cache)
+	if _runtime_profile043_enabled: _runtime_profile043_counts.phaseLookups += 1
+	var slot: String = _find_cache_slot(s, frame_cache.source)
+	var entry = frame_cache.entries.get(slot)
+	if entry is Dictionary and is_same(entry.get("shipRef"), s) and is_same(frame_cache.source.get(slot), entry) and int(entry.get("framesLeft", 0)) > 0:
+		if _runtime_profile043_enabled: _runtime_profile043_counts.phaseHits += 1
+		return entry
+	entry = _cached_entry(s, frame_cache.source)
+	if not entry.is_empty(): frame_cache.entries[slot] = entry
+	return entry
+
+static func _inspect_owner_in_phase043(s: Dictionary, frame_cache = null) -> Dictionary:
+	if not (frame_cache is BattlePhase043) or not frame_cache.active:
+		return inspect_owner_cached(s, frame_cache)
+	var entry: Dictionary = _phase_entry043(s, frame_cache)
+	return entry.info if not entry.is_empty() else EquipmentDamage.inspect_owner(s)
+
+static func _read_status_in_phase043(s: Dictionary, frame_cache = null) -> Dictionary:
+	if not (frame_cache is BattlePhase043) or not frame_cache.active:
+		return read_status_cached(s, frame_cache)
+	var entry: Dictionary = _phase_entry043(s, frame_cache)
+	if entry.is_empty(): return read_status_cached(s, frame_cache)
+	return _status_from_entry043(s, entry)
+
 static func read_status_cached(s = null, frame_cache = null) -> Dictionary:
 	# Read-only, synchronous runtime use. A miss never admits an unvalidated owner.
 	if not (s is Dictionary) or s.is_empty():
@@ -228,6 +279,9 @@ static func read_status_cached(s = null, frame_cache = null) -> Dictionary:
 		return EquipmentDamage._status_from_info({},0.0,0.0,0.0,[0.5,0.28,0.22],invalid)
 	var entry: Dictionary = _cached_entry(s,frame_cache)
 	if entry.is_empty(): return _status_for_info(s,EquipmentDamage.inspect_owner(s))
+	return _status_from_entry043(s, entry)
+
+static func _status_from_entry043(s: Dictionary, entry: Dictionary) -> Dictionary:
 	var inputs: Array = _status_inputs(s)
 	if inputs != entry.statusInputs:
 		entry.statusInputs = inputs.duplicate(true)
@@ -238,7 +292,7 @@ static func read_status_cached(s = null, frame_cache = null) -> Dictionary:
 static func get_status_cached(s = null, frame_cache = null) -> Dictionary:
 	return read_status_cached(s,frame_cache).duplicate(true)
 
-static func _tick_healthy_cached(s: Dictionary, dt: float, entry: Dictionary, frame_cache: Dictionary) -> Dictionary:
+static func _tick_healthy_cached(s: Dictionary, dt: float, entry: Dictionary, _frame_cache: Dictionary) -> Dictionary:
 	# Exact old healthy substeps, real fuel/cooldown debit and sanitation. The
 	# unchanged equipment projection needs neither revalidation nor reconstruction.
 	while dt > 0.00000001 and not s.sunk:
@@ -251,7 +305,9 @@ static func _tick_healthy_cached(s: Dictionary, dt: float, entry: Dictionary, fr
 		_sanitize(s)
 		dt -= h
 	EquipmentDamage.Records._publish_projection(s,entry.projection)
-	return get_status_cached(s,frame_cache)
+	# This synchronous no-work branch holds the validated entry. Sanitation and
+	# projection leave condition/spec/base/loadout unchanged; keep the public copy.
+	return _status_from_entry043(s,entry).duplicate(true)
 
 static func _get_status_numeric(s: Dictionary) -> Dictionary:
 	return _status_for_info(s, EquipmentDamage._numeric_info(s))
@@ -405,6 +461,7 @@ static func _healthy_canonical_no_work(s: Dictionary, info: Dictionary) -> bool:
 	return true
 
 static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame_cache = null) -> Dictionary:
+	if frame_cache is BattlePhase043: frame_cache = frame_cache.source
 	if not s is Dictionary: return get_status({})
 	var entry: Dictionary = _cached_entry(s,frame_cache)
 	if not entry.is_empty() and bool(entry.get("healthy",false)) and _options == {"inCombat":true} and _status_inputs(s) == entry.statusInputs:
