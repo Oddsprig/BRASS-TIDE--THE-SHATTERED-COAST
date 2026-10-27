@@ -425,11 +425,27 @@ static func _refine_begin051(st: Dictionary,geometry: Dictionary,ship: Dictionar
 	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):return _refine(st,geometry,ship,candidate,budget,true,null,live_traffic_seconds051)
 	return _refine(st,geometry,ship,candidate,budget,true,proofs,live_traffic_seconds051)
 
+static func _prepare_detached051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary) -> Dictionary:
+	# Exclusively worker-owned state, clock, grid and cache. Complete land routes
+	# and ETA survive the advisory snapshot traffic prefix; pending stays pending.
+	var prepared: Dictionary=_refine(st,geometry,ship,candidate,budget,true,null,2.0)
+	prepared.origin051=point(ship)
+	prepared.radius051=planning_radius(ship)
+	prepared.terrainKey051=geometry.key
+	prepared.terrainRevision051=geometry.revision
+	prepared.observedAt051=float(st.time)
+	prepared.trafficSeconds051=2.0
+	return prepared
+
 static func _adopt_prepared051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,prepared: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
 	# Private, completed+joined worker output, NEVER a corridor/certificate.
-	# Unfinished static searches use the ordinary bounded main route path.
-	if prepared.get("status","")!="valid" or prepared.get("terrainKey051")!=geometry.key or prepared.get("terrainRevision051")!=geometry.revision or prepared.get("radius051")!=planning_radius(ship):
+	# Missing, stale or mismatched snapshot checks use the existing main policy.
+	var age: float=float(st.get("time",INF))-float(prepared.get("observedAt051",-INF))
+	if prepared.get("status","")!="valid" or prepared.get("terrainKey051")!=geometry.key or prepared.get("terrainRevision051")!=geometry.revision or prepared.get("radius051")!=planning_radius(ship) or prepared.get("trafficSeconds051")!=2.0 or not is_finite(age) or age<0.0 or age>0.15 or not prepared.get("origin051") is Vector2 or not prepared.origin051.is_finite():
 		return _refine_begin051(st,geometry,ship,candidate,budget,proofs,live_traffic_seconds051)
+	# The worker checked snapshot traffic for 2s. Only this renewable CURRENT
+	# physical prefix is repeated here; current helm/contact/fire remain live.
+	var current_traffic_seconds051: float=0.3
 	var result: Dictionary=candidate.duplicate(true)
 	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):proofs=null
 	var previous: Vector2=point(ship)
@@ -451,8 +467,8 @@ static func _adopt_prepared051(st: Dictionary,geometry: Dictionary,ship: Diction
 				if land!="valid":return {"status":land,"candidate":result,"eta":elapsed,"reason":"Checking current land connector"}
 				connector=false
 			var until: float=elapsed+previous.distance_to(waypoint)/speed
-			if elapsed<=live_traffic_seconds051:
-				var traffic_until: float=minf(until,live_traffic_seconds051)
+			if elapsed<=current_traffic_seconds051:
+				var traffic_until: float=minf(until,current_traffic_seconds051)
 				var traffic_end: Vector2=previous.lerp(waypoint,(traffic_until-elapsed)/(until-elapsed)) if traffic_until<until else waypoint
 				var traffic: String=occupied(st.tactical.cells,ship,previous,traffic_end,radius,elapsed,traffic_until,budget,true,contact_target(ship)) if proofs==null else _occupied_begin051(proofs,st.tactical.cells,ship,previous,traffic_end,radius,elapsed,traffic_until,budget,true,contact_target(ship))
 				if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking hull clearance" if traffic=="pending" else "Hull occupies this approach"}

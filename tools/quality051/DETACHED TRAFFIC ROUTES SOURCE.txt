@@ -1,0 +1,22 @@
+051 DETACHED TRAFFIC ROUTES - SOURCE CANDIDATE
+Parent85c79095f35143eb4c17701773ec9811b37d2516; v051-coastal-route-sol.
+
+Approved API coordinated with PerfSol: _prepare_detached051(st,geometry,ship,
+candidate,budget) calls existing numeric _refine(true,null,2.0) using exclusively
+worker-owned time/grid/cache. Usual result retains complete land/ETA, with
+origin051/radius051/terrainKey051/terrainRevision051/observedAt051/trafficSeconds051.
+PerfSol supplies owned grid/clock and independent2900clearance/4routes per side.
+
+Unchanged adoption signature accepts only valid matching terrain/radius stamps,
+2.0s snapshot policy and finite nonnegative age<=0.15. It checks a full current
+land connector and CURRENT0.3s traffic, preserving every future static edge and
+full current-pose ETA. Other metadata/pending results use existing main fallback.
+Public/default traffic, current helm/contact/fire and reservations are unchanged.
+
+Existing geometry fixture adds23 bounded assertions: snapshot traffic, full ETA,
+age boundary, ten metadata fallbacks with exact result/debits, pending refusal,
+current obstruction/crossing, moved connector and detached inputs.
+Source comparison:34 other Routes/9 existing fixture functions unchanged;
+run only adds the new case. Advisory0issues/engineInvoked=false; diff clean.
+No key micro-edits, engine/tests/helpers. Native/journey/GPU UNRUN; savings
+unmeasured. Root owns integration/testing;051OPEN, Desktop050 unchanged.

@@ -86,6 +86,7 @@ func run() -> void:
 	solo_recovery051(view, context[friend_id])
 	proof_reuse051()
 	finite_traffic051()
+	detached_routes051()
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
 
@@ -393,3 +394,73 @@ func finite_traffic051() -> void:
 			var fallback: Dictionary=Routes._refine_begin051(st,g,own,path,proof_budget051(4096),proofs,2.0)
 			check(var_to_bytes(fallback)==var_to_bytes(actual),label+": closed proof scope retains policy through fully checked fallback")
 		check(var_to_bytes([g,ships,path])==original,label+": source geometry, owners and route remain detached")
+
+func detached_routes051() -> void:
+	# Pure owned worker/main states. No worker dispatch, clock advance or engine
+	# runner is added; public full traffic remains the independent reference.
+	var geometry: Dictionary={"key":"detached051","revision":56,"obstacles":[{"points":[[430,650],[470,650],[470,750],[430,750]],"lo":Vector2(430,650),"hi":Vector2(470,750)}]}
+	var owner: Dictionary={"id":"detached-own051","team":"player","x":400.0,"y":800.0,"vx":0.0,"vy":0.0,"spec":{"size":12.0,"speed":100.0,"turn":2.0},"status":{"speedFactor":1.0},"fuel":100.0,"order":"engage","orderTarget":{}}
+	var request: Dictionary={"approach":[Vector2(400,800),Vector2(1040,800)],"pass":[Vector2(1040,960)],"exit":[Vector2(1200,960)]}
+	var before: PackedByteArray=var_to_bytes([geometry,owner,request])
+	var worker: Dictionary=proof_state051([owner.duplicate(true)])
+	worker.time=0.0
+	var full: Dictionary=Routes.refine_live(worker,geometry,owner,request,proof_budget051(2900))
+	var prepared: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,proof_budget051(2900))
+	check(prepared.status=="valid" and prepared.candidate==full.candidate and prepared.eta==12.0 and prepared.eta==full.eta,"detached preparation retains every static edge and the full twelve-second ETA")
+	check(prepared.origin051==Routes.point(owner) and prepared.radius051==Routes.planning_radius(owner) and prepared.terrainKey051==geometry.key and prepared.terrainRevision051==geometry.revision and prepared.observedAt051==worker.time and prepared.trafficSeconds051==2.0,"detached preparation stamps its exact origin, radius, terrain, clock and two-second snapshot policy")
+	var no_work: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,proof_budget051(0))
+	check(no_work.status=="pending","zero worker clearance allowance cannot produce a completed prepared route")
+	var later: Dictionary=owner.duplicate(true)
+	later.id="detached-later051";later.x=540.0
+	var blocked_worker: Dictionary=proof_state051([owner.duplicate(true),later.duplicate(true)])
+	blocked_worker.time=0.0
+	check(Routes._prepare_detached051(blocked_worker,geometry,owner,request,proof_budget051(2900)).status=="blocked","worker preparation really checks snapshot traffic within two seconds")
+	var current: Dictionary=proof_state051([owner,later])
+	current.time=0.125
+	var adopted: Dictionary=Routes._adopt_prepared051(current,geometry,owner,request,prepared,proof_budget051(4096),null,2.0)
+	check(adopted.status=="valid" and adopted.candidate.approach==[Vector2(1040,800)] and adopted.candidate["pass"]==request["pass"] and adopted.candidate.exit==request.exit and adopted.eta==12.0,"fresh worker adoption retains all future edges and full ETA beyond the current prefix")
+	var boundary: Dictionary=current.duplicate()
+	boundary.time=0.15
+	check(Routes._adopt_prepared051(boundary,geometry,owner,request,prepared,proof_budget051(4096),null,2.0).status=="valid","the exact 0.15s worker age boundary remains eligible")
+	check(Routes.refine_live(current,geometry,owner,request,proof_budget051(4096)).status=="blocked","public full traffic still refuses the later obstruction")
+	var fallback_budget: Dictionary=proof_budget051(4096)
+	var fallback: Dictionary=Routes._refine_begin051(current,geometry,owner,request,fallback_budget,null,2.0)
+	check(fallback.status=="blocked","ordinary main two-second fallback still sees the later obstruction")
+	var changes: Array=[
+		{"label":"stale","field":"observedAt051","value":-0.1},
+		{"label":"future","field":"observedAt051","value":0.25},
+		{"label":"nonfinite clock","field":"observedAt051","value":NAN},
+		{"label":"unstamped clock","field":"observedAt051","erase":true},
+		{"label":"changed terrain key","field":"terrainKey051","value":"other051"},
+		{"label":"changed terrain revision","field":"terrainRevision051","value":57},
+		{"label":"changed radius","field":"radius051","value":prepared.radius051+1.0},
+		{"label":"changed snapshot policy","field":"trafficSeconds051","value":1.0},
+		{"label":"unstamped origin","field":"origin051","erase":true},
+		{"label":"pending worker path","field":"status","value":"pending"}
+	]
+	for change: Dictionary in changes:
+		var invalid: Dictionary=prepared.duplicate(true)
+		if change.get("erase",false):invalid.erase(change.field)
+		else:invalid[change.field]=change.value
+		var work: Dictionary=proof_budget051(4096)
+		var actual: Dictionary=Routes._adopt_prepared051(current,geometry,owner,request,invalid,work,null,2.0)
+		check(var_to_bytes(actual)==var_to_bytes(fallback) and var_to_bytes(work)==var_to_bytes(fallback_budget),str(change.label)+": adoption falls back with the exact full main result and debits")
+	var near: Dictionary=later.duplicate(true)
+	near.id="detached-near051";near.x=450.0
+	var obstructed: Dictionary=proof_state051([owner,near])
+	obstructed.time=current.time
+	var refused: Dictionary=Routes._adopt_prepared051(obstructed,geometry,owner,request,prepared,proof_budget051(4096),null,2.0)
+	check(refused.status=="blocked" and refused.reason=="Hull occupies this approach","a newly appearing CURRENT obstacle within 0.3s vetoes a completed worker route")
+	var crossing: Dictionary=near.duplicate(true)
+	crossing.x=416.0;crossing.y=760.0;crossing.vy=200.0
+	var crossing_state: Dictionary=proof_state051([owner,crossing])
+	crossing_state.time=current.time
+	check(Routes._adopt_prepared051(crossing_state,geometry,owner,request,prepared,proof_budget051(4096),null,2.0).status=="blocked","current traffic crossing within 0.3s vetoes an otherwise clear worker route")
+	var moved: Dictionary=owner.duplicate(true)
+	moved.y=700.0
+	var moved_state: Dictionary=proof_state051([moved])
+	moved_state.time=current.time
+	var connector: Dictionary=Routes._adopt_prepared051(moved_state,geometry,moved,request,prepared,proof_budget051(4096),null,2.0)
+	check(connector.status=="blocked" and connector.reason=="Checking current land connector","actual current pose must pass a fresh full land connector")
+	check(Routes._adopt_prepared051(current,geometry,owner,request,prepared,proof_budget051(0),null,2.0).status=="pending","fresh adoption cannot waive the current connector's work debit")
+	check(var_to_bytes([geometry,owner,request])==before,"worker preparation and current adoption preserve their source geometry, owner and request")
