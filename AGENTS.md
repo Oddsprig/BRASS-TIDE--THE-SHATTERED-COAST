@@ -1,20 +1,18 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
 VALIDATION UPDATE - 27 October 2026
-Three bounded Bridge Sol6.1MAX source handoffs reviewed and integrated:
-- Contact convergence e8fec70 ->6887bd8: original radii/.51/shore projection;
-  deterministic moved-endpoint queue with explicit check/correction ceilings.
-- Crowd escape4d08fba ->ea5b544: one nonfiring fallback within eight offers,
-  intersect all contact constraints; fingerprint-bound checked stationary turn.
-- Worker handoff7357639 ->4e45914: retain unfinished work to existing150/200ms
-  deadlines; current urgent guards, fair cap and detached dispatch baseline.
-Root's combined preload advisory reports0issues; native behavior UNVERIFIED.
-Next selected R37 includes actual contact/geometry/worker/current traffic/fire,
-real paid opening voyage, export and three starts; whole batch hard limit119s.
-Prior R36PASS1387/0,81.563s. Actual R17 measurement57.812s quality FAILED:
-42light10.299FPS/16.078ms;16mixed59.999FPS/7.041ms;11light/1mixed deadlocks.
-These source fixes do not count as runtime improvement until actual R18 evidence.
-All actors/current60Hz/physical hulls/default APIs, material costs and coins stay.
+R37 d25e0f06988745e4868b87443bce8f43 PASS1669/0 in84.656s including setup,
+export/three starts/cleanup. Geometry624/contact208/worker157/retained148,
+traffic40/fire123/actual paid opening voyage274. All three source fixes verified.
+Actual R18 c32b538e651d44fd99cddcc35cf95a66 completed58.093s, quality FAILED:
+42light8.889FPS/17.692ms simulation;16mixed59.901FPS/7.002ms. Light41 boats
+ever moved,31 moving at end,83 shots. Remaining deadlocks5light/1mixed.
+Root reviewed both actual end PNGs. Improved movement does not establish a
+performance pass. Worker fallback remains1750/2848due, about61percent.
+Three existing Bridge Sol6.1MAX source-only proposals cover remaining escape
+pipeline rejection, whole-worker waste and low stable-role retention. No new
+engine job, instrumentation framework or further implementation approved yet.
+Physical hulls/current60Hz/all actors/current checks and conserved coins stay.
 Desktop050 retained; no051tag/package/install/no052 while core gate OPEN.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
