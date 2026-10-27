@@ -42,6 +42,30 @@ retreat, NEW set_crew_policy(st,ids,policy), set_repair_priority(st,ids,priority
 Queue kinds/payloads: flagship {id}; autopilot {enabled}; order {ids,order,target};
 fleet_order {order,target}; options {ids,options}; retreat {};
 crew_policy {ids,policy}; repair_priority {ids,priority}.
+Follow-up on preserved 06dd17a adds the exact presentation command payloads:
+- player_command {ids:Array,command:String,target:Dictionary={}} calls the
+  existing BattleCommands047.apply on the authoritative worker, including its
+  mount availability, complete recipient/target checks and order/options writes.
+- boarding_auto {enabled:bool} changes the authoritative autoBoard setting.
+- boarding_order {sourceId:String,targetId:String,count:int} calls the existing
+  Combat.order with an integer count1..128; live crew/minimum/vulnerability and
+  capture-slot rules remain there. StringName IDs are accepted too.
+- boarding_abort {id:String} calls the existing Boarding.abort; actual contact,
+  berths, recovered crew and explicit lost people remain its authority.
+- lab_refill {} requires original initial._labCommands051 to be bool true.
+  Acquisition's plain-state copy retains this private flag; snapshots omit it,
+  and no command can set it. Career commands are rejected on the worker.
+  Match DevTools' existing Lab action: living ships' hp/water/fire/engine/breaches
+  and ammo/fuel/supplies only; no revival, crew or fitted-equipment replacement.
+  Evict each affected damage proof/cache entry before the numerical writes.
+All thirteen kinds execute in the existing _work command FIFO before steps;
+paused command-only jobs can publish a result without advancing battle time.
+commandResults rows retain sequence/kind/ok and preserve adapter message,
+command/count or recovery/returned/lost fields where supplied. Boarding abort's
+reason becomes message for Main's existing receipt UI. Original eight kinds
+retain their existing bool validation path; queue success remains admission.
+This follow-up changes only battle_driver051.gd and this source handoff. No
+Battle/UI/observer/test changes, engines, tests or CLI validation were performed.
 Boolean queue success is admission, not a claim of worker validation success.
 Mirror uses _battleMirror051=true and _battleDriver051=WeakRef (Main-only).
 No weak references, RNG, phase/goal/task handles enter worker publications.

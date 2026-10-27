@@ -1,6 +1,7 @@
 extends RefCounted
 ## Main owns this scheduler and its display. Only the in-flight job owns _state.
 const Battle=preload("res://scripts/battle.gd")
+const PlayerCommands=preload("res://scripts/battle_commands047.gd")
 const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Records=preload("res://scripts/equipment_records.gd")
@@ -99,7 +100,7 @@ func advance(delta: float,input: Dictionary={},paused: bool=false) -> Dictionary
 
 func queue_command(kind: String,payload: Dictionary={}) -> bool:
 	if _retired or _mirror.get("result")!=null:return false
-	if kind not in ["flagship","autopilot","order","fleet_order","options","retreat","crew_policy","repair_priority"]:return false
+	if kind not in ["flagship","autopilot","order","fleet_order","options","retreat","crew_policy","repair_priority","player_command","boarding_auto","boarding_order","boarding_abort","lab_refill"]:return false
 	if not _is_plain(payload):return false
 	_sequence+=1
 	_commands.append({"sequence":_sequence,"kind":kind,"payload":_plain(payload)})
@@ -215,7 +216,9 @@ static func _work(job: _Job) -> void:
 		Tactical.enable_planning051(st,true)
 	var acknowledgements: Array=[]
 	for command: Dictionary in job.commands:
-		acknowledgements.append({"sequence":command.sequence,"kind":command.kind,"ok":_apply_command(st,str(command.kind),command.payload)})
+		var acknowledgement: Dictionary=_command_result(st,str(command.kind),command.payload)
+		acknowledgement.sequence=command.sequence;acknowledgement.kind=command.kind
+		acknowledgements.append(acknowledgement)
 	var previous: Dictionary=_pose_table(st)
 	var steps_done: int=0
 	var simulation_started: int=Time.get_ticks_usec()
@@ -238,6 +241,50 @@ static func _work(job: _Job) -> void:
 	job.receipt={"workerStepHz":30,"workerThreadId":OS.get_thread_caller_id(),"completedSteps":job.completed,"stateTime":float(st.get("time",0.0)),"workerJobUs":Time.get_ticks_usec()-started,"simulationUs":simulation_us,"snapshotUs":snapshot_us,"stepsInJob":steps_done,"commandResults":acknowledgements}
 	if not acknowledgements.is_empty():job.receipt.lastCommandSequence=int(acknowledgements[-1].sequence)
 	job.commands=[];job.input={}
+
+static func _command_result(st: Dictionary,kind: String,p: Dictionary) -> Dictionary:
+	# Called only by the authoritative job, including paused command-only jobs.
+	# Existing adapters retain their complete live-owner validation and accounting.
+	if st.get("result")!=null:return {"ok":false,"message":"The battle has already ended."}
+	match kind:
+		"player_command":
+			if not p.get("ids") is Array or not p.get("command") is String or not p.get("target",{}) is Dictionary:
+				return {"ok":false,"message":"Choose boats and a valid fleet command."}
+			return PlayerCommands.apply(st,p.ids,p.command,p.get("target",{}))
+		"boarding_auto":
+			if not p.get("enabled") is bool:return {"ok":false,"message":"Choose whether automatic boarding is enabled."}
+			st.autoBoard=p.enabled
+			return {"ok":true,"message":"Automatic boarding enabled." if p.enabled else "Automatic boarding disabled."}
+		"boarding_order":
+			if not (p.get("sourceId") is String or p.get("sourceId") is StringName) or not (p.get("targetId") is String or p.get("targetId") is StringName) or not p.get("count") is int:
+				return {"ok":false,"message":"Choose a source boat, target and whole number of boarders."}
+			if int(p.count)<1 or int(p.count)>128:return {"ok":false,"message":"Choose between 1 and 128 boarders."}
+			return Battle.BoardingCombat.order(st,str(p.sourceId),str(p.targetId),int(p.count))
+		"boarding_abort":
+			if not (p.get("id") is String or p.get("id") is StringName):return {"ok":false,"message":"Choose an active boarding party to recall."}
+			var result: Dictionary=Battle.BoardingCombat.Boarding.abort(st,str(p.id))
+			result.message=str(result.get("reason","Party recovery resolved using actual contact and berths."))
+			return result
+		"lab_refill":return _lab_refill(st)
+	return {"ok":_apply_command(st,kind,p)}
+
+static func _lab_refill(st: Dictionary) -> Dictionary:
+	# This private flag comes only from the initial Lab state. Neither queue
+	# payloads nor presentation mirrors can grant career battles free stores.
+	if not st.get("_labCommands051",false) is bool or not st.get("_labCommands051",false):
+		return {"ok":false,"message":"Repair/refill is available only in the fleet laboratory."}
+	var cache: Dictionary=Tactical.ensure(st).get("damageCache",{})
+	var count: int=0
+	for ship: Dictionary in st.get("ships",[]):
+		if ship.get("sunk",false):continue
+		# Match the existing Lab fixture action; never revive actors, restore crew
+		# or replace fitted equipment. Revoke proofs before these numeric writes.
+		Damage._drop_battle_owner051(st.get("_damageOwned051"),ship)
+		Damage.invalidate_frame_cache(cache,ship)
+		ship.hp=ship.maxHp;ship.water=0.0;ship.fire=0.0;ship.engine=1.0;ship.breaches=[]
+		ship.ammo=float(ship.spec.ammoCapacity);ship.fuel=120.0;ship.supplies=20.0
+		count+=1
+	return {"ok":true,"message":"Laboratory fixtures repaired and resupplied.","count":count}
 
 static func _apply_command(st: Dictionary,kind: String,p: Dictionary) -> bool:
 	if st.get("result")!=null:return false
