@@ -276,6 +276,21 @@ func samples_of(chart, uid: String) -> Array:
 
 func chart_cases(spec: Dictionary) -> void:
 	var chart = Chart.new()
+	root.add_child(chart)
+	for mode: String in ["campaign", "battle"]:
+		chart.host = {"mode": mode}
+		for pose: Vector2 in [Vector2(1300, 900), Vector2(-400, 275)]:
+			chart.camera = pose
+			chart.scale_factor = 0.49 if pose.x < 0.0 else 1.17
+			var draw_projection: Callable = chart._projector()
+			var same: bool = true
+			for point: Vector2 in [Vector2.ZERO, Vector2(1350, 850), Vector2(-250, 1700)]:
+				for height: float in [0.0, 9.7, 35.0]:
+					same = same and draw_projection.call(point, height) == chart.project(point, height)
+			check(same, "draw-scoped projection exactly matches current camera/mode/height: " + mode)
+	chart.host = null
+	chart.camera = Vector2(1300, 900)
+	chart.scale_factor = 0.36
 	var boat: Dictionary = boat_for(spec)
 	update_read_only(chart, [boat])
 	check(recorded(samples_of(chart, boat.uid)).polygons.is_empty(), "one actual stern observation is not enough to invent travel")

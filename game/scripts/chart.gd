@@ -337,7 +337,17 @@ func _update_trails(projectiles: Array):
 		_trails.pop_front()
 
 func _projector() -> Callable:
-	return func(p: Vector2, h: float) -> Vector2: return project(p, h)
+	# Every caller consumes this inside its current draw. Camera, viewport and
+	# mode stay fixed there; querying the viewport again for every gun/foam
+	# vertex adds work without changing the projection.
+	var view_origin: Vector2 = get_viewport_rect().size * 0.5
+	var view_camera: Vector2 = camera
+	var view_scale: float = scale_factor
+	if nautical_chart():
+		return func(p: Vector2, _h: float) -> Vector2: return view_origin + (p - view_camera) * view_scale
+	return func(p: Vector2, h: float) -> Vector2:
+		var d: Vector2 = p - view_camera
+		return view_origin + Vector2((d.x - d.y) * ISO_X, (d.x + d.y) * ISO_Y - h) * view_scale
 
 func _draw_wakes():
 	const WakeArt = preload("res://scripts/wake_art045.gd")
