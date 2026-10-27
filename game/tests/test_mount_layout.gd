@@ -26,7 +26,7 @@ func _rect_overlap(a: Dictionary, b: Dictionary) -> bool:
 
 func test_all_24_hulls() -> void:
 	var hulls: Array = world.get("HULLS", [])
-	check(hulls.size() == 24, "world.json defines all 24 canonical hulls")
+	check(hulls.size() == 36, "world.json defines 24 combat and 12 civilian hulls")
 	var archetypes: Dictionary = {}
 	for raw in hulls:
 		var hull: Dictionary = raw
@@ -98,7 +98,7 @@ func test_all_24_hulls() -> void:
 
 		# 4. Caller immutability and DP preservation.
 		check(hull == snapshot and Deployment.cost(hull) == Deployment.cost(snapshot), hid + ": layout queries never mutate hull spec or DP")
-	check(archetypes.size() == 7, "all 7 visual hull archetypes covered across 24 hulls")
+	check(archetypes.size() == 7, "all 7 visual hull archetypes covered across 36 hulls")
 
 func test_aim_and_mounts_normalization() -> void:
 	var big: Dictionary = world.HULLS[23]
