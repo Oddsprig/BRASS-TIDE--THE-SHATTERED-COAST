@@ -16,8 +16,11 @@ Current source candidate filters speculative stable worker members and uses a
 real semantic observation to bound physical retry, without restoring authority.
 One dispatch/side/150ms, two unfinished tasks and original budgets retained.
 Independent physical-read review found no material safe cache; no code added.
-Current native/export and actual rendered comparison remain pending. Root
-alone queues whole background batches below120s; no input/focus/audio control.
+R48 FAILED38.125s: voyage274/geometry695 passed, retained357/3 old clock
+checks failed. New direct-observation assertion contaminated the recertification
+scenario; isolate it while preserving all original assertions. Production
+unchanged. R49 pending; identical-production voyage/geometry evidence retained
+only after exact hash proof. Root queues whole background batches below120s.
 Installed Desktop050 retained; no051tag/package/install/no052 breadth.
 Core quality gate remains OPEN. Earlier checkpoints below are historical.
 

@@ -10,8 +10,9 @@ Root reviewed both end PNGs. Current source filters speculative stable worker
 members and bounds physical retry using a real semantic observation. Worker
 budgets/one side dispatch per150ms/two-task cap/current60Hz guards retained.
 Physical-read audit found no further material safe cache; no code change.
-Current native/export and actual rendered comparison pending. Root alone
-queues bounded background batches. No051delivery/no052breadth until core
+R48 FAILED38.125s at retained357/3; voyage274/geometry695 passed. Fixture
+isolation repair pending, all old assertions retained. No current export/GPU.
+Root alone queues bounded background batches. No051delivery/no052breadth until core
 quality is usable. Earlier checkpoint evidence remains historical.
 
 THE TARGET
