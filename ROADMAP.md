@@ -1,12 +1,11 @@
-# Current step: v0.043 - Real rendered performance
+# v0.043 measured-fix pass delivered; smoothness remains open
 
-Measure active light and mixed300-point battles, attribute actual costs, and
-remove repeated validation/preparation inside the existing simulation. Preserve
-all boats,60Hz, usefulAI, damage/custody and worker threads. Final candidate
-measurement and focused portable checks are pending. Smoothness targets and
-milestone0.051 remain separate quality gates.
+Source/tag5ea0d04/v0.043:419focused checks, actual exported mixed/light battles.
+Mixed16.903 ->28.686FPS; light3.749 ->4.330FPS. No60FPS or quality parity claim.
+Read docs/PERFORMANCE v0.043.txt. The light-fleet case remains a concrete failed
+quality case for tacticalAI0.046 and milestone0.051. Keep actors and60Hz.
 
-Next saved step0.044 is combat commitment and recovery. Its movement, cannon
-window and compact readiness candidates are prepared separately; integrate them
-only after0.043 is verified and delivered. Then continue the saved roadmap in
-order; no speculative feature sprawl or new testing framework.
+Next authorized step0.044: combat commitment/recovery. Implement the prepared
+movement, heavy-cannon window and compact readiness candidates, then run only
+its focused checks and actual visual review. Continue the saved roadmap in
+order. Do not enter campaign breadth after0.051 while its core gate fails.

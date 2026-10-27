@@ -11,7 +11,7 @@ MILESTONE A - CORE QUALITY (0.042-0.051)
 0.042 - AUTHORED BOAT ASSETS [DELIVERED; OVERALL QUALITY GATE OPEN]
 Three representative boats prove a coherent, inexpensive asset pipeline.
 
-0.043 - RENDERED PERFORMANCE [PLANNED]
+0.043 - RENDERED PERFORMANCE [MEASURED FIXES DELIVERED; 60FPS TARGET OPEN]
 Real active300-vs-300 battles meet the stated frame and simulation budgets.
 
 0.044 - COMBAT FEEL [PLANNED]

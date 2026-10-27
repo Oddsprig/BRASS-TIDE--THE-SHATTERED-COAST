@@ -1,35 +1,67 @@
-BRASS TIDE v0.043 - PERFORMANCE WORK IN PROGRESS
+BRASS TIDE v0.043 - ACTUAL RENDERED PERFORMANCE
+26 October 2026 local / 27 October UTC
 
-Actualexported300-point light/mixed fleets are being measured through the normalMobile/Vulkan renderer at2560x1600 on a private backgroundWindowsdesktop. No input/focus/audio control.
+VERDICT
+The bounded measurement and repeated-work corrections are delivered. Full-fleet
+smoothness is NOT achieved. The light-fleet case remains unacceptable; milestone
+0.051 must not pass while this remains. No Starsector-quality claim.
 
-Baselinebuildf8e88d5 passed import/export/menu/campaign/battle startup in55.109seconds(active+setup), job81e2748d789d4b51967aabc470e9703f. This doesnotprove renderedperformance.
-Firstgraphicsjobd14595bd71144e58b46251ec44a352fa launchedonNVIDIAGeForceRTX5090LaptopGPU,Vulkan1.4.341, butprobeScriptparsingstoppedbeforemeasurements. Whole14.171secondsinclsetup;cleanupverified. Correctclass/staticintrospectioninprobesourcebeforeanotherattempt. Thiswasnot a performance pass.
-Rendererstartuppeak1053683712bytes leaveslittleheadroomunder1GiB; nextGPUprofilecap2GiB. Thesearetest-onlylimits, notnormalgame settings. Existingphysics/AI/actors/threadsandownerprofilesunchanged.
+MATCHED SHORT SAMPLES
+baseline     light    3.749 FPS | sim 32.274/44.712 ms median/P95
+baseline     mixed   16.903 FPS | sim 13.324/16.982 ms median/P95
+first-fixes  light    3.947 FPS | sim 30.611/42.023 ms median/P95
+first-fixes  mixed   23.227 FPS | sim 12.475/15.788 ms median/P95
+final        light    4.330 FPS | sim 28.040/40.250 ms median/P95
+final        mixed   28.686 FPS | sim 11.634/15.056 ms median/P95
 
-Frame/tick/counterdataandactualscreenshotswillguideoneboundedperformancepass. Targetsremainunverified; noStarsector-quality ordisplayedFPSclaim.
+Each sample used the same corrected active workload:42 light boats or16 mixed
+boats,300 deployment points EACH side, normal60Hz physics, full actors and
+usefulAI retained. Each case includes12 seconds of measured real rendered play.
+Movement, guns, hits, flooding and effects are present; mixed also fires rockets
+and torpedoes. Light boats have only guns; the two initially leaking boats use
+real crew, pump and repair work. Measurements are short samples, not a guarantee
+of later campaign performance or statistical repeatability.
 
-Real default-threadedprofiled1624ac5f3c64ee48f2da604055bc898 completedbothcases butwasNOTaccepted: RTX5090LaptopGPU/VulkanMobile,42boats300DPperside about3.366FPS,simulationmedian34.520ms/P9546.679ms;16mixedboatsabout12.993FPS,simulation13.145ms/P9516.578ms. Rendererempty-image/finalizeerrors andincompleteactivecoverage werepreserved. Cleanuptrue,58.078s inclsetup.
-Exactsameexport/rosterswithCLI--render-threadsafe, diagnostic23a5ab2417fb427a9de96417c63d06ae attempt003, completedin58.125swithnoERRORlines. Twoearlierattemptsyieldedwhenanothergamestarted. Light3.284FPS,35.176/46.025mssim;Mixed16.562FPS,13.542/17.062mssim. Diagnostictrue,qualitytargetfalse; thisdoesnotacceptrelease/performancecoverage. ItisolatestheengineerrorsfromtheCPUcosts.
-Defaultgraphicsnowsafe(threadmodel1)forthisversionbecauseexperimentalSeparatemode2raisedactualrenderererrors. Existingworkerthreadsandeconomyconcurrencyremain; physics/actors/AIarenotreduced. No globaldriver/systemsettingschanged.
-Profilercoveragecorrectedbeforeafreshbaseline: rendererwarmuponlypausedbeforecombat, activeintervalnowincludesfirstactualsalvos. Eachside'sfirstlightboatdeclaresa6cm2initialbreachand8percentwatercapacityforrealpump/repairwork; nofakehitevents,invulnerability, alteredstatisticsor actor removal. Theolddataremainasevidenceoftheproblem,notanidenticalbefore/after comparisonwiththecorrectedscenario.
+HARDWARE AND LIMITS
+Core Ultra9 275HX,24 logical CPUs; NVIDIA RTX5090 Laptop GPU; Godot4.7.2
+release export, Mobile/Vulkan1.4.341. Requested2560x1600; Windows client actually
+2560x1570, logical viewport1600x1000. Normal120FPS cap, max8physics steps/frame.
+Test-only owned job cap2GiB, CPU unthrottled,24-core affinity, BelowNormal.
+No desktop activation, focus, input or test audio. Isolated profiles and saves.
+Final peak owned job memory is recorded in the attached runtime receipt.
 
-CORRECTED MATCHED COMPARISON - 27 OCTOBER 2026
-Baseline b1d61fc, TestBridge 6a9ed609f8644b3cad4c253dd3732045:
-light 42 boats / 300 DP each side: 3.749 FPS; simulation median32.274ms,
-P95 44.712ms. Mixed16 boats / 300 DP each side:16.903FPS; median13.324ms,
-P95 16.982ms. Complete requested activity; measurement passed57.828s.
+CHANGES
+Exact equipment validation is reused inside one closed damage transaction;
+identical broadphase cell windows are reused within one tactical grid;
+immutable boat drawing preparation is reused; unchanged tactical indexes and
+base certificate inputs are prepared once per due boat. A local checked-data
+handle reduces repeated reads during planning/movement/firing. It ends before
+boarding/contact/projectile damage. Public external reads retain full guards,
+scalar/fuel changes stay live and invalidated entries cannot be reused.
 
-Three-fix candidate c81ad62, job389a6188d033445289995878d360533d:
-light3.947FPS; simulation median30.612ms/P95 42.023ms.
-Mixed23.227FPS; simulation median12.475ms/P95 15.788ms.
-Measurement complete57.516s including setup; all owned cleanup verified.
-This is one matched short sample, not a claim of repeatability or60FPS.
-Both runs used the same corrected workload, full actors,60Hz, safe graphics,
-RTX5090LaptopGPU, CoreUltra9 275HX, VulkanMobile. Requested2560x1600;
-Windows client2560x1570, logical viewport1600x1000. Test-only process job
-cap2GiB, CPU unthrottled on24 logical CPUs. Peak job memory about1.70GB.
-No foreground, input, focus or audio control. No renderer errors in either.
+Experimental separate graphics mode produced texture/finalization errors.
+An exact-build safe-mode comparison cleared every engine error, so safe graphics
+submission is default. Existing economy workers and worker pool remain enabled.
+This changes no global display/driver settings.
 
-Native359checks/0, import/export and menu/campaign/battle startup passed in
-58.031s including setup, job84da0cf55c8a4a12ac8532cb04016905.
-A final bounded correction is pending. Performance targets remain UNMET.
+EVIDENCE
+baseline: 6a9ed609f8644b3cad4c253dd3732045
+first-fixes: 389a6188d033445289995878d360533d
+final: ec34adcba0674f2b89667ff76c0df597
+Final native/export/startup:3d452a9050794653a415b1c041330257,419checks/0,
+57.921seconds including setup. Final rendered comparison57.516seconds including
+setup; complete active coverage and cleanup. Both are separate short batches.
+Source/tag:5ea0d04496d0e9beec74144553e718dec7c4bd9d / v0.043.
+
+LIMITS AND NEXT SCOPES
+Every60FPS/95%-under20ms/6ms-median-and10ms-P95-simulation target remains UNMET.
+Recurring catch-up remains particularly severe for42lightboats. Profiling points
+to simulation/planning and damaged-boat processing, not a shortage of GPU power.
+Keep this as a concrete failing quality case during tacticalAI work0.046 and
+the core milestone0.051; do not conceal it by reducing fleet size or physics.
+0.044 is combat commitment/recovery,0.045 presentation/sound,0.046 tacticalAI.
+The other scopes remain separate; no new test-framework project.
+
+Earlier parse failures, renderer errors, missing-coverage runs and competing-game
+yields remain preserved in TestBridge. They are not passes. No silent/headless
+check certifies audible quality, motion quality, engagement or a complete game.

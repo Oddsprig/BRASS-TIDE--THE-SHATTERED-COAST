@@ -1,15 +1,14 @@
-BRASS TIDE v0.043 - REAL RENDERED PERFORMANCE AND RUNTIME BUDGET
-26 October2026 |36 boat designs
+BRASS TIDE v0.043 - Real rendered performance and runtime budget
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 5ea0d04496d0e9beec74144553e718dec7c4bd9d / v0.043
+Test Bridge: 3d452a9050794653a415b1c041330257
+419 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 58.004s; owned cleanup verified.
 
-THIS VERSION
-- Measure actual exported mixed and light300point battles through the real renderer with active combat and declared hardware/resolution.
-- Attribute simulation and draw costs through opt-in counters, then apply bounded fixes to demonstrated bottlenecks while preserving actors,60Hz and authoritative state.
-- Keep real rendered background profiling separate from capped headless checks, and preserve actual limits and unmet targets.
+- Measure actual exported 300-point light and mixed fleet battles with active weapons, flooding and effects at the recorded renderer and resolution.
+- Reduce demonstrated repeated equipment validation, traffic query and boat drawing preparation while retaining full actors, 60 Hz physics and authoritative damage.
+- Use safe graphics submission after a same-build comparison removed separate-mode texture errors; retain existing economy workers and the worker pool.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+Actual rendered baseline/final: light3.749 ->4.330FPS; mixed16.903 ->28.686FPS at full300DP/side. All performance targets remain UNMET;42boatlightcase is unacceptable. Final rendered jobec34adcba0674f2b89667ff76c0df597 completed57.516s with active coverage and cleanup. This is a bounded measured-fix release; smoothness and milestone0.051 remain OPEN. See PERFORMANCE v0.043.txt.

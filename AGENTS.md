@@ -3,9 +3,9 @@
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
 This supersedes the planning-only instruction below. Build and deliver each
-saved scope in order, preserving the previous release/saves. v0.042 is delivered at source/tagc234ada/v0.042 with194focusedchecks and
-reviewedactualboat/refitdrawing-call assets. Current0.043 measures actualrendered
-performance before bounded fixes; its target acceptance remains open. Do not jump ahead to later scopes or treat tests as art.
+saved scope in order, preserving the previous release/saves. v0.043 measured fixes are delivered at source/tag5ea0d04/v0.043 with419
+focused checks and actual rendered baseline/final measurements. The smoothness
+target remains OPEN: light4.330FPS, mixed28.686FPS at full300DP per side. Do not jump ahead to later scopes or treat tests as art.
 Three Bridge Sol6.1MAX seats are currently simulation043, runtime043 and
 rendering043. They own isolated source checkouts; Root owns all native jobs.
 Grok4.7HIGH may review concrete output. Root coordinates/integrates and owns
@@ -15,15 +15,16 @@ Root source is outputs/brass-tide. Helpers stay source-only in isolated worktree
 No nested helpers, paid fallback, downloads, unqueued engine/render/GPU work,
 foreground/input takeover or test audio. Selected complete test batches remain
 below120seconds. Respect other apps/leases and recorded GPU/resource authority.
-Currently installed build0.042 is preserved until the next verified sequential release.
+The verified0.043 desktop update is prepared; preserve0.042 and all voyages.
 0.043 uses safe graphics submission after an exact-build comparison removed
 actual separate-mode texture/finalization errors. Keep economy workers and
 the existing worker pool enabled. Do not restore experimental separate mode
 from the historical instruction farther below without new evidence.
-First measured fixes passed359 focused checks, but actual full-fleet targets
-remain unmet (about4FPS light,23FPS mixed). A final bounded cost correction
-is underway. Native correctness and rendered measurement completion are
-separate from smoothness, game feel and the milestone0.051 acceptance.
+The final419 focused checks pass and actual rendered measurement is complete,
+but all performance targets remain unmet (4.330FPS light,28.686FPS mixed).
+Native correctness and measurement completion remain separate from smoothness,
+game feel and milestone0.051 acceptance. Carry the concrete light-fleet cost
+case into tacticalAI0.046 and the quality milestone; do not reduce actors/Hz.
 PlainDesktopBrassTide.lnk is the singlelatestlauncher; oldernumberedlaunchers are
 archivedinsideDesktop/BrassTide/Archivedlaunchers andoldbuildsremainintact.
 
@@ -73,7 +74,7 @@ shortcut. Headless correctness does not establish graphics, FPS or game feel.
 
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
-This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.042; continue with the next saved scope only. Earlier planning-only/stop-v031
+This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.043; continue with the next saved scope only. Earlier planning-only/stop-v031
 paragraphs below are historical and superseded by this new instruction.
 
 Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol

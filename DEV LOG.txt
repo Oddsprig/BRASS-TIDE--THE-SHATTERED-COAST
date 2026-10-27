@@ -1,3 +1,5 @@
+v0.043 VERIFIED AND PACKAGED: 419/0 focused checks, selected batch 58.004s, TestBridge 3d452a9050794653a415b1c041330257. Source 5ea0d04496d0e9beec74144553e718dec7c4bd9d.
+
 26OCT2026 - v0.043 REAL RENDERED PERFORMANCE AND RUNTIME BUDGET
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
