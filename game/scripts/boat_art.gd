@@ -474,24 +474,16 @@ static func _draw_mount(ctx: Dictionary, m: Dictionary, turret_world: float, c: 
 static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dictionary = {}) -> Dictionary:
 	return _draw_boat051(canvas, projector, boat, opts, -1.0)
 
-static func _draw_battle_boat051(canvas, batch: _BattleDraw051, boat: Dictionary, opts: Dictionary, native051 = null) -> Dictionary:
+static func _draw_battle_boat051(canvas, batch: _BattleDraw051, boat: Dictionary, opts: Dictionary) -> Dictionary:
 	# Chart opts in only for its uninterrupted native boat loop. Recorders keep
 	# every metadata check even if handed an opted-in batch by a fixture/caller.
-	if native051 != null and not is_same(canvas, native051.motor): native051 = null
-	return _draw_boat051(canvas, batch.projector, boat, opts, batch.sprite_scale, batch.atlas_frames051 if canvas is CanvasItem or native051 != null else null, native051)
+	return _draw_boat051(canvas, batch.projector, boat, opts, batch.sprite_scale, batch.atlas_frames051 if canvas is CanvasItem else null)
 
-static func _native_inputs051(batch: _BattleDraw051, boat: Dictionary, accent: Color, enemy: bool) -> Dictionary:
-	if batch == null or not boat.get("spec") is Dictionary: return {}
-	var prepared: Dictionary = _draw_inputs(boat.spec, accent, enemy)
-	var inputs: Dictionary = SpriteArt._native_frames051(boat.spec, boat, prepared.mounts, batch.sprite_scale, batch.atlas_frames051)
-	if not inputs.is_empty(): inputs.prepared = prepared
-	return inputs
-
-static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: Dictionary, battle_scale051: float, atlas_frames051: SpriteArt._BattleAtlas051 = null, native051 = null) -> Dictionary:
+static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: Dictionary, battle_scale051: float, atlas_frames051: SpriteArt._BattleAtlas051 = null) -> Dictionary:
 	var spec_v = boat.get("spec", {})
 	var spec: Dictionary = spec_v if spec_v is Dictionary else {}
 	var accent: Color = opts.get("accent", Color("8fc6b4")) if opts.get("accent") is Color else Color("8fc6b4")
-	var prepared: Dictionary = _draw_inputs(spec, accent, bool(opts.get("enemy", false))) if native051 == null else native051.inputs.prepared
+	var prepared: Dictionary = _draw_inputs(spec, accent, bool(opts.get("enemy", false)))
 	var arch: String = prepared.archetype
 	var c: Dictionary = prepared.palette
 	var enlargement := float(opts.get("enlargement", 1.0))
@@ -513,28 +505,23 @@ static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: D
 	}
 	var stations := _stations(spec)
 	var mounts: Array = prepared.mounts
-	if native051 != null:
-		ctx._native051 = native051
-		native051.show_at_lod(int(ctx.lod))
 	# Only the private, constructed affine battle projector shares scale across
 	# boats. Public/default/custom projectors still test their actual local basis.
 	var sprite_scale: float = 0.0
 	if is_equal_approx(enlargement, 1.0) and canvas.has_method("draw_texture_rect_region") and canvas.has_method("draw_set_transform_matrix"):
 		sprite_scale = SpriteArt._screen_scale(ctx) if battle_scale051 < 0.0 else battle_scale051
-	ctx.authored_hull=SpriteArt._draw_hull051(ctx,spec,sprite_scale,atlas_frames051,native051)
+	ctx.authored_hull=SpriteArt._draw_hull051(ctx,spec,sprite_scale,atlas_frames051)
 	if bool(ctx.authored_hull):
 		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
 	elif bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
 		_cached_base(ctx,spec,boat,c,arch)
 		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
 	else:_static(ctx,spec,boat,c,arch)
-	for mount_index051 in range(mounts.size()):
-		var m: Dictionary = mounts[mount_index051]
+	for m in mounts:
 		var local_bearing: float=float(ctx.localAimAngles.get(str(m.get("id","mount0")),m.angle))
-		if SpriteArt._draw_weapon051(ctx,m,float(ctx.angle)+local_bearing,sprite_scale,atlas_frames051,native051.weapons[mount_index051] if native051 != null else null):continue
+		if SpriteArt._draw_weapon051(ctx,m,float(ctx.angle)+local_bearing,sprite_scale,atlas_frames051):continue
 		if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c)
 		else:_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
-	if native051 != null: ctx.canvas = native051.after
 	_damage(ctx, boat, stations, arch, c)
 	HullFeedback.draw_equipment(ctx,boat,mounts)
 	return {"primitives": int(ctx.n), "polygons": int(ctx.npoly), "lines": int(ctx.nline),

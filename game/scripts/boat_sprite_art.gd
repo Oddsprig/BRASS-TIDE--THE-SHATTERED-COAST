@@ -205,7 +205,7 @@ static func _hull_transform(info: Dictionary, angle: float, scale: float) -> Tra
 static func draw_hull(ctx: Dictionary, spec: Dictionary, screen_scale: float = -1.0) -> bool:
 	return _draw_hull051(ctx, spec, screen_scale, null)
 
-static func _draw_hull051(ctx: Dictionary, spec: Dictionary, screen_scale: float, batch: _BattleAtlas051, native051 = null) -> bool:
+static func _draw_hull051(ctx: Dictionary, spec: Dictionary, screen_scale: float, batch: _BattleAtlas051) -> bool:
 	if not ctx.canvas.has_method("draw_texture_rect_region"): return false
 	if not ctx.canvas.has_method("draw_set_transform_matrix"): return false
 	# Legacy enlargement scales XY but deliberately leaves world heights alone.
@@ -219,9 +219,7 @@ static func _draw_hull051(ctx: Dictionary, spec: Dictionary, screen_scale: float
 	# Public inspection remains fresh/mutable. The exceptional exact-heading
 	# portrait uses its existing checked selection instead of mutating a frame.
 	var info: Dictionary
-	if native051 != null:
-		info = native051.inputs.hull
-	elif bool(ctx.get("portrait", false)) or scale > 2.0:
+	if bool(ctx.get("portrait", false)) or scale > 2.0:
 		info = frame_info(spec, float(ctx.angle), true)
 		if info.is_empty() or not _cell_ready(info): return false
 		info.texture = _texture(str(info.path))
@@ -230,8 +228,6 @@ static func _draw_hull051(ctx: Dictionary, spec: Dictionary, screen_scale: float
 		if info.is_empty(): return false
 	var transform: Transform2D = _hull_transform(info, float(ctx.angle), scale)
 	transform.origin += Vector2(ctx.proj.call(ctx.pos, 0.0))
-	if native051 != null:
-		return _draw_retained_cell051(ctx, native051.hull, info, Vector2.ZERO, scale, transform)
 	ctx.canvas.draw_set_transform_matrix(transform)
 	var drew: bool = _draw_ready_cell(ctx, info, info.texture, Vector2.ZERO, scale)
 	ctx.canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
@@ -253,7 +249,7 @@ static func weapon_variant(mount: Dictionary) -> String:
 static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float, screen_scale: float = -1.0) -> bool:
 	return _draw_weapon051(ctx, mount, bearing, screen_scale, null)
 
-static func _draw_weapon051(ctx: Dictionary, mount: Dictionary, bearing: float, screen_scale: float, batch: _BattleAtlas051, native051 = null) -> bool:
+static func _draw_weapon051(ctx: Dictionary, mount: Dictionary, bearing: float, screen_scale: float, batch: _BattleAtlas051) -> bool:
 	# A fitting's physical size and pivot do not depend on the hull's art path.
 	if not ctx.canvas.has_method("draw_texture_rect_region"): return false
 	if not ctx.canvas.has_method("draw_set_transform_matrix"): return false
@@ -270,8 +266,8 @@ static func _draw_weapon051(ctx: Dictionary, mount: Dictionary, bearing: float, 
 	var kind: String = str(mount.kind)
 	var base: Dictionary = entry.get("base", {})
 	var moving: Dictionary = entry.get("moving", {})
-	var base_info: Dictionary = native051.frames.base if native051 != null else _battle_ready_frame051(base, bearing, batch)
-	var moving_info: Dictionary = native051.frames.moving if native051 != null else (_battle_ready_frame051(moving, bearing, batch) if not moving.is_empty() else {})
+	var base_info: Dictionary = _battle_ready_frame051(base, bearing, batch)
+	var moving_info: Dictionary = _battle_ready_frame051(moving, bearing, batch) if not moving.is_empty() else {}
 	# Refuse the whole mechanism before submitting either layer. A partial
 	# atlas must not leave a sprite over the procedural fallback weapon.
 	if base_info.is_empty(): return false
@@ -286,54 +282,16 @@ static func _draw_weapon051(ctx: Dictionary, mount: Dictionary, bearing: float, 
 	if kind == "torpedo": muzzle_h = 2.8 * unit
 	var plane: Vector2 = Vector2(0, -muzzle_h * scale)
 	transform.origin = origin + plane - transform * plane
-	if native051 == null: ctx.canvas.draw_set_transform_matrix(transform)
-	var drew: bool = _draw_ready_cell(ctx, base_info, base_info.texture, Vector2.ZERO, scale * unit) if native051 == null else _draw_retained_cell051(ctx, native051.base, base_info, Vector2.ZERO, scale * unit, transform)
+	ctx.canvas.draw_set_transform_matrix(transform)
+	var drew: bool = _draw_ready_cell(ctx, base_info, base_info.texture, Vector2.ZERO, scale * unit)
 	if not moving_info.is_empty():
 		var recoil: float = WeaponArt.recoil_offset(ctx, mount)
 		# Offset is expressed in the baked frame before the residual transform.
 		var xy: Vector2 = Vector2.from_angle(float(base_info.angle)) * recoil * unit
 		var shift: Vector2 = Vector2((xy.x - xy.y) * 0.82, (xy.x + xy.y) * 0.41) * scale
-		if native051 == null: _draw_ready_cell(ctx, moving_info, moving_info.texture, shift, scale * unit)
-		else: _draw_retained_cell051(ctx, native051.moving, moving_info, shift, scale * unit, transform)
-	if native051 == null: ctx.canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+		_draw_ready_cell(ctx, moving_info, moving_info.texture, shift, scale * unit)
+	ctx.canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 	return drew
-
-# Private Chart preflight, completed for ALL boats before submitting any native
-# boat command. Public/custom/portrait callers never receive these descriptors.
-static func _native_frames051(spec: Dictionary, boat: Dictionary, mounts: Array, scale: float, batch: _BattleAtlas051) -> Dictionary:
-	if not is_finite(scale) or scale <= 0.0 or scale > 2.0: return {}
-	var angle: float = float(boat.get("angle", 0.0))
-	if not is_finite(angle) or not is_finite(float(spec.get("size", 0.0))): return {}
-	if not is_finite(float(boat.get("x", 0.0))) or not is_finite(float(boat.get("y", 0.0))): return {}
-	var entry: Dictionary = hull_entry(spec)
-	if entry.is_empty() or not is_equal_approx(float(spec.get("size", 0)), float(entry.get("size", 0))): return {}
-	var hull: Dictionary = _battle_ready_frame051(entry, angle, batch)
-	if not _native_texture051(hull): return {}
-	var manifest: Dictionary = _manifest(WEAPON_MANIFEST)
-	if str(manifest.get("schema", "")) != "brass-tide-weapons042-v1": return {}
-	var aims = boat.get("localAimAngles", {})
-	if not aims is Dictionary: return {}
-	var weapons: Array = []
-	for mount in mounts:
-		var bearing: float = angle + float(aims.get(str(mount.get("id", "mount0")), mount.angle))
-		if not is_finite(bearing): return {}
-		var weapon: Dictionary = manifest.get("weapons", {}).get(weapon_variant(mount), {})
-		if weapon.is_empty(): return {}
-		var base: Dictionary = _battle_ready_frame051(weapon.get("base", {}), bearing, batch)
-		var moving_entry: Dictionary = weapon.get("moving", {})
-		var moving: Dictionary = _battle_ready_frame051(moving_entry, bearing, batch) if not moving_entry.is_empty() else {}
-		if not _native_texture051(base) or (not moving_entry.is_empty() and not _native_texture051(moving)): return {}
-		weapons.append({"base": base, "moving": moving})
-	return {"hull": hull, "weapons": weapons, "scale": scale}
-
-static func _native_texture051(info: Dictionary) -> bool:
-	return not info.is_empty() and not info.texture is AtlasTexture and info.texture.get_rid().is_valid()
-
-static func _draw_retained_cell051(ctx: Dictionary, cell, info: Dictionary, shift: Vector2, scale: float, transform: Transform2D) -> bool:
-	cell.update_cell(info, shift, scale, transform)
-	ctx.n += 1
-	ctx.nsprite = int(ctx.get("nsprite", 0)) + 1
-	return true
 
 static func audit(spec: Dictionary) -> Dictionary:
 	var entry: Dictionary = hull_entry(spec)
