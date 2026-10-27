@@ -461,19 +461,26 @@ static func _battle_records051(condition: Dictionary, entry: Dictionary) -> Dict
 	# Engine HP is live; the shared mutation kernels retain request/budget guards.
 	return {"ok":true,"hasEngine":descriptor.hasEngine,"engineHp":engine_hp,"locations":descriptor.locations,"locker":descriptor.locker}
 
-static func _battle_write051(condition: Dictionary, request: Dictionary, entry: Dictionary, kernel: Callable) -> Dictionary:
+static func _battle_write051(condition: Dictionary, request: Dictionary, entry: Dictionary, kernel: Callable, want_receipt051: bool = true) -> Dictionary:
 	_battle_dirty051(entry) # Revoke derived generations before an official write.
-	var result: Dictionary = kernel.call(condition,request,_battle_records051.bind(entry))
+	var result: Dictionary = (kernel.call(condition,request,_battle_records051.bind(entry)) if want_receipt051
+		else kernel.call(condition,request,_battle_records051.bind(entry),false))
 	if not bool(result.get("ok",false)): entry.valid = false
 	return result
 
-static func _battle_publish051(boat: Dictionary, entry: Dictionary) -> Dictionary:
+static func _battle_publish051(boat: Dictionary, entry: Dictionary, want_receipt051: bool = true, publish_locker051: bool = true) -> Dictionary:
 	if not bool(entry.get("valid",false)): return publish(boat)
 	if int(entry.projectionGeneration) != int(entry.generation):
 		var records: Dictionary = _battle_records051(boat.moduleCondition,entry)
 		if not records.ok: return records
 		entry.projection = _battle_freeze051(Core._publish_fields_from_records(boat.moduleCondition,records))
 		entry.projectionGeneration = entry.generation
+	if not want_receipt051:
+		boat.engine = float(entry.projection.engineHp) if bool(entry.projection.hasEngine) else 0.0
+		# The pre-loop publication detached this mutable locker. Numerical repair
+		# changes HP/status only; retaining it within this tick preserves all counts.
+		if publish_locker051: boat.refitLocker = entry.projection.refitLocker.duplicate(true)
+		return entry.projection
 	return _publish_projection(boat,entry.projection)
 
 static func absorb_legacy_damage(boat: Dictionary) -> Dictionary:

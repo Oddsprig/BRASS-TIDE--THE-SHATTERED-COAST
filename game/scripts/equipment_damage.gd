@@ -132,7 +132,7 @@ static func _installed_uid_at(condition: Dictionary, location: String) -> String
 static func status_for(boat: Dictionary, able: float, area: float, inflow: float, weights: Array) -> Dictionary:
 	return _status_from_info(boat, able, area, inflow, weights, inspect_owner(boat))
 
-static func _status_from_info(boat: Dictionary, able: float, area: float, inflow: float, weights: Array, info: Dictionary) -> Dictionary:
+static func _status_from_info(boat: Dictionary, able: float, area: float, inflow: float, weights: Array, info: Dictionary, tick_inputs051: bool = false) -> Dictionary:
 	var mode: String = str(info.get("mode", "invalid"))
 	if mode == "invalid":
 		return {
@@ -251,8 +251,13 @@ static func _status_from_info(boat: Dictionary, able: float, area: float, inflow
 	var engine_factor: float = float(snap.get("engineFactor", 0.0))
 	var pump_factor: float = float(snap.get("pumpFactor", 0.0))
 	var armor_factor: float = float(snap.get("armorFactor", 0.0))
-	var weapon_factors: Dictionary = snap.get("weaponFactors", {}).duplicate(true)
 	var pump_can: float = maxf(0.0, number(spec.get("pumps"))) * PUMP_RATE * pump_factor if fuel > 0.0 else 0.0
+	var hand_can: float = bail_can * BAIL_PER_CREW if active and not sunk else 0.0
+	# The owned numerical loop consumes only these already-computed live inputs.
+	# Public/default status keeps its complete detached factors and receipt fields.
+	if tick_inputs051:
+		return {"inflow":0.0 if sunk else inflow,"bailing":hand_can + pump_can if active and not sunk else 0.0,"crewRepair":0.0 if sunk else repair_can}
+	var weapon_factors: Dictionary = snap.get("weaponFactors", {}).duplicate(true)
 	var speed_can: float = clampf(engine_factor * (1.0 - 0.78 * water / capacity) * minf(1.0, able / crew_min), 0.0, 1.0)
 	var turn_can: float = speed_can
 	if sunk:
@@ -268,7 +273,6 @@ static func _status_from_info(boat: Dictionary, able: float, area: float, inflow
 		armor_factor = 0.0
 		for loc in weapon_factors.keys():
 			weapon_factors[loc] = 0.0
-	var hand_can: float = bail_can * BAIL_PER_CREW if active and not sunk else 0.0
 	var weap_can: float = 0.0 if sunk else clampf(guns_can / maxf(1.0, crew_opt * 0.5), 0.0, 1.0) * (1.0 - fire * 0.004)
 	return {
 		"inflow": inflow,
@@ -556,10 +560,14 @@ static func _battle_info051(boat: Dictionary, entry: Dictionary) -> Dictionary:
 		entry.infoGeneration = entry.generation
 	return entry.info
 
-static func _battle_absorb051(boat: Dictionary, entry: Dictionary) -> Dictionary:
-	var validate: Callable = Records._battle_records051.bind(entry)
-	var records: Dictionary = validate.call(boat.moduleCondition)
+static func _battle_absorb051(boat: Dictionary, entry: Dictionary, owned_fast051: bool = false) -> Dictionary:
+	var records: Dictionary = Records._battle_records051(boat.moduleCondition,entry)
 	if not records.ok: return records
+	# Same no-write result as Core._note_engine_scalar_with. Existing admission
+	# owns schema/topology; retain the live unit/engine threshold and real writes.
+	if owned_fast051 and records.hasEngine and Core._unit(boat.get("engine")) and float(boat.engine) >= float(records.engineHp)-0.0001:
+		return {"ok":true,"changed":false,"engineHp":float(records.engineHp)}
+	var validate: Callable = Records._battle_records051.bind(entry)
 	if records.hasEngine and Core._unit(boat.get("engine")) and float(boat.engine) < float(records.engineHp)-0.0001:
 		Records._battle_dirty051(entry)
 	var result: Dictionary = Records._absorb_legacy_damage_with(boat,validate)
@@ -569,13 +577,16 @@ static func _battle_absorb051(boat: Dictionary, entry: Dictionary) -> Dictionary
 static func _battle_repair_none051(_condition: Dictionary, _request: Dictionary) -> Dictionary:
 	return {"ok":true,"changed":false,"usedWork":0.0,"usedSupplies":0.0,"changes":[]}
 
-static func _battle_repair051(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, entry: Dictionary) -> Dictionary:
+static func _battle_repair051(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, entry: Dictionary, want_receipt051: bool = true) -> Dictionary:
 	# This exact generation's installed snapshot uses the same families/cap/EPS
 	# as Core. No candidate means no transaction, dirty generation or reprojection.
 	# Fire's later engine write and every real repair still use the original kernels.
-	var repair_parts: Callable = _battle_repair_none051
-	if not (bool(entry.get("valid",false)) and is_same(info,entry.info) and int(entry.infoGeneration) == int(entry.generation) and not has_module_repair_need(info.snapshot)):
-		repair_parts = Records._battle_write051.bind(entry,Core._repair_installed_with)
+	var machinery_idle051: bool = bool(entry.get("valid",false)) and is_same(info,entry.info) and int(entry.infoGeneration) == int(entry.generation) and not has_module_repair_need(info.snapshot)
+	if not want_receipt051:
+		var compact: Dictionary = _repair_step_from_info(boat,h,crew_repair,options,info,Core._repair_installed_with,Core._apply_component_damage_with,Records._battle_publish051,entry,false,machinery_idle051)
+		if not bool(compact.get("ok",false)): entry.valid = false
+		return compact
+	var repair_parts: Callable = _battle_repair_none051 if machinery_idle051 else Records._battle_write051.bind(entry,Core._repair_installed_with)
 	var result: Dictionary = _repair_step_from_info(boat,h,crew_repair,options,info,
 		repair_parts,
 		Records._battle_write051.bind(entry,Core._apply_component_damage_with),
@@ -837,7 +848,7 @@ static func _repair_guard_numeric(boat: Dictionary) -> Dictionary:
 		}
 	return {"ok": true, "mode": "canonical", "needsInitialize": false}
 
-static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, repair_parts: Callable, damage_part: Callable, publish: Callable) -> Dictionary:
+static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, repair_parts: Callable, damage_part: Callable, publish: Callable, owned_entry051: Dictionary = {}, want_receipt051: bool = true, machinery_idle051: bool = false) -> Dictionary:
 	if not (info is Dictionary) or not bool(info.get("ok", false)) or str(info.get("mode", "")) != "canonical":
 		return _fail(str(info.get("error", "Equipment condition is not initialized.")) if info is Dictionary else "Equipment condition is not initialized.")
 	if not (boat is Dictionary) or not (boat.get("moduleCondition") is Dictionary):
@@ -853,13 +864,13 @@ static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: floa
 	var available_work: float = crew_repair * h
 	var work_left: float = available_work
 	var supplies_left: float = maxf(0.0, number(boat.get("supplies")))
-	var work_by_task: Dictionary = empty_task_map()
-	var supplies_by_task: Dictionary = empty_task_map()
+	var work_by_task = empty_task_map() if want_receipt051 else null
+	var supplies_by_task = empty_task_map() if want_receipt051 else null
 	var patched_area: float = 0.0
 	var repaired_hull_hp: float = 0.0
 	var repaired_module_hp: float = 0.0
 	var suppressed_fire: float = 0.0
-	var module_changes: Array = []
+	var module_changes = [] if want_receipt051 else null
 	var fire_before: float = clampf(number(boat.get("fire")), 0.0, 100.0)
 	var task_order: Array = TASK_ORDERS.get(priority, TASK_ORDERS["auto"])
 
@@ -873,8 +884,9 @@ static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: floa
 				var suppressed: float = f_work * FIRE_SUPPRESS_PER_CREW
 				boat.fire = clampf(fire_grown - suppressed, 0.0, 100.0)
 				work_left = maxf(0.0, work_left - f_work)
-				work_by_task["fire"] = f_work
-				suppressed_fire = suppressed
+				if want_receipt051:
+					work_by_task["fire"] = f_work
+					suppressed_fire = suppressed
 		elif task_name == "patch":
 			var area_now: float = _sum_areas(boat)
 			if area_now > 0.001 and work_left > Core.EPS and supplies_left > Core.EPS:
@@ -893,21 +905,27 @@ static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: floa
 					work_left = maxf(0.0, work_left - p_work)
 					supplies_left = maxf(0.0, supplies_left - p_supp)
 					boat.supplies = supplies_left
-					work_by_task["patch"] = p_work
-					supplies_by_task["patch"] = p_supp
-					patched_area = patch
+					if want_receipt051:
+						work_by_task["patch"] = p_work
+						supplies_by_task["patch"] = p_supp
+						patched_area = patch
 		elif task_name == "machinery":
 			if work_left > Core.EPS and supplies_left > Core.EPS:
+				if machinery_idle051:
+					boat.supplies = supplies_left # Retain the original float normalization.
+					continue
 				var hp_per_work: float = MODULE_HP_PER_CREW_SEC * repair_mult
 				var mach_priority: String = "auto" if priority == "hull" else priority
-				var mod_res: Dictionary = repair_parts.call(boat.moduleCondition, {
+				var request: Dictionary = {
 					"work": work_left,
 					"supplies": supplies_left,
 					"hpPerWork": hp_per_work,
 					"suppliesPerHp": MODULE_SUPPLIES_PER_HP,
 					"priority": mach_priority,
 					"juryCap": Core.JURY_CAP
-				})
+				}
+				var mod_res: Dictionary = (Records._battle_write051(boat.moduleCondition,request,owned_entry051,repair_parts,want_receipt051)
+					if not owned_entry051.is_empty() else repair_parts.call(boat.moduleCondition,request))
 				if not mod_res.ok:
 					return mod_res
 				var m_work: float = maxf(0.0, float(mod_res.get("usedWork", 0.0)))
@@ -915,11 +933,12 @@ static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: floa
 				work_left = maxf(0.0, work_left - m_work)
 				supplies_left = maxf(0.0, supplies_left - m_supp)
 				boat.supplies = supplies_left
-				work_by_task["machinery"] = m_work
-				supplies_by_task["machinery"] = m_supp
-				for ch in mod_res.get("changes", []):
-					repaired_module_hp += maxf(0.0, float(ch.get("afterHp", 0.0)) - float(ch.get("beforeHp", 0.0)))
-					module_changes.append(ch)
+				if want_receipt051:
+					work_by_task["machinery"] = m_work
+					supplies_by_task["machinery"] = m_supp
+					for ch in mod_res.get("changes", []):
+						repaired_module_hp += maxf(0.0, float(ch.get("afterHp", 0.0)) - float(ch.get("beforeHp", 0.0)))
+						module_changes.append(ch)
 		elif task_name == "hull":
 			var policy: String = str(boat.get("policy", "balanced"))
 			var allow_hull: bool = (priority == "hull" or policy == "repair" or _sum_areas(boat) < 0.001)
@@ -938,9 +957,10 @@ static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: floa
 					work_left = maxf(0.0, work_left - h_work)
 					supplies_left = maxf(0.0, supplies_left - h_supp)
 					boat.supplies = supplies_left
-					work_by_task["hull"] = h_work
-					supplies_by_task["hull"] = h_supp
-					repaired_hull_hp = hull_gain
+					if want_receipt051:
+						work_by_task["hull"] = h_work
+						supplies_by_task["hull"] = h_supp
+						repaired_hull_hp = hull_gain
 
 	if fire_before > 0.0:
 		var fire_after: float = clampf(number(boat.get("fire")), 0.0, 100.0)
@@ -949,17 +969,21 @@ static func _repair_step_from_info(boat: Dictionary, h: float, crew_repair: floa
 		var eng_uid: String = _installed_uid_at(boat.moduleCondition, "engine")
 		if not eng_uid.is_empty():
 			var fire_eng_loss: float = avg_fire * FIRE_ENGINE_LOSS_PER_SEC * h
-			var fire_dmg: Dictionary = damage_part.call(boat.moduleCondition, {
+			var fire_request: Dictionary = {
 				"itemUid": eng_uid,
 				"loss": fire_eng_loss,
 				"cause": "Fire aboard"
-			})
+			}
+			var fire_dmg: Dictionary = (Records._battle_write051(boat.moduleCondition,fire_request,owned_entry051,damage_part)
+				if not owned_entry051.is_empty() else damage_part.call(boat.moduleCondition,fire_request))
 			if not fire_dmg.ok:
 				return fire_dmg
 
-	var published: Dictionary = publish.call(boat)
+	var published: Dictionary = (Records._battle_publish051(boat,owned_entry051,want_receipt051,false)
+		if not owned_entry051.is_empty() else publish.call(boat))
 	if not published.ok:
 		return published
+	if not want_receipt051: return published
 
 	var used_work: float = float(work_by_task["fire"]) + float(work_by_task["patch"]) + float(work_by_task["machinery"]) + float(work_by_task["hull"])
 	var used_supplies: float = float(supplies_by_task["patch"]) + float(supplies_by_task["machinery"]) + float(supplies_by_task["hull"])

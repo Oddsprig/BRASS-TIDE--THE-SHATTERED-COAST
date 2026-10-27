@@ -363,11 +363,12 @@ static func _bind_battle_owned051(phase, owned, ships: Array, source: Dictionary
 
 static func _battle_entry051(s: Dictionary, owned) -> Dictionary:
 	if not (owned is BattleOwned051) or not owned.active: return {}
-	var entry: Dictionary = owned.entries.get(_cache_slot_key(s),{})
-	if not is_same(entry.get("shipRef"),s): return {}
-	var valid: bool = bool(entry.get("valid",false)) and [s.get("id"),s.get("uid"),s.get("type")] == entry.identity
-	for pair in [["conditionRef","moduleCondition"],["specRef","spec"],["baseSpecRef","baseSpec"],["loadoutRef","loadout"]]:
-		valid = valid and is_same(entry.get(pair[0]),s.get(pair[1]))
+	var entry = owned.entries.get(_cache_slot_key(s))
+	if not (entry is Dictionary) or not is_same(entry.get("shipRef"),s): return {}
+	var valid: bool = (bool(entry.get("valid",false)) and s.get("id") == entry.identity[0]
+		and s.get("uid") == entry.identity[1] and s.get("type") == entry.identity[2]
+		and is_same(entry.conditionRef,s.get("moduleCondition")) and is_same(entry.specRef,s.get("spec"))
+		and is_same(entry.baseSpecRef,s.get("baseSpec")) and is_same(entry.loadoutRef,s.get("loadout")))
 	valid = valid and s.get("moduleCondition") is Dictionary and is_same(entry.itemsRef,s.moduleCondition.get("items"))
 	if not valid:
 		_drop_battle_owner051(owned,s); return {}
@@ -407,7 +408,7 @@ static func _healthy_battle_entry051(s: Dictionary, entry: Dictionary) -> bool:
 		entry.healthy = true
 	return true
 
-static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase) -> Dictionary:
+static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase, want_receipt051: bool = true) -> Dictionary:
 	var profile_started: int = Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	if phase is BattlePhase043: phase.readsSealed051 = false
 	var entry: Dictionary = _battle_entry051(s,phase.owned) if phase is BattlePhase043 and phase.active else {}
@@ -429,9 +430,11 @@ static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase) -> Dictiona
 		if _runtime_profile043_enabled: _runtime_profile043_battle_tick_finished(profile_started)
 		return fallback
 	if _runtime_profile043_enabled: profile_started = _runtime_profile043_battle_guard_finished(profile_started)
+	# Only Battle's ignored-result call opts out. Default callers retain full reports.
+	# Dispatch the known owned adapters directly, without per-frame bound Callables.
 	var result: Dictionary = _tick_canonical_with(s,maxf(0.0,number(dt)),{"inCombat":true},
-		EquipmentDamage._battle_info051.bind(entry),EquipmentDamage._battle_repair051.bind(entry),
-		EquipmentDamage.Records._battle_publish051.bind(entry),EquipmentDamage._battle_absorb051.bind(entry),null,null,false,true)
+		EquipmentDamage._battle_info051,EquipmentDamage._battle_repair051,
+		EquipmentDamage.Records._battle_publish051,EquipmentDamage._battle_absorb051,null,null,false,true,entry,want_receipt051)
 	if not bool(entry.valid): _drop_battle_owner051(phase.owned,s)
 	if _runtime_profile043_enabled: _runtime_profile043_battle_tick_finished(profile_started)
 	return result
@@ -458,8 +461,8 @@ static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
 	var owned = frame_cache.owned
 	if owned is BattleOwned051 and owned.active:
 		var owner_slot: String = _cache_slot_key(s)
-		var borrowed: Dictionary = frame_cache.entries.get(owner_slot,{})
-		if (is_same(owned.entries.get(owner_slot),borrowed) and is_same(borrowed.get("shipRef"),s)
+		var borrowed = frame_cache.entries.get(owner_slot)
+		if (borrowed is Dictionary and is_same(owned.entries.get(owner_slot),borrowed) and is_same(borrowed.get("shipRef"),s)
 				and bool(borrowed.get("valid",false)) and int(borrowed.infoGeneration) == int(borrowed.generation)
 				and borrowed.priority == s.moduleCondition.get("repairPriority")):
 			if _runtime_profile043_enabled: _runtime_profile043_counts.phaseHits += 1
@@ -570,7 +573,7 @@ static func _tick_healthy_cached(s: Dictionary, dt: float, entry: Dictionary, _f
 static func _get_status_numeric(s: Dictionary) -> Dictionary:
 	return _status_for_info(s, EquipmentDamage._numeric_info(s))
 
-static func _status_for_info(s: Dictionary, info: Dictionary) -> Dictionary:
+static func _status_for_info(s: Dictionary, info: Dictionary, tick_inputs051: bool = false) -> Dictionary:
 	if str(info.get("mode", "invalid")) == "invalid":
 		return EquipmentDamage._status_from_info(s, 0.0, 0.0, 0.0, [0.5, 0.28, 0.22], info)
 	var able: float=maxf(0.0,number(s.get("crew"))-number(s.get("wounded"))-maxf(0.0,number(s.get("shoreCrew",0))))
@@ -578,7 +581,7 @@ static func _status_for_info(s: Dictionary, info: Dictionary) -> Dictionary:
 	var cap: float=maxf(1.0,number(s.get("capacity"),200.0))
 	var inflow: float=area*CONSTANTS.inflowPerArea*(1.0+number(s.get("water"))/cap*0.45)
 	var weights: Array={"balanced":[0.5,0.28,0.22],"bail":[0.15,0.65,0.2],"repair":[0.15,0.2,0.65],"fight":[0.85,0.1,0.05]}.get(s.get("policy","balanced"),[0.5,0.28,0.22])
-	return EquipmentDamage._status_from_info(s, able, area, inflow, weights, info)
+	return EquipmentDamage._status_from_info(s, able, area, inflow, weights, info, tick_inputs051)
 
 static func _roll(rng: RandomNumberGenerator) -> float:
 	# No global RNG state: callers normally supply their battle-owned seeded RNG.
@@ -822,68 +825,73 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 static func _tick_canonical_numeric(s: Dictionary, dt: float, options: Dictionary) -> Dictionary:
 	return _tick_canonical_with(s, dt, options, EquipmentDamage._numeric_rollout_info, EquipmentDamage._tick_repair_rollout_from_info, EquipmentDamage.Records._publish_numeric, EquipmentDamage.Records._absorb_legacy_numeric)
 
-static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null, step_status_fn = null, healthy_no_work: bool = false, owned_idle_repair051: bool = false) -> Dictionary:
+static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null, step_status_fn = null, healthy_no_work: bool = false, owned_idle_repair051: bool = false, owned_entry051: Dictionary = {}, want_receipt051: bool = true) -> Dictionary:
 	var total_in: float=0.0
 	var total_bail: float=0.0
 	var total_repair: float=0.0
 	var elapsed: float=0.0
-	var events: Array=[]
+	var events = [] if want_receipt051 else null
+	var owned051: bool = not owned_entry051.is_empty()
 	if _options is Dictionary and _options.has("priority") and not str(_options.get("priority")) in EquipmentDamage.Core.PRIORITIES:
-		var bad_info: Dictionary = status_fn.call(s)
+		var bad_info: Dictionary = EquipmentDamage._battle_info051(s,owned_entry051) if owned051 else status_fn.call(s)
 		if out_info is Dictionary:
 			out_info["info"] = bad_info
 		var bad_status: Dictionary = _status_for_info(s, bad_info)
 		bad_status.equipmentOk = false
 		bad_status.equipmentError = "Repair priority is unknown."
 		return bad_status
-	var absorbed: Dictionary = absorb_fn.call(s)
+	var absorbed: Dictionary = EquipmentDamage._battle_absorb051(s,owned_entry051,not want_receipt051) if owned051 else absorb_fn.call(s)
 	if not absorbed.ok:
-		var absorbed_info: Dictionary = status_fn.call(s)
+		var absorbed_info: Dictionary = EquipmentDamage._battle_info051(s,owned_entry051) if owned051 else status_fn.call(s)
 		if out_info is Dictionary:
 			out_info["info"] = absorbed_info
 		return _status_for_info(s, absorbed_info)
 	healthy_no_work = healthy_no_work and not bool(absorbed.get("changed", false))
-	publish_fn.call(s)
+	if owned051: EquipmentDamage.Records._battle_publish051(s,owned_entry051,want_receipt051)
+	else: publish_fn.call(s)
 	var total_avail_work: float = 0.0
 	var total_used_work: float = 0.0
 	var total_used_supplies: float = 0.0
 	var total_hull_hp: float = 0.0
 	var total_module_hp: float = 0.0
 	var total_fire_supp: float = 0.0
-	var work_by_task: Dictionary = EquipmentDamage.empty_task_map()
-	var supplies_by_task: Dictionary = EquipmentDamage.empty_task_map()
-	var module_changes: Array = []
+	var work_by_task = EquipmentDamage.empty_task_map() if want_receipt051 else null
+	var supplies_by_task = EquipmentDamage.empty_task_map() if want_receipt051 else null
+	var module_changes = [] if want_receipt051 else null
 	var step_cap: float = 1.0 / 60.0
 	while dt>0.00000001 and not s.sunk:
 		var h_can: float = dt if dt <= step_cap + 0.0000001 else step_cap
 		if absf(dt - 2.0 * step_cap) <= 0.0000001:
 			h_can = dt * 0.5
 		if not healthy_no_work:
-			var step_info: Dictionary = status_fn.call(s)
-			var t_can: Dictionary = step_status_fn.call(s, step_info) if step_status_fn is Callable and step_status_fn.is_valid() else _status_for_info(s, step_info)
+			var step_info: Dictionary = EquipmentDamage._battle_info051(s,owned_entry051) if owned051 else status_fn.call(s)
+			var t_can: Dictionary = step_status_fn.call(s, step_info) if step_status_fn is Callable and step_status_fn.is_valid() else _status_for_info(s, step_info, not want_receipt051)
 			var before_can: float = s.water
 			s.water = clampf(s.water + (t_can.inflow - t_can.bailing) * h_can, 0.0, s.capacity)
-			total_in += t_can.inflow * h_can
-			total_bail += minf(t_can.bailing * h_can, before_can + t_can.inflow * h_can)
+			if want_receipt051:
+				total_in += t_can.inflow * h_can
+				total_bail += minf(t_can.bailing * h_can, before_can + t_can.inflow * h_can)
 			# Owned admission already published equipment. Zero labor without fire
 			# cannot write any repair task; retain all flow/fuel/sanitation substeps.
 			# Public/default calls still run every callback and publish fresh aliases.
 			if not (owned_idle_repair051 and float(t_can.crewRepair) == 0.0 and clampf(number(s.get("fire")),0.0,100.0) == 0.0):
-				var step_res: Dictionary = repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {}, step_info)
+				var step_res: Dictionary = (EquipmentDamage._battle_repair051(s,h_can,float(t_can.crewRepair),_options,step_info,owned_entry051,want_receipt051)
+					if owned051 else repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {}, step_info))
 				if not step_res.ok:
 					break
-				total_repair += float(step_res.patchedArea)
-				total_avail_work += float(step_res.availableWork)
-				total_used_work += float(step_res.usedWork)
-				total_used_supplies += float(step_res.usedSupplies)
-				total_hull_hp += float(step_res.repairedHullHp)
-				total_module_hp += float(step_res.repairedModuleHp)
-				total_fire_supp += float(step_res.suppressedFire)
-				for k in ["fire", "patch", "machinery", "hull"]:
-					work_by_task[k] = float(work_by_task[k]) + float(step_res.workByTask[k])
-					supplies_by_task[k] = float(supplies_by_task[k]) + float(step_res.suppliesByTask[k])
-				for ch in step_res.moduleChanges:
-					module_changes.append(ch)
+				if want_receipt051:
+					total_repair += float(step_res.patchedArea)
+					total_avail_work += float(step_res.availableWork)
+					total_used_work += float(step_res.usedWork)
+					total_used_supplies += float(step_res.usedSupplies)
+					total_hull_hp += float(step_res.repairedHullHp)
+					total_module_hp += float(step_res.repairedModuleHp)
+					total_fire_supp += float(step_res.suppressedFire)
+					for k in ["fire", "patch", "machinery", "hull"]:
+						work_by_task[k] = float(work_by_task[k]) + float(step_res.workByTask[k])
+						supplies_by_task[k] = float(supplies_by_task[k]) + float(step_res.suppliesByTask[k])
+					for ch in step_res.moduleChanges:
+						module_changes.append(ch)
 		else:
 			# Retain the zero-flow water write, including normalization of signed zero.
 			s.water = clampf(s.water + 0.0, 0.0, s.capacity)
@@ -896,12 +904,16 @@ static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary,
 		s.engine = published_engine
 		dt-=h_can
 		elapsed+=h_can
-		if s.sunk:
+		if s.sunk and want_receipt051:
 			events.append("Ship sunk")
 	if healthy_no_work and elapsed > 0.0:
 		# The no-work steps still finish by publishing the real equipment projection.
-		publish_fn.call(s)
-	var final_info: Dictionary = status_fn.call(s)
+		if owned051: EquipmentDamage.Records._battle_publish051(s,owned_entry051,want_receipt051)
+		else: publish_fn.call(s)
+	# The next mount/status read refreshes the existing generation. No numerical
+	# state, substep or equipment publication is deferred; only unused output dies.
+	if not want_receipt051: return {}
+	var final_info: Dictionary = EquipmentDamage._battle_info051(s,owned_entry051) if owned051 else status_fn.call(s)
 	if out_info is Dictionary:
 		out_info["info"] = final_info
 	var status_can: Dictionary = _status_for_info(s, final_info)

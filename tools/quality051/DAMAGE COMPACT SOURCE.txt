@@ -1,0 +1,24 @@
+051 OWNED DAMAGE COMPACT OUTPUT - SOURCE CANDIDATE, native/GPU UNRUN
+Parent7ddc98d; five allowed Damage/Equipment/Core/fixture files byte-matched
+Root96f1e577 before editing. Existing untracked audit preserved.
+
+R13 job950d4099eb0b4dabaff4381458b1857d: actual-tick medians2020.5/1558us,
+Damage2457/1725us, phase-entry960/384us (light/mixed). Raw full snapshots
+2724/3570. These are baseline observations, not measured savings.
+
+Exact Battle seam: game/scripts/battle.gd:760 adds fourth argument false to
+_tick_ship_in_battle051. Its default remains true with full report output.
+The SAME canonical/repair loops omit unused receipt/task-map aggregation,
+weapon-factor copies, final report/status construction and sorted repair diffs.
+Owned callbacks dispatch directly; the step borrows its already-computed three
+live flow/labor inputs. Pre-loop publication still detaches the mutable locker;
+repair substeps retain its unchanged counts and publish current engine HP.
+Live legacy loss, real fire/flood/material work, guards, finite checks, rollback,
+60Hz substeps and numerical formulas remain. No new cache, counters or framework.
+Owner/phase validation avoids temporary identity/pair/default dictionaries.
+
+All418 existing assertions retained; existing paired cases add compact full-state
+and sealed-read equality. Added reached legacy-absorption refusal covers owned
+error dispatch; bad-priority/absorb-failure/healthy-publication all pass entry.
+Single source advisory issues[], engineInvokedfalse; diff review clean.
+No helpers/engine/tests/build/profile. Savings unmeasured; Root owns acceptance.

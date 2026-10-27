@@ -934,7 +934,7 @@ static func repair_installed(condition: Dictionary, request: Dictionary) -> Dict
 static func _repair_installed_numeric(condition: Dictionary, request: Dictionary) -> Dictionary:
 	return _repair_installed_with(condition, request, _records_numeric)
 
-static func _repair_installed_with(condition: Dictionary, request: Dictionary, validate: Callable) -> Dictionary:
+static func _repair_installed_with(condition: Dictionary, request: Dictionary, validate: Callable, want_receipt051: bool = true) -> Dictionary:
 	if not request is Dictionary or not _keys_only(request, ["work", "supplies", "hpPerWork", "suppliesPerHp", "priority", "juryCap"]):
 		return _fail("Repair request is malformed.")
 	for key in ["work", "supplies", "hpPerWork"]:
@@ -1056,6 +1056,14 @@ static func _repair_installed_with(condition: Dictionary, request: Dictionary, v
 		if armed:
 			_rollback(condition, snap)
 		return _fail("Repair debit is not a finite nonnegative amount.")
+	# Only the admitted owned writer opts out. Keep the original final finite
+	# checks and rollback, but omit sorted UID allocation and the unused diff.
+	if not want_receipt051:
+		for key in condition.items:
+			if not is_finite(float(condition.items[key].hp)) or (armed and not is_finite(float(snap.items[key].hp))):
+				if armed: _rollback(condition,snap)
+				return _fail("Repair debit is not a finite nonnegative amount.")
+		return {"ok":true,"usedWork":used_work,"usedSupplies":used_supplies}
 	var changes: Array = []
 	for key in _uid_list(condition):
 		var now: Dictionary = condition.items[key]

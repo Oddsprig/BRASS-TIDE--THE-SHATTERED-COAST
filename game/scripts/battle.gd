@@ -757,7 +757,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 			continue
 		# Exactly one decrement of each timer, including the manual flagship.
 		var damage_started: int=Time.get_ticks_usec()
-		Damage._tick_ship_in_battle051(s,dt,checked_phase)
+		Damage._tick_ship_in_battle051(s,dt,checked_phase,false)
 		ai_phases.damage+=Time.get_ticks_usec()-damage_started
 		var mount_started: int=Time.get_ticks_usec()
 		var cached_mounts: Array=_combat_mounts(st,s,checked_phase)

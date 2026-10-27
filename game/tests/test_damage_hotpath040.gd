@@ -419,6 +419,7 @@ func owned_context051(source: Dictionary) -> void:
 	live.spec = live.spec.duplicate(true)
 	check(Damage._battle_entry051(live,owned).is_empty(), "051 spec replacement revokes authority rather than reusing a stale descriptor")
 	check(var_to_bytes(Damage._tick_ship_in_battle051(live,0.0,phase)) == var_to_bytes(Damage.tick_ship(expected,0.0,{"inCombat":true})), "051 unsupported writer uses fully checked tick fallback")
+	check(var_to_bytes(Damage._tick_ship_in_battle051(live,0.0,phase,false)) == var_to_bytes(Damage.tick_ship(expected,0.0,{"inCombat":true})), "051 compact ignored-result opt-in preserves the public fallback report after revocation")
 	Damage._end_battle_phase043(phase)
 	Damage._close_battle_owned051(owned)
 	check(not owned.active and owned.entries.is_empty() and owned.ships.is_empty() and owned.source.is_empty(), "051 closure releases proofs and encounter references")
@@ -590,12 +591,19 @@ func healthy_owned_changes051(source: Dictionary) -> void:
 		{"label":"ammunition and cooldown","fields":{"ammo":0.0,"cooldown":0.001}},
 		{"label":"negative stores","fields":{"fuel":-1.0,"ammo":-1.0,"cooldown":-0.1}},
 		{"label":"legacy engine loss","fields":{"engine":0.5}},
+		{"label":"invalid live legacy engine","fields":{"engine":-0.1},"absorbFailure":true},
 		{"label":"healthy integer normalization","fields":{"hp":int(source.hp),"crew":int(source.crew),"wounded":0,"water":0,"fire":0,"engine":1,"supplies":3,"ammo":2,"fuel":1,"cooldown":1,"vx":2,"vy":0}},
 		{"label":"healthy uneven substeps","fields":{},"dt":0.021},
 		{"label":"healthy long-step fuel exhaustion","fields":{"fuel":0.00001},"dt":0.2}
 	]:
 		var live: Dictionary = source.duplicate(true)
 		var expected: Dictionary = source.duplicate(true)
+		var compact: Dictionary = source.duplicate(true)
+		var compact_ships: Array = [compact]
+		var compact_cache: Dictionary = {}
+		var compact_owned = Damage._create_battle_owned051(compact_ships,compact_cache)
+		var compact_phase = Damage._begin_battle_phase043(compact_cache)
+		Damage._bind_battle_owned051(compact_phase,compact_owned,compact_ships,compact_cache)
 		var ships: Array = [live]
 		var cache: Dictionary = {}
 		var owned = Damage._create_battle_owned051(ships,cache)
@@ -604,19 +612,31 @@ func healthy_owned_changes051(source: Dictionary) -> void:
 		var report: Dictionary = Damage._tick_ship_in_battle051(live,0.0,phase)
 		var reference: Dictionary = Damage.tick_ship(expected,0.0,{"inCombat":true})
 		var equal: bool = var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
+		Damage._tick_ship_in_battle051(compact,0.0,compact_phase,false)
+		var compact_equal: bool = not Damage._battle_entry051(compact,compact_owned).is_empty() and var_to_bytes(compact) == var_to_bytes(expected)
 		live.merge(change.fields.duplicate(true),true); expected.merge(change.fields.duplicate(true),true)
+		compact.merge(change.fields.duplicate(true),true)
 		if change.has("priority"):
 			Damage.set_repair_priority(live,str(change.priority)); Damage.set_repair_priority(expected,str(change.priority))
+			Damage.set_repair_priority(compact,str(change.priority))
 		for _i in range(2):
 			var dt: float = float(change.get("dt",1.0/30.0))
 			report = Damage._tick_ship_in_battle051(live,dt,phase)
 			reference = Damage.tick_ship(expected,dt,{"inCombat":true})
 			equal = equal and var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
 			equal = equal and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(expected))
-			if _i == 0 and bool(change.get("refill",false)): live.fuel = 1.0; expected.fuel = 1.0
+			Damage._tick_ship_in_battle051(compact,dt,compact_phase,false)
+			Damage._seal_battle_reads051(compact_phase)
+			compact_equal = compact_equal and var_to_bytes(compact) == var_to_bytes(expected) and var_to_bytes(Damage._read_status_in_phase043(compact,compact_phase)) == var_to_bytes(Damage.get_status(expected))
+			if _i == 0 and bool(change.get("absorbFailure",false)):
+				check(not report.equipmentOk and not owned.entries.has(str(live.id)) and not compact_owned.entries.has(str(compact.id)), "051 live legacy absorption failure returns checked status and revokes both owned entries without an unbound callback")
+			if _i == 0 and bool(change.get("refill",false)): live.fuel = 1.0; expected.fuel = 1.0; compact.fuel = 1.0
 		check(equal, "051 warmed private healthy guard and full public parity: " + str(change.label))
+		check(compact_equal and not compact.refitLocker.is_read_only(), "051 compact opt-in preserves complete state and sealed live reads: " + str(change.label))
 		Damage._end_battle_phase043(phase)
 		Damage._close_battle_owned051(owned)
+		Damage._end_battle_phase043(compact_phase)
+		Damage._close_battle_owned051(compact_owned)
 
 func idle_owned_repairs051(source: Dictionary) -> void:
 	for change in [
@@ -636,6 +656,13 @@ func idle_owned_repairs051(source: Dictionary) -> void:
 			check(bool(Core.apply_component_damage(live.moduleCondition,{"itemUid":engine_uid(live),"loss":1.0-float(change.engineHp),"cause":"051 idle repair boundary"}).ok), "051 exact engine damage setup: " + str(change.label))
 		Records.publish(live)
 		var expected: Dictionary = live.duplicate(true)
+		var compact: Dictionary = live.duplicate(true)
+		var compact_ships: Array = [compact]
+		var compact_cache: Dictionary = {}
+		var compact_owned = Damage._create_battle_owned051(compact_ships,compact_cache)
+		var compact_phase = Damage._begin_battle_phase043(compact_cache)
+		Damage._bind_battle_owned051(compact_phase,compact_owned,compact_ships,compact_cache)
+		var compact_equal: bool = not Damage._battle_entry051(compact,compact_owned).is_empty()
 		var ships: Array = [live]
 		var cache: Dictionary = {}
 		var owned = Damage._create_battle_owned051(ships,cache)
@@ -644,6 +671,7 @@ func idle_owned_repairs051(source: Dictionary) -> void:
 		var entry: Dictionary = Damage._battle_entry051(live,owned)
 		check(not entry.is_empty(), "051 exact owned repair admission: " + str(change.label))
 		if entry.is_empty():
+			Damage._end_battle_phase043(compact_phase); Damage._close_battle_owned051(compact_owned)
 			Damage._end_battle_phase043(phase); Damage._close_battle_owned051(owned); continue
 		var initial_info: Dictionary = entry.info
 		var equal: bool = true
@@ -656,7 +684,11 @@ func idle_owned_repairs051(source: Dictionary) -> void:
 			equal = equal and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(expected))
 			used_supplies += float(report.usedSupplies)
 			module_gain += float(report.repairedModuleHp)
+			Damage._tick_ship_in_battle051(compact,float(dt),compact_phase,false)
+			Damage._seal_battle_reads051(compact_phase)
+			compact_equal = compact_equal and var_to_bytes(compact) == var_to_bytes(expected) and var_to_bytes(Damage._read_status_in_phase043(compact,compact_phase)) == var_to_bytes(Damage.get_status(expected))
 		check(equal, "051 owned repair preserves every boat/report/live read at each substep boundary: " + str(change.label))
+		check(compact_equal and not compact.refitLocker.is_read_only(), "051 compact canonical math preserves complete state and current sealed status: " + str(change.label))
 		check((int(entry.generation) > 0) if bool(change.get("equipmentWrite",false)) else (int(entry.generation) == 0 and is_same(entry.info,initial_info)), "051 only actual equipment writers replace immutable projections: " + str(change.label))
 		if str(change.label).begins_with("paid"):
 			check(used_supplies > 0.0 and live.supplies < source.supplies and module_gain == 0.0, "051 patch/hull keep finite material debit without phantom machinery work: " + str(change.label))
@@ -664,6 +696,8 @@ func idle_owned_repairs051(source: Dictionary) -> void:
 			check(module_gain > Core.EPS and used_supplies > 0.0, "051 below-cap machinery still receives real paid repair: " + str(change.label))
 		Damage._end_battle_phase043(phase)
 		Damage._close_battle_owned051(owned)
+		Damage._end_battle_phase043(compact_phase)
+		Damage._close_battle_owned051(compact_owned)
 
 func probe(source: Dictionary) -> Dictionary:
 	var old_us: int = 0
