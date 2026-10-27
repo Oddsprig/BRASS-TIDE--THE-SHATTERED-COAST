@@ -19,6 +19,8 @@ const WORKER_DEADLINE051: float = 0.15
 const WORKER_BATCH_SECONDS051: float = 0.15
 const OBSERVATION_SECONDS051: float = 0.15
 const MAX_TASKS051: int = 2
+enum WorkerReason051 { NO_MEMBER, UNFINISHED, EXPIRED, TERRAIN, OWNER, COMMAND, OPTIONS, CAPABILITY, TARGET_OWNER, RELEASE_EXPIRED, RELEASE_TERRAIN, FRESH_MAIN, SEMANTIC_AGE, SEMANTIC_COMMAND, MEMORY, SHOT, TARGET, RELOAD, RANGE, ALIGNMENT, DANGER, CLOSE_HOSTILE, PHASE, DETAILS, WAIT_DEADLINE, WAIT_LIMIT, WAIT_EVENTS, WAIT_SEMANTICS, SEED_EXPIRED }
+const WORKER_REASON_KEYS051: Array = ["workerNoMember051", "workerUnfinished051", "workerExpired051", "workerTerrain051", "workerOwner051", "workerCommand051", "workerOptions051", "workerCapability051", "workerTargetOwner051", "workerReleaseExpired051", "workerReleaseTerrain051", "workerFreshMain051", "workerSemanticAge051", "workerSemanticCommand051", "workerMemory051", "workerShot051", "workerTarget051", "workerReload051", "workerRange051", "workerAlignment051", "workerDanger051", "workerCloseHostile051", "workerPhase051", "workerDetails051", "workerWaitDeadline051", "workerWaitLimit051", "workerWaitEvents051", "workerWaitSemantics051", "workerSeedExpired051"]
 
 class _Detached051 extends RefCounted:
 	var input: Dictionary = {}
@@ -27,6 +29,10 @@ class _Detached051 extends RefCounted:
 static func _work051(job: _Detached051) -> void:
 	var data: Dictionary = job.input
 	var prepared: Dictionary = _prepare_begin(data.view, data.memory, {}, data.preparedDecisions051)
+	# A real worker role search starts its semantic age at the SAMPLE, never at
+	# eventual adoption. Borrowed decisions retain their older original age.
+	for id: String in prepared.decisions:
+		if not prepared.originalPreferenceChosenAt051.has(id): prepared.originalPreferenceChosenAt051[id] = float(data.view.time)
 	var routes: Dictionary = {}
 	var requests: Dictionary = {}
 	for candidate: Dictionary in prepared.candidates:
@@ -99,16 +105,17 @@ static func _ready_worker051(st: Dictionary, id: String) -> bool:
 	var slot: Dictionary = _member_slot051(st.tactical, id)
 	return not slot.is_empty() and bool(slot.joined) and not bool(slot.retired) and slot.capsule != null and id in slot.remaining and float(st.time) >= float(slot.createdAt) and float(st.time) - float(slot.createdAt) <= WORKER_DEADLINE051 + 0.000001
 
-static func _worker_inputs_current051(st: Dictionary, side: String, id: String, slot: Dictionary, capability: Callable, frame_cache) -> bool:
+static func _worker_input_reason051(st: Dictionary, side: String, id: String, slot: Dictionary, capability: Callable, frame_cache) -> int:
 	var t: Dictionary = st.tactical
-	if not t.ships.has(id) or not slot.guards.has(id) or not t.mountCache.has(id): return false
+	if not t.ships.has(id) or not slot.guards.has(id) or not t.mountCache.has(id): return WorkerReason051.OWNER
 	var guard: Dictionary = slot.guards[id]
 	var ship: Dictionary = t.ships[id]
-	if str(t.geometry.key) != str(slot.terrainKey) or int(t.geometry.revision) != int(slot.terrainRevision): return false
-	if not is_same(ship, guard.owner) or not is_same(ship.spec, guard.spec) or not is_same(t.mountCache[id].baseMounts, guard.mounts): return false
-	if str(ship.team) != side or id == str(t.manualId) or int(ship.orderRevision) != int(guard.revision): return false
-	if str(ship.order) != str(guard.order) or ship.orderTarget != guard.orderTarget or t.options.byId.get(id) != guard.options: return false
-	return not (capability.call(st, id, guard.capability, frame_cache) as Array).is_empty()
+	if str(t.geometry.key) != str(slot.terrainKey) or int(t.geometry.revision) != int(slot.terrainRevision): return WorkerReason051.TERRAIN
+	if not is_same(ship, guard.owner) or not is_same(ship.spec, guard.spec) or not is_same(t.mountCache[id].baseMounts, guard.mounts): return WorkerReason051.OWNER
+	if str(ship.team) != side or id == str(t.manualId) or int(ship.orderRevision) != int(guard.revision): return WorkerReason051.COMMAND
+	if str(ship.order) != str(guard.order) or ship.orderTarget != guard.orderTarget: return WorkerReason051.COMMAND
+	if t.options.byId.get(id) != guard.options: return WorkerReason051.OPTIONS
+	return WorkerReason051.CAPABILITY if (capability.call(st, id, guard.capability, frame_cache) as Array).is_empty() else -1
 
 static func _worker_wait_events051(st: Dictionary, id: String, memory: Dictionary) -> Array:
 	# Main-owned discrete events only; never read an unjoined worker capsule.
@@ -150,13 +157,20 @@ static func _can_wait_worker051(st: Dictionary, id: String, capability: Callable
 	var side: String = str(t.ships[id].team)
 	var slot: Dictionary = _member_slot051(t, id)
 	if slot.is_empty() or id not in slot.remaining or bool(slot.joined): return false
-	if float(t.lastDecision.get(id, -1.0)) < 0.0 or float(st.time) >= _worker_wait_until051(st, id, slot) - 0.000001: return false
+	if float(t.lastDecision.get(id, -1.0)) < 0.0 or float(st.time) >= _worker_wait_until051(st, id, slot) - 0.000001:
+		capability.call(st, id, [], null, WorkerReason051.WAIT_DEADLINE); return false
 	var limit: int = maxi(1, ceili(float(t.ships.size()) / 10.0))
-	if int(current051.workerWaitChecks051) >= limit: return false
+	if int(current051.workerWaitChecks051) >= limit:
+		capability.call(st, id, [], null, WorkerReason051.WAIT_LIMIT); return false
 	current051.workerWaitChecks051 += 1
-	if not _worker_inputs_current051(st, side, id, slot, capability, frame_cache): return false
-	if _worker_wait_events051(st, id, slot.guards[id].memory) != slot.guards[id].waitEvents051: return false
-	return wait_guard.call(st, id, slot, frame_cache, current051) == true
+	var reason: int = _worker_input_reason051(st, side, id, slot, capability, frame_cache)
+	if reason >= 0:
+		capability.call(st, id, [], null, reason); return false
+	if _worker_wait_events051(st, id, slot.guards[id].memory) != slot.guards[id].waitEvents051:
+		capability.call(st, id, [], null, WorkerReason051.WAIT_EVENTS); return false
+	if wait_guard.call(st, id, slot, frame_cache, current051) == true: return true
+	capability.call(st, id, [], null, WorkerReason051.WAIT_SEMANTICS)
+	return false
 
 static func _take_worker051(st: Dictionary, side: String, due: Array, capability: Callable, frame_cache, wait_guard: Callable, current051: Dictionary) -> Dictionary:
 	var t: Dictionary = st.tactical
@@ -169,30 +183,44 @@ static func _take_worker051(st: Dictionary, side: String, due: Array, capability
 	for id: String in due:
 		var slot: Dictionary = _member_slot051(t, id)
 		if slot.is_empty() or str(slot.side) != side or id not in slot.remaining:
+			capability.call(st, id, [], null, WorkerReason051.NO_MEMBER)
 			continue
 		if not bool(slot.joined) and _waiting_worker051(st, id, capability, wait_guard, frame_cache, current051):
 			pending.append(id)
 			continue # Keep ownership until join, invalidation or the hard deadline.
 		slot.remaining.erase(id)
 		t.workers051.members051.erase(id)
-		var current: bool = bool(slot.joined) and float(st.time) - float(slot.createdAt) <= WORKER_DEADLINE051 + 0.000001
-		current = current and _worker_inputs_current051(st, side, id, slot, capability, frame_cache)
+		var reason: int = -1
+		if not bool(slot.joined): reason = WorkerReason051.UNFINISHED
+		elif float(st.time) - float(slot.createdAt) > WORKER_DEADLINE051 + 0.000001: reason = WorkerReason051.EXPIRED
+		else: reason = _worker_input_reason051(st, side, id, slot, capability, frame_cache)
 		# Normal retained observations may replace memory after the batch sample.
 		# Semantic phase/pass changes are checked at adoption, not record identity.
-		if current:
+		if reason < 0:
 			var state: Dictionary = slot.capsule.result.planning.decisions[id].state
 			for key: String in ["targetId", "leaderId"]:
 				var target_id: String = str(state.get(key, ""))
 				if not target_id.is_empty() and not is_same(t.ships.get(target_id), slot.owners.get(target_id)):
-					current = false; break
-		if current:
+					reason = WorkerReason051.TARGET_OWNER; break
+		if reason < 0:
 			allowed.append(id)
 			members[id] = {"planning": slot.capsule.result.planning, "requests": slot.capsule.result.requests, "routes": slot.capsule.result.routes, "slot": slot, "guard": slot.guards[id]}
 		else:
+			capability.call(st, id, [], null, reason)
 			slot.discarded.append(id)
 			dropped += 1
 		if slot.remaining.is_empty(): _release_slot051(t, slot)
-	return {"allowed": allowed, "members051": members, "dropped051": dropped, "pending051": pending}
+	# Main-only diagnostic callback; never placed in a detached worker capsule.
+	var counter: Callable = func(reason: int, amount: int) -> void: capability.call(st, "", [], null, reason, amount)
+	return {"allowed": allowed, "members051": members, "dropped051": dropped, "pending051": pending, "counter051": counter}
+
+static func _worker_seed051(snapshot: Dictionary, detached: Dictionary, main_plan: Dictionary, id: String) -> Dictionary:
+	if not main_plan.get("decisions", {}).has(id): return {}
+	var chosen: float = float(main_plan.get("originalPreferenceChosenAt051", {}).get(id, snapshot.time))
+	# A same-begin borrowed observation may expire BEFORE this async answer can
+	# be consumed. Search afresh on the worker instead of shipping doomed work.
+	if not is_finite(chosen) or chosen < 0.0 or chosen > float(snapshot.time) or float(snapshot.time) + WORKER_DEADLINE051 > chosen + 0.45 + 0.000001: return {}
+	return {"owner": detached[id], "revision": int(snapshot.snapshotRevision), "at": float(snapshot.time), "decision": main_plan.decisions[id].duplicate(true), "originalPreferenceChosenAt": chosen}
 
 static func _worker_period051(st: Dictionary, side: String, order: Array) -> Dictionary:
 	var w: Dictionary = st.tactical.workers051
@@ -224,6 +252,8 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 		return tally
 	for slot: Dictionary in t.workers051.slots.values():
 		if float(st.time) - float(slot.createdAt) >= WORKER_BATCH_SECONDS051 - 0.000001 or str(slot.terrainKey) != str(t.geometry.key):
+			var reason: int = WorkerReason051.RELEASE_TERRAIN if str(slot.terrainKey) != str(t.geometry.key) else WorkerReason051.RELEASE_EXPIRED
+			capability.call(st, "", [], null, reason, slot.remaining.size())
 			tally.drops += slot.remaining.size()
 			_release_slot051(t, slot)
 	if _tasks051.size() >= MAX_TASKS051:
@@ -273,7 +303,9 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 		var main_plan: Dictionary = planning051.get(side, {})
 		for id: String in ids:
 			if main_plan.get("decisions", {}).has(id):
-				prepared[id] = {"owner": detached[id], "revision": int(snapshot.snapshotRevision), "at": float(snapshot.time), "decision": main_plan.decisions[id].duplicate(true), "originalPreferenceChosenAt": float(main_plan.get("originalPreferenceChosenAt051", {}).get(id, snapshot.time))}
+				var seed: Dictionary = _worker_seed051(snapshot, detached, main_plan, id)
+				if not seed.is_empty(): prepared[id] = seed
+				else: capability.call(st, id, [], null, WorkerReason051.SEED_EXPIRED)
 		var pool: Array = t.workers051.cache[side]
 		var cache: Dictionary = pool.pop_back() if not pool.is_empty() else {}
 		capsule.input = {"view": snapshot, "memory": memory_copy, "geometry": t.geometry.duplicate(true), "cache": cache, "order": ids.duplicate(), "budgets": slices, "preparedDecisions051": prepared}
@@ -320,18 +352,22 @@ static func _phase_due051(view: Dictionary, ship: Dictionary, state: Dictionary,
 			if Roles.speed(ship) <= Roles.velocity(target).length() * 1.05 and distance > range_value: return true
 	return false
 
-static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, old: Dictionary, sampled_context: Dictionary, baseline: Dictionary) -> Dictionary:
+static func _worker_rejection051(reason: int, counter: Callable) -> Dictionary:
+	if counter.is_valid(): counter.call(reason, 1)
+	return {}
+
+static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, old: Dictionary, sampled_context: Dictionary, baseline: Dictionary, counter051: Callable = Callable()) -> Dictionary:
 	# Preferences are bounded-age suggestions. Only meaningful changes demand a
 	# full role search; this guard neither certifies a path nor permits a shot.
 	var sampled: Dictionary = sampled_context[str(ship.id)]
-	if ship.get("order") != sampled.get("order") or ship.get("orderTarget") != sampled.get("orderTarget"): return {}
+	if ship.get("order") != sampled.get("order") or ship.get("orderTarget") != sampled.get("orderTarget"): return _worker_rejection051(WorkerReason051.SEMANTIC_COMMAND, counter051)
 	for key: String in ["role", "phase", "targetId", "leaderId", "firingPassId", "passSequence", "passShots", "passShortShots", "passSpent", "localRecovery", "phaseSince", "passSince", "passFirstShotAt", "passOpportunitySince", "shotTimes", "lastUsefulShot", "safeSince"]:
-		if previous.get(key) != baseline.get(key): return {}
-	if ship.get("mountShotTimes", {}) != sampled.get("mountShotTimes", {}): return {}
+		if previous.get(key) != baseline.get(key): return _worker_rejection051(WorkerReason051.MEMORY, counter051)
+	if ship.get("mountShotTimes", {}) != sampled.get("mountShotTimes", {}): return _worker_rejection051(WorkerReason051.SHOT, counter051)
 	var target_id: String = str(old.state.targetId)
 	var leader_id: String = str(old.state.leaderId)
-	if not target_id.is_empty() and (not context.has(target_id) or context[target_id].team == ship.team): return {}
-	if not leader_id.is_empty() and (not context.has(leader_id) or context[leader_id].team != ship.team): return {}
+	if not target_id.is_empty() and (not context.has(target_id) or context[target_id].team == ship.team): return _worker_rejection051(WorkerReason051.TARGET, counter051)
+	if not leader_id.is_empty() and (not context.has(leader_id) or context[leader_id].team != ship.team): return _worker_rejection051(WorkerReason051.TARGET, counter051)
 	var target: Dictionary = context.get(target_id, {})
 	var sampled_target: Dictionary = sampled_context.get(target_id, {})
 	var distance: float = Roles.pos(ship).distance_to(Roles.pos(target)) if not target.is_empty() else INF
@@ -345,27 +381,27 @@ static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Di
 		if index == 0:
 			reload = maxf(reload, float(ship.get("cooldown", 0.0)))
 			old_reload = maxf(old_reload, float(sampled.get("cooldown", 0.0)))
-		if (reload <= 0.000001) != (old_reload <= 0.000001): return {}
+		if (reload <= 0.000001) != (old_reload <= 0.000001): return _worker_rejection051(WorkerReason051.RELOAD, counter051)
 		# Match the retained range event BEFORE sealing a new maneuver. Otherwise
 		# an old nonfiring stage silently inherits the new in-range event baseline.
-		if (distance <= float(mount.range) + Roles.radius(target) + 1.0) != (sampled_distance <= float(mount.range) + Roles.radius(sampled_target) + 1.0): return {}
+		if (distance <= float(mount.range) + Roles.radius(target) + 1.0) != (sampled_distance <= float(mount.range) + Roles.radius(sampled_target) + 1.0): return _worker_rejection051(WorkerReason051.RANGE, counter051)
 		if Roles.fixed_tube(mount) and not target.is_empty() and reload <= 0.000001:
 			var aligned: bool = distance <= float(mount.range) and absf(angle_difference(float(ship.angle) + float(mount.angle), (Roles.pos(target) - Roles.pos(ship)).angle())) <= float(mount.arc) * 0.45
 			var sampled_aligned: bool = sampled_distance <= float(mount.range) and absf(angle_difference(float(sampled.angle) + float(mount.angle), (Roles.pos(sampled_target) - Roles.pos(sampled)).angle())) <= float(mount.arc) * 0.45
-			if aligned != sampled_aligned: return {}
+			if aligned != sampled_aligned: return _worker_rejection051(WorkerReason051.ALIGNMENT, counter051)
 	var opts: Dictionary = Roles.options(view, ship)
 	var doctrine: String = str(opts.get("doctrine", "steady"))
 	var hp_limit: float = 0.60 if doctrine == "cautious" else (0.30 if doctrine == "aggressive" else 0.45)
 	var flood_limit: float = 0.30 if doctrine == "cautious" else (0.60 if doctrine == "aggressive" else 0.45)
 	var status: Dictionary = ship.status
 	var net: float = float(status.get("inflow", 0.0)) - float(status.get("bailing", 0.0))
-	if float(ship.hp) / maxf(1.0, float(ship.maxHp)) <= hp_limit or float(ship.water) / maxf(1.0, float(ship.capacity)) >= flood_limit or float(ship.fire) >= 25.0 or (net > 0.0 and (float(ship.capacity) - float(ship.water)) / net < 8.0): return {}
-	if float(ship.fuel) <= 0.0 or (str(old.state.role) != "support" and Roles.working_mounts(ship).is_empty()): return {}
+	if float(ship.hp) / maxf(1.0, float(ship.maxHp)) <= hp_limit or float(ship.water) / maxf(1.0, float(ship.capacity)) >= flood_limit or float(ship.fire) >= 25.0 or (net > 0.0 and (float(ship.capacity) - float(ship.water)) / net < 8.0): return _worker_rejection051(WorkerReason051.DANGER, counter051)
+	if float(ship.fuel) <= 0.0 or (str(old.state.role) != "support" and Roles.working_mounts(ship).is_empty()): return _worker_rejection051(WorkerReason051.CAPABILITY, counter051)
 	# A newly close hostile needs a current escape decision even if it was not
 	# selected by the old preference. This is positions only, never a shortlist.
 	if str(ship.order) != "board":
 		for other: Dictionary in context.values():
-			if other.team != ship.team and Roles.pos(ship).distance_to(Roles.pos(other)) < Routes.navigation_radius(ship) + Routes.navigation_radius(other) + 24.0: return {}
+			if other.team != ship.team and Roles.pos(ship).distance_to(Roles.pos(other)) < Routes.navigation_radius(ship) + Routes.navigation_radius(other) + 24.0: return _worker_rejection051(WorkerReason051.CLOSE_HOSTILE, counter051)
 	var history: Array = Roles.array(previous.get("observations"))
 	var sampled_history: Array = Roles.array(old.state.get("observations"))
 	if history.is_empty() or (not sampled_history.is_empty() and float(sampled_history[-1].lastAt) > float(history[-1].lastAt)): history = sampled_history
@@ -377,8 +413,8 @@ static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Di
 		var focused: int = 0
 		for enemy_id: String in old.get("detailedIds", []):
 			if context.has(enemy_id) and context[enemy_id].team != ship.team and Roles.threat(context[enemy_id], ship, float(view.time)) > 0.75: focused += 1
-		if (impaired and focused > 0) or focused >= 2: return {}
-	if str(old.state.role) == "skirmisher" and str(old.state.phase) == "fire-pass" and Roles._skirmisher_burst_done(view, ship, old.state, float(view.time), float(old.range)): return {}
+		if (impaired and focused > 0) or focused >= 2: return _worker_rejection051(WorkerReason051.DANGER, counter051)
+	if str(old.state.role) == "skirmisher" and str(old.state.phase) == "fire-pass" and Roles._skirmisher_burst_done(view, ship, old.state, float(view.time), float(old.range)): return _worker_rejection051(WorkerReason051.PHASE, counter051)
 	var decision: Dictionary = old.duplicate()
 	decision.state = old.state.duplicate()
 	# Keep newer observed travel, and observe REAL current progress before
@@ -389,14 +425,14 @@ static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Di
 	if Roles.pos(ship).distance_to(decision.state.get("progressPos", Roles.pos(ship))) >= 18.0:
 		decision.state.progressAt = float(view.time)
 		decision.state.progressPos = Roles.pos(ship)
-	if _phase_due051(view, ship, decision.state, target, float(old.range)): return {}
+	if _phase_due051(view, ship, decision.state, target, float(old.range)): return _worker_rejection051(WorkerReason051.PHASE, counter051)
 	decision.state.observations = hp.observations
 	var detailed: Array = []
-	if old.get("detailedIds", []).size() > Roles.MAX_TARGETS: return {}
+	if old.get("detailedIds", []).size() > Roles.MAX_TARGETS: return _worker_rejection051(WorkerReason051.DETAILS, counter051)
 	for raw: Variant in old.get("detailedIds", []):
-		if not raw is String or detailed.size() >= Roles.MAX_TARGETS or raw in detailed: return {}
+		if not raw is String or detailed.size() >= Roles.MAX_TARGETS or raw in detailed: return _worker_rejection051(WorkerReason051.DETAILS, counter051)
 		if context.has(raw) and context[raw].team != ship.team: detailed.append(raw)
-	if not target_id.is_empty() and target_id not in detailed: return {}
+	if not target_id.is_empty() and target_id not in detailed: return _worker_rejection051(WorkerReason051.DETAILS, counter051)
 	decision.detailedIds = detailed
 	var targets: Array = []
 	for raw: Variant in old.get("targets", []):
@@ -421,6 +457,7 @@ static func _prepare_with_worker051(view: Dictionary, memory: Dictionary, sugges
 	# Normal joins keep the worker preference with actual current HP memory.
 	# Authority still requires new main pose/traffic/certificate/resolution work.
 	if suggestion.get("allowed", []).is_empty(): return _prepare_begin(view, memory, current_context051, prepared_decisions051)
+	var counter051: Callable = suggestion.get("counter051", Callable())
 	var context: Dictionary = Roles.ships_by_id(view) if current_context051.is_empty() else current_context051
 	# Existing reservations are read-only inputs; only this local container gets
 	# new tentative preferences. Detached public/worker planning keeps its copies.
@@ -439,8 +476,12 @@ static func _prepare_with_worker051(view: Dictionary, memory: Dictionary, sugges
 			var member: Dictionary = suggestion.members051[id]
 			var original: Dictionary = member.planning.get("originalPreferenceChosenAt051", {})
 			var worker_decision: Dictionary = {}
-			if decision.is_empty() and (not original.has(id) or float(view.time) <= float(original[id]) + 0.45 + 0.000001):
-				worker_decision = _join_preference051(view, ship, previous, context, member.planning.decisions[id], member.planning.context, member.guard.memory)
+			if not decision.is_empty():
+				_worker_rejection051(WorkerReason051.FRESH_MAIN, counter051)
+			elif original.has(id) and float(view.time) > float(original[id]) + 0.45 + 0.000001:
+				_worker_rejection051(WorkerReason051.SEMANTIC_AGE, counter051)
+			else:
+				worker_decision = _join_preference051(view, ship, previous, context, member.planning.decisions[id], member.planning.context, member.guard.memory, counter051)
 			if not worker_decision.is_empty():
 				decision = worker_decision
 				if original.has(id): prepared.originalPreferenceChosenAt051[id] = float(original[id])

@@ -58,7 +58,14 @@ static func drain_planning051() -> void:
 	# Owner shutdown/fixture teardown ONLY. Never called by Battle.update.
 	Planner._poll_tasks051(true)
 
-static func _worker_capability051(st: Dictionary,id: String,previous: Array=[],frame_cache=null) -> Array:
+static func _worker_capability051(st: Dictionary,id: String,previous: Array=[],frame_cache=null,reason051: int=-1,amount051: int=1) -> Array:
+	# Main-only reason receipts share the existing opt-in runtime counters.
+	# A reason call never reads a hull, status, clock, or worker output.
+	if reason051>=0:
+		if _runtime_profile043_enabled and reason051<Planner.WORKER_REASON_KEYS051.size() and amount051>0:
+			var key051: String=Planner.WORKER_REASON_KEYS051[reason051]
+			_runtime_profile043_counts[key051]=int(_runtime_profile043_counts.get(key051,0))+amount051
+		return []
 	var ship: Dictionary=st.tactical.ships[id]
 	var actual: Array=[Certification._motion_inputs(ship),Certification._live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache)).duplicate(true)]
 	if not previous.is_empty() and (actual[0]!=previous[0] or Certification._live_capability_lost(actual[1],previous[1],Vector2.ZERO)):return []

@@ -1412,6 +1412,14 @@ func worker_prepared051() -> void:
 	var context: Dictionary=Roles.ships_by_id(view)
 	var memory: Dictionary=st.tactical.memory.player
 	var base: Dictionary=Planner._prepare_begin(view,memory,context)
+	# Pure detached dispatch inputs: the old choice is valid now at0.40s,
+	# but cannot cover this answer's unchanged150ms handoff window.
+	var sample: Dictionary=view.duplicate();sample.time=0.40
+	var borrowed: Dictionary=base.duplicate();borrowed.originalPreferenceChosenAt051={id:0.0}
+	check(Planner._worker_seed051(sample,context,borrowed,id).is_empty(),"worker recomputes a borrowed role whose original expiry falls inside its handoff window")
+	sample.time=0.20
+	var seed: Dictionary=Planner._worker_seed051(sample,context,borrowed,id)
+	check(not seed.is_empty() and is_same(seed.owner,context[id]) and float(seed.originalPreferenceChosenAt)==0.0 and float(seed.at)==0.20,"worker seed preserves an eligible original semantic clock and the actual detached owner")
 	var fresh: Dictionary=base.decisions[id].duplicate(true)
 	var record: Dictionary={"owner":context[id],"revision":int(view.snapshotRevision),"at":float(view.time),"decision":fresh,"originalPreferenceChosenAt":0.0}
 	var records: Dictionary={id:record}
@@ -1449,6 +1457,7 @@ func workers051() -> void:
 		var slot: Dictionary=lease.slot
 		var output: Dictionary=slot.capsule.result
 		var worker_view: Dictionary=output.planning.context[id]
+		check(output.planning.dueIds.all(func(member):return output.planning.originalPreferenceChosenAt051.has(member) and float(output.planning.originalPreferenceChosenAt051[member])<=float(slot.createdAt) and float(slot.createdAt)+Planner.WORKER_DEADLINE051<=float(output.planning.originalPreferenceChosenAt051[member])+0.45+0.000001),"real worker decisions retain original/sample semantic ages through the entire bounded handoff")
 		var observed_at: float=float(slot.guards[id].decisionAt)
 		check(not is_same(worker_view,st.tactical.ships[id]) and not is_same(worker_view.mounts,st.tactical.observed[id].mounts) and not is_same(worker_view.mountShotTimes,source.mountShotTimes) and not is_same(worker_view.orderTarget,source.orderTarget),"single-build worker view exclusively owns its nested inputs")
 		var origin: Vector2=F.pos(source)

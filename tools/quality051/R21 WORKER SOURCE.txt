@@ -1,0 +1,77 @@
+R21 WORKER SOURCE - 27 October 2026
+Source-only candidate from45bf6632ea0bb39935bb1f62376ef7836aea4766.
+R21 measured game8fd0f96; jobb1279d7e1fc64f0d9aa15f9ba4c806bd remains
+QUALITY FAILED. Light442adoptions/2440fallbacks/2378drops/136dispatches;
+mixed326adoptions/985fallbacks. No speedup or native acceptance claim.
+
+Read both raw R21 runtime JSONs and the supplied cost/engagement summary.
+Raw cumulative tick deltas: light1871of2378drops occur on68dispatch ticks;
+507on other ticks. Mixed731of941drops occur on80dispatch ticks;210elsewhere.
+These are co-occurrences, NOT proof of release-time or worker-runtime causes.
+No existing reason histogram distinguishes completed-but-unused output from
+unfinished work, input changes or semantic expiry. Two task seats are not
+demonstrated as THE bottleneck. No scheduling/concurrency change made.
+
+One proven source seam: _dispatch_batch051 lends a current main decision to
+the next worker even when its ORIGINAL chosenAt+0.45 expires inside that
+answer's150ms handoff window. _consume_prepared051 accepts it at sampling;
+_prepare_with_worker051 must later reject it after original expiry, wasting
+its offers/routes and running a main role search. This is a deterministic
+allowed input sequence; its R21 frequency and savings are not measured.
+
+Correction: _worker_seed051 lends only a choice whose ORIGINAL age covers
+the entire existing worker deadline. Otherwise _work051 performs its normal
+full role choice from the actual sampled view/memory. Every full worker choice
+now records its real SAMPLE time as originalPreferenceChosenAt051; borrowed
+choices retain their original time. Adoption cannot relabel a sample as new.
+This does not authorize the old expired choice or extend either lifetime.
+Current owner/terrain/command/options/capability/target checks, memory/pass,
+shot/reload/range/alignment/HP/danger/phase/close-hostile checks and every main
+physical/refinement/resolution/certificate gate remain intact. Begin, retained
+observation, live60Hz guards, .15deadline, .45age, side budgets, two unfinished
+tasks including retired work, fair due cap, eight offers, all actors/stats and
+the original duel/fleet policy are unchanged.
+
+Diagnostics: fixed integer categories feed the EXISTING optional Runtime
+profile via the existing _worker_capability051 main-only callable. A reason
+call reads no hull/status/capsule; the callable never enters worker inputs.
+workerNoMember051 means a due hull has no consumable generation. Terminal
+take rejections distinguish unfinished/expired/terrain/owner/command/options/
+capability/targetOwner. Remaining-at-release members are separately counted by
+workerReleaseExpired051 or workerReleaseTerrain051. Join rejections distinguish
+freshMain/semanticAge/semanticCommand/memory/shot/target/reload/range/alignment/
+danger/capability/closeHostile/phase/details. Wait counters record rejected WAIT
+attempts (deadline, fair cap, events, semantics); input rejection checks can
+occur during wait and terminal take, so categories are diagnostic site counts,
+not one global partition. workerSeedExpired051 counts rejected old seeds.
+No full snapshots/log/harness added; all values are cumulative integers and
+the existing runtime profile reset covers them. Administrative encounter
+retirement remains distinct from a runtime consumption/drop measurement.
+
+If release-expiry dominates the next histogram, a concrete alternative is
+deadline-aligned rolling slices within the SAME150ms side period: reserve each
+actor's existing traffic/proof/routes allocation once, launch oldest due work
+in bounded slices while keeping at most two unfinished tasks INCLUDING retired
+work, and share a detached side sample rather than rebuilding it per slice.
+Require all actor coverage and compare dispatch/main-copy costs before changing
+this policy. R19's691eagerdispatches/2.7msproposals forbid assuming more tiny
+jobs help. This alternative is NOT implemented or claimed as an improvement.
+
+Existing workers fixture adds only two pure seed boundary checks and one
+real joined-output age invariant. All old assertions remain unchanged.
+Root owns existing workers/retained/actual-voyage native checks, exact-source
+export/starts and subsequent full42/16 rendered comparison. Preserve failures.
+This pass runs one source API advisory and diff review only; no engine, native
+fixture, build, GPU or benchmark. Final advisory/result recorded below.
+
+Source review: all old worker assertions remain byte-for-byte; only the three
+checks described above were added. Runtime diff touches _worker_capability051
+ONLY; no begin/retained-observation/fire code changed. One advisory invocation:
+python tools/check_preload_calls.py game scripts/tactical_planner.gd
+scripts/tactical_runtime.gd tests/test_tactical_ai.gd
+Result: advisoryOnly=true, engineInvoked=false, issues=[]. git diff --check clean.
+This advisory does not establish native parse/type correctness or behavior.
+Exact source locations: Planner29(sample age),108(input categories),217(seed
+expiry correction),248(dispatch/release),355/359(join categories),456(main
+fallback categories); Runtime61(counter-only diagnostic branch); existing
+workers fixture1400/1403(seed boundaries),1441(real-output semantic age).
