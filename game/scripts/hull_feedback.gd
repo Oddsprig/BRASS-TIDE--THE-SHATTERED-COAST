@@ -121,7 +121,7 @@ static func _face_batch(model: Dictionary, vertices: Array, color: Color) -> voi
 	else:
 		for step in range(0, indices.size(), 3):
 			canvas.draw_colored_polygon(PackedVector2Array([points[indices[step]], points[indices[step+1]], points[indices[step+2]]]), color)
-	var triangles: int=indices.size()//3
+	var triangles: int=indices.size()/3
 	ctx.n=int(ctx.n)+triangles
 	ctx.npoly=int(ctx.npoly)+triangles
 

@@ -284,7 +284,7 @@ func _check_draw_patches(size: float,heading: float,lod: int) -> void:
 	for patch in patches:
 		var fan: Dictionary=Feedback._scar_fan(model,patch)
 		fans.append(fan)
-		expect+=fan.indices.size()//3
+		expect+=fan.indices.size()/3
 	var polys: Array=[]
 	for prim in rec.prims:
 		if prim.t=="poly": polys.append(prim)

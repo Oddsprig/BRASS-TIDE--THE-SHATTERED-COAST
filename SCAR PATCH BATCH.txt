@@ -24,3 +24,6 @@ index parity against the old fan across headings, scales, the exact-1 boundary,
 an omitted sliver, and the recorder triangles from Feedback.draw.
 Root owns the native canvas path and the profile. Do not read a flat
 boat_primitives number as fewer triangles.
+
+Root review: replaced Python-style floor division with native GDScript integer
+division before the first engine run. Native validation still pending.
