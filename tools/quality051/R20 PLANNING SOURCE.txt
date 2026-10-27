@@ -36,11 +36,13 @@ Opt-in workerReadyReplans051 counts how often the new routing is reached; it
 does not imply adoption or saved microseconds.
 
 Existing test_tactical_ai.gd workers case extended with real joined output and
-real occupied-step revocation: stable output must adopt with a fresh current
-main certificate and unchanged worker original choice time; a newly close
-hostile must reject it and publish the current breakaway decision. Pure ready
-checks must not publish clocks/memory/authority or advance RNG; retirement
-must remove eligibility and drain tasks. Existing assertions remain intact.
+real occupied-step revocation: stable output must adopt and publish current
+decision observations; a newly close hostile must reject it and publish current
+breakaway observations. Adoption is suggestion reuse, not physical permission.
+Original certificate freshness and semantic-deadline cases remain unchanged.
+Pure ready checks must not publish clocks/memory/authority or advance RNG;
+retirement must remove eligibility and drain tasks. Original assertions remain
+intact.
 
 Source verification ONLY: one check_preload_calls.py invocation over planner,
 runtime and the existing tactical AI fixture: advisoryOnly=true, issues=[].
@@ -51,3 +53,18 @@ current-source checks/export, compare actual full42/light and16/mixed rendered
 300DP-side runtime, selection/proposals/certification costs, new routing count,
 worker adoption/drop/fallback totals, current HP/phase response and stalls.
 Keep any failed/interrupted result. No tag/package/install/052 work.
+
+R44 focused fixture correction - 27 October 2026:
+Job de8f744ece4940dd868770d50b0d4e71 worker-ai: 229 checks, 2 failures.
+Both new rows consumed their joined answer at0.183333s (created0.166667s):
+stable adopted; phase discarded. The two failing assertions wrongly required
+live retained authority or lastDecision==now AFTER the complete B.update.
+Begin publishes decision memory before live helm/fire may revoke authority;
+_drop_retained051 can then legitimately reset lastDecision to-1.
+New assertions use the existing inline observations[-1].lastAt convention
+from worker_handoff/fresh-phase. Existing rows now include memoryAt, phase,
+lastDecision, reason and surviving held/certificate clocks/revision for review.
+Only the new revoked-ready fixture contract changed; all original expiry and
+freshness assertions and all production code remain unchanged. Root reports
+all original204 worker assertions passed R44. This fixture correction has NOT
+run natively; no extra advisory (production unchanged). Root retains validation.

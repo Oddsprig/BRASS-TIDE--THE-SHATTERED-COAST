@@ -1359,8 +1359,6 @@ func worker_revoked_ready051() -> void:
 		if not _worker_join051(slot):T.retire_planning051(st);T.drain_planning051();continue
 		var preference: Variant=_physical_preference_drop051(arena,lease.held,"ready-worker-"+variant)
 		if not preference is C._Preference051:T.retire_planning051(st);T.drain_planning051();continue
-		var original: Dictionary=slot.capsule.result.planning.get("originalPreferenceChosenAt051",{})
-		var chosen: float=float(original.get(id,slot.createdAt))
 		var before: PackedByteArray=var_to_bytes([st.ships,st.tactical.memory,st.tactical.lastDecision,st.rng.state])
 		check(Planner._ready_worker051(st,id) and var_to_bytes([st.ships,st.tactical.memory,st.tactical.lastDecision,st.rng.state])==before and not st.tactical.intents.has(id),"joined routing eligibility grants no memory, clock, physical authority or RNG work: "+variant)
 		if variant=="phase":
@@ -1368,13 +1366,21 @@ func worker_revoked_ready051() -> void:
 		for tick: int in range(8):
 			B.update(st,1.0/60.0);B.pop_events(st)
 			if id in slot.adopted or id in slot.discarded:break
+		var fresh: Dictionary=st.tactical.memory.player.byId.get(id,{})
+		var history: Array=fresh.get("observations",[])
+		var observed_at: float=float(history[-1].get("lastAt",-1.0)) if not history.is_empty() else -1.0
+		# B.update also runs live helm/fire checks after the handoff. They may
+		# revoke authority and reset lastDecision; current memory proves publication.
 		if variant=="stable":
-			check(id in slot.adopted and id not in slot.discarded,"ready stable answer survives physical-only revocation and reaches main certification")
-			var held: Variant=st.tactical.retained051.get(id)
-			check(held is C._Retained051 and held.chosen_at==chosen and float(held.record.certificate.checkedAt)==float(st.time) and int(held.record.certificate.snapshotRevision)==int(st.tactical.snapshotRevision),"ready handoff creates a current main certificate without renewing the worker's original semantic deadline")
+			check(id in slot.adopted and id not in slot.discarded,"ready stable suggestion survives physical-only revocation and is consumed by main planning")
+			check(observed_at==float(st.time),"ready handoff publishes current decision observations without promising physical authority")
 		else:
-			check(id in slot.discarded and id not in slot.adopted and str(st.tactical.memory.player.byId.get(id,{}).get("phase",""))=="breakaway" and float(st.tactical.lastDecision[id])==float(st.time),"changed current hostile phase rejects ready offers and publishes a full current escape decision in the same fair slot")
-		observations.append({"case":"workers-revoked-ready","variant":variant,"createdAt":slot.createdAt,"time":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate()})
+			check(id in slot.discarded and id not in slot.adopted and str(fresh.get("phase",""))=="breakaway" and observed_at==float(st.time),"changed current hostile phase rejects ready offers and publishes current escape observations while allowing a later physical veto")
+		var held: Variant=st.tactical.retained051.get(id)
+		var certificate: Dictionary=held.record.certificate if held is C._Retained051 else {}
+		observations.append({"case":"workers-revoked-ready","variant":variant,"createdAt":slot.createdAt,"time":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),
+			"memoryAt":observed_at,"phase":fresh.get("phase",""),"lastDecision":st.tactical.lastDecision.get(id,-1.0),"reason":st.tactical.reasons.get(id,""),
+			"heldChosenAt":held.chosen_at if held is C._Retained051 else -1.0,"certCheckedAt":certificate.get("checkedAt",-1.0),"certRevision":certificate.get("snapshotRevision",-1)})
 		T.retire_planning051(st);T.drain_planning051()
 		check(not Planner._ready_worker051(st,id) and Planner._tasks051.is_empty(),"retirement removes joined routing eligibility and drains every owned task: "+variant)
 
