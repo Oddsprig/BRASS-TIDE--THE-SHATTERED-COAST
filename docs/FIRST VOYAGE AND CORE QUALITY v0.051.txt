@@ -10,3 +10,9 @@ damage/navigation work without changing actors, deployment or simulation rate.
 No new campaign breadth until the core-quality milestone clears. The previous
 full300DP measurement was4.605FPS light /17.084FPS mixed, all targets unmet.
 Assertion counts and offline captures do not establish smoothness or fun.
+
+Candidatee42e4c0:104opening-flow +7497roster checks pass in67.566s
+including export/startups/setup. Root reviewed eight actual exported screens
+and the four corrected fitted previews. Two screenshot-driven UI fixes are
+integrated, final native/visual review pending. First-voyage journey and
+retained-maneuver runtime patch remain in progress. Desktop stays0.050.
