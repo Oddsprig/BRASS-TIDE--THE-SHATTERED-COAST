@@ -37,7 +37,7 @@ var enemy: bool = false:
 	set(value):
 		enemy = value
 		queue_redraw()
-var display_angle: float = -PI / 4.0:
+var display_angle: float = 0.0:
 	set(value):
 		display_angle = value
 		queue_redraw()

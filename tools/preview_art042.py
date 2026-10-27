@@ -6,6 +6,7 @@ This is evidence for art review, not a GPU capture or a frame-rate measurement.
 import argparse
 import json
 from pathlib import Path
+from time import monotonic
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -53,10 +54,16 @@ def texture_layer(size, primitive, game, cache):
                             resample=Image.Resampling.BICUBIC)
 
 
-def replay(panel, game, cache):
+def check_deadline(deadline):
+    if monotonic() >= deadline:
+        raise TimeoutError("Art042 CPU replay deadline exceeded; output is incomplete")
+
+
+def replay(panel, game, cache, deadline):
     size = (int(panel["width"]), int(panel["height"]))
     image = Image.new("RGBA", size, panel["background"])
     for primitive in panel["primitives"]:
+        check_deadline(deadline)
         if primitive["t"] == "texture":
             image.alpha_composite(texture_layer(size, primitive, game, cache))
             continue
@@ -84,11 +91,16 @@ def replay(panel, game, cache):
 
 
 def main():
+    started = monotonic()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("capture", type=Path)
     parser.add_argument("--game", type=Path, default=Path(__file__).resolve().parents[1] / "game")
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--seconds", type=float, default=30.0)
     args = parser.parse_args()
+    if not 0 < args.seconds <= 90:
+        parser.error("--seconds must be greater than zero and at most90")
+    deadline = started + args.seconds
     data = json.loads(args.capture.read_text(encoding="utf-8"))
     if data.get("schema") != "brass-tide-art042-trace-v1":
         raise ValueError("Use a capture from the focused test_art042.gd fixture")
@@ -96,23 +108,30 @@ def main():
     args.out.mkdir(parents=True, exist_ok=True)
     cache = {}
     panels = data["panels"]
+    rendered = []
     for panel in panels:
-        replay(panel, args.game, cache).save(args.out / f'{panel["id"]}.png')
+        check_deadline(deadline)
+        image = replay(panel, args.game, cache, deadline)
+        image.save(args.out / f'{panel["id"]}.png')
+        rendered.append(image)
     # Stack the normal-scale panels without magnifying the small battle boats.
     width = max(panel["width"] for panel in panels)
     height = sum(panel["height"] + 28 for panel in panels) + 42
     sheet = Image.new("RGB", (width, height), "#0b242f")
     draw = ImageDraw.Draw(sheet)
     failed = int(data.get("failures", 0))
-    draw.text((10, 10), f"Actual drawing-call replay | fixture failures: {failed} | CPU preview", fill="#dfbd7d")
+    complete = bool(data.get("complete", True))
+    draw.text((10, 10), f"Actual drawing-call replay | fixture failures: {failed} | complete: {complete} | CPU preview", fill="#dfbd7d")
     y = 42
-    for panel in panels:
+    for panel, image in zip(panels, rendered):
+        check_deadline(deadline)
         draw.text((10, y), panel["title"], fill="#d5dfce")
-        sheet.paste(replay(panel, args.game, cache), (0, y + 22))
+        sheet.paste(image, (0, y + 22))
         y += panel["height"] + 28
     sheet.save(args.out / "art042-review.png")
+    check_deadline(deadline)
     print(f"Replayed {len(panels)} native panels from {len(cache)} real textures; fixture failures={failed}")
-    return 1 if failed else 0
+    return 1 if failed or not complete else 0
 
 
 if __name__ == "__main__":
