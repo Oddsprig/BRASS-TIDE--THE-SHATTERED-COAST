@@ -3,6 +3,7 @@ extends RefCounted
 ## Consumes existing numeric effect/wreck metadata only; never mutates gameplay, RNG, camera or audio.
 
 const MAX_EFFECT_PRIMS: int = 35
+const MAX_WRECK_OVERLAY_PRIMS: int = 96
 const WATER_TINT := Color(0.15, 0.34, 0.39, 1.0)
 const FOAM_LIGHT := Color(0.88, 0.98, 0.94, 1.0)
 const FOAM_MID := Color(0.70, 0.91, 0.85, 1.0)
@@ -283,7 +284,7 @@ static func effect(chart, e: Dictionary) -> int:
 		return int(fx.n)
 	if kind == "sink" or subtype == "hull_down":
 		var flood_only: bool = (reason == "flooding") and not bool(e.get("incendiary", false))
-		_draw_sink_effect(fx, p, ground, t, alpha, radius, mag, hull_mat, flood_only, seq)
+		_draw_sink_effect(fx, p, ground, t, alpha, radius, mag, hull_mat, flood_only, bool(e.get("incendiary", false)), seq)
 		return int(fx.n)
 	var is_land: bool = bool(e.get("land", false)) or mat == "land"
 	var is_splash: bool = bool(e.get("splash", false)) or etype == "splash" or mat == "water"
@@ -403,10 +404,9 @@ static func _draw_water_plume(fx: Dictionary, ground: Vector2, family: String, t
 	_fx_arc(fx, ground, spread, 0.08, PI - 0.08, 14, Color(FOAM_LIGHT, alpha * 0.82), maxf(1.1, 2.0 * s))
 	if lod < 2:
 		_fx_arc(fx, ground, spread * 1.32, 0.0, TAU, 16, Color(FOAM_MID, alpha * 0.48), maxf(0.9, 1.3 * s))
-	if is_direct_hit or family in ["rocket", "torpedo"]:
+	if family == "rocket":
 		var flash_r: float = radius * (0.28 + 0.25 * (1.0 - t))
-		if is_direct_hit or family == "rocket":
-			_fx_circle(fx, ground + Vector2(0.0, -flash_r * 0.35), flash_r, Color(1.0, 0.62, 0.20, alpha * (1.0 - t * 0.45) * 0.85))
+		_fx_circle(fx, ground + Vector2(0.0, -flash_r * 0.35), flash_r, Color(1.0, 0.62, 0.20, alpha * (1.0 - t * 0.45) * 0.85))
 	var col_w: float = maxf(2.2 * s, spread * 0.46)
 	if col_h > 2.5:
 		_fx_poly(fx, PackedVector2Array([
@@ -432,7 +432,7 @@ static func _draw_water_plume(fx: Dictionary, ground: Vector2, family: String, t
 			var ang: float = -PI * 0.5 + _det_signed(seq, i, 71) * 0.95
 			var v: Vector2 = Vector2.from_angle(ang) * (radius * (0.45 + 1.15 * t)) + Vector2(0.0, t * t * 18.0 * s)
 			var pt: Vector2 = ground + Vector2(0.0, -col_h * 0.35) + v
-			_fx_line(fx, pt, pt - v.normalized() * maxf(3.0, 5.5 * s), Color(1.0, 0.80, 0.34, alpha * 0.90), maxf(1.1, 1.8 * s))
+			_fx_line(fx, pt, pt - v.normalized() * maxf(3.0, 5.5 * s), Color(0.70, 0.84, 0.80, alpha * 0.90), maxf(1.1, 1.8 * s))
 	elif lod == 0:
 		for i in range(3):
 			var drop_x: float = _det_signed(seq, i, 83) * spread * 1.05
@@ -456,7 +456,7 @@ static func _draw_land_impact(fx: Dictionary, p: Vector2, dir: Vector2, family: 
 		var col: Color = Color(1.0, 0.82, 0.36, alpha * 0.92) if is_spark else Color(0.58, 0.48, 0.32, alpha * 0.88)
 		_fx_line(fx, pt, pt - delta.normalized() * maxf(2.5, 4.8 * s), col, maxf(1.0, 1.7 * s))
 
-static func _draw_sink_effect(fx: Dictionary, p: Vector2, ground: Vector2, t: float, alpha: float, radius: float, mag: float, hull_mat: String, flood_only: bool, seq: int) -> void:
+static func _draw_sink_effect(fx: Dictionary, p: Vector2, ground: Vector2, t: float, alpha: float, radius: float, mag: float, hull_mat: String, flood_only: bool, on_fire: bool, seq: int) -> void:
 	var lod: int = int(fx.lod)
 	var s: float = float(fx.scale)
 	_fx_arc(fx, ground, radius * (0.45 + 0.88 * t), 0.0, TAU, 18, Color(FOAM_LIGHT, alpha * 0.82), maxf(1.2, 2.1 * s))
@@ -489,11 +489,11 @@ static func _draw_sink_effect(fx: Dictionary, p: Vector2, ground: Vector2, t: fl
 			_fx_line(fx, ppos - pdir.orthogonal() * 3.5 * s, ppos + pdir.orthogonal() * 3.5 * s, Color(0.76, 0.56, 0.32, alpha * 0.85), maxf(1.1, 1.8 * s))
 		return
 
-	var smoke_n: int = 5 if lod == 0 else (3 if lod == 1 else 2)
+	var smoke_n: int = (5 if lod == 0 else (3 if lod == 1 else 2)) if on_fire else 0
 	for i in range(smoke_n):
 		var soff: Vector2 = Vector2.from_angle(_det_angle(seq, i, smoke_n)) * radius * (0.20 + 0.48 * t)
 		_fx_circle(fx, p + soff + Vector2(0.0, -t * radius * (0.55 + 0.15 * float(i))), radius * (0.28 + 0.22 * t), Color(0.22, 0.20, 0.19, alpha * 0.56))
-	if t < 0.72:
+	if on_fire and t < 0.72:
 		var blast_a: float = alpha * clampf((0.72 - t) / 0.72, 0.15, 1.0)
 		_fx_poly(fx, _star_poly(p, radius * (0.58 + 0.28 * t), radius * (0.26 + 0.12 * t), 7, seq, t * 1.2), Color(1.0, 0.46, 0.12, blast_a * 0.90))
 		_fx_circle(fx, p, radius * (0.26 + 0.18 * (1.0 - t)), Color(1.0, 0.92, 0.62, blast_a * 0.95))
@@ -504,7 +504,8 @@ static func _draw_sink_effect(fx: Dictionary, p: Vector2, ground: Vector2, t: fl
 		var fdir: Vector2 = Vector2.from_angle(fang)
 		var dist: float = radius * (0.28 + 1.32 * t) * (0.75 + 0.45 * _det_unit(seq, i, 109))
 		var end_p: Vector2 = p + fdir * dist + Vector2(0.0, t * t * 16.0 * s - t * 11.0 * s)
-		var fcol: Color = Color(1.0, 0.82, 0.34, alpha * 0.94) if (is_armor or i % 2 == 0) else Color(0.84, 0.62, 0.34, alpha * 0.90)
+		var fcol: Color = Color(0.70, 0.80, 0.78, alpha * 0.94) if is_armor else Color(0.84, 0.62, 0.34, alpha * 0.90)
+		if on_fire and i % 2 == 0:fcol=Color(1.0, 0.82, 0.34, alpha * 0.94)
 		_fx_line(fx, end_p, end_p - fdir * maxf(3.0, (5.5 + mag) * s), fcol, maxf(1.1, 1.9 * s))
 		if lod == 0 and i < 2:
 			_fx_poly(fx, _shard_poly(end_p, fdir.rotated(t * 2.2), 3.6 * s, 2.2 * s), fcol)
@@ -541,6 +542,9 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 	var is_engine: bool = kind == "engine" or mat == "engine" or bool(e.get("engineDamaged", false)) or "engine" in subtype
 	var is_metal_or_armor: bool = is_engine or mat in ["armor", "metal"] or hull_mat in ["armor", "metal"] or "armor" in subtype or "metal" in subtype
 	var is_cannon: bool = family == "cannon" or bool(e.get("breach", false))
+	# Only the damage system's reported breach selects an opening. Other armor
+	# contacts retain short reflected fragments, never a new gameplay projectile.
+	var penetrated: bool = bool(e.get("breach", false))
 	var reflect_dir: Vector2 = -dir
 
 	if is_engine:
@@ -564,10 +568,15 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 		_fx_poly(fx, _star_poly(p, glint_r, glint_r * 0.32, 4, seq, dir.angle() + 0.4), glint_col)
 		_fx_circle(fx, p, maxf(1.5 * s, glint_r * 0.42), Color(1.0, 0.98, 0.90, alpha * 0.95))
 		if lod < 2:
-			_fx_arc(fx, p, radius * (0.30 + 0.78 * t), reflect_dir.angle() - 1.15, reflect_dir.angle() + 1.15, 10, Color(1.0, 0.82, 0.36, alpha * 0.72), maxf(1.0, 1.5 * s))
-			var rico_ang: float = reflect_dir.angle() + (0.42 if seq % 2 == 0 else -0.42)
-			var rico_vec: Vector2 = Vector2.from_angle(rico_ang) * length_val * (0.55 + 0.85 * t)
-			_fx_line(fx, p, p + rico_vec, Color(1.0, 0.96, 0.78, alpha * 0.92), maxf(1.2, 2.2 * s))
+			if penetrated:
+				# A short dark opening replaces the reflected streak, never adds a
+				# projectile, scar record or numerical hole to the hull.
+				_fx_line(fx, p - side * radius * 0.18, p + side * radius * 0.18, Color(0.07, 0.12, 0.13, alpha * 0.94), maxf(1.8, 3.4 * s))
+			else:
+				_fx_arc(fx, p, radius * (0.30 + 0.78 * t), reflect_dir.angle() - 1.15, reflect_dir.angle() + 1.15, 10, Color(1.0, 0.82, 0.36, alpha * 0.72), maxf(1.0, 1.5 * s))
+				var rico_ang: float = reflect_dir.angle() + (0.42 if seq % 2 == 0 else -0.42)
+				var rico_vec: Vector2 = Vector2.from_angle(rico_ang) * length_val * (0.55 + 0.85 * t)
+				_fx_line(fx, p, p + rico_vec, Color(1.0, 0.96, 0.78, alpha * 0.92), maxf(1.2, 2.2 * s))
 		var spark_n: int = 8 if lod == 0 else (5 if lod == 1 else 3)
 		for i in range(spark_n):
 			var sang: float = _det_angle(seq, i, spark_n, reflect_dir.angle(), PI * 1.35)
@@ -631,7 +640,7 @@ static func wreck(chart, w: Dictionary) -> int:
 	var cause: String = str(w.get("cause", w.get("reason", "hull"))).to_lower()
 	var on_fire: bool = bool(w.get("onFire", false))
 	var flood_only: bool = (cause == "flooding") and not on_fire
-	var fx: Dictionary = {"canvas": chart, "n": 0, "max_n": 96, "lod": lod, "scale": scale_value}
+	var fx: Dictionary = {"canvas": chart, "n": 0, "max_n": MAX_WRECK_OVERLAY_PRIMS, "lod": lod, "scale": scale_value}
 
 	# 1. Expanding foam collar and surface churn under the settling hull.
 	var ring_fade: float = clampf(1.0 - maxf(0.0, age - 1.4) / 4.2, 0.0, 1.0)
@@ -701,12 +710,12 @@ static func wreck(chart, w: Dictionary) -> int:
 			_fx_circle(fx, fp, maxf(1.5, bsize * scale_value * (0.14 + 0.12 * sin(t * PI))), Color(FOAM_LIGHT, (1.0 - t * 0.45) * 0.58))
 
 		if not flood_only:
-			if t < 0.36:
+			if on_fire and t < 0.36:
 				var blast_a: float = clampf((0.36 - t) / 0.36, 0.0, 1.0)
 				var br: float = bsize * scale_value * (0.42 + 0.35 * (t / 0.36))
 				_fx_poly(fx, _star_poly(center + Vector2(0.0, -4.0 * scale_value), br, br * 0.45, 6, seed_val, t * 2.0), Color(1.0, 0.48, 0.14, blast_a * 0.86))
 				_fx_circle(fx, center + Vector2(0.0, -4.0 * scale_value), br * 0.38, Color(1.0, 0.92, 0.60, blast_a * 0.92))
-			if t < 0.78:
+			if on_fire and t < 0.78:
 				var fire_env: float = clampf((0.78 - t) / 0.78, 0.0, 1.0)
 				var flame_n: int = 3 if lod == 0 else (2 if lod == 1 else 1)
 				for i in range(flame_n):
@@ -715,7 +724,7 @@ static func wreck(chart, w: Dictionary) -> int:
 					var fp2: Vector2 = _project(chart, fw_pos, (10.0 + float(i) * 3.5) * (1.0 - t * 0.75))
 					var fr: float = maxf(1.4, bsize * scale_value * (0.15 - 0.02 * float(i)) * fire_env)
 					_fx_circle(fx, fp2, fr, Color(1.0, 0.54 + 0.14 * float(i % 2), 0.16, fire_env * 0.86))
-			var smoke_n: int = 4 if lod == 0 else (3 if lod == 1 else 1)
+			var smoke_n: int = (4 if lod == 0 else (3 if lod == 1 else 1)) if on_fire else 0
 			for i in range(smoke_n):
 				var s_progress: float = fposmod(t * 1.4 + float(i) * 0.27, 1.0)
 				var s_world: Vector2 = w_pos + Vector2((float(i) - 1.2) * bsize * 0.25, 0.0).rotated(base_angle)
@@ -734,13 +743,14 @@ static func wreck(chart, w: Dictionary) -> int:
 
 	# 4. Escaping air bubbles and floating wreckage debris (during and after submergence).
 	var tail_fade: float = clampf(1.0 - maxf(0.0, age - 1.8) / 4.5, 0.18, 1.0)
+	var bubble_fade: float = clampf(1.0 - maxf(0.0, age - 1.8) / 4.5, 0.0, 1.0)
 	var bub_count: int = 6 if lod == 0 else (4 if lod == 1 else 2)
 	for i in range(bub_count):
 		var b_ang: float = _det_angle(seed_val, i, bub_count, 0.3)
 		var b_dist: float = bsize * (0.14 + (0.42 + 0.28 * t) * _det_unit(seed_val, i, 211))
 		var b_pos: Vector2 = _project(chart, w_pos + Vector2.from_angle(b_ang) * b_dist, (1.0 - t) * 3.0)
 		var b_rad: float = maxf(0.9, (1.2 + float(i % 3) * 0.55) * scale_value * (1.0 - 0.3 * t))
-		_fx_circle(fx, b_pos, b_rad, Color(FOAM_LIGHT, tail_fade * 0.76))
+		_fx_circle(fx, b_pos, b_rad, Color(FOAM_LIGHT, bubble_fade * 0.76))
 
 	var deb_count: int = 6 if lod == 0 else (4 if lod == 1 else 3)
 	for i in range(deb_count):
@@ -750,7 +760,7 @@ static func wreck(chart, w: Dictionary) -> int:
 		var dp: Vector2 = _project(chart, d_world, 0.0)
 		var plank_dir: Vector2 = Vector2.from_angle(d_ang + 1.1 + float(i) * 0.5)
 		var plen: float = maxf(2.4, (3.6 + float(i % 2) * 1.8) * scale_value)
-		var dcol: Color = Color(0.74, 0.54, 0.31, tail_fade * 0.72) if i % 2 == 0 else Color(0.56, 0.70, 0.62, tail_fade * 0.58)
+		var dcol: Color = Color(0.74, 0.54, 0.31, tail_fade * 0.72) if str(w.get("material","wood"))=="wood" else Color(0.56, 0.70, 0.66, tail_fade * 0.58)
 		_fx_line(fx, dp - plank_dir * plen * 0.5, dp + plank_dir * plen * 0.5, dcol, maxf(1.0, 1.5 * scale_value))
 		if lod == 0 and i == 0 and t > 0.25:
 			_fx_poly(fx, _shard_poly(dp, plank_dir, 3.2 * scale_value, 1.8 * scale_value), Color(0.80, 0.58, 0.34, tail_fade * 0.75))

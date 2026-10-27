@@ -1,7 +1,8 @@
 extends Node2D
-## Real recording bank; bounded, camera-aware voices for every deployed boat.
+## Recorded combat banks and an original procedural engine loop; bounded camera-aware voices.
 const VOICE_LIMIT=32
 const EVENT_VOICE_LIMIT=12
+const AUDIBLE_RADIUS=2200.0
 const RAPID_INTERVAL=0.16
 const RAPID_SOURCE_LIMIT=128
 var enabled=true
@@ -69,9 +70,59 @@ func _process(dt: float):
 func priority(event: Dictionary,camera: Vector2) -> float:
 	var value=100.0 if event.kind=="sink" else (82.0 if event.family in ["torpedo","cannon","rocket"] else 58.0)
 	if event.kind=="hit":value+=12.0
+	if event.kind=="hit" and (event.get("breach",false) or event.get("engineDamaged",false)):
+		value=minf(98.0,value+8.0)
 	if event.kind=="engine":value=90.0
 	if event.kind=="miss":value-=24.0
 	return value-Vector2(event.x,event.y).distance_to(camera)/80.0
+
+static func event_layers(event: Dictionary) -> Array:
+	# Pure routing used by consume and silent fixtures. Never synthesize an attack
+	# or infer damage: a contact, breach, engine failure or sinking must be reported.
+	var family: String=str(event.get("family",""))
+	var contact: String="metal" if str(event.get("material","")) in ["armor","metal","engine"] else "wood"
+	var primary: Dictionary={"sound":"","gain":-23.0,"pitch":1.0}
+	var accent: Dictionary={}
+	match str(event.get("kind","")):
+		"fire":
+			match family:
+				"gun":primary={"sound":"gun","gain":-18.0,"pitch":1.04}
+				"cannon":primary={"sound":"cannon","gain":-12.0,"pitch":0.94}
+				"rocket":primary={"sound":"rocket","gain":-18.0,"pitch":1.02}
+				"torpedo":primary={"sound":"splash","gain":-22.0,"pitch":0.84}
+		"miss":
+			primary={"sound":"splash" if event.get("material","")=="water" else "wood","gain":-25.0 if family=="gun" else -22.0,"pitch":0.82 if family=="torpedo" else 1.0}
+		"hit":
+			match family:
+				"gun":primary={"sound":contact,"gain":-23.0,"pitch":1.08}
+				"cannon":
+					primary={"sound":contact,"gain":-20.0,"pitch":0.88}
+					if event.get("breach",false):accent={"sound":"cannon","gain":-25.0,"pitch":0.82}
+				"rocket":
+					primary={"sound":"cannon","gain":-14.0,"pitch":1.10}
+					accent={"sound":contact,"gain":-24.0,"pitch":1.02}
+				"torpedo":
+					# Water is the admitted attack; the subdued recording under it is
+					# a low impact layer, distinct from a rocket's sharp dry report.
+					primary={"sound":"splash","gain":-16.0,"pitch":0.76}
+					accent={"sound":"cannon","gain":-23.0,"pitch":0.70}
+		"engine":primary={"sound":"metal","gain":-22.0,"pitch":0.80}
+		"sink":
+			primary={"sound":"splash","gain":-19.0,"pitch":0.78}
+			accent={"sound":"wood","gain":-25.0,"pitch":0.76}
+	if str(primary.sound).is_empty():return []
+	var layers: Array=[primary]
+	if not accent.is_empty():layers.append(accent)
+	var weight: float=0.88 if event.get("variant","light")=="heavy" else 1.0
+	var variation: float=0.97+float(int(event.get("seq",0))%7)*0.01
+	for layer in layers:layer.pitch=clampf(float(layer.pitch)*weight*variation,0.65,1.25)
+	return layers
+
+static func attenuation_db(distance: float) -> float:
+	if not is_finite(distance):return -36.0
+	var d: float=clampf(distance,0.0,AUDIBLE_RADIUS)
+	# Continuous distance falloff and a soft far edge; zoom cannot alter loudness.
+	return -20.0*log(1.0+d/320.0)/log(10.0)-18.0*smoothstep(1600.0,AUDIBLE_RADIUS,d)
 
 func _rapid_key(event: Dictionary) -> String:
 	# Each recorded burst already contains several shots. Keep its source audible
@@ -101,26 +152,21 @@ func consume(events: Array,chart):
 		if count>=EVENT_VOICE_LIMIT:dropped+=1;continue
 		var position=Vector2(event.x,event.y)
 		var distance=position.distance_to(chart.camera)
-		if distance>2200.0:dropped+=1;continue
+		if not is_finite(distance) or distance>AUDIBLE_RADIUS:dropped+=1;continue
 		var rapid_key=_rapid_key(event)
 		if not rapid_key.is_empty() and (rapid_until.has(rapid_key) or rapid_until.size()>=RAPID_SOURCE_LIMIT):dropped+=1;continue
-		var sound=""
-		match event.kind:
-			"fire":sound="splash" if event.family=="torpedo" else str(event.family)
-			"miss":sound="splash" if event.material=="water" else "wood"
-			"hit":sound="cannon" if event.family in ["rocket","torpedo"] else ("metal" if event.material=="armor" else "wood")
-			"engine":sound="metal"
-			"sink":sound="splash"
-		if sound.is_empty():continue
-		var gain=-12.0 if sound=="cannon" else (-18.0 if sound in ["gun","rocket"] else -23.0)
-		gain-=clampf(distance/170.0,0,15)
-		var pitch=0.86 if event.get("variant","light")=="heavy" else 1.0
-		pitch*=0.97+float(int(event.seq)%7)*0.01
-		if _schedule(sound,chart.project(position),gain,pitch,priority(event,chart.camera)):
+		var layers: Array=event_layers(event)
+		if layers.is_empty():continue
+		var primary: Dictionary=layers[0]
+		var loss: float=attenuation_db(distance)
+		var projected: Vector2=chart.project(position)
+		var rank: float=priority(event,chart.camera)
+		if _schedule(str(primary.sound),projected,float(primary.gain)+loss,float(primary.pitch),rank):
 			count+=1
 			if not rapid_key.is_empty():rapid_until[rapid_key]=clock+RAPID_INTERVAL
-			if event.kind=="hit" and event.family=="torpedo":accents.append({"sound":"splash","position":chart.project(position),"gain":gain-3.0,"pitch":0.83,"rank":priority(event,chart.camera)-1.0})
-			if event.kind=="sink":accents.append({"sound":"wood","position":chart.project(position),"gain":gain-1.0,"pitch":0.72,"rank":priority(event,chart.camera)-1.0})
+			if layers.size()>1:
+				var accent: Dictionary=layers[1]
+				accents.append({"sound":accent.sound,"position":projected,"gain":float(accent.gain)+loss,"pitch":accent.pitch,"rank":rank-1.0})
 	# Primary reports/impacts come before secondary layers. Layers share the same
 	# admission budget, rather than doubling it during a crowded sinking salvo.
 	for accent in accents:
@@ -128,6 +174,7 @@ func consume(events: Array,chart):
 		if _schedule(accent.sound,accent.position,accent.gain,accent.pitch,accent.rank):count+=1
 
 func _schedule(kind: String,position: Vector2,db: float,pitch: float,rank: float) -> bool:
+	if not position.is_finite() or not is_finite(db) or not is_finite(pitch) or not is_finite(rank) or pitch<0.65 or pitch>1.25:return false
 	var variants: Array=bank.get(kind,[])
 	if variants.is_empty():return false
 	var chosen=-1
@@ -141,12 +188,14 @@ func _schedule(kind: String,position: Vector2,db: float,pitch: float,rank: float
 	var index=(int(last_variant.get(kind,-1))+1)%variants.size()
 	last_variant[kind]=index
 	var stream: AudioStream=variants[index]
+	var duration: float=stream.get_length()/pitch
+	if not is_finite(duration) or duration<=0.0:return false
 	slot.player.stream=stream
 	slot.player.position=position
 	slot.player.volume_db=db
 	slot.player.pitch_scale=pitch
 	slot.priority=rank
-	slot.until=clock+stream.get_length()/pitch
+	slot.until=clock+duration
 	if not headless and enabled:slot.player.play()
 	scheduled+=1
 	var active=0

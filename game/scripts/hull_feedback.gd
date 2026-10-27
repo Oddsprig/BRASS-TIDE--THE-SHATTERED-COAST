@@ -4,6 +4,7 @@ const Profiles=preload("res://scripts/hull_profiles.gd")
 const Faces=preload("res://scripts/weapon_art.gd")
 const Layout=preload("res://scripts/mount_layout.gd")
 const MAX_SCARS: int=8
+const MAX_EQUIPMENT_MARKS: int=6
 
 static func equipment_marks(boat: Dictionary,mounts: Array) -> Array:
 	# Live presentation reads the already validated installed records, never locker
@@ -28,9 +29,19 @@ static func equipment_marks(boat: Dictionary,mounts: Array) -> Array:
 			# Integral pumps occupy the cabin/bilge damage box, not a gun socket.
 			var part: Dictionary=structure.engine if location=="engine" else structure.cabin
 			anchor=Vector2(part.x,part.y);height=float(part.height)+1.5;found=true
-		if found and marks.size()<6:
+		if found and marks.size()<MAX_EQUIPMENT_MARKS:
 			marks.append({"location":location,"at":anchor,"height":height,"status":str(value.status),"hp":float(value.hp)})
 	return marks
+
+static func _engine_hp(boat: Dictionary) -> float:
+	# The installed record can change during repair on the very same hull ID.
+	# Read it live; never retain an engine-condition snapshot in art caches.
+	var condition=boat.get("moduleCondition")
+	if condition is Dictionary and condition.get("version")==1 and condition.get("items") is Dictionary:
+		for item in condition.items.values():
+			if item is Dictionary and item.get("family")=="engines" and item.get("location")=="engine":
+				return clampf(float(item.hp),0,1)
+	return clampf(float(boat.get("engine",1)),0,1)
 
 static func draw_equipment(ctx: Dictionary,boat: Dictionary,mounts: Array) -> void:
 	if int(ctx.lod)>=2:return
@@ -121,9 +132,11 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 		if age>=0 and age<0.18:
 			var p: Vector2=_p(ctx,Vector2(hit.x,hit.y),11)
 			var radius: float=(3+float(hit.power)*3)*scale
-			_circle(ctx,p,radius,Color(1,0.74,0.33,(1-age/0.18)*0.5))
+			var glint:=Color(0.82,0.94,1.0) if str(hit.get("material","wood")) in ["armor","metal"] else Color(1,0.74,0.33)
+			glint.a=(1-age/0.18)*0.5
+			_circle(ctx,p,radius,glint)
 	var fire: float=clampf(float(boat.get("fire",0)),0,100)
-	var engine: float=clampf(float(boat.get("engine",1)),0,1)
+	var engine: float=_engine_hp(boat)
 	var clock: float=float(ctx.clock)
 	if engine<0.72 and lod<2:
 		_smoke(ctx,Vector2(-1.04,0.03),engine<0.3,clock,scale,3 if lod==0 else 2)

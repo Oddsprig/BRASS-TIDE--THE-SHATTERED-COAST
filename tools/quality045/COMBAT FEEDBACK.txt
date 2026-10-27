@@ -1,0 +1,81 @@
+BRASS TIDE v0.045 - COMBAT FEEDBACK SOURCE HANDOFF
+
+Base: a0362bb999c2289b4defc7973bbc469d61f05fb5 (045 metadata on delivered 044).
+Owner: feedback Sol specialist; Root owns integration and every native/TestBridge job.
+Status: SOURCE ONLY. No engine, fixture execution, rendering/bake, GPU workload,
+audio playback, download, nested helper or save/music operation was performed.
+Source/diff review is not native validation or an acceptance pass.
+
+Concrete changes
+- Existing real CombatEvents still create all shots, contacts, breaches and deaths.
+  No damage, RNG, simulation, thread, custody or equipment accounting change.
+- Armor opening uses the event's actual breach flag. A short dark opening replaces
+  the reflected streak; no numerical hole or new scar record is created by art.
+- Torpedo launch/impact remains cool water, foam and fragments without the orange
+  rocket fireball. Rocket impacts retain the short dry flash and fragment profile.
+- Sink-event flame/smoke and wreck flame/smoke require recorded incendiary/onFire.
+  Cold hull losses settle with foam/debris; cold flooding keeps its water surge.
+  Wreck bubbles finish fading after 6.3 seconds; existing faint debris remains.
+  Listing, settling, submergence and the 2.2-second simulation duration are retained.
+- Hull impact glints use the real material. Engine smoke reads the live installed
+  engine hp before the already-existing scalar projection, with a legacy fallback.
+  Existing damage/disable symbols still read installed records at real mount,
+  engine and bilge anchors each draw; no condition cache is added.
+- Torpedo hit primary is the existing splash bank, with a quieter lower cannon
+  layer. Rocket hit primary is a sharper cannon cut plus a quiet material contact.
+  Gun/cannon reports keep their own recordings; cannon contact is lower-pitched,
+  with an extra subdued thump only on a reported breach. Heavy pitch differences
+  and rotating recorded cuts remain bounded; no generated pings/tones are added.
+- Reports/impacts precede all accents. Accents share the same 12-admission budget.
+  Significant reported breaches/engine damage gain priority below sinking at an
+  equal camera distance. Camera attenuation now falls continuously and softens
+  toward the existing 2200-unit cull, independent of display zoom.
+
+API / bounds
+- Sound.event_layers(event: Dictionary) -> Array is new, pure, at most two fresh
+  {sound, gain, pitch} dictionaries, consumed by the existing Sound.consume path.
+- Sound.attenuation_db(distance: float) -> float is new and pure.
+- No existing public consumer signature or CombatEvents schema changed.
+  Internal CombatArt._draw_sink_effect adds an on_fire argument supplied by effect().
+- Effect cap remains 35. Wreck overlay cap remains 96 (now named); full fading hull
+  geometry is separate, as before. No effect/event/wreck population cap was raised.
+- Sound pool stays 32, per-consume admitted voices 12 including layers, rapid source
+  bookkeeping 128 and interval 0.16 seconds. Pitch stays within 0.65..1.25; invalid
+  positions/gains/pitches/priorities and nonfinite clip lifetimes are not scheduled.
+- Equipment overlay remains at most six marks / eighteen primitive calls; scars 8.
+- All node/audio/resource/draw work remains on the existing caller/main-thread path.
+
+Focused fixture for ROOT TO RUN, not run by this source-only specialist
+game/tests/test_presentation045.gd
+  --headless --audio-driver Dummy --path game --script res://tests/test_presentation045.gd
+Use TestBridge with the existing whole-batch deadline under 120 seconds. Do not
+nest a lane lease. Keep queued/interrupted/failed results distinct from passes.
+
+The fixture uses actual fitted mount fire producers, actual Damage.apply_hit
+outcomes and miss producers, canonical component damage and supply-consuming
+repair, plus actual terminal Damage states before record_wreck/emit_sink.
+It captures existing draw primitives, checks LOD/accounting/finite geometry and
+expiration, same-ID detached conditions, breach distinction, fire/cold/flood sink
+states, and decodes/schedules the six existing banks without calling play().
+Admission stress explicitly re-sequences authentic records in detached fixture
+state. It does not claim more real battle shots or additional damage outcomes.
+The fixture refuses a non-headless display before creating its Sound node.
+Relevant existing regression fixtures for Root's selected batch:
+  test_combat_feedback040.gd and test_presentation_flow040.gd.
+
+Assets, preferences and exact acceptance limits
+- No audio asset or source manifest changed. The six combat banks are the existing
+  edited CC0 recordings documented in game/assets/sfx/manifest.json and
+  docs/audio/RECORDED AUDIO CREDITS.txt. No external license page was reverified.
+- engine.wav remains the game's ORIGINAL PROCEDURAL loop, not a recording.
+- Weapon and ambience buses remain independent; supplied music, settings, save
+  files and system/user volume are untouched. No worker-pool/render-mode change.
+- docs/COMBAT v0.044.png was inspected only as a still baseline. No new rendered
+  output, native parser result, FPS measurement or visual improvement is certified.
+- Root still needs native parsing + focused fixture results, rendered combat at
+  representative headings/zooms and crowded volleys, and actual motion capture of
+  shot timing, armor opening, repair transitions and the full sinking sequence.
+- Actual listening is still required for wet/dry distinction, pitch suitability,
+  balance, spatial pan, attenuation, clipping and music coexistence. Silent codec
+  or scheduling checks establish none of those perceptual qualities.
+- No animation, sound-quality, smoothness, fun or Starsector-parity acceptance claim.
