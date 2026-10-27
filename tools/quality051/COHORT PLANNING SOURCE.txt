@@ -1,0 +1,41 @@
+COHORT PLANNING - SOURCE CANDIDATE / NATIVE UNRUN
+Parent: 963b6a68cd25ce9a8543c7bf779dc4986a203142
+Workspace: work/quality-v042-v061/v051-cohort-planning-sol
+
+Planner replaces indivisible side jobs with deadline-ordered cohorts no larger
+than the existing global fair cap. Joined cohorts transfer members independently.
+An actor generation leaves its index exactly once on take/invalidation/expiry;
+late or retired task completion cannot restore it. Retired unfinished tasks keep
+their global seat until joined: at most TWO unfinished tasks, no runtime waits.
+
+Every original 150ms SIDE period allocates 2900 traffic-clearance tests PLUS
+128 separate fixed-endpoint proof tests and FOUR A* searches, sliced once across
+all automated actors. Cohorts never refill those allowances. Every actor still
+generates its full existing <=8 alternatives. Main connector, current traffic,
+certification, resolution, 60Hz helm/fire and useful-observation limits unchanged.
+Pending members retain the existing min(sample+150ms,lastUseful+200ms-dt) limit
+and all current command/owner/options/terrain/target/capability/phase guards.
+
+Agreed Roles contract ca028a1e / 0975187a / 110cdc0c: optional fourth private
+_prepare_begin and fifth _prepare_with_worker051 take freshDecisions051 records.
+Validate identical snapshot owner/revision/at and original chosen+.45; erase once
+before worker join/full choice, regenerate candidates, and forward original time
+through planning.originalPreferenceChosenAt051. Dispatch copies completed
+same-begin decisions only into detached records tied to OWN worker snapshot.
+All capsule inputs are owned data; no live mutable main/Scene/GPU objects.
+Requires Roles' matching retention/publication changes at Root. Runtime wiring
+of optional fifth argument is identical in both handoffs; other seams disjoint.
+
+Existing AI --case=workers adds real independent completion/member invalidation,
+all-actor side-period aggregate 2900/128/4, late retirement/no restoration, and
+prepared-decision identity/revision/time/clock cases. Existing handoff cases use
+younger samples before authority expiry; real final adoption checks now use
+original .45 cutoff, preserving current pose/HP/certificate and <=.2s assertions.
+No new harness/selector. Public planner defaults and unrelated fixtures unchanged.
+
+Exactly ONE final source advisory:
+python tools/check_preload_calls.py game scripts/tactical_planner.gd scripts/tactical_runtime.gd tests/test_tactical_ai.gd
+Result: issues=[], advisoryOnly=true, engineInvoked=false. git diff --check clean.
+No engine, native fixtures, profiles, export, GPU jobs or helpers run.
+Behavior and savings UNVERIFIED. R37 PASS/R18 quality FALSE retained; 051 OPEN,
+no 051 release or 052. Root alone performs combined validation. STOP after commit.

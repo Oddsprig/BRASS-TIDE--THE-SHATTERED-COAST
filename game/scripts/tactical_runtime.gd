@@ -704,7 +704,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		memories[side]=t.memory[side]
 		detail.snapshots+=Time.get_ticks_usec()-phase_started
 		phase_started=Time.get_ticks_usec()
-		planning[side]=Planner._prepare_with_worker051(snapshot,memories[side],suggestion051,current051.indexes[side])
+		planning[side]=Planner._prepare_with_worker051(snapshot,memories[side],suggestion051,current051.indexes[side],current051.get("freshDecisions051",{}))
 		for id in side_due:copies[id]=planning[side].context[id]
 		# Admission evidence belongs ONLY to this closed begin and exact offers.
 		planning[side].beginView051=snapshot;planning[side].beginOffers051={}
@@ -845,11 +845,10 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		t.metrics.pendingAges.append(age)
 		t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
 	detail.resolution=Time.get_ticks_usec()-phase_started
-	# One owned whole-side sample every .15s, independent of the fair main cap.
-	# Worker pure route slices have their OWN hard 2900/4 limits; current main
-	# connectors/certification/resolution retain the normal budget above.
+	# Deadline-ordered cohorts join independently. All cohorts share ONE side's
+	# 150ms pure 2900/4 allowance; current main certification stays unchanged.
 	phase_started=Time.get_ticks_usec()
-	var worker_tally051: Dictionary=Planner._dispatch_batch051(st,queued,_worker_view051,_worker_capability051,frame_cache)
+	var worker_tally051: Dictionary=Planner._dispatch_batch051(st,queued,_worker_view051,_worker_capability051,frame_cache,planning)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.workerDispatches+=int(worker_tally051.dispatches)
 		_runtime_profile043_counts.workerDrops+=int(worker_tally051.drops)

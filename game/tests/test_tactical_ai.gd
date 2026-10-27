@@ -856,37 +856,34 @@ func traffic_resolve051() -> void:
 	check(int(pending.counters.accepted)==0 and int(pending.counters.clearanceExhausted)>0 and int(pending.counters.clearanceTests)==0,"private resolve cannot accept through exhausted reservation work")
 	observations.append({"case":"traffic-prefix-resolve","certificateStatus":certificate.status,"public":public_result.counters,"private":live.counters,"pending":pending.counters})
 
-func _worker_slot051(arena: Dictionary) -> Dictionary:
+func _worker_slot051(arena: Dictionary, expiry051: bool=true) -> Dictionary:
 	var st: Dictionary=arena.state
 	var id: String=str(arena.source.id)
 	T.enable_planning051(st);worker_states051.append(st)
-	# Obtain a REAL whole-side sample just before retained preference expiry.
+	# Obtain a REAL cohort sample before the ORIGINAL .45s preference expiry.
 	# No fabricated task, descriptor, completion flag or physical certificate.
 	var batch_times: Dictionary={}
 	var spaced: bool=true
-	var whole_side: bool=false
 	for tick: int in range(60):
 		B.update(st,1.0/60.0);B.pop_events(st)
 		var slots: Dictionary=st.tactical.workers051.slots
-		for side: String in slots:
-			var made_at: float=float(slots[side].createdAt)
-			if batch_times.has(side) and made_at>float(batch_times[side])+0.000001:spaced=spaced and made_at-float(batch_times[side])>=0.15-0.000001
-			batch_times[side]=made_at
-			whole_side=whole_side or slots[side].remaining.size()>int(st.tactical.metrics.normalLimit)
+		for cohort: Dictionary in slots.values():
+			for member: String in cohort.guards:
+				if batch_times.has(member) and int(cohort.generation051)!=int(batch_times[member].generation):spaced=spaced and float(cohort.periodAt051)>=float(batch_times[member].period)+0.15-0.000001
+				batch_times[member]={"generation":int(cohort.generation051),"period":float(cohort.periodAt051)}
 		var held: Variant=st.tactical.retained051.get(id)
-		if slots.has("player") and id in slots.player.remaining and held is C._Retained051 and float(slots.player.createdAt)==float(st.time) and float(st.time)-held.chosen_at>=0.20-0.000001:
-			var slot: Dictionary=slots.player
-			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at<0.30+0.000001 and spaced,"whole-side samples are at least0.15s apart, before normal preference expiry")
+		var slot: Dictionary=Planner._member_slot051(st.tactical,id)
+		if not slot.is_empty() and held is C._Retained051 and float(slot.createdAt)==float(st.time) and float(st.time)-held.chosen_at>=(0.30 if expiry051 else 0.10)-0.000001:
+			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at<0.45+0.000001 and spaced,"actor samples debit distinct150ms side periods before original preference expiry")
 			check(float(st.tactical.lastDecision[id])==float(slot.guards[id].decisionAt) and float(slot.createdAt)==float(st.time) and is_same(st.tactical.intents.get(id),held.intent),"batch dispatch preserves real observation clocks and grants no new helm authority")
 			var complete: bool=true
-			for side: String in slots:
-				if float(slots[side].createdAt)!=float(st.time):continue
-				for ship: Dictionary in st.tactical.ships.values():
-					if str(ship.team)==side and str(ship.id)!=str(st.tactical.manualId):complete=complete and str(ship.id) in slots[side].remaining
-			check(complete and whole_side and Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"whole-side jobs include every automated hull beyond the consumption cap without exceeding main/global task caps")
+			for cohort: Dictionary in slots.values():complete=complete and cohort.guards.size()<=int(st.tactical.metrics.normalLimit)
+			for ship: Dictionary in st.tactical.ships.values():
+				if str(ship.id)!=str(st.tactical.manualId):complete=complete and st.tactical.workers051.periods051[str(ship.team)].slices.has(str(ship.id))
+			check(complete and Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"cohorts obey the consumption cap and side periods allocate every automated hull inside main/global caps")
 			return {"slot":slot,"held":held}
 		OS.delay_usec(500) # Fixture scheduling only, outside public physics.
-	check(false,"worker case obtains a real whole-side expiry sample within60 public ticks")
+	check(false,"worker case obtains a real cohort expiry sample within60 public ticks")
 	observations.append({"case":"workers-start-failed","time":st.time,"intent":st.tactical.intents.get(id,{}),"memory":st.tactical.memory.player.byId.get(id,{}),"reason":st.tactical.reasons.get(id,""),"slots":st.tactical.workers051.slots.keys()})
 	return {}
 
@@ -997,7 +994,7 @@ func worker_handoff051() -> void:
 		var st: Dictionary=arena.state
 		var source: Dictionary=arena.source
 		var id: String=str(source.id)
-		var lease: Dictionary=_worker_slot051(arena)
+		var lease: Dictionary=_worker_slot051(arena,false)
 		if lease.is_empty():T.retire_planning051(st);T.drain_planning051();continue
 		var slot: Dictionary=lease.slot
 		if not _worker_join051(slot):T.retire_planning051(st);T.drain_planning051();continue
@@ -1044,19 +1041,123 @@ func worker_handoff051() -> void:
 		# Always release our fence before teardown; no runtime wait or leaked task.
 		release.post()
 		if _worker_join051(slot) and variant=="late":
-			for tick: int in range(12):
-				B.update(st,1.0/60.0);B.pop_events(st)
-				if id in slot.adopted or id in slot.discarded:break
+			var joined: Dictionary=Planner._take_worker051(st,"player",[id],T._worker_capability051,null,T._worker_wait_guard051,{})
+			var view: Dictionary=T.view(st,"player",[id])
+			var prepared: Dictionary=Planner._prepare_with_worker051(view,st.tactical.memory.player,joined)
 			check(id in slot.adopted and id not in slot.discarded and float(st.time)-last<=0.2+0.000001,"late real worker result adopts before unchanged observation expiry")
+			check(id in prepared.workerIds051 and float(st.tactical.lastDecision[id])==last and is_same(st.tactical.intents.get(id),intent),"late preference transfer itself cannot grant a clock or overwrite current authority")
+		elif variant=="deadline":
+			var fallback_at: float=float(st.tactical.lastDecision.get(id,-1.0))
+			var late: Dictionary=Planner._take_worker051(st,"player",[id],T._worker_capability051,null,T._worker_wait_guard051,{})
+			check(id not in late.get("allowed",[]) and slot.adopted.is_empty() and slot.discarded.count(id)==1 and float(st.tactical.lastDecision.get(id,-1.0))==fallback_at,"late completion cannot restore a consumed deadline generation or renew its clock")
 		observations.append({"case":"workers-handoff","variant":variant,"createdAt":slot.createdAt,"deadline":deadline,"time":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate()})
 		T.retire_planning051(st);T.drain_planning051()
 		check(bool(slot.joined) and slot.capsule==null and Planner._tasks051.is_empty(),"bounded handoff case joins every owned task: "+variant)
+
+func worker_cohorts051() -> void:
+	var spec: Dictionary=SPEC.duplicate(true);spec.range=300.0
+	var fleet: Array=[]
+	for index: int in range(12):fleet.append(D.create_ship(spec,{"uid":"cohort-"+str(index)}))
+	var enemy_spec: Dictionary=spec.duplicate(true);enemy_spec.speed=0.0
+	var st: Dictionary=B.create({"fleet":fleet,"enemyFleet":[D.create_ship(enemy_spec,{"uid":"cohort-target","ammo":0.0})],"seed":30011,"islands":[]})
+	st.islands=[];st.autoBoard=false
+	for index: int in range(12):
+		var ship: Dictionary=st.ships[index]
+		ship.x=400.0+float(index%3)*180.0;ship.y=300.0+floorf(float(index)/3.0)*250.0
+	st.ships[-1].x=1900.0;st.ships[-1].y=850.0
+	T.enable_planning051(st);worker_states051.append(st)
+	B.update(st,1.0/60.0);B.pop_events(st)
+	var initial: Array=st.tactical.workers051.slots.values()
+	check(initial.size()==2 and int(st.tactical.metrics.normalLimit)==2,"real13-hull frame dispatches two independently owned cap-two cohorts")
+	if initial.size()!=2:T.retire_planning051(st);T.drain_planning051();return
+	var slow: Dictionary=initial[0]
+	var ready: Dictionary=initial[1]
+	if not _worker_join051(slow) or not _worker_join051(ready):T.retire_planning051(st);T.drain_planning051();return
+	var outputs: Array=[slow.capsule.result,ready.capsule.result] # Both REAL results already joined; retain their costs before the fence.
+	var release: Semaphore=Semaphore.new()
+	slow.joined=false;slow.taskId=WorkerThreadPool.add_task(release.wait,false,"AI fixture independent cohort fence")
+	Planner._tasks051.append(slow)
+	var clocks: Dictionary=st.tactical.lastDecision.duplicate(true)
+	var invalid: String=str(ready.remaining[0])
+	var neighbor: String=str(ready.remaining[1])
+	check(B.issue_order(st,[invalid],"move",{"x":300.0,"y":1450.0}),"one joined cohort member receives a real superseding command")
+	var offered: Dictionary=Planner._take_worker051(st,str(ready.side),ready.remaining.duplicate(),T._worker_capability051,null,T._worker_wait_guard051,{})
+	check(offered.allowed==[neighbor] and invalid in ready.discarded and neighbor not in ready.discarded and not bool(slow.joined) and not slow.remaining.is_empty(),"completed cohort is usable independently; invalidating one member preserves its neighbor and the unfinished cohort")
+	check(Planner._take_worker051(st,str(ready.side),[neighbor],T._worker_capability051,null,T._worker_wait_guard051,{}).get("allowed",[]).is_empty(),"a joined member generation transfers at most once")
+	var order: Array=st.tactical.ships.keys()
+	for round051: int in range(10):
+		Planner._poll_tasks051()
+		Planner._dispatch_batch051(st,order,T._worker_view051,T._worker_capability051,null)
+		check(Planner._tasks051.size()<=2,"independent cohorts retain the global unfinished task cap")
+		var complete: bool=true
+		for period: Dictionary in st.tactical.workers051.periods051.values():
+			complete=complete and period.sent.size()==period.slices.size()
+		for slot: Dictionary in st.tactical.workers051.slots.values():
+			if is_same(slot,slow):continue
+			if _worker_join051(slot):
+				outputs.append(slot.capsule.result)
+				Planner._take_worker051(st,str(slot.side),slot.remaining.duplicate(),T._worker_capability051,null,T._worker_wait_guard051,{})
+		if complete:break
+	var issued: int=0
+	var totals: Dictionary={}
+	for output: Dictionary in outputs:
+		var side: String=str(output.planning.context[str(output.budgets.keys()[0])].team)
+		if not totals.has(side):totals[side]={"clearance":0,"proof":0,"routes":0}
+		totals[side].proof+=int(output.proofBudget051.clearanceTests)
+		for id: String in output.budgets:
+			var budget: Dictionary=output.budgets[id]
+			totals[side].clearance+=int(budget.clearanceTests)
+			totals[side].routes+=int(budget.fullRoutes)-4+int(budget.routeAllowance051)
+			check(int(budget.clearanceTests)<=int(budget.clearanceLimit) and output.requests.get(id,[]).size()<=8,"every independently joined cohort preserves all bounded candidate generation and its owned slice")
+	for period: Dictionary in st.tactical.workers051.periods051.values():
+		issued+=period.sent.size()
+		check(int(period.clearanceAllocated)==2900 and int(period.proofAllocated)==128 and int(period.routesAllocated)==4 and period.sent.size()==period.slices.size(),"all cohorts collectively allocate original2900traffic PLUS128proof/four-route side allowances once per150ms period")
+	for spent: Dictionary in totals.values():check(int(spent.clearance)<=2900 and int(spent.proof)<=128 and int(spent.routes)<=4,"actual completed cohort traffic/proof work stays inside separate aggregate side bounds")
+	check(issued==13 and float(st.time)==1.0/60.0 and st.tactical.lastDecision.get(neighbor)==clocks.get(neighbor),"dispatch/join covers every actor without advancing simulation or useful-observation clocks")
+	var old_generation: int=int(slow.generation051)
+	var slow_ids: Array=slow.remaining.duplicate()
+	Planner._release_slot051(st.tactical,slow)
+	check(bool(slow.retired) and Planner._tasks051.has(slow) and not bool(slow.joined),"retired unfinished cohort retains its global task seat until real completion")
+	var retired_dispatch: Dictionary=Planner._dispatch_batch051(st,order,T._worker_view051,T._worker_capability051,null)
+	check(int(retired_dispatch.dispatches)==0 and Planner._tasks051.size()==1,"retiring a cohort cannot refill already spent side-period actor slices")
+	release.post();_worker_join051(slow)
+	check(slow.capsule==null and not st.tactical.workers051.slots.has(old_generation) and slow_ids.all(func(id):return Planner._member_slot051(st.tactical,str(id)).is_empty()),"late retired completion cannot restore any consumed generation")
+	T.retire_planning051(st);T.drain_planning051()
+	check(Planner._tasks051.is_empty(),"independent cohort case joins every owned task")
+
+func worker_prepared051() -> void:
+	var arena: Dictionary=local_arena()
+	var st: Dictionary=arena.state
+	B.update(st,1.0/60.0);B.pop_events(st)
+	var id: String=str(arena.source.id)
+	var view: Dictionary=T.view(st,"player",[id])
+	var context: Dictionary=Roles.ships_by_id(view)
+	var memory: Dictionary=st.tactical.memory.player
+	var base: Dictionary=Planner._prepare_begin(view,memory,context)
+	var fresh: Dictionary=base.decisions[id].duplicate(true)
+	var record: Dictionary={"owner":context[id],"revision":int(view.snapshotRevision),"at":float(view.time),"decision":fresh,"originalPreferenceChosenAt":0.0}
+	var records: Dictionary={id:record}
+	var before: Dictionary=memory.duplicate(true)
+	var clock: float=float(st.tactical.lastDecision[id])
+	var prepared: Dictionary=Planner._prepare_with_worker051(view,memory,{},context,records)
+	check(records.is_empty() and is_same(prepared.decisions[id],fresh) and float(prepared.originalPreferenceChosenAt051[id])==0.0 and prepared.candidates.size()==base.candidates.size(),"same-begin semantic decision is consumed once with its original choice time and all candidates regenerated")
+	check(memory==before and float(st.tactical.lastDecision[id])==clock,"consuming a prepared decision alone publishes no memory or useful-observation clock")
+	for changed: String in ["owner","revision","at"]:
+		var stale: Dictionary=record.duplicate()
+		if changed=="owner":stale.owner=context[id].duplicate(true)
+		elif changed=="revision":stale.revision=int(view.snapshotRevision)-1
+		else:stale.at=float(view.time)-1.0/60.0
+		var rejected: Dictionary={id:stale}
+		var fallback: Dictionary=Planner._prepare_begin(view,memory,context,rejected)
+		check(rejected.has(id) and not is_same(fallback.decisions[id],fresh) and fallback.originalPreferenceChosenAt051.is_empty(),"prepared decision cannot cross its exact begin guard: "+changed)
 
 func workers051() -> void:
 	var profiling: bool=bool(T.runtime_profile043().enabled)
 	T.set_runtime_profile043(true);T.reset_runtime_profile043()
 	current_begin051()
 	duel_policy051()
+	worker_cohorts051()
+	worker_prepared051()
 	worker_handoff051()
 	var arena: Dictionary=local_arena()
 	var st: Dictionary=arena.state
@@ -1075,7 +1176,7 @@ func workers051() -> void:
 			before=C.pose(source)
 			B.update(st,1.0/60.0);B.pop_events(st)
 			if id in slot.adopted:break
-		check(id in slot.adopted and float(st.time)-lease.held.chosen_at>=0.30-0.000001 and float(st.time)-observed_at<=0.2+0.000001,"whole-side preference ADOPTS after normal0.30s expiry within the unchanged useful-observation bound")
+		check(id in slot.adopted and float(st.time)-lease.held.chosen_at>=0.45-0.000001 and float(st.time)-observed_at<=0.2+0.000001,"cohort preference ADOPTS at original0.45s expiry within the unchanged useful-observation bound")
 		check(not is_same(st.tactical.retained051.get(id),lease.held) and F.pos(source).distance_to(origin)>0.0,"adopted suggestion publishes a new real maneuver and moves the actual boat")
 		var intent: Dictionary=st.tactical.intents.get(id,{})
 		var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
@@ -1089,7 +1190,7 @@ func workers051() -> void:
 			route_limit+=int(budget.routeAllowance051)
 			routes_used+=int(budget.fullRoutes)-4+int(budget.routeAllowance051)
 			check(int(budget.clearanceTests)<=int(budget.clearanceLimit) and int(budget.fullRoutes)<=4,"pure worker stayed inside its preassigned work slice")
-		check(clearance_limit<=2900 and route_limit<=4 and routes_used<=4,"whole-side pure work has independent bounded2900 clearance/four route allowances")
+		check(clearance_limit<=2900 and int(output.proofBudget051.clearanceTests)<=128 and route_limit<=4 and routes_used<=4,"cohort pure work retains separate bounded2900traffic/128proof/four-route side allowances")
 		var sampled_history: Array=output.planning.decisions[id].state.observations
 		var joined_history: Array=st.tactical.memory.player.byId[id].observations
 		check(float(sampled_history[-1].lastAt)==float(slot.createdAt) and float(joined_history[-1].lastAt)==float(st.time) and float(joined_history[-1].lastHp)==float(source.hp),"normal join preserves worker sample times and appends actual current HP without a role redecision")
