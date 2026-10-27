@@ -1,0 +1,129 @@
+WORKER PROOF / OBSERVER051 - SOURCE ONLY, 27 OCTOBER 2026
+
+EARLY PEER API HANDOFF
+Prior narrow proof is COMPLETE at dadea3ed6cd86027af2026b2f9fe6d54848d9555.
+This checkout retains it. Root reports narrow candidates already integrated as
+09bd17f / 6935cbe / 30812da, with worker override recorded at8e05a50. No pull or
+cherry-pick was performed here while editing; Root combines the named sources.
+Read parent WORKER BATTLE051 CONTRACT.txt: worker-owned 30Hz authority is the
+intentional new cohort. Engine/Main callbacks remain 60Hz; rendering independent.
+
+Observer public hooks retain prepare(Main), options(), start(), after_process(dt),
+after_physics(dt). The NEW after_battle_publication051(dt) samples telemetry from
+Main's exact new render-poll hook. Engine callbacks use one SceneTree.physics_frame
+connection so the empty Main battle physics path cannot double count workers.
+Main.battle_driver051 is the handle
+published by presentation lead; Main.simulation_us is polling/publication only.
+Two NEW narrow hooks for Main lead (exact names/signatures):
+  configure_battle051(st: Dictionary) -> void
+    observer passes this to Main.start_lab(configure_battle051), matching the
+    presentation lead's published prepare051 callback, BEFORE Driver.new(st); moves
+    the observer's existing formation/initial-damage fixture off the live mirror.
+  observe_events051(events: Array) -> void
+    call with the single drained driver event batch, before audio.consume, so
+    no worker events replay and observation never drains Main's audio queue.
+The observer will read only published driver telemetry and Main mirrors.
+It must never read/reset Damage/Tactical/Routes static counters while jobs run.
+
+Read simulation WORKER DRIVER051 SOURCE.txt and actual sibling driver source. Using exact
+driver.telemetry(), advance(), take_events(), retire(), presentation_poses().
+Minimum fields documented there: workerStepHz, workerThreadId, completedSteps,
+stateTime, workerJobUs, snapshotUs, mainPollUs, simulationLagSeconds.
+Root reports Driver06dd17a and Presentation d6a4dc9 under review; source APIs
+were read from their sibling checkouts. Driver command follow-up remains owned
+by simulation lead. This checkout never imports/cherry-picks peers while editing.
+Driver disables shared Damage/Records/Tactical fine sinks during ownership;
+observer NEVER enables or reads them in flight. Routes veto is disabled before
+ownership. Requested on/off and actual Chart detail/worker-sink=false are recorded
+separately; absent fine data stays null. Initial request for copied fine counters
+is superseded by this reviewed safe boundary. Only copied phaseUs/metrics,
+whole-job/snapshot, driver poll and full Main publication costs are read.
+Driver implementation now permits up to4 real fixed steps/job (early note said1).
+Proof will compare actual completedSteps deltas AND stepsInJob with stateTime at1/30;
+raw whole-job cost and normalized capacity per completed step are both retained.
+No Main callback counts as work. Worker33.333ms capacity plus Main publication P95<=6ms
+and real-time lag<=100ms are explicitly NEW cohort criteria; old6/10ms simulation
+numbers remain historical fields only. Render60/95%20ms/stutter gates retained.
+Events must drain once; snapshots may be observed repeatedly without replaying.
+Main lead: runtime roster formation/damage must be applied before driver owns
+state, or via a supported pre-first-step reattachment. Observer will not write
+live worker state. End capture must pause and retire before final counter reads.
+
+Allowlist: game/scripts/runtime_profile043.gd; existing tactical/feedback tests;
+one new game/tests/test_worker_battle051.gd if needed; this source note only.
+NO engine/tests/import/export/profiler/CLI validation/helper/download/cleanup/
+tag/install/push. Source reading/review and named allowlist commit only.
+Root owns native and actual rendered acceptance, muted background FIFO <120s.
+Status: SOURCE CANDIDATE, UNRUN, manual source/diff review only. No speed or acceptance claim.
+
+Source audit risks shared with Root/peers:
+- Numerical Damage/Records/Tactical global counter dictionaries and Routes veto
+  sink cannot have concurrent UI writers; Driver disables sinks, observer obeys.
+- Planner._tasks051 is global; Main polling/draining must respect driver lease.
+- BoatArt._station_cache/_draw_input_cache, DeckDetail._plans, MotorArt._render_cache,
+  MeshCache and BoatSprite textures/manifests must stay Main-only. The numerical
+  adapter chain Records->MountLayout has no static mutable cache in current source.
+- Old Interface policy callback called Damage.set_policy directly; Mainlead owns
+  reroute. DevTools.refill directly writes hp/water/engine/ammo/fuel/stores; Mainlead
+  queues lab_refill instead. BoardingUI direct auto/order/abort paths are queued
+  by its Interface wrapper. No production edits outside my observer allowlist.
+
+IMPLEMENTED SOURCE / ROOT EXECUTION HANDOFF
+One new existing-style SceneTree fixture: game/tests/test_worker_battle051.gd.
+No old assertions or selectors were edited. Four bounded observable cases:
+1. A real30-step manual1/30 Battle.update reference runs to completion BEFORE
+   driver acquisition. Real joined WorkerThreadPool driver steps then compare
+   pose/velocity/hp/crew/water/engine/fuel/ammo/supplies and the seeded emitted
+   event stream. Fast18000m/s actual rays cross the target within a single step;
+   hits plus exact ammunition and paid breach repair are mandatory. Nested Main
+   snapshot/original-owner mutation must not enter authority, and retained
+   snapshots must remain unchanged. Thread identity must differ from Main.
+2. Public Lab.create builds canonical installed records, then public Battle proxy
+   order, real player_command->BattleCommands047 compound rally, crew_policy,
+   repair_priority and FIFO opposite autopilot commands execute in a paused
+   command-only job. Six actual validation receipts must be ordered/accepted;
+   the compound rally must update both order and tactical options, crew policy
+   and canonical engine repair priority must publish. Mutating the caller's
+   target after admission cannot change either target. Real sampled SIDE
+   decisions must publish; pause prevents new steps; immediate retirement joins
+   outstanding authority and child tasks. No legacy fake equipment seed.
+3. A real final fast shot publishes victory/sunk hull/wreck and sink feedback;
+   retirement drains events, then existing visual tail leaves physics/stores frozen.
+4. Actual Main.start_lab creates its driver/mirror, Main.poll_battle051 completes
+   a real off-Main step, and actual return_to_title retires all owned work.
+Global task/lease inspection occurs ONLY AFTER driver retirement. No fabricated
+completion tokens, capsule edits, inserted projectiles or production bypass.
+
+Runtime observer: same42-light/16-mixed full300DP per side, initial damage/camera,
+12s real active intervals, canvas counts and nonblank opening/end PNGs. Initial
+formation/damage is configured before worker ownership. Engine60Hz is counted by
+SceneTree signal; only real completedSteps deltas become worker rows, checked
+against stepsInJob and authoritative time. Whole-job/snapshot timing stays raw;
+capacity normalizes by actual steps, NOT callbacks. Batched per-phase clocks are
+explicitly last-step-only. Main publication uses host.simulation_us (full Main
+publish wrapper); driver mainPollUs is separate. Lag/elapsed deficit is independent.
+Retirement happens outside measurement; end PNG waits a subsequent real draw
+of the joined final mirror. Observer/title/result drain events once before audio.
+Existing render60/95%20ms/recurring50ms and unresolved>=3s stall checks remain.
+Old6ms/P9510ms60Hz simulation gate is historical, not evaluated as worker cost.
+New33.333ms worker capacity, Main publication P95<=6ms and<=100ms lag are explicit.
+
+Root: R32 is requested counterOFF normal mode, NEW owner-authorized30Hz cohort.
+Frozen R29/R30/R31 reports and old synchronous test cadences are untouched.
+runtime_benchmark.gd is an unchanged historical synchronous component probe;
+it is NOT evidence of actual worker/Main/Lab capacity. Use this observer for R32.
+Keep old public feedback/goals component checks and new worker fixture as separate
+bounded selections; Root chooses actual background FIFO batches under120s.
+No engines, native parsing, tests, imports, exports, GPU, profiler, advisories,
+helpers, downloads, cleanup, tags, install or push were run here. All new source
+needs combined native and actual rendered validation. Desktop050;051 gate OPEN.
+
+PEER WIRING REVIEW
+Latest sibling Main.poll_battle051 now drains to events, calls the exact
+observe_events051(events) hook, then audio.consume(events). Observer's active
+fire/hit coverage can therefore see actual events once. End retirement drains
+the final batch before Main's idempotent retirement/presentation cleanup.
+General Main title/result retirement must also drain any final events from an
+already-running job before dropping its driver handle; Main lead/Root owns that
+production seam. No peer file was edited here. No test result is inferred from
+reading this wiring.
