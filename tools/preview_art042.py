@@ -97,6 +97,7 @@ def main():
     parser.add_argument("--game", type=Path, default=Path(__file__).resolve().parents[1] / "game")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--seconds", type=float, default=30.0)
+    parser.add_argument("--stream-textures", action="store_true", help="Release decoded source textures between roster panels")
     args = parser.parse_args()
     if not 0 < args.seconds <= 90:
         parser.error("--seconds must be greater than zero and at most90")
@@ -114,6 +115,8 @@ def main():
         image = replay(panel, args.game, cache, deadline)
         image.save(args.out / f'{panel["id"]}.png')
         rendered.append(image)
+        if args.stream_textures:
+            cache.clear()
     # Stack the normal-scale panels without magnifying the small battle boats.
     width = max(panel["width"] for panel in panels)
     height = sum(panel["height"] + 28 for panel in panels) + 42

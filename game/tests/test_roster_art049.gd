@@ -4,12 +4,16 @@ extends SceneTree
 const Layout=preload("res://scripts/mount_layout.gd")
 const Profiles=preload("res://scripts/hull_profiles.gd")
 const Sprite=preload("res://scripts/boat_sprite_art.gd")
+const Refits=preload("res://scripts/refit.gd")
+const Portrait=preload("res://scripts/boat_portrait.gd")
+const Trace=preload("res://tests/art042_trace.gd")
 const LEGACY=["tin_skiff","ash_corvette","brasswind_motor_galleon"]
 var checks: int=0
 var failures: int=0
 var deadline: int=0
 var atlas_bytes: int=0
 var portrait_bytes: int=0
+var panels: Array=[]
 
 func check(ok: bool,message: String) -> bool:
 	checks+=1
@@ -105,6 +109,18 @@ func inspect(hull: Dictionary,entry: Dictionary) -> bool:
 		check(float(physical[0])<=expected[0].x*float(hull.size) and float(physical[3])>=expected[-1].x*float(hull.size),id+" physical hull reaches its canonical stern and bow")
 	return true
 
+func record_fitted_view(hull: Dictionary) -> void:
+	var view=Portrait.new()
+	view.set_spec(Refits.effective_spec(hull,Refits.defaults(hull)))
+	view.show_sockets=true
+	var canvas=Trace.Canvas.new()
+	view.draw_contents(canvas,Vector2(390,245))
+	check(canvas.invalid==0 and canvas.texture_draws>0,str(hull.id)+" actual fitted portrait submits valid authored textures")
+	panels.append(canvas.panel("roster-"+str(hull.id),str(hull.name)+" / actual normal fitting view",Vector2(390,245)))
+	view.free()
+	# Draw records retain only values/paths. Avoid keeping36 atlases resident in QA.
+	Sprite.clear_cache()
+
 func run() -> void:
 	var world: Dictionary=read_json("res://data/world.json")
 	var manifest: Dictionary=read_json(Sprite.HULL_MANIFEST)
@@ -113,7 +129,15 @@ func run() -> void:
 	var completed: int=0
 	for hull in hulls:
 		if not check(Time.get_ticks_msec()<deadline,"bounded roster inspection; remaining hulls UNRUN"):break
-		if inspect(hull,manifest.get("hulls",{}).get(str(hull.id),{})):completed+=1
+		if inspect(hull,manifest.get("hulls",{}).get(str(hull.id),{})):
+			completed+=1
+			record_fitted_view(hull)
 	check(completed==36,"all36 actually inspected")
+	var artifacts: String=OS.get_environment("GAME_TEST_ARTIFACTS")
+	if artifacts.is_absolute_path():
+		var file=FileAccess.open(artifacts.path_join("roster049-trace.json"),FileAccess.WRITE)
+		check(file!=null,"existing draw-call replay artifact is writable")
+		if file!=null:file.store_string(JSON.stringify({"schema":"brass-tide-art042-trace-v1","checks":checks,"failures":failures,"complete":completed==36 and failures==0,"panels":panels,"limits":"Actual normal fitted Portrait drawing calls; CPU replay needs Root visual review. No GPU/FPS/audio/motion/collision acceptance."}))
 	print(JSON.stringify({"fixture":"roster_art049","checks":checks,"failures":failures,"hulls_inspected":completed,"atlas_RGBA8_with_mips":atlas_bytes,"portrait_RGBA8_with_mips":portrait_bytes,"limits":"Asset/mount/bounds coverage only; no visual quality, motion, FPS or collision acceptance"}))
+	print("ROSTER049: %d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
