@@ -450,6 +450,61 @@ func local_approach() -> void:
 					boundary.events=events;boundary.freshIntent=fresh
 			observations.append(boundary)
 
+func retained_maneuver051() -> void:
+	for dt: float in [1.0/30.0,1.0/60.0]:
+		var arena: Dictionary=local_arena()
+		var st: Dictionary=arena.state
+		var source: Dictionary=arena.source
+		var id: String=str(source.id)
+		B.update(st,dt);B.pop_events(st)
+		var held=st.tactical.retained051.get(id)
+		check(held is C._Retained051,"real accepted engage maneuver admits one typed descriptor dt="+str(dt))
+		if not held is C._Retained051:continue
+		var certificate_bytes: PackedByteArray=var_to_bytes(held.record.certificate)
+		var old_intent: Dictionary=held.intent.duplicate(true)
+		var start: Vector2=F.pos(source)
+		for tick in range(ceili(0.26/dt)):
+			B.update(st,dt);B.pop_events(st)
+			if float(st.time)-held.chosen_at>0.2+0.000001:break
+		check(is_same(st.tactical.retained051.get(id),held) and held.step_ok and held.step_at==float(st.time),"retained route crosses the old lease with fresh actual-step clearance dt="+str(dt))
+		check(not C.current(st,source,old_intent,dt).ok and var_to_bytes(held.record.certificate)==certificate_bytes,"original public corridor certificate expires unchanged dt="+str(dt))
+		check(F.pos(source).distance_to(start)>0.0 and float(source.fuel)<60.0,"retained execution moves the real hull with finite fuel dt="+str(dt))
+		check(T._current051(st,source,st.tactical.intents.get(id,{}),dt).ok,"private execution observes current capability after movement dt="+str(dt))
+		# Move a real hostile into this actual next step; no synthetic permission.
+		arena.target.x=float(source.x)+30.0;arena.target.y=float(source.y)
+		B.update(st,dt);B.pop_events(st)
+		check(not held.step_ok and not st.tactical.retained051.has(id),"fresh hostile clearance brakes and discards retained authority dt="+str(dt))
+		observations.append({"case":"retained-maneuver051","dt":dt,"expiredPublicCertificateUnchanged":var_to_bytes(held.record.certificate)==certificate_bytes,"blockedStep":not held.step_ok})
+	for action: String in ["deadline","terrain","withdraw","manual","hit"]:
+		var arena: Dictionary=local_arena()
+		var st: Dictionary=arena.state
+		var source: Dictionary=arena.source
+		var id: String=str(source.id)
+		var dt: float=1.0/60.0
+		B.update(st,dt);B.pop_events(st)
+		var held=st.tactical.retained051.get(id)
+		check(held is C._Retained051,"retained invalidation case starts from actual authority "+action)
+		if not held is C._Retained051:continue
+		match action:
+			"deadline":
+				for tick in range(28):B.update(st,dt);B.pop_events(st)
+				check(not is_same(st.tactical.retained051.get(id),held),"ordinary full choice replaces the descriptor within0.45s including slots")
+			"terrain":
+				st.islands=[F.rectangle(float(source.x)-40.0,float(source.y)-40.0,float(source.x)+40.0,float(source.y)+40.0)]
+				B.update(st,dt);B.pop_events(st)
+				check(int(st.tactical.terrainRevision)!=held.terrain_revision and not is_same(st.tactical.retained051.get(id),held),"terrain transaction invalidates the static path proof on the next real tick")
+			"withdraw":
+				check(B.issue_order(st,[id],"withdraw") and not st.tactical.retained051.has(id),"explicit withdrawal cancels retained authority at command acceptance")
+			"manual":
+				B.set_autopilot(st,false);B.update(st,dt,{"manual":true,"left":true});B.pop_events(st)
+				check(str(st.tactical.manualId)==id and not st.tactical.retained051.has(id) and not st.tactical.intents.has(id),"manual retake removes autonomous authority immediately")
+			"hit":
+				var hp: float=float(source.hp)
+				st.projectiles.append({"x":float(source.x)-35.0,"y":float(source.y),"px":float(source.x)-35.0,"py":float(source.y),"vx":3000.0,"vy":0.0,"team":"enemy","damage":24.0,"kind":"bullet","life":1.0,"owner":str(arena.target.id),"radius":2.0})
+				B.update(st,dt)
+				var events: Array=B.pop_events(st)
+				check(events.any(func(event):return event.kind=="hit" and str(event.targetId)==id) and float(source.hp)<hp-1.0 and not T._current051(st,source,held.intent,dt).ok,"actual impact immediately invalidates retained capability authority")
+
 func _initialize() -> void:
 	if DisplayServer.get_name()!="headless":quit(2);return
 	var selected: String="all"
@@ -459,7 +514,7 @@ func _initialize() -> void:
 		if arg.begins_with("--out="):path=arg.substr(6)
 	match selected:
 		"all":
-			ray_cases();boarding_continuity();focused_boarding();explicit_boarding_authority();held_gun();useful_pressure();capabilities_and_observations();fleet_cadence();local_approach()
+			ray_cases();boarding_continuity();focused_boarding();explicit_boarding_authority();held_gun();useful_pressure();capabilities_and_observations();fleet_cadence();local_approach();retained_maneuver051()
 		"rays":ray_cases()
 		"boarding":boarding_continuity()
 		"focused-boarding":focused_boarding()
@@ -469,6 +524,7 @@ func _initialize() -> void:
 		"capabilities":capabilities_and_observations()
 		"fleet-cadence":fleet_cadence()
 		"local-approach":local_approach()
+		"retained":retained_maneuver051()
 		_:quit(2);return
 	var file: FileAccess=FileAccess.open(path,FileAccess.WRITE)
 	if file==null:quit(2);return

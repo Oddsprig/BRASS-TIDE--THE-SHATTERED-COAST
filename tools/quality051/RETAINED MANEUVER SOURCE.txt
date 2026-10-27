@@ -1,0 +1,40 @@
+051 RETAINED MANEUVER SOURCE CANDIDATE - NATIVE UNRUN
+Exact worktree: work/quality-v042-v061/v051-retained-sol; parent5a583b5.
+Root approved RETAINED MANEUVER PROPOSAL.txt and private authoritative ownership.
+Only4allowed runtime files + existing test_tactical_ai.gd + this handoff changed.
+
+Accepted ordinary engage routes admit one typed battle-owned descriptor. Its
+candidate/legs/mount IDs are sealed once; cursor and live capability advance.
+Existing fair due slots still observe actual HP history/threat/phase predicates,
+using the same Roles.decide math with a retained target instead of target ranking.
+Side-local borrowed friendly condition/command inputs exist only during begin.
+Stable observations skip full side snapshots, station offers, route refinement,
+fingerprinting and resolution. Full choice eligibility0.30s; descriptor refuses
+after0.45s. Failed/pending/explicit orders retain the existing full path/retry.
+Commands/options/manual/safety changes cancel retention; target/leader/terrain/
+official fitting changes, phase/range/shot/reload events and failed live clearance
+also force full work. All actors,60Hz,300DP,8offers and finite work caps remain.
+
+Helm always uses unchanged safe_step against current terrain/traffic. Fire also
+requires this tick's successful helm check and fresh capability. Its temporary
+private retained-current-step view goes through unchanged Fire.gate/solution,
+including actual muzzle/intercept/allies/stores/cooldown/salvo checks. Original
+predictions/corridor certificates/reservations are not extended: their public
+expiry remains real. No future traffic verdict is cached or freshly claimed.
+Public Certification.current, route checks, Damage and Fire bodies are unchanged.
+Role decision math remains shared with the unchanged public target-choice path.
+
+Existing AI fixture adds --case=retained (also included in all): real30/60Hz
+progression beyond the public lease with byte-unchanged expired certificate,
+fresh hostile obstruction/braking, bounded ordinary replacement, terrain change,
+immediate explicit withdrawal/manual cancellation and actual projectile loss.
+Existing functions/assertions and test_tactical_dt.gd remain unchanged.
+
+Source advisory: python -B tools/check_preload_calls.py game scripts/
+tactical_runtime.gd scripts/tactical_role_plans.gd scripts/tactical_planner.gd
+scripts/tactical_certification.gd tests/test_tactical_ai.gd -> issues[],
+engineInvoked:false. git diff --check clean. NO engine/test/profile/GPU/helper ran.
+Root must run the focused native cases and actual unchanged exported workload.
+Savings/retention coverage are UNMEASURED; source preparation is not acceptance.
+Damage-expiry spikes and remaining render/CPU cost are explicitly outside patch.
+No metadata/version/install/asset/worker changes.6/10ms and60FPS gate stays OPEN.

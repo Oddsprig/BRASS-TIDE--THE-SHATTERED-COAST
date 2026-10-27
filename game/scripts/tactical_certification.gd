@@ -13,6 +13,74 @@ const STEP: float=1.0/30.0
 # seven-unit allied margin in actual curved prefixes and the final live step.
 const HULL_CLEARANCE_MARGIN: float=4.0
 
+class _Retained051 extends RefCounted:
+	var owner: Dictionary
+	var intent: Dictionary
+	var record: Dictionary
+	var points: Array
+	var primary: Array
+	var targets: Dictionary={}
+	var spec: Dictionary
+	var mount_source: Array
+	var motion_inputs: Array
+	var capability_inputs: Array
+	var events: Array
+	var revision: int
+	var terrain_revision: int
+	var chosen_at: float
+	var step_at: float=-1.0
+	var step_ok: bool=false
+
+static func _retain051(st: Dictionary,ship: Dictionary,intent: Dictionary,record: Dictionary,frame_cache=null) -> _Retained051:
+	if str(ship.get("order",""))!="engage" or str(record.get("certificate",{}).get("scope",""))!=Planner.LIVE_CERT_SCOPE:return null
+	var held: _Retained051=_Retained051.new()
+	held.owner=ship;held.intent=intent;held.spec=ship.spec
+	held.mount_source=st.tactical.mountCache[str(ship.id)].baseMounts
+	held.revision=int(ship.orderRevision);held.terrain_revision=int(st.tactical.terrainRevision)
+	held.chosen_at=float(st.time);held.motion_inputs=_motion_inputs(ship)
+	held.capability_inputs=_live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache)).duplicate(true)
+	# _publish admitted this complete request and certificate. Seal one private
+	# copy, rather than validating/fingerprinting its schema on physics reads.
+	var candidate: Dictionary=record.candidate.duplicate(true)
+	for key in ["approach","pass","exit","fireMountIds"]:candidate[key].make_read_only()
+	if candidate.has("fireMountTargets"):candidate.fireMountTargets.make_read_only()
+	candidate.make_read_only()
+	held.record={"candidate":candidate,"certificate":record.certificate,"index":int(record.get("index",0))}
+	held.points=execution(candidate);held.points.make_read_only()
+	held.primary=primary_mounts(st.tactical.mountCache[str(ship.id)].mounts,candidate)
+	var target_ids: Array=[candidate.targetId,candidate.leaderId]
+	for mount_id in candidate.fireMountIds:target_ids.append(mount_target(candidate,str(mount_id)))
+	for id in target_ids:
+		if not str(id).is_empty():held.targets[str(id)]=st.tactical.ships.get(str(id),{})
+	held.events=_retained_events051(st,ship,held)
+	return held
+
+static func _retained_events051(st: Dictionary,ship: Dictionary,held: _Retained051) -> Array:
+	var result: Array=[]
+	var target: Dictionary=st.tactical.ships.get(str(held.record.candidate.targetId),{})
+	var distance: float=Routes.point(ship).distance_to(Routes.point(target)) if not target.is_empty() else INF
+	var mounts: Array=st.tactical.mountCache[str(ship.id)].mounts
+	var timers: Array=ship.get("weaponCooldowns",[])
+	for index in range(mounts.size()):
+		var mount: Dictionary=mounts[index]
+		var reload: float=float(timers[index]) if index<timers.size() else 0.0
+		if index==0:reload=maxf(reload,float(ship.cooldown))
+		result.append(ship.get("mountShotTimes",{}).get(str(mount.id),-1.0))
+		result.append(reload<=0.000001)
+		result.append(distance<=float(mount.range)+(Roles.radius(target) if not target.is_empty() else 0.0)+1.0)
+	return result
+
+static func _retained_current051(st: Dictionary,ship: Dictionary,held: _Retained051,frame_cache=null) -> Dictionary:
+	var t: Dictionary=st.tactical
+	if not is_same(held.owner,ship) or not is_same(t.intents.get(str(ship.id)),held.intent) or int(ship.orderRevision)!=held.revision or str(ship.order)!="engage" or float(st.time)-held.chosen_at>0.45+0.000001:return {"ok":false,"reason":"Reconsidering maneuver"}
+	if int(t.terrainRevision)!=held.terrain_revision or not is_same(ship.spec,held.spec) or not is_same(t.mountCache[str(ship.id)].baseMounts,held.mount_source) or _motion_inputs(ship)!=held.motion_inputs:return {"ok":false,"reason":"Conditions changed; checking maneuver"}
+	for id in held.targets:
+		if not is_same(t.ships.get(id),held.targets[id]) or held.targets[id].get("sunk",false) or held.targets[id].get("captureSecured",false):return {"ok":false,"reason":"Target or leader unavailable"}
+	var actual: Array=_live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache))
+	if _live_capability_lost(actual,held.capability_inputs,_heat_wear(ship,float(t.dt),float(held.capability_inputs[2]))):return {"ok":false,"reason":"Damage or capability changed; reassessing"}
+	held.capability_inputs=actual.duplicate(true)
+	return {"ok":true,"reason":"Following retained maneuver; live clearance required","record":held.record}
+
 static func pose(ship: Dictionary) -> Dictionary:
 	return EquipmentRollout.pose(ship)
 

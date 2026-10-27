@@ -431,6 +431,20 @@ static func _skirmisher_burst_done(view: Dictionary, ship: Dictionary, state: Di
 	return pass_shots >= required_shots and pass_short_shots >= required_short and burst_elapsed >= min_window and active_elapsed >= min_window
 
 static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, reservations: Dictionary = {}) -> Dictionary:
+	return _decide(view, ship, previous, context, reservations)
+
+static func _observe_retained051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary) -> Dictionary:
+	# An owned maneuver keeps its target preference, never its old observations.
+	var protected: Dictionary = protected_ally(view, ship, previous, context)
+	var detailed: Array = []
+	for entry: Dictionary in shortlist(view, ship, context, protected):
+		detailed.append(str(entry.id))
+	var selected: String = str(previous.get("targetId", ""))
+	if not selected.is_empty() and selected not in detailed:
+		return {}
+	return _decide(view, ship, previous, context, {}, {"targetId": selected, "targets": detailed, "detailedIds": detailed, "scored": 0})
+
+static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, reservations: Dictionary = {}, retained_choice: Dictionary = {}) -> Dictionary:
 	var now: float = number(view.get("time"))
 	var opts: Dictionary = options(view, ship)
 	var order: String = str(ship.get("order", "engage"))
@@ -443,7 +457,7 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 			state[key] = previous[key]
 	var protected: Dictionary = protected_ally(view, ship, previous, context)
 	var role: String = infer_role(view, ship)
-	var target_choice: Dictionary = choose_target(view, ship, {} if changed_order else previous, context, protected, role, reservations)
+	var target_choice: Dictionary = choose_target(view, ship, {} if changed_order else previous, context, protected, role, reservations) if retained_choice.is_empty() else retained_choice
 	var target: Dictionary = dictionary(context.get(str(target_choice.targetId)))
 	var target_changed: bool = not previous.is_empty() and str(previous.get("targetId", "")) != str(target_choice.targetId)
 	var range_value: float = role_range(view, ship, role)

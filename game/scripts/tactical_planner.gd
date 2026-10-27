@@ -49,6 +49,11 @@ static func _prepare_begin(view: Dictionary, memory: Dictionary) -> Dictionary:
 	# Keep propose's validation before any same-begin planning work.
 	return _planning(view, memory) if _view_ok(view) else {}
 
+static func _observe_retained051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary) -> Dictionary:
+	# Private authoritative inputs, already admitted by Runtime. No proposal,
+	# scored preference, source reconstruction or public certificate is produced.
+	return Roles._observe_retained051(view, ship, previous, context)
+
 static func _planning(view: Dictionary, memory: Dictionary) -> Dictionary:
 	var context: Dictionary = Roles.ships_by_id(view)
 	var by_id: Dictionary = Roles.dictionary(memory.get("byId"))
