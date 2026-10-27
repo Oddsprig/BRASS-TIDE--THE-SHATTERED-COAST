@@ -13,22 +13,21 @@ The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
 VALIDATION UPDATE - 27 October 2026
-Actual R18 fullfleet quality FAILED:42light8.889FPS/17.692ms simulation;
-16mixed59.901FPS/7.002ms;5light/1mixed deadlocks. No quality acceptance yet.
-R38 b843538eff984dd3aeadc60a8a44b355: route95/geometry652/contact208 passed,
-then worker fixture failed. Six unchanged source/fixture hashes retain passes.
-R39 5764f01c0db24e808e070566fe634c5f: worker204/retained266/traffic40/fire123
-passed; actual opening LOST54.617simsec/9shots. Whole batch45.437s, no export.
-Reviewed repair73c0cc5 ->955df64 restores ordinary synchronous .30s semantic
-reconsideration and full choice after physical veto. This is the existing
-general workload policy, same for both sides; no mission/hull/seed exception.
-Pooled fleet .45s ORIGINAL semantic deadline, cohorts and immediate movement/
-fire/reservation revocation remain. Real boat, enemy, seed,90s cap, reward,
-stores and coin costs are unchanged. Worker assertions/selectors preserved.
-R40 will run the SAME actual paid opening voyage FIRST, then affected retained/
-worker/traffic/fire checks, export and three starts; hard119s whole batch.
-Only after current native PASS: actual R19 full42/16/300DP per side/current60Hz.
-Desktop050 retained; no051tag/package/install/no052 while core gate OPEN.
+R40 PASS933/0,77.047s inclsetup/export/three starts; same actualopening restored
+41.767sim/HP126.292/ammo46 with paidreturn/repair/refill/boost. Native game works.
+R19 actual57.844s quality FAILED:42light8.359FPS/18.118ms/6stalls;
+16mixed59.9905FPS/7.3965ms/NOstalls. No fullfleet quality acceptance.
+Reviewed source corrections now integrated:
+- Nave38b0c9 ->eadce39: ONLY two main reservation calls use existing .3s
+  physical-prefix horizon. Full static land/public paths and worker2s remain.
+- Perfbbc9939 ->f201191: roll back eager refill to one side batch per150ms;
+  guarded once-only current observation reuse. All budgets/deadlines/60Hz and
+  ordinary synchronous .30 / pooled original .45 preference policies remain.
+Next R41 SAMEactualvoyageFIRST, geometry/retained/workers/traffic/fire/export,
+119swhole. OnlyafterPASS actualR20 full42/16/300DPside at nativeplayresolution.
+Five rendering source hashes still match R40; prior art receipts retained.
+Separate shared-draw preparation is in progress, not included or claimed here.
+No051tag/package/install/no052 while core gate OPEN. Desktop050 retained.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
 R29 8613de56778f420e87eadc78eb7b3c32: scoped1271/0,82.390s including
