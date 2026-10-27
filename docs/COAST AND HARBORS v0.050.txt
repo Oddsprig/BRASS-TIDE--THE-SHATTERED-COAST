@@ -1,0 +1,21 @@
+BRASS TIDE v0.050 - COAST AND WORKING HARBORS
+
+Eight regions now have distinct terrain: chalk orchards, tidal reed beds,
+ironwood crags, polders, ash quarries, wooded levees, slate and basalt.
+Ten harbor layouts show their actual work: bonded trade, fish curing,
+timber yards, grain stores, foundries, assembly slips, covered markets,
+refining, salvage stores and armored shipbuilding.
+
+WASD pans the campaign camera; scroll zooms. Use the territory view for
+the whole coast and move closer to inspect ports. Harbor names and berth
+click centers remain tied to actual destinations. Land follows the same
+shoreline used for navigation and translated coastal battles.
+
+Terrain is prepared once and drawn from three cached detail levels.
+Water, world size, island shapes, ports, routes, inventories, purses and
+boat construction costs are unchanged. Boat assets remain the v0.049 set.
+
+Verification is pending in this source candidate. Full 300-point battle
+performance remains below target in the prior actual measurement.
+Core quality review v0.051 remains open; this map pass is not proof of
+Starsector quality, smooth combat, complete motion or sound acceptance.

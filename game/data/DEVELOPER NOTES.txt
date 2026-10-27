@@ -11,3 +11,9 @@ remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
+
+The prior v0.049 authored assets cover all36 hulls. This build changes coast
+and harbor paint only; it does not move navigation rings or economic anchors.
+Actual full300DP performance remains below target (v0.046 measured4.605FPS
+light /17.084FPS mixed). The v0.051 core-quality gate remains OPEN before
+v0.052 breadth; lower-bow visual findings also remain for that review.

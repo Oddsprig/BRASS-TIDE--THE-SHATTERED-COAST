@@ -133,6 +133,10 @@ func _ready():
 		# Existing capture harness supplies an isolated portable copy and profile.
 		new_game();paused = true
 		if not core.state.fleet.is_empty():ui.open_refit(str(core.state.fleet[0].uid))
+	if "--qa-coast050" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
+		new_game();paused = true
+		screenshots_requested = ["home", "overview"]
+		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1082,11 +1086,28 @@ func _exit_tree():
 
 func capture_after_start():
 	await get_tree().create_timer(2.0).timeout
-	await RenderingServer.frame_post_draw
-	var image = get_viewport().get_texture().get_image()
 	var path: String = OS.get_environment("GAME_TEST_ARTIFACTS")
 	if not path.is_absolute_path():
 		path = ProjectSettings.globalize_path("res://../qa")
 	DirAccess.make_dir_recursive_absolute(path)
-	image.save_png(path.path_join("%s.png" % mode))
-	print("QA_CAPTURE ", path.path_join("%s.png" % mode))
+	var views: Array = screenshots_requested.duplicate()
+	if views.is_empty():views = [mode]
+	for raw in views:
+		var name: String = str(raw)
+		if not screenshots_requested.is_empty():
+			if name == "home":chart.center_camera()
+			elif name == "overview":chart.territory_view()
+			else:
+				var port: Dictionary = core.port(name)
+				if port.is_empty():push_error("Unknown requested coastal view");return
+				selected_port = name
+				chart.follow_camera = false;chart._campaign_follow = false
+				chart.camera = Vector2(port.x,port.y);chart.zoom = 1.7
+			chart.step(0.0);ui.update_hud()
+			await get_tree().process_frame
+			name = "coast050-" + name
+		await RenderingServer.frame_post_draw
+		var image = get_viewport().get_texture().get_image()
+		image.save_png(path.path_join(name + ".png"))
+		print("QA_CAPTURE ", path.path_join(name + ".png"))
+	screenshots_requested.clear()
