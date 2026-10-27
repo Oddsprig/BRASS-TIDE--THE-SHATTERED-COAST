@@ -1661,6 +1661,286 @@ func workers051() -> void:
 	observations.append({"case":"workers-counters","profile":profile})
 	T.set_runtime_profile043(profiling)
 
+func _goals_arena051(close: bool=false) -> Dictionary:
+	# Ordinary fleet policy, enabled explicitly; every legacy fixture keeps its
+	# original enable_planning051(st) call and synchronous/public contract.
+	var spec: Dictionary=SPEC.duplicate(true)
+	spec.weaponMounts=[{"id":"goal-gun","kind":"gun","damage":1.0,"fireRate":2.0,"range":900.0,"speed":600.0,"ammoCost":2,"x":8.0,"y":0.0,"arc":TAU,"angle":0.0}]
+	var fleet: Array=[]
+	for index: int in range(3):fleet.append(D.create_ship(spec.duplicate(true),{"uid":"goal-owner-"+str(index),"supplies":8.0}))
+	var enemy_spec: Dictionary=spec.duplicate(true);enemy_spec.speed=0.0
+	var enemies: Array=[]
+	for index: int in range(2):enemies.append(D.create_ship(enemy_spec.duplicate(true),{"uid":"goal-target-"+str(index),"ammo":0.0}))
+	var st: Dictionary=B.create({"fleet":fleet,"enemyFleet":enemies,"seed":30011,"islands":[]})
+	st.islands=[];st.autoBoard=false
+	var ys: Array=[850.0,350.0,1350.0]
+	var roles: Array=["heavy","skirmisher","screen"]
+	for index: int in range(fleet.size()):
+		var ship: Dictionary=fleet[index]
+		ship.x=500.0;ship.y=float(ys[index]);ship.angle=0.0
+		var options: Dictionary={"role":roles[index]}
+		if index==2:options.protectedAllyId=str(fleet[0].id)
+		check(B.set_tactical_options(st,[ship.id],options),"sampled fleet accepts actual "+str(roles[index])+" role/options")
+	enemies[0].x=800.0 if close else 1500.0;enemies[0].y=850.0;enemies[0].angle=PI
+	enemies[1].x=1700.0;enemies[1].y=350.0;enemies[1].angle=PI
+	for ship: Dictionary in enemies:F.command(st,ship,"hold")
+	if close:check(B.issue_order(st,[fleet[0].id],"hold"),"sampled live-fire owner receives an actual hold command")
+	T.enable_planning051(st,true);worker_states051.append(st)
+	return {"state":st,"actors":fleet,"opponents":enemies,"source":fleet[0],"target":enemies[0]}
+
+func _goals_ready051(arena: Dictionary) -> Dictionary:
+	var st: Dictionary=arena.state
+	var joined: Dictionary={}
+	for tick: int in range(12):
+		B.update(st,1.0/60.0);B.pop_events(st)
+		# Existing fixture-owned real join, outside the public physics call.
+		for slot: Dictionary in st.tactical.workers051.slots.values():
+			if not bool(slot.joined) and not _worker_join051(slot):continue
+			if bool(slot.joined) and slot.capsule!=null:joined[int(slot.generation051)]={"slot":slot,"output":slot.capsule.result}
+		var records: Dictionary={}
+		for ship: Dictionary in arena.actors:
+			var record: Dictionary=T._goal_current051(st,ship)
+			if not record.is_empty():records[str(ship.id)]=record
+		if records.size()==arena.actors.size():return {"records":records,"joined":joined}
+	check(false,"sampled fleet obtains actual joined goals for all three ordinary roles within12 real60Hz ticks")
+	observations.append({"case":"goals051-start-failed","time":st.time,"goals":st.tactical.goals051.keys(),"reasons":st.tactical.reasons.duplicate(true)})
+	return {}
+
+func goals_fleet051() -> void:
+	var arena: Dictionary=_goals_arena051()
+	var st: Dictionary=arena.state
+	var ready: Dictionary=_goals_ready051(arena)
+	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
+	var roles: Array=["heavy","skirmisher","screen"]
+	var starts: Dictionary={};var fuel: Dictionary={};var crew: Dictionary={}
+	var records: Array=[]
+	for index: int in range(arena.actors.size()):
+		var ship: Dictionary=arena.actors[index]
+		var id: String=str(ship.id)
+		var record: Dictionary=ready.records[id]
+		var receipt: Dictionary=ready.joined.get(int(record.generation051),{})
+		var slot: Dictionary=receipt.get("slot",{})
+		check(not slot.is_empty() and bool(slot.joined) and int(slot.taskId)==-1 and float(record.sampledAt)==float(slot.createdAt),"sampled "+str(roles[index])+" publishes only a real joined worker generation and its actual sample time")
+		var output: Dictionary=receipt.get("output",{}).get("goals051",{}).get(id,{})
+		check(not output.is_empty() and float(record.chosenAt)==float(output.chosenAt) and float(record.sampledAt)==float(output.sampledAt) and record.candidate==output.candidate,"adoption preserves the actual worker's original clocks and selected routed candidate")
+		check(is_same(record.owner,ship) and is_same(record.encounterGeneration051,st.tactical.workers051) and is_same(st.tactical.goals051[id].record,record),"sampled goal belongs to its exact main owner, encounter lifetime and admitted record")
+		check(str(record.scope)=="sampled-fleet-goal" and str(record.state.role)==str(roles[index]) and str(record.candidate.shipId)==id and is_finite(float(record.sampledRisk)),"actual joined goal preserves role, routed owner and finite sampled risk")
+		check(not record.has("certificate") and not record.has("checkedAt") and not record.has("physicalHorizonEnd") and not st.tactical.intents[id].has("pathFingerprint") and st.tactical.predictions.is_empty(),"sampled goal cannot impersonate a complete physical certificate or legacy prediction")
+		check(int(record.snapshotRevision)==int(slot.snapshotRevision) and record.terrainKey==slot.terrainKey and int(record.terrainRevision)==int(slot.terrainRevision),"published revision and static terrain evidence remain those of the real worker sample")
+		check(record.is_read_only() and record.candidate.is_read_only() and record.state.is_read_only() and not ship.is_read_only() and not st.tactical.workers051.is_read_only(),"immutable goal data does not freeze its live owner or the main worker ledger")
+		check(float(record.chosenAt)<=float(record.sampledAt) and float(st.time)-float(record.sampledAt)<=0.15+0.000001 and float(st.time)-float(record.chosenAt)<=0.45+0.000001,"adoption retains independent actual sample and original choice deadlines")
+		starts[id]=F.pos(ship);fuel[id]=float(ship.fuel);crew[id]=float(ship.crew)
+		records.append({"id":id,"role":record.state.role,"phase":record.state.phase,"chosenAt":record.chosenAt,"sampledAt":record.sampledAt,"generation":record.generation051,"revision":record.snapshotRevision,"terrainKey":record.terrainKey,"terrainRevision":record.terrainRevision})
+	check(str(ready.records[str(arena.actors[2].id)].state.leaderId)==str(arena.source.id),"sampled screen retains its real explicitly protected ally")
+	var events: Array=[]
+	var maximum_tasks: int=0
+	var batch_times: Dictionary={}
+	for receipt: Dictionary in ready.joined.values():
+		var slot: Dictionary=receipt.slot
+		batch_times[str(slot.side)]={"at":float(slot.createdAt),"generation":int(slot.generation051)}
+	var worker_work: Array=[]
+	for tick: int in range(60):
+		var ammunition: Dictionary={}
+		for ship: Dictionary in st.ships:ammunition[str(ship.id)]=float(ship.ammo)
+		B.update(st,1.0/60.0)
+		var emitted: Array=B.pop_events(st).filter(func(event):return str(event.kind)=="fire")
+		events.append_array(emitted)
+		for ship: Dictionary in st.ships:
+			var id: String=str(ship.id)
+			var count: int=emitted.filter(func(event):return str(event.sourceId)==id).size()
+			check(is_equal_approx(float(ammunition[id])-float(ship.ammo),float(count)*2.0),"sampled fleet pays exact actual whole rounds on every60Hz fire frame")
+		for ship: Dictionary in arena.actors:
+			var current: Dictionary=T._goal_current051(st,ship)
+			if not current.is_empty():check(float(st.time)-float(current.sampledAt)<=0.15+0.000001 and float(st.time)-float(current.chosenAt)<=0.45+0.000001,"every surviving sampled goal stays inside both original clocks")
+		maximum_tasks=maxi(maximum_tasks,Planner._tasks051.size())
+		check(Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"sampled fleet retains the shared unfinished-task and physical-work bounds")
+		for slot: Dictionary in st.tactical.workers051.slots.values():
+			if not bool(slot.joined) and not _worker_join051(slot):continue
+			var previous: Dictionary=batch_times.get(str(slot.side),{})
+			if not previous.is_empty() and int(previous.generation)==int(slot.generation051):continue
+			check(previous.is_empty() or float(slot.createdAt)>=float(previous.at)+0.10-0.000001,"completed SIDE output never eagerly refills inside its actual100ms batch period")
+			batch_times[str(slot.side)]={"at":float(slot.createdAt),"generation":int(slot.generation051)}
+			var spent: int=0;var allocated: int=0
+			for budget: Dictionary in slot.capsule.result.budgets.values():
+				spent+=int(budget.clearanceTests);allocated+=int(budget.clearanceLimit)
+				check(int(budget.clearanceTests)<=int(budget.clearanceLimit) and int(budget.fullRoutes)<=4,"actual worker route/coordination work respects every assigned finite slice")
+			check(allocated==2900 and spent<=allocated,"completed SIDE job preserves its aggregate2900 clearance allowance")
+			worker_work.append({"side":slot.side,"sampledAt":slot.createdAt,"generation":slot.generation051,"clearanceTests":spent})
+	var traveled: Dictionary={}
+	for ship: Dictionary in arena.actors:
+		var id: String=str(ship.id)
+		traveled[id]=F.pos(ship).distance_to(starts[id])
+		check(float(ship.ammo)>=0.0 and float(ship.fuel)>=0.0 and float(ship.fuel)<=float(fuel[id]) and float(ship.supplies)==8.0 and float(ship.crew)==float(crew[id]),"sampled roles preserve finite stores and the actual unlaunched crew")
+	check(float(traveled[str(arena.actors[1].id)])>10.0 and float(arena.actors[1].fuel)<float(fuel[str(arena.actors[1].id)]),"sampled skirmisher makes actual fueled progress through current helm checks")
+	check(st.ships.size()==5 and st.get("boarding",{}).get("jobs",[]).is_empty(),"all five actual hulls remain present without an invented boarding party")
+	check(worker_work.size()>=2,"fleet really refreshes sampled goals through further completed SIDE jobs")
+	observations.append({"case":"goals051-fleet","records":records,"time":st.time,"travel":traveled,"events":events,"maximumUnfinished":maximum_tasks,"workerWork":worker_work})
+	T.retire_planning051(st);T.drain_planning051()
+
+func goals_expiry051() -> void:
+	var arena: Dictionary=_goals_arena051(true)
+	var st: Dictionary=arena.state
+	var ready: Dictionary=_goals_ready051(arena)
+	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
+	var source: Dictionary=arena.source
+	var record: Dictionary=ready.records[str(source.id)]
+	var chosen: float=float(record.chosenAt)
+	var sampled: float=float(record.sampledAt)
+	var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state])
+	var memory: PackedByteArray=var_to_bytes(st.tactical.memory.player.byId[str(source.id)])
+	var control: Dictionary=T.helm(st,source)
+	T.after_motion(st);T.fire_gates(st,source)
+	check(is_same(T._goal_current051(st,source),record) and float(record.chosenAt)==chosen and float(record.sampledAt)==sampled and var_to_bytes([st.ships,st.rng.state])==physical,"current helm/fire reads neither renew either clock nor integrate movement, spend stores or advance RNG")
+	check(float(st.tactical.lastDecision[str(source.id)])==sampled and var_to_bytes(st.tactical.memory.player.byId[str(source.id)])==memory,"live reads cannot impersonate another tactical observation or memory publication")
+	# Only the fixture clock moves, as in the existing worker deadline cases.
+	# No new batch, fake record, completion flag or certificate is introduced.
+	st.time=sampled+0.15-0.000002
+	check(is_same(T._goal_current051(st,source),record),"actual joined observation remains eligible immediately before its original150ms boundary")
+	st.time=sampled+0.15+0.000002
+	check(T._goal_current051(st,source).is_empty() and not st.tactical.goals051.has(str(source.id)) and T.fire_gates(st,source).is_empty(),"expired observation revokes goal and fire without synchronously inventing a replacement")
+	check(float(record.chosenAt)==chosen and float(record.sampledAt)==sampled and chosen<=sampled and sampled+0.15<chosen+0.45 and var_to_bytes([st.ships,st.rng.state])==physical,"expiry leaves the original choice and stricter observed deadline unchanged without physical side effects")
+	observations.append({"case":"goals051-expiry","chosenAt":chosen,"sampledAt":sampled,"expiredAt":st.time,"control":control,"reason":st.tactical.reasons.get(str(source.id),"")})
+	T.retire_planning051(st);T.drain_planning051()
+
+func goals_invalidations051() -> void:
+	var arena: Dictionary=_goals_arena051()
+	var st: Dictionary=arena.state
+	var ready: Dictionary=_goals_ready051(arena)
+	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
+	var source: Dictionary=arena.source
+	var scout: Dictionary=arena.actors[1]
+	var screen: Dictionary=arena.actors[2]
+	check(B.issue_order(st,[source.id],"withdraw") and B.set_tactical_options(st,[screen.id],{"leash":300.0}),"current command and tactical option changes are accepted through actual public controls")
+	scout.engine=0.0
+	var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state])
+	check(T._goal_current051(st,source).is_empty() and source.order=="withdraw" and int(source.orderRevision)>int(ready.records[str(source.id)].candidate.orderRevision),"new order immediately rejects the former joined goal without restoring its command")
+	check(T._goal_current051(st,scout).is_empty() and float(T.helm(st,scout).throttle)==0.0,"current engine loss rejects sampled movement before any next worker adoption")
+	check(T._goal_current051(st,screen).is_empty() and float(st.tactical.options.byId[str(screen.id)].leash)==300.0,"live option change immediately invalidates the screen's older sample")
+	check(T.fire_gates(st,source).is_empty() and T.fire_gates(st,scout).is_empty() and T.fire_gates(st,screen).is_empty() and var_to_bytes([st.ships,st.rng.state])==physical,"invalidated suggestions cannot emit, debit stores, move hulls or advance RNG")
+	T.retire_planning051(st);T.drain_planning051()
+	# Change real terrain AFTER actual work joins but BEFORE its first adoption.
+	arena=_goals_arena051();st=arena.state
+	B.update(st,1.0/60.0);B.pop_events(st)
+	var slots: Array=st.tactical.workers051.slots.values()
+	check(slots.size()==2,"terrain fence uses both actual sampled SIDE jobs")
+	for slot: Dictionary in slots:_worker_join051(slot)
+	st.islands=[F.rectangle(850.0,100.0,900.0,200.0)]
+	B.update(st,1.0/60.0);B.pop_events(st)
+	check(slots.size()==2 and slots.all(func(slot):return slot.adopted.is_empty() and not slot.discarded.is_empty()) and st.tactical.goals051.is_empty(),"changed terrain rejects real joined output before publication rather than blessing old static routes")
+	ready=_goals_ready051(arena)
+	if not ready.is_empty():
+		var revision: int=int(st.tactical.terrainRevision)
+		st.islands.append(F.rectangle(950.0,100.0,1000.0,200.0))
+		st.tactical.geometry=Routes.terrain(st)
+		check(int(st.tactical.terrainRevision)>revision and T._goal_current051(st,arena.source).is_empty(),"actual coast revision also invalidates an already adopted goal immediately")
+	T.retire_planning051(st);T.drain_planning051()
+	arena=_goals_arena051();st=arena.state
+	ready=_goals_ready051(arena)
+	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
+	source=arena.source;scout=arena.actors[1]
+	check(T._goal_current051(st,source.duplicate(true)).is_empty(),"copied hull with the same ID cannot borrow its original owner's admitted goal")
+	var target: Dictionary=st.tactical.ships.get(str(ready.records[str(scout.id)].state.targetId),{})
+	check(not target.is_empty() and target.team!=scout.team,"target-loss case starts with the actual worker's hostile choice")
+	if not target.is_empty():
+		target.captureSecured=true
+		check(T._goal_current051(st,scout).is_empty() and T.fire_gates(st,scout).is_empty(),"current capture/loss of the selected hostile revokes the goal and every automatic shot")
+	observations.append({"case":"goals051-invalidations","time":st.time,"reasons":st.tactical.reasons.duplicate(true)})
+	T.retire_planning051(st);T.drain_planning051()
+
+func goals_live051() -> void:
+	var arena: Dictionary=_goals_arena051()
+	var st: Dictionary=arena.state
+	var ready: Dictionary=_goals_ready051(arena)
+	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
+	var source: Dictionary=arena.actors[1]
+	var blocker: Dictionary=arena.actors[2]
+	var record: Dictionary=ready.records[str(source.id)]
+	var chosen: float=float(record.chosenAt)
+	var sampled: float=float(record.sampledAt)
+	var clear: Dictionary=T.helm(st,source)
+	check(not bool(clear.get("blocked",false)) and float(clear.throttle)>0.0,"actual sampled approach has a current moving helm before the obstruction")
+	# Same setup as the existing occupied-step revocation fixture: below the
+	# physical floor, so even a turn away cannot borrow a sampled route's safety.
+	blocker.x=float(source.x)+30.0;blocker.y=source.y;blocker.vx=0.0;blocker.vy=0.0
+	T.after_motion(st)
+	var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state])
+	var blocked: Dictionary=T.helm(st,source)
+	check(bool(blocked.get("blocked",false)) and float(blocked.throttle)==0.0 and T.fire_gates(st,source).is_empty(),"current nearby hull vetoes helm and fire despite an actual joined static route")
+	check(var_to_bytes([st.ships,st.rng.state])==physical and float(record.chosenAt)==chosen and float(record.sampledAt)==sampled,"live traffic veto grants no integration, stores, RNG or renewed goal clocks")
+	T.retire_planning051(st);T.drain_planning051()
+	# A blocker in the SHOT lane, clear of the helm, must be read post-motion.
+	arena=_goals_arena051(true);st=arena.state
+	ready=_goals_ready051(arena)
+	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
+	source=arena.source;blocker=arena.actors[1]
+	var old: Vector2=F.pos(blocker)
+	blocker.x=650.0;blocker.y=850.0;blocker.vx=0.0;blocker.vy=0.0;blocker.engine=0.0
+	check(B.issue_order(st,[blocker.id],"hold"),"live shot blocker holds its actual current position")
+	var ammunition: float=float(source.ammo)
+	var held_events: Array=[]
+	var blocked_ready: bool=false
+	for tick: int in range(36):
+		B.update(st,1.0/60.0);held_events.append_array(fire_events(st,source))
+		for slot: Dictionary in st.tactical.workers051.slots.values():
+			if not bool(slot.joined):_worker_join051(slot)
+		if float(source.cooldown)<=0.0 and not T._goal_current051(st,source).is_empty():
+			blocked_ready=true;break
+	check(blocked_ready and held_events.is_empty() and float(source.ammo)==ammunition and str(st.tactical.fireReasons.get(str(source.id),{}).get("goal-gun",""))=="Ally in firing lane","ready sampled-goal gun holds without ammo debit for a current ally in its actual firing lane")
+	blocker.x=old.x;blocker.y=old.y
+	B.update(st,1.0/60.0)
+	var emitted: Array=fire_events(st,source)
+	check(emitted.size()==1 and is_equal_approx(ammunition-float(source.ammo),2.0) and B.mount_shot_time(source,"goal-gun")==float(st.time),"first clear post-motion frame emits one actual paid shot and starts its real timestamp")
+	for variant: String in ["hold","reserve"]:
+		var option: Dictionary={"kind":"all","hold":variant=="hold","reserve":int(source.ammo) if variant=="reserve" else 0}
+		check(B.set_tactical_options(st,[source.id],{"mountGroup":option}),"live sampled-goal "+variant+" uses the public per-mount control")
+		ammunition=float(source.ammo);held_events=[]
+		for tick: int in range(36):
+			B.update(st,1.0/60.0);held_events.append_array(fire_events(st,source))
+			for slot: Dictionary in st.tactical.workers051.slots.values():
+				if not bool(slot.joined):_worker_join051(slot)
+		check(held_events.is_empty() and float(source.ammo)==ammunition and float(source.cooldown)==0.0,"actual reload finishes under current "+variant+" without a free or withheld paid shot")
+	observations.append({"case":"goals051-live","trafficControl":blocked,"laneBlockedAtReady":blocked_ready,"clearShot":emitted,"ammo":source.ammo,"time":st.time})
+	T.retire_planning051(st);T.drain_planning051()
+
+func goals_retirement051() -> void:
+	# Retired LEGACY tasks must occupy the SAME two seats used by the new policy.
+	# Retain real completed output behind the existing fixture semaphore pattern.
+	var old: Dictionary=local_arena()
+	T.enable_planning051(old.state);worker_states051.append(old.state)
+	B.update(old.state,1.0/60.0);B.pop_events(old.state)
+	var slots: Array=old.state.tactical.workers051.slots.values()
+	check(slots.size()==2,"retirement starts with actual legacy player/enemy WorkerThreadPool jobs")
+	if slots.size()!=2:T.retire_planning051(old.state);T.drain_planning051();return
+	for slot: Dictionary in slots:
+		if not _worker_join051(slot):T.retire_planning051(old.state);T.drain_planning051();return
+	var release: Semaphore=Semaphore.new()
+	for slot: Dictionary in slots:
+		slot.joined=false;slot.taskId=WorkerThreadPool.add_task(release.wait,false,"AI fixture legacy-to-goal retirement fence")
+		Planner._tasks051.append(slot)
+	T.retire_planning051(old.state)
+	var arena: Dictionary=_goals_arena051()
+	var st: Dictionary=arena.state
+	B.update(st,1.0/60.0);B.pop_events(st)
+	check(Planner._tasks051.size()==2 and slots.all(func(slot):return bool(slot.retired) and not bool(slot.joined)) and st.tactical.workers051.slots.is_empty(),"new fleet cannot dispatch around two unfinished retired legacy tasks")
+	check(st.tactical.goals051.is_empty() and st.tactical.predictions.is_empty() and int(st.tactical.counters.decisions)==0,"missing worker goals cannot trigger synchronous multioffer planning or fabricate authority")
+	# Release every owned fence before any failure exit or blocking teardown.
+	for slot: Dictionary in slots:release.post()
+	for slot: Dictionary in slots:_worker_join051(slot)
+	check(Planner._tasks051.is_empty() and slots.all(func(slot):return slot.capsule==null and int(slot.taskId)==-1) and st.tactical.goals051.is_empty(),"retired completion joins and releases both old outputs without publishing into the new encounter")
+	var ready: Dictionary=_goals_ready051(arena)
+	check(not ready.is_empty(),"new fleet can dispatch and adopt real goals after the retired seats are actually released")
+	observations.append({"case":"goals051-retirement","oldJoined":slots.all(func(slot):return bool(slot.joined)),"newGoals":st.tactical.goals051.size(),"time":st.time})
+	T.retire_planning051(st);T.drain_planning051()
+	check(Planner._tasks051.is_empty(),"goal retirement drains every owned task through the existing lifecycle")
+
+func goals051() -> void:
+	goals_fleet051();goals_expiry051();goals_invalidations051();goals_live051();goals_retirement051()
+	var arena: Dictionary=boarding_arena()
+	T.enable_planning051(arena,true)
+	check(not arena.tactical.has("workers051"),"explicit sampled policy preserves the ordinary duel's synchronous workload")
+	B.update(arena,1.0/60.0);B.update(arena,1.0/60.0);B.pop_events(arena)
+	check(int(arena.tactical.counters.decisions)>=2 and arena.tactical.goals051.is_empty(),"both ordinary duel hulls still publish real synchronous observations in the first two fair ticks")
+
 func _initialize() -> void:
 	if DisplayServer.get_name()!="headless":quit(2);return
 	var selected: String="all"
@@ -1684,6 +1964,7 @@ func _initialize() -> void:
 		"retained":retained_maneuver051()
 		"traffic-prefix":traffic_prefix051()
 		"workers":workers051()
+		"goals051":goals051()
 		_:quit(2);return
 	for st: Dictionary in worker_states051:T.retire_planning051(st)
 	T.drain_planning051()

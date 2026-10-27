@@ -1,0 +1,45 @@
+FLEET GOALS051 TEST SOURCE - 27 October 2026
+Base c89b9ec72a4d0b9ee133f8eb56dfb59975987767. Source candidate ONLY.
+Owns existing game/tests/test_tactical_ai.gd plus this scoped note.
+
+New explicit selector: res://tests/test_tactical_ai.gd -- --case=goals051
+Use the existing --out= result path argument. Default all and every old
+selector/assertion remain unchanged; the new cases opt in with
+Runtime.enable_planning051(st,true). Ordinary duel true-opt-in is also checked.
+
+Read sibling EgressSol's actual FLEET GOALS051 SOURCE.txt API pin and WIP
+Runtime._Goal051/_goal_current051/_publish_goal051/_helm_goal051/fire_gates,
+Planner._dispatch_goals051 and tactical_goals051.plan051. Read FireSol's actual
+_goal_gates051. No production files copied, modified or included here.
+
+Focused coverage through real Battle.update at60Hz and existing worker joins:
+- Heavy, skirmisher and screen, with a real protected ally, five live hulls,
+  actual fueled travel, crew/stores and exact per-frame emitted-round debits.
+- Actual joined SIDE output compared with published candidate and original
+  chosenAt/sampledAt, exact owner/lifetime/generation and sampled terrain/revision.
+  Immutable goal data cannot freeze the live owner or impersonate a certificate.
+- Actual successive SIDE samples respect100ms cadence, finite worker clearance
+  slices and the shared two-unfinished-task/main physical-work limits.
+- Current helm/fire reads do not manufacture tactical observations or renew
+  timestamps; the actual150ms observation boundary revokes stale goal/fire.
+  This worker currently searches anew per sample, so chosenAt==sampledAt;
+  the test retains/checks its original450ms choice ceiling without fabricating
+  a fresh observation paired with an older choice.
+- Command, options, engine loss, copied owner, captured target and terrain
+  invalidation; terrain also changes after actual worker join before adoption.
+- Current occupied-step helm veto and a live allied shot blocker, followed by
+  an actual paid shot on the first clear frame. Real reloads finish under live
+  mount hold/reserve settings without ammunition debit.
+- Two real retired LEGACY jobs hold their shared task seats behind the existing
+  fixture semaphore pattern. New goals cannot dispatch or synchronously plan
+  around them. Release/join discards their output, then new work can publish.
+
+No new framework, production counters, profiler or timers. Reuses the existing
+_worker_join051 scheduling helper and owner-only retire/drain lifecycle.
+The deliberate clock probes and blocker placements are fixture setup; they do
+not claim measured wall time, representative battle quality or any FPS gain.
+
+Source review only: additive fixture changes; git diff --check clean.
+No advisory, engine, native fixture, import/export, benchmark, build or GPU run.
+Root owns the combined advisory and native R55 on integrated feature/fire/test
+source, followed by the unchanged representative actual quality gate.
