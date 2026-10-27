@@ -21,6 +21,7 @@ const MotorArt=preload("res://scripts/motor_art.gd")
 const MeshCache=preload("res://scripts/boat_mesh_cache.gd")
 const DeckDetail=preload("res://scripts/boat_deck_detail.gd")
 const SpriteArt=preload("res://scripts/boat_sprite_art.gd")
+const WakeArt045=preload("res://scripts/wake_art045.gd")
 
 static var _station_cache: Dictionary = {}
 static var _audit_geometry: bool = "--qa-geometry" in OS.get_cmdline_user_args()
@@ -584,42 +585,9 @@ static func _wpt(projector: Callable, p: Vector2, h: float) -> Vector2:
 	var r = projector.call(p, h)
 	return r if r is Vector2 else Vector2.ZERO
 
-## samples: path-ordered [{p:Vector2 stern world, d:Vector2 heading, age:float,
-## w:float emission half-width in world units}]. A short patch of churn follows
-## the actual stern path. Six pairs of translucent foam patches at most, with
-## no long geometric V rails. All points remain on the water plane.
+## Stern wash follows the recorded travel path; no reflected hull or fake rail.
 static func draw_wake(canvas, projector: Callable, samples: Array, opts: Dictionary = {}) -> int:
-	var life: float=minf(0.7,maxf(0.1,float(opts.get("life",WAKE_LIFE))))
-	var live: Array=[]
-	for s in samples:
-		if s is Dictionary and s.get("p") is Vector2 and float(s.get("age",life))>=0.0 and float(s.get("age",life))<life:
-			live.append(s)
-	if live.is_empty():return 0
-	var n: int=0
-	var count: int=mini(6,live.size())
-	var shape: Array=[Vector2(1,0),Vector2(0.7,0.6),Vector2(0.15,0.82),Vector2(-0.65,0.65),Vector2(-1,0),Vector2(-0.6,-0.7),Vector2(0.2,-0.8),Vector2(0.85,-0.4)]
-	for index in range(count):
-		var sample_index: int=int(roundf(float(index)*(live.size()-1)/maxi(1,count-1)))
-		var sample: Dictionary=live[sample_index]
-		var along: Vector2=Vector2(sample.get("d",Vector2.RIGHT)).normalized()
-		if along.length_squared()<0.5:along=Vector2.RIGHT
-		var side: Vector2=along.orthogonal()
-		var age: float=clampf(float(sample.age)/life,0.0,1.0)
-		var width: float=maxf(0.5,float(sample.get("w",5.0)))*(0.38+age*0.28)
-		var neighbor_index: int=int(roundf(float(mini(index+1,count-1))*(live.size()-1)/maxi(1,count-1))) if index+1<count else int(roundf(float(maxi(0,index-1))*(live.size()-1)/maxi(1,count-1)))
-		var spacing: float=Vector2(live[neighbor_index].p).distance_to(sample.p)
-		var reach: float=maxf(width*1.35,minf(spacing*0.65,width*4.0))
-		var fade: float=pow(1.0-age,1.4)
-		var outer:=PackedVector2Array()
-		var core:=PackedVector2Array()
-		for point in shape:
-			var offset: Vector2=along*point.x*reach+side*point.y*width
-			outer.append(_wpt(projector,sample.p+offset,0))
-			core.append(_wpt(projector,sample.p+offset*0.48+side*width*(0.10 if index%2==0 else -0.10),0))
-		canvas.draw_colored_polygon(outer,Color(0.65,0.86,0.83,fade*0.24))
-		canvas.draw_colored_polygon(core,Color(0.90,0.97,0.93,fade*0.30))
-		n+=2
-	return n
+	return WakeArt045.draw(canvas,projector,samples,opts)
 
 ## points: [{p:Vector2, age:float, life:float}] fading dots for torpedo foam
 ## or rocket smoke. Caller caps the array; oldest are skipped past life.

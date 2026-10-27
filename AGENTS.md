@@ -8,8 +8,9 @@ Current candidate is0.045 weapons/impacts/wakes/audio; metadata advanced once.
 v0.043 measured fixes are delivered at source/tag5ea0d04/v0.043 with419
 focused checks and actual rendered baseline/final measurements. The smoothness
 target remains OPEN: light4.330FPS, mixed28.686FPS at full300DP per side. Do not jump ahead to later scopes or treat tests as art.
-Three Bridge Sol6.1MAX seats are currently simulation043, runtime043 and
-rendering043. They own isolated source checkouts; Root owns all native jobs.
+Three Bridge Sol6.1MAX seats are currently045 Weapons,045 Wakes and045 Feedback.
+They use fresh isolated a0362bb checkouts; Root owns all native jobs. Earlier
+043seats are finished/idle and must not resume historical assignments.
 Grok4.7HIGH may review concrete output. Root coordinates/integrates and owns
 all shared-queue native/bake execution, versions, delivery and desktop updates.
 Common brief: work/quality-v042-v061/OWNER SCOPE.txt in the task workspace.
