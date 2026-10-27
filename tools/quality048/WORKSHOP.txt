@@ -1,0 +1,97 @@
+048 WORKSHOP PRESENTATION - SOURCE CANDIDATE, NATIVE UNRUN
+WorkshopSol048, 27 October 2026
+Parent a157241f6d817f08cf231299d35e6539c61e2359 (047 candidate).
+This seat keeps metadata047. Root must finish047 before integrating048.
+
+EXACT FOUR OWNED FILES
+game/scripts/workshop_ui.gd
+game/scripts/workshop_comparison048.gd (new, pure quote presentation)
+game/tests/test_workshop_layout048.gd (new, compact native fixture, UNRUN)
+tools/quality048/WORKSHOP.txt
+BoatPortrait, main/interface, Lab, core/refit/accounting and sibling files
+are unchanged. No version/tag/package/launcher/save/music changes here.
+
+AGREED SEAMS BEFORE IMPLEMENTATION
+Meeting brass-tide-quality-042-061: b9489f04, 36ee6976, 23795875.
+Requires sibling workshop_builds048.gd in the INTEGRATED tree, not copied here:
+  HULL_ID: String = "iron_bastion"
+  static examples(base:Dictionary)->Array
+    {id,name,role,summary,tradeoff,loadout}; three legal knowledge-only fits.
+Sibling owns examples/describe_fit/metrics and actual build-behavior fixture.
+Workshop comparison owns only formatting/derivation from existing quote/spec.
+No replacement financial/combat/condition model or prices are introduced.
+
+Root host seam ACKef074e4f / implemented notice1a6c4cd9:
+  Main.workshop_try_draft(uid:String,loadout:Dictionary)->bool
+Root alone owns main.gd and test_workshop_trial048.gd. Its seam validates the
+living owned hull/local fit, then starts the existing isolated Lab against
+Ash, closing formation, seed48048, without opening the saving Lab menu.
+The Workshop button passes LOCAL unpaid draft.duplicate(true), with ordinary
+button economy synchronization OFF. It never substitutes the installed fit,
+applies a fitting, transfers paid equipment, or changes campaign fire orders.
+Missing host seam disables the trial button; no fake success path.
+
+PRESENTATION
+Existing Workshop fleet entry, paid atomic quote/apply, templates, item
+condition/spare selection and stale-bill authority remain the same paths.
+Whole-fit quote/cost, worker-days and readiness now appear near the top.
+An immediate speed/armor/fuel before/draft delta strip precedes the portraits.
+Current and draft retain separate selectable numbered BoatPortraits.
+Four-column Current/Draft/Change tables explain fitting capacity, DP, speed,
+turn rate/minimum180turn, protection, unchanged integral pumps, hold/berths,
+ammo capacity, fuel multiplier and exact existing fleet allowance/payroll.
+Selected physical socket compares actual mount-ID range/reload/arc/bearing,
+rounds per shot and shots from EXISTING shared rounds if that mount alone
+spends them. Full/socket/package rows retain real condition summaries.
+Explicit basis: quote design values include identity/morale, NOT a live
+promise about wounded crew, damage, heat, traverse, safety or hit outcomes.
+Rack capacity buys no ammo; fitting buys no stores/crew.100coins/sailor-day.
+The displayed half-turn minimum is PI/statedturn, excluding physical braking
+and acceleration. Fleet fuel allowance is existing Expedition quote data;
+it is not new voyage/battle endurance math or a selected-route forecast.
+Action rows wrap using HFlowContainer inside the existing vertical modal.
+
+EXAMPLES AND CONTROL LIMITATION
+All three sibling Iron Bastion examples can be browsed/compared as known
+designs by any captain. Load-into-draft is enabled ONLY on that owned hull.
+Loading clears prior per-slot requests like existing template loading, then
+gets the ordinary finite quote. Browsing buys nothing; roles are suggestions.
+Same-hull example cost comes from EquipmentPicker.preview_workshop with an
+explicit empty selection request, matching the default choices after loading.
+Known-fit comparison now includes each actual occupied mount's implications.
+
+Verified limitation before proposing schema (meeting42a6e4d0, Root ACK):
+Tactical.options.byId.mounts holds/reserves exist only for the battle.
+Refits.normalize accepts ONLY weapons/engine/armor; saved fitting templates
+accept exactly id/hull/name/loadout. No existing persisted authority hands
+weapon fire settings across careers/battles. We do not invent that schema.
+Workshop explains this and routes through trial to the actual existing
+Selected tactics & weapon groups controls. Integral pumps remain hull-bound;
+damage care still spends existing crew work/repair kits. No fake pump item.
+
+ROOT VERIFICATION HANDOFF - STILL REQUIRED
+Integrate BOTH sibling/source commits and Root host seam before native parse.
+Use existing Godot4.7.2 through Test Bridge ONLY, synthetic APPDATA, Dummy:
+  --headless --audio-driver Dummy --path <integrated-game-path>
+  --script res://tests/test_workshop_layout048.gd
+One normal starter career. Draft economy_drive plus aft rapid_gun is legal
+on its real Tin hull; no free purse/stock/crew/equipment/ownership setup.
+Two native viewport sizes1600x1000 and1280x800: modal/visible trial action,
+comparison widths and scroll. Exact quote/delta text and byte-preservation,
+actual portrait signal, three example tradeoffs/unsupported-load refusal,
+return to same draft, native trial-button/current-fit handoff, actual isolated
+Lab construction and unchanged full career on return. ZERO Battle.update;
+Root trial fixture owns8ticks, sibling owns behavioral evidence. No broad QA.
+Fixture assertions are PREPARED, NOT PASSED. Runtime cost is unmeasured;
+Root chooses one whole selected native batch below120s with setup/cleanup.
+
+SOURCE CHECKS ONLY
+Read actual Workshop/Refit/EquipmentPicker/Portrait/Tactical/Lab/save authority.
+git diff --check clean. Existing check_preload_calls.py: comparison helper
+issues[]/engineInvoked:false. UI+newfixture advisory reports ONLY the expected
+missing sibling workshop_builds048.gd preload in this isolated worktree.
+Sibling file and agreed HULL_ID/examples declarations read directly in its
+separate workspace; preserve its ownership and integrate its named commit.
+No engine/native test/import/export/render/GPU/Blender/bake/audio/CUA/input/
+focus/download/helper/model/provider/push/maintenance ran in this seat.
+No art, motion, audio, FPS, fun, quality acceptance or release-pass claim.

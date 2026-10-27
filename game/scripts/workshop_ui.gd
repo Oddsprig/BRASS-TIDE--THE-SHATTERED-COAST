@@ -6,6 +6,54 @@ const RefitUI=preload("res://scripts/refit_ui.gd")
 const Portrait=preload("res://scripts/boat_portrait.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const EquipmentPicker=preload("res://scripts/equipment_picker.gd")
+const Comparison=preload("res://scripts/workshop_comparison048.gd")
+const Builds=preload("res://scripts/workshop_builds048.gd")
+
+static func _actions(parent: Node) -> HFlowContainer:
+	var flow=HFlowContainer.new()
+	flow.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	parent.add_child(flow)
+	return flow
+
+static func _table(ui,parent: Node,rows: Array,node_name: String):
+	var grid=GridContainer.new()
+	grid.name=node_name;grid.columns=4
+	grid.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	grid.add_theme_constant_override("h_separation",16)
+	grid.add_theme_constant_override("v_separation",8)
+	parent.add_child(grid)
+	for title in ["FIT VALUE","CURRENT","DRAFT","CHANGE"]:
+		ui.paragraph(grid,title,11,ui.GOLD)
+	for entry in rows:
+		for key in ["label","before","after","delta"]:
+			var cell=ui.paragraph(grid,str(entry[key]),14,ui.GOLD if key=="delta" and entry.changed else ui.TEXT)
+			if key=="label":cell.size_flags_stretch_ratio=1.6
+
+static func _try_draft(ui,uid: String,draft: Dictionary):
+	# Capture the LOCAL draft, including unapplied edits. Never pass installed fit instead.
+	if ui.host.has_method("workshop_try_draft"):ui.host.workshop_try_draft(uid,draft.duplicate(true))
+
+static func _draft_actions(ui,parent: Node,uid: String,draft: Dictionary,q: Dictionary):
+	var actions=_actions(parent)
+	ui.button(actions,"Review whole-fit quote · %s coins"%ui.money(q.cost),func():review(ui,uid,draft),true).disabled=not q.validDraft or q.changes.is_empty()
+	var trial=ui.button(actions,"Try current draft in Lab",func():_try_draft(ui,uid,draft),false,false)
+	trial.name="WorkshopTryDraft"
+	trial.disabled=not q.validDraft or not ui.host.has_method("workshop_try_draft")
+	trial.tooltip_text="Isolated practice with this draft; no campaign equipment, condition, coins or stores are transferred."
+	ui.button(actions,"Three build examples",func():examples(ui,uid,draft),false,false).name="WorkshopExamples"
+
+static func _selected(ui,parent: Node,base: Dictionary,ship: Dictionary,draft: Dictionary,q: Dictionary,selected: int):
+	var sockets: Array=Refits.hardpoints(base)
+	if sockets.is_empty():return
+	var socket: Dictionary=sockets[clampi(selected,0,sockets.size()-1)]
+	ui.eyebrow(parent,"SELECTED SOCKET %d · %s · SIZE %d"%[selected+1,str(socket.label),int(socket.size)])
+	ui.paragraph(parent,"Select this numbered position on either boat to change its weapon draft. The highlighted sector uses this socket's actual bearing and firing arc.",12)
+	var weapons: Array=draft.get("weapons",[])
+	var module_id: String=str(weapons[selected]) if selected<weapons.size() else ""
+	ui.paragraph(parent,Comparison.compatibility(base,socket,module_id),13,ui.TEAL)
+	if q.validDraft:
+		_table(ui,parent,Comparison.mount_rows(q.beforeSpec,q.afterSpec,str(socket.id),float(ship.get("ammo",0))),"WorkshopMountComparison")
+	else:ui.paragraph(parent,"Correct the draft before comparing firing values. "+str(q.message),13,ui.RED)
 
 static func _prune_drafts(ui) -> Dictionary:
 	return EquipmentPicker.prune_requests(ui)
@@ -36,11 +84,7 @@ static func _spec_text(spec: Dictionary,points: int,maximum: int) -> String:
 	return "Fitting capacity  %d / %d\nBattle deployment  %d DP\nHold  %.0f space · Berths  %d\nCrew  %d minimum / %d working\nSpeed  %.1f · Turn  %.2f\nArmor  %.0f · Fuel use  %.2f×\nFull working crew pay  %d coins/day"%[points,maximum,Deployment.cost(spec),float(spec.get("cargo",0)),int(spec.get("crewMax",0)),int(spec.get("crewMin",0)),int(spec.get("crewOptimal",0)),float(spec.get("speed",0)),float(spec.get("turn",0)),float(spec.get("armor",0)),float(spec.get("fuelUse",1)),int(spec.get("crewOptimal",0))*100]
 
 static func _arc_text(spec: Dictionary,socket: Dictionary) -> String:
-	for mount in spec.get("weaponMounts",[]):
-		if str(mount.id)==str(socket.id):
-			var kind: String=str(mount.kind)
-			return "%.0f° firing arc · bearing %.0f° · range %.0f%s"%[rad_to_deg(float(mount.arc)),rad_to_deg(float(mount.angle)),float(mount.range)," · fixed launcher" if kind in ["rocket","torpedo"] and str(mount.get("moduleId",""))!="stock_primary" else ""]
-	return "Empty socket · no weapon fires from this position"
+	return Comparison.mount_summary(spec,socket)
 
 static func _picker(ui,parent: Node,uid: String,draft: Dictionary):
 	var row=ui.row(parent)
@@ -67,7 +111,12 @@ static func open(ui,uid: String,draft: Dictionary={},selected: int=0):
 	ui.modal_kind="refit"
 	var body=ui.modal(ship.name,"FITTING BAY · FLEET WORKSHOP · CURRENT FIT & DRAFT",1160,890)
 	_picker(ui,body,uid,draft)
-	ui.paragraph(body,"Click a numbered physical socket to draft a weapon. Compare the complete fit, then review its itemized yard bill before applying once.",14)
+	var quote_status: String="Draft only · %d changed slots · %s coins quoted · %.2f ordinary + %.2f expert worker-days\nPurse covers bill: %s · Yard can apply now: %s"%[q.changes.size(),ui.money(q.cost),float(q.workerDays),float(q.expertDays),"yes" if q.affordable else "no","yes" if q.applicable else "no"]
+	if not q.validDraft:quote_status="Invalid draft · correct its compatibility or fitting budget before a bill can be reviewed."
+	ui.paragraph(body,quote_status,14,ui.TEAL if q.applicable else ui.GOLD).name="WorkshopQuoteStatus"
+	if q.validDraft:ui.paragraph(body,Comparison.headline(q),14,ui.TEXT).name="WorkshopHeadline"
+	_draft_actions(ui,body,uid,draft,q)
+	if not q.get("reasons",[]).is_empty():ui.paragraph(body,str(q.reasons[0]),13,ui.GOLD)
 	var columns=ui.row(body)
 	var current=ui.column(columns)
 	var planned=ui.column(columns)
@@ -75,15 +124,23 @@ static func open(ui,uid: String,draft: Dictionary={},selected: int=0):
 	ui.eyebrow(planned,"DRAFT FITTING" if q.validDraft else "DRAFT NEEDS ADJUSTMENT")
 	var base: Dictionary=ui.host.core.hull(str(ship.type))
 	var before: Dictionary=Refits.normalize(base,ship.get("loadout",{}))
+	var before_loadout: Dictionary=before.get("loadout",Refits.defaults(base))
+	selected=clampi(selected,0,maxi(0,Refits.hardpoints(base).size()-1))
 	var current_spec: Dictionary=q.beforeSpec if not q.beforeSpec.is_empty() else ship.spec
 	var draft_spec: Dictionary=q.afterSpec if not q.afterSpec.is_empty() else current_spec
 	var select=func(index):choose(ui,uid,draft,"weapon:%d"%index)
 	_portrait(ui,current,ship,current_spec,selected,select)
 	_portrait(ui,planned,ship,draft_spec,selected,select)
-	ui.paragraph(current,_spec_text(current_spec,int(before.get("usedPoints",0)),int(before.get("maxPoints",0))),14,ui.MUTED)
-	ui.paragraph(planned,_spec_text(draft_spec,int(q.usedPoints),int(q.maxPoints)),14,ui.TEAL if q.validDraft else ui.RED)
+	ui.paragraph(current,"%s · %s"%[RefitUI.module_name(str(before_loadout.engine)),RefitUI.module_name(str(before_loadout.armor))],13)
+	ui.paragraph(planned,"%s · %s"%[RefitUI.module_name(str(draft.engine)),RefitUI.module_name(str(draft.armor))],13)
 	if not q.validDraft:ui.paragraph(planned,"Draft geometry is shown as the current fit until all modules fit. "+str(q.message),13,ui.RED)
 	ui.paragraph(body,"The highlighted firing sector shows the selected mount's bearings. Its radius is schematic; range is listed below. Empty mounts do not fire.",12)
+	_selected(ui,body,base,ship,draft,q,selected)
+	ui.eyebrow(body,"BEFORE → DRAFT · HANDLING, STORES & COST OF SERVICE")
+	_table(ui,body,Comparison.stat_rows(base,q),"WorkshopFitComparison")
+	ui.paragraph(body,Comparison.basis(),12)
+	ui.paragraph(body,Comparison.stores_text(ship),12)
+	ui.paragraph(body,"Crew: %d minimum / %d working. Full working-crew pay: %d coins/day at 100 coins per sailor-day. Existing integral pumps and repair-kit stock are unchanged by a weapon, engine or armor draft."%[int(draft_spec.get("crewMin",0)),int(draft_spec.get("crewOptimal",0)),int(draft_spec.get("crewOptimal",0))*100],13)
 	var sockets: Array=Refits.hardpoints(base)
 	ui.eyebrow(body,"PHYSICAL SOCKETS")
 	for i in range(sockets.size()):
@@ -93,15 +150,15 @@ static func open(ui,uid: String,draft: Dictionary={},selected: int=0):
 		var id: String=str(draft.get("weapons",[])[i]) if i<draft.get("weapons",[]).size() else ""
 		var line=ui.row(body)
 		var details=ui.column(line)
-		ui.label(details,"%d · %s · size %d · %s"%[i+1,slot.label,slot.size,RefitUI.module_name(id)],16,ui.GOLD)
+		ui.paragraph(details,"%d · %s · size %d · %s → %s"%[i+1,slot.label,slot.size,RefitUI.module_name(str(before_loadout.weapons[i])),RefitUI.module_name(id)],16,ui.GOLD)
 		ui.paragraph(details,_arc_text(draft_spec,slot),12)
 		if canonical:
 			var sum_text: String=EquipmentPicker.slot_summary_text(ui,ship,draft,slot_key,q)
 			if not sum_text.is_empty():ui.paragraph(details,sum_text,13,ui.TEAL)
-		ui.button(line,"Change weapon draft %d"%(i+1),func():choose(ui,uid,draft,slot_key))
+		ui.button(line,"Change weapon draft %d"%(i+1),func():choose(ui,uid,draft,slot_key)).name="WorkshopSocket%d"%i
 	for pair in [["engine","Propulsion"],["armor","Hull protection"]]:
 		var slot: String=pair[0]
-		var line=ui.row(body)
+		var line=_actions(body)
 		var details=ui.column(line)
 		ui.paragraph(details,"%s · %s"%[pair[1],RefitUI.module_name(str(draft.get(slot,"")))],16,ui.TEXT)
 		if canonical:
@@ -113,8 +170,9 @@ static func open(ui,uid: String,draft: Dictionary={},selected: int=0):
 	_reserve(ui,body,q)
 	if not q.get("reasons",[]).is_empty():
 		for reason in q.reasons:ui.paragraph(body,str(reason),13,ui.GOLD)
-	var actions=ui.row(body)
-	ui.button(actions,"Review whole-fit quote · %s coins"%ui.money(q.cost),func():review(ui,uid,draft),true).disabled=not q.validDraft or q.changes.is_empty()
+	ui.eyebrow(body,"AUTOMATIC WEAPON CONTROL & DAMAGE CONTROL")
+	ui.paragraph(body,Comparison.control_limit(),13)
+	var actions=_actions(body)
 	ui.button(actions,"Reset draft to current",func():EquipmentPicker.clear_workshop_state(ui,uid);open(ui,uid))
 	ui.button(actions,"Single-slot refit",func():ui.open_single_refit(uid))
 	if ui.has_method("open_equipment"):
@@ -153,8 +211,8 @@ static func choose(ui,uid: String,draft: Dictionary,slot: String):
 	var body=ui.modal("Draft a fitting","%s · %s"%[ship.name,slot_label],1100,850)
 	_portrait(ui,body,ship,q.afterSpec if not q.afterSpec.is_empty() else ship.spec,selected,func(index):choose(ui,uid,draft,"weapon:%d"%index))
 	if position.index>=0:
-		var socket: Dictionary=Refits.hardpoints(base)[position.index]
-		ui.paragraph(body,"Socket %d · %s · maximum size %d\n%s"%[position.index+1,socket.label,socket.size,_arc_text(q.afterSpec if not q.afterSpec.is_empty() else ship.spec,socket)],15,ui.TEAL)
+		_selected(ui,body,base,ship,draft,q,selected)
+		ui.paragraph(body,Comparison.basis(),12)
 	if canonical:
 		ui.paragraph(body,EquipmentPicker.slot_summary_text(ui,ship,draft,slot,q),14,ui.TEAL)
 	ui.paragraph(body,"This changes the draft only. The final bill pools removed modules and locker stock before buying any yard inputs. Installation always pays ordinary and expert workers.",14)
@@ -243,6 +301,34 @@ static func review(ui,uid: String,draft: Dictionary):
 	ui.button(body,"Apply reviewed fitting · %s coins"%ui.money(q.cost),func():EquipmentPicker.apply_workshop(ui,uid,draft,q),true).disabled=not q.applicable or q.changes.is_empty()
 	ui.button(body,"Back to draft",func():open(ui,uid,draft))
 
+static func examples(ui,uid: String,draft: Dictionary):
+	draft=_draft(ui,uid,draft)
+	var ship: Dictionary=ui.host.core.find_boat(uid)
+	if ship.is_empty():return
+	var base: Dictionary=ui.host.core.hull(Builds.HULL_ID)
+	var library: Array=Builds.examples(base)
+	ui.modal_kind="refit"
+	var body=ui.modal("Three deliberately different builds","KNOWN FITS · "+str(base.get("name",Builds.HULL_ID)).to_upper(),1100,850)
+	ui.paragraph(body,"Compare a fast gun fit, a protected cannon fit and a fixed-tube striker on the same hull. Each pays for its advantage in fuel, handling, range, armor or shared ammunition. These are starting points, not a best shopping list. Loading one changes knowledge only; the yard still needs actual parts, stock, labor and coins.",14)
+	for entry in library:
+		var example: Dictionary=entry
+		ui.label(body,str(example.name),23,ui.GOLD,true)
+		ui.paragraph(body,str(example.summary)+"\nTradeoff: "+str(example.tradeoff),14)
+		ui.paragraph(body,"Suggested role: %s. Choosing a fitting does not issue a role or fire order; set those in the battle's selected tactics."%str(example.role),12)
+		if str(ship.type)==str(base.id):
+			var quote: Dictionary=EquipmentPicker.preview_workshop(ui,uid,example.loadout,{})
+			ui.paragraph(body,"This boat's whole-fit quote: %s coins · %.2f ordinary + %.2f expert days · yard ready: %s"%[ui.money(quote.cost),float(quote.workerDays),float(quote.expertDays),"yes" if quote.applicable else "no"],13,ui.TEAL if quote.applicable else ui.GOLD)
+			if not quote.reasons.is_empty():ui.paragraph(body,str(quote.reasons[0]),12,ui.GOLD)
+		var actions=_actions(body)
+		ui.button(actions,"Compare known build",func():compare(ui,uid,draft,str(base.id),example.loadout),false,false)
+		var load_button=ui.button(actions,"Load example into owned draft",func():EquipmentPicker.clear_workshop_state(ui,uid);open(ui,uid,example.loadout),false,false)
+		load_button.name="WorkshopExample_"+str(example.id)
+		load_button.disabled=str(ship.type)!=str(base.id)
+		if load_button.disabled:load_button.tooltip_text="This template fits "+str(base.name)+". Compare it without buying a hull; load only onto a hull you own of this design."
+		ui.rule(body)
+	ui.paragraph(body,"To try a build, load it into the owned draft and use Try current draft in Lab. The Lab creates isolated practice equipment and finite practice stores; your paid fleet stays in its career.",13)
+	ui.button(body,"Back to owned draft",func():open(ui,uid,draft),false,false)
+
 static func templates(ui,uid: String,draft: Dictionary):
 	ui.host.sync_economy()
 	draft=_draft(ui,uid,draft)
@@ -301,7 +387,13 @@ static func compare(ui,uid: String,draft: Dictionary,hull_id: String,known_fit: 
 	_portrait(ui,other,ship,spec)
 	ui.paragraph(own,_spec_text(own_spec,int(q.usedPoints),int(q.maxPoints)),14,ui.TEAL)
 	ui.paragraph(other,_spec_text(spec,int(normalized.usedPoints),int(normalized.maxPoints)),14)
+	for pair in [[own,own_spec],[other,spec]]:
+		for socket in Refits.hardpoints(pair[1]):
+			var weapon: Dictionary=Comparison.mount(pair[1],str(socket.id))
+			if weapon.is_empty():continue
+			ui.paragraph(pair[0],str(socket.label)+" · "+RefitUI.module_name(str(weapon.moduleId))+"\n"+Comparison.mount_summary(pair[1],socket),13)
 	ui.paragraph(body,"Known designs show design performance and optimal-crew payroll. Your draft includes its existing support conversion, specialists and morale. Buying no hull is required to use the workshop.",13)
+	ui.paragraph(body,Comparison.basis(),12)
 	ui.button(body,"Compare original design fit",func():compare(ui,uid,draft,hull_id))
 	for entry in Workshop.template_list(ui.host.core.state,hull_id):
 		var saved: Dictionary=entry
