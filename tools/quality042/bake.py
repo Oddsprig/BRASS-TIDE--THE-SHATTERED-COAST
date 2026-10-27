@@ -19,14 +19,34 @@ from PIL import Image
 
 from models import BUILDERS, MATERIALS, REVISION, build
 
-CELL = (384, 320)
-PIVOT = (192, 200)
+DEFAULT_CELL = (384, 320)
+DEFAULT_PIVOT = (192, 200)
+CELL = DEFAULT_CELL
+PIVOT = DEFAULT_PIVOT
 DENSITY = 2
 HEADINGS = 32
 KEY = np.array((-.55, -.65, 1.0), dtype=np.float32)
 KEY /= np.linalg.norm(KEY)
 VIEW = np.array((1, 1, .82), dtype=np.float32)
 VIEW /= np.linalg.norm(VIEW)
+
+
+def configure_canvas(hull_id):
+    """Select each hull's canvas before construction; never rescale geometry."""
+    global CELL, PIVOT
+    if hull_id == "brasswind_motor_galleon":
+        CELL, PIVOT = (400, 320), (200, 200)
+    else:
+        CELL, PIVOT = DEFAULT_CELL, DEFAULT_PIVOT
+
+
+def canvas_metadata():
+    """The active base and double-density portrait configuration."""
+    return {"cell_px": list(CELL), "pivot_px": list(PIVOT),
+            "pixels_per_world_unit": DENSITY,
+            "portrait_cell_px": [v*2 for v in CELL],
+            "portrait_pivot_px": [v*2 for v in PIVOT],
+            "portrait_pixels_per_world_unit": DENSITY*2}
 
 
 def normalize(v):
@@ -204,6 +224,7 @@ def asset_metadata(args,hull_id,**changes):
         data=json.loads(manifest.read_text(encoding="utf-8"))
         entry=data.get("hulls",{}).get(hull_id)
         if isinstance(entry,dict):
+            entry.update(canvas_metadata())
             entry.update(changes)
             manifest.write_text(json.dumps(data,indent=2)+"\n",encoding="utf-8")
 
@@ -228,6 +249,8 @@ def save_frame(model, heading, density, args, deadline, source):
     img, metadata = render(model,heading,density,args.aa,deadline)
     metadata.update({"source_sha256":source,"revision":REVISION,"hull_id":model.hull_id,
                      "heading":heading,"density":density,"aa":args.aa,"cell_px":list(img.size),
+                     "pivot_px":[round(v*density/DENSITY) for v in PIVOT],
+                     "canvas_config":canvas_metadata(),
                      "seconds":round(time.perf_counter()-started,3),"png_sha256":"",
                      "sockets":model.sockets})
     temp = path.with_suffix(".partial.png")
@@ -267,11 +290,13 @@ def pack(model,args,source,deadline):
     temporary.replace(target)
     report={"source_sha256":source,"hull_id":model.hull_id,"headings":HEADINGS,
             "atlas_sha256":hashlib.sha256(target.read_bytes()).hexdigest(),
+            "canvas_config":canvas_metadata(),
             "atlas_size_px":list(atlas.size),"gpu_rgba8_bytes":atlas.width*atlas.height*4,
             "status":"baked; visual and native integration review still required"}
     (folder/"bake-receipt.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
     asset_metadata(args,model.hull_id,frame_bounds_px=bounds,asset_status="baked_pending_visual_review",
-                   source_sha256=source,atlas_sha256=report["atlas_sha256"],sockets=model.sockets)
+                   source_sha256=source,atlas_source_sha256=source,
+                   atlas_sha256=report["atlas_sha256"],sockets=model.sockets)
     print(json.dumps(report),flush=True)
 
 
@@ -297,6 +322,7 @@ def main():
     hulls=BUILDERS if args.hull == "all" else (args.hull,)
     try:
         for hull_id in hulls:
+            configure_canvas(hull_id)
             model=build(hull_id)
             if args.mode == "pack":
                 pack(model,args,source,deadline)
@@ -314,7 +340,8 @@ def main():
                     (folder/name).write_bytes(path.read_bytes())
                     if args.mode == "portrait":
                         asset_metadata(args,hull_id,portrait_bounds_px=xywh(report["bounds_px"]),
-                                       portrait_heading=h,portrait_sha256=report["png_sha256"])
+                                       portrait_heading=h,portrait_sha256=report["png_sha256"],
+                                       portrait_source_sha256=source)
                 print(json.dumps({"frame":str(path),**report}),flush=True)
     except TimeoutError as ex:
         print(json.dumps({"status":"INCOMPLETE_BOUNDED","reason":str(ex)}),flush=True)

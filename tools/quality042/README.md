@@ -33,8 +33,10 @@ Manifest: `game/assets/boats042/asset-manifest.json`, schema
 - Exact screen projection at density1 is `[(x-y)*.82,(x+y)*.41-z]`.
 - Heading `i` rotates model XY by `i*TAU/32` before projection. Positive heading
   turns +X toward +Y. Index0 points +worldX; index28 equals -PI/4.
-- Hull cell384×320, pivot192,200, density2; atlas8columns×4rows, no rotation or
-  trimming of cells. Portrait768×640, pivot384,400, density4 at heading28.
+- CPU hull cells: skiff/escort384×320, pivot192,200; merchant400×320,
+  pivot200,200. All use density2 and atlas8columns×4rows, with no rotation or
+  trimming of cells. Portraits use density4: skiff/escort768×640, pivot384,400;
+  merchant800×640, pivot400,400. The requested heading is recorded explicitly.
 - World sun direction toward the light is normalized`[-.55,-.65,1]`. Camera and
   light do not rotate with hull. Sky is cool, direct light is warm and restrained.
 - Mounts use current `MountLayout` role/tier/faction/hash formulas. `sockets_for`
@@ -43,8 +45,8 @@ Manifest: `game/assets/boats042/asset-manifest.json`, schema
   `WeaponGeometry` remains authoritative for the9.7 weapon base and muzzle height.
 - Baker fills actual `frame_bounds_px` and `portrait_bounds_px` as `[x,y,w,h]`;
   empty arrays in this source manifest mean **not measured**, not an empty hull.
-- Three atlas base levels occupy47,185,920bytes total (45MiB). Three portraits
-  add5,898,240bytes (5.625MiB). Mipmaps add about one third. Compressed PNG sizes
+- Three atlas base levels occupy47,841,280bytes total (45.625MiB). Three portraits
+  add5,980,160bytes (5.703125MiB). Mipmaps add about one third. Compressed PNG sizes
   and actual bake durations are unknown until Root runs the candidate.
 
 ## Root's first small bake
@@ -105,6 +107,18 @@ the other two hull IDs. Default output is the game's boats042 directory; use
 `--out` and `--cache` consistently when isolating review candidates. Source
 changes invalidate the entire cache key; do not mix old/new pixels. Root should
 preserve failed evidence and choose new review directories for new candidates.
+
+The merchant-only CPU canvas correction selects its cell/pivot before model
+construction or packing, including when using `--hull all`. It preserves the
+exact projection, densities and model geometry. Across all32 source headings,
+merchant vertex bounds are x9.17456..390.82544 and y85.45518..293.96575 at
+density2 on the400×320 canvas; this is arithmetic, not rendered acceptance.
+New frame/atlas receipts contain `canvas_config`; manifest updates publish the
+cell, pivot and portrait configuration only for the hull being baked. Portrait
+updates record `portrait_source_sha256` without replacing an existing atlas's
+`source_sha256` or alpha bounds. Completed skiff/escort atlases retain their old
+source receipts; only the merchant atlas needs a new bake. Root owns semantic
+manifest merging so existing runtime-baked bounds/provenance stay intact.
 
 For reproducibility, cache keys include SHA256 of both model and CPU bake
 sources plus hull ID, heading, density and AA. Models have no random state,
