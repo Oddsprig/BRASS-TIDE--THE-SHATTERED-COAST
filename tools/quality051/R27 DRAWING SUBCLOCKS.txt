@@ -1,0 +1,14 @@
+051 R27 drawing cost follow-up - source candidate, 27 October 2026
+
+R27 measured CPU boat submission at 5.040ms light / 3.498ms mixed;
+these totals do not identify the expensive drawing section. Extend the
+existing opt-in Chart profiler with preparation, hull, motor, weapon and
+damage CPU subclocks. The same frame dictionary lives only through the
+uninterrupted main-thread battle drawing loop. Ordinary play and public
+callers keep the empty default and do not read clocks.
+
+No drawing commands, boat state, sockets, physics, stores, camera, actor
+count, simulation frequency or GPU scheduling changed. These counters
+measure CPU submission only, not GPU execution time or perceived quality.
+Existing art/weapon fixtures and actual full300DP R28 remain pending.
+Root owns all execution; no performance acceptance from source inspection.

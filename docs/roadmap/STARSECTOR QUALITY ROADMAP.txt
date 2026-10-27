@@ -23,15 +23,19 @@ The sampled policy is component-tested and improves actual performance, but
 large battle remains unusably slow; no051tag/package/install/no052 expansion.
 Accepted float32 contact repair still has zero stalls in actualR27. Rejected
 slower retained native renderer remains reverted, preserved with receipts in Git.
-Next bounded source pass: three FRESH BridgeSol6.1MAX checkouts atf5381ee own
-goal-guard repetition, existing indexed wake projection/preparation, and actual
-damage/mount preparation duplication. No engines/helpers/profilers from helpers.
+Reviewed source follow-up integrated: owned-phase goal capability reuse,
+uncut indexed wake copy bypass, and pure repair-need OR short-circuit. No speed
+claim before R28. Root adds opt-in drawing subclocks to the existing profiler.
+Grok review found attack-target gating and repeated escape preference issues;
+two Sol6.1MAX helpers own bounded fixes. Claimed manual-input regression was
+rejected: Battle.update already applies real manual controls before AI helm.
 R27 light costs: helmCurrent1.150ms,helmSafety1.655ms,damage1.5545ms,
 mounts.989ms,firing1.223ms; boats5.040ms,wake1.663ms,presentation8.030ms.
 Per-tick unaccounted median.567ms, not the difference of separately summed medians.
 NativeR57 and actualR28 only after reviewed source; no speculative speedup claim.
-Grok4.7HIGH review interrupted at app restart; direct fallback timed out300s;
-original review is resumed to finish from its existing context. No verdict yet.
+Grok4.7HIGH review completed from its existing packet; Root verified the
+attack gating defect and actual manual-input call chain. Escape fix is scoped.
+Review is source evidence, not a native result or performance acceptance.
 Earlier R55 queue attempts FAILED before engine (atomic status Move access)
 or INTERRUPTED at queue app restart. They are not game assertion results.
 Root owns all queued muted background tests, each whole batch below120seconds.

@@ -39,6 +39,7 @@ class _BattleDraw051 extends RefCounted:
 	var projector: Callable
 	var sprite_scale: float
 	var atlas_frames051: SpriteArt._BattleAtlas051
+	var profile051: Dictionary = {}
 
 	func _init(view_rect: Rect2, view_camera: Vector2, view_scale: float, owned_atlases051: bool = false) -> void:
 		view = view_rect
@@ -477,9 +478,11 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 static func _draw_battle_boat051(canvas, batch: _BattleDraw051, boat: Dictionary, opts: Dictionary) -> Dictionary:
 	# Chart opts in only for its uninterrupted native boat loop. Recorders keep
 	# every metadata check even if handed an opted-in batch by a fixture/caller.
-	return _draw_boat051(canvas, batch.projector, boat, opts, batch.sprite_scale, batch.atlas_frames051 if canvas is CanvasItem else null)
+	return _draw_boat051(canvas, batch.projector, boat, opts, batch.sprite_scale, batch.atlas_frames051 if canvas is CanvasItem else null, batch.profile051)
 
-static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: Dictionary, battle_scale051: float, atlas_frames051: SpriteArt._BattleAtlas051 = null) -> Dictionary:
+static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: Dictionary, battle_scale051: float, atlas_frames051: SpriteArt._BattleAtlas051 = null, profile051: Dictionary = {}) -> Dictionary:
+	var profile_enabled051: bool = not profile051.is_empty()
+	var phase_started051: int = Time.get_ticks_usec() if profile_enabled051 else 0
 	var spec_v = boat.get("spec", {})
 	var spec: Dictionary = spec_v if spec_v is Dictionary else {}
 	var accent: Color = opts.get("accent", Color("8fc6b4")) if opts.get("accent") is Color else Color("8fc6b4")
@@ -510,20 +513,34 @@ static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: D
 	var sprite_scale: float = 0.0
 	if is_equal_approx(enlargement, 1.0) and canvas.has_method("draw_texture_rect_region") and canvas.has_method("draw_set_transform_matrix"):
 		sprite_scale = SpriteArt._screen_scale(ctx) if battle_scale051 < 0.0 else battle_scale051
+	if profile_enabled051:
+		profile051.boat_prepare_us += Time.get_ticks_usec() - phase_started051
+		phase_started051 = Time.get_ticks_usec()
 	ctx.authored_hull=SpriteArt._draw_hull051(ctx,spec,sprite_scale,atlas_frames051)
+	if profile_enabled051:
+		profile051.boat_hull_us += Time.get_ticks_usec() - phase_started051
+		phase_started051 = Time.get_ticks_usec()
 	if bool(ctx.authored_hull):
 		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
 	elif bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
 		_cached_base(ctx,spec,boat,c,arch)
 		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
 	else:_static(ctx,spec,boat,c,arch)
+	if profile_enabled051:
+		profile051.boat_motor_us += Time.get_ticks_usec() - phase_started051
+		phase_started051 = Time.get_ticks_usec()
 	for m in mounts:
 		var local_bearing: float=float(ctx.localAimAngles.get(str(m.get("id","mount0")),m.angle))
 		if SpriteArt._draw_weapon051(ctx,m,float(ctx.angle)+local_bearing,sprite_scale,atlas_frames051):continue
 		if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c)
 		else:_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
+	if profile_enabled051:
+		profile051.boat_weapons_us += Time.get_ticks_usec() - phase_started051
+		phase_started051 = Time.get_ticks_usec()
 	_damage(ctx, boat, stations, arch, c)
 	HullFeedback.draw_equipment(ctx,boat,mounts)
+	if profile_enabled051:
+		profile051.boat_damage_us += Time.get_ticks_usec() - phase_started051
 	return {"primitives": int(ctx.n), "polygons": int(ctx.npoly), "lines": int(ctx.nline),
 		"circles": int(ctx.ncirc), "archetype": arch, "mounts": mounts.size(), "lod": int(ctx.lod),
 		"authored_hull":bool(ctx.authored_hull),"sprites":int(ctx.get("nsprite",0))}

@@ -541,6 +541,7 @@ func _draw():
 			"scale_factor":scale_factor,"tactical":tactical,"presentation_us":0,
 			"boats_total":0,"boats_live":0,"boats_visible":0,"boat_centers_on_screen":0,"boats_culled":0,"boats_invalid":0,
 			"authored_hulls":0,"boat_sprites":0,"boat_primitives":0,"boats_us":0,
+			"boat_prepare_us":0,"boat_hull_us":0,"boat_motor_us":0,"boat_weapons_us":0,"boat_damage_us":0,
 			"lod0":0,"lod1":0,"lod2":0,"sort_us":0,
 			"wake_updates":_profile_wake_updates,"wake_update_us":_profile_wake_update_us,
 			"trail_update_us":_profile_trail_update_us,"wake_draw_us":0,"trail_draw_us":0,
@@ -1077,6 +1078,7 @@ func draw_battle():
 	if _profile_drawing:_profile_frame.sort_us=Time.get_ticks_usec()-phase_started
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
 	var battle_draw051: BoatArt._BattleDraw051 = null if nautical_chart() else BoatArt._BattleDraw051.new(get_viewport_rect(), camera, scale_factor, true)
+	if battle_draw051 != null and _profile_drawing: battle_draw051.profile051 = _profile_frame
 	for boat in sorted_ships:
 		if not boat.sunk:
 			if _profile_drawing:_profile_frame.boats_live+=1
