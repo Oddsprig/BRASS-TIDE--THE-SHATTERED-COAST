@@ -1,0 +1,26 @@
+Scar patch batch. Parent of this edit is ffddc61. hull_feedback.gd matched 96f1e57.
+
+API
+_scar_fan(model, vertices) is read-only. It projects with WeaponArt._p and returns
+{points, indices}. A fan step 0,i,i+1 is kept only when
+abs((points[i]-points[0]).cross(points[i+1]-points[0])) >= 1.
+The test is the old `< 1` continue, so a step at exactly 1 stays and a dropped
+step is absent. The result is not the convex patch.
+_face_batch(model, vertices, color) draws that fan or nothing.
+CanvasItem: one RenderingServer.canvas_item_add_triangle_array.
+PackedColorArray([color]) is the single color Godot copies onto every vertex
+(mobile renderer and the GLES3 constant-color path).
+Any other canvas: one draw_colored_polygon per surviving triangle, same order.
+ctx.n and ctx.npoly still advance once per surviving triangle, so recorder
+totals and boat_primitives stay triangle counts. The live saving is one server
+call per patch instead of up to 4 and up to 2.
+
+Limits
+Same colors, positions, LOD caps, scar count, flash, crack lines, and pose.
+No mesh, cache, node, resource, or asset. WeaponArt, Chart, and BoatArt are
+unchanged. Empty and subpixel fans submit nothing.
+Godot, GPU, Test Bridge, and benchmarks were not run. test_feedback.gd checks
+index parity against the old fan across headings, scales, the exact-1 boundary,
+an omitted sliver, and the recorder triangles from Feedback.draw.
+Root owns the native canvas path and the profile. Do not read a flat
+boat_primitives number as fewer triangles.

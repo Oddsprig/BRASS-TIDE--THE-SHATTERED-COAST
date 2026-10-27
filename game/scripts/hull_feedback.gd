@@ -97,6 +97,34 @@ static func _circle(ctx: Dictionary,p: Vector2,r: float,col: Color) -> void:
 	ctx.canvas.draw_circle(p,maxf(0.6,r),col)
 	ctx.n+=1;ctx.ncirc+=1
 
+## Read-only scar fan. Projection is WeaponArt._p. A step survives only when
+## abs(cross) >= 1, using the old `< 1` skip, so an omitted step is not filled.
+static func _scar_fan(model: Dictionary, vertices: Array) -> Dictionary:
+	var points := PackedVector2Array()
+	for vertex in vertices: points.append(Faces._p(model, vertex))
+	var indices := PackedInt32Array()
+	for i in range(1, points.size()-1):
+		if absf((points[i]-points[0]).cross(points[i+1]-points[0]))<1.0: continue
+		indices.append(0); indices.append(i); indices.append(i+1)
+	return {"points": points, "indices": indices}
+
+static func _face_batch(model: Dictionary, vertices: Array, color: Color) -> void:
+	var fan: Dictionary=_scar_fan(model, vertices)
+	var indices: PackedInt32Array=fan.indices
+	if indices.is_empty(): return
+	var points: PackedVector2Array=fan.points
+	var canvas=model.ctx.canvas
+	var ctx: Dictionary=model.ctx
+	if canvas is CanvasItem:
+		# One color is copied onto every vertex, the same rule as draw_colored_polygon.
+		RenderingServer.canvas_item_add_triangle_array(canvas.get_canvas_item(), indices, points, PackedColorArray([color]))
+	else:
+		for step in range(0, indices.size(), 3):
+			canvas.draw_colored_polygon(PackedVector2Array([points[indices[step]], points[indices[step+1]], points[indices[step+2]]]), color)
+	var triangles: int=indices.size()//3
+	ctx.n=int(ctx.n)+triangles
+	ctx.npoly=int(ctx.npoly)+triangles
+
 static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 	var hp: float=float(boat.get("hp",boat.get("maxHp",100)))
 	var max_hp: float=maxf(1,float(boat.get("maxHp",hp)))
@@ -113,8 +141,8 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 			var r: float=(0.045+0.035*power)*float(ctx.size)
 			var model: Dictionary={"ctx":ctx,"at":at,"bearing":float(hit.get("angle",0)),"u":1.0/float(ctx.size),"world_unit":1.0,"lod":lod,"h":10.1}
 			var patch: Array=[Vector3(-r,-r*0.3,0),Vector3(-r*0.3,-r*0.8,0),Vector3(r*0.9,-r*0.5,0),Vector3(r,r*0.4,0),Vector3(r*0.1,r*0.65,0),Vector3(-r*0.7,r*0.4,0)]
-			Faces._face(model,patch,Color("3b352c"))
-			Faces._face(model,[Vector3(-r*0.45,-r*0.2,0.15),Vector3(r*0.6,-r*0.22,0.15),Vector3(r*0.22,r*0.3,0.15),Vector3(-r*0.35,r*0.22,0.15)],Color("121e20"))
+			_face_batch(model,patch,Color("3b352c"))
+			_face_batch(model,[Vector3(-r*0.45,-r*0.2,0.15),Vector3(r*0.6,-r*0.22,0.15),Vector3(r*0.22,r*0.3,0.15),Vector3(-r*0.35,r*0.22,0.15)],Color("121e20"))
 			if lod==0:
 				Faces._line(model,Vector3(-r,-r*0.3,0.3),Vector3(-r*1.6,-r*0.85,0.3),Color("ac9d77"),0.7)
 				Faces._line(model,Vector3(r,r*0.35,0.3),Vector3(r*1.65,r*0.7,0.3),Color("292a23"),0.8)

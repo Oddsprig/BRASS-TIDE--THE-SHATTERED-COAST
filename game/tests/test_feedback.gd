@@ -4,6 +4,7 @@ const Battle=preload("res://scripts/battle.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Events=preload("res://scripts/combat_events.gd")
 const Feedback=preload("res://scripts/hull_feedback.gd")
+const Faces=preload("res://scripts/weapon_art.gd")
 const Art=preload("res://scripts/boat_art.gd")
 const FX=preload("res://scripts/combat_art.gd")
 const Main=preload("res://scripts/main.gd")
@@ -216,6 +217,124 @@ func test_effects(hulls: Array) -> void:
 					check(rec.invalid==0 and wreck==before,"sinking renderer handles class/heading/phase without changing wreck")
 	print("EFFECT BUDGET: max %d primitives per effect"%max_effect)
 
+func _identity_proj(p: Vector2,_h: float) -> Vector2: return p
+
+func _old_fan(points: PackedVector2Array) -> PackedInt32Array:
+	var indices := PackedInt32Array()
+	for i in range(1,points.size()-1):
+		if absf((points[i]-points[0]).cross(points[i+1]-points[0]))<1.0: continue
+		indices.append(0); indices.append(i); indices.append(i+1)
+	return indices
+
+func _projected(model: Dictionary,vertices: Array) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	for vertex in vertices: points.append(Faces._p(model,vertex))
+	return points
+
+func _same_points(got,expect: PackedVector2Array) -> bool:
+	if got.size()!=expect.size(): return false
+	for i in got.size():
+		if not is_equal_approx(float(got[i].x),expect[i].x) or not is_equal_approx(float(got[i].y),expect[i].y): return false
+	return true
+
+func _same_indices(got,expect: PackedInt32Array) -> bool:
+	if got.size()!=expect.size(): return false
+	for i in got.size():
+		if int(got[i])!=int(expect[i]): return false
+	return true
+
+func _same_tri(prim: Dictionary,points: PackedVector2Array,a: int,b: int,c: int,color: Color) -> bool:
+	var got: Array=prim.pts
+	var cols: Array=prim.c
+	if prim.t!="poly" or got.size()!=3: return false
+	var expect: Array=[points[a],points[b],points[c]]
+	for i in range(3):
+		if not is_equal_approx(float(got[i][0]),expect[i].x) or not is_equal_approx(float(got[i][1]),expect[i].y): return false
+	return is_equal_approx(float(cols[0]),color.r) and is_equal_approx(float(cols[1]),color.g) and is_equal_approx(float(cols[2]),color.b) and is_equal_approx(float(cols[3]),color.a)
+
+func _check_fan(model: Dictionary,vertices: Array,label: String) -> PackedInt32Array:
+	var canvas=model.ctx.canvas
+	var before: int=canvas.prims.size() if canvas is Recorder else -1
+	var got: Dictionary=Feedback._scar_fan(model,vertices)
+	var points: PackedVector2Array=_projected(model,vertices)
+	var old: PackedInt32Array=_old_fan(points)
+	check(_same_points(got.points,points),"scar fan keeps the weapon projection "+label)
+	check(_same_indices(got.indices,old),"scar fan indices match the old surviving fan "+label)
+	if before>=0: check(canvas.prims.size()==before,"scar fan read does not draw "+label)
+	return old
+
+func _scar_patches(size: float,power: float) -> Array:
+	var r: float=(0.045+0.035*power)*size
+	return [
+		[Vector3(-r,-r*0.3,0),Vector3(-r*0.3,-r*0.8,0),Vector3(r*0.9,-r*0.5,0),Vector3(r,r*0.4,0),Vector3(r*0.1,r*0.65,0),Vector3(-r*0.7,r*0.4,0)],
+		[Vector3(-r*0.45,-r*0.2,0.15),Vector3(r*0.6,-r*0.22,0.15),Vector3(r*0.22,r*0.3,0.15),Vector3(-r*0.35,r*0.22,0.15)]]
+
+func _check_draw_patches(size: float,heading: float,lod: int) -> void:
+	var rec := Recorder.new()
+	var ctx: Dictionary={"canvas":rec,"proj":rec.project,"pos":Vector2(30,80),"angle":heading,"size":size,"px":size*2.0,"lod":lod,"clock":5.0,"combat":false,"n":0,"npoly":0,"nline":0,"ncirc":0}
+	var boat: Dictionary={"hp":40.0,"maxHp":100.0,"fire":0.0,"engine":1.0,"breaches":[],"spec":{"role":"escort","size":size},"visualHits":[{"x":0.15,"y":-0.2,"at":1.0,"power":1.0,"angle":0.7,"material":"wood","section":"mid"}]}
+	var before: PackedByteArray=var_to_bytes(boat)
+	Feedback.draw(ctx,boat,[])
+	check(var_to_bytes(boat)==before,"scar batch draw does not write the boat")
+	var model: Dictionary={"ctx":ctx,"at":Vector2(0.15,-0.2),"bearing":0.7,"u":1.0/size,"world_unit":1.0,"lod":lod,"h":10.1}
+	var patches: Array=_scar_patches(size,1.0)
+	var colors: Array=[Color("3b352c"),Color("121e20")]
+	var expect: int=0
+	var fans: Array=[]
+	for patch in patches:
+		var fan: Dictionary=Feedback._scar_fan(model,patch)
+		fans.append(fan)
+		expect+=fan.indices.size()//3
+	var polys: Array=[]
+	for prim in rec.prims:
+		if prim.t=="poly": polys.append(prim)
+	var lines: int=2 if lod==0 else 0
+	check(polys.size()==expect and int(ctx.npoly)==expect and int(ctx.nline)==lines,"draw keeps only surviving scar triangles plus the old crack lines s%.0f lod%d"%[size,lod])
+	check(int(ctx.n)==expect+lines and rec.prims.size()==expect+lines,"recorder triangle commands still match the primitive count")
+	if size>=36.0: check(expect>0,"a large scar still has a visible fan triangle")
+	var cursor: int=0
+	var ordered: bool=true
+	for patch_i in range(2):
+		var indices: PackedInt32Array=fans[patch_i].indices
+		var points: PackedVector2Array=fans[patch_i].points
+		for step in range(0,indices.size(),3):
+			if cursor>=polys.size() or not _same_tri(polys[cursor],points,indices[step],indices[step+1],indices[step+2],colors[patch_i]): ordered=false
+			cursor+=1
+	check(ordered and cursor==polys.size(),"draw order is the outer fan, then the inner fan, with no extra polygon")
+
+func test_scar_fan() -> void:
+	var flat: Dictionary={"canvas":Recorder.new(),"proj":_identity_proj,"pos":Vector2.ZERO,"angle":0.0,"size":1.0,"px":12.0,"lod":0,"n":0,"npoly":0,"nline":0,"ncirc":0}
+	var model: Dictionary={"ctx":flat,"at":Vector2.ZERO,"bearing":0.0,"u":1.0,"world_unit":1.0,"lod":0,"h":0.0}
+	# cross 1.0 stays; the next sliver is 0.998 and must stay absent.
+	var boundary: Array=[Vector3(0,0,0),Vector3(2,0,0),Vector3(2,0.5,0),Vector3(2,0.999,0),Vector3(0,4,0)]
+	check(_same_indices(_check_fan(model,boundary,"exact threshold"),PackedInt32Array([0,1,2,0,3,4])),"cross of 1 stays and the 0.998 sliver stays omitted")
+	var dropped: Array=[Vector3(0,0,0),Vector3(0.2,0,0),Vector3(0.2,0.2,0),Vector3(0,0.2,0)]
+	check(_check_fan(model,dropped,"subpixel").is_empty(),"subpixel patch refuses every fan triangle")
+	var full: Array=[Vector3(0,0,0),Vector3(20,0,0),Vector3(20,20,0),Vector3(0,20,0)]
+	check(_check_fan(model,full,"full quad").size()==6,"large quad keeps both fan triangles")
+	var rec: Recorder=flat.canvas
+	Feedback._face_batch(model,dropped,Color("3b352c"))
+	check(rec.prims.is_empty() and int(flat.n)==0,"empty fan submits no polygon")
+	Feedback._face_batch(model,boundary,Color("121e20"))
+	var kept: Dictionary=Feedback._scar_fan(model,boundary)
+	check(rec.prims.size()==2 and int(flat.n)==2 and int(flat.npoly)==2,"partial fan submits one polygon per surviving triangle")
+	check(rec.prims[0].pts.size()==3 and rec.prims[1].pts.size()==3,"partial fan does not draw the convex patch")
+	check(_same_tri(rec.prims[0],kept.points,0,1,2,Color("121e20")) and _same_tri(rec.prims[1],kept.points,0,3,4,Color("121e20")),"recorded triangles are the kept fan and skip the sliver")
+	var oblique := Recorder.new()
+	for heading in [0.0,0.9,2.1,4.0]:
+		for bearing in [-0.6,1.8]:
+			for size in [4.0,18.0,46.0]:
+				for scale in [0.4,2.2]:
+					oblique.scale_factor=scale
+					var ctx: Dictionary={"canvas":oblique,"proj":oblique.project,"pos":Vector2(120,-40),"angle":heading,"size":size,"px":size*scale,"lod":0,"n":0,"npoly":0,"nline":0,"ncirc":0}
+					var posed: Dictionary={"ctx":ctx,"at":Vector2(0.2,-0.15),"bearing":bearing,"u":1.0/size,"world_unit":1.0,"lod":0,"h":10.1}
+					var patches: Array=_scar_patches(size,1.0)
+					_check_fan(posed,patches[0],"outer h%.1f b%.1f s%.0f x%.1f"%[heading,bearing,size,scale])
+					_check_fan(posed,patches[1],"inner h%.1f b%.1f s%.0f x%.1f"%[heading,bearing,size,scale])
+	_check_draw_patches(6.0,0.2,0)
+	_check_draw_patches(36.0,2.6,0)
+	_check_draw_patches(36.0,2.6,2)
+
 func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	var spec: Dictionary=world.HULLS[0]
@@ -241,6 +360,7 @@ func run() -> void:
 	for i in range(40):Feedback.record(ship,point,float(i),1.0,"metal","engine",0)
 	check(ship.visualHits.size()==Feedback.MAX_SCARS,"long engagements keep at most eight scars per hull")
 	check(ship.visualHits[0].at==32 and ship.visualHits[-1].at==39,"oldest scars expire in order")
+	test_scar_fan()
 	ship.hp=ship.maxHp*0.5;ship.engine=0.25;ship.fire=48.0
 	var hashes: Dictionary={}
 	for lod in range(3):
