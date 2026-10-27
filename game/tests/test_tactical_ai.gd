@@ -479,6 +479,90 @@ func _admit_retained051(st: Dictionary,source: Dictionary,dt: float,label: Strin
 	observations.append(row)
 	return held
 
+func retained_role_predicate_parity051(st: Dictionary,source: Dictionary) -> void:
+	# Detached READ inputs from a real admitted maneuver. The unchanged eager
+	# six-argument decision path is the reference, not a copied danger formula.
+	var live_before: PackedByteArray=var_to_bytes([st.ships,st.tactical.memory,st.tactical.options])
+	var base: Dictionary=T.view(st,str(source.team),[str(source.id)])
+	var hostile_ids: Array=[]
+	for other: Dictionary in base.ships:
+		if other.team!=source.team:hostile_ids.append(str(other.id))
+	check(hostile_ids.size()>=2,"retained predicate parity starts with two actually observed opponents")
+	if hostile_ids.size()<2:return
+	for variant: String in ["healthy-focus","below-loss","loss-two","loss-one","impaired-one","impaired-none","stationary","fire","flood","fuel","board","screen","new-protector","changed-order","salvo","burst","missing-target"]:
+		var view: Dictionary=base.duplicate(true)
+		view.time=3.0
+		var context: Dictionary=Roles.ships_by_id(view)
+		var own: Dictionary=context[str(source.id)]
+		own.hp=own.maxHp;own.fire=0.0;own.water=0.0
+		own.status.speedFactor=1.0;own.status.turnFactor=1.0
+		own.order="engage";own.orderTarget={}
+		view.options.byId[str(own.id)].role="auto"
+		var previous: Dictionary=st.tactical.memory[str(source.team)].byId[str(source.id)].duplicate(true)
+		previous.targetId=hostile_ids[0];previous.leaderId=""
+		previous.observations=Roles.hp_history(2.85,float(own.maxHp),[]).observations
+		previous.progressAt=3.0;previous.progressPos=Roles.pos(own)
+		for i: int in range(hostile_ids.size()):
+			var hostile: Dictionary=context[hostile_ids[i]]
+			hostile.x=float(own.x)+180.0+float(i)*40.0;hostile.y=own.y
+			hostile.angle=PI
+			hostile.mounts=own.mounts.duplicate(true);hostile.mountShotTimes={}
+			for mount: Dictionary in hostile.mounts:
+				mount.angle=0.0;mount.arc=PI/3.0
+				hostile.mountShotTimes[str(mount.id)]=2.99
+		match variant:
+			"below-loss":own.hp=float(own.maxHp)*0.92001
+			"loss-two","loss-one":own.hp=float(own.maxHp)*0.92
+			"impaired-one","impaired-none","stationary":own.status.speedFactor=0.2
+			"fire":own.fire=25.0
+			"flood":own.water=float(own.capacity)*0.5
+			"fuel":own.fuel=0.0
+			"board":own.order="board";own.orderTarget={"shipId":hostile_ids[0]};own.hp=float(own.maxHp)*0.92
+			"screen","new-protector":
+				view.options.byId[str(own.id)].role="screen"
+				for i: int in range(2):
+					var ally: Dictionary=own.duplicate(true)
+					ally.id="predicate-protector051-"+str(i);ally.x=float(own.x)-100.0-float(i)*20.0
+					if variant=="new-protector" and i==1:ally.hp=float(ally.maxHp)*0.4
+					view.ships.append(ally);context[str(ally.id)]=ally
+				previous.leaderId="predicate-protector051-0"
+			"changed-order":own.orderRevision=int(own.orderRevision)+1;own.order="attack";own.orderTarget={"shipId":hostile_ids[0]}
+			"salvo":
+				view.options.byId[str(own.id)].role="striker"
+				own.mounts[0].kind="rocket";own.mounts[0].arc=0.4
+				previous.shotTimes={str(own.mounts[0].id):2.0};own.mountShotTimes[str(own.mounts[0].id)]=2.99
+			"burst":
+				previous.phase="fire-pass";previous.passShots=4;previous.passShortShots=4
+				previous.passFirstShotAt=0.5;previous.passOpportunitySince=0.5
+			"missing-target":context.erase(hostile_ids[0])
+		if variant in ["loss-one","impaired-one"]:context[hostile_ids[1]].angle=0.0
+		if variant=="impaired-none":
+			for id: String in hostile_ids:context[id].angle=0.0
+		if variant=="stationary":own.spec.speed=0.0
+		var before: PackedByteArray=var_to_bytes([view,context,previous])
+		var protected: Dictionary=Roles.protected_ally(view,own,previous,context)
+		var detailed: Array=[]
+		var focused: int=0
+		for entry: Dictionary in Roles.shortlist(view,own,context,protected):
+			detailed.append(str(entry.id))
+			if Roles.threat(context[str(entry.id)],own,float(view.time))>0.75:focused+=1
+		var expected: Dictionary={}
+		if str(previous.targetId) in detailed:
+			expected=Roles._decide(view,own,previous,context,{}, {"targetId":str(previous.targetId),"targets":detailed,"detailedIds":detailed,"scored":0})
+		var actual: Dictionary=Roles._observe_retained051(view,own,previous,context)
+		check(var_to_bytes(actual)==var_to_bytes(expected),"retained predicate preserves EVERY eager result/memory/detail field: "+variant)
+		var public_choice: Dictionary=Roles.decide(view,own,previous,context)
+		var predicate_choice: Dictionary=Roles._decide(view,own,previous,context,{}, {},protected)
+		check(var_to_bytes(predicate_choice)==var_to_bytes(public_choice),"same-call predicate preserves complete public choice, scores, memory and result: "+variant)
+		check(var_to_bytes([view,context,previous])==before,"retained predicate does not mutate current inputs or previous memory: "+variant)
+		if variant in ["healthy-focus","below-loss","stationary"]:check(focused>=2 and not bool(actual.danger),"actual focus can be numerically high without changing danger or outputs: "+variant)
+		if variant in ["loss-two","impaired-one"]:check(bool(actual.danger),"current focus still triggers the existing loss/impairment escape predicate: "+variant)
+		if variant in ["loss-one","impaired-none"]:check(not bool(actual.danger),"focus still requires the existing live threshold: "+variant)
+		if variant=="new-protector":check(str(actual.state.leaderId)=="predicate-protector051-1","same-call protector reflects a newly wounded ally")
+		if variant=="salvo":check(bool(actual.state.passSpent.get(str(own.mounts[0].id),false)),"retained observation preserves actual fixed-tube shot accounting")
+		if variant=="missing-target":check(actual.is_empty(),"removed current target still forces a full choice")
+	check(var_to_bytes([st.ships,st.tactical.memory,st.tactical.options])==live_before,"detached retained predicate trials preserve the actual admitted battle")
+
 func retained_maneuver051() -> void:
 	for dt: float in [1.0/30.0,1.0/60.0]:
 		var arena: Dictionary=local_arena()
@@ -488,6 +572,7 @@ func retained_maneuver051() -> void:
 		var held=_admit_retained051(st,source,dt,"lease")
 		check(held is C._Retained051,"real accepted engage maneuver admits one typed descriptor dt="+str(dt))
 		if not held is C._Retained051:continue
+		retained_role_predicate_parity051(st,source)
 		var certificate_bytes: PackedByteArray=var_to_bytes(held.record.certificate)
 		var old_intent: Dictionary=held.intent.duplicate(true)
 		var start: Vector2=F.pos(source)

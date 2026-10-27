@@ -461,9 +461,9 @@ static func _observe_retained051(view: Dictionary, ship: Dictionary, previous: D
 	var selected: String = str(previous.get("targetId", ""))
 	if not selected.is_empty() and selected not in detailed:
 		return {}
-	return _decide(view, ship, previous, context, {}, {"targetId": selected, "targets": detailed, "detailedIds": detailed, "scored": 0})
+	return _decide(view, ship, previous, context, {}, {"targetId": selected, "targets": detailed, "detailedIds": detailed, "scored": 0}, protected)
 
-static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, reservations: Dictionary = {}, retained_choice: Dictionary = {}) -> Dictionary:
+static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, reservations: Dictionary = {}, retained_choice: Dictionary = {}, retained_protected051: Variant = null) -> Dictionary:
 	var now: float = number(view.get("time"))
 	var opts: Dictionary = options(view, ship)
 	var order: String = str(ship.get("order", "engage"))
@@ -474,7 +474,10 @@ static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, co
 	for key: String in ["role", "phase", "reason", "targetId", "leaderId", "orderRevision", "phaseSince", "passSince", "pursuitSince", "progressAt", "progressPos", "commitUntil", "safeSince", "lastUsefulShot", "failedTargetId", "failedUntil", "passSequence", "firingPassId", "sector", "anchor", "waitSince", "blockedStation", "launchPos", "breakawayFrom", "passShots", "passShortShots", "passFirstShotAt", "passOpportunitySince", "localRecovery", "localRally"]:
 		if previous.has(key):
 			state[key] = previous[key]
-	var protected: Dictionary = protected_ally(view, ship, previous, context)
+	# Only this synchronous retained call lends its already-observed protector.
+	# An empty protector is a result too; default/public decisions still select it.
+	var retained_read051: bool = retained_protected051 is Dictionary
+	var protected: Dictionary = retained_protected051 if retained_read051 else protected_ally(view, ship, previous, context)
 	var role: String = infer_role(view, ship)
 	var target_choice: Dictionary = choose_target(view, ship, {} if changed_order else previous, context, protected, role, reservations) if retained_choice.is_empty() else retained_choice
 	var target: Dictionary = dictionary(context.get(str(target_choice.targetId)))
@@ -493,13 +496,20 @@ static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, co
 	var sinking_soon: bool = net_flood > 0.0 and (number(ship.get("capacity"), 200.0) - number(ship.get("water"))) / net_flood < 8.0
 	var history: Dictionary = hp_history(now, number(ship.get("hp")), array(previous.get("observations")))
 	var observations: Array = history.observations
-	var focused: int = 0
-	for enemy_id: String in target_choice.detailedIds:
-		var other: Dictionary = context[enemy_id]
-		if threat(other, ship, now) > 0.75:
-			focused += 1
 	var loss: float = float(history.loss)
 	var impaired: bool = number(dictionary(ship.get("spec")).get("speed")) > 0.0 and (number(status.get("speedFactor"), 1.0) < 0.45 or number(status.get("turnFactor"), 1.0) < 0.45)
+	var focused: int = 0
+	# Focus can only trigger danger through recent HP loss or impaired mobility.
+	# Keep the exact current shortlist and HP samples, but avoid enemy mount/arc
+	# work when neither predicate can use it. One impaired or two loss threats
+	# settle every use of focused below; public/default reads stay eager.
+	if not retained_read051 or impaired or loss >= number(ship.get("maxHp"), 1.0) * 0.08:
+		for enemy_id: String in target_choice.detailedIds:
+			var other: Dictionary = context[enemy_id]
+			if threat(other, ship, now) > 0.75:
+				focused += 1
+				if retained_read051 and (impaired or focused >= 2):
+					break
 	var crowded: bool = not target.is_empty() and target_distance < Routes.navigation_radius(ship) + Routes.navigation_radius(target) + 24.0
 	var danger: bool = hp <= hp_limit or flood >= flood_limit or sinking_soon or number(ship.get("fire")) >= 25.0 or (focused >= 2 and loss >= number(ship.get("maxHp"), 1.0) * 0.08) or (impaired and focused > 0) or (crowded and order != "board")
 	var dry: bool = working_mounts(ship).is_empty()

@@ -1,0 +1,30 @@
+051 RETAINED ROLE PREDICATES - SOURCE CANDIDATE; native/GPU UNRUN
+Parent522f783; RolePlans/Stations byte-matched Root889a202 before edits.
+Existing untracked DAMAGE PHASE READ AUDIT preserved. Desktop050/gateOPEN.
+
+R14 jobd6ab1dfd5c2a4d6ebc47ad1ccc832004 measured light9.085/mixed60.011FPS,
+sim15.635/6.768ms. Root's mainAI9.4365ms includes observation2.614ms and
+selection0.893ms. These baseline observations are NOT measured savings.
+
+Only tactical_role_plans.gd changes production: retained observation lends its
+already-computed current protector to the SAME decision loop. No second leader
+selection. That private call skips enemy mount/arc threat scans if neither
+recent HP loss>=8% nor mobility impairment can use focused; otherwise it stops
+at the first impaired threat or second loss threat. Both uses of focused
+(danger and impairment reason) retain the same truth values. Focus is internal,
+never an output field. Public/default _decide remains the eager reference.
+Full current shortlist/order/IDs, HP samples, shot accounting, state/memory,
+roles, escape, protector selection, targets and result schema remain intact.
+No persistent cache, observation cadence, physical/forecast or actor change.
+
+Existing test_tactical_ai adds ONLY unique retained_role_predicate_parity051
+and its call inside retained_maneuver051. No selector/other-case changes;
+Perf owns the other AI edits, Nav owns role_geometry. All old assertions kept.
+17 detached cases compare complete retained/eager result bytes AND complete
+public-choice/result bytes, input nonmutation, healthy high-focus irrelevance,
+loss/impairment boundaries, fresh protector, salvo/burst and target removal.
+They run from both existing30/60Hz retained admissions; not executed here.
+
+Single source API advisory: issues[], engineInvokedfalse. Diff review clean.
+No helpers/engine/tests/build/profile runs. Root owns native/GPU acceptance;
+savings UNMEASURED. STOP after this exact bounded source handoff.
