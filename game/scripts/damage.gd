@@ -378,7 +378,7 @@ static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase) -> Dictiona
 	if entry.is_empty(): return tick_ship(s,dt,{"inCombat":true},phase)
 	invalidate_frame_cache(phase.source,s)
 	if _healthy_battle_entry051(s,entry):
-		return _tick_healthy_cached(s,maxf(0.0,number(dt)),entry,phase.source)
+		return _tick_healthy_cached(s,maxf(0.0,number(dt)),entry,phase.source,true)
 	if not bool(entry.valid):
 		_drop_battle_owner051(phase.owned,s)
 		return tick_ship(s,dt,{"inCombat":true},phase)
@@ -459,7 +459,7 @@ static func _status_from_entry043(s: Dictionary, entry: Dictionary) -> Dictionar
 static func get_status_cached(s = null, frame_cache = null) -> Dictionary:
 	return read_status_cached(s,frame_cache).duplicate(true)
 
-static func _tick_healthy_cached(s: Dictionary, dt: float, entry: Dictionary, _frame_cache: Dictionary) -> Dictionary:
+static func _tick_healthy_cached(s: Dictionary, dt: float, entry: Dictionary, _frame_cache: Dictionary, owned_healthy051: bool = false) -> Dictionary:
 	# Exact old healthy substeps, real fuel/cooldown debit and sanitation. The
 	# unchanged equipment projection needs neither revalidation nor reconstruction.
 	while dt > 0.00000001 and not s.sunk:
@@ -468,9 +468,30 @@ static func _tick_healthy_cached(s: Dictionary, dt: float, entry: Dictionary, _f
 		if absf(dt - 2.0*step) <= 0.0000001: h = dt*0.5
 		s.water = clampf(s.water + 0.0,0.0,s.capacity)
 		if s.fuel > 0.0 and absf(s.vx)+absf(s.vy)>1.0: s.fuel -= 0.006*h
-		s.cooldown = maxf(0.0,number(s.cooldown)-h)
-		_sanitize(s)
+		s.cooldown = maxf(0.0,(float(s.cooldown) if owned_healthy051 else number(s.cooldown))-h)
+		if owned_healthy051:
+			# Admission plus this tick's live guards prove finite numbers and healthy
+			# bounds. Keep normalization/clamps and fresh breaches, without repeating
+			# generic number checks on every unchanged field at every 60Hz substep.
+			s.hp = float(s.hp) # Already equal to maxHp >= 1.
+			s.crew = clampf(float(s.crew),0.0,s.crewMax)
+			s.wounded = clampf(float(s.wounded),0.0,s.crew)
+			s.fire = clampf(float(s.fire),0.0,100.0)
+			s.supplies = maxf(0.0,float(s.supplies))
+			s.ammo = maxf(0.0,float(s.ammo))
+			s.fuel = maxf(0.0,float(s.fuel))
+			s.breaches = []
+		else:
+			_sanitize(s)
 		dt -= h
+	if owned_healthy051:
+		# Admission/official generations already published equipment and the mutable
+		# locker. Healthy substeps change neither; Battle discards this return value.
+		# Retain public scalar normalization if a legacy caller supplied integer 1.
+		if not (s.engine is float): s.engine = float(s.engine)
+		# Only fuel crossing zero can change status during these guarded substeps.
+		# Other live inputs were checked above and remain checked by phase readers.
+		return entry.status if (s.fuel > 0.0) == entry.statusInputs[12] else _status_from_entry043(s,entry)
 	EquipmentDamage.Records._publish_projection(s,entry.projection)
 	# This synchronous no-work branch holds the validated entry. Sanitation and
 	# projection leave condition/spec/base/loadout unchanged; keep the public copy.

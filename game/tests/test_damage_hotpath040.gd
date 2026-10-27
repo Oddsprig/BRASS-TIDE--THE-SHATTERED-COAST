@@ -361,6 +361,7 @@ func owned_context051(source: Dictionary) -> void:
 	Damage._end_battle_phase043(phase)
 	var equal: bool = true
 	var retained_status: Dictionary = {}
+	var borrowed_reports: bool = true
 	for _i in range(14):
 		Damage.begin_frame_cache(cache,ships)
 		phase = Damage._begin_battle_phase043(cache)
@@ -368,11 +369,16 @@ func owned_context051(source: Dictionary) -> void:
 		var report: Dictionary = Damage._tick_ship_in_battle051(live,1.0/60.0,phase)
 		var reference: Dictionary = Damage.tick_ship(expected,1.0/60.0,{"inCombat":true})
 		equal = equal and var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
+		borrowed_reports = borrowed_reports and is_same(report,entry.status) and report.is_read_only() and not reference.is_read_only()
+		borrowed_reports = borrowed_reports and not live.refitLocker.is_read_only() and not is_same(live.refitLocker,entry.projection.refitLocker)
+		reference.weaponFactor = -1.0 # Public tick reports remain detached and mutable.
+		borrowed_reports = borrowed_reports and entry.status.weaponFactor >= 0.0
 		if _i == 0: retained_status = entry.status
 		Damage._end_battle_phase043(phase)
 	entry = Damage._battle_entry051(live,owned)
 	check(equal and is_same(entry.descriptor,descriptor) and is_same(entry.info,info) and int(entry.generation) == 0, "051 unchanged private proof survives frame twelve with exact public boat/report parity")
 	check(entry.healthy and is_same(entry.status,retained_status) and entry.status.is_read_only() and int(entry.projectionGeneration) == int(entry.generation), "051 healthy ticks reuse the immutable status and current projection past frame twelve")
+	check(borrowed_reports, "051 healthy Battle borrows immutable status; public reports and live inventory stay detached and mutable")
 	var previous_entry: Dictionary = entry
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	var old_rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -513,7 +519,10 @@ func healthy_owned_changes051(source: Dictionary) -> void:
 		{"label":"moving threshold","fields":{"vx":0.0,"vy":1.001}},
 		{"label":"ammunition and cooldown","fields":{"ammo":0.0,"cooldown":0.001}},
 		{"label":"negative stores","fields":{"fuel":-1.0,"ammo":-1.0,"cooldown":-0.1}},
-		{"label":"legacy engine loss","fields":{"engine":0.5}}
+		{"label":"legacy engine loss","fields":{"engine":0.5}},
+		{"label":"healthy integer normalization","fields":{"hp":int(source.hp),"crew":int(source.crew),"wounded":0,"water":0,"fire":0,"engine":1,"supplies":3,"ammo":2,"fuel":1,"cooldown":1,"vx":2,"vy":0}},
+		{"label":"healthy uneven substeps","fields":{},"dt":0.021},
+		{"label":"healthy long-step fuel exhaustion","fields":{"fuel":0.00001},"dt":0.2}
 	]:
 		var live: Dictionary = source.duplicate(true)
 		var expected: Dictionary = source.duplicate(true)
@@ -529,8 +538,9 @@ func healthy_owned_changes051(source: Dictionary) -> void:
 		if change.has("priority"):
 			Damage.set_repair_priority(live,str(change.priority)); Damage.set_repair_priority(expected,str(change.priority))
 		for _i in range(2):
-			report = Damage._tick_ship_in_battle051(live,1.0/30.0,phase)
-			reference = Damage.tick_ship(expected,1.0/30.0,{"inCombat":true})
+			var dt: float = float(change.get("dt",1.0/30.0))
+			report = Damage._tick_ship_in_battle051(live,dt,phase)
+			reference = Damage.tick_ship(expected,dt,{"inCombat":true})
 			equal = equal and var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
 			equal = equal and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(expected))
 			if _i == 0 and bool(change.get("refill",false)): live.fuel = 1.0; expected.fuel = 1.0

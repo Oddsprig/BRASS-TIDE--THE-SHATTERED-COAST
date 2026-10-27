@@ -102,3 +102,28 @@ Existing 354 assertions remain untouched; 12 added checks cover repeated
 same-ID copy, public tick/refusal, re-admission, encounter and phase closure.
 Source diff/whitespace review clean. No engine, fixture, QA or profile run.
 Savings unmeasured; Root owns combined native/GPU acceptance. Desktop050/gateOPEN.
+
+051 HEALTHY KERNEL ALLOCATION FOLLOW-UP - SOURCE CANDIDATE, native/profile UNRUN
+Parent0c31fb4, exact owned v051-routes-owned-sol checkout. Only damage.gd,
+existing test_damage_hotpath040.gd and this append changed. Untracked audit kept.
+
+Read actual R8 job72c0042b0da84982bac689e8d9fdfd12: light493ticks/damage2.427ms,
+195095phaseHits/215801lookups; 1693snapshots/101761us. Mixed damage2.354ms,
+5230snapshots/198581us. Those are baseline counts/times, not predicted savings.
+
+Targets the healthy majority, without expanding eligibility. Exact owner,
+generation, legacy, live scalar/status and public guards remain. Only the
+owned healthy branch skips repeated generic number validation inside sanitation;
+same numerical clamps, fuel/cooldown substeps and fresh empty breaches remain.
+Reuse the existing immutable status; refresh immediately on fuel-zero crossing.
+Battle.update discards this return (battle.gd:760), so no report copy is needed.
+
+Admission and dirty generations already publish engine/locker. Healthy substeps
+write neither equipment nor inventory: retain the mutable detached live locker,
+skip discarded publication receipts/copies, normalize integer engine1 as before.
+Public publication/copies and all active fire/flood/repair math remain unchanged.
+
+All366 existing assertions retained; four added checks cover mutable public
+results/inventory protection, integer normalization, uneven substeps and fuel
+exhaustion. One source API advisory: issues[], engineInvokedfalse. Diff checks
+clean. No engine/helpers/tests/profile. Savings unmeasured; Root owns acceptance.
