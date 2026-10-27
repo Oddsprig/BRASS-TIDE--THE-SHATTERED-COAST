@@ -13,7 +13,8 @@ const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 static var _runtime_profile043_enabled: bool=false
 static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,"observedCalls":0,"observedUs":0,"observedMountsCopied":0,"observedMountCopyUs":0,"ownCopies":0,"ownCopyUs":0,"enemyCopies":0,"enemyCopyUs":0,"enemyMountsCopied":0,
 	"retainedAdmissions":0,"retainedDue":0,"fullDue":0,"retainedMissOwnerDeadline":0,"retainedMissConditions":0,"retainedMissTarget":0,"retainedMissCapability":0,"retainedMissOther":0,
-	"retainedDropTime":0,"retainedDropEvents":0,"retainedDropPhase":0,"retainedDropCompletion":0,"retainedDropBoarding":0}
+	"retainedDropTime":0,"retainedDropEvents":0,"retainedDropPhase":0,"retainedDropCompletion":0,"retainedDropBoarding":0,
+	"workerDispatches":0,"workerAdoptions":0,"workerDrops":0,"workerSyncFallbacks":0}
 
 static func set_runtime_profile043(enabled: bool) -> void:
 	_runtime_profile043_enabled=enabled
@@ -28,6 +29,26 @@ static func runtime_profile043() -> Dictionary:
 
 static func defaults() -> Dictionary:
 	return {"doctrine":"steady","role":"auto","group":0,"formation":"line","protectedAllyId":"","rally":{},"leash":600.0,"conditionalWithdrawal":false,"mounts":{}}
+
+static func enable_planning051(st: Dictionary) -> void:
+	# Main and the real voyage fixture use this SAME encounter opt-in.
+	Planner._enable_workers051(ensure(st))
+
+static func retire_planning051(st: Dictionary) -> void:
+	if st.get("tactical") is Dictionary:Planner._retire_workers051(st.tactical)
+
+static func poll_planning051() -> void:
+	Planner._poll_tasks051()
+
+static func drain_planning051() -> void:
+	# Owner shutdown/fixture teardown ONLY. Never called by Battle.update.
+	Planner._poll_tasks051(true)
+
+static func _worker_capability051(st: Dictionary,id: String,previous: Array=[],frame_cache=null) -> Array:
+	var ship: Dictionary=st.tactical.ships[id]
+	var actual: Array=[Certification._motion_inputs(ship),Certification._live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache)).duplicate(true)]
+	if not previous.is_empty() and (actual[0]!=previous[0] or Certification._live_capability_lost(actual[1],previous[1],Vector2.ZERO)):return []
+	return actual
 
 static func ensure(st: Dictionary) -> Dictionary:
 	if not st.get("tactical") is Dictionary:
@@ -456,6 +477,7 @@ static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidat
 
 static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null) -> void:
 	var begin_started: int=Time.get_ticks_usec()
+	Planner._poll_tasks051()
 	if _runtime_profile043_enabled:_runtime_profile043_counts.beginCalls+=1
 	var t: Dictionary=ensure(st)
 	t.dt=dt;t.snapshotRevision+=1
@@ -525,7 +547,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		_runtime_profile043_counts.fullDue+=full_due.size()
 	due=full_due
 	var snapshots: Dictionary={}
-	# These detached bundles exist only during this synchronous begin.
+	# These bundles and all authority still belong to this synchronous begin.
 	# Certification changes clearanceRemaining, not planning observations.
 	var planning: Dictionary={}
 	var memories: Dictionary={}
@@ -547,7 +569,13 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		memories[side]=t.memory[side].duplicate(true)
 		detail.snapshots+=Time.get_ticks_usec()-phase_started
 		phase_started=Time.get_ticks_usec()
-		planning[side]=Planner._prepare_begin(snapshot,memories[side])
+		var suggestion051: Dictionary=Planner._take_worker051(st,side,side_due,_worker_capability051,frame_cache)
+		planning[side]=Planner._prepare_with_worker051(snapshot,memories[side],suggestion051)
+		if _runtime_profile043_enabled and t.has("workers051"):
+			var adopted051: int=planning[side].get("workerIds051",[]).size()
+			_runtime_profile043_counts.workerAdoptions+=adopted051
+			_runtime_profile043_counts.workerDrops+=int(suggestion051.get("dropped051",0))+suggestion051.get("allowed",[]).size()-adopted051
+			_runtime_profile043_counts.workerSyncFallbacks+=side_due.size()-adopted051
 		var candidates: Array=planning[side].get("candidates",[])
 		for raw in candidates:
 			if not raw is Dictionary:continue
@@ -576,7 +604,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			t.metrics.planningCalls.candidates+=1
 			if candidate_inputs.is_empty():candidate_inputs=Certification._begin_inputs(snapshot,ship,membership)
 			if not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
-			var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ship,raw,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051)
+			var prepared_route051: Dictionary=planning[side].get("routes051",{}).get(str(raw.candidateId),{})
+			var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ship,raw,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051) if prepared_route051.is_empty() else Routes._adopt_prepared051(st,t.geometry,ship,raw,prepared_route051,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051)
 			var candidate: Dictionary=refined.candidate
 			if refined.status=="valid" and str(ship.get("order","engage"))=="engage" and candidate.fireMountIds.is_empty():
 				var reservation_status: String=_reserved_path(st,side,ship,candidate)
@@ -634,8 +663,17 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var age: float=float(st.time)-float(t.pending[id])
 		t.metrics.pendingAges.append(age)
 		t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
-	t.budget.clearanceLimit=4096 # Reserved current helm/fire legality work.
 	detail.resolution=Time.get_ticks_usec()-phase_started
+	# Prepare the next fair batch 50ms ahead, using only unused planning work.
+	# Startup, commands, urgent changes and late/missing jobs took the unchanged
+	# synchronous path above; useful observations never depend on worker speed.
+	phase_started=Time.get_ticks_usec()
+	var worker_tally051: Dictionary=Planner._prefetch051(st,queued,cap,_begin_view051,_worker_capability051,frame_cache)
+	if _runtime_profile043_enabled:
+		_runtime_profile043_counts.workerDispatches+=int(worker_tally051.dispatches)
+		_runtime_profile043_counts.workerDrops+=int(worker_tally051.drops)
+	detail.proposals+=Time.get_ticks_usec()-phase_started
+	t.budget.clearanceLimit=4096 # Reserved current helm/fire legality work.
 	detail.beginTotal=Time.get_ticks_usec()-begin_started
 
 static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,offers: Array,frame_cache=null) -> void:
@@ -740,8 +778,11 @@ static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dic
 		if goal.has("x") and (candidate.approach.is_empty() or candidate.approach[-1].distance_to(Vector2(goal.x,goal.y))>0.000001):return false
 	return true
 
-static func _drop_retained051(t: Dictionary,id: String) -> void:
-	t.retained051.erase(id);t.intents.erase(id);t.lastDecision[id]=-1.0
+static func _drop_retained051(t: Dictionary,id: String,preference_expiry051: bool=false) -> void:
+	t.retained051.erase(id);t.intents.erase(id)
+	# Normal expiry removes authority, not the last useful observation. Preserve
+	# its generation for a matching prefetch; every urgent/event drop still -1s.
+	if not preference_expiry051:t.lastDecision[id]=-1.0
 
 static func _current051(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offset: float=0.0,frame_cache=null) -> Dictionary:
 	var held=st.tactical.retained051.get(str(ship.id))
@@ -765,7 +806,7 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,cont
 	# Full preference becomes eligible at .30; fair slots still bound it by .45.
 	if float(st.time)-held.chosen_at>=0.30-0.000001:
 		if _runtime_profile043_enabled:_runtime_profile043_counts.retainedDropTime+=1
-		_drop_retained051(t,id);return false
+		_drop_retained051(t,id,t.has("workers051"));return false
 	var ship: Dictionary=t.ships[id]
 	if not _current051(st,ship,t.intents.get(id,{}),0.0,frame_cache).ok:return false
 	if not _boarding_contact(st,ship,frame_cache).is_empty():

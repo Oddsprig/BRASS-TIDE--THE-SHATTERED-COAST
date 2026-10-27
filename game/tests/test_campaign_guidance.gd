@@ -7,6 +7,7 @@ const Deployment = preload("res://scripts/deployment.gd")
 const Goods = preload("res://scripts/goods.gd")
 const Money = preload("res://scripts/money.gd")
 const Battle = preload("res://scripts/battle.gd")
+const Tactical = preload("res://scripts/tactical_runtime.gd")
 const CoastalTerrain = preload("res://scripts/coastal_terrain.gd")
 
 const CASE_WALL_US: int = 18000000 # Selected case: 18s; default all: 36s total.
@@ -27,6 +28,7 @@ var file_wall_us: int = CASE_WALL_US
 var file_phase: String = "startup"
 var file_timed_out: bool = false
 var voyage_complete: bool = false
+var worker_battle051: Dictionary = {} # Owner teardown also covers early returns.
 
 func in_time(phase: String) -> bool:
 	file_phase = phase
@@ -474,6 +476,8 @@ func test_first_voyage_public_loop() -> void:
 		context.mission = battle.mission.duplicate(true)
 		battle.captureSlots = maxi(0, 64-c.state.get("boardingPrizes", []).size())
 		c.BoardingOps.coastal(c, battle)
+		worker_battle051 = battle
+		Tactical.enable_planning051(battle) # Same opt-in as Main._enter_battle.
 		for _frame in range(COMBAT_STEPS):
 			if battle.result != null:
 				break
@@ -481,6 +485,7 @@ func test_first_voyage_public_loop() -> void:
 				save_first_voyage_failure(battle)
 				return
 			Battle.update(battle, 1.0 / 60.0, {})
+		Tactical.retire_planning051(battle)
 		combat_time = float(battle.time)
 		print("first voyage fight result=%s sim=%.3fs hp=%.3f ammo=%.3f kits=%.3f" % [str(battle.result), combat_time, float(ship.hp), float(ship.ammo), float(ship.supplies)])
 		if not voyage_ck(battle.result == "won", "actual 60Hz win within 90s; outcome=" + str(battle.result)):
@@ -635,6 +640,10 @@ func _initialize() -> void:
 				test_real_fleet_and_dangers()
 		if selected in ["all", "first-voyage"] and in_time("first voyage"):
 			test_first_voyage_public_loop()
+	# GDScript has no finally: one owner teardown after the case covers every
+	# early return above, and joins unfinished tasks outside Battle/physics.
+	Tactical.retire_planning051(worker_battle051)
+	Tactical.drain_planning051()
 	if not in_time(file_phase):
 		voyage_complete = false
 	if selected in ["all", "first-voyage"]:

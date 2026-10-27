@@ -2,6 +2,7 @@ extends RefCounted
 ## Detached tactical intent. B alone certifies paths and applies physical helm/fire.
 const Roles = preload("res://scripts/tactical_role_plans.gd")
 const Stations = preload("res://scripts/tactical_stations.gd")
+const Routes = preload("res://scripts/tactical_routes.gd")
 const MAX_OFFERS: int = 8
 const MAX_CLEARANCE: int = 4096
 const CERT_SECONDS: float = 0.2
@@ -10,6 +11,238 @@ const CERT_PREFIX_SECONDS: float = float(CERT_PREFIX_STEPS) / 30.0
 const CERT_SCOPE: String = "complete-geometry+prefix-physical"
 const LIVE_CERT_SCOPE: String = "complete-geometry+live-step"
 const CERT_FIELDS: Array = ["status", "reachable", "exitReachable", "eta", "fireWindow", "risk", "checkedAt", "validUntil", "snapshotRevision", "orderRevision", "pathFingerprint", "terrainRevision", "geometryKey", "checkedPose", "dynamicsKey", "physicalHorizonEnd", "rolloutSamples", "scope", "reason"]
+
+# Main alone owns the bounded handle list and the slot metadata. The worker
+# receives ONLY its capsule: no live ships, callbacks, SceneTree or globals.
+static var _tasks051: Array = []
+const WORKER_LEAD051: float = 0.05
+const WORKER_DEADLINE051: float = 0.15
+const MAX_TASKS051: int = 2
+
+class _Detached051 extends RefCounted:
+	var input: Dictionary = {}
+	var result: Dictionary = {}
+
+static func _work051(job: _Detached051) -> void:
+	var data: Dictionary = job.input
+	var prepared: Dictionary = _prepare_begin(data.view, data.memory)
+	var routes: Dictionary = {}
+	var private_state: Dictionary = {"tactical": {"routeCache": data.cache}}
+	for id: String in data.order:
+		var budget: Dictionary = data.budgets[id]
+		var ship: Dictionary = prepared.context[id]
+		for candidate: Dictionary in prepared.candidates:
+			if str(candidate.shipId) != id:
+				continue
+			var path: Dictionary = Routes.refine(private_state, data.geometry, ship, candidate, budget)
+			path.origin051 = Roles.pos(ship)
+			path.radius051 = Routes.planning_radius(ship)
+			path.terrainKey051 = data.geometry.key
+			path.terrainRevision051 = data.geometry.revision
+			routes[str(candidate.candidateId)] = path
+	job.result = {"planning": prepared, "routes": routes, "cache": data.cache, "budgets": data.budgets}
+	job.input = {} # All remaining output stays exclusively owned until joined.
+
+static func _poll_tasks051(drain: bool = false) -> void:
+	# Called on main; never waits for an unfinished task during physics.
+	for index: int in range(_tasks051.size() - 1, -1, -1):
+		var slot: Dictionary = _tasks051[index]
+		if not drain and not WorkerThreadPool.is_task_completed(int(slot.taskId)):
+			continue
+		WorkerThreadPool.wait_for_task_completion(int(slot.taskId))
+		slot.taskId = -1
+		slot.joined = true
+		if bool(slot.retired):
+			slot.capsule = null
+		_tasks051.remove_at(index)
+
+static func _retire_slot051(slot: Dictionary) -> void:
+	slot.retired = true
+	slot.guards = {}
+	slot.discarded.append_array(slot.remaining)
+	slot.remaining = []
+	if bool(slot.joined):
+		slot.capsule = null
+
+static func _enable_workers051(t: Dictionary) -> void:
+	if not t.has("workers051"):
+		t.workers051 = {"slots": {}, "cache": {"player": {}, "enemy": {}}}
+
+static func _retire_workers051(t: Dictionary) -> void:
+	if not t.has("workers051"):
+		return
+	for slot: Dictionary in t.workers051.slots.values():
+		_retire_slot051(slot)
+	t.erase("workers051")
+	_poll_tasks051()
+
+static func _release_slot051(t: Dictionary, side: String) -> void:
+	var slot: Dictionary = t.workers051.slots[side]
+	if bool(slot.joined) and slot.capsule != null and str(slot.terrainKey) == str(t.geometry.key):
+		# Transfer, never share, the worker's private route cache to its successor.
+		t.workers051.cache[side] = slot.capsule.result.cache
+	_retire_slot051(slot)
+	t.workers051.slots.erase(side)
+
+static func _take_worker051(st: Dictionary, side: String, due: Array, capability: Callable, frame_cache) -> Dictionary:
+	var t: Dictionary = st.tactical
+	if not t.has("workers051") or not t.workers051.slots.has(side):
+		return {}
+	var slot: Dictionary = t.workers051.slots[side]
+	var allowed: Array = []
+	var dropped: int = 0
+	for id: String in due:
+		if id not in slot.remaining:
+			continue
+		slot.remaining.erase(id)
+		var guard: Dictionary = slot.guards[id]
+		var ship: Dictionary = t.ships[id]
+		var memory: Dictionary = t.memory[side].byId.get(id, {})
+		var current: bool = bool(slot.joined) and float(st.time) - float(slot.createdAt) <= WORKER_DEADLINE051 + 0.000001
+		current = current and str(t.geometry.key) == str(slot.terrainKey) and int(t.geometry.revision) == int(slot.terrainRevision)
+		current = current and is_same(ship, guard.owner) and is_same(ship.spec, guard.spec) and is_same(t.mountCache[id].baseMounts, guard.mounts)
+		current = current and id != str(t.manualId) and int(ship.orderRevision) == int(guard.revision) and t.options.byId[id] == guard.options
+		# lastDecision plus record identity is the existing observation generation.
+		current = current and float(t.lastDecision.get(id, -1.0)) == float(guard.decisionAt) and (memory.is_empty() if not guard.hadMemory else is_same(memory, guard.memory))
+		if current:
+			current = not (capability.call(st, id, guard.capability, frame_cache) as Array).is_empty()
+		if current:
+			allowed.append(id)
+		else:
+			slot.discarded.append(id)
+			dropped += 1
+	var result: Dictionary = {}
+	if not allowed.is_empty():
+		result = {"planning": slot.capsule.result.planning, "routes": slot.capsule.result.routes, "allowed": allowed, "slot": slot}
+	# These joined output dictionaries remain owned by result after slot release.
+	if slot.remaining.is_empty():
+		_release_slot051(t, side)
+	result.dropped051 = dropped
+	return result
+
+static func _prefetch051(st: Dictionary, queued: Array, cap: int, build_view: Callable, capability: Callable, frame_cache) -> Dictionary:
+	var t: Dictionary = st.tactical
+	var tally: Dictionary = {"dispatches": 0, "drops": 0}
+	if not t.has("workers051"):
+		return tally
+	for side: String in t.workers051.slots.keys():
+		var slot: Dictionary = t.workers051.slots[side]
+		if float(st.time) - float(slot.createdAt) > WORKER_DEADLINE051 or str(slot.terrainKey) != str(t.geometry.key):
+			tally.drops += slot.remaining.size()
+			_release_slot051(t, side)
+	if _tasks051.size() >= MAX_TASKS051:
+		return tally
+	var busy_sides: Array = []
+	for active: Dictionary in _tasks051: busy_sides.append(str(active.side))
+	var ordered: Array = queued.duplicate()
+	ordered.sort_custom(func(a: String, b: String) -> bool:
+		var aa: float = float(t.lastDecision.get(a, -1.0))
+		var bb: float = float(t.lastDecision.get(b, -1.0))
+		if aa != bb: return aa < bb
+		var ac: float = float(t.certificationAttempts.get(a, -1.0))
+		var bc: float = float(t.certificationAttempts.get(b, -1.0))
+		return ac < bc if ac != bc else a < b)
+	var selected: Array = []
+	var sides: Array = []
+	for id: String in ordered:
+		var side: String = str(t.ships[id].team)
+		if id == str(t.manualId) or t.workers051.slots.has(side) or side in busy_sides: continue
+		if side not in sides and _tasks051.size() + sides.size() >= MAX_TASKS051: continue
+		var last: float = float(t.lastDecision.get(id, -1.0))
+		if last < 0.0: continue # Commands/startup/urgent conditions stay synchronous.
+		var retained: Variant = t.retained051.get(id)
+		var ready: bool
+		if retained != null:
+			ready = float(st.time) - float(retained.chosen_at) >= 0.30 - WORKER_LEAD051 - 0.000001
+		else:
+			var interval: float = 0.15 if t.intents.has(id) else 0.1
+			ready = float(st.time) - last >= interval - WORKER_LEAD051 - 0.000001
+		if not ready: continue
+		selected.append(id)
+		if side not in sides: sides.append(side)
+		if selected.size() >= cap: break
+	if selected.is_empty(): return tally
+	var clearance: int = maxi(0, 2900 - int(t.budget.clearanceTests))
+	if clearance == 0: return tally
+	var route_slots: int = maxi(0, 4 - int(t.budget.fullRoutes))
+	var budgets: Dictionary = {}
+	for index: int in range(selected.size()):
+		var count: int = selected.size() - index
+		var tests: int = ceili(float(clearance) / float(count))
+		var routes: int = ceili(float(route_slots) / float(count))
+		budgets[selected[index]] = {"clearanceTests": 0, "clearanceLimit": tests, "exhaustions": 0, "fullRoutes": 4 - routes, "cacheHits": 0}
+		clearance -= tests
+		route_slots -= routes
+		# Reserve once in GLOBAL fair order, including discarded/fallback jobs.
+		# Workers never draw on a later tick's main/helm/fire allowance.
+		t.budget.clearanceTests += tests
+		t.budget.fullRoutes += routes
+	for side: String in sides:
+		var ids: Array = []
+		var slices: Dictionary = {}
+		var guards: Dictionary = {}
+		for id: String in selected:
+			var ship: Dictionary = t.ships[id]
+			if str(ship.team) != side: continue
+			ids.append(id)
+			slices[id] = budgets[id]
+			var memory: Dictionary = t.memory[side].byId.get(id, {})
+			guards[id] = {"owner": ship, "spec": ship.spec, "mounts": t.mountCache[id].baseMounts, "revision": int(ship.orderRevision), "options": t.options.byId[id].duplicate(true), "decisionAt": t.lastDecision[id], "hadMemory": not memory.is_empty(), "memory": memory, "capability": capability.call(st, id, [], frame_cache)}
+		var capsule: _Detached051 = _Detached051.new()
+		var snapshot: Dictionary = build_view.call(st, side, ids, frame_cache)
+		capsule.input = {"view": snapshot.duplicate(true), "memory": t.memory[side].duplicate(true), "geometry": t.geometry.duplicate(true), "cache": t.workers051.cache[side], "order": ids.duplicate(), "budgets": slices}
+		t.workers051.cache[side] = {} # Ownership transferred; main has no alias.
+		var slot: Dictionary = {"side": side, "capsule": capsule, "guards": guards, "remaining": ids, "createdAt": float(st.time), "terrainKey": str(t.geometry.key), "terrainRevision": int(t.geometry.revision), "joined": false, "retired": false, "adopted": [], "discarded": [], "taskId": -1}
+		slot.taskId = WorkerThreadPool.add_task(_work051.bind(capsule), false, "Brass Tide detached station/land suggestions")
+		t.workers051.slots[side] = slot
+		_tasks051.append(slot)
+		tally.dispatches += 1
+	return tally
+
+static func _prepare_with_worker051(view: Dictionary, memory: Dictionary, suggestion: Dictionary) -> Dictionary:
+	# The output contains fresh main-thread decisions and request revisions only.
+	if suggestion.get("allowed", []).is_empty(): return _prepare_begin(view, memory)
+	var context: Dictionary = Roles.ships_by_id(view)
+	var reservations: Dictionary = Roles.dictionary(memory.get("reservations")).duplicate(true)
+	var prepared: Dictionary = {"context": context, "dueIds": _due(view, context), "decisions": {}, "sources": {}, "candidates": [], "scored": 0, "routes051": {}, "workerIds051": []}
+	for id: String in prepared.dueIds:
+		var ship: Dictionary = context[id]
+		var previous: Dictionary = Roles.dictionary(Roles.dictionary(memory.get("byId")).get(id))
+		var decision: Dictionary = {}
+		var requests: Array = []
+		if id in suggestion.allowed:
+			var old: Dictionary = suggestion.planning.decisions[id]
+			var protected: Dictionary = Roles.protected_ally(view, ship, previous, context)
+			var detailed: Array = []
+			for entry: Dictionary in Roles.shortlist(view, ship, context, protected): detailed.append(str(entry.id))
+			var target: String = str(old.state.targetId)
+			if target in detailed or (target.is_empty() and detailed.is_empty()):
+				decision = Roles._decide(view, ship, previous, context, reservations, {"targetId": target, "targets": detailed, "detailedIds": detailed, "scored": 0})
+				for key: String in ["role", "phase", "targetId", "leaderId", "firingPassId"]:
+					if decision.state.get(key) != old.state.get(key): decision = {}; break
+			if not decision.is_empty():
+				for raw: Dictionary in suggestion.planning.candidates:
+					if str(raw.shipId) != id: continue
+					var candidate: Dictionary = raw.duplicate(true)
+					candidate.candidateId = "%s:%d:%d:%d" % [id.sha256_text().substr(0, 16), int(view.snapshotRevision), int(ship.orderRevision), requests.size()]
+					candidate.snapshotRevision = int(view.snapshotRevision)
+					candidate.orderRevision = int(ship.orderRevision)
+					requests.append(candidate)
+					prepared.routes051[str(candidate.candidateId)] = suggestion.routes.get(str(raw.candidateId), {})
+				prepared.workerIds051.append(id)
+				suggestion.slot.adopted.append(id)
+			else:
+				suggestion.slot.discarded.append(id)
+		if decision.is_empty():
+			decision = Roles.decide(view, ship, previous, context, reservations)
+			requests = Stations.candidates(view, ship, decision, context, reservations)
+		prepared.decisions[id] = decision
+		prepared.scored += int(decision.scored)
+		prepared.candidates.append_array(requests)
+		for candidate: Dictionary in requests: prepared.sources[candidate.candidateId] = candidate
+		if not requests.is_empty() and int(requests[0].sector) >= 0:
+			reservations[id] = {"targetId": requests[0].targetId, "sector": requests[0].sector, "until": float(view.time) + CERT_SECONDS}
+	return prepared
 
 static func fingerprint(candidate: Dictionary) -> String:
 	return Stations.fingerprint(candidate)

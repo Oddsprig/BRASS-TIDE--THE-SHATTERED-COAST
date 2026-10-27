@@ -1,0 +1,61 @@
+051 DETACHED PLANNING - SOURCE CANDIDATE, NATIVE/GPU UNRUN
+Base: 512e485073b882476125f5e1dea4542181087550, v051-retained-sol.
+Root owns integration, all native runs, unchanged journey and actual GPU proof.
+
+Activation and authority
+Main._enter_battle calls Tactical.enable_planning051. The rendered runtime043
+profile enters through Main.start_lab/_enter_battle, so it uses this path too.
+test_campaign_guidance's real first-voyage battle calls the SAME opt-in.
+Other standalone Battle/public/reference fixtures remain synchronous by default.
+
+Planner uses existing low-priority WorkerThreadPool tasks: at most two outstanding
+globally, one per side, including retired tasks. Each capsule exclusively owns
+deep-copied view/memory/geometry and its private route cache. The next worker
+receives that cache only after completion+join and an exclusive ownership transfer.
+Worker code reuses _prepare_begin/Roles/Stations and Routes.refine; it receives no
+live ship, frame cache, private Damage phase, callback, Scene, RNG or certificate.
+Unused current planning clearance and four route-query slots are reserved in
+global fair order before dispatch. Discard/fallback never refunds that reservation.
+
+Prefetch starts 50ms ahead. Startup, commands, urgent changes and missing/late
+results use existing synchronous due planning: no physics wait or cadence change.
+Adoption guards owner/spec/mount source, command/options/manual, terrain/radius,
+capability and current memory/observation generation. Normal 0.30s preference
+expiry removes authority but preserves the last useful observation timestamp in
+worker mode; all event/condition/command drops still invalidate that generation.
+Main reruns Roles._decide from CURRENT memory and current shortlist; changed
+role/phase/target/leader/pass rejects the suggestion. New candidate IDs/revisions,
+actual-pose land connector, fresh 2s traffic/full ETA, unchanged certification,
+resolution, reservations, publication, live helm/contact/Fire remain on main.
+
+Lifecycle
+Main's battle setter retires replaced Lab/encounter jobs; result and return to
+campaign retire too. Main._process polls even in menus; Runtime.begin also polls.
+Polling waits ONLY completed tasks before inspecting any capsule output.
+Retired unfinished tasks remain in the bounded main-owned handle list until
+joined. Main._exit_tree retires then drains leftovers. The worker fixture retires
+each standalone encounter and drains outside Battle.update. The voyage case has
+one owner teardown after its test function, covering every early return, then
+drains. No unfinished-task wait occurs in the physics path.
+
+Existing runtime_profile043 adds four fixed integers, MAIN WRITES ONLY:
+workerDispatches = submitted tasks; workerAdoptions = due hulls whose suggestions
+entered fresh main validation (NOT accepted physical certificates);
+workerDrops = hull suggestions rejected/expired during begin;
+workerSyncFallbacks = full-due hulls planned synchronously, including startup and
+urgent work. Owner shutdown discards are outside these during-begin counts.
+The existing proposal clock includes main prefetch copying/dispatch overhead.
+
+Verification/limits
+Existing test_tactical_ai --case=workers actually dispatches, joins, adopts across
+the retained 0.30s timer, rejects a new land connector, discards invalidations and
+abandons/drains jobs. It also observes the four runtime counters. Prior 20 fixture
+functions and their assertions are unchanged. The voyage's 90s/60Hz, seed,
+assertions, stats and coin accounting remain unchanged.
+Preload API advisory: 0 issues. git diff --check: clean. Source comparison:
+10 Runtime view/publication/helm/fire/safety functions, 5 Planner public/validation
+functions, 7 Routes public/refinement/graph functions and 20 old AI fixture
+functions unchanged. This is source evidence only, not native parsing or a pass.
+All actors, 300DP, 60Hz, roles/eight offers, stores/crew and RNG are preserved.
+Actual copy/dispatch cost, adoption rate, journey outcome and savings UNMEASURED.
+051 quality/performance gate remains OPEN; no 052, export or Desktop change here.

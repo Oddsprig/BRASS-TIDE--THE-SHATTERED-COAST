@@ -18,6 +18,7 @@ const SPEC={"id":"ai-probe","name":"AI integration","hp":1000.0,"armor":0,"crewM
 var checks: int=0
 var failures: int=0
 var observations: Array=[]
+var worker_states051: Array=[]
 
 func check(ok: bool,message: String) -> void:
 	checks+=1
@@ -653,6 +654,106 @@ func traffic_resolve051() -> void:
 	check(int(pending.counters.accepted)==0 and int(pending.counters.clearanceExhausted)>0 and int(pending.counters.clearanceTests)==0,"private resolve cannot accept through exhausted reservation work")
 	observations.append({"case":"traffic-prefix-resolve","certificateStatus":certificate.status,"public":public_result.counters,"private":live.counters,"pending":pending.counters})
 
+func _worker_slot051(arena: Dictionary) -> Dictionary:
+	var st: Dictionary=arena.state
+	var id: String=str(arena.source.id)
+	T.enable_planning051(st);worker_states051.append(st)
+	# Obtain a REAL retained maneuver and its real 0.25s prefetch. No fabricated
+	# task, retained descriptor, completion flag or physical certificate.
+	for tick: int in range(60):
+		B.update(st,1.0/60.0);B.pop_events(st)
+		var slots: Dictionary=st.tactical.workers051.slots
+		var held: Variant=st.tactical.retained051.get(id)
+		if slots.has("player") and id in slots.player.remaining and held is C._Retained051:
+			var slot: Dictionary=slots.player
+			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at>=0.25-0.000001,"worker case really dispatches for the ordinary retained preference timer")
+			check(Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"real dispatch reserves within the existing global work/task caps")
+			return {"slot":slot,"held":held}
+	check(false,"worker case obtains a real retained prefetch within60 public ticks")
+	observations.append({"case":"workers-start-failed","time":st.time,"intent":st.tactical.intents.get(id,{}),"memory":st.tactical.memory.player.byId.get(id,{}),"reason":st.tactical.reasons.get(id,""),"slots":st.tactical.workers051.slots.keys()})
+	return {}
+
+func _worker_join051(slot: Dictionary) -> bool:
+	# Test-owner scheduling OUTSIDE Battle.update/physics, not a runtime await.
+	var until: int=Time.get_ticks_usec()+2000000
+	while not bool(slot.joined) and Time.get_ticks_usec()<until:
+		T.poll_planning051()
+		if not bool(slot.joined):OS.delay_usec(500)
+	check(bool(slot.joined) and int(slot.taskId)==-1,"real WorkerThreadPool task completes and is joined before any output inspection")
+	return bool(slot.joined)
+
+func workers051() -> void:
+	var profiling: bool=bool(T.runtime_profile043().enabled)
+	T.set_runtime_profile043(true);T.reset_runtime_profile043()
+	var arena: Dictionary=local_arena()
+	var st: Dictionary=arena.state
+	var source: Dictionary=arena.source
+	var id: String=str(source.id)
+	var lease: Dictionary=_worker_slot051(arena)
+	if not lease.is_empty() and _worker_join051(lease.slot):
+		var slot: Dictionary=lease.slot
+		var output: Dictionary=slot.capsule.result
+		var worker_view: Dictionary=output.planning.context[id]
+		var origin: Vector2=F.pos(source)
+		var before: Dictionary={}
+		for tick: int in range(12):
+			before=C.pose(source)
+			B.update(st,1.0/60.0);B.pop_events(st)
+			if id in slot.adopted:break
+		check(id in slot.adopted and float(st.time)-lease.held.chosen_at>=0.30-0.000001,"prefetched retained ship ADOPTS on its normal0.30s expiry, preserving the semantic observation generation")
+		check(not is_same(st.tactical.retained051.get(id),lease.held) and F.pos(source).distance_to(origin)>0.0,"adopted suggestion publishes a new real maneuver and moves the actual boat")
+		var intent: Dictionary=st.tactical.intents.get(id,{})
+		var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
+		check(not record.is_empty() and record.certificate.checkedPose==before and record.certificate.checkedAt==float(st.time) and record.certificate.snapshotRevision==int(st.tactical.snapshotRevision),"main creates a fresh pose/clock/revision certificate, never the worker's old observation")
+		check(F.pos(worker_view).distance_to(F.pos(source))>0.0 and not output.has("certificate") and output.planning.candidates.size()<=8,"worker output is detached, bounded station/path preference data only")
+		for budget: Dictionary in output.budgets.values():check(int(budget.clearanceTests)<=int(budget.clearanceLimit) and int(budget.fullRoutes)<=4,"pure worker stayed inside its preassigned work slice")
+		observations.append({"case":"workers-retained-expiry","createdAt":slot.createdAt,"chosenAt":lease.held.chosen_at,"adoptedAt":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"workerPose":C.pose(worker_view),"mainCheckedPose":record.get("certificate",{}).get("checkedPose",{}),"budgets":output.budgets})
+	T.retire_planning051(st);T.drain_planning051()
+	# A real joined land route on the right remains geometrically valid there.
+	# Move its owner across the SAME wall: only a fresh main connector can reject
+	# adoption from that new pose. No terrain/revision invalidation can do it.
+	arena=local_arena();st=arena.state;source=arena.source;id=str(source.id)
+	st.islands=[F.rectangle(200.0,20.0,250.0,1680.0)]
+	lease=_worker_slot051(arena)
+	if not lease.is_empty() and _worker_join051(lease.slot):
+		var slot: Dictionary=lease.slot
+		source.x=100.0;source.y=850.0
+		for tick: int in range(12):
+			B.update(st,1.0/60.0);B.pop_events(st)
+			if id in slot.adopted:break
+		check(id in slot.adopted and not st.tactical.intents.has(id),"real worker suggestion grants no authority across a blocked fresh land connector")
+		check(float(T.helm(st,source).throttle)==0.0,"fresh connector rejection brakes the actual hull")
+	T.retire_planning051(st);T.drain_planning051()
+	for action: String in ["command","options","terrain","capability","manual","abandon"]:
+		arena=local_arena();st=arena.state;source=arena.source;id=str(source.id)
+		lease=_worker_slot051(arena)
+		if lease.is_empty():T.retire_planning051(st);T.drain_planning051();continue
+		var slot: Dictionary=lease.slot
+		if action!="abandon" and not _worker_join051(slot):T.retire_planning051(st);T.drain_planning051();continue
+		match action:
+			"command":check(B.issue_order(st,[id],"move",{"x":450.0,"y":600.0}),"new command accepted while a real suggestion is in flight")
+			"options":check(B.set_tactical_options(st,[id],{"doctrine":"cautious"}),"new options accepted while a real suggestion is in flight")
+			"terrain":st.islands=[F.rectangle(850.0,100.0,900.0,200.0)]
+			"capability":source.engine=0.0
+			"manual":B.set_autopilot(st,false)
+			"abandon":T.retire_planning051(st)
+		if action!="abandon":
+			for tick: int in range(15):
+				B.update(st,1.0/60.0,{"manual":action=="manual"});B.pop_events(st)
+				if id in slot.discarded:break
+		check(id in slot.discarded and id not in slot.adopted,"real pending suggestion is discarded for "+action)
+		if action=="command":check(source.order=="move" and int(source.orderRevision)>int(lease.held.revision),"worker never restores the superseded command")
+		if action=="manual":check(st.tactical.manualId==id and not st.tactical.intents.has(id),"manual helm never receives worker authority")
+		if action!="abandon":
+			for age: float in st.tactical.metrics.decisionAges:check(age<=0.2+0.000001,"worker rejection uses bounded synchronous useful observations")
+		T.retire_planning051(st);T.drain_planning051()
+		check(bool(slot.joined) and int(slot.taskId)==-1 and slot.capsule==null and Planner._tasks051.is_empty() and not st.tactical.has("workers051"),"standalone/abandoned encounter joins every owned task: "+action)
+		observations.append({"case":"workers-discard","variant":action,"createdAt":slot.createdAt,"time":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"joined":slot.joined})
+	var profile: Dictionary=T.runtime_profile043()
+	check(int(profile.workerDispatches)>0 and int(profile.workerAdoptions)>0 and int(profile.workerDrops)>0 and int(profile.workerSyncFallbacks)>0,"existing Runtime profile observes real dispatch/adoption/drop/synchronous fallback")
+	observations.append({"case":"workers-counters","profile":profile})
+	T.set_runtime_profile043(profiling)
+
 func _initialize() -> void:
 	if DisplayServer.get_name()!="headless":quit(2);return
 	var selected: String="all"
@@ -662,7 +763,7 @@ func _initialize() -> void:
 		if arg.begins_with("--out="):path=arg.substr(6)
 	match selected:
 		"all":
-			ray_cases();boarding_continuity();focused_boarding();explicit_boarding_authority();held_gun();useful_pressure();capabilities_and_observations();fleet_cadence();local_approach();retained_maneuver051();traffic_prefix051()
+			ray_cases();boarding_continuity();focused_boarding();explicit_boarding_authority();held_gun();useful_pressure();capabilities_and_observations();fleet_cadence();local_approach();retained_maneuver051();traffic_prefix051();workers051()
 		"rays":ray_cases()
 		"boarding":boarding_continuity()
 		"focused-boarding":focused_boarding()
@@ -674,7 +775,10 @@ func _initialize() -> void:
 		"local-approach":local_approach()
 		"retained":retained_maneuver051()
 		"traffic-prefix":traffic_prefix051()
+		"workers":workers051()
 		_:quit(2);return
+	for st: Dictionary in worker_states051:T.retire_planning051(st)
+	T.drain_planning051()
 	var file: FileAccess=FileAccess.open(path,FileAccess.WRITE)
 	if file==null:quit(2);return
 	file.store_string(JSON.stringify(F.encode({"checks":checks,"failures":failures,"observations":observations})));file.close()

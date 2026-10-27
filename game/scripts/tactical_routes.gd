@@ -410,6 +410,42 @@ static func _refine_begin051(st: Dictionary,geometry: Dictionary,ship: Dictionar
 	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):return _refine(st,geometry,ship,candidate,budget,true,null,live_traffic_seconds051)
 	return _refine(st,geometry,ship,candidate,budget,true,proofs,live_traffic_seconds051)
 
+static func _adopt_prepared051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,prepared: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
+	# Private, completed+joined worker output, NEVER a corridor/certificate.
+	# Unfinished static searches use the ordinary bounded main route path.
+	if prepared.get("status","")!="valid" or prepared.get("terrainKey051")!=geometry.key or prepared.get("terrainRevision051")!=geometry.revision or prepared.get("radius051")!=planning_radius(ship):
+		return _refine_begin051(st,geometry,ship,candidate,budget,proofs,live_traffic_seconds051)
+	var result: Dictionary=candidate.duplicate(true)
+	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):proofs=null
+	var previous: Vector2=point(ship)
+	var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+4.0
+	var speed: float=maxf(1.0,float(ship.spec.get("speed",90))*float(ship.status.speedFactor)*(1.0 if float(ship.fuel)>0.0 else 0.2)*0.8)
+	var elapsed: float=0.0
+	var connector: bool=true
+	var total: int=0
+	for leg: String in ["approach","pass","exit"]:
+		var points: Array=prepared.candidate.get(leg,[]).duplicate()
+		# A zero-distance deployment origin is not a future station. Connect
+		# from the ACTUAL pose to the first remaining fully land-routed waypoint.
+		if leg=="approach" and points.size()>1 and points[0]==prepared.origin051:points.pop_front()
+		if points.size()>8:return {"status":"blocked","candidate":result,"eta":elapsed}
+		for waypoint: Vector2 in points:
+			if not waypoint.is_finite():return {"status":"blocked","candidate":result,"eta":elapsed}
+			if connector:
+				var land: String=sweep(geometry,previous,waypoint,planning_radius(ship),budget) if proofs==null else _sweep_begin051(proofs,ship,geometry,previous,waypoint,planning_radius(ship),budget)
+				if land!="valid":return {"status":land,"candidate":result,"eta":elapsed,"reason":"Checking current land connector"}
+				connector=false
+			var until: float=elapsed+previous.distance_to(waypoint)/speed
+			if elapsed<=live_traffic_seconds051:
+				var traffic_until: float=minf(until,live_traffic_seconds051)
+				var traffic_end: Vector2=previous.lerp(waypoint,(traffic_until-elapsed)/(until-elapsed)) if traffic_until<until else waypoint
+				var traffic: String=occupied(st.tactical.cells,ship,previous,traffic_end,radius,elapsed,traffic_until,budget,true,contact_target(ship)) if proofs==null else _occupied_begin051(proofs,st.tactical.cells,ship,previous,traffic_end,radius,elapsed,traffic_until,budget,true,contact_target(ship))
+				if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking hull clearance" if traffic=="pending" else "Hull occupies this approach"}
+			elapsed=until;previous=waypoint
+		result[leg]=points;total+=points.size()
+	if total>24 or connector:return {"status":"blocked","candidate":result,"eta":elapsed}
+	return {"status":"valid","candidate":result,"eta":elapsed,"reason":"Current connector and traffic clear"}
+
 static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,live_corridor: bool,proofs: _BeginProofs051=null,live_traffic_seconds051: float=-1.0) -> Dictionary:
 	var result: Dictionary=candidate.duplicate(true)
 	var previous: Vector2=point(ship)

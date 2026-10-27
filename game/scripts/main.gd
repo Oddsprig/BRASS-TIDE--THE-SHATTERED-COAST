@@ -2,6 +2,7 @@ extends Node2D
 
 const Damage = preload("res://scripts/damage.gd")
 const Battle = preload("res://scripts/battle.gd")
+const Tactical = preload("res://scripts/tactical_runtime.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Version = preload("res://scripts/version.gd")
 const Campaign = preload("res://scripts/campaign.gd")
@@ -33,7 +34,10 @@ var paused = false
 var speed = 1
 var selected_port = "brass_haven"
 var selected_site: String=""
-var battle: Dictionary = {}
+var battle: Dictionary = {}:
+	set(value):
+		Tactical.retire_planning051(battle)
+		battle = value
 var battle_context: Dictionary = {}
 var battle_report: Dictionary = {}
 var battle_enemies: Array = []
@@ -152,6 +156,7 @@ func _resize_interface():
 		ui.build_hud()
 
 func _process(dt: float):
+	Tactical.poll_planning051() # Also joins abandoned encounters while in menus.
 	if chart == null:
 		return
 	_finish_economy(false)
@@ -213,6 +218,7 @@ func _physics_process(dt: float):
 		if runtime_profile043!=null:runtime_profile043.after_physics(dt)
 		audio.consume(Battle.pop_events(battle),chart)
 		if battle.result != null:
+			Tactical.retire_planning051(battle)
 			result_handled = true
 			settle_battle.call_deferred()
 
@@ -641,6 +647,7 @@ func start_lab():
 	_enter_battle()
 
 func _enter_battle():
+	Tactical.enable_planning051(battle)
 	audio.reset_battle()
 	ui.modal_kind = ""
 	mode = "battle"
@@ -946,6 +953,7 @@ func recover_salvage(id: String):
 	respond(result)
 
 func return_to_campaign():
+	Tactical.retire_planning051(battle)
 	_leave_lab()
 	if core.state.is_empty():
 		return_to_title()
@@ -1083,6 +1091,8 @@ func quit_game():
 	get_tree().quit()
 
 func _exit_tree():
+	Tactical.retire_planning051(battle)
+	Tactical.drain_planning051()
 	if economy_task >= 0:
 		economy_workers.finish(true)
 
