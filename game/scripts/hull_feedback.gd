@@ -142,6 +142,8 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 		_smoke(ctx,Vector2(-1.04,0.03),engine<0.3,clock,scale,3 if lod==0 else 2)
 	if fire<=0 or lod>=2:return
 	# Pointed, layered flame tongues follow damaged deck positions; smoke drifts upward.
+	var fire_at := Vector2(-0.1,0)
+	if not scars.is_empty():fire_at = Vector2(scars[-1].x,scars[-1].y)
 	var tongues: int=3 if lod==0 else 2
 	for i in range(tongues):
 		var at:=Vector2(-0.42+i*0.28,0.08 if i%2==0 else -0.08)
@@ -150,8 +152,9 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 			at=Vector2(hit.x,hit.y)+Vector2((i-1)*0.07,0)
 		var p: Vector2=_p(ctx,at,12)
 		var phase: float=clock*9.0+i*2.1
-		var height: float=(9+minf(20,fire*0.25))*(0.75+0.17*sin(phase)+0.12*sin(float(i)*2.7))*scale
-		var width: float=(3+fire*0.025)*scale
+		# Small real fires need a readable core above the surrounding deck fittings.
+		var height: float=maxf(8.0,(9+minf(20,fire*0.25))*(0.75+0.17*sin(phase)+0.12*sin(float(i)*2.7))*scale)
+		var width: float=maxf(1.7,(3+fire*0.025)*scale)
 		var lean: float=sin(phase*0.7)*width
 		_poly(ctx,PackedVector2Array([p+Vector2(-width,1),p+Vector2(-width*0.9,-height*0.2),p+Vector2(-width*0.45+lean*0.2,-height*0.44),p+Vector2(-width*0.65+lean*0.6,-height*0.65),p+Vector2(lean,-height),p+Vector2(width*0.2+lean*0.8,-height*0.72),p+Vector2(width*0.05+lean*0.5,-height*0.48),p+Vector2(width*0.8,-height*0.27),p+Vector2(width,1)]),Color(0.94,0.25,0.045,0.88))
 		_poly(ctx,PackedVector2Array([p+Vector2(-width*0.6,0),p+Vector2(-width*0.3,-height*0.23),p+Vector2(lean*0.4,-height*0.64),p+Vector2(width*0.4,-height*0.2),p+Vector2(width*0.6,0)]),Color(1,0.63,0.12,0.95))
@@ -159,9 +162,9 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 	if lod==0:
 		for i in range(2):
 			var rise: float=fposmod(clock*0.8+i*0.45,1.0)
-			var p: Vector2=_p(ctx,Vector2(-0.15-rise*0.15,sin(clock+i)*0.1),18+rise*25)
+			var p: Vector2=_p(ctx,fire_at+Vector2(-0.05-rise*0.15,sin(clock+i)*0.1),18+rise*25)
 			_line(ctx,p,p+Vector2(0,2)*scale,Color(1,0.57,0.14,(1-rise)*0.8),maxf(0.7,scale))
-	_smoke(ctx,Vector2(-0.1,0),true,clock,scale,5 if lod==0 else 3)
+	_smoke(ctx,fire_at,true,clock,scale,5 if lod==0 else 3)
 
 static func _smoke(ctx: Dictionary,at: Vector2,dark: bool,clock: float,scale: float,count: int) -> void:
 	for i in range(count):
