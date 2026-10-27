@@ -182,6 +182,51 @@ func test_draw_inputs(spec: Dictionary) -> void:
 	check(Art._draw_input_cache.size()<=Art.DRAW_INPUT_LIMIT,"drawing preparation stays bounded across hull identities")
 	Art._draw_input_cache.clear()
 
+func test_equipment_marks051(spec: Dictionary) -> void:
+	# Exercise the actual BoatArt caller with a warm preparation, then inspect
+	# its visible circles against the public physical layout, never cache fields.
+	var boat: Dictionary=Damage.create_ship(spec.duplicate(true),{"uid":"feedback-marker051"})
+	var seeded: Dictionary=Damage.EquipmentDamage.Records.initialize(boat,{"base":boat.spec,"loadout":Refit.defaults(boat.spec),"catalog":Refit.catalog(),"identity":str(boat.uid)})
+	check(bool(seeded.get("ok",false)),"marker regression initializes real installed equipment")
+	if not bool(seeded.get("ok",false)):return
+	var items: Dictionary={}
+	for item: Dictionary in boat.moduleCondition.items.values():
+		if str(item.location) in ["engine","pumps"]:items[str(item.location)]=item
+	check(items.size()==2,"marker regression has actual engine and integral pump records")
+	if items.size()!=2:return
+	boat.x=140.0;boat.y=210.0;boat.angle=0.7
+	var opts: Dictionary={"lod":0,"px":float(spec.size)*2.0,"clock":0.3,"combat":false}
+	var warm:=Recorder.new();Art.draw_boat(warm,warm.project,boat,opts)
+	var mutations: Array=[{}, {"role":"cruiser" if str(spec.get("role",""))!="cruiser" else "skiff"}, {"tier":4 if int(spec.get("tier",1))!=4 else 1}, {"faction":"reed" if str(spec.get("faction",""))!="reed" else "forge"}, {"size":float(spec.size)+7.0}]
+	for phase: int in range(3):
+		if phase==1:
+			check(Damage.EquipmentDamage.Core.restore_installed_paid(boat.moduleCondition,{"confirmPaid":true}).ok,"synthetic paid restoration repairs the same installed marker records")
+		else:
+			for location: String in ["engine","pumps"]:
+				var loss: float=0.90 if ((location=="engine")== (phase==0)) else 0.55
+				check(Damage.EquipmentDamage.Core.apply_component_damage(boat.moduleCondition,{"itemUid":str(items[location].itemUid),"loss":loss,"cause":"Marker regression"}).ok,"actual condition transition reaches "+location+" marker phase "+str(phase))
+		for changes: Dictionary in (mutations if phase==2 else [{}]):
+			boat.spec.merge(changes,true) # In-place edits preserve the exact hull ID.
+			var before: PackedByteArray=var_to_bytes(boat)
+			var rec:=Recorder.new();Art.draw_boat(rec,rec.project,boat,opts)
+			var circles: Array=rec.prims.filter(func(prim):return prim.t=="circle" and prim.c==rec._color(Color(0.07,0.10,0.10,0.88)))
+			var marks: Array=Feedback.equipment_marks(boat,Art.mounts_of(boat.spec))
+			var structure: Dictionary=Layout.structure(boat.spec)
+			var expected: Array=[]
+			for location: String in ["engine","pumps"]:
+				var item: Dictionary=items[location]
+				if str(item.status) not in ["damaged","disabled"]:continue
+				var part: Dictionary=structure.engine if location=="engine" else structure.cabin
+				var anchor:=Vector2(part.x,part.y)
+				var height: float=float(part.height)+1.5
+				expected.append({"location":location,"at":anchor,"height":height,"status":str(item.status),"hp":float(item.hp)})
+				var center: Vector2=rec.project(Vector2(boat.x,boat.y)+anchor.rotated(float(boat.angle))*float(boat.spec.size),height)
+				var scale: float=clampf(float(opts.px)/float(boat.spec.size),0.65,2.0)
+				var radius: float=((3.6 if str(item.status)=="disabled" else 3.0)+1.0)*scale
+				check(circles.any(func(circle):return circle.pts==[[center.x,center.y]] and is_equal_approx(float(circle.r),radius)),"warm art places the current "+str(item.status)+" "+location+" marker at its physical anchor: "+str(changes))
+			check(circles.size()==expected.size() and marks==expected and rec.invalid==0,"same-ID preparation and public fresh marks follow repair/spec edits without stale overlays phase="+str(phase)+" "+str(changes))
+			check(var_to_bytes(boat)==before,"equipment marker rendering preserves all live boat/condition data")
+
 func test_effects(hulls: Array) -> void:
 	var max_effect: int=0
 	for family in ["gun","cannon","rocket","torpedo"]:
@@ -366,6 +411,7 @@ func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	var spec: Dictionary=world.HULLS[0]
 	test_draw_inputs(spec)
+	test_equipment_marks051(spec)
 	if "--qa-draw-inputs043" in OS.get_cmdline_user_args():
 		print("DRAW INPUTS043: %d checks, %d failures"%[checks,failures])
 		quit(0 if failures==0 else 1)

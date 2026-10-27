@@ -1,0 +1,68 @@
+R31 PROOF REGRESSIONS - SOURCE ONLY, 27 OCTOBER 2026
+
+Base: 70e9c84c31cf2983843a99de49e3218f27dd2412, isolated proof checkout.
+Allowlist: existing game/tests/test_feedback.gd, existing
+game/tests/test_tactical_ai.gd, and this note. Production is untouched here.
+Every pre-existing assertion and selector is retained. No new harness.
+
+API review before commit
+- Marker sibling fdb26136219631bc43f077844d31b6b89a381704, read actual BoatArt /
+  HullFeedback diff and R31 MARKER SOURCE.txt. Existing draw preparation now
+  owns detached static engine/pump anchors. Public/default equipment_marks and
+  draw_equipment remain fresh. The new test uses only unchanged public APIs.
+- Observation sibling d49a4ebb6064ca4bf3816e62d369de88b375f94d, read actual
+  Runtime / Planner diff and R31 OBSERVATION SOURCE.txt. Signatures/schema are
+  unchanged. Explicit sampled mode prepares full observations at actual SIDE
+  dispatch or an explicit view request; legacy paths remain eager. Current
+  sampled begin builds its physical grid from live owners. The new test uses
+  existing Battle/Runtime factories, the existing _worker_join051 and actual
+  WorkerThreadPool output. No fake completion tokens or substituted results.
+
+Exactly one focused case added per changed behavior
+1. test_equipment_marks051 in the existing feedback fixture (also reached by
+   its existing --qa-draw-inputs043 selector). A real Damage.create_ship and
+   Records.initialize seed installed engine/pumps. Core damage / synthetic
+   paid-restoration transitions exercise disabled/damaged, repaired and the
+   reversed disabled/damaged states on the same records. Actual BoatArt drawing
+   warms its existing preparation before condition changes. Same-ID in-place
+   role, tier, faction and size changes then compare visible marker circle
+   centers/radii with the public Layout.structure physical anchors, along with
+   fresh public mark records and unchanged boat bytes. This does not inspect
+   or reproduce prepared-cache internals. Existing presentation040/045 already
+   cover gun marks, damaged versus disabled symbols, limits and far LOD; those
+   are not duplicated here. Existing feedback scars/flames/motors stay intact.
+2. goals_resample051 under the existing --case=goals051 selector. After real
+   joined initial SIDE jobs, a hostile is placed inside the existing physical
+   floor of an actually moving skirmisher. A single next60Hz begin with the
+   fixture clock advanced by 1/60 must brake/revoke fire without a new worker
+   generation. This is a controlled current-grid probe, not an actual voyage
+   or a claim that the fixture placement was integrated motion. Existing
+   goals_live051 already covers the allied hull veto and actual post-motion
+   allied shot-lane holds/first paid clear shot; those assertions are unchanged.
+   A current public view must then see relocated owner/hostile poses, current
+   hull/flood/status and a real new move order while the prior SIDE period is
+   closed; the earlier detached view, simulation/RNG and memory stay unchanged.
+   Real60Hz Battle.update calls obtain the later factory-created SIDE task and
+   join it. Its result must use the current destination/progress pose, completed
+   move phase, command revision, HP history and sampled flood risk, with the
+   original >=100ms batch/sample clocks. The owner is already at its destination
+   and enemies have zero ammo, so the sampled pose/HP/flood can be compared with
+   the same update's state without a fabricated worker capsule.
+
+Retained evidence and execution handoff
+R61 logic 18150/0 (73405bdce40a42e9839d8da2270827b9) and R62 draw 7585/0
+(1f4afa2a86eb4a7197175d1d13beba98), including prior feedback5088/goals836,
+are BASELINE ONLY. No pass or new assertion count is claimed for this source.
+R30 OFF f4c5cf3462cc4ed182d954919b947f1a: light22.297FPS/11.8095ms.
+R31 ON 1f0447b973e5454883b53c600c192a23: light20.754FPS/11.728ms.
+Both had zero stalls; instrumentation is not the primary demonstrated cost.
+No speed claim before actual R32. Existing42light/16mixed/full300DPside/60Hz,
+collision/fire/damage/fuel/crew/stores/coins/RNG/boats/art are not altered here.
+
+Review was source reading and diff inspection only. NO engine/native test,
+import/export/GPU/profiler/CLI validation/advisory/helper/new chat/API/download/
+cleanup/tag/install/push was performed. Root owns integration, source-bound
+native results and the background Test Bridge FIFO, whole batches <120seconds.
+Run the existing feedback and goals051 selections after integrating both named
+production commits; retain all old failures/results. Source is UNRUN and NOT
+ACCEPTED. 0.051 gate OPEN, Desktop0.050 retained, no0.052 expansion.

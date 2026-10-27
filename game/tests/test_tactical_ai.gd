@@ -1786,6 +1786,68 @@ func goals_fleet051() -> void:
 	observations.append({"case":"goals051-fleet","records":records,"time":st.time,"travel":traveled,"events":events,"maximumUnfinished":maximum_tasks,"workerWork":worker_work})
 	T.retire_planning051(st);T.drain_planning051()
 
+func goals_resample051() -> void:
+	# A later real SIDE job must see changes made while the prior100ms period
+	# is still closed. Existing goals_live051 covers intervening helm/shot vetoes.
+	var arena: Dictionary=_goals_arena051()
+	var st: Dictionary=arena.state
+	var ready: Dictionary=_goals_ready051(arena)
+	if ready.is_empty():T.retire_planning051(st);T.drain_planning051();return
+	var source: Dictionary=arena.source
+	var id: String=str(source.id)
+	var old: Dictionary=ready.records[id]
+	var old_sample: float=float(old.sampledAt)
+	var earlier: Dictionary=T.view(st,"player",[id])
+	var earlier_index: Dictionary=Roles.ships_by_id(earlier)
+	var earlier_bytes: PackedByteArray=var_to_bytes(earlier)
+	# The existing live case covers allied helm/shot blockers. Also exercise a
+	# hostile in begin's current grid on an intervening tick with no new batch.
+	var target: Dictionary=arena.target
+	var moving: Dictionary=arena.actors[1]
+	var generation: int=int(st.tactical.workers051.generation051)
+	var clear: Dictionary=T.helm(st,moving)
+	check(not bool(clear.get("blocked",false)) and float(clear.throttle)>0.0,"resampling starts with a real joined moving helm before current hostile traffic")
+	target.x=float(moving.x)+30.0;target.y=moving.y;target.vx=0.0;target.vy=0.0
+	st.time+=1.0/60.0
+	T.begin(st,1.0/60.0)
+	var blocked: Dictionary=T.helm(st,moving)
+	check(int(st.tactical.workers051.generation051)==generation and bool(blocked.get("blocked",false)) and float(blocked.throttle)==0.0 and T.fire_gates(st,moving).is_empty(),"current hostile motion blocks helm/fire on the next60Hz begin without another role batch")
+	T._close_numeric051(st)
+	var destination:=Vector2(300.0,1400.0)
+	source.x=destination.x;source.y=destination.y;source.vx=0.0;source.vy=0.0
+	source.hp=float(source.maxHp)*0.95;source.water=float(source.capacity)*0.20;source.supplies=0.0
+	target.x=1900.0;target.y=1200.0;target.vx=0.0;target.vy=0.0
+	check(B.issue_order(st,[id],"move",{"x":destination.x,"y":destination.y}),"resampling accepts the actual new destination after the earlier joined job")
+	var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state,st.tactical.memory])
+	var current: Dictionary=T.view(st,"player",[id])
+	var index: Dictionary=Roles.ships_by_id(current)
+	check(F.pos(index[id])==destination and F.pos(index[str(target.id)])==F.pos(target) and float(index[id].hp)==float(source.hp) and float(index[id].water)==float(source.water) and index[id].status==D.get_status(source) and int(index[id].orderRevision)==int(source.orderRevision) and index[id].orderTarget==source.orderTarget,"explicit full-view request reads current own/hostile pose, status and command between SIDE batches")
+	check(float(st.time)<old_sample+0.10 and var_to_bytes(earlier)==earlier_bytes and F.pos(earlier_index[id])!=destination and var_to_bytes([st.ships,st.rng.state,st.tactical.memory])==physical,"fresh public observation neither changes the old detached view nor advances simulation or tactical memory")
+	var later: Dictionary={}
+	var sample_pose:=Vector2.ZERO
+	var sample_hp: float=0.0;var sample_risk: float=0.0
+	for tick: int in range(12):
+		B.update(st,1.0/60.0);B.pop_events(st)
+		for slot: Dictionary in st.tactical.workers051.slots.values():
+			if not bool(slot.joined) and not _worker_join051(slot):continue
+			if str(slot.side)!="player" or float(slot.createdAt)<=old_sample:continue
+			# The source is already at its ordered destination, so this update has
+			# no owner motion or hostile damage after the actual planning sample.
+			later={"slot":slot,"output":slot.capsule.result.goals051[id]}
+			sample_pose=F.pos(source);sample_hp=float(source.hp)
+			sample_risk=clampf(float(source.water)/float(source.capacity),0.0,1.0)
+		if not later.is_empty():break
+	check(not later.is_empty(),"resampling obtains a later actual joined SIDE job within12 real60Hz frames")
+	if not later.is_empty():
+		var slot: Dictionary=later.slot
+		var output: Dictionary=later.output
+		var history: Array=output.state.observations
+		check(bool(slot.joined) and int(slot.taskId)==-1 and float(slot.createdAt)>=old_sample+0.10-0.000001 and float(output.sampledAt)==float(slot.createdAt) and float(output.chosenAt)==float(slot.createdAt),"later output comes from the real100ms factory/join and retains its original sample clocks")
+		check(str(output.state.phase)=="hold" and int(output.state.orderRevision)==int(source.orderRevision) and output.state.progressPos==destination and sample_pose==destination and not output.candidate.is_empty() and Stations.anchor(output.candidate)==destination,"later sampled plan sees the new pose and completes its new move at the actual destination")
+		check(not history.is_empty() and float(history[-1].lastAt)==float(slot.createdAt) and float(history[-1].lastHp)==sample_hp and is_equal_approx(float(output.sampledRisk),sample_risk) and sample_risk>0.0 and float(old.sampledAt)==old_sample,"later joined observation uses current hull/flood status without renewing the earlier goal")
+		observations.append({"case":"goals051-resample","oldSample":old_sample,"sampledAt":slot.createdAt,"pose":sample_pose,"hp":sample_hp,"risk":sample_risk,"orderRevision":source.orderRevision,"phase":output.state.phase})
+	T.retire_planning051(st);T.drain_planning051()
+
 func goals_expiry051() -> void:
 	var arena: Dictionary=_goals_arena051(true)
 	var st: Dictionary=arena.state
@@ -2132,6 +2194,7 @@ func goals_phase_guards051() -> void:
 
 func goals051() -> void:
 	goals_fleet051();goals_expiry051();goals_invalidations051();goals_live051();goals_retirement051()
+	goals_resample051()
 	goals_phase_guards051()
 	goals_attack051()
 	goals_escape_preference051()
