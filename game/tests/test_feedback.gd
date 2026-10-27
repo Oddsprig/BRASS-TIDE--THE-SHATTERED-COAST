@@ -32,8 +32,10 @@ class Recorder extends RefCounted:
 		var colors: PackedColorArray=arrays[Mesh.ARRAY_COLOR]
 		for i in range(0,vertices.size(),3):
 			var points:=PackedVector2Array()
-			for j in range(3):points.append(Vector2(vertices[i+j].x,vertices[i+j].y))
-			draw_colored_polygon(points,colors[i])
+			for j in range(3):points.append(transform*Vector2(vertices[i+j].x,vertices[i+j].y))
+			# PRIMITIVE_TRIANGLES is already triangulated; even a collapsed triangle
+			# is valid mesh input. Preserve every triangle and its finite-point check.
+			prims.append({"t":"poly","pts":_points(points),"c":_color(colors[i])})
 	func project(p: Vector2,h: float=0) -> Vector2:return origin+Vector2((p.x-p.y)*0.82,(p.x+p.y)*0.41-h)*scale_factor
 	func _points(p: PackedVector2Array) -> Array:
 		var points: Array=[]
