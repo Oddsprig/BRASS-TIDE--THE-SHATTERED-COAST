@@ -1,0 +1,47 @@
+051 FINITE TRAFFIC / MATCHING HARD RESERVATION PREFIX - SOURCE CANDIDATE
+Parent bc30ed8, approved saved FINITE TRAFFIC PROPOSAL.txt implemented.
+Own checkout: work/quality-v042-v061/v051-retained-sol.
+
+EXACT FILES
+game/scripts/tactical_runtime.gd
+game/scripts/tactical_planner.gd
+game/scripts/tactical_stations.gd
+game/tests/test_tactical_ai.gd
+tools/quality051/FINITE TRAFFIC SOURCE.txt
+
+DEPENDENCY / POLICY
+Requires CoastSol9762e5e Routes trailing live_traffic_seconds051: float=-1.0
+(Root integrated as98eb49e). Own Routes is deliberately unchanged; do not run
+this checkout alone against its older six-argument declaration.
+Runtime supplies sole Stations.LIVE_TRAFFIC_SECONDS051=2.0 to Routes and
+Planner private calls. Negative/nonfinite Planner defaults preserve full policy.
+Coast retains complete static land/waypoints/ETA and clips only traffic.
+
+Stations private _reservation_begin051 clips existing approach/pass/exit arrays
+with the identical nominal-speed expression and exact elapsed-time fraction.
+Reservations live from now through now+2. origin051 is the actual observation
+position, included by private conflict to cover the first edge and stationary
+holds without increasing per-leg/candidate caps. Missing origins fail closed.
+Private _conflict_begin051 shares original capsules, clearance and debit math;
+remote anchor/target/sector are soft preferences, not hard occupied space.
+Runtime _reserved_path and private Planner resolution both use these prefixes.
+Public reservation_shape/reservation, conflict and Planner.resolve retain full
+defaults, prior arrays/schema/lifetimes and original anchor/sector hard vetoes.
+
+SOURCE CHECK / NATIVE HANDOFF
+Existing preload advisory: issues[], advisoryOnly true, engineInvoked false.
+git diff --check clean. No native parsing, fixture execution, engine or GPU run.
+Use existing test_tactical_ai.gd --case=traffic-prefix --out=<Root report>.
+Added bounded cases for late/near/boundary crossings, closed-proof fallback,
+unchanged public defaults, complete ETA/land, exact cross-leg clipping, speed/
+fuel clock, public full versus private prefix reservation and resolution,
+origin edge, expiry, finite-budget pending, and real braking at30/60Hz.
+Existing cases/assertions preserved. Live authority starts only through public
+Battle ticks or actual route/certificate code; no fabricated certificate grant.
+
+No Routes/role geometry/Certification/Battle/Fire or metadata changes. Actors,
+DP, physics cadence, candidate/work limits, orders, manual/urgent safety,
+contacts, fire gates, finite stores/crew and RNG code unchanged.
+Root owns combined native checks, actual unchanged90s journey and integrated
+exported profile. Journey success/savings/FPS UNMEASURED. Gate051 OPEN; no052.
+Stop after this commit/handoff; no extra proposal or optimization authorized.

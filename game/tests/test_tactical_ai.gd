@@ -7,6 +7,9 @@ const T=preload("res://scripts/tactical_runtime.gd")
 const C=preload("res://scripts/tactical_certification.gd")
 const Fire=preload("res://scripts/tactical_fire_control.gd")
 const Roles=preload("res://scripts/tactical_role_plans.gd")
+const Routes=preload("res://scripts/tactical_routes.gd")
+const Stations=preload("res://scripts/tactical_stations.gd")
+const Planner=preload("res://scripts/tactical_planner.gd")
 const Boarding=preload("res://scripts/boarding.gd")
 const BoardControl=preload("res://scripts/combat_boarding.gd")
 const F=preload("res://tests/tactical_fixture.gd")
@@ -528,6 +531,128 @@ func retained_maneuver051() -> void:
 				var events: Array=B.pop_events(st)
 				check(events.any(func(event):return event.kind=="hit" and str(event.targetId)==id) and float(source.hp)<hp-1.0 and not T._current051(st,source,held.intent,dt).ok,"actual impact immediately invalidates retained capability authority")
 
+func traffic_budget051(limit: int=4096) -> Dictionary:
+	return {"fullRoutes":0,"cacheHits":0,"rollouts":0,"samples":0,"clearanceTests":0,"exhaustions":0,"rolled":{},"clearanceLimit":limit}
+
+func traffic_route051(geometry: Dictionary,owner: Dictionary,candidate: Dictionary,others: Array,seconds: float,closed: bool=false) -> Dictionary:
+	var st: Dictionary={"tactical":{"routeCache":{},"cells":Routes.grid([owner]+others,true)}}
+	var budget: Dictionary=traffic_budget051()
+	var proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,st.tactical.cells,{str(owner.id):owner})
+	if closed:Routes._close_begin_proofs051(proofs)
+	var result: Dictionary=Routes.refine_live(st,geometry,owner,candidate,budget) if seconds<0.0 else Routes._refine_begin051(st,geometry,owner,candidate,budget,proofs,seconds)
+	if not closed:Routes._close_begin_proofs051(proofs)
+	return {"result":result,"budget":budget}
+
+func traffic_prefix051() -> void:
+	# Detached requests exercise planning policy only, never create live authority.
+	var seconds: float=Stations.LIVE_TRAFFIC_SECONDS051
+	var geometry: Dictionary={"key":"traffic-prefix051","revision":51,"obstacles":[]}
+	var owner: Dictionary={"id":"traffic-own051","team":"player","x":400.0,"y":800.0,"vx":0.0,"vy":0.0,"spec":{"size":16.0,"speed":100.0,"turn":2.5},"status":{"speedFactor":1.0},"fuel":60.0,"order":"move","orderTarget":{}}
+	var request: Dictionary={"shipId":str(owner.id),"targetId":"shared-target051","sector":2,"approach":[Vector2(400,800),Vector2(1100,800)],"pass":[Vector2(1100,800),Vector2(1100,1000)],"exit":[Vector2(1200,1000)]}
+	var before: PackedByteArray=var_to_bytes([geometry,owner,request])
+	for row: Dictionary in [{"name":"late","x":900.0,"status":"valid"},{"name":"near","x":510.0,"status":"blocked"},{"name":"boundary-capsule","x":590.0,"status":"blocked"}]:
+		var other: Dictionary=owner.duplicate(true);other.id="traffic-other051";other.x=row.x
+		var full: Dictionary=traffic_route051(geometry,owner,request,[other],-1.0)
+		var live: Dictionary=traffic_route051(geometry,owner,request,[other],seconds)
+		check(full.result.status=="blocked" and live.result.status==row.status,"traffic prefix "+row.name+": full reference and private crossing policy")
+		check(int(live.budget.clearanceTests)<=4096 and int(live.budget.rollouts)==0,"traffic prefix "+row.name+": original finite work limits")
+		if row.name=="late":
+			check(live.result.candidate==request and is_equal_approx(float(live.result.eta),12.5),"traffic prefix keeps every static waypoint and the complete ETA")
+			check(traffic_route051(geometry,owner,request,[other],seconds,true).result==live.result,"closed proof fallback preserves the explicitly supplied private horizon")
+		observations.append({"case":"traffic-prefix","variant":row.name,"full":full,"live":live})
+	var default_st: Dictionary={"tactical":{"routeCache":{},"cells":Routes.grid([owner],true)}}
+	var proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,default_st.tactical.cells,{str(owner.id):owner})
+	var default_budget: Dictionary=traffic_budget051()
+	var default_result: Dictionary=Routes._refine_begin051(default_st,geometry,owner,request,default_budget,proofs)
+	var full_open: Dictionary=traffic_route051(geometry,owner,request,[],-1.0)
+	check(default_result==full_open.result and default_budget==full_open.budget,"omitting the private float keeps full public refinement and debit order")
+	Routes._close_begin_proofs051(proofs)
+	var land: Dictionary={"key":"traffic-prefix-land051","revision":52,"obstacles":[{"points":[[1000,700],[1200,700],[1200,900],[1000,900]],"lo":Vector2(1000,700),"hi":Vector2(1200,900)}]}
+	check(traffic_route051(land,owner,request,[],seconds).result.status=="blocked","land beyond two seconds still rejects an unreachable full-route endpoint")
+	var split: Dictionary=request.duplicate(true)
+	split.approach=[Vector2(400,800),Vector2(480,800)];split["pass"]=[Vector2(480,800),Vector2(640,800)];split.exit=[Vector2(1200,800)]
+	var prefix: Dictionary=Stations._reservation_begin051(split,owner,10.0,seconds)
+	check(prefix.approach==split.approach and prefix["pass"]==[Vector2(480,800),Vector2(560,800)] and prefix.exit.is_empty(),"reservation boundary clips the exact fraction across approach/pass/exit")
+	check(prefix["from"]==10.0 and prefix.until==12.0 and prefix.anchor==Stations.anchor(split) and prefix.targetId==split.targetId and prefix.sector==split.sector,"prefix lifetime and soft station metadata retain their distinct meanings")
+	var impaired: Dictionary=owner.duplicate(true);impaired.status.speedFactor=0.5;impaired.fuel=0.0
+	check(Stations._reservation_begin051(request,impaired,10.0,seconds).approach[-1]==Vector2(416,800),"reservation prefix uses the same actual speed-factor and dry-fuel nominal clock")
+	var peer: Dictionary=owner.duplicate(true);peer.id="traffic-peer051";peer.x=900.0;peer.y=600.0
+	var peer_request: Dictionary=request.duplicate(true);peer_request.shipId=peer.id;peer_request.approach=[Vector2(900,600),Vector2(900,1100)]
+	var own_prefix: Dictionary=Stations._reservation_begin051(request,owner,10.0,seconds)
+	var peer_prefix: Dictionary=Stations._reservation_begin051(peer_request,peer,10.0,seconds)
+	var counter: Dictionary={"clearanceTests":0,"clearanceExhausted":0}
+	check(Stations.conflict(Stations.reservation(request,owner,{"eta":12.5},10.0),Stations.reservation(peer_request,peer,{"eta":12.5},10.0),counter,4096),"public reservations still hard-veto their complete crossing and shared station")
+	counter={"clearanceTests":0,"clearanceExhausted":0}
+	check(not Stations._conflict_begin051(own_prefix,peer_prefix,counter,4096),"distant crossing/shared anchor/sector cannot veto two disjoint private prefixes")
+	var public_shape: Dictionary=Stations.reservation(request,owner,{"eta":12.5},10.0)
+	check(public_shape.approach==request.approach and public_shape["pass"]==request["pass"] and public_shape.exit==request.exit and public_shape.until==24.5 and not public_shape.has("origin051"),"public reservation arrays, ETA lifetime and schema stay unchanged")
+	var st: Dictionary={"time":10.0,"tactical":{"memory":{"player":{"reservations":{str(peer.id):peer_prefix}}},"budget":traffic_budget051()}}
+	check(T._reserved_path(st,"player",owner,request)=="valid","Runtime early hard-reservation gate uses the same prefix policy")
+	peer.x=480.0;peer.y=700.0;peer_request.approach=[Vector2(480,700),Vector2(480,1100)]
+	st.tactical.memory.player.reservations[str(peer.id)]=Stations._reservation_begin051(peer_request,peer,10.0,seconds)
+	st.tactical.budget=traffic_budget051()
+	check(T._reserved_path(st,"player",owner,request)=="blocked","within-prefix crossing still blocks the Runtime early gate")
+	var no_origin: Dictionary=request.duplicate(true);no_origin.approach=[Vector2(1100,800)]
+	st.tactical.budget=traffic_budget051()
+	check(T._reserved_path(st,"player",owner,no_origin)=="blocked","first current-position-to-waypoint edge is included without enlarging leg caps")
+	st.tactical.budget=traffic_budget051(0)
+	check(T._reserved_path(st,"player",owner,request)=="pending" and st.tactical.budget.clearanceTests==0 and st.tactical.budget.exhaustions==1,"prefix reservation exhaustion remains pending and respects the unchanged ledger")
+	st.time=12.0;st.tactical.budget=traffic_budget051()
+	check(T._reserved_path(st,"player",owner,request)=="valid" and st.tactical.budget.clearanceTests==0,"expired private reservations stop vetoing at their two-second lifetime")
+	check(var_to_bytes([geometry,owner,request])==before,"traffic and reservation policy cannot mutate original observations or full requests")
+	traffic_resolve051()
+	for dt: float in [1.0/30.0,1.0/60.0]:
+		var arena: Dictionary=local_arena()
+		var battle: Dictionary=arena.state;var source: Dictionary=arena.source;var id: String=str(source.id)
+		var held: Variant=_admit_retained051(battle,source,dt,"traffic-prefix-braking")
+		check(held is C._Retained051,"private prefix braking starts with real accepted authority dt="+str(dt))
+		if not held is C._Retained051:continue
+		B.update(battle,dt);B.pop_events(battle)
+		var speed: float=Vector2(source.vx,source.vy).length()
+		arena.target.x=float(source.x)+90.0;arena.target.y=float(source.y)
+		B.update(battle,dt);B.pop_events(battle)
+		var helm: Dictionary=T.helm(battle,source)
+		check(speed>0.0 and Vector2(source.vx,source.vy).length()<speed and float(helm.throttle)==0.0 and not held.step_ok and not battle.tactical.retained051.has(id),"later real hostile immediately brakes/discards the retained maneuver dt="+str(dt))
+		observations.append({"case":"traffic-prefix-braking","dt":dt,"speedBefore":speed,"speedAfter":Vector2(source.vx,source.vy).length(),"helm":helm,"budget":battle.tactical.budget.duplicate(true)})
+
+func traffic_resolve051() -> void:
+	# Mint the offer through actual route/certificate code; no fabricated grant.
+	var arena: Dictionary=local_arena();var st: Dictionary=arena.state;var source: Dictionary=arena.source
+	check(B.issue_order(st,[source.id],"move",{"x":1100.0,"y":850.0}),"prefix resolve accepts an ordinary explicit movement request")
+	B.update(st,DT);B.pop_events(st)
+	var view: Dictionary=T.view(st,"player",[str(source.id)])
+	var own: Dictionary=Roles.ships_by_id(view)[str(source.id)]
+	var memory: Dictionary={"byId":{},"reservations":{}}
+	var planning: Dictionary=Planner._prepare_begin(view,memory)
+	check(not planning.candidates.is_empty(),"prefix resolve obtains its bounded ordinary public candidates")
+	if planning.candidates.is_empty():return
+	var raw: Dictionary=planning.candidates[0]
+	var budget: Dictionary=traffic_budget051()
+	var proofs: Routes._BeginProofs051=Routes._begin_proofs051(st.tactical.geometry,st.tactical.cells,{str(own.id):own})
+	var refined: Dictionary=Routes._refine_begin051(st,st.tactical.geometry,own,raw,budget,proofs,Stations.LIVE_TRAFFIC_SECONDS051)
+	Routes._close_begin_proofs051(proofs)
+	check(refined.status=="valid","prefix resolve retains complete static geometry")
+	if refined.status!="valid":return
+	var certificate: Dictionary=C._certify_refined_live(st,view,own,refined,Planner.fingerprint(refined.candidate),budget)
+	check(certificate.status=="valid","prefix resolve offer has a real current route certificate")
+	if certificate.status!="valid":return
+	var peer: Dictionary=own.duplicate(true);peer.id="resolve-peer051";peer.x=200.0;peer.y=300.0
+	var other: Dictionary=refined.candidate.duplicate(true);other.shipId=peer.id;other.approach=[Vector2(200,300),other.approach[-1]]
+	memory.reservations[str(peer.id)]=Stations._reservation_begin051(other,peer,float(view.time),Stations.LIVE_TRAFFIC_SECONDS051)
+	planning=Planner._prepare_begin(view,memory)
+	var offers: Array=[{"candidate":refined.candidate,"certificate":certificate}]
+	var before: PackedByteArray=var_to_bytes([view,memory,offers])
+	var public_result: Dictionary=Planner.resolve(view,memory,offers)
+	var default_result: Dictionary=Planner._resolve_planned(view,memory,offers,planning)
+	var live: Dictionary=Planner._resolve_planned(view,memory,offers,Planner._prepare_begin(view,memory),Stations.LIVE_TRAFFIC_SECONDS051)
+	check(public_result==default_result and int(public_result.counters.accepted)==0,"public resolve and omitted private float retain the full hard station veto")
+	check(int(live.counters.accepted)==1 and live.memory.reservations[str(own.id)].until==float(view.time)+Stations.LIVE_TRAFFIC_SECONDS051,"private resolve publishes the accepted two-second hard prefix")
+	check(var_to_bytes([view,memory,offers])==before,"public/private resolution preserves source view, memory and actual offer")
+	view.options.clearanceRemaining=0
+	var pending: Dictionary=Planner._resolve_planned(view,memory,offers,Planner._prepare_begin(view,memory),Stations.LIVE_TRAFFIC_SECONDS051)
+	check(int(pending.counters.accepted)==0 and int(pending.counters.clearanceExhausted)>0 and int(pending.counters.clearanceTests)==0,"private resolve cannot accept through exhausted reservation work")
+	observations.append({"case":"traffic-prefix-resolve","certificateStatus":certificate.status,"public":public_result.counters,"private":live.counters,"pending":pending.counters})
+
 func _initialize() -> void:
 	if DisplayServer.get_name()!="headless":quit(2);return
 	var selected: String="all"
@@ -537,7 +662,7 @@ func _initialize() -> void:
 		if arg.begins_with("--out="):path=arg.substr(6)
 	match selected:
 		"all":
-			ray_cases();boarding_continuity();focused_boarding();explicit_boarding_authority();held_gun();useful_pressure();capabilities_and_observations();fleet_cadence();local_approach();retained_maneuver051()
+			ray_cases();boarding_continuity();focused_boarding();explicit_boarding_authority();held_gun();useful_pressure();capabilities_and_observations();fleet_cadence();local_approach();retained_maneuver051();traffic_prefix051()
 		"rays":ray_cases()
 		"boarding":boarding_continuity()
 		"focused-boarding":focused_boarding()
@@ -548,6 +673,7 @@ func _initialize() -> void:
 		"fleet-cadence":fleet_cadence()
 		"local-approach":local_approach()
 		"retained":retained_maneuver051()
+		"traffic-prefix":traffic_prefix051()
 		_:quit(2);return
 	var file: FileAccess=FileAccess.open(path,FileAccess.WRITE)
 	if file==null:quit(2);return

@@ -6,6 +6,7 @@ const MAX_OFFERS: int = 8
 const MAX_LEG: int = 8
 const MAX_POINTS: int = 24
 const MAX_MOUNT_TARGETS: int = 4
+const LIVE_TRAFFIC_SECONDS051: float = 2.0
 const FIELDS: Array = ["candidateId", "shipId", "targetId", "leaderId", "role", "sector", "approach", "pass", "exit", "fireMountIds", "orderRevision", "snapshotRevision"]
 
 static func valid_path(value: Variant) -> bool:
@@ -637,6 +638,33 @@ static func reservation(candidate: Dictionary, ship: Dictionary, certificate: Di
 	result["until"] = now + minf(18.0, maxf(Roles.COMMIT_SECONDS, Roles.number(certificate.get("eta")) + 2.0))
 	return result
 
+static func _reservation_begin051(candidate: Dictionary, ship: Dictionary, now: float, live_traffic_seconds051: float) -> Dictionary:
+	# Same nominal speed and elapsed leg clock as private Routes._refine. Keep
+	# distant anchor/target/sector as preferences, never as hard occupied space.
+	var result: Dictionary = reservation_shape(candidate, ship)
+	var cursor: Vector2 = Roles.pos(ship)
+	result["origin051"] = cursor
+	result["from"] = now
+	result["until"] = now + live_traffic_seconds051
+	var speed: float = maxf(1.0, float(ship.spec.get("speed", 90)) * float(ship.status.speedFactor) * (1.0 if float(ship.fuel) > 0.0 else 0.2) * 0.8)
+	var elapsed: float = 0.0
+	var complete: bool = false
+	for key: String in ["approach", "pass", "exit"]:
+		var prefix: Array = []
+		for goal: Vector2 in candidate[key]:
+			if complete:break
+			var until: float = elapsed + cursor.distance_to(goal) / speed
+			if until > live_traffic_seconds051:
+				prefix.append(cursor.lerp(goal, (live_traffic_seconds051 - elapsed) / (until - elapsed)))
+				complete = true
+			else:
+				prefix.append(goal)
+				complete = until >= live_traffic_seconds051
+			elapsed = until
+			cursor = goal
+		result[key] = prefix
+	return result
+
 static func _distance(point: Vector2, a: Vector2, b: Vector2) -> float:
 	var delta: Vector2 = b - a
 	return point.distance_to(a + delta * clampf((point - a).dot(delta) / maxf(0.00001, delta.length_squared()), 0.0, 1.0))
@@ -653,6 +681,12 @@ static func _capsules(a: Vector2, b: Vector2, c: Vector2, d: Vector2, clearance:
 	return minf(minf(_distance(a, c, d), _distance(b, c, d)), minf(_distance(c, a, b), _distance(d, a, b))) < clearance
 
 static func conflict(requested: Dictionary, existing: Dictionary, counters: Dictionary, limit: int) -> bool:
+	return _conflict(requested, existing, counters, limit, false)
+
+static func _conflict_begin051(requested: Dictionary, existing: Dictionary, counters: Dictionary, limit: int) -> bool:
+	return _conflict(requested, existing, counters, limit, true)
+
+static func _conflict(requested: Dictionary, existing: Dictionary, counters: Dictionary, limit: int, live_prefix051: bool) -> bool:
 	# Count occupancy primitives before execution. Exhaustion is a pending decision.
 	if int(counters.clearanceTests) >= limit:
 		counters.clearanceExhausted = int(counters.clearanceExhausted) + 1
@@ -662,14 +696,23 @@ static func conflict(requested: Dictionary, existing: Dictionary, counters: Dict
 		if not valid_path(existing.get(key)):
 			return true
 	var clearance: float = Roles.number(requested.get("radius")) + Roles.number(existing.get("radius"))
-	if anchor(requested).distance_to(anchor(existing)) < clearance:
+	if not live_prefix051 and anchor(requested).distance_to(anchor(existing)) < clearance:
 		return true
-	if str(requested.get("targetId", "")) != "" and requested.targetId == existing.get("targetId") and int(requested.sector) >= 0 and int(requested.sector) == int(Roles.number(existing.get("sector"), -1.0)):
+	if not live_prefix051 and str(requested.get("targetId", "")) != "" and requested.targetId == existing.get("targetId") and int(requested.sector) >= 0 and int(requested.sector) == int(Roles.number(existing.get("sector"), -1.0)):
 		return true
-	# Complete swept path reservations, including the exits, conservatively overlap in time.
+	# Public paths stay complete. Private prefixes conservatively overlap in
+	# time too; their origin includes the first edge without exceeding leg caps.
 	var lane_clearance: float = maxf(0.0, clearance - 9.0)
 	var a_path: Array = Roles.array(requested.get("approach")) + Roles.array(requested.get("pass")) + Roles.array(requested.get("exit"))
 	var b_path: Array = Roles.array(existing.get("approach")) + Roles.array(existing.get("pass")) + Roles.array(existing.get("exit"))
+	if live_prefix051:
+		var a_origin: Variant = requested.get("origin051")
+		var b_origin: Variant = existing.get("origin051")
+		if not a_origin is Vector2 or not b_origin is Vector2 or not a_origin.is_finite() or not b_origin.is_finite():return true
+		if a_path.is_empty() or a_path[0] != a_origin:a_path.push_front(a_origin)
+		if b_path.is_empty() or b_path[0] != b_origin:b_path.push_front(b_origin)
+		if a_path.size() == 1:a_path.append(a_origin)
+		if b_path.size() == 1:b_path.append(b_origin)
 	for i: int in range(maxi(0, a_path.size() - 1)):
 		for j: int in range(maxi(0, b_path.size() - 1)):
 			if int(counters.clearanceTests) >= limit:

@@ -406,14 +406,14 @@ static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidat
 	# Reject a known swept conflict BEFORE the one physical rollout. A still
 	# repeats its authoritative final check after B certifies the chosen route.
 	var t: Dictionary=st.tactical
-	var shape: Dictionary=Stations.reservation_shape(candidate,ship)
+	var shape: Dictionary=Stations._reservation_begin051(candidate,ship,float(st.time),Stations.LIVE_TRAFFIC_SECONDS051)
 	var counters: Dictionary={"clearanceTests":int(t.budget.clearanceTests),"clearanceExhausted":0}
 	var status: String="valid"
 	for other_id in t.memory[side].get("reservations",{}):
 		if str(other_id)==str(ship.id):continue
 		var other: Dictionary=t.memory[side].reservations[other_id]
 		if float(other.get("until",0.0))<=float(st.time):continue
-		if Stations.conflict(shape,other,counters,int(t.budget.clearanceLimit)):
+		if Stations._conflict_begin051(shape,other,counters,int(t.budget.clearanceLimit)):
 			status="pending" if int(counters.clearanceExhausted)>0 else "blocked"
 			break
 	t.budget.clearanceTests=int(counters.clearanceTests)
@@ -539,7 +539,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			t.metrics.planningCalls.candidates+=1
 			if candidate_inputs.is_empty():candidate_inputs=Certification._begin_inputs(snapshot,ship,membership)
 			if not Certification._candidate_valid(raw,snapshot,ship,membership,candidate_inputs) or Planner.fingerprint(raw).is_empty() or not order_candidate(snapshot,ship,raw):continue
-			var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ship,raw,t.budget,route_proofs051)
+			var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ship,raw,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051)
 			var candidate: Dictionary=refined.candidate
 			if refined.status=="valid" and str(ship.get("order","engage"))=="engage" and candidate.fireMountIds.is_empty():
 				var reservation_status: String=_reserved_path(st,side,ship,candidate)
@@ -575,7 +575,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if not snapshots.has(side):continue
 		var snapshot: Dictionary=snapshots[side]
 		snapshot.options.clearanceRemaining=maxi(0,int(t.budget.clearanceLimit)-int(t.budget.clearanceTests))
-		var resolved: Dictionary=Planner._resolve_planned(snapshot,memories[side],offers[side],planning[side])
+		var resolved: Dictionary=Planner._resolve_planned(snapshot,memories[side],offers[side],planning[side],Stations.LIVE_TRAFFIC_SECONDS051)
 		var spent: int=int(resolved.get("counters",{}).get("clearanceTests",0))
 		if spent<0 or spent>int(snapshot.options.clearanceRemaining):
 			t.counters.rejectedIntents+=1;continue

@@ -224,7 +224,10 @@ static func resolve(view: Dictionary, memory: Dictionary, offers: Array) -> Dict
 	# Public r2 calls always plan afresh; only Runtime.begin owns the local seam.
 	return _resolve_planned(view, memory, offers, {})
 
-static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array, prepared: Dictionary) -> Dictionary:
+static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array, prepared: Dictionary, live_traffic_seconds051: float = -1.0) -> Dictionary:
+	# Runtime alone opts into renewable hard prefixes. Public/default calls
+	# retain complete reservations, including their station/sector vetoes.
+	if not is_finite(live_traffic_seconds051):live_traffic_seconds051 = -1.0
 	var counters: Dictionary = {"due": 0, "proposed": 0, "scoredTargets": 0, "offers": 0, "accepted": 0, "rejected": 0, "pending": 0, "blocked": 0, "offerOverflow": 0, "reservationConflicts": 0, "clearanceTests": 0, "clearanceExhausted": 0}
 	var next_memory: Dictionary = memory.duplicate(true)
 	var by_id: Dictionary = {}
@@ -310,7 +313,7 @@ static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array
 		)
 		var chosen: Dictionary = {}
 		for offer: Dictionary in candidates:
-			var reservation: Dictionary = Stations.reservation(offer.candidate, ship, offer.certificate, float(view.time))
+			var reservation: Dictionary = Stations.reservation(offer.candidate, ship, offer.certificate, float(view.time)) if live_traffic_seconds051 < 0.0 else Stations._reservation_begin051(offer.candidate, ship, float(view.time), live_traffic_seconds051)
 			var conflict: bool = false
 			for other_id: Variant in next_memory.reservations:
 				if str(other_id) == ship_id:
@@ -318,7 +321,8 @@ static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array
 				var other: Dictionary = Roles.dictionary(next_memory.reservations[other_id])
 				if other.is_empty() or Roles.number(other.get("until")) <= float(view.time):
 					continue
-				if Stations.conflict(reservation, other, counters, remaining):
+				var occupied: bool = Stations.conflict(reservation, other, counters, remaining) if live_traffic_seconds051 < 0.0 else Stations._conflict_begin051(reservation, other, counters, remaining)
+				if occupied:
 					conflict = true
 					counters.reservationConflicts = int(counters.reservationConflicts) + 1
 					break
@@ -337,7 +341,7 @@ static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array
 			state["waitSince"] = -1.0
 			state["blockedStation"] = false
 			by_id[ship_id] = _intent(view, ship, state, candidate, certificate)
-			next_memory["reservations"][ship_id] = Stations.reservation(candidate, ship, certificate, float(view.time))
+			next_memory["reservations"][ship_id] = Stations.reservation(candidate, ship, certificate, float(view.time)) if live_traffic_seconds051 < 0.0 else Stations._reservation_begin051(candidate, ship, float(view.time), live_traffic_seconds051)
 			counters.accepted = int(counters.accepted) + 1
 		else:
 			var reason: String = str(decision.get("rejection", "Waiting for a safe route and exit."))
