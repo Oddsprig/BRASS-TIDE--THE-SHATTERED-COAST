@@ -1,0 +1,82 @@
+FLEET GOALS051 - EgressSol implementation / API pin (27 October 2026)
+Base c89b9ec72a4d0b9ee133f8eb56dfb59975987767. SOURCE CANDIDATE, not executed.
+
+Runtime._goal_current051(st,ship,frame_cache=null) -> Dictionary
+{} if invalid; otherwise exact record from main-owned Runtime._Goal051 wrapper.
+st.tactical.goals051[id] stores that wrapper, not a legacy prediction.
+PINNED returned fields:
+ candidate: original selected routed Stations candidate (approach/pass/exit,
+   fireMountIds, optional fireMountTargets, shipId/targetId/leaderId/role/sector)
+ state: sampled Roles decision state (phase/role/targetId/leaderId/firingPassId,
+   passSpent/passShots and other actual memory; no fabricated physical fields)
+ chosenAt: original choice time, expires chosenAt+.45; adoption never renews it
+ sampledAt: actual worker input sample time, expires sampledAt+.15
+ owner: exact live ship Dictionary (main only)
+ encounterGeneration051: exact main worker-lifetime Dictionary identity
+ generation051: worker slot integer generation; snapshotRevision: sampled revision
+ terrainKey, terrainRevision: sampled static terrain identity
+ sampledRisk: finite sampled tactical risk; scope: "sampled-fleet-goal"
+No certificate, predictions, checkedAt or physical horizon is manufactured.
+Runtime alone guards the record and checks same-time safe helm success BEFORE
+calling Fire._goal_gates051(st,ship,goal,frame_cache=null).
+
+Runtime publishes truthful matching t.intents[id] metadata for existing
+Fire.accept_pass/emitted: phase, role/target/leader/sector, order/snapshot revision,
+firingPassId through fireGate for fixed tubes, live-gate metadata, sampled expiry,
+and routed waypoints/exit. No legacy pathFingerprint/certificate claim is needed.
+Live Fire._goal_gates051 returns unchanged mountId->gate shape and owns all
+post-motion shot checks. FireSol owns Fire; PlanningSol owns goals051 fixture.
+
+Test/actual entry: Runtime.enable_planning051(st,true) then real Runtime.begin/helm/
+after_motion/fire_gates; pooled fleet branch is enabled for live AUTO fleets by
+existing workload policy; ordinary duels and direct Planner APIs stay legacy.
+One-argument enable_planning051(st) retains the old direct worker fixture policy.
+Root owns Main's one-line true opt-in and the corresponding actual voyage call.
+Planner._tasks051 and _poll_tasks051/_retire_workers051/drain retain shared
+MAX_TASKS051=2 unfinished (including retired tasks); no helper tests run here.
+
+Implementation and intentional policy
+Planner.Goals051.plan051 reuses copied Roles/Stations, at most8 offers per hull,
+static Routes.refine only, and sampled150ms side reservation coordination. No
+long moving-hull route forecast, physical rollout, Fire.solution or certificate
+runs in the worker. SIDE dispatch is at most once per100ms; each job owns2900
+clearance tests/four A* queries, divided into finite hull slices. Pending actors
+go first; tied actors rotate their route opportunity. Both new and retired old
+jobs share Planner._tasks051/MAX_TASKS051. Main only joins completed tasks.
+
+Runtime.begin takes an early fleet branch after the unchanged observation,
+terrain, grid, order/control and survival prepasses. It entirely skips old main
+retained-role selection, _prepare_with_worker051, multioffer refine/certification
+and _resolve_planned. _publish_goal051 admits exact joined slot/member identities,
+live owner/spec/mounts/order/options/invalidation/terrain/capability and target
+owners; it checks sampledAt and original chosenAt before publishing. Every new
+goal job performs a full tactical choice, so chosenAt is its real input sample;
+completion/recertification never restarts it. lastDecision records that actual
+sample, including real sampled observations whose routes remain unavailable.
+lastCertified/certificationAttempts/predictions are never forged for goals.
+
+Runtime._helm_goal051 follows one route from actual current pose via unchanged
+Certification.steering and safe_step/_crowd_step051. Current physical failure
+revokes the goal/pass intent, clears commitment, brakes and prioritizes a later
+bounded sample; that sample may favor the existing local crowd escape. Missing
+or overdue results brake without synchronous multioffers. Accepted orders,
+control/options/condition changes invalidate both goals and in-flight per-hull
+generations immediately. Post-motion Fire requires current guard AND successful
+same-tick helm before FireSol's live gate. Fire.accept_pass receives matching
+real phase/pass IDs; Battle/Fire.emitted retain real spending and scattered rays.
+
+Tradeoff: role/target/protector/reload/phase and sampled reservations can lag up
+to150ms, with brief braking while a replacement is missing or blocked. Risk is
+sampled flood risk plus the existing station exposure ranking. Retreating/nonfire
+routes may seek safety above a firing-risk limit; physical checks remain current.
+Ordinary1v1/direct legacy worker/public Planner behavior stays on the old path.
+No actor/DP/simulationHz/art/effect/stores/crew/RNG/coin changes.
+
+R26 baseline:42light7.525FPS,sim16.817ms/planning10.643ms;16mixed60FPS/sim6.907ms.
+Targeted gross buckets total~5.57ms/tick (selection/proposals/certification/resolve),
+NOT a savings or FPS claim. Shared observations, publication, worker snapshots
+and real60Hz helm/fire remain. Root owns one combined source advisory, existing
+goals/legacy native checks, export/three starts and same42/16 actual measurement.
+No engine/import/export/GPU/advisory/test/harness/helper run in this checkout.
+Fire and test files were not edited; Root's Fire integration is required.
+Final named diff manually reviewed; git diff --check clean (source only).

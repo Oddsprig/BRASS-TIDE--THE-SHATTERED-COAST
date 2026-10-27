@@ -9,6 +9,25 @@ const Roles=preload("res://scripts/tactical_role_plans.gd")
 const Damage=preload("res://scripts/damage.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 
+# Main-owned publication. Worker output contains no owner references and no
+# physical certificate. Only a joined capsule may construct this wrapper.
+class _Goal051 extends RefCounted:
+	var record: Dictionary={}
+	var source: Dictionary={}
+	var intent: Dictionary={}
+	var guard: Dictionary={}
+	var owners: Dictionary={}
+	var workers: Dictionary={}
+	var points: Array=[]
+	var primary: Array=[]
+	var capability: Array=[]
+	var capability_at: float=-1.0
+	var generation: int=-1
+	var snapshot_revision: int=-1
+	var index: int=0
+	var step_at: float=-1.0
+	var step_ok: bool=false
+
 # Optional cumulative diagnostics; independent of authoritative tactical state.
 static var _runtime_profile043_enabled: bool=false
 static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,"observedCalls":0,"observedUs":0,"observedMountsCopied":0,"observedMountCopyUs":0,"ownCopies":0,"ownCopyUs":0,"enemyCopies":0,"enemyCopyUs":0,"enemyMountsCopied":0,
@@ -31,7 +50,7 @@ static func runtime_profile043() -> Dictionary:
 static func defaults() -> Dictionary:
 	return {"doctrine":"steady","role":"auto","group":0,"formation":"line","protectedAllyId":"","rally":{},"leash":600.0,"conditionalWithdrawal":false,"mounts":{}}
 
-static func enable_planning051(st: Dictionary) -> void:
+static func enable_planning051(st: Dictionary,sampled_goals051: bool=false) -> void:
 	# Main and the real voyage use this SAME workload policy. Ordinary duels
 	# keep immediate synchronous role planning; side batches serve actual fleets.
 	var t: Dictionary=ensure(st)
@@ -43,14 +62,20 @@ static func enable_planning051(st: Dictionary) -> void:
 		if not counts.has(side):continue
 		counts[side]+=1
 		if int(counts[side])>1:
+			# Existing direct/legacy worker fixtures keep the one-argument policy.
+			# Main opts actual encounters into sampled goals with the second arg.
+			if t.has("workers051") and bool(t.workers051.get("fleetGoals051",false))!=sampled_goals051:
+				_clear_goals051(t);Planner._retire_workers051(t)
 			Planner._enable_workers051(t)
+			if sampled_goals051:t.workers051.fleetGoals051=true
 			return
 	# Also safe if the owner reactivates an encounter after its fleet shrinks.
-	Planner._retire_workers051(t)
+	_clear_goals051(t);Planner._retire_workers051(t)
 
 static func retire_planning051(st: Dictionary) -> void:
 	_close_numeric051(st)
-	if st.get("tactical") is Dictionary:Planner._retire_workers051(st.tactical)
+	if st.get("tactical") is Dictionary:
+		_clear_goals051(st.tactical);Planner._retire_workers051(st.tactical)
 
 static func poll_planning051() -> void:
 	Planner._poll_tasks051()
@@ -80,7 +105,218 @@ static func ensure(st: Dictionary) -> Dictionary:
 	if not st.tactical.has("retained051"):st.tactical.retained051={}
 	if not st.tactical.has("preferences051"):st.tactical.preferences051={}
 	if not st.tactical.has("physicalRetry051"):st.tactical.physicalRetry051={}
+	if not st.tactical.has("goals051"):st.tactical.goals051={}
+	if not st.tactical.has("goalRevisions051"):st.tactical.goalRevisions051={}
 	return st.tactical
+
+static func _goal_current051(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
+	var t: Dictionary=st.get("tactical",{})
+	var id: String=str(ship.get("id",""))
+	var held=t.get("goals051",{}).get(id)
+	if not held is _Goal051:return {}
+	var record: Dictionary=held.record
+	var reason: String=""
+	var expired: bool=false
+	var now: float=float(st.time)
+	if not _fleet_goals051(t) or not is_same(t.workers051,held.workers) or not is_same(record.get("encounterGeneration051"),held.workers) or not is_same(ship,record.get("owner")) or st.get("result")!=null:
+		reason="Encounter changed; reconsidering maneuver"
+	elif (not record.is_read_only() or record.size()!=12 or record.get("scope")!="sampled-fleet-goal"
+		or not is_same(record.get("candidate"),held.source.get("candidate")) or not is_same(record.get("state"),held.source.get("state"))
+		or record.get("sampledAt")!=held.source.get("sampledAt") or record.get("chosenAt")!=held.source.get("chosenAt") or record.get("sampledRisk")!=held.source.get("sampledRisk")
+		or record.get("generation051")!=held.generation or record.get("snapshotRevision")!=held.snapshot_revision
+		or record.get("terrainKey")!=held.guard.get("terrainKey") or record.get("terrainRevision")!=held.guard.get("terrainRevision")
+		or not is_same(t.intents.get(id),held.intent)):
+		reason="Checking the assigned maneuver"
+	else:
+		var sample: float=float(record.sampledAt)
+		var chosen: float=float(record.chosenAt)
+		if not is_finite(now) or not is_finite(sample) or not is_finite(chosen) or chosen<0.0 or chosen>sample or now<sample or now-sample>Planner.Goals051.SAMPLE_SECONDS+0.000001 or now-chosen>Planner.Goals051.CHOICE_SECONDS+0.000001:
+			reason="Refreshing the fleet maneuver";expired=true
+		else:reason=_goal_input_reason051(st,id,held.guard,frame_cache)
+	if reason.is_empty():
+		for target_id: String in held.owners:
+			var expected: Dictionary=held.owners[target_id]
+			var target: Dictionary=t.ships.get(target_id,{})
+			if not is_same(target,expected.owner) or not Roles.active(target) or str(target.get("team",""))!=str(expected.team) or str(target.get("uid",""))!=str(expected.uid):
+				reason="Target or protected ally unavailable";break
+			if not Routes.point(target).is_finite() or not Vector2(target.vx,target.vy).is_finite() or not is_finite(float(target.angle)):
+				reason="Checking current target motion";break
+	if reason.is_empty():
+		var actual: Array=_goal_capability051(st,id,frame_cache)
+		var heat: Vector2=Certification._heat_wear(ship,maxf(0.0,now-held.capability_at),float(held.capability[1][2]))
+		if actual.is_empty() or actual[0]!=held.capability[0] or Certification._live_capability_lost(actual[1],held.capability[1],heat):
+			reason="Damage or capability changed; reassessing"
+		else:
+			# This is a REAL capability read, never a renewed tactical observation,
+			# chosenAt, static route proof or physical certificate timestamp.
+			held.capability=actual;held.capability_at=now
+	if not reason.is_empty():
+		_drop_goal051(t,id,not expired)
+		if not t.pending.has(id):t.pending[id]=now
+		t.reasons[id]=reason
+		return {}
+	return record
+
+static func _fleet_goals051(t: Dictionary) -> bool:
+	return bool(t.get("workers051",{}).get("fleetGoals051",false))
+
+static func _goal_capability051(st: Dictionary,id: String,frame_cache=null) -> Array:
+	var ship: Dictionary=st.tactical.ships[id]
+	for key: String in ["x","y","vx","vy","angle","hp","maxHp","water","capacity","engine","crew","wounded","fire","fuel","ammo","supplies"]:
+		var value: Variant=ship.get(key)
+		if not (value is int or value is float) or not is_finite(float(value)):return []
+	var actual: Array=_worker_capability051(st,id,[],frame_cache)
+	for index: int in [0,1,2,3,4,5,6,7,8,9,11]:
+		if not is_finite(float(actual[0][index])):return []
+	for index: int in range(12):
+		if not is_finite(float(actual[1][index])):return []
+	for factor in actual[1][12].values():
+		if not is_finite(float(factor)):return []
+	return actual
+
+static func _goal_inputs051(st: Dictionary,id: String,frame_cache=null) -> Dictionary:
+	var t: Dictionary=st.tactical
+	var ship: Dictionary=t.ships[id]
+	return {"owner":ship,"spec":ship.spec,"mounts":t.mountCache[id].baseMounts,"side":str(ship.team),"uid":str(ship.get("uid","")),"revision":int(ship.orderRevision),"order":str(ship.order),"orderTarget":ship.orderTarget.duplicate(true),"options":t.options.byId[id].duplicate(true),"goalRevision051":int(t.goalRevisions051.get(id,0)),"capability":_goal_capability051(st,id,frame_cache),"survival":_survival_override(st,ship,frame_cache),"boarding":_boarding_contact(st,ship,frame_cache),"terrainKey":str(t.geometry.key),"terrainRevision":int(t.geometry.revision)}
+
+static func _goal_input_reason051(st: Dictionary,id: String,guard: Dictionary,frame_cache=null) -> String:
+	var t: Dictionary=st.tactical
+	var ship: Dictionary=t.ships.get(id,{})
+	if guard.is_empty() or not is_same(ship,guard.owner) or not Roles.active(ship) or not is_same(ship.spec,guard.spec) or str(ship.team)!=str(guard.side) or str(ship.get("uid",""))!=str(guard.uid):return "Boat owner changed; reconsidering maneuver"
+	if not t.mountCache.has(id) or not is_same(t.mountCache[id].baseMounts,guard.mounts):return "Fittings changed; reconsidering maneuver"
+	if id==str(t.manualId) or (id==str(st.get("playerId","")) and not bool(st.get("autopilot",true))):return "Manual helm; order suspended"
+	if int(ship.orderRevision)!=int(guard.revision) or str(ship.order)!=str(guard.order) or ship.orderTarget!=guard.orderTarget or int(t.goalRevisions051.get(id,0))!=int(guard.goalRevision051):return "Following the new order or immediate condition"
+	if t.options.byId.get(id)!=guard.options:return "Tactical choices changed; reconsidering maneuver"
+	if str(t.geometry.key)!=str(guard.terrainKey) or int(t.geometry.revision)!=int(guard.terrainRevision):return "Terrain changed; reconsidering maneuver"
+	if _survival_override(st,ship,frame_cache)!=bool(guard.survival) or _boarding_contact(st,ship,frame_cache)!=str(guard.boarding):return "Immediate survival or boarding order changed"
+	return ""
+
+static func _drop_goal051(t: Dictionary,id: String,invalidate051: bool=true) -> void:
+	var held=t.get("goals051",{}).get(id)
+	if invalidate051 and _fleet_goals051(t):t.goalRevisions051[id]=int(t.goalRevisions051.get(id,0))+1
+	if held is _Goal051:
+		held.step_ok=false
+		if is_same(t.intents.get(id),held.intent):t.intents.erase(id)
+		for side in t.memory:t.memory[side].get("reservations",{}).erase(id)
+	t.get("goals051",{}).erase(id)
+
+static func _clear_goals051(t: Dictionary) -> void:
+	for id: String in t.get("goals051",{}).keys():_drop_goal051(t,id,false)
+
+static func _publish_goal051(st: Dictionary,id: String,slot: Dictionary,frame_cache=null) -> bool:
+	var t: Dictionary=st.tactical
+	# Publication is possible ONLY from this encounter's exact, completed+joined
+	# SIDE slot. Neither public dictionaries nor an unfinished capsule is read.
+	if not _fleet_goals051(t) or not bool(slot.get("fleetGoals051",false)) or not bool(slot.joined) or bool(slot.retired) or slot.capsule==null or id not in slot.remaining:return false
+	if not is_same(t.workers051.slots.get(int(slot.generation051)),slot) or int(t.workers051.members051.get(id,-1))!=int(slot.generation051):return false
+	var guard: Dictionary=slot.guards.get(id,{})
+	if not _goal_input_reason051(st,id,guard,frame_cache).is_empty() or guard.capability.is_empty():return false
+	var source: Dictionary=slot.capsule.result.get("goals051",{}).get(id,{})
+	if source.is_empty():return false
+	var sample: float=float(source.get("sampledAt",-1.0))
+	var chosen: float=float(source.get("chosenAt",-1.0))
+	var risk: float=float(source.get("sampledRisk",NAN))
+	var now: float=float(st.time)
+	if (not is_finite(now) or not is_finite(sample) or not is_finite(chosen) or not is_finite(risk) or risk<0.0 or risk>1.0
+		or sample!=float(slot.createdAt) or sample<0.0 or chosen<0.0 or chosen>sample or now<sample
+		or now-sample>Planner.Goals051.SAMPLE_SECONDS+0.000001 or now-chosen>Planner.Goals051.CHOICE_SECONDS+0.000001
+		or sample<=float(t.lastDecision.get(id,-1.0))):return false
+	var state: Dictionary=source.get("state",{})
+	var candidate: Dictionary=source.get("candidate",{})
+	if state.is_empty() or int(state.get("orderRevision",-1))!=int(guard.revision) or not bounded_value(state,{"nodes":0}):return false
+	var ship: Dictionary=t.ships[id]
+	var owners: Dictionary={}
+	var required: Dictionary={}
+	for data: Dictionary in [state,candidate]:
+		for key: String in ["targetId","leaderId"]:
+			var target_id: String=str(data.get(key,""))
+			if target_id.is_empty():continue
+			var allied: bool=key=="leaderId"
+			if required.has(target_id) and bool(required[target_id])!=allied:return false
+			required[target_id]=allied
+	for target_id in candidate.get("fireMountTargets",{}).values():required[str(target_id)]=false
+	if required.size()>6:return false
+	for target_id: String in required:
+		var target: Dictionary=t.ships.get(target_id,{})
+		if not is_same(target,slot.owners.get(target_id)) or not Roles.active(target) or (str(target.team)==str(ship.team))!=bool(required[target_id]):return false
+		if not Routes.point(target).is_finite() or not Vector2(target.vx,target.vy).is_finite() or not is_finite(float(target.angle)):return false
+		owners[target_id]={"owner":target,"team":str(target.team),"uid":str(target.get("uid",""))}
+	if not candidate.is_empty():
+		if not Stations.valid_candidate(candidate) or str(candidate.shipId)!=id or int(candidate.orderRevision)!=int(guard.revision) or int(candidate.snapshotRevision)!=int(slot.snapshotRevision) or str(candidate.role)!=str(state.get("role","")):return false
+		var order_view: Dictionary={"options":t.options}
+		var ordered: Dictionary=ship.duplicate()
+		if not str(guard.boarding).is_empty():ordered.order="board";ordered.orderTarget={"shipId":str(guard.boarding)}
+		if not order_candidate(order_view,ordered,candidate):return false
+	var actual: Array=_goal_capability051(st,id,frame_cache)
+	var heat: Vector2=Certification._heat_wear(ship,maxf(0.0,now-sample),float(guard.capability[1][2]))
+	if actual.is_empty() or actual[0]!=guard.capability[0] or Certification._live_capability_lost(actual[1],guard.capability[1],heat):return false
+	_drop_goal051(t,id,false)
+	# Even a route-pending answer owns a real sampled observation. Its time is
+	# never replaced by adoption time and it cannot renew certification clocks.
+	var side: String=str(ship.team)
+	t.memory[side].byId[id]=state.duplicate(true)
+	var previous: float=maxf(0.0,float(t.lastDecision.get(id,sample)))
+	var age: float=maxf(0.0,sample-previous)
+	t.metrics.decisionAges.append(age);t.counters.oldestDecisionAge=maxf(float(t.counters.oldestDecisionAge),age)
+	if age>0.2+0.000001:t.counters.lateDecisions+=1
+	t.lastDecision[id]=sample;t.counters.decisions+=1
+	if candidate.is_empty():
+		t.reasons[id]=str(state.get("reason","Waiting for a shared approach"))
+		if not t.pending.has(id):t.pending[id]=now
+		return false
+	_view_read_only051(source)
+	var held: _Goal051=_Goal051.new()
+	held.source=source;held.guard=guard;held.owners=owners;held.workers=t.workers051
+	held.generation=int(slot.generation051);held.snapshot_revision=int(slot.snapshotRevision)
+	held.capability=actual;held.capability_at=now
+	held.points=Certification.execution(candidate)
+	held.primary=Certification.primary_mounts(t.mountCache[id].mounts,candidate)
+	held.record={"candidate":candidate,"state":state,"chosenAt":chosen,"sampledAt":sample,"owner":ship,"encounterGeneration051":t.workers051,"generation051":int(slot.generation051),"snapshotRevision":int(slot.snapshotRevision),"terrainKey":str(slot.terrainKey),"terrainRevision":int(slot.terrainRevision),"sampledRisk":risk,"scope":"sampled-fleet-goal"}
+	held.record.make_read_only() # Never recursively freeze the live owner/worker ledger.
+	var gates: Dictionary={}
+	for mount: Dictionary in t.mountCache[id].mounts:
+		var fixed: bool=Fire.fixed(mount)
+		gates[str(mount.id)]={"targetId":Stations.mount_target_id(candidate,str(mount.id)),"permit":false,"shotLimit":1 if fixed else 2147483647,"leaseKind":"salvo" if fixed else "continuous","firingPassId":str(state.get("firingPassId","")) if fixed else "","reason":"Waiting for current firing clearance"}
+	# Truthful HUD/pass metadata only. No pathFingerprint, legacy fire window,
+	# predictions entry or complete-route certificate is manufactured.
+	held.intent={"scope":"sampled-fleet-goal","candidateId":str(candidate.candidateId),"snapshotRevision":int(slot.snapshotRevision),"orderRevision":int(guard.revision),"role":str(state.role),"phase":str(state.phase),"targetId":str(candidate.targetId),"leaderId":str(candidate.leaderId),"sector":int(candidate.sector),"waypoints":held.points.duplicate(),"exit":candidate.exit.duplicate(),"fireGate":gates,"reason":str(state.reason),"sampledAt":sample,"chosenAt":chosen,"validUntil":minf(sample+Planner.Goals051.SAMPLE_SECONDS,chosen+Planner.Goals051.CHOICE_SECONDS)}
+	t.goals051[id]=held;t.intents[id]=held.intent
+	t.retained051.erase(id);t.preferences051.erase(id);t.physicalRetry051.erase(id)
+	t.memory[side].reservations[id]=source.reservation.duplicate(true)
+	t.reasons[id]=str(state.reason);t.pending.erase(id)
+	Fire.accept_pass(st,ship,held.intent)
+	return true
+
+static func _begin_goals051(st: Dictionary,frame_cache=null) -> void:
+	var t: Dictionary=st.tactical
+	var detail: Dictionary=t.metrics.planningDetailUs
+	var started: int=Time.get_ticks_usec()
+	for slot: Dictionary in t.workers051.slots.values():
+		if not bool(slot.joined):continue
+		for id: String in slot.remaining.duplicate():
+			var accepted: bool=_publish_goal051(st,id,slot,frame_cache)
+			slot["adopted" if accepted else "discarded"].append(id)
+			if _runtime_profile043_enabled:_runtime_profile043_counts["workerAdoptions" if accepted else "workerDrops"]+=1
+			slot.remaining.erase(id);t.workers051.members051.erase(id)
+		Planner._release_slot051(t,slot)
+	# Expiry revokes authority but cannot invalidate a newer in-flight sample.
+	for id: String in t.goals051.keys():
+		var held: _Goal051=t.goals051[id]
+		if float(st.time)>float(held.record.sampledAt)+Planner.Goals051.SAMPLE_SECONDS+0.000001 or float(st.time)>float(held.record.chosenAt)+Planner.Goals051.CHOICE_SECONDS+0.000001:
+			_drop_goal051(t,id,false)
+			if not t.pending.has(id):t.pending[id]=float(st.time)
+	for id: String in t.ships:
+		if id==str(t.manualId):continue
+		if not t.goals051.has(id) and not t.pending.has(id):t.pending[id]=float(st.time)
+	for id: String in t.pending:
+		var age: float=maxf(0.0,float(st.time)-float(t.pending[id]))
+		t.metrics.pendingAges.append(age);t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
+	detail.resolution=Time.get_ticks_usec()-started
+	started=Time.get_ticks_usec()
+	var tally: Dictionary=Planner._dispatch_goals051(st,t.ships.keys(),_worker_view051,_goal_inputs051,frame_cache)
+	if _runtime_profile043_enabled:
+		_runtime_profile043_counts.workerDispatches+=int(tally.dispatches);_runtime_profile043_counts.workerDrops+=int(tally.drops)
+	detail.proposals=Time.get_ticks_usec()-started
 
 static func register(st: Dictionary,ship: Dictionary,mounts: Array) -> void:
 	var t: Dictionary=ensure(st)
@@ -465,7 +701,7 @@ static func _order_lifetime(st: Dictionary,ship: Dictionary) -> void:
 			t.reasons[id]="Attack complete; target unavailable" if lost else "Attack could not reach a firing lane; regrouping"
 
 static func _prune(t: Dictionary,live: Dictionary,now: float) -> void:
-	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety","retained051","preferences051","physicalRetry051"]:
+	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety","retained051","preferences051","physicalRetry051","goals051","goalRevisions051"]:
 		for id in t[key].keys():
 			if not live.has(id):t[key].erase(id)
 	for id in t.options.byId.keys():
@@ -670,6 +906,17 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		detail.observationSafety=Time.get_ticks_usec()-profile_started051
 		profile_started051=Time.get_ticks_usec()
 	var queued: Array=t.ships.keys()
+	if _fleet_goals051(t):
+		# Actual pooled encounters bypass EVERY old main role observation,
+		# multi-offer/refinement/certification/resolution loop below. All hulls
+		# still receive real60Hz helm/fire and the same physical work budget.
+		t.metrics.activeCount=queued.size();t.metrics.normalLimit=0
+		if profile051:detail.observationSelection=0
+		detail.observation=Time.get_ticks_usec()-begin_started
+		_begin_goals051(st,frame_cache)
+		t.budget.clearanceLimit=4096
+		detail.beginTotal=Time.get_ticks_usec()-begin_started
+		return
 	# Oldest decisions across BOTH sides own the fixed due slots, preserving the
 	# <=0.2s observation cadence. Actual certification attempts break age ties;
 	# budget-only deferral still never impersonates physical certification.
@@ -1072,6 +1319,7 @@ static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dic
 	return true
 
 static func _drop_retained051(t: Dictionary,id: String,preference_expiry051: bool=false,physical_only051: bool=false) -> void:
+	if _fleet_goals051(t):_drop_goal051(t,id)
 	# Semantic-only reuse belongs to pooled fleet planning. Ordinary synchronous
 	# encounters must make a full choice after physical authority is lost.
 	physical_only051=physical_only051 and t.has("workers051")
@@ -1169,7 +1417,45 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,curr
 	t.lastDecision[id]=float(st.time);t.counters.decisions+=1
 	return true
 
+static func _helm_goal051(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
+	var started: int=Time.get_ticks_usec()
+	var t: Dictionary=st.tactical
+	var detail: Dictionary=t.metrics.planningDetailUs
+	t.metrics.planningCalls.helm+=1
+	var id: String=str(ship.id)
+	var goal: Dictionary=_goal_current051(st,ship,frame_cache)
+	detail.helmCurrent+=Time.get_ticks_usec()-started
+	if not t.get("appliedRevisions") is Dictionary:t.appliedRevisions={}
+	if int(t.appliedRevisions.get(id,-1))!=int(ship.get("orderRevision",0)):
+		t.metrics.orderApplyAges.append(maxf(0.0,float(st.time)-float(t.orderTimes.get(id,st.time))))
+		t.appliedRevisions[id]=int(ship.get("orderRevision",0))
+	var safety_started: int=Time.get_ticks_usec()
+	var safe: Dictionary
+	if goal.is_empty():
+		if not t.pending.has(id):t.pending[id]=float(st.time)
+		t.reasons[id]=str(t.reasons.get(id,"Waiting for a fleet maneuver"))
+		safe=Certification.brake(st,ship,t.budget,str(t.reasons[id]),frame_cache)
+	else:
+		var held: _Goal051=t.goals051[id]
+		var target: Dictionary=t.ships.get(str(goal.candidate.targetId),{})
+		var control: Dictionary=Certification.steering(ship,held.points,held.index,target,held.primary)
+		held.index=int(control.index)
+		safe=Certification._crowd_step051(st,ship,goal.candidate,control,t.budget,frame_cache) if Routes._is_crowd_escape051(goal.candidate) else Certification.safe_step(st,ship,control,t.budget,frame_cache)
+		held.step_at=float(st.time);held.step_ok=not bool(safe.get("blocked",false))
+		if not held.step_ok:
+			# The next copied job can favor the existing local crowd escape instead
+			# of repeating a committed lane that the REAL current helm just vetoed.
+			var memory: Dictionary=t.memory[str(ship.team)].byId.get(id,{})
+			memory.blockedStation=true;memory.commitUntil=0.0
+			if float(memory.get("waitSince",-1.0))<0.0:memory.waitSince=float(st.time)
+			t.reasons[id]=str(safe.reason);_drop_goal051(t,id)
+			if not t.pending.has(id):t.pending[id]=float(st.time)
+	detail.helmSafety+=Time.get_ticks_usec()-safety_started
+	detail.helmTotal+=Time.get_ticks_usec()-started
+	return safe
+
 static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
+	if _fleet_goals051(st.tactical):return _helm_goal051(st,ship,frame_cache)
 	var helm_started: int=Time.get_ticks_usec()
 	var t: Dictionary=st.tactical
 	var detail: Dictionary=t.metrics.get("planningDetailUs",{})
@@ -1297,6 +1583,20 @@ static func _battle_fire_gates051(st: Dictionary,ship: Dictionary,frame_cache=nu
 static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
 	var t: Dictionary=st.tactical
 	var id: String=str(ship.id)
+	if _fleet_goals051(t):
+		var goal: Dictionary=_goal_current051(st,ship,frame_cache)
+		var held=t.goals051.get(id)
+		if goal.is_empty() or not held is _Goal051 or not held.step_ok or held.step_at!=float(st.time):
+			t.fireReasons[id]={}
+			for mount: Dictionary in t.mountCache[id].mounts:t.fireReasons[id][str(mount.id)]="Waiting for current helm clearance"
+			return {}
+		var live_gates: Dictionary=Fire._goal_gates051(st,ship,goal,frame_cache)
+		# Existing Battle._fire/emitted consumes THIS same intent and pass ID.
+		# Each permit reflects an actual current Fire solution, never the sample.
+		for mount_id in held.intent.fireGate:
+			held.intent.fireGate[mount_id].permit=live_gates.has(mount_id)
+			held.intent.fireGate[mount_id].reason=str(t.fireReasons[id].get(mount_id,"Waiting for a firing opportunity"))
+		return live_gates
 	var intent: Dictionary=t.intents.get(id,{})
 	var out: Dictionary={}
 	t.fireReasons[id]={}
@@ -1351,9 +1651,14 @@ static func status(st: Dictionary,id: String) -> Dictionary:
 	var exits: Array=[]
 	var reason: String=str(t.reasons.get(id,"Choosing a safe maneuver"))
 	if not manual and not intent.is_empty():
-		var checked: Dictionary=_current051(st,ship,intent,float(t.dt))
-		if checked.ok:paths=intent.get("waypoints",[]).duplicate();exits=intent.get("exit",[]).duplicate()
-		else:reason=str(checked.reason)
+		if _fleet_goals051(t):
+			var goal: Dictionary=_goal_current051(st,ship)
+			if not goal.is_empty():paths=intent.get("waypoints",[]).duplicate();exits=intent.get("exit",[]).duplicate()
+			else:reason=str(t.reasons.get(id,"Waiting for a fleet maneuver"))
+		else:
+			var checked: Dictionary=_current051(st,ship,intent,float(t.dt))
+			if checked.ok:paths=intent.get("waypoints",[]).duplicate();exits=intent.get("exit",[]).duplicate()
+			else:reason=str(checked.reason)
 	var target: Dictionary=_live(st,str(intent.get("targetId","")))
 	var weapons: Dictionary=t.fireReasons.get(id,{}).duplicate(true)
 	var mounts: Array=refresh_mounts(st,ship)

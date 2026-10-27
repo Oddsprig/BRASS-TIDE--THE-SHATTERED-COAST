@@ -3,6 +3,7 @@ extends RefCounted
 const Roles = preload("res://scripts/tactical_role_plans.gd")
 const Stations = preload("res://scripts/tactical_stations.gd")
 const Routes = preload("res://scripts/tactical_routes.gd")
+const Goals051 = preload("res://scripts/tactical_goals051.gd")
 const MAX_OFFERS: int = 8
 const MAX_CLEARANCE: int = 4096
 const CERT_SECONDS: float = 0.2
@@ -28,6 +29,10 @@ class _Detached051 extends RefCounted:
 
 static func _work051(job: _Detached051) -> void:
 	var data: Dictionary = job.input
+	if bool(data.get("fleetGoals051", false)):
+		job.result = Goals051.plan051(data)
+		job.input = {}
+		return
 	var prepared: Dictionary = _prepare_begin(data.view, data.memory, {}, data.preparedDecisions051)
 	# A real worker role search starts its semantic age at the SAMPLE, never at
 	# eventual adoption. Borrowed decisions retain their older original age.
@@ -338,6 +343,69 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 		for id: String in ids: t.workers051.members051[id] = generation
 		_tasks051.append(slot)
 		tally.dispatches += 1
+	return tally
+
+static func _dispatch_goals051(st: Dictionary, order: Array, build_view: Callable, guard_inputs: Callable, frame_cache) -> Dictionary:
+	# Same global handle list as legacy SIDE jobs: retired unfinished jobs still
+	# count. No synchronous fallback, unfinished join, or completion-driven refill.
+	var t: Dictionary=st.tactical
+	var w: Dictionary=t.workers051
+	var tally: Dictionary={"dispatches":0,"drops":0}
+	for slot: Dictionary in w.slots.values():
+		if float(st.time)<float(slot.createdAt) or float(st.time)-float(slot.createdAt)>Goals051.SAMPLE_SECONDS+0.000001 or str(slot.terrainKey)!=str(t.geometry.key) or int(slot.terrainRevision)!=int(t.geometry.revision):
+			tally.drops+=slot.remaining.size()
+			_release_slot051(t,slot)
+	for side: String in ["player","enemy"]:
+		if _tasks051.size()>=MAX_TASKS051:break
+		var period: Dictionary=w.periods051.get(side,{})
+		if not period.is_empty() and float(st.time)<float(period.at)+Goals051.BATCH_SECONDS-0.000001:continue
+		var occupied: bool=false
+		for slot: Dictionary in w.slots.values():
+			if str(slot.side)==side:occupied=true;break
+		if occupied:continue
+		var ids: Array=[]
+		for id: String in order:
+			if str(t.ships[id].team)==side and id!=str(t.manualId):ids.append(id)
+		if ids.is_empty():continue
+		if not w.has("goalCursor051"):w.goalCursor051={}
+		var cursor: int=int(w.goalCursor051.get(side,0))%ids.size()
+		var fair: Dictionary={}
+		for index: int in range(ids.size()):fair[ids[index]]=(index-cursor+ids.size())%ids.size()
+		# Pending/hazard/order actors receive the first finite route and clearance
+		# slices. One whole SIDE job owns ONE 2900-test/four-A* allowance per100ms.
+		ids.sort_custom(func(a: String,b: String) -> bool:
+			if t.pending.has(a)!=t.pending.has(b):return t.pending.has(a)
+			var aa: float=float(t.lastDecision.get(a,-1.0))
+			var bb: float=float(t.lastDecision.get(b,-1.0))
+			return aa<bb if aa!=bb else int(fair[a])<int(fair[b]))
+		var budgets: Dictionary={}
+		var guards: Dictionary={}
+		var memory: Dictionary={"byId":{},"reservations":{}}
+		var clearance: int=2900
+		var routes: int=4
+		for index: int in range(ids.size()):
+			var id: String=ids[index]
+			var left: int=ids.size()-index
+			var tests: int=ceili(float(clearance)/float(left))
+			var queries: int=ceili(float(routes)/float(left))
+			clearance-=tests;routes-=queries
+			budgets[id]={"clearanceTests":0,"clearanceLimit":tests,"exhaustions":0,"fullRoutes":4-queries,"cacheHits":0}
+			guards[id]=guard_inputs.call(st,id,frame_cache)
+			memory.byId[id]=t.memory[side].byId.get(id,{}).duplicate(true)
+		var capsule: _Detached051=_Detached051.new()
+		var pool: Array=w.cache[side]
+		var cache: Dictionary=pool.pop_back() if not pool.is_empty() else {}
+		capsule.input={"fleetGoals051":true,"view":build_view.call(st,side,ids,frame_cache),"memory":memory,"geometry":t.geometry.duplicate(true),"cache":cache,"order":ids.duplicate(),"budgets":budgets}
+		w.generation051+=1
+		var generation: int=int(w.generation051)
+		var slot: Dictionary={"fleetGoals051":true,"side":side,"generation051":generation,"periodAt051":float(st.time),"capsule":capsule,"guards":guards,"owners":t.ships.duplicate(),"remaining":ids,"createdAt":float(st.time),"snapshotRevision":int(t.snapshotRevision),"terrainKey":str(t.geometry.key),"terrainRevision":int(t.geometry.revision),"joined":false,"retired":false,"adopted":[],"discarded":[],"taskId":-1}
+		slot.taskId=WorkerThreadPool.add_task(_work051.bind(capsule),false,"Brass Tide sampled fleet goals")
+		w.slots[generation]=slot
+		w.periods051[side]={"at":float(st.time),"dispatched051":true}
+		w.goalCursor051[side]=(cursor+mini(4,ids.size()))%ids.size()
+		for id: String in ids:w.members051[id]=generation
+		_tasks051.append(slot)
+		tally.dispatches+=1
 	return tally
 
 static func _phase_due051(view: Dictionary, ship: Dictionary, state: Dictionary, target: Dictionary, range_value: float) -> bool:
