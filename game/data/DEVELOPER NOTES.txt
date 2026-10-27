@@ -14,43 +14,33 @@ and startup receipts. Headless checks do not establish rendered/audio quality.
 
 CURRENT CORE CHECKPOINT - 27 October 2026
 Active0.051; Desktop remains verified0.050. Core gate OPEN; no052 breadth.
-Current tested candidate: Rootf5381ee/release3b7e894; all36designs preserved.
-R55 PASS2796/0 incl771sampled-goal checks and paid first voyage,69.844s whole;
-job15b09b0dedc34cbe88cf7305bf488c45. Logic-only, no export in that batch.
-R56 PASS60.953s incl import/export/three starts/cleanup;
-job02376bfdba5f40b3a931f2bc6313b06c. Same703gameinput hashes asR55.
-R27 actual COMPLETE59.438s, cleanuptrue; QUALITY FAILED:
-jobb004006fa03847e9add1313605d14080. Both actual end PNGs Root viewed.
--42 light/300DPside:16.404FPS (R26:7.525), simulation median12.4545ms/P9520.122;
- all42 moved,35moving, ZERO persistent stalls;193catch-up frames/117over50ms.
--16 mixed/300DPside:59.887FPS, simulation median5.590ms/P958.787;
- all16moved,14moving, ZERO persistent stalls;98.19percentframes<=20ms.
-Both cases have actual movement/fire/hits/flooding; mixed launches missiles.
-New fleet policy removes MAIN multi-offer/refine/resolve work. Planning median
-10.643->5.4905ms light,3.7995->2.378ms mixed; no sync fallback. Workers choose
-actual sampled tactical goals (<=150ms,100ms SIDE refresh); chosenAt+.45 never
-renews through adoption. Current60Hz helm/fire/damage/orders remain authoritative.
-Ordinary1v1/direct legacy planner behavior unchanged. No fake full-route proof.
-The sampled policy is component-tested and improves actual performance, but
-large battle remains unusably slow; no051tag/package/install/no052 expansion.
-Accepted float32 contact repair still has zero stalls in actualR27. Rejected
-slower retained native renderer remains reverted, preserved with receipts in Git.
-Reviewed source follow-up integrated: owned-phase goal capability reuse,
-uncut indexed wake copy bypass, and pure repair-need OR short-circuit. No speed
-claim before R28. Root adds opt-in drawing subclocks to the existing profiler.
-Grok review found attack-target gating and repeated escape preference issues;
-two Sol6.1MAX helpers own bounded fixes. Claimed manual-input regression was
-rejected: Battle.update already applies real manual controls before AI helm.
-R27 light costs: helmCurrent1.150ms,helmSafety1.655ms,damage1.5545ms,
-mounts.989ms,firing1.223ms; boats5.040ms,wake1.663ms,presentation8.030ms.
-Per-tick unaccounted median.567ms, not the difference of separately summed medians.
-NativeR57 and actualR28 only after reviewed source; no speculative speedup claim.
-Grok4.7HIGH review completed from its existing packet; Root verified the
-attack gating defect and actual manual-input call chain. Escape fix is scoped.
-Review is source evidence, not a native result or performance acceptance.
-Earlier R55 queue attempts FAILED before engine (atomic status Move access)
-or INTERRUPTED at queue app restart. They are not game assertion results.
-Root owns all queued muted background tests, each whole batch below120seconds.
+Tested source Root709c26f/release0b5b26d; all36 designs and300DPside retained.
+R59 PASS18052/0,70.828s whole, job0edbbafe118f4e11ab19b8f3c9669abc;
+includes827sampled-goal/attack/manual/escape,451damage and14749wake checks.
+R60 PASS2497/0,81.265s whole inclart/weapon/export/three starts;
+job9022e517114e4b1fb04688c100a718a2. Same703gameinput hashes asR59.
+R57's four new owned-fixture failures are preserved separately: legacy test
+boats lacked canonical equipment. Fixture now uses real Records.initialize
+and full zero-dt prepass. Production guards and old assertions unchanged.
+R28 actual COMPLETE58.500s,cleanuptrue; QUALITY FAILED;
+jobb491da26cf504b2aaaf05bfa45a08ba0. Both actual end PNGs Root viewed.
+-42light/full300DPside:19.062FPS (R27:16.404;R26:7.525), simulation
+ median12.377ms/P9518.577; all42moved,36moving,ZERO persistent stalls.
+-16mixed/full300DPside:59.997FPS, simulation5.482ms/P959.613;
+ 15/16evermoved,12moving; enemy-5-barbed_lance pending3.183s for a route.
+Both actual cases retain movement/fire/hits/flooding; mixed missiles observed.
+Light CPUdrawing medians: preparation.465ms,hulls.278ms,motors.592ms,
+weapons.517ms,damage2.946ms,totalboats5.192ms,wakes1.738ms.
+Mixed damage2.5025ms,totalboats3.6895ms. Subclocks measure CPU submission,
+not GPU execution. Largest drawing work is damage feedback, not hull sprites.
+Light phases: begin2.321ms,helm2.888ms,damage1.523ms,mounts1.076ms,
+firing1.035ms. Sampled goals retain150ms sample/450ms choice and current60Hz
+helm/fire/damage/orders. No idle-FPS, lower actor count or lower simulationHz.
+Next bounded source pass targets damage drawing, measured repeated main-thread
+phase work and the actual mixed route stall. Majority via3BridgeSol6.1MAX.
+No051tag/package/install and no052 expansion while the core gate is open.
+Rejected slower retained native renderer remains reverted; do not repeat it.
+All tests background/muted/sharedFIFO; each whole batch below120seconds.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 
 HISTORICAL CHECKPOINTS (superseded where current status differs)

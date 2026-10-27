@@ -365,3 +365,13 @@ LEGACY CAMPAIGN FIXTURES AND RESULT PATHS —26 OCTOBER2026
   verified-report request mismatched result.json; raw failure evidence survived.
 - Charge failed source staging conservatively inside119s. R13 reduced outer
  108->85 and increased setup debit10->30; native30/resource caps stayed fixed.
+
+OWNED-PHASE FIXTURES - 27 OCTOBER2026
+- Legacy numerical test boats lack canonical installed records. A private
+  owned-phase reuse test must initialize valid Records before Battle admission
+  and execute the real prepass before sealing. Keep public fallback fixtures.
+- Preserve failed receipts. R57 four new failures led to this fixture correction;
+  R59 retained all old assertions and passed18052/0 in70.828s whole.
+- Runtime chart counters wrap the actual drawing frame under last_frame.
+  Read that object when attributing drawing costs; empty wrapper medians are
+  an analysis extraction error, not zero drawing work.
