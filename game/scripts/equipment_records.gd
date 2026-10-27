@@ -402,7 +402,28 @@ static func initialize(boat: Dictionary, context: Dictionary) -> Dictionary:
 	boat.refitLocker = probe.refitLocker
 	return seeded
 
+static func _tick_records_exact(condition: Dictionary, proof: Dictionary) -> Dictionary:
+	# Private to one synchronous Damage.tick_ship call. Native equality is an
+	# early-out only: bytes also distinguish StringName/String and int/float.
+	# Never retain a refusal or admit a changed condition without Core._records.
+	if is_same(proof.get("condition"), condition) and condition == proof.get("value"):
+		if var_to_bytes(condition) == proof.get("bytes"):
+			return proof.records
+	var records: Dictionary = Core._records(condition)
+	proof.clear()
+	if records.ok:
+		proof.condition = condition
+		proof.value = condition.duplicate(true)
+		proof.bytes = var_to_bytes(condition)
+		records.locations.make_read_only()
+		records.make_read_only()
+		proof.records = records
+	return records
+
 static func absorb_legacy_damage(boat: Dictionary) -> Dictionary:
+	return _absorb_legacy_damage_with(boat, Core._records)
+
+static func _absorb_legacy_damage_with(boat: Dictionary, validate: Callable) -> Dictionary:
 	if not boat is Dictionary:
 		return _fail("Boat must be a dictionary.")
 	if Core._foreign(boat):
@@ -411,18 +432,22 @@ static func absorb_legacy_damage(boat: Dictionary) -> Dictionary:
 		return _fail("Equipment condition is not initialized.")
 	if not boat.has("engine"):
 		return _fail("The legacy engine scalar is missing.")
-	return Core.note_engine_scalar(boat.moduleCondition, boat.get("engine"))
+	return Core._note_engine_scalar_with(boat.moduleCondition, boat.get("engine"), validate)
 
 static func publish(boat: Dictionary) -> Dictionary:
+	return _publish_with(boat, Core._records)
+
+static func _publish_with(boat: Dictionary, validate: Callable) -> Dictionary:
 	if not boat is Dictionary:
 		return _fail("Boat must be a dictionary.")
 	if Core._foreign(boat):
 		return _fail("Unrecognized condition metadata was left untouched.")
 	if not boat.has("moduleCondition") or not boat.moduleCondition is Dictionary:
 		return _fail("Equipment condition is not initialized.")
-	var projected: Dictionary = Core._project_publish_fields(boat.moduleCondition)
-	if not projected.ok:
-		return projected
+	var records: Dictionary = validate.call(boat.moduleCondition)
+	if not records.ok:
+		return records
+	var projected: Dictionary = Core._publish_fields_from_records(boat.moduleCondition, records)
 	return _publish_projection(boat, projected)
 
 static func _publish_numeric(boat: Dictionary) -> Dictionary:

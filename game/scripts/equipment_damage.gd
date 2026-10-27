@@ -535,6 +535,11 @@ static func tick_repair_step(boat: Dictionary, h: float, crew_repair: float, opt
 static func _tick_repair_step_from_info(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary) -> Dictionary:
 	return _repair_step_from_info(boat, h, crew_repair, options, info, Core.repair_installed, Core.apply_component_damage, Records.publish)
 
+static func _tick_repair_step_with_records(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, validate: Callable) -> Dictionary:
+	# Same transaction kernels, rollback and post-write full validation. Only an
+	# exact, unchanged condition can reuse a successful validation within this tick.
+	return _repair_step_from_info(boat, h, crew_repair, options, info, Core._repair_installed_with.bind(validate), Core._apply_component_damage_with.bind(validate), Records._publish_with.bind(validate))
+
 static func _is_string_value(value) -> bool:
 	var value_type: int = typeof(value)
 	return value_type == TYPE_STRING or value_type == TYPE_STRING_NAME
@@ -670,7 +675,8 @@ static func _tick_status_public_local(boat: Dictionary, tick_ctx: Dictionary) ->
 	return fresh
 
 static func _tick_absorb_public_local(boat: Dictionary, tick_ctx: Dictionary) -> Dictionary:
-	var absorbed: Dictionary = Records.absorb_legacy_damage(boat)
+	var validate = tick_ctx.get("records_validate")
+	var absorbed: Dictionary = Records._absorb_legacy_damage_with(boat, validate) if validate is Callable else Records.absorb_legacy_damage(boat)
 	if not bool(absorbed.get("ok", false)):
 		_invalidate_public_tick_context(tick_ctx, true)
 	elif bool(absorbed.get("changed", false)):
@@ -682,7 +688,8 @@ static func _tick_publish_public_local(boat: Dictionary, tick_ctx: Dictionary) -
 		var proj = tick_ctx.get("publish_projection")
 		if proj is Dictionary and proj.has("hasEngine") and proj.has("engineHp") and (proj.get("refitLocker") is Dictionary):
 			return Records._publish_projection(boat, proj)
-	var published: Dictionary = Records.publish(boat)
+	var validate = tick_ctx.get("records_validate")
+	var published: Dictionary = Records._publish_with(boat, validate) if validate is Callable else Records.publish(boat)
 	if bool(published.get("ok", false)) and _tick_context_runtime_valid(boat, tick_ctx) and (published.get("refitLocker") is Dictionary):
 		tick_ctx["condition"] = boat.moduleCondition
 		tick_ctx["items"] = boat.moduleCondition.items
@@ -729,6 +736,9 @@ static func _tick_repair_public_local_from_info(boat: Dictionary, h: float, crew
 					_tick_publish_public_local.bind(tick_ctx)
 				)
 	_invalidate_public_tick_context(tick_ctx, false)
+	var validate = tick_ctx.get("records_validate")
+	if validate is Callable:
+		return _tick_repair_step_with_records(boat, h, crew_repair, options, info, validate)
 	return _tick_repair_step_from_info(boat, h, crew_repair, options, info)
 
 static func _tick_repair_numeric(boat: Dictionary, h: float, crew_repair: float, options: Dictionary = {}) -> Dictionary:

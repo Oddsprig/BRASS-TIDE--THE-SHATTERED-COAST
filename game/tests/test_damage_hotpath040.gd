@@ -49,6 +49,7 @@ func pair(label: String, source: Dictionary, dt: float, fast: bool, options: Dic
 	check(eligible(actual, options, cache) == fast, label + ": expected admission")
 	check(var_to_bytes(actual) == before, label + ": admission is read-only")
 	var condition = actual.get("moduleCondition")
+	var item_refs: Dictionary = condition.items.duplicate() if condition is Dictionary and condition.get("items") is Dictionary else {}
 	var old_locker = actual.get("refitLocker")
 	var old_breaches: Array = actual.breaches
 	var report: Dictionary = {}
@@ -60,6 +61,10 @@ func pair(label: String, source: Dictionary, dt: float, fast: bool, options: Dic
 		same = same and var_to_bytes(actual) == var_to_bytes(reference) and var_to_bytes(report) == var_to_bytes(expected) and var_to_bytes(cache) == var_to_bytes(old_cache)
 	check(same, label + ": every complete boat/report/cache equals old wiring")
 	check(is_same(actual.get("moduleCondition"), condition), label + ": condition identity retained")
+	var same_items: bool = true
+	for uid in item_refs:
+		same_items = same_items and is_same(actual.moduleCondition.items.get(uid), item_refs[uid])
+	check(same_items, label + ": exact physical item references retained")
 	if fast:
 		check(report.usedWork == 0.0 and report.usedSupplies == 0.0 and report.availableWork == 0.0 and report.moduleChanges.is_empty(), label + ": no phantom work or damage")
 		check(actual.crew == source.crew and actual.wounded == source.wounded and actual.supplies == source.supplies and actual.ammo == source.ammo, label + ": real crew and stores conserved")
@@ -70,6 +75,102 @@ func engine_uid(ship: Dictionary) -> String:
 	for item in ship.moduleCondition.items.values():
 		if str(item.location) == "engine": return str(item.itemUid)
 	return ""
+
+func exact_records043(source: Dictionary) -> void:
+	var condition: Dictionary = source.moduleCondition.duplicate(true)
+	var proof: Dictionary = {}
+	var before: PackedByteArray = var_to_bytes(condition)
+	var first: Dictionary = Records._tick_records_exact(condition, proof)
+	check(var_to_bytes(first) == var_to_bytes(Core._records(condition)) and var_to_bytes(condition) == before, "043 exact memo seeds only a full read-only validation")
+	check(first.is_read_only() and first.locations.is_read_only(), "043 borrowed validation and locations are immutable")
+	check(is_same(Records._tick_records_exact(condition, proof), first), "043 unchanged exact owner reuses validation")
+	var copy: Dictionary = condition.duplicate(true)
+	var copied: Dictionary = Records._tick_records_exact(copy, proof)
+	check(not is_same(copied, first) and is_same(proof.condition, copy), "043 equal copy cannot reuse another condition reference")
+	condition = copy
+	condition.nextItemSeq = int(condition.nextItemSeq) + 1
+	var changed: Dictionary = Records._tick_records_exact(condition, proof)
+	check(not is_same(changed, copied) and var_to_bytes(changed) == var_to_bytes(Core._records(condition)), "043 valid metadata change receives fresh full proof")
+	var valid: Dictionary = condition.duplicate(true)
+	var uid: String = engine_uid({"moduleCondition": condition})
+	for mutation in ["birth_type", "serial", "unknown", "item_uid", "type_id", "cause", "status", "status_type", "watermark"]:
+		condition = valid.duplicate(true)
+		Records._tick_records_exact(condition, proof)
+		match mutation:
+			"birth_type": condition.birthNamespace = StringName(condition.birthNamespace)
+			"serial": condition.nextItemSeq = -1
+			"unknown": condition["extra"] = true
+			"item_uid": condition.items[uid].itemUid = "wrong-physical-part"
+			"type_id": condition.items[uid].typeId = "invalid type"
+			"cause": condition.items[uid].cause = "\u00e9"
+			"status": condition.items[uid].status = "disabled"
+			"status_type": condition.items[uid].typeId = StringName(condition.items[uid].typeId)
+			"watermark": condition.legacyEngineSynced = 0.1
+		before = var_to_bytes(condition)
+		var expected: Dictionary = Core._records(condition)
+		var refused: Dictionary = Records._tick_records_exact(condition, proof)
+		check(not bool(expected.ok) and var_to_bytes(refused) == var_to_bytes(expected) and proof.is_empty(), "043 fresh exact refusal " + mutation)
+		check(var_to_bytes(condition) == before, "043 refusal leaves condition untouched " + mutation)
+		check(var_to_bytes(Records._tick_records_exact(condition, proof)) == var_to_bytes(expected) and proof.is_empty(), "043 refusal is never retained " + mutation)
+	condition = valid.duplicate(true)
+	Records._tick_records_exact(condition, proof)
+	condition.items[uid].hp = 0.5
+	condition.items[uid].status = "damaged"
+	condition.items[uid].cause = "Exact live change"
+	condition.legacyEngineSynced = 0.5
+	var damaged: Dictionary = Records._tick_records_exact(condition, proof)
+	check(bool(damaged.ok) and damaged.engineHp == 0.5 and var_to_bytes(damaged) == var_to_bytes(Core._records(condition)), "043 same-reference real damage refreshes engine proof")
+
+func live_records043(source: Dictionary) -> void:
+	exact_records043(source)
+	for priority in Core.PRIORITIES:
+		var active: Dictionary = source.duplicate(true)
+		active.hp -= 25.0
+		active.water = 25.0
+		active.fire = 12.0
+		active.wounded = 1.0
+		active.policy = "repair"
+		active.moduleCondition.repairPriority = priority
+		check(bool(Core.apply_component_damage(active.moduleCondition, {"itemUid": engine_uid(active), "loss": 0.5, "cause": "043 burning machinery"}).ok), "043 real damaged engine " + str(priority))
+		Records.publish(active)
+		var result: Dictionary = pair("043 burning finite repair " + str(priority), active, 1.0 / 30.0, false, {"inCombat": true}, 3)
+		check(result.ship.fire != active.fire and result.ship.hp != active.hp and result.report.usedWork > 0.0, "043 real fire, hull and crew work " + str(priority))
+		if priority == "auto":
+			check(result.report.suppressedFire > 0.0 and result.report.repairedModuleHp == 0.0 and result.report.repairedHullHp == 0.0, "043 auto spends finite crew on fire first")
+		elif priority == "hull":
+			check(result.report.repairedHullHp > 0.0 and result.report.suppressedFire == 0.0, "043 hull priority spends the same crew before fire")
+		else:
+			check(result.report.repairedModuleHp > 0.0 and result.report.suppressedFire == 0.0, "043 machinery priority spends the same crew before fire " + str(priority))
+		check(result.ship.ammo == active.ammo and result.ship.crew == active.crew and result.ship.wounded == active.wounded, "043 crew/ammunition conserved " + str(priority))
+		active.breaches = [{"area": 3.0, "section": "bow"}]
+		pair("043 breach fallback " + str(priority), active, 1.0 / 30.0, false, {"priority": priority}, 2)
+	var limited: Dictionary = source.duplicate(true)
+	limited.water = 5.0; limited.fire = 6.0; limited.fuel = 0.00001; limited.supplies = 0.00001
+	limited.breaches = [{"area": 1.0, "section": "bow"}]
+	pair("043 finite pump fuel and repair supplies", limited, 0.2, false, {"inCombat": true}, 2)
+	limited = source.duplicate(true); limited.fire = 0.001; limited.crew = 0.0
+	pair("043 fire with no crew", limited, 1.0 / 30.0, false, {"inCombat": true}, 2)
+	var live: Dictionary = source.duplicate(true)
+	var cache: Dictionary = {}
+	Damage.tick_ship(live, 0.0, {"inCombat": true}, cache)
+	for _i in range(Damage.OWNER_CACHE_FRAMES - 1): Damage.begin_frame_cache(cache, [live])
+	check(not Damage._cached_entry(live, cache).is_empty(), "043 owner proof survives only its original eleven following frames")
+	Damage.begin_frame_cache(cache, [live])
+	check(cache.is_empty(), "043 owner proof still expires on frame twelve")
+	Damage.tick_ship(live, 0.0, {"inCombat": true}, cache)
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = 43040
+	Damage.apply_hit(live, {"damage": 10.0, "kind": "rocket", "section": "engine"}, rng, cache)
+	check(cache.is_empty() and live.hp < source.hp and live.fire > 0.0, "043 actual hit immediately invalidates proof and changes real hull/fire")
+	check(var_to_bytes(Damage.get_status_cached(live, cache)) == var_to_bytes(Damage.get_status(live)), "043 public status is fresh after the actual hit")
+	Damage.tick_ship(live, 1.0 / 60.0, {"inCombat": true}, cache)
+	var state: PackedByteArray = var_to_bytes(live)
+	var status: Dictionary = Damage.get_status_cached(live, cache)
+	var status_before: PackedByteArray = var_to_bytes(Damage.get_status_cached(live, cache))
+	status.weaponFactors["poison"] = 123.0
+	status.events.append("poison")
+	check(var_to_bytes(live) == state and var_to_bytes(Damage.get_status_cached(live, cache)) == status_before, "043 public nested results stay detached from condition and cache")
+	check(not bool(Damage.runtime_profile043().enabled) and not bool(Records.runtime_profile043().enabled), "043 runtime profiling stays disabled by default")
 
 func probe(source: Dictionary) -> Dictionary:
 	var old_us: int = 0
@@ -141,7 +242,16 @@ func run() -> void:
 	var expected_status: Dictionary = old_tick(reference, 1.0 / 30.0, {}, {})
 	check(var_to_bytes(copy) == var_to_bytes(reference) and var_to_bytes(actual_status) == var_to_bytes(expected_status), "same-ID wounded copy cannot reuse live healthy proof")
 	check(var_to_bytes(ship) == live_before and is_same(cache[str(ship.id)].shipRef, ship), "copy leaves exact live owner/cache entry intact")
-	finish(probe(ship))
+	live_records043(ship)
+	var measured: Dictionary = probe(ship)
+	altered = ship.duplicate(true)
+	altered.hp -= 25.0; altered.water = 25.0; altered.fire = 12.0
+	altered.policy = "repair"
+	altered.breaches = [{"area": 3.0, "section": "bow"}]
+	check(bool(Core.apply_component_damage(altered.moduleCondition, {"itemUid": engine_uid(altered), "loss": 0.5, "cause": "043 paired active probe"}).ok), "043 paired active probe has actual machinery damage")
+	Records.publish(altered)
+	measured["damaged043"] = probe(altered)
+	finish(measured)
 
 func finish(measured: Dictionary) -> void:
 	var folder: String = OS.get_environment("GAME_TEST_ARTIFACTS")

@@ -425,6 +425,10 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 	if mode == "canonical":
 		var out_info = {} if frame_cache is Dictionary else null
 		var tick_ctx: Dictionary = EquipmentDamage._make_public_tick_context(s, info, _options, frame_cache)
+		# This exact full-validation memo dies on return. Owner inspection, cache
+		# admission/expiry, and every changed-condition validation remain unchanged.
+		var records_validate: Callable = EquipmentDamage.Records._tick_records_exact.bind({})
+		tick_ctx["records_validate"] = records_validate
 		var status_can: Dictionary = (
 			_tick_canonical_with(
 				s,
@@ -444,9 +448,9 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 				dt,
 				_options,
 				EquipmentDamage.inspect_owner,
-				EquipmentDamage._tick_repair_step_from_info,
-				EquipmentDamage.Records.publish,
-				EquipmentDamage.Records.absorb_legacy_damage,
+				EquipmentDamage._tick_repair_step_with_records.bind(records_validate),
+				EquipmentDamage.Records._publish_with.bind(records_validate),
+				EquipmentDamage.Records._absorb_legacy_damage_with.bind(records_validate),
 				out_info
 			)
 		)
