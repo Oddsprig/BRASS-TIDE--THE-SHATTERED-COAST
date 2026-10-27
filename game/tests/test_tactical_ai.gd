@@ -730,6 +730,10 @@ func workers051() -> void:
 		if lease.is_empty():T.retire_planning051(st);T.drain_planning051();continue
 		var slot: Dictionary=lease.slot
 		if action!="abandon" and not _worker_join051(slot):T.retire_planning051(st);T.drain_planning051();continue
+		var event_at: float=float(st.time)
+		var event_revision: int=int(st.tactical.snapshotRevision)
+		var fresh: Dictionary={}
+		var age_samples: Array=[]
 		match action:
 			"command":check(B.issue_order(st,[id],"move",{"x":450.0,"y":600.0}),"new command accepted while a real suggestion is in flight")
 			"options":check(B.set_tactical_options(st,[id],{"doctrine":"cautious"}),"new options accepted while a real suggestion is in flight")
@@ -740,15 +744,25 @@ func workers051() -> void:
 		if action!="abandon":
 			for tick: int in range(15):
 				B.update(st,1.0/60.0,{"manual":action=="manual"});B.pop_events(st)
-				if id in slot.discarded:break
+				age_samples.append({"time":st.time,"decisionAges":st.tactical.metrics.decisionAges.duplicate(),"lastDecision":st.tactical.lastDecision.get(id,-1.0),"orderTime":st.tactical.orderTimes.get(id,0.0)})
+				if action!="manual" and fresh.is_empty():
+					var memory: Dictionary=st.tactical.memory.player.byId.get(id,{})
+					var history: Array=memory.get("observations",[])
+					var observed_at: float=float(history[-1].get("lastAt",-1.0)) if not history.is_empty() else -1.0
+					if float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and observed_at==float(st.time):
+						fresh={"time":st.time,"snapshotRevision":st.tactical.snapshotRevision,"lastDecision":st.tactical.lastDecision[id],"memoryAt":observed_at,"orderRevision":memory.get("orderRevision",-1)}
+				if id in slot.discarded and (action=="manual" or not fresh.is_empty()):break
 		check(id in slot.discarded and id not in slot.adopted,"real pending suggestion is discarded for "+action)
 		if action=="command":check(source.order=="move" and int(source.orderRevision)>int(lease.held.revision),"worker never restores the superseded command")
 		if action=="manual":check(st.tactical.manualId==id and not st.tactical.intents.has(id),"manual helm never receives worker authority")
-		if action!="abandon":
-			for age: float in st.tactical.metrics.decisionAges:check(age<=0.2+0.000001,"worker rejection uses bounded synchronous useful observations")
+		# decisionAges is this tick's fleet data, not event-response latency:
+		# invalidation's -1 can make it measure from the original orderTime.
+		# Require this hull's actual main publication after the CURRENT event.
+		if action not in ["abandon","manual"]:
+			check(not fresh.is_empty() and float(fresh.time)>event_at and float(fresh.time)-event_at<=0.2+0.000001 and int(fresh.snapshotRevision)>event_revision and float(fresh.lastDecision)==float(fresh.time) and float(fresh.memoryAt)==float(fresh.time) and int(fresh.orderRevision)==int(source.orderRevision),"worker rejection publishes current main observations within0.2s: "+action)
 		T.retire_planning051(st);T.drain_planning051()
 		check(bool(slot.joined) and int(slot.taskId)==-1 and slot.capsule==null and Planner._tasks051.is_empty() and not st.tactical.has("workers051"),"standalone/abandoned encounter joins every owned task: "+action)
-		observations.append({"case":"workers-discard","variant":action,"createdAt":slot.createdAt,"time":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"joined":slot.joined})
+		observations.append({"case":"workers-discard","variant":action,"createdAt":slot.createdAt,"eventAt":event_at,"eventSnapshotRevision":event_revision,"time":st.time,"freshObservation":fresh,"decisionAgeSamples":age_samples,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate(),"joined":slot.joined})
 	var profile: Dictionary=T.runtime_profile043()
 	check(int(profile.workerDispatches)>0 and int(profile.workerAdoptions)>0 and int(profile.workerDrops)>0 and int(profile.workerSyncFallbacks)>0,"existing Runtime profile observes real dispatch/adoption/drop/synchronous fallback")
 	observations.append({"case":"workers-counters","profile":profile})

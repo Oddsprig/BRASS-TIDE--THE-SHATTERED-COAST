@@ -59,3 +59,26 @@ functions unchanged. This is source evidence only, not native parsing or a pass.
 All actors, 300DP, 60Hz, roles/eight offers, stores/crew and RNG are preserved.
 Actual copy/dispatch cost, adoption rate, journey outcome and savings UNMEASURED.
 051 quality/performance gate remains OPEN; no 052, export or Desktop change here.
+
+R16 FOLLOW-UP - EVENT-RESPONSE FIXTURE ONLY
+Base db4d0f9. Actual job 3b1fee3dca9d4cdc894ec8f44201e933: workers52/2;
+normal0.30s expiry/adoption, fresh blocked connector, six discards and cleanup
+passed. Native/GPU revalidation of this correction belongs to Root (R17).
+
+decisionAges resets EVERY begin; it is not an accumulating history array.
+Source-derived failing variants are options and capability: their invalidation
+sets lastDecision=-1 without updating orderTimes. Publication substitutes the
+original orderTime (default0), so a fresh0.3166667 observation reports that age.
+R16 JSON records those variant times but not their ages; attribution is from
+the actual source paths, not a runtime field absent from that report.
+
+Existing workers case now measures from the current event. Within the same
+15-tick observation bound it requires the source hull's real main publication:
+newer snapshotRevision, lastDecision==time, HP-memory lastAt==time, and current
+command revision; publication must occur within the unchanged0.2s+1e-6 limit.
+Terrain discard alone no longer ends observation before that hull is serviced.
+Manual keeps its explicit no-authority assertion; abandonment keeps teardown.
+Per-variant output retains event/snapshot, raw tick decisionAges/orderTime and
+the actual fresh decision/memory times. No fabricated clocks or certificates.
+Production code, normal-expiry adoption and every other worker assertion stay
+unchanged. Source advisory/whitespace review only; corrected native UNRUN.
