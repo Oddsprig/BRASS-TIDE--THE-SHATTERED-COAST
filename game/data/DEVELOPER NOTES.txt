@@ -13,31 +13,33 @@ The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
 VALIDATION UPDATE - 27 October 2026
-R49 PASS777/0;65.719s including setup/export/three starts; cleanup complete.
-Retain R48 voyage274/geometry695 after proof of700 unchanged game inputs.
-R48 overall FAILED retained357/3; the fixture now isolates the new direct
-observation and explicitly borrows the original choice. All OLD checks pass.
-Actual rendered R23 completed58.047s; QUALITY FAILED on performance:
--42 light boats/full300DPside:6.662FPS; sim median18.4015ms/P9525.203ms.
- All42 moved,37 moving at end; ZERO persistent planner stalls.
--16 mixed/full300DPside:60.000FPS; sim median7.1045ms/P9510.000ms;
- all16 moved,15 moving at end; ZERO persistent planner stalls.
-Mixed93.06percent active frames<=20ms; light still75 frames>50ms. Both
-actual end PNGs reviewed. Movement/fire/effects coverage is complete; light
-roster has no missile weapons. A measurement pass is not quality acceptance.
-Light worker handoff improves: fullDue2528->1676; fallback1896->656;
-adopt632->1020; noMember1733->353; releaseExpired1570->332. Planning drops
-13.072->11.039ms, but full simulation and displayed frame rate remain poor.
-R50 source candidate integrates three reviewed Sol6.1MAX handoffs: skip pure
-post-cap due guards, direct sealed-owned equipment reads with current owner/
-generation/priority/fuel guards, and share checked atlas descriptors only
-within one native Chart draw. All old assertions/public paths/paint retained.
-No material additional role cache found; no speculative cache added.
-Current native/export/actual rendered comparison PENDING; no saving claimed.
-Preserve42/16 actors,60Hz,300DPside, exact math, safety and original visuals.
-Root alone queues bounded background batches below120s; no focus/input/audio.
+R50 PASS4,694/0;104.734s whole including setup/export/three starts/cleanup.
+Voyage274,geometry695,retained375,workers236,traffic43,fire123,Damage451,
+Art205,Weapon2292 pass. All old assertions unchanged. R48 failure retained.
+Actual R24 measurement COMPLETE58.594s; QUALITY FAILED on performance:
+-42 light/full300DPside:7.606FPS, simmedian16.009ms/P9522.712ms;
+ all42 moved,36 moving at end, ZERO persistent planner stalls.
+-16 mixed/full300DPside:59.915FPS, simmedian6.711ms/P959.477ms;
+ all16 moved,15 moving at end, ZERO persistent planner stalls;
+ 97.36percentactiveframes<=20ms, no50msstutters. Catch-up target still misses.
+Root reviewed both actual end PNGs. Original sprites/aim/recoil/wakes/effects
+remain visible. No listening, fun or full-game quality acceptance is claimed.
+Compared withR23:light sim18.4015->16.009ms,boats5.616->4.7445ms;
+planning11.039->9.519ms. Mixed sim7.1045->6.711ms. Light still stacks physics
+steps before drawing;84 frames exceed50ms. These savings do not make it usable.
+R51 source candidate integrates three reviewed Sol6.1MAX handoffs: phase-local
+numeric traffic/fire with exact Battle/Damage-phase ownership and closure,
+ordered packed contact positions/radii with immediate correction publication,
+and bounded retained native boat commands with explicit original PRE/BOAT/POST
+order, live effects and owned cleanup. Original math/actors/60Hz/old assertions
+retained. Existing profile exposes native-path active/count scalars. Source
+advisory zero issues; native/export/rendered validation PENDING. OptionalGrok
+review has not completed; no independent Grok approval claimed. Advisory
+request cache declined for low ceiling. Root owns the queued bounded batch. Grok's independent structural
+review is saved; phase medians are attribution, not additive savings proof.
+Root alone queues whole background batches below120s, no input/focus/audio.
 Desktop050 retained; no051tag/package/install/no052 breadth. Core gate OPEN.
-Earlier checkpoints below are historical; all failed receipts are retained.
+Earlier checkpoints are historical; all failed and passed receipts retained.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
 R29 8613de56778f420e87eadc78eb7b3c32: scoped1271/0,82.390s including

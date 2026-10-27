@@ -3,19 +3,17 @@ BRASS TIDE - STARSECTOR QUALITY ROADMAP
 
 CURRENT EXECUTION STATUS
 Delivered through050;051 active, MilestoneA OPEN; Desktop050 retained.
-R49 affected777/0+export/three startsPASS65.719s; retain R48voyage274/geometry695
-via700 identical game inputs. All old assertions pass after fixture isolation.
-ActualR23 has zero persistent stalls,42/16 moved,37/15 moving at end.
-Performance still fails:42light6.662FPS/sim18.4015ms/P9525.203ms;
-16mixed60.000FPS/7.1045ms/P9510.000ms,93.06percentframes<=20ms.
-Worker fallbacks1896->656/adoptions632->1020; main planning13.072->11.039ms.
-These do not fix the overall frame rate. Root viewed both actual end PNGs.
-R50 integrates post-cap pure-guard relocation, direct sealed-owned equipment
-reads with current guards, and checked atlas sharing within one native draw.
-All old assertions/public paths/paint retained. Current native/export/rendered
-comparison pending; no saving claimed. No new harness or breadth;
-Root owns queued background batches below120s. No051delivery/no052 until
-core quality is usable. Earlier findings are historical.
+R50 PASS4,694/0+export/three starts104.734s including setup/cleanup.
+ActualR24 zero persistent stalls,42/16 moved,36/15 moving at end; bothPNGs
+reviewed. Performance still fails:42light7.606FPS/sim16.009ms/P9522.712ms;
+16mixed59.915FPS/6.711ms/P959.477ms,97.36percentframes<=20ms.
+Light sim saves2.3925ms andboatdraw.8715ms againstR23, but large battles
+remain unusable. R51 integrates three reviewed Sol6.1MAX source handoffs:
+phase-local numeric traffic/fire with Battle/phase guards, ordered packed
+contacts and bounded retained native boat commands with original draw order
+and owned cleanup. Old assertions/math/60Hz/actors retained; no saving claim.
+Current native/export/rendered validation pending. No new harness or breadth. Root owns queued background batches
+below120s; no051delivery/no052 until core is usable. Earlier findings historical.
 
 THE TARGET
 A naval fleet RPG with the presentation, responsiveness, tactical decisions,

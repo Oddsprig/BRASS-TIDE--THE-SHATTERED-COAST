@@ -3,19 +3,19 @@ BRASS TIDE — COMBAT MAP (generated; v0.051)
 Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/battle.gd: 41513 bytes; extends RefCounted
+game/scripts/battle.gd: 43294 bytes; extends RefCounted
   game/scripts/battle.gd:65 pop_events()
   game/scripts/battle.gd:68 mount_shot_time()
   game/scripts/battle.gd:71 mount_shot_age()
   game/scripts/battle.gd:74 hull_material()
   game/scripts/battle.gd:77 weapon_family()
   game/scripts/battle.gd:85 create()
-  game/scripts/battle.gd:147 objective_snapshot()
-  game/scripts/battle.gd:264 get_flagship()
-  game/scripts/battle.gd:270 select_flagship()
-  game/scripts/battle.gd:279 set_autopilot()
-  game/scripts/battle.gd:290 issue_order()
-  game/scripts/battle.gd:331 set_tactical_options()
+  game/scripts/battle.gd:148 objective_snapshot()
+  game/scripts/battle.gd:265 get_flagship()
+  game/scripts/battle.gd:271 select_flagship()
+  game/scripts/battle.gd:280 set_autopilot()
+  game/scripts/battle.gd:291 issue_order()
+  game/scripts/battle.gd:332 set_tactical_options()
 game/scripts/damage.gd: 54734 bytes; extends RefCounted
   game/scripts/damage.gd:36 set_runtime_profile043()
   game/scripts/damage.gd:40 reset_runtime_profile043()
