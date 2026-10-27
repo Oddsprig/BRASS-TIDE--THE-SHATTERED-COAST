@@ -82,3 +82,40 @@ Per-variant output retains event/snapshot, raw tick decisionAges/orderTime and
 the actual fresh decision/memory times. No fabricated clocks or certificates.
 Production code, normal-expiry adoption and every other worker assertion stay
 unchanged. Source advisory/whitespace review only; corrected native UNRUN.
+
+R8 FOLLOW-UP - ACTUAL DUE WORK / COPY OVERHEAD
+Base604e193; three named code/test files plus this note only. Root0c31fb4's
+Planner/Runtime/Main/AI matched the base; independent Damage/Battle stay untouched.
+R8 GPU72c0042b0da84982bac689e8d9fdfd12 remained FAILED quality: light5.380FPS,
+22.820ms median; mixed49.894FPS,9.127ms. Worker usage alone proved no speedup.
+
+Replaces speculative prefetch with actual full-due jobs. Worker mode uses0.15s
+observations; startup/commands/urgent invalidations stay synchronous. Dispatch
+does not advance lastDecision or spend an observation slot. Main still publishes
+at most the existing fair cap; begin-local due dispatch is separately cap-sized,
+using only remaining2900 planning clearance/four routes after main resolution.
+Admission leaves1/30s worker time plus one physics step inside the existing0.2s
+observation limit. Main polls completed tasks only; unfinished jobs stop deferring
+at1/30s or when observation slack ends. Missing slots/budget go synchronous on
+the next fair visit. No second job queue, worker flag certificate or new counters.
+
+Worker view is built owned once, without duplicating a borrowed whole view;
+worker memory copies only due records plus current reservations. Joined candidate
+ownership transfers to main rather than deep-copying every offer. A phase change
+reuses its CURRENT main decision when rebuilding offers. Closed main preparation
+borrows memory; private resolution copies the two containers, then publication
+still validates/copies actual due records. Public/default resolve stays detached.
+
+One outstanding job per side/two globally INCLUDING retired tasks remain. Owned
+capsules/route caches, owner/options/terrain/capability/memory guards, fresh main
+phase/shortlist/connector/traffic/cert/resolution, current60Hz helm/contact/fire
+and all actors/DP/eight offers/reserves/stores/crew remain. Poll/retire/drain and
+Main/voyage activation unchanged. No Routes/Damage/Battle/Main edits.
+
+Existing --case=workers now obtains an actual due job after0.30s preference
+expiry, checks unchanged0.2s useful observation latency, owned nested inputs and
+a real joined approach rejected for a newly close hostile's fresh escape phase.
+Existing blocked connector, six invalidations, cleanup and counters remain.
+Source advisory:0issues; git diff --check clean. No engine/native/QA run here.
+R21/journey/export/GPU belong to Root; savings and behavior remain UNVERIFIED.
+051 gate OPEN. Stop after this source commit/handoff; no052 or Desktop changes.

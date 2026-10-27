@@ -15,8 +15,9 @@ const CERT_FIELDS: Array = ["status", "reachable", "exitReachable", "eta", "fire
 # Main alone owns the bounded handle list and the slot metadata. The worker
 # receives ONLY its capsule: no live ships, callbacks, SceneTree or globals.
 static var _tasks051: Array = []
-const WORKER_LEAD051: float = 0.05
 const WORKER_DEADLINE051: float = 0.15
+const WORKER_WAIT051: float = 1.0 / 30.0
+const OBSERVATION_SECONDS051: float = 0.15
 const MAX_TASKS051: int = 2
 
 class _Detached051 extends RefCounted:
@@ -120,7 +121,28 @@ static func _take_worker051(st: Dictionary, side: String, due: Array, capability
 	result.dropped051 = dropped
 	return result
 
-static func _prefetch051(st: Dictionary, queued: Array, cap: int, build_view: Callable, capability: Callable, frame_cache) -> Dictionary:
+static func _waiting_worker051(st: Dictionary, id: String) -> bool:
+	var t: Dictionary = st.tactical
+	if not t.has("workers051"): return false
+	var side: String = str(t.ships[id].team)
+	if not t.workers051.slots.has(side): return false
+	var slot: Dictionary = t.workers051.slots[side]
+	if id not in slot.remaining or bool(slot.joined): return false
+	var guard: Dictionary = slot.guards[id]
+	var last: float = float(t.lastDecision.get(id, -1.0))
+	# Only an actually dispatched due hull may wait. No observation clock is
+	# advanced by dispatch, and one physics step remains for the main fallback.
+	return last >= 0.0 and last == float(guard.decisionAt) and int(t.ships[id].orderRevision) == int(guard.revision) and str(t.geometry.key) == str(slot.terrainKey) and float(st.time) - float(slot.createdAt) < WORKER_WAIT051 - 0.000001 and float(st.time) - last + float(t.dt) < CERT_SECONDS - 0.000001
+
+static func _can_dispatch051(st: Dictionary, id: String) -> bool:
+	var t: Dictionary = st.tactical
+	if not t.has("workers051"): return false
+	var last: float = float(t.lastDecision.get(id, -1.0))
+	if last < 0.0 or float(st.time) - last + WORKER_WAIT051 + float(t.dt) > CERT_SECONDS + 0.000001: return false
+	var side: String = str(t.ships[id].team)
+	return not t.workers051.slots.has(side) or id not in t.workers051.slots[side].remaining
+
+static func _dispatch_due051(st: Dictionary, due: Array, build_view: Callable, capability: Callable, frame_cache) -> Dictionary:
 	var t: Dictionary = st.tactical
 	var tally: Dictionary = {"dispatches": 0, "drops": 0}
 	if not t.has("workers051"):
@@ -134,45 +156,30 @@ static func _prefetch051(st: Dictionary, queued: Array, cap: int, build_view: Ca
 		return tally
 	var busy_sides: Array = []
 	for active: Dictionary in _tasks051: busy_sides.append(str(active.side))
-	var ordered: Array = queued.duplicate()
-	ordered.sort_custom(func(a: String, b: String) -> bool:
-		var aa: float = float(t.lastDecision.get(a, -1.0))
-		var bb: float = float(t.lastDecision.get(b, -1.0))
-		if aa != bb: return aa < bb
-		var ac: float = float(t.certificationAttempts.get(a, -1.0))
-		var bc: float = float(t.certificationAttempts.get(b, -1.0))
-		return ac < bc if ac != bc else a < b)
 	var selected: Array = []
 	var sides: Array = []
-	for id: String in ordered:
+	for id: String in due:
 		var side: String = str(t.ships[id].team)
 		if id == str(t.manualId) or t.workers051.slots.has(side) or side in busy_sides: continue
 		if side not in sides and _tasks051.size() + sides.size() >= MAX_TASKS051: continue
-		var last: float = float(t.lastDecision.get(id, -1.0))
-		if last < 0.0: continue # Commands/startup/urgent conditions stay synchronous.
-		var retained: Variant = t.retained051.get(id)
-		var ready: bool
-		if retained != null:
-			ready = float(st.time) - float(retained.chosen_at) >= 0.30 - WORKER_LEAD051 - 0.000001
-		else:
-			var interval: float = 0.15 if t.intents.has(id) else 0.1
-			ready = float(st.time) - last >= interval - WORKER_LEAD051 - 0.000001
-		if not ready: continue
+		# Late fair slots use main immediately rather than spending their last
+		# observation slack on an asynchronous task. No speculative next batch.
+		if not _can_dispatch051(st, id): continue
 		selected.append(id)
 		if side not in sides: sides.append(side)
-		if selected.size() >= cap: break
 	if selected.is_empty(): return tally
 	var clearance: int = maxi(0, 2900 - int(t.budget.clearanceTests))
 	if clearance == 0: return tally
 	var route_slots: int = maxi(0, 4 - int(t.budget.fullRoutes))
 	var budgets: Dictionary = {}
-	for index: int in range(selected.size()):
-		var count: int = selected.size() - index
+	for index: int in range(due.size()):
+		var count: int = due.size() - index
 		var tests: int = ceili(float(clearance) / float(count))
 		var routes: int = ceili(float(route_slots) / float(count))
-		budgets[selected[index]] = {"clearanceTests": 0, "clearanceLimit": tests, "exhaustions": 0, "fullRoutes": 4 - routes, "cacheHits": 0}
 		clearance -= tests
 		route_slots -= routes
+		if due[index] not in selected: continue
+		budgets[due[index]] = {"clearanceTests": 0, "clearanceLimit": tests, "exhaustions": 0, "fullRoutes": 4 - routes, "cacheHits": 0}
 		# Reserve once in GLOBAL fair order, including discarded/fallback jobs.
 		# Workers never draw on a later tick's main/helm/fire allowance.
 		t.budget.clearanceTests += tests
@@ -181,16 +188,20 @@ static func _prefetch051(st: Dictionary, queued: Array, cap: int, build_view: Ca
 		var ids: Array = []
 		var slices: Dictionary = {}
 		var guards: Dictionary = {}
+		var memory_copy: Dictionary = {"byId": {}, "reservations": t.memory[side].reservations.duplicate(true)}
 		for id: String in selected:
 			var ship: Dictionary = t.ships[id]
 			if str(ship.team) != side: continue
 			ids.append(id)
 			slices[id] = budgets[id]
 			var memory: Dictionary = t.memory[side].byId.get(id, {})
+			if not memory.is_empty(): memory_copy.byId[id] = memory.duplicate(true)
 			guards[id] = {"owner": ship, "spec": ship.spec, "mounts": t.mountCache[id].baseMounts, "revision": int(ship.orderRevision), "options": t.options.byId[id].duplicate(true), "decisionAt": t.lastDecision[id], "hadMemory": not memory.is_empty(), "memory": memory, "capability": capability.call(st, id, [], frame_cache)}
 		var capsule: _Detached051 = _Detached051.new()
 		var snapshot: Dictionary = build_view.call(st, side, ids, frame_cache)
-		capsule.input = {"view": snapshot.duplicate(true), "memory": t.memory[side].duplicate(true), "geometry": t.geometry.duplicate(true), "cache": t.workers051.cache[side], "order": ids.duplicate(), "budgets": slices}
+		# The builder creates the worker-owned view directly. Neither a borrowed
+		# begin view nor a second deep copy crosses this ownership boundary.
+		capsule.input = {"view": snapshot, "memory": memory_copy, "geometry": t.geometry.duplicate(true), "cache": t.workers051.cache[side], "order": ids.duplicate(), "budgets": slices}
 		t.workers051.cache[side] = {} # Ownership transferred; main has no alias.
 		var slot: Dictionary = {"side": side, "capsule": capsule, "guards": guards, "remaining": ids, "createdAt": float(st.time), "terrainKey": str(t.geometry.key), "terrainRevision": int(t.geometry.revision), "joined": false, "retired": false, "adopted": [], "discarded": [], "taskId": -1}
 		slot.taskId = WorkerThreadPool.add_task(_work051.bind(capsule), false, "Brass Tide detached station/land suggestions")
@@ -218,23 +229,31 @@ static func _prepare_with_worker051(view: Dictionary, memory: Dictionary, sugges
 			var target: String = str(old.state.targetId)
 			if target in detailed or (target.is_empty() and detailed.is_empty()):
 				decision = Roles._decide(view, ship, previous, context, reservations, {"targetId": target, "targets": detailed, "detailedIds": detailed, "scored": 0})
+			var matching: bool = not decision.is_empty()
+			if matching:
 				for key: String in ["role", "phase", "targetId", "leaderId", "firingPassId"]:
-					if decision.state.get(key) != old.state.get(key): decision = {}; break
-			if not decision.is_empty():
+					if decision.state.get(key) != old.state.get(key): matching = false; break
+			if matching:
 				for raw: Dictionary in suggestion.planning.candidates:
 					if str(raw.shipId) != id: continue
-					var candidate: Dictionary = raw.duplicate(true)
+					# Joined output is transferred once to main, not copied eight
+					# times. Save the old route key before minting fresh request IDs.
+					var route: Dictionary = suggestion.routes.get(str(raw.candidateId), {})
+					var candidate: Dictionary = raw
 					candidate.candidateId = "%s:%d:%d:%d" % [id.sha256_text().substr(0, 16), int(view.snapshotRevision), int(ship.orderRevision), requests.size()]
 					candidate.snapshotRevision = int(view.snapshotRevision)
 					candidate.orderRevision = int(ship.orderRevision)
 					requests.append(candidate)
-					prepared.routes051[str(candidate.candidateId)] = suggestion.routes.get(str(raw.candidateId), {})
+					prepared.routes051[str(candidate.candidateId)] = route
 				prepared.workerIds051.append(id)
 				suggestion.slot.adopted.append(id)
 			else:
 				suggestion.slot.discarded.append(id)
 		if decision.is_empty():
 			decision = Roles.decide(view, ship, previous, context, reservations)
+		if id not in prepared.workerIds051:
+			# A changed phase already has a CURRENT observation above. Generate
+			# its new offers without repeating the whole role/HP/phase decision.
 			requests = Stations.candidates(view, ship, decision, context, reservations)
 		prepared.decisions[id] = decision
 		prepared.scored += int(decision.scored)
@@ -462,7 +481,13 @@ static func _resolve_planned(view: Dictionary, memory: Dictionary, offers: Array
 	# retain complete reservations, including their station/sector vetoes.
 	if not is_finite(live_traffic_seconds051):live_traffic_seconds051 = -1.0
 	var counters: Dictionary = {"due": 0, "proposed": 0, "scoredTargets": 0, "offers": 0, "accepted": 0, "rejected": 0, "pending": 0, "blocked": 0, "offerOverflow": 0, "reservationConflicts": 0, "clearanceTests": 0, "clearanceExhausted": 0}
-	var next_memory: Dictionary = memory.duplicate(true)
+	# The private synchronous begin never writes a previous per-hull record.
+	# Copy its two containers only; public/default results remain fully detached.
+	var private_begin051: bool = not prepared.is_empty() and live_traffic_seconds051 >= 0.0
+	var next_memory: Dictionary = memory.duplicate() if private_begin051 else memory.duplicate(true)
+	if private_begin051:
+		next_memory.byId = Roles.dictionary(memory.get("byId")).duplicate()
+		next_memory.reservations = Roles.dictionary(memory.get("reservations")).duplicate()
 	var by_id: Dictionary = {}
 	if not _view_ok(view):
 		return {"memory": next_memory, "byId": by_id, "counters": counters}

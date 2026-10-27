@@ -275,13 +275,18 @@ static func _begin_view051(st: Dictionary,side: String,due: Array,frame_cache=nu
 	# Only the closed synchronous begin borrows already detached observations.
 	return _view051(st,side,due,frame_cache,true)
 
+static func _worker_view051(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dictionary:
+	# Construct the exclusively owned capsule once, using the same schema and
+	# lean friendly records. No main/worker Dictionary or Array is shared.
+	return _view051(st,side,due,frame_cache,true,true)
+
 static func _view_read_only051(value: Variant) -> void:
 	if value is Dictionary or value is Array:
 		if value.is_read_only():return
 		for child in (value.values() if value is Dictionary else value):_view_read_only051(child)
 		value.make_read_only()
 
-static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool) -> Dictionary:
+static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false) -> Dictionary:
 	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
 	var t: Dictionary=st.tactical
 	var ships: Array=[]
@@ -291,10 +296,10 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 		var mounts: Array=t.mountCache[id].mounts
 		var observed051: Dictionary={}
 		if closed_begin051:
-			observed051=t.observed[id]
+			observed051=t.observed[id].duplicate(true) if worker_owned051 else t.observed[id]
 			# Freeze once per observation, including nested mount data. Both sides
 			# may share it without exposing mutable live fits or private stores.
-			_view_read_only051(observed051)
+			if not worker_owned051:_view_read_only051(observed051)
 		if ship.team==side:
 			var own: Dictionary
 			if not closed_begin051 or id in due:
@@ -523,6 +528,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	var cap: int=maxi(1,ceili(float(queued.size())/10.0))
 	t.metrics.activeCount=queued.size();t.metrics.normalLimit=cap
 	var due: Array=[]
+	var worker_due051: Array=[]
+	var observed_due051: int=0
+	var retained_contexts: Dictionary={}
 	for id in queued:
 		if id==t.manualId:continue
 		var certified_age: float=float(st.time)-float(t.lastCertified.get(id,0.0))
@@ -534,18 +542,23 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		# A rejected route must not reconstruct/reject the same world at 60Hz.
 		# Existing command/condition/control invalidations set last=-1 and bypass
 		# this bounded retry delay. Live helm/fire checks never wait for it.
-		var interval: float=0.15 if t.intents.has(id) else 0.1
-		if due.size()<cap and (last<0.0 or float(st.time)-last>=interval-0.000001):due.append(id)
-	# Same fair slots and fresh phase observations; stable owned maneuvers need
-	# no detached fleet reconstruction, offers or future-traffic certification.
-	var full_due: Array=[]
-	var retained_contexts: Dictionary={}
-	for id in due:
-		if not _observe_retained051(st,str(id),frame_cache,retained_contexts):full_due.append(id)
+		var interval: float=Planner.OBSERVATION_SECONDS051 if t.has("workers051") else (0.15 if t.intents.has(id) else 0.1)
+		if Planner._waiting_worker051(st,str(id)):continue
+		if last>=0.0 and float(st.time)-last<interval-0.000001:continue
+		var held051: Variant=t.retained051.get(id)
+		var full051: bool=not held051 is Certification._Retained051 or float(st.time)-held051.chosen_at>=0.30-0.000001
+		# Dispatch is NOT a useful observation and must not consume one of its
+		# fair slots too. Existing maneuvers still use the fresh observer below.
+		if full051 and worker_due051.size()<cap and Planner._can_dispatch051(st,str(id)):
+			if held051 is Certification._Retained051:_observe_retained051(st,str(id),frame_cache,retained_contexts)
+			worker_due051.append(id);continue
+		if observed_due051>=cap:continue
+		observed_due051+=1
+		if not _observe_retained051(st,str(id),frame_cache,retained_contexts):due.append(id)
 	if _runtime_profile043_enabled:
-		_runtime_profile043_counts.retainedDue+=due.size()-full_due.size()
-		_runtime_profile043_counts.fullDue+=full_due.size()
-	due=full_due
+		_runtime_profile043_counts.retainedDue+=observed_due051-due.size()
+		_runtime_profile043_counts.fullDue+=due.size()
+	detail.observation=Time.get_ticks_usec()-begin_started
 	var snapshots: Dictionary={}
 	# These bundles and all authority still belong to this synchronous begin.
 	# Certification changes clearanceRemaining, not planning observations.
@@ -554,7 +567,6 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	var copies: Dictionary={}
 	var proposed: Dictionary={}
 	var offers: Dictionary={"player":[],"enemy":[]}
-	detail.observation=Time.get_ticks_usec()-begin_started
 	# Snapshot and propose both sides BEFORE certification spends the shared pool.
 	for side in ["player","enemy"]:
 		var side_due: Array=[]
@@ -566,7 +578,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		snapshots[side]=snapshot
 		for ship in snapshot.ships:
 			if ship.team==side:copies[str(ship.id)]=ship
-		memories[side]=t.memory[side].duplicate(true)
+		# Private synchronous readers construct fresh due records. Resolution
+		# copies its containers; publication copies only the actual due outputs.
+		memories[side]=t.memory[side]
 		detail.snapshots+=Time.get_ticks_usec()-phase_started
 		phase_started=Time.get_ticks_usec()
 		var suggestion051: Dictionary=Planner._take_worker051(st,side,side_due,_worker_capability051,frame_cache)
@@ -664,11 +678,12 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		t.metrics.pendingAges.append(age)
 		t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
 	detail.resolution=Time.get_ticks_usec()-phase_started
-	# Prepare the next fair batch 50ms ahead, using only unused planning work.
-	# Startup, commands, urgent changes and late/missing jobs took the unchanged
-	# synchronous path above; useful observations never depend on worker speed.
+	# Actual due jobs use ONLY the remainder after main certification/resolution.
+	# There is no speculative timer/view rebuild and no second decision-slot
+	# charge. Missing slots/budget get main fallback next tick; dispatch admission
+	# and its bounded nonblocking wait leave the unchanged .2s observation limit.
 	phase_started=Time.get_ticks_usec()
-	var worker_tally051: Dictionary=Planner._prefetch051(st,queued,cap,_begin_view051,_worker_capability051,frame_cache)
+	var worker_tally051: Dictionary=Planner._dispatch_due051(st,worker_due051,_worker_view051,_worker_capability051,frame_cache)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.workerDispatches+=int(worker_tally051.dispatches)
 		_runtime_profile043_counts.workerDrops+=int(worker_tally051.drops)

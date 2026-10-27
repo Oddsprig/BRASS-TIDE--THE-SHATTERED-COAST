@@ -658,18 +658,19 @@ func _worker_slot051(arena: Dictionary) -> Dictionary:
 	var st: Dictionary=arena.state
 	var id: String=str(arena.source.id)
 	T.enable_planning051(st);worker_states051.append(st)
-	# Obtain a REAL retained maneuver and its real 0.25s prefetch. No fabricated
+	# Obtain a REAL retained maneuver and its actual due job. No fabricated
 	# task, retained descriptor, completion flag or physical certificate.
 	for tick: int in range(60):
+		var held: Variant=st.tactical.retained051.get(id)
 		B.update(st,1.0/60.0);B.pop_events(st)
 		var slots: Dictionary=st.tactical.workers051.slots
-		var held: Variant=st.tactical.retained051.get(id)
 		if slots.has("player") and id in slots.player.remaining and held is C._Retained051:
 			var slot: Dictionary=slots.player
-			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at>=0.25-0.000001,"worker case really dispatches for the ordinary retained preference timer")
+			check(int(slot.taskId)>=0 and float(slot.guards[id].decisionAt)>=0.0 and float(st.time)-held.chosen_at>=0.30-0.000001,"worker case really dispatches only when its retained preference is due")
+			check(not st.tactical.retained051.has(id) and float(st.tactical.lastDecision[id])==float(slot.guards[id].decisionAt) and float(slot.createdAt)==float(st.time) and Planner._waiting_worker051(st,id),"due dispatch preserves the last real observation and waits without publishing worker authority")
 			check(Planner._tasks051.size()<=2 and int(st.tactical.budget.fullRoutes)<=4 and int(st.tactical.budget.clearanceTests)<=4096,"real dispatch reserves within the existing global work/task caps")
 			return {"slot":slot,"held":held}
-	check(false,"worker case obtains a real retained prefetch within60 public ticks")
+	check(false,"worker case obtains a real retained due job within60 public ticks")
 	observations.append({"case":"workers-start-failed","time":st.time,"intent":st.tactical.intents.get(id,{}),"memory":st.tactical.memory.player.byId.get(id,{}),"reason":st.tactical.reasons.get(id,""),"slots":st.tactical.workers051.slots.keys()})
 	return {}
 
@@ -694,13 +695,15 @@ func workers051() -> void:
 		var slot: Dictionary=lease.slot
 		var output: Dictionary=slot.capsule.result
 		var worker_view: Dictionary=output.planning.context[id]
+		var observed_at: float=float(slot.guards[id].decisionAt)
+		check(not is_same(worker_view,st.tactical.ships[id]) and not is_same(worker_view.mounts,st.tactical.observed[id].mounts) and not is_same(worker_view.mountShotTimes,source.mountShotTimes) and not is_same(worker_view.orderTarget,source.orderTarget),"single-build worker view exclusively owns its nested inputs")
 		var origin: Vector2=F.pos(source)
 		var before: Dictionary={}
 		for tick: int in range(12):
 			before=C.pose(source)
 			B.update(st,1.0/60.0);B.pop_events(st)
 			if id in slot.adopted:break
-		check(id in slot.adopted and float(st.time)-lease.held.chosen_at>=0.30-0.000001,"prefetched retained ship ADOPTS on its normal0.30s expiry, preserving the semantic observation generation")
+		check(id in slot.adopted and float(st.time)-lease.held.chosen_at>=0.30-0.000001 and float(st.time)-observed_at<=0.2+0.000001,"actual due job ADOPTS after normal0.30s expiry within the unchanged useful-observation bound")
 		check(not is_same(st.tactical.retained051.get(id),lease.held) and F.pos(source).distance_to(origin)>0.0,"adopted suggestion publishes a new real maneuver and moves the actual boat")
 		var intent: Dictionary=st.tactical.intents.get(id,{})
 		var record: Dictionary=st.tactical.predictions.get(str(intent.get("pathFingerprint","")),{})
@@ -723,6 +726,22 @@ func workers051() -> void:
 			if id in slot.adopted:break
 		check(id in slot.adopted and not st.tactical.intents.has(id),"real worker suggestion grants no authority across a blocked fresh land connector")
 		check(float(T.helm(st,source).throttle)==0.0,"fresh connector rejection brakes the actual hull")
+	T.retire_planning051(st);T.drain_planning051()
+	# The worker chose an ordinary approach. A newly close hostile requires a
+	# CURRENT escape decision even though command/capability/terrain still match.
+	arena=local_arena();st=arena.state;source=arena.source;id=str(source.id)
+	lease=_worker_slot051(arena)
+	if not lease.is_empty() and _worker_join051(lease.slot):
+		var slot: Dictionary=lease.slot
+		var old_phase: String=str(slot.capsule.result.planning.decisions[id].state.phase)
+		var event_at: float=float(st.time)
+		arena.target.x=float(source.x)+45.0;arena.target.y=float(source.y)
+		B.update(st,1.0/60.0);B.pop_events(st)
+		var fresh: Dictionary=st.tactical.memory.player.byId.get(id,{})
+		var history: Array=fresh.get("observations",[])
+		check(old_phase=="approach" and id in slot.discarded and id not in slot.adopted and str(fresh.get("phase",""))=="breakaway","changed live phase rejects worker offers and rebuilds from the fresh main escape decision")
+		check(float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and not history.is_empty() and float(history[-1].lastAt)==float(st.time) and float(st.time)-event_at<=0.2+0.000001,"phase fallback publishes actual current observations within the unchanged deadline")
+		observations.append({"case":"workers-fresh-phase","eventAt":event_at,"time":st.time,"workerPhase":old_phase,"mainPhase":fresh.get("phase",""),"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate()})
 	T.retire_planning051(st);T.drain_planning051()
 	for action: String in ["command","options","terrain","capability","manual","abandon"]:
 		arena=local_arena();st=arena.state;source=arena.source;id=str(source.id)
