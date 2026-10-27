@@ -1,5 +1,5 @@
 BRASS TIDE - STARSECTOR QUALITY VERSION MAP
-26 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.042
+27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.045
 
 Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
 The target is the complete experience, not a matching list of features.
@@ -17,7 +17,7 @@ Real active300-vs-300 battles meet the stated frame and simulation budgets.
 0.044 - COMBAT FEEL [SCOPED BUILD DELIVERED; PLAY FEEL NOT CERTIFIED]
 Weight, weapon windows, damage pressure and disengagement create useful decisions.
 
-0.045 - WEAPONS AND FEEDBACK [PLANNED]
+0.045 - WEAPONS AND FEEDBACK [SCOPED BUILD DELIVERED; AUDIO/WHOLE QUALITY OPEN]
 Distinct gun models, impacts, wakes and recorded sound feel coherent in combat.
 
 0.046 - TACTICAL AI [PLANNED]

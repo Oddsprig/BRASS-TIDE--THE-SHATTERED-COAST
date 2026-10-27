@@ -22,8 +22,22 @@ Main menu -> Fleet battle laboratory -> Four fitted weapons against surrounding
 threats. The existing044torpedo crossing and cover-breakaway practices also work.
 Autopilot is default. WASD camera, Space pause, right-click orders, Escape menu.
 
-VERIFICATION IS PENDING FOR THIS SOURCE CANDIDATE
-Actual final native/recorded proof belongs in tests/RESULTS.txt and this version's
-verification notes after Root checks it. A still does not show motion. An offline
-60frame/s movie is not evidence of realtime60FPS. Tests remain silent; no audible
-quality claim. Full-fleet performance and the051core quality gate remain OPEN.
+VERIFICATION AND LIMITS
+Source/tag611d081/v0.045. Seven focused groups pass30793checks/0failures.
+Six groups26031checks retain exact production-source hash proof after only the
+capture-helper fixture changed; final4762checks/export/3starts pass in59.913s.
+Final native job3f85a716f0de4ffb9f151253c7ab723f. Earlier failures remain saved.
+
+Actual exported five-second recording17e015a19d73494fa9d48d4599a15b0b completes
+without native/render errors in36.516s including setup and owned cleanup.
+The prior failed movie exposed crossing strips, then float32 winding precision;
+the repair keeps actual travel and submits each band in local coordinates.
+Caps remain3bands/12samples/.7seconds. No extra water simulation was added.
+The attached silent movie and sampled frames show actual state and movement;
+fixed60frame/s offline recording is not evidence of realtime60FPS. Tests remain
+silent; audible mix and general play feel are not certified. Full-fleet
+performance and the051core quality gate remain OPEN.
+
+Known next work:046reassessment/hostile avoidance;047compact commands;
+049remaining33authored hulls and small fire/contrast readability;050coast.
+Minor fire is actually drawn. Tall water jets are impact effects, not wakes.

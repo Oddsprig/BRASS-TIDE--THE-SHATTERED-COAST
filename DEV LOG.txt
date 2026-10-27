@@ -1,3 +1,5 @@
+v0.045 VERIFIED AND PACKAGED: 4762/0 focused checks, selected batch 59.913s, TestBridge 3f85a716f0de4ffb9f151253c7ab723f. Source 611d081f04a87c145da612b419ad9fc34909dca5.
+
 27OCT2026 - v0.045 WEAPONS, IMPACTS, WAKES AND RECORDED SOUND
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
