@@ -246,7 +246,7 @@ static func set_options(st: Dictionary,ids: Array,patch: Dictionary) -> bool:
 		if group>0 and not _live(st,id).is_empty():t.groups[group].append(id)
 	return true
 
-static func _observed(ship: Dictionary,mounts: Array) -> Dictionary:
+static func _observed(ship: Dictionary,mounts: Array,begin_borrow051: bool=false) -> Dictionary:
 	var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	var out: Dictionary={}
 	for key in ["id","uid","team","name","x","y","vx","vy","angle","hp","maxHp","water","capacity","fire","engine","sunk","captureSecured"]:
@@ -255,27 +255,31 @@ static func _observed(ship: Dictionary,mounts: Array) -> Dictionary:
 	for key in ["id","size","speed","turn","fuelUse","armor","role","tier","hp"]:
 		if ship.spec.has(key):out.spec[key]=ship.spec[key]
 	var mounts_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
-	out.mounts=mounts.duplicate(true)
+	# Battle replaces conditioned mount arrays; it never edits a published array.
+	# Main's pure begin may read that generation directly. Public/worker views
+	# still detach it, and shot times below remain the actual pre-motion sample.
+	out.mounts=mounts if begin_borrow051 else mounts.duplicate(true)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.observedMountCopyUs+=Time.get_ticks_usec()-mounts_started
-		_runtime_profile043_counts.observedMountsCopied+=mounts.size()
+		_runtime_profile043_counts.observedMountsCopied+=0 if begin_borrow051 else mounts.size()
 	out.mountShotTimes=ship.get("mountShotTimes",{}).duplicate(true)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.observedUs+=Time.get_ticks_usec()-profile_started
 		_runtime_profile043_counts.observedCalls+=1
 	return out
 
-static func _own(ship: Dictionary,mounts: Array,frame_cache=null,observed051: Dictionary={}) -> Dictionary:
+static func _own(ship: Dictionary,mounts: Array,frame_cache=null,observed051: Dictionary={},begin_borrow051: bool=false) -> Dictionary:
 	var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	var out: Dictionary=_observed(ship,mounts) if observed051.is_empty() else observed051.duplicate()
 	for key in ["crew","wounded","crewMin","crewOptimal","crewMax","supplies","ammo","fuel","cooldown","policy","shoreCrew","order","orderTarget","orderRevision","formationIndex","boardingOrder","breaches","supportRepairFactor"]:
-		if ship.has(key):out[key]=ship[key].duplicate(true) if ship[key] is Dictionary or ship[key] is Array else ship[key]
+		if ship.has(key):out[key]=ship[key].duplicate(true) if not begin_borrow051 and (ship[key] is Dictionary or ship[key] is Array) else ship[key]
 	# Keep only numerical movement/crew/pump inputs, never the full catalogue fit.
 	out.spec={}
 	for key in ["id","size","speed","turn","fuelUse","armor","role","tier","hp","pumps","repairFactor"]:
 		if ship.spec.has(key):out.spec[key]=ship.spec[key]
-	out.weaponCooldowns=ship.get("weaponCooldowns",[]).duplicate()
-	out.status=Damage._read_status_in_phase043(ship,frame_cache).duplicate(true)
+	out.weaponCooldowns=ship.get("weaponCooldowns",[]) if begin_borrow051 else ship.get("weaponCooldowns",[]).duplicate()
+	var status051: Dictionary=Damage._read_status_in_phase043(ship,frame_cache)
+	out.status=status051 if begin_borrow051 else status051.duplicate(true)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.ownCopyUs+=Time.get_ticks_usec()-profile_started
 		_runtime_profile043_counts.ownCopies+=1
@@ -285,9 +289,33 @@ static func view(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dic
 	# Public callers retain full, detached, mutable owner and enemy records.
 	return _view051(st,side,due,frame_cache,false)
 
-static func _begin_view051(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dictionary:
-	# Only the closed synchronous begin borrows already detached observations.
-	return _view051(st,side,due,frame_cache,true)
+static func _begin_view051(st: Dictionary,side: String,due: Array,frame_cache=null,current051: Dictionary={}) -> Dictionary:
+	# Only the closed synchronous begin lends current read inputs. This bundle
+	# is local to that call; neither a worker nor publication retains its aliases.
+	return _view051(st,side,due,frame_cache,true,false,current051)
+
+static func _begin_context051(st: Dictionary,side: String,frame_cache,current051: Dictionary) -> Dictionary:
+	if not current051.has("sides"):
+		current051.sides={};current051.owners={};current051.indexes={}
+		current051.mission=public_mission(st)
+	if not current051.sides.has(side):
+		var t: Dictionary=st.tactical
+		var context: Dictionary=t.observed.duplicate()
+		for id in t.ships:
+			var ship: Dictionary=t.ships[id]
+			if str(ship.team)!=side:continue
+			var ally: Dictionary=t.observed[id].duplicate()
+			ally.ammo=ship.ammo;ally.order=ship.order;ally.orderTarget=ship.orderTarget
+			ally.status=Damage._read_status_in_phase043(ship,frame_cache)
+			context[id]=ally
+		current051.sides[side]=context
+	return current051.sides[side]
+
+static func _begin_owner051(st: Dictionary,id: String,frame_cache,current051: Dictionary) -> Dictionary:
+	if not current051.owners.has(id):
+		var t: Dictionary=st.tactical
+		current051.owners[id]=_own(t.ships[id],t.mountCache[id].mounts,frame_cache,t.observed[id],true)
+	return current051.owners[id]
 
 static func _worker_view051(st: Dictionary,side: String,due: Array,frame_cache=null) -> Dictionary:
 	# Construct the exclusively owned capsule once, using the same schema and
@@ -300,31 +328,40 @@ static func _view_read_only051(value: Variant) -> void:
 		for child in (value.values() if value is Dictionary else value):_view_read_only051(child)
 		value.make_read_only()
 
-static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false) -> Dictionary:
+static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false,current051: Dictionary={}) -> Dictionary:
 	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
 	var t: Dictionary=st.tactical
 	var ships: Array=[]
 	var choices: Dictionary={}
+	var main051: bool=closed_begin051 and not worker_owned051
+	if main051 and not current051.has("sides"):
+		current051.sides={};current051.owners={};current051.indexes={}
+		current051.mission=public_mission(st)
+	# Selection may already have built the friendly context. Otherwise build
+	# the snapshot directly below, without a second all-hull preparation pass.
+	var context051: Dictionary=current051.sides.get(side,{}) if main051 else {}
+	var index051: Dictionary={}
 	for id in t.ships:
 		var ship: Dictionary=t.ships[id]
 		var mounts: Array=t.mountCache[id].mounts
 		var observed051: Dictionary={}
 		if closed_begin051:
 			observed051=t.observed[id].duplicate(true) if worker_owned051 else t.observed[id]
-			# Freeze once per observation, including nested mount data. Both sides
-			# may share it without exposing mutable live fits or private stores.
-			if not worker_owned051:_view_read_only051(observed051)
+			# Main's readers are pure and finish before helm/motion/fire writes.
+			# Never recursively freeze a borrowed live mount/status/option graph.
 		if ship.team==side:
 			var own: Dictionary
 			if not closed_begin051 or id in due:
-				own=_own(ship,mounts,frame_cache,observed051)
+				own=_begin_owner051(st,str(id),frame_cache,current051) if main051 else _own(ship,mounts,frame_cache,observed051)
 			else:
 				# Roles._leader_score/working_mounts need these current friendly
 				# inputs, but never crew, breaches, fuel/supplies or cooldown copies.
-				own=observed051.duplicate()
-				for key in ["ammo","order","orderTarget"]:
-					if ship.has(key):own[key]=ship[key].duplicate(true) if ship[key] is Dictionary else ship[key]
-				own.status=Damage._read_status_in_phase043(ship,frame_cache).duplicate(true)
+				own=context051[id] if main051 and not context051.is_empty() else observed051.duplicate()
+				if not main051 or context051.is_empty():
+					for key in ["ammo","order","orderTarget"]:
+						if ship.has(key):own[key]=ship[key].duplicate(true) if not main051 and ship[key] is Dictionary else ship[key]
+					var status051: Dictionary=Damage._read_status_in_phase043(ship,frame_cache)
+					own.status=status051 if main051 else status051.duplicate(true)
 			own.orderSince=float(t.orderTimes.get(id,0.0))
 			own.failedTargetIds=t.failures.get(id,[]).duplicate()
 			var contact: String=_boarding_contact(st,ship,frame_cache)
@@ -340,7 +377,8 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 					var distance: float=Routes.point(ship).distance_squared_to(Routes.point(enemy))
 					if distance<best:best=distance;own.orderTarget={"shipId":enemy_id}
 			ships.append(own)
-			choices[id]=t.options.byId.get(id,defaults()).duplicate(true)
+			if main051:index051[id]=own
+			choices[id]=t.options.byId.get(id,defaults()).duplicate(not main051)
 			# This contact is still the live automatic engage command. Retain its
 			# survival permission only in the detached planner view; explicit board
 			# choices and the launched crew job remain exactly as accepted.
@@ -357,12 +395,13 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 				var short_home: bool=departure is Vector2 and departure.distance_to(Vector2(home.x,home.y))<local_radius
 				var local_egress: bool=str(retained.get("phase","")) in ["breakaway","turn-away"] and spent_pass and short_home
 				if own.order=="withdraw" or not local_egress:
-					choices[id].rally=home.duplicate(true)
+					choices[id].rally=home if main051 else home.duplicate(true)
 					choices[id].defaultRally051=true # Detached default, never a user option.
-			if own.order=="withdraw" and own.orderTarget.has("x"):choices[id].rally=own.orderTarget.duplicate(true)
+			if own.order=="withdraw" and own.orderTarget.has("x"):choices[id].rally=own.orderTarget if main051 else own.orderTarget.duplicate(true)
 		else:
 			if closed_begin051:
 				ships.append(observed051)
+				if main051:index051[id]=observed051
 			else:
 				var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 				ships.append(t.observed[id].duplicate(true))
@@ -375,7 +414,8 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 	for group in t.groups:
 		for id in t.groups[group]:
 			if choices.has(id):groups[group].append(id)
-	return {"snapshotRevision":int(t.snapshotRevision),"terrainRevision":t.terrainRevision,"time":float(st.time),"dt":float(t.dt),"side":side,"dueIds":due.duplicate(),"ships":ships,"groups":groups,"options":{"byId":choices,"clearanceRemaining":maxi(0,int(t.budget.get("clearanceLimit",4096))-int(t.budget.clearanceTests))},"mission":public_mission(st)}
+	if main051:current051.indexes[side]=index051
+	return {"snapshotRevision":int(t.snapshotRevision),"terrainRevision":t.terrainRevision,"time":float(st.time),"dt":float(t.dt),"side":side,"dueIds":due.duplicate(),"ships":ships,"groups":groups,"options":{"byId":choices,"clearanceRemaining":maxi(0,int(t.budget.get("clearanceLimit",4096))-int(t.budget.clearanceTests))},"mission":current051.mission if main051 else public_mission(st)}
 
 static func public_mission(st: Dictionary) -> Dictionary:
 	var source: Dictionary=st.get("mission",{})
@@ -531,7 +571,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		var id: String=str(ship.id)
 		t.ships[id]=ship
 		_order_lifetime(st,ship)
-		t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache))
+		t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache),true)
 	if profile051:
 		detail.observationPrep=Time.get_ticks_usec()-profile_started051
 		profile_started051=Time.get_ticks_usec()
@@ -567,7 +607,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	t.metrics.activeCount=queued.size();t.metrics.normalLimit=cap
 	var due: Array=[]
 	var observed_due051: int=0
-	var retained_contexts: Dictionary={}
+	var current051: Dictionary={}
 	for id in queued:
 		if id==t.manualId:continue
 		var certified_age: float=float(st.time)-float(t.lastCertified.get(id,0.0))
@@ -584,7 +624,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if last>=0.0 and float(st.time)-last<interval-0.000001:continue
 		if observed_due051>=cap:continue
 		observed_due051+=1
-		if not _observe_retained051(st,str(id),frame_cache,retained_contexts):due.append(id)
+		if not _observe_retained051(st,str(id),frame_cache,current051):due.append(id)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.retainedDue+=observed_due051-due.size()
 		_runtime_profile043_counts.fullDue+=due.size()
@@ -605,17 +645,16 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if t.ships[id].team==side:side_due.append(id)
 		if side_due.is_empty():continue
 		phase_started=Time.get_ticks_usec()
-		var snapshot: Dictionary=_begin_view051(st,side,side_due,frame_cache)
+		var snapshot: Dictionary=_begin_view051(st,side,side_due,frame_cache,current051)
 		snapshots[side]=snapshot
-		for ship in snapshot.ships:
-			if ship.team==side:copies[str(ship.id)]=ship
 		# Private synchronous readers construct fresh due records. Resolution
 		# copies its containers; publication copies only the actual due outputs.
 		memories[side]=t.memory[side]
 		detail.snapshots+=Time.get_ticks_usec()-phase_started
 		phase_started=Time.get_ticks_usec()
 		var suggestion051: Dictionary=Planner._take_worker051(st,side,side_due,_worker_capability051,frame_cache)
-		planning[side]=Planner._prepare_with_worker051(snapshot,memories[side],suggestion051)
+		planning[side]=Planner._prepare_with_worker051(snapshot,memories[side],suggestion051,current051.indexes[side])
+		for id in side_due:copies[id]=planning[side].context[id]
 		# Admission evidence belongs ONLY to this closed begin and exact offers.
 		planning[side].beginView051=snapshot;planning[side].beginOffers051={}
 		if _runtime_profile043_enabled and t.has("workers051"):
@@ -901,7 +940,7 @@ static func _current051(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_
 		_drop_retained051(st.tactical,str(ship.id))
 	return result
 
-static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,contexts: Dictionary={}) -> bool:
+static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,current051: Dictionary={}) -> bool:
 	var t: Dictionary=st.tactical
 	var held=t.retained051.get(id)
 	if not held is Certification._Retained051:return false
@@ -914,25 +953,16 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,cont
 	if not _boarding_contact(st,ship,frame_cache).is_empty():
 		if _runtime_profile043_enabled:_runtime_profile043_counts.retainedDropBoarding+=1
 		_drop_retained051(t,id);return false
-	var own: Dictionary=_own(ship,t.mountCache[id].mounts,frame_cache)
-	own.orderSince=float(t.orderTimes.get(id,0.0));own.failedTargetIds=t.failures.get(id,[])
 	var side: String=str(ship.team)
-	if not contexts.has(side):
-		var observed: Dictionary=t.observed.duplicate()
-		# Friendly protection predicates need current guns/commands too. Borrow
-		# those authoritative inputs once per side, only during this begin.
-		for other_id in t.ships:
-			var other: Dictionary=t.ships[other_id]
-			if str(other.team)!=side:continue
-			var ally: Dictionary=t.observed[other_id].duplicate()
-			ally.ammo=other.ammo;ally.order=other.order;ally.orderTarget=other.orderTarget
-			ally.status=Damage._read_status_in_phase043(other,frame_cache)
-			observed[other_id]=ally
-		contexts[side]=observed
-	var context: Dictionary=contexts[side];context[id]=own
-	var view051: Dictionary={"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"ships":context.values(),"mission":public_mission(st)}
+	var context: Dictionary=_begin_context051(st,side,frame_cache,current051)
+	var own: Dictionary=_begin_owner051(st,id,frame_cache,current051)
+	own.orderSince=float(t.orderTimes.get(id,0.0));own.failedTargetIds=t.failures.get(id,[])
+	var previous_own051: Dictionary=context[id]
+	context[id]=own
+	var view051: Dictionary={"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"ships":context.values(),"mission":current051.mission}
 	var previous: Dictionary=t.memory[str(ship.team)].byId.get(id,{})
 	var decision: Dictionary=Planner._observe_retained051(view051,own,previous,context)
+	context[id]=previous_own051
 	var changed: bool=decision.is_empty() or held.events!=Certification._retained_events051(st,ship,held)
 	if _runtime_profile043_enabled and changed:_runtime_profile043_counts["retainedDropPhase" if decision.is_empty() else "retainedDropEvents"]+=1
 	if int(held.record.index)>=held.points.size() and str(held.intent.phase) in ["approach","stage","align"]:

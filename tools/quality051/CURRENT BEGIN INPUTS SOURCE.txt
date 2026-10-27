@@ -1,0 +1,33 @@
+051 CURRENT-BEGIN INPUTS - SOURCE CANDIDATE, NATIVE UNRUN
+Parent 0f4c8fd72bce9eec58e4ab7b6fb8c9f59cdcdbf4; Runtime/Planner match
+Root96f1e577. Root's differing AI fixture comments are untouched.
+Actual R29 native1271/0,82.390s, paid opening win remains prior evidence.
+Actual R13 job950d4099eb0b4dabaff4381458b1857d remains quality FALSE:
+42light7.385FPS/sim17.933ms/P9523.168;16mixed59.841FPS/7.5835/P9510.639.
+Main observation2.846ms, snapshots1.018, proposals.852, resolution.682.
+
+Remove repeated main ownership-boundary work, not physical checks. Begin
+borrows the existing conditioned mount generation (Battle replaces rather
+than edits those arrays). Motion/HP and shot-time samples remain current
+pre-motion scalar/owned data. Main never recursively freezes live inputs.
+Pure closed-begin owner records borrow status, cooldowns, command/breach
+inputs and option subrecords. Only due/retained-observation owners get the
+full numerical projection. A local per-side bundle shares retained-selection
+inputs, full due owners, mission and the snapshot's exact planner index.
+Tentative reservation containers copy shallowly; prior records are only read.
+No cross-tick validity cache, worker sharing or saved/published alias added.
+Public/default view/propose/resolve and worker capsules still detach nested
+data. Current main safety, target membership, phase/range/command guards,
+all route alternatives, connector/traffic/certificates/reservations and60Hz
+helm/fire authority remain. Duel policy, full300DP42/16,.2s, paid voyage,
+stats/seed/resources/limits/visuals/assertions/wrappers are unchanged.
+
+Existing workers selector adds current-begin comparisons on BOTH sides:
+exact detached view/decision/ordered-offer parity; current index reuse;
+separate shot samples; worker/public mutation isolation; no live freezing;
+whole-ship/options/memory/observation byte identity; real next-command
+freshness. All previous assertions and Root physical-veto correction remain.
+Single preload advisory:issues[],advisoryOnly:true,engineInvoked:false.
+Diff whitespace review clean. No native parse/behavior acceptance implied.
+No helpers/engine/test/build/GPU run. Root owns native and actual profile.
+Savings and exact native behavior UNVERIFIED;051gateOPEN. Commit then STOP.

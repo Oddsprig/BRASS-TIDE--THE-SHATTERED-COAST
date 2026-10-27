@@ -766,9 +766,54 @@ func duel_policy051() -> void:
 			observations.append({"case":"duel-policy","time":st.time,"events":emitted,"ammoBefore":ammo,"ammoAfter":source.ammo,"memory":memory,"profile":profile})
 		T.retire_planning051(st);T.drain_planning051()
 
+func current_begin051() -> void:
+	var arena: Dictionary=local_arena()
+	var st: Dictionary=arena.state
+	B.update(st,1.0/60.0);B.pop_events(st)
+	var before: PackedByteArray=var_to_bytes([st.ships,st.tactical.memory,st.tactical.options,st.tactical.observed])
+	var current: Dictionary={}
+	for side: String in ["player","enemy"]:
+		var due: Array=[]
+		for ship: Dictionary in st.ships:
+			if ship.team==side and not ship.sunk:
+				due.append(str(ship.id));break
+		var view: Dictionary=T._begin_view051(st,side,due,null,current)
+		var detached: Dictionary=T._worker_view051(st,side,due)
+		var memory: Dictionary=st.tactical.memory[side]
+		var planned: Dictionary=Planner._prepare_begin(view,memory,current.indexes[side])
+		var reference: Dictionary=Planner._prepare_begin(detached,memory)
+		check(view==detached and planned==reference,"current begin preserves exact detached observations, options, decisions and ordered offers: "+side)
+		check(is_same(planned.context,current.indexes[side]) and current.owners.size()<=current.indexes[side].size(),"private planning reuses the exact current index without rebuilding all hulls: "+side)
+		var owner: Dictionary=planned.context[due[0]]
+		var live: Dictionary=st.tactical.ships[due[0]]
+		check(is_same(owner.mounts,st.tactical.mountCache[due[0]].mounts) and is_same(owner.weaponCooldowns,live.weaponCooldowns) and is_same(owner.orderTarget,live.orderTarget) and not is_same(owner.mountShotTimes,live.mountShotTimes),"closed begin borrows current inputs but preserves separately sampled actual shot times: "+side)
+		var detached_owner: Dictionary=Roles.ships_by_id(detached)[due[0]]
+		check(not is_same(detached_owner.mounts,owner.mounts) and not is_same(detached_owner.weaponCooldowns,live.weaponCooldowns) and not is_same(detached_owner.orderTarget,live.orderTarget),"worker boundary still exclusively owns every nested planning input: "+side)
+		check(not live.orderTarget.is_read_only() and not live.weaponCooldowns.is_read_only() and not owner.mounts.is_read_only(),"borrowed begin does not freeze live command, cooldown or mount containers: "+side)
+		var public_view: Dictionary=T.view(st,side,due)
+		var public_owner: Dictionary=Roles.ships_by_id(public_view)[due[0]]
+		var real_range: float=float(owner.mounts[0].range)
+		public_owner.mounts[0].range=real_range+9.0
+		detached_owner.mounts[0].range=real_range+17.0
+		check(float(owner.mounts[0].range)==real_range and not is_same(public_owner.orderTarget,live.orderTarget),"public and worker edits cannot change the current or live view: "+side)
+	check(var_to_bytes([st.ships,st.tactical.memory,st.tactical.options,st.tactical.observed])==before,"both current-side planning passes leave all live ships, observations and prior memory byte-identical")
+	# No scope crosses a physics tick: real commands and current motion must be
+	# projected again, while the previous current bundle remains just old data.
+	var id: String=str(arena.source.id)
+	var old: Dictionary=current.owners[id]
+	var old_revision: int=int(old.orderRevision)
+	check(B.issue_order(st,[id],"move",{"x":1100.0,"y":850.0}),"current-begin freshness case accepts a real new command")
+	B.update(st,1.0/60.0);B.pop_events(st)
+	var next: Dictionary={}
+	var next_view: Dictionary=T._begin_view051(st,"player",[id],null,next)
+	var next_plan: Dictionary=Planner._prepare_begin(next_view,st.tactical.memory.player,next.indexes.player)
+	check(not is_same(next.owners[id],old) and int(old.orderRevision)==old_revision and int(next.owners[id].orderRevision)==int(arena.source.orderRevision) and int(next_plan.decisions[id].state.orderRevision)==int(arena.source.orderRevision),"a fresh begin observes the actual command revision without lending old scope authority")
+	observations.append({"case":"current-begin-ownership","sides":current.indexes.size(),"fullOwners":current.owners.size(),"oldRevision":old_revision,"currentRevision":arena.source.orderRevision})
+
 func workers051() -> void:
 	var profiling: bool=bool(T.runtime_profile043().enabled)
 	T.set_runtime_profile043(true);T.reset_runtime_profile043()
+	current_begin051()
 	duel_policy051()
 	var arena: Dictionary=local_arena()
 	var st: Dictionary=arena.state

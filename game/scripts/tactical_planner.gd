@@ -315,12 +315,14 @@ static func _join_preference051(view: Dictionary, ship: Dictionary, previous: Di
 	decision.targets = targets
 	return decision
 
-static func _prepare_with_worker051(view: Dictionary, memory: Dictionary, suggestion: Dictionary) -> Dictionary:
+static func _prepare_with_worker051(view: Dictionary, memory: Dictionary, suggestion: Dictionary, current_context051: Dictionary = {}) -> Dictionary:
 	# Normal joins keep the worker preference with actual current HP memory.
 	# Authority still requires new main pose/traffic/certificate/resolution work.
-	if suggestion.get("allowed", []).is_empty(): return _prepare_begin(view, memory)
-	var context: Dictionary = Roles.ships_by_id(view)
-	var reservations: Dictionary = Roles.dictionary(memory.get("reservations")).duplicate(true)
+	if suggestion.get("allowed", []).is_empty(): return _prepare_begin(view, memory, current_context051)
+	var context: Dictionary = Roles.ships_by_id(view) if current_context051.is_empty() else current_context051
+	# Existing reservations are read-only inputs; only this local container gets
+	# new tentative preferences. Detached public/worker planning keeps its copies.
+	var reservations: Dictionary = Roles.dictionary(memory.get("reservations")).duplicate(current_context051.is_empty())
 	var prepared: Dictionary = {"context": context, "dueIds": _due(view, context), "decisions": {}, "sources": {}, "candidates": [], "scored": 0, "routes051": {}, "workerIds051": []}
 	for id: String in prepared.dueIds:
 		var ship: Dictionary = context[id]
@@ -393,22 +395,22 @@ static func propose(view: Dictionary, memory: Dictionary) -> Array:
 		return []
 	return _planning(view, memory).candidates
 
-static func _prepare_begin(view: Dictionary, memory: Dictionary) -> Dictionary:
+static func _prepare_begin(view: Dictionary, memory: Dictionary, current_context051: Dictionary = {}) -> Dictionary:
 	# Keep propose's validation before any same-begin planning work.
-	return _planning(view, memory) if _view_ok(view) else {}
+	return _planning(view, memory, current_context051) if _view_ok(view) else {}
 
 static func _observe_retained051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary) -> Dictionary:
 	# Private authoritative inputs, already admitted by Runtime. No proposal,
 	# scored preference, source reconstruction or public certificate is produced.
 	return Roles._observe_retained051(view, ship, previous, context)
 
-static func _planning(view: Dictionary, memory: Dictionary) -> Dictionary:
-	var context: Dictionary = Roles.ships_by_id(view)
+static func _planning(view: Dictionary, memory: Dictionary, current_context051: Dictionary = {}) -> Dictionary:
+	var context: Dictionary = Roles.ships_by_id(view) if current_context051.is_empty() else current_context051
 	var by_id: Dictionary = Roles.dictionary(memory.get("byId"))
 	var result: Array = []
 	var decisions: Dictionary = {}
 	var sources: Dictionary = {}
-	var reservations: Dictionary = Roles.dictionary(memory.get("reservations")).duplicate(true)
+	var reservations: Dictionary = Roles.dictionary(memory.get("reservations")).duplicate(current_context051.is_empty())
 	var due_ids: Array = _due(view, context)
 	var scored: int = 0
 	for ship_id: String in due_ids:
