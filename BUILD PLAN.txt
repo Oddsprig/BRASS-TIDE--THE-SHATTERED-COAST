@@ -1,24 +1,18 @@
-BRASS TIDE — CURRENT BUILD PLAN, 24 OCTOBER2026
-Owner restored development and background testing. Continue versions in order.
-Preserved030 remains UNTESTED; verified029 is protected. No new build claimed.
+BRASS TIDE - CURRENT PLANNING STATUS,26OCT2026
 
-1. Finish030 tactical source acceptance: real movement/fire/orders/screens,
-original regression suites, adverse heldout cases, finite stores/people and
-capacity at actual full population. Keep all failed inputs/results intact.
-2. Integrate031 equipment into actual Campaign, Battle, paid fitting/Harbor,
-Save/capture/wreck recovery and UI. Core90/Records89/catalogue651/panel49 and
-detached Damage174 are component proof only; actual adapters need native checks.
-3. Update current in-game TXT, developer lessons, maps and precise verification
-receipts. Root reviews exact source, commits named paths and advances .001 only
-for an actual playable version. Never retag preserved builds.
-4. Export a clean exact-tag Windows build, isolated background menu/save/battle
-smoke, archive hashes and launcher proof. Preserve all owner files/older builds.
-5. Continue032–038 as in VERSION MAP.txt. Shipping/civilian/faction features must
-move real cargo, fuel, coins, crew and materials; no fabricated replacements.
+Latest request: prepare the roadmap for Starsector-level overall quality.
+Installed game remains v0.041. This is a plan, not a new release.
 
-Sol is sole engine holder. All tests silent/headless/Dummy/lowpriority, bounded,
-synthetic profiles; no foreground/input. UI/resources publish only on main;
-workers own copies. Remote publication remains pending actual authentication
-and remote hashes; old credential failure is not an upload.
-Historical build-only receipts: docs/SOURCE INTEGRATION v0.030.txt and
-SOURCE MANIFEST v0.030.json. They remain unchanged.
+1. Read ROADMAP.md for the next planned scope (0.042: three finished boats).
+2. Read VERSION MAP.txt for the proposed20-version sequence.
+3. Read docs/roadmap/STARSECTOR QUALITY ROADMAP.txt for the full acceptance bar.
+4. MilestoneA closes only after the actual art, performance, combat, AI,
+   command/refit and first-voyage experience work together.
+5. MilestonesB/C finish fleet growth, real trade, independent factions,
+   discovery, recovery, civilian careers, identity and a changing region.
+
+Use existing systems/tools and bounded scopes. No engine, GPU, helper,
+new executable/tag or desktop/save changes were made for this planning task.
+No tests run. Future native work still uses the shared FIFO, background tests,
+no input/focus control and a complete selected batch below120seconds.
+The superseded build plan is archived under docs/roadmap/.

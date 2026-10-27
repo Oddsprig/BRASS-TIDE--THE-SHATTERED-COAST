@@ -1,0 +1,77 @@
+CURRENT QUALITY PRIORITY: v0.041 core playability. The owner's latest request
+replaces this version's expedition with a readable real coast, an immediate
+convoy skirmish, boat material detail and measured combat-cost corrections.
+The original expedition remains deferred; it is not delivered by this build.
+
+BRASS TIDE - NEXT TEN VERSIONS
+26 October 2026 | Authorized sequential builds; delivered v0.041
+
+VERSION DISCIPLINE
+One agreed playable step per version: implement its listed outcome, fix defects
+caused by that change, run focused checks, package and finish. No speculative
+fine-tuning, new test framework or full-game acceptance gate on every increment.
+Entire selected automated suites stay under120 seconds including setup/cleanup.
+Broader regression belongs at agreed milestones; preserve earlier failures.
+Shared background test scheduling and no desktop input/focus control still apply.
+Owner authorized this sequence on26October2026. Finish each scope before advancing.
+
+0.032 - CONVOY AND RECOVERY BATTLES [DONE]
+Loaded carriers physically reach exits. Escort/intercept actual cargo; tow,
+strip or abandon damaged prizes with correct hull, equipment and cargo custody.
+Finish the encounter-to-voyage outcome flow using existing recovery foundations.
+
+0.033 - INDEPENDENT CAMPAIGN FLEETS [DONE]
+Pirates raid merchants, patrols respond and hostile factions fight each other.
+Sightings guide pursuit; survivors retreat and fund repairs/replacements.
+Finish an observable raid, patrol response and faction clash using real fleets.
+
+0.034 - COASTAL GEOGRAPHY AND NAVIGATION [DONE]
+Distinct passages, reefs and harbor approaches; encounter terrain follows
+location. Large hulls respect turning space, clearance and harbor restrictions.
+
+0.035 - CIVILIAN BOAT ROSTER [DONE]
+Add12 original designs:3 fishing boats,4 transports through galleon-sized motor
+merchantmen,2 tankers and3 yachts. Give each working holds/mounts and real
+material, labor and supervision costs. Total roster becomes36.
+
+0.036 - WORKING CIVILIAN VOYAGES [DONE]
+Playable fishing, bulk freight, fuel delivery and funded passenger charters.
+Actual catches/cargo/fuel/payments create piracy and escort opportunities.
+Recurring captains remember witnessed events using the existing contact system.
+
+0.037 - SUPPLIED FACTION OPERATIONS [DONE]
+Coordinate friendly fleets around convoy, patrol and attack objectives.
+Actual fuel, ammunition, wages and machinery constrain deployment and upkeep.
+Finish one supplied operation that can succeed or stall for explained reasons.
+
+0.038 - CAREER BALANCE AND GUIDANCE [DONE]
+One bounded balance pass over explorer, merchant, escort, privateer, fisher and
+passenger starts. Clarify goals, operating costs, rewards and progression.
+Fix demonstrated dead ends; avoid an open-ended general polish pass.
+
+0.039 - PERFORMANCE MILESTONE [DONE]
+Measure agreed representative campaign and300-point battle cases. Fix measured
+bottlenecks, preserve behavior and inexpensive water, and retain a short
+repeatable benchmark. Further optimization needs evidence of a real problem.
+
+0.040 - COMBAT PRESENTATION AND SOUND [DONE]
+A defined pass on damage/disabled-module feedback, wakes, weapon impacts and
+sound balance across the implemented boats. Keep effects inexpensive and weapon
+families distinct. Use existing systems and a bounded presentation checklist.
+
+0.041 - CORE PLAYABILITY [DONE]
+Top-down campaign chart with larger real coastlines, regional terrain and
+visible harbor settlements. Isometric battles and boat refit views remain.
+Immediate Coastal Clash escorts a loaded packet to a physical exit, using
+actual AI, ammunition, fuel and damage while preserving the captain's voyage.
+Reduce repeated equipment/status and tactical route work; measure the actual
+exported game and retain the honest large-fleet performance limit.
+
+The agreed0.032-0.037 feature order remains. The former broad0.038 polish scope
+is separated across0.038-0.040. The latest owner instruction makes0.041 a
+core playability correction. The former connected expedition is deferred.
+36 boats since0.035. Coins and100 coins per sailor-day remain.
+Ownership stays separate from300 deployment points per battle side.
+Crew remain numerical/fixed asset details. Water remains inexpensive.
+Next-step detail: ROADMAP.md. Historical detail remains in docs/roadmap/ and
+FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt under docs/.

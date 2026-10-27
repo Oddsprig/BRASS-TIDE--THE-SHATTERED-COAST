@@ -1,77 +1,87 @@
-CURRENT QUALITY PRIORITY: v0.041 core playability. The owner's latest request
-replaces this version's expedition with a readable real coast, an immediate
-convoy skirmish, boat material detail and measured combat-cost corrections.
-The original expedition remains deferred; it is not delivered by this build.
+BRASS TIDE - STARSECTOR QUALITY VERSION MAP
+26 October2026 | PROPOSED PLAN | Installed/delivered build remains v0.041
 
-BRASS TIDE - NEXT TEN VERSIONS
-26 October 2026 | Authorized sequential builds; delivered v0.041
+Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
+The target is the complete experience, not a matching list of features.
+Planning only: no new build, tests, helper runs, tags or desktop changes.
+All versions below are PLANNED, not implemented or quality-approved.
+One .001 increment per delivered version; no parity claim from a version number.
 
-VERSION DISCIPLINE
-One agreed playable step per version: implement its listed outcome, fix defects
-caused by that change, run focused checks, package and finish. No speculative
-fine-tuning, new test framework or full-game acceptance gate on every increment.
-Entire selected automated suites stay under120 seconds including setup/cleanup.
-Broader regression belongs at agreed milestones; preserve earlier failures.
-Shared background test scheduling and no desktop input/focus control still apply.
-Owner authorized this sequence on26October2026. Finish each scope before advancing.
+MILESTONE A - CORE QUALITY (0.042-0.051)
+0.042 - FINISHED BOAT ART [NEXT / PLANNED]
+Three representative boats prove a coherent, inexpensive asset pipeline.
 
-0.032 - CONVOY AND RECOVERY BATTLES [DONE]
-Loaded carriers physically reach exits. Escort/intercept actual cargo; tow,
-strip or abandon damaged prizes with correct hull, equipment and cargo custody.
-Finish the encounter-to-voyage outcome flow using existing recovery foundations.
+0.043 - RENDERED PERFORMANCE [PLANNED]
+Real active300-vs-300 battles meet the stated frame and simulation budgets.
 
-0.033 - INDEPENDENT CAMPAIGN FLEETS [DONE]
-Pirates raid merchants, patrols respond and hostile factions fight each other.
-Sightings guide pursuit; survivors retreat and fund repairs/replacements.
-Finish an observable raid, patrol response and faction clash using real fleets.
+0.044 - COMBAT FEEL [PLANNED]
+Weight, weapon windows, damage pressure and disengagement create useful decisions.
 
-0.034 - COASTAL GEOGRAPHY AND NAVIGATION [DONE]
-Distinct passages, reefs and harbor approaches; encounter terrain follows
-location. Large hulls respect turning space, clearance and harbor restrictions.
+0.045 - WEAPONS AND FEEDBACK [PLANNED]
+Distinct gun models, impacts, wakes and recorded sound feel coherent in combat.
 
-0.035 - CIVILIAN BOAT ROSTER [DONE]
-Add12 original designs:3 fishing boats,4 transports through galleon-sized motor
-merchantmen,2 tankers and3 yachts. Give each working holds/mounts and real
-material, labor and supervision costs. Total roster becomes36.
+0.046 - TACTICAL AI [PLANNED]
+Flankers, strike boats, heavies, escorts and support perform their actual roles.
 
-0.036 - WORKING CIVILIAN VOYAGES [DONE]
-Playable fishing, bulk freight, fuel delivery and funded passenger charters.
-Actual catches/cargo/fuel/payments create piracy and escort opportunities.
-Recurring captains remember witnessed events using the existing contact system.
+0.047 - FLEET COMMAND [PLANNED]
+Deployment, orders, groups and battle information are clear and responsive.
 
-0.037 - SUPPLIED FACTION OPERATIONS [DONE]
-Coordinate friendly fleets around convoy, patrol and attack objectives.
-Actual fuel, ammunition, wages and machinery constrain deployment and upkeep.
-Finish one supplied operation that can succeed or stall for explained reasons.
+0.048 - REFITTING DEPTH [PLANNED]
+Different affordable builds change real behavior and have meaningful tradeoffs.
 
-0.038 - CAREER BALANCE AND GUIDANCE [DONE]
-One bounded balance pass over explorer, merchant, escort, privateer, fisher and
-passenger starts. Clarify goals, operating costs, rewards and progression.
-Fix demonstrated dead ends; avoid an open-ended general polish pass.
+0.049 - COMPLETE ROSTER QUALITY [PLANNED]
+All36 boats and their guns reach the proven visual and role standard.
 
-0.039 - PERFORMANCE MILESTONE [DONE]
-Measure agreed representative campaign and300-point battle cases. Fix measured
-bottlenecks, preserve behavior and inexpensive water, and retain a short
-repeatable benchmark. Further optimization needs evidence of a real problem.
+0.050 - COASTAL WORLD ART [PLANNED]
+Distinct designed ports/regions, authored terrain and readable real navigation.
 
-0.040 - COMBAT PRESENTATION AND SOUND [DONE]
-A defined pass on damage/disabled-module feedback, wakes, weapon impacts and
-sound balance across the implemented boats. Keep effects inexpensive and weapon
-families distinct. Use existing systems and a bounded presentation checklist.
+0.051 - FIRST-VOYAGE MILESTONE [PLANNED]
+A satisfying opening voyage and fleet decision clear the whole core-quality bar.
 
-0.041 - CORE PLAYABILITY [DONE]
-Top-down campaign chart with larger real coastlines, regional terrain and
-visible harbor settlements. Isometric battles and boat refit views remain.
-Immediate Coastal Clash escorts a loaded packet to a physical exit, using
-actual AI, ammunition, fuel and damage while preserving the captain's voyage.
-Reduce repeated equipment/status and tactical route work; measure the actual
-exported game and retain the honest large-fleet performance limit.
 
-The agreed0.032-0.037 feature order remains. The former broad0.038 polish scope
-is separated across0.038-0.040. The latest owner instruction makes0.041 a
-core playability correction. The former connected expedition is deferred.
-36 boats since0.035. Coins and100 coins per sailor-day remain.
-Ownership stays separate from300 deployment points per battle side.
-Crew remain numerical/fixed asset details. Water remains inexpensive.
-Next-step detail: ROADMAP.md. Historical detail remains in docs/roadmap/ and
-FLEET CAMPAIGN VERSION MAP v0.029-v0.038.txt under docs/.
+MILESTONE B - PROGRESSION AND THE LIVING COAST (0.052-0.056)
+0.052 - FLEET GROWTH AND LOGISTICS [PLANNED]
+Useful support boats, affordable progression and clear operating/return reserves.
+
+0.053 - MEANINGFUL LTV TRADE [PLANNED]
+Visible demand and margins connect actual labor, purses, goods and production.
+
+0.054 - CAMPAIGN FLEET AI [PLANNED]
+NPC trade, piracy, response and faction battles work independently and pay their costs.
+
+0.055 - FACTIONS AND CONTACTS [PLANNED]
+Relationships and remembered work change access, opportunity and safety.
+
+0.056 - REWARDING EXPLORATION [PLANNED]
+Discoveries, clues and a complete original expedition make detours worthwhile.
+
+
+MILESTONE C - LONG-TERM CAMPAIGN (0.057-0.061)
+0.057 - SALVAGE AND RECOVERY [PLANNED]
+Hull/equipment recovery, stripping and towing compete for real capacity and risk.
+
+0.058 - CIVILIAN CAREERS [PLANNED]
+Fishing, freight, tankers and passenger/yacht work have viable varied progression.
+
+0.059 - FLEET IDENTITY [PLANNED]
+Paid officers, crews and vessel histories create tactical identity and attachment.
+
+0.060 - CHANGING REGION [PLANNED]
+Supplied conflict and harbor development visibly alter traffic and opportunities.
+
+0.061 - WHOLE-GAME MILESTONE [PLANNED]
+The complete experience earns the quality claim; failed pillars remain open.
+
+Do not hide unfinished art, AI, combat or performance by advancing to campaign
+breadth. A real failed criterion gets a bounded correction to that system.
+Existing36-boat roster/economy/crew/content is a prototype foundation to finish,
+not a reason to recreate the same systems or inflate the boat count.
+Actual play and presentation determine milestone completion; assertion counts
+alone do not. The entire selected automated batch stays below120seconds through
+the existing shared background lane; no foreground/input takeover.
+
+Current scope: ROADMAP.md.
+Full outcomes, proof, architecture and quality criteria:
+docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
+Earlier version map, roadmap, build plan and handoff are preserved verbatim in
+docs/roadmap/before-quality-plan-26Oct2026/.

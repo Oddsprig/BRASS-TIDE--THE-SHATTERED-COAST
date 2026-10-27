@@ -1,3 +1,18 @@
+# Latest owner request - Starsector quality roadmap (planning)
+
+Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
+The current turn prepares the plan; do not infer a new game build from it.
+Installed release stays0.041. No helper/native/GPU run or launcher/save changes.
+Read ROADMAP.md for next planned0.042, VERSION MAP.txt for proposed0.042-0.061,
+and docs/roadmap/STARSECTOR QUALITY ROADMAP.txt for the actual quality bar.
+Existing features are prototype foundations. Passing checks and old DONE labels
+are not proof of art, AI, game feel or a finished campaign. First prove the
+whole core experience, then expand campaign breadth. Preserve existing test
+scheduling, two-minute batches, version discipline and original assets.
+All earlier current-scope paragraphs below are historical when they conflict
+with this latest planning request. Future implementation follows the user's
+next work instruction; this plan does not itself claim anything implemented.
+
 # Current owner priority - v0.041 core playability
 
 Latest owner request: art, performance and engagement need substantial work;

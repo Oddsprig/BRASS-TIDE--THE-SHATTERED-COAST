@@ -1,0 +1,328 @@
+BRASS TIDE - STARSECTOR QUALITY ROADMAP
+26 October 2026 | Planning from delivered v0.041 | No new game build
+
+THE TARGET
+A naval fleet RPG with the presentation, responsiveness, tactical decisions,
+fleet-building satisfaction and campaign engagement the owner expects from
+Starsector. That is the minimum design target, not an achievement claim.
+Adding similarly named features does not meet it. Existing systems are
+prototypes until their behavior and presentation work together in actual play.
+Version numbers record delivered work; they do not certify quality.
+
+The intended loop:
+Find an opportunity -> prepare an affordable fleet -> choose a route and risk
+-> fight, trade, explore or negotiate -> recover and bring something worthwhile
+home -> make a meaningful fitting/fleet decision -> discover a new opportunity.
+Each link must be pleasant and understandable. A large economic simulation
+behind a dull battle or an unreadable map does not complete the loop.
+
+WHERE WE ACTUALLY ARE
+Delivered v0.041 has 36 hull definitions and foundations for refitting, damage,
+crew, labor/coins, trading, exploration, recovery, contacts, factions and NPC
+operations. These are starting material, not proof of Starsector-level play.
+Current boats, guns, coast and settlements still look like prototype assets.
+More polygon subdivisions, color changes and repeated house stamps are not
+an adequate art direction. The current campaign needs a designed visual world.
+
+The measured 42-boat/294DP-per-side opening uses 21.703ms median per update,
+P95 41.126ms, in a 0.2667s headless sample under the recorded test limits.
+That is not sustained combat or displayed FPS. The separate 1.6s four-boat
+sample and eight-second convoy fixture are also too short to certify game feel.
+The existing 380 checks establish selected behavior, not artistic quality,
+replayability, command satisfaction or a finished campaign.
+
+LOCKED DESIGN
+- Godot, Windows PC first. Android compatibility is secondary.
+- A strategic coastal chart and separate isometric tactical battles.
+- Default flagship autopilot; WASD camera, pause and clear tactical orders.
+- 300 deployment points per side, separate from total ownership and storage.
+- Original boats, weapons, factions, writing, art and geography. Do not copy
+  Blood Wake or Starsector assets, names, maps or exact designs.
+- Light water rendering. Use inexpensive prepared textures, restrained surface
+  motion and bounded effects. No expensive water simulation requirement.
+- Numerical crews. Visible helm/gunners are part of the boat asset.
+- Coins, real material and labor costs, finite stores and conserved purses.
+  Keep the owner's fictional wage anchor of 100 coins per sailor-day.
+- Preserve saves and one unambiguous latest-build desktop launcher.
+
+QUALITY MILESTONES
+A: 0.042-0.051 - Prove a good-looking, responsive and replayable core game.
+B: 0.052-0.056 - Make fleet progression and the living coast worth exploring.
+C: 0.057-0.061 - Make the careers, consequences and long campaign hold together.
+Do not advance into more campaign breadth to conceal an unfinished milestone A.
+A failed milestone creates a bounded correction to its actual failing part;
+it does not trigger an open-ended full-game rewrite or another test framework.
+These are work scopes, not a guarantee that parity arrives at a particular
+version number or date. Split a genuinely oversized scope transparently into
+further .001 releases; never mark unfinished work complete to match the table.
+
+0.042 - REPLACE PLACEHOLDER BOAT ART
+Produce three finished representative boats: starter skiff, armed escort and
+large merchant. Set one consistent scale, lighting, material palette, silhouette
+and viewing angle. Build a dependable asset pipeline: authored detailed models
+or painted directional sprites, baked offline into inexpensive runtime assets.
+Keep hulls separate from interchangeable guns, mounts and damage overlays.
+Prepare authored engine/outboard units, fittings, rails and deck machinery;
+avoid thin generic rods, black-disc guns and recolored copies of one hull.
+PROOF: the actual game shows all three at normal battle and refit zoom, with
+correct mount positions, readable identity and no clipping or floating parts.
+A concept sheet or an impressive close-up alone does not finish this version.
+
+0.043 - REAL RENDERED PERFORMANCE AND RUNTIME BUDGET
+Measure the actual exported game in active mixed and light-boat 300-vs-300
+battles, not only an opening without shots. Include movement, gunfire, missiles,
+flooding and effects. Record hardware, resolution, renderer and actor counts.
+Use event-driven equipment updates, shared frame data, spatial broad phases,
+bounded/staggered tactical decisions and immutable worker jobs where profiling
+shows a benefit. Keep authoritative physics/contacts live; workers do not touch
+scene/UI objects. Retain existing threaded rendering and economy workers.
+Do not halve actor counts, physics frequency or useful AI to win a chart.
+PROOF TARGET on the owner's PC: 60 FPS at the agreed native play resolution,
+95 percent of active frames <=20ms, and no recurring simulation catch-up or
+50ms+ stutters. Planning simulation budget: median <=6ms, P95 <=10ms, leaving
+room for rendering and presentation. These are proposed targets, not measured
+current results. A separate normal runtime profile is needed: capped headless
+regressions cannot establish this. Record memory/VRAM and loading stalls too.
+
+0.044 - COMBAT WITH PRESSURE, OPENINGS AND RECOVERY
+Tune acceleration, turning, stopping distance, weapon arcs, projectile travel,
+range and time to kill together. Boats need weight and responsive commands.
+Use reload windows, limited salvos, positioning, exposed engines and flooding/
+damage-control workload to create commitment, danger and opportunities to
+break away. A light craft must have a useful advantage over a larger hull.
+Choose a coherent pressure/recovery loop before adding more meters. Do not
+blindly copy space shields/flux or pile on heat and fatigue systems.
+PROOF: duels and small mixed fights contain deliberate firing passes, punishable
+mistakes and possible recoveries, rather than two stationary health bars racing.
+
+0.045 - WEAPONS, IMPACTS, WAKES AND AUDIO
+Give machine guns, cannons, rockets and torpedoes distinct authored models,
+mount sizes, barrels, feeds/breeches, traverse, recoil and firing behavior.
+Synchronize muzzle flash, tracer/projectile, impact and sound with the actual
+weapon event. Make armor hits, penetrations, splashes, fires and sinking clear.
+Build a restrained stern wash that follows actual travel and fades naturally;
+remove ghost hull shadows, long geometric wake rails and obvious bubble chains.
+Use licensed recorded weapon/engine sounds, bounded layering, distance and
+volume mixing. Integrate the supplied music without drowning out information.
+PROOF: each family is distinguishable by sight and sound in normal combat;
+effects do not obscure aiming or cause measurable frame spikes. Silent tests
+cannot sign off the sound mix, and cosmetic explosions cannot invent kills.
+
+0.046 - TACTICAL AI THAT DESERVES AUTOPILOT
+Light boats flank, orbit, harass, bait a turn, exploit a distracted heavy and
+break away before being trapped. Strike boats time torpedo/rocket passes.
+Heavies hold useful arcs and anchor space; escorts intercept threats to a
+carrier or wounded ally rather than all chasing the same target. Support
+boats avoid the front. Coordinate pressure and targets without perfect knowledge.
+Consider fitted weapon range, ammunition, mobility, damage and escape room.
+PROOF: the same six short scenario classes show useful behavior on both sides:
+flanker vs heavy; escort vs raider; strike pass; pressured withdrawal; wounded
+ally cover; mixed fleet. No persistent indecision, spinning or friendly traffic
+jams. An order may be declined for physical danger, with a visible reason.
+
+0.047 - FLEET COMMAND AND BATTLE READABILITY
+A clean deployment screen, reserves, selected-boat information, weapon arcs,
+range/threat information on demand, clear orders and objective/escape markers.
+Support engage, cautious pressure/harass, focus attack, escort, defend, rally,
+hold and withdraw with distinct intent. Give formation/group commands useful
+meaning. Keep the battle visible; large permanent panels must not eat it.
+PROOF: selection and pause are reliable; commands acknowledge immediately and
+new intent normally begins within 0.25s, apart from physical turning/braking.
+The player can tell who is shooting whom and why a boat is disengaging.
+
+0.048 - REFITTING THAT CHANGES HOW A BOAT PLAYS
+A proper visual workshop: select physical mounts, inspect compatibility/arcs,
+compare performance and costs, assign weapon groups and save/apply loadouts.
+Engine, armor, pumps, ammunition and fittings create meaningful tradeoffs in
+speed, protection, endurance, firing arcs and damage-control capacity.
+Keep construction/refit labor, material costs and scarce stock real. Explain
+what a change does before the captain pays for it. Use the existing lab to try it.
+PROOF: at least three deliberately different builds of one suitable hull behave
+differently in the same encounter. Stronger equipment has a meaningful cost;
+there is no universally best shopping-list build.
+
+0.049 - THE WHOLE ROSTER REACHES THE ART AND ROLE STANDARD
+Bring the existing 24 combat boats and 12 civilian designs through the proven
+asset pipeline. Review silhouettes, materials, motors, mount sizes, previews,
+damage states and representative headings at normal zoom. Distinguish classes
+and factions without relying on color alone. Finish civilian holds/tanks/fishing
+gear and yacht identity. Give every hull a useful role or revise it.
+PROOF: no placeholder hull or gun remains in the shipped roster; small boats
+remain useful alongside large warships; existing boats are not just portraits
+sharing a generic live combat asset. Do not add filler hulls to claim breadth.
+
+0.050 - A COAST WORTH LOOKING AT AND NAVIGATING
+Replace bare land polygons and identical building grids with a designed coastal
+world: recognizable headlands, beaches/cliffs, reefs, vegetation, sea routes and
+harbors with distinct street/roof layouts and industry landmarks. Show shipyards,
+fishing towns, foundries and wealthy passenger ports as different places.
+Use inexpensive authored map/terrain art, sensible zoom levels and readable
+fleet/port presentation. Actual navigable land and its art must agree.
+PROOF: at default zoom, place, route and destination are readable and attractive.
+Regional art, harbor panels and battle terrain feel like the same world. Known
+exploration opportunities and traffic make the chart useful, not empty decoration.
+
+0.051 - FIRST-VOYAGE QUALITY MILESTONE
+Connect title, new captain, harbor, fitting, route, encounter, result, salvage,
+repair and return into one polished opening. Start with the cheap boat and a
+clear opportunity, enough reserves and choices that do not require a manual.
+A successful first voyage must pay for operation and enable a meaningful next
+fitting/fleet decision, not bury progress under wages and mandatory repairs.
+PROOF: the first 30 minutes make the next voyage appealing, the player can explain
+why a fight was won/lost, and buying a second boat is an understandable goal.
+A second run supports a different useful fitting or route. Art, command feel,
+AI and actual rendered performance must all clear milestone A. Assertion counts
+and eight seconds of autopilot do not substitute for this experience.
+
+0.052 - SATISFYING FLEET GROWTH AND LOGISTICS
+Turn existing cargo, fuel, crew, wages, repair stocks, storage and civilian hulls
+into comprehensible expedition preparation. Show operating days, return reserve,
+payload and the effect of adding a support boat. Keep ownership separate from
+battle deployment. Explain losses, morale, arrears, recovery and rescue loans.
+PROOF: cheap boat -> specialist partner -> capable mixed flotilla is viable;
+a tanker, transport or repair/support boat extends an expedition in a visible
+way. A 300-point deployment is a tactical choice, not a total ownership ceiling.
+
+0.053 - TRADE THAT CONNECTS THE LTV ECONOMY TO PLAYER DECISIONS
+Use the existing real purses, households, labor, production recipes, priorities
+and inventories. Present useful market information: dated prices, demand,
+shortages, delivery needs, voyage costs and expected risk-adjusted margin.
+Make deliveries change actual production and local buying opportunities.
+PROOF: the captain can find a profitable cargo, pay wages/fuel, deliver it, and
+observe a supplied shipyard or recovering shortage. Firms, households and the
+government still pay from their actual purses. More accounting screens alone
+are not a trade game, and arbitrary boat prices are not acceptable.
+
+0.054 - INDEPENDENT CAMPAIGN FLEETS WITH BELIEVABLE PURPOSE
+Finish observable merchants, escorts, patrols, pirates and hostile faction
+fleets pursuing actual cargo, protection, raids and operations. Use sightings,
+route costs, risk and supply; avoid omniscient pursuit of the player.
+Fleets fight each other without the player nearby. Off-screen resolution must
+preserve roster, damage, cargo, people, ammunition and repair/replacement costs,
+while remaining much cheaper than simulating every distant battle at 60Hz.
+PROOF: follow one real shipment, raid and patrol response from departure to
+survivors, delivered/stolen cargo and funded repair/replacement. It must still
+happen when the player sails elsewhere. Explain sightings/events in useful intel.
+
+0.055 - FACTIONS, CONTACTS AND OPPORTUNITY
+Make faction identity visible in art, equipment, doctrine, trade interests and
+behavior. Explain hostility, inspections, commissions, restricted access,
+smuggling consequences and rewards. Contacts remember meaningful witnessed
+work and offer compatible jobs; intelligence has an age and location.
+PROOF: choosing whom to help changes concrete prices/access/jobs/safety or
+faction support. Rival factions fight for understandable reasons. Reputation
+is more than an unexplained number or a random attack switch.
+
+0.056 - EXPLORATION WITH DISCOVERY AND PAYOFF
+Complete the postponed original island expedition, then establish reusable
+content patterns without a sprawling new story engine: clues, survey stages,
+resource finds, hidden anchorages, abandoned facilities and disputed salvage.
+Mix authored surprises with replay variation. Tie discovery to useful equipment,
+trade leads, recovery, contacts or access, not only generic coin awards.
+PROOF: one voyage combines a job, a worthwhile discovery and an optional risk;
+a clue changes the next destination. The player can choose how far to push
+before supplies and the return journey become dangerous. Clear milestone B.
+
+0.057 - SALVAGE, PRIZES AND RECOVERY AS REAL CHOICES
+Make post-battle recovery fast to understand and consequential: recover a hull,
+remove valuable machinery/weapons, strip supplies, tow or leave a prize.
+Cargo space, towing performance, repair crews, danger and equipment condition
+shape the choice. Preserve actual custody and module identities.
+PROOF: a poor captain can make a memorable fleet upgrade from a difficult
+recovery, while stripping a wreck can be the smarter choice on another trip.
+No reward screen silently duplicates a boat, crew, cargo or item.
+
+0.058 - CIVILIAN CAREERS THAT REMAIN INTERESTING
+Polish fishing, freight, fuel delivery and passenger/yacht work using the real
+civilian roster and existing funded jobs. Add route/risk choices, useful
+specialization, recurring clients and demand, not four reskinned delivery buttons.
+Cargo and passenger value create actual piracy/escort opportunities.
+PROOF: each civilian career pays its operating costs, progresses to a useful
+larger/different vessel and provides decisions beyond waiting for a timer.
+A merchant or fisher is a supported way to play, not a combat career's chore.
+
+0.059 - CAPTAINS, CREWS AND FLEET ATTACHMENT
+Use paid officers/specialists, crew skill, morale, wounds and boat histories
+to make a flotilla personal. Doctrine and fitting should agree with actual AI
+behavior. Keep people numerical; do not introduce crew animation work.
+Present training, recruitment, wages and losses clearly through existing labor
+and purse systems. Avoid mandatory micro-management of every sailor.
+PROOF: two officers/builds of a comparable boat can be tactically distinct;
+an experienced vessel has a useful history and losing it matters without
+making recovery or a new captain's progression unreasonable.
+
+0.060 - A REGION THAT CHANGES AND A REASON TO STAY
+Connect supplied faction operations, blockades, relief, harbor development,
+optional storage/business/home harbor and regional story consequences.
+Use actual goods, workers, capital and shipping to enable expansion or repair.
+Keep long-term objectives aligned with the fleet RPG; do not turn this into an
+unrelated nation simulator. Make larger civilian targets and sustained conflict
+create valuable opportunities for explorers, merchants and privateers alike.
+PROOF: the player can help secure a corridor or develop a harbor and see the
+result in traffic, safety, inventories and faction opportunity. Operations
+stall or fail for explained resource/strategic reasons, not arbitrary resets.
+
+0.061 - WHOLE-GAME QUALITY MILESTONE
+Bring the art, sound, interfaces, progression, economy, AI, exploration, recovery
+and regional consequences together. Review early/mid/late fleet compositions,
+all six careers and differing faction relationships. Finish practical onboarding,
+settings, save/load/migration, clear failure recovery and content variety.
+Assess actual gameplay recordings and play feedback alongside focused tests.
+PROOF: there are compelling reasons for the next battle, next refit, next boat
+and next expedition; the careers remain viable; the campaign creates memorable
+choices and consequences; current full-battle rendered performance meets target.
+If any pillar still fails the intended quality level, keep that milestone open
+and plan the specific remaining work. Do not declare 'as good as Starsector'
+because this version number or the end of a checklist has been reached.
+
+HOW WORK IS EXECUTED
+Each release has one written scope and observable play result. Do the art and
+behavior design before broad implementation. Helpers own separate files/tasks
+under the user's chosen Bridge team when implementation is authorized. Root
+reviews integration and actual game presentation, rather than farming out
+unrelated micro-features and calling their isolated checks a complete game.
+The first three boats establish the standard before producing the other 33.
+Use the existing project maps, developer tools, laboratory, queue and short
+benchmark tooling. No new coordination, certification or test-framework project.
+Existing features should be finished/reworked where needed rather than built
+again under new names. Keep the next-version scope small enough to complete;
+larger milestones span the listed increments.
+
+VALIDATION AND SCHEDULING
+The entire selected automated batch stays below120seconds, including setup,
+import, export, startup, measurements and cleanup. Choose a few useful cases;
+do not evade this rule with endless repeat batches or the old full-game matrix.
+Use the machine-wide read-only detector and shared FIFO. Queue behind other
+Godot/Unity editors, players, exported games and leases. Never close or control
+someone else's application. No mouse, keyboard or foreground test takeover.
+Any GPU/rendered capture must use authorized background/offscreen facilities
+and the same shared lane; planning does not authorize a GPU run or a download.
+Preserve the existing test resource limits unless explicitly changed through
+the supported authorization path. The short capped regression profile and a
+normal-runtime rendered performance profile are distinct and must be labeled.
+CPU primitive captures, logic checks and source advisories cannot sign off
+rendered FPS, sound listening or fun. Use actual rendered assets/gameplay and
+recorded weapon sounds for those reviews when execution is authorized. Do not
+require a new user approval for every ordinary source edit or small milestone.
+Longer experiential review is gameplay feedback, not an excuse for a background
+multi-hour automated soak or a test suite that exceeds the two-minute rule.
+
+RECORDS AND STATUS
+ROADMAP.md: the next scope, currently planned0.042 only.
+VERSION MAP.txt: this proposed20-version sequence, with milestone status.
+This document: full quality requirements and rationale.
+Existing0.032-0.041 completion records remain historical implementation
+receipts; their DONE labels never meant the finished game met this quality bar.
+No executable, save, launcher, build number or release tag changes in this
+planning task. The currently installed game remains v0.041.
+
+DESIGN REFERENCE
+The owner's Starsector experience is the primary experiential benchmark.
+Fractal Softworks' historical official manual documents differentiated combat
+assignments such as harass, strike, escort and civilian rally. Those illustrate
+why fleet roles and understandable commands matter; this plan applies the
+principle to motorboats with the owner's control preferences, rather than
+claiming the old manual describes all current Starsector behavior or balance.
+https://www.fractalsoftworks.com/starfarer/docs/StarfarerManual.pdf
+The roadmap's quality targets and naval adaptations are our proposed design,
+not performance measurements or promises made by Fractal Softworks.
