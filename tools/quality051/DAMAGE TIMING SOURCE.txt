@@ -1,0 +1,24 @@
+051 DAMAGE TIMING PROBE - SOURCE ONLY, native/GPU UNRUN
+Parent b8836ac; Damage bytes matched Root c9379b9 before editing.
+Only damage.gd and this handoff changed. Existing untracked audit preserved.
+
+Adds 13 fixed scalars under runtime_profile043().cache, using the existing
+enabled flag, reset loop and detached getter. Default OFF: no clock calls,
+counter writes or profiling helper calls. Main-thread only; no worker handles,
+logs, new per-call arrays, tests, harness, behavior or optimization changes.
+
+phaseEntryCalls/Us cover every _phase_entry043 exit, including public fallback.
+Existing phaseLookups/Hits retain their active-phase-only meaning.
+statusInputsCalls/Us measure the original 18-value array construction.
+statusFreshCalls/Us cover comparison plus changed-input copying, status math
+and freezing; statusReuseCalls/Us cover unchanged-input comparison. Both exclude
+the separately timed input construction. sealedStatusHits counts successful
+sealed returns bypassing _status_from_entry043; it is count-only.
+battleTickGuardCalls/Us include owner lookup, invalidation and healthy proof;
+battleTickCalls/Us cover healthy/canonical/public ticks and canonical cleanup.
+One shared clock boundary splits guard/tick; other timed functions use two
+clock reads. Nested status/input work remains included in enclosing totals;
+do not sum inclusive totals. Probe/clock overhead remains in measurements.
+
+Single source API advisory: issues[], engineInvokedfalse. Diff check clean.
+No engine/helpers/tests/profile run; no performance claim. Root owns acceptance.

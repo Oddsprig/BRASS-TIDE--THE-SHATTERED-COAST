@@ -29,7 +29,8 @@ class BattlePhase043:
 
 # Opt-in, process-local diagnostics only. Never retained in a boat or battle.
 static var _runtime_profile043_enabled: bool = false
-static var _runtime_profile043_counts: Dictionary = {"cacheFrames":0,"cacheLookups":0,"cacheHits":0,"cacheMisses":0,"unavailableMisses":0,"missingOwnerMisses":0,"invalidEntryMisses":0,"ownerIdentityMisses":0,"valueMisses":0,"expiryMisses":0,"expiryEvictions":0,"ownerIdentityEvictions":0,"explicitEvictions":0,"limitEvictions":0,"cacheStores":0,"phaseLookups":0,"phaseHits":0}
+static var _runtime_profile043_counts: Dictionary = {"cacheFrames":0,"cacheLookups":0,"cacheHits":0,"cacheMisses":0,"unavailableMisses":0,"missingOwnerMisses":0,"invalidEntryMisses":0,"ownerIdentityMisses":0,"valueMisses":0,"expiryMisses":0,"expiryEvictions":0,"ownerIdentityEvictions":0,"explicitEvictions":0,"limitEvictions":0,"cacheStores":0,"phaseLookups":0,"phaseHits":0,
+	"phaseEntryCalls":0,"phaseEntryUs":0,"statusInputsCalls":0,"statusInputsUs":0,"statusFreshCalls":0,"statusFreshUs":0,"statusReuseCalls":0,"statusReuseUs":0,"sealedStatusHits":0,"battleTickGuardCalls":0,"battleTickGuardUs":0,"battleTickCalls":0,"battleTickUs":0}
 
 static func set_runtime_profile043(enabled: bool) -> void:
 	_runtime_profile043_enabled = enabled
@@ -45,6 +46,22 @@ static func runtime_profile043() -> Dictionary:
 static func _runtime_profile043_miss(reason: String) -> void:
 	_runtime_profile043_counts.cacheMisses += 1
 	_runtime_profile043_counts[reason] += 1
+
+static func _runtime_profile043_phase_finished(started: int) -> void:
+	var elapsed: int = Time.get_ticks_usec() - started
+	_runtime_profile043_counts.phaseEntryCalls += 1
+	_runtime_profile043_counts.phaseEntryUs += elapsed
+
+static func _runtime_profile043_battle_guard_finished(started: int) -> int:
+	var now: int = Time.get_ticks_usec()
+	_runtime_profile043_counts.battleTickGuardCalls += 1
+	_runtime_profile043_counts.battleTickGuardUs += now - started
+	return now # Shared guard/tick boundary; no extra clock call.
+
+static func _runtime_profile043_battle_tick_finished(started: int) -> void:
+	var elapsed: int = Time.get_ticks_usec() - started
+	_runtime_profile043_counts.battleTickCalls += 1
+	_runtime_profile043_counts.battleTickUs += elapsed
 
 static func _runtime_profile043_rejection(s: Dictionary, entry: Dictionary) -> String:
 	# Classify only an already rejected entry; never decide cache eligibility.
@@ -177,7 +194,12 @@ static func begin_frame_cache(frame_cache: Dictionary, ships: Array) -> void:
 static func _status_inputs(s: Dictionary) -> Array:
 	# Fuel magnitude does not affect status; crossing zero does. Cooldowns,
 	# ammunition and pose are live inputs to firing/motion, not this projection.
-	return [s.get("hp"),s.get("maxHp"),s.get("water"),s.get("capacity"),s.get("fire"),s.get("crew"),s.get("wounded"),s.get("shoreCrew",0),s.get("crewMin"),s.get("crewOptimal"),s.get("crewMax"),s.get("supplies"),number(s.get("fuel"))>0.0,s.get("sunk"),s.get("armor"),s.get("policy","balanced"),s.get("supportRepairFactor",1.0),s.get("breaches",[])]
+	var profile_started: int = Time.get_ticks_usec() if _runtime_profile043_enabled else 0
+	var inputs: Array = [s.get("hp"),s.get("maxHp"),s.get("water"),s.get("capacity"),s.get("fire"),s.get("crew"),s.get("wounded"),s.get("shoreCrew",0),s.get("crewMin"),s.get("crewOptimal"),s.get("crewMax"),s.get("supplies"),number(s.get("fuel"))>0.0,s.get("sunk"),s.get("armor"),s.get("policy","balanced"),s.get("supportRepairFactor",1.0),s.get("breaches",[])]
+	if _runtime_profile043_enabled:
+		_runtime_profile043_counts.statusInputsUs += Time.get_ticks_usec() - profile_started
+		_runtime_profile043_counts.statusInputsCalls += 1
+	return inputs
 
 static func _freeze_status(status: Dictionary) -> Dictionary:
 	# Internal readers borrow this immutable projection. Public get_status_cached
@@ -386,19 +408,32 @@ static func _healthy_battle_entry051(s: Dictionary, entry: Dictionary) -> bool:
 	return true
 
 static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase) -> Dictionary:
+	var profile_started: int = Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	if phase is BattlePhase043: phase.readsSealed051 = false
 	var entry: Dictionary = _battle_entry051(s,phase.owned) if phase is BattlePhase043 and phase.active else {}
-	if entry.is_empty(): return tick_ship(s,dt,{"inCombat":true},phase)
+	if entry.is_empty():
+		if _runtime_profile043_enabled: profile_started = _runtime_profile043_battle_guard_finished(profile_started)
+		var fallback: Dictionary = tick_ship(s,dt,{"inCombat":true},phase)
+		if _runtime_profile043_enabled: _runtime_profile043_battle_tick_finished(profile_started)
+		return fallback
 	invalidate_frame_cache(phase.source,s)
 	if _healthy_battle_entry051(s,entry):
-		return _tick_healthy_cached(s,maxf(0.0,number(dt)),entry,phase.source,true)
+		if _runtime_profile043_enabled: profile_started = _runtime_profile043_battle_guard_finished(profile_started)
+		var healthy: Dictionary = _tick_healthy_cached(s,maxf(0.0,number(dt)),entry,phase.source,true)
+		if _runtime_profile043_enabled: _runtime_profile043_battle_tick_finished(profile_started)
+		return healthy
 	if not bool(entry.valid):
 		_drop_battle_owner051(phase.owned,s)
-		return tick_ship(s,dt,{"inCombat":true},phase)
+		if _runtime_profile043_enabled: profile_started = _runtime_profile043_battle_guard_finished(profile_started)
+		var fallback: Dictionary = tick_ship(s,dt,{"inCombat":true},phase)
+		if _runtime_profile043_enabled: _runtime_profile043_battle_tick_finished(profile_started)
+		return fallback
+	if _runtime_profile043_enabled: profile_started = _runtime_profile043_battle_guard_finished(profile_started)
 	var result: Dictionary = _tick_canonical_with(s,maxf(0.0,number(dt)),{"inCombat":true},
 		EquipmentDamage._battle_info051.bind(entry),EquipmentDamage._battle_repair051.bind(entry),
 		EquipmentDamage.Records._battle_publish051.bind(entry),EquipmentDamage._battle_absorb051.bind(entry))
 	if not bool(entry.valid): _drop_battle_owner051(phase.owned,s)
+	if _runtime_profile043_enabled: _runtime_profile043_battle_tick_finished(profile_started)
 	return result
 
 static func _apply_hit_in_battle051(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator, frame_cache, owned) -> Array:
@@ -414,8 +449,11 @@ static func _apply_hit_in_battle051(s: Dictionary, hit: Dictionary, rng: RandomN
 static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
 	# Main-thread Battle only, without await. Official writers revoke/dirty proof;
 	# unsealed status readers also check every live scalar input.
+	var profile_started: int = Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	if not (frame_cache is BattlePhase043) or not frame_cache.active:
-		return _cached_entry(s, frame_cache)
+		var cached: Dictionary = _cached_entry(s, frame_cache)
+		if _runtime_profile043_enabled: _runtime_profile043_phase_finished(profile_started)
+		return cached
 	if _runtime_profile043_enabled: _runtime_profile043_counts.phaseLookups += 1
 	var owned = frame_cache.owned
 	if owned is BattleOwned051 and owned.active:
@@ -425,18 +463,22 @@ static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
 				and bool(borrowed.get("valid",false)) and int(borrowed.infoGeneration) == int(borrowed.generation)
 				and borrowed.priority == s.moduleCondition.get("repairPriority")):
 			if _runtime_profile043_enabled: _runtime_profile043_counts.phaseHits += 1
+			if _runtime_profile043_enabled: _runtime_profile043_phase_finished(profile_started)
 			return borrowed
 		var owned_entry: Dictionary = _battle_entry051(s,owned)
 		if not owned_entry.is_empty():
 			frame_cache.entries[owner_slot] = owned_entry
+			if _runtime_profile043_enabled: _runtime_profile043_phase_finished(profile_started)
 			return owned_entry
 	var slot: String = _find_cache_slot(s, frame_cache.source)
 	var entry = frame_cache.entries.get(slot)
 	if entry is Dictionary and is_same(entry.get("shipRef"), s) and is_same(frame_cache.source.get(slot), entry) and int(entry.get("framesLeft", 0)) > 0:
 		if _runtime_profile043_enabled: _runtime_profile043_counts.phaseHits += 1
+		if _runtime_profile043_enabled: _runtime_profile043_phase_finished(profile_started)
 		return entry
 	entry = _cached_entry(s, frame_cache.source)
 	if not entry.is_empty(): frame_cache.entries[slot] = entry
+	if _runtime_profile043_enabled: _runtime_profile043_phase_finished(profile_started)
 	return entry
 
 static func _inspect_owner_in_phase043(s: Dictionary, frame_cache = null) -> Dictionary:
@@ -455,6 +497,7 @@ static func _read_status_in_phase043(s: Dictionary, frame_cache = null) -> Dicti
 	# statusInputs. Motion's fuel-zero crossing remains live on EVERY read.
 	if (frame_cache.readsSealed051 and bool(entry.get("valid",false))
 			and entry.statusInputs.size() > 12 and (number(s.get("fuel")) > 0.0) == entry.statusInputs[12]):
+		if _runtime_profile043_enabled: _runtime_profile043_counts.sealedStatusHits += 1
 		return entry.status
 	return _status_from_entry043(s, entry)
 
@@ -469,10 +512,18 @@ static func read_status_cached(s = null, frame_cache = null) -> Dictionary:
 
 static func _status_from_entry043(s: Dictionary, entry: Dictionary) -> Dictionary:
 	var inputs: Array = _status_inputs(s)
+	# Exclude the separately timed input collection from comparison/fresh math.
+	var profile_started: int = Time.get_ticks_usec() if _runtime_profile043_enabled else 0
 	if inputs != entry.statusInputs:
 		entry.statusInputs = inputs.duplicate(true)
 		entry.status = _freeze_status(_status_for_info(s,entry.info))
 		entry.healthy = false # Re-prove no-work eligibility at the next damage tick.
+		if _runtime_profile043_enabled:
+			_runtime_profile043_counts.statusFreshUs += Time.get_ticks_usec() - profile_started
+			_runtime_profile043_counts.statusFreshCalls += 1
+	elif _runtime_profile043_enabled:
+		_runtime_profile043_counts.statusReuseUs += Time.get_ticks_usec() - profile_started
+		_runtime_profile043_counts.statusReuseCalls += 1
 	return entry.status
 
 static func get_status_cached(s = null, frame_cache = null) -> Dictionary:
