@@ -3,11 +3,12 @@ BRASS TIDE - STARSECTOR QUALITY ROADMAP
 
 CURRENT EXECUTION STATUS
 Delivered through v0.050; v0.051 is active. The installed launcher remains
-v0.050. Milestone A is OPEN; v0.052 breadth has not started. R36's focused
-1,387 checks, actual opening voyage, export and three starts pass in81.563s.
-Actual R17 full300DP battles still miss runtime targets and retain11 light /
-1 mixed planner deadlocks. Three Bridge Sol6.1MAX helpers are implementing
-bounded worker-handoff, contact-convergence and crowd-escape corrections.
+v0.050. Milestone A is OPEN; v0.052 breadth has not started. R37's focused
+1,669 checks, actual opening voyage, export and three starts pass in84.656s.
+Actual R18 full300DP battles still miss runtime targets and retain5 light /
+1 mixed planner deadlocks. Three Bridge Sol6.1MAX handoffs now add synchronized
+reservation egress, semantic-only retention and smaller planning cohorts.
+These new source changes await native R38 and actual runtime R19 verification.
 The baseline findings below are historical context, not current measurements.
 
 THE TARGET

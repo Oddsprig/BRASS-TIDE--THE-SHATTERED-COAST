@@ -1,18 +1,22 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
 VALIDATION UPDATE - 27 October 2026
-R37 d25e0f06988745e4868b87443bce8f43 PASS1669/0 in84.656s including setup,
-export/three starts/cleanup. Geometry624/contact208/worker157/retained148,
-traffic40/fire123/actual paid opening voyage274. All three source fixes verified.
-Actual R18 c32b538e651d44fd99cddcc35cf95a66 completed58.093s, quality FAILED:
-42light8.889FPS/17.692ms simulation;16mixed59.901FPS/7.002ms. Light41 boats
-ever moved,31 moving at end,83 shots. Remaining deadlocks5light/1mixed.
-Root reviewed both actual end PNGs. Improved movement does not establish a
-performance pass. Worker fallback remains1750/2848due, about61percent.
-Three existing Bridge Sol6.1MAX source-only proposals cover remaining escape
-pipeline rejection, whole-worker waste and low stable-role retention. No new
-engine job, instrumentation framework or further implementation approved yet.
-Physical hulls/current60Hz/all actors/current checks and conserved coins stay.
+R37 d25e0f06988745e4868b87443bce8f43 PASS1669/0,84.656s inclsetup/export/
+three starts. Actual R18 c32b538e651d44fd99cddcc35cf95a66 quality FAILED:
+42light8.889FPS/17.692ms;16mixed59.901FPS/7.002ms;5light/1mixed deadlocks.
+Light41ever moved/31moving/83shots. Movement improved; performance unacceptable.
+Next bounded source candidates reviewed and integrated:
+- Nav0203279 ->27ad5a5: synchronized relative reservation-prefix egress above
+  physical floors; actual Ash/Tin generation-to-reservation-to-helm fixture.
+- Perf4e1c4f3 ->e0980a5: independently joined fair-cap cohorts, TWO unfinished
+  tasks including retired; SIDE150ms allowances2900traffic+128proof/fourroutes.
+- Roles04a2bcd ->d680e14: semantic eligibility has no movement/fire authority;
+  physical veto clears intents/reservations immediately. Fresh complete decision
+  consumed once; recertification preserves ORIGINAL chosenAt+.45 hard deadline.
+Root combined source advisory0issues. All new native behavior/performance UNRUN.
+Next R38 existing focused batch hard119s inclsetup/export/three starts; only
+then actual R19 full42/16/300DP per side/current60Hz. No extra test framework.
+Grok source render-cost proposal retained, implementation deferred as unmeasured.
 Desktop050 retained; no051tag/package/install/no052 while core gate OPEN.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
