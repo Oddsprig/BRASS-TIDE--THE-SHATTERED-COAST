@@ -9,7 +9,7 @@ const Driver=preload("res://scripts/battle_driver051.gd")
 const Main=preload("res://scripts/main.gd")
 const Lab=preload("res://scripts/fleet_lab.gd")
 const STEP: float=1.0/30.0
-const SPEC={"id":"worker-proof051","name":"Worker proof","hp":1000.0,"armor":0.0,"crewMin":2,"crewOptimal":12,"crewMax":30,"size":16,"speed":50.0,"turn":2.0,"pumps":1,"weapon":"gun","damage":20.0,"fireRate":2.0,"range":1500.0,"deploymentPoints":20,"weaponMounts":[{"id":"proof-ray","kind":"gun","damage":20.0,"fireRate":2.0,"range":1500.0,"speed":18000.0,"ammoCost":2,"x":8.0,"y":0.0,"arc":6.28318530718,"angle":0.0}]}
+const SPEC={"id":"worker-proof051","name":"Worker proof","hp":1000.0,"armor":0.0,"crewMin":2,"crewOptimal":12,"crewMax":30,"size":16,"speed":50.0,"turn":2.0,"pumps":1,"weapon":"gun","damage":20.0,"fireRate":2.0,"range":1500.0,"deploymentPoints":20,"weaponMounts":[{"id":"proof-ray","kind":"gun","damage":20.0,"fireRate":2.0,"range":1500.0,"speed":5000.0,"ammoCost":2,"x":8.0,"y":0.0,"arc":6.28318530718,"angle":0.0}]}
 var checks: int=0
 var failures: int=0
 var began_us: int=0
@@ -168,16 +168,25 @@ func commands_pause_and_child_cleanup() -> void:
 
 func terminal_result() -> void:
 	var initial: Dictionary=arena()
+	# The public mount speed limit is5000, or166.7 units per30Hz step.
+	# A100-unit gap keeps hulls separate and lets the real shot sweep the target.
+	initial.ships[1].x=initial.ships[0].x+100.0
+	initial.tactical.home[str(initial.ships[1].id)]={"x":initial.ships[1].x,"y":initial.ships[1].y}
 	initial.ships[1].hp=1.0;initial.ships[1].crew=0.0
+	var starting_ammo: float=float(initial.ships[0].ammo)
 	var driver=Driver.new(initial)
 	var events: Array=[]
 	var mirror: Dictionary=await joined_steps(driver,input_for(initial),1,events)
 	check(mirror.result=="won" and mirror.ships[1].sunk and mirror.wrecks.size()==1,"actual worker final shot publishes victory, sunk hull and cosmetic wreck")
 	var final: Dictionary=driver.retire();events.append_array(driver.take_events())
+	var fires: Array=events.filter(func(event):return event.kind=="fire" and str(event.sourceId)==str(final.ships[0].id))
+	var hits: Array=events.filter(func(event):return event.kind=="hit" and str(event.targetId)==str(final.ships[1].id))
+	check(fires.size()==1 and hits.size()==1 and is_equal_approx(starting_ammo-float(final.ships[0].ammo),2.0),"terminal swept shot emits once, hits the separate current target and debits exactly two rounds")
 	var snapshot: Dictionary={"ships":final.ships.duplicate(true),"shots":final.projectiles.duplicate(true),"time":final.time,"result":final.result}
 	B.advance_visuals(final,0.1)
 	check(final.time==snapshot.time and final.result==snapshot.result and final.ships==snapshot.ships and final.projectiles==snapshot.shots,"retired result permits cosmetic tail without numerical motion/crew/stores work")
 	check(events.any(func(event):return event.kind=="sink") and T.Planner._tasks051.is_empty(),"final result feedback drains with all tactical children joined")
+	check(events.filter(func(event):return event.kind=="sink").size()==1 and driver.take_events().is_empty(),"terminal sink feedback drains exactly once through retirement")
 	observations.append({"case":"terminal","telemetry":driver.telemetry(),"result":final.result})
 
 func actual_main_lab_entry() -> void:

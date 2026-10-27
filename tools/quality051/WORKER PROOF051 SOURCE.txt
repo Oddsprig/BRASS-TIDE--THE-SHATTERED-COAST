@@ -74,7 +74,7 @@ No old assertions or selectors were edited. Four bounded observable cases:
 1. A real30-step manual1/30 Battle.update reference runs to completion BEFORE
    driver acquisition. Real joined WorkerThreadPool driver steps then compare
    pose/velocity/hp/crew/water/engine/fuel/ammo/supplies and the seeded emitted
-   event stream. Fast18000m/s actual rays cross the target within a single step;
+   event stream. Public validated5000-speed rays sweep the target during flight;
    hits plus exact ammunition and paid breach repair are mandatory. Nested Main
    snapshot/original-owner mutation must not enter authority, and retained
    snapshots must remain unchanged. Thread identity must differ from Main.
@@ -127,3 +127,31 @@ General Main title/result retirement must also drain any final events from an
 already-running job before dropping its driver handle; Main lead/Root owns that
 production seam. No peer file was edited here. No test result is inferred from
 reading this wiring.
+
+R64 TERMINAL FIXTURE FOLLOW-UP - SOURCE ONLY
+Prior candidate31c2549 remains intact. Root's R64 job
+bec05067203846e1bca4cf284451421d completed33.719s whole, cleanuptrue,
+native parse/importPASS; worker fixture110checks/2failures, BOTH terminal case.
+Exact native.log reports resultnull after completedSteps1/stateTime1/30;
+the victory/sunk/wreck and sink-event assertions failed. Other cases passed in
+that receipt, including30-step synchronous/resource/event equivalence, six FIFO
+commands, pause, child retirement and actual Main/Lab entry.
+
+Cause verified from public Battle._base_mounts: requested18000 is clamped to5000,
+so a shot covers166.7 units per1/30 step and cannot reach the original300-unit
+gap on its first step. Damage.apply_hit sanitizes hp into sunk immediately;
+Battle.update records wreck/sink/victory after actual projectile processing.
+The fixture input assumed an unvalidated speed; gameplay needs no change.
+
+Follow-up requests5000 explicitly (same effective public speed as R64) and
+moves ONLY the terminal target to a100-unit, non-overlapping gap before driver
+acquisition, keeping its tactical home consistent. One real joined worker step
+must still produce victory, sunk hull, one wreck and sink feedback. All prior
+assertions remain. Added terminal one-fire/one-hit/exact-two-round debit and
+single sink/empty second drain assertions. No inserted projectile, capsule edit,
+production change, fake completion or relaxed result/resource/event assertion.
+Earlier raw18000-as-actual handoff claim corrected above; the unchanged300-unit
+manual-reference arena permits real flight over multiple steps.
+
+Follow-up source/diff review ONLY. NO engine/tests/advisories/helpers run here.
+Root owns execution of this corrected candidate; R64 remains a failed receipt.
