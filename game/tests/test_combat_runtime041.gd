@@ -99,6 +99,67 @@ func route_state(ship: Dictionary,islands: Array,allies: Array=[]) -> Dictionary
 	t.cells=Routes.grid([ship]+allies);t.geometry=Routes.terrain(st)
 	return st
 
+func traffic_query_checks(source: Dictionary) -> void:
+	var fleet: Array=[]
+	for index in range(42):
+		var ship: Dictionary=source.duplicate(true)
+		ship.id="traffic-"+str(index);ship.team="player" if index<21 else "enemy"
+		ship.x=80.0+float(index%7)*340.0;ship.y=70.0+float(index/7)*260.0
+		ship.vx=float(index%5-2)*65.0;ship.vy=float(index%3-1)*80.0
+		ship.spec.size=10.0+float(index%4)*6.0
+		fleet.append(ship)
+	fleet[1].x=90.0;fleet[1].y=70.0;fleet[1].vx=0.0;fleet[1].vy=0.0
+	fleet[2].sunk=true;fleet[3].captureSecured=true
+	var plain: Dictionary=Routes.grid(fleet)
+	var shared: Dictionary=Routes.grid(fleet,true)
+	var queries: Array=[
+		[Vector2(80,70),Vector2(110,70),14.0,0.0,DT],
+		[Vector2(600,850),Vector2(1400,850),20.0,0.0,5.0],
+		[Vector2(1400,850),Vector2(600,850),32.0,5.0,12.0],
+		[Vector2(-500,-200),Vector2(2800,2000),10.0,0.0,0.2],
+		[Vector2(159.999,319.999),Vector2(160,320),0.0,0.0,2.0],
+		[Vector2(4000,4000),Vector2(4100,4100),1.0,0.0,1.0]]
+	var equal_members: bool=true
+	var equal_traffic: bool=true
+	var outcomes: Dictionary={}
+	# The second pass hits populated windows with different budgets. No narrow
+	# phase status or budget result may be shared along with the neighbour list.
+	for repeat in range(2):
+		for query: Array in queries:
+			equal_members=equal_members and var_to_bytes(Routes.neighbours(plain,query[0],query[1],query[2]))==var_to_bytes(Routes.neighbours(shared,query[0],query[1],query[2]))
+			for limit in [0,1,4,4096]:
+				var old_budget: Dictionary={"clearanceTests":2,"clearanceLimit":limit+2,"exhaustions":0}
+				var new_budget: Dictionary=old_budget.duplicate()
+				var expected: String=Routes.occupied(plain,fleet[0],query[0],query[1],query[2],query[3],query[4],old_budget)
+				var actual: String=Routes.occupied(shared,fleet[0],query[0],query[1],query[2],query[3],query[4],new_budget)
+				equal_traffic=equal_traffic and actual==expected and new_budget==old_budget
+				outcomes[actual]=true
+	check(equal_members,"shared traffic windows preserve exact ordered neighbour payloads, cell edges, reverse/long sweeps and outside-grid queries")
+	check(equal_traffic and outcomes.has("valid") and outcomes.has("blocked") and outcomes.has("pending"),"cold/reused traffic checks preserve actual swept-hull outcomes and every budget debit/exhaustion")
+	var a: Vector2=Vector2(-500,-200);var b: Vector2=Vector2(2800,2000)
+	var expected: Array=Routes.neighbours(plain,a,b,10.0)
+	var published: Array=Routes.neighbours(shared,a,b,10.0)
+	published.clear()
+	check(Routes.neighbours(shared,a,b,10.0)==expected and not expected.is_empty(),"editing a public neighbour Array cannot poison a shared route/fire query")
+	var overflow_equal: bool=true
+	for index in range(140):
+		var p: Vector2=Vector2(float(index%14)*160.0+80.0,float(index/14)*160.0+80.0)
+		overflow_equal=overflow_equal and Routes.neighbours(shared,p,p,1.0)==Routes.neighbours(plain,p,p,1.0)
+	check(overflow_equal and shared._queryCache.size()==128,"traffic query storage is bounded; uncached windows after saturation retain exact membership")
+	# Shared lists retain current owner references, never saved narrow-phase
+	# poses. This same-window repeat must respond to an actual hull-position edit.
+	var actor: Dictionary=source.duplicate(true);actor.id="traffic-actor";actor.x=500.0;actor.y=850.0;actor.vx=0.0;actor.vy=0.0
+	var ally: Dictionary=actor.duplicate(true);ally.id="traffic-ally";ally.x=505.0
+	var pair: Dictionary=Routes.grid([actor,ally],true)
+	var budget: Dictionary=route_budget()
+	check(Routes.occupied(pair,actor,Vector2(500,850),Vector2(510,850),20.0,0.0,DT,budget)=="blocked","shared broadphase still refuses a real close allied hull")
+	ally.x=1000.0;budget=route_budget()
+	check(Routes.occupied(pair,actor,Vector2(500,850),Vector2(510,850),20.0,0.0,DT,budget)=="valid","same-window reuse recomputes physical separation from the current owner")
+	var st: Dictionary={"tactical":{"ships":{str(actor.id):actor,str(ally.id):ally},"cells":pair}}
+	Tactical.after_motion(st)
+	check(not is_same(st.tactical.cells,pair) and st.tactical.cells._queryCache.is_empty() and Routes.neighbours(st.tactical.cells,Vector2(1000,850),Vector2(1000,850),1.0).has(ally),"post-motion rebuild discards old windows and sees a hull in its new cells")
+	report.trafficBroadphase={"actors":fleet.size(),"orderedMembershipEqual":equal_members,"trafficAndBudgetEqual":equal_traffic,"outcomes":outcomes,"overflowEqual":overflow_equal,"retainedWindows":shared._queryCache.size()}
+
 func route_checks(source: Dictionary) -> void:
 	var ship: Dictionary=source.duplicate(true)
 	ship.x=600.0;ship.y=850.0;ship.vx=0.0;ship.vy=0.0
@@ -179,6 +240,7 @@ func run() -> void:
 	check(bool(created.get("ok",false)),"canonical fixture boats use actual public fitting and deployment")
 	if bool(created.get("ok",false)):
 		cache_checks(created.battle.ships[0])
+		traffic_query_checks(created.battle.ships[0])
 		route_checks(created.battle.ships[0])
 		authority_checks(created.battle)
 		var benchmark=Benchmark.new()

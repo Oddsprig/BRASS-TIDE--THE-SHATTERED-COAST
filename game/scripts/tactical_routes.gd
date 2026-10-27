@@ -3,6 +3,7 @@ extends RefCounted
 const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
 const CACHE_LIMIT: int=128
+const GRID_QUERY_LIMIT: int=128
 
 static func spend(budget: Dictionary, count: int=1) -> bool:
 	if int(budget.clearanceTests)+count>int(budget.get("clearanceLimit",4096)):
@@ -80,8 +81,11 @@ static func sweep(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Di
 			if segment_distance(a,b,c,d)<r+0.001:return "blocked"
 	return "valid"
 
-static func grid(ships: Array) -> Dictionary:
+static func grid(ships: Array,reuse_queries: bool=false) -> Dictionary:
 	var cells: Dictionary={"_maxSpeed":0.0}
+	# Only Runtime's synchronous observation/post-motion phases opt in. Cell
+	# membership is fixed until the next grid build; no result survives that build.
+	if reuse_queries:cells._queryCache={}
 	for ship in ships:
 		if ship.get("sunk",false) or ship.get("captureSecured",false):continue
 		var r: float=maxf(10.0,float(ship.spec.get("size",16)))
@@ -97,20 +101,40 @@ static func grid(ships: Array) -> Dictionary:
 	return cells
 
 static func neighbours(cells: Dictionary,a: Vector2,b: Vector2,r: float) -> Array:
+	# Public callers own the Array, as before. Entries remain the original hull
+	# references, so live narrow-phase checks never borrow old poses/conditions.
+	var result: Array=_neighbours(cells,a,b,r)
+	return result.duplicate() if cells.has("_queryCache") else result
+
+static func _neighbours(cells: Dictionary,a: Vector2,b: Vector2,r: float) -> Array:
 	var lo: Vector2=a.min(b)-Vector2.ONE*r
 	var hi: Vector2=a.max(b)+Vector2.ONE*r
+	var min_x: int=maxi(-2,floori(lo.x/160.0))
+	var max_x: int=mini(17,floori(hi.x/160.0))
+	var min_y: int=maxi(-2,floori(lo.y/160.0))
+	var max_y: int=mini(13,floori(hi.y/160.0))
+	# neighbours has no geometric filter after this exact inclusive cell window.
+	# Identical windows therefore have identical membership AND discovery order.
+	var query: Vector4i=Vector4i(min_x,max_x,min_y,max_y)
+	var shared: bool=cells.has("_queryCache")
+	if shared and cells._queryCache.has(query):return cells._queryCache[query]
 	var result: Array=[]
 	var seen: Dictionary={}
-	for x in range(maxi(-2,floori(lo.x/160.0)),mini(17,floori(hi.x/160.0))+1):
-		for y in range(maxi(-2,floori(lo.y/160.0)),mini(13,floori(hi.y/160.0))+1):
+	for x in range(min_x,max_x+1):
+		for y in range(min_y,max_y+1):
 			for other in cells.get(Vector2i(x,y),[]):
 				if not seen.has(str(other.id)):
 					seen[str(other.id)]=true;result.append(other)
+	if shared and cells._queryCache.size()<GRID_QUERY_LIMIT:
+		result.make_read_only()
+		cells._queryCache[query]=result
 	return result
 
 static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary) -> String:
 	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
-	for other in neighbours(cells,a,b,r+80.0+extra):
+	# Borrow only the phase-local read-only broadphase. All exact ally sweeps and
+	# their ordered budget debits still run on every route/live safety query.
+	for other in _neighbours(cells,a,b,r+80.0+extra):
 		if str(other.id)==str(ship.id) or other.team!=ship.team:continue
 		if not spend(budget):return "pending"
 		var velocity: Vector2=Vector2(other.vx,other.vy)

@@ -428,7 +428,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		_order_lifetime(st,ship)
 		t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache))
 	_prune(t,t.ships,float(st.time))
-	t.cells=Routes.grid(t.observed.values())
+	t.cells=Routes.grid(t.observed.values(),true)
 	var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
 	var new_manual_id: String=str(st.get("playerId","")) if manual else ""
 	if new_manual_id!=str(t.manualId):
@@ -727,7 +727,7 @@ static func finish(st: Dictionary,ai_us: int) -> void:
 
 static func after_motion(st: Dictionary) -> void:
 	# All real helm movement publishes before ANY automatic fire target lookup.
-	st.tactical.cells=Routes.grid(st.tactical.ships.values())
+	st.tactical.cells=Routes.grid(st.tactical.ships.values(),true)
 
 static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
 	var t: Dictionary=st.tactical
