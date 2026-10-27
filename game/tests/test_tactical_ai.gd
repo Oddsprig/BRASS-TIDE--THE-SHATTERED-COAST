@@ -1347,6 +1347,39 @@ func worker_side_batches051() -> void:
 	T.retire_planning051(st);T.drain_planning051()
 	check(Planner._tasks051.is_empty(),"independent side-batch case joins every owned task")
 
+func worker_revoked_ready051() -> void:
+	for variant: String in ["stable","phase"]:
+		var arena: Dictionary=local_arena()
+		var st: Dictionary=arena.state
+		var source: Dictionary=arena.source
+		var id: String=str(source.id)
+		var lease: Dictionary=_worker_slot051(arena,false)
+		if lease.is_empty():T.retire_planning051(st);T.drain_planning051();continue
+		var slot: Dictionary=lease.slot
+		if not _worker_join051(slot):T.retire_planning051(st);T.drain_planning051();continue
+		var preference: Variant=_physical_preference_drop051(arena,lease.held,"ready-worker-"+variant)
+		if not preference is C._Preference051:T.retire_planning051(st);T.drain_planning051();continue
+		var original: Dictionary=slot.capsule.result.planning.get("originalPreferenceChosenAt051",{})
+		var chosen: float=float(original.get(id,slot.createdAt))
+		var before: PackedByteArray=var_to_bytes([st.ships,st.tactical.memory,st.tactical.lastDecision,st.rng.state])
+		check(Planner._ready_worker051(st,id) and var_to_bytes([st.ships,st.tactical.memory,st.tactical.lastDecision,st.rng.state])==before and not st.tactical.intents.has(id),"joined routing eligibility grants no memory, clock, physical authority or RNG work: "+variant)
+		if variant=="phase":
+			arena.target.x=float(source.x)+40.0;arena.target.y=source.y
+		var routed: int=int(T.runtime_profile043().get("workerReadyReplans051",0))
+		for tick: int in range(8):
+			B.update(st,1.0/60.0);B.pop_events(st)
+			if id in slot.adopted or id in slot.discarded:break
+		check(int(T.runtime_profile043().get("workerReadyReplans051",0))>routed,"real revoked maneuver offers its joined worker answer before another full retained observation: "+variant)
+		if variant=="stable":
+			check(id in slot.adopted and id not in slot.discarded,"ready stable answer survives physical-only revocation and reaches main certification")
+			var held: Variant=st.tactical.retained051.get(id)
+			check(held is C._Retained051 and held.chosen_at==chosen and float(held.record.certificate.checkedAt)==float(st.time) and int(held.record.certificate.snapshotRevision)==int(st.tactical.snapshotRevision),"ready handoff creates a current main certificate without renewing the worker's original semantic deadline")
+		else:
+			check(id in slot.discarded and id not in slot.adopted and str(st.tactical.memory.player.byId.get(id,{}).get("phase",""))=="breakaway" and float(st.tactical.lastDecision[id])==float(st.time),"changed current hostile phase rejects ready offers and publishes a full current escape decision in the same fair slot")
+		observations.append({"case":"workers-revoked-ready","variant":variant,"createdAt":slot.createdAt,"time":st.time,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate()})
+		T.retire_planning051(st);T.drain_planning051()
+		check(not Planner._ready_worker051(st,id) and Planner._tasks051.is_empty(),"retirement removes joined routing eligibility and drains every owned task: "+variant)
+
 func worker_prepared051() -> void:
 	var arena: Dictionary=local_arena()
 	var st: Dictionary=arena.state
@@ -1382,6 +1415,7 @@ func workers051() -> void:
 	duel_policy051()
 	worker_side_batches051()
 	worker_prepared051()
+	worker_revoked_ready051()
 	worker_handoff051()
 	var arena: Dictionary=local_arena()
 	var st: Dictionary=arena.state

@@ -693,6 +693,15 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			var expired051: Dictionary=Planner._take_worker051(st,str(t.ships[id].team),[id],_worker_capability051,frame_cache,_worker_wait_guard051,current051)
 			if _runtime_profile043_enabled:_runtime_profile043_counts.workerDrops+=int(expired051.get("dropped051",0))
 		observed_due051+=1
+		# A revoked physical maneuver must be certified again. Let an already
+		# joined suggestion attempt the EXISTING current-input/semantic guards
+		# first, instead of building a full retained observation that makes
+		# _prepare_with_worker051 discard that answer in favor of freshDecisions.
+		# Live retained authority still requires its normal observation below;
+		# rejection still runs a full current choice in this same fair due slot.
+		if not t.intents.has(id) and not t.retained051.get(id) is Certification._Retained051 and Planner._ready_worker051(st,str(id)):
+			if _runtime_profile043_enabled:_runtime_profile043_counts.workerReadyReplans051=int(_runtime_profile043_counts.get("workerReadyReplans051",0))+1
+			due.append(id);continue
 		if not _observe_retained051(st,str(id),frame_cache,current051):due.append(id)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.retainedDue+=observed_due051-due.size()

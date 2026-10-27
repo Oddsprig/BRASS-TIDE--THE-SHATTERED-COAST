@@ -93,6 +93,12 @@ static func _member_slot051(t: Dictionary, id: String) -> Dictionary:
 	if not t.has("workers051"): return {}
 	return t.workers051.slots.get(t.workers051.members051.get(id, -1), {})
 
+static func _ready_worker051(st: Dictionary, id: String) -> bool:
+	# Routing only: _take_worker051 still checks live owner/command/capability,
+	# and _join_preference051 checks current semantics before any main certificate.
+	var slot: Dictionary = _member_slot051(st.tactical, id)
+	return not slot.is_empty() and bool(slot.joined) and not bool(slot.retired) and slot.capsule != null and id in slot.remaining and float(st.time) >= float(slot.createdAt) and float(st.time) - float(slot.createdAt) <= WORKER_DEADLINE051 + 0.000001
+
 static func _worker_inputs_current051(st: Dictionary, side: String, id: String, slot: Dictionary, capability: Callable, frame_cache) -> bool:
 	var t: Dictionary = st.tactical
 	if not t.ships.has(id) or not slot.guards.has(id) or not t.mountCache.has(id): return false

@@ -1,0 +1,53 @@
+R20 PLANNING SOURCE - 27 October 2026
+Source-only candidate; no native test or measured speedup claim.
+Base: 81fd50e65da5d02beba44d6417ae60f3ea2de054 (supplied isolated workspace).
+Measured R20 source: 61840463398fcb3d18532173c240ee1fc7511ac8.
+Job: 5c4e03ccd9984d7aadb9613ef8c58ef6.
+Read both supplied runtime043-light.json and runtime043-mixed.json, plus
+R20 engagement and cost findings.json. Raw final tactical counters agree:
+light: 2788 fullDue, 140 dispatches, 584 adoptions, 2328 drops, 2204 fallbacks;
+mixed: 1311 fullDue, 160 dispatches, 191 adoptions, 1076 drops, 1120 fallbacks.
+Light median begin9565us; observation3498us (selection1818.5us), proposals1168.5us,
+certification2582.5us and resolution1328us. R20 quality remains FAILED.
+
+Cause found in source, not a measured per-reason attribution:
+Physical-only revocation removes intent/retained authority while keeping the
+original semantic preference. Begin calls _observe_retained051 before taking
+a joined worker answer. That call can build a complete current role/shortlist
+observation into freshDecisions051. _prepare_with_worker051 then prioritizes
+that fresh result and discards the ready worker answer, regenerating station
+offers and losing its prepared routes. Other drops (age, owner, events, phase,
+capability, etc.) remain legitimate; R20 has no reason histogram proving this
+seam's individual frequency or predicted savings.
+
+One lever: when BOTH physical intent and retained descriptor are absent, let
+a joined, unretired, unconsumed, <=150ms worker member enter the existing due
+handoff BEFORE building the replacement retained-role observation. This is
+routing only. _take_worker051 still checks owner/spec/mount identity, command,
+options, terrain, capability and target ownership. _join_preference051 still
+checks current memory/phase/pass/HP/danger/range/reload/shot/nearby-hostile and
+original semantic expiry predicates. Rejection makes a full current role
+choice in the same selected fair slot. Main still validates/refines/resolves
+and certifies all physical geometry/traffic; a ready answer grants no authority.
+Existing live intents and retained maneuvers take their original observation
+path. No cadence, deadline, task capacity, worker input, budget, path horizon,
+offer cap, physical check, fire gate, actor, weapon stat or 60Hz change.
+Opt-in workerReadyReplans051 counts how often the new routing is reached; it
+does not imply adoption or saved microseconds.
+
+Existing test_tactical_ai.gd workers case extended with real joined output and
+real occupied-step revocation: stable output must adopt with a fresh current
+main certificate and unchanged worker original choice time; a newly close
+hostile must reject it and publish the current breakaway decision. Pure ready
+checks must not publish clocks/memory/authority or advance RNG; retirement
+must remove eligibility and drain tasks. Existing assertions remain intact.
+
+Source verification ONLY: one check_preload_calls.py invocation over planner,
+runtime and the existing tactical AI fixture: advisoryOnly=true, issues=[].
+Diff reviewed; no engine, game, build, GPU, native fixture or CPU benchmark run.
+Root must run existing workers and retained cases plus the actual opening
+regression in its sole <=119s whole TestBridge batch. Only after passing exact
+current-source checks/export, compare actual full42/light and16/mixed rendered
+300DP-side runtime, selection/proposals/certification costs, new routing count,
+worker adoption/drop/fallback totals, current HP/phase response and stalls.
+Keep any failed/interrupted result. No tag/package/install/052 work.
