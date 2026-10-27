@@ -1,4 +1,4 @@
-BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.050)
+BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.051)
 
 Existing corridor fleets and paid supplies -> shared convoy/intercept/patrol plans, route-and-return readiness, observed stalls/resume and physical progress; other regional goals retained.
 

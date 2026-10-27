@@ -1,22 +1,22 @@
-BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.050)
+BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.051)
 
 Core/Records, paid physical fitting/damage and whole-campaign custody preflight feed integrated constructors/save migration/UI and paid Harbor/NPC service. Working live combat/tow has Lab99/0, equipment voyage67/0 and salvage voyage14/0; remaining gates stay open; legacy counts cannot create free perfect parts.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/equipment_condition.gd: 53305 bytes; extends RefCounted
+game/scripts/equipment_condition.gd: 53830 bytes; extends RefCounted
   game/scripts/equipment_condition.gd:109 mint_uid()
   game/scripts/equipment_condition.gd:381 validate()
   game/scripts/equipment_condition.gd:482 legacy_seed()
   game/scripts/equipment_condition.gd:614 inspect_installed()
   game/scripts/equipment_condition.gd:634 list_locker()
   game/scripts/equipment_condition.gd:661 project()
-game/scripts/equipment_records.gd: 26504 bytes; extends RefCounted
+game/scripts/equipment_records.gd: 30681 bytes; extends RefCounted
   game/scripts/equipment_records.gd:19 set_runtime_profile043()
   game/scripts/equipment_records.gd:22 reset_runtime_profile043()
   game/scripts/equipment_records.gd:25 runtime_profile043()
   game/scripts/equipment_records.gd:293 initialize()
-  game/scripts/equipment_records.gd:423 absorb_legacy_damage()
-  game/scripts/equipment_records.gd:437 publish()
+  game/scripts/equipment_records.gd:486 absorb_legacy_damage()
+  game/scripts/equipment_records.gd:500 publish()
 game/scripts/equipment_ui.gd: 10067 bytes; extends RefCounted
   game/scripts/equipment_ui.gd:15 open()
   game/scripts/equipment_ui.gd:74 _surface()
@@ -31,20 +31,20 @@ game/scripts/equipment_fitting.gd: 23353 bytes; extends RefCounted
   game/scripts/equipment_fitting.gd:86 matches()
   game/scripts/equipment_fitting.gd:98 wants_initialize()
   game/scripts/equipment_fitting.gd:101 wants_new()
-game/scripts/equipment_damage.gd: 54100 bytes; extends RefCounted
+game/scripts/equipment_damage.gd: 58857 bytes; extends RefCounted
   game/scripts/equipment_damage.gd:41 number()
   game/scripts/equipment_damage.gd:55 empty_task_map()
   game/scripts/equipment_damage.gd:58 inspect_owner()
-  game/scripts/equipment_damage.gd:94 is_canonical_owner()
-  game/scripts/equipment_damage.gd:97 is_corrupt_owner()
-  game/scripts/equipment_damage.gd:100 set_repair_priority()
-game/scripts/damage.gd: 35381 bytes; extends RefCounted
-  game/scripts/damage.gd:22 set_runtime_profile043()
-  game/scripts/damage.gd:26 reset_runtime_profile043()
-  game/scripts/damage.gd:30 runtime_profile043()
-  game/scripts/damage.gd:46 number()
-  game/scripts/damage.gd:51 create_ship()
-  game/scripts/damage.gd:81 sum_areas()
+  game/scripts/equipment_damage.gd:97 is_canonical_owner()
+  game/scripts/equipment_damage.gd:100 is_corrupt_owner()
+  game/scripts/equipment_damage.gd:103 set_repair_priority()
+game/scripts/damage.gd: 52611 bytes; extends RefCounted
+  game/scripts/damage.gd:35 set_runtime_profile043()
+  game/scripts/damage.gd:39 reset_runtime_profile043()
+  game/scripts/damage.gd:43 runtime_profile043()
+  game/scripts/damage.gd:75 number()
+  game/scripts/damage.gd:80 create_ship()
+  game/scripts/damage.gd:110 sum_areas()
 game/scripts/equipment_campaign.gd: 20897 bytes; extends RefCounted
   game/scripts/equipment_campaign.gd:84 prepare_state()
   game/scripts/equipment_campaign.gd:95 check_state()

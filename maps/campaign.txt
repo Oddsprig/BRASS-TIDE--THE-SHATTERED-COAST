@@ -1,15 +1,15 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.050)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.051)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses; detached six-career cost/reward/entry guidance.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 45213 bytes; extends Node2D
-  game/scripts/main.gd:309 toggle_pause()
-  game/scripts/main.gd:313 toggle_fullscreen()
-  game/scripts/main.gd:317 save_preferences()
-  game/scripts/main.gd:320 music_context()
-  game/scripts/main.gd:330 new_game()
-  game/scripts/main.gd:349 click_chart()
+game/scripts/main.gd: 46114 bytes; extends Node2D
+  game/scripts/main.gd:317 toggle_pause()
+  game/scripts/main.gd:321 toggle_fullscreen()
+  game/scripts/main.gd:325 save_preferences()
+  game/scripts/main.gd:328 music_context()
+  game/scripts/main.gd:338 new_game()
+  game/scripts/main.gd:357 click_chart()
 game/scripts/campaign.gd: 58767 bytes; extends RefCounted
   game/scripts/campaign.gd:75 cached_path()
   game/scripts/campaign.gd:91 hull()
@@ -33,18 +33,19 @@ game/scripts/campaign_guidance.gd: 16428 bytes; extends RefCounted
   game/scripts/campaign_guidance.gd:13 _n()
   game/scripts/campaign_guidance.gd:16 _positive()
   game/scripts/campaign_guidance.gd:19 _shown()
-game/scripts/career_costs.gd: 22566 bytes; extends RefCounted
-  game/scripts/career_costs.gd:125 plan()
-  game/scripts/career_costs.gd:55 _length()
-  game/scripts/career_costs.gd:62 _budget()
-  game/scripts/career_costs.gd:93 _offer()
-  game/scripts/career_costs.gd:98 _job()
-  game/scripts/career_costs.gd:109 _entry()
-game/scripts/guidance_ui.gd: 6185 bytes; extends RefCounted
-  game/scripts/guidance_ui.gd:4 action_label()
-  game/scripts/guidance_ui.gd:7 action()
-  game/scripts/guidance_ui.gd:30 career_plan()
-  game/scripts/guidance_ui.gd:53 open()
+game/scripts/career_costs.gd: 27602 bytes; extends RefCounted
+  game/scripts/career_costs.gd:99 contract_offers()
+  game/scripts/career_costs.gd:102 contract_quote()
+  game/scripts/career_costs.gd:194 plan()
+  game/scripts/career_costs.gd:61 _length()
+  game/scripts/career_costs.gd:68 _budget()
+  game/scripts/career_costs.gd:149 _second_hull()
+game/scripts/guidance_ui.gd: 11267 bytes; extends RefCounted
+  game/scripts/guidance_ui.gd:6 open_voyage()
+  game/scripts/guidance_ui.gd:64 action_label()
+  game/scripts/guidance_ui.gd:67 action()
+  game/scripts/guidance_ui.gd:90 career_plan()
+  game/scripts/guidance_ui.gd:113 open()
 
 TESTS (game/tests/*.gd)
 test_career_balance038, test_career_flow038; earlier test_campaign_cash, test_runtime, test_voyage
