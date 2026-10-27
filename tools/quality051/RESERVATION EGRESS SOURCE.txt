@@ -1,0 +1,34 @@
+RESERVATION EGRESS - SOURCE CANDIDATE / NATIVE UNRUN
+Base: 963b6a68cd25ce9a8543c7bf779dc4986a203142; new v051-reservation-egress-sol.
+Owned changes: tactical_stations.gd, existing test_role_geometry046.gd, this note.
+
+Private _reservation_begin051 adds physicalRadius051 + original nominal speed051.
+_conflict_begin051 -> _conflict -> _reservation_egress051 merges absolute
+from/until + every arrival/terminal hold from BOTH clipped three-leg paths.
+Only already-extra-padded pairs qualify. Every synchronized piece must retain
+true summed hull radii (existing 1e-4 contact precision) and relative.dot(delta)
+>=0; whole overlap requires a strict separation gain. Later inward/crossing
+pieces fail even if the final endpoint is farther away. No ignored origins.
+At most 24 movement pieces + one arrival hold per reservation; merged scan
+<=49 pieces. Existing counters/limits debit each piece before clearance;
+exhaustion remains pending. Public/default/legacy/outside-padding capsules stay.
+No Routes, Runtime, Planner, collider, actor/60Hz, offer cap or clock edits.
+
+Existing fixture adds exact R18 Ash/Tin poses/velocities/headings through owned
+generation -> fresh refinement -> actual Runtime._reserved_path -> certificate
+-> real resolution -> actual helm alignment with a LIVE Tin reservation.
+Healthy equipment and Tin terminal prefix are CONTROLLED fixture inputs;
+R18 did not save Tin's final reservation. Includes changed live Tin drift,
+inward/crossing, physical overlap, later pass/exit reversal, mismatched start/
+arrival clocks, terminal holds and early/late pending-budget refusal.
+All 16 prior fixture functions preserved; only run() adds the new call.
+P16's different cause is NOT solved or investigated here.
+
+Roles owns Runtime._drop_retained051 + helm revocation cleanup: erase side
+memory reservations[id] with movement/fire authority, including no-held cases;
+keep detached semantic preference and current60Hz actual drift safety separate.
+Coordination 98ab2b75 / prior b082a1c6; Nav made no shared Runtime seam edit.
+
+One final check_preload_calls.py advisory: engineInvoked=false, issues=[].
+Source diff clean. Native fixture/engagement/performance UNRUN, UNVERIFIED.
+Root alone combines/tests under119s then actual GPU after PASS. No051release/no052.

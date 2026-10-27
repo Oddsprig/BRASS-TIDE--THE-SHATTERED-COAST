@@ -93,6 +93,7 @@ func run() -> void:
 	static_completion051()
 	padding_egress051(world)
 	crowd_escape051(world)
+	reservation_egress051(world)
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
 
@@ -927,3 +928,113 @@ func crowd_escape051(world: Dictionary) -> void:
 	var stationary: Dictionary={"angle":control.angle,"throttle":0.0}
 	check(Certification._crowd_step051(st,departed,request,stationary,egress_budget051()).get("blocked",false),"completed nonturning hold cannot borrow alignment equality inside padding")
 	check(var_to_bytes([view,state])==before,"crowd generation, preparation and checked alignment preserve captured inputs")
+
+func reservation_path051(ship: Dictionary, path: Array, now: float, seconds: float=2.0) -> Dictionary:
+	var goal: Vector2=path[-1] if not path.is_empty() else Roles.pos(ship)
+	var candidate: Dictionary=Stations._candidate({"snapshotRevision":1},ship,{"role":"skirmisher"},"",-1,path,[goal],[goal],[],0)
+	return Stations._reservation_begin051(candidate,ship,now,seconds)
+
+func reservation_egress051(world: Dictionary) -> void:
+	# R18 jobc32b538e endBoatMotion051: exact Ash/Tin poses, velocities/headings.
+	# Equipment is healthy fixture input, NOT a reconstruction of unseen damage.
+	# The live Tin terminal reservation is controlled; R18 saved no final prefix.
+	var samples: Array=[
+		["enemy-1-ash_corvette","ash_corvette",Vector2(1668.71557617188,756.889465332031),Vector2(4.14731912314892e-5,2.61469886027044e-5),0.545971393585205],
+		["enemy-0-tin_skiff","tin_skiff",Vector2(1639.35205078125,737.838256835938),Vector2(1.97076906260918e-6,1.28188526105077e-6),0.426796057743496]
+	]
+	var ships: Array=[]
+	var context: Dictionary={}
+	for sample: Array in samples:
+		var boat: Dictionary=Damage.create_ship(Lab.hull(world,sample[1]),{"id":sample[0],"team":"enemy","x":sample[2].x,"y":sample[2].y,"vx":sample[3].x,"vy":sample[3].y,"angle":sample[4],"fuel":120.0,"order":"engage","orderRevision":0,"orderTarget":{},"mounts":[]})
+		boat.status=Damage.get_status(boat)
+		ships.append(boat);context[str(boat.id)]=boat
+	var ash: Dictionary=ships[0]
+	var tin: Dictionary=ships[1]
+	var now: float=12.0166666666668
+	var distance: float=Roles.pos(ash).distance_to(Roles.pos(tin))
+	check(absf(distance-35.002359)<0.00001 and distance>Roles.radius(ash)+Roles.radius(tin) and distance<42.0,"actual R18 Ash/Tin are outside physical hulls but inside reservation padding")
+	var tin_reservation: Dictionary=reservation_path051(tin,[Roles.pos(tin)],now)
+	var memory: Dictionary={"byId":{},"reservations":{str(tin.id):tin_reservation}}
+	var view: Dictionary={"time":now,"snapshotRevision":1,"terrainRevision":73,"dt":1.0/60.0,"side":"enemy","dueIds":[str(ash.id)],"ships":ships,"options":{"byId":{}}}
+	var original: PackedByteArray=var_to_bytes([ships,memory,view])
+	var planned: Dictionary=Planner._prepare_begin(view,memory)
+	check(not planned.candidates.is_empty() and planned.candidates.size()<=8 and Routes._is_crowd_escape051(planned.candidates[-1]),"actual Ash generation reaches the final bounded crowd offer with a LIVE Tin reservation")
+	if planned.candidates.is_empty() or not Routes._is_crowd_escape051(planned.candidates[-1]):return
+	var request: Dictionary=planned.candidates[-1]
+	var heading: float=(request.approach[-1]-Roles.pos(ash)).angle()
+	check(absf(rad_to_deg(heading)-61.488)<0.01 and absf(float(ash.angle)-0.545971393585205)<0.000001,"captured Ash heading differs from the generated 61.488 degree separating request")
+	var st: Dictionary={"time":now,"ships":ships,"islands":[]}
+	var t: Dictionary=Tactical.ensure(st)
+	t.ships=context;t.observed=context;t.cells=Routes.grid(ships,true)
+	t.snapshotRevision=1;t.terrainRevision=73;t.dt=1.0/60.0
+	t.geometry={"key":"reservation-egress051","revision":73,"obstacles":[]}
+	t.metrics={"planningDetailUs":{},"orderApplyAges":[],"certificateAges":[]}
+	t.mountCache[str(ash.id)]={"mounts":[],"baseMounts":[]}
+	t.budget=egress_budget051()
+	var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ash,request,t.budget,null,2.0)
+	check(refined.status=="valid","actual Ash escape passes fresh land and full current traffic refinement")
+	if refined.status!="valid":return
+	t.memory.enemy=memory
+	check(Tactical._reserved_path(st,"enemy",ash,refined.candidate)=="valid" and t.memory.enemy.reservations.has(str(tin.id)),"actual Runtime pre-certification reservation gate admits the checked escape without clearing live Tin")
+	var shape: Dictionary=Stations._reservation_begin051(refined.candidate,ash,now,2.0)
+	var counters: Dictionary={"clearanceTests":0,"clearanceExhausted":0}
+	check(not Stations._conflict_begin051(shape,tin_reservation,counters,4096) and counters.clearanceTests>=2,"synchronized whole prefix releases the actual Ash padding trap while retaining LIVE Tin reservation")
+	var public_counters: Dictionary={"clearanceTests":0,"clearanceExhausted":0}
+	check(Stations.conflict(shape,tin_reservation,public_counters,4096),"public/default reservation conflict still refuses the original padded capsule")
+	var legacy: Dictionary=tin_reservation.duplicate(true)
+	legacy.erase("speed051")
+	check(Stations._conflict_begin051(shape,legacy,{"clearanceTests":0,"clearanceExhausted":0},4096),"untimed legacy reservation cannot borrow the private separating proof")
+	for limit: int in [0,1]:
+		var pending: Dictionary={"clearanceTests":0,"clearanceExhausted":0}
+		check(Stations._conflict_begin051(shape,tin_reservation,pending,limit) and pending.clearanceTests==limit and pending.clearanceExhausted==1,"reservation debit exhaustion stays pending before any unchecked prefix can pass")
+	var fingerprint: String=Stations.fingerprint(refined.candidate)
+	var certificate: Dictionary=Certification._certify_refined_live(st,view,ash,refined,fingerprint,t.budget)
+	check(certificate.status=="valid","same actual refined escape receives a fresh live certificate")
+	var offer: Dictionary={"candidate":refined.candidate,"certificate":certificate}
+	var resolved: Dictionary=Planner._resolve_planned(view,memory,[offer],planned,2.0)
+	check(resolved.counters.accepted==1 and resolved.byId[str(ash.id)].candidateId==request.candidateId and resolved.memory.reservations.has(str(tin.id)),"real resolution admits Ash and preserves Tin's still-live reservation")
+	var pending_view: Dictionary=view.duplicate(true)
+	pending_view.options.clearanceRemaining=1
+	var pending_result: Dictionary=Planner._resolve_planned(pending_view,memory,[offer],planned.duplicate(true),2.0)
+	check(pending_result.counters.accepted==0 and pending_result.counters.clearanceExhausted==1 and pending_result.byId[str(ash.id)].phase=="pending","real resolution cannot turn a partial reservation proof into movement authority")
+	check(var_to_bytes([ships,memory,view])==original,"generation through certification and resolution preserves captured inputs and live reservation")
+	t.intents=resolved.byId;t.memory.enemy=resolved.memory
+	var helm: Dictionary=Tactical.helm(st,ash)
+	var next: Dictionary=Certification.motion(ash,t.dt,float(helm.angle),float(helm.throttle))
+	check(not helm.get("blocked",false) and helm.throttle==0.0 and absf(angle_difference(float(ash.angle),float(next.angle)))>0.001 and t.memory.enemy.reservations.has(str(tin.id)),"actual helm checks alignment from captured heading without revoking LIVE Tin reservation")
+	var radial: Vector2=(Roles.pos(ash)-Roles.pos(tin)).normalized()
+	tin.vx=radial.x*20.0;tin.vy=radial.y*20.0
+	t.cells=Routes.grid(ships,true)
+	check(Certification._crowd_step051(st,ash,refined.candidate,{"angle":heading,"throttle":0.5},egress_budget051()).get("blocked",false),"changed Tin traffic approaching the physical hull still refuses actual integrated alignment/drift")
+	# Bounded analytic pieces isolate later turns, crossings, arrival holds and
+	# absolute clocks; no P16 diagnosis, new observer or rollout harness.
+	var a: Dictionary=ash.duplicate(true)
+	var b: Dictionary=tin.duplicate(true)
+	a.spec=a.spec.duplicate(true);b.spec=b.spec.duplicate(true)
+	a.spec.speed=25.0;b.spec.speed=25.0;a.status.speedFactor=1.0;b.status.speedFactor=1.0
+	a.x=535.00236;a.y=800.0;b.x=500.0;b.y=800.0
+	var origin: Vector2=Roles.pos(a)
+	var hold: Dictionary=reservation_path051(b,[Roles.pos(b)],now)
+	for path: Array in [[origin-Vector2(5,0)],[origin-Vector2(80,0)],[origin],[origin+Vector2(10,0),origin+Vector2(5,0),origin+Vector2(15,0)]]:
+		check(Stations._conflict_begin051(reservation_path051(a,path,now),hold,{"clearanceTests":0,"clearanceExhausted":0},4096),"inward, crossing, stationary and outward-then-inward prefixes remain refused despite endpoint separation")
+	var outward: Dictionary=reservation_path051(a,[origin+Vector2(15,0)],now)
+	check(not Stations._conflict_begin051(outward,hold,{"clearanceTests":0,"clearanceExhausted":0},4096),"outward departure followed by a terminal arrival hold preserves a strict prefix gain")
+	var reversed_leg: Dictionary=outward.duplicate(true)
+	reversed_leg.approach=[origin+Vector2(10,0)];reversed_leg["pass"]=[origin+Vector2(5,0)];reversed_leg.exit=[origin+Vector2(15,0)]
+	check(Stations._conflict_begin051(reversed_leg,hold,{"clearanceTests":0,"clearanceExhausted":0},4096),"moving pass/exit legs cannot hide an inward middle piece behind a farther final endpoint")
+	var following: Dictionary=reservation_path051(b,[Roles.pos(b)+Vector2(30,0)],now)
+	check(Stations._conflict_begin051(outward,following,{"clearanceTests":0,"clearanceExhausted":0},4096),"actual arrival piece keeps a follower from approaching after the escaping boat stops")
+	a.x=534.9
+	check(Stations._conflict_begin051(reservation_path051(a,[Roles.pos(a)+Vector2(15,0)],now),hold,{"clearanceTests":0,"clearanceExhausted":0},4096),"genuine physical penetration grants no reservation egress")
+	a.x=545.0
+	check(Stations._conflict_begin051(reservation_path051(a,[Vector2(485,800)],now),hold,{"clearanceTests":0,"clearanceExhausted":0},4096),"ordinary crossing from outside padding retains original capsule refusal")
+	a.x=origin.x;b.x=510.0
+	var earlier: Dictionary=reservation_path051(b,[Vector2(500,800)],now-0.5)
+	check(not Stations._conflict_begin051(outward,earlier,{"clearanceTests":0,"clearanceExhausted":0},4096),"older live reservation is evaluated at the shared absolute start after its actual arrival")
+	b.x=500.0
+	var corners_a: Dictionary=reservation_path051(a,[origin+Vector2(10,0),origin+Vector2(10,20)],now)
+	var corners_b: Dictionary=reservation_path051(b,[Vector2(500,820),Vector2(480,820)],now)
+	var merged: Dictionary={"clearanceTests":0,"clearanceExhausted":0}
+	check(not Stations._conflict_begin051(corners_a,corners_b,merged,4096) and merged.clearanceTests==5,"different arrival clocks merge into four charged relative pieces including the terminal hold")
+	var partial: Dictionary={"clearanceTests":0,"clearanceExhausted":0}
+	check(Stations._conflict_begin051(corners_a,corners_b,partial,4) and partial.clearanceTests==4 and partial.clearanceExhausted==1,"late piece exhaustion cannot reuse a partial monotonic proof")

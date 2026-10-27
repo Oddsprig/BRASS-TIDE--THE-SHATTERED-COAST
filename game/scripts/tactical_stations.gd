@@ -736,6 +736,8 @@ static func _reservation_begin051(candidate: Dictionary, ship: Dictionary, now: 
 	result["from"] = now
 	result["until"] = now + live_traffic_seconds051
 	var speed: float = maxf(1.0, float(ship.spec.get("speed", 90)) * float(ship.status.speedFactor) * (1.0 if float(ship.fuel) > 0.0 else 0.2) * 0.8)
+	result["speed051"] = speed
+	result["physicalRadius051"] = Roles.radius(ship)
 	var elapsed: float = 0.0
 	var complete: bool = false
 	for key: String in ["approach", "pass", "exit"]:
@@ -753,6 +755,75 @@ static func _reservation_begin051(candidate: Dictionary, ship: Dictionary, now: 
 			cursor = goal
 		result[key] = prefix
 	return result
+
+static func _reservation_motion051(shape: Dictionary) -> Array:
+	# Private nominal trajectory only; no physical/certificate authority. Recover
+	# actual arrival clocks from the clipped three legs at their original speed,
+	# then hold the final point until this renewable prefix expires.
+	var speed: float = Roles.number(shape.get("speed051"), -1.0)
+	var radius: float = Roles.number(shape.get("physicalRadius051"), -1.0)
+	var start: float = Roles.number(shape.get("from"), -1.0)
+	var finish: float = Roles.number(shape.get("until"), -1.0)
+	var origin: Variant = shape.get("origin051")
+	if speed <= 0.0 or radius < 10.0 or Roles.number(shape.get("radius")) != radius + 8.0 or start < 0.0 or finish <= start or finish - start > LIVE_TRAFFIC_SECONDS051 + 0.000001 or not origin is Vector2 or not origin.is_finite():return []
+	var path: Array = []
+	for key: String in ["approach", "pass", "exit"]:
+		if not valid_path(shape.get(key)):return []
+		path.append_array(shape[key])
+	var pieces: Array = []
+	var cursor: Vector2 = origin
+	var at: float = start
+	for goal: Vector2 in path:
+		if goal == cursor:continue # A zero-duration knot never waives a later leg.
+		var arrival: float = at + cursor.distance_to(goal) / speed
+		if at >= finish or arrival <= at or arrival > finish + 0.00001:return []
+		arrival = minf(arrival, finish) # Only float32 clipped-endpoint roundoff.
+		pieces.append([at, arrival, cursor, goal])
+		at = arrival;cursor = goal
+	if at < finish:pieces.append([at, finish, cursor, cursor])
+	return pieces # <=24 moving pieces + one terminal hold; no new path search.
+
+static func _reservation_point051(piece: Array, at: float) -> Vector2:
+	var a: Vector2 = piece[2]
+	return a.lerp(piece[3], clampf((at - float(piece[0])) / (float(piece[1]) - float(piece[0])), 0.0, 1.0))
+
+static func _reservation_egress051(requested: Dictionary, existing: Dictionary, clearance: float, counters: Dictionary, limit: int) -> String:
+	# Only an ALREADY padded pair can use this proof. Legacy/public shapes or
+	# ordinary approaches keep the original capsule check, including its debits.
+	var a: Array = _reservation_motion051(requested)
+	var b: Array = _reservation_motion051(existing)
+	if a.is_empty() or b.is_empty():return ""
+	var at: float = maxf(float(a[0][0]), float(b[0][0]))
+	var finish: float = minf(float(a[-1][1]), float(b[-1][1]))
+	if finish <= at:return ""
+	var i: int = 0
+	var j: int = 0
+	while i < a.size() and float(a[i][1]) <= at:i += 1
+	while j < b.size() and float(b[j][1]) <= at:j += 1
+	if i >= a.size() or j >= b.size():return ""
+	var initial: Vector2 = _reservation_point051(a[i], at) - _reservation_point051(b[j], at)
+	if initial.length() >= clearance:return ""
+	var physical: float = float(requested.physicalRadius051) + float(existing.physicalRadius051)
+	var last: Vector2 = initial
+	# Merge absolute arrival clocks, NOT every geometric edge pair or only the
+	# endpoints. Each piece has constant relative velocity: dot>=0 proves its
+	# squared separation never decreases and its physical minimum is its start.
+	while at < finish:
+		if int(counters.clearanceTests) >= limit:
+			counters.clearanceExhausted = int(counters.clearanceExhausted) + 1
+			return "pending"
+		counters.clearanceTests = int(counters.clearanceTests) + 1
+		var end: float = minf(finish, minf(float(a[i][1]), float(b[j][1])))
+		var relative: Vector2 = _reservation_point051(a[i], at) - _reservation_point051(b[j], at)
+		last = _reservation_point051(a[i], end) - _reservation_point051(b[j], end)
+		var delta: Vector2 = last - relative
+		if relative.length() + 0.0001 < physical or relative.dot(delta) < 0.0 or last.length() + 0.0001 < physical:return "blocked"
+		at = end
+		if at >= float(a[i][1]):i += 1
+		if at >= float(b[j][1]):j += 1
+	# Arrival holds may preserve an earlier gain, but a stationary whole prefix
+	# supplies no separating departure. Actual drift/turn still checks at 60Hz.
+	return "valid" if last.length_squared() > initial.length_squared() else "blocked"
 
 static func _distance(point: Vector2, a: Vector2, b: Vector2) -> float:
 	var delta: Vector2 = b - a
@@ -789,9 +860,12 @@ static func _conflict(requested: Dictionary, existing: Dictionary, counters: Dic
 		return true
 	if not live_prefix051 and str(requested.get("targetId", "")) != "" and requested.targetId == existing.get("targetId") and int(requested.sector) >= 0 and int(requested.sector) == int(Roles.number(existing.get("sector"), -1.0)):
 		return true
-	# Public paths stay complete. Private prefixes conservatively overlap in
-	# time too; their origin includes the first edge without exceeding leg caps.
+	# Public paths stay complete. Only private, already-padded pairs may prove
+	# synchronized separation; every ordinary pair keeps its original capsules.
 	var lane_clearance: float = maxf(0.0, clearance - 9.0)
+	if live_prefix051:
+		var egress: String = _reservation_egress051(requested, existing, lane_clearance, counters, limit)
+		if not egress.is_empty():return egress != "valid"
 	var a_path: Array = Roles.array(requested.get("approach")) + Roles.array(requested.get("pass")) + Roles.array(requested.get("exit"))
 	var b_path: Array = Roles.array(existing.get("approach")) + Roles.array(existing.get("pass")) + Roles.array(existing.get("exit"))
 	if live_prefix051:
