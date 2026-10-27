@@ -11,33 +11,43 @@ Completed helpers stay idle until given a new bounded current-source task.
 
 CURRENT CORE CHECKPOINT - 27 October 2026
 Active0.051; Desktop remains verified0.050. Core gate OPEN; no052 breadth.
-Tested source Root709c26f/release0b5b26d; all36 designs and300DPside retained.
-R59 PASS18052/0,70.828s whole, job0edbbafe118f4e11ab19b8f3c9669abc;
-includes827sampled-goal/attack/manual/escape,451damage and14749wake checks.
-R60 PASS2497/0,81.265s whole inclart/weapon/export/three starts;
-job9022e517114e4b1fb04688c100a718a2. Same703gameinput hashes asR59.
-R57's four new owned-fixture failures are preserved separately: legacy test
-boats lacked canonical equipment. Fixture now uses real Records.initialize
-and full zero-dt prepass. Production guards and old assertions unchanged.
-R28 actual COMPLETE58.500s,cleanuptrue; QUALITY FAILED;
-jobb491da26cf504b2aaaf05bfa45a08ba0. Both actual end PNGs Root viewed.
--42light/full300DPside:19.062FPS (R27:16.404;R26:7.525), simulation
- median12.377ms/P9518.577; all42moved,36moving,ZERO persistent stalls.
--16mixed/full300DPside:59.997FPS, simulation5.482ms/P959.613;
- 15/16evermoved,12moving; enemy-5-barbed_lance pending3.183s for a route.
-Both actual cases retain movement/fire/hits/flooding; mixed missiles observed.
-Light CPUdrawing medians: preparation.465ms,hulls.278ms,motors.592ms,
-weapons.517ms,damage2.946ms,totalboats5.192ms,wakes1.738ms.
-Mixed damage2.5025ms,totalboats3.6895ms. Subclocks measure CPU submission,
-not GPU execution. Largest drawing work is damage feedback, not hull sprites.
-Light phases: begin2.321ms,helm2.888ms,damage1.523ms,mounts1.076ms,
-firing1.035ms. Sampled goals retain150ms sample/450ms choice and current60Hz
-helm/fire/damage/orders. No idle-FPS, lower actor count or lower simulationHz.
-Next bounded source pass targets damage drawing, measured repeated main-thread
-phase work and the actual mixed route stall. Majority via3BridgeSol6.1MAX.
-No051tag/package/install and no052 expansion while the core gate is open.
-Rejected slower retained native renderer remains reverted; do not repeat it.
-All tests background/muted/sharedFIFO; each whole batch below120seconds.
+Verified gameplay/art source Root44ecfcc/releaseaf4b106; all36designs retained.
+R61 PASS18150/0,81.265s whole;73405bdce40a42e9839d8da2270827b9.
+R62 PASS7585/0,87.360s incl5088feedback/Art205/Weapon2292/export3starts;
+1f4afa2a86eb4a7197175d1d13beba98. Same703gameinput hashes asR61.
+R29 actual COMPLETE58.172s/cleanuptrue/QUALITY FAILED;
+a80b735c9a47406e8343af9bfb37baa5. Both end PNGs Root viewed.
+Light42/full300DPside22.605FPS,simulation11.454ms/P9518.151;
+all42moved39moving,ZEROstalls. Mixed16~59.997FPS/5.226ms/P958.321;
+15evermoved10moving,ZEROstalls. All real active-combat coverage retained.
+Damage drawing fell2.946->2.5045ms light,2.5025->1.9255ms mixed;
+route-pending offer fairness removed the R28 persistent wait in these runs.
+
+Counter calibration COMPLETE; instrumentation does not explain the slowdown.
+R63 export3starts PASS52.468s;bf12557538a7425d9bacae6f6a6a119b.
+Root e7933d4/release6d98b63 differs fromR29 ONLY in runtime_profile043.gd;
+other702trackedgame inputs unchanged. Same new exe/PCK used for both controls.
+R30 OFF:f4c5cf3462cc4ed182d954919b947f1a COMPLETE57.937s/cleanuptrue;
+light22.297FPS/11.8095ms/P9518.534; mixed59.970FPS/5.858ms/P959.658.
+R31 ON:1f0447b973e5454883b53c600c192a23 COMPLETE59.937s/cleanuptrue;
+light20.754FPS/11.728ms/P9518.511; mixed60FPS/5.5175ms/P958.687.
+Both modes have ZEROstalls and complete real movement/fire/hits/flood/missiles.
+All four actual end PNGs Root viewed. Exact criteria/workload/60Hz unchanged.
+Original R31 08f57dc616224917a475702969c2246a failed BEFORE engine in shared
+queue atomic Move/access; preserved separately, unchanged retry measured above.
+Normal and detailed runs vary with worker timing; no exact attribution of small
+timing differences. Fine counters off means attribution absent, not zero work.
+
+Next bounded pass: reuse existing draw preparation for static engine/pump mark
+anchors; build full AI observations when 100ms worker planning actually requests
+them. Current poses/physics/collisions/status/ready-shot checks remain60Hz.
+Main remains responsible for live simulation; current role/target/maneuver jobs
+and campaign economy already use copied-data workers. Separate render thread
+remains disabled after native errors; actual Godot renderer mode1 is safe.
+No speculative parallel-helm implementation: read-only audit found limited
+net opportunity without a deeper data split. No new profiler/framework/features.
+Three BridgeSol6.1MAX source tasks; Root owns all muted background FIFO tests,
+each whole batch below120seconds. No051tag/package/install/no052 expansion.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 
 ## Scope and design
