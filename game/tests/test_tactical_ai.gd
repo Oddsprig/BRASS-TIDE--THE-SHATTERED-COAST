@@ -450,14 +450,38 @@ func local_approach() -> void:
 					boundary.events=events;boundary.freshIntent=fresh
 			observations.append(boundary)
 
+func _admit_retained051(st: Dictionary,source: Dictionary,dt: float,label: String) -> Variant:
+	var id: String=str(source.id)
+	var started: float=float(st.time)
+	var held: Variant=null
+	var ticks: int=0
+	# Both enemies' explicit hold commands precede the source in the one fair
+	# due slot. Wait only through real public ticks, within the .2s admission cap.
+	for tick in range(roundi(0.2/dt)):
+		B.update(st,dt);B.pop_events(st);ticks+=1
+		held=st.tactical.retained051.get(id)
+		if held is C._Retained051:break
+	var row: Dictionary={"case":"retained-admission051","variant":label,"dt":dt,"ticks":ticks,"elapsed":float(st.time)-started,"admitted":held is C._Retained051}
+	if not held is C._Retained051:
+		var t: Dictionary=st.tactical
+		var intent: Dictionary=t.intents.get(id,{})
+		var record: Dictionary=t.predictions.get(str(intent.get("pathFingerprint","")),{})
+		row.reason=t.reasons.get(id,"");row.intent=intent.duplicate(true)
+		row.predictionKeys=t.predictions.keys();row.recordKeys=record.keys()
+		row.certificate=record.get("certificate",{}).duplicate(true)
+		row.phase=t.memory[str(source.team)].byId.get(id,{}).get("phase","")
+		row.lastDecision=t.lastDecision.duplicate();row.certificationAttempts=t.certificationAttempts.duplicate()
+		print("RETAINED_ADMISSION_FAILED "+JSON.stringify(F.encode(row)))
+	observations.append(row)
+	return held
+
 func retained_maneuver051() -> void:
 	for dt: float in [1.0/30.0,1.0/60.0]:
 		var arena: Dictionary=local_arena()
 		var st: Dictionary=arena.state
 		var source: Dictionary=arena.source
 		var id: String=str(source.id)
-		B.update(st,dt);B.pop_events(st)
-		var held=st.tactical.retained051.get(id)
+		var held=_admit_retained051(st,source,dt,"lease")
 		check(held is C._Retained051,"real accepted engage maneuver admits one typed descriptor dt="+str(dt))
 		if not held is C._Retained051:continue
 		var certificate_bytes: PackedByteArray=var_to_bytes(held.record.certificate)
@@ -481,8 +505,7 @@ func retained_maneuver051() -> void:
 		var source: Dictionary=arena.source
 		var id: String=str(source.id)
 		var dt: float=1.0/60.0
-		B.update(st,dt);B.pop_events(st)
-		var held=st.tactical.retained051.get(id)
+		var held=_admit_retained051(st,source,dt,action)
 		check(held is C._Retained051,"retained invalidation case starts from actual authority "+action)
 		if not held is C._Retained051:continue
 		match action:

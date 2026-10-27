@@ -1,0 +1,38 @@
+051 RETAINED ADMISSION R5 - FIXTURE SOURCE CORRECTION; NATIVE UNRUN
+Parent ae68b740bea0c444b71c2f6858e7d72a2f64a87f; own v051-retained-sol.
+Only existing game/tests/test_tactical_ai.gd and this handoff change.
+
+Preserved actual R5 ca7ece6fd63846ee8513a96d4af45e64: import passed;
+retained case 7 checks/7 failures; observations[]. PairedDt/export NOT RAN.
+Read attempt-001/retained-ai/native.log and retained-ai.json directly.
+
+Correct first-update cause from source:
+- local_arena() gives both enemies actual explicit hold commands via F.command.
+- Tactical.accept_command sets their lastDecision=-1, certificationAttempts=-2.
+- The untouched ordinary-engage source has no lastDecision entry (queue age0).
+- Tactical.begin sorts these command hulls first and caps3 active hulls at ONE
+  due slot. First update therefore plans an enemy, not the source; the second
+  enemy also precedes it. No accepted source route/record/descriptor can yet
+  be demanded by the first-update check. _certify publishes predictions before
+  _publish calls _retain051; no publication/scope defect shown by this evidence.
+
+Fix only the two admission setup sites: advance actual B.update until the real
+typed descriptor exists, or at most0.2s (6 ticks30Hz /12 ticks60Hz). No grant,
+queue edit, corridor extension, condition reset or ignored assertion. The source
+normally becomes due on tick3 (.100s30Hz/.050s60Hz); actual route acceptance
+and retained lifetime still require native proof, not an assumption here.
+
+Every admission now records dt/ticks/elapsed/admitted. On continued failure,
+the existing observations[] and a RETAINED_ADMISSION_FAILED log row retain raw
+reason, full intent, prediction/record keys, certificate, phase and decision/
+attempt times, followed by the original failed assertion. Bounded to7 arenas.
+All12 existing assertion statements and all post-admission bodies are unchanged:
+public certificate byte identity/expiry, motion/fuel, current authority, hostile
+obstruction, deadline, terrain, withdrawal, manual and actual projectile loss.
+
+Source comparison confirms earlier fixture functions/dispatcher unchanged;
+git diff --check clean. Existing preload-call advisory issues[],
+advisoryOnly:true, engineInvoked:false. No runtime/metadata/asset/save changes.
+No engine, GPU, tests, profile, helper or maintenance executed. Root review,
+native admission and later pairedDt/export/journey/performance remain pending.
+R5 failures stay preserved. Gate051 OPEN; no smoothness/60FPS claim.
