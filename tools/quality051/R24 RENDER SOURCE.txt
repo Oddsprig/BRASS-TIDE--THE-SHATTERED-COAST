@@ -52,3 +52,16 @@ affine floating-point equivalence, first-frame allocation and lifetime behavior.
 Reprojection/threshold work and live effects still run; RID traversal costs remain.
 R24 light boat-draw median4.7445ms is the entire source opportunity ceiling,
 not an estimated saving. No FPS/performance/pixel-parity acceptance claim.
+
+R51 PREDELETE REPAIR - 27 October 2026
+Root reports R51 FAILED in74.953s: Weapon2639checks/0assertion failures,
+but132script errors from PREDELETE self-dispatch in Item/owner; no export.
+All earlier logical phases and Art205 passed; retain the failed receipt.
+Job b63bbeddbc8045ebbae4345e99c11c25, attempt-001/weapon-draw/native.log.
+Item PREDELETE now frees its own valid RID inline and clears that RID.
+Owner PREDELETE drops its owned references inline, allowing Item destructors
+to free their RIDs; normal explicit release still frees children before parents.
+Both paths remain idempotent; no self-script method call during PREDELETE.
+Only these callbacks changed. Rendering/fixtures/all old assertions unchanged.
+Source review and whitespace check only; no engine, tests or further advisory.
+Root owns R52 native Art/Weapon/export/three starts; no repair-pass claim yet.
