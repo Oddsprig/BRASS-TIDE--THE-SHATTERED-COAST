@@ -155,3 +155,31 @@ manual-reference arena permits real flight over multiple steps.
 
 Follow-up source/diff review ONLY. NO engine/tests/advisories/helpers run here.
 Root owns execution of this corrected candidate; R64 remains a failed receipt.
+
+R33 PUBLICATION COPY FOLLOW-UP - SOURCE ONLY
+Preserved378183cf49576f5000174a8c3fec38254edd1dd2 and all112 prior assertions.
+Root reports R66 PASS1537/0 (new fixture112/0), R67 PASS7618/0; R33 actual
+rendering near60FPS but snapshot medians43.008/24.22ms and lagmax283/120ms.
+These are prior receipts, not validation or a speed claim for this follow-up.
+
+Reviewed peer9ea31012bfe19a1e1c311b58bb92e830f40953ec: audited plain groups
+use native duplicate(true); full payload stays present and deeply detached.
+Predictions, unknown fields and ingress retain recursive sanitization. No new
+API/schema, authoritative sharing, numerical work or production edits here.
+Main Damage facade reads published damageStatusById051; Tactics/PressureView
+consume hull/stores/crew/cooldowns and published status/mounts. BoatArt and
+HullFeedback read current spec/moduleCondition; Equipment UI validates installed
+and locker records. The existing canonical Lab case now adds seven assertions:
+running hull/HP/ammo/engine and public status agree; installed condition/current
+mounts/tactical HUD mounts agree; actual PressureView readers accept the payload;
+interpolation current pose matches the same hull; private ownership/damage/goal/
+source caches stay absent; retained canonical hull and nested condition remain
+unchanged through later real jobs; retirement retains canonical/refit records.
+Only Main's retained display is deliberately edited, before the existing real
+six-command/WorkerThreadPool sequence. Authoritative fixture inputs are unchanged.
+No added case, harness, production file or altered old assertion. Expected119
+checks is a source count, UNRUN here. Peer coordination used brass-tide-worker051.
+
+Manual source/diff review only. NO engine/native/tests/import/export/advisory/
+profiler/helpers/downloads/cleanup/tag/install/push. Root owns combined R68
+native/export and actual R34 measurement; new candidate acceptance UNRUN.

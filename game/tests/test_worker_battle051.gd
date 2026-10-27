@@ -8,6 +8,7 @@ const T=preload("res://scripts/tactical_runtime.gd")
 const Driver=preload("res://scripts/battle_driver051.gd")
 const Main=preload("res://scripts/main.gd")
 const Lab=preload("res://scripts/fleet_lab.gd")
+const PressureView=preload("res://scripts/combat_pressure_view044.gd")
 const STEP: float=1.0/30.0
 const SPEC={"id":"worker-proof051","name":"Worker proof","hp":1000.0,"armor":0.0,"crewMin":2,"crewOptimal":12,"crewMax":30,"size":16,"speed":50.0,"turn":2.0,"pumps":1,"weapon":"gun","damage":20.0,"fireRate":2.0,"range":1500.0,"deploymentPoints":20,"weaponMounts":[{"id":"proof-ray","kind":"gun","damage":20.0,"fireRate":2.0,"range":1500.0,"speed":5000.0,"ammoCost":2,"x":8.0,"y":0.0,"arc":6.28318530718,"angle":0.0}]}
 var checks: int=0
@@ -131,6 +132,14 @@ func commands_pause_and_child_cleanup() -> void:
 	var initial: Dictionary=made.battle
 	var driver=Driver.new(initial)
 	var mirror: Dictionary=driver.advance(0.0,{},true)
+	# Retain and edit only the canonical Main copy, including nested equipment.
+	# Later native-copy publications must neither borrow it nor update it in place.
+	var retained_ship: Dictionary=mirror.ships[0]
+	for item: Dictionary in retained_ship.moduleCondition.items.values():
+		if str(item.location)=="engine":item.hp=0.0;item.status="disabled"
+	retained_ship.moduleCondition.legacyEngineSynced=0.0
+	retained_ship.engine=0.0;retained_ship.hp=-1.0;retained_ship.ammo=-1.0
+	var retained_value: Dictionary=retained_ship.duplicate(true)
 	var target: Dictionary={"x":650.0,"y":750.0}
 	check(B.issue_order(mirror,[mirror.playerId],"move",target),"public Battle command proxy admits detached queued order")
 	check(driver.queue_command("player_command",{"ids":[mirror.playerId],"command":"rally","target":target}),"actual compound BattleCommands047 rally is queued for worker validation")
@@ -153,6 +162,17 @@ func commands_pause_and_child_cleanup() -> void:
 	var events: Array=[]
 	mirror=await joined_steps(driver,{},6,events)
 	check(int(mirror.tactical.counters.decisions)>0,"factory-created SIDE jobs actually publish sampled decisions through real joins")
+	var current: Dictionary=mirror.ships[0]
+	var id: String=str(current.id)
+	var flow: Dictionary=mirror.tactical.damageStatusById051[id]
+	var status: Dictionary=B.tactical_status(mirror,id)
+	var mounts: Array=B._combat_mounts(mirror,current)
+	check(current.hp>0.0 and current.ammo>=0.0 and current.engine>0.0 and flow==D.get_status(current),"running canonical hull/HP/ammo/engine and HUD status are coherent after edits to a retained display")
+	check(D.EquipmentDamage.Core.inspect_installed(current.moduleCondition).ok and mounts==B._mounts(current) and status.mounts==mounts,"current installed condition, combat mounts and tactical HUD mounts agree without authoritative cache access")
+	check(not PressureView.readiness(current,flow).has("Damage control unavailable") and not mounts.is_empty() and PressureView.weapon_state(current,mounts[0],0,flow,"")!="Weapon status unavailable","actual HUD readers accept the running canonical payload")
+	check(driver.presentation_poses().current[id]=={"x":current.x,"y":current.y,"angle":current.angle,"turretAngle":current.turretAngle},"interpolation's current pose belongs to the same published hull state")
+	check(copied_publication(mirror) and not mirror.has("_damageOwned051") and not mirror.tactical.has("damageCache") and not mirror.tactical.has("goals051") and mirror.tactical.mountCache[id].keys()==["mounts"],"canonical display publishes plain HUD data without private damage/goal/source caches")
+	check(retained_ship==retained_value and not is_same(current.moduleCondition,retained_ship.moduleCondition),"later worker jobs leave the entire retained canonical hull and nested condition unchanged")
 	var held_time: float=float(mirror.time)
 	var held_steps: int=int(driver.telemetry().completedSteps)
 	for index in range(8):mirror=driver.advance(0.5,{},true);await process_frame
@@ -164,6 +184,7 @@ func commands_pause_and_child_cleanup() -> void:
 	check(driver.telemetry().retired and not driver.telemetry().inFlight and T.Planner._tasks051.is_empty(),"immediate retirement drains authoritative work and actual sampled tactical children")
 	check(not T._battle_worker_owned051,"retirement releases the global tactical owner only after joining")
 	check(is_equal_approx(float(final.time),float(driver.telemetry().completedSteps)*STEP),"retirement returns the final joined canonical time")
+	check(D.EquipmentDamage.Records.snapshot(final.ships[0]).ok and final.ships[0].has("baseSpec") and final.ships[0].has("loadout"),"retirement retains complete canonical equipment and refit data for campaign accounting")
 	observations.append({"case":"commands-pause-children","queuedCommandReceipts":receipts,"telemetry":driver.telemetry(),"finalTime":final.time})
 
 func terminal_result() -> void:
