@@ -1,0 +1,49 @@
+R21 MAIN OBSERVATION SOURCE HANDOFF
+Base: 45bf6632ea0bb39935bb1f62376ef7836aea4766 (measured game 8fd0f96).
+Source only. Root owns native tests, rendered review and timing acceptance.
+
+Measured opportunity supplied by Root: R21 light observation median3.539ms,
+selection1.819ms, resolution1.465ms; overall quality FAILED. No new timing.
+
+Call path: Runtime.begin selection -> _observe_retained051 (or the existing
+worker wait guard) -> _retained_observation051 -> Planner passthrough ->
+Roles._observe_retained051 -> protected_ally/leader and shortlist -> _decide.
+Every owner formerly repeated friendly condition/assignment sanitization and
+protector scoring inputs. Support owners also repeated working_mounts for
+every ally; owners sharing a protector rebuilt that same all-enemy geometric
+interception pool, including its bounded insertion ordering.
+
+One private role preparation per side/current051 now holds current hull
+positions/velocities and friendly score inputs. Support fit checks are lazy:
+one working_mounts scan per ally per preparation, instead of dues*allies*mounts.
+Protector interception pools are built once per distinct protector, instead
+of once per due owner; the exact _geometric_insert operation/order is reused.
+Owner role inference is evaluated once per synchronous retained observation.
+All scalar score additions preserve their original order and tie handling.
+
+Lifetime/guards: current051 is local to the single closed Runtime.begin;
+preparation checks context/options/groups/mission identity, time, revision and
+side. Each scalar row and interception-pool owner is checked by identity.
+Runtime prepares before swapping in one owner's full view; the other friendly
+records and all enemy records are stable throughout selection. Earlier retained
+publication only changes memory, which is never cached by this preparation.
+No preparation is stored on battle/tactical state, memory, offers or workers.
+Storage is linear hull rows plus at most MAX_TARGETS entries per protector;
+no all-pairs matrix or unbounded history. Public/default views stay unprepared.
+
+All current phase/HP history/withdrawal/order/group/target checks and all
+candidate alternatives, route budgets, .3s synchronous policy and live60Hz
+authority remain. No worker wait/capability/fire code or resolution changed.
+
+Existing retained predicate cases compare preparation and second-read reuse
+against their existing complete unprepared results (including urgent changes).
+Two focused assertions were added to that fixture: aggregated complete parity,
+and refusal of later time/revision/replaced options/foreign context. Every old
+assertion remains. These new assertions have NOT been run here.
+
+Validation: the ONE allowed read-only check_preload_calls.py advisory covered
+all three changed GDScript files: zero issues, engineInvoked=false. Manual
+diff review and git diff --check are clean. No engine, build, native test,
+CPU/GPU benchmark, helper or visual run.
+Expected opportunity is shared preparation in selection, not a measured ms
+saving or a whole-game FPS/quality claim. Resolution remains a separate cost.

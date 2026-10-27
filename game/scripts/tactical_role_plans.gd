@@ -19,6 +19,47 @@ const PASS_SPARSE_MIN_WINDOW: float = 0.75
 const PASS_BURST_MAX_WINDOW: float = 1.6
 const ROLES: Array = ["auto", "skirmisher", "striker", "screen", "heavy", "support"]
 
+class _Observation051 extends RefCounted:
+	# Borrowed only by the closed, synchronous retained-observation phase.
+	# No role, target, phase, HP history or permission is retained here.
+	var context: Dictionary
+	var options: Dictionary
+	var groups: Dictionary
+	var mission: Dictionary
+	var at: float
+	var revision: int
+	var side: String
+	var rows: Dictionary = {}
+	var ally_pools: Dictionary = {}
+
+static func _prepare_observation051(view: Dictionary, context: Dictionary) -> _Observation051:
+	var prepared: _Observation051 = _Observation051.new()
+	prepared.context = context; prepared.options = dictionary(view.get("options"))
+	prepared.groups = dictionary(view.get("groups")); prepared.mission = dictionary(view.get("mission"))
+	prepared.at = number(view.get("time")); prepared.revision = int(number(view.get("snapshotRevision"), -1.0))
+	prepared.side = str(view.get("side", ""))
+	for other: Dictionary in context.values():
+		var row: Dictionary = {"owner": other, "pos": pos(other), "velocity": velocity(other)}
+		if other.get("team") == prepared.side:
+			var hp: float = clampf(number(other.get("hp"), 1.0) / maxf(1.0, number(other.get("maxHp"), 1.0)), 0.0, 1.0)
+			var flood: float = clampf(number(other.get("water")) / maxf(1.0, number(other.get("capacity"), 200.0)), 0.0, 1.0)
+			row.radius = radius(other)
+			row.condition = (1.0 - hp + flood) * 240.0
+			row.guarding = str(dictionary(other.get("orderTarget")).get("shipId", "")) if str(other.get("order", "")) == "escort" else str(options(view, other).get("protectedAllyId", ""))
+			row.missionAlly = str(other.get("uid", "")) in array(prepared.mission.get("allyUids"))
+			row.supportType = str(options(view, other).get("role", "")) == "support" or str(dictionary(other.get("spec")).get("role", "")) in ["support", "civilian", "cargo", "tanker", "yacht", "fishing"]
+			row.injured = hp < 0.72 or flood > 0.18
+			row.injury = minf(650.0, (1.0 - hp + flood) * 650.0)
+		prepared.rows[str(other.id)] = row
+	return prepared
+
+static func _observation051(view: Dictionary, context: Dictionary) -> Variant:
+	var prepared: Variant = view.get("_observation051")
+	if not prepared is _Observation051: return null
+	if not is_same(prepared.context, context) or prepared.at != number(view.get("time")) or prepared.revision != int(number(view.get("snapshotRevision"), -1.0)) or prepared.side != str(view.get("side", "")): return null
+	if not is_same(prepared.options, view.get("options")) or not is_same(prepared.groups, view.get("groups")) or not is_same(prepared.mission, view.get("mission")): return null
+	return prepared
+
 static func number(value: Variant, fallback: float = 0.0) -> float:
 	return float(value) if (value is int or value is float) and is_finite(float(value)) else fallback
 
@@ -166,7 +207,22 @@ static func useful_range(view: Dictionary, ship: Dictionary) -> float:
 			return float(item.range)
 	return float(weighted[-1].range)
 
-static func _leader_score(view: Dictionary, ship: Dictionary, other: Dictionary, support: bool) -> float:
+static func _leader_score(view: Dictionary, ship: Dictionary, other: Dictionary, support: bool, row051: Dictionary = {}) -> float:
+	if not row051.is_empty() and is_same(row051.owner, other):
+		# Preserve the original addition order, including approximate tie breaks.
+		var prepared_score: float = float(row051.radius) * 3.0 - pos(ship).distance_to(row051.pos) * 0.04
+		if support:
+			# Only a support owner needs this all-allies fit scan. At most one
+			# scan per ally for the whole begin, not one per support observer.
+			if not row051.has("support"):
+				row051.support = (450.0 if not working_mounts(other).is_empty() else -450.0) - float(row051.condition)
+			prepared_score += float(row051.support)
+			if str(row051.guarding) == str(ship.id): prepared_score += 350.0
+		else:
+			if row051.missionAlly: prepared_score += 500.0
+			if row051.supportType: prepared_score += 300.0
+			if row051.injured: prepared_score += float(row051.injury)
+		return prepared_score
 	var score: float = radius(other) * 3.0 - pos(ship).distance_to(pos(other)) * 0.04
 	var hp: float = clampf(number(other.get("hp"), 1.0) / maxf(1.0, number(other.get("maxHp"), 1.0)), 0.0, 1.0)
 	var flood: float = clampf(number(other.get("water")) / maxf(1.0, number(other.get("capacity"), 200.0)), 0.0, 1.0)
@@ -185,7 +241,7 @@ static func _leader_score(view: Dictionary, ship: Dictionary, other: Dictionary,
 			score += minf(650.0, (1.0 - hp + flood) * 650.0)
 	return score
 
-static func leader(view: Dictionary, ship: Dictionary, context: Dictionary) -> Dictionary:
+static func leader(view: Dictionary, ship: Dictionary, context: Dictionary, role051: String = "") -> Dictionary:
 	var opts: Dictionary = options(view, ship)
 	var order: String = str(ship.get("order", "engage"))
 	var target: Dictionary = dictionary(ship.get("orderTarget"))
@@ -198,23 +254,24 @@ static func leader(view: Dictionary, ship: Dictionary, context: Dictionary) -> D
 	var group: Array = array(groups.get(group_id, groups.get(str(group_id))))
 	var best: Dictionary = {}
 	var best_score: float = -INF
-	var support: bool = infer_role(view, ship) == "support"
+	var support: bool = (infer_role(view, ship) if role051.is_empty() else role051) == "support"
+	var prepared: Variant = _observation051(view, context)
 	for other: Dictionary in context.values():
 		if other.get("team") != ship.get("team") or other.id == ship.id:
 			continue
 		if group_id > 0 and not str(other.id) in group:
 			continue
-		var score: float = _leader_score(view, ship, other, support)
+		var score: float = _leader_score(view, ship, other, support, prepared.rows.get(str(other.id), {}) if prepared != null else {})
 		if score > best_score or (is_equal_approx(score, best_score) and str(other.id) < str(best.get("id", "~"))):
 			best = other
 			best_score = score
 	return best
 
-static func protected_ally(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary) -> Dictionary:
+static func protected_ally(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, role051: String = "") -> Dictionary:
 	# Only friendly condition/assignments are inspected here. Enemy arc work
 	# remains behind the independent position-only sixteen-target shortlist.
 	var opts: Dictionary = options(view, ship)
-	var protected: Dictionary = leader(view, ship, context)
+	var protected: Dictionary = leader(view, ship, context, role051)
 	var retained: Dictionary = dictionary(context.get(str(previous.get("leaderId", ""))))
 	var group_id: int = int(number(opts.get("group")))
 	var group: Array = array(dictionary(view.get("groups")).get(group_id, dictionary(view.get("groups")).get(str(group_id))))
@@ -222,8 +279,9 @@ static func protected_ally(view: Dictionary, ship: Dictionary, previous: Diction
 	if not changed and str(ship.get("order", "engage")) != "escort" and str(opts.get("protectedAllyId", "")).is_empty() and not retained.is_empty() and retained.get("team") == ship.get("team") and (group_id == 0 or str(retained.id) in group):
 		# Preserve the assignment through small changes, but a newly wounded ally
 		# or a lost protector's guns can justify a real change of responsibility.
-		var support: bool = infer_role(view, ship) == "support"
-		if protected.is_empty() or _leader_score(view, ship, protected, support) <= _leader_score(view, ship, retained, support) + 160.0:
+		var support: bool = (infer_role(view, ship) if role051.is_empty() else role051) == "support"
+		var prepared: Variant = _observation051(view, context)
+		if protected.is_empty() or _leader_score(view, ship, protected, support, prepared.rows.get(str(protected.id), {}) if prepared != null else {}) <= _leader_score(view, ship, retained, support, prepared.rows.get(str(retained.id), {}) if prepared != null else {}) + 160.0:
 			protected = retained
 	return protected
 
@@ -296,17 +354,30 @@ static func shortlist(view: Dictionary, ship: Dictionary, context: Dictionary, p
 	var named: String = str(target.get("shipId", "")) if str(ship.get("order", "")) in ["attack", "board"] else ""
 	var near_ship: Array = []
 	var near_ally: Array = []
+	var prepared: Variant = _observation051(view, context)
+	var protected_id: String = str(protected.get("id", ""))
+	var shared_ally: Dictionary = prepared.ally_pools.get(protected_id, {}) if prepared != null else {}
+	var reuse_ally: bool = not shared_ally.is_empty() and is_same(shared_ally.owner, protected)
+	if reuse_ally: near_ally = shared_ally.entries
+	var ship_pos: Vector2 = pos(ship)
+	var ally_pos: Vector2 = pos(protected)
+	var ally_velocity: Vector2 = velocity(protected)
 	# ALL-context broad phase is positions/velocities only: no arcs, fits, shots,
 	# threat(), or role scoring before the sixteen-candidate boundary.
 	for other: Dictionary in context.values():
 		if other.get("team") == ship.get("team"):
 			continue
-		_geometric_insert(near_ship, str(other.id), pos(ship).distance_squared_to(pos(other)))
-		if not protected.is_empty():
-			var delta: Vector2 = pos(other) - pos(protected)
-			var relative: Vector2 = velocity(other) - velocity(protected)
+		var row: Dictionary = prepared.rows.get(str(other.id), {}) if prepared != null else {}
+		var prepared_other: bool = not row.is_empty() and is_same(row.owner, other)
+		var other_pos: Vector2 = row.pos if prepared_other else pos(other)
+		_geometric_insert(near_ship, str(other.id), ship_pos.distance_squared_to(other_pos))
+		if not protected.is_empty() and not reuse_ally:
+			var delta: Vector2 = other_pos - ally_pos
+			var relative: Vector2 = (row.velocity if prepared_other else velocity(other)) - ally_velocity
 			var closest_time: float = clampf(-delta.dot(relative) / maxf(0.00001, relative.length_squared()), 0.0, 2.0)
 			_geometric_insert(near_ally, str(other.id), (delta + relative * closest_time).length_squared())
+	if prepared != null and not protected.is_empty() and not reuse_ally:
+		prepared.ally_pools[protected_id] = {"owner": protected, "entries": near_ally}
 	var result: Array = []
 	var seen: Dictionary = {}
 	# An explicit target consumes one of the same sixteen slots. Its strict
@@ -454,16 +525,17 @@ static func decide(view: Dictionary, ship: Dictionary, previous: Dictionary, con
 
 static func _observe_retained051(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary) -> Dictionary:
 	# An owned maneuver keeps its target preference, never its old observations.
-	var protected: Dictionary = protected_ally(view, ship, previous, context)
+	var role: String = infer_role(view, ship)
+	var protected: Dictionary = protected_ally(view, ship, previous, context, role)
 	var detailed: Array = []
 	for entry: Dictionary in shortlist(view, ship, context, protected):
 		detailed.append(str(entry.id))
 	var selected: String = str(previous.get("targetId", ""))
 	if not selected.is_empty() and selected not in detailed:
 		return {}
-	return _decide(view, ship, previous, context, {}, {"targetId": selected, "targets": detailed, "detailedIds": detailed, "scored": 0}, protected)
+	return _decide(view, ship, previous, context, {}, {"targetId": selected, "targets": detailed, "detailedIds": detailed, "scored": 0}, protected, role)
 
-static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, reservations: Dictionary = {}, retained_choice: Dictionary = {}, retained_protected051: Variant = null) -> Dictionary:
+static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, context: Dictionary, reservations: Dictionary = {}, retained_choice: Dictionary = {}, retained_protected051: Variant = null, role051: String = "") -> Dictionary:
 	var now: float = number(view.get("time"))
 	var opts: Dictionary = options(view, ship)
 	var order: String = str(ship.get("order", "engage"))
@@ -478,7 +550,7 @@ static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, co
 	# An empty protector is a result too; default/public decisions still select it.
 	var retained_read051: bool = retained_protected051 is Dictionary
 	var protected: Dictionary = retained_protected051 if retained_read051 else protected_ally(view, ship, previous, context)
-	var role: String = infer_role(view, ship)
+	var role: String = role051 if retained_read051 and not role051.is_empty() else infer_role(view, ship)
 	var target_choice: Dictionary = choose_target(view, ship, {} if changed_order else previous, context, protected, role, reservations) if retained_choice.is_empty() else retained_choice
 	var target: Dictionary = dictionary(context.get(str(target_choice.targetId)))
 	var target_changed: bool = not previous.is_empty() and str(previous.get("targetId", "")) != str(target_choice.targetId)

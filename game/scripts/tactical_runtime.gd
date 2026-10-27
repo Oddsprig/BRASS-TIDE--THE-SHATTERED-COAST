@@ -556,9 +556,17 @@ static func _retained_observation051(st: Dictionary,id: String,frame_cache,curre
 		if int(shared.revision)!=int(t.snapshotRevision) or float(shared.at)!=float(st.time):return {}
 		return shared.decision
 	own.orderSince=float(t.orderTimes.get(id,0.0));own.failedTargetIds=t.failures.get(id,[])
+	# Pure common ally/geometry inputs belong to this side and this begin only.
+	# Prepare before substituting the owner; all other friendly context records
+	# keep their identities throughout selection. Memory publication changes no
+	# positions, fits, options, groups, condition or assignments in this phase.
+	var view051: Dictionary={"snapshotRevision":int(t.snapshotRevision),"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"mission":current051.mission}
+	if not current051.has("rolePreparation051"):current051.rolePreparation051={}
+	if not current051.rolePreparation051.has(side):current051.rolePreparation051[side]=Roles._prepare_observation051(view051,context)
+	view051._observation051=current051.rolePreparation051[side]
 	var old_owner: Dictionary=context[id]
 	context[id]=own
-	var view051: Dictionary={"time":float(st.time),"side":side,"options":t.options,"groups":t.groups,"ships":context.values(),"mission":current051.mission}
+	view051.ships=context.values()
 	var decision: Dictionary=Planner._observe_retained051(view051,own,previous,context)
 	context[id]=old_owner
 	if share051:

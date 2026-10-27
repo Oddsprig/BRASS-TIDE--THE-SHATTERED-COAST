@@ -585,6 +585,7 @@ func retained_role_predicate_parity051(st: Dictionary,source: Dictionary) -> voi
 		if other.team!=source.team:hostile_ids.append(str(other.id))
 	check(hostile_ids.size()>=2,"retained predicate parity starts with two actually observed opponents")
 	if hostile_ids.size()<2:return
+	var preparation_failures051: Array=[]
 	for variant: String in ["healthy-focus","below-loss","loss-two","loss-one","impaired-one","impaired-none","stationary","fire","flood","fuel","board","screen","new-protector","changed-order","salvo","burst","missing-target"]:
 		var view: Dictionary=base.duplicate(true)
 		view.time=3.0
@@ -647,6 +648,23 @@ func retained_role_predicate_parity051(st: Dictionary,source: Dictionary) -> voi
 			expected=Roles._decide(view,own,previous,context,{}, {"targetId":str(previous.targetId),"targets":detailed,"detailedIds":detailed,"scored":0})
 		var actual: Dictionary=Roles._observe_retained051(view,own,previous,context)
 		check(var_to_bytes(actual)==var_to_bytes(expected),"retained predicate preserves EVERY eager result/memory/detail field: "+variant)
+		# Reuse only pure ally/geometry preparation, never a decision. The second
+		# read exercises the shared interception pool with all existing policies.
+		var prepared_view051: Dictionary=view.duplicate()
+		prepared_view051._observation051=Roles._prepare_observation051(prepared_view051,context)
+		for read051: int in range(2):
+			if var_to_bytes(Roles._observe_retained051(prepared_view051,own,previous,context))!=var_to_bytes(actual):preparation_failures051.append(variant+":"+str(read051))
+		if variant=="screen":
+			for ally051: Dictionary in context.values():
+				if ally051.team!=own.team or ally051.id==own.id:continue
+				var row051: Dictionary=prepared_view051._observation051.rows[str(ally051.id)]
+				var support_score051: float=Roles._leader_score(view,own,ally051,true)
+				for read051: int in range(2):
+					if Roles._leader_score(prepared_view051,own,ally051,true,row051)!=support_score051:preparation_failures051.append("support-score:"+str(ally051.id))
+			var later051: Dictionary=prepared_view051.duplicate();later051.time=float(view.time)+1.0/60.0
+			var revision051: Dictionary=prepared_view051.duplicate();revision051.snapshotRevision=int(view.snapshotRevision)+1
+			var options051: Dictionary=prepared_view051.duplicate();options051.options=view.options.duplicate(true)
+			check(Roles._observation051(later051,context)==null and Roles._observation051(revision051,context)==null and Roles._observation051(options051,context)==null and Roles._observation051(prepared_view051,context.duplicate())==null,"retained preparation rejects a later tick, revision, replaced options or foreign context")
 		var public_choice: Dictionary=Roles.decide(view,own,previous,context)
 		var predicate_choice: Dictionary=Roles._decide(view,own,previous,context,{}, {},protected)
 		check(var_to_bytes(predicate_choice)==var_to_bytes(public_choice),"same-call predicate preserves complete public choice, scores, memory and result: "+variant)
@@ -657,6 +675,7 @@ func retained_role_predicate_parity051(st: Dictionary,source: Dictionary) -> voi
 		if variant=="new-protector":check(str(actual.state.leaderId)=="predicate-protector051-1","same-call protector reflects a newly wounded ally")
 		if variant=="salvo":check(bool(actual.state.passSpent.get(str(own.mounts[0].id),false)),"retained observation preserves actual fixed-tube shot accounting")
 		if variant=="missing-target":check(actual.is_empty(),"removed current target still forces a full choice")
+	check(preparation_failures051.is_empty(),"same-begin prepared/reused observation preserves all existing policy results: "+str(preparation_failures051))
 	check(var_to_bytes([st.ships,st.tactical.memory,st.tactical.options])==live_before,"detached retained predicate trials preserve the actual admitted battle")
 
 func _physical_preference_drop051(arena: Dictionary,held: Variant,label: String,retained: bool=true) -> Variant:
