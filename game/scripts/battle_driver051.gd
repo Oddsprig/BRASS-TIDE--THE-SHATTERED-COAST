@@ -8,6 +8,10 @@ const Records=preload("res://scripts/equipment_records.gd")
 const STEP: float=1.0/30.0
 const MAX_STEPS_PER_JOB: int=4
 const PUBLIC_TACTICAL: Array=["snapshotRevision","terrainRevision","terrainKey","options","groups","intents","predictions","reasons","fireReasons","trace","counters","metrics","manualId","dt","failures"]
+# Acquired through _plain, then written only by numerical combat/objective/
+# boarding code. No Objects, Callables, Signals or RIDs may be added to these
+# public groups. Unknown state fields and legacy predictions stay sanitized.
+const PLAIN_STATE_GROUPS051: Array=["ships","reserves","projectiles","effects","wrecks","islands","mission","location","deployment","log","convoy","escapedShips","captured","convoyOutcome","coastalDefenses","boarding"]
 
 class _Job extends RefCounted:
 	var state: Dictionary={}
@@ -308,26 +312,40 @@ static func _snapshot(st: Dictionary,with_status: bool) -> Dictionary:
 	var result: Dictionary={}
 	for key in st:
 		if str(key).begins_with("_") or key in ["rng","tactical","events"]:continue
-		if not st[key] is Object:result[key]=_plain(st[key])
+		if not st[key] is Object:
+			result[key]=_copy_plain_owned051(st[key]) if key in PLAIN_STATE_GROUPS051 else _plain(st[key])
 	result.events=[] # Audio goes through take_events(), never repeated UI snapshots.
 	var t: Dictionary=st.get("tactical",{})
 	var public_t: Dictionary={"statusById051":{},"mountsById051":{},"damageStatusById051":{},"mountCache":{}}
 	for ship: Dictionary in st.get("ships",[]):
 		var id: String=str(ship.get("id",""))
-		public_t.mountsById051[id]=_plain(Battle._combat_mounts(st,ship)) if with_status else _plain(Battle._base_mounts(ship))
+		public_t.mountsById051[id]=_copy_plain_owned051(Battle._combat_mounts(st,ship)) if with_status else _copy_plain_owned051(Battle._base_mounts(ship))
 		# Existing command adapter tests public mount availability. This is a
 		# detached publication row, never the live source/condition cache entry.
 		public_t.mountCache[id]={"mounts":public_t.mountsById051[id]}
 		if with_status:
-			public_t.statusById051[id]=_plain(Tactical.status(st,id))
-			public_t.damageStatusById051[id]=_plain(Damage.get_status(ship))
+			public_t.statusById051[id]=_copy_plain_owned051(Tactical.status(st,id))
+			public_t.damageStatusById051[id]=_copy_plain_owned051(Damage.get_status(ship))
 	# status may retire an invalid goal on the authoritative owner. Publish the
 	# matching post-status public fields, rather than an older intent table.
 	for key in PUBLIC_TACTICAL:
-		if t.has(key):public_t[key]=_plain(t[key])
+		# Public intent/HUD/trace writers emit only copied numeric/string/value
+		# data. Legacy predictions also carry owner/proof inputs: retain their
+		# recursive sanitizer rather than widening that ownership assumption.
+		if t.has(key):public_t[key]=_plain(t[key]) if key=="predictions" else _copy_plain_owned051(t[key])
 	result.tactical=public_t
 	_relink_ship_aliases(result)
 	return result
+
+static func _copy_plain_owned051(value: Variant) -> Variant:
+	# Only for the audited publication groups above, never an ingress boundary.
+	# Native deep copy detaches EVERY mutable Dictionary/Array; sharing even an
+	# unchanged spec or module record with the authoritative owner is forbidden.
+	# duplicate(true) does NOT detach Objects, hence _plain remains mandatory for
+	# acquisition/commands/input, unknown fields and private planning records.
+	if value is Dictionary or value is Array:return value.duplicate(true)
+	if typeof(value)>=TYPE_PACKED_BYTE_ARRAY:return value.duplicate()
+	return value
 
 static func _relink_ship_aliases(st: Dictionary) -> void:
 	# Variant deep copies do not retain aliases ACROSS containers. Convoy actors,

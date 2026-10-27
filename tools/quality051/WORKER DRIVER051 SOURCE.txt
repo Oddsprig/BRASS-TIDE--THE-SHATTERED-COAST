@@ -148,3 +148,93 @@ until retire, public snapshots have no objects, and whole-job/snapshot/lag numbe
 are nonzero during real motion/fire/hits. After retire verify UID-stable original
 ships, equipment dictionaries, captured/escaped/convoy aliases, battery ammo,
 crew/fuel/ammo/supplies/purses, exact RNG state and actual settlement success.
+
+R33 BOUNDED SNAPSHOT PUBLICATION CANDIDATE - 27 October 2026
+Direct follow-up to preserved 06dd17a + cfef2a9; no peer source is edited.
+Root measured integrated source 8a25bfe plus fixture ec316d6. Actual raw light:
+C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/
+6a8fa34477eb4b7983d11da00d25479e/attempt-001/runtime/
+runtime043-44716-2144204/runtime043-light.json
+Read only its summary and property inventory. summary.workerSnapshots reports
+median43008us/P9547865us; workerJobs median97097us/P95125396us;
+workerCapacityPerCompletedStep median30644us/P9536768us;
+simulationLag max283487us; renderedFPS59.998135, framesAbove50ms0.
+These are PRE-CANDIDATE R33 observations, not results for this source change.
+The substantive remaining issue is worker publication cost/capacity/lag, not
+the negligible nominal60FPS difference. No thresholds or observer code changed.
+
+EXACT COPY CONTRACT (NO PUBLIC SCHEMA CHANGE)
+The existing _snapshot entry/return shape is retained. All previously published
+keys and values remain, including full ship spec/baseSpec/loadout/moduleCondition
+and item records, reserves, convoy/boarding/capture/shore data, tactical HUD,
+mount/status/trace/counters and legacy prediction data. No static-data reuse,
+stale-field cache or previous-snapshot container sharing is introduced.
+
+_copy_plain_owned051 uses native Dictionary/Array.duplicate(true), and .duplicate()
+for packed arrays. This replaces GDScript recursion only inside audited plain
+publication groups; it does not remove deep detachment. Scalar/value leaves are
+returned by value. It does NOT sanitize and must NEVER receive untrusted data.
+Native duplicate(true) aliases Objects, so its safety depends on these exact
+producer boundaries, not an assumption that native duplication clones handles.
+
+PLAIN_STATE_GROUPS051 is an explicit opt-in list:
+ships, reserves, projectiles, effects, wrecks, islands, mission, location,
+deployment, log, convoy, escapedShips, captured, convoyOutcome,
+coastalDefenses, boarding.
+These groups enter through original _plain acquisition. During active ownership,
+Battle/CombatEvents, BattleObjectives, CombatBoarding/Boarding and equipment
+numeric projection code add only numerical/string/value/container records.
+Input and command payloads are recursively sanitized before worker receipt;
+the existing adapters validate and copy their plain values. No writer in these
+groups creates or stores an Object/Callable/Signal/RID. Current ship projections
+write numeric engine/locker/equipment data, not their private phase/context.
+Unknown future public state fields keep the ORIGINAL recursive _plain path.
+
+PUBLIC_TACTICAL fast path is the existing exact list EXCEPT predictions:
+snapshotRevision, terrainRevision, terrainKey, options, groups, intents,
+reasons, fireReasons, trace, counters, metrics, manualId, dt, failures.
+Options/groups enter through sanitized acquisition/commands; sampled and legacy
+intent builders emit detached numeric/value path/fire/HUD metadata. Trace rows,
+counters/metrics and failure target IDs contain plain data. Neither goal wrappers
+nor phase/task/owner contexts are members of these publication tables.
+Legacy predictions retain _plain because they carry broader owner/proof inputs.
+Normalized Battle._base_mounts/_combat_mounts arrays and complete Tactical.status/
+Damage.get_status outputs use native deep copy; their current constructors emit
+plain metadata. Damage.get_status inspection/recomputation itself is unchanged.
+
+Unchanged sanitizer boundaries: initial state, initial tactical options/groups/
+home/orderTimes, input, command admission/payload, events, unknown state fields,
+legacy predictions and retirement owner-sync fallback all keep _plain.
+Private top-level fields, RNG, tactical memory/cache/goal/task/phase containers
+remain excluded. _relink_ship_aliases runs AFTER copying, so convoy/captured/
+escaped aliases refer only to the new snapshot's ships. Published mountCache
+still aliases only its same-snapshot detached mountsById051 array.
+Driver APIs, command FIFO, statuses, lifecycle, telemetry timing boundaries,
+30Hz fixed steps, 100ms role planning and complete retire accounting are intact.
+No synchronous Battle/Tactical/Damage API implementation was changed.
+
+PRECISE ROOT/PROOF OBLIGATIONS
+1. Native parse/type-check the combined candidate first. No validation was run
+   in this source-only checkout; no passing result is claimed.
+2. Root explicitly bounds proof to ONE running canonical HUD/current mount/
+   condition/retained-snapshot case in the existing fixture. Keep all112 existing
+   assertions; no new fixture/framework or other cases. Compare its mirror's
+   current ship/equipment/status/mount/readiness/poses to the detached canonical
+   public reference at an owned boundary, then retain the nested snapshot over
+   later real jobs and retirement. Worker writes must not mutate old published
+   ships/spec/module/items/intents/trace/mount/status/path containers; a mirror
+   write must not change authority or the next result. Never read in-flight state.
+3. Preserve existing no-Object/Callable/Signal/RID publication and ingress checks
+   (Main attaches its WeakRef only after ownership transfer). No actual Object
+   leak was found in the opted-in native groups during this bounded source read.
+   A demonstrated leak requires leaving that group on _plain, not a new registry.
+4. Retain existing final complete Records.snapshot, exact coins/purses/stores/
+   crew/fuel/ammo/supplies/equipment/RNG and UID owner restoration assertions,
+   same-snapshot captured/escaped/convoy aliases and shore-port restoration.
+5. Root remeasures actual full42 light /16 mixed/300DP per-side worker30Hz cases;
+   report raw whole-job/snapshot/per-completed-step capacity and real-time lag,
+   plus current rendered cadence/active combat. Until then NO speed claim.
+
+Only battle_driver051.gd and this source note changed. Source/diff review only;
+NO tests, engine/import/export/native/advisories/profiler/helpers/downloads,
+cleanup/tag/install or push. Root retains all queued/failed/passed evidence.
