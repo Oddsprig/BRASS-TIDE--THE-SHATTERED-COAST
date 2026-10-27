@@ -1,0 +1,54 @@
+R22 MAIN PHYSICAL RETRY SOURCE HANDOFF
+Base: ed876cb80e29d42000819209415784003e5001ba (R47 game eaccd819).
+Source only; Root owns native validation, rendered review and measurement.
+
+R22 supplied evidence: job dc1f0f9227be491e93a78992413e9021, quality FALSE.
+Light planning median13.072ms, observation3.614ms, proposals1.561ms,
+certification3.046ms, resolution1.519ms. 2528 fullDue /571 begins versus
+281 retainedDue /2210 retained admissions; noMember1733. No new timing.
+
+Proven source path: live helm safe_step veto -> _drop_retained051(false,true)
+kept the pooled semantic preference but set lastDecision=-1. The next begin
+bypassed its existing150ms cadence. Even a stable _observe_retained051 result
+then entered freshDecisions -> _prepare_with_worker051 -> station candidates,
+refinement/certification and resolution, instead of waiting to retry geometry.
+
+Physical-only revocation now also records the last REAL published observation
+time and the exact semantic preference identity. This bounded per-live-hull
+record contains no candidate, path, certificate or permission. Revocation still
+invalidates step_ok and erases intent, retained authority and all reservations;
+lastDecision is still revoked. Ordinary synchronous policy stays unchanged.
+
+Only begin opts into semantic-only publication after a physical veto. All
+existing current owner/target/options/groups/capability/boarding/event/phase
+guards run first. A stable actual observation may publish memory and its REAL
+current time without preparing candidates before the existing150ms retry.
+Observation age uses the actual pre-veto timestamp when its public clock is -1.
+The original recorded retry time is never moved by this observation. Its due
+time participates in existing fair ordering, with no change to the due cap.
+
+Ready joined workers bypass this delay. Commands/safety/control/semantic drops
+erase it; changed preference conditions or firing events bypass the cadence
+gate, and failed current semantic guards require the full existing replan.
+At retry or a full replan the record is removed. Acceptance, hull pruning and
+semantic expiry also clear it. The original chosenAt+.45 cutoff is unchanged;
+no clock, certificate, geometry or rejected request is renewed/reused. The .30s
+ordinary policy, current60Hz brakes/fire, eight offers and every budget remain.
+
+Expected opportunity: eliminate repeated FULL main proposal/route/certification/
+resolution work following stable physical vetoes inside the existing retry
+window. A real semantic observation still runs; no measured ms/FPS saving is
+claimed. retainedDue can now include this actual observation without authority.
+
+One focused assertion added to the existing semantic retained case (both real
+30/60Hz variants): actual publication/counter, fixed retry time, no certification
+attempt, fresh-planning record, motion/RNG/certificate mutation or authority.
+All old assertions remain, including current urgent guards, real recovery within
+.2s and original .45s expiry. No worker fixture or Planner/callback code changed.
+Native execution of these source changes remains pending with Root.
+
+Validation: ONE read-only tools/check_preload_calls.py advisory on the changed
+runtime and existing tactical fixture: zero issues, engineInvoked=false.
+Manual diff review completed; no engine/test/build/GPU/benchmark/helper run.
+Only the two allowed GDScript files and this note belong to this handoff.
+Pre-existing untracked .bigbridge/ metadata is excluded and left untouched.

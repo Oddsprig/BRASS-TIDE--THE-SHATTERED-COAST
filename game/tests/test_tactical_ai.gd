@@ -740,6 +740,12 @@ func retained_semantic_preference051() -> void:
 		check(not prepared.candidates.is_empty() and not st.tactical.intents.has(id) and not st.tactical.retained051.has(id) and var_to_bytes(st.tactical.memory.player.byId[id])==memory and float(st.tactical.lastDecision[id])==observed_at,"candidate preparation grants no certificate, memory publication or observation clock dt="+str(dt))
 		var repeated: Dictionary=Planner._prepare_begin(view,st.tactical.memory.player,current.indexes.player,current.freshDecisions051)
 		check(int(repeated.scored)>0 and not repeated.get("originalPreferenceChosenAt051",{}).has(id),"consumed fresh records cannot skip another full choice dt="+str(dt))
+		var retry_at051: float=float(st.tactical.physicalRetry051[id].observedAt)
+		var attempt051: float=float(st.tactical.certificationAttempts[id])
+		var decisions051: int=int(st.tactical.counters.decisions)
+		var physical051: PackedByteArray=var_to_bytes([st.ships,st.rng.state,held.record.certificate])
+		var retry_current051: Dictionary={}
+		check(T._observe_retained051(st,id,null,retry_current051,true) and float(st.tactical.lastDecision[id])==float(st.time) and int(st.tactical.counters.decisions)==decisions051+1 and float(st.tactical.physicalRetry051[id].observedAt)==retry_at051 and float(st.tactical.certificationAttempts[id])==attempt051 and not retry_current051.has("freshDecisions051") and not st.tactical.intents.has(id) and not st.tactical.retained051.has(id) and not st.tactical.memory.player.reservations.has(id) and var_to_bytes([st.ships,st.rng.state,held.record.certificate])==physical051,"stable physical retry publishes a real current observation without rebuilding, moving its retry deadline or restoring authority dt="+str(dt))
 		var recertified: Variant=null
 		for tick: int in range(ceili(0.2/dt)):
 			B.update(st,dt);B.pop_events(st)

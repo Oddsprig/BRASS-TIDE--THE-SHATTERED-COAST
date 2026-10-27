@@ -78,6 +78,7 @@ static func ensure(st: Dictionary) -> Dictionary:
 		st.tactical.certificationAttempts={};st.tactical.lastCertified={};st.tactical.safety={}
 	if not st.tactical.has("retained051"):st.tactical.retained051={}
 	if not st.tactical.has("preferences051"):st.tactical.preferences051={}
+	if not st.tactical.has("physicalRetry051"):st.tactical.physicalRetry051={}
 	return st.tactical
 
 static func register(st: Dictionary,ship: Dictionary,mounts: Array) -> void:
@@ -463,7 +464,7 @@ static func _order_lifetime(st: Dictionary,ship: Dictionary) -> void:
 			t.reasons[id]="Attack complete; target unavailable" if lost else "Attack could not reach a firing lane; regrouping"
 
 static func _prune(t: Dictionary,live: Dictionary,now: float) -> void:
-	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety","retained051","preferences051"]:
+	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety","retained051","preferences051","physicalRetry051"]:
 		for id in t[key].keys():
 			if not live.has(id):t[key].erase(id)
 	for id in t.options.byId.keys():
@@ -679,6 +680,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			# Compute each hull's priority once, outside the hot sort comparator.
 			var preference: Variant=t.preferences051.get(id)
 			if priority>=0.0 and preference is Certification._Preference051:priority=minf(priority,preference.chosen_at+0.45-Planner.CERT_SECONDS)
+			var retry051: Dictionary=t.physicalRetry051.get(id,{})
+			if priority>=0.0 and not retry051.is_empty():priority=minf(priority,float(retry051.observedAt)+Planner.OBSERVATION_SECONDS051-Planner.CERT_SECONDS)
 		observation_priority051[id]=priority
 	queued.sort_custom(func(a,b):
 		var aa: float=float(t.certificationAttempts.get(a,-1.0))
@@ -697,8 +700,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if id==t.manualId:continue
 		var certified_age: float=float(st.time)-float(t.lastCertified.get(id,0.0))
 		t.metrics.certificationAges.append(certified_age)
-		# Renew before the existing 0.2s lease ends. Commands and rejected
-		# maneuvers remain immediately eligible; stable plans need no per-tick
+		# Renew before the existing 0.2s lease ends. Commands and physical
+		# vetoes remain eligible for a fresh observation; stable plans need no per-tick
 		# proposal, full route certification or detached world reconstruction.
 		var last: float=float(t.lastDecision.get(id,-1.0))
 		# A rejected route must not reconstruct/reject the same world at 60Hz.
@@ -706,10 +709,18 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		# this bounded retry delay. Live helm/fire checks never wait for it.
 		var interval: float=Planner.OBSERVATION_SECONDS051 if t.has("workers051") else (0.15 if t.intents.has(id) else 0.1)
 		var preference_due051: bool=false
+		var physical_due051: bool=false
 		if t.has("workers051"):
 			var preference: Variant=t.preferences051.get(id)
 			preference_due051=preference is Certification._Preference051 and float(st.time)-preference.chosen_at>=0.45-0.000001
-		if last>=0.0 and float(st.time)-last<interval-0.000001 and not preference_due051:continue
+			var retry051: Dictionary=t.physicalRetry051.get(id,{})
+			if not retry051.is_empty():
+				# The fixed retry clock came from a REAL published observation. A
+				# later semantic-only read cannot postpone physical reconstruction.
+				physical_due051=float(st.time)-float(retry051.observedAt)>=interval-0.000001 or Planner._ready_worker051(st,str(id))
+				if not preference is Certification._Preference051 or not is_same(retry051.preference,preference):physical_due051=true
+				elif not Certification._preference_conditions051(st,t.ships[id],preference) or preference.events!=Certification._preference_events051(st,t.ships[id],preference.target_id):physical_due051=true
+		if last>=0.0 and float(st.time)-last<interval-0.000001 and not preference_due051 and not physical_due051:continue
 		# Waiting owns a fair selection slot, never an observation or authority.
 		if selected_due051>=cap:continue
 		selected_due051+=1
@@ -729,8 +740,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		# rejection still runs a full current choice in this same fair due slot.
 		if not t.intents.has(id) and not t.retained051.get(id) is Certification._Retained051 and Planner._ready_worker051(st,str(id)):
 			if _runtime_profile043_enabled:_runtime_profile043_counts.workerReadyReplans051=int(_runtime_profile043_counts.get("workerReadyReplans051",0))+1
-			due.append(id);continue
-		if not _observe_retained051(st,str(id),frame_cache,current051):due.append(id)
+			t.physicalRetry051.erase(id);due.append(id);continue
+		if not _observe_retained051(st,str(id),frame_cache,current051,true):
+			t.physicalRetry051.erase(id);due.append(id)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.retainedDue+=observed_due051-due.size()
 		_runtime_profile043_counts.fullDue+=due.size()
@@ -993,6 +1005,7 @@ static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,of
 			if not is_finite(original) or original<0.0 or float(st.time)<original or float(st.time)-original>0.45+0.000001:
 				accepted.erase(id);_drop_retained051(t,str(id));continue
 		t.intents[id]=accepted[id]
+		t.physicalRetry051.erase(id)
 		t.retained051.erase(id)
 		t.reasons[id]=str(accepted[id].get("reason","Following maneuver"))
 		Fire.accept_pass(st,t.ships[id],accepted[id])
@@ -1062,6 +1075,11 @@ static func _drop_retained051(t: Dictionary,id: String,preference_expiry051: boo
 	physical_only051=physical_only051 and t.has("workers051")
 	var held=t.retained051.get(id)
 	var preference=t.get("preferences051",{}).get(id)
+	if physical_only051 and preference is Certification._Preference051 and float(t.lastDecision.get(id,-1.0))>=0.0:
+		# This is scheduling evidence only: no request, path or certificate.
+		# Keep the real observation time even though authority is revoked below.
+		t.physicalRetry051[id]={"preference":preference,"observedAt":float(t.lastDecision[id])}
+	elif not physical_only051:t.get("physicalRetry051",{}).erase(id)
 	if held is Certification._Retained051:
 		held.step_ok=false
 		if physical_only051 and preference is Certification._Preference051:
@@ -1093,7 +1111,7 @@ static func _current051(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_
 		_drop_retained051(st.tactical,id)
 	return result
 
-static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,current051: Dictionary={}) -> bool:
+static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,current051: Dictionary={},allow_physical_retry051: bool=false) -> bool:
 	var t: Dictionary=st.tactical
 	var held=t.retained051.get(id)
 	var preference=t.preferences051.get(id)
@@ -1129,13 +1147,21 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,curr
 				changed=true
 	if changed:_drop_retained051(t,id);return false
 	if not held is Certification._Retained051:
-		# This is a fresh complete decision for THIS begin, not stored authority.
-		# Planner consumes it once, then generates current paths/certification.
-		if not current051.has("freshDecisions051"):current051.freshDecisions051={}
-		current051.freshDecisions051[id]={"owner":current051.owners[id],"revision":int(t.snapshotRevision),"at":float(st.time),"decision":decision.duplicate(true),"originalPreferenceChosenAt":preference.chosen_at}
-		return false
+		var retry051: Dictionary=t.physicalRetry051.get(id,{})
+		var observe_only051: bool=allow_physical_retry051 and pooled051 and not retry051.is_empty() and is_same(retry051.preference,preference) and float(st.time)>=float(retry051.observedAt) and float(st.time)-float(retry051.observedAt)<Planner.OBSERVATION_SECONDS051-0.000001
+		if not observe_only051:
+			# This is a fresh complete decision for THIS begin, not stored authority.
+			# Planner consumes it once, then generates current paths/certification.
+			if not current051.has("freshDecisions051"):current051.freshDecisions051={}
+			current051.freshDecisions051[id]={"owner":current051.owners[id],"revision":int(t.snapshotRevision),"at":float(st.time),"decision":decision.duplicate(true),"originalPreferenceChosenAt":preference.chosen_at}
+			return false
+		# Every current semantic/capability/event/phase guard above just passed.
+		# Publish this ACTUAL observation, but keep all movement/fire revoked.
+		# The unchanged fixed retry time and original .45s choice still expire.
 	t.memory[side].byId[id]=decision.state
-	var age: float=float(st.time)-float(t.lastDecision.get(id,st.time))
+	var observed_at051: float=float(t.lastDecision.get(id,st.time))
+	if observed_at051<0.0 and not held is Certification._Retained051:observed_at051=float(t.physicalRetry051[id].observedAt)
+	var age: float=float(st.time)-observed_at051
 	t.metrics.decisionAges.append(age);t.counters.oldestDecisionAge=maxf(float(t.counters.oldestDecisionAge),age)
 	if age>0.2+0.000001:t.counters.lateDecisions+=1
 	t.lastDecision[id]=float(st.time);t.counters.decisions+=1
