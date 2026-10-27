@@ -1,0 +1,143 @@
+BRASS TIDE 0.046 - RUNTIME AND COST SOURCE HANDOFF
+
+STATUS
+Source candidate only. No engines, tests, imports/exports, builds, GPU jobs,
+renders/bakes, audio, downloads, workers, helpers or computer control ran here.
+Native parsing, assertions, actual six-scenario behavior, motion and cost remain
+Root's responsibility AFTER 0.045 delivery. This is not an accepted release.
+
+ACTUAL INPUTS / OWNERSHIP
+Branch: source/runtime046-capability, created from actual current HEAD
+15a81cccf668a4fc664216aee5f49ce6aa82b5e4 (frozen 0.045 weapons candidate).
+No reset/rebase, dependency cherry-pick, version bump, metadata or remote change.
+The four originally assigned tactical files and retained fixture were identical
+to Root reference a0c9d3770054c85a1665968a0800551ff2318681 before edits.
+The only preexisting working change was Bridge's injected AGENTS.md memory block;
+it is excluded from this candidate. Do not stage/revert that unrelated change.
+
+Exact six-file commit allowlist:
+game/scripts/tactical_runtime.gd
+game/scripts/tactical_certification.gd
+game/scripts/tactical_planner.gd
+game/scripts/tactical_routes.gd (owner's later hostile-clearance scope extension)
+game/tests/test_combat_runtime041.gd (existing fixture, narrow extension)
+tools/quality046/RUNTIME AND COST.txt
+Owned tactical_fire_control.gd required no edits. Role/Station sources belong
+to Roles046 / brass-tide045-feedback-sol-225f86; they are not copied here.
+
+DEMONSTRATED CAUSES / CHANGES
+1. The live-step certificate compared exact hp/water/fire/engine/status and the
+   entire mutable moduleCondition ledger against certification-time copies.
+   Real bailing and paid repair therefore revoked useful intent every frame.
+   Static spec/baseSpec/loadout/motion inputs remain exact. Canonical status
+   still validates module records through the existing checked-phase API.
+   Recovery and continuous water/fire factor changes retain the bounded route.
+   Invalid equipment, lost crew/new wounds, component losses, working/disabled
+   transitions and damage above ordinary heat wear still revoke it immediately.
+   The existing private capabilityInputs guard advances after accepted reads,
+   so a hit after recovery is compared to the newly recovered boat. Neither
+   certificate time/geometry nor intent authority is extended by these reads.
+
+2. The screenshot's low fire also causes real continuous hull wear: the shared
+   EquipmentDamage tick subtracts avgFire*0.003*dt HP and avgFire*0.000025*dt
+   engine HP. At fire=4,60Hz the hull loss exceeds the old 0.0001 threshold.
+   Certification._heat_wear uses the actual shared growth/suppression/wear
+   constants to bound only this ordinary tick loss. Safety uses its existing
+   elapsed age; current() uses the actual live dt and latest accepted fire.
+   The guard does not predict incoming shots or remove heat damage/resources.
+   Damage above this tiny bound, mask/priority changes and danger crossings
+   bypass normal safety cadence and request a fresh fair-queue decision.
+
+3. With no accepted intent, begin's previous eligibility expression admitted
+   the same blocked/pending boat every frame, rebuilding detached views and
+   repeating proposals/certificates. Failed-plan retries now wait 0.10s using
+   existing lastDecision. Stable renewal stays 0.15s; certificate limit 0.20s.
+   Orders, option changes, damage/disables, danger and manual release use the
+   existing negative lastDecision sentinel to bypass the retry wait. Actual
+   observation, motion, contact and final helm/fire gates remain at 60Hz.
+   Global due cap, fair ordering, clearance/route bounds, same-begin preparation,
+   checked-phase cache and the existing worker pool remain in place.
+
+4. Owner's real failed wake movie frame-14 (source frame299,4.983s) shows
+   Dreadnought/Cobalt art overlapping; frame-09 shows repeated reassessment.
+   Viewed both existing PNGs; neither is accepted performance/motion evidence.
+   Routes.occupied previously ignored every hostile. Normal complete corridors,
+   refine_live and live safe_step now opt into the same bounded swept traffic
+   loop for hostiles. Shared navigation_radius = 2.75*max(10,spec.size) covers
+   authored hull stations reaching 2.65*size. Allied/contact/ballistic dimensions
+   and all terrain/allied fire tests remain unchanged. The conservative hostile
+   circle can reject some visually clear close passages; Root must review it.
+   An already-close hull may take only a continuously separating exit. Its
+   zero-time initial point cannot preempt the actual swept escape leg. A real
+   zero-throttle live step still receives a positive-duration clearance test.
+   Only the selected valid board/ram target can be exempted; other hostiles and
+   allies still block. Accepted revision-matched automatic boarding is retained.
+   Survival withdrawal removes that contact exception. Manual ramming retains
+   direct controls. No new ram UI/order or contact/damage physics was added.
+
+AGREED API / INTEGRATION DEPENDENCIES
+Meeting: brass-tide-quality-042-061. Roles agreement32fd8c0c; declarations sent
+d6991f01. Root must integrate this candidate and Roles046 together after 0.045.
+Planner._planning now calls Roles.decide(view,ship,previous,context,reservations).
+Role owner supplies the agreed optional fifth reservations:Dictionary={} and
+forwards it to choose_target; only existing reservation fields are used.
+Roles/Stations use Routes.navigation_radius(ship:Dictionary)->float for hostile
+spacing. Routes preloads no Role/Station code, so this adds no preload cycle.
+Routes.contact_target(ship:Dictionary)->String supplies explicit contact ID.
+Routes.occupied appends avoid_hostiles:bool=false,contact_id:String="". Default
+callers keep allied-only membership/budget behavior. The opted query expands
+the existing broadphase, with no new cache/grid fields. No candidate, intent,
+role-memory, view, certificate or persistent save schema fields were added.
+The private live equipmentInputs array drops moduleCondition; capabilityInputs
+retains its existing fifteen entries. All execution remains on the main thread.
+
+FOCUSED FIXTURE PREPARED, NOT RUN
+Existing test_combat_runtime041.gd retains prior assertions, same-begin parity,
+traffic/cache/route budgets, actual action sample and manual/order checks.
+New checks cover canonical pump/engine/weapon disable, corrupt equipment/fuel,
+six real Battle.update repair+bailing+heat ticks with unchanged route lease,
+finite supplies/crew/ammo, damage after recovery, immediate damage replan;
+hostile crossing vs explicit target contact, unchanged allied refusal, pending
+budget, close-pass separating exit and actual live next-step envelope refusal.
+A small closed-water-pocket scheduler probe records three intended retries
+across thirteen begin calls, reduced detached view counts, immediate new order
+and temporary manual release. It explicitly advances NO physics; its counts
+prove scheduling only. Existing report adds recovery046/cadence046 diagnostics.
+No assertions or elapsed limits have been measured here.
+
+Root's existing bounded headless/Dummy TestBridge command after integration:
+<existing Godot4.7.2> --headless --path <exact integrated game> --audio-driver
+Dummy --script res://tests/test_combat_runtime041.gd
+Supply existing GAME_TEST_ARTIFACTS directory. Retained output filename is
+COMBAT RUNTIME v0.041.json. Use the existing wrapper, machine-wide FIFO and
+owned cleanup. No nested lease; selected complete batch stays below120seconds.
+
+ROOT ACCEPTANCE STILL OPEN
+Run the six saved classes on both sides: flanker/heavy; escort/raider; strike;
+pressured withdrawal; wounded ally cover; mixed fleet. Review normal-scale
+actual chronology for target clearance, exit room, useful loaded fire and
+absence of persistent brake/replan loops. Source fixtures cannot establish it.
+Physical contacts still use circular spec.size, while art is longitudinally
+larger. This AI envelope is conservative avoidance, not a 0.049 footprint fix.
+
+Root043 actual background baseline ec34adcba0674f2b89667ff76c0df597 remains:
+42 lights,full300DP/side:4.330FPS,sim median28.040ms;
+16 mixed,full300DP/side:28.686FPS,sim median11.634ms.
+Root supplied the actual final light profile's395-tick medians (microseconds):
+simulation28040;begin14364;planning15849;damage7770;helm1501;fire1138.
+Planning overlaps begin: these are not independent additive phase times.
+Begin detail:certification5593;proposals2924;snapshots1965;observation1924;
+resolution1370. Raw reference:TASK/v043-final-measurements.json final.runtime_report,
+sibling runtime043-light.json for ec34adcba0674f2b89667ff76c0df597.
+Supplied candidate-r1-hotspots.json separately identifies begin/certification,
+damage, snapshot/proposal costs; its earlier timings are not this candidate's.
+Root must reprofile the integrated identical actor/Hz workload, record current
+contention/resources and priority, and retain failed/interrupted evidence.
+Median6ms/P9510ms and smooth60FPS remain OPEN. No physics/actor reduction or
+speculative concurrency was used. Headless checks/offline movie cannot pass FPS.
+
+SOURCE REVIEW ONLY
+Reviewed the named diff, actual API declarations and retained call sites.
+Scoped git diff --check is clean. The unrelated injected AGENTS block has CRLF
+whitespace reports when checked globally; it is not an authored source defect.
+No native parse/assertion/performance/motion/audio pass is claimed.

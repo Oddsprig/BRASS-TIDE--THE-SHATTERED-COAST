@@ -359,9 +359,14 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	# Resolve current condition before the cadence gate, then share that status.
 	# Battle may lend its checked projection until contact/projectile writes.
 	var status: Dictionary=Damage._read_status_in_phase043(ship,frame_cache)
-	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,previous,status,frame_cache)
-	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-0.01 or equip_abrupt)
-	if age<0.1-0.000001 and not abrupt and not previous.is_empty():return
+	var heat: Vector2=Vector2.ZERO
+	if float(ship.fire)>0.0 or (not previous.is_empty() and (float(ship.hp)<float(previous.hp) or float(ship.engine)<float(previous.engine))):heat=Certification._heat_wear(ship,age)
+	var equipment_previous: Dictionary=previous
+	if not previous.is_empty() and heat.y>0.0 and previous.has("moduleHpSum"):
+		equipment_previous=previous.duplicate()
+		equipment_previous.moduleHpSum=float(previous.moduleHpSum)-float(heat.y)
+	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,equipment_previous,status,frame_cache)
+	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-float(heat.x)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-float(heat.y)-0.0001 or equip_abrupt)
 	var opts: Dictionary=t.options.byId.get(id,defaults())
 	var doctrine: String=str(opts.doctrine)
 	var hp_limit: float=0.60 if doctrine=="cautious" else (0.30 if doctrine=="aggressive" else 0.45)
@@ -369,6 +374,7 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	var net: float=float(status.inflow)-float(status.bailing)
 	var sinking: bool=net>0.0 and (float(ship.capacity)-float(ship.water))/net<8.0
 	var danger: bool=float(ship.hp)/maxf(1.0,float(ship.maxHp))<=hp_limit or float(ship.water)/maxf(1.0,float(ship.capacity))>=flood_limit or float(ship.fire)>=25.0 or sinking
+	if age<0.1-0.000001 and not abrupt and not previous.is_empty() and danger==bool(previous.get("danger",danger)):return
 	var allowed: bool=str(ship.get("order","engage"))=="engage" or bool(opts.conditionalWithdrawal)
 	var equip_mask: float=EquipmentCombat.working_mask(ship,status,frame_cache)
 	var prio_code: float=EquipmentCombat.priority_code(status)
@@ -380,11 +386,11 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	# This is an actual condition/authority reevaluation, separate from the fair
 	# physical-certification queue. It cannot invent an unchecked escape path.
 	if danger and allowed and id!=str(t.manualId) and not bool(previous.get("withdraw",false)):
-		t.intents.erase(id);t.certificationAttempts[id]=-2.0
+		t.intents.erase(id);t.certificationAttempts[id]=-2.0;t.lastDecision[id]=-1.0
 		if not t.pending.has(id):t.pending[id]=now
 		t.reasons[id]="Fire or flooding danger; seeking a safe local rally"
-	elif discrete_equip and id!=str(t.manualId):
-		t.certificationAttempts[id]=-2.0
+	elif (abrupt or discrete_equip) and id!=str(t.manualId):
+		t.intents.erase(id);t.certificationAttempts[id]=-2.0;t.lastDecision[id]=-1.0
 		if not t.pending.has(id):t.pending[id]=now
 
 static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidate: Dictionary) -> String:
@@ -432,7 +438,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 	var manual: bool=input.get("manual",false)==true or not st.get("autopilot",true)
 	var new_manual_id: String=str(st.get("playerId","")) if manual else ""
 	if new_manual_id!=str(t.manualId):
-		if not str(t.manualId).is_empty():t.certificationAttempts[t.manualId]=-2.0
+		if not str(t.manualId).is_empty():
+			t.certificationAttempts[t.manualId]=-2.0;t.lastDecision[t.manualId]=-1.0
 		if not new_manual_id.is_empty():t.intents.erase(new_manual_id)
 		t.manualId=new_manual_id
 	for ship in t.ships.values():safety_check(st,ship,frame_cache)
@@ -458,7 +465,11 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		# maneuvers remain immediately eligible; stable plans need no per-tick
 		# proposal, full route certification or detached world reconstruction.
 		var last: float=float(t.lastDecision.get(id,-1.0))
-		if due.size()<cap and (last<0.0 or float(st.time)-last>=0.15-0.000001 or not t.intents.has(id)):due.append(id)
+		# A rejected route must not reconstruct/reject the same world at 60Hz.
+		# Existing command/condition/control invalidations set last=-1 and bypass
+		# this bounded retry delay. Live helm/fire checks never wait for it.
+		var interval: float=0.15 if t.intents.has(id) else 0.1
+		if due.size()<cap and (last<0.0 or float(st.time)-last>=interval-0.000001):due.append(id)
 	var snapshots: Dictionary={}
 	# These detached bundles exist only during this synchronous begin.
 	# Certification changes clearanceRemaining, not planning observations.

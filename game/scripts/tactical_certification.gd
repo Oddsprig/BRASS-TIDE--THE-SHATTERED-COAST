@@ -7,6 +7,7 @@ const Damage=preload("res://scripts/damage.gd")
 const Roles=preload("res://scripts/tactical_role_plans.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 const EquipmentRollout=preload("res://scripts/equipment_rollout.gd")
+const EquipmentDamage=preload("res://scripts/equipment_damage.gd")
 const STEP: float=1.0/30.0
 # Routes.occupied adds the other hull's radius+3. Match the full corridor's
 # seven-unit allied margin in actual curved prefixes and the final live step.
@@ -25,8 +26,42 @@ static func dynamics_key(ship: Dictionary) -> String:
 static func _live_capability(ship: Dictionary, status: Dictionary) -> Array:
 	return [ship.hp,ship.water,ship.fire,ship.engine,ship.crew,ship.wounded,status.speedFactor,status.turnFactor,status.weaponFactor,status.get("engineFactor",0.0),status.get("pumpFactor",0.0),status.get("armorFactor",0.0),status.get("weaponFactors",{}),status.get("repairPriority","auto"),status.get("equipmentOk",false)]
 
+static func _heat_wear(ship: Dictionary,dt: float,previous_fire: float=-1.0) -> Vector2:
+	var h: float=maxf(0.0,dt)
+	# Bound only the shared damage-control tick's continuous heat wear. Safety
+	# keeps no old fire sample; current fire plus all crew's possible suppression
+	# bounds that short elapsed interval without adding persistent state.
+	var fire_bound: float=maxf(float(ship.fire),previous_fire)
+	if fire_bound<=0.0 and previous_fire>=0.0:return Vector2.ZERO
+	if previous_fire<0.0:fire_bound+=maxf(0.0,float(ship.crew))*EquipmentDamage.FIRE_SUPPRESS_PER_CREW*h
+	fire_bound=minf(100.0,fire_bound+EquipmentDamage.FIRE_GROWTH_PER_SEC*h)
+	return Vector2(fire_bound*EquipmentDamage.FIRE_HULL_LOSS_PER_SEC*h,fire_bound*EquipmentDamage.FIRE_ENGINE_LOSS_PER_SEC*h)
+
+static func _live_capability_lost(actual: Array,previous: Array,heat: Vector2) -> bool:
+	# A live-step lease owns geometry and intent, not an exact future repair
+	# state. The helm and fire gates use current factors every physical tick.
+	# Keep losses/disables immediate; recovery and continuous water/fire drift
+	# need no new route. Runtime.safety_check still handles danger transitions.
+	if not bool(actual[14]) or actual[13]!=previous[13]:return true
+	if float(actual[0])<float(previous[0])-float(heat.x)-0.0001:return true
+	for index in [3,9]:
+		if float(actual[index])<float(previous[index])-float(heat.y)-0.0001:return true
+	for index in [4,10,11]:
+		if float(actual[index])<float(previous[index])-0.0001:return true
+	if float(actual[5])>float(previous[5])+0.0001:return true
+	for index in [6,7,8]:
+		if (float(actual[index])>0.01)!=(float(previous[index])>0.01):return true
+	var weapons: Dictionary=actual[12]
+	var old_weapons: Dictionary=previous[12]
+	if weapons.size()!=old_weapons.size():return true
+	for id in old_weapons:
+		if not weapons.has(id) or float(weapons[id])<float(old_weapons[id])-0.0001:return true
+	return false
+
 static func _live_equipment(ship: Dictionary) -> Array:
-	return [ship.get("moduleCondition"),ship.spec,ship.get("baseSpec"),ship.get("loadout")]
+	# Canonical status validates mutable module records. Comparing the entire
+	# condition ledger here rejected paid repair/revision updates every tick.
+	return [ship.spec,ship.get("baseSpec"),ship.get("loadout")]
 
 static func capability(ship: Dictionary,mask_override: float=NAN,frame_cache=null) -> Dictionary:
 	var status: Dictionary=Damage._read_status_in_phase043(ship,frame_cache) if frame_cache != null else Damage.get_status(ship)
@@ -150,8 +185,8 @@ static func corridor(st: Dictionary,ship: Dictionary,candidate: Dictionary,budge
 		var result: String=Routes.sweep(st.tactical.geometry,previous,goal,radius,budget)
 		if result!="valid":return {"status":result,"eta":elapsed,"reason":"Checking a safe route" if result=="pending" else "Land blocks this route"}
 		var until: float=elapsed+previous.distance_to(goal)/speed
-		result=Routes.occupied(st.tactical.cells,ship,previous,goal,radius,elapsed,until,budget)
-		if result!="valid":return {"status":result,"eta":elapsed,"reason":"Checking allied traffic" if result=="pending" else "Ally occupies this approach"}
+		result=Routes.occupied(st.tactical.cells,ship,previous,goal,radius,elapsed,until,budget,true,Routes.contact_target(ship))
+		if result!="valid":return {"status":result,"eta":elapsed,"reason":"Checking hull clearance" if result=="pending" else "Hull occupies this approach"}
 		elapsed=until;previous=goal
 	return {"status":"valid","eta":elapsed,"reason":"Route clear"}
 
@@ -271,8 +306,14 @@ static func current(st: Dictionary,ship: Dictionary,intent: Dictionary,pose_offs
 	if st.tactical.terrainRevision!=cert.terrainRevision:return {"ok":false,"reason":"Terrain changed; checking maneuver"}
 	if str(cert.get("scope",""))==Planner.LIVE_CERT_SCOPE:
 		if not is_same(record.get("owner"),ship):return {"ok":false,"reason":"Boat owner changed; checking maneuver"}
-		if _motion_inputs(ship)!=record.motionInputs or _live_equipment(ship)!=record.equipmentInputs or _live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache))!=record.capabilityInputs:
+		var live_inputs: Array=_live_capability(ship,Damage._read_status_in_phase043(ship,frame_cache))
+		var heat: Vector2=_heat_wear(ship,float(st.tactical.dt),float(record.capabilityInputs[2]))
+		if _motion_inputs(ship)!=record.motionInputs or _live_equipment(ship)!=record.equipmentInputs or _live_capability_lost(live_inputs,record.capabilityInputs,heat):
 			return {"ok":false,"reason":"Damage or capability changed; reassessing"}
+		# Advance only this private loss guard, never certificate time/geometry or
+		# intent. A hit after recovery must compare with the recovered boat, not
+		# the lower capability at the start of the bounded lease.
+		if live_inputs!=record.capabilityInputs:record.capabilityInputs=live_inputs.duplicate(true)
 		return {"ok":true,"reason":str(intent.get("reason","Following maneuver")),"record":record}
 	if dynamics_key(ship)!=str(record.motionKey):return {"ok":false,"reason":"Conditions changed; checking maneuver"}
 	var age: float=maxf(0.0,float(st.time)-float(cert.checkedAt))
@@ -296,9 +337,15 @@ static func safe_step(st: Dictionary,ship: Dictionary,control: Dictionary,budget
 	var next: Dictionary=motion(ship,float(st.tactical.dt),float(control.angle),float(control.throttle),false,frame_cache)
 	var r: float=maxf(10.0,float(ship.spec.get("size",16)))+HULL_CLEARANCE_MARGIN
 	var clear: String=Routes.sweep(st.tactical.geometry,Routes.point(ship),Routes.point(next),r,budget)
-	if clear=="valid":clear=Routes.occupied(st.tactical.cells,ship,Routes.point(ship),Routes.point(next),r,0.0,float(st.tactical.dt),budget)
+	var contact_id: String=Routes.contact_target(ship)
+	var intent: Dictionary=st.tactical.get("intents",{}).get(str(ship.id),{})
+	var boarding: Dictionary=ship.get("boardingOrder",{})
+	if contact_id.is_empty() and str(intent.get("phase",""))=="board" and int(intent.get("orderRevision",-1))==int(ship.get("orderRevision",0)) and str(intent.get("targetId",""))==str(boarding.get("target","")) and int(boarding.get("orderRevision",-1))==int(ship.get("orderRevision",0)):
+		contact_id=str(intent.get("targetId",""))
+	if bool(st.tactical.get("safety",{}).get(str(ship.id),{}).get("withdraw",false)):contact_id=""
+	if clear=="valid":clear=Routes.occupied(st.tactical.cells,ship,Routes.point(ship),Routes.point(next),r,0.0,float(st.tactical.dt),budget,true,contact_id)
 	if clear=="valid":return control
-	return {"angle":float(ship.angle),"throttle":0.0,"reason":"Braking; checking clearance" if clear=="pending" else "Braking for land or allied traffic","blocked":true}
+	return {"angle":float(ship.angle),"throttle":0.0,"reason":"Braking; checking clearance" if clear=="pending" else "Braking for land or nearby hulls","blocked":true}
 
 static func brake(st: Dictionary,ship: Dictionary,budget: Dictionary,reason: String,frame_cache=null) -> Dictionary:
 	var control: Dictionary={"angle":float(ship.angle),"throttle":0.0,"reason":reason}

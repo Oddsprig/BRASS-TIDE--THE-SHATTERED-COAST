@@ -22,6 +22,14 @@ static func planning_radius(ship: Dictionary) -> float:
 	var allowance: float=clampf(maxf(0.0,float(spec.get("speed",90)))/maxf(0.1,float(spec.get("turn",1.8)))*0.25,0.0,64.0)
 	return maxf(10.0,float(spec.get("size",16)))+4.0+allowance
 
+static func navigation_radius(ship: Dictionary) -> float:
+	# Art hull stations extend to 2.65*size. Use a conservative heading-free
+	# envelope for hostile navigation; physical contacts and firing keep theirs.
+	return maxf(10.0,float(ship.spec.get("size",16)))*2.75
+
+static func contact_target(ship: Dictionary) -> String:
+	return str(ship.get("orderTarget",{}).get("shipId","")) if str(ship.get("order","")) in ["board","ram"] else ""
+
 static func distance(p: Vector2,a: Vector2,b: Vector2) -> float:
 	var d: Vector2=b-a
 	return p.distance_to(a+d*clampf((p-a).dot(d)/maxf(0.000001,d.length_squared()),0.0,1.0))
@@ -130,12 +138,19 @@ static func _neighbours(cells: Dictionary,a: Vector2,b: Vector2,r: float) -> Arr
 		cells._queryCache[query]=result
 	return result
 
-static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary) -> String:
+static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool=false,contact_id: String="") -> String:
 	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
+	var query_radius: float=r+80.0+extra
+	if avoid_hostiles:query_radius=maxf(r,navigation_radius(ship))+220.0+extra
 	# Borrow only the phase-local read-only broadphase. All exact ally sweeps and
 	# their ordered budget debits still run on every route/live safety query.
-	for other in _neighbours(cells,a,b,r+80.0+extra):
-		if str(other.id)==str(ship.id) or other.team!=ship.team:continue
+	for other in _neighbours(cells,a,b,query_radius):
+		if str(other.id)==str(ship.id):continue
+		var hostile: bool=other.team!=ship.team
+		if hostile and (not avoid_hostiles or str(other.id)==contact_id):continue
+		# Candidates start with their present point. A zero-time point cannot
+		# decide whether a close pass escapes; check the following swept leg.
+		if hostile and a==b and until<=from:continue
 		if not spend(budget):return "pending"
 		var velocity: Vector2=Vector2(other.vx,other.vy)
 		# Full corridor occupancy uses observed constant-velocity prediction. Beyond
@@ -145,7 +160,13 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 		var relative: Vector2=a-c
 		var delta: Vector2=(b-a)-(d-c)
 		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
-		if (relative+delta*fraction).length()<r+maxf(10.0,float(other.spec.get("size",16)))+3.0:return "blocked"
+		var clearance: float=r+maxf(10.0,float(other.spec.get("size",16)))+3.0
+		if hostile:clearance=maxf(r,navigation_radius(ship))+navigation_radius(other)+7.0
+		if (relative+delta*fraction).length()<clearance:
+			# An inherited close pass must still be able to leave. Permit only
+			# continuously separating motion; no approach or crossing through it.
+			if hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
+			return "blocked"
 	return "valid"
 
 static func route(st: Dictionary,geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary) -> Dictionary:
@@ -232,8 +253,8 @@ static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candida
 				var cursor: Vector2=previous
 				for waypoint: Vector2 in found.path:
 					var until: float=elapsed+cursor.distance_to(waypoint)/speed
-					var traffic: String=occupied(st.tactical.cells,ship,cursor,waypoint,radius,elapsed,until,budget)
-					if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking allied traffic" if traffic=="pending" else "Ally occupies this approach"}
+					var traffic: String=occupied(st.tactical.cells,ship,cursor,waypoint,radius,elapsed,until,budget,true,contact_target(ship))
+					if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking hull clearance" if traffic=="pending" else "Hull occupies this approach"}
 					elapsed=until;cursor=waypoint
 			points.append_array(found.path)
 			if points.size()>8:return {"status":"blocked","candidate":result}

@@ -290,6 +290,23 @@ func route_checks(source: Dictionary) -> void:
 	check(Routes.refine_live(live,live.tactical.geometry,ship,candidate,pending_budget).status=="pending","exhausted route work remains pending and grants no corridor proof")
 	report.routeComparisons=comparisons
 	report.blockedApproach={"referenceClearance":old_budget.clearanceTests,"combinedClearance":new_budget.clearanceTests,"referenceSearches":old_budget.fullRoutes,"combinedSearches":new_budget.fullRoutes}
+	# Default traffic queries retain allied-only semantics. Normal navigation
+	# opts into actual moving hostile hull clearance; fire queries do not.
+	var hostile: Dictionary=ship.duplicate(true);hostile.id="route-hostile";hostile.team="enemy";hostile.x=1000.0
+	var cells: Dictionary=Routes.grid([ship,hostile],true)
+	check(Routes.occupied(cells,ship,Vector2(600,850),Vector2(1400,850),18.0,0.0,1.0,route_budget())=="valid" and Routes.occupied(cells,ship,Vector2(600,850),Vector2(1400,850),18.0,0.0,1.0,route_budget(),true)=="blocked","normal navigation refuses crossing a hostile hull while default traffic query is unchanged")
+	check(Routes.occupied(cells,ship,Vector2(600,850),Vector2(1400,850),18.0,0.0,1.0,route_budget(),true,str(hostile.id))=="valid","an explicit contact target can retain its boarding or ramming approach")
+	check(Routes.occupied(Routes.grid([ship,hostile,ally],true),ship,Vector2(600,850),Vector2(1400,850),18.0,0.0,1.0,route_budget(),true,str(hostile.id))=="blocked","explicit hostile contact never bypasses an allied hull")
+	var no_budget: Dictionary=route_budget();no_budget.clearanceLimit=0
+	check(Routes.occupied(cells,ship,Vector2(600,850),Vector2(1400,850),18.0,0.0,1.0,no_budget,true)=="pending","hostile clearance exhaustions remain pending rather than fabricated obstruction")
+	hostile.x=620.0;cells=Routes.grid([ship,hostile],true)
+	check(Routes.occupied(cells,ship,Vector2(600,850),Vector2(550,850),18.0,0.0,DT,route_budget(),true)=="valid" and Routes.occupied(cells,ship,Vector2(600,850),Vector2(630,850),18.0,0.0,DT,route_budget(),true)=="blocked","an inherited close hostile pass can separate but cannot drive through the target")
+	var escape: Dictionary=candidate.merged({"approach":[Vector2(600,850),Vector2(550,850)],"pass":[Vector2(550,850)],"exit":[Vector2(500,850)]},true)
+	var escape_state: Dictionary=route_state(ship,[],[hostile])
+	check(Routes.refine_live(escape_state,escape_state.tactical.geometry,ship,escape,route_budget()).status=="valid","the complete separating exit is not rejected by its zero-time initial point")
+	hostile.x=float(ship.x)+Routes.navigation_radius(ship)+Routes.navigation_radius(hostile)+6.9
+	var hostile_state: Dictionary=route_state(ship,[],[hostile])
+	check(Certification.safe_step(hostile_state,ship,{"angle":0.0,"throttle":1.0},route_budget()).get("blocked",false),"actual next-step autopilot refuses entry into the hostile art envelope")
 
 func authority_checks(st: Dictionary) -> void:
 	var ship: Dictionary=st.ships[0]
@@ -310,6 +327,18 @@ func authority_checks(st: Dictionary) -> void:
 	var speed: float=ship.spec.speed;ship.spec.speed+=1.0
 	check(not Certification.current(st,ship,intent).ok,"dynamics change invalidates live authority immediately")
 	ship.spec.speed=speed
+	var condition: Dictionary=ship.moduleCondition.duplicate(true)
+	for location in ["engine","pumps","mount0"]:
+		var uid: String=uid_at(ship,location)
+		check(not uid.is_empty() and Core.apply_component_damage(ship.moduleCondition,{"itemUid":uid,"loss":1.0,"cause":"Runtime disable fixture"}).ok and Records.publish(ship).ok,"actual installed component can be disabled: "+str(location))
+		check(not Certification.current(st,ship,intent).ok,"disabled installed component immediately revokes live authority: "+str(location))
+		ship.moduleCondition=condition.duplicate(true);Records.publish(ship)
+	var fuel: float=ship.fuel;ship.fuel=0.0
+	check(not Certification.current(st,ship,intent).ok,"fuel exhaustion immediately revokes live maneuver authority")
+	ship.fuel=fuel
+	ship.moduleCondition={}
+	check(not Certification.current(st,ship,intent).ok,"corrupt current equipment cannot retain a live maneuver")
+	ship.moduleCondition=condition.duplicate(true);Records.publish(ship)
 	var now: float=st.time;st.time=float(record.certificate.validUntil)+DT
 	check(not Certification.current(st,ship,intent).ok,"expired bounded authority cannot steer or fire")
 	st.time=now
@@ -326,6 +355,77 @@ func authority_checks(st: Dictionary) -> void:
 	Battle.update(st,DT,{"forward":true,"right":true})
 	check(str(st.tactical.manualId)==str(ship.id) and absf(float(st.time)-3.0*DT)<0.000001,"manual flagship retains direct per-tick helm authority")
 
+func recovery_checks(world: Dictionary) -> void:
+	var created: Dictionary=Lab.create(world,{"player":[Lab.entry(world,"tin_skiff")],"enemy":[Lab.entry(world,"tin_skiff")]},4601)
+	check(bool(created.get("ok",false)),"recovery fixture uses canonical public Lab birth")
+	if not bool(created.get("ok",false)):return
+	var st: Dictionary=created.battle
+	var ship: Dictionary=st.ships[0];var id: String=str(ship.id)
+	ship.x=600.0;ship.y=850.0;ship.water=float(ship.capacity)*0.2;ship.hp=float(ship.maxHp)*0.8;ship.fire=4.0;ship.policy="repair"
+	st.ships[1].x=1700.0;st.ships[1].y=850.0
+	var engine_uid: String=uid_at(ship,"engine")
+	check(not engine_uid.is_empty() and Core.apply_component_damage(ship.moduleCondition,{"itemUid":engine_uid,"loss":0.4,"cause":"Runtime recovery fixture"}).ok and Records.publish(ship).ok,"recovery fixture starts with a real damaged engine below its at-sea repair cap")
+	check(Damage.set_repair_priority(ship,"engine")=="engine" and Battle.issue_order(st,[id],"move",{"x":1000.0,"y":850.0}),"repair priority and explicit move use existing public APIs")
+	Battle.update(st,DT)
+	var intent: Dictionary=st.tactical.intents.get(id,{})
+	var fingerprint: String=str(intent.get("pathFingerprint",""))
+	var record: Dictionary=st.tactical.predictions.get(fingerprint,{})
+	check(not record.is_empty() and Certification.current(st,ship,intent).ok,"damaged bailing boat obtains a real useful live-step maneuver")
+	if record.is_empty():return
+	var certificate: PackedByteArray=var_to_bytes(record.certificate)
+	var water: float=ship.water;var engine: float=ship.engine;var hp: float=ship.hp;var supplies: float=ship.supplies;var ammo: float=ship.ammo;var crew: float=ship.crew
+	var condition_before: PackedByteArray=var_to_bytes(ship.moduleCondition)
+	var continuous: bool=true
+	for tick in range(6):
+		Battle.update(st,DT)
+		continuous=continuous and str(st.tactical.intents.get(id,{}).get("pathFingerprint",""))==fingerprint and Certification.current(st,ship,intent).ok
+	check(continuous and float(ship.fire)>0.0 and float(ship.hp)<hp,"six actual 60Hz bailing/repair ticks with real fire heat preserve useful intent instead of reassessing every frame")
+	check(float(ship.water)<water and float(ship.engine)>engine and var_to_bytes(ship.moduleCondition)!=condition_before and float(ship.supplies)<supplies,"real bailing and component recovery change the ledger and consume finite carried supplies")
+	check(float(ship.ammo)==ammo and float(ship.crew)==crew and float(ship.supplies)>=0.0 and var_to_bytes(record.certificate)==certificate,"recovery neither invents ammo/crew/stores nor extends certificate time or geometry")
+	var recovered: float=float(ship.engine)-engine
+	if recovered>0.0004:
+		check(Core.apply_component_damage(ship.moduleCondition,{"itemUid":engine_uid,"loss":recovered*0.5,"cause":"Runtime hit after recovery"}).ok and Records.publish(ship).ok,"actual component loss follows the recorded recovery")
+		check(float(ship.engine)>engine and not Certification.current(st,ship,intent).ok,"damage after recovery is refused even above the original certified engine condition")
+		Battle.update(st,DT)
+		check(int(st.tactical.intents.get(id,{}).get("snapshotRevision",-1))==int(st.tactical.snapshotRevision),"abrupt component damage requests a fresh maneuver on the next live begin")
+	else:check(false,"real recovery is large enough to exercise the hit-after-repair guard")
+	report.recovery046={"continuousIntent":continuous,"waterRemoved":water-float(ship.water),"suppliesUsed":supplies-float(ship.supplies),"recoveredEngine":recovered,"ticks":8}
+
+func cadence_checks(world: Dictionary) -> void:
+	var created: Dictionary=Lab.create(world,{"player":[Lab.entry(world,"tin_skiff")],"enemy":[Lab.entry(world,"tin_skiff")]},4602)
+	check(bool(created.get("ok",false)),"cadence fixture uses canonical public Lab birth")
+	if not bool(created.get("ok",false)):return
+	var st: Dictionary=created.battle
+	var ship: Dictionary=st.ships[0];var id: String=str(ship.id)
+	ship.x=600.0;ship.y=850.0;st.ships[1].x=1700.0;st.ships[1].y=850.0
+	# A real closed water pocket makes the outside destination unreachable.
+	# This is a scheduler-only probe: begin advances observations, not physics.
+	st.islands=[
+		{"points":[[480,730],[520,730],[520,970],[480,970]]},
+		{"points":[[680,730],[720,730],[720,970],[680,970]]},
+		{"points":[[480,730],[720,730],[720,770],[480,770]]},
+		{"points":[[480,930],[720,930],[720,970],[480,970]]}]
+	check(Battle.issue_order(st,[id],"move",{"x":1000.0,"y":850.0}),"blocked-route probe accepts a real clear-water destination outside the pocket")
+	Tactical.accept_command(st,st.ships[1],"hold",{"x":1700.0,"y":850.0})
+	Tactical.reset_runtime_profile043();Tactical.set_runtime_profile043(true)
+	var attempts: Array=[];var last: float=-INF
+	for tick in range(13):
+		st.time+=DT;Tactical.begin(st,DT)
+		var at: float=float(st.tactical.lastDecision.get(id,-1.0))
+		if at!=last:attempts.append(at);last=at
+	var profile: Dictionary=Tactical.runtime_profile043()
+	Tactical.set_runtime_profile043(false)
+	check(not st.tactical.intents.has(id) and attempts.size()==3,"unchanged blocked route gets three bounded retries across thirteen observation ticks")
+	check(int(profile.beginCalls)==13 and int(profile.viewCalls)<=6,"blocked retry cadence avoids repeated detached world/planning copies while observation stays at 60Hz")
+	check(Battle.issue_order(st,[id],"hold",{"x":ship.x,"y":ship.y}),"new explicit hold replaces the unreachable move")
+	st.time+=DT;Tactical.begin(st,DT)
+	check(float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and Certification.current(st,ship,st.tactical.intents.get(id,{})).ok,"explicit order bypasses the blocked-route retry wait on the next begin")
+	st.time+=DT;Tactical.begin(st,DT,{"manual":true})
+	check(str(st.tactical.manualId)==id and not st.tactical.intents.has(id),"temporary manual control takes helm authority immediately")
+	st.time+=DT;Tactical.begin(st,DT)
+	check(str(st.tactical.manualId).is_empty() and float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and Certification.current(st,ship,st.tactical.intents.get(id,{})).ok,"manual release immediately requests autopilot rather than waiting for retry cadence")
+	report.cadence046={"observationTicks":13,"attemptTimes":attempts,"profile":profile,"physicsAdvanced":false}
+
 func run() -> void:
 	started=Time.get_ticks_usec()
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
@@ -339,6 +439,8 @@ func run() -> void:
 		traffic_query_checks(created.battle.ships[0])
 		route_checks(created.battle.ships[0])
 		authority_checks(created.battle)
+		recovery_checks(world)
+		cadence_checks(world)
 		var benchmark=Benchmark.new()
 		benchmark.action_sample(world,report,started)
 		check(benchmark.failures.is_empty(),"shared compact action sample completes, moves both sides and emits/debits real automatic shots")

@@ -60,7 +60,7 @@ static func _planning(view: Dictionary, memory: Dictionary) -> Dictionary:
 	var scored: int = 0
 	for ship_id: String in due_ids:
 		var ship: Dictionary = context[ship_id]
-		var decision: Dictionary = Roles.decide(view, ship, Roles.dictionary(by_id.get(ship_id)), context)
+		var decision: Dictionary = Roles.decide(view, ship, Roles.dictionary(by_id.get(ship_id)), context, reservations)
 		decisions[ship_id] = decision
 		scored += int(decision.scored)
 		var requests: Array = Stations.candidates(view, ship, decision, context, reservations)
