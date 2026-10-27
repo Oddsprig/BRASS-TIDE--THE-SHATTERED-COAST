@@ -14,6 +14,7 @@ class _BeginProofs051 extends RefCounted:
 	var cells: Dictionary={}
 	var owners: Dictionary={}
 	var entries: Dictionary={}
+	var traffic_bodies: Dictionary={}
 
 static func _begin_proofs051(geometry: Dictionary,cells: Dictionary,owners: Dictionary) -> _BeginProofs051:
 	# Runtime.begin alone owns this closed, synchronous observation scope. None
@@ -25,7 +26,7 @@ static func _begin_proofs051(geometry: Dictionary,cells: Dictionary,owners: Dict
 	return proofs
 
 static func _close_begin_proofs051(proofs: _BeginProofs051) -> void:
-	proofs.active=false;proofs.entries.clear();proofs.owners.clear()
+	proofs.active=false;proofs.entries.clear();proofs.owners.clear();proofs.traffic_bodies.clear()
 	proofs.geometry={};proofs.obstacles=[];proofs.cells={}
 
 static func _proof_scope051(proofs: _BeginProofs051,geometry: Dictionary,cells: Dictionary,ship: Dictionary) -> bool:
@@ -87,7 +88,7 @@ static func _occupied_begin051(proofs: _BeginProofs051,cells: Dictionary,ship: D
 		if profile051:_route_timing051(budget,"occupiedNumeric",Time.get_ticks_usec()-numeric_started051)
 		return fallback051
 	var debits: Array[int]=[]
-	var status: String=_occupied_record051(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id,debits)
+	var status: String=_occupied_record051(cells,ship,a,b,r,from,until,budget,avoid_hostiles,contact_id,debits,proofs)
 	_proof_store051(proofs,key,status,debits)
 	if profile051:_route_timing051(budget,"occupiedNumeric",Time.get_ticks_usec()-numeric_started051)
 	return status
@@ -184,8 +185,8 @@ static func sweep(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Di
 			if segment_distance(a,b,c,d)<r+0.001:return "blocked"
 	return "valid"
 
-# These two private recorders mirror the unchanged public reference checks;
-# only spend recording differs. Pending walks never create a terminal proof.
+# These private recorders mirror the unchanged public checks, recording debits
+# and borrowing closed-begin hull inputs. Pending never creates a terminal proof.
 static func _sweep_record051(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary,debits: Array[int]) -> String:
 	if not _proof_spend051(budget,debits):return "pending"
 	if not a.is_finite() or not b.is_finite() or minf(a.x,b.x)<r or maxf(a.x,b.x)>WIDTH-r or minf(a.y,b.y)<r or maxf(a.y,b.y)>HEIGHT-r:return "blocked"
@@ -291,26 +292,37 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 			return "blocked"
 	return "valid"
 
-static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool,contact_id: String,debits: Array[int]) -> String:
+static func _occupied_record051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool,contact_id: String,debits: Array[int],proofs: _BeginProofs051=null) -> String:
 	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
 	var query_radius: float=r+80.0+extra
 	var own_navigation: float=maxf(r,navigation_radius(ship)) if avoid_hostiles else r
+	var owner_id: String=str(ship.id)
 	if avoid_hostiles:
 		var padding: float=float(cells._maxNavigationRadius)+7.0 if cells.has("_maxNavigationRadius") else 220.0
 		query_radius=own_navigation+padding+extra
 	for other in _neighbours(cells,a,b,query_radius):
-		if str(other.id)==str(ship.id):continue
+		var other_id: String=str(other.id)
+		if other_id==owner_id:continue
 		var hostile: bool=other.team!=ship.team
-		if hostile and (not avoid_hostiles or str(other.id)==contact_id):continue
+		if hostile and (not avoid_hostiles or other_id==contact_id):continue
 		if hostile and a==b and until<=from:continue
 		if not _proof_spend051(budget,debits):return "pending"
-		var velocity: Vector2=Vector2(other.vx,other.vy)
-		var c: Vector2=point(other)+velocity*from
-		var d: Vector2=point(other)+velocity*until
+		# Only the existing closed begin may borrow immutable hull inputs. Keep
+		# both time projections and all per-query debits/closest-approach math.
+		var body: Array=[] if proofs==null else proofs.traffic_bodies.get(other_id,[])
+		if body.is_empty() or not is_same(body[0],other):
+			# Source identity, exact observed origin/velocity, physical hull radius.
+			body=[other,point(other),Vector2(other.vx,other.vy),maxf(10.0,float(other.spec.get("size",16)))]
+			if proofs!=null and proofs.traffic_bodies.size()<BEGIN_PROOF_LIMIT051:
+				body.make_read_only();proofs.traffic_bodies[other_id]=body
+		var origin: Vector2=body[1]
+		var velocity: Vector2=body[2]
+		var c: Vector2=origin+velocity*from
+		var d: Vector2=origin+velocity*until
 		var relative: Vector2=a-c
 		var delta: Vector2=(b-a)-(d-c)
-		var clearance: float=r+maxf(10.0,float(other.spec.get("size",16)))+3.0
-		if hostile:clearance=own_navigation+navigation_radius(other)+7.0
+		var clearance: float=r+float(body[3])+3.0
+		if hostile:clearance=own_navigation+float(body[3])*2.75+7.0
 		if _traffic_apart051(relative,delta,clearance):continue
 		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
 		if (relative+delta*fraction).length()<clearance:

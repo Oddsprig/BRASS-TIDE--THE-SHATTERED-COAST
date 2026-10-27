@@ -317,6 +317,24 @@ func proof_reuse051() -> void:
 	var late_proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,late_cached.tactical.cells,owners)
 	check(proof_pair051("late oversized hostile",late_reference,late_cached,geometry,owner,crossing,late_proofs).status=="blocked","full-time grid bounds retain oversized hostile clearance")
 	proof_pair051("repeat late hostile",late_reference,late_cached,geometry,owner,crossing,late_proofs)
+	# Distinct exact traffic queries share only fixed observed hull inputs. A
+	# new observation must reconstruct them, including velocity/physical size.
+	var moving: Dictionary=owner.duplicate(true)
+	moving.id="moving-body051";moving.x=380.0;moving.y=900.0;moving.vx=45.0;moving.vy=-4.0
+	var moving_reference: Dictionary=proof_state051([owner.duplicate(true),moving.duplicate(true)])
+	var moving_cached: Dictionary=proof_state051([owner,moving])
+	var moving_proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,moving_cached.tactical.cells,owners)
+	check(proof_pair051("moving hull first route",moving_reference,moving_cached,geometry,owner,candidate,moving_proofs).status=="valid","moving ally stays clear on the initial route")
+	proof_pair051("moving hull distinct exact endpoint",moving_reference,moving_cached,geometry,owner,shifted,moving_proofs)
+	Routes._close_begin_proofs051(moving_proofs)
+	moving.x=430.0;moving.y=760.0;moving.vx=0.0;moving.vy=200.0;moving.spec.size=20.0
+	moving_reference=proof_state051([owner.duplicate(true),moving.duplicate(true)])
+	moving_cached=proof_state051([owner,moving])
+	var changed_proofs: Routes._BeginProofs051=Routes._begin_proofs051(geometry,moving_cached.tactical.cells,owners)
+	check(proof_pair051("new observation moving crossing",moving_reference,moving_cached,geometry,owner,candidate,changed_proofs).status=="blocked","new velocity, origin and size retain the current crossing veto")
+	for limit: int in [0,1,2]:
+		proof_pair051("moving crossing debit refusal %d"%limit,moving_reference,moving_cached,geometry,owner,candidate,changed_proofs,limit)
+	Routes._close_begin_proofs051(changed_proofs)
 	for scope: Routes._BeginProofs051 in [proofs,land_proofs,pending_proofs,blocked_proofs,detour_proofs,late_proofs]:
 		Routes._close_begin_proofs051(scope)
 	check(not blocked_proofs.active and blocked_proofs.entries.is_empty(),"closing the begin scope expires every proof")

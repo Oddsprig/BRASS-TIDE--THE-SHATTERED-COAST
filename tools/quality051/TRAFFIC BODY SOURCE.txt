@@ -1,0 +1,18 @@
+051 TRAFFIC BODY REUSE - SOURCE ONLY
+Parent ec682272; Routes byte-matches Root 5ffbb896 before this change.
+
+Actual R12 light per-tick medians: occupiedNumeric432us/22 calls,
+adopt918us/14, refine1128us/16; totals overlap. No new counters.
+
+The existing closed begin proof context now retains each encountered hull's
+exact origin, velocity and physical radius once, guarded by source identity.
+Distinct numeric traffic queries reuse only these immutable inputs. Both time
+projections, closest-approach math, traversal order, debit/refusal boundaries,
+current 0.3s prefix, full land path and ETA are unchanged. Rows are bounded by
+the existing512 limit and cleared at close; no Runtime/worker API change.
+Public occupied/sweep are untouched; the recorder's new argument defaults null.
+
+Existing geometry fixture adds20 moving-hull endpoint, new-observation crossing
+and debit parity assertions against public refinement. One advisory:0issues,
+engineInvoked=false; diff clean. Native UNRUN; Root owns
+validation and GPU. Savings unmeasured; R12 quality remains FAILED. STOPPED.
