@@ -735,13 +735,19 @@ func workers051() -> void:
 		var slot: Dictionary=lease.slot
 		var old_phase: String=str(slot.capsule.result.planning.decisions[id].state.phase)
 		var event_at: float=float(st.time)
+		var event_revision: int=int(st.tactical.snapshotRevision)
+		var decisions_before: int=int(st.tactical.counters.decisions)
 		arena.target.x=float(source.x)+45.0;arena.target.y=float(source.y)
 		B.update(st,1.0/60.0);B.pop_events(st)
 		var fresh: Dictionary=st.tactical.memory.player.byId.get(id,{})
 		var history: Array=fresh.get("observations",[])
 		check(old_phase=="approach" and id in slot.discarded and id not in slot.adopted and str(fresh.get("phase",""))=="breakaway","changed live phase rejects worker offers and rebuilds from the fresh main escape decision")
-		check(float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and not history.is_empty() and float(history[-1].lastAt)==float(st.time) and float(st.time)-event_at<=0.2+0.000001,"phase fallback publishes actual current observations within the unchanged deadline")
-		observations.append({"case":"workers-fresh-phase","eventAt":event_at,"time":st.time,"workerPhase":old_phase,"mainPhase":fresh.get("phase",""),"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate()})
+		var last_decision: float=float(st.tactical.lastDecision.get(id,-1.0))
+		var safe_clock: bool=last_decision==float(st.time) or (last_decision<0.0 and not st.tactical.intents.has(id))
+		# A current observation can be followed by a same-step physical veto.
+		# That veto must retain its right to revoke the helm/decision timestamp.
+		check(safe_clock and not history.is_empty() and float(history[-1].lastAt)==float(st.time) and int(st.tactical.snapshotRevision)>event_revision and int(st.tactical.counters.decisions)>decisions_before and float(st.time)-event_at<=0.2+0.000001,"phase fallback publishes current observations within0.2s while preserving a later physical veto")
+		observations.append({"case":"workers-fresh-phase","eventAt":event_at,"time":st.time,"workerPhase":old_phase,"mainPhase":fresh.get("phase",""),"lastDecision":last_decision,"memoryAt":history[-1].get("lastAt",-1.0) if not history.is_empty() else -1.0,"hasIntent":st.tactical.intents.has(id),"decisionsBefore":decisions_before,"decisionsAfter":st.tactical.counters.decisions,"adopted":slot.adopted.duplicate(),"discarded":slot.discarded.duplicate()})
 	T.retire_planning051(st);T.drain_planning051()
 	for action: String in ["command","options","terrain","capability","manual","abandon"]:
 		arena=local_arena();st=arena.state;source=arena.source;id=str(source.id)
