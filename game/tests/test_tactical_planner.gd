@@ -445,6 +445,11 @@ func test_kelp_route_progress051() -> void:
 	check(changed.key != geometry.key and int(changed.revision) > int(geometry.revision) and st.tactical.routeCache.is_empty(), "actual coast edits invalidate completed routes, frontiers and shared visibility together")
 
 func _initialize() -> void:
+	if "--case=coastal-route051" in OS.get_cmdline_user_args():
+		test_kelp_route_progress051()
+		print("tactical_planner coastal-route051: %d checks, %d failures" % [checks, failures])
+		quit(1 if failures > 0 else 0)
+		return
 	test_detachment_and_authorship()
 	test_certificate_rejection()
 	test_coordination_and_budget()
