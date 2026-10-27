@@ -1,0 +1,16 @@
+051 AUTOMATIC EMPTY-GATE FIRE SHORT CIRCUIT
+
+Parent: fb49bbe60d47c3a3455a6b92c1d57b30f2da2848.
+Battle baseline matched Root 512e485 before editing.
+
+Only Battle._fire gains the approved two-line automatic-and-empty-gates return,
+after _combat_mounts, _sync_cooldowns and CombatEvents.sync_mount_shots.
+All three bookkeeping calls remain before the exit. This avoids only the
+subsequent status lookup and mount loop on that path. Manual firing and
+nonempty gates retain the existing path; aim, scatter/RNG, stores and firing
+reasons are untouched.
+
+Only game/scripts/battle.gd and this handoff changed. Exact source diff and
+whitespace checks verified. No new tests or framework. Native UNRUN: Root owns
+the existing battle/heldgun/traffic/first-voyage worker integration checks.
+Savings are unmeasured; this does not explain the recorded 2.4 ms firing cost.

@@ -480,6 +480,8 @@ static func _fire(st: Dictionary,s: Dictionary,target: Vector2,target_ship: Dict
 	var mounts: Array=_combat_mounts(st,s,frame_cache)
 	_sync_cooldowns(s,mounts.size())
 	CombatEvents.sync_mount_shots(s,mounts)
+	if automatic and gates.is_empty():
+		return
 	var status: Dictionary=Damage._read_status_in_phase043(s,frame_cache)
 	if not bool(status.get("equipmentOk",true)) or status.weaponFactor<=0.01:
 		return
