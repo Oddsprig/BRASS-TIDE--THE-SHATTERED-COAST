@@ -1,0 +1,31 @@
+051 STATIC ENDPOINT REJECTION - SOURCE ONLY
+Parent ffddc61; scoped WIP carried from3a3 (same Routes/geometry fixture).
+
+R13 light: 8722 adopts, 9202 nested refines, 219 fullRoutes; mixed 1719,
+1944,10. No per-offer paths/reasons were recorded. Source-generated R13
+player0/enemy0 sector1 exit (~1116,200) is inside the actual northern island;
+early traffic refusal can hide this later impossible endpoint. This is source
+reproduction, NOT a measured rejection count or evidence of dominant savings.
+
+Worker blocked packets alone may gain sealed original-path provenance from
+independent zero-length public land sweeps. Skip sampled origin, preserve
+caller result/cache/debits. Planner._work051 owns ONE private128-debit proof
+allowance for the ENTIRE side job/all hulls/offers, passes it as optional sixth
+_prepare_detached051 argument. Never cloned/reset per offer; no shared static.
+Default absent allowance and any pending scan produce no proof.
+
+Single read-only API: Routes._reject_prepared_static051(geometry,ship,
+candidate,prepared)->bool. Perf MUST first establish existing joined-worker
+ownership/age/order gates. Exact owner, terrain key/revision, radius and all
+three unchanged original paths required; reminted metadata allowed. It grants
+no authority. Pure traffic, blocked chords, pending results retain alternatives.
+Root hook: Runtime.begin AFTER rejected051 validation and prepared_route051
+lookup, BEFORE refinement/adoption. Existing owned worker gate is required:
+if id in planning[side].workerIds051 and Routes._reject_prepared_static051(t.geometry,ship,raw,prepared_route051):continue
+Keep every other alternative. Root alone adds this guard/optional counter.
+Public/adopt/current connector/traffic/fire unchanged; Runtime untouched here.
+
+Existing geometry fixture adds generated-endpoint, parity/debit, input-change,
+dynamic/pending, detour, bounds/disk/origin and64-offer shared exhaustion checks.
+Updated source advisory:0issues/engineInvoked=false; diff clean.
+Native/GPU UNRUN; Root validates the seam. Savings/hit-rate unmeasured.

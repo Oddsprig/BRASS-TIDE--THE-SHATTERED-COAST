@@ -87,6 +87,7 @@ func run() -> void:
 	proof_reuse051()
 	finite_traffic051()
 	detached_routes051()
+	static_rejections051(world)
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
 
@@ -482,3 +483,105 @@ func detached_routes051() -> void:
 	check(connector.status=="blocked" and connector.reason=="Checking current land connector","actual current pose must pass a fresh full land connector")
 	check(Routes._adopt_prepared051(current,geometry,owner,request,prepared,proof_budget051(0),null,2.0).status=="pending","fresh adoption cannot waive the current connector's work debit")
 	check(var_to_bytes([geometry,owner,request])==before,"worker preparation and current adoption preserve their source geometry, owner and request")
+
+func static_rejections051(world: Dictionary) -> void:
+	# R13 raw records these initial poses/islands, but no request/rejection log.
+	# Generate the concrete station through the actual source, not a new planner.
+	var spec: Dictionary=world.HULLS.filter(func(h):return h.id=="bilge_punt")[0].duplicate(true)
+	var owner: Dictionary={"id":"player-0-bilge_punt","team":"player","x":1000.0,"y":610.0,"vx":0.0,"vy":0.0,"angle":0.0,"ammo":80.0,"fuel":120.0,"formationIndex":0,"order":"engage","orderRevision":1,"spec":spec,"status":{"speedFactor":1.0,"weaponFactor":1.0},"mounts":[{"id":"mount0","kind":"gun","range":spec.range,"damage":spec.damage,"fireRate":spec.fireRate,"speed":850.0,"arc":TAU}]}
+	var enemy: Dictionary=owner.duplicate(true)
+	enemy.id="enemy-0-bilge_punt";enemy.team="enemy";enemy.x=1290.0;enemy.angle=PI
+	var view: Dictionary={"time":0.0,"snapshotRevision":1,"ships":[owner,enemy],"options":{"byId":{}}}
+	var context: Dictionary=Roles.ships_by_id(view)
+	var decision: Dictionary={"state":{"role":"skirmisher","phase":"approach","targetId":enemy.id},"range":Roles.role_range(view,owner,"skirmisher"),"targets":[enemy.id],"detailedIds":[enemy.id]}
+	var request: Dictionary={}
+	for candidate: Dictionary in Stations.candidates(view,owner,decision,context):
+		if candidate.sector==1:request=candidate
+	check(not request.is_empty(),"R13 starting poses generate the existing skirmisher sector-one offer")
+	if request.is_empty():return
+	var islands: Array=[{"points":[[850,80],[1130,120],[1210,310],[1030,420],[820,300]]},{"points":[[1040,1320],[1240,1250],[1430,1450],[1320,1640],[1070,1580]]}]
+	var blocker: Dictionary=owner.duplicate(true)
+	blocker.id="snapshot-traffic051"
+	var worker: Dictionary=proof_state051([owner,enemy,blocker])
+	worker.time=0.0;worker.islands=islands
+	var geometry: Dictionary=Routes.terrain(worker)
+	check(Routes.inside(request.exit[-1],islands[0].points),"source-generated R13 exit near (1116,200) is inside the real northern island")
+	var held: PackedByteArray=var_to_bytes([geometry,owner,request])
+	var old_state: Dictionary=worker.duplicate(true)
+	var old_budget: Dictionary=proof_budget051(4096)
+	var expected: Dictionary=Routes._refine_begin051(old_state,geometry,owner,request,old_budget,null,2.0)
+	var budget: Dictionary=proof_budget051(4096)
+	var prepared: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,budget,proof_budget051(128))
+	check(prepared.status==expected.status and prepared.candidate==expected.candidate and prepared.get("eta")==expected.get("eta") and prepared.get("reason")==expected.get("reason"),"worker static provenance preserves the exact original refinement result")
+	check(budget==old_budget and worker.tactical.routeCache==old_state.tactical.routeCache,"worker endpoint proof does not debit the next offer or change the route cache")
+	check(prepared.status=="blocked" and prepared.reason=="Hull occupies this approach" and Routes._reject_prepared_static051(geometry,owner,request,prepared),"independent fixed exit proof can expose impossible land hidden after snapshot traffic refusal")
+	check(prepared.staticRejection051.is_read_only() and prepared.staticRejection051.paths.is_read_only() and prepared.staticRejection051.paths[2].is_read_only(),"worker rejection provenance seals detached exact original paths")
+	var reminted: Dictionary=request.duplicate(true)
+	reminted.candidateId="fresh-main051";reminted.snapshotRevision=2
+	check(Routes._reject_prepared_static051(geometry,owner,reminted,prepared),"main may remint request metadata while retaining every exact fixed waypoint")
+	for leg: String in ["approach","pass","exit"]:
+		var changed: Dictionary=request.duplicate(true)
+		changed[leg][0]+=Vector2(0.000244140625,0)
+		check(not Routes._reject_prepared_static051(geometry,owner,changed,prepared),leg+": neighboring exact path cannot borrow a static rejection")
+	for field: String in ["terrainKey051","terrainRevision051","radius051","staticRejection051"]:
+		var missing: Dictionary=prepared.duplicate()
+		missing.erase(field)
+		check(not Routes._reject_prepared_static051(geometry,owner,request,missing),field+": unstamped worker result cannot reject a current offer")
+	for status: String in ["pending","valid"]:
+		var changed: Dictionary=prepared.duplicate()
+		changed.status=status
+		check(not Routes._reject_prepared_static051(geometry,owner,request,changed),status+": only completed blocked worker packets can carry a rejection")
+	var changed_geometry: Dictionary=geometry.duplicate()
+	changed_geometry.revision+=1
+	check(not Routes._reject_prepared_static051(changed_geometry,owner,request,prepared),"terrain revision invalidates static endpoint provenance")
+	changed_geometry=geometry.duplicate();changed_geometry.key="different051"
+	check(not Routes._reject_prepared_static051(changed_geometry,owner,request,prepared),"terrain identity invalidates static endpoint provenance")
+	var changed_owner: Dictionary=owner.duplicate(true)
+	changed_owner.spec.size+=1.0
+	check(not Routes._reject_prepared_static051(geometry,changed_owner,request,prepared),"changed planning disk invalidates static endpoint provenance")
+	changed_owner=owner.duplicate(true);changed_owner.id="replacement051"
+	check(not Routes._reject_prepared_static051(geometry,changed_owner,request,prepared),"another owner cannot borrow the joined worker's rejection")
+	var default_packet: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,proof_budget051(4096))
+	check(not default_packet.has("staticRejection051"),"default preparation without a private job allowance produces no proof")
+	for limit: int in [0,1]:
+		var limited: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,proof_budget051(limit),proof_budget051(128))
+		check(limited.status=="pending" and not limited.has("staticRejection051"),"pending route allowance %d never creates static rejection authority"%limit)
+	for limit: int in [0,1,2]:
+		var limited: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,proof_budget051(4096),proof_budget051(limit))
+		check(limited.status=="blocked" and not limited.has("staticRejection051"),"pending/exhausted proof allowance %d leaves the blocked route unchanged"%limit)
+	var shared: Dictionary=proof_budget051(128)
+	var proven: int=0
+	var unchanged: bool=true
+	for i: int in range(64):
+		var normal: Dictionary=proof_budget051(4096)
+		var packet: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,normal,shared)
+		if packet.has("staticRejection051"):proven+=1
+		unchanged=unchanged and packet.status==expected.status and packet.candidate==expected.candidate and normal==old_budget
+	check(proven>0 and shared.clearanceTests==128,"all blocked hull/offer calls together consume at most one 128-debit job allowance")
+	check(unchanged,"shared proof exhaustion preserves every normal route result and budget")
+	var exhausted: Dictionary=Routes._prepare_detached051(worker,geometry,owner,request,proof_budget051(4096),shared)
+	check(not exhausted.has("staticRejection051") and shared.clearanceTests==128,"later offers cannot renew or exceed the exhausted job proof allowance")
+	var open_geometry: Dictionary={"key":"open-static051","revision":1,"obstacles":[]}
+	var legal: Dictionary={"approach":[Routes.point(owner),Vector2(1080,610)],"pass":[],"exit":[]}
+	var dynamic: Dictionary=Routes._prepare_detached051(worker,open_geometry,owner,legal,proof_budget051(4096),proof_budget051(128))
+	check(dynamic.status=="blocked" and not Routes._reject_prepared_static051(open_geometry,owner,legal,dynamic),"snapshot traffic alone cannot reject a usable fixed route")
+	var current: Dictionary=proof_state051([owner])
+	check(Routes.refine_live(current,open_geometry,owner,legal,proof_budget051(4096)).status=="valid","moving traffic may clear; the original alternative remains usable on main")
+	var crossing: Dictionary=legal.duplicate(true)
+	crossing.approach[1]=Vector2(1400,610)
+	var corridor: Dictionary={"key":"chord-static051","revision":1,"obstacles":[{"points":[[1150,550],[1190,550],[1190,650],[1150,650]],"lo":Vector2(1150,550),"hi":Vector2(1190,650)}]}
+	var chord: Dictionary=Routes._prepare_detached051(worker,corridor,owner,crossing,proof_budget051(4096),proof_budget051(128))
+	check(chord.status=="blocked" and not Routes._reject_prepared_static051(corridor,owner,crossing,chord),"blocked direct segment with clear endpoints is never a terminal rejection")
+	check(Routes.refine_live(current,corridor,owner,crossing,proof_budget051(4096)).status=="valid","full main graph can still find a detour around the blocked chord")
+	var outside: Dictionary=legal.duplicate(true)
+	outside.approach[1]=Vector2(0,610)
+	var bounds: Dictionary=Routes._prepare_detached051(worker,open_geometry,owner,outside,proof_budget051(4096),proof_budget051(128))
+	check(Routes._reject_prepared_static051(open_geometry,owner,outside,bounds),"fixed endpoint disk outside battle bounds is provably impossible")
+	var near_land: Dictionary=legal.duplicate(true)
+	near_land.approach[1]=Vector2(1125,610)
+	var disk: Dictionary=Routes._prepare_detached051(worker,corridor,owner,near_land,proof_budget051(4096),proof_budget051(128))
+	check(not Routes.inside(near_land.approach[1],corridor.obstacles[0].points) and Routes._reject_prepared_static051(corridor,owner,near_land,disk),"fixed disk overlapping shore is impossible even when its center is outside land")
+	var origin_land: Dictionary={"key":"origin-static051","revision":1,"obstacles":[{"points":[[990,600],[1010,600],[1010,620],[990,620]],"lo":Vector2(990,600),"hi":Vector2(1010,620)}]}
+	var origin_only: Dictionary=Routes._prepare_detached051(worker,origin_land,owner,legal,proof_budget051(4096),proof_budget051(128))
+	check(origin_only.status=="blocked" and not Routes._reject_prepared_static051(origin_land,owner,legal,origin_only),"sampled origin in land is never mistaken for a fixed future endpoint proof")
+	check(var_to_bytes([geometry,owner,request])==held,"provenance and read-only predicate preserve all source geometry, owner fields and request paths")

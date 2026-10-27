@@ -481,7 +481,7 @@ static func _refine_begin_core051(st: Dictionary,geometry: Dictionary,ship: Dict
 	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):return _refine(st,geometry,ship,candidate,budget,true,null,live_traffic_seconds051)
 	return _refine(st,geometry,ship,candidate,budget,true,proofs,live_traffic_seconds051)
 
-static func _prepare_detached051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary) -> Dictionary:
+static func _prepare_detached051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proof_budget051: Dictionary={}) -> Dictionary:
 	# Exclusively worker-owned state, clock, grid and cache. Complete land routes
 	# and ETA survive the advisory snapshot traffic prefix; pending stays pending.
 	var prepared: Dictionary=_refine(st,geometry,ship,candidate,budget,true,null,2.0)
@@ -491,7 +491,53 @@ static func _prepare_detached051(st: Dictionary,geometry: Dictionary,ship: Dicti
 	prepared.terrainRevision051=geometry.revision
 	prepared.observedAt051=float(st.time)
 	prepared.trafficSeconds051=2.0
+	if prepared.status=="blocked" and not proof_budget051.is_empty():
+		var rejection: Dictionary=_fixed_endpoint_rejection051(geometry,ship,candidate,proof_budget051)
+		if not rejection.is_empty():prepared.staticRejection051=rejection
 	return prepared
+
+static func _fixed_endpoint_rejection051(geometry: Dictionary,ship: Dictionary,candidate: Dictionary,proof_budget051: Dictionary) -> Dictionary:
+	# Independent POINT proofs only: a blocked chord can have a legal detour,
+	# and a snapshot hull can move. Never reinterpret a pending route as blocked.
+	# The worker passes ONE private allowance across all hulls/offers, not a copy.
+	if int(proof_budget051.clearanceTests)>=int(proof_budget051.clearanceLimit):return {}
+	var paths: Array=[]
+	var total: int=0
+	for leg: String in ["approach","pass","exit"]:
+		var path: Variant=candidate.get(leg,[])
+		if not path is Array or path.size()>8:return {}
+		for goal: Variant in path:
+			if not goal is Vector2 or not goal.is_finite():return {}
+		paths.append(path);total+=path.size()
+	if total==0 or total>24:return {}
+	var origin: Vector2=point(ship)
+	var radius: float=planning_radius(ship)
+	for path: Array in paths:
+		for goal: Vector2 in path:
+			if goal==origin:continue # Sampled origin is never a fixed future proof.
+			var status: String=sweep(geometry,goal,goal,radius,proof_budget051)
+			if status=="pending":return {}
+			if status!="blocked":continue
+			var fixed: Array=paths.duplicate(true)
+			for points: Array in fixed:points.make_read_only()
+			fixed.make_read_only()
+			var rejection: Dictionary={"shipId":str(ship.id),"paths":fixed}
+			rejection.make_read_only()
+			return rejection
+	return {}
+
+static func _reject_prepared_static051(geometry: Dictionary,ship: Dictionary,candidate: Dictionary,prepared: Dictionary) -> bool:
+	# Read-only advisory API. Caller MUST first establish its existing joined,
+	# owned worker identity/age/order gate. This can deny an offer, never grant it.
+	if prepared.get("status","")!="blocked" or prepared.get("terrainKey051")!=geometry.key or prepared.get("terrainRevision051")!=geometry.revision or prepared.get("radius051")!=planning_radius(ship):return false
+	var value: Variant=prepared.get("staticRejection051")
+	if not value is Dictionary or not value.is_read_only() or value.get("shipId")!=str(ship.id) or candidate.get("shipId",str(ship.id))!=str(ship.id):return false
+	var paths: Variant=value.get("paths")
+	if not paths is Array or not paths.is_read_only() or paths.size()!=3:return false
+	var legs: Array=["approach","pass","exit"]
+	for i: int in range(3):
+		if not paths[i] is Array or not paths[i].is_read_only() or not candidate.get(legs[i]) is Array or paths[i]!=candidate[legs[i]]:return false
+	return true
 
 static func _adopt_prepared051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,prepared: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float) -> Dictionary:
 	if not bool(budget.get("profileRoutes051",false)):return _adopt_prepared_core051(st,geometry,ship,candidate,prepared,budget,proofs,live_traffic_seconds051)
