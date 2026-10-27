@@ -15,7 +15,7 @@ static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,
 	"retainedAdmissions":0,"retainedDue":0,"fullDue":0,"retainedMissOwnerDeadline":0,"retainedMissConditions":0,"retainedMissTarget":0,"retainedMissCapability":0,"retainedMissOther":0,
 	"retainedDropTime":0,"retainedDropEvents":0,"retainedDropPhase":0,"retainedDropCompletion":0,"retainedDropBoarding":0,
 	"workerDispatches":0,"workerAdoptions":0,"workerDrops":0,"workerSyncFallbacks":0,
-	"certificationInputCalls":0,"certificationRefineCalls":0,"certificationAdoptCalls":0,"certificationReservedPathCalls":0}
+	"certificationInputCalls":0,"certificationRefineCalls":0,"certificationAdoptCalls":0,"certificationReservedPathCalls":0,"workerFixedEndpointRejects051":0}
 
 static func set_runtime_profile043(enabled: bool) -> void:
 	_runtime_profile043_enabled=enabled
@@ -707,6 +707,14 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 			if rejected051:continue
 			if profile051:profile_started051=Time.get_ticks_usec()
 			var prepared_route051: Dictionary=planning[side].get("routes051",{}).get(str(raw.candidateId),{})
+			# Only a joined, current worker preference may lend this negative proof.
+			# A fixed endpoint inside land cannot gain a route from a newer pose.
+			# Traffic refusals, pending work and blocked chords keep every alternative.
+			if id in planning[side].get("workerIds051",[]) and Routes._reject_prepared_static051(t.geometry,ship,raw,prepared_route051):
+				real_attempt=true
+				t.reasons[id]="Fixed route endpoint cannot fit; checking another station"
+				if profile051:_runtime_profile043_counts.workerFixedEndpointRejects051+=1
+				continue
 			var refined: Dictionary=Routes._refine_begin051(st,t.geometry,ship,raw,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051) if prepared_route051.is_empty() else Routes._adopt_prepared051(st,t.geometry,ship,raw,prepared_route051,t.budget,route_proofs051,Stations.LIVE_TRAFFIC_SECONDS051)
 			if profile051:
 				if prepared_route051.is_empty():
