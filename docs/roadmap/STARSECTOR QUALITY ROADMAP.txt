@@ -2,20 +2,17 @@ BRASS TIDE - STARSECTOR QUALITY ROADMAP
 27 October 2026 | Sequential execution from the v0.041 baseline
 
 CURRENT EXECUTION STATUS
-Delivered through v0.050;051 active, MilestoneA OPEN, no052 breadth.
-Desktop050 retained. R45 affected16,452checks/export/three startsPASS83.515s.
-Actual R21 quality FAILED:42light6.927FPS/sim18.069ms/four route stalls;
-16mixed59.9945FPS/sim7.2745ms/four route stalls. Root reviewed both end PNGs.
-Wake drawing improves1.637->1.019ms median with original paint/order retained;
-that is not a whole-game FPS win. Planning remains dominant, with2,440 main
-fallbacks versus442 worker adoptions in the light case. Three BridgeSol6.1MAX
-source candidates now include fresh worker seeds when an old choice expires
-during handoff, shared current-begin role preparation and bounded exact route
-refusal receipts. R46 passed voyage/geometry/retained but failed four existing
-worker assertions. R47 tests original-expiry scheduling and a separate selected-
-target station-order fix; all four old assertions retained. ActualR22 pending.
-No engines during source work; Root alone queues bounded background batches.
-No051 tag/package/install or quality claim. Earlier findings are historical.
+Delivered through050;051 active, MilestoneA OPEN; Desktop050 retained.
+R47 affected1,722 checks/export/three startsPASS82.890s including setup.
+ActualR22: zero persistent stalls, all42/16 moved,38/15 moving at end.
+Performance still fails:42light6.660FPS/sim19.150ms;16mixed59.828FPS/7.461ms.
+Root reviewed both end PNGs. Current source filters speculative stable worker
+members and bounds physical retry using a real semantic observation. Worker
+budgets/one side dispatch per150ms/two-task cap/current60Hz guards retained.
+Physical-read audit found no further material safe cache; no code change.
+Current native/export and actual rendered comparison pending. Root alone
+queues bounded background batches. No051delivery/no052breadth until core
+quality is usable. Earlier checkpoint evidence remains historical.
 
 THE TARGET
 A naval fleet RPG with the presentation, responsiveness, tactical decisions,
