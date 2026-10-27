@@ -2,18 +2,19 @@
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
-Build the saved scopes in order. Current scoped delivery:0.047 fleetcommand,
-source/tag9cc0f35/v0.047 (root4a4e55e identical game tree). Native260/0 plus
-export/three startups passed in71.287s with setup/cleanup. Actual exported HUD
-stills reviewed at1600x1000 and1280x800, including corrected visible minimap.
+Build the saved scopes in order. Current scoped delivery:0.048 refittingdepth,
+source/tagda06715/v0.048. Native147/0 plus export/three startups passed in
+89.275s with setup/cleanup. Actual exported fitting bays reviewed at1600x1000
+and1280x800. Three actual fitting/cost/behavior examples; real isolated trial.
 All realtime performance targets remain UNMET:42light4.605FPS;16mixed17.084FPS.
 Mixed is worse than matched045. Core-quality051 remainsOPEN; no052breadth
 until it passes. Scoped delivery does not certify art, audio, fun or parity.
 
-Active0.048 refittingdepth metadata PREPARED ONCE. Desktop047 is verified.
-RootMain draft-trial seam and isolated actual-capture hook prepared; two
-source-only BridgeSol6.1MAX worktrees finish workshop/builds. ThirdSolprepares
-049hull source only. Integrate048, verify/package/install before049metadata.
+Next0.049 rosterart: HullsSol049 prepares33missingrecipes through existing
+042offline32headingpipeline. Metadata049NOTyetprepared; finish048package/
+Desktopverificationfirst. TwootheractiveSolseats prepare050coastsource and
+051measuredperformanceproposal; no futureintegrationbeforeits savedversion.
+048Workshop/BuildsSol finishedstandby for exactfailures only.
 Root coordinates/integrates all engine/render/bake/shared-queue jobs and
 versions. Helpers source-only, maximum3activeSol6.1MAX; optionalGrok4.7HIGH.
 No ask_project/delegate/AIbrain/providerfallback/nestedhelpers. Earlier seats
@@ -75,7 +76,7 @@ shortcut. Headless correctness does not establish graphics, FPS or game feel.
 
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
-This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.047; continue with the next saved scope only. Earlier planning-only/stop-v031
+This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.048; continue with the next saved scope only. Earlier planning-only/stop-v031
 paragraphs below are historical and superseded by this new instruction.
 
 Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol

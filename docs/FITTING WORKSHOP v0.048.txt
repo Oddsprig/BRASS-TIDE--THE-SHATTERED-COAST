@@ -25,7 +25,16 @@ save weapons, engine and armor. Automatic weapon holds and round reserves
 last for a battle and use Selected tactics & weapon groups in the Lab.
 
 VERIFICATION
-This candidate still needs its focused native checks, portable export and
-actual workshop review. Final receipts will live under tests/.
-All measured full300DP performance targets remain UNMET after v0.046.
-Core quality gate051 remains OPEN; scope delivery does not certify the game.
+147 focused native checks passed:97 fit/cost/behavior,39 real two-size workshop
+layout and callbacks,11 actual trial rejection/transition/return checks. Export
+and three portable startups passed. Whole selected batch stayed below120s
+including setup and owned cleanup; exact elapsed time is in tests/RESULTS.txt.
+Root inspected actual exported fitting bays at1600x1000 and1280x800.
+
+In the created test harbor, the three real bills were58893,57411 and66641coins.
+These are context-specific quotes, not fixed catalog prices. The same two-second
+Furnace encounter yielded different real shots and finite ammunition/fuel use.
+The gun cruiser kept its automatic heavy role; Skirmisher remains a separate
+captain choice. The player draft trial uses Ashwake as its repeatable opponent.
+Short prefixes and stills do not certify whole battles, motion, sound or fun.
+All full300DP performance targets remain UNMET. Core quality gate051 staysOPEN.

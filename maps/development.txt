@@ -1,21 +1,21 @@
-BRASS TIDE — DEVELOPMENT MAP (generated; v0.047)
+BRASS TIDE — DEVELOPMENT MAP (generated; v0.048)
 
 Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 42748 bytes; extends Node2D
-  game/scripts/main.gd:301 toggle_pause()
-  game/scripts/main.gd:305 toggle_fullscreen()
-  game/scripts/main.gd:309 save_preferences()
-  game/scripts/main.gd:312 music_context()
-  game/scripts/main.gd:322 new_game()
-  game/scripts/main.gd:341 click_chart()
-  game/scripts/main.gd:373 sail_to()
-  game/scripts/main.gd:381 respond()
-  game/scripts/main.gd:387 trade()
-  game/scripts/main.gd:396 buy_boat()
-  game/scripts/main.gd:402 commission()
-  game/scripts/main.gd:408 collect_boat()
+game/scripts/main.gd: 44299 bytes; extends Node2D
+  game/scripts/main.gd:305 toggle_pause()
+  game/scripts/main.gd:309 toggle_fullscreen()
+  game/scripts/main.gd:313 save_preferences()
+  game/scripts/main.gd:316 music_context()
+  game/scripts/main.gd:326 new_game()
+  game/scripts/main.gd:345 click_chart()
+  game/scripts/main.gd:377 sail_to()
+  game/scripts/main.gd:385 respond()
+  game/scripts/main.gd:391 trade()
+  game/scripts/main.gd:400 buy_boat()
+  game/scripts/main.gd:406 commission()
+  game/scripts/main.gd:412 collect_boat()
 game/scripts/preferences.gd: 1358 bytes; extends RefCounted
   game/scripts/preferences.gd:3 defaults()
   game/scripts/preferences.gd:6 sanitize()

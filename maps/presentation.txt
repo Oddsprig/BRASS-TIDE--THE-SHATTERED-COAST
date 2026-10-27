@@ -1,4 +1,4 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.047)
+BRASS TIDE — PRESENTATION MAP (generated; v0.048)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
@@ -57,13 +57,13 @@ game/scripts/boat_deck_detail.gd: 17315 bytes; extends RefCounted
   game/scripts/boat_deck_detail.gd:154 cabin()
   game/scripts/boat_deck_detail.gd:215 draw_items()
   game/scripts/boat_deck_detail.gd:9 _model()
-game/scripts/workshop_ui.gd: 21763 bytes; extends RefCounted
-  game/scripts/workshop_ui.gd:59 open()
-  game/scripts/workshop_ui.gd:124 draft_set()
-  game/scripts/workshop_ui.gd:135 choose()
-  game/scripts/workshop_ui.gd:214 review()
-  game/scripts/workshop_ui.gd:246 templates()
-  game/scripts/workshop_ui.gd:275 compare()
+game/scripts/workshop_ui.gd: 28477 bytes; extends RefCounted
+  game/scripts/workshop_ui.gd:103 open()
+  game/scripts/workshop_ui.gd:182 draft_set()
+  game/scripts/workshop_ui.gd:193 choose()
+  game/scripts/workshop_ui.gd:272 review()
+  game/scripts/workshop_ui.gd:304 examples()
+  game/scripts/workshop_ui.gd:332 templates()
 
 TESTS (game/tests/*.gd)
 test_runtime, test_art_workshop, test_workshop_ui; play questions in TO BE TESTED.md
