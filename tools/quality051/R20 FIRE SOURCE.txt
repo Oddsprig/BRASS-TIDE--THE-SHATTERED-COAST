@@ -1,0 +1,23 @@
+R20 FIRE SOURCE - 27 October 2026
+Parent: 81fd50e65da5d02beba44d6417ae60f3ea2de054
+
+Only tactical_runtime.gd fire_gates changed. Replace the retained-current-step
+whole tactical/battle shallow copies with a local fixed-field fire view.
+Candidate, recovery policy, step_proof and intent construction are unchanged.
+The view exists only for this hull's synchronous mount loop; no tick retention.
+
+Transitive read audit:
+- Fire.gate reads time and tactical predictions/passes/salvoSpent/geometry/cells.
+- Fire.solution reads projectiles; all geometry, ally and budget checks remain.
+- Routes sweep/spend/neighbours receive the original geometry/cells/budget.
+- EquipmentCombat status_of/mount_factor and Damage phase/cache reads receive
+  the original ship/status/frame_cache directly, never this battle dictionary.
+  Their owner/phase identity checks therefore retain the same inputs.
+- Original passes, salvoSpent, geometry, cells and projectile references remain
+  live; no stores/ammo/group/salvo/certificate checks or public authority change.
+
+Existing fire_readiness051 and retained_maneuver051 fixtures are unchanged.
+One source advisory: check_preload_calls.py, issues=[], engineInvoked=false.
+Diff reviewed. No engine/build/tests/benchmark run here; Root owns validation.
+R20 firing median1264.5us light /464us mixed motivates the copy reduction;
+this source change claims no measured saving or quality/FPS acceptance.

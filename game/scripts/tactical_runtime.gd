@@ -1241,9 +1241,11 @@ static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dict
 		var step_proof: Dictionary={"scope":"retained-current-step","checkedAt":float(st.time),"validUntil":float(st.time)+float(t.dt),"fireWindow":{"from":float(st.time),"until":float(st.time)+float(t.dt),"mountIds":candidate.fireMountIds,"mountTargets":targets}}
 		intent=intent.duplicate();intent.validUntil=step_proof.validUntil
 		intent.fireGate=Planner._fire_gates(step_view,own,memory,candidate,step_proof)
-		var fire_t: Dictionary=t.duplicate();fire_t.predictions={}
-		fire_t.predictions[str(intent.pathFingerprint)]={"candidate":candidate,"certificate":step_proof}
-		fire_state=st.duplicate();fire_state.tactical=fire_t
+		# Only Fire.gate/solution consume this local view, synchronously below.
+		# Keep live lane/ledger references; Damage receives the original ship and
+		# frame_cache separately, so its owner/phase identity checks are unchanged.
+		var fire_t: Dictionary={"predictions":{str(intent.pathFingerprint):{"candidate":candidate,"certificate":step_proof}},"passes":t.passes,"salvoSpent":t.salvoSpent,"geometry":t.geometry,"cells":t.cells}
+		fire_state={"time":st.time,"projectiles":st.get("projectiles",[]),"tactical":fire_t}
 	for index in range(mounts.size()):
 		var mount: Dictionary=mounts[index]
 		var target_id: String=str(intent.get("fireGate",{}).get(str(mount.id),{}).get("targetId",""))
