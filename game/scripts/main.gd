@@ -19,6 +19,7 @@ const EconomyWorkers=preload("res://scripts/economy_workers.gd")
 const RecoveryFlow=preload("res://scripts/recovery_flow.gd")
 const CoastalTerrain=preload("res://scripts/coastal_terrain.gd")
 const RuntimeBenchmark=preload("res://scripts/runtime_benchmark.gd")
+const RuntimeProfile043=preload("res://scripts/runtime_profile043.gd")
 
 var data: Dictionary
 var core
@@ -68,7 +69,7 @@ var runtime_profile043=null
 
 func _ready():
 	if "--qa-runtime043" in OS.get_cmdline_user_args():
-		runtime_profile043=load("res://scripts/runtime_profile043.gd").new()
+		runtime_profile043=RuntimeProfile043.new()
 		if not runtime_profile043.prepare(self):
 			get_tree().quit(2)
 			return

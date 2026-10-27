@@ -81,9 +81,11 @@ func _optional(target: Object,method: String,args: Array=[]):
 
 func _counters(enabled: bool,reset: bool=false) -> void:
 	_optional(host.chart,"profile_enable",[enabled])
-	for script in [Damage,Tactical]:
-		_optional(script,"set_runtime_profile043",[enabled])
-		if reset:_optional(script,"reset_runtime_profile043")
+	Damage.set_runtime_profile043(enabled)
+	Tactical.set_runtime_profile043(enabled)
+	if reset:
+		Damage.reset_runtime_profile043()
+		Tactical.reset_runtime_profile043()
 	if reset:_optional(host.chart,"profile_reset")
 
 func start() -> void:
@@ -96,7 +98,8 @@ func start() -> void:
 	_start_case()
 
 func _hardware() -> Dictionary:
-	return {"engine":Engine.get_version_info(),"os":OS.get_name(),"cpu":OS.get_processor_name(),"logicalCPUs":OS.get_processor_count(),"pid":OS.get_process_id(),"editor":OS.has_feature("editor"),"template":OS.has_feature("template"),"release":OS.has_feature("release"),"debugBuild":OS.is_debug_build(),"exported":_exported_release(),"templateRelease":_exported_release(),"displayServer":DisplayServer.get_name(),"rendererCandidate":rendered,"renderedAvailable":rendered and render_verified,"windowVisible":host.get_window().visible,"adapter":RenderingServer.get_video_adapter_name(),"adapterVendor":_optional(RenderingServer,"get_video_adapter_vendor"),"apiVersion":_optional(RenderingServer,"get_video_adapter_api_version"),"renderingMethod":_optional(RenderingServer,"get_current_rendering_method"),"renderingDriver":_optional(RenderingServer,"get_current_rendering_driver_name"),"windowPixels":[host.get_tree().root.size.x,host.get_tree().root.size.y],"viewportRect":_viewport_size(),"threadModel":ProjectSettings.get_setting("rendering/driver/threads/thread_model"),"physicsHz":Engine.physics_ticks_per_second,"maxPhysicsStepsPerFrame":Engine.max_physics_steps_per_frame,"timeScale":Engine.time_scale,"frameCap":Engine.max_fps,"processPriority":null,"resourceEnvelope":"Record actual priority/affinity/job CPU and memory limits in Root's external owned-process wrapper.","memory":_memory(),"counterAPIs":{"chart":host.chart.has_method("profile_read"),"damage":Damage.has_method("runtime_profile043"),"tactical":Tactical.has_method("runtime_profile043")}}
+	# Damage/Tactical counters are compiled static APIs in Root's instrumented baseline.
+	return {"engine":Engine.get_version_info(),"os":OS.get_name(),"cpu":OS.get_processor_name(),"logicalCPUs":OS.get_processor_count(),"pid":OS.get_process_id(),"editor":OS.has_feature("editor"),"template":OS.has_feature("template"),"release":OS.has_feature("release"),"debugBuild":OS.is_debug_build(),"exported":_exported_release(),"templateRelease":_exported_release(),"displayServer":DisplayServer.get_name(),"rendererCandidate":rendered,"renderedAvailable":rendered and render_verified,"windowVisible":host.get_window().visible,"adapter":RenderingServer.get_video_adapter_name(),"adapterVendor":_optional(RenderingServer,"get_video_adapter_vendor"),"apiVersion":_optional(RenderingServer,"get_video_adapter_api_version"),"renderingMethod":_optional(RenderingServer,"get_current_rendering_method"),"renderingDriver":_optional(RenderingServer,"get_current_rendering_driver_name"),"windowPixels":[host.get_tree().root.size.x,host.get_tree().root.size.y],"viewportRect":_viewport_size(),"threadModel":ProjectSettings.get_setting("rendering/driver/threads/thread_model"),"physicsHz":Engine.physics_ticks_per_second,"maxPhysicsStepsPerFrame":Engine.max_physics_steps_per_frame,"timeScale":Engine.time_scale,"frameCap":Engine.max_fps,"processPriority":null,"resourceEnvelope":"Record actual priority/affinity/job CPU and memory limits in Root's external owned-process wrapper.","memory":_memory(),"counterAPIs":{"chart":host.chart.has_method("profile_read"),"damage":true,"tactical":true}}
 
 func _exported_release() -> bool:
 	return OS.has_feature("template") and OS.has_feature("release") and not OS.has_feature("editor") and not OS.is_debug_build()
@@ -199,7 +202,7 @@ func after_physics(dt: float) -> void:
 	var observed: int=Time.get_ticks_usec()
 	var st: Dictionary=host.battle
 	var metrics: Dictionary=st.get("tactical",{}).get("metrics",{})
-	var row: Dictionary={"phase":stage,"wallUs":observed-started_us,"simTime":st.time,"dt":dt,"simulationUs":host.simulation_us,"aiUs":metrics.get("aiUs"),"phaseUs":metrics.get("phaseUs",{}).duplicate(true),"planningDetailUs":metrics.get("planningDetailUs",{}).duplicate(true),"work":metrics.get("work",{}).duplicate(true),"damageCounters":_optional(Damage,"runtime_profile043"),"tacticalCounters":_optional(Tactical,"runtime_profile043")}
+	var row: Dictionary={"phase":stage,"wallUs":observed-started_us,"simTime":st.time,"dt":dt,"simulationUs":host.simulation_us,"aiUs":metrics.get("aiUs"),"phaseUs":metrics.get("phaseUs",{}).duplicate(true),"planningDetailUs":metrics.get("planningDetailUs",{}).duplicate(true),"work":metrics.get("work",{}).duplicate(true),"damageCounters":Damage.runtime_profile043(),"tacticalCounters":Tactical.runtime_profile043()}
 	if not is_equal_approx(dt,1.0/60.0):current["non60HzDtObserved"]=true
 	frame_ticks+=1;frame_sim_us+=int(host.simulation_us)
 	last_state=_state_sample()
@@ -343,7 +346,7 @@ func _end_case() -> void:
 	if not render_verified:missing.append("verified visible viewport rendering, object/draw counters and two nonblank PNGs")
 	current.summary={"frames":frames,"physicsTicks":ticks,"observer":_stats(observer_us),"renderingVerified":render_verified,"visibleActiveFrames":visible_frames,"positiveObjectAndDrawFrames":drawn_frames,"nonblankPNGs":pngs_valid,"renderedFPS":fps,"fractionFramesWithin20ms":ratio if render_verified else null,"framesAbove50ms":stutters,"framesWithMultiplePhysicsTicks":catchup_frames,"wallMinusSimUs":deficit_us,"engineAccumulatorUs":null,"coverage":coverage,"missingActiveCoverage":missing,"targets":target,"targetNote":"Unmet targets are measured performance misses, never fabricated logic-test failures. Coverage and full duration must be complete before this can support active-runtime acceptance. Recurring means at least two occurrences; catch-up also misses if final wall-minus-sim deficit exceeds 100ms.","exportedRenderedEvidence":render_verified and _exported_release() and missing.is_empty() and errors.is_empty()}
 	current.endState=_state_sample();current.endMemory=_memory()
-	current.counterTotals={"damage":_optional(Damage,"runtime_profile043"),"tactical":_optional(Tactical,"runtime_profile043"),"chart":_optional(host.chart,"profile_read")}
+	current.counterTotals={"damage":Damage.runtime_profile043(),"tactical":Tactical.runtime_profile043(),"chart":_optional(host.chart,"profile_read")}
 	current.complete=bool(current.get("activeIntervalComplete",false))
 	_write_json("runtime043-%s.json"%current.id,current)
 	results.append({"id":current.id,"complete":current.complete,"file":"runtime043-%s.json"%current.id,"actual":current.actual,"summary":current.summary})
