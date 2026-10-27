@@ -2,33 +2,38 @@ BRASS TIDE v0.051 - FIRST VOYAGE AND CORE QUALITY
 
 CURRENT CORE CHECKPOINT - 27 October 2026
 Active0.051; Desktop remains verified0.050. Core gate OPEN; no052 breadth.
-R53 overall FAILED110.250s whole/100native deadline at last battle startup;
-all10 logic/art fixtures4522/0 passed. Retain exact702input proof and failure.
-R54 PASS234/0,54.219s including import/export/three starts/cleanup:
-332df85bcb8f4a63a1bcb7e805b1ae53, source9a14b9b.
-R26 actual COMPLETE58.109s, cleanuptrue; QUALITY FAILED:
-61a752dfdb384f8f9d30dc13daeaea1f. Both actual end PNGs Root viewed.
--42 light/300DPside:7.525FPS,16.817ms median simulation/P9523.372ms;
- all42 moved,37 moving, ZERO persistent stalls;88 catch-up frames.
--16 mixed/300DPside:59.998FPS,6.907ms/P9510.053ms;
- all16 moved,15 moving, ZERO persistent stalls;90.97percentframes<=20ms.
-Accepted collision repair: only when BOTH normal0.51proposals round unchanged
-outside existing1e-4 tolerance, choose adjacent outward float32 coordinates.
-Same shore guards, ordinary/reference parity, pair order, radii, RNG and stores.
-The R25 stuck-pair regression passes; actual R26 no longer reports those stalls.
-Rejected slower retained native renderer is REVERTED; prior checked sprite
-path restored. Rejected code/receipts stay in Git; no claim of render speedup.
-R26 light planning10.643ms (begin8.3945/helm2.245) remains primary bottleneck.
-Small-cache review found no supported material seam preserving every internal
-policy. SOURCE CANDIDATE: pooled fleets now use sampled worker goals and one
-live-steered route, bypassing old MAIN multi-offer/refine/resolve work. Tactical
-selection may lag<=150ms; current steering/fire/damage/orders still60Hz. Goal
-refresh100ms perSIDE, max2unfinished including retired old tasks. Original
-sampledAt+.15/chosenAt+.45 never renew at adoption. Duels/publiclegacy unchanged.
-Three BridgeSol6.1MAX handoffs: Runtime/Planner/goal worker, live Fire gates,
-existing test_tactical_ai goals051 selector. No complete-route certificates
-fabricated. R55logic/R56export/R27actual PENDING; no speedup/acceptance claimed.
-No native extension or simulation-thread ownership rewrite implemented.
+Current tested candidate: Rootf5381ee/release3b7e894; all36designs preserved.
+R55 PASS2796/0 incl771sampled-goal checks and paid first voyage,69.844s whole;
+job15b09b0dedc34cbe88cf7305bf488c45. Logic-only, no export in that batch.
+R56 PASS60.953s incl import/export/three starts/cleanup;
+job02376bfdba5f40b3a931f2bc6313b06c. Same703gameinput hashes asR55.
+R27 actual COMPLETE59.438s, cleanuptrue; QUALITY FAILED:
+jobb004006fa03847e9add1313605d14080. Both actual end PNGs Root viewed.
+-42 light/300DPside:16.404FPS (R26:7.525), simulation median12.4545ms/P9520.122;
+ all42 moved,35moving, ZERO persistent stalls;193catch-up frames/117over50ms.
+-16 mixed/300DPside:59.887FPS, simulation median5.590ms/P958.787;
+ all16moved,14moving, ZERO persistent stalls;98.19percentframes<=20ms.
+Both cases have actual movement/fire/hits/flooding; mixed launches missiles.
+New fleet policy removes MAIN multi-offer/refine/resolve work. Planning median
+10.643->5.4905ms light,3.7995->2.378ms mixed; no sync fallback. Workers choose
+actual sampled tactical goals (<=150ms,100ms SIDE refresh); chosenAt+.45 never
+renews through adoption. Current60Hz helm/fire/damage/orders remain authoritative.
+Ordinary1v1/direct legacy planner behavior unchanged. No fake full-route proof.
+The sampled policy is component-tested and improves actual performance, but
+large battle remains unusably slow; no051tag/package/install/no052 expansion.
+Accepted float32 contact repair still has zero stalls in actualR27. Rejected
+slower retained native renderer remains reverted, preserved with receipts in Git.
+Next bounded source pass: three FRESH BridgeSol6.1MAX checkouts atf5381ee own
+goal-guard repetition, existing indexed wake projection/preparation, and actual
+damage/mount preparation duplication. No engines/helpers/profilers from helpers.
+R27 light costs: helmCurrent1.150ms,helmSafety1.655ms,damage1.5545ms,
+mounts.989ms,firing1.223ms; boats5.040ms,wake1.663ms,presentation8.030ms.
+Per-tick unaccounted median.567ms, not the difference of separately summed medians.
+NativeR57 and actualR28 only after reviewed source; no speculative speedup claim.
+Grok4.7HIGH review interrupted at app restart; direct fallback timed out300s;
+original review is resumed to finish from its existing context. No verdict yet.
+Earlier R55 queue attempts FAILED before engine (atomic status Move access)
+or INTERRUPTED at queue app restart. They are not game assertion results.
 Root owns all queued muted background tests, each whole batch below120seconds.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 
