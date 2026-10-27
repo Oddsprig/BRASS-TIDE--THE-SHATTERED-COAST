@@ -3,14 +3,16 @@ BRASS TIDE - STARSECTOR QUALITY ROADMAP
 
 CURRENT EXECUTION STATUS
 Delivered through v0.050;051 active, MilestoneA OPEN, no052 breadth.
-Desktop050 retained. R43 Weapon2283/export/three startsPASS55.172s; all R42
-passed AI/Art receipts retained against700 identical other game input hashes.
-Actual R20 quality FAILED:42light7.279FPS/sim17.3605ms/two route stalls;
-16mixed59.9988FPS/sim7.2635ms/three route stalls. Root reviewed both end PNGs.
-R44 actualopening/geometry/retained passed; two NEW worker post-update fixture
-assumptions corrected without changing production or original204 assertions.
-R45 now tests ready-worker handoff/fire views, the real R20 alternate escape
-component and exact-order wake batching; actualR21 follows passed export.
+Desktop050 retained. R45 affected16,452checks/export/three startsPASS83.515s.
+Actual R21 quality FAILED:42light6.927FPS/sim18.069ms/four route stalls;
+16mixed59.9945FPS/sim7.2745ms/four route stalls. Root reviewed both end PNGs.
+Wake drawing improves1.637->1.019ms median with original paint/order retained;
+that is not a whole-game FPS win. Planning remains dominant, with2,440 main
+fallbacks versus442 worker adoptions in the light case. Three BridgeSol6.1MAX
+source candidates now include fresh worker seeds when an old choice expires
+during handoff, shared current-begin role preparation and bounded exact route
+refusal receipts. R46 native/export validation and actualR22 remain pending.
+No engines during source work; Root alone queues bounded background batches.
 No051 tag/package/install or quality claim. Earlier findings are historical.
 
 THE TARGET

@@ -1,35 +1,35 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
 VALIDATION UPDATE - 27 October 2026
-R43 PASS: all2,283 Weapon045 assertions, export and three portable starts,
-55.172 seconds including setup. Fixture-only texture cleanup reduces peak
-memory from538,894,336 to334,090,240 bytes with the512MiB cap unchanged.
-R42 passed actualvoyage274/geometry669/retained351/workers204/traffic43/
-fire123/Art205. Their700 unchanged game inputs match R43 by SHA256; only the
-Weapon045 fixture and these developer notes changed. R42 failures are retained.
-Actual rendered R20 completed57.875 seconds, QUALITY FAILED:
--42 light boats,300DP per side:7.279FPS; simulation median17.3605ms,
- P95 23.360ms; all42 moved,36 moving at end, two persistent route stalls.
--16 mixed boats,300DP per side:59.9988FPS; simulation median7.2635ms,
- P95 10.017ms; all16 moved, six moving at end, three persistent route stalls.
-Root reviewed both actual end images. No foreground/input/audio control used.
-Light planning median11.3825ms, begin9.565ms, observation3.498ms,
-certification2.5825ms; worker584 adoptions versus2,204 synchronous fallbacks.
-Active draw median7.0125ms (boats4.201ms, wake1.637ms). All actors and60Hz
-remain; SAFE rendering model1,24 allowed CPU cores, RTX5090Laptop recorded.
-R44 stopped41.375s after voyage274/geometry669/retained351 passed. Worker229
-had two NEW fixture-contract failures: reuse/discard was correct, but the new
-assertions expected permission after a later live veto. Fixture-only7e8bf23
-checks fresh memory observations; all original204 worker assertions stay.
-Reviewed source now includes ready worker handoff9aada13, narrowfiref4ef660,
-alternate actual escape component0cc58f1 and exact-order wake batchff80472.
-NextR45 actualvoyageFIRST/geometry/retained/worker/traffic/fire/wake/export/
-three starts119swhole; actualR21 only after the current export passes.
-Wake/root drawing review preserves original screen vertices, triangle/path/
-band order and per-vertex colors/fades. No reduced effect or boat counts.
-The escape fix claims only one proven R20 mechanism; four other old stalls
-remain unclaimed. No new campaign breadth, no speedup or quality acceptance,
-no051 tag/package/install; Desktop050 retained. R20 is not a quality pass.
+R45 PASS16,452/0;83.515 seconds including setup, export and three starts.
+Actual voyage274/geometry683/retained351/workers229/traffic43/fire123/
+wake14,749 passed. New worker fixture checks the post-veto observation contract;
+all original certificate/deadline assertions remain. No production guard relaxed.
+Actual rendered R21 completed57.719 seconds, QUALITY FAILED:
+-42 light boats,300DP per side:6.927FPS; simulation median18.069ms,
+ P95 23.638ms; all42 moved,30 moving at end, four persistent route stalls.
+-16 mixed boats,300DP per side:59.9945FPS; simulation median7.2745ms,
+ P95 10.171ms; all16 moved, six moving at end, four persistent route stalls.
+Root reviewed both end PNGs; original wake paint/order remains visually intact.
+Wake draw median fell from1.637 to1.019ms; that is not a whole-game FPS win.
+Light planning remains12.087ms: observation3.539, certification2.541,
+proposals1.662 and resolution1.465. Workers adopted442 decisions versus2,440
+synchronous fallbacks. Mixed adopted326 versus985 fallbacks. The dominant
+planning issue remains; no051 quality acceptance or speedup claim is made.
+Reviewed source candidates now integrated, native validation pending:
+-a254e3d ->dabc750: common current-begin protector/condition inputs and shared
+ geometric interception pools; role decisions/HP/phase observations remain fresh.
+-6af66e1 ->5d0f7dc: avoid worker seeds whose original semantic expiry falls
+ inside the existing150ms handoff; fresh worker choices carry the actual sample
+ time. Borrowed clocks, all rejection guards and two-task bound remain.
+Integer reason counters separate expiry, unfinished, changed-input and semantic
+rejections. e96d8b4 ->f557d59 adds profiling-only route refusal receipts:
+80 hulls/five stages, at most one per hull/stage per0.1 simulated seconds.
+Only the profiler-owning main thread publishes; private worker budgets do not.
+NextR46 same actualvoyageFIRST/affectedAI/export/three starts119swhole,
+then actualR22 after the current export passes. No quality or savings claim.
+All42/16 actors,300DPside,60Hz,original stats/stores remain; no new breadth,
+no051tag/package/install/no052. Desktop050 and user voyages/music retained.
 All earlier checkpoints below are historical context.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
