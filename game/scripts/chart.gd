@@ -289,33 +289,44 @@ func _campaign_boats() -> Array:
 	return out
 
 func _update_wakes(boats: Array):
-	var seen: Dictionary = {}
+	const WakeArt = preload("res://scripts/wake_art045.gd")
+	# Keep only the history the wash can actually draw. Never refresh a resting
+	# stern's timestamp: existing foam fades in its original world position.
+	for key in _wakes.keys():
+		var samples: Array = _wakes[key]
+		while not samples.is_empty() and clock - float(samples[0].t) >= WakeArt.LIFE_SEC:
+			samples.pop_front()
+		if samples.is_empty():
+			_wakes.erase(key)
 	for i in range(boats.size()):
 		var boat = boats[i]
 		if not (boat is Dictionary) or bool(boat.get("sunk", false)):
 			continue
 		var key := _boat_key(boat, i)
-		pass # key tracked implicitly by _wakes membership
-		if Vector2(float(boat.get("vx", 0.0)), float(boat.get("vy", 0.0))).length() < 10.0:
+		var velocity := Vector2(float(boat.get("vx", 0.0)), float(boat.get("vy", 0.0)))
+		if not velocity.is_finite() or velocity.length_squared() < 0.25:
 			continue
 		var stern: Vector2 = BoatArt.stern_of(boat)
+		var center := Vector2(float(boat.get("x", 0.0)), float(boat.get("y", 0.0)))
+		if not stern.is_finite() or not center.is_finite():
+			continue
 		var spec_v = boat.get("spec", {})
 		var bsize := maxf(4.0, float(spec_v.get("size", 16))) if spec_v is Dictionary else 16.0
 		var samples: Array = _wakes.get(key, [])
-		var travel: float=INF if samples.is_empty() else Vector2(samples[-1].p).distance_to(stern)
-		var elapsed: float=INF if samples.is_empty() else clock-float(samples[-1].t)
-		if samples.is_empty() or travel>maxf(1.5,bsize*0.12) or (elapsed>=0.12 and travel>0.5):
-			samples.append({"p": stern, "d": Vector2.from_angle(float(boat.get("angle", 0.0))), "t": clock, "w": bsize * 0.42})
-			while samples.size() > WAKE_MAX_PER_BOAT:
+		var travel: float = INF if samples.is_empty() else Vector2(samples[-1].p).distance_to(stern)
+		var elapsed: float = INF if samples.is_empty() else clock - float(samples[-1].t)
+		var center_travel: float = INF if samples.is_empty() else Vector2(samples[-1].get("c", center)).distance_to(center)
+		if center_travel < 0.05:
+			continue # Bow rotation or a stale nonzero velocity alone cannot churn.
+		if samples.is_empty() or travel > maxf(1.0, bsize * 0.10) or (elapsed >= 0.10 and travel >= 0.10):
+			var direction: Vector2 = velocity.normalized() if samples.is_empty() else (stern - Vector2(samples[-1].p)).normalized()
+			if travel > WakeArt.MAX_LENGTH and not samples.is_empty():
+				samples.clear() # Do not connect a relocation to the old path.
+			if not samples.is_empty() and travel < 0.05:
+				continue
+			samples.append({"p": stern, "c": center, "d": direction, "t": clock, "w": minf(WakeArt.MAX_WIDTH, bsize * 0.42)})
+			while samples.size() > mini(WAKE_MAX_PER_BOAT, WakeArt.MAX_SAMPLES):
 				samples.pop_front()
-			_wakes[key] = samples
-	for key in _wakes.keys():
-		var samples: Array = _wakes[key]
-		while not samples.is_empty() and clock - float(samples[0].t) > WAKE_LIFE_SEC:
-			samples.pop_front()
-		if samples.is_empty():
-			_wakes.erase(key)
-		else:
 			_wakes[key] = samples
 	while _wakes.size() > WAKE_MAX_BOATS:
 		_wakes.erase(_wakes.keys()[0])
@@ -339,20 +350,24 @@ func _projector() -> Callable:
 	return func(p: Vector2, h: float) -> Vector2: return project(p, h)
 
 func _draw_wakes():
+	const WakeArt = preload("res://scripts/wake_art045.gd")
 	if _wakes.is_empty():
 		return
 	var proj := _projector()
-	var view := get_viewport_rect().grow(320.0)
+	var view := get_viewport_rect()
 	for key in _wakes.keys():
 		var raw: Array = _wakes[key]
 		if raw.size() < 2:
 			continue
-		if not view.has_point(project(Vector2(raw[raw.size() - 1].p))):
+		var bounds := Rect2(project(Vector2(raw[0].p)), Vector2.ZERO)
+		for s in raw:
+			bounds = bounds.expand(project(Vector2(s.p)))
+		if not view.intersects(bounds.grow(WakeArt.MAX_WIDTH * scale_factor * 2.0)):
 			continue
 		var samples: Array = []
 		for s in raw:
 			samples.append({"p": s.p, "d": s.d, "age": clock - float(s.t), "w": s.w})
-		var primitives: int=BoatArt.draw_wake(self, proj, samples, {"life": WAKE_LIFE_SEC})
+		var primitives: int=BoatArt.draw_wake(self, proj, samples, {"life": minf(WAKE_LIFE_SEC, WakeArt.LIFE_SEC), "clip_rect": view})
 		if _profile_drawing:
 			_profile_frame.wake_paths+=1;_profile_frame.wake_samples+=samples.size()
 			_profile_frame.wake_primitives+=primitives

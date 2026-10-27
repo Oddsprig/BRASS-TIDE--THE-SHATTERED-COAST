@@ -1,0 +1,87 @@
+BRASS TIDE v0.045 - SHORT CONNECTED STERN WASH (SOURCE CANDIDATE)
+
+Actual starting source: a0362bb999c2289b4defc7973bbc469d61f05fb5.
+Scope: wake_art045.gd, Chart _update_wakes/_draw_wakes only,
+tests/test_wake045.gd and this note. BoatArt belongs to Root.
+
+STYLE AND CONTRACT
+Three connected translucent tapered filled strips: muted turquoise wash,
+pale churn and a narrow cream center. No spaced bubbles, repeated dashes,
+V rails, second hull silhouette, reflection or shadow. Tail widths taper
+to one point; all strip centers follow the recorded world stern path.
+BoatArt.stern_of remains the physical transom/drive authority.
+
+Root integration: replace BoatArt.draw_wake's body with this delegation:
+  return preload("res://scripts/wake_art045.gd").draw(canvas, projector, samples, opts)
+Keep its public signature. No other BoatArt change is in this candidate.
+
+New static API:
+  draw(canvas, projector: Callable, samples: Array, opts: Dictionary = {}) -> int
+Canvas requires only draw_colored_polygon(PackedVector2Array, Color).
+Projector takes (world Vector2, height float) and returns screen Vector2.
+Every wake point uses height 0.0, matching Chart's water projection.
+Returned int counts actual submitted polygons, including viewport rejection.
+No Nodes/resources are created and no gameplay data is mutated by the helper.
+Call on the main thread with the existing CanvasItem drawing phase.
+
+Samples stay oldest-to-newest dictionaries {p: Vector2, age: float, w: float}.
+Legacy d may be present but does not orient drawing. Chart's d now records
+actual stern travel, including reverse. Its internal c stores the last
+emission's boat center to reject rotation-only/stale-velocity churn.
+Chart continues using presentation clock timestamps t internally.
+opts.life can shorten the lifetime, but cannot lengthen it beyond 0.7s.
+opts.clip_rect is a screen Rect2 for conservative rejection of wholly
+offscreen strips. Partial geometry is left to CanvasItem/viewport cropping;
+it is not CPU clipped. Chart considers the full path bounds, not only its
+latest stern, so a visible tail survives when the head leaves the viewport.
+Existing wake update/draw/path/sample/primitive profiling counters remain.
+Chart's historical WAKE_LIFE_SEC=6 constant is untouched outside the owned
+regions; actual recording and drawing clamp to the new 0.7s authority.
+
+BOUNDS AND BEHAVIOR
+At most 12 live samples per boat, 64 boats (existing fleet cap).
+Renderer reads at most the newest 26 input entries, retains at most 12,
+submits at most 3 polygons, each at most 23 vertices: <=69 projections.
+Previous drawing used up to 12 polygons and 96 projected vertices while
+Chart retained 26 samples and 6s of history per boat. These are source bounds,
+not measured timings or FPS. Actual candidate cost remains unmeasured.
+Width input clamps to 12 world units; outer half-width <=0.62 of that.
+Length <=min(96 world units, newest input half-width *10).
+Actual width also shrinks for short travel, age and tight bend radius.
+No path extension ahead of the newest stern or behind the oldest retained
+point. Teleports, reversal cusps, invalid/expired entries and >135deg of
+accumulated turning end the suffix instead of bridging/folding the ribbon.
+This deliberately drops older forward wash at a reversal; it is no fluid
+simulation and does not attempt propeller jets when stationary.
+Chart lowers the velocity cutoff from10 to0.5 units/s, then requires actual
+center/stern displacement before emission. Low-speed wash is narrow because
+its width is limited by traveled distance. No refresh/drift at rest;
+remaining geometry loses width/opacity and all history expires within0.7s.
+Numerical crews, stores, saves, simulation and worker scheduling are unchanged.
+
+FOCUSED FIXTURE PREPARED, NOT RUN
+game/tests/test_wake045.gd is a standalone SceneTree fixture for Root's queued
+silent headless native batch. It records the actual helper's Canvas calls
+and uses Geometry2D.triangulate_polygon for validity. Straight/90deg curved/
+stop/reverse/low-speed paths; wrong heading invariance; water-plane and
+isometric projection; read-only samples/options/boat stores/specs; finite
+geometry; count/vertex/length/width/history caps; offscreen/partial visibility;
+duplicates/invalid entries/teleports; actual Chart producer and physical stern.
+It also checks BoatArt parity, so Root must apply the delegation before running.
+Synthetic poses exercise presentation only, not combat movement/physics.
+Example raw args for ROOT, using the existing authorized Godot executable:
+  --headless --path <checkout>/game --audio-driver Dummy
+  --script res://tests/test_wake045.gd -- --out=<owned-artifact>/wake045.json
+Root owns Test Bridge/shared-lane scheduling and the complete <120s batch.
+No engines, test commands, render/bake/GPU/download jobs or audio were run
+by this source-only specialist. Source review is not native parse/test proof.
+
+REMAINING ACCEPTANCE
+Root must integrate BoatArt's delegation, run the native fixture and relevant
+existing focused presentation checks, then capture actual continuous motion:
+straight travel, a curved turn, stop/fade, reversing and slow drift at normal
+battle and tactical zoom. Inspect stern attachment, seam-free curvature,
+subpixel shimmer, opacity over real water/coast and clipping at viewport edges.
+A still screenshot cannot establish animation quality. Performance/fun and
+rendered-art acceptance remain open. This change contains no sound generation,
+audio mix or listening proof. Preserve the owner's voyages/music/releases.
