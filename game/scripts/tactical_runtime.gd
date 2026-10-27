@@ -700,6 +700,8 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if id==t.manualId:continue
 		var certified_age: float=float(st.time)-float(t.lastCertified.get(id,0.0))
 		t.metrics.certificationAges.append(certified_age)
+		# Keep every age sample, but no further hull can own a fair selection slot.
+		if selected_due051>=cap:continue
 		# Renew before the existing 0.2s lease ends. Commands and physical
 		# vetoes remain eligible for a fresh observation; stable plans need no per-tick
 		# proposal, full route certification or detached world reconstruction.
@@ -722,7 +724,6 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 				elif not Certification._preference_conditions051(st,t.ships[id],preference) or preference.events!=Certification._preference_events051(st,t.ships[id],preference.target_id):physical_due051=true
 		if last>=0.0 and float(st.time)-last<interval-0.000001 and not preference_due051 and not physical_due051:continue
 		# Waiting owns a fair selection slot, never an observation or authority.
-		if selected_due051>=cap:continue
 		selected_due051+=1
 		if Planner._waiting_worker051(st,str(id),_worker_capability051,_worker_wait_guard051,frame_cache,current051):continue
 		# Consume a terminal unfinished generation before a real retained

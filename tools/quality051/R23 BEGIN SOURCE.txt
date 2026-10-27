@@ -39,3 +39,23 @@ Production, all old assertions, worker handoff/budgets, current guards and
 public behavior remain byte-for-byte unchanged. Only this source note changes.
 Review: git diff --check plus production/assertion equality against the base.
 No speedup, native pass, FPS acceptance or closed quality-gate claim.
+
+ROOT FOLLOW-UP - POST-CAP DUE READS
+The initial no-change audit above remains the finding for its sharing lane.
+Root identified a separate bounded control-flow lever: begin still evaluated
+every remaining hull's due predicates after selected_due051 reached cap.
+Move that continue directly after certificationAges.append, before last,
+interval, preference and physical retry reads. Keep manual filtering and all
+age samples in their existing order. Waiting still spends a selection slot.
+
+Side-effect review: Planner._ready_worker051/_member_slot051 only read slots;
+Certification._preference_conditions051/_preference_semantics051 only compare
+current inputs; _motion_inputs and _preference_events051 build local arrays.
+Their point/radius/number/dictionary helpers only read inputs. None joins work,
+publishes authority, renews a clock, consumes RNG or changes counters/state.
+The skipped results cannot select a hull once the monotonic cap is exhausted.
+Selected behavior, live safety/helm/fire, fair order and all assertions remain
+unchanged. No cache, extra counters or mirrored fixture. Root owns validation;
+no engine run or measured cost/FPS improvement is claimed for this relocation.
+Single source advisory: check_preload_calls.py on tactical_runtime.gd, zero
+issues. Diff review and git diff --check passed; native validation pending.
