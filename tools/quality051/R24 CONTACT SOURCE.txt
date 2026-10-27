@@ -1,0 +1,31 @@
+R24 CONTACT SOURCE - 27 October 2026 - SOURCE ONLY
+Base e55211f03e6415825bc51c412623ab278d72362d.
+
+Battle._collisions now packs current Vector2 positions, float64 physical radii
+and sunk flags on entry, after BoardingCombat.tick and before projectiles.
+The table expires on return. Contact never consumes velocity; velocity and all
+other non-position state remain untouched. For 42 live hulls, the initial 861
+pairs previously called _pos and _radius 1,722 times each; preparation now calls
+each 42 times, also serving the existing continuation. No timing claim follows.
+
+The numeric kernel retains exact vector operations, original radius clamps,
+pair orientation/order, 0.51 correction, coincident RIGHT fallback, 0.0001 normal
+floor and continuation tolerance. Every accepted endpoint updates its numeric
+position AND canonical hull immediately, before later pairs. Shore checks,
+moved-endpoint FIFO, pending deduplication and check/correction ceilings are
+unchanged. Sunk pairs still consume their original continuation check budget.
+The original dictionary _project_contact051 and queue helper are unchanged.
+No broadphase, reordered scan, cached clearance, RNG work or equipment changes.
+
+Existing test_battle.gd --case=contacts051 adds ONE whole-state byte/RNG check
+against the original dictionary scan plus continuation. It combines the R17
+cluster, reopened chain, shore rejection, coincident unequal float64 radii and
+a sunk hull. RNGs are independent; snapshots retain complete seed/state values.
+All old fixture lines/assertions remain unchanged. This new case is UNRUN.
+
+Exactly one source advisory: python tools/check_preload_calls.py game
+scripts/battle.gd tests/test_battle.gd -> advisoryOnly true, engineInvoked false,
+issues []. Diff whitespace review clean. No engine/test/build/benchmark/helper
+run. Root owns R51 contacts051 and combined native/rendered validation. R24's
+0.978ms contact median also includes boarding, so any contact-only opportunity
+is smaller; no 2ms, native-pass, FPS or measured-savings claim. Stop after commit.

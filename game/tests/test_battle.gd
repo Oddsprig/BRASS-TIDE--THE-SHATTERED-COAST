@@ -159,6 +159,37 @@ func _contact_run051(st: Dictionary,label: String,clear: bool=true) -> void:
 			if other.sunk:continue
 			_contact_check051(B._pos(ship).distance_to(B._pos(other))>=B._radius(ship)+B._radius(other)-0.0001,label+": physical clearance %d/%d" % [i,j])
 
+func _contact_reference051(st: Dictionary) -> void:
+	# Original dictionary scan and continuation, using the unchanged public
+	# projection helper. Keep this small reference local to the contacts case.
+	var count: int=st.ships.size()
+	if count<2:return
+	var queue: Array[int]=[]
+	var queued: Array[bool]=[]
+	queued.resize(count);queued.fill(false)
+	for i in range(count):
+		for j in range(i+1,count):
+			var moved: int=B._project_contact051(st,st.ships[i],st.ships[j])
+			if (moved&1)!=0:B._queue_contact051(queue,queued,i)
+			if (moved&2)!=0:B._queue_contact051(queue,queued,j)
+	var checks_left: int=mini(8192,count*128)
+	var corrections_left: int=mini(2048,count*64)
+	var head: int=0
+	while head<queue.size() and checks_left>0 and corrections_left>0:
+		var index: int=queue[head]
+		head+=1;queued[index]=false
+		for other in range(count):
+			if other==index:continue
+			if checks_left<=0 or corrections_left<=0:return
+			checks_left-=1
+			var first: int=mini(index,other)
+			var second: int=maxi(index,other)
+			var moved: int=B._project_contact051(st,st.ships[first],st.ships[second],0.0001)
+			if moved==0:continue
+			corrections_left-=1
+			if (moved&1)!=0:B._queue_contact051(queue,queued,first)
+			if (moved&2)!=0:B._queue_contact051(queue,queued,second)
+
 func _contacts051() -> void:
 	# An isolated contact retains the original symmetric 0.51 projection exactly
 	# (within Vector2 precision), including when storage order is reversed.
@@ -223,3 +254,20 @@ func _contacts051() -> void:
 	var separated_before: PackedByteArray=var_to_bytes(separated)
 	_contact_run051(_contact_state051(separated),"separated live hulls and overlapping sunk hull")
 	_contact_check051(var_to_bytes(separated)==separated_before,"separated and sunk hulls never move")
+	# One mixed scan compares every state byte against the original algorithm,
+	# including reopened contacts, coincident normals, shore rejection and wrecks.
+	var packed_ships: Array=cluster.duplicate(true)
+	packed_ships.append_array([_contact_boat051("packed-a",700.0,650.0,10.0),_contact_boat051("packed-b",719.0,650.0,10.0),_contact_boat051("packed-c",738.0,650.0,10.0),_contact_boat051("packed-held",510.0,850.0,10.0),_contact_boat051("packed-free",529.0,850.0,10.0),_contact_boat051("packed-coincident-a",1300.0,650.0,13.123456789),_contact_boat051("packed-coincident-b",1300.0,650.0,14.987654321),{"sunk":true}])
+	packed_ships.reverse()
+	var packed: Dictionary=_contact_state051(packed_ships,islands+[left_shore])
+	var reference: Dictionary=packed.duplicate(true)
+	reference.rng=RandomNumberGenerator.new()
+	reference.rng.seed=packed.rng.seed;reference.rng.state=packed.rng.state
+	B._collisions(packed)
+	_contact_reference051(reference)
+	var packed_state: Dictionary=packed.duplicate(true)
+	var reference_state: Dictionary=reference.duplicate(true)
+	# Object identity is not state; retain both complete RNG scalars losslessly.
+	packed_state.rng=[packed.rng.seed,packed.rng.state]
+	reference_state.rng=[reference.rng.seed,reference.rng.state]
+	_contact_check051(var_to_bytes(packed_state)==var_to_bytes(reference_state),"packed contact whole-state bytes and RNG match original scan")

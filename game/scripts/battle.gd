@@ -617,15 +617,27 @@ static func _ai(st: Dictionary,s: Dictionary,dt: float) -> void:
 	_fire(st,s,Vector2.ZERO,{},true,Tactical.fire_gates(st,s))
 
 static func _collisions(st: Dictionary) -> void:
-	var count: int=st.ships.size()
+	var ships: Array=st.ships
+	var count: int=ships.size()
 	if count<2:return
+	# Built here, after boarding, and discarded before projectile damage. Only
+	# positions can change during this synchronous scan; publish each correction
+	# to the live hull as well as the table before considering the next pair.
+	var positions: PackedVector2Array=PackedVector2Array()
+	var radii: PackedFloat64Array=PackedFloat64Array()
+	var live: PackedByteArray=PackedByteArray()
+	positions.resize(count);radii.resize(count);live.resize(count)
+	for i in range(count):
+		var ship: Dictionary=ships[i]
+		if ship.sunk:continue
+		live[i]=1;positions[i]=_pos(ship);radii[i]=_radius(ship)
 	var queue: Array[int]=[]
 	var queued: Array[bool]=[]
 	queued.resize(count);queued.fill(false)
 	# Preserve the original i<j sweep, then revisit only moved endpoints.
 	for i in range(count):
 		for j in range(i+1,count):
-			var moved: int=_project_contact051(st,st.ships[i],st.ships[j])
+			var moved: int=_project_packed_contact051(st,ships,positions,radii,live,i,j)
 			if (moved&1)!=0:_queue_contact051(queue,queued,i)
 			if (moved&2)!=0:_queue_contact051(queue,queued,j)
 	# These are continuation ceilings, in addition to the fixed initial sweep.
@@ -643,7 +655,7 @@ static func _collisions(st: Dictionary) -> void:
 			# Canonical pair orientation also preserves the coincident RIGHT fallback.
 			var first: int=mini(index,other)
 			var second: int=maxi(index,other)
-			var moved: int=_project_contact051(st,st.ships[first],st.ships[second],0.0001)
+			var moved: int=_project_packed_contact051(st,ships,positions,radii,live,first,second,0.0001)
 			if moved==0:continue
 			corrections_left-=1
 			if (moved&1)!=0:_queue_contact051(queue,queued,first)
@@ -654,6 +666,33 @@ static func _queue_contact051(queue: Array[int],queued: Array[bool],index: int) 
 	if queued[index]:return
 	queued[index]=true
 	queue.append(index)
+
+static func _project_packed_contact051(st: Dictionary,ships: Array,positions: PackedVector2Array,radii: PackedFloat64Array,live: PackedByteArray,first: int,second: int,tolerance: float=0.0) -> int:
+	if live[first]==0 or live[second]==0:return 0
+	var start_a: Vector2=positions[first]
+	var start_b: Vector2=positions[second]
+	var delta: Vector2=start_b-start_a
+	var d: float=delta.length()
+	var radius_a: float=radii[first]
+	var radius_b: float=radii[second]
+	var minimum: float=radius_a+radius_b
+	if not d<minimum-tolerance:return 0
+	var normal: Vector2=delta/d if d>0.0001 else Vector2.RIGHT
+	var push: Vector2=normal*(minimum-d)*0.51
+	var ap: Vector2=start_a-push
+	var bp: Vector2=start_b+push
+	var moved: int=0
+	if not _blocked(st,ap,radius_a):
+		positions[first]=ap
+		var a: Dictionary=ships[first]
+		a.x=ap.x;a.y=ap.y
+		if ap!=start_a:moved|=1
+	if not _blocked(st,bp,radius_b):
+		positions[second]=bp
+		var b: Dictionary=ships[second]
+		b.x=bp.x;b.y=bp.y
+		if bp!=start_b:moved|=2
+	return moved
 
 static func _project_contact051(st: Dictionary,a: Dictionary,b: Dictionary,tolerance: float=0.0) -> int:
 	if a.sunk or b.sunk:return 0
