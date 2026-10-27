@@ -16,7 +16,7 @@ game/scripts/motor_art.gd: 33311 bytes; extends RefCounted
   game/scripts/motor_art.gd:88 _aft_socket_clearance()
   game/scripts/motor_art.gd:374 _palette()
   game/scripts/motor_art.gd:409 _model()
-game/scripts/hull_feedback.gd: 14599 bytes; extends RefCounted
+game/scripts/hull_feedback.gd: 11870 bytes; extends RefCounted
   game/scripts/hull_feedback.gd:9 equipment_marks()
   game/scripts/hull_feedback.gd:46 draw_equipment()
   game/scripts/hull_feedback.gd:60 record()

@@ -1,22 +1,27 @@
+R25 stall diagnosis: distance26.999893/floor27, original0.51push rounds BOTH
+float32 endpoints unchanged outside existing1e-4tolerance. Source candidate
+rounds only this stagnant correction one adjacent float32 value outward;
+shore guards/public reference/ordinary parity/traffic floors unchanged.
+Captured actual-pair and shore-held regressions added to existing contacts
+case. R53 native/export and R26 actual full-fleet comparison PENDING.
+Three Bridge Sol6.1MAX seats available: contact repair, read-only threading
+feasibility, remaining seat idle. No native extension implemented.
+
 BRASS TIDE - STARSECTOR QUALITY ROADMAP
 27 October 2026 | Sequential execution from the v0.041 baseline
 
 CURRENT EXECUTION STATUS
 Delivered through050;051 active, MilestoneA OPEN; Desktop050 retained.
-R50 PASS4,694/0+export/three starts104.734s including setup/cleanup.
-ActualR24 zero persistent stalls,42/16 moved,36/15 moving at end; bothPNGs
-reviewed. Performance still fails:42light7.606FPS/sim16.009ms/P9522.712ms;
-16mixed59.915FPS/6.711ms/P959.477ms,97.36percentframes<=20ms.
-Light sim saves2.3925ms andboatdraw.8715ms againstR23, but large battles
-remain unusable. R51 integrates three reviewed Sol6.1MAX source handoffs:
-phase-local numeric traffic/fire with Battle/phase guards, ordered packed
-contacts and bounded retained native boat commands with original draw order
-and owned cleanup. Old assertions/math/60Hz/actors retained; no saving claim.
-R51 FAILED74.953s at132 nativePREDELETEself-call errors despiteWeapon2639/0
-assertions; all logic andArt phases passed. R52 fixes only destruction callbacks,
-old assertions/simulation unchanged. Drawing/export validation pending.
-No new harness or breadth. Root owns queued background batches
-below120s; no051delivery/no052 until core is usable. Earlier findings historical.
+R52 drawing/exportPASS2844/0,71.828s; retainedR51eightlogicphases2000/0.
+ActualR25 qualityFAILED:42light7.258FPS/sim16.959ms/P9523.548,two route stalls;
+16mixed59.998FPS/6.9435ms/P959.789,zero stalls,99.17percentframes<=20ms.
+All42/16moved32/15moving; bothPNGsreviewed. Retainednative drawing was active
+but SLOWER: lightboats4.7445->6.2555ms,mixed3.578->4.1825 despite identical
+final mixed state. Root reverts that renderer from active source; commits and
+receipts preserved. Packed contacts improve.978->.363ms light; numeric traffic
+andcontactsource retained pendingnextcomparison. OneSol6.1MAX diagnoses the
+two actual stalled hulls before any route change. No new engine job/harness/
+breadth; no051delivery/no052 until core is usable. Earlier findings historical.
 
 THE TARGET
 A naval fleet RPG with the presentation, responsiveness, tactical decisions,
