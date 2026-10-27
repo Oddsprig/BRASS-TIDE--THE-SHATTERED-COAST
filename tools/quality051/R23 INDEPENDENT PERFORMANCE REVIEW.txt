@@ -1,0 +1,18 @@
+R23 INDEPENDENT GROK4.7HIGH PERFORMANCE REVIEW
+27 October2026; source-only. Independent analysis, not measured optimization.
+Root caution: phase medians need not add; approximate ceilings below are hypotheses.
+No broader implementation approved by this note. Validate current R50/R24 first.
+
+I'll read the R23 counters and the current Root frame path, then judge whether the three owned seats can clear the budget or whether one larger lever is already in the source.The three seats cannot cross the 60 Hz frame or the 6 ms sim target. A perfect result on all three still leaves the 42-boat tick over the step.
+
+R23 light is one synchronous `Battle.update` per 60 Hz engine tick (`main.gd` `_physics_process`, `project.godot` `physics_ticks_per_second=60`). The median tick is 18.4015 ms, so one simulated second already costs 1.10 s of CPU. The step is 16.667 ms, and the engine stacked 592 ticks into 81 draws (7.3 per frame). Frame median is 161.6 ms, 6.66 FPS. Wall-minus-sim is 2.29 s. The stall list is empty. The 16-boat run is the same body: sim 7.1045 ms, one tick on almost every frame, frame median 16.59 ms, about 60 FPS, and it already misses sim 6 ms and the 20 ms frame band (frame p95 20.3 ms). 18.40 / 7.10 = 2.59, against 42/16 = 2.63. The overrun scales with the fleet.
+
+Tick medians: planning 11.039 ms, of which begin is 8.765 (observation 3.544, proposals 1.212, certification 2.005, resolution 0.884) and helm is 2.295 (helm safety 1.375). Damage 1.595, mounts 1.223, fire 1.489, contact 1.041, motion 0.466. Paint is once per draw: presentation 8.315 ms, boats 5.616, wake 1.468, about 5% of the 162 ms frame.
+
+The due cap is already small and already in force. `ceili(n/10)` is 5 (`tactical_runtime.gd` 693). Full dues are 2.8 per tick and retained dues 2.0. Worker dispatches are 131 for the whole run; adoptions 1020 and sync fallbacks 656 still run inside that begin. `MAX_TASKS051` is 2. The R23 fallback and adopt shift left this skeleton in place, which is why FPS did not move.
+
+Seat ceiling if those clocks were erased: observation 3.54 ms plus damage and mounts 2.82 ms leaves a 12.0 ms tick. Exact paint at 8.3 ms then makes a frame near 20 ms, about 50 FPS, with the 6 ms sim target still missed. The prep slice inside observation is 0.766 ms. Removing only that leaves the tick at 17.6 ms and the 7.3× stack intact. The 60 Hz body that has to remain — damage, mounts, motion, fire, contact, helm safety, live certification — is already about 7.9 ms at 42 hulls, above 6 ms, before proposals or paint. The 0.45 s choice (`tactical_certification.gd` 88) and the 0.15 s worker and observation window (`tactical_planner.gd` 18–20) stay, so these seats have no larger pool of time.
+
+The lever already in the source is to stop replaying the leased fleet prepass on every catch-up tick. `Tactical.begin` rebuilds `t.observed` and runs `safety_check` for every live hull (`tactical_runtime.gd` 645–667) before the interval skip at line 723. `Battle.update` then helms and fires every active id (`battle.gd` 821–862). The 0.45 s preference and the 0.15 s interval already let a stable hull skip proposal and certification. The prepass runs first, and each of the 7.3 stacked `_physics_process` calls does it again. Keep damage, motion, and live clearance on every integrating step. Let that lease own the observation rebuild, selection, proposals, and certification once per interval. That is the cut aimed at fleet times catch-up. It can leave the 7× stack. An 8 ms physical floor plus 8 ms exact paint still sits on the 16.7 ms line, so it does not promise 60 FPS or a 6 ms tick.
+
+STOP.

@@ -13,28 +13,31 @@ The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
 VALIDATION UPDATE - 27 October 2026
-R47 PASS1,722/0;82.890 seconds including setup, export and three starts.
-Actual voyage274/geometry695/retained355/workers232/traffic43/fire123 passed.
-All four prior failed worker assertions remain unchanged and pass.
-Actual rendered R22 completed57.953 seconds, QUALITY FAILED on performance:
--42 light boats,300DP per side:6.660FPS; simulation median19.150ms,
- P95 26.038ms; all42 moved,38 moving at end, ZERO persistent route stalls.
--16 mixed boats,300DP per side:59.828FPS; simulation median7.461ms,
- P95 11.044ms; all16 moved,15 moving at end, ZERO persistent route stalls.
-Root reviewed both actual end PNGs. Movement is not frame-rate acceptance.
-R22 light planning13.072ms includes begin10.860ms,1,896 main fallbacks,
-632 adoptions,1,570 release-expired members and1,733 no-member reads.
-Current source candidate filters speculative stable worker members and uses a
-real semantic observation to bound physical retry, without restoring authority.
-One dispatch/side/150ms, two unfinished tasks and original budgets retained.
-Independent physical-read review found no material safe cache; no code added.
-R48 FAILED38.125s: voyage274/geometry695 passed, retained357/3 old clock
-checks failed. New direct-observation assertion contaminated the recertification
-scenario; isolate it while preserving all original assertions. Production
-unchanged. R49 pending; identical-production voyage/geometry evidence retained
-only after exact hash proof. Root queues whole background batches below120s.
-Installed Desktop050 retained; no051tag/package/install/no052 breadth.
-Core quality gate remains OPEN. Earlier checkpoints below are historical.
+R49 PASS777/0;65.719s including setup/export/three starts; cleanup complete.
+Retain R48 voyage274/geometry695 after proof of700 unchanged game inputs.
+R48 overall FAILED retained357/3; the fixture now isolates the new direct
+observation and explicitly borrows the original choice. All OLD checks pass.
+Actual rendered R23 completed58.047s; QUALITY FAILED on performance:
+-42 light boats/full300DPside:6.662FPS; sim median18.4015ms/P9525.203ms.
+ All42 moved,37 moving at end; ZERO persistent planner stalls.
+-16 mixed/full300DPside:60.000FPS; sim median7.1045ms/P9510.000ms;
+ all16 moved,15 moving at end; ZERO persistent planner stalls.
+Mixed93.06percent active frames<=20ms; light still75 frames>50ms. Both
+actual end PNGs reviewed. Movement/fire/effects coverage is complete; light
+roster has no missile weapons. A measurement pass is not quality acceptance.
+Light worker handoff improves: fullDue2528->1676; fallback1896->656;
+adopt632->1020; noMember1733->353; releaseExpired1570->332. Planning drops
+13.072->11.039ms, but full simulation and displayed frame rate remain poor.
+R50 source candidate integrates three reviewed Sol6.1MAX handoffs: skip pure
+post-cap due guards, direct sealed-owned equipment reads with current owner/
+generation/priority/fuel guards, and share checked atlas descriptors only
+within one native Chart draw. All old assertions/public paths/paint retained.
+No material additional role cache found; no speculative cache added.
+Current native/export/actual rendered comparison PENDING; no saving claimed.
+Preserve42/16 actors,60Hz,300DPside, exact math, safety and original visuals.
+Root alone queues bounded background batches below120s; no focus/input/audio.
+Desktop050 retained; no051tag/package/install/no052 breadth. Core gate OPEN.
+Earlier checkpoints below are historical; all failed receipts are retained.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
 R29 8613de56778f420e87eadc78eb7b3c32: scoped1271/0,82.390s including
