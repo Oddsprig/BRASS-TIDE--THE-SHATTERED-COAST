@@ -355,17 +355,18 @@ static func refine_live(st: Dictionary,geometry: Dictionary,ship: Dictionary,can
 	# as that edge is built, before searching an unusable pass or exit.
 	return _refine(st,geometry,ship,candidate,budget,true)
 
-static func _refine_begin051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proofs: _BeginProofs051) -> Dictionary:
+static func _refine_begin051(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,proofs: _BeginProofs051,live_traffic_seconds051: float=-1.0) -> Dictionary:
 	# Never borrow a proof for a new owner, geometry, grid, tick or closed batch.
 	# The public path and all live after-motion/helm/fire calls have no context.
-	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):return refine_live(st,geometry,ship,candidate,budget)
-	return _refine(st,geometry,ship,candidate,budget,true,proofs)
+	if not _proof_scope051(proofs,geometry,st.tactical.cells,ship):return _refine(st,geometry,ship,candidate,budget,true,null,live_traffic_seconds051)
+	return _refine(st,geometry,ship,candidate,budget,true,proofs,live_traffic_seconds051)
 
-static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,live_corridor: bool,proofs: _BeginProofs051=null) -> Dictionary:
+static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candidate: Dictionary,budget: Dictionary,live_corridor: bool,proofs: _BeginProofs051=null,live_traffic_seconds051: float=-1.0) -> Dictionary:
 	var result: Dictionary=candidate.duplicate(true)
 	var previous: Vector2=point(ship)
 	var total: int=0
 	var elapsed: float=0.0
+	var finite_traffic051: bool=is_finite(live_traffic_seconds051) and live_traffic_seconds051>=0.0
 	var radius: float=maxf(10.0,float(ship.spec.get("size",16)))+4.0
 	var speed: float=1.0
 	if live_corridor:speed=maxf(1.0,float(ship.spec.get("speed",90))*float(ship.status.speedFactor)*(1.0 if float(ship.fuel)>0.0 else 0.2)*0.8)
@@ -379,8 +380,14 @@ static func _refine(st: Dictionary,geometry: Dictionary,ship: Dictionary,candida
 				var cursor: Vector2=previous
 				for waypoint: Vector2 in found.path:
 					var until: float=elapsed+cursor.distance_to(waypoint)/speed
-					var traffic: String=occupied(st.tactical.cells,ship,cursor,waypoint,radius,elapsed,until,budget,true,contact_target(ship)) if proofs==null else _occupied_begin051(proofs,st.tactical.cells,ship,cursor,waypoint,radius,elapsed,until,budget,true,contact_target(ship))
-					if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking hull clearance" if traffic=="pending" else "Hull occupies this approach"}
+					# Private planning checks only its renewable traffic prefix. Every
+					# full land edge above, route point and ETA below is still retained.
+					# Inclusive boundary preserves zero-time initial/hold point checks.
+					if not finite_traffic051 or elapsed<=live_traffic_seconds051:
+						var traffic_until: float=minf(until,live_traffic_seconds051) if finite_traffic051 else until
+						var traffic_end: Vector2=cursor.lerp(waypoint,(traffic_until-elapsed)/(until-elapsed)) if traffic_until<until else waypoint
+						var traffic: String=occupied(st.tactical.cells,ship,cursor,traffic_end,radius,elapsed,traffic_until,budget,true,contact_target(ship)) if proofs==null else _occupied_begin051(proofs,st.tactical.cells,ship,cursor,traffic_end,radius,elapsed,traffic_until,budget,true,contact_target(ship))
+						if traffic!="valid":return {"status":traffic,"candidate":result,"eta":elapsed,"reason":"Checking hull clearance" if traffic=="pending" else "Hull occupies this approach"}
 					elapsed=until;cursor=waypoint
 			points.append_array(found.path)
 			if points.size()>8:return {"status":"blocked","candidate":result}

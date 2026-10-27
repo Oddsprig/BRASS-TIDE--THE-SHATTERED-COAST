@@ -83,6 +83,7 @@ func run() -> void:
 	check(world == original_world, "Lab and planning preserve source world data")
 	solo_recovery051(view, context[friend_id])
 	proof_reuse051()
+	finite_traffic051()
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
 
@@ -235,3 +236,73 @@ func proof_reuse051() -> void:
 	var next_begin: Routes._BeginProofs051=Routes._begin_proofs051(geometry,blocked_cached.tactical.cells,owners)
 	check(next_begin.entries.is_empty(),"new begin starts without previous proofs")
 	Routes._close_begin_proofs051(next_begin)
+
+func finite_traffic051() -> void:
+	# Private policy only. The unchanged public full-corridor API is the
+	# reference; no engine clock, real motion or public traffic rule is altered.
+	var geometry: Dictionary={"key":"finite051","revision":54,"obstacles":[]}
+	var owner: Dictionary={"id":"finite-own051","team":"player","x":400.0,"y":800.0,"vx":0.0,"vy":0.0,"spec":{"size":12.0,"speed":100.0,"turn":2.0},"status":{"speedFactor":1.0},"fuel":100.0,"order":"engage","orderTarget":{}}
+	# Actual nominal speed is 80, so these complete legs take 8+2+2 seconds.
+	var long_path: Dictionary={"approach":[Vector2(400,800),Vector2(1040,800)],"pass":[Vector2(1040,960)],"exit":[Vector2(1200,960)]}
+	var late: Dictionary=owner.duplicate(true)
+	late.id="late051";late.team="enemy";late.x=1040.0;late.y=1440.0;late.vy=-80.0
+	var clear_state: Dictionary=proof_state051([owner])
+	var clear_full: Dictionary=Routes.refine_live(clear_state,geometry,owner,long_path,proof_budget051(4096))
+	check(clear_full.status=="valid" and clear_full.eta==12.0,"full public empty-water reference retains the twelve-second route")
+	# Edge two runs [1,3]. Its exact t=2 clip is (480,880), not the
+	# fraction 2/3 of that edge. Allied clearance is 14+12+3=29.
+	var straddle: Dictionary={"approach":[Vector2(400,800),Vector2(480,800),Vector2(480,960)],"pass":[Vector2(560,960)],"exit":[]}
+	var beyond: Dictionary=owner.duplicate(true)
+	beyond.id="beyond051";beyond.x=480.0;beyond.y=910.0
+	var inside: Dictionary=beyond.duplicate(true)
+	inside.id="inside051";inside.y=908.0
+	var near: Dictionary=owner.duplicate(true)
+	near.id="near051";near.x=440.0
+	var hold: Dictionary={"approach":[Vector2(400,800)],"pass":[],"exit":[]}
+	var overlap: Dictionary=owner.duplicate(true)
+	overlap.id="overlap051"
+	var hostile_hold: Dictionary=overlap.duplicate(true)
+	hostile_hold.id="hostile-hold051";hostile_hold.team="enemy"
+	var separating: Dictionary=hostile_hold.duplicate(true)
+	separating.id="separating051";separating.x=390.0
+	var contact: Dictionary=hostile_hold.duplicate(true)
+	contact.id="contact051";contact.x=550.0
+	var rammer: Dictionary=owner.duplicate(true)
+	rammer.order="ram";rammer.orderTarget={"shipId":str(contact.id)}
+	var land: Dictionary={"key":"finite-land051","revision":55,"obstacles":[{"points":[[1000,700],[1100,700],[1100,900],[1000,900]],"lo":Vector2(1000,700),"hi":Vector2(1100,900)}]}
+	var land_path: Dictionary={"approach":[Vector2(400,800),Vector2(560,800)],"pass":[Vector2(1040,800)],"exit":[]}
+	var cases: Array=[
+		{"label":"late moving crossing","other":late,"path":long_path,"full":"blocked","finite":"valid","long":true,"fallback":true},
+		{"label":"straddling edge outside exact prefix","other":beyond,"path":straddle,"full":"blocked","finite":"valid"},
+		{"label":"straddling edge inside exact prefix","other":inside,"path":straddle,"full":"blocked","finite":"blocked","same":true},
+		{"label":"near allied blocker","other":near,"path":{"approach":[Vector2(400,800),Vector2(480,800)],"pass":[],"exit":[]},"full":"blocked","finite":"blocked","same":true,"budget":true},
+		{"label":"initial hold allied overlap","other":overlap,"path":hold,"full":"blocked","finite":"blocked","same":true,"budget":true},
+		{"label":"initial hold hostile exception","other":hostile_hold,"path":hold,"full":"valid","finite":"valid","same":true,"budget":true},
+		{"label":"inherited separating hostile","other":separating,"path":long_path,"full":"valid","finite":"valid","same":true},
+		{"label":"explicit physical contact exception","own":rammer,"other":contact,"path":long_path,"full":"valid","finite":"valid","same":true},
+		{"label":"land beyond two seconds","geometry":land,"path":land_path,"full":"blocked","finite":"blocked","same":true}
+	]
+	for trial: Dictionary in cases:
+		var g: Dictionary=trial.get("geometry",geometry)
+		var own: Dictionary=trial.get("own",owner)
+		var path: Dictionary=trial.path
+		var ships: Array=[own]
+		if trial.has("other"):ships.append(trial.other)
+		var original: PackedByteArray=var_to_bytes([g,ships,path])
+		var st: Dictionary=proof_state051(ships)
+		var old_budget: Dictionary=proof_budget051(4096)
+		var expected: Dictionary=Routes.refine_live(st,g,own,path,old_budget)
+		var proofs: Routes._BeginProofs051=Routes._begin_proofs051(g,st.tactical.cells,{str(own.id):own})
+		var new_budget: Dictionary=proof_budget051(4096)
+		var actual: Dictionary=Routes._refine_begin051(st,g,own,path,new_budget,proofs,2.0)
+		var label: String=str(trial.label)
+		check(expected.status==trial.full,label+": unchanged public full-corridor result")
+		check(actual.status==trial.finite,label+": private two-second traffic result")
+		if trial.get("same",false):check(var_to_bytes(actual)==var_to_bytes(expected),label+": complete typed result remains identical")
+		if trial.get("budget",false):check(var_to_bytes(new_budget)==var_to_bytes(old_budget),label+": uncut prefix retains every work debit")
+		if trial.get("long",false):check(var_to_bytes(actual)==var_to_bytes(clear_full),label+": full waypoints and twelve-second ETA remain unchanged")
+		Routes._close_begin_proofs051(proofs)
+		if trial.get("fallback",false):
+			var fallback: Dictionary=Routes._refine_begin051(st,g,own,path,proof_budget051(4096),proofs,2.0)
+			check(var_to_bytes(fallback)==var_to_bytes(actual),label+": closed proof scope retains policy through fully checked fallback")
+		check(var_to_bytes([g,ships,path])==original,label+": source geometry, owners and route remain detached")

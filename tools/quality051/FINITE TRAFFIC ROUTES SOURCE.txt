@@ -1,0 +1,55 @@
+051 FINITE TRAFFIC - ROUTES SOURCE HANDOFF
+Parent dfb447466ec3d9ad213b1d237cd5786f6efbd0a3; source-only candidate.
+Owned checkout: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v051-routes-owned-sol
+Only tactical_routes.gd, existing test_role_geometry046.gd, and this TXT.
+
+APPROVED SEAM / INTEGRATION
+Routes._refine_begin051(st,geometry,ship,candidate,budget,proofs,
+    live_traffic_seconds051: float=-1.0)
+Private _refine gets the same trailing float after proofs. Runtime must supply
+Stations.LIVE_TRAFFIC_SECONDS051=2.0, owned by PerfSol. No Routes constant or
+bool parameter. Without that Runtime opt-in this patch retains full traffic.
+Negative or nonfinite values retain full checks. An unknown/closed proof scope
+calls checked _refine with null proofs and the provided float, not a full-policy
+wrapper that silently discards the opt-in. No new cache/proof/schema fields.
+
+BEHAVIOR
+Every complete land route is still computed before its traffic walk. All full
+approach/pass/exit points, point caps, nominal speed and complete ETA remain.
+For each live edge, traffic uses [elapsed,min(until,horizon)] when elapsed is
+at/before the horizon. A straddling edge uses cursor.lerp(waypoint,
+(traffic_until-elapsed)/(until-elapsed)). Zero-duration edges never divide;
+initial/hold points and the inclusive horizon boundary still reach occupied.
+Only later traffic is skipped; full elapsed/cursor continue across every edge.
+Current overlap, continuously separating hostile and explicit board/ram-contact
+rules run through unchanged occupied/_occupied_record051. Public refine and
+refine_live signatures/defaults, grid/neighbours, sweep/occupied, physical helm,
+all ordered debits inside checked intervals, work caps and clocks are unchanged.
+No optional geometric reject retained. HullSol's _route/helper span untouched.
+
+DEPENDENCIES / LIMITS
+PerfSol owns Runtime opt-in and matching two-second private hard reservations
+in Runtime/Planner/Stations. This Routes patch alone does not enable the policy
+or bound those reservations. HullSol separately owns coastal graph progress.
+This private planning prefix is not a future collision guarantee. Existing
+actual current-step helm, post-motion contacts and fire gates remain required.
+
+EVIDENCE AND BOUNDED SOURCE CASES
+Read the existing a5eaf57e runtime043-light.json:434 ticks; certification median
+6488us/live74.5us, clearance median2114.5.306 graph-free ticks have certification
+median6110.5us; last work1934 clearance/fullRoutes0/rollouts0/samples0. Benchmark
+terrain is two five-vertex islands. These clocks do NOT isolate traffic cost or
+prove coastal A* caused the measured median. No new profile or engine launched.
+
+Existing strict proof_reuse051/default-public byte/budget/cache comparisons are
+unchanged. Added one finite_traffic051 function (40 source assertions): late
+moving crossing, two [1,3]s straddle cases at29px allied clearance, within-prefix
+blocker, allied/hostile initial holds, inherited separating hostile, explicit
+ram target, full distant land, detached inputs, twelve-second full route/ETA,
+uncut budget parity and closed-context checked fallback. No runner/cap changes.
+
+REVIEW / EXECUTION STATUS
+Source diff and API advisory only; native fixture, journey and GPU/profile UNRUN.
+Root owns integration, native/unchanged journey and final exported measurement.
+No savings, stationary-journey fix, FPS or acceptance claim. Desktop050;051 gate
+OPEN. No version/metadata/export/package/launcher/owner save changes.
