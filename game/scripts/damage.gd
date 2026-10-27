@@ -25,6 +25,7 @@ class BattlePhase043:
 	var entries: Dictionary = {}
 	var active: bool = true
 	var owned = null
+	var readsSealed051: bool = false
 
 # Opt-in, process-local diagnostics only. Never retained in a boat or battle.
 static var _runtime_profile043_enabled: bool = false
@@ -260,8 +261,19 @@ static func _begin_battle_phase043(frame_cache: Dictionary) -> BattlePhase043:
 static func _end_battle_phase043(phase) -> void:
 	if phase is BattlePhase043:
 		phase.active = false
+		phase.readsSealed051 = false
 		phase.entries.clear()
 		phase.owned = null
+
+static func _seal_battle_reads051(phase) -> void:
+	# Battle alone opts in AFTER every damage/mount prepass and retarget writer.
+	# Main-thread, synchronous, no await/caller callbacks; never a worker input.
+	if not (phase is BattlePhase043) or not phase.active: return
+	if not (phase.owned is BattleOwned051) or not phase.owned.active: return
+	for owner in phase.owned.entries.values():
+		var entry: Dictionary = _phase_entry043(owner.shipRef,phase)
+		if not entry.is_empty(): _status_from_entry043(owner.shipRef,entry)
+	phase.readsSealed051 = true
 
 static func _create_battle_owned051(ships: Array, source: Dictionary) -> BattleOwned051:
 	var owned: BattleOwned051 = BattleOwned051.new()
@@ -374,6 +386,7 @@ static func _healthy_battle_entry051(s: Dictionary, entry: Dictionary) -> bool:
 	return true
 
 static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase) -> Dictionary:
+	if phase is BattlePhase043: phase.readsSealed051 = false
 	var entry: Dictionary = _battle_entry051(s,phase.owned) if phase is BattlePhase043 and phase.active else {}
 	if entry.is_empty(): return tick_ship(s,dt,{"inCombat":true},phase)
 	invalidate_frame_cache(phase.source,s)
@@ -400,7 +413,7 @@ static func _apply_hit_in_battle051(s: Dictionary, hit: Dictionary, rng: RandomN
 
 static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
 	# Main-thread Battle only, without await. Official writers revoke/dirty proof;
-	# every status reader still checks live scalar inputs in _status_from_entry043.
+	# unsealed status readers also check every live scalar input.
 	if not (frame_cache is BattlePhase043) or not frame_cache.active:
 		return _cached_entry(s, frame_cache)
 	if _runtime_profile043_enabled: _runtime_profile043_counts.phaseLookups += 1
@@ -437,6 +450,12 @@ static func _read_status_in_phase043(s: Dictionary, frame_cache = null) -> Dicti
 		return read_status_cached(s, frame_cache)
 	var entry: Dictionary = _phase_entry043(s, frame_cache)
 	if entry.is_empty(): return read_status_cached(s, frame_cache)
+	# _phase_entry043 already proves exact owner/membership/generation/priority.
+	# Only owned entries can borrow the sealed status; dirty generations clear
+	# statusInputs. Motion's fuel-zero crossing remains live on EVERY read.
+	if (frame_cache.readsSealed051 and bool(entry.get("valid",false))
+			and entry.statusInputs.size() > 12 and (number(s.get("fuel")) > 0.0) == entry.statusInputs[12]):
+		return entry.status
 	return _status_from_entry043(s, entry)
 
 static func read_status_cached(s = null, frame_cache = null) -> Dictionary:

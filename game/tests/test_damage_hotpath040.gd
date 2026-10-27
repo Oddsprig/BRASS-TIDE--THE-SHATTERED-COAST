@@ -502,6 +502,76 @@ func owned_phase_reads051(source: Dictionary) -> void:
 	live.fuel = 0.0
 	check(not phase.active and phase.entries.is_empty() and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(live)), "051 phase closure clears all borrows and preserves checked live reads")
 
+func sealed_phase_reads051(source: Dictionary) -> void:
+	var live: Dictionary = source.duplicate(true)
+	var ships: Array = [live]
+	var cache: Dictionary = {}
+	var owned = Damage._create_battle_owned051(ships,cache)
+	var phase = Damage._begin_battle_phase043(cache)
+	Damage._bind_battle_owned051(phase,owned,ships,cache)
+	Damage._read_status_in_phase043(live,phase)
+	live.hp -= 4.0; live.water = 3.0; live.fire = 2.0; live.wounded = 1.0
+	live.breaches = [{"area":2.0,"section":"bow"}]; live.shoreCrew = 0.5
+	Damage.set_policy(live,"repair")
+	check(not phase.readsSealed051 and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(live)), "051 default unsealed owned phase retains immediate raw scalar/policy/crew reads")
+	var expected: Dictionary = live.duplicate(true)
+	Damage._tick_ship_in_battle051(live,1.0/60.0,phase)
+	Damage.tick_ship(expected,1.0/60.0,{"inCombat":true})
+	Damage._seal_battle_reads051(phase)
+	var slot: String = Damage._cache_slot_key(live)
+	var entry: Dictionary = owned.entries.get(slot,{})
+	check(phase.readsSealed051 and not entry.is_empty() and var_to_bytes(live) == var_to_bytes(expected), "051 seal follows a real finite fire/flood/repair prepass with unchanged numerical state")
+	if entry.is_empty():
+		Damage._end_battle_phase043(phase); Damage._close_battle_owned051(owned); return
+	var frozen: Dictionary = entry.status
+	var before: PackedByteArray = var_to_bytes(live)
+	var equal: bool = true
+	var status: Dictionary = {}
+	for _i in range(16):
+		status = Damage._read_status_in_phase043(live,phase)
+		equal = equal and is_same(status,frozen) and status.is_read_only() and var_to_bytes(status) == var_to_bytes(Damage.get_status(expected))
+	check(equal and var_to_bytes(live) == before, "051 repeated sealed reads borrow exact post-prepass status without changing live hull/crew/stores")
+	live.fuel = 0.0
+	status = Damage._read_status_in_phase043(live,phase)
+	check(status.pump == 0.0 and not is_same(status,frozen) and var_to_bytes(status) == var_to_bytes(Damage.get_status(live)), "051 sealed reads immediately refresh fuel exhaustion and pump factors")
+	live.fuel = 1.0
+	check(var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(live)), "051 sealed fuel-zero guard also refreshes positive fuel restoration")
+	var generation: int = int(entry.generation)
+	live.engine = 0.5
+	var absorbed: Dictionary = EquipmentDamage._battle_absorb051(live,entry)
+	Records._battle_publish051(live,entry)
+	status = Damage._read_status_in_phase043(live,phase)
+	check(bool(absorbed.ok) and int(entry.generation) > generation and entry.infoGeneration == entry.generation and var_to_bytes(status) == var_to_bytes(Damage.get_status(live)), "051 official generation invalidation refreshes sealed equipment status")
+	generation = int(entry.generation)
+	Damage.set_repair_priority(live,"engine")
+	status = Damage._read_status_in_phase043(live,phase)
+	check(int(entry.generation) > generation and status.repairPriority == "engine" and var_to_bytes(status) == var_to_bytes(Damage.get_status(live)), "051 official priority change refreshes sealed status before reuse")
+	var copy: Dictionary = live.duplicate(true)
+	copy.wounded += 0.5; copy.policy = "fight"
+	check(var_to_bytes(Damage._read_status_in_phase043(copy,phase)) == var_to_bytes(Damage.get_status(copy)) and is_same(owned.entries.get(slot),entry) and entry.valid, "051 same-ID copy cannot borrow sealed status or revoke the actual owner")
+	live.crew -= 0.5; Damage.set_policy(live,"bail")
+	Damage.tick_ship(live,0.0,{"inCombat":true},phase)
+	check(not entry.valid and not owned.entries.has(slot) and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(live)), "051 public tick revokes sealed authority before live crew/policy publication")
+	Damage._admit_battle_owner051(owned,live)
+	Damage._seal_battle_reads051(phase)
+	entry = owned.entries.get(slot,{})
+	var condition: Dictionary = live.moduleCondition.duplicate(true)
+	live.moduleCondition.nextItemSeq = 0
+	check(not bool(Damage.get_status_cached(live,phase).equipmentOk) and not bool(Damage._read_status_in_phase043(live,phase).equipmentOk) and not bool(entry.get("valid",false)), "051 public refusal revokes a sealed owner instead of returning stale status")
+	live.moduleCondition = condition
+	Damage._admit_battle_owner051(owned,live)
+	Damage._seal_battle_reads051(phase)
+	live.fire += 1.0
+	Damage._tick_ship_in_battle051(live,1.0/60.0,phase)
+	check(not phase.readsSealed051 and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(live)), "051 another owned damage tick revokes the sealed read window before writing")
+	Damage._seal_battle_reads051(phase)
+	Damage._close_battle_owned051(owned)
+	live.wounded += 0.5
+	check(var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(live)), "051 encounter closure prevents sealed status reuse")
+	Damage._end_battle_phase043(phase)
+	live.fire += 1.0
+	check(not phase.readsSealed051 and not phase.active and phase.entries.is_empty() and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(live)), "051 phase closure clears sealed authority and preserves fully guarded reads")
+
 func healthy_owned_changes051(source: Dictionary) -> void:
 	for change in [
 		{"label":"crew and shore labor","fields":{"crew":float(source.crew)-1.0,"shoreCrew":0.5}},
@@ -624,6 +694,7 @@ func run() -> void:
 	phase_battle043(ship)
 	owned_context051(ship)
 	owned_phase_reads051(ship)
+	sealed_phase_reads051(ship)
 	healthy_owned_changes051(ship)
 	var measured: Dictionary = probe(ship)
 	altered = ship.duplicate(true)

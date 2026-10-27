@@ -127,3 +127,26 @@ All366 existing assertions retained; four added checks cover mutable public
 results/inventory protection, integer normalization, uneven substeps and fuel
 exhaustion. One source API advisory: issues[], engineInvokedfalse. Diff checks
 clean. No engine/helpers/tests/profile. Savings unmeasured; Root owns acceptance.
+
+051 SEALED POST-PREPASS READS - SOURCE CANDIDATE, native/profile UNRUN
+Parent c8e7a9b; Damage/Battle/fixture bytes matched Root6ebfb21 before editing.
+Only damage.gd, battle.gd, existing damage fixture and this append changed.
+
+BattlePhase043 opts in after every damage/mount/cooldown prepass and retarget.
+Refresh entry.status once; reads retain owner/membership/valid/generation/
+priority proof and live fuel-zero checks without the18-input scan. Dirty
+generations clear statusInputs and refresh. Public revocations/refusals and
+unsealed/default dynamic scalar/policy/crew behavior remain unchanged.
+
+Audited window: Tactical.begin/helm/after_motion/fire_gates write planning
+records; Battle._move changes pose/velocity/fuel; _fire changes ammo/cooldowns/
+aim/events. Boarding crew, collision and projectile writers follow closure.
+No await/external callbacks; known planner callbacks run on main. Detached
+worker capsules contain no phase handle. Another owned damage tick unseals
+first; future status writers must unseal/revoke first. Preparation is charged
+inside the existing planning clock.
+
+All370 assertions preserved;13 additions cover boundaries, parity, repeated
+reads, generation/priority, fuel, copy, public revocation and closures. Single
+source API advisory/diff clean; engineInvokedfalse. Native/fixtures/GPU UNRUN;
+no helpers. Savings unmeasured; Root owns acceptance. STOP.

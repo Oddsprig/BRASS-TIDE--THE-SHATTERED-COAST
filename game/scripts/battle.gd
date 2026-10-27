@@ -767,6 +767,9 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		CombatEvents.check_ship_engine(st,s)
 	Objectives.retarget(st,input)
 	var planning_started: int=Time.get_ticks_usec()
+	# No condition/crew/policy writers until the phase closes before contacts.
+	# Planning workers receive detached data, never this synchronous phase handle.
+	Damage._seal_battle_reads051(checked_phase)
 	Tactical.begin(st,dt,input,checked_phase)
 	ai_phases.begin=Time.get_ticks_usec()-planning_started
 	var controls: Dictionary={}
