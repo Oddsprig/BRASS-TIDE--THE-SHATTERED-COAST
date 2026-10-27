@@ -121,7 +121,9 @@ func exercise(st: Dictionary) -> void:
 
 func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
-	var created: Dictionary=Lab.create(world,{"player":[Lab.entry(world,"iron_bastion"),Lab.entry(world,"lantern_skiff")],"enemy":[Lab.entry(world,"tin_skiff")]},4401)
+	var battery: Dictionary=Lab.entry(world,"iron_bastion")
+	battery.loadout.weapons[1]="rapid_gun"
+	var created: Dictionary=Lab.create(world,{"player":[battery,Lab.entry(world,"lantern_skiff")],"enemy":[Lab.entry(world,"tin_skiff")]},4401)
 	check(bool(created.ok),"canonical boats use existing laboratory birth, fitting and deployment")
 	if created.ok:exercise(created.battle)
 	for arg in OS.get_cmdline_user_args():
