@@ -50,6 +50,15 @@ Three BridgeSol6.1MAX source tasks; Root owns all muted background FIFO tests,
 each whole batch below120seconds. No051tag/package/install/no052 expansion.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 
+LATEST USER OVERRIDE - 27 October2026
+The owner rejects60Hz calculations and keeping most numerical battle work onMain.
+Current implementation task: authoritative data-only battle worker at30Hz, with
+independent60+FPS rendering/interpolation. Earlier60Hz physical-policy statements
+are historical baseline requirements and are superseded by this explicit steer.
+Read C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/WORKER BATTLE051 CONTRACT.txt for shared ownership/API.
+Keep live swept collisions/accounting; discloseactualworker/render cadences.
+NoScene/UI/render objects onworkers; do not silentlychangeotherworkloads.
+
 ## Scope and design
 
 Each version advances0.001 and addresses its saved scope. Do not add unrelated
