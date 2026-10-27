@@ -42,6 +42,7 @@ var root: Control
 var chrome: Control
 var overlay: Control
 var notices: VBoxContainer
+var notices_home_position = Vector2(560, 95)
 var title_root: Control
 var modal_open = false
 var modal_kind = ""
@@ -164,6 +165,7 @@ func button(parent: Node, text: String, action: Callable, primary: bool = false,
 		result.add_theme_stylebox_override("normal", box(GOLD, GOLD, 14))
 		result.add_theme_stylebox_override("hover", box(Color("efd197"), Color("efd197"), 14))
 		result.add_theme_color_override("font_color", INK)
+		result.add_theme_color_override("font_focus_color", INK)
 		result.add_theme_color_override("font_hover_color", INK)
 	# Every harbor/account action publishes a pending copied economy snapshot first.
 	# This also covers direct core actions in modal buttons, before they touch purses.
@@ -401,6 +403,11 @@ func update_hud():
 	voyage_label.text = "UNDERWAY · %s" % host.core.port(w.destination).get("name", "Open water") if not w.path.is_empty() else "%d RENOWN   ·   HOLD %.0f / %.0f" % [w.renown, host.core.cargo_weight(), host.core.capacity()]
 
 func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 1030, height: float = 780) -> VBoxContainer:
+	# Detach shared notices before clearing their previous modal.
+	if notices.get_parent() == root:
+		notices_home_position = notices.position
+	else:
+		notices.reparent(root, false)
 	clear(overlay)
 	modal_open = true
 	var size = root.get_viewport_rect().size
@@ -423,6 +430,8 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	label(heading, title, 36, TEXT, true)
 	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services"])
 	rule(outer)
+	# Reserve a row below the heading, including for action failures.
+	notices.reparent(outer, false)
 	var scroll = ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -436,6 +445,10 @@ func close_modal():
 	var previous = modal_kind
 	modal_open = false
 	modal_kind = ""
+	if notices.get_parent() != root:
+		notices.reparent(root, false)
+		notices.position = notices_home_position
+		notices.size = Vector2(480, 0)
 	clear(overlay)
 	host.fire_held = false
 	if previous == "outcome" and host.mode == "battle":

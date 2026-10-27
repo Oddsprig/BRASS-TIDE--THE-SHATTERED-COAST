@@ -72,3 +72,24 @@ Root review points:
 - Play the actual first voyage, check paid fitting and verify the displayed
   conditional second-hull shortfall against current local prices and stores.
   No FPS, profit,30-minute playfeel, campaign-completion or051 acceptance claim.
+
+051 OPENING FOLLOW-UP - ACTUAL PNG FINDINGS - 27 OCTOBER 2026
+
+Root reports native48495a56 PASS7601/0 and both exported four-view tours PASS.
+Independently inspected the supplied1600 title/voyage/harbor PNGs from job
+  ea32a96216384fbf97e15d514c1ba288/attempt-001/runtime.
+Local parent1c29917 has the same interface.gd as Root's integrated b812bad.
+
+Two small interface.gd fixes only:
+- Shared notices occupy their own layout row below the modal heading and above
+  its scrolling body. Detach them before replacing/clearing a modal and restore
+  their original HUD position/480px width on close. Welcome and action-failure
+  messages stay visible without covering the heading or body. Existing toast
+  generation, error styling, four-message limit and expiry remain unchanged.
+- Primary buttons override font_focus_color with INK, matching their normal
+  dark text on gold. Existing focus border and button callbacks are unchanged.
+
+Source/diff review only; no engine, QA, render, rerun, new framework or helpers.
+Post-fix native and exported visual verification remains UNRUN, owned by Root
+  after performance/journey integration. Main capture hook, quotes/systems,
+  tests, versions and packages are unchanged. Standby after this named commit.
