@@ -17,12 +17,18 @@ Light planning median11.3825ms, begin9.565ms, observation3.498ms,
 certification2.5825ms; worker584 adoptions versus2,204 synchronous fallbacks.
 Active draw median7.0125ms (boats4.201ms, wake1.637ms). All actors and60Hz
 remain; SAFE rendering model1,24 allowed CPU cores, RTX5090Laptop recorded.
-Reviewed source f4ef660 narrows current-step fire views; 9aada13/3d8924e lets
-ready worker answers reach existing guarded joins before duplicate selection.
-R44 validates these with actualvoyageFIRST/affectedAI/export/starts119swhole.
-The third SolMAX continues the actual stalled-route fix; a free Sol implements
-Grok4.7HIGH's reviewed frame-local wake-batch proposal. Neither delays R44.
-No new campaign breadth,
+R44 stopped41.375s after voyage274/geometry669/retained351 passed. Worker229
+had two NEW fixture-contract failures: reuse/discard was correct, but the new
+assertions expected permission after a later live veto. Fixture-only7e8bf23
+checks fresh memory observations; all original204 worker assertions stay.
+Reviewed source now includes ready worker handoff9aada13, narrowfiref4ef660,
+alternate actual escape component0cc58f1 and exact-order wake batchff80472.
+NextR45 actualvoyageFIRST/geometry/retained/worker/traffic/fire/wake/export/
+three starts119swhole; actualR21 only after the current export passes.
+Wake/root drawing review preserves original screen vertices, triangle/path/
+band order and per-vertex colors/fades. No reduced effect or boat counts.
+The escape fix claims only one proven R20 mechanism; four other old stalls
+remain unclaimed. No new campaign breadth, no speedup or quality acceptance,
 no051 tag/package/install; Desktop050 retained. R20 is not a quality pass.
 All earlier checkpoints below are historical context.
 

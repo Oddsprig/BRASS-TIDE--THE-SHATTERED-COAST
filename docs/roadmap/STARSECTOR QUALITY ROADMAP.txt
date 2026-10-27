@@ -7,10 +7,10 @@ Desktop050 retained. R43 Weapon2283/export/three startsPASS55.172s; all R42
 passed AI/Art receipts retained against700 identical other game input hashes.
 Actual R20 quality FAILED:42light7.279FPS/sim17.3605ms/two route stalls;
 16mixed59.9988FPS/sim7.2635ms/three route stalls. Root reviewed both end PNGs.
-Next R44 tests ready-worker handoff before duplicate main decisions plus narrow
-current-step fire views; same actual opening and all live safety guards remain.
-Separate three-SolMAX work addresses the real R20 stalled cone request and
-Grok4.7HIGH's exact-order wake batching proposal; source only until validated.
+R44 actualopening/geometry/retained passed; two NEW worker post-update fixture
+assumptions corrected without changing production or original204 assertions.
+R45 now tests ready-worker handoff/fire views, the real R20 alternate escape
+component and exact-order wake batching; actualR21 follows passed export.
 No051 tag/package/install or quality claim. Earlier findings are historical.
 
 THE TARGET
