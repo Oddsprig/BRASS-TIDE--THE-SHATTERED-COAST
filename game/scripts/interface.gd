@@ -67,6 +67,9 @@ var battle_points_label: Label
 var battle_control_label: Label
 var autopilot_button: Button
 var tactical_intent_label: Label
+var battle_reload_label: Label
+var battle_crew_label: Label
+var battle_details_label: Label
 
 func setup(game_host):
 	host = game_host
@@ -258,6 +261,13 @@ func build_hud():
 	policy_buttons.clear()
 	EquipmentPicker.prune_requests(self)
 	var size = root.get_viewport_rect().size
+	if host.mode == "battle":
+		notices.position = Vector2((size.x - 480) * 0.5, 120)
+		build_battle_hud(size)
+		hud_mode = host.mode
+		update_hud()
+		return
+	notices.position = Vector2(560, 95)
 	var top = panel(chrome, Vector2.ZERO, Vector2(size.x, 76))
 	var top_row = row(top)
 	button(top_row, "◈  BRASS TIDE", open_menu)
@@ -271,10 +281,7 @@ func build_hud():
 	button(top_row, "☰", open_menu)
 	left_body = panel(chrome, Vector2(25, 100), Vector2(280, 0))
 	right_body = panel(chrome, Vector2(size.x - 325, 100), Vector2(300, 0))
-	if host.mode == "battle":
-		build_battle_hud(size)
-	else:
-		build_campaign_hud(size)
+	build_campaign_hud(size)
 	hud_mode = host.mode
 	update_hud()
 
@@ -338,25 +345,32 @@ func add_coastal_clash(actions: Node) -> Button:
 	paragraph(actions, "One loaded packet, a mixed escort, raiders already in range.", 14, GOLD)
 	return clash
 
-func skirmish_guidance() -> void:
-	if left_body==null or str(host.battle_context.get("kind",""))!="coastal_clash":
+func skirmish_guidance(body: Node = null) -> void:
+	if str(host.battle_context.get("kind",""))!="coastal_clash":
 		return
-	eyebrow(left_body, "COASTAL CLASH")
+	var parent: Node=left_body if body==null else body
+	if parent==null:return
 	var text: String=str(host.lab_config.get("guidance",""))
 	if text.is_empty():
 		text="Escort the loaded packet to the exit. WASD camera, Space pause, Tab orders, U manual helm."
-	var hint: Label=paragraph(left_body, text, 13, GOLD)
+	var hint: Label=paragraph(parent, text, 11 if body==null else 14, GOLD)
 	hint.name="SkirmishGuidance"
+	hint.tooltip_text=text
+	if body==null:hint.max_lines_visible=1
 
 func build_battle_hud(size: Vector2):
-	skirmish_guidance()
 	TacticsUI.build(self, size)
+	skirmish_guidance()
 
 func update_hud():
 	if host.mode == "menu" or host.mode != hud_mode or stats_label == null or not is_instance_valid(stats_label) or host.core.state.is_empty():
 		return
+	if host.mode == "battle":
+		clock_label.text = "PAUSED" if host.paused else "%02d:%02d" % [int(host.battle.time) / 60, int(host.battle.time) % 60]
+		TacticsUI.update(self, true)
+		return
 	var w = host.core.state
-	var boats = w.fleet if host.mode != "battle" else host.battle.ships.filter(func(s): return s.team == "player" and not s.sunk)
+	var boats = w.fleet
 	var supplies = 0.0
 	var ammo = 0.0
 	var fuel = 0.0
@@ -368,28 +382,11 @@ func update_hud():
 		crew += int(s.crew)
 	stats_label.text = "%s coins     ▱  %d boats     ◉  %d crew     ▣  %d kits     ◆  %d fuel     ·  %d ammo" % [money(w.coins), boats.size(), crew, supplies, fuel, ammo]
 	clock_label.text = "DAY %d  ·  %s" % [int(w.day), "PAUSED" if host.paused else "%d×" % host.speed if host.mode != "battle" else "%02d:%02d" % [int(host.battle.time) / 60, int(host.battle.time) % 60]]
-	if host.mode == "battle":
-		var s = host.Battle.get_flagship(host.battle)
-		if s.is_empty():
-			return
-		var flow = host.Damage.get_status(s)
-		flagship_label.text = s.name
-		hull_bar.value = s.hp / s.maxHp * 100
-		flood_bar.value = s.water / s.capacity * 100
-		damage_label.text = "HULL  %d / %d     FLOOD  %d%%\n\nInflow       %.1f L/s\nBailing      %.1f L/s\nPatch rate   %.1f cm²/s\n\nCREW  %.1f guns · %.1f bail · %.1f repair\nHoles %d · Fire %d%% · Engine %d%%\nWounded %d · Supplies %.1f" % [s.hp, s.maxHp, s.water / s.capacity * 100, flow.inflow, flow.bailing, flow.repair, flow.crewGuns, flow.crewBail, flow.crewRepair, s.breaches.size(), s.fire, s.engine * 100, s.wounded, s.supplies]
-		for policy in policy_buttons:
-			policy_buttons[policy].add_theme_color_override("font_color", GOLD if s.policy == policy else TEXT)
-		var enemies = host.battle.ships.filter(func(t): return t.team == "enemy" and not t.sunk).size()
-		voyage_label.text = "%d HOSTILE · %d SELECTED · %s" % [enemies, host.selected_battle_ids.size(), "AUTOPILOT" if host.battle.get("autopilot", true) else "MANUAL FLAGSHIP"]
-		TacticsUI.update(self)
-		if host.battle.retreatTimer != null:
-			voyage_label.text = "Fleet withdrawal · %.0f seconds" % host.battle.retreatTimer
-	else:
-		flagship_label.text = "%d %s. One captain." % [w.fleet.size(),"boat" if w.fleet.size() == 1 else "boats"]
-		var p = host.core.current_port()
-		dock_button.disabled = p.is_empty()
-		dock_button.text = "Enter %s  ↗" % p.name if not p.is_empty() else "At sea"
-		voyage_label.text = "UNDERWAY · %s" % host.core.port(w.destination).get("name", "Open water") if not w.path.is_empty() else "%d RENOWN   ·   HOLD %.0f / %.0f" % [w.renown, host.core.cargo_weight(), host.core.capacity()]
+	flagship_label.text = "%d %s. One captain." % [w.fleet.size(),"boat" if w.fleet.size() == 1 else "boats"]
+	var p = host.core.current_port()
+	dock_button.disabled = p.is_empty()
+	dock_button.text = "Enter %s  ↗" % p.name if not p.is_empty() else "At sea"
+	voyage_label.text = "UNDERWAY · %s" % host.core.port(w.destination).get("name", "Open water") if not w.path.is_empty() else "%d RENOWN   ·   HOLD %.0f / %.0f" % [w.renown, host.core.cargo_weight(), host.core.capacity()]
 
 func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 1030, height: float = 780) -> VBoxContainer:
 	clear(overlay)

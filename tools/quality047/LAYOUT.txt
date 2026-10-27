@@ -1,0 +1,68 @@
+047 LAYOUT SOURCE HANDOFF - 27 October 2026
+
+SOURCE CANDIDATE ONLY. No engines/tests/native/builds/render/GPU/audio/input,
+Blender/bakes/downloads/helpers/AI brain/push/tags/desktop operations ran here.
+Base c86eb6dfd0f3f5a840eb2b688b0cd3d10c2d1feb; metadata remains046.
+Root must deliver046 BEFORE integrating047. No FPS, motion or quality pass.
+
+EXACT OWNERSHIP
+game/scripts/interface.gd
+game/scripts/tactics_ui.gd
+game/tests/test_battle_layout047.gd (one compact fixture, UNRUN)
+tools/quality047/LAYOUT.txt
+No campaign layout, saves, music, assets, accounting, workers or physics edited.
+
+INTEGRATE WITH COMMANDS
+CommandsSol commit95afc279b2bae92f2ed045f54f4399118d23fa50 supplies:
+  request_battle_command(command:String,target:Dictionary={}) -> bool
+  set_selected_formation(formation:String) -> bool
+  set_battle_overlay(kind:String,enabled:bool) -> bool
+  battle_command_pending:String
+  battle_command_ack:Dictionary {ok,command,message,count}
+  chart.battle_overlays:Dictionary {arcs,threat,routes}, all default false
+Exact declarations read directly in sibling source; meeting572d72e2/674352f3.
+Eight button vocabulary engage/harass/focus/escort/defend/rally/hold/withdraw.
+Host owns honest mappings, validation, manual precedence, target picking,
+wrong-target retry, Escape cancellation and synchronous acknowledgment.
+No-target focus/escort/defend/rally arm the next world RIGHT click. Pending is
+visible separately from the actual AI reason; an armed command is not executed.
+Legacy1/2/3/right-click, groups, pause/overview and default autopilot stay host-owned.
+Fleet exit remains separate Withdraw fleet in the on-demand detail modal.
+
+LAYOUT / READING
+Viewed actual docs/COMBAT v0.045.png before editing. Replaced its permanent
+sidebars with four shallow bands: top52px; objective52px at y60; selected
+status132px at h-192; orders44px at h-52. No empty edge frames.
+Default: selected hull/water/crew/fire/engine, live AI reason, actual target/
+order/role, each fitted mount's reload/restriction, DP/reserve count, objective,
+autopilot, flagship crew priorities and immediate command prompt/acknowledgment.
+Top Roster & crew opens existing modal for full readiness, finite crew/stores,
+active/reserved rosters and boarding. Existing Selected tactics & weapon groups
+modal holds formations, saved groups, weapon holds/reserves and opt-in overlays.
+Reserves read actual battle.reserves and Deployment; no new spawn system.
+Compact labels have bounded lines and full read-only tooltip/detail text.
+Legacy HUD label objects survive modal round trips; coastal guidance remains
+under left_body in the objective band and is repeated fully in the detail modal.
+TacticsUI.update(ui,compact=false) retains legacy lightweight HUD callers;
+Interface alone opts into compact=true. Selected tactical_status and cached
+Damage status are each read once at existing HUD cadence, not a new frame loop.
+No recurring full snapshot, new telemetry or new QA framework.
+
+ROOT-ONLY VERIFICATION STILL REQUIRED
+Advisory only: check_preload_calls.py issues[]; reviewed named diff and whitespace
+(existing CRLF accepted as line endings). No native parsing/assertion pass.
+Submit existing Godot console raw executable through Test Bridge, arguments:
+["--headless","--path","<clean integrated047 game absolute path>",
+ "--audio-driver","Dummy","--script","res://tests/test_battle_layout047.gd"]
+One actual3boat public Lab; no simulation loops. Two owned headless viewport
+sizes1600x1000/1280x800, actual Control extents/nonoverlap/reachability, >30%
+larger full-width clear centre versus conservative inherited centre bound,
+selection independent of flagship, real crew/autopilot/pause/button callbacks,
+host target acknowledgment, modal/overlay paths and unchanged people/stores/
+paid career. Desired few-second fixture cost is UNMEASURED. Root's ENTIRE
+selected native batch including setup/cleanup stays below120s. Reuse existing
+synthetic profiles/owned cleanup; do not nest a lane lease or run a broad suite.
+Root must separately review actual clean exported047 at both supported sizes,
+readability while targeting/paused/manual, full mounted reload lines, long boat
+names/acknowledgments, reserves and real motion. This fixture proves no game
+feel, performance, audio, complete battle outcome or quality-milestone acceptance.
