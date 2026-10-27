@@ -14,6 +14,53 @@ const MIN_PAINT_AREA: float = 0.01 # Screen pixels squared, below visible paint.
 const MIN_EDGE_SQUARED: float = 0.000001
 const MIN_CORNER_CROSS: float = 0.0001
 
+## Private to one Chart._draw_wakes call. Even an 80-boat input is bounded by
+## the existing sample/band ceilings; the live producer currently retains64.
+class _FrameBatch051 extends RefCounted:
+	const MAX_BANDS: int = 80 * MAX_PRIMITIVES
+	const MAX_POINTS: int = MAX_BANDS * MAX_VERTICES
+	const MAX_INDICES: int = MAX_BANDS * (MAX_VERTICES - 2) * 3
+	var canvas: CanvasItem
+	var points := PackedVector2Array()
+	var indices := PackedInt32Array()
+	var colors := PackedColorArray()
+	var bands: int = 0
+	var active: bool = true
+
+	func _init(target: CanvasItem) -> void:
+		canvas = target
+
+	func _append_band(screen_points: PackedVector2Array, band_indices: PackedInt32Array, color: Color) -> bool:
+		if not active:
+			return false
+		if bands >= MAX_BANDS or screen_points.size() > MAX_VERTICES or points.size() + screen_points.size() > MAX_POINTS or indices.size() + band_indices.size() > MAX_INDICES:
+			_fallback()
+			return false
+		var offset: int = points.size()
+		points.append_array(screen_points)
+		for index in band_indices:
+			indices.append(offset + index)
+		for _point in screen_points:
+			colors.append(color)
+		bands += 1
+		return true
+
+	func _flush() -> void:
+		if indices.is_empty():
+			return
+		canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+		RenderingServer.canvas_item_add_triangle_array(canvas.get_canvas_item(), indices, points, colors)
+		points.clear()
+		indices.clear()
+		colors.clear()
+		bands = 0
+
+	func _fallback() -> void:
+		# Paint the collected prefix BEFORE any ordinary band. Never reorder a
+		# translucent fallback, or discard the prefix when a limit is reached.
+		_flush()
+		active = false
+
 static func _life(opts: Dictionary) -> float:
 	var value: float = float(opts.get("life", LIFE_SEC))
 	return clampf(value, 0.1, LIFE_SEC) if is_finite(value) else LIFE_SEC
@@ -144,13 +191,22 @@ static func _band_indices(polygon: PackedVector2Array, uncut: bool) -> PackedInt
 	return Geometry2D.triangulate_polygon(polygon)
 
 ## Canvas contract: one colored band, then identity. Enter at identity.
-## A CanvasItem gets one triangle array per band. Any other canvas, including
+## By default a CanvasItem gets one triangle array per band. Chart's private
+## frame batch instead retains screen points/colors in that same paint order.
+## Any other canvas, including
 ## recorders, still gets draw_colored_polygon with the same local vertices.
 ## projector(world: Vector2, height: float) -> Vector2 is the affine water plane.
 ## Every height is zero. Geometry cleanup is in projected screen coordinates.
 ## opts.life may shorten the wash; opts.clip_rect is a screen-space cull rect.
 ## The CanvasItem/viewport performs the final edge crop, including partial strips.
 static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary = {}) -> int:
+	var batch: _FrameBatch051 = null
+	var requested_batch = opts.get("_frame_batch051")
+	if requested_batch is _FrameBatch051:
+		batch = requested_batch
+		if not (canvas is CanvasItem) or canvas != batch.canvas or not bool(opts.get("affine_water", false)):
+			batch._fallback()
+			batch = null
 	var life: float = _life(opts)
 	var path: Array = _path(samples, life)
 	if path.size() < 2:
@@ -219,6 +275,9 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 		# Cleaned vertices and screen paint stay the same. An uncut band does
 		# not call the triangulator; a cut band asks for its exact indices.
 		var uncut: bool = polygon.size() == built
+		# Keep the original projected points, before float32 origin subtraction.
+		# Indices still come from the exact same conditioned local polygon.
+		var screen_polygon: PackedVector2Array = polygon.duplicate() if batch != null and batch.active else PackedVector2Array()
 		var origin: Vector2 = polygon[0]
 		for index in range(polygon.size()):
 			polygon[index] -= origin
@@ -227,6 +286,9 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 			# Arbitrary public/custom projectors retain native triangulation.
 			var indices: PackedInt32Array = _band_indices(polygon, uncut and affine)
 			if not indices.is_empty():
+				if batch != null and batch._append_band(screen_polygon, indices, colors[layer]):
+					count += 1
+					continue
 				canvas.draw_set_transform_matrix(Transform2D(0.0, origin))
 				# One color is copied onto every vertex, as draw_colored_polygon does.
 				RenderingServer.canvas_item_add_triangle_array(canvas.get_canvas_item(), indices, polygon, PackedColorArray([colors[layer]]))

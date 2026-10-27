@@ -1,0 +1,39 @@
+WAKE BATCH SOURCE - 27 October 2026
+Parent: 279a690ceaa90bc78fc2a66b04621e257565b43c
+
+Source-only handoff; Root owns native Test Bridge and actual PNG validation.
+R20 active-wake median1637us / end1922us with36paths/108band draws motivates
+the change. No measured saving, visual, motion, FPS or quality acceptance.
+
+Chart._draw_wakes creates one private accumulator, visits the unchanged
+_wakes key order, and flushes at the same draw position before trails/hulls.
+One indexed RenderingServer triangle array at identity for supported paint.
+No cross-frame cache, layer regrouping, clock/LOD/geometry/renderer changes.
+
+Each original band retains its original screen vertices BEFORE local origin
+subtraction, its exact existing conditioned indices offset by vertex count,
+and its existing color/fade replicated per vertex. Order remains each path,
+then bands1/.57/.20, then the existing triangle order. draw returns the
+original band count, preserving current profiling counters.
+
+Hard ceiling:80paths *3bands *23vertices =5520vertices/5520colors;
+240bands *63indices =15120indices. The current Chart producer retains64boats.
+Unsupported target/projection or capacity overflow flushes the collected
+prefix before ordinary submission and disables the batch for that draw.
+No accumulated paint is discarded. No accumulator uses the existing path.
+Public/non-CanvasItem/custom projection paths retain original per-band
+checks/transforms; cut outlines retain _band_indices(..., false) locally.
+The existing four-argument RenderingServer API call now receives one color
+per vertex; its old public call continues to supply one uniform band color.
+
+Existing fixture assertions unchanged. Added only frame_batch_case051:
+two overlapping paths with different fades, six-band vertex/index/color order,
+cut-tip native triangulation, and recorder/custom-projector fallback parity.
+Five new assertions are prepared, not executed here.
+Vertex comparison uses the existing0.002px tolerance for Recorder's old local
+subtract/add float32 roundtrip. Index/color/vertex-count/order checks stay exact.
+
+Diff reviewed; git diff --check clean. One source preload advisory reported
+issues=[], engineInvoked=false before the final fixture-only tolerance edit;
+not repeated. No engine, build, tests, CPU benchmark, GPU work or helper launched
+here. Native behavior and PNG parity remain unverified.

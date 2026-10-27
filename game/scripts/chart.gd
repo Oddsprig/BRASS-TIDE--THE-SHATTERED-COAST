@@ -355,6 +355,7 @@ func _draw_wakes():
 		return
 	var proj := _projector()
 	var view := get_viewport_rect()
+	var wake_batch := WakeArt._FrameBatch051.new(self)
 	for key in _wakes.keys():
 		var raw: Array = _wakes[key]
 		if raw.size() < 2:
@@ -367,10 +368,11 @@ func _draw_wakes():
 		var samples: Array = []
 		for s in raw:
 			samples.append({"p": s.p, "d": s.d, "age": clock - float(s.t), "w": s.w})
-		var primitives: int=BoatArt.draw_wake(self, proj, samples, {"life": minf(WAKE_LIFE_SEC, WakeArt.LIFE_SEC), "clip_rect": view, "affine_water": true})
+		var primitives: int=BoatArt.draw_wake(self, proj, samples, {"life": minf(WAKE_LIFE_SEC, WakeArt.LIFE_SEC), "clip_rect": view, "affine_water": true, "_frame_batch051": wake_batch})
 		if _profile_drawing:
 			_profile_frame.wake_paths+=1;_profile_frame.wake_samples+=samples.size()
 			_profile_frame.wake_primitives+=primitives
+	wake_batch._flush() # Same draw position, before trails/hulls; no frame retention.
 
 func _draw_trails():
 	if _trails.is_empty():

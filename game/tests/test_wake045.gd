@@ -322,6 +322,55 @@ func slow_turn_cases() -> void:
 			same_paint = same_paint and Vector2(affine_repaired.polygons[1][index]).distance_to(measured[index]) <= 0.002
 	check(same_paint, "affine projection preserves the native offender's paint within0.002 screen pixels, with unchanged native triangulation checks")
 
+func frame_batch_case051() -> void:
+	# Two overlapping paths, with different live fades. The second has a cut
+	# tip, so its indices MUST use the existing uncut=false native fallback.
+	var paths: Array = [straight(), [{"p": Vector2.ZERO, "age": 0.699999999999, "w": 6.0}, {"p": Vector2(2, 0), "age": 0.69999999999, "w": 6.0}, {"p": Vector2(6, 0), "age": 0.2, "w": 6.0}]]
+	var reference := Recorder.new()
+	reference.screen_origin = Vector2(800, 500)
+	var projection := Recorder.new()
+	projection.screen_origin = reference.screen_origin
+	var canvas := Node2D.new()
+	var batch := Wake._FrameBatch051.new(canvas)
+	var count: int = 0
+	var expected_points := PackedVector2Array()
+	var expected_indices := PackedInt32Array()
+	var expected_colors := PackedColorArray()
+	var cut_fallback: bool = false
+	for samples: Array in paths:
+		var first_band: int = reference.polygons.size()
+		Wake.draw(reference, reference.project, samples, {"affine_water": true})
+		count += Wake.draw(canvas, projection.project, samples, {"affine_water": true, "_frame_batch051": batch})
+		var full: int = Wake._path(samples, Wake.LIFE_SEC).size() * 2 - 1
+		for band in range(first_band, reference.polygons.size()):
+			var polygon: PackedVector2Array = reference.local_polygons[band]
+			var uncut: bool = polygon.size() == full
+			var indices: PackedInt32Array = Wake._band_indices(polygon, uncut)
+			cut_fallback = cut_fallback or (not uncut and same_indices(indices, Geometry2D.triangulate_polygon(polygon)))
+			var offset: int = expected_points.size()
+			for index in indices:
+				expected_indices.append(offset + index)
+			for point in reference.polygons[band]:
+				expected_points.append(point)
+				expected_colors.append(reference.colors[band])
+	# Recorder reconstructs screen points after the old local subtract/add.
+	# Compare that float32 roundtrip at the existing slow-turn paint tolerance.
+	var same_vertices: bool = batch.points.size() == expected_points.size()
+	for index in range(mini(batch.points.size(), expected_points.size())):
+		same_vertices = same_vertices and batch.points[index].distance_to(expected_points[index]) <= 0.002
+	check(count == 6 and batch.bands == count and reference.invalid == 0, "two-path frame batch retains all six original bands")
+	check(same_vertices and same_indices(batch.indices, expected_indices), "batch preserves path then band then triangle order and screen paint within0.002 pixels")
+	check(batch.colors == expected_colors and reference.colors[0].a != reference.colors[3].a, "overlapping paths retain their own per-vertex band colors and fades")
+	check(cut_fallback, "cut batch bands keep uncut=false native triangulation")
+	# A recorder/custom projection cannot opt into native accumulation.
+	var fallback := Recorder.new()
+	var ordinary := Recorder.new()
+	var rejected := Wake._FrameBatch051.new(canvas)
+	var fallback_count: int = Wake.draw(fallback, fallback.project, paths[1], {"affine_water": false, "_frame_batch051": rejected})
+	var ordinary_count: int = Wake.draw(ordinary, ordinary.project, paths[1], {"affine_water": false})
+	check(fallback_count == ordinary_count and fallback.polygons == ordinary.polygons and fallback.transforms == ordinary.transforms and not rejected.active and rejected.points.is_empty(), "recorder/custom-projector fallback keeps existing paint and identity transforms")
+	canvas.free()
+
 func boat_for(spec: Dictionary, uid: String = "wake045") -> Dictionary:
 	return {"uid": uid, "spec": spec, "x": 300.0, "y": 300.0, "angle": 0.0, "vx": 60.0, "vy": 0.0, "sunk": false, "crew": 7.0, "fuel": 11.0, "ammo": 13.0, "supplies": 2.0}
 
@@ -456,6 +505,7 @@ func lab_battle_cases(world: Dictionary) -> void:
 func run() -> void:
 	geometry_cases()
 	slow_turn_cases()
+	frame_batch_case051()
 	var world: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	var spec: Dictionary = Lab.hull(world, "tin_skiff")
 	check(not spec.is_empty(), "fixture uses the existing Tinwake hull schema")
