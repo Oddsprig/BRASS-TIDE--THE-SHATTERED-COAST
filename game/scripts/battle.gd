@@ -682,6 +682,12 @@ static func _project_packed_contact051(st: Dictionary,ships: Array,positions: Pa
 	var push: Vector2=normal*(minimum-d)*0.51
 	var ap: Vector2=start_a-push
 	var bp: Vector2=start_b+push
+	if ap==start_a and bp==start_b and d<minimum-0.0001:
+		# The ordinary push rounded BOTH endpoints back to their starts. Only
+		# outside the existing tolerance, round each component one float32 value
+		# outward; the same shore guards below still decide each actual write.
+		ap=Vector2(_contact_outward_float051(start_a.x,-normal.x),_contact_outward_float051(start_a.y,-normal.y))
+		bp=Vector2(_contact_outward_float051(start_b.x,normal.x),_contact_outward_float051(start_b.y,normal.y))
 	var moved: int=0
 	if not _blocked(st,ap,radius_a):
 		positions[first]=ap
@@ -694,6 +700,19 @@ static func _project_packed_contact051(st: Dictionary,ships: Array,positions: Pa
 		b.x=bp.x;b.y=bp.y
 		if bp!=start_b:moved|=2
 	return moved
+
+static func _contact_outward_float051(value: float,direction: float) -> float:
+	# Adjacent IEEE-754 binary32 coordinate, never a gameplay-sized margin.
+	if direction==0.0:return value
+	var word: PackedByteArray=PackedByteArray()
+	word.resize(4)
+	word.encode_float(0,value)
+	var bits: int=word.decode_u32(0)
+	if value==0.0:bits=1 if direction>0.0 else 0x80000001
+	elif (value>0.0)==(direction>0.0):bits+=1
+	else:bits-=1
+	word.encode_u32(0,bits)
+	return word.decode_float(0)
 
 static func _project_contact051(st: Dictionary,a: Dictionary,b: Dictionary,tolerance: float=0.0) -> int:
 	if a.sunk or b.sunk:return 0

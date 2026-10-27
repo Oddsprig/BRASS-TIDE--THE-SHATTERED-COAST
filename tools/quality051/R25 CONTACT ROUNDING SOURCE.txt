@@ -1,0 +1,44 @@
+R25 CONTACT ROUNDING SOURCE - 27 October 2026 - SOURCE ONLY
+Base e43dbc54eeab9f09c1d99424ff43ce916352ab87.
+
+Evidence: TestBridge be50c2e598bd4600aaeffd77d56b1bb7, attempt-001/runtime/
+runtime043-45136-2024404/runtime043-light.json, endBoatMotion051/endVeto051.
+Actual R25 final XY, restored to their exact binary32 coordinates:
+ enemy-6-bilge_punt (radius 13): (1244.65185546875, 1088.1446533203125)
+ enemy-19-tin_skiff (radius 14): (1271.5009765625, 1085.2952880859375)
+Recorded distance 26.9998931884766, floor 27; penetration 0.0001068115234375.
+Both original normal*penetration*0.51 proposals round back to their starts.
+This is representational stagnation, not proof of numeric traffic corruption.
+
+Only the packed contact projection gains a branch: BOTH proposals must equal
+their starts AND penetration must exceed the existing 0.0001 tolerance.
+It selects the adjacent IEEE-754 binary32 coordinate in each nonzero outward
+normal direction, using PackedByteArray float/u32 conversion. Existing shore
+checks precede both actual writes. Numeric endpoints and canonical hulls still
+publish immediately. Ordinary 0.51 math, public reference helper, i<j order,
+FIFO, budgets, radii, velocity, RNG and all planner/traffic floors are unchanged.
+
+For this R25 pair each changed coordinate moves EXACTLY 2^-13 =
+0.0001220703125. Per-hull Euclidean displacement is sqrt(2)*2^-13 =
+0.00017263349150062197 (upper bound 0.000172633491500622). General branch
+bound is one adjacent float32 step per nonzero component, not a fixed offset.
+Expected corrected XY from float32 arithmetic, NOT native validation:
+ bilge: (1244.6517333984375, 1088.144775390625)
+ tin:   (1271.5010986328125, 1085.295166015625)
+Expected separation 27.00016212463379; a shore-held bilge leaves only tin moving
+and predicts separation 27.00002670288086. No gameplay-sized displacement.
+
+Existing test_battle --case=contacts051 adds one captured-pair regression:
+prove original no-progress/floor refusal, resolve >=27-0.0001, verify exact
+adjacent coordinates, then require its next 60Hz monotone route segment through
+normal public Routes.occupied to pass with zero budget exhaustion. The existing
+helper also compares non-position bytes, live references, water validity,
+determinism and RNG. A shore variant covers this new branch specifically.
+All old assertions and the ordinary whole-state/RNG reference case are unchanged.
+
+One source advisory: python tools/check_preload_calls.py game
+scripts/battle.gd tests/test_battle.gd -> advisoryOnly true, engineInvoked false,
+issues []. Diff/whitespace review clean; additions only, no old assertion edits.
+No engine/import/export/GPU/benchmark, new harness/profiler or helper run.
+Native R53 and actual R26 remain Root-owned and PENDING. No pass/stall-fix or
+performance acceptance is claimed from source review. Stop after named commit.

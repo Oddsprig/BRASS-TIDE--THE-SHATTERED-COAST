@@ -1,6 +1,7 @@
 extends SceneTree
 const D=preload("res://scripts/damage.gd")
 const B=preload("res://scripts/battle.gd")
+const ContactRoutes051=preload("res://scripts/tactical_routes.gd")
 const SPEC={"id":"skiff","name":"Skiff","hp":130,"armor":1,"crewMin":2,"crewOptimal":5,"crewMax":7,"size":16,"speed":100,"turn":2,"pumps":1,"weapon":"gun","damage":12,"fireRate":2,"range":550}
 func check(ok: bool,msg: String) -> void:
 	if not ok:
@@ -271,3 +272,33 @@ func _contacts051() -> void:
 	packed_state.rng=[packed.rng.seed,packed.rng.state]
 	reference_state.rng=[reference.rng.seed,reference.rng.state]
 	_contact_check051(var_to_bytes(packed_state)==var_to_bytes(reference_state),"packed contact whole-state bytes and RNG match original scan")
+	# R25 actual final pair: penetration 0.0001068115234375, but both ordinary
+	# 0.51 pushes round to the same Vector2. Preserve the reference above.
+	var r25_bilge: Dictionary=_contact_boat051("enemy-6-bilge_punt",1244.65185546875,1088.1446533203125,13.0)
+	var r25_tin: Dictionary=_contact_boat051("enemy-19-tin_skiff",1271.5009765625,1085.2952880859375,14.0)
+	r25_bilge.team="enemy";r25_tin.team="enemy"
+	r25_bilge.vx=-1.59752887188367e-14;r25_bilge.vy=2.26144362974355e-14
+	r25_tin.vx=-2.51274343129534e-13;r25_tin.vy=5.11557383096623e-14
+	var r25: Dictionary=_contact_state051([r25_bilge,r25_tin])
+	var r25_before: Array=r25.ships.duplicate(true)
+	var r25_original: Dictionary=r25.duplicate(true)
+	var r25_start_a: Vector2=B._pos(r25_bilge)
+	var r25_start_b: Vector2=B._pos(r25_tin)
+	_contact_check051(r25_start_a.distance_to(r25_start_b)<27.0-0.0001 and B._project_contact051(r25_original,r25_original.ships[0],r25_original.ships[1])==0 and r25_original.ships==r25_before,"R25 captured pair genuinely stagnates under original projection")
+	# The recorded tin route points away (positive radial derivative). Check its
+	# next 60Hz monotone segment through the normal public traffic/floor guard.
+	var r25_step: Vector2=(Vector2(1299.48486328125,1089.645751953125)-r25_start_b).normalized()/60.0
+	var before_work: Dictionary={"clearanceTests":0,"clearanceLimit":32,"exhaustions":0,"separatingEgress051":true}
+	_contact_check051(ContactRoutes051.occupied(ContactRoutes051.grid(r25.ships),r25_tin,r25_start_b,r25_start_b+r25_step,18.0,0.0,1.0/60.0,before_work,true)=="blocked" and int(before_work.exhaustions)==0,"R25 original overlap blocks even monotone egress without budget exhaustion")
+	_contact_run051(r25,"R25 float32-stagnant contact")
+	_contact_check051(B._pos(r25_bilge)==Vector2(1244.6517333984375,1088.144775390625) and B._pos(r25_tin)==Vector2(1271.5010986328125,1085.295166015625),"R25 correction is exactly one adjacent float32 value per component")
+	var after_work: Dictionary={"clearanceTests":0,"clearanceLimit":32,"exhaustions":0,"separatingEgress051":true}
+	var r25_end_b: Vector2=B._pos(r25_tin)
+	_contact_check051(ContactRoutes051.occupied(ContactRoutes051.grid(r25.ships),r25_tin,r25_end_b,r25_end_b+r25_step,18.0,0.0,1.0/60.0,after_work,true)=="valid" and int(after_work.exhaustions)==0,"R25 resolved floor permits the next normal monotone egress")
+	# Existing shore cases have representable ordinary pushes; this variant
+	# exercises the same shore veto specifically after outward rounding.
+	var r25_shore: Dictionary={"points":[[r25_start_a.x-40.0,r25_start_a.y-40.0],[r25_start_a.x-13.0,r25_start_a.y-40.0],[r25_start_a.x-13.0,r25_start_a.y+40.0],[r25_start_a.x-40.0,r25_start_a.y+40.0]]}
+	var r25_held: Dictionary=_contact_state051(r25_before.duplicate(true),[r25_shore])
+	var r25_held_before: PackedByteArray=var_to_bytes(r25_held.ships[0])
+	_contact_run051(r25_held,"R25 rounding beside shore")
+	_contact_check051(var_to_bytes(r25_held.ships[0])==r25_held_before,"R25 rounded correction cannot move the shore-held endpoint into land")
