@@ -137,6 +137,8 @@ func _ready():
 		new_game();paused = true
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
+	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
+		screenshots_requested = ["title051", "home051", "voyage051", "harbor051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1094,7 +1096,14 @@ func capture_after_start():
 	if views.is_empty():views = [mode]
 	for raw in views:
 		var name: String = str(raw)
-		if not screenshots_requested.is_empty():
+		if name.ends_with("051") and not screenshots_requested.is_empty():
+			if name == "home051":
+				new_game();paused = true;chart.center_camera()
+			elif name == "voyage051":Interface.GuidanceUI.open_voyage(ui)
+			elif name == "harbor051":ui.open_port()
+			await get_tree().process_frame
+			name = "opening051-" + name.trim_suffix("051")
+		elif not screenshots_requested.is_empty():
 			if name == "home":chart.center_camera()
 			elif name == "overview":chart.territory_view()
 			else:
