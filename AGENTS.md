@@ -71,6 +71,17 @@ creates283/120msmaxlag; workerP95capacity36.768/35.305ms. Current bounded
 follow-up: cheaper detachedpublication, no actor/stat/cadence/gameplay change.
 Separateworkerstep/job/snapshot/Mainpoll/lag costs; no zeroMain=zeroSimulation.
 Nativeproof and real60FPS gain do not yet accept remaininglag or gamequality.
+R68 6ba0a27822f14313845a7f042cf2146b PASS5297/0,90.203s incl119worker/HUD,
+57commandreference,5121feedback/export3starts/cleanuptrue. Nativecopy9ea310
+->Root4b000e3; HUDproof41fc640->c5e64d0; release9223c45.
+R34 87950dd298e54596bb51fb8720d0da2b actualCOMPLETE58.234s/cleanuptrue,
+QUALITYFALSE: light/mixed59.986FPS, no50msstutters/unresolvedstalls/fullcoverage;
+bothendPNGsRootviewed. Snapshotlight43->28.06ms,mixed24->12.719ms. Mixed
+workerP9525.325ms/maxlag66.613ms nowPASS; lightP9536.331/maxlag199.989ms
+stillmiss. Currentnarrowfollowup reusesexisting CURRENT damage status inside
+worker-onlypublication with checkedunsealedpoststep phase, freshlegacy/result
+fallback, plusrealactiveflood/repairinexistingcanonicalHUDcase. No staleHUD
+frequency/newcacheframework/actor/stat/cadence/threshold changes.
 Three BridgeSol6.1MAX passes completed; driver/proof owners handle one measured
 publicationcopy follow-up; third stays idle. No extrahelpers/framework.
 No tag/install/push, Desktop050 preserved; no052 breadth until usable core.
