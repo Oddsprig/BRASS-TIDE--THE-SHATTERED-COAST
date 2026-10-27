@@ -59,7 +59,12 @@ static func _hull_variation(spec: Dictionary) -> Dictionary:
 	var tier: int = clampi(int(_number(spec.get("tier"), 1.0)), 1, 4)
 	var f_bias: float = _faction_bias(str(spec.get("faction", "compact")))
 	var id_str: String = str(spec.get("id", role))
-	var h_step: float = float((absi(id_str.hash()) % 5) - 2) * 0.004
+	# Use the same explicit signed32 hull variation as the authored bake source.
+	# String.hash exposes unsigned32 through Godot's64-bit integer; leaving that
+	# implicit placed some live fittings slightly off their authored wells.
+	var layout_hash: int = int(id_str.hash()) & 0xffffffff
+	if layout_hash >= 0x80000000:layout_hash -= 0x100000000
+	var h_step: float = float((absi(layout_hash) % 5) - 2) * 0.004
 	var t_step: float = float(tier - 2) * 0.010
 	var is_cat: bool = str(base.arch) == "catamaran"
 	return {
