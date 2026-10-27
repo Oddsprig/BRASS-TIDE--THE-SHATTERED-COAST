@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - The new assets appear in actual battles and boat/refit portraits; remaining33 hulls keep their existing assets for the later roster milestone.
 
 See docs/TEST RESULTS v0.042.md for actual focused checks and remaining limits.
+
+Verification: 194 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 66.017s. Preserved earlier failures; no broad acceptance claim.

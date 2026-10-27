@@ -6,4 +6,4 @@ Open Fleet Battle Lab and choose Finished boats to inspect and launch the repres
 The other 33 boats retain their existing presentation until the dedicated roster milestone. This version does not change the economy, boat statistics or AI.
 The pipeline bakes lit 3D geometry offline into cached 2D directional images; the game does not render the source models in real time. Water remains inexpensive.
 
-Validation status: production asset generation and focused runtime/visual review in progress. This note is not a claim of final art quality, measured rendered FPS or Starsector parity.
+Validation:194focusedchecks/0failures, Windows export andmenu/campaign/battle startup. Root reviewed the actual normal-scale drawing-call replays and all seven weapon variants in compatible workshop fittings. This is the first authored art release; finer side/rail/gun contrast and remaining33hulls remain later art work. Overall visual quality, real renderedFPS, combat feel and Starsector parity are not certified by these checks.
