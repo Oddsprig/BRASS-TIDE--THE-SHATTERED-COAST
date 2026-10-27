@@ -1,34 +1,37 @@
 BRASS TIDE v0.051 - FIRST VOYAGE AND CORE QUALITY
 
-ACTIVE CANDIDATE: opening complete, full-fleet performance gate OPEN.
-Latest gameplay/export R22 a030d04dcc3f44bf8a33dc46ead206a6:761/0,77.156s
-including setup/cleanup and menu/campaign/battle portable starts. Real due-worker
-starter wins35.667simseconds, collects34545 funded reward plus5400 captured,
-returns and pays1071 repair/1996 stores/26379 boost. Captain25499 remains;
-protected payroll reserve1000. Booked day1 wages0;78.519 wage allowance is an
-estimate. Previous67.767s opening used speculative prefetch; it is historical.
-Current full sixty-Hz physics,90s combat cap, stats, RNG and coins are unchanged.
+ACTIVE CANDIDATE: real opening REGRESSION; core gate OPEN.
+R24 664f62e8d2ce43fe9ca55bd657b4d8ff FAILED: starter lost51.317simseconds,
+HP0 and ammo75 (only five rounds fired),12.701s fixture/54.375s wholebatch.
+Damage370/wake14738/route95/role311/workers69/retained22/traffic34 all passed
+before the real opening exposed the failure. No free wins or changed seed,
+stats, damage,90s cap or coin accounting. PerfSol fixes range/phase adoption:
+a hold-fire worker preference must be reconsidered when its target enters range.
+The previous R22 opening35.667s with paid return/refit is HISTORICAL, not a
+claim that the newest candidate completes the voyage.
 
-R21 affected geometry passed before its worker-test failure:Damage370/0,
-wake14738/0,route95/0,all-role/view288/0. Root85c7909 corrected the new phase
-assertion to preserve later same-step collision vetoes. R22 actual field proof:
-current observation at0.383s after event0.367, breakaway, decision count8->9,
-lastDecision=-1 and no intent following the physical veto. Workers66/0 pass.
-These are separate batches, not a fabricated single whole-suite result.
+R23 rendering diagnostic8658384417fe465a8401da5e577a34d7 passed2437/0 in37.734s:
+actual Lab/refit draws199, weapon/atlas/mount/recoil/fallback checks2238.
+R25 f128191c649543bbb8201ff48401a654 passed125 component AI checks plus
+export/three starts59.516s for PERFORMANCE INVESTIGATION ONLY. It deliberately
+did not rerun the known-failed voyage; it is not playable/core acceptance.
 
-Latest exported R9 735066ce5e5e44459f2e4872ade3e793 still FAILS quality:
-42light boats/300DP per side6.102FPS;16mixed/300DP per side53.749FPS.
-Simulation medians20.540/8.689ms, P9524.756/11.738ms. Both60FPS targets UNMET.
-Light planning13.810ms remains dominant: observation2.910, copies1.030,
-proposals3.350, certification3.416, resolution0.785, helm1.853ms. Worker1625/1912
-adoptions prove use, not success. Root viewed actual light/mixed end images.
-Draw-scoped/affine wake checks passed; sampled wake submission cost improved,
-but whole-fleet frame rate remains unacceptable. No audio/motion/parity claim.
+Actual exported R10 789a6c63f6af41c3b5716ef229b06b99 remainsqualityFALSE:
+42light boats/300DPside7.246FPS,16mixed/300DPside58.911FPS. Simulation medians
+18.541/8.088ms, P9524.463/11.176ms. Targets UNMET. Batching reducedlight
+proposal work3.350->0.771ms and sidejobs838/556ticks ->136/606ticks. Light
+planning still11.055ms: observation3.089, snapshots1.077, certification2.878,
+resolution0.847,helm1.801ms. Full60Hz actors/deployment/currentphysics remain.
+Unused sidebatch preferences can expire, so workerDrops is not a safety-fail
+count. Native public/dynamic paths remain distinct from trusted runtime paths.
 
-Next correction must remove repeated whole-world planning and validation cost;
-no more speculative proof-cache machinery or test-framework expansion. Bridge
-Sol6.1MAX and Grok4.7HIGH review the bounded change. Root owns background-muted
-shared-lane tests, whole batches below120s. Desktop050; no051 delivery/no052 yet.
+Current work: PerfSol real-fire-range/phase regression; CoastSol investigates
+trusted postdamage read-window reuse in EXISTING Damage phase (hundreds of
+18-input scans/tick) with fuel-zero and official generation changes still live.
+Root owns all background-muted shared-lane/native/export/GPU tests; each batch
+below120s. No new harness, no unsupported status approximation. Nav/render
+changes are committed and component-verified. Desktop050, two saves/music
+preserved. No051 tag/ZIP/install and no052 breadth while core gate is OPEN.
 
 Earlier candidate evidence follows; the recorded failures remain failures.
 

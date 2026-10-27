@@ -12,10 +12,9 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-STATUS: R22PASS761/0,77.156s inclsetup/export/three starts.
-Actual due-worker starter wins35.667simseconds and funds a real paid upgrade.
-ActualR9full300DP light6.102FPS/mixed53.749FPS;60FPS targets UNMET.
-Measuredlight planning13.810ms remainsdominant. Current geometry/wake/roles
-passed inR21/R20; all counts/failedworkerassertion receipts remain preserved.
-Nextchange targets actual planning architecture; no newtestframework.
-Core gate OPEN; Desktop050;052 planned. No performance acceptance or release.
+STATUS: current real opening FAILED R24, five shots and lost51.317simseconds.
+R23draw2437/0; componentAI/geometry passed. R25export is PROFILINGONLY.
+R10actual300DP light7.246FPS/mixed58.911FPS; targetsstillUNMET.
+PerfSol fixes concrete hold-fire/range adoption. CoastSol targets repeated
+postdamage status scans within the closed private phase; no public approximation.
+Rootallbackgroundtestbatches<120s. CoreOPEN; Desktop050; no051delivery/no052.

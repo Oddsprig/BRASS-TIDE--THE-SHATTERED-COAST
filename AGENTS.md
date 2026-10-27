@@ -1,32 +1,29 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
-Latest051checkpoint: Root85c7909/releasec0c3e5d. R22native761/0,
-export/three starts77.156s; actual due-worker opening COMPLETE35.667simseconds,
-paidrepair1071/refill1996/boost26379, captain25499/payrollreserve1000.
-R21 geometry components370damage/14738wake/95route/288roles all0fail; its new
-worker test failed on a later physical veto. Root85fixture corrected that only;
-R22 workers66/0 prove fresh observation followed by -1/nointent physical veto.
-ActualGPU R9 735066ce5e5e44459f2e4872ade3e793 still FAILS quality: light6.102,
-mixed53.749FPS; light20.540ms simulation,13.810ms planning. No051 release.
-Grok4.7HIGH read-onlyreview COMPLETE, no source edits. THREE BridgeSol6.1MAX
-seats ACTIVE, work remains same051 scope. PerfSol owns Planner/Runtime/Main/
-minimalCertification/AI tests: batchwhole-side .15s and remove repeatedfullRole
-redecision on normal bounded-age adoption, maintain <=.2 useful observations.
-NavSol owns Routes/coastal/planner+role geometry fixtures: private detached
-fullstatic+2s observed traffic preparation; valid joined route uses fresh live
-connector and .3s current traffic prefix. Public/defaultfulltraffic remains.
-ABI: Routes._prepare_detached051(st,geometry,ship,candidate,budget), worker-owned
-st.time and tactical.cells. Return fullroute+origin/radius/terrain/observedAt051/
-trafficSeconds051; age<=.15 required for shortened main recheck. Missing/invalid
-metadata falls back fullmain. Physical helm/contact/shot stayfresh60Hz.
-CoastSol thirdseat owns BoatSpriteArt/BoatArt/MotorArt/HullFeedback + existing
-renderfixture: remove measured~4.8ms repeated drawmetadata work, no art/detail
-loss or assetrebakes. No overlap with Root Chart/Wake tested changes.
-No helper engines/nestedhelpers/newframework. Root alltest-lane/native/GPU,
-background muted noinput/focus, wholebatches<120s. Desktop050; no052 untilgate.
-Current source-onlydocs update uncommitted; preserve. Two voyages/actualmusic
-and one plain Desktoplauncher stay. TaskCURRENT STATE.txt conciseauthority;
-older status text below is historical where conflicting.
+Latest051checkpoint: Root6ebfb21/release6c25e60. CURRENTOPENING FAILED R24
+664f62e8d2ce43fe9ca55bd657b4d8ff:lost51.317simseconds,5shots, HP0. Damage370,
+wake14738,route95,roles311,worker69,retained22,traffic34 passed earlier inbatch.
+R23drawing2437/0 passed37.734s. R25 f128191c649543bbb8201ff48401a654 is
+PERFORMANCEONLY partial export:125AI/three starts59.516s. Notcore/playablepass.
+GPU R10 789a6c63f6af41c3b5716ef229b06b99 qualityFALSE:light7.246/mixed58.911FPS,
+sim18.541/8.088ms. Lightplanning11.055ms; proposalimproved3.35->.771ms, jobs
+838/556ticks->136/606ticks. Two blockers: actualopeningloss andperformancetargets.
+PerfSol ACTIVE owns Planner/Runtime/Cert/AIfixture: fixactualhold-fire/range
+andphase-deadline adoption regression; noHP/seed/stats/90slimit/criteriachanges.
+CoastSol ACTIVE owns ONLYDamage/Battle/existingdamagefixture: trustedsealed
+postprepass readwindowreuse inEXISTINGphase/entries; dynamic public/unsealed
+paths preserved, officialgenerations/fuelzero remainlive. Closebeforecontact
+andhits; auditactualwriters, no unsupported approximation/newgeneralcache.
+NavSol finished bfb8b8e->Root0609d12: workerfullstatic+2ssnapshottraffic,
+currentconnector/.3strafficadoptionwithsameterrain/radius/age<=.15;fullETA.
+RenderSol finishedc8e->Roote5f8e4a: staticatlas/perdrawpreparation, samequads,
+allmounts/currentaim/recoil/damage. Perf188->Root6eb batching/.15sidejobs+cheap
+preferencejoin/thirdshortlistremoval. Allsourcecommitted exceptcurrentnotes.
+Root owns ALLtest-lane/native/export/GPU; mutedbackground noinput/focus and
+wholebatches<120s. Allenginejobs currentlyfinished. No helperengine or new
+framework/nestedhelpers. Desktop050,2voyages/actualmusic preserved,1launcher.
+No051tag/ZIP/install/no052 breadth. CURRENT STATE.txt concisehandoff; older
+status paragraphs below historical whereconflicting.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
