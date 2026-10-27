@@ -1285,7 +1285,7 @@
       88,
       80
     ],
-    "identity": "Short open fishing dory; hand reel; net stack and catch well"
+    "identity": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
   },
   "brinehook_longliner": {
     "name": "Brinehook Longliner",
@@ -1621,7 +1621,7 @@
       132,
       106
     ],
-    "identity": "Round tank barge; four secured casks and raised copper transfer banks"
+    "identity": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
   },
   "blackwater_fleet_tanker": {
     "name": "Blackwater Fleet Tanker",
@@ -1677,7 +1677,7 @@
       192,
       149
     ],
-    "identity": "Long fleet tanker; four tank volumes with domes; three transom drives"
+    "identity": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
   },
   "gullwing_daysailer": {
     "name": "Gullwing Daysailer",

@@ -1,6 +1,6 @@
 {
   "requires_gpu": false,
-  "source": "049-source-bundle-sha256:aa79636029befaa0608dec20129ea7000b7493da7fe1013faa99d36ab1069d38",
+  "source": "049-source-bundle-sha256:230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
   "cwd": "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol",
   "command": [
     "C:\\Users\\bligh\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
@@ -17,23 +17,23 @@
     "--seconds",
     "75",
     "--out",
-    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-preview-aa79636029be",
+    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-preview-230eebfb5a0b",
     "--cache",
-    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-cache-aa79636029be"
+    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-cache-230eebfb5a0b"
   ],
   "inputs": {
     "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/tools/quality042/models.py": "e2ee11abefa612efd15c7ab041c9336590a691fd87086d3a513c753a1be63153",
     "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/tools/quality042/bake.py": "f66f1e2a3d910769e20f36c9bb90f8a954d97ae6e40965ea3690c907ae2ac694",
-    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/tools/quality049/recipes.py": "d0a6ddb65c3f3704de7b29f98dcc1fa1eb3b186b96def53301560528b022afbe",
-    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/tools/quality049/catalog.json": "41c02aa2ff99ce7b3d74892b042754a80973327bbc016affb564d658a32dae36",
+    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/tools/quality049/recipes.py": "33c2fead9da66e3b912859acd2459cd797edba24c14fda864470afcbade56e89",
+    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/tools/quality049/catalog.json": "1e02941dffe273ac690d5038c20eb3537aa4960235cc8fddec358677370ae879",
     "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/game/data/world.json": "ab66ce729ca8b8d14a95d5c39da0f1fdc4b8f112f8ced8a02cd9ca76e33a5182",
     "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/game/scripts/hull_profiles.gd": "7c34b7f76b2053fbd12dec723b8ab169603fd70d56373f3cc355add161fd5757",
     "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/game/scripts/mount_layout.gd": "48c17e969781762633895e5ac4479a3d40831773516298aac0df340ef3e10ef8",
     "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-hulls-sol/game/scripts/weapon_geometry.gd": "c0003c674fef4aa465e8aba3d10134c66ace93ed6d8c390135e350292d922371"
   },
   "expected_outputs": [
-    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-preview-aa79636029be/kelpnet_dory/preview-00.png",
-    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-cache-aa79636029be/kelpnet_dory/a3cd9b6ea13a42a141a0.png",
-    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-cache-aa79636029be/kelpnet_dory/a3cd9b6ea13a42a141a0.json"
+    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-preview-230eebfb5a0b/kelpnet_dory/preview-00.png",
+    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-cache-230eebfb5a0b/kelpnet_dory/c2c32f476324d87d00c3.png",
+    "C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/v049-cache-230eebfb5a0b/kelpnet_dory/c2c32f476324d87d00c3.json"
   ]
 }

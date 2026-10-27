@@ -23,15 +23,15 @@ wraith_rocket	29	rocket	combat	352x248	176,157	11173888	SOURCE_RECIPE_ONLY	Long 
 cobalt_frigate	24	cruiser	combat	288x224	144,143	8257536	SOURCE_RECIPE_ONLY	Command frigate; stepped flag bridge and dual turbine exhaust
 iron_bastion	31	cruiser	combat	376x272	188,173	13090816	SOURCE_RECIPE_ONLY	Heavy flagship; double belt; high signal house and pump dome
 maiden_dreadnought	36	cruiser	combat	440x312	220,195	17571840	SOURCE_RECIPE_ONLY	Long capital bow; triple belt; triple funnels and three transom drives
-kelpnet_dory	13	skiff	fishing	176x128	88,80	2883584	SOURCE_RECIPE_ONLY	Short open fishing dory; hand reel; net stack and catch well
+kelpnet_dory	13	skiff	fishing	176x128	88,80	2883584	SOURCE_RECIPE_ONLY	Short open fishing dory; large hand reel; coiled net stack and broad catch well
 brinehook_longliner	15	skiff	fishing	216x160	108,104	4423680	SOURCE_RECIPE_ONLY	Long working stern; paired line reels and offset davit under canopy
 mother_gull_trawler	19	raider	fishing	256x184	128,117	6029312	SOURCE_RECIPE_ONLY	Broad trawling cat; stern net reels and full-width working gantry
 fenhopper_lighter	17	raider	transport	232x160	116,97	4751360	SOURCE_RECIPE_ONLY	Flat twin-hull lighter; compressed bale stacks and loading ramp
 tideledger_coaster	21	raider	transport	304x216	152,134	8404992	SOURCE_RECIPE_ONLY	Long coastal cat; raised cargo davit; covered holds and bonded safes
 fourport_packet	24	raider	transport	328x240	164,149	10076160	SOURCE_RECIPE_ONLY	High two-level packet house; long covered hatches and twin exhaust
 brasswind_motor_galleon	28	raider	transport	400x320	200,200	16384000	PRESERVE_EXISTING_042	Prior authored recipe and runtime asset entry unchanged
-seepoil_tanker	20	corvette	tanker	264x176	132,106	5947392	SOURCE_RECIPE_ONLY	Round tank barge; four secured casks and raised copper transfer banks
-blackwater_fleet_tanker	27	corvette	tanker	384x248	192,149	12189696	SOURCE_RECIPE_ONLY	Long fleet tanker; four tank volumes with domes; three transom drives
+seepoil_tanker	20	corvette	tanker	264x176	132,106	5947392	SOURCE_RECIPE_ONLY	Round tank barge; broad horizontal tanks with saddles and connected transfer mains
+blackwater_fleet_tanker	27	corvette	tanker	384x248	192,149	12189696	SOURCE_RECIPE_ONLY	Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives
 gullwing_daysailer	14	cutter	yacht	184x136	92,86	3203072	SOURCE_RECIPE_ONLY	Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck
 osprey_cabin_cruiser	17	cutter	yacht	232x168	116,108	4988928	SOURCE_RECIPE_ONLY	Long lacquered cabin launch; raised glazed day salon and twin motors
 aurelian_court_yacht	25	cruiser	yacht	344x248	172,156	10919936	SOURCE_RECIPE_ONLY	Long court yacht; two-level household bridge; wide signal wing and settee

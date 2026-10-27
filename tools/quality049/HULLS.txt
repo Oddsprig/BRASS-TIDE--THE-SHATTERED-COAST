@@ -2,6 +2,26 @@
 Base a157241f6d817f08cf231299d35e6539c61e2359. Metadata remains047.
 Root reports048 packaged/Desktop-verified at da06715/v048 and is ready for049.
 No version/tag/assets/import/bake/render/native result is supplied by this seat.
+Root has since integrated934dd77 and prepared049 metadata ONCE; do not increment.
+
+ACTUAL ROOT PREVIEW FEEDBACK / DETAIL R2 SOURCE CANDIDATE
+Root ran frozenaa796 bundle5abfc102 in four CPU preview jobs:
+Kelpnet0 314b7b83340f4f7f9af138f60b1b189b;
+Seepoil0 c358dde00d1944a087296e2aa37a35bd;
+Manta28 0060478fa1954f5a9c97e2452f9f9283;
+Maiden0 cd38f922afd84f089d907974e68ee470.
+Root reports passed production,12.6-13.3s whole incl10ssetup,0.6-0.9s/frame and
+~100MiB. I read all4 actual PNGs. This is NOT finished-art/native/FPS acceptance.
+Large empty decks/plain houses, tiny fishing/tank identity and a detached-looking
+Manta foil were concrete findings. R2 adds connected panel seams, guard segments
+with physical well gaps, cleats, actual engine grilles, window frames/doors,
+exhaust collars and military service/repair hardware. Tankers use broad horizontal
+elliptical tanks, saddles, solid caps and connected transfer pipework, distinct
+from empty circular wells. Kelpnet's larger reel, coiled net and raised dark catch
+well are functional fittings. Manta's former low foil moves to the chine with
+a continuous hull-to-foil web and substantial brace; no reflection/shadow fake.
+All R2 geometry/bakes remain UNRUN here. Root must review the SAME4 new previews.
+Oldaa796 preview/cache paths are preserved; updated plan uses a fresh source key.
 
 DELIVERED SOURCE
 33 original design functions in recipes.py; existing3 builder function ASTs
@@ -42,7 +62,7 @@ All hull textures with mips417097004B =397.774700MiB.
 Actual tight-cell allocation will be lower and MUST be reported from receipts;
 no measured reduction claimed. Excludes weapons, driver alignment, import
 compression, CPU caches/staging, water and other textures. Compressed PNG bytes
-and per-frame/batch cost are UNMEASURED. Runtime does not load all36 via a new
+and R2 per-frame/batch cost are UNMEASURED. Runtime does not load all36 via a new
 roster preload; fixture streams one actual atlas at a time. Existing texture
 cache retention can still make a long roster session expensive. Current300DP
 FPS remains bad; these assets are not a measured performance correction.
@@ -146,7 +166,8 @@ SOURCE REVIEW / LIMITS
 Python AST parsing and read-only source/diff review only; original3 builder AST
 comparison unchanged. No models module import/construction, engine, test suite,
 import/export/render/bake/GPU/Blender/audio/CUA/input/focus/download/helper/push/
-maintenance execution. Native fixture and all art remain UNRUN/UNREVIEWED.
+maintenance execution by this seat. Native fixture/R2 art remain UNRUN; the4
+actual aa796 Root previews were read and their concrete findings recorded above.
 source-binding.json binds the four production sources and actual source inputs;
 commit ID is supplied in Root's meeting handoff, not embedded recursively here.
 Root reviews/tests this candidate before acceptance. Stand by for actual preview

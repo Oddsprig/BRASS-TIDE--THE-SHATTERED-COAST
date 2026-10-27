@@ -37,14 +37,14 @@ wraith_rocket|tin|ivory|armor_light|33|Long salvo hull; narrow fire-control towe
 cobalt_frigate|teal_light|ivory|tin|34|Command frigate; stepped flag bridge and dual turbine exhaust
 iron_bastion|tin|brass_light|armor_light|38|Heavy flagship; double belt; high signal house and pump dome
 maiden_dreadnought|armor_light|ivory|tin|41|Long capital bow; triple belt; triple funnels and three transom drives
-kelpnet_dory|timber|ivory|deck|17|Short open fishing dory; hand reel; net stack and catch well
+kelpnet_dory|timber|ivory|deck|17|Short open fishing dory; large hand reel; coiled net stack and broad catch well
 brinehook_longliner|teal_light|ivory|deck|24|Long working stern; paired line reels and offset davit under canopy
 mother_gull_trawler|timber|ivory|deck|25|Broad trawling cat; stern net reels and full-width working gantry
 fenhopper_lighter|timber|ivory|deck|18|Flat twin-hull lighter; compressed bale stacks and loading ramp
 tideledger_coaster|teal_light|ivory|deck|28|Long coastal cat; raised cargo davit; covered holds and bonded safes
 fourport_packet|teal_light|brass_light|deck|32|High two-level packet house; long covered hatches and twin exhaust
-seepoil_tanker|tin|ivory|armor_light|19|Round tank barge; four secured casks and raised copper transfer banks
-blackwater_fleet_tanker|tin|ivory|armor_light|25|Long fleet tanker; four tank volumes with domes; three transom drives
+seepoil_tanker|tin|ivory|armor_light|19|Round tank barge; broad horizontal tanks with saddles and connected transfer mains
+blackwater_fleet_tanker|tin|ivory|armor_light|25|Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives
 gullwing_daysailer|ivory|teal_light|deck|19|Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck
 osprey_cabin_cruiser|ivory|brass_light|deck|24|Long lacquered cabin launch; raised glazed day salon and twin motors
 aurelian_court_yacht|ivory|brass_light|deck|34|Long court yacht; two-level household bridge; wide signal wing and settee"""
@@ -114,7 +114,7 @@ def main():
         radial=max(math.hypot(x,w+offset) for x,w in st)
         footprints.append([hid,round((st[-1][0]-st[0][0])*size,3),
             round(2*(max(w for _,w in st)+offset)*size,3),2*size,round(radial,6)])
-    metadata={"schema":"brass-tide-boats042-v1","source_revision":"049-roster-source-r1",
+    metadata={"schema":"brass-tide-boats042-v1","source_revision":"049-roster-detail-r2",
        "asset_status":"SOURCE_SEED_ONLY_NOT_A_RUNTIME_MANIFEST","preserve_existing_hulls":list(LEGACY),
        "merge_rule":"Add only these33 entries in Root staging; never overwrite existing3 receipts/bounds",
        "source_inputs_sha256":{str(p.relative_to(ROOT)).replace("\\","/"):hashlib.sha256(p.read_bytes()).hexdigest()

@@ -1,6 +1,6 @@
 {
   "base_commit": "a157241f6d817f08cf231299d35e6539c61e2359",
-  "bake_bundle_sha256": "aa79636029befaa0608dec20129ea7000b7493da7fe1013faa99d36ab1069d38",
+  "bake_bundle_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
   "concatenation": [
     "tools/quality042/models.py",
     "tools/quality042/bake.py",
@@ -10,8 +10,8 @@
   "input_file_sha256": {
     "tools/quality042/models.py": "e2ee11abefa612efd15c7ab041c9336590a691fd87086d3a513c753a1be63153",
     "tools/quality042/bake.py": "f66f1e2a3d910769e20f36c9bb90f8a954d97ae6e40965ea3690c907ae2ac694",
-    "tools/quality049/recipes.py": "d0a6ddb65c3f3704de7b29f98dcc1fa1eb3b186b96def53301560528b022afbe",
-    "tools/quality049/catalog.json": "41c02aa2ff99ce7b3d74892b042754a80973327bbc016affb564d658a32dae36",
+    "tools/quality049/recipes.py": "33c2fead9da66e3b912859acd2459cd797edba24c14fda864470afcbade56e89",
+    "tools/quality049/catalog.json": "1e02941dffe273ac690d5038c20eb3537aa4960235cc8fddec358677370ae879",
     "game/data/world.json": "ab66ce729ca8b8d14a95d5c39da0f1fdc4b8f112f8ced8a02cd9ca76e33a5182",
     "game/scripts/hull_profiles.gd": "7c34b7f76b2053fbd12dec723b8ab169603fd70d56373f3cc355add161fd5757",
     "game/scripts/mount_layout.gd": "48c17e969781762633895e5ac4479a3d40831773516298aac0df340ef3e10ef8",

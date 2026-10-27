@@ -8,7 +8,7 @@ import json
 from math import cos, sin, pi, hypot
 from pathlib import Path
 
-REVISION = "049-roster-source-r1"
+REVISION = "049-roster-detail-r2"
 CATALOG = json.loads(Path(__file__).with_name("catalog.json").read_text(encoding="utf-8"))
 
 
@@ -21,6 +21,8 @@ class Yard:
         d = self.data
         self.m.sockets = api["sockets_for"](hull_id, d["size"], d["role"], d["tier"], d["faction"])
         self.clearance = []
+        self.holds = []
+        self.engines = []
 
     def point(self, x, y, z):
         return self.m.p(x, y, z)
@@ -31,6 +33,11 @@ class Yard:
 
     def pipe(self, name, points, radius=.28, mat="steel", closed=False):
         self.api["tube"](self.m, name, [self.point(*p) for p in points], radius, mat, 8, closed)
+
+    def pipe_run(self, name, points, radius=.28, mat="steel"):
+        # Separate straight pieces preserve real well clearance for bent routes.
+        for i,(a,b) in enumerate(zip(points,points[1:])):
+            self.pipe(name+str(i),[a,b],radius,mat)
 
     def drum(self, name, x, y, radius, bottom, top, mat="steel"):
         self.api["lathe"](self.m, name, self.point(x, y, 0),
@@ -44,7 +51,16 @@ class Yard:
         for side in (-1,1):
             self.block("side_glazing",x,side*(width/2+.003),length*.76,.018,top-4,top-1.7,"glass",.12)
             self.block("window_sill",x,side*(width/2+.014),length*.80,.023,top-4.4,top-4,"ivory",.12)
+            for offset in (-.24,0,.24):
+                self.block("wheelhouse_window_mullion",x+offset*length,side*(width/2+.018),.022,.028,top-4.1,top-1.55,"ivory",.09)
+            door_bottom=max(8.7,top-8.4);door_top=top-4.8
+            self.block("wheelhouse_lower_door",x-length*.26,side*(width/2+.015),length*.23,.025,door_bottom,door_top,"teal_light",.2)
+            self.pipe("door_grab_handle",[(x-length*.18,side*(width/2+.036),door_bottom+.6),
+                (x-length*.18,side*(width/2+.036),min(door_top-.15,door_bottom+2))],.12,"brass")
         self.block("forward_glazing",x+length/2+.003,0,.018,width*.76,top-4,top-1.7,"glass",.12)
+        for side in (-1,1):
+            self.block("forward_window_frame",x+length/2+.016,side*width*.15,.026,.022,top-4.1,top-1.55,"ivory",.09)
+        self.block("roof_service_hatch",x-.08,0,length*.28,width*.36,top,top+.35,"tin",.18)
 
     def cockpit(self, x=-.28, length=.66, width=.46, stepped=False):
         self.block("open_cockpit_recess",x,0,length,width,8.4,8.9,"seam",.45)
@@ -56,11 +72,15 @@ class Yard:
         self.block("raked_windscreen",x+length*.41,0,.025,width*.95,13.3,15.8,"glass",.25)
 
     def motor(self, x=-1.0, y=0, length=.32, width=.36, top=12.8, mat="machinery"):
+        self.engines.append((x,y,length,width,top))
         self.api["engine"](self.m,x,y,8.6,length,width,top,mat)
 
     def funnel(self, x, y, height=21, radius=.95, mat="brass"):
         self.drum("exhaust_trunk",x,y,radius,12.0,height,mat)
         self.drum("exhaust_dark_mouth",x,y,radius*.76,height-.08,height+.05,"seam")
+        for z in (14.0,height-3,height-.6):
+            self.api["lathe"](self.m,"exhaust_iron_collar",self.point(x,y,0),
+                [(radius,z),(radius*1.18,z+.12),(radius*1.18,z+.42),(radius,z+.55)],"brass",16)
         self.pipe("exhaust_intake",[(x+.08,y,11),(x+.08,y,14),(x,y,15)],.26,"steel")
 
     def shaft(self, y, jet=False):
@@ -74,19 +94,115 @@ class Yard:
             self.api["drive"](self.m,stern,y,True)
 
     def foil(self, x, width=.67, swept=False):
+        beam=self.api["width_at"](self.data["stations"],x)
+        tip=min(width,beam+.055)
         for side in (-1,1):
-            self.pipe("foil_strut",[(x,side*.39,6.0),(x-.07,side*width,1.3)],.36,"steel")
-            self.block("planing_foil",x-.06,side*(width-.10),.36,.27,.8,1.6,"tin",.20,
+            # Above-water chine webs connect hull to foil in projection as well
+            # as in XY. The old low plate at Z1 appeared to float below Manta.
+            inner=side*beam*.76;outer=side*tip
+            points=[self.point(x-.18,inner,8.65),self.point(x+.16,inner,8.65),
+                    self.point(x+.10,outer,5.55),self.point(x-.23,outer,5.55)]
+            p=self.m.part("continuous_chine_foil_web","armor_light")
+            p.vertices=points
+            n=self.api["unit"](self.api["cross"](self.api["sub"](points[1],points[0]),self.api["sub"](points[2],points[0])))
+            if n[2]<0:n=self.api["mul"](n,-1)
+            p.normals=[n]*4;p.quad((0,1,2,3))
+            self.pipe("visible_foil_chine_brace",[(x,inner,8.9),(x-.07,outer,5.9)],.48,"steel")
+            self.block("connected_planing_foil",x-.06,side*(tip-.065),.36,.20,5.2,6.05,"tin",.20,
                        side*.25 if swept else 0)
 
     def hold(self, x, y=0, length=.42, width=.56, covered=False):
+        self.holds.append((x,y,length,width))
         # Floor and coamings stay below the common 9.7 weapon-base plane.
-        self.block("open_hold_dark_interior",x,y,length,width,8.35,8.55,"seam",.35)
+        self.block("open_hold_dark_interior",x,y,length,width,8.8,9.0,"seam",.35)
         for side in (-1,1):
             self.block("hold_longitudinal_coaming",x,y+side*width/2,length,.035,8.5,9.3,"ivory",.12)
             self.block("hold_end_coaming",x+side*length/2,y,.035,width,8.5,9.3,"timber",.12)
         if covered:
             self.block("removable_hold_cover",x,y,length-.04,width-.04,9.3,9.65,"canvas",.25)
+
+    def tank(self, name, x, y, length, width, bottom=9.0, height=5.8):
+        """Large horizontal elliptical storage vessel, never a weapon-well ring."""
+        size=self.m.size;radius=width*size/2;half=length*size/2
+        p=self.api["lathe"](self.m,name,(0,0,0),
+            [(0,-half),(radius*.66,-half+.18),(radius,-half+.65),
+             (radius,half-.65),(radius*.66,half-.18),(0,half)],"tin",24)
+        zscale=height/(2*radius)
+        center=self.point(x,y,bottom+height/2)
+        p.vertices=[(center[0]+v[2],center[1]+v[0],center[2]+v[1]*zscale) for v in p.vertices]
+        p.normals=[self.api["unit"]((n[2],n[0],n[1]/zscale)) for n in p.normals]
+        for offset in (-length*.31,length*.31):
+            self.block("tank_saddle",x+offset,y,.045,width+.055,8.6,bottom+.5,"teal_light",.22)
+            # A solid binding follows the tank's elliptical cross-section.
+            points=[(x+offset,y+width*.505*cos(2*pi*j/32),
+                     bottom+height/2+height*.51*sin(2*pi*j/32)) for j in range(32)]
+            self.pipe("storage_tank_binding",points,.18,"brass",True)
+        self.drum("solid_tank_inspection_cap",x,y,1.0,bottom+height-.1,bottom+height+.5,"ivory")
+
+    def safe_fitting(self, x, y, radius=.035):
+        # Keep guard/cleat hardware out of all physically interchangeable wells.
+        return all(hypot(x-s["local_xy"][0],y-s["local_xy"][1])>
+                   s["radius"]/self.m.size+.04+radius for s in self.m.sockets)
+
+    def safe_guard_span(self, a, b):
+        r=.24/self.m.size
+        for s in self.m.sockets:
+            x,y=s["local_xy"]
+            dx=max(min(a[0],b[0])-r-x,0,x-max(a[0],b[0])-r)
+            dy=max(min(a[1],b[1])-r-y,0,y-max(a[1],b[1])-r)
+            if hypot(dx,dy)<s["radius"]/self.m.size+.04:return False
+        return True
+
+    def deck_hardware(self):
+        """Connected deck fabrication and service fittings, not random speckles."""
+        st=self.data["stations"];cat=self.data["role"]=="raider"
+        offsets=(-.62,.62) if cat else (0,)
+        xmin,xmax=st[0][0],st[-1][0];extent=max(abs(xmin),xmax)
+        for offset in offsets:
+            for i in range(1,10):
+                x=xmin+(xmax-xmin)*i/10
+                beam=self.api["width_at"](st,x)
+                points=[]
+                for j in range(9):
+                    t=-.88+j*.22
+                    z=8.2+.45*(abs(x)/extent)**3+.35*(1-t*t)+.055
+                    points.append((x,offset+beam*t,z))
+                self.pipe("transverse_deck_panel_joint",points,.095,"seam")
+            for side in (-1,1):
+                points=[]
+                for i in range(21):
+                    x=xmin+(xmax-xmin)*(.06+.88*i/20)
+                    beam=self.api["width_at"](st,x)
+                    z=8.2+.45*(abs(x)/extent)**3+.35*(1-.70**2)+.055
+                    points.append((x,offset+side*beam*.70,z))
+                self.pipe("longitudinal_deck_panel_joint",points,.095,"seam")
+                # Continuous guard segments, with real gaps at weapon wells.
+                previous=None
+                for i in range(13):
+                    x=xmin+(xmax-xmin)*(.12+.76*i/12)
+                    beam=self.api["width_at"](st,x)
+                    y=offset+side*beam*.91
+                    if not self.safe_fitting(x,y,.045):
+                        previous=None;continue
+                    z=8.2+.45*(abs(x)/extent)**3
+                    self.pipe("deck_guard_stanchion",[(x,y,z+.2),(x,y,11.6)],.28,"ivory")
+                    current=(x,y,11.6)
+                    if previous is not None and self.safe_guard_span(previous,current):
+                        self.pipe("deck_guard_top",[previous,current],.24,"ivory")
+                    previous=current
+            for x in (xmin+.22,xmax-.44):
+                beam=self.api["width_at"](st,x)
+                for side in (-1,1):
+                    y=offset+side*beam*.55
+                    if self.safe_fitting(x,y,.12):self.api["cleat"](self.m,x,y,9.0,"mooring_cleat")
+        if not any(abs(x-.17)<length/2+.16 and abs(y)<width/2+.16 for x,y,length,width in self.holds):
+            self.block("gasketed_inspection_hatch",.17,0,.26,.28,8.8,9.5,"teal_light",.22)
+            self.pipe("inspection_hatch_handle",[(.13,-.05,9.6),(.13,.05,9.6)],.13,"steel")
+        # Real grilles over the aft machinery; these follow its physical bay.
+        for x,y,length,width,top in self.engines:
+            self.block("engine_grille_surround",x,y,length*.72,width*.65,top+.12,top+.36,"ivory",.1)
+            for i in range(5):
+                self.block("engine_room_service_grille",x+length*(-.26+i*.13),y,length*.045,width*.54,top+.36,top+.49,"seam",.045)
 
     def locker(self, name, x, y, length=.24, width=.18, top=12.0, mat="ivory"):
         self.block(name,x,y,length,width,8.6,top,mat,.35)
@@ -323,12 +439,19 @@ def maiden_dreadnought(y):
     for yy in (-.23,0,.23):y.funnel(-1.04,yy,30,1.10,"steel")
     y.shaft(-.31);y.shaft(0);y.shaft(.31);y.mast(-.46,0,38,.30)
     for side in (-1,1):y.locker("capital_pump_room_access",1.73,side*.24,.45,.23,13.6,"tin")
+    for side in (-1,1):
+        y.locker("aft_damage_control_caisson",-1.92,side*.30,.28,.22,12.2,"ivory")
+        y.block("armored_vent_bank",-.34,side*.56,.46,.18,8.7,11.6,"armor_light",.45)
+        for i in range(5):y.block("vent_bank_louver",-.50+i*.08,side*.56,.025,.15,11.6,11.8,"seam",.06)
+        y.pipe_run("deck_fire_main",[(-.62,side*.69,9.0),(-.62,side*.69,10.7),(-.02,side*.69,10.7)],.32,"brass")
+    y.drum("fore_mooring_capstan",1.84,0,1.7,8.8,12.5,"brass")
 
 
 def kelpnet_dory(y):
     y.cockpit(x=-.22,length=.47,width=.37);y.motor(x=-1.04,y=.16,width=.17,top=11.4,mat="tin")
-    y.shaft(0);y.hold(.24,0,.34,.50);y.reel(-1.01,-.25,1.35,11.5)
-    y.locker("net_stack",1.64,0,.32,.32,11,"canvas")
+    y.shaft(0);y.hold(.24,0,.44,.60);y.reel(-1.01,-.25,2.10,11.7)
+    y.locker("net_stack",1.64,0,.34,.34,11,"canvas")
+    y.api["rope_coil"](y.m,1.64,0,11.2,2.0)
     y.pipe("dory_thwart",[(-.66,-.40,9.4),(-.66,.40,9.4)],.35,"timber")
 
 
@@ -380,12 +503,14 @@ def fourport_packet(y):
 def seepoil_tanker(y):
     y.house(length=.64,width=.46,top=15.9,mat="tin",roof="ivory")
     y.motor(width=.42,top=12.6);y.shaft(-.28);y.shaft(.28)
-    # Actual broad tank volumes, low enough to leave all optional mount wells open.
-    for x in (-1.94,1.67):
-        for side in (-1,1):y.drum("secured_liquid_cask",x,side*.25,1.65,8.6,12.8,"tin")
+    # Broad horizontal tank volumes read as storage, unlike the old tiny posts.
+    y.tank("forward_liquid_storage_tank",1.70,0,.60,.62,height=5.8)
+    y.tank("aft_liquid_storage_tank",-1.98,0,.30,.56,height=5.1)
     for side in (-1,1):
-        y.pipe("copper_transfer_manifold",[(-.60,side*.64,8.9),(-.60,side*.64,11.2),(-.02,side*.64,11.2)],.40,"brass")
-        y.drum("transfer_valve",-.13,side*.64,.75,11.2,12.2,"ivory")
+        y.pipe_run("copper_transfer_manifold",[(-1.94,side*.25,12.0),(-1.78,side*.64,12.0),
+            (.95,side*.64,12.0),(1.40,side*.46,12.0),(1.62,side*.30,12.0)],.34,"brass")
+        y.block("transfer_pump_housing",-.25,side*.64,.32,.17,8.8,11.5,"teal_light",.4)
+        y.drum("transfer_valve",-.13,side*.64,1.0,11.5,12.3,"ivory")
 
 
 def blackwater_fleet_tanker(y):
@@ -393,9 +518,8 @@ def blackwater_fleet_tanker(y):
     y.motor(width=.44,top=13.6);y.funnel(-1.01,0,22,1.0,"steel")
     for side in (-1,1):
         y.shaft(side*.36)
-        for x in (-2.04,1.78):
-            y.block("longitudinal_cargo_tank",x,side*.29,.58,.39,8.6,13.7,"tin",1.6)
-            y.drum("tank_inspection_dome",x,side*.29,.9,13.7,14.4,"ivory")
+        for x,length in ((-2.08,.48),(1.82,.62)):
+            y.tank("longitudinal_cargo_tank",x,side*.27,length,.30,height=5.8)
         y.pipe("tank_transfer_main",[(-.65,side*.72,10.8),(-.65,side*.72,12.5),(-.04,side*.72,12.5)],.43,"brass")
     y.shaft(0);y.hold(.18,0,.31,.38,True)
 
@@ -449,4 +573,5 @@ def build(hull_id, api):
     for p in y.m.parts:
         if p.name.endswith("_deck"):p.material=d["deck_material"]
     DESIGNS[hull_id](y)
+    y.deck_hardware()
     return y.finish()

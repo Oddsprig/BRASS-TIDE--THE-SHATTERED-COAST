@@ -1,6 +1,6 @@
 {
   "schema": "brass-tide-boats042-v1",
-  "source_revision": "049-roster-source-r1",
+  "source_revision": "049-roster-detail-r2",
   "asset_status": "SOURCE_SEED_ONLY_NOT_A_RUNTIME_MANIFEST",
   "preserve_existing_hulls": [
     "tin_skiff",
