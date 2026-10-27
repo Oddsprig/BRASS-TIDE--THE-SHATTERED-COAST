@@ -1,0 +1,87 @@
+049 FITTED PORTRAITS - READ-ONLY VISUAL REVIEW
+27 October 2026; source specialist second review for Root.
+
+INPUTS / COVERAGE
+C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/roster-fitted-review049-r1/
+All 36 roster-<hullid>.png files below were individually viewed at their
+original 390x245 size. Header reads independently confirmed 36 files, all
+390x245. art042-review.png was not part of this review. No contact sheet,
+resizing, new render, engine, generation, CUA, helper or source change.
+
+Root supplied replay job 41bd29e7de0d477b956d9867f4558acd, PASS 12.968s,
+and the native Source69 / final c6fa provenance. Those execution and hash
+claims are Root's evidence, not rerun or independently certified here.
+
+FINDINGS AT NORMAL SIZE
+1. No clear cabin/roof covering a visible well opening in any of the 36
+   supplied views. The aft and forward circular openings remain readable.
+   The near-side fourth wells on furnace_turret, iron_bastion and
+   maiden_dreadnought sit close to the rail but their top rims stay visible;
+   I found no definite clipping defect there on a second look.
+2. No clearly detached/floating motor housing or obvious crop at a PNG edge.
+   manta_strike's near-side foil reads as connected to the hull in this pose.
+   This does not establish its appearance from the other 31 headings.
+3. kelpnet_dory and brinehook_longliner reels remain separate from the aft
+   well opening. mother_gull_trawler's reels/gantry do not hide that opening.
+   seepoil_tanker and blackwater_fleet_tanker have readable tank volumes
+   distinct from the dark circular wells; their cabin edges remain clear.
+4. ROOT REVIEW ITEM: conspicuous triangular faces extend below the forward
+   dark waterline/side strip. tin_skiff retains the known broad gray lower-
+   bow triangle. Similar prominent gray wedges appear on gullwing_daysailer
+   and osprey_cabin_cruiser, and a brown wedge on kelpnet_dory. They remain
+   attached to the bow and inside the PNG, but read as hanging plates/fins
+   at this scale. This is a visible projection/readability concern, not a
+   proven geometry, pivot or clipping cause. No correction made or proposed
+   to frozen inputs pending Root's review.
+
+ASSESSMENT LIMIT
+The clearly identifiable mount features are the circular openings and their
+number badges; badges cover parts of the lower/front supports. I cannot
+confidently distinguish every fitted weapon body/barrel in these plates.
+Clear well rims do not certify weapon-body clearance, aiming/sweep, muzzle
+origins or cabin occlusion during motion. This review establishes only the
+supplied static pose, with no live-battle, FPS, audio or quality-parity claim.
+No new confirmed cabin/well/motor blocker found within that limited evidence.
+
+EXACT FILES VIEWED (relative to the directory above)
+roster-aegis_corvette.png
+roster-ash_corvette.png
+roster-aurelian_court_yacht.png
+roster-barbed_lance.png
+roster-bellows_gunboat.png
+roster-bilge_punt.png
+roster-blackwater_fleet_tanker.png
+roster-brasswind_motor_galleon.png
+roster-brinehook_longliner.png
+roster-cinder_monitor.png
+roster-cobalt_frigate.png
+roster-fenhopper_lighter.png
+roster-fourport_packet.png
+roster-furnace_turret.png
+roster-gale_cutter.png
+roster-gullwing_daysailer.png
+roster-harbor_sloop.png
+roster-hook_raider.png
+roster-iron_bastion.png
+roster-kelpnet_dory.png
+roster-krill_torpedo.png
+roster-lantern_skiff.png
+roster-maiden_dreadnought.png
+roster-manta_strike.png
+roster-marsh_dart.png
+roster-mercantile_clipper.png
+roster-mother_gull_trawler.png
+roster-osprey_cabin_cruiser.png
+roster-reed_stinger.png
+roster-scab_cutter.png
+roster-seepoil_tanker.png
+roster-silt_lugger.png
+roster-slag_gunboat.png
+roster-tideledger_coaster.png
+roster-tin_skiff.png
+roster-wraith_rocket.png
+
+OUTPUT / FREEZE
+Only tools/quality049/FITTED REVIEW.txt added in this isolated worktree.
+Frozen bake inputs, game files and the supplied PNGs were not edited.
+The pre-existing AGENTS.md modification was left untouched.

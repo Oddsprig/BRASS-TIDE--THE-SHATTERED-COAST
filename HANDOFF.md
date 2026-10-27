@@ -1,10 +1,18 @@
-# Brass Tide v0.049
+# Brass Tide v0.049 delivered
 
-Current candidate: Complete authored boat roster and readable hull detail.
+BRASS TIDE v0.049 - Complete authored boat roster and readable hull detail
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: c6fa73c75ed2cb3b319130e289bf703eb14f92ba / v0.049
+Test Bridge: 2a4104b7c0fc418796234477f7cdd1f0
+7119 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 78.725s; owned cleanup verified.
 
 - Replace the remaining 33 procedural hulls with original authored directional assets, giving all 36 existing designs distinct functional silhouettes and propulsion detail.
 - Keep weapons interchangeable at actual mount positions and distinguish military boats, fishing gear, freight holds, tankers and civilian yachts.
 - Review normal-scale hull and damage visibility, preserve inexpensive 2D water and record actual asset size, production and integration evidence.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+Native7119/0 final batch:art199,livefeedback4762,physicalmounts2158; export+menu/campaign/battlestartupPASS in78.610s adapterinclsetup. Job2a4104b7c0fc418796234477f7cdd1f0. Retain7497/0 strict36asset/mount/bounds/fitted-record checks from468dee19bfb74d91b0c313630a6e2344 ONLYafterexactallproductionhashproof: solechangedtest_art042.gd. Total14616across4groups; earlierwholefailures remainfailed. Root+Solindependentlyviewed36actualnormalfittedPNGs; Rootviewedactualexportedstill and.15/1.5/4.983ssamples from5simsec offline movie121c7cf0b84c427589ffdf6d32253717/encodef7e164e0f76c4288ae171324ce62dc21. NoFPS/listening/fullbattle/playfeel/parityclaim. All33newhulls1056frames+33portraitsproduced in99passedboundedCPUjobs,max75.328s inclsetup. ActualRGBA+mips full36atlas297945928B+portrait37241660B, excludesweapons/driver. Importonly1536MiB after1GiBWebPfailure; game512/export1024unchanged. ExplicitSIGNED32hullvariation alignsactualwells; noassertionloosened. Prominentlowerbowfaces remaincosmeticreviewfor051. Allfull300DPperformance targets remainunaccepted;051OPEN. Sourcec6fa73c75ed2cb3b319130e289bf703eb14f92ba.
+
+Continue with the next saved version scope after v0.049; preserve the shared lane and120-second limit.

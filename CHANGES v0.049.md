@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Review normal-scale hull and damage visibility, preserve inexpensive 2D water and record actual asset size, production and integration evidence.
 
 See docs/TEST RESULTS v0.049.md for actual focused checks and remaining limits.
+
+Verification: 7119 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 78.725s. Preserved earlier failures; no broad acceptance claim.

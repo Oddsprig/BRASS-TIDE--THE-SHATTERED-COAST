@@ -1,4 +1,4 @@
-BRASS TIDE — RECOVERY MAP (generated; v0.048)
+BRASS TIDE — RECOVERY MAP (generated; v0.049)
 
 Actual destroyed hulls/site provenance -> persistent finite wrecks, selectable lots, paid tow and recovered blueprints.
 

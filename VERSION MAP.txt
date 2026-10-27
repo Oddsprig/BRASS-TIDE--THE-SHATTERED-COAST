@@ -1,5 +1,5 @@
 BRASS TIDE - STARSECTOR QUALITY VERSION MAP
-27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.048
+27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.049
 
 Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
 The target is the complete experience, not a matching list of features.
@@ -29,7 +29,7 @@ Deployment, orders, groups and battle information are clear and responsive.
 0.048 - REFITTING DEPTH [SCOPED BUILD DELIVERED; WHOLE QUALITY OPEN]
 Different affordable builds change real behavior and have meaningful tradeoffs.
 
-0.049 - COMPLETE ROSTER QUALITY [PLANNED]
+0.049 - COMPLETE ROSTER QUALITY [AUTHORED ROSTER DELIVERED; CORE VISUAL QUALITY OPEN]
 All36 boats and their guns reach the proven visual and role standard.
 
 0.050 - COASTAL WORLD ART [PLANNED]

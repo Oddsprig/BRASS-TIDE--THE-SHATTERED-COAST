@@ -1,6 +1,6 @@
 BRASS TIDE v0.049 - BOAT ROSTER
 
-CURRENT CANDIDATE - asset production and final native/visual review pending.
+SCOPED AUTHORING / INTEGRATION BUILD - whole-core quality remains open.
 The roster remains36 designs:24 combat and12 civilian boats. No filler hulls
 or new economic statistics are added in this art version. Original authored
 hulls are baked offline into32 directions. Guns stay separate and turn/fire
@@ -61,7 +61,25 @@ Lacquered Osprey Cruiser | cutter | 3/6 crew | 30 hold
 Aurelian Viceroy Yacht | cruiser | 6/12 crew | 45 hold
 
 VERIFICATION
-Final actual production/native/draw-call/exported-motion receipts belong under
-tests/. Source models, produced images, native correctness and visual review
-are distinct. All earlier full300DP performance targets remain unaccepted;
-core-quality051 staysOPEN. This version number does not certify parity.
+All33newhulls produced1056real directional images and33portraits.99bounded
+CPUproduction jobs passed; largest75.328seconds including setup. Final native
+batch7119/0 plus7497retained strictassetchecks give14616checks across4groups.
+The retained group has exact production-source proof; only an older drawing
+test changed afterward. Final batch/export/three startups passed below120s.
+
+Root and a BridgeSolMAX specialist independently inspected all36normal390x245
+stockfitted views. The included Boat Gallery shows actual draw-call replays;
+empty wells are unoccupied slots. Root inspected an actual exported battle
+still plus.15/1.5/4.983second samples from a5second offline recording. This is
+not realtimeFPS, fullbattle, listening, allbarrelsweep or playfeel acceptance.
+
+Initial texture import exceeded its1GiB allowance and failed WebP packing;
+the import alone now has1536MiB. Strict mounts exposed signed/unsigned hash
+variation; the game now uses the same explicit signed32 definition as the
+models. Strict alignment checks remain. Older art checks were updated for
+the047camera and the newly authored roster, keeping true missing-art fallback.
+
+Lower-bow triangular hull faces remain prominent on a few small designs,
+especially Tin, Gullwing, Kelpnet and Osprey. This cosmetic issue is recorded
+for the core-quality review. Native source/mount/image correctness does not
+close it. Full300DPperformance targets remainunaccepted;051gate staysOPEN.

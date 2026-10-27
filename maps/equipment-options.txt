@@ -1,18 +1,18 @@
-BRASS TIDE — EQUIPMENT-OPTIONS MAP (generated; v0.048)
+BRASS TIDE — EQUIPMENT-OPTIONS MAP (generated; v0.049)
 
 Shared physical chassis/equipment geometry and portable presentation preferences; canonical economic stats stay outside art.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/mount_layout.gd: 16859 bytes; extends RefCounted
+game/scripts/mount_layout.gd: 17204 bytes; extends RefCounted
   game/scripts/mount_layout.gd:29 hull_size()
   game/scripts/mount_layout.gd:36 mount_tier()
   game/scripts/mount_layout.gd:42 fitting_budget()
   game/scripts/mount_layout.gd:45 archetype()
-  game/scripts/mount_layout.gd:106 hardpoints()
-  game/scripts/mount_layout.gd:122 weapon_aim()
-  game/scripts/mount_layout.gd:130 structure()
-  game/scripts/mount_layout.gd:190 mounts_of()
-  game/scripts/mount_layout.gd:227 footprint_clearance()
+  game/scripts/mount_layout.gd:111 hardpoints()
+  game/scripts/mount_layout.gd:127 weapon_aim()
+  game/scripts/mount_layout.gd:135 structure()
+  game/scripts/mount_layout.gd:195 mounts_of()
+  game/scripts/mount_layout.gd:232 footprint_clearance()
   game/scripts/mount_layout.gd:26 _number()
   game/scripts/mount_layout.gd:32 _size()
   game/scripts/mount_layout.gd:39 _budget()

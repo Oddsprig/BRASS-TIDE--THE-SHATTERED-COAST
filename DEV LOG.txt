@@ -1,3 +1,5 @@
+v0.049 VERIFIED AND PACKAGED: 7119/0 focused checks, selected batch 78.725s, TestBridge 2a4104b7c0fc418796234477f7cdd1f0. Source c6fa73c75ed2cb3b319130e289bf703eb14f92ba.
+
 27OCT2026 - v0.049 COMPLETE AUTHORED BOAT ROSTER AND READABLE HULL DETAIL
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

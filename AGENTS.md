@@ -2,22 +2,26 @@
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
-Build the saved scopes in order. Current scoped delivery:0.048 refittingdepth,
-source/tagda06715/v0.048. Native147/0 plus export/three startups passed in
-89.275s with setup/cleanup. Actual exported fitting bays reviewed at1600x1000
-and1280x800. Three actual fitting/cost/behavior examples; real isolated trial.
-All realtime performance targets remain UNMET:42light4.605FPS;16mixed17.084FPS.
-Mixed is worse than matched045. Core-quality051 remainsOPEN; no052breadth
-until it passes. Scoped delivery does not certify art, audio, fun or parity.
+Build the saved scopes in order. Current scoped delivery:0.049 authored roster,
+source/tagc6fa73c/v0.049. All36useactualdirectionalassets. Native7119/0 final
+art/feedback/mount/export+3startsbatch78.725s with setup/cleanup; retain7497/0
+strictall36assetchecks afterexactproductionhashproof(test_art042onlychanged).
+Root+Sol independentlyviewed36normalfittedPNGs; Rootsampledactualexported5s
+movie. NoFPS/listening/fullbattle/playfeel/parity acceptance. Lowerbowfaces
+remainprominentonTin/Gullwing/Kelpnet/Osprey; carryintocorequality051.
+Full300DPperformance remainsUNMET fromactual046measurement:42light4.605FPS,
+16mixed17.084FPS. Gate051OPEN; no052breadth untilcoreacceptance.
 
-Active0.049 rosterart metadata PREPARED ONCE. All33new hull sets are actually
-produced/copied; native/fitted/exported review is NEXT. Models5abfc102,
-eligibilitya0284f7, detail998bd14 integrated. Immutable actualsourcebundle230eeb,
-1056directionimages+33portraits,99productionjobsallPASSmax75.328s whole. Legacy3
-assets preserved. Rootowns minorfire and36fittedtrace fixture/replay changes.
-Desktop048verified. Finish049before050metadata/integration. Source-only050
-coast930af51ready;051memo699681c+approvedexactgeometryproofcache preparation.
-Hulls049freeze/standby; no extra AIroutes/helpers. Read concise taskCURRENTSTATE.
+Next0.050 coast: source930af51readyUNRUN/unintegrated; metadata050NOTprepared.
+Finish049package/Desktopverificationfirst. 051memo699681c+geometryc643014
+sourceonlyreadyUNRUN/unintegrated; no thirdoptimizationwithoutactualevidence.
+ThreeBridgeSol6.1MAXseats finishedstandby. Noask_project/delegate/AIbrain/
+providersfallback/nestedhelpers. Rootownsallengine/GPU/bake/queuejobs.
+049sourcebundle230eebfrozen;99CPUproductionjobsPASSmax75.328s. No rebakes
+unlessactualnewdefect. Signed32layout fixesactualwelloriginswithoutweaker
+checks. Importonly1536MiB after1GiBWebPfailure; game512/export1024 unchanged.
+Read taskCURRENTSTATE andtestsreceipts foractualIDs/failures andlimits.
+
 Root coordinates/integrates all engine/render/bake/shared-queue jobs and
 versions. Helpers source-only, maximum3activeSol6.1MAX; optionalGrok4.7HIGH.
 No ask_project/delegate/AIbrain/providerfallback/nestedhelpers. Earlier seats
@@ -79,7 +83,7 @@ shortcut. Headless correctness does not establish graphics, FPS or game feel.
 
 Owner26October2026: "ok same plan stick to the scope of each one dont get lost
 in the weeds"; requested Muse Wonder MEDIUM (not Wonder Full) and two Sol6.1 MAX.
-This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.048; continue with the next saved scope only. Earlier planning-only/stop-v031
+This authorizes building the saved ten-step roadmap sequentially. Current delivered step is v0.049; continue with the next saved scope only. Earlier planning-only/stop-v031
 paragraphs below are historical and superseded by this new instruction.
 
 Team: SystemsSol brass-tide-scoped-systems-sol-e282ed; FlowSol

@@ -9,16 +9,16 @@ arcs/threat/routes. Actual two-size exported review caught minimap overlap;
 corrected and reviewed visible at1600x1000/1280x800. Native260/0 plus export.
 This closes this scoped layout followup, not whole battle playfeel acceptance.
 
-049: Only three hulls use authored directional assets. The remaining hulls
-still use the procedural fallback; the complete roster is not finished.
-Root and Grok previously noted dark bow faces, fine rail readability and weak
-stock-gun contrast in the authored samples. Review normal combat scale and
-representative headings, not only showcase closeups. Preserve physical mounts.
-045sampled battle frames also show minor fire tongues about4px wide and3-7px
-high blending into deck fittings. Source/image audit found actual live paint,
-no stale/missing draw. Review one existing tongue's minimum screen height and
-smoke placement at the actual hit while finishing the full roster; do not
-invent fire on healthy boats. White upright jets are water impacts, not wakes.
+049: All36 existing hulls now have real authored32heading assets;33new designs
+produced1056directions+33portraits. Native14616checks across4groups include
+7497retained strictassetchecks with exactproductionhashproof. Root+BridgeSol
+viewed36normalfittedPNGs andRootsampledactualexportedbattle. No authored
+placeholder remains; allbarrelsweeps, fullbattles and overallartquality are not
+certified. Mantafoilwasconnected; tanker/deckidentityimprovedafterrealpreviews.
+LowerbowtriangularfacesremainprominentonTin/Gullwing/Kelpnet/Osprey. Carrythis
+specificcosmeticfindinginto051corequality; do not confuseassetcompleteness
+withStarsectorparity. Minorrealflamesnowhave8pxcoreminimum andsmokeathits;
+actual049battle samples showedthem. No fire addedtohealthyboats.
 
 050: Battle islands are still simple polygon bands. Replace them through the
 original coastal art scope; keep displayed shorelines and navigation aligned.
