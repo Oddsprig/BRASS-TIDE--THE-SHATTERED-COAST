@@ -141,6 +141,9 @@ func _start_case() -> void:
 	if host.mode!="battle" or not host.lab_active or host.battle.is_empty():
 		_abort("Public Main.start_lab did not enter a real Lab battle.")
 		return
+	# Warm the renderer before combat, so opening missile salvos are measured.
+	# This isolated Lab pause ends before the first measured physics tick.
+	host.paused=true
 	current={"id":id,"seed":host.lab_seed,"config":config,"inspected":checked,"loadUs":Time.get_ticks_usec()-load_started,"createdAtUs":load_started-started_us,"frames":[],"ticks":[],"events":[],"eventKinds":{},"eventFamilies":{},"activeEventKinds":{},"activeFireFamilies":{},"eventsOmitted":0,"screenshots":[],"complete":false}
 	var roster: Array=[]
 	positions.clear();moved.clear();distance_m=0.0
@@ -160,6 +163,15 @@ func _start_case() -> void:
 		teams[team].append(ship)
 		roster.append({"id":ship.id,"hull":ship.spec.id,"team":team,"dp":Deployment.cost(ship),"x":ship.x,"y":ship.y,"angle":ship.angle,"loadout":ship.loadout.duplicate(true),"ammo":ship.ammo,"fuel":ship.fuel,"supplies":ship.supplies,"crew":ship.crew})
 	current.roster=roster
+	current.preExistingDamage=[]
+	if id=="light":
+		# Declared damaged-fleet workload: real pumps/patchers must handle water.
+		# No synthetic hit/fire events or changed hull/weapon/crew statistics.
+		for team in ["player","enemy"]:
+			var damaged: Dictionary=teams[team][0]
+			damaged.breaches.append({"area":6.0,"section":"waterline"})
+			damaged.water=float(damaged.capacity)*0.08
+			current.preExistingDamage.append({"id":damaged.id,"breachCm2":6.0,"waterLitres":damaged.water,"source":"Declared initial Lab battle damage"})
 	current.actual={"actors":host.battle.ships.size(),"playerActors":counts.player,"enemyActors":counts.enemy,"playerDP":Deployment.total(teams.player),"enemyDP":Deployment.total(teams.enemy),"deployment":host.battle.deployment.duplicate(true),"reservePlayer":host.battle.reserves.player.size(),"reserveEnemy":host.battle.reserves.enemy.size()}
 	if int(current.actual.playerDP)!=300 or int(current.actual.enemyDP)!=300 or int(current.actual.reservePlayer)!=0 or int(current.actual.reserveEnemy)!=0 or (id=="light" and int(current.actual.actors)!=42):
 		_abort("Actual deployment does not match the requested stock 300-vs-300 actors.")
@@ -247,12 +259,14 @@ func _after_draw() -> void:
 	elif stage in ["warmup","active"]:
 		_sample_frame("frame_post_draw")
 		var now: int=last_draw_us
-		var stopped: bool=host.battle.result!=null or host.result_handled or host.paused or host.ui.modal_open
+		var stopped: bool=host.battle.result!=null or host.result_handled or (stage=="active" and host.paused) or host.ui.modal_open
 		if stage=="warmup" and stopped:
 			_abort("Battle stopped during warmup; active interval was not measured.")
 			return
 		if stage=="warmup" and now-phase_us>=WARMUP_US:
 			current.warmupActualWallUs=now-phase_us
+			current.warmupScope="Renderer-only warmup; measured combat begins at the first live physics tick."
+			host.paused=false
 			active_us=now;active_sim=float(host.battle.time)
 			current.activeStartSim=active_sim
 			stage="active";frame_ticks=0;frame_sim_us=0
