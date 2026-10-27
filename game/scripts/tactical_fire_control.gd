@@ -164,7 +164,8 @@ static func _goal_gates051(st: Dictionary,ship: Dictionary,goal: Dictionary,fram
 		if EquipmentCombat.mount_factor(ship,mount,index,ship_status,frame_cache)<=0.01 or float(mount.get("damage",1.0))<=0.0:reason="Weapon disabled"
 		elif not mount_id in candidate.get("fireMountIds",[]):reason="Waiting for a firing opportunity"
 		elif order in ["move","withdraw","board"]:reason="Holding fire during maneuver"
-		elif order=="attack" and ((not ordered_id.is_empty() and target_id!=ordered_id) or candidate.has("fireMountTargets")):reason="Aligning with ordered target"
+		# Enforce the selected mount's actual target, including explicit maps.
+		elif order=="attack" and not ordered_id.is_empty() and target_id!=ordered_id:reason="Aligning with ordered target"
 		elif bool(choice.get("hold",false)):reason="Automatic fire held"
 		elif float(ship.ammo)-float(mount.ammoCost)<float(choice.get("reserve",0)):reason="Keeping working ammunition reserve"
 		elif (index<ship.weaponCooldowns.size() and float(ship.weaponCooldowns[index])>0.0) or (index==0 and float(ship.cooldown)>0.0):reason="Reloading"

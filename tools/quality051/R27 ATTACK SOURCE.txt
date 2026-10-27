@@ -1,0 +1,48 @@
+R27 EXPLICIT ATTACK FIRE SOURCE HANDOFF - 27 October 2026
+
+Reviewed source base: abfe3ba71714aa485bccceb9ef23578e2f73ffd8.
+Commit parent: 89ddf7630330b4495bc90bb31a6314779519c913 (escape patch).
+Scope: tactical_fire_control.gd, existing test_tactical_ai.gd goals051 selector,
+and this handoff only. No Runtime, Battle, helm, planner or manual-control edits.
+
+Finding and fix
+The sampled _goal_gates051 attack branch rejected every fireMountTargets map,
+including a mount explicitly assigned to the ordered ship. It now compares the
+resolved per-mount target ID with the nonempty explicit ordered ship ID. A match
+continues through the existing live checks; a mismatch retains the same hold.
+Missing explicit target IDs retain the existing unmapped attack behavior.
+
+Legacy review
+Stations._select_mount_targets already returns no alternate map for attack/board.
+Runtime.order_candidate and the legacy planner reject alternate-map candidates
+before admission. Legacy Fire.gate is unchanged; this fix is the sampled gate's
+live per-mount enforcement, not a new multi-target admission policy.
+All hold/reserve/reload/equipment/store checks, live solution/ally/terrain checks,
+fixed-tube phase/pass IDs and real salvo spending remain unchanged.
+
+Regressions added (not run here)
+Existing goals051 selector calls goals_attack051. Local gate requests use real
+Battle-initialized mounts/ships and current geometry: ordinary and matching-map
+solutions agree; matching assignment wins over unrelated primary target; mapped
+and unmapped mismatches hold; gate reads leave physical state and RNG untouched.
+These requests are not fabricated worker authority and are never used to emit.
+An actual Battle.update manual steering/thrust/fire frame demonstrates the real
+manual branch, one paid shot and one scatter. Autopilot return must acquire a real
+joined sampled attack goal, finish the actual reload, and emit only at the ordered
+ship with exact ammunition and shot time. All preexisting checks remain intact.
+
+Source-only review. No engine, test, import, export, profiler or helper calls.
+Native execution and combined R57 acceptance remain Root-owned and pending.
+No measured performance claim; no package, tag, installation or publication.
+
+Additional Root-requested escape regression
+Exact reviewed escape patch 81090ecd0de061406e354387146c98ab85f84dd2 was
+cherry-picked as 89ddf76 before this source commit; its Runtime/Goals code is
+unchanged here. Root already integrated the original patch; integrate only this
+new source commit. The existing goals051 selector now also runs one deterministic
+Goals051.plan051 comparison using the sibling handoff's west-contact recipe:
+false marker promotes strict escape, true marker keeps the first ordinary offer,
+route-pending retains the marker, and a fresh-budget retry still chooses ordinary.
+Checks cover unchanged copied observations/memory and original sample clocks.
+The existing live ordinary-veto fixture also asserts the marker is false; all
+prior assertions remain intact. No expanded live-hazard scenarios or new harness.

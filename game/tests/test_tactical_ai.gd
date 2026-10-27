@@ -1866,6 +1866,7 @@ func goals_live051() -> void:
 	var physical: PackedByteArray=var_to_bytes([st.ships,st.rng.state])
 	var blocked: Dictionary=T.helm(st,source)
 	check(bool(blocked.get("blocked",false)) and float(blocked.throttle)==0.0 and T.fire_gates(st,source).is_empty(),"current nearby hull vetoes helm and fire despite an actual joined static route")
+	check(not bool(st.tactical.memory.player.byId[str(source.id)].get("blockedCrowdEscape051",true)),"ordinary live veto records false rather than marking a crowd escape")
 	check(var_to_bytes([st.ships,st.rng.state])==physical and float(record.chosenAt)==chosen and float(record.sampledAt)==sampled,"live traffic veto grants no integration, stores, RNG or renewed goal clocks")
 	T.retire_planning051(st);T.drain_planning051()
 	# A blocker in the SHOT lane, clear of the helm, must be read post-motion.
@@ -1900,6 +1901,96 @@ func goals_live051() -> void:
 				if not bool(slot.joined):_worker_join051(slot)
 		check(held_events.is_empty() and float(source.ammo)==ammunition and float(source.cooldown)==0.0,"actual reload finishes under current "+variant+" without a free or withheld paid shot")
 	observations.append({"case":"goals051-live","trafficControl":blocked,"laneBlockedAtReady":blocked_ready,"clearShot":emitted,"ammo":source.ammo,"time":st.time})
+	T.retire_planning051(st);T.drain_planning051()
+
+func goals_escape_preference051() -> void:
+	var arena: Dictionary=_goals_arena051()
+	var st: Dictionary=arena.state
+	var source: Dictionary=arena.source
+	var blocker: Dictionary=arena.actors[1]
+	var id: String=str(source.id)
+	blocker.x=float(source.x)-Roles.radius(source)-Roles.radius(blocker)-1.0
+	blocker.y=source.y;blocker.vx=0.0;blocker.vy=0.0
+	B.update(st,1.0/60.0,{"manual":true});B.pop_events(st)
+	var view: Dictionary=T._worker_view051(st,"player",[id])
+	T.retire_planning051(st);T.drain_planning051()
+	var context: Dictionary=Roles.ships_by_id(view)
+	var previous: Dictionary=Roles.decide(view,context[id],{},context).state
+	previous.blockedStation=true;previous.commitUntil=0.0
+	var decision: Dictionary=Roles.decide(view,context[id],previous,context)
+	var requests: Array=Stations._candidates_crowd051(view,context[id],decision,context,{})
+	check(requests.size()>1 and Routes._is_crowd_escape051(requests[-1]) and not Routes._is_crowd_escape051(requests[0]),"deterministic west-contact sample offers ordinary stations followed by one strict crowd escape")
+	if requests.size()<2:return
+	var data: Dictionary={"view":view,"memory":{"byId":{id:previous}},"geometry":Routes.terrain(st),"cache":{},"order":[id],"budgets":{id:{"clearanceTests":0,"clearanceLimit":2900,"fullRoutes":0,"exhaustions":0,"cacheHits":0}}}
+	var promoted_input: Dictionary=data.duplicate(true)
+	promoted_input.memory.byId[id].blockedCrowdEscape051=false
+	var promoted: Dictionary=Planner.Goals051.plan051(promoted_input).goals051[id]
+	check(Routes._is_crowd_escape051(promoted.candidate),"ordinary blocked-station history still promotes the strict escape in the actual sampled planner")
+	data.memory.byId[id].blockedCrowdEscape051=true
+	var vetoed_input: Dictionary=data.duplicate(true)
+	var immutable: PackedByteArray=var_to_bytes([vetoed_input.memory,vetoed_input.view.ships])
+	var vetoed: Dictionary=Planner.Goals051.plan051(vetoed_input).goals051[id]
+	check(not vetoed.candidate.is_empty() and not Routes._is_crowd_escape051(vetoed.candidate) and Stations.same_request(vetoed.candidate,requests[0]),"actual sampled planner keeps a live-vetoed escape behind the first ordinary station")
+	check(not vetoed.state.has("blockedCrowdEscape051") and float(vetoed.chosenAt)==float(view.time) and float(vetoed.sampledAt)==float(view.time) and var_to_bytes([vetoed_input.memory,vetoed_input.view.ships])==immutable,"successful ordinary selection clears the private marker without mutating memory, observed ships or original sample clocks")
+	var pending_input: Dictionary=data.duplicate(true);pending_input.budgets[id].clearanceLimit=0
+	var pending: Dictionary=Planner.Goals051.plan051(pending_input).goals051[id]
+	check(pending.candidate.is_empty() and bool(pending.state.get("blockedStation",false)) and bool(pending.state.get("blockedCrowdEscape051",false)),"route-pending sampled result retains the actual escape-veto marker")
+	var retry_input: Dictionary=data.duplicate(true);retry_input.memory.byId[id]=pending.state.duplicate(true)
+	var retry: Dictionary=Planner.Goals051.plan051(retry_input).goals051[id]
+	check(not retry.candidate.is_empty() and Stations.same_request(retry.candidate,requests[0]),"fresh route budget after pending still selects the ordinary station before the vetoed escape")
+	observations.append({"case":"goals051-escape-preference","promoted":promoted.candidate,"ordinary":vetoed.candidate,"pendingState":pending.state,"retry":retry.candidate})
+
+func goals_attack051() -> void:
+	var arena: Dictionary=_goals_arena051(true)
+	var st: Dictionary=arena.state
+	var source: Dictionary=arena.source
+	# Isolate the manual shot's exact scatter accounting from allied emissions.
+	for ally: Dictionary in arena.actors:
+		if not is_same(ally,source):ally.ammo=0.0
+	var target: Dictionary=arena.target
+	var id: String=str(source.id)
+	var dt: float=1.0/60.0
+	check(B.issue_order(st,[id],"attack",{"shipId":target.id}),"sampled fleet accepts an actual explicit attack order")
+	B.set_autopilot(st,false)
+	var heading: float=float(source.angle)
+	var origin: Vector2=F.pos(source)
+	B.update(st,dt,{"manual":true,"left":true,"forward":true});B.pop_events(st)
+	check(str(st.tactical.manualId)==id and not st.tactical.goals051.has(id) and not st.tactical.intents.has(id) and angle_difference(heading,float(source.angle))< -0.001 and F.pos(source).distance_to(origin)>0.0,"actual Battle update routes manual steering and thrust before autonomous helm, without goal authority")
+	# Focus the live gate's assignment seam on real initialized ships/mounts.
+	# These local requests are never admitted as worker goals or used to emit.
+	var candidate: Dictionary={"targetId":str(target.id),"fireMountIds":["goal-gun"]}
+	var request: Dictionary={"owner":source,"candidate":candidate,"state":{}}
+	var physical: PackedByteArray=var_to_bytes([st.ships,st.projectiles,st.effects,st.rng.state])
+	var ordinary: Dictionary=Fire._goal_gates051(st,source,request)
+	check(ordinary.has("goal-gun") and is_same(ordinary["goal-gun"].target,target),"unmapped explicit attack retains its live ordered-target solution")
+	candidate.fireMountTargets={"goal-gun":str(target.id)}
+	var matching: Dictionary=Fire._goal_gates051(st,source,request)
+	check(matching==ordinary,"matching per-mount explicit attack has exactly the ordinary live solution")
+	candidate.targetId=str(arena.opponents[1].id)
+	check(Fire._goal_gates051(st,source,request)==ordinary,"explicit attack compares the selected mount assignment rather than an unrelated primary target")
+	candidate.targetId=str(target.id);candidate.fireMountTargets["goal-gun"]=str(arena.opponents[1].id)
+	check(Fire._goal_gates051(st,source,request).is_empty() and str(st.tactical.fireReasons[id]["goal-gun"])=="Aligning with ordered target","mismatched per-mount assignment cannot borrow the matching primary attack target")
+	candidate.erase("fireMountTargets");candidate.targetId=str(arena.opponents[1].id)
+	check(Fire._goal_gates051(st,source,request).is_empty() and str(st.tactical.fireReasons[id]["goal-gun"])=="Aligning with ordered target","unmapped explicit attack still rejects a different target")
+	check(var_to_bytes([st.ships,st.projectiles,st.effects,st.rng.state])==physical,"assignment gate checks neither emit nor spend physical state or scatter RNG")
+	var ammunition: float=float(source.ammo)
+	var replica: RandomNumberGenerator=RandomNumberGenerator.new();replica.seed=st.rng.seed;replica.state=st.rng.state;replica.randf()
+	B.update(st,dt,{"manual":true,"left":true,"forward":true,"fire":true,"aimX":target.x,"aimY":target.y})
+	var manual_events: Array=fire_events(st,source)
+	check(manual_events.size()==1 and is_equal_approx(ammunition-float(source.ammo),2.0) and st.rng.state==replica.state and float(source.cooldown)>0.0,"actual manual update emits one paid shot with one scatter while retaining sole helm authority")
+	B.set_autopilot(st,true)
+	var automatic_events: Array=[]
+	var admitted: bool=false
+	ammunition=float(source.ammo)
+	for tick: int in range(48):
+		B.update(st,dt);automatic_events.append_array(fire_events(st,source))
+		admitted=admitted or not T._goal_current051(st,source).is_empty()
+		for slot: Dictionary in st.tactical.workers051.slots.values():
+			if not bool(slot.joined):_worker_join051(slot)
+		if not automatic_events.is_empty():break
+	check(str(st.tactical.manualId).is_empty() and admitted and not st.tactical.intents.get(id,{}).is_empty(),"autopilot return obtains fresh real joined attack authority after manual input")
+	check(not automatic_events.is_empty() and automatic_events.all(func(event):return str(event.targetId)==str(target.id)) and is_equal_approx(ammunition-float(source.ammo),2.0*automatic_events.size()) and B.mount_shot_time(source,"goal-gun")==float(st.time),"actual sampled attack fires only at the ordered ship after genuine reload with exact ammunition and shot timestamp")
+	observations.append({"case":"goals051-attack","time":st.time,"manualEvents":manual_events,"automaticEvents":automatic_events,"matchingMountIds":matching.keys(),"ammo":source.ammo})
 	T.retire_planning051(st);T.drain_planning051()
 
 func goals_retirement051() -> void:
@@ -2000,6 +2091,8 @@ func goals_phase_guards051() -> void:
 func goals051() -> void:
 	goals_fleet051();goals_expiry051();goals_invalidations051();goals_live051();goals_retirement051()
 	goals_phase_guards051()
+	goals_attack051()
+	goals_escape_preference051()
 	var arena: Dictionary=boarding_arena()
 	T.enable_planning051(arena,true)
 	check(not arena.tactical.has("workers051"),"explicit sampled policy preserves the ordinary duel's synchronous workload")
