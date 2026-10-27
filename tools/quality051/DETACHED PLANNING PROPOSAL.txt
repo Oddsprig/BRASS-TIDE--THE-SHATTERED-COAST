@@ -1,0 +1,59 @@
+051 DETACHED PLANNING PROPOSAL - REVIEW ONLY
+Base: Root2fc7bcb. No asynchronous implementation authorized.
+
+Evidence: job2652adca,42 actors/full300DP/60Hz: simulation25.279ms,
+planning16.192ms. Proposals3.114ms; certification4.363ms includes live0.205ms.
+The same-tick median of proposals+certification-live is7.225ms, an opportunity
+envelope INCLUDING traffic/validation, not removable static work alone.
+332/456 ticks did no graph search: offloading A* alone cannot solve this.
+
+Minimal file plan:
+- tactical_planner.gd: small nested RefCounted job capsule, reusing
+  _prepare_begin/Roles.decide/Stations.candidates. No worker framework.
+- tactical_runtime.gd: dispatch, poll, guarded adoption in existing begin;
+  retain current certification/resolution/_publish. Integrate AFTER Hull's
+  view patch; do not change _observed/_own/view.
+- tactical_routes.gd: reuse refine/_route for detached complete static-land
+  preparation; private adoption seam checks the current connector and traffic.
+- main.gd: tiny encounter-retirement/_process cleanup hooks and _exit_tree
+  drain, so abandoned encounter handles still get joined.
+- existing test_tactical_ai.gd: bounded worker-policy cases only.
+
+Work: at most ONE outstanding low-priority WorkerThreadPool task per
+side/encounter, using next fair due batch. Give it exclusively owned deep
+copies of view, memory, geometry and route cache; preloaded pure functions
+only. Main never reads/writes its containers before completed+joined.
+No live battle, frame cache, SceneTree, resources, GPU, static profiler,
+shared AStar or RNG access. Preassign slices of existing shared route/
+clearance caps in global fair order; invalidation/fallback cannot double-spend.
+Keep all roles, eight offers, candidate/route caps and full land paths/ETA.
+
+Adoption: worker returns preference/path suggestions, NEVER permission or
+certificates. Check encounter, command/options/manual, terrain key/revision,
+owner/capability/radius and memory generation; reject obsolete results.
+Re-run existing Roles._decide against CURRENT memory/time and a suggested
+target constrained to CURRENT shortlist. Changed role/phase/target cancels
+the suggestion. Mint fresh candidates/revisions; sweep from actual pose to
+prepared route, renew current two-second traffic/reservations and ETA, then
+run unchanged _certify_refined_live, resolve and _publish. No copied
+checkedPose, checkedAt, clock, fire gate or worker phase state is authoritative.
+Actual60Hz helm, contacts, Fire, stores, crew and RNG remain main/fresh.
+
+Cadence/lifetime: poll is_task_completed; wait only completed tasks during
+physics. Join discarded tasks too. Retire unfinished handles for outside-
+physics polling; final shutdown joins leftovers. Commands/manual/urgent
+withdrawal take effect immediately through current paths. Keep global fair
+slots and <=0.2s useful command observations; use bounded synchronous planning
+for startup/deadline misses, triggered by0.15s, never await a worker.
+
+Benefit: removes normal candidate/station preparation (~3.114ms) plus the
+unisolated static-land share from the main critical path. Observation/view
+cost remains Hull's work. Fresh live certification0.205ms, resolution1.235ms,
+helm1.874ms PLUS connector/traffic and refreshed phase logic remain main.
+Copy/dispatch/fallback cost, retention failure frequency and thread contention
+are unresolved; savings are UNMEASURED. This alone cannot certify6ms/60FPS.
+Root owns existing native cases, unchanged journey and integrated GPU run.
+
+Official lifecycle/thread-safety references:
+https://docs.godotengine.org/en/stable/classes/class_workerthreadpool.html
+https://docs.godotengine.org/en/stable/tutorials/performance/thread_safe_apis.html
