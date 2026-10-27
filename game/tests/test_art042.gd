@@ -132,6 +132,32 @@ func inspect_boat(world: Dictionary,ship: Dictionary,ui) -> void:
 			panels.append(empty.panel("empty-corvette","Same corvette / all weapons removed",Vector2(480,300)))
 	check(ship==before,id+" all capture/refit paths preserve complete ship state")
 
+func inspect_fitted_families(world: Dictionary) -> void:
+	var spec: Dictionary=Lab.hull(world,"brasswind_motor_galleon")
+	var cases: Array=[
+		["all-families",["rapid_gun","light_cannon","fire_rocket","light_torpedo"],["gun_single","cannon","rocket_three","torpedo_single"]],
+		["twin-gun",["heavy_gun","","",""],["gun_twin"]],
+		["heavy-cannon",["heavy_cannon","","",""],["cannon"]],
+		["salvo-rockets",["salvo_rocket","","",""],["rocket_six"]],
+		["twin-torpedoes",["heavy_torpedo","","",""],["torpedo_twin"]]]
+	for item in cases:
+		if not within_deadline():return
+		var fit: Dictionary=Refit.defaults(spec)
+		fit.weapons=item[1].duplicate()
+		var normalized: Dictionary=Refit.normalize(spec,fit)
+		check(bool(normalized.ok),str(item[0])+" is a valid actual workshop fitting")
+		if not bool(normalized.ok):continue
+		var effective: Dictionary=Refit.effective_spec(spec,fit)
+		var portrait=Portrait.new()
+		portrait.set_spec(effective)
+		var rec=Trace.Canvas.new()
+		portrait.draw_contents(rec,Vector2(390,245))
+		for variant in item[2]:
+			check(not subset(rec,"/weapons/"+str(variant)+"-").is_empty(),str(item[0])+" loads actual "+str(variant)+" weapon layers")
+		check_visible(rec,Rect2(8,42,374,195),str(item[0])+" normal fitted portrait")
+		panels.append(rec.panel("fitted-"+str(item[0]),"Brasswind / "+str(item[0])+" / actual workshop fit",Vector2(390,245)))
+		portrait.free()
+
 func capture(game) -> void:
 	if not within_deadline():return
 	var captain=game.core
@@ -163,6 +189,7 @@ func capture(game) -> void:
 	for ship in game.battle.ships:
 		if not within_deadline():return
 		if ship.team=="player":inspect_boat(game.data,ship,game.ui)
+	inspect_fitted_families(game.data)
 	if not within_deadline():return
 	var fallback_spec: Dictionary=Lab.hull(game.data,"bilge_punt")
 	var fallback: Dictionary=Art.preview_boat(Refit.effective_spec(fallback_spec,Refit.defaults(fallback_spec)))
