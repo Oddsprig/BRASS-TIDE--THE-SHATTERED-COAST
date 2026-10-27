@@ -1,0 +1,53 @@
+R23 OWNED DRAW ATLAS READS - SOURCE CANDIDATE ONLY
+Base: 9767beb81d25fb89aa3c16e036073056d15c295a (exact R23 production).
+Raw job: abcedd437773435cb6a3ba82eb1d53cd, attempt-001/runtime/
+runtime043-52612-1973083/runtime043-light.json and runtime043-mixed.json.
+
+Measured R23 remains QUALITY FALSE. Light boats median5616us/presentation8315us;
+mixed3873us/5716.5us. All81 active light observations submit126 boat sprites.
+Opening sample:42 authored hulls,126 sprites,130 boat primitives,boats2501us.
+Final sample:42 hulls,126 sprites,565 primitives,boats6706us. No exclusive
+_ready_frame timing exists: these are whole boat-loop receipts, not cache cost.
+
+One correction: Chart's existing canonical synchronous battle boat loop opts
+into a stack-local bounded atlas snapshot. First use of each exact manifest
+entry still runs the existing _ready_frame check of metadata values, texture
+identity/current dimensions and every one of its32 source cells. Later uses
+in that SAME uninterrupted loop index its immutable checked descriptor table.
+No table survives into the next Chart loop. Distinct entries naming one path
+cannot borrow each other's geometry. Non32 headings use the checked path.
+Missing/invalid entries remain refusals; both weapon layers are still accepted
+before either is submitted. Existing128-atlas ceiling remains the local bound.
+
+Source-level opportunity in this exact light roster:two hull atlases plus the
+shared gun_single base/moving atlases, so126 repeated readiness reads become
+four whole-atlas checks per native boat loop. This is an operation-count
+prediction, NOT measured time/FPS savings; no claim against the whole5616us.
+
+Lifetime proof: Chart constructs a new batch immediately before its sorted
+boat loop; no await, manifest/texture writes, cache clearing or foreign recorder
+callbacks occur in that native draw chain. The batch's default opt-in is false;
+only the actual Chart boat loop enables it, and BoatArt refuses it to non-
+CanvasItem recorders. Future manifest writes/yields inside that owned loop
+would require dropping this sharing. Public draw_boat/draw_hull/draw_weapon
+cannot get a snapshot from ctx/opts and retain per-call readiness checks.
+Custom projectors and mock recorders keep their existing fully checked path.
+
+No projection/heading/residual ISO transform/pivot/source rectangle/scale,
+layer submission/order/color, aim/recoil/scar/fire/motor/wake code changed.
+No actors, stats, RNG/math,60Hz,300DP limits, stores/coins or assets changed.
+Chart changes only the batch constructor in its boat drawing loop.
+
+All old assertions remain unchanged. Existing Weapon045 gets six small data
+checks (three signed/residual headings,one shared table,distinct-entry pivot,
+next-loop in-place edit) plus its existing three camera cases now also assert
+that opted-in mock batches still cannot skip readiness checks. No new harness.
+Root's existing Weapon045 + Art042 native selections and actual PNG comparison
+must validate the production candidate; native CanvasItem integration is not
+proved by source checks or mock comparisons.
+
+Single preload API advisory:issues=[],engineInvoked=false. Reviewed complete
+diff; whitespace clean. No engine/import/bake/export/tests/GPU/benchmarks,
+helpers/new counters/new harness or wake edits. Native/performance UNRUN here.
+Only boat_art.gd,boat_sprite_art.gd,Chart's loop,existing Weapon045 and this
+note change. Existing untracked .bigbridge/ is untouched. Stop after commit.

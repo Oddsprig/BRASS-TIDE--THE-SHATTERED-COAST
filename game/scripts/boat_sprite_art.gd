@@ -19,6 +19,12 @@ static var _atlas_frames: Dictionary = {}
 static var _iso_inverse: Transform2D = ISO.affine_inverse()
 const ATLAS_FRAME_LIMIT: int = 128
 
+# Owned only by one synchronous Chart boat loop. Its real CanvasItem submits
+# cannot edit manifests/textures between boats; no public or recorder draw uses
+# this snapshot. A new loop checks each atlas again through _ready_frame().
+class _BattleAtlas051 extends RefCounted:
+	var snapshots: Dictionary = {}
+
 static func _manifest(path: String) -> Dictionary:
 	if not _manifests.has(path):
 		var parsed = JSON.parse_string(FileAccess.get_file_as_string(path)) if FileAccess.file_exists(path) else null
@@ -159,6 +165,20 @@ static func _ready_frame(entry: Dictionary, angle: float) -> Dictionary:
 	_atlas_frames[path] = prepared
 	return frames[posmod(int(roundf(angle / TAU * headings)), headings)]
 
+static func _battle_ready_frame051(entry: Dictionary, angle: float, batch: _BattleAtlas051) -> Dictionary:
+	if batch == null or int(entry.get("headings", 32)) != 32:
+		return _ready_frame(entry, angle)
+	var path: String = str(entry.get("atlas", ""))
+	var snapshot = batch.snapshots.get(path)
+	# Distinct manifest entries may name one texture with different geometry.
+	# Only the exact already-checked entry shares its immutable descriptor table.
+	if snapshot is Dictionary and is_same(snapshot.entry, entry):
+		return snapshot.frames[posmod(int(roundf(angle / TAU * 32)), 32)]
+	var info: Dictionary = _ready_frame(entry, angle)
+	if not info.is_empty() and batch.snapshots.size() < ATLAS_FRAME_LIMIT:
+		batch.snapshots[path] = {"entry": entry, "frames": _atlas_frames[path].frames}
+	return info
+
 static func _draw_cell(ctx: Dictionary, info: Dictionary, origin: Vector2, scale: float) -> bool:
 	if not _cell_ready(info): return false
 	return _draw_ready_cell(ctx, info, _texture(str(info.path)), origin, scale)
@@ -183,6 +203,9 @@ static func _hull_transform(info: Dictionary, angle: float, scale: float) -> Tra
 	return transform
 
 static func draw_hull(ctx: Dictionary, spec: Dictionary, screen_scale: float = -1.0) -> bool:
+	return _draw_hull051(ctx, spec, screen_scale, null)
+
+static func _draw_hull051(ctx: Dictionary, spec: Dictionary, screen_scale: float, batch: _BattleAtlas051) -> bool:
 	if not ctx.canvas.has_method("draw_texture_rect_region"): return false
 	if not ctx.canvas.has_method("draw_set_transform_matrix"): return false
 	# Legacy enlargement scales XY but deliberately leaves world heights alone.
@@ -201,7 +224,7 @@ static func draw_hull(ctx: Dictionary, spec: Dictionary, screen_scale: float = -
 		if info.is_empty() or not _cell_ready(info): return false
 		info.texture = _texture(str(info.path))
 	else:
-		info = _ready_frame(entry, float(ctx.angle))
+		info = _battle_ready_frame051(entry, float(ctx.angle), batch)
 		if info.is_empty(): return false
 	var transform: Transform2D = _hull_transform(info, float(ctx.angle), scale)
 	transform.origin += Vector2(ctx.proj.call(ctx.pos, 0.0))
@@ -224,6 +247,9 @@ static func weapon_variant(mount: Dictionary) -> String:
 ## receiver/barrel layer translates after a REAL mount shot, leaving its cradle
 ## fixed. No invented firing clock, extra projectiles, or cached damage state.
 static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float, screen_scale: float = -1.0) -> bool:
+	return _draw_weapon051(ctx, mount, bearing, screen_scale, null)
+
+static func _draw_weapon051(ctx: Dictionary, mount: Dictionary, bearing: float, screen_scale: float, batch: _BattleAtlas051) -> bool:
 	# A fitting's physical size and pivot do not depend on the hull's art path.
 	if not ctx.canvas.has_method("draw_texture_rect_region"): return false
 	if not ctx.canvas.has_method("draw_set_transform_matrix"): return false
@@ -240,8 +266,8 @@ static func draw_weapon(ctx: Dictionary, mount: Dictionary, bearing: float, scre
 	var kind: String = str(mount.kind)
 	var base: Dictionary = entry.get("base", {})
 	var moving: Dictionary = entry.get("moving", {})
-	var base_info: Dictionary = _ready_frame(base, bearing)
-	var moving_info: Dictionary = _ready_frame(moving, bearing) if not moving.is_empty() else {}
+	var base_info: Dictionary = _battle_ready_frame051(base, bearing, batch)
+	var moving_info: Dictionary = _battle_ready_frame051(moving, bearing, batch) if not moving.is_empty() else {}
 	# Refuse the whole mechanism before submitting either layer. A partial
 	# atlas must not leave a sprite over the procedural fallback weapon.
 	if base_info.is_empty(): return false

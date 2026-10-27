@@ -38,8 +38,9 @@ class _BattleDraw051 extends RefCounted:
 	var view: Rect2
 	var projector: Callable
 	var sprite_scale: float
+	var atlas_frames051: SpriteArt._BattleAtlas051
 
-	func _init(view_rect: Rect2, view_camera: Vector2, view_scale: float) -> void:
+	func _init(view_rect: Rect2, view_camera: Vector2, view_scale: float, owned_atlases051: bool = false) -> void:
 		view = view_rect
 		var view_origin: Vector2 = view_rect.size * 0.5
 		projector = func(p: Vector2, h: float) -> Vector2:
@@ -47,6 +48,7 @@ class _BattleDraw051 extends RefCounted:
 			return view_origin + Vector2((d.x - d.y) * 0.82, (d.x + d.y) * 0.41 - h) * view_scale
 		# Nonpositive/nonfinite inputs retain the checked fallback as well.
 		sprite_scale = view_scale if is_finite(view_scale) and view_scale > 0.0 else -1.0
+		if owned_atlases051: atlas_frames051 = SpriteArt._BattleAtlas051.new()
 
 # --- classification -------------------------------------------------------
 
@@ -473,9 +475,11 @@ static func draw_boat(canvas, projector: Callable, boat: Dictionary, opts: Dicti
 	return _draw_boat051(canvas, projector, boat, opts, -1.0)
 
 static func _draw_battle_boat051(canvas, batch: _BattleDraw051, boat: Dictionary, opts: Dictionary) -> Dictionary:
-	return _draw_boat051(canvas, batch.projector, boat, opts, batch.sprite_scale)
+	# Chart opts in only for its uninterrupted native boat loop. Recorders keep
+	# every metadata check even if handed an opted-in batch by a fixture/caller.
+	return _draw_boat051(canvas, batch.projector, boat, opts, batch.sprite_scale, batch.atlas_frames051 if canvas is CanvasItem else null)
 
-static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: Dictionary, battle_scale051: float) -> Dictionary:
+static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: Dictionary, battle_scale051: float, atlas_frames051: SpriteArt._BattleAtlas051 = null) -> Dictionary:
 	var spec_v = boat.get("spec", {})
 	var spec: Dictionary = spec_v if spec_v is Dictionary else {}
 	var accent: Color = opts.get("accent", Color("8fc6b4")) if opts.get("accent") is Color else Color("8fc6b4")
@@ -506,7 +510,7 @@ static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: D
 	var sprite_scale: float = 0.0
 	if is_equal_approx(enlargement, 1.0) and canvas.has_method("draw_texture_rect_region") and canvas.has_method("draw_set_transform_matrix"):
 		sprite_scale = SpriteArt._screen_scale(ctx) if battle_scale051 < 0.0 else battle_scale051
-	ctx.authored_hull=SpriteArt.draw_hull(ctx,spec,sprite_scale)
+	ctx.authored_hull=SpriteArt._draw_hull051(ctx,spec,sprite_scale,atlas_frames051)
 	if bool(ctx.authored_hull):
 		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
 	elif bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
@@ -515,7 +519,7 @@ static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: D
 	else:_static(ctx,spec,boat,c,arch)
 	for m in mounts:
 		var local_bearing: float=float(ctx.localAimAngles.get(str(m.get("id","mount0")),m.angle))
-		if SpriteArt.draw_weapon(ctx,m,float(ctx.angle)+local_bearing,sprite_scale):continue
+		if SpriteArt._draw_weapon051(ctx,m,float(ctx.angle)+local_bearing,sprite_scale,atlas_frames051):continue
 		if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c)
 		else:_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
 	_damage(ctx, boat, stations, arch, c)

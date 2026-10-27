@@ -246,6 +246,17 @@ func inspect_draw_preparation(hull: Dictionary) -> void:
 		var ready: Dictionary=Sprite._ready_frame(entry,angle)
 		var actual: Dictionary=ready.duplicate();actual.erase("texture")
 		check(actual==Sprite._frame(entry,angle) and Sprite._cell_ready(ready),"prepared hull rectangle/pivot/density exactly match reference heading%d"%heading)
+	var atlas_batch:=Sprite._BattleAtlas051.new()
+	for angle in [0.061,PI/8.0-0.001,-0.061]:
+		check(Sprite._battle_ready_frame051(entry,angle,atlas_batch)==Sprite._ready_frame(entry,angle),"owned atlas batch retains the exact checked heading descriptor")
+	check(atlas_batch.snapshots.size()==1,"owned atlas batch shares one checked table for repeated hull sprites")
+	var distinct: Dictionary=entry.duplicate(true);distinct.pivot_px[0]+=3
+	check(Sprite._battle_ready_frame051(distinct,0.061,atlas_batch).pivot==Sprite._frame(distinct,0.061).pivot,"distinct entries naming one atlas keep their own pivot")
+	var old_pivot: Array=entry.pivot_px
+	entry.pivot_px=[float(old_pivot[0])+2.0,float(old_pivot[1])]
+	var next_batch:=Sprite._BattleAtlas051.new()
+	check(Sprite._battle_ready_frame051(entry,0.061,next_batch).pivot==Sprite._frame(entry,0.061).pivot,"next owned draw rechecks an in-place manifest entry edit")
+	entry.pivot_px=old_pivot
 	var exposed: Dictionary=Sprite.frame_info(spec,0.061)
 	exposed.source=Rect2(-999,-999,1,1)
 	check(Sprite.frame_info(spec,0.061).source!=exposed.source,"public frame inspection stays mutable and cannot alter prepared rectangles")
@@ -318,7 +329,7 @@ func inspect_batch_camera051(hull: Dictionary) -> void:
 	for camera_case in [[Vector2(480,360),Vector2.ZERO,1.0],[Vector2(1280,720),Vector2(1300,900),0.65],[Vector2(1600,900),Vector2(1234.5,845.75),1.7]]:
 		var view: Rect2=Rect2(Vector2.ZERO,camera_case[0])
 		var camera: Vector2=camera_case[1];var scale: float=float(camera_case[2])
-		var batch:=Art._BattleDraw051.new(view,camera,scale)
+		var batch:=Art._BattleDraw051.new(view,camera,scale,true)
 		var combined=Trace.Canvas.new();var reference=Trace.Canvas.new()
 		reference.origin=view.size*0.5;reference.camera=camera;reference.scale_factor=scale
 		check(batch.view==view,"batch viewport is the current draw snapshot")
@@ -332,6 +343,7 @@ func inspect_batch_camera051(hull: Dictionary) -> void:
 			check(shared==checked and bool(shared.authored_hull),"batch retains public layer/count/LOD result for each boat")
 			check(boat==before,"shared camera leaves aim, recoil, scars and fire state untouched")
 			check(batch.projector.call(Vector2(boat.x,boat.y),9.7)==reference.project(Vector2(boat.x,boat.y),9.7),"batch mount plane uses the exact current camera projection")
+		check(batch.atlas_frames051.snapshots.is_empty(),"mock recorders retain per-sprite metadata checks even with an opted-in batch")
 		check(combined.invalid==0 and reference.invalid==0 and combined.transform==Transform2D.IDENTITY,"batch submission restores transforms and finite geometry")
 		check(same_batch_quads051(combined.prims,reference.prims),"all batch quads/layers/materials and live feedback match the checked public drawing")
 		var warm=Trace.Canvas.new()

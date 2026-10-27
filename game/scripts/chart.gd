@@ -1076,7 +1076,7 @@ func draw_battle():
 	sorted_ships.sort_custom(func(a, b): return a.x + a.y < b.x + b.y)
 	if _profile_drawing:_profile_frame.sort_us=Time.get_ticks_usec()-phase_started
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
-	var battle_draw051: BoatArt._BattleDraw051 = null if nautical_chart() else BoatArt._BattleDraw051.new(get_viewport_rect(), camera, scale_factor)
+	var battle_draw051: BoatArt._BattleDraw051 = null if nautical_chart() else BoatArt._BattleDraw051.new(get_viewport_rect(), camera, scale_factor, true)
 	for boat in sorted_ships:
 		if not boat.sunk:
 			if _profile_drawing:_profile_frame.boats_live+=1
