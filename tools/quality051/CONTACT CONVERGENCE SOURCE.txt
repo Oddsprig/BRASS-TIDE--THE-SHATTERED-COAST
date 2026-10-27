@@ -1,0 +1,40 @@
+CONTACT CONVERGENCE 051 - SOURCE ONLY - 2026-10-27
+
+Approved clean workspace: v051-contact-convergence-sol.
+Parent f1cbc6c0e6983a5f4bbfa85ae35c7104a14af9e2; old checkout/audit untouched.
+Only battle.gd contact functions, existing test_battle.gd and this note change.
+
+Evidence: R17 job102dae1893494d578970c64ae2da6327, runtime043-light.json
+endBoatMotion051. P11/P17 distance26.691090984 versus physical27;
+P11/P18 distance26.981581264 versus27. The former single i<j sweep can reopen
+earlier contacts when later pairs move their endpoints. Duration of penetration
+is not present in the captured data; other planner deadlocks are separate work.
+
+Mechanism: preserve the complete initial pair sweep, original radii, normal/
+coincident RIGHT fallback, symmetric0.51 projection and independent shore checks.
+Queue only endpoints with representable position changes. Deduplicate pending
+indices; inspect live neighbors in index order with canonical i<j orientation.
+Accepted moves requeue moved endpoints. No changed coordinates means no requeue;
+the queue drains on no progress. Continuation stops below1e-4 penetration or at
+min(8192,128*N) pair checks / min(2048,64*N) correcting pairs, in addition to the
+fixed N*(N-1)/2 initial sweep. No repeated global sweeps or persistent cache.
+Unresolved/trapped overlap remains physical overlap, with no clearance waiver.
+Only x/y publication changes; velocity, heading, damage, resources and RNG stay.
+
+Existing fixture selector: --case=contacts051 (user args after --).
+Prints CONTACTS051: N checks, M failures, exits with failure status when M>0.
+It bypasses the legacy3600-step loop; default body/all old assertions unchanged.
+Cases: isolated original0.51 projection, exact six-hull R17 cluster plus separated
+sentinel, three-body reopened contact, reversed storage orders, one shore-blocked
+endpoint, both-blocked no-progress termination, separated/sunk hull preservation.
+Checks cover physical clearance<=1e-4 residual where resolvable, shore legality,
+deterministic replay, live identity, complete non-position boat bytes, top-level
+state and RNG. Trapped geometry must remain unresolved/unchanged.
+
+Exactly ONE source advisory:
+python tools/check_preload_calls.py game scripts/battle.gd tests/test_battle.gd
+Result advisoryOnly=true, engineInvoked=false, issues=[]. Diff whitespace clean.
+No engine/helper/test/build/profile run. No native count or performance claim.
+Root must run the selector and actual combined checks. Hard ceilings can leave
+packed/trapped or precision-stalled contacts unresolved; no universal clearance
+or improvement of every R17 deadlock is claimed. STOP after exact source commit.

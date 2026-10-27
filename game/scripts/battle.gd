@@ -617,26 +617,66 @@ static func _ai(st: Dictionary,s: Dictionary,dt: float) -> void:
 	_fire(st,s,Vector2.ZERO,{},true,Tactical.fire_gates(st,s))
 
 static func _collisions(st: Dictionary) -> void:
-	for i in range(st.ships.size()):
-		for j in range(i+1,st.ships.size()):
-			var a: Dictionary=st.ships[i]
-			var b: Dictionary=st.ships[j]
-			if a.sunk or b.sunk:
-				continue
-			var delta: Vector2=_pos(b)-_pos(a)
-			var d: float=delta.length()
-			var minimum: float=_radius(a)+_radius(b)
-			if d<minimum:
-				var normal: Vector2=delta/d if d>0.0001 else Vector2.RIGHT
-				var push: Vector2=normal*(minimum-d)*0.51
-				var ap: Vector2=_pos(a)-push
-				var bp: Vector2=_pos(b)+push
-				if not _blocked(st,ap,_radius(a)):
-					a.x=ap.x
-					a.y=ap.y
-				if not _blocked(st,bp,_radius(b)):
-					b.x=bp.x
-					b.y=bp.y
+	var count: int=st.ships.size()
+	if count<2:return
+	var queue: Array[int]=[]
+	var queued: Array[bool]=[]
+	queued.resize(count);queued.fill(false)
+	# Preserve the original i<j sweep, then revisit only moved endpoints.
+	for i in range(count):
+		for j in range(i+1,count):
+			var moved: int=_project_contact051(st,st.ships[i],st.ships[j])
+			if (moved&1)!=0:_queue_contact051(queue,queued,i)
+			if (moved&2)!=0:_queue_contact051(queue,queued,j)
+	# These are continuation ceilings, in addition to the fixed initial sweep.
+	# No changed coordinates means no requeue: trapped/float-stalled work drains.
+	var checks_left: int=mini(8192,count*128)
+	var corrections_left: int=mini(2048,count*64)
+	var head: int=0
+	while head<queue.size() and checks_left>0 and corrections_left>0:
+		var index: int=queue[head]
+		head+=1;queued[index]=false
+		for other in range(count):
+			if other==index:continue
+			if checks_left<=0 or corrections_left<=0:return
+			checks_left-=1
+			# Canonical pair orientation also preserves the coincident RIGHT fallback.
+			var first: int=mini(index,other)
+			var second: int=maxi(index,other)
+			var moved: int=_project_contact051(st,st.ships[first],st.ships[second],0.0001)
+			if moved==0:continue
+			corrections_left-=1
+			if (moved&1)!=0:_queue_contact051(queue,queued,first)
+			if (moved&2)!=0:_queue_contact051(queue,queued,second)
+	# Residual overlap on exhaustion remains real overlap; no clearance flag changes.
+
+static func _queue_contact051(queue: Array[int],queued: Array[bool],index: int) -> void:
+	if queued[index]:return
+	queued[index]=true
+	queue.append(index)
+
+static func _project_contact051(st: Dictionary,a: Dictionary,b: Dictionary,tolerance: float=0.0) -> int:
+	if a.sunk or b.sunk:return 0
+	var start_a: Vector2=_pos(a)
+	var start_b: Vector2=_pos(b)
+	var delta: Vector2=start_b-start_a
+	var d: float=delta.length()
+	var radius_a: float=_radius(a)
+	var radius_b: float=_radius(b)
+	var minimum: float=radius_a+radius_b
+	if not d<minimum-tolerance:return 0
+	var normal: Vector2=delta/d if d>0.0001 else Vector2.RIGHT
+	var push: Vector2=normal*(minimum-d)*0.51
+	var ap: Vector2=start_a-push
+	var bp: Vector2=start_b+push
+	var moved: int=0
+	if not _blocked(st,ap,radius_a):
+		a.x=ap.x;a.y=ap.y
+		if ap!=start_a:moved|=1
+	if not _blocked(st,bp,radius_b):
+		b.x=bp.x;b.y=bp.y
+		if bp!=start_b:moved|=2
+	return moved
 
 static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String,frame_cache=null,damage_owned=null) -> void:
 	var radius: float=Damage.number(p.get("blastRadius"))
