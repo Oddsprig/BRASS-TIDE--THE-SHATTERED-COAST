@@ -12,6 +12,20 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
+LATEST MEASURED CHECKPOINT - 27 October 2026
+R28 143777f3f73a4f378bd7d50374328b95: scoped804/0,83.953s including
+setup/export/three starts; actual default voyage still completes paid return/refit.
+R12 233b874cb02a4bfbbf8fe72c4122d91e: actual rendered measurement complete
+57.859s, quality targets FAILED. Light42:6.849FPS /18.683ms median simulation;
+mixed16:57.069FPS /8.235ms. Detailed function costs saved with raw receipts.
+Current SOURCE CANDIDATE combines exact closed-begin traffic input reuse,
+omitted empty repair transactions, and same-begin AI validation/hash/copy reuse.
+No route-offer filtering; traffic failures/pending retain their alternatives.
+Current guards, actual math/materials, 60Hz, all actors and300DPside unchanged.
+Three Bridge Sol6.1MAX scoped commits complete; Grok4.7HIGH advisory reviewed.
+Combined native and actual GPU savings remain UNVERIFIED until queued results.
+Core051 gateOPEN; Desktop050 retained; no051tag/package/install/no052breadth.
+
 CURRENT CHECKPOINT - 27 October 2026
 Real opening restored by the general duel/fleet planning policy (no mission,
 hull or seed exception). R27 9d810e8b13d241bd9a3bf7c6c8b3cb06: 15948/0,
