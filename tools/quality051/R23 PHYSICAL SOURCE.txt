@@ -1,0 +1,43 @@
+R23 PHYSICAL SOURCE - SEALED OWNED READS
+27 October 2026 | Base 9767beb81d25fb89aa3c16e036073056d15c295a
+
+Evidence: actual R23 abcedd437773435cb6a3ba82eb1d53cd remains QUALITY FAILED.
+Light42 / full300DPside / 60Hz: 6.662FPS, simulation median18.4015ms;
+no persistent stalls. Raw runtime043-52612-1973083/runtime043-light.json:
+592 ticks,251553 phaseEntryCalls/787671us,151001 sealedStatusHits.
+Phase-entry time spans consumers and includes optional diagnostics; it is not
+a savings estimate. No native, render, test, build or benchmark run here.
+
+One bounded production change in damage.gd. Battle.update already completes
+all damage/mount prepasses and retargeting before _seal_battle_reads051; it
+closes the synchronous phase before boarding/contact/projectile writes.
+Sealing now shallow-copies the <=128 admitted-owner membership map and makes
+that map read-only. Entries remain the SAME mutable proof objects so official
+dirty/revoke/close operations remain visible. Rebind/end discard the seal.
+
+_inspect_owner_in_phase043 and _read_status_in_phase043 use this prepared map
+for sealed hits instead of calling _phase_entry043 and doing a second map
+lookup to re-prove membership. Exact hull identity, active phase/encounter,
+validity, equipment generation and current repair priority still gate reuse.
+Status also checks live fuel-zero state on EVERY read. Any miss follows the
+unchanged checked path. Later re-admissions cannot join an earlier seal.
+
+This removes repeated phase-entry dispatch and duplicate membership lookup
+from the measured high-frequency sealed read path. It does not remove live
+guards or numerical damage/crew/RNG work, cache fit/working masks, or reuse
+pre-motion clearance. Public/default status/inspection paths are unchanged.
+No Battle/Runtime, equipment adapter, mount layout or other production edits.
+Existing phaseEntry counters now describe the remaining actual helper calls;
+direct sealed hits still increment the existing sealedStatusHits counter.
+
+One focused assertion added within existing sealed_phase_reads051: original
+16-read parity plus canonical info identity/equality,16 sealed hits and zero
+phase-entry calls. ALL old assertions remain verbatim, including fuel,
+generation, priority, same-ID clone, public refusal/tick and closure cases.
+No new cases, harness or runtime counters. Added assertion remains UNRUN.
+
+Single read-only check_preload_calls.py advisory on damage.gd and the existing
+hotpath fixture: zero issues,engineInvoked false. Diff review/whitespace clean.
+Root owns R50 native hotpath/frame-isolation and actual R24 measurement.
+No correctness acceptance, savings, FPS, visual or quality-pass claim here.
+Pre-existing untracked .bigbridge/ untouched.

@@ -26,6 +26,7 @@ class BattlePhase043:
 	var active: bool = true
 	var owned = null
 	var readsSealed051: bool = false
+	var sealedEntries051: Dictionary = {}
 
 # Opt-in, process-local diagnostics only. Never retained in a boat or battle.
 static var _runtime_profile043_enabled: bool = false
@@ -284,6 +285,7 @@ static func _end_battle_phase043(phase) -> void:
 	if phase is BattlePhase043:
 		phase.active = false
 		phase.readsSealed051 = false
+		phase.sealedEntries051 = {}
 		phase.entries.clear()
 		phase.owned = null
 
@@ -295,6 +297,10 @@ static func _seal_battle_reads051(phase) -> void:
 	for owner in phase.owned.entries.values():
 		var entry: Dictionary = _phase_entry043(owner.shipRef,phase)
 		if not entry.is_empty(): _status_from_entry043(owner.shipRef,entry)
+	# Freeze membership, not the entries: official generation/revoke writes must
+	# remain visible. Re-admission cannot lend a new entry to an earlier seal.
+	phase.sealedEntries051 = phase.owned.entries.duplicate()
+	phase.sealedEntries051.make_read_only()
 	phase.readsSealed051 = true
 
 static func _create_battle_owned051(ships: Array, source: Dictionary) -> BattleOwned051:
@@ -350,6 +356,7 @@ static func _admit_battle_owner051(owned: BattleOwned051, s: Dictionary, generat
 
 static func _bind_battle_owned051(phase, owned, ships: Array, source: Dictionary) -> void:
 	if not (phase is BattlePhase043) or not phase.active or _battle_owned_for051(owned,ships,source) == null: return
+	phase.readsSealed051 = false; phase.sealedEntries051 = {}
 	phase.owned = owned
 	if not owned.admitted:
 		owned.admitted = true
@@ -487,12 +494,33 @@ static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
 static func _inspect_owner_in_phase043(s: Dictionary, frame_cache = null) -> Dictionary:
 	if not (frame_cache is BattlePhase043) or not frame_cache.active:
 		return inspect_owner_cached(s, frame_cache)
+	# Sealing already prepared every owned generation and froze membership.
+	# Its map needs no second membership lookup through phase.entries/owned.
+	# Official revoke/close removes or invalidates this exact entry; dirty or
+	# priority writes still take _phase_entry043's full refresh below.
+	if frame_cache.readsSealed051 and frame_cache.owned is BattleOwned051 and frame_cache.owned.active:
+		var direct_entry = frame_cache.sealedEntries051.get(_cache_slot_key(s))
+		if (direct_entry is Dictionary and is_same(direct_entry.get("shipRef"),s) and bool(direct_entry.get("valid",false))
+				and int(direct_entry.infoGeneration) == int(direct_entry.generation)
+				and s.get("moduleCondition") is Dictionary and direct_entry.priority == s.moduleCondition.get("repairPriority")):
+			return direct_entry.info
 	var entry: Dictionary = _phase_entry043(s, frame_cache)
 	return entry.info if not entry.is_empty() else EquipmentDamage.inspect_owner(s)
 
 static func _read_status_in_phase043(s: Dictionary, frame_cache = null) -> Dictionary:
 	if not (frame_cache is BattlePhase043) or not frame_cache.active:
 		return read_status_cached(s, frame_cache)
+	# The closed Battle phase has no crew/equipment/policy writers. Borrow its
+	# prepared status directly, retaining exact-owner/generation/priority guards
+	# and motion's live fuel-zero check. No pre-motion clearance is borrowed.
+	if frame_cache.readsSealed051 and frame_cache.owned is BattleOwned051 and frame_cache.owned.active:
+		var direct_entry = frame_cache.sealedEntries051.get(_cache_slot_key(s))
+		if (direct_entry is Dictionary and is_same(direct_entry.get("shipRef"),s) and bool(direct_entry.get("valid",false))
+				and int(direct_entry.infoGeneration) == int(direct_entry.generation)
+				and s.get("moduleCondition") is Dictionary and direct_entry.priority == s.moduleCondition.get("repairPriority")
+				and direct_entry.statusInputs.size() > 12 and (number(s.get("fuel")) > 0.0) == direct_entry.statusInputs[12]):
+			if _runtime_profile043_enabled: _runtime_profile043_counts.sealedStatusHits += 1
+			return direct_entry.status
 	var entry: Dictionary = _phase_entry043(s, frame_cache)
 	if entry.is_empty(): return read_status_cached(s, frame_cache)
 	# _phase_entry043 already proves exact owner/membership/generation/priority.

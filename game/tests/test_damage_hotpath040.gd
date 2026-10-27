@@ -528,10 +528,17 @@ func sealed_phase_reads051(source: Dictionary) -> void:
 	var before: PackedByteArray = var_to_bytes(live)
 	var equal: bool = true
 	var status: Dictionary = {}
+	Damage.set_runtime_profile043(true)
+	Damage.reset_runtime_profile043()
 	for _i in range(16):
 		status = Damage._read_status_in_phase043(live,phase)
 		equal = equal and is_same(status,frozen) and status.is_read_only() and var_to_bytes(status) == var_to_bytes(Damage.get_status(expected))
+	var direct_info: Dictionary = Damage._inspect_owner_in_phase043(live,phase)
+	var direct_counts: Dictionary = Damage.runtime_profile043().cache
+	Damage.set_runtime_profile043(false)
+	Damage.reset_runtime_profile043()
 	check(equal and var_to_bytes(live) == before, "051 repeated sealed reads borrow exact post-prepass status without changing live hull/crew/stores")
+	check(is_same(direct_info,entry.info) and var_to_bytes(direct_info) == var_to_bytes(EquipmentDamage.inspect_owner(live)) and direct_counts.phaseEntryCalls == 0 and direct_counts.sealedStatusHits == 16, "051 sealed owner info/status use the prepared authoritative map without a second phase-entry validation")
 	live.fuel = 0.0
 	status = Damage._read_status_in_phase043(live,phase)
 	check(status.pump == 0.0 and not is_same(status,frozen) and var_to_bytes(status) == var_to_bytes(Damage.get_status(live)), "051 sealed reads immediately refresh fuel exhaustion and pump factors")
