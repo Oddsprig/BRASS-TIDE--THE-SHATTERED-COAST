@@ -239,6 +239,30 @@ func traffic_query_checks(source: Dictionary) -> void:
 	Tactical.after_motion(st)
 	check(not is_same(st.tactical.cells,pair) and st.tactical.cells._queryCache.is_empty() and Routes.neighbours(st.tactical.cells,Vector2(1000,850),Vector2(1000,850),1.0).has(ally),"post-motion rebuild discards old windows and sees a hull in its new cells")
 	report.trafficBroadphase={"actors":fleet.size(),"orderedMembershipEqual":equal_members,"trafficAndBudgetEqual":equal_traffic,"outcomes":outcomes,"overflowEqual":overflow_equal,"retainedWindows":shared._queryCache.size()}
+	# Real light-roster and largest-hull radii; no reduced collision margin.
+	actor.spec.size=14.0
+	var hostile: Dictionary=actor.duplicate(true);hostile.id="traffic-hostile";hostile.team="enemy";hostile.x=720.0;hostile.y=1100.0
+	var tight: Dictionary=Routes.grid([actor,hostile],true)
+	var legacy: Dictionary=Routes.grid([actor,hostile],true);legacy.erase("_maxNavigationRadius")
+	var tight_budget: Dictionary=route_budget();var legacy_budget: Dictionary=route_budget()
+	var tight_result: String=Routes.occupied(tight,actor,Vector2(500,850),Vector2(510,850),20.0,0.0,DT,tight_budget,true)
+	var legacy_result: String=Routes.occupied(legacy,actor,Vector2(500,850),Vector2(510,850),20.0,0.0,DT,legacy_budget,true)
+	check(tight_result=="valid" and legacy_result==tight_result and int(tight_budget.clearanceTests)<int(legacy_budget.clearanceTests),"light hostile query omits an irrelevant far hull while retaining the legacy-cell fallback")
+	var clearance: float=Routes.navigation_radius(actor)+Routes.navigation_radius(hostile)+7.0
+	hostile.x=510.0+clearance-0.1;hostile.y=850.0
+	tight=Routes.grid([actor,hostile],true)
+	check(Routes.occupied(tight,actor,Vector2(500,850),Vector2(510,850),20.0,0.0,DT,route_budget(),true)=="blocked","tight hostile query retains the exact inside-clearance edge")
+	hostile.x=510.0+clearance+0.1;tight=Routes.grid([actor,hostile],true)
+	check(Routes.occupied(tight,actor,Vector2(500,850),Vector2(510,850),20.0,0.0,DT,route_budget(),true)=="valid","tight hostile query retains the exact outside-clearance edge")
+	hostile.spec.size=36.0;hostile.x=510.0+Routes.navigation_radius(actor)+Routes.navigation_radius(hostile)+6.9
+	tight=Routes.grid([actor,hostile],true)
+	check(float(tight._maxNavigationRadius)==99.0 and Routes.occupied(tight,actor,Vector2(500,850),Vector2(510,850),20.0,0.0,DT,route_budget(),true)=="blocked","grid maximum includes the actual largest hull envelope rather than assuming light radii")
+	hostile.spec.size=14.0;hostile.x=580.0;hostile.y=1200.0;hostile.vy=-350.0
+	tight=Routes.grid([actor,hostile],true)
+	check(Routes.occupied(tight,actor,Vector2(500,850),Vector2(510,850),20.0,0.0,1.0,route_budget(),true)=="blocked","tight query finds a hostile crossing from outside the current-pose window through the two-second swept grid")
+	hostile.y=1550.0;hostile.vy=-175.0;tight=Routes.grid([actor,hostile],true)
+	check(Routes.occupied(tight,actor,Vector2(500,850),Vector2(510,850),20.0,3.0,4.0,route_budget(),true)=="blocked","tight query retains future hostile crossings beyond two seconds with the existing speed padding")
+	report.trafficBroadphase.hostileQuery={"lightQueryRadius":Routes.navigation_radius(actor)+38.5+7.0,"legacyQueryRadius":Routes.navigation_radius(actor)+220.0,"tightClearance":tight_budget.clearanceTests,"legacyClearance":legacy_budget.clearanceTests}
 
 func route_checks(source: Dictionary) -> void:
 	var ship: Dictionary=source.duplicate(true)

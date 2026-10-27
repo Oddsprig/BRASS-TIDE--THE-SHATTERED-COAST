@@ -90,13 +90,14 @@ static func sweep(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Di
 	return "valid"
 
 static func grid(ships: Array,reuse_queries: bool=false) -> Dictionary:
-	var cells: Dictionary={"_maxSpeed":0.0}
+	var cells: Dictionary={"_maxSpeed":0.0,"_maxNavigationRadius":0.0}
 	# Only Runtime's synchronous observation/post-motion phases opt in. Cell
 	# membership is fixed until the next grid build; no result survives that build.
 	if reuse_queries:cells._queryCache={}
 	for ship in ships:
 		if ship.get("sunk",false) or ship.get("captureSecured",false):continue
 		var r: float=maxf(10.0,float(ship.spec.get("size",16)))
+		cells._maxNavigationRadius=maxf(float(cells._maxNavigationRadius),r*2.75)
 		cells._maxSpeed=maxf(float(cells._maxSpeed),Vector2(ship.vx,ship.vy).length())
 		var future: Vector2=point(ship)+Vector2(ship.vx,ship.vy)*2.0
 		var lo: Vector2=point(ship).min(future)-Vector2.ONE*(r+8.0)
@@ -141,7 +142,12 @@ static func _neighbours(cells: Dictionary,a: Vector2,b: Vector2,r: float) -> Arr
 static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r: float,from: float,until: float,budget: Dictionary,avoid_hostiles: bool=false,contact_id: String="") -> String:
 	var extra: float=maxf(0.0,until-2.0)*float(cells.get("_maxSpeed",0.0))
 	var query_radius: float=r+80.0+extra
-	if avoid_hostiles:query_radius=maxf(r,navigation_radius(ship))+220.0+extra
+	var own_navigation: float=maxf(r,navigation_radius(ship)) if avoid_hostiles else r
+	if avoid_hostiles:
+		# The grid contains each hull's first two swept seconds. This radius
+		# covers both exact hostile/allied margins; extra covers later motion.
+		var padding: float=float(cells._maxNavigationRadius)+7.0 if cells.has("_maxNavigationRadius") else 220.0
+		query_radius=own_navigation+padding+extra
 	# Borrow only the phase-local read-only broadphase. All exact ally sweeps and
 	# their ordered budget debits still run on every route/live safety query.
 	for other in _neighbours(cells,a,b,query_radius):
@@ -161,7 +167,7 @@ static func occupied(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector2,r:
 		var delta: Vector2=(b-a)-(d-c)
 		var fraction: float=clampf(-relative.dot(delta)/maxf(0.000001,delta.length_squared()),0.0,1.0)
 		var clearance: float=r+maxf(10.0,float(other.spec.get("size",16)))+3.0
-		if hostile:clearance=maxf(r,navigation_radius(ship))+navigation_radius(other)+7.0
+		if hostile:clearance=own_navigation+navigation_radius(other)+7.0
 		if (relative+delta*fraction).length()<clearance:
 			# An inherited close pass must still be able to leave. Permit only
 			# continuously separating motion; no approach or crossing through it.
