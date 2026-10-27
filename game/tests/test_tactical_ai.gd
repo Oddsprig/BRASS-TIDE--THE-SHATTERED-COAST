@@ -1426,6 +1426,18 @@ func worker_prepared051() -> void:
 	sample.time=0.20
 	var seed: Dictionary=Planner._worker_seed051(sample,context,borrowed,id)
 	check(not seed.is_empty() and is_same(seed.owner,context[id]) and float(seed.originalPreferenceChosenAt)==0.0 and float(seed.at)==0.20,"worker seed preserves an eligible original semantic clock and the actual detached owner")
+	# Membership is scheduling only: a detached fixture never enters Battle or
+	# constructs physical authority. Keep bootstrap/all old handoff cases intact.
+	var held: C._Retained051=C._Retained051.new()
+	held.owner=st.tactical.ships[id];held.intent={};held.chosen_at=0.0
+	var schedule: Dictionary={"time":0.20,"tactical":{"ships":{id:held.owner},"intents":{id:held.intent},"retained051":{id:held},"pending":{},"lastDecision":{id:0.20}}}
+	check(not Planner._worker_needed051(schedule,id,false) and Planner._worker_needed051(schedule,id,true),"stable later-expiry hull skips speculative work while bootstrap retains every owner")
+	schedule.time=0.30
+	check(Planner._worker_needed051(schedule,id,false) and held.chosen_at==0.0,"original semantic expiry inside150ms includes the owner without renewing its clock")
+	schedule.time=0.20;schedule.tactical.pending[id]=0.20
+	check(Planner._worker_needed051(schedule,id,false),"pending physical work remains in the next side cohort despite a later semantic deadline")
+	schedule.tactical.pending.clear();schedule.tactical.intents.erase(id)
+	check(Planner._worker_needed051(schedule,id,false),"lost retained authority remains eligible for worker preparation")
 	var fresh: Dictionary=base.decisions[id].duplicate(true)
 	var record: Dictionary={"owner":context[id],"revision":int(view.snapshotRevision),"at":float(view.time),"decision":fresh,"originalPreferenceChosenAt":0.0}
 	var records: Dictionary={id:record}

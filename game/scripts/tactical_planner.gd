@@ -229,7 +229,7 @@ static func _worker_period051(st: Dictionary, side: String, order: Array) -> Dic
 	var ids: Array = []
 	for id: String in order:
 		if str(st.tactical.ships[id].team) == side and id != str(st.tactical.manualId): ids.append(id)
-	period = {"at": float(st.time), "slices": {}, "sent": {}, "dispatched051": false, "clearanceAllocated": 0, "proofAllocated": 0, "routesAllocated": 0}
+	period = {"at": float(st.time), "slices": {}, "sent": {}, "dispatched051": false, "bootstrap051": period.is_empty(), "clearanceAllocated": 0, "proofAllocated": 0, "routesAllocated": 0}
 	# One SIDE allowance per original 150ms period: 2900 traffic tests PLUS
 	# 128 fixed-endpoint proofs. One side batch cannot refill either allowance.
 	var clearance: int = 2900
@@ -244,6 +244,18 @@ static func _worker_period051(st: Dictionary, side: String, order: Array) -> Dic
 		period.slices[ids[index]] = {"clearanceTests": 0, "clearanceLimit": tests, "proofAllowance051": proof, "exhaustions": 0, "fullRoutes": 4 - queries, "routeAllowance051": queries, "cacheHits": 0}
 	w.periods051[side] = period
 	return period
+
+static func _worker_needed051(st: Dictionary, id: String, bootstrap: bool) -> bool:
+	# Prefetch work that can need a full choice BEFORE this sample expires.
+	# Stable retained observations already run on main; their original semantic
+	# expiry, not the observation/physical renewal, determines the next full job.
+	# Omission grants no authority: every current event/phase/condition guard can
+	# still preempt and make a fresh main choice in its normal fair slot.
+	var t: Dictionary = st.tactical
+	if bootstrap or t.pending.has(id) or float(t.lastDecision.get(id, -1.0)) < 0.0: return true
+	var held: Variant = t.retained051.get(id)
+	if held == null or not is_same(t.intents.get(id), held.intent) or not is_same(t.ships[id], held.owner): return true
+	return float(held.chosen_at) + 0.45 <= float(st.time) + WORKER_DEADLINE051 + 0.000001
 
 static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callable, capability: Callable, frame_cache, planning051: Dictionary = {}) -> Dictionary:
 	var t: Dictionary = st.tactical
@@ -275,7 +287,16 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 	for id: String in ordered:
 		var side: String = str(t.ships[id].team)
 		var period: Dictionary = _worker_period051(st, side, ordered)
-		if not bool(period.dispatched051) and id != str(t.manualId) and _member_slot051(t, id).is_empty() and period.slices.has(id) and not period.sent.has(id): eligible.append(id)
+		if not bool(period.dispatched051) and id != str(t.manualId) and _member_slot051(t, id).is_empty() and period.slices.has(id) and not period.sent.has(id) and _worker_needed051(st, id, bool(period.bootstrap051)): eligible.append(id)
+	# An empty cohort also closes its period. Do not scan/snapshot it every tick
+	# or refill it on a physical retry; the next period owns the next allowance.
+	for side: String in ["player", "enemy"]:
+		var period: Dictionary = t.workers051.periods051.get(side, {})
+		if period.is_empty() or bool(period.dispatched051): continue
+		var has_members: bool = false
+		for id: String in eligible:
+			if str(t.ships[id].team) == side: has_members = true; break
+		if not has_members: period.dispatched051 = true
 	while not eligible.is_empty() and _tasks051.size() < MAX_TASKS051:
 		var side: String = str(t.ships[eligible[0]].team)
 		var period: Dictionary = t.workers051.periods051[side]
@@ -295,7 +316,7 @@ static func _dispatch_batch051(st: Dictionary, order: Array, build_view: Callabl
 			var memory: Dictionary = t.memory[side].byId.get(id, {})
 			if not memory.is_empty(): memory_copy.byId[id] = memory.duplicate(true)
 			guards[id] = {"owner": ship, "spec": ship.spec, "mounts": t.mountCache[id].baseMounts, "revision": int(ship.orderRevision), "order": str(ship.order), "orderTarget": ship.orderTarget.duplicate(true), "options": t.options.byId[id].duplicate(true), "decisionAt": t.lastDecision.get(id, -1.0), "memory": memory.duplicate(true), "waitEvents051": _worker_wait_events051(st, id, memory), "capability": capability.call(st, id, [], frame_cache)}
-		period.dispatched051 = true # A whole deadline-ordered SIDE batch; no eager cohorts.
+		period.dispatched051 = true # One next-due SIDE cohort; no eager/refill jobs.
 		var capsule: _Detached051 = _Detached051.new()
 		var snapshot: Dictionary = build_view.call(st, side, ids, frame_cache)
 		var detached: Dictionary = Roles.ships_by_id(snapshot)

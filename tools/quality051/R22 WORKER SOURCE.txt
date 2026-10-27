@@ -1,0 +1,72 @@
+R22 WORKER SOURCE - 27 October 2026
+Source-only candidate from ed876cb80e29d42000819209415784003e5001ba.
+R47 1722/0 and R22 job dc1f0f9227be491e93a78992413e9021 are predecessor
+evidence only. R22 QUALITY FAILED: light6.660FPS/19.150ms median simulation;
+mixed59.828FPS/7.461ms. Both workloads had zero persistent stalls. Preserve
+that behavior; this pass establishes no native acceptance or speedup.
+
+Read both supplied raw R22 JSONs and summary. Light: fullDue2528/adopt632/
+fallback1896; releaseExpired1570/unfinished297/capability98; noMember1733.
+Mixed: releaseExpired690, noMember304, adopt345/fallback547. Existing reason
+sites are NOT a disjoint partition: selection can terminally remove unfinished
+work before a later full-due take records NO_MEMBER in the same begin.
+Light265 NO_MEMBER calls occur one physics tick after dispatch, alongside282
+unfinished removals across those ticks. Light1189 NO_MEMBER calls occur3-8
+ticks after dispatch. These timing aggregates do not prove every missing
+member is wasted valid work; stable retained answers can legitimately expire.
+Root reports MainSol owns the physical-veto/-1 immediate-retry correction.
+Do not duplicate that cadence/eligibility work or optimize its obsolete rate.
+
+One lever: match the sole side cohort to the next handoff window. Bootstrap
+still samples every automated hull. In later periods, pending hulls, negative
+observation clocks, missing/mismatched retained authority and original semantic
+expiry within the next150ms are included. A stable retained hull whose ORIGINAL
+chosen_at+0.45 lies beyond the sample's lifetime is omitted. Its routine retained
+observations remain main-owned; neither physical renewal nor a useful
+observation advances the original semantic clock. This avoids detached full
+owner copies/role searches/eight-offer generation/routes whose expected full
+choice lies after that worker answer expires. Actual frequency/savings await
+Root's rendered comparison. Early event/phase changes can still require a fresh
+main fallback; omission never delays or suppresses those checks.
+
+This is NOT rolling refill: at most ONE dispatch and ONE detached view per
+side per150ms, at most TWO unfinished tasks INCLUDING retired work. An empty
+cohort closes its period too, preventing per-tick retries/snapshot scans.
+Every automated actor retains its original reserved period slice; selected
+members receive exactly that slice, omitted shares are not redistributed or
+refilled. Aggregate upper bounds remain2900traffic+128proof+4Astar per side
+period. All eight offer possibilities remain for each prepared owner; no new
+job/counter/log/harness, resource allowance or concurrency increase.
+
+Planner edits only: _worker_period051 records initial bootstrap;
+_worker_needed051 is a main-only scheduling predicate; _dispatch_batch051
+filters membership and closes empty periods. Runtime.begin/retained observation,
+wait/capability callbacks, take/join validation and live60Hz authority untouched.
+Worker150ms deadline, original450ms semantic age, main fair cap, complete static
+paths/current land connector/traffic/fire guards, geometry math/margins,
+42/16 actors/300DPside/60Hz, stats/stores/economy/IP unchanged.
+
+Existing worker_prepared051 adds four pure scheduling checks for stable omit
+versus bootstrap, original expiry boundary, pending work and lost authority.
+The scheduling-only descriptor never enters Battle or grants a certificate.
+ALL original assertions remain unchanged, including R47's four recovered
+expiry/adoption/current-HP/main-certificate/blocked-connector contracts and
+the bootstrap side-budget/task/once-per-member-transfer checks.
+
+Root must run existing worker/retained/geometry/actual-voyage fixtures on the
+combined source, then exact export/starts and full42/16 rendered comparison.
+Risk to measure: unexpected semantic changes on omitted stable owners can
+increase synchronous fallbacks; lower speculative work need not improve FPS.
+Coordinate with MainSol's retry correction before interpreting counts.
+No native fixture, engine/import/build/export/GPU or benchmark run in this pass.
+Source advisory and final review results follow below.
+
+Validation: one invocation, python tools/check_preload_calls.py game
+scripts/tactical_planner.gd tests/test_tactical_ai.gd.
+Result: advisoryOnly=true, engineInvoked=false, issues=[]. Diff review confirms
+no original check removed/edited; git diff --check clean. Advisory is not a
+native parse/type/behavior pass. Locations: Planner232(bootstrap),248(membership),
+290(filter),291(empty-period closure),319(single-dispatch gate);
+existing worker fixture1429-1440(four scheduling-only assertions).
+Only Planner, the existing worker fixture and this note are committed.
+Pre-existing untracked .bigbridge/ is excluded and left alone.
