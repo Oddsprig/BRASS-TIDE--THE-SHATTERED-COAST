@@ -426,23 +426,41 @@ static func _crowd_escape051(view: Dictionary, ship: Dictionary, state: Dictiona
 			return {}
 	if contacts.is_empty():
 		return {}
-	var widest: Array = intervals[0]
-	for interval: Array in intervals:
-		if float(interval[1]) - float(interval[0]) > float(widest[1]) - float(widest[0]):
-			widest = interval
-	var heading: float = (float(widest[0]) + float(widest[1])) * 0.5
-	var goal: Vector2 = position + Vector2.from_angle(heading) * clampf(speed * 0.5, 32.0, 80.0)
-	var duration: float = position.distance_to(goal) / speed
-	# Recheck the actual float32 requested edge, including moving contacts.
-	# All noncontacts, land and reservations still go through ordinary routing.
-	for other: Dictionary in contacts:
-		var relative: Vector2 = position - Roles.pos(other)
-		var delta: Vector2 = (goal - position) - Roles.velocity(other) * duration
-		if not Routes._can_escape_padding051(ship, relative, delta, own_radius + 4.0, Roles.radius(other), false):
-			return {}
-	var candidate: Dictionary = _candidate(view, ship, state, "", -1, [position, goal], [goal], [goal], [], MAX_OFFERS)
-	candidate["crowdEscape051"] = true
-	return candidate
+	# R20: the widest contact cone points into a nearby NONcontact, so repeating
+	# only its midpoint never reaches the other legal cone component. Try at
+	# most the existing offer cap of exact components, widest first; still emit
+	# just ONE final request. These observations grant no clearance authority.
+	for _attempt: int in range(mini(intervals.size(), MAX_OFFERS)):
+		var widest_index: int = 0
+		for i: int in range(1, intervals.size()):
+			if float(intervals[i][1]) - float(intervals[i][0]) > float(intervals[widest_index][1]) - float(intervals[widest_index][0]):
+				widest_index = i
+		var widest: Array = intervals[widest_index]
+		intervals.remove_at(widest_index)
+		var heading: float = (float(widest[0]) + float(widest[1])) * 0.5
+		var goal: Vector2 = position + Vector2.from_angle(heading) * clampf(speed * 0.5, 32.0, 80.0)
+		var duration: float = position.distance_to(goal) / speed
+		var clear: bool = true
+		# Recheck the actual float32 edge against EVERY active observed hull,
+		# including moving noncontacts and foes, with the original route margins.
+		for other: Dictionary in context.values():
+			if str(other.get("id", "")) == str(ship.id) or not Roles.active(other):
+				continue
+			var relative: Vector2 = position - Roles.pos(other)
+			var delta: Vector2 = (goal - position) - Roles.velocity(other) * duration
+			var clearance: float = own_radius + Roles.radius(other) + 7.0
+			if other.get("team") != ship.get("team"):
+				clearance = Routes.navigation_radius(ship) + Routes.navigation_radius(other) + 7.0
+			var fraction: float = clampf(-relative.dot(delta) / maxf(0.000001, delta.length_squared()), 0.0, 1.0)
+			if (relative + delta * fraction).length() < clearance and not Routes._can_escape_padding051(ship, relative, delta, own_radius + 4.0, Roles.radius(other), false):
+				clear = false
+				break
+		if not clear:
+			continue
+		var candidate: Dictionary = _candidate(view, ship, state, "", -1, [position, goal], [goal], [goal], [], MAX_OFFERS)
+		candidate["crowdEscape051"] = true
+		return candidate
+	return {}
 
 static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary, context: Dictionary, reservations: Dictionary = {}) -> Array:
 	var state: Dictionary = decision.state

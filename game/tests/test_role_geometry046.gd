@@ -94,6 +94,7 @@ func run() -> void:
 	padding_egress051(world)
 	crowd_escape051(world)
 	reservation_egress051(world)
+	r20_escape_components051(world)
 	print("ROLE GEOMETRY046: %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
 
@@ -1108,3 +1109,111 @@ func reservation_egress051(world: Dictionary) -> void:
 		check(not window_control.get("blocked",false) and float(window_control.throttle)>0.0 and float(window_next.x)>float(mover.x)+0.5,"admitted main claim produces real current-checked helm movement before renewal")
 		for key: String in ["x","y","vx","vy","angle","fuel"]:mover[key]=window_next[key]
 		window_st.time=at+float(window_t.dt)
+
+func r20_escape_components051(world: Dictionary) -> void:
+	# Exact endBoatMotion051 of ALL 42 R20 light boats, job5c4e03ccd9984d7aadb9613ef8c58ef6.
+	# Saved headings/velocities/terrain are retained. The role state is a local
+	# nonfiring request input; saved traces do not contain final reservations or
+	# full fitted equipment condition, so this is geometry proof, not a replay.
+	var samples: Array=[
+		["player-0-bilge_punt","bilge_punt",Vector2(502.183044433594,451.791259765625),Vector2(-90.3212661743164,-10.231333732605),-2.89388947486877],
+		["player-1-bilge_punt","bilge_punt",Vector2(1024.74304199219,602.056213378906),Vector2(77.111198425293,-65.0156478881836),-0.773865938186646],
+		["player-2-bilge_punt","bilge_punt",Vector2(964.277099609375,644.3623046875),Vector2(-8.05377712822519e-05,-8.06970056146383e-05),-2.36260557174683],
+		["player-3-bilge_punt","bilge_punt",Vector2(1006.36187744141,786.421752929688),Vector2(10.9032716751099,27.8317375183105),1.42918933232625],
+		["player-4-bilge_punt","bilge_punt",Vector2(991.042785644531,673.463806152344),Vector2(-3.22056293487549,-8.37584018707275),-1.62428623314322],
+		["player-5-bilge_punt","bilge_punt",Vector2(1009.66253662109,896.101257324219),Vector2(-12.1131868362427,-43.945125579834),-2.14421190939653],
+		["player-6-bilge_punt","bilge_punt",Vector2(647.080871582031,876.749755859375),Vector2(16.1914806365967,14.0447654724121),1.16864556024472],
+		["player-7-bilge_punt","bilge_punt",Vector2(511.939544677734,654.381896972656),Vector2(-113.440078735352,18.0104732513428),2.98926496505737],
+		["player-8-bilge_punt","bilge_punt",Vector2(969.839416503906,701.644592285156),Vector2(3.37398688543544e-07,-7.42654151508759e-07),-1.14435911178589],
+		["player-9-bilge_punt","bilge_punt",Vector2(980.689758300781,731.8818359375),Vector2(0.234137281775475,-0.0395949818193913),-0.167503535747528],
+		["player-10-bilge_punt","bilge_punt",Vector2(520.76025390625,814.813781738281),Vector2(-65.737190246582,-1.66941332817078),2.69426571528117],
+		["player-11-bilge_punt","bilge_punt",Vector2(799.351013183594,834.435363769531),Vector2(-107.848785400391,3.57535076141357),3.10735821723938],
+		["player-12-bilge_punt","bilge_punt",Vector2(694.604858398438,974.425659179688),Vector2(-90.995231628418,38.0237770080566),2.65493714060559],
+		["player-13-bilge_punt","bilge_punt",Vector2(625.179870605469,995.817932128906),Vector2(-92.1660079956055,-17.710241317749),-3.04974827401953],
+		["player-14-bilge_punt","bilge_punt",Vector2(946.486511230469,601.318176269531),Vector2(-1.36430740356445,0.918055355548859),2.59614872932434],
+		["player-15-tin_skiff","tin_skiff",Vector2(942.755004882813,628.05908203125),Vector2(2.56999851444562e-06,-2.41049269789073e-06),-0.892550030549367],
+		["player-16-tin_skiff","tin_skiff",Vector2(939.781494140625,697.628723144531),Vector2(30.496654510498,26.1539001464844),1.04650479953021],
+		["player-17-tin_skiff","tin_skiff",Vector2(972.445434570313,766.344665527344),Vector2(-2.6804461479187,1.50791776180267),2.62915587425232],
+		["player-18-tin_skiff","tin_skiff",Vector2(633.030883789063,951.328918457031),Vector2(-93.7518768310547,38.8976440429688),2.57307600975037],
+		["player-19-tin_skiff","tin_skiff",Vector2(657.284362792969,1108.92529296875),Vector2(68.3399505615234,-40.2331657409668),-0.252904146909714],
+		["player-20-tin_skiff","tin_skiff",Vector2(611.501647949219,1248.18627929688),Vector2(-106.816696166992,8.14836978912354),3.06545662879944],
+		["enemy-0-bilge_punt","bilge_punt",Vector2(1225.59729003906,537.098815917969),Vector2(-17.9611625671387,9.37551879882813),2.49862097687046],
+		["enemy-1-bilge_punt","bilge_punt",Vector2(1427.96606445313,540.323669433594),Vector2(-81.4118576049805,50.6680450439453),2.45317268371582],
+		["enemy-2-bilge_punt","bilge_punt",Vector2(1245.77136230469,757.834594726563),Vector2(1.96627861441812e-05,2.14996525755851e-05),0.382997878392537],
+		["enemy-3-bilge_punt","bilge_punt",Vector2(1276.58654785156,792.933715820313),Vector2(0.00124439806677401,-0.000745795492548496),-0.401377409696579],
+		["enemy-4-bilge_punt","bilge_punt",Vector2(1194.927734375,926.868896484375),Vector2(17.8404140472412,-43.1528587341309),-1.17877197265625],
+		["enemy-5-bilge_punt","bilge_punt",Vector2(1512.27221679688,787.265869140625),Vector2(29.0492935180664,-16.9552822113037),-0.901131520602732],
+		["enemy-6-bilge_punt","bilge_punt",Vector2(1268.83666992188,997.957458496094),Vector2(-84.3159637451172,12.5791473388672),2.59878743590789],
+		["enemy-7-bilge_punt","bilge_punt",Vector2(1576.09606933594,696.559997558594),Vector2(108.142959594727,-4.85444402694702),-0.0448596812784672],
+		["enemy-8-bilge_punt","bilge_punt",Vector2(1743.32739257813,716.119567871094),Vector2(105.285018920898,43.3469352722168),0.396647185087204],
+		["enemy-9-bilge_punt","bilge_punt",Vector2(1497.00598144531,760.309387207031),Vector2(-29.5832443237305,-7.79154205322266),-2.63500499725342],
+		["enemy-10-bilge_punt","bilge_punt",Vector2(1269.76745605469,767.843872070313),Vector2(-3.24122152051132e-06,-6.14675036558765e-06),-1.4534461180369],
+		["enemy-11-bilge_punt","bilge_punt",Vector2(1235.84497070313,929.791320800781),Vector2(-30.2854690551758,85.9221801757813),1.81081545352936],
+		["enemy-12-bilge_punt","bilge_punt",Vector2(1288.38330078125,957.569091796875),Vector2(-45.0553092956543,-29.3989963531494),-2.85073709487915],
+		["enemy-13-bilge_punt","bilge_punt",Vector2(1419.83203125,983.727600097656),Vector2(37.9699401855469,-2.61767745018005),0.640990993877252],
+		["enemy-14-bilge_punt","bilge_punt",Vector2(1344.09765625,545.723876953125),Vector2(74.4480285644531,35.4628753662109),0.742807447910309],
+		["enemy-15-tin_skiff","tin_skiff",Vector2(1571.40881347656,909.628723144531),Vector2(95.2268295288086,36.0224838256836),0.287584245204926],
+		["enemy-16-tin_skiff","tin_skiff",Vector2(1299.87475585938,858.159423828125),Vector2(55.1762008666992,52.51416015625),0.415784567594528],
+		["enemy-17-tin_skiff","tin_skiff",Vector2(1298.79357910156,923.087097167969),Vector2(79.1956481933594,-30.5082054138184),-0.29107204079628],
+		["enemy-18-tin_skiff","tin_skiff",Vector2(1401.31005859375,1128.34252929688),Vector2(65.314323425293,8.78554153442383),-0.175483849445979],
+		["enemy-19-tin_skiff","tin_skiff",Vector2(1184.17724609375,1097.541015625),Vector2(-70.0901031494141,-85.8332672119141),-2.24245476722717],
+		["enemy-20-tin_skiff","tin_skiff",Vector2(1580.328125,1233.29162597656),Vector2(38.8481369018555,-24.6592998504639),-0.456437311735365]
+	]
+	var ships: Array=[]
+	var context: Dictionary={}
+	for sample: Array in samples:
+		var boat: Dictionary=Damage.create_ship(Lab.hull(world,sample[1]),{"id":sample[0],"team":str(sample[0]).get_slice("-",0),"x":sample[2].x,"y":sample[2].y,"vx":sample[3].x,"vy":sample[3].y,"angle":sample[4],"fuel":120.0,"order":"engage","orderRevision":0,"orderTarget":{},"mounts":[]})
+		ships.append(boat);context[str(boat.id)]=boat
+	var owner: Dictionary=context["player-2-bilge_punt"]
+	# Last saved trace condition/stores for the affected owner, not a healthy boost.
+	owner.engine=0.904405774763445;owner.hp=115.617427898547
+	owner.fuel=119.91383333333;owner.supplies=19.9248157487315;owner.ammo=78.0
+	for boat: Dictionary in ships:boat.status=Damage.get_status(boat)
+	var now: float=10.4666666666668
+	var view: Dictionary={"time":now,"snapshotRevision":1,"ships":ships,"options":{"byId":{}}}
+	var state: Dictionary={"role":"skirmisher","phase":"regroup","targetId":"","leaderId":""}
+	var before: PackedByteArray=var_to_bytes([view,state])
+	var offers: Array=Stations._candidates_crowd051(view,owner,{"state":state},context)
+	check(ships.size()==42 and offers.size()<=8 and not offers.is_empty() and Routes._is_crowd_escape051(offers[-1]),"R20 actual full light geometry retains one bounded nonfiring escape")
+	if offers.is_empty() or not Routes._is_crowd_escape051(offers[-1]):return
+	var request: Dictionary=offers[-1]
+	var public_offers: Array=Stations.candidates(view,owner,{"state":state},context)
+	check(offers.slice(0,offers.size()-1)==public_offers.slice(0,mini(public_offers.size(),7)),"R20 alternate component preserves the first seven normal offers")
+	var origin: Vector2=Roles.pos(owner)
+	var heading: float=(request.approach[-1]-origin).angle()
+	check(rad_to_deg(heading)>-27.0 and rad_to_deg(heading)<-26.0,"R20 selected departure uses the other EXISTING contact cone component")
+	var st: Dictionary=proof_state051(ships)
+	st.time=now;st.islands=[{"points":[[850,80],[1130,120],[1210,310],[1030,420],[820,300]]},{"points":[[1040,1320],[1240,1250],[1430,1450],[1320,1640],[1070,1580]]}]
+	var geometry: Dictionary=Routes.terrain(st)
+	st.tactical.geometry=geometry;st.tactical.dt=1.0/60.0
+	var tin: Dictionary=context["player-15-tin_skiff"]
+	var relative: Vector2=origin-Roles.pos(tin)
+	var speed: float=maxf(1.0,Roles.speed(owner)*0.8)
+	# Reconstruct the former widest [0, high] midpoint from its actual contact.
+	var old_heading: float=(fposmod(relative.angle(),TAU)+acos(relative.dot(Roles.velocity(tin))/(relative.length()*speed)))*0.5
+	var old_goal: Vector2=origin+Vector2.from_angle(old_heading)*clampf(speed*0.5,32.0,80.0)
+	var old_request: Dictionary=request.duplicate(true)
+	old_request.approach=[origin,old_goal];old_request["pass"]=[old_goal];old_request.exit=[old_goal]
+	var blocker: Dictionary=context["player-4-bilge_punt"]
+	check(origin.distance_to(Roles.pos(blocker))>Roles.radius(owner)+Roles.radius(blocker)+7.0,"R20 vetoing player-4 starts OUTSIDE the original contact cone scan")
+	var pair_cells: Dictionary=Routes.grid([owner,blocker],true)
+	var old_work: Dictionary=egress_budget051()
+	var new_work: Dictionary=egress_budget051()
+	var old_status: String=Routes.occupied(pair_cells,owner,origin,old_goal,Roles.radius(owner)+4.0,0.0,origin.distance_to(old_goal)/speed,old_work,true)
+	var new_status: String=Routes.occupied(pair_cells,owner,origin,request.approach[-1],Roles.radius(owner)+4.0,0.0,origin.distance_to(request.approach[-1])/speed,new_work,true)
+	check(old_status=="blocked" and new_status=="valid" and old_work.clearanceTests==1 and new_work.clearanceTests==1,"R20 actual player-4 veto and alternate clearance use the identical predicate and one neighbor debit")
+	check(Routes._prepare_detached051(st,geometry,owner,old_request,egress_budget051(2900),{},true).status=="blocked","R20 former widest midpoint is actually vetoed by full unchanged traffic routing")
+	var prepared: Dictionary=Routes._prepare_detached051(st,geometry,owner,request,egress_budget051(2900),{},true)
+	check(prepared.status=="valid" and prepared.trafficSeconds051==2.0,"R20 alternate component passes full land legs and the unchanged worker traffic forecast")
+	var adopted: Dictionary=Routes._adopt_prepared051(st,geometry,owner,request,prepared,egress_budget051(),null,0.3)
+	check(adopted.status=="valid" and Stations.same_request(request,adopted.candidate),"R20 current connector and 0.3s traffic preserve the complete separating request")
+	var control: Dictionary={"angle":heading,"throttle":0.5,"index":1}
+	var alignment: Dictionary=Certification._crowd_step051(st,owner,request,control,egress_budget051())
+	check(not alignment.get("blocked",false) and alignment.throttle==0.0,"R20 captured heading/velocity can use only the existing checked stationary turn")
+	if not alignment.get("blocked",false):
+		var next: Dictionary=Certification.motion(owner,1.0/60.0,float(alignment.angle),float(alignment.throttle))
+		check(Roles.pos(next)==origin and absf(angle_difference(float(owner.angle),float(next.angle)))>0.01,"R20 actual 60Hz alignment changes heading without moving the saved hull")
+	check(Routes._prepare_detached051(st,geometry,owner,request,proof_budget051(2900)).status=="blocked","R20 public/default traffic cannot borrow owned separating padding")
+	check(Routes._prepare_detached051(st,geometry,owner,request,egress_budget051(0),{},true).status=="pending","R20 zero clearance allowance stays pending")
+	check(Stations._crowd_escape051(view,context["player-8-bilge_punt"],state,context).is_empty(),"R20 player-8's only cone midpoint remains blocked; no fabricated straight escape")
+	check(var_to_bytes([view,state])==before,"R20 full captured geometry and request state remain immutable")

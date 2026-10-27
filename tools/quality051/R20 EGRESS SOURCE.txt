@@ -1,0 +1,49 @@
+R20 EGRESS SOURCE CANDIDATE - 27 October 2026
+Base: 81fd50e65da5d02beba44d6417ae60f3ea2de054; measured release content 6184046.
+Evidence: Test Bridge job5c4e03ccd9984d7aadb9613ef8c58ef6, attempt-001/runtime/
+runtime043-18700-2131463/runtime043-light.json and runtime043-mixed.json.
+Root summary: work/quality-v042-v061/R20 engagement and cost findings.json.
+
+Proven source mechanism: the owned crowd request picks only the widest contact
+cone's midpoint. R20 light player-2 repeats a blocked request despite a second
+existing cone component. Exact saved origin (964.277099609375,644.3623046875),
+heading -2.36260557174683, velocity (-8.05377712822519e-5,-8.06970056146383e-5).
+Its Tin15 contact is 26.999919m away (27m physical floor with existing 1e-4
+contact precision). Player4 is OUTSIDE the 33m contact scan at39.538580m, yet
+the former widest midpoint (~63.572deg) approaches it to~11.317m at nominal
+stock speed. The other existing component's midpoint (~-26.428deg) passes
+player4 at~36.799m and monotonically separates from Tin15. These are geometric
+calculations from saved poses/velocities, not a new runtime or benchmark.
+
+Change: inspect existing cone components widest first, at most MAX_OFFERS (8),
+and reject a proposed float32 edge that enters any active observed hull's
+original traffic margin without the existing physical-floor/monotone proof.
+Only ONE final nonfiring request is emitted. No angle grid, new offer, clearance
+authority, position nudge or exception for allies/foes. The first seven normal
+offers and public generation remain unchanged. Full land routing, worker2s,
+main0.3s traffic, reservations, certificates, budgets and 60Hz helm still apply.
+All route/certification/role/runtime/planner production files are unchanged.
+
+Existing test_role_geometry046 gains one focused R20 function with ALL42 saved
+light poses, velocities/headings and the two actual islands. It checks the
+old player4 veto versus the other cone's departure with equal neighbor debit,
+full worker and current connector routing, captured-heading checked alignment,
+public/default refusal, zero-budget pending and snapshot immutability. Scalar
+owner condition/stores are from the last saved trace. Final reservations and
+full fitted equipment condition were not captured: this is a geometry fixture,
+not an exact battle replay or an end-to-end clearance certificate.
+
+Unresolved: light player8's sole cone midpoint runs into player4; this patch
+deliberately offers no false straight escape. Mixed player7 Gale and enemy7
+Gale have no current padded contact at their end poses, so this contact-only
+fallback cannot repair their long route/exit failure. Mixed enemy5 Barbed has
+a Reed contact and an apparently separating midpoint; the saved traces do not
+include the precise final reservation/certificate veto. No fix is claimed for
+those four stalls, nor for all possible safe directions within one component.
+
+Validation: source-only. No engine, game, build, GPU, tests or CPU benchmarks
+launched. Diff reviewed. The ONE read-only advisory returned issues:[] and
+engineInvoked:false (exit0):
+python tools/check_preload_calls.py game scripts/tactical_stations.gd tests/test_role_geometry046.gd
+Root must run the existing focused fixture and bounded native integration.
+R20 quality remains FAILED; no FPS, stall-resolution, release or051 acceptance.
