@@ -618,6 +618,53 @@ func healthy_owned_changes051(source: Dictionary) -> void:
 		Damage._end_battle_phase043(phase)
 		Damage._close_battle_owned051(owned)
 
+func idle_owned_repairs051(source: Dictionary) -> void:
+	for change in [
+		{"label":"idle hull scratch","fields":{"hp":float(source.hp)-3.0}},
+		{"label":"uncrewed pump and fuel zero","fields":{"crew":0.0,"water":3.0,"fuel":0.00005}},
+		{"label":"paid patch with capped machinery","fields":{"water":3.0,"breaches":[{"area":2.0,"section":"bow"}]}},
+		{"label":"paid hull with capped machinery","fields":{"hp":float(source.hp)-3.0,"policy":"repair"}},
+		{"label":"jury cap","fields":{},"engineHp":Core.JURY_CAP},
+		{"label":"within jury epsilon","fields":{},"engineHp":Core.JURY_CAP-Core.EPS*0.5},
+		{"label":"below jury epsilon","fields":{},"engineHp":Core.JURY_CAP-Core.EPS*2.0,"equipmentWrite":true},
+		{"label":"real disabled machinery repair","fields":{},"engineHp":0.1,"equipmentWrite":true},
+		{"label":"live fire on capped machinery","fields":{"fire":2.0},"equipmentWrite":true}
+	]:
+		var live: Dictionary = source.duplicate(true)
+		live.merge(change.fields.duplicate(true),true)
+		if change.has("engineHp"):
+			check(bool(Core.apply_component_damage(live.moduleCondition,{"itemUid":engine_uid(live),"loss":1.0-float(change.engineHp),"cause":"051 idle repair boundary"}).ok), "051 exact engine damage setup: " + str(change.label))
+		Records.publish(live)
+		var expected: Dictionary = live.duplicate(true)
+		var ships: Array = [live]
+		var cache: Dictionary = {}
+		var owned = Damage._create_battle_owned051(ships,cache)
+		var phase = Damage._begin_battle_phase043(cache)
+		Damage._bind_battle_owned051(phase,owned,ships,cache)
+		var entry: Dictionary = Damage._battle_entry051(live,owned)
+		check(not entry.is_empty(), "051 exact owned repair admission: " + str(change.label))
+		if entry.is_empty():
+			Damage._end_battle_phase043(phase); Damage._close_battle_owned051(owned); continue
+		var initial_info: Dictionary = entry.info
+		var equal: bool = true
+		var used_supplies: float = 0.0
+		var module_gain: float = 0.0
+		for dt in [0.0,1.0/60.0,1.0/30.0,0.021]:
+			var report: Dictionary = Damage._tick_ship_in_battle051(live,float(dt),phase)
+			var reference: Dictionary = Damage.tick_ship(expected,float(dt),{"inCombat":true})
+			equal = equal and var_to_bytes(live) == var_to_bytes(expected) and var_to_bytes(report) == var_to_bytes(reference)
+			equal = equal and var_to_bytes(Damage._read_status_in_phase043(live,phase)) == var_to_bytes(Damage.get_status(expected))
+			used_supplies += float(report.usedSupplies)
+			module_gain += float(report.repairedModuleHp)
+		check(equal, "051 owned repair preserves every boat/report/live read at each substep boundary: " + str(change.label))
+		check((int(entry.generation) > 0) if bool(change.get("equipmentWrite",false)) else (int(entry.generation) == 0 and is_same(entry.info,initial_info)), "051 only actual equipment writers replace immutable projections: " + str(change.label))
+		if str(change.label).begins_with("paid"):
+			check(used_supplies > 0.0 and live.supplies < source.supplies and module_gain == 0.0, "051 patch/hull keep finite material debit without phantom machinery work: " + str(change.label))
+		elif change.has("engineHp") and bool(change.get("equipmentWrite",false)):
+			check(module_gain > Core.EPS and used_supplies > 0.0, "051 below-cap machinery still receives real paid repair: " + str(change.label))
+		Damage._end_battle_phase043(phase)
+		Damage._close_battle_owned051(owned)
+
 func probe(source: Dictionary) -> Dictionary:
 	var old_us: int = 0
 	var new_us: int = 0
@@ -696,6 +743,7 @@ func run() -> void:
 	owned_phase_reads051(ship)
 	sealed_phase_reads051(ship)
 	healthy_owned_changes051(ship)
+	idle_owned_repairs051(ship)
 	var measured: Dictionary = probe(ship)
 	altered = ship.duplicate(true)
 	altered.hp -= 25.0; altered.water = 25.0; altered.fire = 12.0

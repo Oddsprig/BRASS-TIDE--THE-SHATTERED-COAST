@@ -566,9 +566,18 @@ static func _battle_absorb051(boat: Dictionary, entry: Dictionary) -> Dictionary
 	if not bool(result.get("ok",false)): entry.valid = false
 	return result
 
+static func _battle_repair_none051(_condition: Dictionary, _request: Dictionary) -> Dictionary:
+	return {"ok":true,"changed":false,"usedWork":0.0,"usedSupplies":0.0,"changes":[]}
+
 static func _battle_repair051(boat: Dictionary, h: float, crew_repair: float, options: Dictionary, info: Dictionary, entry: Dictionary) -> Dictionary:
+	# This exact generation's installed snapshot uses the same families/cap/EPS
+	# as Core. No candidate means no transaction, dirty generation or reprojection.
+	# Fire's later engine write and every real repair still use the original kernels.
+	var repair_parts: Callable = _battle_repair_none051
+	if not (bool(entry.get("valid",false)) and is_same(info,entry.info) and int(entry.infoGeneration) == int(entry.generation) and not has_module_repair_need(info.snapshot)):
+		repair_parts = Records._battle_write051.bind(entry,Core._repair_installed_with)
 	var result: Dictionary = _repair_step_from_info(boat,h,crew_repair,options,info,
-		Records._battle_write051.bind(entry,Core._repair_installed_with),
+		repair_parts,
 		Records._battle_write051.bind(entry,Core._apply_component_damage_with),
 		Records._battle_publish051.bind(entry))
 	if not bool(result.get("ok",false)): entry.valid = false

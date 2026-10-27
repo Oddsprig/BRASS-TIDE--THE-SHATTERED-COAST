@@ -150,3 +150,29 @@ All370 assertions preserved;13 additions cover boundaries, parity, repeated
 reads, generation/priority, fuel, copy, public revocation and closures. Single
 source API advisory/diff clean; engineInvokedfalse. Native/fixtures/GPU UNRUN;
 no helpers. Savings unmeasured; Root owns acceptance. STOP.
+
+051 OWNED EMPTY REPAIR WORK - SOURCE CANDIDATE, native/GPU UNRUN
+Parent cf5f7e7; all five allowed production/fixture files byte-matched Root
+5ffbb896 before editing. Only damage.gd, equipment_damage.gd, the existing
+damage fixture and this append changed; untracked audit preserved.
+
+R12 job233b874cb02a4bfbbf8fe72c4122d91e attributes median owned actual-tick
+2175/1732us (light/mixed), versus status-input103/31us. Raw totals contain
+3165/3678 full equipment snapshots. These are baseline observations, not savings.
+
+Owned canonical steps now skip repair tasks/empty receipt aggregation only
+when current step status assigns exactly zero repair labor and live clamped
+fire is zero. Initial publication, every water/fuel/cooldown/sanitation substep,
+final status/report and timestep selection remain. Public/default flag is false.
+
+For active repair, the exact existing info generation's installed snapshot can
+prove no machinery candidate below JURY_CAP-EPS. Return the identical zero
+machinery receipt instead of entering Core's exhaustive transaction and dirtying
+the generation. Patch/hull/material writes keep their order; real machinery and
+later fire damage retain original kernels. No new cache, topology or counters.
+
+All383 existing assertions preserved; nine paired cases add35 checks for full
+boat/report/read parity, fuel-zero flooding, paid patch/hull, jury boundaries
+and real disabled-part/fire writes. Single source advisory issues[],
+engineInvokedfalse; diff clean. No helpers/engine/tests/build/profile run.
+Savings unmeasured; Root owns combined native/GPU acceptance. STOP.

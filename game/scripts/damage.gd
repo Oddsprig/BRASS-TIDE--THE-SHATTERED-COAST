@@ -431,7 +431,7 @@ static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase) -> Dictiona
 	if _runtime_profile043_enabled: profile_started = _runtime_profile043_battle_guard_finished(profile_started)
 	var result: Dictionary = _tick_canonical_with(s,maxf(0.0,number(dt)),{"inCombat":true},
 		EquipmentDamage._battle_info051.bind(entry),EquipmentDamage._battle_repair051.bind(entry),
-		EquipmentDamage.Records._battle_publish051.bind(entry),EquipmentDamage._battle_absorb051.bind(entry))
+		EquipmentDamage.Records._battle_publish051.bind(entry),EquipmentDamage._battle_absorb051.bind(entry),null,null,false,true)
 	if not bool(entry.valid): _drop_battle_owner051(phase.owned,s)
 	if _runtime_profile043_enabled: _runtime_profile043_battle_tick_finished(profile_started)
 	return result
@@ -822,7 +822,7 @@ static func tick_ship(s: Dictionary, dt: float, _options: Dictionary = {}, frame
 static func _tick_canonical_numeric(s: Dictionary, dt: float, options: Dictionary) -> Dictionary:
 	return _tick_canonical_with(s, dt, options, EquipmentDamage._numeric_rollout_info, EquipmentDamage._tick_repair_rollout_from_info, EquipmentDamage.Records._publish_numeric, EquipmentDamage.Records._absorb_legacy_numeric)
 
-static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null, step_status_fn = null, healthy_no_work: bool = false) -> Dictionary:
+static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary, status_fn: Callable, repair_fn: Callable, publish_fn: Callable, absorb_fn: Callable, out_info = null, step_status_fn = null, healthy_no_work: bool = false, owned_idle_repair051: bool = false) -> Dictionary:
 	var total_in: float=0.0
 	var total_bail: float=0.0
 	var total_repair: float=0.0
@@ -865,21 +865,25 @@ static func _tick_canonical_with(s: Dictionary, dt: float, _options: Dictionary,
 			s.water = clampf(s.water + (t_can.inflow - t_can.bailing) * h_can, 0.0, s.capacity)
 			total_in += t_can.inflow * h_can
 			total_bail += minf(t_can.bailing * h_can, before_can + t_can.inflow * h_can)
-			var step_res: Dictionary = repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {}, step_info)
-			if not step_res.ok:
-				break
-			total_repair += float(step_res.patchedArea)
-			total_avail_work += float(step_res.availableWork)
-			total_used_work += float(step_res.usedWork)
-			total_used_supplies += float(step_res.usedSupplies)
-			total_hull_hp += float(step_res.repairedHullHp)
-			total_module_hp += float(step_res.repairedModuleHp)
-			total_fire_supp += float(step_res.suppressedFire)
-			for k in ["fire", "patch", "machinery", "hull"]:
-				work_by_task[k] = float(work_by_task[k]) + float(step_res.workByTask[k])
-				supplies_by_task[k] = float(supplies_by_task[k]) + float(step_res.suppliesByTask[k])
-			for ch in step_res.moduleChanges:
-				module_changes.append(ch)
+			# Owned admission already published equipment. Zero labor without fire
+			# cannot write any repair task; retain all flow/fuel/sanitation substeps.
+			# Public/default calls still run every callback and publish fresh aliases.
+			if not (owned_idle_repair051 and float(t_can.crewRepair) == 0.0 and clampf(number(s.get("fire")),0.0,100.0) == 0.0):
+				var step_res: Dictionary = repair_fn.call(s, h_can, float(t_can.crewRepair), _options if _options is Dictionary else {}, step_info)
+				if not step_res.ok:
+					break
+				total_repair += float(step_res.patchedArea)
+				total_avail_work += float(step_res.availableWork)
+				total_used_work += float(step_res.usedWork)
+				total_used_supplies += float(step_res.usedSupplies)
+				total_hull_hp += float(step_res.repairedHullHp)
+				total_module_hp += float(step_res.repairedModuleHp)
+				total_fire_supp += float(step_res.suppressedFire)
+				for k in ["fire", "patch", "machinery", "hull"]:
+					work_by_task[k] = float(work_by_task[k]) + float(step_res.workByTask[k])
+					supplies_by_task[k] = float(supplies_by_task[k]) + float(step_res.suppliesByTask[k])
+				for ch in step_res.moduleChanges:
+					module_changes.append(ch)
 		else:
 			# Retain the zero-flow water write, including normalization of signed zero.
 			s.water = clampf(s.water + 0.0, 0.0, s.capacity)
