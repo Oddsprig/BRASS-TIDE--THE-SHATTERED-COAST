@@ -664,6 +664,12 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if selected_due051>=cap:continue
 		selected_due051+=1
 		if Planner._waiting_worker051(st,str(id),_worker_capability051,_worker_wait_guard051,frame_cache,current051):continue
+		# Consume a terminal unfinished generation before a real retained
+		# observation can change lastDecision and move its handoff deadline.
+		var expired_slot051: Dictionary=Planner._member_slot051(t,str(id))
+		if not expired_slot051.is_empty() and not bool(expired_slot051.joined) and float(st.time)>=Planner._worker_wait_until051(st,str(id),expired_slot051)-0.000001:
+			var expired051: Dictionary=Planner._take_worker051(st,str(t.ships[id].team),[id],_worker_capability051,frame_cache,_worker_wait_guard051,current051)
+			if _runtime_profile043_enabled:_runtime_profile043_counts.workerDrops+=int(expired051.get("dropped051",0))
 		observed_due051+=1
 		if not _observe_retained051(st,str(id),frame_cache,current051):due.append(id)
 	if _runtime_profile043_enabled:

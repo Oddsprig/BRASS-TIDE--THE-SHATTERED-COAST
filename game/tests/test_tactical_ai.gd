@@ -1133,6 +1133,7 @@ func worker_handoff051() -> void:
 			B.update(st,1.0/60.0);B.pop_events(st)
 			var history: Array=st.tactical.memory.player.byId.get(id,{}).get("observations",[])
 			check(is_equal_approx(float(st.time),deadline) and id in slot.discarded and id not in slot.adopted and not history.is_empty() and float(history[-1].lastAt)==float(st.time) and float(st.time)-last<=0.2+0.000001,"exact deadline consumes unfinished member and publishes real synchronous fallback")
+			check(id not in slot.remaining and Planner._member_slot051(st.tactical,id).is_empty() and float(st.tactical.lastDecision.get(id,-1.0))==float(st.time) and not history.is_empty() and float(history[-1].lastHp)==float(source.hp) and is_same(st.tactical.intents.get(id),intent),"deadline consumption preserves the live maneuver while a real current retained observation publishes HP and clock")
 		else:
 			if variant=="command":check(B.issue_order(st,[id],"move",{"x":450.0,"y":600.0}),"command accepted during unfinished handoff")
 			else:source.engine=0.0
@@ -1242,10 +1243,12 @@ func worker_prepared051() -> void:
 	var record: Dictionary={"owner":context[id],"revision":int(view.snapshotRevision),"at":float(view.time),"decision":fresh,"originalPreferenceChosenAt":0.0}
 	var records: Dictionary={id:record}
 	var before: Dictionary=memory.duplicate(true)
-	var clock: float=float(st.tactical.lastDecision[id])
+	# The first global fair slot may observe an enemy instead of this hull.
+	var clock_present: bool=st.tactical.lastDecision.has(id)
+	var clock: float=float(st.tactical.lastDecision.get(id,-1.0))
 	var prepared: Dictionary=Planner._prepare_with_worker051(view,memory,{},context,records)
 	check(records.is_empty() and is_same(prepared.decisions[id],fresh) and float(prepared.originalPreferenceChosenAt051[id])==0.0 and prepared.candidates.size()==base.candidates.size(),"same-begin semantic decision is consumed once with its original choice time and all candidates regenerated")
-	check(memory==before and float(st.tactical.lastDecision[id])==clock,"consuming a prepared decision alone publishes no memory or useful-observation clock")
+	check(memory==before and st.tactical.lastDecision.has(id)==clock_present and float(st.tactical.lastDecision.get(id,-1.0))==clock,"consuming a prepared decision alone publishes no memory or useful-observation clock")
 	for changed: String in ["owner","revision","at"]:
 		var stale: Dictionary=record.duplicate()
 		if changed=="owner":stale.owner=context[id].duplicate(true)

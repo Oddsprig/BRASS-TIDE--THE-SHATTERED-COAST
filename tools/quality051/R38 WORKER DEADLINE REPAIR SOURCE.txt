@@ -1,0 +1,24 @@
+051 R38 WORKER DEADLINE REPAIR - SOURCE ONLY
+Base e0beb59a57f7550ff58d1e8579496f3ee5066461; NEW v051-r38-worker-fix-sol.
+Root R38 b843538eff984dd3aeadc60a8a44b355 FAILED worker-ai198/2 plus script
+error, whole29.390s; retained/voyage/export UNRUN. Failed evidence preserved.
+Only workers-handoff/deadline observation parsed from the one-line JSON:
+createdAt .166666666666667; deadline/time .233333333333333; adopted/discarded[].
+
+Fixture error1245 reads lastDecision[id], not base.decisions[id]. First global
+fair tick may observe an enemy, so absence is legitimate. Prepared consumption
+now compares BOTH clock membership and .get value; no invented clock/tick.
+
+Production selection refused waiting at the deadline, but a successful current
+retained observation bypassed _take_worker051 and renewed lastDecision before
+consuming its unfinished member. Runtime now consumes that terminal generation
+through EXISTING _take_worker051 before the observer can move the wait bound.
+A real stable retained observation still supplies current HP/clock, with no extra
+role/candidate search. Existing drop counter includes this consumed member.
+Both original failing deadline assertions remain; added membership/current HP/
+clock/live-intent check. Planner, Roles, helm/fire/physical checks unchanged.
+
+One final preload/API SOURCE advisory:0issues,engineInvoked=false; whitespace
+clean. No native/tests/engine/profile/export/helpers/new harness or Git maintenance.
+Native behavior/performance UNVERIFIED; no savings claim, quality051 OPEN.
+Root exclusively validates the combined source before actual GPU. STOP.
