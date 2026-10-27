@@ -1,0 +1,98 @@
+051 FIRST VOYAGE - APPROVED SOURCE CANDIDATE; NATIVE UNRUN
+Root source: outputs/brass-tide f41cf7b; relevant journey APIs unchanged through
+5a583b5/e42e4c0. Only test_campaign_guidance.gd extension + this handoff.
+Prior behavioral assertions retained. Root identified two historical expectation
+mismatches before native: old count5 vs actual8 careers since038, and old action
+allowlist missing fishing/traffic/contracts/market/yard/catalog. Updated to exact
+eight ordered IDs (captain, explorer, merchant, privateer, escort, fisher,
+passenger, harbormaster) and the explicit20 GuidanceUI.action dispatch IDs.
+No generic acceptance/loosening, runtime/economy, assets, metadata, CoastSol-file
+edits or engine execution. No other historical expectations changed.
+Source preload advisory: zero issues, engineInvoked=false; not native parsing.
+Named-file diff --check clean; native outcome and timing remain unmeasured.
+Root owns the native run with 24s external allowance. Candidate has one shared
+18s cooperative wall guard from _initialize, covering old checks + new journey;
+native startup/preloads and any single synchronous API overrun need Root's cap.
+
+CONNECTED LOOP AND MONEY
+START/world.json + Campaign.new_game: Tinwake Skiff, 5 sailors, 15,000 captain
+coins; separate 5,000 sailor purse (not spending money), 80 rounds, 60 fuel,
+20 repair kits, 30 food. Initial payroll is 500/day; food is 0.40/day.
+Accept mission_1_lantern_sweep, "Clear the Lantern Narrows", at Brass Haven.
+Target Kelp Reach; opponent is the existing story-0 owner's one bilge_punt.
+Construction.quote's default readyPrice for that punt calculates to 38,288;
+Contracts.available gives ceil(38,288*0.85 + 5*100*4) = 34,545 coins. Acceptance
+moves this from the sponsor's government purse to escrow; it is not free income.
+Actual winning battle_settled(..., physical_battle) automatically finishes and
+pays AT KELP. Return-to-Brass collection is not implemented. Return for service;
+finish_contract must then refuse another payment. Captured coins are separately
+floor(owner.coins*0.30) at settlement: measure them, never assume a 5,400 bonus.
+
+Profit = reward + actual captured coins - actual payroll - paid repair - paid
+replacement stores. Report fitting separately as capital spent. Repair consumes
+owned kits too: restore working stores with resupply_boat(uid,"full") AFTER
+repair, otherwise inherited kits/ammo disguise the voyage's replacement cost.
+Use service_quote's real hull + installed-equipment bill, not the old scalar
+Damage.repair_at_port tariff. Never invent damage just to make repair nonzero.
+
+Endpoint: a newly paid boost_drive, replacing stock_engine. Catalog base speed
+118 -> 139.24, turn 2.65 -> 2.862, fuel use x1.35; fitting uses 6/8 points.
+Refits.fitting_bill: 1 engine + 2 iron + 1 copper + 2 kits; 5.5 shipwright-days
+(688 coins), 1.5 engineer-days (300); rounded materials plus 5% duty + 8% margin.
+Recursive Goods costs give an unblocked pricing bound of 23,639-31,522 coins
+(stock-rich limit through zero-stock limit; zero stock cannot supply the part).
+Actual workshop_preview is authoritative for stock, labor, policy and price.
+Thus unavailable from the initial 15,000; after reward, 49,545 before uncertain
+loot/service. At the upper bill, 18,023 remains for voyage costs; retain at least
+1,000 as the initial two-day payroll reserve. If blocked, report its reason and
+max(0, quote.cost + required_reserve - actual_coins), not an assumed purchase.
+
+IMPLEMENTED EXISTING-FILE EXTENSION
+Only game/tests/test_campaign_guidance.gd: test_first_voyage_public_loop()
+and its _initialize call, using existing ck/view helpers. No separate framework.
+1. Campaign.new(world.duplicate(true)); new_game(123). Retain start UID, balances
+   and Money.total. Accept the real offer; verify sponsor debit/escrow and that
+   finish_contract refuses early payment without changing captain coins.
+2. chart_course(port_position("kelp_reach"),"kelp_reach"); advance step(1/30)
+   until the actual path empties. Verify current_port, readiness and arrival.
+3. Match main.begin_battle: use_reserves, CoastalTerrain.arena at actual position,
+   FleetSupport.combat(c), that owner's living boats, enemy specs and seed 123.
+   Keep prepare_intercept, default mission/context publication, captureSlots
+   from the real prize count, and BoardingOps.coastal before updates. No injected
+   autoBoard; production coastal defense/boarding policy remains authoritative.
+   Battle.create/update at production 1/60, default autopilot and empty input;
+   require an actual "won" before battle_settled(result,specs,context,battle).
+   Preserve physical hulls, damage, ammo, stores and opponent identity. No injected
+   result, fresh enemy replacements, manual-helm shortcut or free resource grant.
+4. Chart/step back to brass_haven; obtain service_quote, repair_boat if needed,
+   then refill actual deficits via resupply_boat(...,"full"). Print exact costs
+   and voyage profit. If undamaged, report repair not exercised. Verify no second
+   contract payout, and Money.total remains the initial conserved coin supply.
+   Payout-count proof is captured before repair publishes its local money log.
+5. Copy the actual loadout, change only engine to boost_drive; preview/apply via
+   workshop_preview/workshop_apply with the reviewed quote and
+   {"slots":{"engine":{"new":true}}}. Require real debit/material use, retained
+   old engine, changed performance and payroll reserve; call Guidance.report for
+   the resulting real fleet. Do not edit CoastSol's career/UI/flow-owned files.
+
+BOUND / UNKNOWNS
+Target whole native file <20s, unmeasured. One scenario, shared 18s wall guard
+including career creation; <=30 campaign seconds total at 1/30 + <=90 combat
+seconds at 1/60 (<=6,300 updates). Wall guard wins. Stop/report phase on timeout,
+loss, extra encounter, stock/labor/cash shortage; no retry/forced win. These caps
+are implemented, not proven sufficient. COMPLETE requires every journey check;
+the file still fails if any prior assertion fails. Logs expose actual fight,
+payout, operating profit, wage allowance, fitting cost, cash gap and reserve.
+Center-to-center straight distance calculates 2,522.64, healthy speed 731.6,
+3.448s each way BEFORE real approaches/detours/damage. Actual charted length,
+autopilot coastal win, casualties, repair and resupply totals remain native-unknown.
+The bounded trip stays on day 1: no daily payroll/food debit, and main pauses the
+campaign clock during combat. Report cash profit with this limit; separately show
+500*actual_campaign_days as an initial-crew wage allowance, not a booked payment.
+This scenario cannot certify daily payroll, long-run balance, fun or live FPS.
+
+Read APIs: campaign.gd new_game/chart_course/step/battle_settled/service_quote;
+contracts.gd available/accept/finish; construction.gd blueprint/quote; goods.gd;
+equipment_service.gd service_quote/repair; refit.gd catalog/fitting_bill;
+fleet_workshop.gd preview/apply; main.gd resolve_contract/begin_battle/settle_battle;
+battle.gd create/update; coastal_terrain.gd arena; existing campaign-guidance test.
