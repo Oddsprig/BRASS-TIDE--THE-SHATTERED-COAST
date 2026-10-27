@@ -13,9 +13,13 @@ Next bounded source candidates reviewed and integrated:
 - Roles04a2bcd ->d680e14: semantic eligibility has no movement/fire authority;
   physical veto clears intents/reservations immediately. Fresh complete decision
   consumed once; recertification preserves ORIGINAL chosenAt+.45 hard deadline.
-Root combined source advisory0issues. All new native behavior/performance UNRUN.
-Next R38 existing focused batch hard119s inclsetup/export/three starts; only
-then actual R19 full42/16/300DP per side/current60Hz. No extra test framework.
+R38 b843538eff984dd3aeadc60a8a44b355 stopped29.390s at worker fixture:198/2
+plus missing-clock lookup. Earlier route95/geometry652/contact208 passed.
+Reviewed repair c38b962 ->be2c529 consumes expired unfinished members before
+retained observation; both deadline assertions preserved, missing clock fixed.
+Six unchanged geometry/route/contact file hashes retain R38 passed receipts.
+Next R39 workers/retained/currenttraffic/fire/actualvoyage/export hard119swhole;
+only after PASS actual R19 full42/16/300DP/current60Hz. No extra framework.
 Grok source render-cost proposal retained, implementation deferred as unmeasured.
 Desktop050 retained; no051tag/package/install/no052 while core gate OPEN.
 
