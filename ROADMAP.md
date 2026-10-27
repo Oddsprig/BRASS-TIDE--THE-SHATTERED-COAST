@@ -1,8 +1,8 @@
-# Current step: v0.046 - Tactical AI: useful roles, stable maneuvers and hull clearance
+# Current step: v0.047 - Fleet command and readable battle information
 
-- Keep useful maneuvers through gradual repairs and bailing, bound blocked-route retries and retain immediate live damage and safety responses.
-- Use fitted launcher ranges, stable flanks, useful heavy firing positions, shared pressure and protection of carriers or wounded allies.
-- Give normal autopilot hostile hull clearance and separating exits, with six public Fleet Laboratory practice scenarios using real stores and damage.
+- Replace permanent battle sidebars with a compact full-width HUD, on-demand crew/roster and selected tactics details.
+- Give selected boats clear engage, harass, focus, escort, defend, rally, hold and withdraw orders with target prompts and honest acknowledgments.
+- Use actual saved groups/formations and optional bounded weapon arcs, threat and route overlays; bring small engagements closer on entry.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

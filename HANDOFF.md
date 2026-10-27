@@ -1,18 +1,10 @@
-# Brass Tide v0.046 delivered
+# Brass Tide v0.047
 
-BRASS TIDE v0.046 - Tactical AI: useful roles, stable maneuvers and hull clearance
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 0fd35d1fa30862a9055354154a8539e924fc9ffa / v0.046
-Test Bridge: 4368ea3f39ce45d487a2a458cb3e67a9
-15283 focused checks, 0 failures; menu/campaign/battle startup passed.
-Selected batch plus setup: 61.009s; owned cleanup verified.
+Current candidate: Fleet command and readable battle information.
 
-- Keep useful maneuvers through gradual repairs and bailing, bound blocked-route retries and retain immediate live damage and safety responses.
-- Use fitted launcher ranges, stable flanks, useful heavy firing positions, shared pressure and protection of carriers or wounded allies.
-- Give normal autopilot hostile hull clearance and separating exits, with six public Fleet Laboratory practice scenarios using real stores and damage.
+- Replace permanent battle sidebars with a compact full-width HUD, on-demand crew/roster and selected tactics details.
+- Give selected boats clear engage, harass, focus, escort, defend, rally, hold and withdraw orders with target prompts and honest acknowledgments.
+- Use actual saved groups/formations and optional bounded weapon arcs, threat and route overlays; bring small engagements closer on entry.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
-
-15283 focused native assertions/0 failures: runtime146, role28, six practice prefixes316, actual-path wake14793. Native4368ea3f39ce45d487a2a458cb3e67a9, export and three startups passed, under120s with setup and cleanup. Seven actual five-second offline battle recordings were sampled chronologically; no realtimeFPS, whole-voyage, audio or playfeel acceptance claim. Final full300DP rendered measurement3e7f1595cf2241d7bec9b9ca4eca4008:42light4.605FPS,16mixed17.084FPS; all60FPS/frame/simulation targets UNMET. Mixed performance remains worse than matchedv045. Gate051 staysOPEN; no052campaign breadth before core acceptance. Tested source0fd35d1fa30862a9055354154a8539e924fc9ffa.
-
-Continue with the next saved version scope after v0.046; preserve the shared lane and120-second limit.
+Focused native checks/export are pending. Root owns all TestBridge work;
+helpers stay in source-only roles. Continue this version before the next.

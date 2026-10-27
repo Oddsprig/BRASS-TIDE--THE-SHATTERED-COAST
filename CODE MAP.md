@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.046: Tactical AI: useful roles, stable maneuvers and hull clearance. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: tactical_runtime.gd, tactical_certification.gd, tactical_routes.gd, tactical_planner.gd, tactical_role_plans.gd, tactical_stations.gd, fleet_lab.gd, lab_presets.json.
+v0.047: Fleet command and readable battle information. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: interface.gd, tactics_ui.gd, main.gd, chart.gd, battle_commands047.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

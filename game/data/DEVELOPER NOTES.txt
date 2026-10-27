@@ -1,39 +1,13 @@
-BRASS TIDE v0.046 - TACTICAL AI
-27 October2026 |36existing boat designs
+BRASS TIDE v0.047 - FLEET COMMAND AND READABLE BATTLE INFORMATION
+27 October2026 |36 boat designs
 
 THIS VERSION
-Useful maneuver intent survives gradual repairs, bailing and ordinary heat
-wear. Real damage, machinery/crew loss, disablement, danger transitions and new
-orders still cause a live response. Blocked proposals retry at a bounded pace;
-authoritative motion, contact and firing remain60Hz with full actor counts.
+- Replace permanent battle sidebars with a compact full-width HUD, on-demand crew/roster and selected tactics details.
+- Give selected boats clear engage, harass, focus, escort, defend, rally, hold and withdraw orders with target prompts and honest acknowledgments.
+- Use actual saved groups/formations and optional bounded weapon arcs, threat and route overlays; bring small engagements closer on entry.
 
-Light boats use stable flanks, actual bursts and breakaways. Fitted launchers
-set strike staging. Cannon-primary heavies keep useful gun stations while
-retaining secondary launch opportunities. Escorts protect actual carriers or
-wounded allies; support stays behind armed protection. Existing friendly
-reservations share pressure and do not divert explicit attack orders.
-
-Normal autopilot checks hostile hull envelopes, including approach/pass/exit
-and the live next step. An inherited close pass can take a separating exit.
-Deliberate boarding/ram targets and manual helm keep their contact behavior.
-This is conservative navigation, not a change to hit or damage footprints.
-
-Six public Lab practices cover flanker/heavy, escort/raider, strike, withdrawal,
-wounded-ally cover and mixed roles. Two clearly labelled damaged starts apply
-one real shell hit and select ordinary damage control. No fake shot, refill,
-win, reward or infinite crew/fuel/ammunition is supplied. Numerical crews,
-coins and real wage/material costs remain; fleet ownership remains separate
-from300battle deployment points per side. Saved voyages/music are preserved.
-
-VERIFICATION / REMAINING SCOPE
-Root verifies focused native behavior, Windows export/startups, actual scenario
-motion and full300DP rendered measurement separately. Final receipts and
-TACTICAL AI v0.046.txt state actual results. A short native prefix does not
-prove a complete battle, fun or Starsector parity; offline movies do not prove
-realtime60FPS, and silent tests cannot certify sound. The043performance miss
-and051whole-core quality gate stayOPEN. Do not advance to052breadth if051fails.
-047commands,048workshop,049remaining33authored hulls and050coast stay separate.
-
-Autopilot ON by default; WASD camera, Space pause, right-click orders,
-U manual flagship toggle, Escape menu. Use the Fleet battle laboratory to try
-all six new practices with actual finite fits and stores.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
