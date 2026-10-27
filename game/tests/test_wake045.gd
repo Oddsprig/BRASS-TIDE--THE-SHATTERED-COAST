@@ -8,12 +8,14 @@ const Lab = preload("res://scripts/fleet_lab.gd")
 const Battle = preload("res://scripts/battle.gd")
 var checks: int = 0
 var failures: Array = []
+var first_invalid_polygon: Dictionary = {}
 
 class Recorder extends RefCounted:
 	var polygons: Array = []
 	var colors: Array[Color] = []
 	var heights: Array[float] = []
 	var invalid: int = 0
+	var first_invalid: Dictionary = {}
 	var camera := Vector2.ZERO
 	var screen_origin := Vector2.ZERO
 	var view_scale: float = 1.0
@@ -27,17 +29,39 @@ class Recorder extends RefCounted:
 	func draw_colored_polygon(points: PackedVector2Array, color: Color) -> void:
 		polygons.append(points.duplicate())
 		colors.append(color)
-		for point in points:
-			if not point.is_finite():
+		var nonfinite: Array[int] = []
+		for index in range(points.size()):
+			if not points[index].is_finite():
+				nonfinite.append(index)
 				invalid += 1
-		if Geometry2D.triangulate_polygon(points).size() != (points.size() - 2) * 3:
+		var triangle_indices: int = Geometry2D.triangulate_polygon(points).size()
+		var expected_indices: int = (points.size() - 2) * 3
+		if triangle_indices != expected_indices:
 			invalid += 1
+		var crossing_count: int = 0
+		var crossing_edges: Array = []
 		for edge in range(points.size()):
 			for other in range(edge + 2, points.size()):
 				if edge == 0 and other == points.size() - 1:
 					continue # Consecutive edges share their endpoint by design.
 				if Geometry2D.segment_intersects_segment(points[edge], points[(edge + 1) % points.size()], points[other], points[(other + 1) % points.size()]) != null:
 					invalid += 1
+					crossing_count += 1
+					if crossing_edges.size() < 8:
+						crossing_edges.append([edge, other])
+		if first_invalid.is_empty() and (not nonfinite.is_empty() or triangle_indices != expected_indices or crossing_count > 0):
+			var vertices: Array = []
+			var local_points := PackedVector2Array()
+			# Match native real_t accumulation, not GDScript's float64 sum.
+			var absolute_twice_area := Vector2.ZERO
+			var local_twice_area := Vector2.ZERO
+			for index in range(points.size()):
+				vertices.append([points[index].x, points[index].y])
+				local_points.append(points[index] - points[0])
+				absolute_twice_area.x += points[(index + points.size() - 1) % points.size()].cross(points[index])
+			for index in range(local_points.size()):
+				local_twice_area.x += local_points[(index + local_points.size() - 1) % local_points.size()].cross(local_points[index])
+			first_invalid = {"band": polygons.size() - 1, "points": vertices, "triangle_index_count": triangle_indices, "expected_triangle_index_count": expected_indices, "nonfinite_vertices": nonfinite, "crossing_count": crossing_count, "first_crossing_edges": crossing_edges, "absolute_signed_area_float32": absolute_twice_area.x * 0.5, "local_signed_area_float32": local_twice_area.x * 0.5, "local_triangle_index_count": Geometry2D.triangulate_polygon(local_points).size()}
 
 func _initialize() -> void:
 	call_deferred("run")
@@ -63,6 +87,15 @@ func recorded(samples: Array, opts: Dictionary = {}, isometric: bool = false, vi
 	var before: PackedByteArray = var_to_bytes([samples, opts, view])
 	var projector: Callable = recorder.iso if isometric else recorder.project
 	var count: int = Wake.draw(recorder, projector, samples, opts)
+	if first_invalid_polygon.is_empty() and not recorder.first_invalid.is_empty():
+		first_invalid_polygon = recorder.first_invalid.duplicate(true)
+		first_invalid_polygon.case = str(view.get("label", "unlabelled geometry case"))
+		first_invalid_polygon.callstack = get_stack().slice(0, 4)
+		first_invalid_polygon.isometric = isometric
+		first_invalid_polygon.view = {"camera": [recorder.camera.x, recorder.camera.y], "origin": [recorder.screen_origin.x, recorder.screen_origin.y], "scale": recorder.view_scale}
+		first_invalid_polygon.sources = {"wake": "res://scripts/wake_art045.gd", "wake_sha256": FileAccess.get_file_as_string("res://scripts/wake_art045.gd").sha256_text(), "fixture": "res://tests/test_wake045.gd", "fixture_sha256": FileAccess.get_file_as_string("res://tests/test_wake045.gd").sha256_text()}
+		# One bounded dump per entire run: <=23 points and eight edge pairs.
+		print("WAKE045_FIRST_INVALID " + JSON.stringify(first_invalid_polygon, "", true, true))
 	check(count == recorder.polygons.size() and count <= Wake.MAX_PRIMITIVES, "draw count equals actual bounded polygon calls")
 	check(recorder.invalid == 0, "every submitted polygon is finite, noncrossing and fully triangulable" + label)
 	check(recorder.heights.size() <= Wake.MAX_VERTICES * Wake.MAX_PRIMITIVES and recorder.heights.all(func(h): return h == 0.0), "bounded projection work stays on the water plane")
@@ -178,7 +211,7 @@ func slow_turn_cases() -> void:
 			for index in range(8):
 				var angle: float = index * 0.10
 				slow.append({"p": Vector2(1350, 850) + Vector2(sin(angle), 1.0 - cos(angle)) * spacing * 10.0, "age": age + (7 - index) * 0.002, "w": 12.0})
-			recorded(slow, {}, true, {"origin": Vector2(1280, 800), "camera": Vector2(1100, 850), "scale": 0.49, "label": "slow/fading projected tip"})
+			recorded(slow, {}, true, {"origin": Vector2(1280, 800), "camera": Vector2(1100, 850), "scale": 0.49, "label": "slow/fading projected tip spacing=%s age=%s" % [spacing, age]})
 	var invisible: Array = [{"p": Vector2.ZERO, "age": 0.01, "w": 6.0}, {"p": Vector2(0.11, 0), "age": 0.0, "w": 6.0}]
 	check(recorded(invisible, {}, true, {"origin": Vector2(800, 500), "scale": 0.49}).polygons.is_empty(), "paint below 0.01 screen pixel squared is safely culled")
 	var collapsed: Array = [{"p": Vector2.ZERO, "age": 0.699999999999, "w": 6.0}, {"p": Vector2(2, 0), "age": 0.69999999999, "w": 6.0}, {"p": Vector2(6, 0), "age": 0.0, "w": 6.0}]
@@ -314,7 +347,7 @@ func run() -> void:
 		if arg.begins_with("--out="):
 			var file: FileAccess = FileAccess.open(arg.substr(6), FileAccess.WRITE)
 			if file != null:
-				file.store_string(JSON.stringify({"checks": checks, "failures": failures, "limits": "Synthetic geometry plus five seconds of actual Lab/Battle poses and Chart recording; no GPU, movie, motion or audio acceptance."}))
+				file.store_string(JSON.stringify({"checks": checks, "failures": failures, "first_invalid_polygon": first_invalid_polygon, "limits": "Synthetic geometry plus five seconds of actual Lab/Battle poses and Chart recording; no GPU, movie, motion or audio acceptance."}, "", true, true))
 				file.close()
 	print("wake045: %d checks, %d failures; presentation geometry only" % [checks, failures.size()])
 	quit(0 if failures.is_empty() else 1)
