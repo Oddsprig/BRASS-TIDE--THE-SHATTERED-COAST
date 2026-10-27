@@ -1,20 +1,32 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
-Latest051checkpoint: sourceRoot0c31fb4/release95d9d50, R17PASS752/0,
-83.719s including setup/export/three starts; realworker-enabled voyage279/0.
-Starterwin67.767simseconds,1355repair/2126stores/26379boost,25085captainleft.
-PreviousSYNC42.367s journey is historical; both actual runs completed.
-ActualR8GPU72c0042b0da84982bac689e8d9fdfd12 qualityFALSE: light5.380FPS,
-mixed49.894FPS; simmedians22.820/9.127ms. Actual1389/1978lightdueadoptions
-show worker use without material performance gain. Core gateOPEN, no052.
-Three BridgeSol6.1MAX active: PerfSolPlanner/Runtime/Main/AItests; CoastSol
-Damage/Equipment and damagefixture; HullSolRoutes/Coastal/existinggeometrytests.
-RootaloneChart/Wakeaffineprojection and existingWakefixture; no file overlap.
-Rootownsallnative, export, GPU and lane; wholebatches<120s/background/muted.
-No helpernative, nestedhelpers, newframework, broad QA or speculativecachework.
-Desktop050, preserve two voyages and actual music; one plain Desktoplauncher.
-Corrected8opening screens/fourforefootpreviews reviewed. TaskCURRENT STATE.txt
-is the concise handoff; older status text below is historical where conflicting.
+Latest051checkpoint: Root85c7909/releasec0c3e5d. R22native761/0,
+export/three starts77.156s; actual due-worker opening COMPLETE35.667simseconds,
+paidrepair1071/refill1996/boost26379, captain25499/payrollreserve1000.
+R21 geometry components370damage/14738wake/95route/288roles all0fail; its new
+worker test failed on a later physical veto. Root85fixture corrected that only;
+R22 workers66/0 prove fresh observation followed by -1/nointent physical veto.
+ActualGPU R9 735066ce5e5e44459f2e4872ade3e793 still FAILS quality: light6.102,
+mixed53.749FPS; light20.540ms simulation,13.810ms planning. No051 release.
+Grok4.7HIGH read-onlyreview COMPLETE, no source edits. THREE BridgeSol6.1MAX
+seats ACTIVE, work remains same051 scope. PerfSol owns Planner/Runtime/Main/
+minimalCertification/AI tests: batchwhole-side .15s and remove repeatedfullRole
+redecision on normal bounded-age adoption, maintain <=.2 useful observations.
+NavSol owns Routes/coastal/planner+role geometry fixtures: private detached
+fullstatic+2s observed traffic preparation; valid joined route uses fresh live
+connector and .3s current traffic prefix. Public/defaultfulltraffic remains.
+ABI: Routes._prepare_detached051(st,geometry,ship,candidate,budget), worker-owned
+st.time and tactical.cells. Return fullroute+origin/radius/terrain/observedAt051/
+trafficSeconds051; age<=.15 required for shortened main recheck. Missing/invalid
+metadata falls back fullmain. Physical helm/contact/shot stayfresh60Hz.
+CoastSol thirdseat owns BoatSpriteArt/BoatArt/MotorArt/HullFeedback + existing
+renderfixture: remove measured~4.8ms repeated drawmetadata work, no art/detail
+loss or assetrebakes. No overlap with Root Chart/Wake tested changes.
+No helper engines/nestedhelpers/newframework. Root alltest-lane/native/GPU,
+background muted noinput/focus, wholebatches<120s. Desktop050; no052 untilgate.
+Current source-onlydocs update uncommitted; preserve. Two voyages/actualmusic
+and one plain Desktoplauncher stay. TaskCURRENT STATE.txt conciseauthority;
+older status text below is historical where conflicting.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
