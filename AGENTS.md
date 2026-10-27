@@ -1,18 +1,20 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
 VALIDATION UPDATE - 27 October 2026
-R32 acd60eb0d5094d33a966f093de9c547c PASS6435/0 in94.625s including
-setup/export/three starts. Legacy private-view ownership and actual voyage pass.
-R14 d6ab1dfd5c2a4d6ebc47ad1ccc832004 actual measurement57.766s COMPLETE,
-qualityFALSE:42light9.085FPS/sim15.635ms;16mixed60.011FPS/sim6.768ms.
-Mixed FPS/frame/stutter/catch-up targets met; simulation median remains above6ms.
-Root viewed both exported end PNGs; stills do not prove motion/audio/fun.
-Current SOURCE CANDIDATE completes worker land routes despite snapshot traffic
-blocks, retains the full2s forecast/budgets, and requires fresh current clearance.
-Battle-only readiness skips impossible fire work; retained role predicates omit
-irrelevant threat scans and a repeated protector choice. Public defaults remain.
-Route/fire/role native verification pending. Unchanged damage450/scar5080 source
-keeps R32 evidence. No051tag/package/install/no052 while fullfleet gateOPEN.
+R33 d38e75e284914bac8133f8168228b314 stopped34.219s at new firing fixture
+float reserve requests. Passed route95/geometry411/workers106/retained148/traffic40.
+R34 a9d59e0e58634176b3eaf33f928d54cc corrected TEST INPUTS ONLY: firing123 /
+actualvoyage274 plus export/three starts PASS397/0 in66.656s. Production equal.
+R15 14ea663167204fdab06afee06530a821 measurement complete57.735s, QUALITYFALSE:
+42light20.245FPS/sim13.506ms;16mixed59.968FPS/sim6.5745ms. Full targets unmet.
+Light moved35 versus42 actors and fired60 versus95 shots in R14; stall versus
+scheduling cause is UNRESOLVED. No acceptance based on reduced activity.
+Current observer copies the EXISTING512-row AI trace and boat motion ONCE after
+measurement; no new per-tick diagnostic work. Nav is reviewing the route change.
+Current SOURCE CANDIDATE wake batching preserves band paint/order/fade and uses
+strip indices only on explicit affine Chart projection; custom projection keeps
+native triangulation. Native/actual rendering verification pending.
+Desktop050 retained; no051tag/package/install/no052 while core gateOPEN.
 
 LATEST MEASURED CHECKPOINT - 27 October 2026
 R29 8613de56778f420e87eadc78eb7b3c32: scoped1271/0,82.390s including
@@ -284,7 +286,7 @@ quality is a design target, not a verified existing achievement.
 
 All game tests remain hidden/background/silent and serialized, one engine at a
 time. Never take mouse, keyboard or focus. Prefer question-specific bounded checks;
-never weaken assertions to pass. Preserve the ownerÃ¢â‚¬â„¢s saves/settings/music. Use
+never weaken assertions to pass. Preserve the ownerÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s saves/settings/music. Use
 only owned explicit PIDs for timeout cleanup. No global installs/system changes.
 Use the existing Godot 4.7.2 and local Python. Source/CPU tests, visual review,
 listening, Windows export, launcher and remote publication require separate proof.
