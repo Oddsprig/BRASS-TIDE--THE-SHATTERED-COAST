@@ -12,6 +12,23 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
+CURRENT CHECKPOINT - 27 October 2026
+Real opening restored by the general duel/fleet planning policy (no mission,
+hull or seed exception). R27 9d810e8b13d241bd9a3bf7c6c8b3cb06: 15948/0,
+88.844s whole batch including export and three starts. Actual default voyage
+won in 41.767 simulated seconds, returned, paid 1145 repairs / 1873 stores,
+then paid 26379 for boost drive; captain retains 25548 coins and 1000 reserve.
+R11 4e27610f46c2421d8d72b4a6c405cc48 actual full300DP rendered profile:
+42 light boats 7.247FPS / 18.144ms median simulation; 16 mixed 57.257FPS /
+8.376ms. Performance targets still UNMET; core gate OPEN. R24/R26 losses
+below are preserved historical failures, superseded for opening by R27.
+Current source adds opt-in function timings only, to identify remaining costs.
+Three Sol6.1MAX Bridge helpers completed their scoped source handoffs;
+Root owns all queued, muted, background tests, whole batches under120seconds.
+Desktop remains0.050, one launcher, existing voyages/music preserved.
+No0.051 tag/package/install and no0.052 breadth until core gate clears.
+
+HISTORICAL CHECKPOINTS (superseded where noted)
 ACTIVE CANDIDATE: real opening REGRESSION; core gate OPEN.
 R24 664f62e8d2ce43fe9ca55bd657b4d8ff FAILED: starter lost51.317simseconds,
 HP0 and ammo75 (only five rounds fired),12.701s fixture/54.375s wholebatch.

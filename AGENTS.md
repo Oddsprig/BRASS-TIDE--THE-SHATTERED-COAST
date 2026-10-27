@@ -1,29 +1,20 @@
 # Active owner authorization - sequential quality builds0.042-0.061
 
-Latest051checkpoint: Root6ebfb21/release6c25e60. CURRENTOPENING FAILED R24
-664f62e8d2ce43fe9ca55bd657b4d8ff:lost51.317simseconds,5shots, HP0. Damage370,
-wake14738,route95,roles311,worker69,retained22,traffic34 passed earlier inbatch.
-R23drawing2437/0 passed37.734s. R25 f128191c649543bbb8201ff48401a654 is
-PERFORMANCEONLY partial export:125AI/three starts59.516s. Notcore/playablepass.
-GPU R10 789a6c63f6af41c3b5716ef229b06b99 qualityFALSE:light7.246/mixed58.911FPS,
-sim18.541/8.088ms. Lightplanning11.055ms; proposalimproved3.35->.771ms, jobs
-838/556ticks->136/606ticks. Two blockers: actualopeningloss andperformancetargets.
-PerfSol ACTIVE owns Planner/Runtime/Cert/AIfixture: fixactualhold-fire/range
-andphase-deadline adoption regression; noHP/seed/stats/90slimit/criteriachanges.
-CoastSol ACTIVE owns ONLYDamage/Battle/existingdamagefixture: trustedsealed
-postprepass readwindowreuse inEXISTINGphase/entries; dynamic public/unsealed
-paths preserved, officialgenerations/fuelzero remainlive. Closebeforecontact
-andhits; auditactualwriters, no unsupported approximation/newgeneralcache.
-NavSol finished bfb8b8e->Root0609d12: workerfullstatic+2ssnapshottraffic,
-currentconnector/.3strafficadoptionwithsameterrain/radius/age<=.15;fullETA.
-RenderSol finishedc8e->Roote5f8e4a: staticatlas/perdrawpreparation, samequads,
-allmounts/currentaim/recoil/damage. Perf188->Root6eb batching/.15sidejobs+cheap
-preferencejoin/thirdshortlistremoval. Allsourcecommitted exceptcurrentnotes.
-Root owns ALLtest-lane/native/export/GPU; mutedbackground noinput/focus and
-wholebatches<120s. Allenginejobs currentlyfinished. No helperengine or new
-framework/nestedhelpers. Desktop050,2voyages/actualmusic preserved,1launcher.
-No051tag/ZIP/install/no052 breadth. CURRENT STATE.txt concisehandoff; older
-status paragraphs below historical whereconflicting.
+CURRENT CHECKPOINT - 27 October 2026
+Real opening restored by the general duel/fleet planning policy (no mission,
+hull or seed exception). R27 9d810e8b13d241bd9a3bf7c6c8b3cb06: 15948/0,
+88.844s whole batch including export and three starts. Actual default voyage
+won in 41.767 simulated seconds, returned, paid 1145 repairs / 1873 stores,
+then paid 26379 for boost drive; captain retains 25548 coins and 1000 reserve.
+R11 4e27610f46c2421d8d72b4a6c405cc48 actual full300DP rendered profile:
+42 light boats 7.247FPS / 18.144ms median simulation; 16 mixed 57.257FPS /
+8.376ms. Performance targets still UNMET; core gate OPEN. R24/R26 losses
+below are preserved historical failures, superseded for opening by R27.
+Current source adds opt-in function timings only, to identify remaining costs.
+Three Sol6.1MAX Bridge helpers completed their scoped source handoffs;
+Root owns all queued, muted, background tests, whole batches under120seconds.
+Desktop remains0.050, one launcher, existing voyages/music preserved.
+No0.051 tag/package/install and no0.052 breadth until core gate clears.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP."
