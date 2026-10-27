@@ -152,8 +152,8 @@ def main():
     parser.add_argument("--cache", type=Path, default=root/"tools/quality042/.bake-cache/weapons")
     parser.add_argument("--out", type=Path, default=root/"game/assets/boats042/weapons")
     args = parser.parse_args()
-    if not 1 <= args.frames <= 8 or not 1 <= args.seconds <= 100:
-        parser.error("frames1..8, seconds1..100; Root retains outer cleanup/setup time")
+    if not 1 <= args.frames <= 32 or not 1 <= args.seconds <= 100:
+        parser.error("frames1..32, seconds1..100; Root retains outer cleanup/setup time")
     if args.start < 0 or args.start >= HEADINGS:
         parser.error("start must be0..31")
     deadline = time.perf_counter()+args.seconds

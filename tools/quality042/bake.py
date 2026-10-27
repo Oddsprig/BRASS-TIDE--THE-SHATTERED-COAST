@@ -288,8 +288,8 @@ def main():
     p.add_argument("--cache",type=Path,default=root/"tools/quality042/.bake-cache")
     p.add_argument("--out",type=Path,default=root/"game/assets/boats042")
     args=p.parse_args()
-    if not 1 <= args.frames <= 8 or not 1 <= args.seconds <= 105:
-        p.error("frames must be1..8; seconds1..105; Root retains outer job cleanup time")
+    if not 1 <= args.frames <= 32 or not 1 <= args.seconds <= 105:
+        p.error("frames must be1..32; seconds1..105; Root retains outer job cleanup time")
     if not 0 <= args.start < HEADINGS:
         p.error("start must be0..31")
     source=source_hash()
