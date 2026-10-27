@@ -302,7 +302,7 @@ func fire_readiness051() -> void:
 	for tick in range(40):B.update(st,dt);held_events.append_array(fire_events(st,source))
 	check(held_events.is_empty() and float(source.ammo)==ammo and source.weaponCooldowns.all(func(value):return float(value)==0.0),"real reloads finish under hold without any free or withheld paid shot")
 	check(B.tactical_status(st,id).weapons=={"slow":"Automatic fire held","fast":"Automatic fire held"},"HUD shows current holds after timers have genuinely become ready")
-	check(B.set_tactical_options(st,[id],{"mountGroup":{"kind":"all","hold":false,"reserve":ammo}}),"current reserve consumes no ammunition")
+	check(B.set_tactical_options(st,[id],{"mountGroup":{"kind":"all","hold":false,"reserve":int(ammo)}}),"current reserve consumes no ammunition")
 	B.update(st,dt)
 	check(fire_events(st,source).is_empty() and float(source.ammo)==ammo and B.tactical_status(st,id).weapons=={"slow":"Keeping working ammunition reserve","fast":"Keeping working ammunition reserve"},"ready guns honor each live reserve and replace the old held HUD reasons")
 	B.set_autopilot(st,false)
@@ -312,7 +312,7 @@ func fire_readiness051() -> void:
 	var manual_events: Array=fire_events(st,source)
 	check(manual_events.size()==2 and is_equal_approx(ammo-float(source.ammo),5.0) and st.rng.state==manual_rng.state,"manual trigger keeps its original authority over ready guns, exact ammunition and one scatter per mount despite automatic reserves")
 	check(str(st.tactical.manualId)==id and not st.tactical.intents.has(id),"manual fire obtains no automatic gate or retained authority")
-	check(B.set_tactical_options(st,[id],{"mountGroup":{"kind":"all","hold":false,"reserve":0.0}}) and B.issue_order(st,[id],"attack",{"shipId":alternate.id}),"current attack switches the target while the real guns are reloading")
+	check(B.set_tactical_options(st,[id],{"mountGroup":{"kind":"all","hold":false,"reserve":0}}) and B.issue_order(st,[id],"attack",{"shipId":alternate.id}),"current attack switches the target while the real guns are reloading")
 	B.set_autopilot(st,true)
 	var changed_events: Array=[]
 	var ready_at: float=-1.0
