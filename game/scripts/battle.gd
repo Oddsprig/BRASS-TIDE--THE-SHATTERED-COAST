@@ -814,8 +814,10 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 					_fire(st,s,aim,{},false,{},checked_phase)
 		else:
 			var fire_started: int=Time.get_ticks_usec()
-			var gates: Dictionary=Tactical.fire_gates(st,s,checked_phase)
-			_fire(st,s,Vector2.ZERO,{},true,gates,checked_phase)
+			var gates: Dictionary=Tactical._battle_fire_gates051(st,s,checked_phase)
+			# The prepass already synchronized shot/timer bookkeeping. An empty
+			# approval set cannot emit; manual and compatibility calls stay intact.
+			if not gates.is_empty():_fire(st,s,Vector2.ZERO,{},true,gates,checked_phase)
 			var firing_us: int=Time.get_ticks_usec()-fire_started
 			ai_us+=firing_us;ai_phases.firing+=firing_us
 	Damage._end_battle_phase043(checked_phase)

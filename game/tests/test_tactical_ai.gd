@@ -238,6 +238,102 @@ func explicit_boarding_authority() -> void:
 		check(not proof.is_empty(),"explicit board case observes actual recent HP loss with two real threats")
 		observations.append({"case":"explicit-focused-board","proof":proof})
 
+func fire_readiness051() -> void:
+	# One real arena throughout: no direct _fire, synthetic certificate, timer
+	# reset, ammunition refill or RNG retry. Cooldowns cross only via B.update.
+	var dt: float=1.0/60.0
+	var spec: Dictionary=SPEC.duplicate(true);spec.speed=0.0
+	spec.weaponMounts=[{"id":"slow","kind":"gun","damage":1.0,"fireRate":2.0,"range":900.0,"ammoCost":2,"arc":TAU},{"id":"fast","kind":"gun","damage":1.0,"fireRate":4.0,"range":900.0,"ammoCost":3,"arc":TAU}]
+	var st: Dictionary=B.create({"fleet":[D.create_ship(spec)],"enemyFleet":[D.create_ship(spec,{"ammo":0.0}),D.create_ship(spec,{"ammo":0.0})],"seed":30011})
+	st.islands=[];st.autoBoard=false
+	var source: Dictionary=st.ships[0];var target: Dictionary=st.ships[1];var alternate: Dictionary=st.ships[2]
+	var id: String=str(source.id)
+	source.x=500.0;source.y=850.0;source.angle=0.0
+	target.x=850.0;target.y=850.0;alternate.x=850.0;alternate.y=1150.0
+	check(B.issue_order(st,[id],"hold") and B.set_tactical_options(st,[id],{"role":"heavy"}),"readiness uses the actual held heavy-gun arena and public controls")
+	var first: Array=[]
+	for tick in range(12):
+		B.update(st,dt);first=fire_events(st,source)
+		if not first.is_empty():break
+	check(first.size()==2 and is_equal_approx(80.0-float(source.ammo),5.0),"both initially ready mounts emit real shots with distinct exact ammunition costs")
+	if first.size()!=2:return
+	var mounts: Array=st.tactical.mountCache[id].mounts
+	var intent: Dictionary=st.tactical.intents[id]
+	var planned_target: Dictionary=st.tactical.ships[str(intent.fireGate.slow.targetId)]
+	var default_gate: Dictionary=Fire.gate(st,source,mounts[0],0,intent,st.tactical.options.byId[id],planned_target,st.tactical.budget)
+	check(not default_gate.ok and default_gate.reason=="Reloading","default public Fire.gate retains its existing current reload reason and guard")
+	var authority: PackedByteArray=var_to_bytes([st.tactical.intents,st.tactical.predictions,st.tactical.memory,st.tactical.passes,st.tactical.salvoSpent,source.mountShotTimes])
+	var budget: Dictionary=st.tactical.budget.duplicate(true)
+	var rng_before: int=st.rng.state
+	var ammo: float=float(source.ammo)
+	check(T._battle_fire_gates051(st,source).is_empty() and st.tactical.fireReasons[id]=={"slow":"Reloading","fast":"Reloading"},"all-reloading current mounts publish fresh holds without a step fire view")
+	check(st.rng.state==rng_before and float(source.ammo)==ammo and st.tactical.budget==budget and var_to_bytes([st.tactical.intents,st.tactical.predictions,st.tactical.memory,st.tactical.passes,st.tactical.salvoSpent,source.mountShotTimes])==authority,"impossible-fire probe changes no authority, route ledger, shot history, ammunition or RNG")
+	var partial: bool=false
+	var crossings: int=0
+	var reload_trace: Array=[]
+	for tick in range(35):
+		var remaining: Array=source.weaponCooldowns.duplicate()
+		var primary: float=float(source.cooldown)
+		ammo=float(source.ammo);rng_before=st.rng.state
+		var replica: RandomNumberGenerator=RandomNumberGenerator.new();replica.seed=st.rng.seed;replica.state=rng_before
+		replica.randf()
+		B.update(st,dt)
+		var events: Array=fire_events(st,source)
+		var debit: float=0.0
+		for event in events:debit+=2.0 if str(event.mountId)=="slow" else 3.0
+		check(is_equal_approx(ammo-float(source.ammo),debit),"every real reload frame pays exactly its emitted mounts")
+		for index in range(2):
+			var next_reload: float=maxf(0.0,float(remaining[index])-dt)
+			if index==0:next_reload=maxf(next_reload,maxf(0.0,primary-dt))
+			var mount_id: String="slow" if index==0 else "fast"
+			var fired: bool=events.any(func(event):return str(event.mountId)==mount_id)
+			if next_reload>0.0:check(not fired,"a reloading mount cannot borrow another ready mount's approval")
+			elif float(remaining[index])>0.0:
+				crossings+=1
+				check(fired,"a real gun fires on its first zero-cooldown tick through the complete current gates: "+mount_id)
+				if index==1 and maxf(0.0,primary-dt)>0.0 and not partial:
+					partial=true
+					check(events.size()==1 and str(events[0].mountId)=="fast" and st.rng.state==replica.state,"ready secondary fires with exactly one scatter while primary still reloads")
+		if not events.is_empty():reload_trace.append({"time":st.time,"before":remaining,"events":events,"ammo":source.ammo})
+	check(partial and crossings>=3,"real cooldowns exercise both mounts and a partial multimount ready crossing")
+	check(B.set_tactical_options(st,[id],{"mountGroup":{"kind":"all","hold":true}}),"current public per-mount hold is accepted")
+	ammo=float(source.ammo)
+	var held_events: Array=[]
+	for tick in range(40):B.update(st,dt);held_events.append_array(fire_events(st,source))
+	check(held_events.is_empty() and float(source.ammo)==ammo and source.weaponCooldowns.all(func(value):return float(value)==0.0),"real reloads finish under hold without any free or withheld paid shot")
+	check(B.tactical_status(st,id).weapons=={"slow":"Automatic fire held","fast":"Automatic fire held"},"HUD shows current holds after timers have genuinely become ready")
+	check(B.set_tactical_options(st,[id],{"mountGroup":{"kind":"all","hold":false,"reserve":ammo}}),"current reserve consumes no ammunition")
+	B.update(st,dt)
+	check(fire_events(st,source).is_empty() and float(source.ammo)==ammo and B.tactical_status(st,id).weapons=={"slow":"Keeping working ammunition reserve","fast":"Keeping working ammunition reserve"},"ready guns honor each live reserve and replace the old held HUD reasons")
+	B.set_autopilot(st,false)
+	var manual_rng: RandomNumberGenerator=RandomNumberGenerator.new();manual_rng.seed=st.rng.seed;manual_rng.state=st.rng.state
+	manual_rng.randf();manual_rng.randf()
+	B.update(st,dt,{"manual":true,"fire":true,"aimX":target.x,"aimY":target.y})
+	var manual_events: Array=fire_events(st,source)
+	check(manual_events.size()==2 and is_equal_approx(ammo-float(source.ammo),5.0) and st.rng.state==manual_rng.state,"manual trigger keeps its original authority over ready guns, exact ammunition and one scatter per mount despite automatic reserves")
+	check(str(st.tactical.manualId)==id and not st.tactical.intents.has(id),"manual fire obtains no automatic gate or retained authority")
+	check(B.set_tactical_options(st,[id],{"mountGroup":{"kind":"all","hold":false,"reserve":0.0}}) and B.issue_order(st,[id],"attack",{"shipId":alternate.id}),"current attack switches the target while the real guns are reloading")
+	B.set_autopilot(st,true)
+	var changed_events: Array=[]
+	var ready_at: float=-1.0
+	var first_changed: float=-1.0
+	for tick in range(36):
+		if ready_at<0.0 and maxf(0.0,float(source.weaponCooldowns[1])-dt)==0.0:ready_at=float(st.time)+dt
+		B.update(st,dt)
+		var events: Array=fire_events(st,source)
+		if not events.is_empty():
+			first_changed=float(st.time);changed_events=events;break
+	check(not changed_events.is_empty() and first_changed==ready_at and changed_events.all(func(event):return str(event.targetId)==str(alternate.id)),"first ready shot after retake uses the CURRENT attack target, never the earlier target or a cached false readiness")
+	# In-place fitting changes must reach the next prepass's current mounts.
+	# Make both guns physically unusable without changing stores or real timers.
+	source.spec.weaponMounts[0].damage=0.0
+	source.spec.weaponMounts[1].ammoCost=int(source.ammo)+1
+	ammo=float(source.ammo)
+	B.update(st,dt)
+	check(fire_events(st,source).is_empty() and float(source.ammo)==ammo and st.tactical.mountCache[id].mounts[1].ammoCost>source.ammo,"readiness reads refreshed mutable fittings rather than a saved cost or mount view")
+	check(B.tactical_status(st,id).weapons=={"slow":"Weapon disabled","fast":"Out of ammunition"},"changed fitted damage and ammo cost replace previous ready/reload reasons immediately")
+	observations.append({"case":"fire-readiness051","first":first,"reloads":reload_trace,"partial":partial,"crossings":crossings,"manual":manual_events,"changedTarget":changed_events,"readyAt":ready_at,"firstChangedAt":first_changed,"ammo":source.ammo,"weapons":st.tactical.fireReasons[id].duplicate()})
+
 func held_gun() -> void:
 	var spec: Dictionary=SPEC.duplicate(true);spec.speed=0.0
 	var st: Dictionary=B.create({"fleet":[D.create_ship(spec)],"enemyFleet":[D.create_ship(spec,{"ammo":0.0})],"seed":30011})
@@ -1069,12 +1165,13 @@ func _initialize() -> void:
 		if arg.begins_with("--out="):path=arg.substr(6)
 	match selected:
 		"all":
-			ray_cases();boarding_continuity();focused_boarding();explicit_boarding_authority();held_gun();useful_pressure();capabilities_and_observations();fleet_cadence();local_approach();retained_maneuver051();traffic_prefix051();workers051()
+			ray_cases();boarding_continuity();focused_boarding();explicit_boarding_authority();held_gun();useful_pressure();capabilities_and_observations();fleet_cadence();local_approach();retained_maneuver051();traffic_prefix051();workers051();fire_readiness051()
 		"rays":ray_cases()
 		"boarding":boarding_continuity()
 		"focused-boarding":focused_boarding()
 		"board-authority":explicit_boarding_authority()
 		"held-gun":held_gun()
+		"fire-readiness":fire_readiness051()
 		"useful-pressure":useful_pressure()
 		"capabilities":capabilities_and_observations()
 		"fleet-cadence":fleet_cadence()

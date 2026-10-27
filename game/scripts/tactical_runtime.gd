@@ -1070,6 +1070,35 @@ static func after_motion(st: Dictionary) -> void:
 	# All real helm movement publishes before ANY automatic fire target lookup.
 	st.tactical.cells=Routes.grid(st.tactical.ships.values(),true)
 
+static func _battle_fire_gates051(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
+	# Only Battle's closed fire phase: its prepass has refreshed mutable fittings
+	# and decremented/synchronized every real timer. Never retain readiness; the
+	# first possibly ready mount takes the unchanged complete current fire path.
+	var t: Dictionary=st.tactical
+	var id: String=str(ship.id)
+	var mounts: Array=t.mountCache[id].mounts
+	var choices: Dictionary=t.options.byId.get(id,{}).get("mounts",{})
+	var timers: Array=ship.weaponCooldowns
+	var order: String=str(ship.get("order","engage"))
+	var reasons: Dictionary={}
+	for index in range(mounts.size()):
+		var mount: Dictionary=mounts[index]
+		var mount_id: String=str(mount.id)
+		var choice: Dictionary=choices.get(mount_id,{})
+		var reason: String=""
+		if float(mount.get("damage",0.0))<=0.0:reason="Weapon disabled"
+		elif order in ["move","withdraw","board"]:reason="Holding fire during maneuver"
+		elif bool(choice.get("hold",false)):reason="Automatic fire held"
+		elif float(ship.ammo)<float(mount.ammoCost):reason="Out of ammunition"
+		elif float(ship.ammo)-float(mount.ammoCost)<float(choice.get("reserve",0)):reason="Keeping working ammunition reserve"
+		elif (index<timers.size() and float(timers[index])>0.0) or (index==0 and float(ship.cooldown)>0.0):reason="Reloading"
+		else:return fire_gates(st,ship,frame_cache)
+		reasons[mount_id]=reason
+	# No current/prediction/route authority is needed to emit nothing. Publish
+	# current physical holds even when a previous retained fire window expired.
+	t.fireReasons[id]=reasons
+	return {}
+
 static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
 	var t: Dictionary=st.tactical
 	var id: String=str(ship.id)

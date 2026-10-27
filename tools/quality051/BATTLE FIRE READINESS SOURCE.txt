@@ -1,0 +1,42 @@
+051 BATTLE FIRE READINESS - SOURCE CANDIDATE, NATIVE/GPU UNRUN
+Base c9113aef03cf070e15b053eb06a58e3528673456; Root889a202/release4f12024
+includes current Runtime except independent Nav begin static-rejection hook.
+This patch does not touch begin/view, Routes, Roles, Planner or Damage.
+
+Input evidence: R32 native6435/0,94.625s is PRIOR combined-source proof.
+R14 actual job d6ab1dfd5c2a4d6ebc47ad1ccc832004, attempt-001/runtime/
+runtime043-4896-2060085:42light9.085FPS,15.635ms median/20.871msP95;
+16mixed60.011FPS,6.768ms median/9.798msP95. Firing medians supplied by
+Root1.9565ms light/1.018ms mixed identify repeated impossible-fire work.
+No new profiling pass, wrapper, counter, framework, engine or helper run.
+
+Only shared Battle.update automatic firing calls _battle_fire_gates051.
+Its existing prepass has refreshed mutable mounts and advanced/synchronized
+real cooldowns and shot bookkeeping. Current mount damage, order, hold,
+ammo cost/reserve and primary/per-mount timers are read anew every call.
+Only if ALL mounts are impossible now does it return empty approvals before
+_current051 and retained candidate/proof/fireGate/prediction reconstruction.
+It publishes each current blocking reason for HUD; no readiness is retained.
+ANY potentially ready mount delegates the complete original fire_gates path.
+Battle skips _fire for empty approved gates; prepass bookkeeping is complete.
+
+Default Runtime.fire_gates, public Fire.gate and Battle._fire are unchanged.
+Manual and compatibility callers are unchanged. Ready guns retain current
+ownership/order/target/capability/helm/fire checks, full physical solutions,
+ally/land/scattered-lane checks, salvo leases, exact ammo and one seeded
+scatter. Full2s forecast,60Hz,300DP/42/16,.2 observations and duel policy stay.
+
+Existing test_tactical_ai adds ONLY fire_readiness051, all-case append and
+--case=fire-readiness selector. Other old functions/assertions and retained
+selector unchanged. One actual stationary heavy-gun arena covers initial
+paid fire, real reload crossings, ready secondary while primary reloads,
+default public reload reason, read-only empty probe/RNG/authority/budget,
+hold/reserve with fresh HUD, manual fire despite automatic reserve, current
+attack target at first ready tick, and in-place fitting damage/cost changes.
+No timer/ammo reset, fake certificate, direct _fire or RNG retry. Maximum126
+actual60Hz public updates in this new case; native wall time UNMEASURED.
+
+ONE source preload/API advisory:0 issues, advisoryOnly=true,engineInvoked=false.
+Whitespace check clean. Source advisory does not establish native parsing or
+assertion success. Root owns native/actual-voyage/export/GPU runs and verdict.
+Savings UNMEASURED; R14 targets remain UNMET and quality051 OPEN. STOP.
