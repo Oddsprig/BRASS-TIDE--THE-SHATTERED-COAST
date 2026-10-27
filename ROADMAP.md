@@ -1,8 +1,8 @@
-# Current step: v0.049 - Complete authored boat roster and readable hull detail
+# Current step: v0.050 - Distinct coastal terrain and working harbors
 
-- Replace the remaining 33 procedural hulls with original authored directional assets, giving all 36 existing designs distinct functional silhouettes and propulsion detail.
-- Keep weapons interchangeable at actual mount positions and distinguish military boats, fishing gear, freight holds, tankers and civilian yachts.
-- Review normal-scale hull and damage visibility, preserve inexpensive 2D water and record actual asset size, production and integration evidence.
+- Give the eight coastal regions authored terrain compositions and all ten harbors distinct layouts and industry landmarks.
+- Prepare inexpensive cached detail at three zoom levels, using the actual campaign coast and translated battle encounter polygons.
+- Keep navigation boundaries, port anchors and trade routes authoritative while improving regional names, harbor captions and chart readability.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

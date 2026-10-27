@@ -1,6 +1,6 @@
 extends RefCounted
 
-const BUILD: int = 49
+const BUILD: int = 50
 
 static func text() -> String:
 	return "%d.%03d" % [BUILD / 1000, BUILD % 1000]

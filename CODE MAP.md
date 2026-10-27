@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.049: Complete authored boat roster and readable hull detail. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: boat_sprite_art.gd, hull_feedback.gd, quality042/models.py, quality042/bake.py, quality049/recipes.py, boats042/asset-manifest.json.
+v0.050: Distinct coastal terrain and working harbors. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: chart.gd, nautical_art.gd, coast_art050.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
