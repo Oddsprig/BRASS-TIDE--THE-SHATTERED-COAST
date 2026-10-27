@@ -49,12 +49,17 @@ Do not silently report Main publication time as total simulation cost. Native
 proof must cover actual worker identity, commands/current collisions/resources,
 pause/result/retirement and real-time30Hz capacity/lag plus rendered60FPS.
 See WORKER BATTLE051 CONTRACT.txt in the current task for shared ownership/API.
-Prepared marker geometry/demand observations/regressions are merged as source
-candidates only; no native validation yet. Dedicated worker change now takes
-priority over further microtuning. Three BridgeSol6.1MAX helpers implement
-driver, presentation/commands, and proof/observer. Root owns every muted
-background FIFO test; each whole batch below120seconds. No tag/install/push,
-Desktop050 preserved and no052 breadth until usable core.
+Reviewed worker architecture is now integrated as SOURCE ONLY:
+driver06dd17a->Root7ee77b4, presentationd6a4dc9->5f574f8, commandscfef2a9
+->07fef3a, proof31c2549->d92eecd. Actual Main battle loop polls worker30Hz;
+Chart interpolates detached visual records. Commands/boarding/crew/repair and
+Lab-only refill queue to the worker; result/exit retires before settlement.
+Root source API advisory found no issues; this is NOT native validation.
+R64 selected worker/goal/fire/damage checks andR65 drawing/export/3starts are
+prepared, each whole batch below119seconds. Actual renderedR32 will measure
+worker capacity, completed steps/lag and Main publication separately fromFPS.
+Three BridgeSol6.1MAX passes completed; no extra helpers or framework.
+No tag/install/push, Desktop050 preserved; no052 breadth until usable core.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 
 LATEST USER OVERRIDE - 27 October2026
@@ -113,7 +118,8 @@ UI/Scene/resources remain on main; workers own copied data and publish only afte
 join. Actual safe render thread mode1: Separate2 caused native texture/finalizer
 errors; never claim Separate active. Existing economy/tactical workers remain.
 Profile actual representative battles before increasing concurrency. No expensive
-fluid simulation, actor deletion, lower simulationHz or fake idle-FPS acceptance.
+fluid simulation, actor deletion or fake idle-FPS acceptance. The owner-authorized
+30Hz worker cadence above replaces the old 60Hz simulation requirement.
 
 ## Source, handoff and delivery
 
