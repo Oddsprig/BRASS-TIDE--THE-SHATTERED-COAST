@@ -9,6 +9,7 @@ const Refit=preload("res://scripts/refit.gd")
 const Portrait=preload("res://scripts/boat_portrait.gd")
 const Feedback=preload("res://scripts/hull_feedback.gd")
 const Battle=preload("res://scripts/battle.gd")
+const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Trace=preload("res://tests/art042_trace.gd")
 var checks: int=0
@@ -157,6 +158,9 @@ func inspect_recoil(hull: Dictionary,module: String) -> void:
 	ship.x=500.0;ship.y=850.0;ship.angle=0.061
 	target.x=750.0;target.y=850.0
 	ship.weaponCooldowns[1]=99.0
+	# Manual shots still require the production terrain, traffic and lane budget.
+	Tactical.begin(battle,1.0/60.0,{"manual":true})
+	Tactical.after_motion(battle)
 	var ammo: float=float(ship.ammo)
 	Battle._fire(battle,ship,Vector2(target.x,target.y))
 	var fired_once: bool=battle.projectiles.size()==1 and is_equal_approx(float(ship.get("mountShotTimes",{}).get("mount0",-1.0)),10.0)
