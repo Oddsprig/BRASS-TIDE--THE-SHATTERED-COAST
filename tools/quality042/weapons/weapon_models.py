@@ -1,13 +1,12 @@
 """Original authored marine weapons for Brass Tide 0.042.
 
-Blender SOURCE ONLY. Import with Blender's Python; Root owns every invocation.
+Offline model SOURCE ONLY. Root owns every bake invocation.
 Coordinates: +X muzzle, +Y starboard, +Z up; origin is the deck mounting pivot.
 One model unit is WeaponGeometry.unit(...); base deck height is added at runtime.
 The returned layers permit recoil of actual receivers/barrels without rebaking.
 """
 import math
-import bpy
-from mathutils import Vector
+from models import Model, box as rounded_box, add, sub, mul, cross, unit
 
 VARIANTS = (
     "gun_single", "gun_twin", "cannon", "rocket_three", "rocket_six",
@@ -17,18 +16,9 @@ MUZZLES = {"gun": (8.8, 4.8), "cannon": (14.2, 5.8),
            "rocket": (5.9, 6.0), "torpedo": (7.9, 2.8)}
 
 
-def material(name, color, metal=0.0, rough=0.4):
-    existing = bpy.data.materials.get("042_weapon_" + name)
-    if existing:
-        return existing
-    mat = bpy.data.materials.new("042_weapon_" + name)
-    mat.diffuse_color = (*color, 1)
-    mat.use_nodes = True
-    shader = mat.node_tree.nodes.get("Principled BSDF")
-    shader.inputs["Base Color"].default_value = (*color, 1)
-    shader.inputs["Metallic"].default_value = metal
-    shader.inputs["Roughness"].default_value = rough
-    return mat
+MATERIAL_KEYS = {"paint": "teal", "steel": "armor_light", "edge": "steel",
+                 "dark": "machinery", "brass": "brass", "rubber": "rubber",
+                 "case": "canvas", "bore": "seam", "warning": "oxide"}
 
 
 class Author:
@@ -36,80 +26,71 @@ class Author:
         self.variant = variant
         self.layers = {}
         self.layer = "base"
-        self.mats = {
-            "paint": material("sea_green", (0.18, 0.27, 0.25), 0.35, 0.46),
-            "steel": material("machined_steel", (0.32, 0.40, 0.43), 0.75, 0.29),
-            "edge": material("bright_worn_edges", (0.62, 0.68, 0.65), 0.8, 0.25),
-            "dark": material("oiled_steel", (0.085, 0.12, 0.13), 0.62, 0.36),
-            "brass": material("brass", (0.65, 0.43, 0.17), 0.72, 0.28),
-            "rubber": material("grip", (0.06, 0.075, 0.068), 0.0, 0.7),
-            "case": material("ammo_case", (0.34, 0.37, 0.23), 0.24, 0.52),
-            "bore": material("inside_tube", (0.055, 0.08, 0.075), 0.3, 0.65),
-            "warning": material("oxide_red", (0.53, 0.18, 0.095), 0.15, 0.5),
-        }
 
-    def finish(self, obj, name, mat, bevel=0):
-        obj.name = self.variant + "_" + name
-        obj.data.materials.append(self.mats[mat])
-        self.layers.setdefault(self.layer, []).append(obj)
-        if bevel:
-            bevel_mod = obj.modifiers.new("Manufactured edge radii", "BEVEL")
-            bevel_mod.width = bevel
-            bevel_mod.segments = 2
-            bevel_mod.affect = "EDGES"
-            normal = obj.modifiers.new("Weighted corner normals", "WEIGHTED_NORMAL")
-            normal.keep_sharp = True
-        return obj
+    @property
+    def model(self):
+        return self.layers.setdefault(self.layer, Model(self.variant+"_"+self.layer, 1.0))
 
     def box(self, name, center, size, mat="steel", bevel=0.06):
-        bpy.ops.mesh.primitive_cube_add(size=1, location=center)
-        obj = bpy.context.object
-        obj.scale = size
-        bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
-        return self.finish(obj, name, mat, bevel)
+        return rounded_box(self.model, name, center, size, MATERIAL_KEYS[mat], bevel=bevel)
 
     def cylinder(self, name, a, b, radius, mat="steel", vertices=20):
-        delta = Vector(b) - Vector(a)
-        bpy.ops.mesh.primitive_cylinder_add(vertices=vertices, radius=radius,
-                                          depth=delta.length, location=(Vector(a)+Vector(b))/2)
-        obj = bpy.context.object
-        obj.rotation_euler = delta.to_track_quat("Z", "Y").to_euler()
-        return self.finish(obj, name, mat, 0.025)
+        axis = unit(sub(b, a))
+        across = unit(cross(axis, (0, 0, 1) if abs(axis[2]) < .95 else (0, 1, 0)))
+        up = cross(across, axis)
+        side = self.model.part(name, MATERIAL_KEYS[mat])
+        for center in (a, b):
+            for i in range(vertices):
+                t = i*math.tau/vertices
+                normal = add(mul(across, math.cos(t)), mul(up, math.sin(t)))
+                side.vertices.append(add(center, mul(normal, radius)))
+                side.normals.append(normal)
+        for i in range(vertices):
+            j = (i+1) % vertices
+            side.quad((i, j, vertices+j, vertices+i))
+        for end, sign in ((a, -1), (b, 1)):
+            cap = self.model.part(name+"_cap", MATERIAL_KEYS[mat])
+            cap.vertices.append(end)
+            for i in range(vertices):
+                t = i*math.tau/vertices
+                off = add(mul(across, math.cos(t)*radius), mul(up, math.sin(t)*radius))
+                cap.vertices.append(add(end, off))
+            cap.normals = [mul(axis, sign)]*len(cap.vertices)
+            for i in range(vertices): cap.faces.append((0, i+1, (i+1) % vertices+1))
+        return side
 
     def tube(self, name, a, b, radius, wall=0.16, mat="steel", vertices=20):
         """A physical open tube, including inner wall and annular mouth.
 
         Recessed darkness is a lit inner wall, never a solid black front disc.
         """
-        axis = (Vector(b)-Vector(a)).normalized()
-        across = axis.cross(Vector((0, 0, 1))).normalized()
-        if across.length < 0.1:
-            across = Vector((1, 0, 0))
-        up = across.cross(axis).normalized()
-        points, faces, slots = [], [], []
-        for center, r in [(a, radius), (b, radius),
-                          (a, radius-wall), (b, radius-wall)]:
+        axis = unit(sub(b, a))
+        across = unit(cross(axis, (0, 0, 1) if abs(axis[2]) < .95 else (0, 1, 0)))
+        up = cross(across, axis)
+        for inside, r, material in ((False, radius, MATERIAL_KEYS[mat]),
+                                     (True, radius-wall, MATERIAL_KEYS["bore"])):
+            side = self.model.part(name+("_inner_wall" if inside else "_outer_wall"), material)
+            for center in (a, b):
+                for i in range(vertices):
+                    t = i*math.tau/vertices
+                    normal = add(mul(across, math.cos(t)), mul(up, math.sin(t)))
+                    side.vertices.append(add(center, mul(normal, r)))
+                    side.normals.append(mul(normal, -1 if inside else 1))
             for i in range(vertices):
-                t = i*math.tau/vertices
-                points.append(Vector(center)+(across*math.cos(t)+up*math.sin(t))*r)
-        for i in range(vertices):
-            j = (i+1) % vertices
-            faces.extend([(i, j, vertices+j, vertices+i),
-                          (2*vertices+j, 2*vertices+i, 3*vertices+i, 3*vertices+j),
-                          (vertices+i, vertices+j, 3*vertices+j, 3*vertices+i),
-                          (i, 2*vertices+i, 2*vertices+j, j)])
-            slots.extend([0, 1, 2, 0])
-        mesh = bpy.data.meshes.new(name)
-        mesh.from_pydata(points, [], faces)
-        mesh.update()
-        obj = bpy.data.objects.new(name, mesh)
-        bpy.context.collection.objects.link(obj)
-        self.finish(obj, name, mat)
-        obj.data.materials.append(self.mats["bore"])
-        obj.data.materials.append(self.mats["edge"])
-        for face, slot in zip(mesh.polygons, slots):
-            face.material_index = slot
-        return obj
+                j = (i+1) % vertices
+                side.quad((i, j, vertices+j, vertices+i))
+        for end, sign in ((a, -1), (b, 1)):
+            rim = self.model.part(name+"_annular_mouth", MATERIAL_KEYS["edge"])
+            for r in (radius, radius-wall):
+                for i in range(vertices):
+                    t = i*math.tau/vertices
+                    off = add(mul(across, math.cos(t)*r), mul(up, math.sin(t)*r))
+                    rim.vertices.append(add(end, off))
+            rim.normals = [mul(axis, sign)]*len(rim.vertices)
+            for i in range(vertices):
+                j = (i+1) % vertices
+                rim.quad((i, j, vertices+j, vertices+i))
+        return rim
 
     def bolts(self, z, xs, ys):
         for x in xs:
@@ -234,8 +215,4 @@ def build_weapon(variant):
         rockets(m, variant == "rocket_six")
     else:
         torpedoes(m, variant == "torpedo_twin")
-    for layer, objects in m.layers.items():
-        for obj in objects:
-            obj["brass_tide_variant"] = variant
-            obj["brass_tide_layer"] = layer
     return m.layers

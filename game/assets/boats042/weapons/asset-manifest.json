@@ -1,0 +1,222 @@
+{
+  "schema": "brass-tide-weapons042-v1",
+  "revision": "042-authored-weapons-r2",
+  "status": "Source contract; image files require Root bake and visual/native review.",
+  "projection": {
+    "x": 0.82,
+    "y": 0.41,
+    "height": 1
+  },
+  "coordinates": "+X muzzle; +Y starboard; +Z up; heading index * TAU/32 in world XY",
+  "canonical_unit": 1,
+  "deck_height": 9.7,
+  "scale_source": "weapon_geometry.gd unit(hull_size,tier); never hull size stretched",
+  "weapons": {
+    "gun_single": {
+      "kind": "gun",
+      "muzzle": [
+        8.8,
+        0,
+        4.8
+      ],
+      "base": {
+        "atlas": "res://assets/boats042/weapons/gun_single-base.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      },
+      "moving": {
+        "atlas": "res://assets/boats042/weapons/gun_single-moving.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      }
+    },
+    "gun_twin": {
+      "kind": "gun",
+      "muzzle": [
+        8.8,
+        0,
+        4.8
+      ],
+      "base": {
+        "atlas": "res://assets/boats042/weapons/gun_twin-base.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      },
+      "moving": {
+        "atlas": "res://assets/boats042/weapons/gun_twin-moving.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      }
+    },
+    "cannon": {
+      "kind": "cannon",
+      "muzzle": [
+        14.2,
+        0,
+        5.8
+      ],
+      "base": {
+        "atlas": "res://assets/boats042/weapons/cannon-base.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      },
+      "moving": {
+        "atlas": "res://assets/boats042/weapons/cannon-moving.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      }
+    },
+    "rocket_three": {
+      "kind": "rocket",
+      "muzzle": [
+        5.9,
+        0,
+        6
+      ],
+      "base": {
+        "atlas": "res://assets/boats042/weapons/rocket_three-base.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      }
+    },
+    "rocket_six": {
+      "kind": "rocket",
+      "muzzle": [
+        5.9,
+        0,
+        6
+      ],
+      "base": {
+        "atlas": "res://assets/boats042/weapons/rocket_six-base.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      }
+    },
+    "torpedo_single": {
+      "kind": "torpedo",
+      "muzzle": [
+        7.9,
+        0,
+        2.8
+      ],
+      "base": {
+        "atlas": "res://assets/boats042/weapons/torpedo_single-base.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      }
+    },
+    "torpedo_twin": {
+      "kind": "torpedo",
+      "muzzle": [
+        7.9,
+        0,
+        2.8
+      ],
+      "base": {
+        "atlas": "res://assets/boats042/weapons/torpedo_twin-base.png",
+        "headings": 32,
+        "columns": 8,
+        "rows": 4,
+        "cell_px": [
+          256,
+          192
+        ],
+        "pivot_px": [
+          128,
+          128
+        ],
+        "pixels_per_world_unit": 6
+      }
+    }
+  }
+}
