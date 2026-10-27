@@ -573,6 +573,35 @@ func _leave_lab():
 	lab_active=false
 	quick_mode=false
 
+func workshop_try_draft(uid: String, loadout: Dictionary) -> bool:
+	if mode != "campaign" or lab_active or career_core != null:
+		ui.toast("Return to your voyage before trying an owned boat draft.", true)
+		return false
+	sync_economy()
+	var owned: Dictionary = core.find_boat(uid)
+	if owned.is_empty() or owned.get("sunk", false):
+		ui.toast("Choose a living owned boat to try.", true)
+		return false
+	var base: Dictionary = core.hull(str(owned.type))
+	var checked: Dictionary = Refit.normalize(base, loadout)
+	if not checked.ok:
+		ui.toast(str(checked.message), true)
+		return false
+	var candidate: Dictionary = FleetLab.preset(data, "duel")
+	candidate.player = [{"hull": str(base.id), "count": 1, "loadout": checked.loadout.duplicate(true)}]
+	candidate.enemy = [FleetLab.entry(data, "ash_corvette")]
+	candidate.formation = "closing"
+	candidate.label = "Workshop draft trial"
+	candidate.guidance = "Repeatable draft trial. No fittings purchased and no voyage rewards. Use Selected tactics for this battle's automatic-fire settings."
+	var inspected: Dictionary = FleetLab.inspect(data, candidate)
+	if not inspected.ok:
+		ui.toast(str(inspected.error), true)
+		return false
+	lab_config = candidate
+	lab_seed = 48048
+	start_lab()
+	return lab_active and mode == "battle"
+
 func open_lab():
 	if mode=="campaign": save_game(false)
 	_leave_lab()

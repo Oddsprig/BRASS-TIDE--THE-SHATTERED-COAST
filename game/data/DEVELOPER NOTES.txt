@@ -1,26 +1,13 @@
-BRASS TIDE v0.047 - FLEET COMMAND AND READABLE BATTLE INFORMATION
+BRASS TIDE v0.048 - VISUAL REFITTING AND MEANINGFUL BUILD TRADEOFFS
 27 October2026 |36 boat designs
 
 THIS VERSION
-- Replace permanent battle sidebars with a compact full-width HUD, on-demand crew/roster and selected tactics details.
-- Give selected boats clear engage, harass, focus, escort, defend, rally, hold and withdraw orders with target prompts and honest acknowledgments.
-- Use actual saved groups/formations and optional bounded weapon arcs, threat and route overlays; bring small engagements closer on entry.
+- Compare current and draft physical mounts, handling, protection, endurance and real itemized yard costs before paying.
+- Offer three distinct existing-hull fitting examples with explicit weaknesses, normal stock/material/labor costs and saved fitting templates.
+- Try the current owned-boat draft in an isolated repeatable Fleet Laboratory encounter without transferring equipment or changing the career.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
-
-CONTROLS
-WASD camera; Space pause; Tab tactical overview; U manual/autopilot.
-Select living friendly boats, then use the compact bottom command bar.
-Focus/escort/defend/rally await a world right-click; Escape cancels the picker.
-F1-F4 recall groups; Ctrl+F1-F4 save. Existing1/2/3 orders remain.
-Roster & crew retains full details; selected tactics holds formations, weapon
-fire settings, groups and opt-in range/threat/route information.
-
-QUALITY LIMITS
-Native and actual rendered review receipts are outside this embedded text under
-tests/. All v0.046 realtime performance targets remain UNMET; quality gate051
-stays OPEN. Small battles start closer; large300DP battles keep their full roster.

@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.047: Fleet command and readable battle information. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: interface.gd, tactics_ui.gd, main.gd, chart.gd, battle_commands047.gd.
+v0.048: Visual refitting and meaningful build tradeoffs. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: workshop_ui.gd, workshop_comparison048.gd, workshop_builds048.gd, main.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

@@ -1,8 +1,8 @@
-# Current step: v0.047 - Fleet command and readable battle information
+# Current step: v0.048 - Visual refitting and meaningful build tradeoffs
 
-- Replace permanent battle sidebars with a compact full-width HUD, on-demand crew/roster and selected tactics details.
-- Give selected boats clear engage, harass, focus, escort, defend, rally, hold and withdraw orders with target prompts and honest acknowledgments.
-- Use actual saved groups/formations and optional bounded weapon arcs, threat and route overlays; bring small engagements closer on entry.
+- Compare current and draft physical mounts, handling, protection, endurance and real itemized yard costs before paying.
+- Offer three distinct existing-hull fitting examples with explicit weaknesses, normal stock/material/labor costs and saved fitting templates.
+- Try the current owned-boat draft in an isolated repeatable Fleet Laboratory encounter without transferring equipment or changing the career.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.
