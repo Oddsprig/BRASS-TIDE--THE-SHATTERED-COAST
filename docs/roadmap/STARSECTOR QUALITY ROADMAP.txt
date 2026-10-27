@@ -11,7 +11,9 @@ that is not a whole-game FPS win. Planning remains dominant, with2,440 main
 fallbacks versus442 worker adoptions in the light case. Three BridgeSol6.1MAX
 source candidates now include fresh worker seeds when an old choice expires
 during handoff, shared current-begin role preparation and bounded exact route
-refusal receipts. R46 native/export validation and actualR22 remain pending.
+refusal receipts. R46 passed voyage/geometry/retained but failed four existing
+worker assertions. R47 tests original-expiry scheduling and a separate selected-
+target station-order fix; all four old assertions retained. ActualR22 pending.
 No engines during source work; Root alone queues bounded background batches.
 No051 tag/package/install or quality claim. Earlier findings are historical.
 

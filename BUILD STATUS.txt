@@ -38,8 +38,19 @@ Integer reason counters separate expiry, unfinished, changed-input and semantic
 rejections. e96d8b4 ->f557d59 adds profiling-only route refusal receipts:
 80 hulls/five stages, at most one per hull/stage per0.1 simulated seconds.
 Only the profiler-owning main thread publishes; private worker budgets do not.
-NextR46 same actualvoyageFIRST/affectedAI/export/three starts119swhole,
-then actualR22 after the current export passes. No quality or savings claim.
+R46 stopped42.156s: voyage274/geometry683/retained355 PASS; worker232
+had four original handoff/certificate/sample/blocked-connector failures.
+The failure remains recorded and no R46 export or actualR22 is claimed.
+9ed8ae1 adds pooled eligibility/priority at original semantic expiry without
+renewing ages or increasing fair caps. Priorities are computed once per hull.
+The fixture selects a real generation satisfying both original age constraints;
+all four old assertions remain unchanged, with compact generation receipts.
+4c3299c fixes a separate pre-existing target-list mismatch: station generation
+prioritizes the current selected target in a local copy, preserving all eight
+offers and alternate targets. Grok's independent review found this issue and
+reported no separate alias/staleness defect in the shared role preparation.
+NextR47 same actualvoyageFIRST/affectedAI/export/three starts119swhole,
+then actualR22 after a current export passes. No quality or savings claim.
 All42/16 actors,300DPside,60Hz,original stats/stores remain; no new breadth,
 no051tag/package/install/no052. Desktop050 and user voyages/music retained.
 All earlier checkpoints below are historical context.
