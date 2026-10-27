@@ -1,0 +1,76 @@
+R22 PHYSICAL SOURCE - READ-ONLY FINDING
+27 October 2026 | Base ed876cb80e29d42000819209415784003e5001ba
+
+Disposition: no production or fixture change. The allowed source inspection did
+not identify a safely material additional post-prepass read cache. Do not count
+this report as an optimization, native pass, FPS improvement or stall fix.
+
+Evidence: TestBridge dc1f0f9227be491e93a78992413e9021, attempt-001/runtime/
+runtime043-41644-2067044/runtime043-light.json and runtime043-mixed.json.
+Counters are cumulative since case start; renderer-only warmup precedes combat.
+Light has 571 ticks, 42 actors, 300DP per side. Mixed has 721 ticks/16 actors.
+The supplied R22 quality failure and absence of persistent stalls stand.
+
+Light exact final tick.damageCounters.cache:
+ phaseEntryCalls 240723; phaseHits 216741; phaseEntryUs 627110
+ sealedStatusHits 144288
+ statusInputsCalls 38927 / 61090us
+ statusFreshCalls 5972 / 113826us; statusReuseCalls 18271 / 3747us
+ battleTickGuardCalls 23982 / 212979us; battleTickCalls 23982 / 448803us
+ equipmentSnapshots fullSnapshotCalls 3207 / 163028us
+Mixed: phaseEntryCalls 119784 / 478469us; sealedStatusHits 73554;
+ fullSnapshotCalls 4115 / 198929us. These do not identify per-consumer cost.
+
+Light observed means from the existing tick fields (microseconds per tick):
+ phaseUs helm 2273.275, damage 1186.252, mounts 882.869, firing 1239.625
+ planningDetailUs helmCurrent 579.068, helmSafety 1420.970
+ phase-entry timer total / ticks 1098.266, spanning ALL consumers and begin
+ battle guard / ticks 372.993; numerical battle tick / ticks 785.995
+Full phase means are attribution evidence, not savings estimates. Timers can
+nest; do not add them together. No new timing run or CPU benchmark was made.
+
+Inspected callchain and exclusions:
+1. Battle.update completes all damage/mount prepasses and retargeting, calls
+ Damage._seal_battle_reads051, then begin/helm/motion/fire synchronously. It
+ closes the handle before boarding, contacts and projectile damage. The existing
+ _read_status_in_phase043 already borrows immutable entry.status, preserving
+ exact owner/membership/generation/priority and live fuel-zero checks. Rebuilding
+ another sealed status view would repeat the implemented mechanism.
+2. Certification._current_core051 compares complete equipmentInputs only for
+ unretained live-certificate records. Runtime._current051 sends retained owners
+ through _retained_current051 instead. That path already uses selected scalar
+ motion inputs, current status/capability and identity guards; no entire fit
+ array is deep-copied at each retained check. The complete equipment snapshot
+ is made when certifying, not by every current read. Caching its comparison
+ would address only a subset of the measured 579us helmCurrent mean, with no
+ per-comparison attribution proving a material gain. Fire is separately fresh.
+3. Certification.safe_step/_crowd_step051 project the actual 60Hz next pose and
+ ask Routes.sweep/occupied (or checked alignment) using current physical inputs.
+ helmSafety's 1421us mean is larger than helmCurrent; reusing an earlier result
+ before/after movement is invalid. Routes/Runtime changes are outside this seat.
+4. Battle._combat_mounts checks live spec source against the registered source;
+ Runtime.refresh_mounts then computes current mount condition key. It rebuilds
+ conditioned mount arrays only when that key changes. MountLayout.mounts_of is
+ not called by this ordinary Battle mount refresh. Removing its copies would
+ not address this measured path. Skipping source/condition guards would require
+ changing the owning Battle/Runtime contract, outside this allowlist. The four
+ factor key formatting and working-mask scan have no separate measured cost.
+5. EquipmentCombat.capability_fields/module_hp_sum retain public arbitrary-owner
+ validation. Public supplied-status/clone callers cannot safely bypass it. The
+ live retained loss check uses Certification._live_capability rather than the
+ full capability-field array; physicalCertification time is zero on all 571
+ light ticks. No evidence supports optimizing the full forecast field path for
+ the requested several-ms post-begin opportunity.
+
+Existing focused fixture selections for a future measured read-preparation
+change: test_damage_hotpath040.gd (owned/sealed/invalidation/fuel/clone/closure),
+test_frame_projection_isolation.gd (public/forged-status/clone guards), and
+test_equipment_combat.gd (mount factors/working mask/capability semantics).
+All fixtures/assertions and production files remain unchanged. Root owns native
+selection and actual rendered measurement; this source-only pass ran neither.
+
+Single read-only preload-call advisory on all four owned source files: zero
+issues, engineInvoked false. Whitespace check clean. git diff HEAD -- game is
+empty: all production/fixtures/assertions unchanged. Pre-existing untracked
+.bigbridge/ remains untouched. No new harness/helper/engine/GPU job, runtime
+field, timing probe, navigation behavior or gameplay change.
