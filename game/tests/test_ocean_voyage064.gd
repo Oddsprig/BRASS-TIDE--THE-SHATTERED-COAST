@@ -91,7 +91,16 @@ func custody(saved: Dictionary) -> Dictionary:
 				if boat.has(key):record[key]=boat[key].duplicate(true) if boat[key] is Array or boat[key] is Dictionary else boat[key]
 			physical.append(record)
 		owners.append({"id":owner.id,"coins":owner.coins,"crewPurse":owner.crewPurse,"wageArrears":owner.wageArrears,"cargo":owner.cargo.duplicate(true),"boats":physical})
-	return {"owners":owners,"coins":saved.coins,"crewPurse":saved.crewPurse,"wageArrears":saved.wageArrears,"debt":saved.debt,"cargo":saved.cargo.duplicate(true),"coinSupply":saved.coinSupply,"boats":boats,"ports":saved.ports.duplicate(true)}
+	var ports: Array=saved.ports.duplicate(true)
+	# Campaign.restore -> ReserveOps.ensure -> refresh rebuilds incoming from
+	# live trader destinations/cargo and observedDemand from lastProduction,
+	# lastPublicUse and owner consumption. Exclude only these derived forecasts;
+	# every other port field, including actual goods, purses and labor, stays exact.
+	for port in ports:
+		if port.get("reserves") is Dictionary:
+			port.reserves.erase("incoming")
+			port.reserves.erase("observedDemand")
+	return {"owners":owners,"coins":saved.coins,"crewPurse":saved.crewPurse,"wageArrears":saved.wageArrears,"debt":saved.debt,"cargo":saved.cargo.duplicate(true),"coinSupply":saved.coinSupply,"boats":boats,"ports":ports}
 
 func sync_days() -> void:
 	while c.pending_days>0:
@@ -142,8 +151,16 @@ func roundtrip(label: String) -> void:
 	var restore: Dictionary=c.restore(save)
 	check(bool(restore.ok),label+": real Core.restore accepts JSON: "+str(restore.message))
 	check_same(c.world_location064(),{"world064":save.world064,"position":save.position,"heading":save.heading,"path":save.path,"destination":save.destination},label+": exact parsed spatial record survives restore")
-	check_same(custody(c.state),custody(save),label+": exact parsed boats, crew, stores, purses and ports survive restore")
+	check_same(custody(c.state),custody(save),label+": exact parsed boats, crew, stores, purses and port custody survive restore")
 	check(Money.total(c.state)==int(save.coinSupply),label+": original coin supply remains conserved")
+	# Independently sum current shipments without refreshing or mutating state.
+	for port in c.state.ports:
+		var incoming: Dictionary={}
+		for owner in c.state.fleetOwners:
+			if not owner.active or owner.get("kind","")!="trader" or str(owner.get("destination",""))!=str(port.id) or not str(owner.get("atPort","")).is_empty():continue
+			var good: String=str(owner.get("tradeGood",""))
+			if c.Goods.ITEMS.has(good):incoming[good]=float(incoming.get(good,0))+minf(float(owner.get("tradeCargo",0)),float(owner.cargo.get(good,0)))
+		check_same(port.reserves.incoming,incoming,label+": incoming forecast matches live shipments for "+str(port.id))
 
 func refusal_cases() -> void:
 	var anchor: Dictionary=c.state.duplicate(true)
