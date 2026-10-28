@@ -134,6 +134,13 @@ static func create_owners(ports: Array,world: Dictionary) -> Array:
 		home[purse]=_integer(home.get(purse,0))-capital
 		owner.coins=capital
 		_log(owner,"Capital: %d bronze coins transferred from %s."%[capital,home.name])
+		# Allocate opening crew savings before the first dock buys rations and trade cargo.
+		# This comes from that same capital; normal payroll still owes every wage-day.
+		var ration_coins: int=mini(capital,ceili(costs.food*3.0)*Economy.price(home,"food","buy"))
+		owner.coins-=ration_coins
+		owner.crewPurse+=ration_coins
+		if ration_coins>0:
+			_log(owner,"Initial crew provisions: %d coins transferred from operating capital."%ration_coins)
 		owners.append(owner)
 	return owners
 
@@ -235,7 +242,7 @@ static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 				if good==owner.tradeGood:owner.tradeCargo=maxf(0.0,float(owner.tradeCargo)-float(result.qty))
 				messages.append("%s sold %d captured %s at %s."%[owner.name,int(result.qty),good,port.name])
 	var personal_food: float=float(owner.cargo.food)
-	if owner.get("playerCompany",false) and owner.tradeGood=="food":personal_food=maxf(0,personal_food-float(owner.tradeCargo))
+	if owner.tradeGood=="food":personal_food=maxf(0,personal_food-float(owner.tradeCargo))
 	_purchase(owner,port,"food",maxi(0,ceili(costs.food*3.0-personal_food)),true,false,core)
 	for boat in owner.boats:
 		if boat.sunk:

@@ -1,0 +1,63 @@
+061 BOUNDED INITIAL NPC PROVISIONS DEPENDENCY FIX / SOURCE ONLY
+
+Base: reviewed Root e64ab50441b91e9f1d08b5a75bac421e863d93a9.
+Only production change: game/scripts/fleet_economy.gd. This note is the other
+allowed file. No naval_lifecycle.gd change is necessary.
+
+Demonstrated dependency (Root R6 report, not rerun here)
+190/191 actual paid-voyage checks passed, including seven clear days, once-only
+funding, paid return, UI purity and conservation. The one failure was an actual
+loaded NPC food merchant's delivery. patrol-1 began with 43 commercial food,
+10 crew, 3050 operating coins and zero crewPurse. fleet_reserves correctly
+excludes tradeCargo from operating food; dock excluded it only for playerCompany.
+The first normal readiness observation therefore saw no personal provisions
+and returned the merchant home before its delivery.
+
+Source-informed startup order
+Campaign.new_game creates ports, then calls Fleets.create_owners. That constructor
+allocates actual crews from the home workforce and transfers capped opening
+capital from the existing home cash (trader) or governmentPurse (other NPCs).
+Campaign subsequently calls Fleets.dock at each NPC's home before clearing atPort
+and initializing NavalAI orders. In dock, crew-paid food purchase precedes boat
+stores/repairs and the final commercial load. Initial orders/readiness are
+therefore downstream of the existing real dock preparation.
+
+Fix and bounds
+Within create_owners only, move min(actual opening capital, ceil(three days of
+actual crew food use) * current home market food buy price) from owner.coins to
+owner.crewPurse. Whole ration lots use the same ceiling as dock's existing food
+request; using the actual buy price avoids treating Goods.cost as a market quote.
+The transfer is logged. No extra sponsoring transfer or capital request occurs.
+Existing dock/_purchase/Economy.transact then buy actual rations from finite
+market stock, with normal law, stock/reserve, hold capacity and affordability
+checks. Unspent savings stay in crewPurse; there is no recurring top-up or new
+financing policy. This allocation is opening crew savings, not a payroll event:
+wageArrears, wageRemainder, lastPayroll and all future wages remain unchanged.
+
+Dock now subtracts commercial food for every owner whose tradeGood is food,
+matching fleet_reserves and tick's existing own-food accounting. This allows an
+ordinary loaded food merchant to buy its separate rations at a real dock. The
+existing playerCompany branch already performed the same subtraction and keeps
+its prior purchasing, market limits, ledgers and core-required behavior.
+
+Conservation and save boundary
+For opening capital C and crew allocation R, home purse delta is -C, owner.coins
+delta is +(C-R), crewPurse delta is +R: combined coin delta is exactly zero.
+A successful ration purchase of Q at price P subsequently moves P*Q from
+crewPurse to port.cash and Q food from port.stocks to owner.cargo; tradeCargo
+is not increased for rations. No coin, food, crew, hull or grant is created by
+this fix. The original fourteen-wage-day plus three-day food/fuel requested
+capital formula and cap are unchanged. The allocation is confined to the new
+NPC constructor, not normalization, load/restore, daily ticks or generic dock:
+old raw saves receive no opening savings or retroactive purse edits on load.
+Their next ordinary paid dock visit uses the corrected food classification.
+
+Scope and evidence limits
+Manually reviewed the changed source against Campaign startup, the complete
+Damage.create_ship constructor, fleet_reserves, market price/transact, normal
+payroll/consumption and readiness. No tests, engine, GPU, UI, export, parser or
+advisory scripts were run here. This is a source handoff, not acceptance of the
+failed delivery or a new native/conservation result. Root owns all testing and
+must verify the actual paid merchant delivery and retained regressions before
+acceptance. No readiness, combat, routes, traffic, progress, playerCompany
+funding, release metadata or configuration changes; no helpers or push.
