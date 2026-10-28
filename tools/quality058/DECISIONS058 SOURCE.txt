@@ -23,6 +23,10 @@ D.equipment(owner: Dictionary) -> Array: detached actual item records sorted
 by location/UID, from sourceModuleCondition or moduleCondition.
 D.carriers(state: Dictionary) -> Array: cheap existing working roster candidates;
 A's quote remains authoritative, no carrier is silently chosen.
+supportOnly alone is an ordinary traveling support/reserve role and does not
+exclude a working hold. Expedition.traveling still excludes sunk, stored,
+mothballed, needsHarborRepair and undercrewed hulls; positive HP and an existing
+moduleCondition dictionary remain required. A retains full canonical/hold checks.
 D.compare(c,wreck_id,mode="tow",good="",qty=0.0,request={},return_port_id="")
 -> {ok,message,wreck,quote,before,after,service,equipment}.
 quote is the exact Campaign.recovery_quote result. before/after are real
@@ -82,6 +86,16 @@ all old arguments and appends request, forwarding to Main exactly as A specifies
 RecoveryUI.leave(ui) closes only; take_cargo/outcome/blueprints remain supported.
 Normal UI uses catalogue/boat/harbor names, mount labels and condition. Exact
 part UIDs, original hull names and causes are available in equipment tooltips.
+_boat_summary shows supportOnly as "support / reserve boat"; only the actual
+needsHarborRepair flag adds "paid harbor repair needed". A ready support boat
+is therefore not mislabeled as awaiting repair. No API signatures changed.
+
+BOUNDED SUPPORT-CARRIER FOLLOW-UP (source review only)
+Root accepted the traveling support/reserve compatibility rule. Removed only
+the supportOnly exclusion in D.carriers and separated role from repair status
+in _boat_summary. C owns its needsHarborRepair unsupported fixture adjustment.
+Reviewed existing Expedition.traveling and A's current carrier contract. No
+engine/tests/parser/advisory/import/export or CUA work; Root owns execution.
 
 Source review: read actual RouteCache/Navigation/Expedition, EquipmentTow,
 Lifecycle.materialize, EquipmentService full quote/repair constraints, Refits

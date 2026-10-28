@@ -63,8 +63,9 @@ static func part_name(item: Dictionary) -> String:
 	return str(Refits.catalog().get(str(item.get("family","")),{}).get(str(item.get("typeId","")),{}).get("name",str(item.get("typeId","Part")).replace("_"," ").capitalize()))
 
 ## Carrier selection remains explicit; this is only a cheap candidate roster.
+# supportOnly is a deployment role, not a disabled physical hold.
 static func carriers(state: Dictionary) -> Array:
-	return Expedition.traveling(state).filter(func(b):return not b.get("supportOnly",false) and float(b.get("hp",0))>0 and b.get("moduleCondition") is Dictionary)
+	return Expedition.traveling(state).filter(func(b):return float(b.get("hp",0))>0 and b.get("moduleCondition") is Dictionary)
 
 static func _wreck(state: Dictionary,id: String) -> Dictionary:
 	for w in state.get("wrecks",[]):

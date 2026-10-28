@@ -55,7 +55,9 @@ static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	ui.button(body,"Recovered drawings",func():blueprints(ui),false,false)
 
 static func _boat_summary(boat: Dictionary) -> String:
-	return "hull %.0f / %.0f · crew %d / %d minimum · %s"%[float(boat.get("hp",0)),float(boat.get("maxHp",0)),int(boat.get("crew",0)),int(boat.get("crewMin",0)),"support only; paid repair needed" if boat.get("supportOnly",false) or boat.get("needsHarborRepair",false) else "crewed roster hull"]
+	var role: String="support / reserve boat" if boat.get("supportOnly",false) else "crewed roster hull"
+	if boat.get("needsHarborRepair",false):role+="; paid harbor repair needed"
+	return "hull %.0f / %.0f · crew %d / %d minimum · %s"%[float(boat.get("hp",0)),float(boat.get("maxHp",0)),int(boat.get("crew",0)),int(boat.get("crewMin",0)),role]
 
 static func _lots(c,lots: Dictionary) -> String:
 	var parts: Array=[]
