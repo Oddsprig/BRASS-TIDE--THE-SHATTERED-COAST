@@ -459,13 +459,7 @@ static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Diction
 
 	var reserve_row = ui.row(xfer_col)
 	var btn_load = ui.button(reserve_row, "Load hold reserves (ammo, fuel & kits)", func():
-		if ui.host.has_method("load_reserves065"):
-			ui.host.load_reserves065()
-		else:
-			ui.host.sync_economy()
-			c.use_reserves()
-			ui.host.save_game(false)
-			open(ui)
+		ui.host.load_reserves065()
 	, false, false)
 	btn_load.custom_minimum_size.y = 36
 	ui.paragraph(reserve_row, "Loads loose hold ammunition, fuel and repair kits into boat working stores in fleet order; food stays in the hold. Sealed job freight is never touched.", 12, ui.MUTED)
