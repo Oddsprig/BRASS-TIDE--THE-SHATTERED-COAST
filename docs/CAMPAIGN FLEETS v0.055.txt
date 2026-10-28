@@ -1,0 +1,22 @@
+BRASS TIDE v0.055 - COASTAL FLEETS AND LOCAL INTELLIGENCE
+
+Open Coastal traffic from Voyage jobs & contacts to read your lookout reports.
+A current nearby living fleet can be hailed. Old intelligence keeps its observed
+purpose and destination; it does not track a distant captain. Reacquire it nearby
+before hailing. Witnessed outcomes are dated; unseen fights are not revealed.
+
+Pirates seek locally observed loaded carriers. Patrols intercept hostile raiders
+or screen friendly loaded convoys. A brief lost contact is pursued at its last
+known position; expired intelligence ends that pursuit. Damaged or poorly
+provisioned fleets return for paid recovery instead of pursuing indefinitely.
+NPC decisions are staggered; distant fights use bounded salvos and real stores.
+
+Prizes move actual cargo between surviving holds. Patrols can recover stolen
+goods from a raider. Repair consumes kits, materials, labor and coins; replacement
+uses actual stock or a funded yard commission and available trained recruits.
+Lost hull equipment and recoverable cargo remain with the sea wreck before any
+replacement relaunches. Crew remain numerical, water remains inexpensive.
+
+This version improves the existing campaign systems. Full-game art, balance,
+performance and play quality remain later roadmap work. Exact scoped checks and
+actual exported-view evidence are recorded in tests/ and the current build notes.

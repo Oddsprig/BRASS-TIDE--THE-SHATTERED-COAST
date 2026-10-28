@@ -1,3 +1,5 @@
+v0.055 VERIFIED AND PACKAGED: 216/0 focused checks, selected batch 82.869s, TestBridge 6c496cce2c414a179fdd624f9d2ac05d. Source 9a913ba.
+
 27OCT2026 - v0.055 LOCAL CAMPAIGN INTELLIGENCE AND INDEPENDENT FLEET PURPOSE
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

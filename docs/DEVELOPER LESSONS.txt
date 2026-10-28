@@ -432,3 +432,6 @@ SCOPED051 DELIVERY DECISION
   remain beyond33.333/100targets. Keep rawqualityflagFALSE. Root accepts the
   useful bounded051release and carries these targets to061; do not turn tiny
   FPS rounding or two early impact bursts into endless pre-production tuning.
+
+055 CAMPAIGN FIXTURE LESSONS
+Seeded NPCs may already have spent capital on stores. Stage a ready voyage with explicit existing-treasury transfers and real purchases, retaining global money conservation. Commercial food is excluded from operating food; use fleet_reserves rather than raw hold.food. Canonical yard reservations reduce EquipmentService.workforce_status.free, not necessarily raw availableWorkers. Fund replacement scenarios from quote_at_port plus actual recruiting cost instead of a guessed fixed bill. Preserve failed receipts and original meaningful assertions.

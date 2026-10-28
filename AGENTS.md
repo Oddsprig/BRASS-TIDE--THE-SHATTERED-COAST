@@ -1,66 +1,37 @@
-CURRENT055 - INDEPENDENT CAMPAIGN AI SOURCE
-Base054ed51ad4 delivered/installed: original36campaignboats/realformations/landmarks and465distinctscopedchecks+7actualscreens. Preserveitsart. Read task/SCOPE 055 CAMPAIGN AI.txt and task/CURRENT STATE.txt. ThreeBridgeSol6.1MAX source-only: localdatedsightings/boundedat-seaorders; finiteoffscreencombat/paidrecovery; trafficUI/proof. Metadata55 NOT prepared. No056breadth/051retune. RootallmutedbackgroundFIFOtests<120s/noinput/focus. Saved roadmap055-062; fullquality/strictremaining051targetsOPEN062.
+# Brass Tide — current working instructions
 
-# Brass Tide - current working instructions
+Current scoped build: v0.055 VERIFIED, packaging/install follows this checkpoint.
+Native6c496cce/attempt001216/0+export3starts82.869s; actual18d92609/attempt001
+nine exported UI/chart PNGs30.969s, Root viewed. Tested044c5ce and Root9a913ba
+share the same game tree; original failed fixture receipts remain preserved.
+Whole-game acceptance remains OPEN062. Read work/quality-v042-v061/CURRENT STATE.txt
+for the exact installed build and live jobs; this header is a checkpoint.
+Next056 source candidates are prepared in separate Bridge SolMAX checkouts:
+commission104e71f, access4ac33a5, contacts2bf23f5, all based0559498afd. Integrate
+only after055delivery and preserve later055fixture fixes. Metadata56 NOT prepared.
 
-Owner authorization: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER
-3 SOL 6.1 MAX - YOU CAN USE GROK 4.7 ON HIGH TO HELP."
-Build the saved scopes0.042-0.061 in order. Majority implementation through
-Bridge; Root coordinates, reviews, integrates and owns all engine/GPU jobs.
-Maximum3 active Sol6.1MAX, optional Grok4.7HIGH. No native/nested helpers,
-new chats, ask_project/AI brain, model substitution or paid-API fallback.
-Read work/quality-v042-v061/CURRENT STATE.txt for exact active jobs/helper offsets.
-Completed helpers stay idle until given a new bounded current-source task.
+Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
+USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;
+Root coordinates/reviews/integrates and alone owns all engine/GPU jobs. Maximum3
+active Sol6.1MAX; optional Grok4.7HIGH. No native/nested helpers, new chats,
+ask_project/AI brain, model substitution or paid-API fallback. Isolated allowlists,
+source-only helpers; integrate named commits. Completed helpers stay idle until
+given another bounded task. Finish055 delivery before advancing the next saved release.
 
-CURRENT CORE CHECKPOINT - 27 October 2026
-v0.051 SCOPED PLAYABLE BUILD VERIFIED; whole-game quality remains OPEN.
-Full Starsector-equivalent/whole-game quality acceptance remains OPEN at0.061.
+Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
+Strict performance and whole-game quality remain OPEN at062. Do not reopen051
+fine-tuning as a prerequisite for each later bounded scope. 051 receipts remain
+unchanged: light workerP9538.435ms exceeds33.333ms, maxlag151.409ms exceeds100ms;
+measured light59.999155/mixed59.987253FPS misses strict>=60, rawqualityflagFALSE.
+Full facts/receipts are in tools/quality051, DEVELOPER LESSONS, current task and
+DELIVERED v0.051.json; historical checkpoint text is archived in the task.
 
-Owner-directed architecture: authoritative combat30Hz on a data worker; Main
-owns input/command queue, UI/audio/render submission and interpolated poses.
-Role/target choices stay100ms. Existing synchronous Battle APIs remain public
-references. All36boats, real mounts,300DPside, original coins/purses/resources,
-numerical crews, event ordering and complete retire accounting remain intact.
-Safe render mode1 remains active; Separate2 is not claimed.
-
-R69 unchangedretry3873d885a89f4747934a9fff2564d18c PASS5692/0 in83.735s whole:
-worker/HUD120,owned damage451,feedback5121,export/menu/campaign/battle/cleanup.
-R68command57,R66goals851/fire123 andR67hull205/weapon2292 retained by unchanged
-source dependencies. Exact receipts and source proof are in tests/ and task.
-OriginalR69 yielded to another game; its interruption is preserved separately.
-Tested release08a03ff51c2bee4c0b540305e4c9ff595eb8649a; gameplayRoote9c499e
-has identical Gitgame tree/all705newline-normalizedcontents before final notes.
-
-ActualR36 470ecd2b7c8e40d7949cffcf71d80e53 COMPLETE58.016s/cleanuptrue;
-strictqualityflagFALSE. Full42light/16mixed actors,300DPside, worker30Hz:
-Light59.999FPS,99.72%frames<=20ms,snapshot14.443ms,MainpublicationP950.345ms.
-Mixed59.987FPS,100%frames<=20ms,snapshot7.446ms,MainpublicationP950.189ms.
-Both no>50msframes/unresolvedplannerstalls; all42/16moved and full active combat
-coverage. Both end PNGs Root viewed. Old Main combat light ran roughly22FPS.
-Worker snapshotlight43->28->14ms,mixed24->13->7ms acrossR33/R34/R36.
-
-STRICT REMAINING TARGETS, CARRIED TO0.061: lightworkerP9538.435ms vs33.333ms,
-maxlag151.409ms vs100ms; rawstrictFPS>=60 also misses the measured values.
-Simultaneous impact phases38/36ms cause the largest peaks near0.47/0.97s;
-medianlag84.722ms, endwall-minus-sim66.836ms, no growing backlog. Mixedworker
-P9520.095ms/maxlag52.294ms meets those worker targets. Root accepts this useful
-bounded0.051 improvement under the owner's scope preference. No threshold or
-receipt changed; this is not a claim every performance/quality target passed.
-
-Package/verify the one Desktop launcher without auto-launching, retaining older
-builds,two voyages and18music files. Then next scope0.052 is satisfying fleet
-growth/logistics, using existing cargo/fuel/crew/wages/repair/storage/ownership
-and300DPdeployment. Do not broaden this threading pass into another framework.
-Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
-
-LATEST USER OVERRIDE - 27 October2026
-The owner rejects60Hz calculations and keeping most numerical battle work onMain.
-Current implementation task: authoritative data-only battle worker at30Hz, with
-independent60+FPS rendering/interpolation. Earlier60Hz physical-policy statements
-are historical baseline requirements and are superseded by this explicit steer.
-Read C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v042-v061/WORKER BATTLE051 CONTRACT.txt for shared ownership/API.
-Keep live swept collisions/accounting; discloseactualworker/render cadences.
-NoScene/UI/render objects onworkers; do not silentlychangeotherworkloads.
+Architecture: authoritative combat30Hz on a data worker, role/target choices100ms
+per side. Main owns input/command publication, UI/audio/render submission and
+independently interpolated poses. Workers own detached plain data/RNG/contexts;
+retirement joins children and reconciles original physical owners. Public
+synchronous Battle APIs remain references. Safe render mode1 is active; Separate2
+previously caused native errors and must not be claimed active.
 
 ## Scope and design
 

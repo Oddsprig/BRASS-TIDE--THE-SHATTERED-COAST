@@ -52,7 +52,7 @@ Visible demand and margins connect actual labor, purses, goods and production.
 0.054 - CAMPAIGN PRESENTATION CORRECTION [SCOPED BUILD DELIVERED; BROADER ART QUALITY OPEN]
 Visible original boats and real fleet formations replace triangle markers; landmarks, harbors, title and labels receive the same treatment.
 
-0.055 - CAMPAIGN FLEET AI [PLANNED]
+0.055 - CAMPAIGN FLEET AI [SCOPED BUILD DELIVERED]
 NPC trade, piracy, response and faction battles work independently and pay their costs.
 
 0.056 - FACTIONS AND CONTACTS [PLANNED]
