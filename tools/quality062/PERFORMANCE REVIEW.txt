@@ -1,0 +1,163 @@
+PERFORMANCE062 - ONE IMPLEMENTED SOURCE CANDIDATE; STRICT QUALITY OPEN
+28 October 2026. Review checkout: performance-sol.
+Base delivered061 da960d5d04440bbb7a5a106afe2203667d15ca89.
+Root explicitly authorized the exact candidate after reviewing its APIs and
+current paired evidence. Production changes are limited to the two files below.
+No test, runner, profiler or config edit. Source-only; native acceptance pending.
+
+IMPLEMENTED AFTER ROOT'S BOUNDED ASSIGNMENT
+Reuses the existing UNSEALED post-step damage phase throughout tactical HUD
+status construction inside the worker snapshot. This targets repeated full
+equipment inspection within a measured expensive snapshot, without removing
+any publication data, deep copy, current scalar check or physical update.
+No other performance candidate is proposed by this review.
+
+Exact authorized/changed production allowlist:
+  game/scripts/battle_driver051.gd
+  game/scripts/tactical_runtime.gd
+Owned note: tools/quality062/PERFORMANCE REVIEW.txt.
+No other files changed; existing tests remain for Root's acceptance batch.
+
+CURRENT061 RECEIPT AND LIMITS
+Root job918eabe00c8f41d5b6aa0b655fef6da2/attempt-001/bridge-result.json:
+  C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/
+  918eabe00c8f41d5b6aa0b655fef6da2/attempt-001/bridge-result.json
+Nested report: runtime/runtime043-47356-2319091/runtime043-report.json.
+Report SHA256 b82f548f49a7fb88f768e6efdd6a6ca12129e7c66d84b2efde185a0a7ee9bb04.
+Measurement complete/passed; cleanup true; quality_target_pass FALSE.
+Root reports58.942116s whole including10s setup; inner runtime metric58.891s.
+Export source91903aecac17d9c808f44e4ba55fa93fea70dc7b and this checkout's
+delivered061 BASE have identical Git game tree
+c104fa1f7bc643c854f9d847a5f8b1903c0ed9e1. Metrics predate this source change.
+This is evidence from Root's run, not a new run or acceptance by this helper.
+
+Same requested2560x1600 profile, light42/mixed16, actual300DP each side,
+zero reserves. Actual report windowPixels2560x1570, viewportRect1600x1000;
+do not describe the internal rendered viewport as2560x1600.
+275HX/RTX5090Laptop/24 logical CPUs; Vulkan/mobile; safe thread mode1;
+physics60/framecap120; 30Hz authoritative worker/100ms side role choices.
+Envelope2048MiB,CPU100%,24cores; peak job memory1602629632bytes.
+
+Current measured values (light / mixed):
+  Capacity P95 per completed step: 37.703 / 19.230ms.
+  Whole-job P95:                    58.546 / 19.230ms.
+  Snapshot median:                 14.254 / 7.265ms.
+  Snapshot P95:                    17.512 / 8.375ms.
+  Total-job-cost/total-steps:       27.743815 / 15.104359ms.
+  Max published simulation lag:    167.071 / 50.000ms.
+  End wall-minus-authoritative:    100.520 / 33.753ms.
+  Main publication P95:            0.339 / 0.191ms.
+  Driver polling P95:              0.097 / 0.073ms.
+  Rendered FPS:                    59.9974051122289 / 59.9979050731479.
+  Frames<=20ms:                    95.138889% / 99.583333%; no>50ms frames.
+Full movement/fire/hit/flood/effect coverage, mixed missiles; missing coverage
+empty. Light capacity/lag/catch-up fail; both strict>=60FPS checks fail.
+Historical051 remains separate: snapshotmedian14.443ms, capacityP9538.435ms,
+maxlag151.409ms, light59.999155/mixed59.987253FPS, rawqualityFALSE.
+
+ACTUAL COUNTER MODE IS ON
+Report counterMode.requestedMode="on", actualChartDetail=true, mode="DETAILED
+COUNTERS", actualWorkerFineSinks=false. Baseline plan counter_mode="off" was
+not applied. Existing run_runtime_profile.py never reads counter_mode or sets
+BRASS_TIDE_RUNTIME043_COUNTERS: it copies os.environ and adds synthetic profile
+paths. Adapter passes that environment into OwnedChild. In runtime_profile043.gd
+prepare(), absent/empty OR "on" enables detail; only exact "off" disables it.
+Thus the file's requested off cannot establish an off-mode measurement. The
+receipt does not distinguish an absent variable from inherited "on". Label
+this actual ON run. Worker shared fine sinks remain unavailable, not zero cost.
+No counter-label rerun, runner rewrite or instrumentation change is proposed.
+
+PAIRED PHASE EVIDENCE AND WHAT IT CAN DISTINGUISH
+Raw runtime043-light.json active ticks, each completedStepDelta=1:
+  simTime0.333333333333333: job71.660ms, snapshot17.821ms,
+    phaseUs.projectiles39.263ms, phaseUs.planning9.592ms.
+  simTime0.833333333333333: job67.884ms, snapshot16.788ms,
+    phaseUs.projectiles36.601ms, phaseUs.planning9.322ms.
+These are current paired measurements, not sums/subtractions of unrelated
+percentiles. They show real impact work plus substantial publication work.
+Even eliminating snapshot cost alone cannot fit those two jobs in33.333ms;
+this bounded correction cannot promise every strict target passes.
+
+Driver._work times simulation separately from snapshot internally, but raw
+tick.simulationUs is an alias of workerJobUs, NOT isolated simulation cost.
+phaseUs/planningDetailUs describe only the last step of a batched job. Capacity
+is whole-job/actual completedStepDelta; throughput is totaljob/totalsteps.
+Never call whole-job P9558.546ms a single-step P95 or add phase percentiles.
+SnapshotUs includes pop_events/plain event copy, _snapshot and final pose table.
+It is not a separately measured deep-copy or Tactical.status subclock.
+
+Main publication below0.4ms is distinct from the expensive worker snapshot;
+moving simulation off Main did not make snapshot calculation/copy free.
+Chart.presentation_us is CPU draw submission; frame_post_draw intervals measure
+render cadence and include scheduling/render waits. Neither is a GPU timestamp
+or display-presentation measurement. This receipt supports the worker/snapshot
+target, not a GPU bottleneck diagnosis or a safe-mode/render refactor.
+
+EXACT API CHANGE, WITH EXISTING OWNERSHIP PRESERVED
+At BASE, battle_driver051.gd _snapshot(st,with_status), lines311-350, creates
+and binds an UNSEALED post-step Damage.BattlePhase043 after physics/contact/hits.
+It passes this phase to Battle._combat_mounts and final damage status reads,
+but line335 calls Tactical.status(st,id) without it.
+
+At BASE, tactical_runtime.gd status(st,id), lines1746-1779, calls:
+  _goal_current051(st,ship) without its supported frame_cache argument;
+  _current051(st,ship,intent,float(t.dt)) without its fifth argument;
+  refresh_mounts(st,ship) without its supported third argument;
+  EquipmentCombat.mount_factor(ship,mount,index) without its fifth argument.
+Those paths lead through EquipmentCombat.mount_cache_key/status_of and
+Damage._inspect_owner_in_phase043/_read_status_in_phase043. A null phase makes
+Damage._cached_entry return empty and uses EquipmentDamage.inspect_owner.
+The same exclusive snapshot already has an admitted, checked post-step phase.
+
+Implemented:
+  Keeps public Tactical.status(st,id) signature/default fresh behavior and mirror
+  read behavior intact; delegates its current body to private
+  _status_in_phase062(st,id,frame_cache=null).
+  Threads frame_cache through the four existing supported calls listed above:
+  _goal_current051(st,ship,frame_cache),
+  _current051(st,ship,intent,float(t.dt),frame_cache),
+  refresh_mounts(st,ship,frame_cache),
+  EquipmentCombat.mount_factor(ship,mount,index,{},frame_cache).
+  Only _snapshot's live, valid post-step phase path calls that private helper.
+  No-phase/result/fallback publication continues calling public status(st,id).
+
+Retains every _snapshot field, both complete mount/HUD representations, complete
+ship/crew/item records, sanitizer, native deep copy and alias relinking. Worker
+dictionaries are not shared with Main, retained views or across publications.
+Does not seal this phase or reuse the pre-contact phase. Existing owner/generation/
+priority checks and _status_from_entry043's CURRENT scalar/breach comparison
+remain active. No new persistent cache, trust flag or skipped validation.
+Goal lifetime/target/order checks and status-driven goal invalidation still run;
+post-status PUBLIC_TACTICAL copy ordering stays intact. Phase closes before exit.
+All work remains on the exclusive worker; Main only adopts after join. Retirement
+still joins child jobs and reconciles original physical owners and campaign ports.
+
+WHY THIS CANDIDATE, AND WHAT IS STILL UNPROVEN
+Measured snapshot14.254/17.512ms plus this concrete missing-phase call chain
+justify a small status-publication correction. Its individual saved time is not
+measured; snapshot timing alone cannot prove how much belongs to these calls.
+No change to hit transactions, planner concurrency, deep-copy policy, rosters,
+weapons, actors, DP, timestep, rates, render mode or thresholds was made.
+Projectile peaks and strict FPS remain OPEN unless Root's later evidence passes.
+
+ROOT ACCEPTANCE REMAINS REQUIRED
+Existing test_worker_battle051.gd commands_pause_and_child_cleanup verifies
+current damageStatus==Damage.get_status, HUD/combat/reference mount agreement,
+paused FIFO crew/priority changes, retained nested view isolation, plain copied
+payloads, pose coherence and joined retirement/complete equipment identity.
+Retain those checks and existing owned-damage/current-scalar/feedback regressions;
+use the same actual full300DP profile for any later measurement, with the actual
+counter mode explicitly disclosed. No new harness/matrix or weaker assertion.
+
+HANDOFF LIMITS
+Manually reviewed the complete production diff against the already-read APIs
+and snapshot lifetime. The code change is one driver call site, one public
+wrapper/private helper, and four phase argument propagations. Existing canonical
+worker assertions already cover the current HUD/mount/retained-view boundaries;
+no implementation-shaped assertion or test fixture was added.
+No engine/GPU/test/advisory/export, runner/profiler/config edit, global setting,
+helper, deletion, reset/amend/maintenance or remote push performed. No parsing,
+native pass, speedup or code acceptance claimed. Root owns all native/rendered
+acceptance and final integration. Return the named source commit, then remain
+idle until another bounded assignment. Strict misses stay OPEN if this one
+correction does not resolve them; no further tuning is included here.

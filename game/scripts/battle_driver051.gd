@@ -332,7 +332,7 @@ static func _snapshot(st: Dictionary,with_status: bool) -> Dictionary:
 		# detached publication row, never the live source/condition cache entry.
 		public_t.mountCache[id]={"mounts":public_t.mountsById051[id]}
 		if with_status:
-			public_t.statusById051[id]=_copy_plain_owned051(Tactical.status(st,id))
+			public_t.statusById051[id]=_copy_plain_owned051(Tactical._status_in_phase062(st,id,status_phase) if status_phase!=null else Tactical.status(st,id))
 			# Public/noncanonical/result reads retain fresh inspection. Only this
 			# exclusive worker stage borrows a still-validated canonical owner.
 			var owned_status: bool=status_phase!=null and not Damage._battle_entry051(ship,damage_owned).is_empty()
