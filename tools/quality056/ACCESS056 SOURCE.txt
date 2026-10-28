@@ -1,0 +1,63 @@
+BRASS TIDE 056 - OWNER B EFFECTIVE ACCESS / ENCOUNTER SOURCE CONTRACT
+Base: reviewed0559498afd996feb7eebb9b53103ace1247fed456db.
+Isolated source preparation authorized while055 is queued. No055 edits,
+integration, version metadata, engine/advisory/parser runs or acceptance.
+
+API SEAM (published before implementation; now implemented in this checkout)
+Politics.access(c, port: Dictionary) -> Dictionary retains existing permissions
+and keys. Adds safeConductActive:bool, safeConductUntil:float (absolute campaign
+day; zero when absent), safeConductDays:float (remaining, zero when expired),
+standingReason:String. reason explains effective entry and the recorded expiry;
+an active pass replaces the base refusal wording, not the standing or offenses.
+Existing civilian-pass overrides only: inspected/legal/inspection/contracts.
+Claims, military fittings, restricted bulk goods and actual customs remain.
+
+Politics.encounter(state: Dictionary, owner: Dictionary) -> Dictionary is a
+detached, read-only public projection: kind:String, role:String,
+factionId:String, factionName:String, hostile:bool, reason:String.
+Uses actual owner kind/faction and Factions.standing only; no live orders,
+positions, cargo quantities, purses, targets or observation changes. Main uses
+this only inside show_patrol_encounter, preserving local hail boundaries and
+the existing local purpose line, choices, battle policies and QA captures.
+This query does not authorize hailing or reveal a remote contact.
+
+Allowlist: game/scripts/politics.gd; game/scripts/main.gd ONLY
+show_patrol_encounter; game/tests/test_political_voyage.gd; this note.
+Prepared assertions extend the existing single seeded Campaign fixture.
+
+IMPLEMENTED / MANUALLY REVIEWED
+- Active-pass reason is replaced with effective inspected civilian entry,
+  absolute expiry and days remaining. Expired passes explain their stored day.
+  Standing/offense hostility, customs, bulk-goods/military restrictions and new
+  outstanding claims remain distinct. A new claim still blocks repair; earned
+  military permission is described conditionally instead of falsely closed.
+- Permit refusal text describes all existing military prerequisites. No permit
+  predicates, pass costs/duration, customs, restitution or claim clearing changed.
+- Encounter projection derives roles from kind, names from the actual faction,
+  and hostility reasons from the existing public band/witness threshold. Main
+  retains the055 purpose line and all hail/captain/escort/intercept/avoid/battle
+  policies. Only a generic legacy Coastal convoy title on an actual patrol is
+  replaced with that faction's patrol title. Actual traders keep convoy text;
+  nonraider hostile combatants keep their fleet role and generic engage label.
+- Existing political-voyage fixture now reuses Main's Campaign for its one
+  seeded setup; a detached initial state preserves its original neutral faction
+  menu/review assertions without another Campaign construction. New
+  prepared cases cover actual three-kind identities, public/offense hostility,
+  detached identity/no live-order disclosure, hostile entry with/without pass,
+  local-only conduct, fixed bill/coin conservation, stacking refusal, customs,
+  claim-held repairs, separately earned military access, restore and exact
+  expiry. Claim/recovered-trust cases use a detached state and restore it.
+
+VERIFICATION / LIMITS
+Manual source and git diff review only. Read actual Campaign/Main constructors,
+Factions.access/standing/hostility/claim/restitution, fleet owner creation,
+LawOps customs/permit wiring, NavalUI local hail and relevant politics/naval
+maps. No engines, native checks, parsers, advisories, imports, exports, GPU,
+downloads, helpers, metadata/maps, tags, packaging, install, pushes or cleanup.
+Prepared assertions have NOT RUN and are NOT PASSES. Root owns native parsing,
+test execution, actual UI/capture review, integration and056 acceptance after
+055. Expanded encounter/access text uses the existing scrollable modal body;
+layout and play quality are unverified. No new persistence fields or extra
+observation/lookout intelligence; access retains its existing ensure behavior.
+No modifications outside the four allowlisted files. Original054 art,055 AI,
+051 worker and all finite money/cargo mechanics are outside this change.

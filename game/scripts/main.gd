@@ -601,12 +601,16 @@ func show_patrol_encounter(id: String):
 			patrol = p
 	if patrol.is_empty():
 		return
-	var body = ui.modal(patrol.name, "CONTACT ON THE COAST", 700, 550)
-	ui.modal_kind = "encounter"
-	var observed: Dictionary=core.fleet_owner(id)
-	if not observed.is_empty():ui.paragraph(body,str(observed.get("reason","")),15,ui.GOLD)
 	var owner: Dictionary=core.fleet_owner(id)
+	var contact: Dictionary=core.Politics.encounter(core.state,owner)
+	var contact_name: String=str(patrol.name)
+	if contact_name=="Coastal convoy" and contact.kind=="patrol":contact_name="%s patrol"%str(contact.factionName)
+	var body = ui.modal(contact_name, "CONTACT ON THE COAST", 700, 550)
+	ui.modal_kind = "encounter"
+	if not owner.is_empty():ui.paragraph(body,str(owner.get("reason","")),15,ui.GOLD)
 	patrol.hostile=core.Politics.hostile(core,owner)
+	ui.paragraph(body,"%s · %s"%[str(contact.factionName),str(contact.role).capitalize()],19)
+	ui.paragraph(body,str(contact.reason),15,ui.RED if patrol.hostile else ui.GOLD)
 	if not owner.is_empty() and core.distance(core.state.position,patrol)<=1800.0 and owner.boats.any(func(b):return not b.sunk):
 		core.Contacts.record_captain(core.state,id,"hail:%s:%d"%[id,int(core.state.day)],"Exchanged signals on the coastal route.")
 		var captain: Dictionary=core.Contacts._find(core.state,"captain:"+id)
@@ -615,7 +619,10 @@ func show_patrol_encounter(id: String):
 			for memory in captain.log.slice(-2):ui.paragraph(body,str(memory.get("detail",memory.event)),14)
 	var loaded: bool=owner.get("kind","")=="trader" and float(owner.get("tradeCargo",0))>0
 	if not patrol.hostile:
-		ui.paragraph(body, "A coastal merchant convoy sails this route. It carries goods between the same ports that supply your fleet. Its crews signal a peaceful passage.", 19)
+		var passage: String="This %s signals peaceful passage. Its current coastal purpose is shown above."%str(contact.role)
+		if contact.kind=="trader":
+			passage="This merchant convoy carries goods between coastal ports. Its crews signal peaceful passage." if loaded else "This merchant convoy is sailing without a trade load. Its crews signal peaceful passage."
+		ui.paragraph(body,passage,19)
 		ui.button(body, "Let them pass", ui.close_modal, true)
 		if loaded and not core.EscortOps.threat(core,owner).is_empty():
 			ui.paragraph(body,"Protect the loaded boats until they physically reach the far exit zone. Elapsed time alone cannot secure their passage; surviving boats keep their cargo for the onward voyage.",16,ui.GOLD)
@@ -629,8 +636,8 @@ func show_patrol_encounter(id: String):
 		ui.button(body,"Intercept this convoy" if loaded else "Engage this fleet",func():engage_patrol(patrol),true)
 		ui.button(body,"Avoid contact",func():core.state.encounterGrace=90.0;ui.close_modal())
 		return
-	ui.paragraph(body, "Raider engines echo across the water. You can engage their boats or give them a wide berth. Their strength is %d boat(s)." % patrol.strength, 19)
-	ui.button(body, "Engage the raiders", func(): engage_patrol(patrol), true)
+	ui.paragraph(body,"This hostile %s can be engaged or given a wide berth. Its strength is %d boat(s)."%[str(contact.role),int(patrol.strength)],19)
+	ui.button(body,"Engage the raiders" if contact.kind=="raider" else "Engage this fleet",func():engage_patrol(patrol),true)
 	ui.button(body, "Avoid contact", func(): core.state.encounterGrace = 90.0; ui.close_modal())
 
 func engage_patrol(patrol: Dictionary):

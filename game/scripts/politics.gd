@@ -12,18 +12,51 @@ static func ensure(c) -> void:
 static func access(c,p: Dictionary) -> Dictionary:
 	ensure(c)
 	var a: Dictionary=Factions.access(c.state,p)
-	if not p.is_empty() and float(c.state.relationships.safeConduct.get(p.id,0))>float(c.state.day):
+	var until: float=float(c.state.relationships.safeConduct.get(p.get("id",""),0))
+	a.safeConductActive=not p.is_empty() and until>float(c.state.day)
+	a.safeConductUntil=until
+	a.safeConductDays=maxf(0.0,until-float(c.state.day))
+	a.standingReason=_standing_reason(Factions.standing(c.state,str(a.factionId)))
+	if a.safeConductActive:
 		a.entry="inspected";a.legal=true;a.inspection=true;a.contracts=true
-		a.reason+=" A paid three-day safe conduct permits inspected civilian trade and negotiated work. Military permissions remain closed."
+		# Explain the effective permission, not the superseded standing refusal.
+		a.reason="Paid civilian safe conduct permits inspected entry, trade and negotiated work at %s until day %.2f (%.2f days remaining). Customs still apply."%[str(a.portName),until,float(a.safeConductDays)]
+		if not a.militaryFittings:a.reason+=" Advanced military fittings and bulk guns/engines remain restricted."
+		if int(a.claim)>0:a.reason+=" The outstanding harbor claim of %d still blocks repairs until settled."%int(a.claim)
+		a.reason+=" "+str(a.standingReason)+" This local harbor pass grants no protection from hostile fleets at sea."
+	elif until>0.0:
+		a.reason+=" Paid civilian safe conduct expired on day %.2f; current standing and claims now determine entry."%until
 	return a
+
+static func _standing_reason(view: Dictionary) -> String:
+	if not bool(view.get("known",false)):return "No public standing is recorded for these colors."
+	var text: String="Public standing with %s is %s (%+d); witnessed record %+d."%[str(view.name),str(view.band),int(view.score),int(view.witnessed)]
+	var causes: PackedStringArray=[]
+	if str(view.band)=="hostile":causes.append("hostile public standing")
+	if int(view.witnessed)<=Factions.WITNESS_HOSTILE:causes.append("an unresolved witnessed offense")
+	if not causes.is_empty():text+=" Its fleets remain hostile because of %s."%" and ".join(causes)
+	else:text+=" Its fleets are not currently hostile to you."
+	return text
+
+static func encounter(state: Dictionary,owner: Dictionary) -> Dictionary:
+	# Public identity only. The caller still owns the local observation boundary.
+	var kind: String=str(owner.get("kind",""))
+	var role: String="fleet"
+	match kind:
+		"trader":role="merchant convoy"
+		"patrol":role="faction patrol"
+		"raider":role="raiding fleet"
+	var faction_id: String=str(owner.get("faction",""))
+	var standing: Dictionary=Factions.standing(state,faction_id)
+	return {"kind":kind,"role":role,"factionId":faction_id,"factionName":str(standing.name) if standing.known else "Unidentified colors","hostile":not owner.is_empty() and bool(standing.hostile),"reason":_standing_reason(standing)}
 
 static func permit(c,action: String,item: String="") -> Dictionary:
 	var p: Dictionary=c.current_port()
 	if p.is_empty() or not c.state.path.is_empty():return c.fail("Stop at a harbor for this service.")
 	var a: Dictionary=access(c,p)
 	if not a.legal:return c.fail(a.reason+" Open Factions to negotiate safe conduct.")
-	if action=="military" and not a.militaryFittings:return c.fail("Friendly standing is required for advanced military fittings. Basic weapons, repairs and civilian engines remain available.")
-	if action=="buy_good" and item in a.restrictedGoods:return c.fail("Bulk guns and engine assemblies require friendly standing here.")
+	if action=="military" and not a.militaryFittings:return c.fail("Advanced military fittings require friendly standing, no hostile witnessed offense and no outstanding harbor claim. Civilian services retain their own access and claim checks.")
+	if action=="buy_good" and item in a.restrictedGoods:return c.fail("Bulk guns and engine assemblies require friendly standing, no hostile witnessed offense and no outstanding harbor claim here.")
 	if action=="repair" and a.claim>0:return c.fail("Settle this harbor's outstanding claim before using its repair yard.")
 	if action=="contract" and not a.contracts:return c.fail("This harbor has suspended your contracts.")
 	return {"ok":true,"message":a.reason}
